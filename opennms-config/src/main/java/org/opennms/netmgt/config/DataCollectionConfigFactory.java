@@ -44,7 +44,7 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  */
 public final class DataCollectionConfigFactory {
-	
+
     /**
      * The singleton instance of this factory
      */
@@ -62,7 +62,7 @@ public final class DataCollectionConfigFactory {
     /**
      * Load the config from the default config file and create the singleton
      * instance of this factory.
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @throws java.io.IOException if any.
@@ -79,7 +79,7 @@ public final class DataCollectionConfigFactory {
 
     /**
      * Reload the config from the default config file
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @throws java.io.IOException if any.
@@ -99,7 +99,7 @@ public final class DataCollectionConfigFactory {
             throw new IllegalStateException("The factory has not been initialized");
         return m_singleton;
     }
-    
+
     public static void main(String[] args) {
         try {
             DataCollectionConfigFactory.init();

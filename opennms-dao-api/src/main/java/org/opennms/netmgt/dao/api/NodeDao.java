@@ -45,7 +45,7 @@ import org.springframework.stereotype.Repository;
  * <p>NodeDao interface.</p>
  */
 public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
-	
+
     /**
      * Get a node based on it's node ID or foreignSource:foreignId
      *
@@ -53,15 +53,15 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return the node
      */
     OnmsNode get(String lookupCriteria);
-    
+
     /**
      * Light weight call to simply get the node label without loading the entire node.
-     * 
+     *
      * @param id
      * @return A String representing the provisioned label for the node.  Returns null if not found.
      */
     String getLabelForId(Integer id);
-    
+
     /**
      * <p>findByLabel</p>
      *
@@ -69,7 +69,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findByLabel(String label);
-    
+
     /**
      * <p>findNodes</p>
      *
@@ -77,7 +77,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findNodes(OnmsDistPoller dp);
-    
+
     /**
      * <p>getHierarchy</p>
      *
@@ -85,7 +85,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link org.opennms.netmgt.model.OnmsNode} object.
      */
     OnmsNode getHierarchy(Integer id);
-    
+
     /**
      * <p>getForeignIdToNodeIdMap</p>
      *
@@ -93,7 +93,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Map} object.
      */
     Map<String, Integer> getForeignIdToNodeIdMap(String foreignSource);
-    
+
     /**
      * <p>findAllByVarCharAssetColumn</p>
      *
@@ -102,7 +102,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByVarCharAssetColumn(String columnName, String columnValue);
-    
+
     /**
      * <p>findAllByVarCharAssetColumnCategoryList</p>
      *
@@ -113,7 +113,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      */
     List<OnmsNode> findAllByVarCharAssetColumnCategoryList(String columnName, String columnValue,
             Collection<OnmsCategory> categories);
-    
+
     /**
      * <p>findByCategory</p>
      *
@@ -121,7 +121,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findByCategory(OnmsCategory category);
-    
+
     /**
      * <p>findAllByCategoryList</p>
      *
@@ -138,7 +138,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     List<OnmsNode> findAllByCategoryLists(Collection<OnmsCategory> rowCatNames, Collection<OnmsCategory> colCatNames);
-    
+
     /**
      * Returns a list of nodes ordered by label.
      *
@@ -154,7 +154,7 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a {@link java.util.List} object.
      */
     List<OnmsNode> findByForeignSource(String foreignSource);
-    
+
     /**
      * <p>findByForeignId</p>
      *
@@ -171,14 +171,14 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
      * @return a int.
      */
     int getNodeCountForForeignSource(String groupName);
-    
+
     /**
      * <p>findAllProvisionedNodes</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<OnmsNode> findAllProvisionedNodes();
-    
+
     /**
      * <p>findObsoleteIpInterfaces</p>
      *
@@ -221,8 +221,8 @@ public interface NodeDao extends OnmsDao<OnmsNode, Integer> {
     List<OnmsNode> findByForeignSourceAndIpAddress(String foreignSource, String ipAddress);
 
     SurveillanceStatus findSurveillanceStatusByCategoryLists(Collection<OnmsCategory> rowCategories, Collection<OnmsCategory> columnCategories);
-    
+
     Integer getNextNodeId (Integer nodeId);
-    
+
     Integer getPreviousNodeId (Integer nodeId);
 }

@@ -76,35 +76,35 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
      * The callback to use when this object is ready to do something
      */
     private final PingResponseCallback m_callback;
-    
+
     /**
      * How many retries
      */
     private final int m_retries;
-    
+
     /**
      * The ICMP packet size
      */
     private final int m_packetsize;
-    
+
 
     /**
      * how long to wait for a response
      */
     private final long m_timeout;
-    
+
     /**
      * The expiration time of this request
      */
     private long m_expiration = -1L;
-    
+
     /**
      * The thread logger associated with this request.
      */
-    
-    
+
+
     private final AtomicBoolean m_processed = new AtomicBoolean(false);
-    
+
 
     public JniPingRequest(JniPingRequestId id, long timeout, int retries, int packetsize, PingResponseCallback callback) {
         m_id = id;
@@ -113,11 +113,11 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
         m_packetsize = packetsize;
         m_callback = callback;
     }
-    
+
     public JniPingRequest(InetAddress addr, int identifier, int sequenceNumber, long threadId, long timeout, int retries, int packetsize, PingResponseCallback cb) {
         this(new JniPingRequestId(addr, identifier, sequenceNumber, threadId), timeout, retries, packetsize, cb);
     }
-    
+
 
     public JniPingRequest(InetAddress addr, int identifier, int sequenceNumber, long timeout, int retries, int packetsize, PingResponseCallback cb) {
         this(addr, identifier, sequenceNumber, getNextTID(), timeout, retries, packetsize, cb);
@@ -163,7 +163,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
             setProcessed(true);
         }
     }
-    
+
     /**
      * <p>isExpired</p>
      *
@@ -231,7 +231,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
             setProcessed(true);
         }
     }
-    
+
     private void setProcessed(boolean processed) {
         m_processed.set(processed);
     }
@@ -254,7 +254,7 @@ public class JniPingRequest implements Request<JniPingRequestId, JniPingRequest,
     public void send(IcmpSocket icmpSocket) {
         try {
             m_requestPacket = createRequestPacket();
-    
+
             LOG.debug("{}: Sending Ping Request: {}", System.currentTimeMillis(), this);
             byte[] data = m_requestPacket.toBytes();
             m_expiration = System.currentTimeMillis() + m_timeout;

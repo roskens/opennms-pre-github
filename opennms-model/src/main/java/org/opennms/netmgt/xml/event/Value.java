@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -51,7 +51,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * parm value
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -109,7 +109,7 @@ public class Value implements Serializable {
 	/**
      * Returns the value of field 'content'. The field 'content'
      * has the following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public java.lang.String getContent(
@@ -119,7 +119,7 @@ public class Value implements Serializable {
 
     /**
      * Returns the value of field 'encoding'.
-     * 
+     *
      * @return the value of field 'Encoding'.
      */
     public java.lang.String getEncoding(
@@ -129,7 +129,7 @@ public class Value implements Serializable {
 
     /**
      * Returns the value of field 'type'.
-     * 
+     *
      * @return the value of field 'Type'.
      */
     public java.lang.String getType(
@@ -140,7 +140,7 @@ public class Value implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
-     * 
+     *
      * @param content the value of field 'content'.
      */
     public void setContent(
@@ -150,7 +150,7 @@ public class Value implements Serializable {
 
     /**
      * Sets the value of field 'encoding'.
-     * 
+     *
      * @param encoding the value of field 'encoding'.
      */
     public void setEncoding(
@@ -160,7 +160,7 @@ public class Value implements Serializable {
 
     /**
      * Sets the value of field 'type'.
-     * 
+     *
      * @param type the value of field 'type'.
      */
     public void setType(

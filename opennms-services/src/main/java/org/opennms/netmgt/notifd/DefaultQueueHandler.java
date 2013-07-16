@@ -160,20 +160,20 @@ public class DefaultQueueHandler implements NotifdQueueHandler {
                 try {
                 	final Long now = System.currentTimeMillis();
                 	final SortedMap<Long, List<NotificationTask>> readyNotices = m_noticeQueue.headMap(now);
-        
+
                     for (final List<NotificationTask> list : readyNotices.values()) {
                         for (final NotificationTask task : list) {
                             startTask(task);
                         }
                     }
                     readyNotices.clear();
-        
+
                     if (m_noticeQueue != null && m_noticeQueue.size() > 0) {
 			LOG.debug("current state of tree: {}", m_noticeQueue);
                     }
                 } catch (final Throwable e) {
                     LOG.error("failed to start notification task", e);
-                    
+
                 }
             }
         }

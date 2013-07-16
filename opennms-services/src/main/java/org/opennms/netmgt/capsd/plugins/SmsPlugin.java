@@ -45,7 +45,7 @@ import org.opennms.sms.phonebook.PropertyPhonebook;
 public class SmsPlugin implements Plugin {
 
     static private final String PROTOCOL_NAME = "SMS";
-    
+
     private final Phonebook m_smsDirectory = new PropertyPhonebook();
 
     /* (non-Javadoc)
@@ -83,7 +83,7 @@ public class SmsPlugin implements Plugin {
         } catch (PhonebookException e) {
             return false;
         }
-        
+
     }
 
     /**

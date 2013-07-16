@@ -59,7 +59,7 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class DefaultGraphResultsService implements GraphResultsService, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultGraphResultsService.class);
 
 
@@ -235,7 +235,7 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
 
     }
 
-   
+
 
     private void getAttributeFiles(Graph graph, List<String> filesToPromote) {
 
@@ -344,5 +344,5 @@ public class DefaultGraphResultsService implements GraphResultsService, Initiali
     public void setEventProxy(EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
-    
+
 }

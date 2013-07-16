@@ -213,12 +213,12 @@ public class DataLinkInterface  implements Serializable, Comparable<DataLinkInte
     public void setLastPollTime(final Date lastPollTime) {
         m_lastPollTime = lastPollTime;
     }
-    
+
     @XmlAttribute(name="source")
     public String getSource() {
         return m_source;
     }
-    
+
     public void setSource(final String source) {
         m_source = source;
     }

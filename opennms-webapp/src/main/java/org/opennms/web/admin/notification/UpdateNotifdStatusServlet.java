@@ -49,11 +49,11 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class UpdateNotifdStatusServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(UpdateNotifdStatusServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -841122529212545321L;
 
@@ -80,12 +80,12 @@ public class UpdateNotifdStatusServlet extends HttpServlet {
 
     protected void sendEvent(String uei) {
         EventBuilder bldr = new EventBuilder(uei, "NotifdConfigFactory");
-    
+
         try {
             EventIpcManagerFactory.getIpcManager().sendNow(bldr.getEvent());
         } catch (Throwable t) {
         }
     }
 
-   
+
 }

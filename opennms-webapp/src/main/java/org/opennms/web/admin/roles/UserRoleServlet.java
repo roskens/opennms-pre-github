@@ -52,33 +52,33 @@ import org.opennms.netmgt.config.WebRoleManager;
   */
  public class UserRoleServlet extends javax.servlet.http.HttpServlet implements javax.servlet.Servlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1078908981395901414L;
     private static final String LIST = "/roles/list.jsp";
     private static final String VIEW = "/roles/view.jsp";
-    
+
     /**
      * <p>Constructor for UserRoleServlet.</p>
      */
     public UserRoleServlet() {
 		super();
 	}
-    
+
     private interface Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
-    
+
     private class ListAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             return LIST;
         }
-        
+
     }
-    
+
     private class ViewAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -96,9 +96,9 @@ import org.opennms.netmgt.config.WebRoleManager;
                 throw new ServletException("Unable to parse date: "+e.getMessage(), e);
             }
         }
-        
+
     }
-    
+
     /**
      * <p>doIt</p>
      *
@@ -123,7 +123,7 @@ import org.opennms.netmgt.config.WebRoleManager;
         else
             return new ListAction();
     }
-	
+
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -131,8 +131,8 @@ import org.opennms.netmgt.config.WebRoleManager;
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doIt(request, response);
-	}  	
-	
+	}
+
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -153,7 +153,7 @@ import org.opennms.netmgt.config.WebRoleManager;
 
         try {
             WebRoleContext.init();
-            
+
             getServletContext().setAttribute("roleManager", WebRoleContext.getWebRoleManager());
             getServletContext().setAttribute("userManager", WebRoleContext.getWebUserManager());
             getServletContext().setAttribute("groupManager", WebRoleContext.getWebGroupManager());

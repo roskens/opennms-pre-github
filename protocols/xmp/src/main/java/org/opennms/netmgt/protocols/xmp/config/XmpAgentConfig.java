@@ -39,17 +39,17 @@ public class XmpAgentConfig {
      * The TCP port on which the agent communicates
      */
     private int m_port;
-    
+
     /**
      * The username used for authenticating to the agent
      */
     private String m_authenUser;
-    
+
     /**
      * The timeout used when communicating with the agent
      */
     private long m_timeout;
-    
+
     /**
      * The number of retries permitted when timeout expires
      */
@@ -126,5 +126,5 @@ public class XmpAgentConfig {
     public void setRetry(int retries) {
         m_retry = retries;
     }
-    
+
 }

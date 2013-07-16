@@ -24,33 +24,33 @@ public class GCFilterableContainerTest {
         GraphProvider provider = new AbstractTopologyProvider("test") {
             @Override public void save() { }
             @Override public void refresh() { }
-            @Override public void load(String filename) throws MalformedURLException, JAXBException { 
+            @Override public void load(String filename) throws MalformedURLException, JAXBException {
                 resetContainer();
-                
+
                 String vId1 = getNextVertexId();
                 TestVertex v1 = new TestVertex(vId1, 0, 0);
                 v1.setLabel("a leaf vertex");
-                
+
                 String vId2 = getNextVertexId();
                 TestVertex v2 = new TestVertex(vId2, 0, 0);
                 v2.setLabel("another leaf");
-                
+
                 addVertices(v1, v2);
             }
         };
         provider.load(null);
         graphContainer = new VEProviderGraphContainer(provider, new ProviderManager());
     }
-    
+
     @Test
     public void createTopLevelGroup() {
         // elements to group
         List<Vertex> allVertices = graphContainer.getBaseTopology().getVertices();
-        
+
         // create group
         String groupName = "groupName";
         VertexRef groupId = graphContainer.getBaseTopology().addGroup(groupName,  "group");
-        
+
         // Link all targets to the newly-created group
         for(VertexRef vertexRef : allVertices) {
             graphContainer.getBaseTopology().setParent(vertexRef, groupId);
@@ -60,14 +60,14 @@ public class GCFilterableContainerTest {
         graphContainer.getBaseTopology().save();
         graphContainer.redoLayout();
         graphContainer.getBaseTopology().refresh();
-        
+
         // all childs must have group as parent
         for (Vertex vertex : allVertices) {
             Assert.assertEquals(groupId, vertex.getParent());
         }
-        
+
         // group must have no parent
         Assert.assertEquals(null, graphContainer.getBaseTopology().getVertex(groupId).getParent());
     }
-    
+
 }

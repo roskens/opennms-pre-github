@@ -46,7 +46,7 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  * @since 1.8.1
  */
 public class LocationMonitorDeleteController extends AbstractCommandController implements InitializingBean {
-    
+
     private DistributedPollerService m_distributedPollerService;
     private String m_successView;
     private String m_errorView;
@@ -58,14 +58,14 @@ public class LocationMonitorDeleteController extends AbstractCommandController i
         if (!errors.hasErrors()) {
             getDistributedPollerService().deleteLocationMonitor(cmd, errors);
         }
-        
+
         if (errors.hasErrors()) {
             return new ModelAndView(getErrorView(), "errors", errors);
         } else {
             return new ModelAndView(getSuccessView());
         }
     }
-    
+
     /**
      * <p>getDistributedPollerService</p>
      *
@@ -130,11 +130,11 @@ public class LocationMonitorDeleteController extends AbstractCommandController i
         if (m_distributedPollerService == null) {
             throw new IllegalStateException("distributedPollerService property cannot be null");
         }
-        
+
         if (m_successView == null) {
             throw new IllegalStateException("successView property cannot be null");
         }
-        
+
         if (m_errorView == null) {
             throw new IllegalStateException("errorView property cannot be null");
         }

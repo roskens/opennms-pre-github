@@ -89,7 +89,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class OutageDaoTest implements InitializingBean {
     @Autowired
     private DistPollerDao m_distPollerDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
 
@@ -153,7 +153,7 @@ public class OutageDaoTest implements InitializingBean {
         outage = m_outageDao.load(outage.getId());
         assertEquals("ICMP", outage.getMonitoredService().getServiceType().getName());
 //        outage.setEventBySvcRegainedEvent();
-        
+
     }
 
     @Test
@@ -226,7 +226,7 @@ public class OutageDaoTest implements InitializingBean {
         m_nodeDao.save(node);
         insertEntitiesAndOutage("172.16.1.1", "ICMP", node);
         insertEntitiesAndOutage("172.20.1.1", "ICMP", node);
-        
+
         node = new OnmsNode(getLocalHostDistPoller());
         node.setLabel("megaphone");
         m_nodeDao.save(node);
@@ -255,7 +255,7 @@ public class OutageDaoTest implements InitializingBean {
         m_nodeDao.save(node);
         insertEntitiesAndOutage("172.16.1.1", "ICMP", node);
         insertEntitiesAndOutage("172.20.1.1", "ICMP", node);
-        
+
         node = new OnmsNode(getLocalHostDistPoller());
         node.setLabel("megaphone");
         m_nodeDao.save(node);
@@ -288,16 +288,16 @@ public class OutageDaoTest implements InitializingBean {
     private OnmsDistPoller getLocalHostDistPoller() {
         return m_distPollerDao.load("localhost");
     }
-    
+
     private OnmsOutage insertEntitiesAndOutage(final String ipAddr, final String serviceName, OnmsNode node) {
         OnmsIpInterface ipInterface = getIpInterface(ipAddr, node);
         OnmsServiceType serviceType = getServiceType(serviceName);
         OnmsMonitoredService monitoredService = getMonitoredService(ipInterface, serviceType);
-        
+
         OnmsEvent event = getEvent();
 
         OnmsOutage outage = getOutage(monitoredService, event);
-        
+
         return outage;
     }
 

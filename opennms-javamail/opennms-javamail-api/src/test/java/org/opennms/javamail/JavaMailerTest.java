@@ -46,11 +46,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * Test the JavaMailer class.
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({}) 
+@TestExecutionListeners({})
 public class JavaMailerTest {
     private static final String TEST_ADDRESS = "test@opennms.org";
 

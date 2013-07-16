@@ -35,15 +35,15 @@ package org.opennms.core.soa.filter;
  * @author brozow
  */
 public class EqFilter extends AttributeComparisonFilter {
-    
+
     private String m_value;
 
     public EqFilter(String attribute, String value) {
         super(attribute);
         m_value = value;
     }
-    
-    
+
+
 
     @Override
     protected boolean valueMatches(String value) {
@@ -59,9 +59,9 @@ public class EqFilter extends AttributeComparisonFilter {
         buf.append(escaped(m_value));
         buf.append(")");
         return buf.toString();
-        
+
     }
-    
+
     private String escaped(String value) {
         return value
             .replace("\\", "\\\\")

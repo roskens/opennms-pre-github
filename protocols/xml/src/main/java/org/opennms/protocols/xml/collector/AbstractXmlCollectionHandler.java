@@ -91,11 +91,11 @@ import org.w3c.dom.NodeList;
 /**
  * The Abstract Class XML Collection Handler.
  * <p>All XmlCollectionHandler should extend this class.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandler {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractXmlCollectionHandler.class);
 
 
@@ -263,7 +263,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
 
     /**
      * Gets the time stamp.
-     * 
+     *
      * @param doc the doc
      * @param xpath the xpath
      * @param group the group
@@ -295,17 +295,17 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
 
     /**
      * Parses the URL.
-     * 
+     *
      * <p>Additional placeholders:</p>
      * <ul>
      * <li><b>step</b>, The Collection Step in seconds</li>
      * </ul>
-     * 
+     *
      * @param unformattedUrl the unformatted URL
      * @param agent the collection agent
      * @param collectionStep the collection step (in seconds)
      * @return the string
-     * 
+     *
      * @throws IllegalArgumentException the illegal argument exception
      */
     protected String parseUrl(final String unformattedUrl, final CollectionAgent agent, final Integer collectionStep) throws IllegalArgumentException {
@@ -352,7 +352,7 @@ public abstract class AbstractXmlCollectionHandler implements XmlCollectionHandl
      * <li><b>foreignSource</b>, The Node Foreign Source</li>
      * <li>Any asset property defined on the node.</li>
      * </ul>
-     * 
+     *
      * @param reference the reference
      * @param unformattedString the unformatted string
      * @param node the node

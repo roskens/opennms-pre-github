@@ -26,8 +26,8 @@ public class SavedHistoryTest {
 		locations.put(vert2, new Point(0, 0));
 
 		SavedHistory savedHistory = new SavedHistory(
-				0, 
-				new BoundingBox(0,0,100,100), 
+				0,
+				new BoundingBox(0,0,100,100),
 				locations,
 				Collections.singleton(vert2),
 				settings

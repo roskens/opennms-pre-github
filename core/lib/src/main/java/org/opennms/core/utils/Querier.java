@@ -55,11 +55,11 @@ public class Querier extends JDBCTemplate implements RowProcessor {
         super(db, sql);
         if (rowProcessor == null)
             m_rowProcessor = this;
-        else 
+        else
             m_rowProcessor = rowProcessor;
         m_count = 0;
     }
-     
+
     /**
      * <p>Constructor for Querier.</p>
      *
@@ -69,7 +69,7 @@ public class Querier extends JDBCTemplate implements RowProcessor {
     public Querier(DataSource db, String sql) {
         this(db, sql, null);
     }
-     
+
     /**
      * <p>getCount</p>
      *
@@ -78,7 +78,7 @@ public class Querier extends JDBCTemplate implements RowProcessor {
     public int getCount() {
         return m_count;
     }
-     
+
     /** {@inheritDoc} */
     @Override
     protected void executeStmt(PreparedStatement stmt) throws SQLException {

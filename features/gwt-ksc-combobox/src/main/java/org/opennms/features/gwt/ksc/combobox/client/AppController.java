@@ -37,14 +37,14 @@ import com.google.gwt.core.client.JsArray;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public class AppController implements Presenter {
-    
-    
+
+
     private JsArray<KscReportDetail> m_kscReportDetails;
 
     public AppController(JsArray<KscReportDetail> kscReportDetails) {
         m_kscReportDetails = kscReportDetails;
     }
-    
+
     @Override
     public void go(HasWidgets container) {
         new KscComboboxPresenter(new KscComboboxViewImpl(), m_kscReportDetails).go(container);

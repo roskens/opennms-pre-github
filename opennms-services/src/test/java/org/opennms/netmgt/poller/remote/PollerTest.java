@@ -73,17 +73,17 @@ public class PollerTest {
     }
 
 	public void testSchedule(boolean reschedule, OnmsMonitoredService svc) throws Exception {
-		
+
 		Scheduler scheduler = createMock(Scheduler.class);
 		PollService pollService = createNiceMock(PollService.class);
 		PollerFrontEnd pollerFrontEnd = createMock(PollerFrontEnd.class);
-		
+
         svc.setId(7);
-		
+
 		PollConfiguration pollConfig = new PollConfiguration(svc, new HashMap<String,Object>(), 300000);
-		
+
 		PolledService polledService = new PolledService(pollConfig.getMonitoredService(), pollConfig.getMonitorConfiguration(), pollConfig.getPollModel());
-		
+
 		Set<PolledService> polledServices = Collections.singleton(polledService);
 
         Poller poller = new Poller();
@@ -92,23 +92,23 @@ public class PollerTest {
         pollerFrontEnd.addPropertyChangeListener(poller);
 		expect(pollerFrontEnd.getPolledServices()).andReturn(polledServices);
         expect(pollerFrontEnd.isStarted()).andReturn(true);
-        
+
         expect(scheduler.deleteJob(polledService.toString(), PollJobDetail.GROUP)).andReturn(reschedule);
-        
+
 		pollerFrontEnd.setInitialPollTime(eq(svc.getId()), isA(Date.class));
 		expect(scheduler.scheduleJob(isA(PollJobDetail.class), isA(PolledServiceTrigger.class))).andReturn(new Date());
-		
+
 		replay(scheduler, pollService, pollerFrontEnd);
-		
+
 		poller.setScheduler(scheduler);
 		poller.setPollerFrontEnd(pollerFrontEnd);
-		
+
 		poller.afterPropertiesSet();
-		
+
 		verify(scheduler, pollService, pollerFrontEnd);
-		
+
 	}
-	
+
 	private OnmsMonitoredService getMonitoredService() {
 		OnmsNode node = new OnmsNode();
 		node.setId(1);

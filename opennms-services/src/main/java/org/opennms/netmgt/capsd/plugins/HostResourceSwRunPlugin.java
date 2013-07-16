@@ -54,8 +54,8 @@ import antlr.StringUtils;
  * @author <A HREF="http://www.opennms.org">OpenNMS </A>
  */
 public class HostResourceSwRunPlugin extends AbstractPlugin {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSwRunPlugin.class);
 
     /**
@@ -107,7 +107,7 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
      */
     @Override
     public boolean isProtocolSupported(InetAddress ipaddr, Map<String, Object> parameters) {
-        
+
         boolean status = false;
 
         // Retrieve this interface's SNMP peer object
@@ -161,7 +161,7 @@ public class HostResourceSwRunPlugin extends AbstractPlugin {
         }
 
         return status;
-        
+
     }
 
     private boolean match(String expectedText, String currentText) {

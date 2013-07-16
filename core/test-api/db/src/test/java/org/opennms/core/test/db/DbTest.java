@@ -43,11 +43,11 @@ public class DbTest extends TemporaryDatabaseTestCase {
 
     public void testBogus() {
     }
-    
+
     /**
      * Sadly, this doesn't work.  The unique index required on columns that are
      * referenced by foreign keys cannot have a WHERE clause on it.
-     */ 
+     */
     public void XXXtestConstraintWithWhere() {
         executeSQL("create table node (\n"
                    + "nodeID          integer not null,\n"
@@ -57,7 +57,7 @@ public class DbTest extends TemporaryDatabaseTestCase {
                    + "constraint pk_nodeID primary key (nodeID)\n"
                    + ");\n"
         );
-        
+
 
         executeSQL("create table snmpInterface (\n"
                    + "nodeID                  integer not null,\n"
@@ -69,7 +69,7 @@ public class DbTest extends TemporaryDatabaseTestCase {
         );
 
         executeSQL("create unique index snmpinterface_nodeid_ifindex_idx on snmpinterface(nodeID, snmpIfIndex);\n");
-        
+
         executeSQL("create table ipInterface (\n"
                    + "nodeID                  integer not null,\n"
                    + "ipAddr                  varchar(16) not null,\n"
@@ -84,7 +84,7 @@ public class DbTest extends TemporaryDatabaseTestCase {
 //      executeSQL("create unique index ipinterface_nodeid_ipaddr_idx on ipInterface (nodeID, ipAddr);");
 //        executeSQL("create index ipinterface_nodeid_ipaddr_idx on ipInterface (nodeID, ipAddr);");
         executeSQL("create unique index ipinterface_nodeid_ipaddr_where_idx on ipInterface (nodeID, ipAddr) WHERE ipAddr != '0.0.0.0';");
-        
+
         executeSQL("create table service (\n"
                    + "serviceID               integer not null,\n"
                    + "serviceName             varchar(32) not null,\n"
@@ -92,7 +92,7 @@ public class DbTest extends TemporaryDatabaseTestCase {
                    + "constraint pk_serviceID primary key (serviceID)\n"
                    + ");"
         );
-        
+
         executeSQL("create table ifServices (\n"
                    + "nodeID                  integer not null,\n"
                    + "ipAddr                  varchar(16) not null,\n"
@@ -136,7 +136,7 @@ public class DbTest extends TemporaryDatabaseTestCase {
 //        executeSQL("INSERT INTO outages ( outageId, nodeId, ipAddr, ifLostService, serviceID ) "
 //                   + "VALUES ( nextval('outageNxtId'), 1, '1.2.3.6', now(), 2 )");
  */
- 
+
 
     }
 

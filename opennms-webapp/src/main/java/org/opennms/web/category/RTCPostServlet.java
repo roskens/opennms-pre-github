@@ -52,11 +52,11 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class RTCPostServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RTCPostServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5550051932055498432L;
 

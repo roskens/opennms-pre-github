@@ -53,7 +53,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "element")
 public class OnmsMapElement implements Serializable {
     private static final long serialVersionUID = 1594163211618494443L;
-    
+
     /** Constant <code>MAP_TYPE="M"</code> */
     public static final String MAP_TYPE = "M";
     /** Constant <code>MAP_HIDE_TYPE="W"</code> */
@@ -124,7 +124,7 @@ public class OnmsMapElement implements Serializable {
         setIconName(iconName);
         this.x = x;
         this.y = y;
-        
+
     }
 
     /**

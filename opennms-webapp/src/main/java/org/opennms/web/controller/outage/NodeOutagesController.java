@@ -63,10 +63,10 @@ public class NodeOutagesController extends AbstractController implements Initial
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String nodeIdString = request.getParameter("node");
-    	
+
     	int nodeId = -1;
-    	
-    	if (nodeIdString != null ) 
+
+	if (nodeIdString != null )
         	nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
         Outage[] outages = new Outage[0];
 
@@ -109,7 +109,7 @@ public class NodeOutagesController extends AbstractController implements Initial
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

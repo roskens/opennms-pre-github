@@ -42,7 +42,7 @@ public class Registry {
 	public static void setAppContext(ApplicationContext appContext) {
 		s_appContext = appContext;
 	}
-	
+
 	/**
 	 * <p>containsBean</p>
 	 *
@@ -52,7 +52,7 @@ public class Registry {
 	public static boolean containsBean(String beanName) {
 		return s_appContext.containsBean(beanName);
 	}
-	
+
 	/**
 	 * <p>getBean</p>
 	 *

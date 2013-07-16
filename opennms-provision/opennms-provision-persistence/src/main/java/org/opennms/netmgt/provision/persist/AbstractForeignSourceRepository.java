@@ -46,9 +46,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 public abstract class AbstractForeignSourceRepository implements ForeignSourceRepository {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractForeignSourceRepository.class);
-    
+
     /**
      * <p>Constructor for AbstractForeignSourceRepository.</p>
      */
@@ -59,7 +59,7 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
     @Override
     public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
         Assert.notNull(resource);
- 
+
         LOG.debug("importing requisition from {}", resource);
         final Requisition requisition = JaxbUtils.unmarshal(Requisition.class, resource);
         requisition.setResource(resource);
@@ -92,7 +92,7 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
         }
         foreignSource.setName("default");
         foreignSource.updateDateStamp();
- 
+
         final File outputFile = new File(ConfigFileConstants.getFilePathString() + "default-foreign-source.xml");
         Writer writer = null;
         OutputStream outputStream = null;
@@ -131,7 +131,7 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
         Requisition req = getRequisition(foreignSource);
         return (req == null ? null : req.getNodeRequistion(foreignId));
     }
-    
+
     @Override
     public void validate(final ForeignSource foreignSource) throws ForeignSourceRepositoryException {
     	/*
@@ -141,7 +141,7 @@ public abstract class AbstractForeignSourceRepository implements ForeignSourceRe
     	}
     	*/
     }
-    
+
     @Override
     public void validate(final Requisition requisition) throws ForeignSourceRepositoryException {
     	/*

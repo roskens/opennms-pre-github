@@ -44,7 +44,7 @@ public interface ImportOperation {
 	 * <p>gatherAdditionalData</p>
 	 */
 	void gatherAdditionalData();
-	
+
     /**
      * <p>persist</p>
      *

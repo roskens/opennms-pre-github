@@ -38,7 +38,7 @@ import org.opennms.protocols.xml.config.XmlResourceUtils;
 /**
  * The Mock Class for DefaultJSONCollectionHandler.
  * <p>This file is created in order to avoid calling a real server to retrieve a valid file and  parse a provided sample file through MockDocumentBuilder</p>
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

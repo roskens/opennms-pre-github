@@ -44,7 +44,7 @@ public class StringAsIntegerValidator implements Validator {
 	 * Validation will run against
 	 * <code>Integer.parseInt(object.toString())</code> so make sure to use a
 	 * proper object.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

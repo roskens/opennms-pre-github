@@ -39,8 +39,8 @@ import org.hibernate.criterion.Restrictions;
  * @since 1.8.1
  */
 public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
-    
-    
+
+
     /**
      * <p>Constructor for NotEqualOrNullFilter.</p>
      *
@@ -64,7 +64,7 @@ public abstract class NotEqualOrNullFilter<T> extends OneArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.or(Restrictions.ne(getPropertyName(), getValue()), Restrictions.isNull(getPropertyName()));
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {

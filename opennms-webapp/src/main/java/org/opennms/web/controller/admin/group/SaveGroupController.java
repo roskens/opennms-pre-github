@@ -48,10 +48,10 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class SaveGroupController extends AbstractController implements InitializingBean {
-    
+
     @Autowired
     WebGroupRepository m_groupRepository;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -60,7 +60,7 @@ public class SaveGroupController extends AbstractController implements Initializ
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         HttpSession user = request.getSession(false);
 
         if (user != null) {

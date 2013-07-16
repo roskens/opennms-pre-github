@@ -74,7 +74,7 @@ public class LocalJasperReport implements JasperReportDefinition {
     public void setId(String id) {
         m_id = id;
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#setTemplate(java.lang.String)
      */
@@ -82,7 +82,7 @@ public class LocalJasperReport implements JasperReportDefinition {
     public void setTemplate(String template) {
         m_template = template;
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.features.reporting.model.jasperreport.JasperReportDefinition#setEngine(java.lang.String)
      */

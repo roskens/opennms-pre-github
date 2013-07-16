@@ -60,7 +60,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
 	 * the request packet
 	 */
 	private OutboundMessage m_request = null;
-	
+
 	/**
 	 * the response packet
 	 */
@@ -70,22 +70,22 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
      * The callback to use when this object is ready to do something
      */
     private PingResponseCallback m_callback = null;
-    
+
     /**
      * How many retries
      */
     private int m_retries;
-    
+
     /**
      * how long to wait for a response
      */
     private long m_timeout;
-    
+
     /**
      * The expiration time of this request
      */
     private long m_expiration = -1L;
-    
+
     /**
      * The thread logger associated with this request.
      */
@@ -94,9 +94,9 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
 	private Long m_sentTimestamp;
 
 	private Long m_responseTimestamp;
-	
+
 	private volatile boolean m_processed = false;
-    
+
 
     PingRequest(PingRequestId id, long timeout, int retries, Logger logger, PingResponseCallback cb) {
         m_id = id;
@@ -104,14 +104,14 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
         m_timeout    = timeout;
         m_log        = logger;
         m_callback   = cb;
-        
+
         m_expiration = System.currentTimeMillis() + timeout;
-        
+
         m_request = new OutboundMessage(id.getDestination(), "ping");
         m_request.setSrcPort(6996);
         m_request.setValidityPeriod(1);
     }
-    
+
     /**
      * <p>Constructor for PingRequest.</p>
      *
@@ -151,7 +151,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public long getTimeout() {
         return m_timeout;
     }
-    
+
     /**
      * <p>getRequest</p>
      *
@@ -179,7 +179,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public long getExpiration() {
         return m_expiration;
     }
-    
+
     private Logger log() {
         return m_log;
     }
@@ -230,7 +230,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
             m_processed = true;
         }
     }
-    
+
     /**
      * <p>isExpired</p>
      *
@@ -289,7 +289,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
             m_processed = true;
         }
     }
-    
+
     /**
      * <p>setSentTimestamp</p>
      *
@@ -298,7 +298,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public void setSentTimestamp(Long millis){
     	m_sentTimestamp = millis;
     }
-    
+
     /**
      * <p>setResponseTimestamp</p>
      *
@@ -307,7 +307,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public void setResponseTimestamp(Long millis){
     	m_responseTimestamp = millis;
     }
-    
+
     /**
      * <p>getRoundTripTime</p>
      *
@@ -326,7 +326,7 @@ final public class PingRequest implements Request<PingRequestId, PingRequest, Pi
     public boolean isProcessed() {
         return m_processed;
     }
-    
-    
+
+
 
 }

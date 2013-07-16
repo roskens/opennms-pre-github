@@ -41,7 +41,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * TODO: Kinda a trivial test, remove it at some point?
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

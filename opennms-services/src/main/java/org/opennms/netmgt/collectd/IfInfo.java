@@ -50,9 +50,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class IfInfo extends SnmpCollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfInfo.class);
-    
+
     private SNMPCollectorEntry m_entry;
     private String m_ifAlias;
     private SnmpIfData m_snmpIfData;
@@ -69,7 +69,7 @@ public final class IfInfo extends SnmpCollectionResource {
         m_snmpIfData = snmpIfData;
         m_ifAlias = snmpIfData.getIfAlias();
     }
-    
+
     public int getNodeId() {
         return m_snmpIfData.getNodeId();
     }
@@ -202,7 +202,7 @@ public final class IfInfo extends SnmpCollectionResource {
         LOG.debug("selectCollectionOnly = {}", getCollection().isSelectCollectionOnly());
 
         boolean isScheduled = isCollectionEnabled() || !getCollection().isSelectCollectionOnly();
-        
+
         LOG.debug("isScheduled = {}", isScheduled);
 
         return isScheduled;
@@ -247,7 +247,7 @@ public final class IfInfo extends SnmpCollectionResource {
         LOG.debug("shouldPersist = {}", shdprsist);
         return shdprsist;
     }
-    
+
     /**
      * <p>getResourceTypeName</p>
      *
@@ -257,7 +257,7 @@ public final class IfInfo extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return "if"; //This is IfInfo, must be an interface
     }
-    
+
     /**
      * <p>getInstance</p>
      *

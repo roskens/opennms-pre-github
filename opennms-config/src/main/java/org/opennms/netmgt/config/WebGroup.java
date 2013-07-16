@@ -41,7 +41,7 @@ public class WebGroup {
 
     private final String m_name;
     private Collection<WebUser> m_users;
-    
+
     /**
      * <p>Constructor for WebGroup.</p>
      *
@@ -50,7 +50,7 @@ public class WebGroup {
     public WebGroup(String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -59,7 +59,7 @@ public class WebGroup {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -69,7 +69,7 @@ public class WebGroup {
     public String toString() {
         return ""+getName();
     }
-    
+
     /**
      * <p>getUsers</p>
      *
@@ -78,7 +78,7 @@ public class WebGroup {
     public Collection<WebUser> getUsers() {
         return m_users;
     }
-    
+
     /**
      * <p>setUsers</p>
      *
@@ -87,7 +87,7 @@ public class WebGroup {
     protected void setUsers(Collection<WebUser> users) {
         m_users = users;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {

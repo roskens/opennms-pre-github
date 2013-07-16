@@ -42,7 +42,7 @@ import org.opennms.netmgt.icmp.PingResponseCallback;
 import org.opennms.netmgt.icmp.jna.JnaPinger;
 
 /**
- * 
+ *
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>
  */
 public class JnaPingTest extends TestCase {
@@ -64,7 +64,7 @@ public class JnaPingTest extends TestCase {
             System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
             return;
         }
-            
+
         try {
             System.err.println("------------------- begin "+getName()+" ---------------------");
             super.runTest();
@@ -95,7 +95,7 @@ public class JnaPingTest extends TestCase {
         // 2001:db8 prefix is reserved for documentation purposes suffix is 'BadAddr!' as ascii
         m_ipv6badHost = InetAddress.getByName("2001:0db8::4261:6441:6464:7221");
         assertEquals(16, m_ipv6badHost.getAddress().length);
-        
+
     }
 
     private void singlePingGood(InetAddress addr) throws Exception {
@@ -111,14 +111,14 @@ public class JnaPingTest extends TestCase {
     public void testSinglePingIPv6() throws Exception {
         singlePingGood(m_ipv6goodHost);
     }
-    
+
     private static class TestPingResponseCallback implements PingResponseCallback {
         private final CountDownLatch m_latch = new CountDownLatch(1);
         private InetAddress m_address;
         private EchoPacket m_packet;
         private Throwable m_throwable;
         private boolean m_timeout = false;
-        
+
         @Override
         public void handleResponse(InetAddress address, EchoPacket response) {
             m_address = address;
@@ -126,7 +126,7 @@ public class JnaPingTest extends TestCase {
             m_latch.countDown();
             System.err.println("RESPONSE COUNTED DOWN");
         }
-        
+
         @Override
         public void handleTimeout(InetAddress address, EchoPacket request) {
             m_timeout = true;
@@ -135,7 +135,7 @@ public class JnaPingTest extends TestCase {
             m_latch.countDown();
             System.err.println("TIMEOUT COUNTED DOWN");
         }
-        
+
         @Override
         public void handleError(InetAddress address, EchoPacket request, Throwable t) {
             m_address = address;
@@ -145,39 +145,39 @@ public class JnaPingTest extends TestCase {
             System.err.println("ERROR COUNTED DOWN");
             t.printStackTrace();
         }
-        
+
         public void await() throws InterruptedException {
             m_latch.await();
         }
-        
+
         /**
          * @return the address
          */
         public InetAddress getAddress() {
             return m_address;
         }
-        
+
         /**
          * @return the packet
          */
         public EchoPacket getPacket() {
             return m_packet;
         }
-        
+
         /**
          * @return the throwable
          */
         public Throwable getThrowable() {
             return m_throwable;
         }
-        
+
         /**
          * @return the timeout
          */
         public boolean isTimeout() {
             return m_timeout;
         }
-        
+
     };
 
     public void testPingCallbackTimeoutIPv4() throws Exception {
@@ -190,12 +190,12 @@ public class JnaPingTest extends TestCase {
 
     private void pingCallbackTimeout(InetAddress addr) throws Exception {
         TestPingResponseCallback cb = new TestPingResponseCallback();
-        
+
         s_jnaPinger.ping(addr, PingConstants.DEFAULT_TIMEOUT, PingConstants.DEFAULT_RETRIES, PingConstants.DEFAULT_PACKET_SIZE,1, cb);
-        
+
         cb.await();
-        
-        assertTrue("Unexpected Error sending ping to " + addr + ": " + cb.getThrowable(), 
+
+        assertTrue("Unexpected Error sending ping to " + addr + ": " + cb.getThrowable(),
                 cb.getThrowable() == null || cb.getThrowable() instanceof NoRouteToHostException);
         assertTrue(cb.isTimeout());
         assertNotNull(cb.getPacket());
@@ -252,7 +252,7 @@ public class JnaPingTest extends TestCase {
         Number failedPercent = CollectionMath.percentNull(items);
         Number average = CollectionMath.average(items);
         Number median = CollectionMath.median(items);
-        
+
         if (passedPercent == null) passedPercent = Long.valueOf(0);
         if (failedPercent == null) failedPercent = Long.valueOf(100);
         if (median        == null) median        = Double.valueOf(0);
@@ -266,7 +266,7 @@ public class JnaPingTest extends TestCase {
         StringBuffer sb = new StringBuffer();
         sb.append("response times = ").append(items);
         sb.append("\n");
-        
+
         sb.append("pings = ").append(items.size());
         sb.append(", passed = ").append(passed).append(" (").append(passedPercent).append("%)");
         sb.append(", failed = ").append(failed).append(" (").append(failedPercent).append("%)");
@@ -276,4 +276,3 @@ public class JnaPingTest extends TestCase {
         System.out.print(sb);
     }
 }
-    

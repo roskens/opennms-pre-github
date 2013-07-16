@@ -36,11 +36,11 @@ public class IcmpMessengerIOException extends IOException {
     public IcmpMessengerIOException(final String message) {
         super(message);
     }
-    
+
     public IcmpMessengerIOException(final String message, final Throwable throwable) {
         super(message, throwable);
     }
-    
+
     public IcmpMessengerIOException(final Throwable throwable) {
         super(throwable);
     }

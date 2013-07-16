@@ -50,7 +50,7 @@ import org.opennms.web.api.Util;
  */
 public class FinishPollerConfigServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6189971565495296081L;
 

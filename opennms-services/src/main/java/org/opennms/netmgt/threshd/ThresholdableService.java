@@ -52,16 +52,16 @@ import org.opennms.netmgt.scheduler.ReadyRunnable;
  * <P>
  * The ThresholdableService class ...
  * </P>
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  *
- * @deprecated Thresholding now done in CollectableService (in collectd) 
+ * @deprecated Thresholding now done in CollectableService (in collectd)
  */
 final class ThresholdableService extends InetNetworkInterface implements ThresholdNetworkInterface, ReadyRunnable {
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdableService.class);
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 2477161545461824755L;
 
@@ -111,7 +111,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
     private ThresholderUpdates m_updates;
 
     /**
-     * 
+     *
      */
     private static final boolean ABORT_THRESHOLD_CHECK = true;
 
@@ -133,7 +133,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
 
     /**
      * Constructs a new instance of a ThresholdableService object.
-     * 
+     *
      * @param dbNodeId
      *            The database identifier key for the interfaces' node
      * @param address
@@ -142,7 +142,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      *            Service name
      * @param pkg
      *            The package containing parms for this collectable service.
-     * 
+     *
      */
     ThresholdableService(Threshd threshd, int dbNodeId, InetAddress address, String svcName, org.opennms.netmgt.config.threshd.Package pkg) {
         super(address);
@@ -290,7 +290,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
 
     /**
      * Generate event and send it to eventd via the event proxy.
-     * 
+     *
      * uei Universal event identifier of event to generate.
      */
     private void sendEvent(String uei) {
@@ -393,7 +393,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
      * determines if any of the calendar outages associated with the package
      * apply to the current time and the service's interface. If an outage
      * applies true is returned...otherwise false is returned.
-     * 
+     *
      * @return false if no outage found (indicating thresholding may be
      *         performed) or true if applicable outage is found (indicating
      *         thresholding should be skipped).
@@ -408,7 +408,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
         // applies to the current time and the outage applies to this
         // interface then break and return true. Otherwise process the
         // next outage.
-        // 
+        //
         for (final String outageName : m_package.getOutageCalendarCollection()) {
             // Does the outage apply to the current time?
             if (outageFactory.isCurTimeInOutage(outageName)) {
@@ -426,7 +426,7 @@ final class ThresholdableService extends InetNetworkInterface implements Thresho
 
     /**
      * Process any outstanding updates.
-     * 
+     *
      * @return true if update indicates that threshold check should be aborted
      *         (for example due to deletion flag being set), false otherwise.
      */

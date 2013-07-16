@@ -50,26 +50,26 @@ public class RequisitionTest {
 	@Test
 	public void testRequisitionValidation() {
 		final List<RequisitionNode> nodes = new ArrayList<RequisitionNode>();
-		
+
 		final Requisition req = new Requisition();
 		req.updateDateStamp();
 		req.updateLastImported();
-		
+
 		req.setForeignSource("foreignSource1");
-		
+
 		final RequisitionNode foreignId1 = new RequisitionNode();
 		foreignId1.setForeignId("foreignId1");
 		foreignId1.setNodeLabel("foreign ID 1");
-		
+
 		nodes.add(foreignId1);
 		req.setNodes(nodes);
-		
+
 		try {
 			req.validate();
 		} catch (final ValidationException e) {
 			fail();
 		}
-		
+
 		final RequisitionNode foreignId2 = new RequisitionNode();
 		foreignId2.setForeignId("foreignId2");
 		foreignId2.setNodeLabel("foreign ID 2");
@@ -82,7 +82,7 @@ public class RequisitionTest {
 		} catch (final ValidationException e) {
 			fail();
 		}
-		
+
 		final RequisitionNode duplicateId = new RequisitionNode();
 		duplicateId.setForeignId("foreignId1");
 		duplicateId.setNodeLabel("foreign ID 1 (duplicate)");
@@ -108,10 +108,10 @@ public class RequisitionTest {
 			assertTrue("error should say foreignId1 has a duplicate", e.getMessage().contains("foreignId1"));
 			assertTrue("error count should now be 3", e.getMessage().contains("foreignId1 (3 found)"));
 		}
-		
+
 		nodes.add(foreignId2);
 		req.setNodes(nodes);
-		
+
 		try {
 			req.validate();
 			fail();

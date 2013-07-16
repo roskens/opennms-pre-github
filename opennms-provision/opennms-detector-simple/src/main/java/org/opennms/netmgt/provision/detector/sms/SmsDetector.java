@@ -48,10 +48,10 @@ import org.springframework.stereotype.Component;
 public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse> {
     private static final String DEFAULT_SERVICE_NAME = "SMS";
     private static final int DEFAULT_PORT = 0;
-    
+
     private String m_ipMatch;
     private boolean m_isSupported = true;
-    
+
     /**
      * <p>Constructor for SmsDetector.</p>
      */
@@ -74,14 +74,14 @@ public class SmsDetector extends BasicDetector<LineOrientedRequest, SmsResponse>
     }
 
     private static ResponseValidator<SmsResponse> ipMatches(final String ipAddr) {
-        
+
         return new ResponseValidator<SmsResponse>(){
 
             @Override
             public boolean validate(SmsResponse response) {
                 return response.isSms(ipAddr);
             }
-            
+
         };
     }
 

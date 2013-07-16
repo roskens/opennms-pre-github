@@ -32,9 +32,9 @@ import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.user.client.Command;
 
 public interface CommandExecutor {
-    
+
     public void schedule(Scheduler.RepeatingCommand command);
-    
+
     public void schedule(Command command);
-    
+
 }

@@ -46,7 +46,7 @@ import com.vaadin.ui.Window;
 
 /**
  * This class creates a window to authorize usernames
- * and passwords for the SSH server. 
+ * and passwords for the SSH server.
  * @author pdgrenon
  * @author lmbell
  *
@@ -72,10 +72,10 @@ public class AuthWindow extends Window implements Button.ClickListener{
     /**
      * This constructor method spawns a window to authorize the
      * username and password input by the user. If the authroization
-     * is sucessful, the user will be connected to the host at the 
+     * is sucessful, the user will be connected to the host at the
      * given port through SSH, and the terminal emulator this window
-     * will be replaced by a terminal emulator. 
-     * 
+     * will be replaced by a terminal emulator.
+     *
      * @param host - The host name to connect to
      * @param port - The port number to connect to
      */
@@ -113,7 +113,7 @@ public class AuthWindow extends Window implements Button.ClickListener{
         loginButton.setClickShortcut(KeyCode.ENTER);
         client = SshClient.setUpDefaultClient();
         client.start();
-        loginButton.addClickListener(this); 
+        loginButton.addClickListener(this);
         GridLayout grid = new GridLayout(2,2);
         if (showOptions) {
             grid = new GridLayout(2,4);
@@ -169,13 +169,13 @@ public class AuthWindow extends Window implements Button.ClickListener{
         getUI().addWindow(sshWindow);
         this.close();
     }
-    
+
     @Override
     public void buttonClick(ClickEvent event) {
         String login = usernameField.getValue();
         String password = (String)passwordField.getValue();
         boolean validInput = false;
-        try { 
+        try {
             if (showOptions) {
                 validInput = validateInput();
                 if (!validInput) {
@@ -203,13 +203,13 @@ public class AuthWindow extends Window implements Button.ClickListener{
                         return;
                     }
                     showSSHWindow();
-                } 
+                }
             } catch (Exception e) {
                 testString = "Failed to connect to host";
                 Notification.show("Failed to connect to host", Notification.Type.WARNING_MESSAGE);
             }
         }
-        
+
     }
 
 }

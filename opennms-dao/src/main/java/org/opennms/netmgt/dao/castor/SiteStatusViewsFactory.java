@@ -48,7 +48,7 @@ import org.opennms.netmgt.config.siteStatusViews.SiteStatusViewConfiguration;
 import org.opennms.netmgt.config.siteStatusViews.View;
 
 public class SiteStatusViewsFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SiteStatusViewsFactory.class);
     /** The singleton instance. */
     private static SiteStatusViewsFactory m_instance;
@@ -144,7 +144,7 @@ public class SiteStatusViewsFactory {
 
         return m_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

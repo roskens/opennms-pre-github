@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiPlugin extends AbstractPlugin {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiPlugin.class);
 
 	/**
@@ -133,7 +133,7 @@ public class WmiPlugin extends AbstractPlugin {
             	int timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", agentConfig.getTimeout());
                 agentConfig.setTimeout(timeout);
             }
-            
+
             if (qualifiers.get("retry") != null) {
             	int retries = ParameterMap.getKeyedInteger(qualifiers, "retry", agentConfig.getRetries());
                 agentConfig.setRetries(retries);
@@ -143,17 +143,17 @@ public class WmiPlugin extends AbstractPlugin {
                 String user = ParameterMap.getKeyedString(qualifiers, "username", agentConfig.getUsername());
                 agentConfig.setUsername(user);
             }
-            
+
             if (qualifiers.get("password") != null) {
                 String pass = ParameterMap.getKeyedString(qualifiers, "password", agentConfig.getPassword());
                 agentConfig.setPassword(pass);
             }
-            
+
             if (qualifiers.get("domain") != null) {
                 String domain = ParameterMap.getKeyedString(qualifiers, "domain", agentConfig.getDomain());
                 agentConfig.setDomain(domain);
             }
-            
+
             matchType = ParameterMap.getKeyedString(qualifiers, "matchType", DEFAULT_WMI_MATCH_TYPE);
 			compVal = ParameterMap.getKeyedString(qualifiers, "compareValue", DEFAULT_WMI_COMP_VAL);
 			compOp = ParameterMap.getKeyedString(qualifiers, "compareOp", DEFAULT_WMI_COMP_OP);
@@ -189,7 +189,7 @@ public class WmiPlugin extends AbstractPlugin {
 	 * made using the params variable data and a check is requested from the
 	 * remote WMI service.
 	 * </P>
-	 * 
+	 *
 	 * @param host
 	 *            The remote host to connect to.
 	 * @param retries

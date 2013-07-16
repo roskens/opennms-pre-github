@@ -80,7 +80,7 @@ public class Parameter implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -88,20 +88,20 @@ public class Parameter implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Parameter) {
-        
+
             final Parameter temp = (Parameter)obj;
             if (m_key != null) {
                 if (temp.m_key == null) return false;
-                else if (!(m_key.equals(temp.m_key))) 
+                else if (!(m_key.equals(temp.m_key)))
                     return false;
             }
             else if (temp.m_key != null)
                 return false;
             if (m_value != null) {
                 if (temp.m_value == null) return false;
-                else if (!(m_value.equals(temp.m_value))) 
+                else if (!(m_value.equals(temp.m_value)))
                     return false;
             }
             else if (temp.m_value != null)
@@ -113,7 +113,7 @@ public class Parameter implements Serializable {
 
     /**
      * Returns the value of field 'key'.
-     * 
+     *
      * @return the value of field 'Key'.
      */
     @XmlAttribute(name="key", required=true)
@@ -123,7 +123,7 @@ public class Parameter implements Serializable {
 
     /**
      * Returns the value of field 'value'.
-     * 
+     *
      * @return the value of field 'Value'.
      */
     @XmlAttribute(name="value", required=true)
@@ -136,26 +136,26 @@ public class Parameter implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_key != null) {
            result = 37 * result + m_key.hashCode();
         }
         if (m_value != null) {
            result = 37 * result + m_value.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -169,8 +169,8 @@ public class Parameter implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -183,8 +183,8 @@ public class Parameter implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -200,7 +200,7 @@ public class Parameter implements Serializable {
 
     /**
      * Sets the value of field 'key'.
-     * 
+     *
      * @param key the value of field 'key'.
      */
     public void setKey(final String key) {
@@ -209,7 +209,7 @@ public class Parameter implements Serializable {
 
     /**
      * Sets the value of field 'value'.
-     * 
+     *
      * @param value the value of field 'value'.
      */
     public void setValue(final String value) {
@@ -218,7 +218,7 @@ public class Parameter implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -233,8 +233,8 @@ public class Parameter implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

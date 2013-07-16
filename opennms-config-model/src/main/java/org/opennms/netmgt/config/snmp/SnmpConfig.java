@@ -104,8 +104,8 @@ public class SnmpConfig extends Configuration implements Serializable {
 
 
 	/**
-     * 
-     * 
+     *
+     *
      * @param vDefinition
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -115,8 +115,8 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vDefinition
      * @throws IndexOutOfBoundsException if the index
@@ -128,7 +128,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method enumerateDefinition.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -138,7 +138,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Overrides the Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -157,7 +157,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method getDefinition.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -168,7 +168,7 @@ public class SnmpConfig extends Configuration implements Serializable {
         if (index < 0 || index >= this._definitionList.size()) {
             throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
         }
-        
+
         return _definitionList.get(index);
     }
 
@@ -178,7 +178,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Definition[] getDefinition() {
@@ -189,7 +189,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Method getDefinitionCollection.Returns a reference to
      * '_definitionList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Definition> getDefinitionCollection() {
@@ -198,7 +198,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method getDefinitionCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getDefinitionCount() {
@@ -210,23 +210,23 @@ public class SnmpConfig extends Configuration implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
         @Override
     public int hashCode() {
     	final int result = 17;
-        
+
         if (_definitionList != null) {
         	return 37 * result + _definitionList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
         @Override
@@ -241,7 +241,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method iterateDefinition.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -250,8 +250,8 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -264,8 +264,8 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -288,7 +288,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method removeDefinition.
-     * 
+     *
      * @param vDefinition
      * @return true if the object was removed from the collection.
      */
@@ -298,7 +298,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method removeDefinitionAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -307,8 +307,8 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vDefinition
      * @throws IndexOutOfBoundsException if the index
@@ -318,18 +318,18 @@ public class SnmpConfig extends Configuration implements Serializable {
         if (index < 0 || index >= this._definitionList.size()) {
             throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
         }
-        
+
         this._definitionList.set(index, vDefinition);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vDefinitionArray
      */
     public void setDefinition(final Definition[] vDefinitionArray) {
         _definitionList.clear();
-        
+
         for (int i = 0; i < vDefinitionArray.length; i++) {
                 this._definitionList.add(vDefinitionArray[i]);
         }
@@ -338,12 +338,12 @@ public class SnmpConfig extends Configuration implements Serializable {
     /**
      * Sets the value of '_definitionList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vDefinitionList the Vector to copy.
      */
     public void setDefinition(final List<Definition> vDefinitionList) {
         this._definitionList.clear();
-        
+
         this._definitionList.addAll(vDefinitionList);
     }
 
@@ -351,7 +351,7 @@ public class SnmpConfig extends Configuration implements Serializable {
      * Sets the value of '_definitionList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param definitionList the Vector to set.
      */
     public void setDefinitionCollection(final List<Definition> definitionList) {
@@ -360,7 +360,7 @@ public class SnmpConfig extends Configuration implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -374,8 +374,8 @@ public class SnmpConfig extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

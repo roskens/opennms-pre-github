@@ -49,7 +49,7 @@ public class FrameRelayStorageStrategy extends IndexStorageStrategy {
         String dlci = indexes.nextToken();
         return ifName + "." + dlci;
     }
-       
+
     /**
      * <p>getInterfaceName</p>
      *

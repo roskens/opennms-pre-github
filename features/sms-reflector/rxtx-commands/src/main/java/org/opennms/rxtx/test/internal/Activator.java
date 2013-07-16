@@ -42,10 +42,10 @@ import org.osgi.framework.ServiceRegistration;
 public final class Activator
     implements BundleActivator
 {
-	
+
 	ServiceRegistration<CommandProvider> m_registration;
 	RxtxCommands m_commands;
-	
+
     /**
      * {@inheritDoc}
      *
@@ -55,9 +55,9 @@ public final class Activator
     public void start( BundleContext bc )
         throws Exception
     {
-    	
+
     	m_commands = new RxtxCommands();
-    	
+
         // Register our example service implementation in the OSGi service registry
         m_registration = bc.registerService( CommandProvider.class, m_commands, null );
     }
@@ -74,7 +74,7 @@ public final class Activator
 
     	m_registration.unregister();
     	m_registration = null;
-    	
+
 
         m_commands.stop();
         m_commands = null;

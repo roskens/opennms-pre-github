@@ -116,7 +116,7 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
     	final OnmsAlarm newestAckedAlarm   = createAlarm(OnmsSeverity.WARNING, "admin");
     	final OnmsAlarm oldestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
     	final OnmsAlarm newestUnackedAlarm = createAlarm(OnmsSeverity.WARNING, null);
-        
+
         final String xml = sendRequest(GET, "/stats/alarms/by-severity", 200);
 
         final String oldestAckedXml   = getXml("oldestAcked", xml);
@@ -160,9 +160,9 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         assertTrue(xml.contains("<severities>"));
         assertTrue(xml.contains("<alarmStatistics"));
         assertTrue(xml.contains("severity="));
-        
+
         xml = sendRequest(GET, "/stats/alarms/by-severity", parseParamData("severities=MINOR,NORMAL"), 200);
-        
+
         assertFalse(xml.contains("CLEARED"));
         assertFalse(xml.contains("CRITICAL"));
         assertTrue(xml.contains("MINOR"));
@@ -171,7 +171,7 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
 
     private OnmsAlarm createAlarm(final OnmsSeverity severity, final String ackUser) {
         final OnmsEvent event = createEvent();
-        
+
         final OnmsAlarm alarm = new OnmsAlarm();
         alarm.setDistPoller(getDistPollerDao().load("localhost"));
         alarm.setUei(event.getEventUei());
@@ -184,15 +184,15 @@ public class AlarmStatsRestServiceTest extends AbstractSpringJerseyRestTestCase 
         alarm.setSeverity(severity);
         alarm.setFirstEventTime(event.getEventTime());
         alarm.setLastEvent(event);
-        
+
         if (ackUser != null) {
             alarm.setAlarmAckTime(new Date());
             alarm.setAlarmAckUser(ackUser);
         }
-        
+
         getAlarmDao().save(alarm);
         getAlarmDao().flush();
-        
+
         LOG.debug("CreateAlarm: {}", alarm);
 
         return alarm;

@@ -70,7 +70,7 @@ public class JMXNodeInfo {
     public int getNodeId() {
         return m_nodeId;
     }
-    
+
     /**
      * <p>setMBeans</p>
      *
@@ -79,7 +79,7 @@ public class JMXNodeInfo {
     public void setMBeans(Map<String, BeanInfo> map) {
         m_mbeans = map;
     }
-    
+
     /**
      * <p>getMBeans</p>
      *

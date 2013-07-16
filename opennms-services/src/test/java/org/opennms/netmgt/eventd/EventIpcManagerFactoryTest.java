@@ -37,7 +37,7 @@ import junit.framework.TestCase;
 
 /**
  * Test case for EventIpcManagerFactory.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventIpcManagerFactoryTest extends TestCase {
@@ -46,37 +46,37 @@ public class EventIpcManagerFactoryTest extends TestCase {
         super.setUp();
         EventIpcManagerFactory.reset();
     }
-    
+
     public void testSetIpcManager() {
         EventIpcManager manager = createMock(EventIpcManager.class);
         EventIpcManagerFactory.setIpcManager(manager);
         assertNotNull("manager should not be null", EventIpcManagerFactory.getIpcManager());
         assertEquals("manager", manager, EventIpcManagerFactory.getIpcManager());
     }
-    
+
     public void testSetIpcManagerNull() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument ipcManager must not be null"));
-        
+
         try {
             EventIpcManagerFactory.setIpcManager(null);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     public void testGetIpcManagerNotInitialized() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("this factory has not been initialized"));
-        
+
         try {
             EventIpcManagerFactory.getIpcManager();
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
 

@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  * @since 1.8.1
  */
 public class LocationMonitorDetailsController extends AbstractCommandController implements InitializingBean {
-    
+
     private DistributedPollerService m_distributedPollerService;
     private String m_successView;
 
@@ -58,15 +58,15 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) command;
         LocationMonitorListModel model = getDistributedPollerService().getLocationMonitorDetails(cmd, errors);
         ModelAndView modelAndView = new ModelAndView(getSuccessView(), "model", model);
-        
+
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             modelAndView.addObject("isAdmin", "true");
         }
-        
+
         return modelAndView;
 
     }
-    
+
     /**
      * <p>getDistributedPollerService</p>
      *
@@ -113,7 +113,7 @@ public class LocationMonitorDetailsController extends AbstractCommandController 
         if (m_distributedPollerService == null) {
             throw new IllegalStateException("distributedPollerService property cannot be null");
         }
-        
+
         if (m_successView == null) {
             throw new IllegalStateException("successView property cannot be null");
         }

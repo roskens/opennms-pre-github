@@ -41,9 +41,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class CriteriaBuilder {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CriteriaBuilder.class);
-	
+
     private Class<?> m_class;
 
     private OrderBuilder m_orderBuilder = new OrderBuilder();

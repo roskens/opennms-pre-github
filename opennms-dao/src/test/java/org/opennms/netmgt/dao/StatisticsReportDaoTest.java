@@ -49,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Unit tests for StatisticsReportDao
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @see StatisticsReportDao
  */
@@ -67,7 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StatisticsReportDaoTest implements InitializingBean {
 	@Autowired
     private StatisticsReportDao m_statisticsReportDao;
-	
+
 	@Autowired
     private ResourceReferenceDao m_resourceReferenceDao;
 
@@ -87,7 +87,7 @@ public class StatisticsReportDaoTest implements InitializingBean {
         report.setJobStartedDate(new Date());
         report.setJobCompletedDate(new Date());
         report.setPurgeDate(new Date());
-        
+
 		{
             ResourceReference resource = new ResourceReference();
             resource.setResourceId("foo");
@@ -99,13 +99,13 @@ public class StatisticsReportDaoTest implements InitializingBean {
             data.setValue(0.0);
             report.addData(data);
         }
-        
+
 
         {
             ResourceReference resource = new ResourceReference();
             resource.setResourceId("bar");
             m_resourceReferenceDao.save(resource);
-            
+
 
             StatisticsReportData data = new StatisticsReportData();
             data.setReport(report);
@@ -113,7 +113,7 @@ public class StatisticsReportDaoTest implements InitializingBean {
             data.setValue(0.0);
             report.addData(data);
         }
-        
+
         m_statisticsReportDao.save(report);
     }
 }

@@ -61,7 +61,7 @@ public class ExternalValueAttribute implements OnmsAttribute {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>getValue</p>
      *

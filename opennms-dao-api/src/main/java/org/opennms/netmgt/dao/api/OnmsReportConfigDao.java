@@ -38,7 +38,7 @@ import org.opennms.netmgt.config.reporting.StringParm;
  * <p>OnmsReportConfigDao interface.</p>
  */
 public interface OnmsReportConfigDao {
-    
+
     /**
      * <p>getParameters</p>
      *
@@ -46,7 +46,7 @@ public interface OnmsReportConfigDao {
      * @return a {@link org.opennms.netmgt.config.reporting.Parameters} object.
      */
     Parameters getParameters(String id);
-    
+
     /**
      * <p>getDateParms</p>
      *
@@ -54,7 +54,7 @@ public interface OnmsReportConfigDao {
      * @return an array of {@link org.opennms.netmgt.config.reporting.DateParm} objects.
      */
     DateParm[] getDateParms(String id);
-    
+
     /**
      * <p>getStringParms</p>
      *
@@ -62,7 +62,7 @@ public interface OnmsReportConfigDao {
      * @return an array of {@link org.opennms.netmgt.config.reporting.StringParm} objects.
      */
     StringParm[] getStringParms(String id);
-    
+
     /**
      * <p>getIntParms</p>
      *
@@ -70,7 +70,7 @@ public interface OnmsReportConfigDao {
      * @return an array of {@link org.opennms.netmgt.config.reporting.IntParm} objects.
      */
     IntParm[] getIntParms(String id);
-    
+
     /**
      * <p>getPdfStylesheetLocation</p>
      *
@@ -78,7 +78,7 @@ public interface OnmsReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getPdfStylesheetLocation(String id);
-    
+
     /**
      * <p>getSvgStylesheetLocation</p>
      *
@@ -86,7 +86,7 @@ public interface OnmsReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getSvgStylesheetLocation(String id);
-    
+
     /**
      * <p>getHtmlStylesheetLocation</p>
      *
@@ -94,7 +94,7 @@ public interface OnmsReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getHtmlStylesheetLocation(String id);
-    
+
     /**
      * <p>getType</p>
      *
@@ -102,7 +102,7 @@ public interface OnmsReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getType(String id);
-    
+
     /**
      * <p>getLogo</p>
      *

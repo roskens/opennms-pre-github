@@ -58,7 +58,7 @@ public class ConnectionFactoryUtil {
                 return jdbcDs;
             }
         }
-        
+
         throw new IllegalArgumentException("ConnectionFactoryUtil: DataSource: "+dsName+" is not defined.");
     }
 

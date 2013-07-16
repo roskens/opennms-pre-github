@@ -58,12 +58,12 @@ import org.slf4j.LoggerFactory;
  * @author brozow
  */
 public class TaskTest {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(TaskTest.class);
-    
+
     ExecutorService m_executor;
     DefaultTaskCoordinator m_coordinator;
-    
+
     @Before
     public void setUp() {
         m_executor = Executors.newFixedThreadPool(50,
@@ -71,11 +71,11 @@ public class TaskTest {
         );
         m_coordinator = new DefaultTaskCoordinator("TaskTest", m_executor);
     }
-    
+
     @Test
     public void testSimpleTask() throws Exception {
         final AtomicBoolean hasRun = new AtomicBoolean(false);
-        
+
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -83,24 +83,24 @@ public class TaskTest {
                 hasRun.set(true);
             }
         };
-        
+
         Task task = createTask(r);
-        
+
         task.schedule();
-        
+
         assertFalse(hasRun.get());
-        
+
         task.waitFor();
-        
+
         assertTrue(hasRun.get());
-        
+
     }
-    
+
     @Test
     public void testTaskWithSingleDependency() throws Exception {
-        
+
         final List<String> sequence = new Vector<String>();
-        
+
         Task task1 = createTask(appender(sequence, "task1"));
         Task task2 = createTask(appender(sequence, "task2"));
         Task task3 = createTask(appender(sequence, "task3"));
@@ -109,57 +109,57 @@ public class TaskTest {
         task3.addPrerequisite(task2);
 
         task3.schedule();
-        
+
         task2.schedule();
-        
+
         task1.schedule();
-        
+
         task3.waitFor(3500, TimeUnit.MILLISECONDS);
-        
+
         assertArrayEquals(new String[] { "task1", "task2", "task3" }, sequence.toArray(new String[0]));
-        
+
     }
 
     private Task createTask(final Runnable runnable) {
         return m_coordinator.createTask(null, runnable);
     }
-    
+
     @Test
     public void testTaskWithCompletedDependencies() throws Exception {
-        
-        
+
+
         final List<String> sequence = new Vector<String>();
-        
+
         Task task1 = createTask(appender(sequence, "task1"));
         Task task2 = createTask(appender(sequence, "task2"));
         Task task3 = createTask(appender(sequence, "task3"));
 
         task1.schedule();
-        
+
         task1.waitFor(10000, TimeUnit.MILLISECONDS);
 
         task2.addPrerequisite(task1);
-        
+
         task2.schedule();
 
         task2.waitFor(10000, TimeUnit.MILLISECONDS);
-        
+
         task3.addPrerequisite(task2);
 
         task3.schedule();
-        
-        
+
+
         task3.waitFor(3500, TimeUnit.MILLISECONDS);
-        
+
         assertArrayEquals(new String[] { "task1", "task2", "task3" }, sequence.toArray(new String[0]));
-        
+
     }
-    
+
     @Test(timeout=1000)
     public void testTaskThatThrowsException() throws Exception {
-        
+
         AtomicInteger count = new AtomicInteger(0);
-    
+
         Runnable thrower = new Runnable() {
             @Override
             public void run() {
@@ -167,70 +167,70 @@ public class TaskTest {
 
             }
         };
-        
+
         Task throwerTask = m_coordinator.createTask(null, thrower);
         Task incrTask = m_coordinator.createTask(null, incr(count));
-        
+
         incrTask.addPrerequisite(throwerTask);
-        
-        
+
+
         incrTask.schedule();
         throwerTask.schedule();
-        
-        
+
+
         incrTask.waitFor(1500, TimeUnit.MILLISECONDS);
 
         assertEquals(1, count.get());
     }
-    
+
     @Test(timeout=1000)
     public void testAsyncThatThrowsException() throws Exception {
-        
+
         AtomicInteger count = new AtomicInteger(0);
-    
+
         Async<Integer> thrower = new Async<Integer>() {
 
             @Override
             public void submit(Callback<Integer> cb) {
                 throw new RuntimeException("Intentionally failed for test purposes");
             }
-            
+
         };
-           
-        
+
+
         Task throwerTask = m_coordinator.createTask(null, thrower, setter(count));
         Task incrTask = m_coordinator.createTask(null, incr(count));
-        
+
         incrTask.addPrerequisite(throwerTask);
-        
-        
+
+
         incrTask.schedule();
         throwerTask.schedule();
-        
-        
+
+
         incrTask.waitFor(1500, TimeUnit.MILLISECONDS);
 
         assertEquals(1, count.get());
     }
-    
+
     @Test(timeout=1000)
     public void testAsync() throws Exception {
         final AtomicInteger count = new AtomicInteger(0);
-        
+
         Task async = m_coordinator.createTask(null, timer(500, 17), setter(count));
-        
+
         async.schedule();
-        
+
         async.waitFor(15000, TimeUnit.MILLISECONDS);
-        
+
         assertEquals(17, count.get());
     }
-    
+
     @Test
     public void testBatchTask() throws Exception {
-        
+
         AtomicInteger counter = new AtomicInteger(0);
-        
+
         BatchTask batch = new BatchTask(m_coordinator, null);
 
         batch.add(incr(counter));
@@ -238,18 +238,18 @@ public class TaskTest {
         batch.add(incr(counter));
 
         batch.schedule();
-        
+
         batch.waitFor(3500, TimeUnit.MILLISECONDS);
-        
+
         assertEquals(3, counter.get());
-        
+
     }
-    
+
     @Test
     public void testSequenceTask() throws Exception {
-        
+
         final List<String> sequence = new Vector<String>();
-        
+
         SequenceTask seq = createSequence();
 
         seq.add(appender(sequence, "task1"));
@@ -257,19 +257,19 @@ public class TaskTest {
         seq.add(appender(sequence, "task3"));
 
         seq.schedule();
-        
+
         seq.waitFor(3500, TimeUnit.MILLISECONDS);
-        
+
         assertArrayEquals(new String[] { "task1", "task2", "task3" }, sequence.toArray(new String[0]));
-        
+
     }
-    
+
     @Test
     public void testSequenceWithDependencies() throws Exception {
-        
-        
+
+
         List<String> sequence = new Vector<String>();
-        
+
         Task task1 = createTask(appender(sequence, "task1"));
         Task task2 = createTask(appender(sequence, "task2"));
 
@@ -278,26 +278,26 @@ public class TaskTest {
         seq.add(appender(sequence, "subtask1"));
         seq.add(appender(sequence, "subtask2"));
         seq.add(appender(sequence, "subtask3"));
-        
+
         seq.addPrerequisite(task1);
         task2.addPrerequisite(seq);
 
         seq.schedule();
 
         task1.schedule();
-        
+
         task2.schedule();
-        
+
         task2.waitFor(3500, TimeUnit.MILLISECONDS);
-        
+
         assertArrayEquals(new String[] { "task1", "subtask1", "subtask2", "subtask3", "task2" }, sequence.toArray(new String[0]));
     }
-    
+
     @Test
     public void testEnsureTaskIsSubmittedIfPreReqsCompleteWhileDependencyQueued() throws Exception {
-    
+
         m_coordinator.setLoopDelay(1000);
-        
+
         /**
          * This is a test case that tests a very specific race condition.  The loopDelay is used to
          * make the race condition work
@@ -315,23 +315,23 @@ public class TaskTest {
         Task c = createTask(waiter("C", cBlocker));
 
         c.addPrerequisite(a);
-        
+
         b.schedule();
         a.schedule();
         c.schedule();
 
         // wait for the coordinator thread to process all of the above
         Thread.sleep(3500);
-        
+
         /* we are not trying to set up the following situation
-         * c has 1 'pendingPrereq' 
+         * c has 1 'pendingPrereq'
          * the coordinator threads Q has 'a.complete, b.complete, c.addPrereq(b)'
          *
          * In this situation then the completing tasks will not be able to submit
          * 'c' because it has a pending prerequisite.
-         * 
-         * By the time the prerequisite is added they are all complete. 
-         * 
+         *
+         * By the time the prerequisite is added they are all complete.
+         *
          * In this case we need to ensure the c is submitted
          */
 
@@ -341,72 +341,72 @@ public class TaskTest {
         // call countDown will allow these to complete
         bBlocker.countDown();
         aBlocker.countDown();
-        
+
         // we wait just to a litlte to make sure the two completes get added
         Thread.sleep(100);
 
         // not we add the prerequisite
         c.addPrerequisite(b);
-        
-        
+
+
         c.waitFor(10000, TimeUnit.MILLISECONDS);
-        
+
         assertTrue("Task C never completed", c.isFinished());
-        
+
 
         /*
          * If the queue call look this AFTER the call to c.addPrerequisite(b) increment pendingPrereqs
-         * Q: a.complete, (pendingPrereq non zero) b.complete (pendingPrereq non zero) c.prereq(b) (decrementPrereqs)  ..... 
+         * Q: a.complete, (pendingPrereq non zero) b.complete (pendingPrereq non zero) c.prereq(b) (decrementPrereqs)  .....
          */
-        
+
     }
-    
+
     @Test
     public void testLargeSequence() throws Exception {
-        
+
         long count = 500;
-        
+
         AtomicLong result = new AtomicLong(0);
-        
+
         SequenceTask task = createSequence();
-        
+
         for(long i = 1; i <= count; i++) {
             task.add(addr(result, i));
         }
-        
+
         task.schedule();
-        
+
         task.waitFor();
-        
+
         assertEquals(count*(count+1)/2, result.get());
-        
+
     }
 
     private SequenceTask createSequence() {
         return m_coordinator.createSequence().get();
     }
-    
+
     @Test
     public void testLargeSequenceInProgress() throws Exception {
- 
+
         long count = 10;
         long loops = 1000;
         long total=count*loops;
-        
+
         AtomicLong result = new AtomicLong(0);
-        
+
         SequenceTask task = createSequence();
-        
+
         task.add(scheduler(task, result, 1, count, loops-1));
-        
+
         task.schedule();
 
         task.waitFor();
-        
+
         assertEquals(total*(total+1)/2, result.get());
-        
+
     }
-    
+
     public Runnable scheduler(final ContainerTask<?> container, final AtomicLong result, final long startIndex, final long count, final long remaining) {
         return new Runnable() {
             @Override
@@ -426,49 +426,49 @@ public class TaskTest {
             }
         };
     }
-    
+
     @Test
     public void testLargeBatch() throws Exception {
-        
+
         long count = 500;
-        
+
         AtomicLong result = new AtomicLong(0);
-        
+
         BatchTask task = new BatchTask(m_coordinator, null);
-        
+
         for(long i = 1; i <= count; i++) {
             task.add(addr(result, i));
         }
-        
-        task.schedule();
-        
-        task.waitFor();
-        
-        assertEquals(count*(count+1)/2, result.get());
-        
-    }
-    
-    @Test
-    public void testLargeBatchInProgress() throws Exception {
- 
-        long count = 10;
-        long loops = 1000;
-        long total=count*loops;
-        
-        AtomicLong result = new AtomicLong(0);
-        
-        BatchTask task = new BatchTask(m_coordinator, null);
-        
-        task.add(scheduler(task, result, 1, count, loops-1));
-        
+
         task.schedule();
 
         task.waitFor();
-        
-        assertEquals(total*(total+1)/2, result.get());
-        
+
+        assertEquals(count*(count+1)/2, result.get());
+
     }
-    
+
+    @Test
+    public void testLargeBatchInProgress() throws Exception {
+
+        long count = 10;
+        long loops = 1000;
+        long total=count*loops;
+
+        AtomicLong result = new AtomicLong(0);
+
+        BatchTask task = new BatchTask(m_coordinator, null);
+
+        task.add(scheduler(task, result, 1, count, loops-1));
+
+        task.schedule();
+
+        task.waitFor();
+
+        assertEquals(total*(total+1)/2, result.get());
+
+    }
+
     private <T> Runnable appender(final List<T> list, final T value) {
         return new Runnable() {
             @Override
@@ -481,7 +481,7 @@ public class TaskTest {
             }
         };
     }
-    
+
     private Runnable incr(final AtomicInteger counter) {
         return new Runnable() {
             @Override
@@ -494,9 +494,9 @@ public class TaskTest {
                 return "increment the counter: "+counter;
             }
         };
-        
+
     }
-    
+
     private Runnable addr(final AtomicLong accum, final long n) {
         return new Runnable() {
           @Override
@@ -519,11 +519,11 @@ public class TaskTest {
           public String toString() {
               return String.format("add(%d)", n);
           }
-          
+
         };
     }
-    
-    
+
+
     private Runnable waiter(final String name, final CountDownLatch latch) {
         return new Runnable() {
             @Override
@@ -540,7 +540,7 @@ public class TaskTest {
             }
         };
     }
-    
+
     private <T> Async<T> timer(final long millis, final T value) {
         final Timer timer = new Timer(true);
         return new Async<T>() {
@@ -562,7 +562,7 @@ public class TaskTest {
             }
         };
     }
-    
+
     private Callback<Integer> setter(final AtomicInteger keeper) {
         return new Callback<Integer>() {
 
@@ -575,10 +575,10 @@ public class TaskTest {
             public void handleException(Throwable t) {
 
             }
-            
+
         };
     }
-    
+
     private void sleep(long millis) {
         try {
             Thread.sleep(millis);

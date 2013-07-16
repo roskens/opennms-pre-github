@@ -49,8 +49,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Include Collection Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class IncludeCollectionWindow extends Window implements Button.ClickListener {
@@ -66,7 +66,7 @@ public abstract class IncludeCollectionWindow extends Window implements Button.C
 
     /**
      * Instantiates a new include collection window.
-     * 
+     *
      * @param dataCollectionConfigDao the data collection configuration DAO
      * @param container the source list of elements
      * @param wrapper the current selected value

@@ -41,7 +41,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 import org.opennms.netmgt.snmp.SnmpValue;
 
 public class TestAgent {
-    
+
     private static class Redirect {
         SnmpObjId m_targetObjId;
         public Redirect(SnmpObjId targetObjId) {
@@ -52,28 +52,28 @@ public class TestAgent {
         }
 
     }
-    
+
     private SortedMap<SnmpObjId, Object> m_agentData = new TreeMap<SnmpObjId, Object>();
     private boolean isV1 = true;
 
     private int m_maxResponseSize = 100; // this is kind of close to reality
- 
+
     public SnmpValue getValueFor(SnmpObjId id) {
         Object result = m_agentData.get(id);
         if (result == null) {
             generateException(id);
         } else if (result instanceof RuntimeException) {
             throw (RuntimeException) result;
-        } 
+        }
         return (SnmpValue) result;
-        
+
     }
 
     private void generateException(SnmpObjId id) {
         if (m_agentData.isEmpty()) {
             throw new AgentNoSuchObjectException();
         }
-        
+
         SnmpObjId firstOid = m_agentData.firstKey();
         SnmpObjId lastOid = m_agentData.lastKey();
         if (id.compareTo(firstOid) < 0 || id.compareTo(lastOid) > 0)
@@ -86,7 +86,7 @@ public class TestAgent {
         m_agentData = new TreeMap<SnmpObjId, Object>();
         for (Entry<Object, Object> entry : mibData.entrySet()) {
             SnmpObjId objId = SnmpObjId.get(entry.getKey().toString());
-            
+
             setAgentValue(objId, factory.parseMibValue(entry.getValue().toString()));
         }
     }
@@ -101,7 +101,7 @@ public class TestAgent {
             }
             return nextObjId;
         } catch (NoSuchElementException e) {
-            throw new AgentEndOfMibException();   
+            throw new AgentEndOfMibException();
         }
     }
 
@@ -110,16 +110,16 @@ public class TestAgent {
         Properties mibData = new Properties();
         mibData.load(dataStream);
         dataStream.close();
-    
+
         setAgentData(mibData);
     }
-    
+
     public void setAgentValue(SnmpObjId objId, SnmpValue value) {
         m_agentData.put(objId, value);
     }
-    
+
     /**
-     * This simulates send a packet and waiting for a response 
+     * This simulates send a packet and waiting for a response
      * @param pdu
      * @return
      */
@@ -139,21 +139,21 @@ public class TestAgent {
         if (isVersion1()) {
             throw new AgentNoSuchNameException(errIndex);
         }
-            
+
         return MockSnmpValue.NO_SUCH_OBJECT;
     }
-    
+
     SnmpValue handleNoSuchInstance(SnmpObjId reqObjId, int errIndex) {
         if (isVersion1()) {
             throw new AgentNoSuchNameException(errIndex);
         }
-        
+
         return MockSnmpValue.NO_SUCH_INSTANCE;
     }
 
     SnmpValue getVarBindValue(SnmpObjId objId, int errIndex) {
         try {
-            return getValueFor(objId); 
+            return getValueFor(objId);
         } catch (AgentNoSuchInstanceException e) {
             return handleNoSuchInstance(objId, errIndex);
         } catch (AgentNoSuchObjectException e) {
@@ -177,7 +177,7 @@ public class TestAgent {
         if (isVersion1()) {
             throw new AgentNoSuchNameException(errIndex);
         }
-        
+
         return new TestVarBind(lastOid, MockSnmpValue.END_OF_MIB);
     }
 
@@ -193,7 +193,7 @@ public class TestAgent {
     public void setMaxResponseSize(int maxResponseSize) {
         m_maxResponseSize = maxResponseSize;
     }
-    
+
     public int getMaxResponseSize() {
         return m_maxResponseSize;
     }

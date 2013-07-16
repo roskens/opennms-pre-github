@@ -45,11 +45,11 @@ public class FtpPluginTest extends TestCase {
     private ServerSocket m_serverSocket = null;
     private Thread m_serverThread = null;
     private static int TIMEOUT = 2000;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         m_serverSocket = new ServerSocket();
         m_serverSocket.bind(null); // don't care what address, just gimme a port
     }
@@ -59,24 +59,24 @@ public class FtpPluginTest extends TestCase {
         if (m_serverSocket != null && !m_serverSocket.isClosed()) {
             m_serverSocket.close();
         }
-        
+
         if (m_serverThread != null) {
             m_serverThread.join(1500);
         }
-        
+
         super.tearDown();
     }
-    
+
     // Let's not depend on external systems if we don't have to
     public void SKIPtestOpennmsOrgFtpSuccess() throws Exception {
         assertTrue("Test for protocol FTP on ftp.opennms.org should have passed", m_plugin.isProtocolSupported(InetAddressUtils.addr("ftp.opennms.org")));
     }
-    
+
     // Let's not depend on external systems if we don't have to
     public void SKIPtestRandomFtpFailure() throws Exception {
         assertFalse("Test for protocol FTP on 1.1.1.1 should have failed (on most networks, at least)", m_plugin.isProtocolSupported(InetAddressUtils.addr("1.1.1.1")));
     }
-    
+
     public void testSuccess() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -95,12 +95,12 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
-    
+
     public void testSuccessMultiLineResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -122,9 +122,9 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         assertTrue("Test for protocol FTP should have passed", doCheck());
     }
 
@@ -141,9 +141,9 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         }, this.getClass().getSimpleName() + "-serverThread");
-        
+
         m_serverThread.start();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
@@ -160,15 +160,15 @@ public class FtpPluginTest extends TestCase {
                 }
             }
         }, this.getClass().getSimpleName() + "-serverThread");
-        
+
         m_serverThread.start();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 
     public void testMonitorFailureWithClosedPort() throws Exception {
         m_serverSocket.close();
-        
+
         assertFalse("Test for protocol FTP should have failed", doCheck());
     }
 

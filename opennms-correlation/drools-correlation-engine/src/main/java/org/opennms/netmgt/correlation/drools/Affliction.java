@@ -41,16 +41,16 @@ public class Affliction {
     Long m_nodeid;
     String m_ipAddr;
     String m_svcName;
-    
+
     public static enum Type {
         UNDECIDED,
         ISOLATED,
         WIDE_SPREAD
     }
-    
+
     private List<Integer> m_reporters = new ArrayList<Integer>();
     private Type m_type  = Type.UNDECIDED;
-    
+
     /**
      * <p>Constructor for Affliction.</p>
      *
@@ -137,7 +137,7 @@ public class Affliction {
     public void setSvcName(final String svcName) {
         m_svcName = svcName;
     }
-    
+
     /**
      * <p>getReporterCount</p>
      *
@@ -146,7 +146,7 @@ public class Affliction {
     public int getReporterCount() {
         return m_reporters.size();
     }
-    
+
     /**
      * <p>addReporter</p>
      *
@@ -155,7 +155,7 @@ public class Affliction {
     public void addReporter(final Integer reporter) {
         m_reporters.add( reporter );
     }
-    
+
     /**
      * <p>removeReporter</p>
      *
@@ -164,7 +164,7 @@ public class Affliction {
     public void removeReporter(final Integer reporter) {
         m_reporters.remove(reporter);
     }
-    
+
     /**
      * <p>getType</p>
      *
@@ -173,7 +173,7 @@ public class Affliction {
     public Type getType() {
         return m_type;
     }
-    
+
     /**
      * <p>setType</p>
      *
@@ -182,5 +182,5 @@ public class Affliction {
     public void setType(final Type type) {
         m_type = type;
     }
-    
+
 }

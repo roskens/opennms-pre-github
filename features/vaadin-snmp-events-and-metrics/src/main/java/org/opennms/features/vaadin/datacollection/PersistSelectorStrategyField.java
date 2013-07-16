@@ -51,8 +51,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Persist Selector Strategy Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class PersistSelectorStrategyField extends CustomField<PersistenceSelectorStrategy> implements Button.ClickListener {

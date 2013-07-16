@@ -35,19 +35,19 @@ import org.opennms.jicmp.ip.ICMPEchoPacket;
 import org.opennms.jicmp.ip.ICMPPacket;
 
 class V4PingReply extends ICMPEchoPacket implements PingReply {
-    
+
     // The below long is equivalent to the next line and is more efficient than
     // manipulation as a string
     // Charset.forName("US-ASCII").encode("OpenNMS!").getLong(0);
-    public static final long COOKIE = 0x4F70656E4E4D5321L; 
-    
+    public static final long COOKIE = 0x4F70656E4E4D5321L;
+
     private long m_receivedTimeNanos;
 
     public V4PingReply(ICMPPacket icmpPacket, long receivedTimeNanos) {
         super(icmpPacket);
         m_receivedTimeNanos = receivedTimeNanos;
     }
-    
+
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
         /* we ensure the length can contain 2 longs (cookie and sent time)
@@ -63,12 +63,12 @@ class V4PingReply extends ICMPEchoPacket implements PingReply {
     public long getSentTimeNanos() {
         return getContentBuffer().getLong(8);
     }
-    
+
     @Override
     public long getReceivedTimeNanos() {
         return m_receivedTimeNanos;
     }
-    
+
     @Override
     public double elapsedTime(TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);

@@ -57,7 +57,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class ExecCommandController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ExecCommandController.class);
 
 
@@ -69,10 +69,10 @@ public class ExecCommandController extends MapsLoggingController {
         int numberOfRequest = 10;
         int packetSize = 56;
         String hopAddress = null;
-        
+
         String command = request.getParameter("command");
         if (command == null) throw new  IllegalArgumentException("Command is required");
-        
+
         String commandToExec = command;
 
         String address = request.getParameter("address");
@@ -98,33 +98,33 @@ public class ExecCommandController extends MapsLoggingController {
             if (solaris != null && solaris.equals("true")) {
                 commandToExec=commandToExec+" -I "+timeOut+" "+ address +" "+packetSize+" "+numberOfRequest ;
             } else {
-                commandToExec=commandToExec+" -c "+numberOfRequest+" -i "+timeOut+" -s "+packetSize + " "+ address; 
+                commandToExec=commandToExec+" -c "+numberOfRequest+" -i "+timeOut+" -s "+packetSize + " "+ address;
             }
-            
+
 		} else if(command.equals("traceroute")) {
 		    hopAddress = request.getParameter("hopAddress");
 		    if (hopAddress != null) {
 		        commandToExec = commandToExec + " -g " + hopAddress + " " + address;
 		    } else {
-                commandToExec = commandToExec + " " + address;		        
+                commandToExec = commandToExec + " " + address;
 		    }
 		} else if (command.equals("ipmitool")) {
 		    String ipmiCommand = request.getParameter("ipmiCommand");
 		    String ipmiUserName = request.getParameter("ipmiUser");
 		    String ipmiPassword = request.getParameter("ipmiPassword");
 		    String ipmiProtocol = request.getParameter("ipmiProtocol");
-		    
+
 		    if(ipmiCommand !=null && ipmiUserName != null &&  ipmiPassword != null ){
-		        commandToExec = commandToExec + " -I "+ipmiProtocol+" -U " 
+		        commandToExec = commandToExec + " -I "+ipmiProtocol+" -U "
 		        + ipmiUserName +" -P " + ipmiPassword + " -H " + address +" " + ipmiCommand;
 		    }
 		    else
 		        throw new IllegalStateException("IPMITool requires Protocol, Command, Usernane and Password");
-		       
+
 		} else {
-		    throw new IllegalStateException("Command "+ command+" not supported.");   
+		    throw new IllegalStateException("Command "+ command+" not supported.");
 		}
-        
+
 	    LOG.info("Executing {}", commandToExec);
         response.setBufferSize(0);
         response.setContentType("text/html");
@@ -132,7 +132,7 @@ public class ExecCommandController extends MapsLoggingController {
         response.setHeader("Expires","0");
         response.setHeader("Cache-Control","no-Cache");
         final OutputStreamWriter os = new OutputStreamWriter(response.getOutputStream(), "UTF-8");
-        os.write("<html>"); 
+        os.write("<html>");
 
         try {
 			final Command p = new Command(commandToExec);
@@ -140,7 +140,7 @@ public class ExecCommandController extends MapsLoggingController {
 			if(comm==null){
 				comm = (command.startsWith("traceroute"))?"Trace Route":"";
 			}
-			
+
 			os.write("<head><title>"+comm+" "+address+" | OpenNMS Web Console</title>" +
     		"</head>" +
 			"<div width='100%' align='right'>" +
@@ -162,7 +162,7 @@ public class ExecCommandController extends MapsLoggingController {
 			               os.flush();
 			               //log.debug(s);
 			            }
-			            
+
 			        }
 			        catch(IOException io){
 			        	LOG.warn(io.getMessage());
@@ -188,12 +188,12 @@ public class ExecCommandController extends MapsLoggingController {
 
 		return null;
 	}
-	
+
 	private class Command
 	{
 	    private BufferedReader out;
 	    private Process p;
-	    
+
 	    public Command(String command) throws IOException, IllegalStateException
 	    {
 	    	if(command.startsWith("traceroute") || command.startsWith("ping") || command.startsWith("ipmitool")){
@@ -203,12 +203,12 @@ public class ExecCommandController extends MapsLoggingController {
 	    		throw new IllegalStateException("Command "+ command+" not supported.");
 	    	}
 	    }
-	    
+
 	    public BufferedReader getBufferedReader()
 	    {
 	        return out;
 	    }
-	    
+
 	    public void waitFor() throws InterruptedException
 	    {
 	        p.waitFor();

@@ -32,25 +32,25 @@ import org.opennms.protocols.snmp.asn1.ASN1;
 
 /**
  * SNMP SMI v1 & v2 constants.
- * 
+ *
  * @see org.opennms.protocols.snmp.asn1.ASN1
- * 
+ *
  * @version 1.1.1.1
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- * 
+ *
  */
 public class SnmpSMI {
     /**
      * Defines the positive and negative whole numbers, including zero. The
      * value is represented as a 32-bit signed integer.
-     * 
+     *
      * @see org.opennms.protocols.snmp.asn1.ASN1#INTEGER
      */
     public static final byte SMI_INTEGER = (ASN1.UNIVERSAL | ASN1.INTEGER);
 
     /**
      * A sequence of zero or more octets, where an octet is an 8-bit quantity.
-     * 
+     *
      * @see org.opennms.protocols.snmp.asn1.ASN1#OCTETSTRING
      */
     public static final byte SMI_STRING = (ASN1.UNIVERSAL | ASN1.OCTETSTRING);
@@ -58,7 +58,7 @@ public class SnmpSMI {
     /**
      * A set of values associated with the information objects defined by the
      * standard.
-     * 
+     *
      * @see org.opennms.protocols.snmp.asn1.ASN1#OBJECTID
      */
     public static final byte SMI_OBJECTID = (ASN1.UNIVERSAL | ASN1.OBJECTID);
@@ -66,7 +66,7 @@ public class SnmpSMI {
     /**
      * A Null value. Commonly used to where there are several alternatives but
      * none of them apply.
-     * 
+     *
      * @see org.opennms.protocols.snmp.asn1.ASN1#NULL
      */
     public static final byte SMI_NULL = (ASN1.UNIVERSAL | ASN1.NULL);
@@ -168,7 +168,7 @@ public class SnmpSMI {
 
     /**
          * Creates a single RRD file for the specified RRD data source.
-         * 
+         *
          * @param collectionName
          *            Name of the collection
          * @param ipaddr
@@ -177,7 +177,7 @@ public class SnmpSMI {
          *            RRD repository directory
          * @param ds
          *            RRD data source
-         * 
+         *
          * @return TRUE if new RRD file created, FALSE if RRD file was not created
          *         because it already existed.
          */
@@ -185,19 +185,19 @@ public class SnmpSMI {
             String creator = "primary SNMP interface " + ipaddr.getHostAddress();
             int step = DataCollectionConfigFactory.getInstance().getStep(collectionName);
             List rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
-    
+
             return RrdUtils.createRRD(creator, directory, ds.getName(), step, ds.getType(), ds.getHeartbeat(), ds.getMin(), ds.getMax(), rraList);
         }*/
-    
+
         public static int toInt(SnmpSyntax result, int deflt) {
             if (result == null)
                 return deflt;
-            
+
             try {
                 return Integer.parseInt(result.toString());
             } catch (NumberFormatException e) {
                 return deflt;
             }
-            
+
         }
 }

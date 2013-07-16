@@ -43,13 +43,13 @@ import org.opennms.netmgt.model.OnmsNode;
  */
 public class RtcNodeModel {
     private static final DecimalFormat AVAILABILITY_FORMAT = new DecimalFormat("0.000%");
-    
+
     private List<RtcNode> m_nodeList = new ArrayList<RtcNode>();
-    
+
     static {
         AVAILABILITY_FORMAT.setMultiplier(100);
     }
-    
+
     /**
      * <p>addNode</p>
      *
@@ -58,7 +58,7 @@ public class RtcNodeModel {
     public void addNode(RtcNode node) {
         m_nodeList.add(node);
     }
-    
+
     /**
      * <p>getNodeList</p>
      *
@@ -67,13 +67,13 @@ public class RtcNodeModel {
     public List<RtcNode> getNodeList() {
         return m_nodeList;
     }
-    
+
     public static class RtcNode {
         private OnmsNode m_node;
         private int m_serviceCount;
         private int m_downServiceCount;
         private double m_availability;
-        
+
         public RtcNode(OnmsNode node, int serviceCount, int downServiceCount, double availability) {
             m_node = node;
             m_serviceCount = serviceCount;
@@ -84,7 +84,7 @@ public class RtcNodeModel {
         public double getAvailability() {
             return m_availability;
         }
-        
+
         public String getAvailabilityAsString() {
             return AVAILABILITY_FORMAT.format(m_availability);
         }
@@ -100,7 +100,7 @@ public class RtcNodeModel {
         public int getServiceCount() {
             return m_serviceCount;
         }
-        
+
         @Override
         public String toString() {
             return m_node.getLabel() + ": " + m_downServiceCount + " of " + m_serviceCount + ": " + getAvailabilityAsString();

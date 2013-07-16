@@ -41,13 +41,13 @@ public class OptionTest {
     private OptionTester m_argHandler;
     private ArgumentParser m_argParser;
     public static class OptionTester {
-        
-        
+
+
         boolean arg1 = false;
         boolean arg2 = false;
         boolean arg3 = false;
         String fileName = "";
-        
+
         @Option(shortName = "arg1", longName = "argumentOne", help = "this is argument one")
         public void handleArg1() {
             arg1 = true;
@@ -64,7 +64,7 @@ public class OptionTest {
         public void handleFileArguments(String arg) {
             fileName += " "+ arg;
         }
-        
+
         public boolean getArg1(){
             return arg1;
         }
@@ -74,7 +74,7 @@ public class OptionTest {
         public boolean getArg3(){
             return arg3;
         }
-        
+
         public String getFileName(){
             return fileName;
         }
@@ -89,18 +89,18 @@ public class OptionTest {
         m_argHandler = new OptionTester();
         m_argParser = new ArgumentParser("Test", m_argHandler);
     }
-    
+
     @Test
     public void testAnnotations() {
         OptionTester argHandler = new OptionTester();
         Method [] methods = argHandler.getClass().getMethods();
-        for(Method m: methods){                   
-          
+        for(Method m: methods){
+
             if(m.isAnnotationPresent(Option.class)){
                 System.err.println(m);
                 Option option = m.getAnnotation(Option.class);
                 System.err.println(option);
-                
+
             }
         }
     }
@@ -110,13 +110,13 @@ public class OptionTest {
         m_argParser.processArgs(new String []{"--argumentOne"});
         assertTrue(m_argHandler.getArg1());
     }
-    
+
     @Test
     public void testParseShortOption() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         m_argParser.processArgs(new String []{"-arg1"});
         assertTrue(m_argHandler.getArg1());
     }
-    
+
     @Test
     public void testFindOption() {
         assertNotNull(m_argParser.findOptionByShortName("arg1"));
@@ -128,16 +128,16 @@ public class OptionTest {
         assertTrue(m_argHandler.getArg1());
         assertTrue(m_argHandler.getArg2());
         assertTrue(m_argHandler.getArg3());
-        
+
         m_argHandler.reset();
-        
+
         m_argParser.processArgs(new String []{"--argumentOne", "-arg3"});
         assertTrue(m_argHandler.getArg1());
         assertFalse(m_argHandler.getArg2());
         assertTrue(m_argHandler.getArg3());
-        
+
         m_argHandler.reset();
-        
+
         m_argParser.processArgs(new String []{"TestLogFile.log", "-arg1", "--argumentTwo"});
         assertTrue(m_argHandler.getArg1());
         assertTrue(m_argHandler.getArg2());
@@ -146,7 +146,7 @@ public class OptionTest {
     @Test
     public void testParseHelpOption() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         m_argParser.processArgs(new String []  {"-h"});
-        
+
     }
     @Test(expected=IllegalArgumentException.class)
     public void testParseInvalidArgument() throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {

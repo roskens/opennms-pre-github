@@ -45,32 +45,32 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 @XmlType(name="jdbc-collection")
 public class JdbcDataCollection implements Serializable, Comparable<JdbcDataCollection> {
     private static final long serialVersionUID = -7451959128852991463L;
-    
+
     private static final JdbcQuery[] OF_QUERIES = new JdbcQuery[0];
-    
+
     @XmlAttribute(name="name")
     private String m_name;
-    
+
     @XmlElement(name="rrd")
     private JdbcRrd m_jdbcRrd;
-    
+
     @XmlElementWrapper(name="queries")
     @XmlElement(name="query")
     private List<JdbcQuery> m_jdbcQueries = new ArrayList<JdbcQuery>();
-    
+
     public JdbcDataCollection() {
-        
+
     }
-    
+
     @XmlTransient
     public JdbcRrd getJdbcRrd() {
         return m_jdbcRrd;
     }
-    
+
     public void setJdbcRrd(JdbcRrd jdbcRrd) {
         m_jdbcRrd = jdbcRrd;
     }
-    
+
     @XmlTransient
     public List<JdbcQuery> getQueries() {
         return m_jdbcQueries;
@@ -92,11 +92,11 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
     public void addQuery(JdbcQuery query) {
         m_jdbcQueries.add(query);
     }
-    
+
     public void removeQuery(JdbcQuery query) {
         m_jdbcQueries.remove(query);
     }
-    
+
     public void removeQueryByName(String name) {
         for (Iterator<JdbcQuery> itr = m_jdbcQueries.iterator(); itr.hasNext(); ) {
             JdbcQuery query = itr.next();
@@ -106,7 +106,7 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
             }
         }
     }
-    
+
     @Override
     public int compareTo(JdbcDataCollection obj) {
         return new CompareToBuilder()
@@ -115,7 +115,7 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
             .append(getQueries().toArray(OF_QUERIES), obj.getQueries().toArray(OF_QUERIES))
             .toComparison();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcDataCollection) {
@@ -128,5 +128,5 @@ public class JdbcDataCollection implements Serializable, Comparable<JdbcDataColl
         }
         return false;
     }
-    
+
 }

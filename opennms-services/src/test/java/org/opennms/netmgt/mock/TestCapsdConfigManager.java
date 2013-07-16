@@ -53,9 +53,9 @@ public class TestCapsdConfigManager extends CapsdConfigManager {
     protected void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         loadXml(new ByteArrayInputStream(m_xml.getBytes("UTF-8")));
     }
-    
+
     public String getXml() {
         return m_xml;
     }
-    
+
 }

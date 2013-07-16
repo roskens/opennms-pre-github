@@ -37,7 +37,7 @@ import java.util.List;
 /**
  * Result of a {@link CollectionJob}. List of metricId/values pairs with minimal redundancy (timestamp, nodeId, service
  * and interface are stored only once). The list of {@link Measurement} will be generated on the fly.
- * 
+ *
  * @author Christian Pape
  * @author Markus Neumann
 */

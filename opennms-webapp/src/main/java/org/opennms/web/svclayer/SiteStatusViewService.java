@@ -49,7 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly=true)
 public interface SiteStatusViewService {
-    
+
     /**
      * This method returns method returns a collection of aggregated status of nodes for each
      * device category.  In this case a column in the assets table is used as "site"
@@ -60,7 +60,7 @@ public interface SiteStatusViewService {
      * @return a {@link org.opennms.netmgt.model.AggregateStatusView} object.
      */
     AggregateStatusView createAggregateStatusView(String statusViewName);
-    
+
     /**
      * <p>createAggregateStatuses</p>
      *
@@ -77,7 +77,7 @@ public interface SiteStatusViewService {
      * @return a {@link java.util.Collection} object.
      */
     Collection<AggregateStatus> createAggregateStatuses(AggregateStatusView statusView, String statusSite);
-    
+
     /**
      * <p>createAggregateStatusesUsingNodeId</p>
      *
@@ -86,7 +86,7 @@ public interface SiteStatusViewService {
      * @return a {@link java.util.Collection} object.
      */
     Collection<AggregateStatus> createAggregateStatusesUsingNodeId(int nodeId, String viewName);
-    
+
     /**
      * <p>getAggregateStatus</p>
      *

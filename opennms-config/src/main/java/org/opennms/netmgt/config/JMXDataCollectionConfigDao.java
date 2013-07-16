@@ -42,13 +42,13 @@ import org.springframework.core.io.FileSystemResource;
 
 /**
  * JAXB Based JMX Data Collection Config DAO
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JMXDataCollectionConfigDao extends AbstractJaxbConfigDao<JmxDatacollectionConfig,JmxDatacollectionConfig> {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(JMXDataCollectionConfigDao.class);
-    
+
     public JMXDataCollectionConfigDao() {
         super(JmxDatacollectionConfig.class, "jmx-data-collection");
     }

@@ -31,37 +31,37 @@ package org.opennms.dashboard.client;
 import com.google.gwt.user.client.ui.FlexTable;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class NodeStatusView extends PageableTableView {
-    
+
     private NodeRtc[] m_rtcs;
-    
+
     NodeStatusView(Dashlet dashlet) {
 		super(dashlet, 5, new String[] { "Node", "Current Outages", "24 Hour Availability" });
 	}
-    
+
     /** {@inheritDoc} */
     @Override
     protected void setRow(FlexTable table, int row, int elementIndex) {
         NodeRtc rtc = m_rtcs[elementIndex];
-        
+
         if (rtc.getIsDashboardRole()) {
              table.setText(row, 0, rtc.getNodeLabel());
         } else {
             table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + rtc.getNodeId() + "\">" + rtc.getNodeLabel() + "</a>");
         }
-        
+
         table.setText(row, 1, rtc.getDownServiceCount() + " of " + rtc.getServiceCount());
         table.getCellFormatter().setStyleName(row, 1, rtc.getServiceStyle());
-        
+
         table.setText(row, 2, rtc.getAvailability());
         table.getCellFormatter().setStyleName(row, 2, rtc.getAvailabilityStyle());
-        
+
         table.getRowFormatter().setStyleName(row, "CellStatus");
     }
-    
+
     /**
      * <p>getElementCount</p>
      *
@@ -79,7 +79,7 @@ class NodeStatusView extends PageableTableView {
 
         table.getCellFormatter().addStyleName(row, 1, "bright");
         table.getCellFormatter().addStyleName(row, 1, "divider");
-        
+
         table.getCellFormatter().addStyleName(row, 2, "bright");
         table.getCellFormatter().addStyleName(row, 2, "divider");
 	}
@@ -93,5 +93,5 @@ class NodeStatusView extends PageableTableView {
         m_rtcs = rtcs;
         refresh();
     }
-    
+
 }

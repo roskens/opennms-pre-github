@@ -41,14 +41,14 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public interface ReportdConfigurationDao {
-    
+
     /**
      * <p>getConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.reportd.ReportdConfiguration} object.
      */
     ReportdConfiguration getConfig();
-    
+
     /**
      * <p>getReport</p>
      *
@@ -56,14 +56,14 @@ public interface ReportdConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.reportd.Report} object.
      */
     Report getReport(String defName);
-    
+
     /**
      * <p>getReports</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<Report> getReports();
-        
+
     /**
      * <p>reloadConfiguration</p>
      *
@@ -77,14 +77,14 @@ public interface ReportdConfigurationDao {
      * @return a boolean.
      */
     boolean  getPersistFlag();
-    
+
     /**
      * <p>getStorageDirectory</p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getStorageDirectory();
-    
+
     /**
      * <p>deleteReport</p>
      *
@@ -92,6 +92,6 @@ public interface ReportdConfigurationDao {
      * @return a boolean.
      */
     boolean deleteReport(String reportName);
-    
-    
+
+
 }

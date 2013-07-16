@@ -50,11 +50,11 @@ import java.util.Map;
  * {@link AbstractBeanContainer}) handles the creation of a BeanItem I decided
  * to implement a new SelectableItem. This may change in future releases in the
  * vaadin core framework. So we may remove this item.
- * 
+ *
  * @param <T>
  *            The type of the Java Bean we want to use as a
  *            {@linkplain SelectableItem}
- * 
+ *
  * @author Markus von Rüden
  * @see BeanItem
  */
@@ -93,14 +93,14 @@ public class SelectableItem<T> extends PropertysetItem implements Selectable {
 	 * we cannot overwrite it. Therefore I decided to implement it in my own
 	 * way.<br/>
 	 * <br/>
-	 * 
+	 *
 	 * <b>In short:</b> It lookups all methods which fullfill the java bean
 	 * convention of <code>clazz</code> and builds accessors for it (read
 	 * method, write method, etc. for a field, etc. Have a look at
 	 * {@link java.beans.Introspector}). And in addition we a new "accessor" for
 	 * a selectable item is added.<br/>
 	 * <br/>
-	 * 
+	 *
 	 * <b>In detail:</b><br/>
 	 * {@link java.beans.Introspector} is used to get all PropertyDescriptors
 	 * from the given class <code>clazz</code>. Each PropertyDescriptor is
@@ -109,13 +109,13 @@ public class SelectableItem<T> extends PropertysetItem implements Selectable {
 	 * addition a VaadinPropertyDescriptor is added to provide the "select"
 	 * feature. For this we use the <code>ObjectProperty</code> of vaadin. <br/>
 	 * <br/>
-	 * 
+	 *
 	 * The build map is a mapping between property names and the
 	 * <code>VaadinPropertyDescriptor</code>s, whereby
 	 * {@link com.vaadin.data.util.VaadinPropertyDescriptor#getName()} is
 	 * identically with the key of the returned map (and therefore represents
 	 * the property name).
-	 * 
+	 *
 	 * @param <T>
 	 * @param clazz
 	 * @return

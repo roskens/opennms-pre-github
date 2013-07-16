@@ -41,15 +41,15 @@ import java.util.Set;
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public class IsolatingClassLoader extends URLClassLoader {
-    
+
     // private String m_name;
-    
+
     /** Array of prefixes that identifies packages or classes to isolate. **/
     private String[] m_isolatedPrefixes;
-    
+
     /** Set of class names that identifies classes to isolate. **/
     private final Set<String> m_isolatedClassNames = new HashSet<String>();
-    
+
     /**
      * <p>Constructor for IsolatingClassLoader.</p>
      *
@@ -65,11 +65,11 @@ public class IsolatingClassLoader extends URLClassLoader {
      * @param name a {@link java.lang.String} object.
      */
     public IsolatingClassLoader(String name, URL[] classpath, String[] isolated, boolean augmentClassPath) throws InvalidContextClassLoaderException {
-        
+
         super(classpath);
         init(name, isolated, augmentClassPath);
     }
-    
+
     /**
      * <p>Constructor for IsolatingClassLoader.</p>
      *
@@ -86,20 +86,20 @@ public class IsolatingClassLoader extends URLClassLoader {
      * @param parent a {@link java.lang.ClassLoader} object.
      */
     public IsolatingClassLoader(String name, URL[] classpath, ClassLoader parent, String[] isolated, boolean augmentClassPath)   throws InvalidContextClassLoaderException {
-        
+
         super(classpath, parent);
         init(name, isolated, augmentClassPath);
     }
-    
+
     private void init(String name, String[] isolated, boolean augmentClassPath) throws InvalidContextClassLoaderException {
-        
+
         // m_name = name;
-        
+
         final Set<String> prefixes = new HashSet<String>();
-        
+
         for (String element : isolated) {
             final int index = element.indexOf('*');
-            
+
             if (index >= 0) {
                 prefixes.add(element.substring(0, index));
             }
@@ -107,15 +107,15 @@ public class IsolatingClassLoader extends URLClassLoader {
                 m_isolatedClassNames.add(element);
             }
         }
-        
+
         m_isolatedPrefixes = prefixes.toArray(new String[0]);
-        
+
         if (augmentClassPath) {
             final ClassLoader callerClassLoader = Thread.currentThread().getContextClassLoader();
-            
+
             if (callerClassLoader instanceof URLClassLoader) {
                 final URL[] newURLs = ((URLClassLoader)callerClassLoader).getURLs();
-                
+
                 for (URL newURL : newURLs) {
                     addURL(newURL);
                 }
@@ -125,7 +125,7 @@ public class IsolatingClassLoader extends URLClassLoader {
             }
         }
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -134,46 +134,46 @@ public class IsolatingClassLoader extends URLClassLoader {
      */
     @Override
     protected synchronized Class<?> loadClass(String name, boolean resolve) throws ClassNotFoundException {
-        
+
         boolean isolated = m_isolatedClassNames.contains(name);
-        
+
         if (!isolated) {
             for (String prefixe : m_isolatedPrefixes) {
-                
+
                 if (name.startsWith(prefixe)) {
                     isolated = true;
                     break;
                 }
             }
         }
-        
+
         if (isolated) {
             Class<?> c = findLoadedClass(name);
-            
+
             if (c == null) {
                 c = findClass(name);
             }
-            
+
             if (resolve) {
                 resolveClass(c);
             }
-            
+
             return c;
-            
+
         }
-        
+
         return super.loadClass(name, resolve);
     }
-    
+
     public static class InvalidContextClassLoaderException extends Exception {
 
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 6994862689901854608L;
 
         public InvalidContextClassLoaderException(String message) {
-            
+
             super(message);
         }
     }

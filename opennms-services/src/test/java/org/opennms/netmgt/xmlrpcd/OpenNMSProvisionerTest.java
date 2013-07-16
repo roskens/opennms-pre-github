@@ -81,45 +81,45 @@ public class OpenNMSProvisionerTest {
     private TestPollerConfigManager m_pollerConfig;
 
     public static final String POLLER_CONFIG = "\n" +
-        "<poller-configuration\n" + 
-        "   threads=\"10\"\n" + 
-        "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" + 
-        "   serviceUnresponsiveEnabled=\"false\">\n" + 
-        "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n" + 
-        "   <package name=\"default\">\n" + 
-        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" + 
-        "       <rrd step = \"300\">\n" + 
-        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + 
-        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + 
-        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" + 
-        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + 
-        "       </rrd>\n" + 
+        "<poller-configuration\n" +
+        "   threads=\"10\"\n" +
+        "   nextOutageId=\"SELECT nextval(\'outageNxtId\')\"\n" +
+        "   serviceUnresponsiveEnabled=\"false\">\n" +
+        "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n" +
+        "   <package name=\"default\">\n" +
+        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
+        "       <rrd step = \"300\">\n" +
+        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
+        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
+        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
+        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
+        "       </rrd>\n" +
         "       <service name=\"ICMP\" interval=\"300000\">\n" +
         "           <parameter key=\"retry\" value=\"2\" />\n" +
-        "           <parameter key=\"timeout\" value=\"3000\"/>\n" + 
-        "       </service>\n" + 
-        "       <downtime begin=\"10000\" end=\"40000\" interval=\"300000\"/>\n" + 
-        "       <downtime begin=\"40000\" interval=\"300000\"/>\n" + 
-        "   </package>\n" + 
-        "   <package name=\"MyTcp\">\n" + 
-        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" + 
-        "       <rrd step = \"300\">\n" + 
-        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + 
-        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + 
-        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" + 
-        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + 
-        "       </rrd>\n" + 
+        "           <parameter key=\"timeout\" value=\"3000\"/>\n" +
+        "       </service>\n" +
+        "       <downtime begin=\"10000\" end=\"40000\" interval=\"300000\"/>\n" +
+        "       <downtime begin=\"40000\" interval=\"300000\"/>\n" +
+        "   </package>\n" +
+        "   <package name=\"MyTcp\">\n" +
+        "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
+        "       <rrd step = \"300\">\n" +
+        "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
+        "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
+        "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
+        "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
+        "       </rrd>\n" +
         "       <service name=\"MyTcp\" interval=\"1234\">\n" +
         "           <parameter key=\"retry\" value=\"3\" />\n" +
         "           <parameter key=\"timeout\" value=\"314159\"/>\n" +
-        "           <parameter key=\"port\" value=\"1776\"/>\n" + 
-        "           <parameter key=\"banner\" value=\"Right back at ya!\"/>\n" + 
-        "       </service>\n" + 
-        "       <downtime begin=\"0\" end=\"1492\" interval=\"17\"/>\n" + 
-        "       <downtime begin=\"1492\" interval=\"1234\"/>\n" + 
-        "   </package>\n" + 
-        "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" + 
-        "   <monitor service=\"MyTcp\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" + 
+        "           <parameter key=\"port\" value=\"1776\"/>\n" +
+        "           <parameter key=\"banner\" value=\"Right back at ya!\"/>\n" +
+        "       </service>\n" +
+        "       <downtime begin=\"0\" end=\"1492\" interval=\"17\"/>\n" +
+        "       <downtime begin=\"1492\" interval=\"1234\"/>\n" +
+        "   </package>\n" +
+        "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" +
+        "   <monitor service=\"MyTcp\" class-name=\"org.opennms.netmgt.poller.monitors.LdapMonitor\"/>\n" +
         "</poller-configuration>\n";
 
     private static final String CAPSD_CONFIG = "\n" +
@@ -143,18 +143,18 @@ public class OpenNMSProvisionerTest {
         DataSourceFactory.setInstance(db);
 
         RrdUtils.setStrategy(m_strategy);
-        
+
         m_provisioner = new OpenNMSProvisioner();
-        
+
         m_eventManager = new MockEventIpcManager();
         m_provisioner.setEventManager(m_eventManager);
-        
+
         m_capsdConfig = new TestCapsdConfigManager(CAPSD_CONFIG);
         CapsdConfigFactory.setInstance(m_capsdConfig);
 
         m_pollerConfig = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         PollerConfigFactory.setInstance(m_pollerConfig);
-        
+
         m_provisioner.setCapsdConfig(m_capsdConfig);
         m_provisioner.setPollerConfig(m_pollerConfig);
 
@@ -223,7 +223,7 @@ public class OpenNMSProvisionerTest {
 
 
     }
-    
+
     @Test
     public void testGetServiceConfiguration() throws Exception {
         checkServiceConfiguration("default", "ICMP", 2, 3000, 300000, 300000, 30000);
@@ -247,9 +247,9 @@ public class OpenNMSProvisionerTest {
         assertNull(configParams.get("downtime_duration1"));
         assertEquals(Integer.valueOf(retries), configParams.get("retries"));
         assertEquals(Integer.valueOf(timeout), configParams.get("timeout"));
-        
+
         TestPollerConfigManager mgr = new TestPollerConfigManager(m_pollerConfig.getXml(), "localhost", false);
-        
+
         Package pkg = mgr.getPackage(pkgName);
         assertNotNull(pkg);
         Service svc = mgr.getServiceInPackage(svcName, pkg);
@@ -257,7 +257,7 @@ public class OpenNMSProvisionerTest {
         assertEquals(interval, svc.getInterval());
         assertNotNull("Unables to find monitor for svc "+svcName+" in origonal config", m_pollerConfig.getServiceMonitor(svcName));
         assertNotNull("Unable to find monitor for svc "+svcName, mgr.getServiceMonitor(svcName));
-        
+
         assertNotNull("Unable to find protocol plugin in capsdConfig for svc "+svcName, m_capsdConfig.getProtocolPlugin(svcName));
         assertNotNull("Unable to find service table entry in capsdConfig for svc "+svcName, m_syncer.getServiceId(svcName));
 
@@ -309,14 +309,14 @@ public class OpenNMSProvisionerTest {
 
         m_provisioner.addServiceICMP("MyIcmp", 77, 1066, 36, 5, 1812);
         checkServiceConfiguration("MyIcmp", "MyIcmp", 77, 1066, 36, 5, 1812);
-        
+
         TestPollerConfigManager mgr = new TestPollerConfigManager(m_pollerConfig.getXml(), "localhost", false);
-        
+
         Package pkg = mgr.getPackage("MyIcmp");
         assertNotNull(pkg);
         assertNotNull(mgr.getServiceInPackage("MyIcmp", pkg));
-        
-        
+
+
 
     }
 
@@ -332,7 +332,7 @@ public class OpenNMSProvisionerTest {
         m_mocks.verifyAll();
         verifyEvents();
     }
-    
+
     @Test
     public void testAddServiceDNS() throws Exception {
         expectUpdateEvent();
@@ -340,7 +340,7 @@ public class OpenNMSProvisionerTest {
 
         m_provisioner.addServiceDNS("MyDNS", 11, 1111, 11111, 111, 111111, 101, "www.opennms.org");
         checkDNSConfiguration("MyDNS", "MyDNS", 11, 1111, 11111, 111, 111111, 101, "www.opennms.org");
-        
+
         m_mocks.verifyAll();
         verifyEvents();
     }
@@ -352,7 +352,7 @@ public class OpenNMSProvisionerTest {
 
         m_provisioner.addServiceHTTP("MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home", "/index.html", "user", "passwd", null);
         checkHTTPConfiguration("MyHTTP", "MyHTTP", 22, 2222, 22222, 222, 222222, "opennms.com", 212, "200-203", "Home", "/index.html", "user", "passwd", null);
-        
+
         m_mocks.verifyAll();
         verifyEvents();
     }
@@ -389,15 +389,15 @@ public class OpenNMSProvisionerTest {
 
         m_provisioner.addServiceHTTPS("MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303", "Secure", "/secure.html", "user", "pw", "");
         checkHTTPSConfiguration("MyHTTPS", "MyHTTPS", 33, 3333, 33333, 333, 333333, "opennms.com", 313, "303", "Secure", "/secure.html", "user", "pw", "");
-        
+
         m_mocks.verifyAll();
         verifyEvents();
     }
-    
+
     private Map<String, Object> checkHTTPSConfiguration(String pkgName, String svcName, int retries, int timeout, int interval, int downtimeInterval, int downtimeDuration, String hostName, int port, String responseCode, String contentCheck, String url, String user, String passwd, String agent) throws Exception {
         return checkHTTPConfiguration(pkgName, svcName, retries, timeout, interval, downtimeInterval, downtimeDuration, hostName, port, responseCode, contentCheck, url, user, passwd, agent);
     }
- 
+
     @Test
     public void testAddServiceTCP() throws Exception {
         expectUpdateEvent();
@@ -405,11 +405,11 @@ public class OpenNMSProvisionerTest {
 
         m_provisioner.addServiceTCP("MyTCP", 4, 44, 444, 4444, 44444, 404, "HELO");
         checkTCPConfiguration("MyTCP", "MyTCP", 4, 44, 444, 4444, 44444, 404, "HELO");
-        
+
         m_mocks.verifyAll();
         verifyEvents();
     }
-    
+
     private void expectUpdateEvent() {
         m_eventManager.getEventAnticipator().anticipateEvent(MockEventUtil.createEventBuilder("Test", EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI).getEvent());
     }
@@ -426,12 +426,12 @@ public class OpenNMSProvisionerTest {
         checkTCPConfiguration("MyTCP", "MyTCP", 5, 55, 555, 5555, 55555, 505, "AHOY");
         verifyEvents();
     }
-    
+
     // TODO: If a service is not in capsd it gets deleted at startup.. test that
     // adding one adds it to casd as well
-    
+
     // TODO: make sure we add a monitor to pollerConfig
-    
+
     // TODO: make sure we add a plugin to capsdConfig
 
     // TODO: Test adding as well as updating a service

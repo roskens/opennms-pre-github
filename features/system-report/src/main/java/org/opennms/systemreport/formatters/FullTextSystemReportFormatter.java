@@ -71,7 +71,7 @@ public class FullTextSystemReportFormatter extends AbstractSystemReportFormatter
 
         try {
             out.write(String.format("= %s: %s =\n\n", plugin.getName(), plugin.getDescription()).getBytes());
-            
+
             for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
                 final Resource value = entry.getValue();
 
@@ -80,7 +80,7 @@ public class FullTextSystemReportFormatter extends AbstractSystemReportFormatter
                 final InputStream is = value.getInputStream();
                 int bytes;
                 byte[] buffer = new byte[1024];
-                
+
                 while ((bytes = is.read(buffer)) != -1) {
                     out.write(buffer, 0, bytes);
                 }

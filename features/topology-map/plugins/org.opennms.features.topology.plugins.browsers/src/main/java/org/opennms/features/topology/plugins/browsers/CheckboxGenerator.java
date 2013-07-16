@@ -89,26 +89,26 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
 	private boolean isSelected(Integer id) {
 	    return (m_selectAll || m_selectedCheckboxes.contains(id)) && !m_notSelectedCheckboxes.contains(id);
 	}
-	
+
 	public Set<Integer> getSelectedIds(Table source) {
 	    if (m_selectAll) {
-	        Set<Integer> selected = new TreeSet<Integer>(); 
+	        Set<Integer> selected = new TreeSet<Integer>();
 	        for (Object eachItemId : source.getItemIds()) {
 	           Property<Integer> property = source.getContainerProperty(eachItemId,  m_valueProperty);
 	           if (property == null) continue;
 	           selected.add(property.getValue());
 	        }
-	        
+
 	        //remove unselected
 	        selected.removeAll(m_notSelectedCheckboxes);
 	        return selected;
-	    } 
+	    }
 		return Collections.unmodifiableSet(m_selectedCheckboxes);
 	}
 
 	public void clearSelectedIds(Table source) {
 	    m_selectAll = false;
-	    
+
 		// Uncheck all of the checkboxes
 		for (CheckBox button : m_checkboxes) {
 			button.setValue(false);
@@ -119,7 +119,7 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
 
 	public void selectAll(Table source) {
 	    m_selectAll = true;
-	    
+
 		m_selectedCheckboxes.clear();
 		m_notSelectedCheckboxes.clear();
 		// Check all of the checkboxes
@@ -141,7 +141,7 @@ public class CheckboxGenerator implements ColumnGenerator, ItemSetChangeListener
 				itr.remove();
 			}
 		}
-		
+
 		// Remove any not selected item IDs that are no longer present in the container
         itr = m_notSelectedCheckboxes.iterator();
         while(itr.hasNext()) {

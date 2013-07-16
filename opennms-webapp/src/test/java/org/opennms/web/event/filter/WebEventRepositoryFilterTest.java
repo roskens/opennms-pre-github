@@ -70,30 +70,30 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class WebEventRepositoryFilterTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     @Qualifier("dao")
     WebEventRepository m_daoEventRepo;
-    
+
     @Autowired
     @Qualifier("jdbc")
     WebEventRepository m_jdbcEventRepo;
-    
+
     @Autowired
     ApplicationContext m_appContext;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp(){
         m_dbPopulator.populateDatabase();
-        
+
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(getDistPoller("localhost", "127.0.0.1"));
         event.setAlarm(m_dbPopulator.getAlarmDao().get(1));
@@ -113,7 +113,7 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
         m_dbPopulator.getEventDao().save(event);
         m_dbPopulator.getEventDao().flush();
     }
-    
+
     private OnmsDistPoller getDistPoller(String localhost, String localhostIp) {
         OnmsDistPoller distPoller = m_dbPopulator.getDistPollerDao().get(localhost);
         if (distPoller == null) {
@@ -123,461 +123,461 @@ public class WebEventRepositoryFilterTest implements InitializingBean {
         }
         return distPoller;
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testEventIdFilter(){
         EventIdFilter filter = new EventIdFilter(1);
         assert1Result(filter);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testEventIdListFilter(){
         int[] ids = {1};
         EventIdListFilter filter = new EventIdListFilter(ids);
         assert1Result(filter);
-        
+
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testAcknowledgeByFilter(){
         AcknowledgedByFilter filter = new AcknowledgedByFilter("TestUser");
         EventCriteria criteria = new EventCriteria(filter);
-        
+
         Event[] events = m_daoEventRepo.getMatchingEvents(criteria);
         assertEquals(0, events.length);
-        
+
         m_daoEventRepo.acknowledgeMatchingEvents("TestUser", new Date(), new EventCriteria(new EventIdFilter(1)));
-        
+
         events = m_daoEventRepo.getMatchingEvents(criteria);
         assertEquals(1, events.length);
         assertEquals("TestUser", events[0].getAcknowledgeUser());
-        
+
         m_daoEventRepo.unacknowledgeAll();
-        
+
         events = m_jdbcEventRepo.getMatchingEvents(criteria);
         assertEquals(0, events.length);
-        
+
         m_daoEventRepo.acknowledgeAll("TestUser", new Date());
         events = m_jdbcEventRepo.getMatchingEvents(criteria);
         assertEquals(2, events.length);
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testAfterDateFilter(){
         AfterDateFilter filter = new AfterDateFilter(yesterday());
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testAlarmIdFilter(){
         AlarmIdFilter filter = new AlarmIdFilter(1);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testBeforeDateFilter(){
         BeforeDateFilter filter = new BeforeDateFilter(new Date());
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testDescriptionSubstringFilterTest(){
         DescriptionSubstringFilter filter = new DescriptionSubstringFilter("test event");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
         assertEquals("This is a test event", events[0].getDescription());
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
         assertEquals("This is a test event", events[0].getDescription());
     }
-    
+
     @Test
     @Transactional
     public void testExactUEIFilter(){
         ExactUEIFilter filter = new ExactUEIFilter("uei.opennms.org/test2");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
         assertEquals("uei.opennms.org/test2", events[0].getUei());
-        
+
         events = getMatchingJdbcEvents(new ExactUEIFilter("uei.opennms.org/test"));
         assertEquals(1, events.length);
         assertEquals("uei.opennms.org/test", events[0].getUei());
     }
-    
+
     @Test
     @Transactional
     public void testIfIndexFilter(){
         IfIndexFilter filter = new IfIndexFilter(11);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingDaoEvents(new IfIndexFilter(1));
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(new IfIndexFilter(1));
         assertEquals(0, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testInterfaceFilter(){
         InterfaceFilter filter = new InterfaceFilter("192.168.1.1");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
         assertEquals("192.168.1.1", events[0].getIpAddress());
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
         assertEquals("192.168.1.1", events[0].getIpAddress());
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testIpAddrLikeFilter(){
         IPAddrLikeFilter filter = new IPAddrLikeFilter("192.168.*.*");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new IPAddrLikeFilter("193.168");
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testLogMessageMatchesAny(){
         LogMessageMatchesAnyFilter filter = new LogMessageMatchesAnyFilter("This is a");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = null;
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testLogMessageSubstringFilter(){
         LogMessageSubstringFilter filter = new LogMessageSubstringFilter("is a test");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testNegativeAcknowledgedByFilter(){
         NegativeAcknowledgedByFilter filter = new NegativeAcknowledgedByFilter("TestUser");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = null;
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
-        
+
         m_daoEventRepo.acknowledgeAll("TestUser", new Date());
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testNegativeExactUeiFilter(){
         NegativeExactUEIFilter filter = new NegativeExactUEIFilter("uei.opennms.org/test2");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new NegativeExactUEIFilter("uei.opennms.org/nontest");
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testNegativeInterfaceFilter(){
         NegativeInterfaceFilter filter = new NegativeInterfaceFilter("192.168.1.1");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new NegativeInterfaceFilter("27.0.0.1");
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testNegativeNodeFilter(){
         NegativeNodeFilter filter = new NegativeNodeFilter(m_dbPopulator.getNode2().getId(), m_appContext);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
-        
+
         filter = new NegativeNodeFilter(m_dbPopulator.getNode1().getId(), m_appContext);
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         assertEquals("node is not node1", filter.getTextDescription());
     }
-    
+
     @Test
     @Transactional
     public void testNegativePartialUeiFilter(){
         NegativePartialUEIFilter filter = new NegativePartialUEIFilter("uei.opennms.org");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
-        
+
         filter = new NegativePartialUEIFilter("puei.org.opennms");
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNegativeServiceFilter(){
         NegativeServiceFilter filter = new NegativeServiceFilter(1, m_appContext);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new NegativeServiceFilter(2, m_appContext);
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testNegativeSeverityFilter(){
         NegativeSeverityFilter filter = new NegativeSeverityFilter(OnmsSeverity.CRITICAL.getId());
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
-        
+
         filter = new NegativeSeverityFilter(OnmsSeverity.CLEARED.getId());
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
     }
-    
-    
+
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNodeFilter(){
         NodeFilter filter = new NodeFilter(1, m_appContext);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new NodeFilter(2, m_appContext);
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
-        
+
         assertEquals("node=node2", filter.getTextDescription());
     }
-    
+
     @Test
     @Transactional
     public void testNodeNameLikeFilter(){
         NodeNameLikeFilter filter = new NodeNameLikeFilter("node1");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new NodeNameLikeFilter("testNode");
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testPartialUeiFilter(){
         PartialUEIFilter filter = new PartialUEIFilter("uei.opennms.org/t");
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(2, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(2, events.length);
-        
+
         filter = new PartialUEIFilter("unknown");
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testServiceFilter(){
         ServiceFilter filter = new ServiceFilter(2, m_appContext);
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
-        
+
         filter = new ServiceFilter(1, m_appContext);
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
     }
-    
+
     @Test
     @Transactional
     public void testSeverityFilter(){
         SeverityFilter filter = new SeverityFilter(OnmsSeverity.CLEARED.getId());
-        
+
         Event[] events = getMatchingDaoEvents(filter);
         assertEquals(1, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(1, events.length);
-        
+
         filter = new SeverityFilter(OnmsSeverity.MAJOR.getId());
-        
+
         events = getMatchingDaoEvents(filter);
         assertEquals(0, events.length);
-        
+
         events = getMatchingJdbcEvents(filter);
         assertEquals(0, events.length);
     }
-    
+
     private static EventCriteria getCriteria(Filter... filters){
         return new EventCriteria(filters);
     }
-    
+
     private Event[] getMatchingDaoEvents(Filter...filters) {
         return m_daoEventRepo.getMatchingEvents(getCriteria(filters));
     }
-    
+
     private Event[] getMatchingJdbcEvents(Filter...filters){
         return m_jdbcEventRepo.getMatchingEvents(getCriteria(filters));
     }
 
     private void assert1Result(Filter filter){
         EventCriteria criteria = new EventCriteria(filter);
-        
+
         Event[] events = m_jdbcEventRepo.getMatchingEvents(criteria);
         assertEquals(1, events.length);
-        
+
         events = m_daoEventRepo.getMatchingEvents(criteria);
         assertEquals(1, events.length);
     }
-    
+
     private static Date yesterday() {
         Calendar cal = new GregorianCalendar();
         cal.add( Calendar.DATE, -1 );

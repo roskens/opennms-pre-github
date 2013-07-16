@@ -47,7 +47,7 @@ import org.opennms.netmgt.provision.server.exchange.LineConversation;
  * @version $Id: $
  */
 public class AsyncSimpleServer {
-    
+
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
     private LineConversation m_lineConversation;
     private IoAcceptor m_acceptor;
@@ -55,7 +55,7 @@ public class AsyncSimpleServer {
     private int m_port = 9123;
     private int m_bufferSize = 2048;
     private int m_idleTime = 10;
-    
+
     /**
      * <p>init</p>
      *
@@ -72,26 +72,26 @@ public class AsyncSimpleServer {
     protected void onInit() {
         // Do nothing by default
     }
-    
+
     /**
      * <p>startServer</p>
      *
      * @throws java.lang.Exception if any.
      */
     public void startServer() throws Exception {
-        
+
         m_acceptor = new NioSocketAcceptor();
         m_acceptor.getFilterChain().addLast("logger", new LoggingFilter());
         m_acceptor.getFilterChain().addLast("codec", new ProtocolCodecFilter(new TextLineCodecFactory(CHARSET_UTF8)));
-        
+
         m_acceptor.setHandler(getServerHandler());
         m_acceptor.getSessionConfig().setReadBufferSize(getBufferSize());
         m_acceptor.getSessionConfig().setIdleTime(IdleStatus.BOTH_IDLE, getIdleTime());
         ((NioSocketAcceptor) m_acceptor).setReuseAddress(true);
         m_acceptor.bind(new InetSocketAddress(getPort()));
-        
+
     }
-    
+
     /**
      * <p>stopServer</p>
      *
@@ -101,7 +101,7 @@ public class AsyncSimpleServer {
         m_acceptor.unbind();
         m_acceptor.dispose();
     }
-    
+
     /**
      * <p>addRequestHandler</p>
      *
@@ -111,7 +111,7 @@ public class AsyncSimpleServer {
     public void addRequestHandler(String request, String response) {
         m_lineConversation.addRequestHandler(request, response);
     }
-    
+
     /**
      * <p>setBanner</p>
      *
@@ -120,7 +120,7 @@ public class AsyncSimpleServer {
     public void setBanner(String banner) {
         m_lineConversation.setBanner(banner);
     }
-    
+
     /**
      * <p>setExpectedClose</p>
      *
@@ -129,7 +129,7 @@ public class AsyncSimpleServer {
     public void setExpectedClose(String closeRequest) {
         m_lineConversation.setExpectedClose(closeRequest);
     }
-    
+
     /**
      * <p>setExpectedClose</p>
      *
@@ -139,7 +139,7 @@ public class AsyncSimpleServer {
     public void setExpectedClose(String closeRequest, String closeResponse) {
         m_lineConversation.setExpectedClose(closeRequest, closeResponse);
     }
-    
+
     /**
      * <p>getServerHandler</p>
      *
@@ -148,7 +148,7 @@ public class AsyncSimpleServer {
     public IoHandler getServerHandler() {
         return m_ioHandler != null ? m_ioHandler : new SimpleServerHandler(m_lineConversation);
     }
-    
+
     /**
      * <p>setServerHandler</p>
      *
@@ -157,7 +157,7 @@ public class AsyncSimpleServer {
     public void setServerHandler(IoHandler handler) {
         m_ioHandler = handler;
     }
-    
+
     /**
      * <p>setPort</p>
      *

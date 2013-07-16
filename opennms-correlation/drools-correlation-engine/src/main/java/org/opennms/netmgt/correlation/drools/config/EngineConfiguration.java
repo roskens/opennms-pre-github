@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -72,11 +72,11 @@ import org.xml.sax.ContentHandler;
 /**
  * The top-level element of the drools-engine.xml configuration
  *  file.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
-@SuppressWarnings("all") 
+@SuppressWarnings("all")
 @XmlRootElement(name="engine-configuration")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class EngineConfiguration implements Serializable {
@@ -108,8 +108,8 @@ public class EngineConfiguration implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRuleSet
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -119,8 +119,8 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRuleSet
      * @throws IndexOutOfBoundsException if the index
@@ -132,7 +132,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method enumerateRuleSet.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -142,7 +142,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method getRuleSet.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -155,7 +155,7 @@ public class EngineConfiguration implements Serializable {
         if (index < 0 || index >= this._ruleSetList.size()) {
             throw new IndexOutOfBoundsException("getRuleSet: Index value '" + index + "' not in range [0.." + (this._ruleSetList.size() - 1) + "]");
         }
-        
+
         return (RuleSet) _ruleSetList.get(index);
     }
 
@@ -165,7 +165,7 @@ public class EngineConfiguration implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public RuleSet[] getRuleSet() {
@@ -177,7 +177,7 @@ public class EngineConfiguration implements Serializable {
      * Method getRuleSetCollection.Returns a reference to
      * '_ruleSetList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<RuleSet> getRuleSetCollection() {
@@ -186,7 +186,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method getRuleSetCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getRuleSetCount() {
@@ -195,7 +195,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -209,7 +209,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method iterateRuleSet.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -218,8 +218,8 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -231,8 +231,8 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -253,7 +253,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method removeRuleSet.
-     * 
+     *
      * @param vRuleSet
      * @return true if the object was removed from the collection.
      */
@@ -263,7 +263,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method removeRuleSetAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -272,8 +272,8 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRuleSet
      * @throws IndexOutOfBoundsException if the index
@@ -284,13 +284,13 @@ public class EngineConfiguration implements Serializable {
         if (index < 0 || index >= this._ruleSetList.size()) {
             throw new IndexOutOfBoundsException("setRuleSet: Index value '" + index + "' not in range [0.." + (this._ruleSetList.size() - 1) + "]");
         }
-        
+
         this._ruleSetList.set(index, vRuleSet);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRuleSetArray
      */
     public void setRuleSet(final RuleSet[] vRuleSetArray) {
@@ -300,13 +300,13 @@ public class EngineConfiguration implements Serializable {
     /**
      * Sets the value of '_ruleSetList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vRuleSetList the Vector to copy.
      */
     public void setRuleSet(final List<RuleSet> vRuleSetList) {
         // copy vector
         this._ruleSetList.clear();
-        
+
         this._ruleSetList.addAll(vRuleSetList);
     }
 
@@ -314,7 +314,7 @@ public class EngineConfiguration implements Serializable {
      * Sets the value of '_ruleSetList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ruleSetList the Vector to set.
      */
     public void setRuleSetCollection(final List<RuleSet> ruleSetList) {
@@ -323,7 +323,7 @@ public class EngineConfiguration implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -337,8 +337,8 @@ public class EngineConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */
@@ -376,7 +376,7 @@ public class EngineConfiguration implements Serializable {
 
 
 	public CorrelationEngine[] constructEngines(Resource basePath, ApplicationContext appContext, EventIpcManager eventIpcManager) {
-		
+
 		LOG.info("Creating drools engins for configuration {}.", basePath);
 
 		List<CorrelationEngine> engineList = new ArrayList<CorrelationEngine>();
@@ -384,7 +384,7 @@ public class EngineConfiguration implements Serializable {
 			LOG.debug("Constucting engind for ruleset {} in configuration {}.", ruleSet.getName(), basePath);
 			engineList.add(ruleSet.constructEngine(basePath, appContext, eventIpcManager));
 	    }
-	    
+
 	    return engineList.toArray(new CorrelationEngine[0]);
 	}
 

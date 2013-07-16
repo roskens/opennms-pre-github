@@ -54,28 +54,28 @@ public interface AckReader {
         PAUSED(6, "Paused"),
         RESUME_PENDING(7, "Resume Pending"),
         RESUMED(8, "Resumed")  //might be the same as started
-        ; 
-        
+        ;
+
         private int m_id;
         private String m_label;
-        
+
         AckReaderState(int id, String label) {
             m_id = id;
             m_label = label;
         }
-        
+
         public int getId() {
             return m_id;
         }
-        
+
         @Override
         public String toString() {
             return m_label;
         }
-        
-        
+
+
     };
-    
+
     /**
      * <p>start</p>
      *
@@ -99,7 +99,7 @@ public interface AckReader {
      */
     void stop();
     //void setSchedule(final ScheduledThreadPoolExecutor executor, ReaderSchedule schedule, boolean reschedule);
-    
+
     /**
      * <p>setAckProcessor</p>
      *
@@ -112,14 +112,14 @@ public interface AckReader {
      * @return a {@link org.opennms.netmgt.ackd.readers.AckProcessor} object.
      */
     AckProcessor getAckProcessor();
-    
+
     /**
      * <p>getState</p>
      *
      * @return a {@link org.opennms.netmgt.ackd.AckReader.AckReaderState} object.
      */
     AckReaderState getState();
-    
+
     /**
      * <p>getName</p>
      *

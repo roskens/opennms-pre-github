@@ -46,7 +46,7 @@ import org.opennms.web.svclayer.catstatus.model.StatusService;
 public class CategoryBuilder {
 	private Map<Integer, StatusNode> m_nodeMap = new HashMap<Integer, StatusNode>();
 	private Map<String, StatusInterface> m_nodeAndInterfaceMap = new HashMap<String, StatusInterface>();
-		
+
 	/**
 	 * <p>addNode</p>
 	 *
@@ -60,10 +60,10 @@ public class CategoryBuilder {
 			m_statusnode.setLabel(label);
 			m_nodeMap.put(nodeId, m_statusnode);
 		}
-		
+
 		return this;
 	}
-	
+
 	/**
 	 * <p>addInterface</p>
 	 *
@@ -75,17 +75,17 @@ public class CategoryBuilder {
 	 */
 	public CategoryBuilder addInterface(int nodeId, String interfaceIp, String ipAddress, String nodeLabel) {
 	    if (!m_nodeAndInterfaceMap.containsKey(getNodeAndInterfaceKey(nodeId, interfaceIp))) {
-	        addNode(nodeId, nodeLabel);	
+	        addNode(nodeId, nodeLabel);
 	        StatusNode statusNode = m_nodeMap.get(nodeId);
 	        StatusInterface intf = new StatusInterface();
 	        intf.setIpAddress(ipAddress);
-	        statusNode.addIpInterface(intf);	
+	        statusNode.addIpInterface(intf);
 	        m_nodeAndInterfaceMap.put(getNodeAndInterfaceKey(nodeId, interfaceIp), intf);
 	    }
 
         return this;
 	}
-	
+
 	/**
 	 * <p>addOutageService</p>
 	 *
@@ -102,20 +102,20 @@ public class CategoryBuilder {
         StatusInterface intf = m_nodeAndInterfaceMap.get(getNodeAndInterfaceKey(nodeId, interfaceIp));
 		statusService.setName(service);
 		intf.addService(statusService);
-			
+
 		return this;
 	}
 
     private String getNodeAndInterfaceKey(int nodeId, String interfaceIp) {
         return nodeId + ":" + interfaceIp;
     }
-	
+
 	/**
 	 * <p>getNodes</p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
-	public Collection<StatusNode> getNodes() { 
+	public Collection<StatusNode> getNodes() {
 		return m_nodeMap.values();
 	}
 }

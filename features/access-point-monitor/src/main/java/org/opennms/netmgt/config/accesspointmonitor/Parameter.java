@@ -40,7 +40,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * <p>
  * Parameter class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class Parameter implements Serializable, Comparable<Parameter>, Cloneable {

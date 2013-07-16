@@ -112,9 +112,9 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         }
 
     }
-    
+
     private class ClickCounter{
-        
+
         private int m_incr = 0;
         private MQALatLng m_latlng = null;
         private Timer m_timer = new Timer() {
@@ -127,19 +127,19 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
                     m_map.setCenter(m_latlng);
                     m_map.zoomIn();
                 }
-                
+
                 m_incr = 0;
             }
-            
+
         };
-        
+
         public void incrementCounter(MQALatLng latLng) {
             m_incr++;
             m_latlng = latLng;
             m_timer.cancel();
             m_timer.schedule(300);
         }
-        
+
     }
 
     private static MapQuestMapPanelUiBinder uiBinder = GWT.create(MapQuestMapPanelUiBinder.class);
@@ -152,7 +152,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     private Map<String, MQAPoi> m_markers = new HashMap<String, MQAPoi>();
 
     private HandlerManager m_eventBus;
-    
+
     private ClickCounter m_clickCounter = new ClickCounter();
 
     interface MapQuestMapPanelUiBinder extends UiBinder<Widget, MapQuestMapPanel> {
@@ -160,7 +160,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
 
     public MapQuestMapPanel(final HandlerManager eventBus) {
         m_eventBus = eventBus;
-        
+
         initWidget(uiBinder.createAndBindUi(this));
 
         initializeMap();
@@ -177,7 +177,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
      * <p>initializeMap</p>
      */
     private void initializeMap() {
-    	
+
     	m_map = MQATileMap.newInstance(m_mapHolder.getElement());
 
         m_map.addControl(MQALargeZoomControl.newInstance());
@@ -190,30 +190,30 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
                 m_eventBus.fireEvent(new MapPanelBoundsChangedEvent(getBounds()));
             }
         });
-        
+
         m_map.addClickHandler(new com.googlecode.gwtmapquest.transaction.event.ClickHandler() {
-            
+
             @Override
             public void onClicked(final com.googlecode.gwtmapquest.transaction.event.ClickEvent event) {
                 m_clickCounter.incrementCounter(event.getLL());
             }
         });
-        
+
         m_map.addDblClickHandler(new DblClickHandler() {
-            
+
             @Override
             public void onDblClicked(DblClickEvent event) {
                 m_clickCounter.incrementCounter(event.getLL());
             }
         });
-        
+
         m_map.addZoomEndHandler(new ZoomEndHandler() {
             @Override
             public void onZoomEnd(ZoomEndEvent event) {
                 m_eventBus.fireEvent(new MapPanelBoundsChangedEvent(getBounds()));
             }
         });
-        
+
         m_map.addShapeAddedHandler(new ShapeAddedHandler() {
 
             @Override
@@ -222,7 +222,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
                 Element markerElement = Element.as(mqPoiDiv.getLastChild());
                 updatePOILayer(markerElement);
             }
-            
+
         });
 
         Window.addResizeHandler(new ResizeHandler() {
@@ -241,7 +241,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
             point.setInfoTitleHTML(htmlTitle);
             point.setInfoContentHTML(htmlContent);
             point.showInfoWindow();
-            
+
             final NodeList<Element> elements = Document.get().getElementsByTagName("div");
             for (int i = 0; i < elements.getLength(); i++) {
                 final Element e = elements.getItem(i);
@@ -367,7 +367,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     @Override
     public void fireEvent(GwtEvent<?> event) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -378,7 +378,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
     private void updatePOILayer(Element markerElement) {
         String markerImageSrc = Element.as(markerElement.getFirstChild()).getAttribute("src");
         String currentStyles = markerElement.getAttribute("style");
-        
+
         if(markerImageSrc.equals("images/selected-DOWN.png") || markerImageSrc.equals("images/deselected-DOWN.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 90"));
         }else if(markerImageSrc.equals("images/selected-DISCONNECTED.png") || markerImageSrc.equals("images/deselected-DISCONNECTED.png")) {
@@ -392,7 +392,7 @@ public class MapQuestMapPanel extends Composite implements MapPanel, HasDoubleCl
         }else if(markerImageSrc.equals("images/selected-UNKNOWN.png") || markerImageSrc.equals("images/deselected-UNKNOWN.png")) {
             markerElement.setAttribute("style", currentStyles.replace("z-index: 90", "z-index: 40"));
         }
-        
-        
+
+
     }
 }

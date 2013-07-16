@@ -50,7 +50,7 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
     private List<String> m_patterns;
     private AuthenticationEntryPoint m_matchingEntryPoint;
     private AuthenticationEntryPoint m_nonMatchingEntryPoint;
-    
+
     /**
      * <p>setPatterns</p>
      *
@@ -77,7 +77,7 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
     public void setNonMatchingEntryPoint(AuthenticationEntryPoint unmatchedEntryPoint) {
         m_nonMatchingEntryPoint = unmatchedEntryPoint;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -93,12 +93,12 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
     /** {@inheritDoc} */
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        
+
         AuthenticationEntryPoint entryPoint = getAppropriateEntryPoint(request);
-        
+
         entryPoint.commence(request, response, authException);
     }
-    
+
     private AuthenticationEntryPoint getAppropriateEntryPoint(HttpServletRequest request) {
         for (String pattern : m_patterns) {
             RequestMatcher matcher = new AntPathRequestMatcher(pattern);
@@ -106,8 +106,8 @@ public class AntPatternBasedAuthenticationEntryPointChain implements Authenticat
                 return m_matchingEntryPoint;
             }
         }
-        
+
         return m_nonMatchingEntryPoint;
-        
+
     }
 }

@@ -41,19 +41,19 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class SurveillanceIntersection extends SurveillanceSet implements IsSerializable {
-    
+
     private SurveillanceGroup m_rowGroup;
     private SurveillanceGroup m_columnGroup;
     private String m_data;
     private String m_status;
-    
+
     /**
      * Default constructor used for serialization
      */
     public SurveillanceIntersection() {
         this(null, null);
     }
-    
+
     /**
      * <p>Constructor for SurveillanceIntersection.</p>
      *
@@ -100,7 +100,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     public void setRowGroup(SurveillanceGroup rowGroup) {
         m_rowGroup = rowGroup;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -152,7 +152,7 @@ public class SurveillanceIntersection extends SurveillanceSet implements IsSeria
     public void setStatus(String status) {
         m_status = status;
     }
-    
-    
+
+
 
 }

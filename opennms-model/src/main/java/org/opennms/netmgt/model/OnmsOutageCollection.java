@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsOutageCollection extends LinkedList<OnmsOutage> {
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -12993787944327060L;
     private int m_totalCount;
@@ -87,7 +87,7 @@ public class OnmsOutageCollection extends LinkedList<OnmsOutage> {
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *

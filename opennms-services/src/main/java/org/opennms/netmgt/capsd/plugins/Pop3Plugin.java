@@ -94,12 +94,12 @@ public final class Pop3Plugin extends AbstractPlugin {
      * text "Microsoft Exchange" then this method will return true. Otherwise a
      * false value is returned to the caller.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to test.
      * @param port
      *            The remote port to test.
-     * 
+     *
      * @return True if server is running MS Exchange, false otherwise
      */
     private boolean isServer(InetAddress host, int port, int retries, int timeout) {

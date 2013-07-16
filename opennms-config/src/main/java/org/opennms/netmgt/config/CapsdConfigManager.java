@@ -73,7 +73,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * IP address in a file URL
      */
     private static final String COMMENT_STR = " #";
-    
+
     /**
      * This character at the start of a line indicates a comment line in a URL
      * file
@@ -85,24 +85,24 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 //     * The SQL statement used to mark all ifservices table entries which refer
 //     * to the specified serviceId as deleted.
 //     */
-//    private static final String DELETE_IFSERVICES_SQL = 
-//            "update ifservices " + 
-//            "   set status = 'D' " + 
+//    private static final String DELETE_IFSERVICES_SQL =
+//            "update ifservices " +
+//            "   set status = 'D' " +
 //            " where serviceid = ?" +
-//            "   and id in (" + 
-//            "   select svc.id" + 
-//            "     from ifservices as svc" + 
-//            "     join ipinterface as ip" + 
-//            "       on (ip.id = svc.ipinterfaceid)" + 
-//            "     join node as n" + 
-//            "       on (n.nodeid = ip.nodeid)" + 
-//            "    where n.foreignsource is null)"; 
+//            "   and id in (" +
+//            "   select svc.id" +
+//            "     from ifservices as svc" +
+//            "     join ipinterface as ip" +
+//            "       on (ip.id = svc.ipinterfaceid)" +
+//            "     join node as n" +
+//            "       on (n.nodeid = ip.nodeid)" +
+//            "    where n.foreignsource is null)";
 
     /**
      * The config class loaded from the config file
      */
     private CapsdConfiguration m_config;
-    
+
     /**
      * Maps url names to a list of addresses specified by the url. Initialized
      * at factory construction.
@@ -181,14 +181,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
     public synchronized void save() throws MarshalException, IOException, ValidationException {
         LOG.debug("Saving capsd configuration");
-        
+
         // marshall to a string first, then write the string to the file. This
         // way the original config
         // isn't lost if the xml from the marshall is hosed.
         StringWriter stringWriter = new StringWriter();
         Marshaller.marshal(m_config, stringWriter);
         saveXml(stringWriter.toString());
-    
+
         LOG.info("Saved capsd configuration");
 
         update();
@@ -214,7 +214,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
         }
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void addProtocolPlugin(ProtocolPlugin plugin) {
@@ -234,14 +234,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
         if (cfg == null) {
             return null;
         }
-        
+
         List<SmbAuth> smbAuths = getSmbAuths(cfg);
         for (SmbAuth a : smbAuths) {
             if (target.equalsIgnoreCase(a.getContent())) {
                 return a;
             }
         }
-        
+
         return null;
     }
 
@@ -255,7 +255,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     public boolean isAddressUnmanaged(InetAddress target) {
         String managementPolicy = m_config.getManagementPolicy();
         boolean managedByDefault = (managementPolicy == null || managementPolicy.equalsIgnoreCase("managed"));
-    
+
         boolean found_denial = false;
         boolean found_accept = false;
         List<IpManagement> ipManagements = getIpManagements();
@@ -269,7 +269,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                     LOG.info("Failed to convert specific address '{}' to an InetAddress.", saddr);
                     continue;
                 }
-                
+
                 if (addr.equals(target)) {
                     if (mgt.getPolicy() == null || mgt.getPolicy().equalsIgnoreCase("managed")) {
                         found_accept = true;
@@ -280,7 +280,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                     break;
                 }
             }
-    
+
             // now check the ranges
             List<Range> ranges = getRanges(mgt);
             Iterator<Range> rangeIter = ranges.iterator();
@@ -313,14 +313,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                     break;
                 }
             }
-    
+
             // now check urls
             List<String> includeUrls = getIncludeUrls(mgt);
             Iterator<String> includeUrlIter = includeUrls.iterator();
             boolean match = false;
             while (!found_denial && !match && includeUrlIter.hasNext()) {
                 String url = includeUrlIter.next();
-    
+
                 /*
                  * Retrieve address list from url map.
                  * Iterate over addresses looking for target match.
@@ -345,16 +345,16 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                     }
                 }
             }
-    
+
         }
-    
+
         boolean result = !managedByDefault;
         if (found_denial) {
             result = true;
         } else if (found_accept) {
             result = false;
         }
-    
+
         return result;
     }
 
@@ -362,31 +362,31 @@ public abstract class CapsdConfigManager implements CapsdConfig {
      * The file URL is read and a 'specific IP' is added for each entry in this
      * file. Each line in the URL file can be one of -<IP><space># <comments>
      * or <IP>or #<comments>
-     * 
+     *
      * Lines starting with a '#' are ignored and so are characters after a '
      * <space>#' in a line.
-     * 
+     *
      * @param url
      *            the URL file
-     * 
+     *
      * @return List of addresses retrieved from the URL
      */
     private static List<String> getAddressesFromURL(String url) {
         List<String> addrList = new ArrayList<String>();
-    
+
         try {
             // open the file indicated by the url
             URL fileURL = new URL(url);
-    
+
             InputStream file = fileURL.openStream();
-    
+
             // check to see if the file exists
             if (file != null) {
                 BufferedReader buffer = new BufferedReader(new InputStreamReader(file, "UTF-8"));
-    
+
                 String ipLine = null;
                 String specIP = null;
-    
+
                 // get each line of the file and turn it into a specific address
                 while ((ipLine = buffer.readLine()) != null) {
                     ipLine = ipLine.trim();
@@ -394,7 +394,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                         // blank line or skip comment
                         continue;
                     }
-    
+
                     // check for comments after IP
                     int comIndex = ipLine.indexOf(COMMENT_STR);
                     if (comIndex == -1) {
@@ -403,12 +403,12 @@ public abstract class CapsdConfigManager implements CapsdConfig {
                         specIP = ipLine.substring(0, comIndex);
                         ipLine = ipLine.trim();
                     }
-    
+
                     addrList.add(specIP);
-    
+
                     specIP = null;
                 }
-    
+
                 buffer.close();
             } else {
                 LOG.warn("URL does not exist: {}", url);
@@ -420,7 +420,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
         } catch (IOException e) {
             LOG.error("Error reading URL: {}: {}", e.getLocalizedMessage(), url);
         }
-    
+
         return addrList;
     }
 
@@ -432,14 +432,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
     public long getRescanFrequency() {
         long frequency = -1;
-    
+
         if (m_config.hasRescanFrequency()) {
             frequency = m_config.getRescanFrequency();
         } else {
             LOG.warn("Capsd configuration file is missing rescan interval, defaulting to 24 hour interval.");
             frequency = 86400000; // default is 24 hours
         }
-    
+
         return frequency;
     }
 
@@ -451,14 +451,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
     public long getInitialSleepTime() {
         long sleep = -1;
-    
+
         if (m_config.hasInitialSleepTime()) {
             sleep = m_config.getInitialSleepTime();
         } else {
             LOG.warn("Capsd configuration file is missing rescan interval, defaulting to 24 hour interval.");
             sleep = 300000; // default is 5 minutes
         }
-    
+
         return sleep;
     }
 
@@ -492,12 +492,12 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
     public boolean getAbortProtocolScansFlag() {
         boolean abortFlag = false;
-    
+
         String abortProperty = m_config.getAbortProtocolScansIfNoRoute();
         if (abortProperty != null && abortProperty.equals("true")) {
             abortFlag = true;
         }
-    
+
         return abortFlag;
     }
 
@@ -509,12 +509,12 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
     public boolean getDeletePropagationEnabled() {
         boolean propagationEnabled = true;
-        
+
        String propagationProperty = m_config.getDeletePropagationEnabled();
        if (propagationProperty != null && propagationProperty.equals("false")) {
            propagationEnabled = false;
        }
-    
+
        return propagationEnabled;
     }
 
@@ -528,7 +528,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     public String getXmlrpc() {
         return m_config.getXmlrpc();
     }
-    
+
     /**
      * <p>isXmlRpcEnabled</p>
      *
@@ -543,7 +543,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 	 * Utility method which compares two InetAddress objects based on the
 	 * provided method (MIN/MAX) and returns the InetAddress which is to be
 	 * considered the primary interface.
-	 * 
+	 *
 	 * NOTE: In order for an interface to be considered primary, if strict is
 	 * true, it must be included by a Collectd package which supports the
 	 * specified service. This method will return null if the 'oldPrimary'
@@ -560,14 +560,14 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 	 *            Comparison method to be used (either "min" or "max")
      * @param strict
 	 *            require interface to be part of a Collectd package
-	 * 
+	 *
 	 * @return InetAddress object of the primary interface based on the provided
 	 *         method or null if neither address is eligible to be primary.
 	 */
 	private InetAddress compareAndSelectPrimaryCollectionInterface(String svcName, InetAddress currentIf, InetAddress oldPrimary, String method, boolean strict) {
 		InetAddress newPrimary = null;
 		CollectdConfigFactory factory = CollectdConfigFactory.getInstance();
-	
+
 		if (oldPrimary == null && strict) {
 			if (factory.isServiceCollectionEnabled(InetAddressUtils.str(currentIf), svcName)) {
 				return currentIf;
@@ -575,13 +575,13 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 				return oldPrimary;
             }
 		}
-	
+
 		if (oldPrimary == null) {
 			return currentIf;
         }
-	
+
 		int comparison = new ByteArrayComparator().compare(currentIf.getAddress(), oldPrimary.getAddress());
-		
+
 		if (method.equals(CollectdConfigFactory.SELECT_METHOD_MIN)) {
 			// Smallest address wins
 			if (comparison < 0) {
@@ -614,7 +614,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 				}
 			}
 		}
-	
+
 		if (newPrimary != null) {
 			return newPrimary;
         } else {
@@ -631,10 +631,10 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     @Override
 	public InetAddress determinePrimarySnmpInterface(List<InetAddress> addressList, boolean strict) {
 		InetAddress primaryIf = null;
-	
+
 		// For now hard-coding primary interface address selection method to MIN
 		String method = CollectdConfigFactory.SELECT_METHOD_MIN;
-	
+
         /*
 		 * To be selected as the the primary SNMP interface for a node
 		 * the interface must be included by a Collectd package if strict
@@ -647,7 +647,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
 			LOG.debug("determinePrimarySnmpIf: checking interface {}", InetAddressUtils.str(ipAddr));
 			primaryIf = compareAndSelectPrimaryCollectionInterface("SNMP", ipAddr, primaryIf, method, strict);
 		}
-	
+
 		if (primaryIf != null) {
 			LOG.debug("determinePrimarySnmpInterface: candidate primary SNMP interface: {}", InetAddressUtils.str(primaryIf));
 		} else {
@@ -719,7 +719,7 @@ public abstract class CapsdConfigManager implements CapsdConfig {
     public List<Range> getRanges(ProtocolConfiguration pluginConf) {
         return pluginConf.getRangeCollection();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<String> getSpecifics(ProtocolConfiguration pluginConf) {

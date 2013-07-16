@@ -701,7 +701,7 @@ public class ThresholdController extends AbstractController implements Initializ
     }
 
     private ModelAndView gotoGroupList() throws ServletException {
-        //Always reload to get a consistent view of the thresholds before we start editing.  
+        //Always reload to get a consistent view of the thresholds before we start editing.
         //Otherwise we'll be dealing with questions on the mailing lists for the rest of our lives
         try {
             ThresholdingConfigFactory.reload();

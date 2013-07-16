@@ -40,12 +40,12 @@ public class Status implements Comparable<Status> {
 	private String uei;
 	private String color;
 	private String text;
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 	/**
 	 * <p>Constructor for Status.</p>
 	 *
@@ -73,7 +73,7 @@ public class Status implements Comparable<Status> {
 		else if(this.id < otherStatus.getId()) return -1;
 		else  return 1;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>color</code>.</p>
 	 *

@@ -10,15 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ServiceBasedStrategyResolver implements StrategyResolver {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(ServiceBasedStrategyResolver.class);
-	
+
 	public static ServiceBasedStrategyResolver register() {
 		ServiceBasedStrategyResolver resolver = new ServiceBasedStrategyResolver();
 		SnmpUtils.setStrategyResolver(resolver);
 		return resolver;
 	}
-	
+
 	Map<String, SnmpStrategy> m_strategies = new ConcurrentHashMap<String, SnmpStrategy>();
 
 	public void onBind(SnmpStrategy strategy, Map<String, String> props) {
@@ -28,14 +28,14 @@ public class ServiceBasedStrategyResolver implements StrategyResolver {
 		}
 		m_strategies.put(key, strategy);
 	}
-	
+
 	public void onUnbind(SnmpStrategy operation, Map<String, String> props) {
 		String key = props.get("implementation");
 		if (key != null) {
 			m_strategies.remove(key);
 		}
 	}
-	
+
 	@Override
 	public SnmpStrategy getStrategy() {
 		String strategyClass = SnmpUtils.getStrategyClassName();
@@ -51,7 +51,7 @@ public class ServiceBasedStrategyResolver implements StrategyResolver {
 		}
 		return strategy;
 	}
-	
-	
+
+
 
 }

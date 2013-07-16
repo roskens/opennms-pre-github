@@ -31,12 +31,12 @@ package org.opennms.features.topology.api;
 public class Point {
 	private int m_x;
 	private int m_y;
-	
+
 	public Point(int x, int y) {
 		m_x = x;
 		m_y = y;
 	}
-	
+
 	public int getX() { return m_x; }
 	public int getY() { return m_y; }
 

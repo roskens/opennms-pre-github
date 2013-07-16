@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -52,7 +52,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 /**
  * The automatic action to occur when this event occurs with
  *  state controlling if action takes place
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -97,7 +97,7 @@ public class Autoaction implements Serializable {
     /**
      * Returns the value of field 'content'. The field 'content'
      * has the following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public java.lang.String getContent(
@@ -107,7 +107,7 @@ public class Autoaction implements Serializable {
 
     /**
      * Returns the value of field 'state'.
-     * 
+     *
      * @return the value of field 'State'.
      */
     public java.lang.String getState(
@@ -118,7 +118,7 @@ public class Autoaction implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
-     * 
+     *
      * @param content the value of field 'content'.
      */
     public void setContent(
@@ -128,7 +128,7 @@ public class Autoaction implements Serializable {
 
     /**
      * Sets the value of field 'state'.
-     * 
+     *
      * @param state the value of field 'state'.
      */
     public void setState(

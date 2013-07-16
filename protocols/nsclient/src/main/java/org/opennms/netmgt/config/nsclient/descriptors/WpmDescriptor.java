@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
 /**
  * Class WpmDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class WpmDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,27 +88,27 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";
         _xmlName = "wpm";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _name
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Wpm target = (Wpm) object;
                 return target.getName();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -129,7 +129,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _name
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -145,14 +145,14 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Wpm target = (Wpm) object;
                 return target.getKeyvalue();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -173,7 +173,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _keyvalue
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -188,7 +188,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_recheckInterval", "recheckInterval", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Wpm target = (Wpm) object;
@@ -196,14 +196,14 @@ import org.opennms.netmgt.config.nsclient.Wpm;
                 return new java.lang.Integer(target.getRecheckInterval());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Wpm target = (Wpm) object;
                     // ignore null values for non optional primitives
                     if (value == null) { return; }
-                    
+
                     target.setRecheckInterval( ((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
@@ -220,7 +220,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _recheckInterval
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -233,19 +233,19 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
         //-- _attribList
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.nsclient.Attrib.class, "_attribList", "attrib", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Wpm target = (Wpm) object;
                 return target.getAttrib();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -276,7 +276,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _attribList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(0);
@@ -292,7 +292,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -303,7 +303,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -315,7 +315,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -326,7 +326,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -337,7 +337,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -349,7 +349,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -361,7 +361,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -372,7 +372,7 @@ import org.opennms.netmgt.config.nsclient.Wpm;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

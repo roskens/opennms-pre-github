@@ -40,7 +40,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlObject.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-object")
@@ -55,7 +55,7 @@ public class XmlObject implements Serializable, Comparable<XmlObject> {
     private String m_name;
 
     /** The data type. */
-    @XmlAttribute(name="type", required=true)    
+    @XmlAttribute(name="type", required=true)
     private String m_dataType;
 
     /** The XPath. */

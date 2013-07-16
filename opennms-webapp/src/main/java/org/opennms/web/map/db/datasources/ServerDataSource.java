@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class ServerDataSource implements DataSourceInterface {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ServerDataSource.class);
 
 
@@ -68,28 +68,29 @@ public class ServerDataSource implements DataSourceInterface {
 	boolean initialized = false;
 	private Map<String, String> severityMapping = new HashMap<String, String>();
 
-	
+
 	static final String STATUS_FIELD="ev_status";
 	static final String SEVERITY_FIELD="ev_severity";
 	static final String TABLE_NAME="v_eventi_snm";
-	
+
 	final String CLOSED_STATUS = "CLOSED";
 	final String ACK_STATUS = "ACK";
 	final String ASSIGNED_STATUS = "ASSIGNED";
 	final String OPEN_STATUS = "OPEN";
-	
+
 	//private static MapPropertiesFactory mpf=null;
-	
+
 	static Connection opennmsConn = null;
 	static Connection externalConn = null;
 
-	
+
 	/**
 	 * <p>Constructor for ServerDataSource.</p>
 	 *
 	 * @param params a {@link java.util.Map} object.
 	 */
 	public ServerDataSource(Map<?,?> params){
+<<<<<<< HEAD
 	    this.params = params;
 	    Logging.withPrefix(MapsConstants.LOG4J_CATEGORY, new Runnable() {
 
@@ -100,14 +101,20 @@ public class ServerDataSource implements DataSourceInterface {
 	        
 	    });
 		
+=======
+	    Logging.putPrefix(MapsConstants.LOG4J_CATEGORY);
+
+		this.params = params;
+		init();
+>>>>>>> trim trailing whitespace
 	}
-	
+
 	/**
 	 * Before invoking get() method, this method must be invoked.
 	 */
 	public void init(){
 		LOG.debug("Init...getting db connection");
-	
+
 			try{
 				if(opennmsConn==null || opennmsConn.isClosed()){
 					opennmsConn = Vault.getDbConnection();
@@ -116,18 +123,18 @@ public class ServerDataSource implements DataSourceInterface {
 				String driver=(String)params.get("driver");
 				String user=(String)params.get("user");
 				String password=(String)params.get("password");
-				//gets external connection 
+				//gets external connection
 				if(externalConn==null || externalConn.isClosed()){
 					LOG.debug("getting external db connection with parameters url={}, driver={}, user={}, password={}", url, driver, user, password);
 					SimpleDbConnectionFactory dbConnFactory = new SimpleDbConnectionFactory();
 					dbConnFactory.init(url,driver,user,password);
 					externalConn = dbConnFactory.getConnection();
-				}				
+				}
 			}catch(Throwable s){
 				LOG.error("Error while getting db Connection from Vault {}", s);
 				throw new RuntimeException(s);
 			}
-			
+
 			severityMapping.put("6","Critical");
 			severityMapping.put("5","Major");
 			severityMapping.put("4","Minor");
@@ -137,9 +144,9 @@ public class ServerDataSource implements DataSourceInterface {
 			severityMapping.put("0","Indeterminate");
 
 	}
-	
+
 	private boolean isInitialized() throws SQLException {
-		
+
 		if (opennmsConn!=null && !opennmsConn.isClosed() && externalConn!=null && !externalConn.isClosed()) return true;
 		return false;
 	}
@@ -160,7 +167,7 @@ public class ServerDataSource implements DataSourceInterface {
 			externalConn.close();
 		}
 	}
-	
+
 
 	/** {@inheritDoc} */
         @Override
@@ -174,7 +181,7 @@ public class ServerDataSource implements DataSourceInterface {
 			LOG.error("exiting: error found {}", e);
 			return "-1";
 		}
-		
+
 		//get ipaddresses of the node
 		Set<String> ipAddrs = getIpAddrById(id);
 		//If there is no ipaddress for the nodeid
@@ -197,7 +204,7 @@ public class ServerDataSource implements DataSourceInterface {
 		Set<String> ipAddrs = new HashSet<String>();
 		PreparedStatement ps;
 		int nodeId=0;
-		
+
 			try {
 				nodeId = ((Integer)id).intValue();
 				ps = opennmsConn.prepareStatement(sqlQueryIFaces);
@@ -206,7 +213,7 @@ public class ServerDataSource implements DataSourceInterface {
 				while(rs.next()){
 					String ipAddr = rs.getString(1);
 					ipAddrs.add(ipAddr);
-				}	
+				}
 				rs.close();
 				ps.close();
 			} catch (SQLException e) {
@@ -233,7 +240,7 @@ public class ServerDataSource implements DataSourceInterface {
 			Statement stmt = externalConn.createStatement();
 			ResultSet rs = stmt.executeQuery(getDataQuery);
 			// get only first value (if more found)
-			
+
 			if(rs.next()){
 				value=rs.getString(1);
 				LOG.debug("found severity for ipaddresses {} with value {}", ipAddrs, value);
@@ -244,14 +251,14 @@ public class ServerDataSource implements DataSourceInterface {
 			LOG.error("Exception while getting severity {}", e1);
 			return "-1";
 		}
-		
+
 		String sevLabel = (String)severityMapping.get(value);
 		LOG.debug("Getting severity mapping for key={}: sevLabel={}", value, sevLabel);
-		
+
 		return sevLabel;
 	}
 
-	
+
 	/** {@inheritDoc} */
         @Override
 	public String getStatus(Object id){
@@ -264,7 +271,7 @@ public class ServerDataSource implements DataSourceInterface {
 			LOG.error("exiting: error found {}", e);
 			return result;
 		}
-		
+
 		//get ipaddresses of the node
 		Set<String> ipAddrs = getIpAddrById(id);
 		//If there is no ipaddress for the nodeid
@@ -281,9 +288,9 @@ public class ServerDataSource implements DataSourceInterface {
 		return result;
 
 	}
-	
+
 	private String getSt(Set<String> ipAddrs){
-		
+
 		String getDataQuery="select "+STATUS_FIELD+" from "+TABLE_NAME+" where ip_address in (";
 		Iterator<String> it = ipAddrs.iterator();
 		while (it.hasNext()) {
@@ -295,7 +302,7 @@ public class ServerDataSource implements DataSourceInterface {
 		}
 		getDataQuery+=") and "+STATUS_FIELD+"!='"+CLOSED_STATUS+"'";
 		String innerQuery = "select max("+SEVERITY_FIELD+") from "+TABLE_NAME+" where ip_address in (";
-		
+
 		Iterator<String> it2 = ipAddrs.iterator();
 		while(it2.hasNext()){
 			String ip = it2.next();
@@ -306,14 +313,14 @@ public class ServerDataSource implements DataSourceInterface {
 		}
 		innerQuery+=") and "+STATUS_FIELD+"!='"+CLOSED_STATUS+"'";
 		getDataQuery+=" and "+SEVERITY_FIELD+"=("+innerQuery+")" ;
-		
+
 		LOG.debug("get status query is {}", getDataQuery);
 		String value=null;
 		try {
 			Statement stmt = externalConn.createStatement();
 			ResultSet rs = stmt.executeQuery(getDataQuery);
 			// get only first value (if more found)
-			
+
 			if(rs.next()){
 				value=rs.getString(1);
 				LOG.debug("found status for ipaddresses {} with value {}", ipAddrs, value);
@@ -324,10 +331,10 @@ public class ServerDataSource implements DataSourceInterface {
 			LOG.error("Exception while getting status {}", e1);
 			return "-1";
 		}
-		
+
 		return value;
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public double getAvailability(Object id) {

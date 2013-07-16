@@ -270,7 +270,7 @@ public class CommandManager {
 	private void removeCommand(Operation operation) {
 		for (Command command : m_commandList) {
 			if (command.getOperation() == operation) {
-				removeCommand(command); 
+				removeCommand(command);
 			}
 		}
 	}
@@ -325,7 +325,7 @@ public class CommandManager {
 	public void updateMenuItem(MenuItem menuItem, GraphContainer graphContainer, UI mainWindow) {
 		DefaultOperationContext operationContext = new DefaultOperationContext(mainWindow, graphContainer, DisplayLocation.MENUBAR);
 		Operation operation = getOperationByMenuItemCommand(menuItem.getCommand());
-		
+
 		//Check for null because separators have no Operation
 		if(operation != null) {
     		List<VertexRef> selectedVertices = new ArrayList<VertexRef>(graphContainer.getSelectionManager().getSelectedVertexRefs());
@@ -333,12 +333,12 @@ public class CommandManager {
     		menuItem.setVisible(visibility);
     		boolean enabled = operation.enabled(selectedVertices, operationContext);
     		menuItem.setEnabled(enabled);
-    
+
     		if (operation instanceof CheckedOperation) {
     			if (!menuItem.isCheckable()) {
     				menuItem.setCheckable(true);
     			}
-    
+
     			menuItem.setChecked(((CheckedOperation) operation).isChecked(selectedVertices, operationContext));
     		}
 		}
@@ -346,10 +346,10 @@ public class CommandManager {
 
     public void updateContextMenuItem(Object target, TopoContextMenuItem contextItem, GraphContainer graphContainer, UI mainWindow) {
         DefaultOperationContext operationContext = new DefaultOperationContext(mainWindow, graphContainer, DisplayLocation.CONTEXTMENU);
-        
+
         ContextMenuItem ctxMenuItem = contextItem.getItem();
         Operation operation = m_contextMenuItemsToOperationMap.get(ctxMenuItem);
-     
+
         List<VertexRef> targets = asVertexList(target);
         // TODO: Figure out how to do this in the new contextmenu
 

@@ -76,7 +76,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-     
+
     /**
      * The config class loaded from the config file
      */
@@ -98,18 +98,18 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      * in each - so as to avoid file reads
      */
     private Map<String, List<String>> m_urlIPMap;
-    
+
     /**
      * A mapping of the configured package to a list of IPs selected via filter
      * rules, so as to avoid database access.
      */
     private Map<Package, List<InetAddress>> m_pkgIpMap;
-    
+
     /**
      * A mapping between policyManage Name and Package
      */
     private Map<Package, PolicyManage> m_pkgPolicyMap;
-    
+
     /**
      * <p>Constructor for RancidAdapterConfigManager.</p>
      *
@@ -132,11 +132,11 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
       */
      public RancidAdapterConfigManager() {
      }
-    
+
      public Lock getReadLock() {
          return m_readLock;
      }
-     
+
      public Lock getWriteLock() {
          return m_writeLock;
      }
@@ -160,11 +160,11 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getWriteLock().unlock();
         }
     }
-    
+
     /**
-     * Go throw the rancid configuration and find a map from 
+     * Go throw the rancid configuration and find a map from
      * policy name and packages
-     * 
+     *
      */
     private void createPolicyNamePkgMap() {
         m_pkgPolicyMap = new HashMap<Package, PolicyManage>();
@@ -174,7 +174,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             }
         }
     }
-    
+
     /**
      * Go through the rancid adapter configuration and build a mapping of each
      * configured URL to a list of IPs configured in that URL - done at init()
@@ -182,21 +182,21 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
-    
+
         if (hasPolicies()) {
-            for (final Package pkg: packages() ) {        
+            for (final Package pkg: packages() ) {
                 for(final String url : includeURLs(pkg)) {
                     final List<String> iplist = IpListFromUrl.parse(url);
                     if (iplist.size() > 0) {
                         m_urlIPMap.put(url, iplist);
                     }
                 }
-    
+
             }
-    
+
         }
     }
-    
+
     /**
      * This method is used to establish package against iplist mapping, with
      * which, the iplist is selected per package via the configured filter rules
@@ -206,7 +206,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         getWriteLock().lock();
         try {
             m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
-            
+
             if (hasPolicies()) {
                 for (final Package pkg: packages() ) {
                     // Get a list of ipaddress per package agaist the filter rules from
@@ -215,21 +215,21 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
                     try {
                         final List<InetAddress> ipList = getIpList(pkg);
                         LOG.debug("createPackageIpMap: package {}: ipList size = {}", pkg.getName(), ipList.size());
-            
+
                         if (ipList.size() > 0) {
                             m_pkgIpMap.put(pkg, ipList);
                         }
                     } catch (final Throwable t) {
                         LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
                     }
-        
+
                 }
             }
         } finally {
             getWriteLock().unlock();
         }
     }
-    
+
     private List<InetAddress> getIpList(final Package pkg) {
         final StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
         if (m_verifyServer) {
@@ -242,41 +242,41 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         LOG.debug("createPackageIpMap: package is {}. filter rules are {}", pkg.getName(), filterRules);
         return FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
     }
-    
+
     /**
      * This method is used to determine if the named interface is included in
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     * 
+     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
-     * 
+     *
      * TODO: Factor this method out so that it can be reused? Or use an existing
      * utility method if one exists?
-     * 
+     *
      * @param iface
      *            The interface to test against the package.
      * @param pkg
      *            The package to check for the inclusion of the interface.
-     * 
+     *
      * @return True if the interface is included in the package, false
      *         otherwise.
      */
     private boolean interfaceInPackage(final String iface, final Package pkg) {
         boolean filterPassed = false;
         final InetAddress ifaceAddr = addr(iface);
-    
+
         // get list of IPs in this package
         final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
 			filterPassed = ipList.contains(ifaceAddr);
         }
-    
+
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(), Boolean.valueOf(filterPassed));
-    
+
         if (!filterPassed) return false;
-    
+
         //
         // Ensure that the interface is in the specific list or
         // that it is in the include range and is not excluded
@@ -284,11 +284,11 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         boolean has_specific = false;
         boolean has_range_include = false;
         boolean has_range_exclude = false;
- 
+
         // if there are NO include ranges then treat act as if the user include
         // the range 0.0.0.0 - 255.255.255.255
         has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
-        
+
         for (IncludeRange rng : pkg.getIncludeRange()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_include = true;
@@ -310,14 +310,14 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
         while (!has_specific && eurl.hasMoreElements()) {
             has_specific = interfaceInUrl(iface, eurl.nextElement());
         }
-    
+
         for (ExcludeRange rng : pkg.getExcludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_exclude = true;
                 break;
             }
         }
-    
+
         return has_specific || (has_range_include && !has_range_exclude);
     }
 
@@ -326,9 +326,9 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      * the passed package's url includes. If the interface is found in any of
      * the URL files, then a value of true is returned, else a false value is
      * returned.
-     * 
+     *
      * <pre>
-     * 
+     *
      *  The file URL is read and each entry in this file checked. Each line
      *   in the URL file can be one of -
      *   &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
@@ -336,34 +336,34 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
      *   &lt;IP&gt;
      *   or
      *   #&lt;comments&gt;
-     *  
+     *
      *   Lines starting with a '#' are ignored and so are characters after
      *   a '&lt;space&gt;#' in a line.
-     *  
+     *
      * </pre>
-     * 
+     *
      * @param addr
      *            The interface to test against the package's URL
      * @param url
      *            The url file to read
-     * 
+     *
      * @return True if the interface is included in the url, false otherwise.
      */
     private boolean interfaceInUrl(final String addr, final String url) {
         boolean bRet = false;
-    
+
         // get list of IPs in this URL
         final List<String> iplist = m_urlIPMap.get(url);
         if (iplist != null && iplist.size() > 0) {
             bRet = iplist.contains(addr);
         }
-    
+
         return bRet;
     }
-    
+
     /**
      * Returns a list of package names that the ip belongs to, null if none.
-     *                
+     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is alrady in the database.
      *
@@ -380,11 +380,11 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
                 matchingPkgs.add(pkg.getName());
             }
         }
-    
+
         return matchingPkgs;
     }
-    
-    
+
+
 
     /** {@inheritDoc} */
     @Override
@@ -399,7 +399,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getReadLock().unlock();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int getRetries(final String ipaddr) {
@@ -413,7 +413,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getReadLock().unlock();
         }
     }
-            
+
     /** {@inheritDoc} */
     @Override
     public boolean useCategories(final String ipaddr) {
@@ -444,7 +444,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getReadLock().unlock();
         }
     }
-    
+
 
     /** {@inheritDoc} */
     @Override
@@ -463,15 +463,15 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getReadLock().unlock();
         }
     }
-    
+
     /**
      * Return if time is part of specified outage.
-     * 
+     *
      * @param cal
      *            the calendar to lookup
      * @param outage
      *            the outage
-     * 
+     *
      * @return true if time is in outage
      */
     private boolean isTimeInSchedule(final Calendar cal, final Schedule schedule) {
@@ -482,7 +482,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     private boolean hasPolicies() {
         return (getConfiguration().getPolicies() != null);
     }
- 
+
     private boolean hasPolicyManage(final String ipaddress) {
         return (getAllPackageMatches(ipaddress).size() > 0);
     }
@@ -502,7 +502,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             if (entry.getKey().getName().equals(pkgname)) {
                 return entry.getValue();
             }
-        }        
+        }
         return null;
     }
 
@@ -543,7 +543,7 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
             getReadLock().unlock();
         }
     }
-    
+
 
     /**
      * <p>packages</p>
@@ -632,5 +632,5 @@ abstract public class RancidAdapterConfigManager implements RancidAdapterConfig 
     public void rebuildPackageIpListMap() {
         createPackageIpListMap();
     }
-    
+
 }

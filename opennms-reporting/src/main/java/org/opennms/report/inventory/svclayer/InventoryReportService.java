@@ -35,7 +35,7 @@ package org.opennms.report.inventory.svclayer;
  * @version $Id: $
  */
 public interface InventoryReportService {
-    
+
     /**
      * <p>runReport</p>
      *

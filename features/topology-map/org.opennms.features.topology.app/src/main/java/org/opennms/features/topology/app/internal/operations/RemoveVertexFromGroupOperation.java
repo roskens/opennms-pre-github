@@ -56,7 +56,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class RemoveVertexFromGroupOperation implements Constants, Operation {
-	
+
 	@Override
 	public Undoer execute(final List<VertexRef> targets, final OperationContext operationContext) {
 		if (targets == null || targets.isEmpty() || targets.size() != 1) {

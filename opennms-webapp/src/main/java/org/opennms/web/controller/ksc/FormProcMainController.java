@@ -74,7 +74,7 @@ public class FormProcMainController extends AbstractController implements Initia
             modelAndView.addObject("report", getReportIndex(request));
             modelAndView.addObject("type", "custom");
             return modelAndView;
-          
+
         } else if (( request.isUserInRole( Authentication.ROLE_ADMIN ) || !request.isUserInRole(Authentication.ROLE_READONLY) ) && (request.getRemoteUser() != null)) {
             // Fetch the KscReportEditor or create one if there isn't one already
             KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), false);
@@ -86,7 +86,7 @@ public class FormProcMainController extends AbstractController implements Initia
                 editor.loadWorkingReportDuplicate(getKscReportFactory(), getReportIndex(request));
                 return new ModelAndView("redirect:/KSC/customReport.htm");
             } else if (Actions.Delete.toString().equals(action)) {
-                getKscReportFactory().deleteReportAndSave(getReportIndex(request)); 
+                getKscReportFactory().deleteReportAndSave(getReportIndex(request));
                 return new ModelAndView("redirect:/KSC/index.htm");
             } else if (Actions.Create.toString().equals(action)) {
                 editor.loadNewWorkingReport();
@@ -100,7 +100,7 @@ public class FormProcMainController extends AbstractController implements Initia
         String report = WebSecurityUtils.sanitizeString(request.getParameter("report"));
         if (report == null) {
             throw new MissingParameterException("report");
-        } 
+        }
         return WebSecurityUtils.safeParseInt(report);
     }
 

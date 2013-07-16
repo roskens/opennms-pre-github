@@ -55,7 +55,7 @@ public class ExtremeNetworkVlanTable extends VlanTableBasic implements VlanTable
 	public ExtremeNetworkVlanTable(InetAddress address) {
         super(address, "ExtremeNetworkVlanTable", ExtremeNetworkVlanTableEntry.enVlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected ExtremeNetworkVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

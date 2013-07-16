@@ -49,33 +49,33 @@ public class JdbcAgentState {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcAgentState.class);
 
     private static final String JAS_NO_DATASOURCE_FOUND = "NO_DATASOURCE_FOUND";
-    
+
     private boolean m_useDataSourceName;
     private String m_dataSourceName;
-    
+
     private String m_driverClass;
     private String m_dbUser;
     private String m_dbPass;
     private String m_dbUrl;
-    
+
     Driver m_driver = null;
     Properties m_dbProps = null;
-    
+
     private String m_address;
     private HashMap<String, JdbcGroupState> m_groupStates = new HashMap<String, JdbcGroupState>();
-    
+
     public JdbcAgentState(InetAddress address, Map<String, Object> parameters) {
         // Save the target's address or hostname.
         m_address = address.getCanonicalHostName();
-        
+
         // Ensure that we have parameters to work with.
         if (parameters == null) {
             throw new NullPointerException("parameter cannot be null");
         }
-        
+
         //setupDatabaseConnections(parameters);
     }
-    
+
     public void setupDatabaseConnections(Map<String, Object> parameters) {
         String dataSourceName = ParameterMap.getKeyedString(parameters, "data-source", JAS_NO_DATASOURCE_FOUND);
         if(dataSourceName.equals(JAS_NO_DATASOURCE_FOUND)) {
@@ -88,10 +88,10 @@ public class JdbcAgentState {
             m_dataSourceName = dataSourceName;
         }
     }
-    
+
     protected void setupJdbcUrl(Map<String, Object> parameters) {
         m_useDataSourceName = false;
-        
+
         // Extract the driver class name and create a driver class instance.
         try {
             m_driverClass = ParameterMap.getKeyedString(parameters, "driver", DBTools.DEFAULT_JDBC_DRIVER);
@@ -99,7 +99,7 @@ public class JdbcAgentState {
         } catch (Throwable exp) {
             throw new RuntimeException("Unable to load driver class: "+exp.toString(), exp);
         }
-        
+
         LOG.info("Loaded JDBC driver");
 
         // Get the JDBC url host part
@@ -113,19 +113,19 @@ public class JdbcAgentState {
         m_dbProps.setProperty("user", m_dbUser);
         m_dbProps.setProperty("password", m_dbPass);
     }
-    
+
     public Connection getJdbcConnection() throws JdbcCollectorException {
         if(m_useDataSourceName) {
             throw new JdbcCollectorException("Attempt to retrieve a JDBC Connection when the collector should be using the DataSourceFactory!");
         }
-        
+
         try {
             return m_driver.connect(m_dbUrl, m_dbProps);
         } catch(SQLException e) {
             throw new JdbcCollectorException("Unable to connect to JDBC URL: '" + m_dbUrl +"'", e);
         }
     }
-    
+
     public Statement createStatement(Connection con) {
         try {
             return con.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
@@ -134,24 +134,24 @@ public class JdbcAgentState {
             throw new JdbcCollectorException("Unable to create SQL statement: " + e.getMessage(), e);
         }
     }
-    
+
     public ResultSet executeJdbcQuery(Statement stmt, JdbcQuery query) {
         try {
             return stmt.executeQuery(query.getJdbcStatement().getJdbcQuery());
         } catch(SQLException e) {
             //closeAgentConnection();
-            
+
             throw new JdbcCollectorException("Unable to execute query '" + query.getQueryName() + "'! Check your jdbc-datacollection-config.xml configuration!", e);
         }
     }
-    
+
     public void closeConnection(Connection con) {
         if (con == null) return;
         try {
             con.close();
         } catch (SQLException ignore) {
-        }   
-        
+        }
+
     }
 
     public void closeStmt(Statement statement) {
@@ -171,7 +171,7 @@ public class JdbcAgentState {
             }
         }
     }
-    
+
 
     public String getAddress() {
         return m_address;
@@ -180,7 +180,7 @@ public class JdbcAgentState {
     public void setAddress(String address) {
         m_address = address;
     }
-    
+
     public boolean groupIsAvailable(String groupName) {
         JdbcGroupState groupState = m_groupStates.get(groupName);
         if (groupState == null) {
@@ -237,7 +237,7 @@ public class JdbcAgentState {
     public void setUseDataSourceName(boolean useDataSourceName) {
         m_useDataSourceName = useDataSourceName;
     }
-    
-    
+
+
 
 }

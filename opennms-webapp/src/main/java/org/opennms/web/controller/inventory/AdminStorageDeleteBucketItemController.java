@@ -50,12 +50,12 @@ import org.springframework.web.servlet.mvc.Controller;
  * @since 1.8.1
  */
 public class AdminStorageDeleteBucketItemController implements Controller {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketItemController.class);
 
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *
@@ -94,8 +94,8 @@ public class AdminStorageDeleteBucketItemController implements Controller {
         ModelAndView modelAndView = new ModelAndView("admin/storage/storageAdmin","model",model);
         return modelAndView;
     }
-    
-    
+
+
 
 
 }

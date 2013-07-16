@@ -57,23 +57,23 @@ import org.springframework.util.StringUtils;
  */
 public class ImportScheduler implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ImportScheduler.class);
-    
+
     /** Constant <code>JOB_GROUP="Provisiond"</code> */
     protected static final String JOB_GROUP = "Provisiond";
 
     @Autowired
     private Scheduler m_scheduler;
-    
+
     @Autowired
     private Provisioner m_provisioner;
-    
+
     @Autowired
     private ProvisiondConfigurationDao m_configDao;
 
     private Object m_lock = new Object();
 
     private JobFactory m_importJobFactory;
-    
+
     /**
      * <p>Constructor for ImportScheduler.</p>
      *
@@ -89,7 +89,7 @@ public class ImportScheduler implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
-        
+
         try {
             getScheduler().setJobFactory(getImportJobFactory());
         } catch (SchedulerException e) {
@@ -100,7 +100,7 @@ public class ImportScheduler implements InitializingBean {
 
         buildImportSchedule();
     }
-    
+
     /**
      * <p>start</p>
      *
@@ -109,7 +109,7 @@ public class ImportScheduler implements InitializingBean {
     public void start() throws SchedulerException {
         getScheduler().start();
     }
-    
+
     /**
      * <p>pause</p>
      *
@@ -118,7 +118,7 @@ public class ImportScheduler implements InitializingBean {
     public void pause() throws SchedulerException {
         getScheduler().pauseAll();
     }
-    
+
     /**
      * <p>standBy</p>
      *
@@ -127,7 +127,7 @@ public class ImportScheduler implements InitializingBean {
     public void standBy() throws SchedulerException {
         getScheduler().standby();
     }
-    
+
     /**
      * <p>resume</p>
      *
@@ -136,7 +136,7 @@ public class ImportScheduler implements InitializingBean {
     public void resume() throws SchedulerException {
         getScheduler().resumeAll();
     }
-    
+
     /**
      * <p>stop</p>
      *
@@ -145,7 +145,7 @@ public class ImportScheduler implements InitializingBean {
     public void stop() throws SchedulerException {
         getScheduler().shutdown();
     }
-    
+
     /**
      * Removes all jobs from the current scheduled and the builds a new schedule
      * from the reloaded configuration.  Since all jobs are Cron like, removing and re-adding
@@ -154,34 +154,34 @@ public class ImportScheduler implements InitializingBean {
      * @throws java.lang.Exception if any.
      */
     protected void rebuildImportSchedule() throws Exception {
-        
+
         LOG.info("rebuildImportSchedule: acquiring lock...");
 
         synchronized (m_lock) {
             LOG.debug("rebuildImportSchedule: lock acquired.  reloading configuration.");
-            
+
             try {
                 m_configDao.reloadConfiguration();
-                
+
                 LOG.debug("rebuildImportSchedule: removing current import jobs from schedule...");
                 removeCurrentJobsFromSchedule();
-                
+
                 LOG.debug("rebuildImportSchedule: recreating import schedule based on configuration...");
                 buildImportSchedule();
-                
+
                 printCurrentSchedule();
-                
+
             } catch (DataAccessResourceFailureException e) {
                 LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(),e);
                 throw new IllegalStateException(e);
-                
+
             } catch (SchedulerException e) {
                 LOG.error("rebuildImportSchedule: {}", e.getLocalizedMessage(),e);
                 throw e;
             }
-            
+
         }
-        
+
         LOG.info("rebuildImportSchedule: schedule rebuilt and lock released.");
     }
 
@@ -191,15 +191,15 @@ public class ImportScheduler implements InitializingBean {
      * @throws org.quartz.SchedulerException if any.
      */
     protected void removeCurrentJobsFromSchedule() throws SchedulerException {
-        
+
         printCurrentSchedule();
         synchronized (m_lock) {
-            
+
             Iterator<String> it = Arrays.asList(m_scheduler.getJobNames(JOB_GROUP)).iterator();
             while (it.hasNext()) {
                 String jobName = it.next();
                 try {
-                    
+
                     getScheduler().deleteJob(jobName, JOB_GROUP);
                 } catch (SchedulerException e) {
                     LOG.error("removeCurrentJobsFromSchedule: {}", e.getLocalizedMessage(), e);
@@ -213,32 +213,32 @@ public class ImportScheduler implements InitializingBean {
      * <p>buildImportSchedule</p>
      */
     protected void buildImportSchedule() {
-        
+
         synchronized (m_lock) {
 
             Iterator<RequisitionDef> it = m_configDao.getDefs().iterator();
-            
+
             while (it.hasNext()) {
                 RequisitionDef def = it.next();
                 JobDetail detail = null;
                 Trigger trigger = null;
-                
+
                 try {
                     detail = new JobDetail(def.getImportName(), JOB_GROUP, ImportJob.class, false, false, false);
                     detail.getJobDataMap().put(ImportJob.KEY, def.getImportUrlResource());
-                    
+
                     trigger = new CronTrigger(def.getImportName(), JOB_GROUP, def.getCronSchedule());
                     trigger.setMisfireInstruction(CronTrigger.MISFIRE_INSTRUCTION_DO_NOTHING);
                     getScheduler().scheduleJob(detail, trigger);
-                    
+
                 } catch (ParseException e) {
                     LOG.error("buildImportSchedule: {}", e.getLocalizedMessage(), e);
                 } catch (SchedulerException e) {
                     LOG.error("buildImportSchedule: {}", e.getLocalizedMessage(), e);
-                }                
+                }
             }
         }
-        
+
         printCurrentSchedule();
 
     }
@@ -260,7 +260,7 @@ public class ImportScheduler implements InitializingBean {
     public void setProvisioner(Provisioner provisioner) {
         m_provisioner = provisioner;
     }
-    
+
     /**
      * <p>getProvisioner</p>
      *
@@ -269,8 +269,8 @@ public class ImportScheduler implements InitializingBean {
     protected final Provisioner getProvisioner() {
         return m_provisioner;
     }
-    
-    
+
+
     /**
      * <p>setImportJobFactory</p>
      *
@@ -290,14 +290,14 @@ public class ImportScheduler implements InitializingBean {
     }
 
     private void printCurrentSchedule() {
-        
+
         try {
             LOG.info("calendarNames: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCalendarNames()));
             LOG.info("current executing jobs: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCurrentlyExecutingJobs().toArray()));
             LOG.info("current job names: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getJobNames(JOB_GROUP)));
             LOG.info("scheduler metadata: {}", getScheduler().getMetaData());
             LOG.info("trigger names: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getTriggerNames(JOB_GROUP)));
-            
+
             Iterator<String> it = Arrays.asList(getScheduler().getTriggerNames(JOB_GROUP)).iterator();
             while (it.hasNext()) {
                 String triggerName = it.next();
@@ -309,10 +309,10 @@ public class ImportScheduler implements InitializingBean {
                          t.getNextFireTime(), t.getPreviousFireTime(),
                          t.getTimeZone(), t.getPriority());
             }
-            
+
         } catch (Throwable e) {
             LOG.error("printCurrentSchedule: {}", e.getLocalizedMessage(), e);
         }
-        
+
     }
 }

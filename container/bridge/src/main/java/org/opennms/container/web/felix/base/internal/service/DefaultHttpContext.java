@@ -22,7 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.net.URL;
 
-public final class DefaultHttpContext 
+public final class DefaultHttpContext
     implements HttpContext
 {
     private Bundle bundle;

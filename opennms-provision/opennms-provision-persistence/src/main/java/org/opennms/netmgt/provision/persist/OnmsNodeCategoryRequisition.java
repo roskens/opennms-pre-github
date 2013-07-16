@@ -74,7 +74,7 @@ public class OnmsNodeCategoryRequisition {
     public String getName() {
         return m_category.getName();
     }
-    
-    
+
+
 
 }

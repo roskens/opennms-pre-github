@@ -42,7 +42,7 @@ public class AppController implements Presenter {
     private final SimpleEventBus m_eventBus;
     private SuggestionComboboxView<NodeDetail> m_suggestionComboboxView;
     private HasWidgets m_container;
-    
+
     public AppController(SimpleEventBus eventBus) {
         m_eventBus = eventBus;
     }
@@ -54,7 +54,7 @@ public class AppController implements Presenter {
         if(m_suggestionComboboxView == null) {
             m_suggestionComboboxView = new SuggestionComboboxViewImpl();
         }
-        
+
         new SuggestionComboboxPresenter(m_eventBus, m_suggestionComboboxView, new DefaultNodeService()).go(m_container);
     }
 

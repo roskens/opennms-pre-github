@@ -45,15 +45,15 @@ public enum AckAction {
     UNACKNOWLEDGE(3, "Unacknowledge"),
     ESCALATE(4, "Escalate"),
     CLEAR(5, "Clear");
-    
+
     /** Constant <code>m_idMap</code> */
-    private static final Map<Integer, AckAction> m_idMap; 
+    private static final Map<Integer, AckAction> m_idMap;
     private static final List<Integer> m_ids;
 
-    
+
     private int m_id;
     private String m_label;
-    
+
     static {
         m_ids = new ArrayList<Integer>(values().length);
         m_idMap = new HashMap<Integer, AckAction>(values().length);
@@ -78,7 +78,7 @@ public enum AckAction {
     public String toString() {
         return m_label;
     }
-    
+
     /**
      * <p>get</p>
      *
@@ -93,5 +93,5 @@ public enum AckAction {
         }
     }
 
-    
+
 }

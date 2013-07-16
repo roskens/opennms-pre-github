@@ -63,7 +63,7 @@ public class PingWindowTest {
 
 		pingWindow = new PingWindow(testNode1, "/opennms/ExecCommand.map?command=ping");
 		pingWindow2 = new PingWindow(null, "/opennms/ExecCommand.map?command=ping");
-		
+
 		app = new UI() { //Empty Application
 
 			private static final long serialVersionUID = -6761162156810032609L;

@@ -46,15 +46,15 @@ import org.springframework.transaction.PlatformTransactionManager;
  * @author brozow
  */
 public class DefaultUpsertService implements UpsertService, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultUpsertService.class);
-    
+
     @Autowired
     NodeDao m_nodeDao;
 
     @Autowired
     SnmpInterfaceDao m_snmpInterfaceDao;
-    
+
     @Autowired
     PlatformTransactionManager m_transactionManager;
 
@@ -66,14 +66,14 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
     @Override
     public OnmsSnmpInterface upsert(final int nodeId, final OnmsSnmpInterface snmpInterface, final int sleep) {
         UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao> upzerter = new UpsertTemplate<OnmsSnmpInterface, SnmpInterfaceDao>(m_transactionManager, m_snmpInterfaceDao) {
-            
+
             @Override
             public OnmsSnmpInterface query() {
                 OnmsSnmpInterface dbSnmpIface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(nodeId, snmpInterface.getIfIndex());
                 sleep(sleep);
                 return dbSnmpIface;
             }
-            
+
             @Override
             public OnmsSnmpInterface doUpdate(OnmsSnmpInterface dbSnmpIface) {
                 // update the interface that was found
@@ -84,7 +84,7 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
                 m_snmpInterfaceDao.flush();
                 return dbSnmpIface;
             }
-            
+
             @Override
             public OnmsSnmpInterface doInsert() {
                 // add the interface to the node, if it wasn't found
@@ -99,7 +99,7 @@ public class DefaultUpsertService implements UpsertService, InitializingBean {
             }
 
         };
-        
+
         return upzerter.execute();
     }
 

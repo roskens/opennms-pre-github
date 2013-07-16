@@ -61,7 +61,7 @@ final class ServletHandlerRequest extends HttpServletRequestWrapper {
     public String getPathTranslated() {
         final String info = getPathInfo();
         if (info == null) return null;
-        
+
         return getRealPath(info);
     }
 

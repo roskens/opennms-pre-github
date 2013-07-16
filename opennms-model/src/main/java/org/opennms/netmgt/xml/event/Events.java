@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Class Events.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -86,8 +86,8 @@ public class Events implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vEvent
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -99,8 +99,8 @@ public class Events implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vEvent
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -115,7 +115,7 @@ public class Events implements Serializable {
 
     /**
      * Method enumerateEvent.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -126,7 +126,7 @@ public class Events implements Serializable {
 
     /**
      * Method getEvent.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -139,7 +139,7 @@ public class Events implements Serializable {
         if (index < 0 || index >= this._eventList.size()) {
             throw new IndexOutOfBoundsException("getEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.xml.event.Event) _eventList.get(index);
     }
 
@@ -149,7 +149,7 @@ public class Events implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.xml.event.Event[] getEvent(
@@ -162,7 +162,7 @@ public class Events implements Serializable {
      * Method getEventCollection.Returns a reference to
      * '_eventList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.xml.event.Event> getEventCollection(
@@ -172,7 +172,7 @@ public class Events implements Serializable {
 
     /**
      * Method getEventCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getEventCount(
@@ -182,7 +182,7 @@ public class Events implements Serializable {
 
     /**
      * Method iterateEvent.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -200,7 +200,7 @@ public class Events implements Serializable {
 
     /**
      * Method removeEvent.
-     * 
+     *
      * @param vEvent
      * @return true if the object was removed from the collection.
      */
@@ -212,7 +212,7 @@ public class Events implements Serializable {
 
     /**
      * Method removeEventAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -223,8 +223,8 @@ public class Events implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vEvent
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -238,20 +238,20 @@ public class Events implements Serializable {
         if (index < 0 || index >= this._eventList.size()) {
             throw new IndexOutOfBoundsException("setEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
         }
-        
+
         this._eventList.set(index, vEvent);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vEventArray
      */
     public void setEvent(
             final org.opennms.netmgt.xml.event.Event[] vEventArray) {
         //-- copy array
         _eventList.clear();
-        
+
         for (int i = 0; i < vEventArray.length; i++) {
                 this._eventList.add(vEventArray[i]);
         }
@@ -260,14 +260,14 @@ public class Events implements Serializable {
     /**
      * Sets the value of '_eventList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vEventList the Vector to copy.
      */
     public void setEvent(
             final java.util.List<org.opennms.netmgt.xml.event.Event> vEventList) {
         // copy vector
         this._eventList.clear();
-        
+
         this._eventList.addAll(vEventList);
     }
 
@@ -275,7 +275,7 @@ public class Events implements Serializable {
      * Sets the value of '_eventList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param eventList the Vector to set.
      */
     public void setEventCollection(

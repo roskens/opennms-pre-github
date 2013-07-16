@@ -62,7 +62,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
      */
         @Override
     abstract public List<String> getInterestingEvents();
-    
+
     /**
      * <p>setEventIpcManager</p>
      *
@@ -71,7 +71,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
     public void setEventIpcManager(final EventIpcManager eventIpcManager) {
         m_eventIpcManager = eventIpcManager;
     }
-    
+
     /**
      * <p>sendEvent</p>
      *
@@ -80,7 +80,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
     public void sendEvent(final Event e) {
         m_eventIpcManager.sendNow(e);
     }
-    
+
     /**
      * <p>setTimer</p>
      *
@@ -92,7 +92,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
         m_scheduler.schedule(task, millis);
         return task.getId();
     }
-    
+
     /**
      * <p>getTimerTask</p>
      *
@@ -103,7 +103,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
         m_pendingTasks.put(timerTask.getId(), timerTask);
         return timerTask;
     }
-    
+
     /**
      * <p>cancelTimer</p>
      *
@@ -115,14 +115,14 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
             task.cancel();
         }
     }
-    
+
     /**
      * <p>timerExpired</p>
      *
      * @param timerId a {@link java.lang.Integer} object.
      */
     protected abstract void timerExpired(Integer timerId);
-    
+
     /**
      * <p>setScheduler</p>
      *
@@ -131,7 +131,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
     public void setScheduler(final Timer scheduler) {
         m_scheduler = scheduler;
     }
-    
+
     /**
      * <p>runTimer</p>
      *
@@ -141,15 +141,15 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
         m_pendingTasks.remove(task.getId());
         timerExpired(task.getId());
     }
-    
+
     private class RuleTimerTask extends TimerTask {
-        
+
         private final Integer m_id;
-        
+
         public RuleTimerTask() {
             m_id = s_lastTimerId.incrementAndGet();
         }
-        
+
         public Integer getId() {
             return m_id;
         }
@@ -158,7 +158,7 @@ public abstract class AbstractCorrelationEngine implements CorrelationEngine {
         public void run() {
             runTimer(this);
         }
-        
+
     }
- 
+
 }

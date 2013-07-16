@@ -43,7 +43,7 @@ public class OpennmsServerConfigManager {
      * The config class loaded from the config file
      */
     private LocalServer m_config;
-    
+
     /**
      * <p>Constructor for OpennmsServerConfigManager.</p>
      *

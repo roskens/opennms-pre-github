@@ -110,7 +110,7 @@ public class HypericAckProcessor implements AckProcessor {
 
     /**
      * <p>This class is used as the data bean for parsing XML responses from the Hyperic HQ
-     * systems that are serving up our alert status groovy servlet. The expected data 
+     * systems that are serving up our alert status groovy servlet. The expected data
      * format is:</p>
      * <pre>
      * <?xml version="1.0" encoding="UTF-8"?>
@@ -144,7 +144,7 @@ public class HypericAckProcessor implements AckProcessor {
      * <pre>
      * <alert id="1" ack="true" fixed="true"/>
      * </pre>
-     * 
+     *
      * <p>TODO: Add ackUser, ackTime, fixedUser, fixedTime attributes to objects if possible</p>
      */
     @XmlRootElement(name="alert")
@@ -333,7 +333,7 @@ public class HypericAckProcessor implements AckProcessor {
                 LOG.info("{} Hyperic alarms without an alert.source param found, these alarms will not be processed", String.valueOf(legacyAlarmCount));
             }
 
-            // Connect to each Hyperic system and query for the status of corresponding alerts 
+            // Connect to each Hyperic system and query for the status of corresponding alerts
             for (Map.Entry<String, List<OnmsAlarm>> alarmList : organizedAlarms.entrySet()) {
                 String hypericSystem = alarmList.getKey();
                 List<OnmsAlarm> alarmsForSystem = alarmList.getValue();
@@ -484,7 +484,7 @@ public class HypericAckProcessor implements AckProcessor {
         List<HypericAlertStatus> retval = new ArrayList<HypericAlertStatus>();
 
         if (alertIds.size() < 1) {
-            return retval; 
+            return retval;
         }
 
         for (int i = 0; i < alertIds.size(); i++) {
@@ -618,7 +618,7 @@ public class HypericAckProcessor implements AckProcessor {
             }
 
             // Throw an exception and include the erroneous HTTP response in the exception text
-            throw new JAXBException("Found wrong root element in Hyperic XML document, expected: \"" + rootElementName + "\", found \"" + startElement.getName().getLocalPart() + "\"\n" + 
+            throw new JAXBException("Found wrong root element in Hyperic XML document, expected: \"" + rootElementName + "\", found \"" + startElement.getName().getLocalPart() + "\"\n" +
                                     errorContent.toString());
         }
         return retval;

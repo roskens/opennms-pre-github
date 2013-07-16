@@ -29,10 +29,10 @@
 package org.opennms.netmgt.correlation.ncs;
 
 public class ComponentEventResolved {
-	
+
 	private ComponentDownEvent m_cause;
 	private ComponentUpEvent m_resolution;
-	
+
 	public ComponentEventResolved(ComponentDownEvent cause, ComponentUpEvent resolution) {
 		m_cause = cause;
 		m_resolution = resolution;
@@ -57,7 +57,7 @@ public class ComponentEventResolved {
 	@Override
 	public String toString() {
 		return "Resolved[ " +
-				"cause=" + m_cause + 
+				"cause=" + m_cause +
 				", resolution="
 				+ m_resolution + " ]";
 	}
@@ -93,8 +93,8 @@ public class ComponentEventResolved {
 			return false;
 		return true;
 	}
-	
-	
+
+
 
 
 }

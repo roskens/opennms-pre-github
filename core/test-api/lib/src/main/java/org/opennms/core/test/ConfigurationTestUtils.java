@@ -77,7 +77,7 @@ public abstract class ConfigurationTestUtils extends Assert {
     private static Class<? extends Object> getClass(Object obj) {
         return (obj != null) ? obj.getClass() : ConfigurationTestUtils.class;
     }
-    
+
     /**
      * <p>getSpringResourceForResource</p>
      *
@@ -92,7 +92,7 @@ public abstract class ConfigurationTestUtils extends Assert {
             return new InputStreamResource(getInputStreamForResource(obj, resource));
         }
     }
-    
+
     public static Resource getSpringResourceForResourceWithReplacements(final Object obj, final String resource, final String[] ... replacements) throws IOException {
         try {
         	String config = getConfigForResourceWithReplacements(obj, resource, replacements);
@@ -106,7 +106,7 @@ public abstract class ConfigurationTestUtils extends Assert {
             return new InputStreamResource(getInputStreamForResourceWithReplacements(obj, resource, replacements));
         }
     }
-    
+
     /**
      * <p>getFileForResource</p>
      *
@@ -116,13 +116,13 @@ public abstract class ConfigurationTestUtils extends Assert {
      */
     public static File getFileForResource(Object obj, String resource) {
         URL url = getUrlForResource(obj, resource);
-        
+
         String path = url.getFile();
         assertNotNull("could not get resource '" + resource + "' as a file", path);
-        
+
         File file = new  File(path);
         assertTrue("could not get resource '" + resource + "' as a file--the file at path '" + path + "' does not exist", file.exists());
-        
+
         return file;
     }
 
@@ -156,7 +156,7 @@ public abstract class ConfigurationTestUtils extends Assert {
         assertNotNull("could not get resource '" + resource + "' as an input stream", is);
         return is;
     }
-    
+
     /**
      * <p>getReaderForResourceWithReplacements</p>
      *
@@ -172,8 +172,8 @@ public abstract class ConfigurationTestUtils extends Assert {
                                                                 replacements);
         return new StringReader(newConfig);
     }
-    
-    
+
+
     /**
      * <p>getInputStreamForResourceWithReplacements</p>
      *
@@ -189,8 +189,8 @@ public abstract class ConfigurationTestUtils extends Assert {
                                                                 replacements);
         return new ByteArrayInputStream(newConfig.getBytes());
     }
-    
-    
+
+
     /**
      * <p>getConfigForResourceWithReplacements</p>
      *
@@ -205,7 +205,7 @@ public abstract class ConfigurationTestUtils extends Assert {
 
         Reader inputReader = getReaderForResource(obj, resource);
         BufferedReader bufferedReader = new BufferedReader(inputReader);
-        
+
         StringBuffer buffer = new StringBuffer();
 
         String line;
@@ -213,7 +213,7 @@ public abstract class ConfigurationTestUtils extends Assert {
             buffer.append(line);
             buffer.append("\n");
         }
-    
+
         String newConfig = buffer.toString();
         for (String[] replacement : replacements) {
             // The quoting around the replacement is necessary for file paths to work
@@ -221,7 +221,7 @@ public abstract class ConfigurationTestUtils extends Assert {
             // @see http://issues.opennms.org/browse/NMS-4853
             newConfig = newConfig.replaceAll(replacement[0], Matcher.quoteReplacement(replacement[1]));
         }
-    
+
         return newConfig;
     }
 
@@ -271,14 +271,14 @@ public abstract class ConfigurationTestUtils extends Assert {
      * @return a {@link java.io.File} object.
      */
     public static File getDaemonEtcDirectory() {
-        String etcPath = 
+        String etcPath =
             "src"+File.separator+
             "main"+File.separator+
             "filtered"+File.separator+
             "etc";
         return new File(getDaemonProjectDirectory(), etcPath);
     }
-    
+
     /**
      * <p>setRelativeHomeDirectory</p>
      *
@@ -307,7 +307,7 @@ public abstract class ConfigurationTestUtils extends Assert {
 
         File pomFile = new File(currentDirectory, POM_FILE);
         assertTrue("pom.xml in current directory should exist: " + pomFile.getAbsolutePath(), pomFile.exists());
-        
+
         return findTopProjectDirectory(currentDirectory);
     }
 
@@ -329,10 +329,10 @@ public abstract class ConfigurationTestUtils extends Assert {
         if (!daemonDirectory.exists()) {
             throw new IllegalStateException("Could not find a " + DAEMON_DIRECTORY + " in the location top-level directory: " + topLevelDirectory);
         }
-        
+
         File pomFile = new File(daemonDirectory, POM_FILE);
         assertTrue("pom.xml in " + DAEMON_DIRECTORY + " directory should exist: " + pomFile.getAbsolutePath(), pomFile.exists());
-        
+
         return daemonDirectory;
     }
 
@@ -341,11 +341,11 @@ public abstract class ConfigurationTestUtils extends Assert {
         if (buildFile.exists()) {
             File pomFile = new File(currentDirectory, POM_FILE);
             assertTrue("pom.xml in " + DAEMON_DIRECTORY + " directory should exist: " + pomFile.getAbsolutePath(), pomFile.exists());
-            
+
             return currentDirectory;
         } else {
             File parentDirectory = currentDirectory.getParentFile();
-            
+
             if (parentDirectory == null || parentDirectory == currentDirectory) {
                 return null;
             } else {

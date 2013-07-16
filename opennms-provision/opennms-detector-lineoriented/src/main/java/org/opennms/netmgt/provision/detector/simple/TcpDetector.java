@@ -48,19 +48,19 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
-    
+
     private static final String DEFAULT_SERVICE_NAME = "TCP";
     private static final int DEFAULT_PORT = 23;
-    
+
     private String m_banner = null;
-    
+
     /**
      * Default constructor
      */
     public TcpDetector() {
         this(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -84,7 +84,7 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
             getConversation().addExchange(testBannerlessConnection());
         }
     }
-    
+
     private static ConversationExchange<LineOrientedRequest, LineOrientedResponse> testBannerlessConnection() {
 
         return new ConversationExchange<LineOrientedRequest, LineOrientedResponse>() {
@@ -137,5 +137,5 @@ public class TcpDetector extends AsyncLineOrientedDetectorMinaImpl {
     public String getBanner() {
         return m_banner;
     }
-    
+
 }

@@ -49,14 +49,14 @@ public class SnmpThresholdConfiguration {
 
     /**
      * Default thresholding interval (in milliseconds).
-     * 
+     *
      */
     private static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
     /**
      * Default age before which a data point is considered "out of date"
      */
-    private static final int DEFAULT_RANGE = 0; 
+    private static final int DEFAULT_RANGE = 0;
 
     private ThresholdGroup m_thresholdGroup;
 

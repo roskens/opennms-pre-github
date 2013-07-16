@@ -98,15 +98,15 @@ public class AvailabilityData {
      * Section Index
      */
     private int m_sectionIndex = 0;
-    
+
     /**
     * Availability Data Service
     */
-    
+
     private AvailabilityDataService m_availabilityDataService;
-    
+
     // This version used when end date availalable as strings (from command line?)
-    
+
     /**
      * <p>fillReport</p>
      *
@@ -127,7 +127,7 @@ public class AvailabilityData {
             String startMonth, String startDate, String startYear)
             throws IOException, MarshalException, ValidationException,
             Exception {
-      
+
         Calendar cal = new GregorianCalendar();
         cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(startDate));
         cal.set(Calendar.MONTH, Integer.parseInt(startMonth));
@@ -138,7 +138,7 @@ public class AvailabilityData {
         generateData(categoryName, report, format, monthFormat,
                      new Date(cal.getTimeInMillis()));
     }
-    
+
     // This version used when end date availalable as a java Date
 
     /**
@@ -160,24 +160,24 @@ public class AvailabilityData {
             Exception {
        generateData(categoryName, report, format, monthFormat, periodEndDate);
     }
-    
+
 
     private void generateData(final String categoryName, final Report report,
             final String format, final String monthFormat,
             final Date periodEndDate)
             throws IOException, MarshalException, ValidationException,
             Exception {
-        
+
         Logging.withPrefix(LOG4J_CATEGORY, new Callable<Void>() {
 
             @Override
             public Void call() throws Exception {
                 LOG.debug("Inside AvailabilityData");
-                
+
                 m_nodes = new ArrayList<Node>();
-                
+
                 initializeInterval(periodEndDate);
-                
+
                 Catinfo config = null;
                 try {
                     CategoryFactory.init();
@@ -193,21 +193,21 @@ public class AvailabilityData {
                     LOG.error("Initializing CategoryFactory", e);
                     throw e;
                 }
-                
+
                 // FIXME There's some magic in here regarding multiple categories in a report
-                
+
                 LOG.debug("CATEGORY {}", categoryName);
-                
+
                 m_catFactory.getReadLock().lock();
                 try {
                     if (categoryName.equals("") || categoryName.equals("all")) {
                         int catCount = 0;
                         LOG.debug("catCount {}", catCount);
-                        
+
                         for(final Categorygroup cg : config.getCategorygroupCollection()) {
-                        
+
                             for(org.opennms.netmgt.config.categories.Category cat : cg.getCategories().getCategoryCollection()) {
-                
+
                                 LOG.debug("CATEGORY {}", cat.getLabel());
                                 catCount++;
                                 populateDataStructures(cat, report, format, monthFormat, catCount);
@@ -219,7 +219,7 @@ public class AvailabilityData {
                         LOG.debug("CATEGORY - now populating data structures {}", cat.getLabel());
                         populateDataStructures(cat, report, format, monthFormat, 1);
                     }
-                
+
                     final SimpleDateFormat simplePeriod = new SimpleDateFormat("MMMMMMMMMMM dd, yyyy");
                     final String reportPeriod = simplePeriod.format(new java.util.Date(m_startTime)) + " - " + simplePeriod.format(new java.util.Date(m_endTime));
                     Created created = report.getCreated();
@@ -231,7 +231,7 @@ public class AvailabilityData {
                 } finally {
                     m_catFactory.getReadLock().unlock();
                 }
-                
+
                 LOG.debug("After availCalculations");
                 return null;
             }
@@ -242,7 +242,7 @@ public class AvailabilityData {
     /**
      * Populates the data structure for this category. This method only
      * computes for monitored services in this category.
-     * 
+     *
      * @param cat
      *            Category
      * @param report
@@ -266,11 +266,11 @@ public class AvailabilityData {
                 throw new IllegalStateException("Data service is null");
             }
             m_nodes = m_availabilityDataService.getNodes(cat, m_startTime, m_endTime);
-            
+
             LOG.debug("Nodes {}", m_nodes);
-            
+
             // remove all the nodes that do not have outages
-            
+
             ListIterator<Node> cleanNodes = m_nodes.listIterator();
             while (cleanNodes.hasNext()) {
                 Node node = (Node) cleanNodes.next();
@@ -280,7 +280,7 @@ public class AvailabilityData {
                 }
             }
             LOG.debug("Cleaned Nodes {}", m_nodes);
-            
+
             TreeMap<Double, List<String>> topOffenders = getPercentNode();
 
             LOG.debug("TOP OFFENDERS {}", topOffenders);
@@ -334,9 +334,9 @@ public class AvailabilityData {
      * Initialize the endTime, start Time, last Months end time and number of days in the
      * last month.
      */
-    
+
     private void initializeInterval(Date periodEndDate) {
-        
+
         Calendar tempCal = new GregorianCalendar();
         tempCal.setTime(periodEndDate);
 
@@ -347,36 +347,36 @@ public class AvailabilityData {
         tempCal.set(Calendar.SECOND, 59);
         tempCal.set(Calendar.MILLISECOND, 999);
         m_endTime = tempCal.getTimeInMillis();
-        
+
         // Calculate first of the month, 12 months ago.
-        
+
         tempCal.add(Calendar.YEAR, -1);
         tempCal.set(Calendar.DAY_OF_MONTH, 1);
         tempCal.set(Calendar.HOUR_OF_DAY, 0);
         tempCal.set(Calendar.MINUTE, 0);
         tempCal.set(Calendar.SECOND, 0);
         tempCal.set(Calendar.MILLISECOND, 0);
-        
+
         m_startTime = tempCal.getTimeInMillis();
-        
+
         // Reset tempCal to m_end time and calculate last month calendar details
-        
+
         tempCal.setTimeInMillis(m_endTime);
         tempCal.add(Calendar.MONTH, -1);
-        
+
         m_daysInLastMonth = tempCal.getActualMaximum(Calendar.DAY_OF_MONTH);
         // Not entirely sure if this is needed
-        
+
         tempCal.set(Calendar.DAY_OF_MONTH, m_daysInLastMonth);
         tempCal.set(Calendar.HOUR_OF_DAY, 23);
         tempCal.set(Calendar.MINUTE, 59);
         tempCal.set(Calendar.SECOND, 59);
         tempCal.set(Calendar.MILLISECOND, 999);
-        
+
         m_lastMonthEndTime = tempCal.getTimeInMillis();
-        
+
     }
-    
+
     /**
      * Returns the nodes.
      *
@@ -404,7 +404,7 @@ public class AvailabilityData {
         LOG.debug("getPercentNode: Start time {}", new java.util.Date(startTime));
         LOG.debug("getPercentNode: End time {}", new java.util.Date(endTime));
         TreeMap<Double, List<String>> percentNode = new TreeMap<Double, List<String>>();
-        
+
         for(Node node : m_nodes) {
             if (node != null) {
                 double percent = node.getPercentAvail(endTime, rollingWindow);

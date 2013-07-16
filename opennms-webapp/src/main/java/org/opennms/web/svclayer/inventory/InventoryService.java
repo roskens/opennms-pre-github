@@ -63,14 +63,14 @@ import org.springframework.beans.factory.InitializingBean;
  * @since 1.8.1
  */
 public class InventoryService implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(InventoryService.class);
 
     RWSConfig m_rwsConfig;
     NodeDao m_nodeDao;
     ConnectionProperties m_cp;
-    
-    
+
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -81,15 +81,15 @@ public class InventoryService implements InitializingBean {
             RWSClientApi.init();
             m_cp = m_rwsConfig.getBase();
     }
-    
-    
+
+
     /**
      * <p>Constructor for InventoryService.</p>
      */
     public InventoryService() {
         super();
     }
-    
+
     /**
      * <p>getRwsConfig</p>
      *
@@ -122,7 +122,7 @@ public class InventoryService implements InitializingBean {
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>checkRWSAlive</p>
      *
@@ -139,7 +139,7 @@ public class InventoryService implements InitializingBean {
             return false;
         }
     }
-    
+
     /**
      * <p>checkRancidNode</p>
      *
@@ -147,19 +147,19 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean checkRancidNode(String deviceName){
-        
+
         LOG.debug("checkRancidNode start {}", deviceName);
-                
-        // Group list 
+
+        // Group list
         try {
             RWSResourceList groups = RWSClientApi.getRWSResourceGroupsList(m_cp);
             List<String> grouplist = groups.getResource();
             Iterator<String> iter1 = grouplist.iterator();
-           
+
             if (iter1.hasNext()){
                 String groupname = iter1.next();
-                LOG.debug("checkRancidNode {} group {}", deviceName, groupname);        
-                
+                LOG.debug("checkRancidNode {} group {}", deviceName, groupname);
+
                 try {
                     RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupname, deviceName);
                     if (rn!=null){
@@ -182,8 +182,8 @@ public class InventoryService implements InitializingBean {
     }
 
     /*
-     * getRancidNodeBase get 
-     * data from nodeDao 
+     * getRancidNodeBase get
+     * data from nodeDao
      */
     /**
      * <p>getRancidNodeBase</p>
@@ -192,14 +192,14 @@ public class InventoryService implements InitializingBean {
      * @return a java$util$Map object.
      */
     public Map<String, Object> getRancidNodeBase(int nodeid) {
-        
+
         LOG.debug("getRancidNodeBase start for nodeid: {}", nodeid);
         Map<String, Object> nodeModel = new TreeMap<String, Object>();
 
         nodeModel.put("RWSStatus","OK");
         OnmsNode node = m_nodeDao.get(nodeid);
         String rancidName = node.getLabel();
-        
+
         LOG.debug("getRancidNodeBase rancid node name: {}", rancidName);
 
 
@@ -210,7 +210,7 @@ public class InventoryService implements InitializingBean {
         // TODO find a method to get root service for URL
         nodeModel.put("url", m_cp.getUrl()+m_cp.getDirectory());
 
-        String rancidIntegrationUseOnlyRancidAdapterProperty = Vault.getProperty("opennms.rancidIntegrationUseOnlyRancidAdapter"); 
+        String rancidIntegrationUseOnlyRancidAdapterProperty = Vault.getProperty("opennms.rancidIntegrationUseOnlyRancidAdapter");
         LOG.debug("getRancidNodeBase opennms.rancidIntegrationUseOnlyRancidAdapter: {}", rancidIntegrationUseOnlyRancidAdapterProperty);
         if (rancidIntegrationUseOnlyRancidAdapterProperty != null &&  "true".equalsIgnoreCase(rancidIntegrationUseOnlyRancidAdapterProperty.trim())) {
             LOG.debug("getRancidNodeBase permitModifyClogin: false");
@@ -219,22 +219,22 @@ public class InventoryService implements InitializingBean {
             LOG.debug("getRancidNodeBase permitModifyClogin: true");
             nodeModel.put("permitModifyClogin",true);
         }
-        
+
         String foreignSource = node.getForeignSource();
         if (foreignSource != null ) {
             nodeModel.put("foreignSource", foreignSource);
         } else {
-            nodeModel.put("foreignSource", "");            
+            nodeModel.put("foreignSource", "");
         }
 
         return nodeModel;
     }
 
 
-    
+
     /*
      * getRancidNode will filter any exception, the page will show an empty table
-     * in case of node not in DB or device name not in RWS 
+     * in case of node not in DB or device name not in RWS
      */
     /**
      * <p>getRancidNode</p>
@@ -243,13 +243,13 @@ public class InventoryService implements InitializingBean {
      * @return a java$util$Map object.
      */
     public Map<String, Object> getRancidNode(int nodeid) {
-        
+
         LOG.debug("getRancidNode start");
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
+        String rancidName = (String)nodeModel.get("id");
         List<RancidNodeWrapper> ranlist = new ArrayList<RancidNodeWrapper>();
         List<BucketItem> bucketlist = new ArrayList<BucketItem>();
-        // Group list 
+        // Group list
         RWSResourceList groups;
         try {
             groups = RWSClientApi.getRWSResourceGroupsList(m_cp);
@@ -258,16 +258,16 @@ public class InventoryService implements InitializingBean {
             nodeModel.put("RWSStatus",e.getLocalizedMessage());
             return nodeModel;
         }
-            
+
         List<String> grouplist = groups.getResource();
         Iterator<String> iter1 = grouplist.iterator();
-        
-      
+
+
         boolean first = true;
         while (iter1.hasNext()){
             String groupname = iter1.next();
-            LOG.debug("getRancidNode: {} for group {}", nodeid, groupname);        
-            
+            LOG.debug("getRancidNode: {} for group {}", nodeid, groupname);
+
             try {
                 if (first){
                     RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupname, rancidName);
@@ -286,9 +286,9 @@ public class InventoryService implements InitializingBean {
                     RancidNodeWrapper rnw = new RancidNodeWrapper(rn.getDeviceName(), groupname, rn.getDeviceType(), rn.getComment(), rn.getHeadRevision(),
                       rn.getTotalRevisions(), in.getCreationDate(), rn.getRootConfigurationUrl());
 
-                    ranlist.add(rnw); 
+                    ranlist.add(rnw);
                 } catch (RancidApiException e) {
-                    LOG.debug("No configuration found for nodeid:{} on Group: {} .Cause: {}", nodeid, groupname, e.getLocalizedMessage());                    
+                    LOG.debug("No configuration found for nodeid:{} on Group: {} .Cause: {}", nodeid, groupname, e.getLocalizedMessage());
                 }
             } catch (RancidApiException e){
                 if (e.getRancidCode() == 2) {
@@ -299,15 +299,15 @@ public class InventoryService implements InitializingBean {
                 }
             }
         }
-            
-        //Groups invariant            
+
+        //Groups invariant
         nodeModel.put("grouptable", ranlist);
 
-        
+
         try {
             RWSBucket bucket = RWSClientApi.getBucket(m_cp, rancidName);
             bucketlist.addAll(bucket.getBucketItem());
-        } catch (RancidApiException e) {            
+        } catch (RancidApiException e) {
             if (e.getRancidCode() == 2) {
                 LOG.debug("No entry in storage for nodeid:{} nodeLabel: {}", nodeid, rancidName);
             } else {
@@ -315,8 +315,8 @@ public class InventoryService implements InitializingBean {
                 LOG.error(e.getLocalizedMessage());
             }
         }
-        
-        nodeModel.put("bucketitems", bucketlist);        
+
+        nodeModel.put("bucketitems", bucketlist);
 
         return nodeModel;
     }
@@ -330,7 +330,7 @@ public class InventoryService implements InitializingBean {
     public Map<String, Object> getBuckets(int nodeid) {
         LOG.debug("getBuckets start: nodeid: {}", nodeid);
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
+        String rancidName = (String)nodeModel.get("id");
 
         List<BucketItem> bucketlist = new ArrayList<BucketItem>();
         try {
@@ -345,12 +345,12 @@ public class InventoryService implements InitializingBean {
                 nodeModel.put("RWSStatus",e.getLocalizedMessage());
                 LOG.error(e.getLocalizedMessage());
             }
-        }            
+        }
         nodeModel.put("bucketlistsize", bucketlist.size());
-        nodeModel.put("bucketitems", bucketlist);        
-        return nodeModel;        
+        nodeModel.put("bucketitems", bucketlist);
+        return nodeModel;
     }
-    
+
     /**
      * <p>getRancidNodeList</p>
      *
@@ -360,9 +360,9 @@ public class InventoryService implements InitializingBean {
     public Map<String, Object> getRancidNodeList(int nodeid) {
        LOG.debug("getRancidNodelist start: nodeid: {}", nodeid);
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
+        String rancidName = (String)nodeModel.get("id");
 
-                       
+
         RWSResourceList groups;
         try {
             groups = RWSClientApi.getRWSResourceGroupsList(m_cp);
@@ -371,17 +371,17 @@ public class InventoryService implements InitializingBean {
             LOG.error(e.getLocalizedMessage());
             return nodeModel;
         }
-        
+
         List<InventoryWrapper> ranlist = new ArrayList<InventoryWrapper>();
-        
+
         List<String> grouplist = groups.getResource();
         Iterator<String> iter2 = grouplist.iterator();
-        
+
         boolean first = true;
         String groupname;
         while (iter2.hasNext()) {
             groupname = iter2.next();
-        
+
             RancidNode rn;
             try {
                 rn = RWSClientApi.getRWSRancidNodeInventory(m_cp, groupname, rancidName);
@@ -390,13 +390,13 @@ public class InventoryService implements InitializingBean {
                     first = false;
                 }
                 RWSResourceList versionList = RWSClientApi.getRWSResourceConfigList(m_cp, groupname, rancidName);
-                
+
                 List<String> versionListStr= versionList.getResource();
-                
+
                 Iterator<String> iter1 = versionListStr.iterator();
-                
+
                 String vs;
-                
+
                 while (iter1.hasNext()) {
                     vs = iter1.next();
                     InventoryNode in = (InventoryNode)rn.getNodeVersions().get(vs);
@@ -412,12 +412,12 @@ public class InventoryService implements InitializingBean {
                 }
             }
         }
-            
+
         nodeModel.put("grouptable", ranlist);
-            
-            
+
+
         return nodeModel;
-        
+
     }
 
     /**
@@ -430,10 +430,10 @@ public class InventoryService implements InitializingBean {
     public Map<String, Object> getRancidNodeList(int nodeid, String group) {
         LOG.debug("getRancidlist start: nodeid: {} group: {}", nodeid, group);
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
+        String rancidName = (String)nodeModel.get("id");
 
         List<InventoryWrapper> ranlist = new ArrayList<InventoryWrapper>();
-            
+
         RancidNode rn;
         try {
             rn = RWSClientApi.getRWSRancidNodeInventory(m_cp, group, rancidName);
@@ -448,9 +448,9 @@ public class InventoryService implements InitializingBean {
             return nodeModel;
         }
 
-        
+
         RWSResourceList versionList;
-        
+
         try {
             versionList = RWSClientApi.getRWSResourceConfigList(m_cp, group, rancidName);
         } catch (RancidApiException e) {
@@ -458,24 +458,24 @@ public class InventoryService implements InitializingBean {
             LOG.error(e.getLocalizedMessage());
             return nodeModel;
         }
-        
+
         List<String> versionListStr= versionList.getResource();
-        
+
         Iterator<String> iter1 = versionListStr.iterator();
-        
+
         String vs;
-        
+
         while (iter1.hasNext()) {
             vs = iter1.next();
             InventoryNode in = (InventoryNode)rn.getNodeVersions().get(vs);
             InventoryWrapper inwr = new InventoryWrapper(in.getVersionId(), in.getCreationDate(), group, in.getConfigurationUrl());
             ranlist.add(inwr);
         }
-        
+
         nodeModel.put("grouptable", ranlist);
 
         return nodeModel;
-        
+
     }
 
     /**
@@ -490,13 +490,13 @@ public class InventoryService implements InitializingBean {
                                                 String group, String version) {
         LOG.debug("getInventoryNode start: nodeid: {} group: {} version: {}", nodeid, group, version);
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
+        String rancidName = (String)nodeModel.get("id");
 
         try {
             RancidNode rn = RWSClientApi.getRWSRancidNodeInventory(m_cp, group, rancidName);
-    
+
             InventoryNode in = (InventoryNode)rn.getNodeVersions().get(version);
-            
+
             nodeModel.put("devicename", rancidName);
             nodeModel.put("groupname", group);
             nodeModel.put("version", version);
@@ -508,18 +508,18 @@ public class InventoryService implements InitializingBean {
             LOG.debug("getInventoryNode date: {}", in.getCreationDate());
 
             List<InventoryElement2> ie = RWSClientApi.getRWSRancidNodeInventoryElement2(m_cp, rn, version);
-            
-            
+
+
             Iterator<InventoryElement2> iter1 = ie.iterator();
-                                       
+
             while (iter1.hasNext()) {
                 InventoryElement2 ietmp = iter1.next();
-                
+
                 LOG.debug("Adding inventory: {}", ietmp.expand());
             }
-                               
+
             nodeModel.put("inventory",ie);
-            
+
         } catch (RancidApiException e) {
             if (e.getRancidCode() == 2) {
                 LOG.debug("No Inventory found in CVS repository for nodeid:{} nodeLabel: {}", nodeid, rancidName);
@@ -543,9 +543,9 @@ public class InventoryService implements InitializingBean {
     public Map<String, Object> getRancidNodeWithCLoginForGroup(int nodeid,String group, boolean adminRole) {
         LOG.debug("getRancidNodeWithCloginFroGroup start: group: {}", group);
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
-        
-        // Group list 
+        String rancidName = (String)nodeModel.get("id");
+
+        // Group list
         RWSResourceList groups;
         try {
             groups = RWSClientApi.getRWSResourceGroupsList(m_cp);
@@ -558,7 +558,7 @@ public class InventoryService implements InitializingBean {
         List<String> grouplist = groups.getResource();
         nodeModel.put("grouplist",grouplist);
 
-        // DeviceType list 
+        // DeviceType list
         RWSResourceList devicetypes;
         try {
             devicetypes = RWSClientApi.getRWSResourceDeviceTypesPatternList(m_cp);
@@ -570,9 +570,9 @@ public class InventoryService implements InitializingBean {
 
         List<String> devicetypelist = devicetypes.getResource();
         nodeModel.put("devicetypelist",devicetypelist);
-        
+
         nodeModel.put("groupname", group);
-        
+
         try {
             RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, group, rancidName);
             nodeModel.put("devicename", rn.getDeviceName());
@@ -587,13 +587,13 @@ public class InventoryService implements InitializingBean {
                 LOG.debug("No device found in router.db for:{}on Group: {}", rancidName, group);
             } else {
                 nodeModel.put("RWSStatus",e.getLocalizedMessage());
-                LOG.error(e.getLocalizedMessage());               
+                LOG.error(e.getLocalizedMessage());
                 return nodeModel;
             }
         }
 
         if (adminRole) {
-            LOG.debug("getRancidNode: getting clogin info for: {}", rancidName);        
+            LOG.debug("getRancidNode: getting clogin info for: {}", rancidName);
             RancidNodeAuthentication rn5;
             try {
                 rn5 = RWSClientApi.getRWSAuthNode(m_cp,rancidName);
@@ -617,7 +617,7 @@ public class InventoryService implements InitializingBean {
 
     /*
      * getRancidNodeWithClogin will filter any exception, the page will show an empty table
-     * in case of node not in DB or device name not in RWS 
+     * in case of node not in DB or device name not in RWS
      */
     /**
      * <p>getRancidNodeWithCLogin</p>
@@ -627,12 +627,12 @@ public class InventoryService implements InitializingBean {
      * @return a java$util$Map object.
      */
     public Map<String, Object> getRancidNodeWithCLogin(int nodeid, boolean adminRole) {
-        
+
         LOG.debug("getRancidNodeWithClogin start");
         Map<String, Object> nodeModel = getRancidNodeBase(nodeid);
-        String rancidName = (String)nodeModel.get("id"); 
-        
-        // Group list 
+        String rancidName = (String)nodeModel.get("id");
+
+        // Group list
         RWSResourceList groups;
         try {
             groups = RWSClientApi.getRWSResourceGroupsList(m_cp);
@@ -641,17 +641,17 @@ public class InventoryService implements InitializingBean {
             LOG.error(e.getLocalizedMessage());
             return nodeModel;
         }
-            
+
         List<String> grouplist = groups.getResource();
         nodeModel.put("grouplist",grouplist);
-        Iterator<String> iter1 = grouplist.iterator();        
-      
+        Iterator<String> iter1 = grouplist.iterator();
+
         String groupname;
         while (iter1.hasNext()){
             groupname = iter1.next();
             nodeModel.put("groupname", groupname);
-            LOG.debug("getRancidNodeWithClogin {} group {}", rancidName, groupname);        
-            
+            LOG.debug("getRancidNodeWithClogin {} group {}", rancidName, groupname);
+
             try {
                 RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupname, rancidName);
                 nodeModel.put("devicename", rn.getDeviceName());
@@ -666,13 +666,13 @@ public class InventoryService implements InitializingBean {
                     LOG.debug("No device found in router.db for:{}on Group: {}", rancidName, groupname);
                 } else {
                     nodeModel.put("RWSStatus",e.getLocalizedMessage());
-                    LOG.error(e.getLocalizedMessage());               
+                    LOG.error(e.getLocalizedMessage());
                     return nodeModel;
                 }
             }
         }
-                   
-        // DeviceType list 
+
+        // DeviceType list
         RWSResourceList devicetypes;
         try {
             devicetypes = RWSClientApi.getRWSResourceDeviceTypesPatternList(m_cp);
@@ -687,7 +687,7 @@ public class InventoryService implements InitializingBean {
 
         //CLOGIN
         if (adminRole) {
-            LOG.debug("getRancidNode: getting clogin info for: {}", rancidName);        
+            LOG.debug("getRancidNode: getting clogin info for: {}", rancidName);
             RancidNodeAuthentication rn5;
             try {
                 rn5 = RWSClientApi.getRWSAuthNode(m_cp,rancidName);
@@ -717,10 +717,10 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean switchStatus(String groupName, String deviceName){
-        
+
       LOG.debug("InventoryService switchStatus {}/{}", groupName, deviceName);
 
-      try {  
+      try {
           RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupName, deviceName);
           if (rn.isStateUp()){
               LOG.debug("InventoryService switchStatus :down");
@@ -746,10 +746,10 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean deleteNodeOnRouterDb(String groupName, String deviceName){
-        
+
         LOG.debug("InventoryService deleteNodeOnRouterDb: {}/{}", groupName, deviceName);
 
-        try {  
+        try {
             RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupName, deviceName);
             RWSClientApi.deleteRWSRancidNode(m_cp, rn);
         }
@@ -771,10 +771,10 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean updateNodeOnRouterDb(String groupName, String deviceName, String deviceType, String status, String comment ){
-        
+
         LOG.debug("InventoryService updateNodeOnRouterDb: {}->{}:{}:{}:{}", groupName, deviceName, deviceType, status, comment);
 
-        try {  
+        try {
             RancidNode rn = RWSClientApi.getRWSRancidNodeTLO(m_cp, groupName, deviceName);
             rn.setDeviceType(deviceType);
             if (comment != null) rn.setComment(comment);
@@ -803,10 +803,10 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean createNodeOnRouterDb(String groupName, String deviceName, String deviceType, String status,String comment ){
-        
+
         LOG.debug("InventoryService createNodeOnRouterDb: {}->{}:{}:{}:{}", groupName, deviceName, deviceType, status, comment);
 
-        try {  
+        try {
             RancidNode rn = new RancidNode(groupName,deviceName);
             rn.setDeviceType(deviceType);
             if (comment != null) rn.setComment(comment);
@@ -868,7 +868,7 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean deleteClogin(String deviceName){
-        LOG.debug("InventoryService deleteClogin deviceName [{}] ", deviceName); 
+        LOG.debug("InventoryService deleteClogin deviceName [{}] ", deviceName);
         try {
           RancidNodeAuthentication rna = RWSClientApi.getRWSAuthNode(m_cp, deviceName);
           RWSClientApi.deleteRWSAuthNode(m_cp,rna);
@@ -910,7 +910,7 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean deleteBucket(String bucket){
-        LOG.debug("InventoryService deleteBucket for bucket [{}]/ ", bucket); 
+        LOG.debug("InventoryService deleteBucket for bucket [{}]/ ", bucket);
         try {
           RWSClientApi.deleteBucket(m_cp, bucket);
           LOG.debug("InventoryService ModelAndView deleteBucket changes submitted");
@@ -929,7 +929,7 @@ public class InventoryService implements InitializingBean {
      * @return a boolean.
      */
     public boolean createBucket(String bucket){
-        LOG.debug("InventoryService createBucket for bucket [{}]/ ", bucket); 
+        LOG.debug("InventoryService createBucket for bucket [{}]/ ", bucket);
         try {
           RWSClientApi.createBucket(m_cp, bucket);
           LOG.debug("InventoryService ModelAndView createBucket changes submitted");
@@ -941,7 +941,7 @@ public class InventoryService implements InitializingBean {
         return true;
     }
 
-    
+
 
 
 }

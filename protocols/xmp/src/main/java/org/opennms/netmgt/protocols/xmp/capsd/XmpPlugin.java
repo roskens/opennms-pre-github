@@ -76,13 +76,13 @@ public final class XmpPlugin extends AbstractPlugin {
      * The protocol supported by the plugin
      */
     private final static String PROTOCOL_NAME = "XMP";
-    
+
     /**
      * The default port to use for XMP
      */
     private final static int DEFAULT_PORT = Xmp.XMP_PORT;
-    
-    
+
+
     /**
      * Default number of retries for TCP requests
      */
@@ -92,7 +92,7 @@ public final class XmpPlugin extends AbstractPlugin {
      * Default timeout (in milliseconds) for XMP requests
      */
     private final static int DEFAULT_TIMEOUT = 5000; // in milliseconds
-    
+
     /**
      * Default XMP user for performing requests
      */
@@ -102,49 +102,49 @@ public final class XmpPlugin extends AbstractPlugin {
      * Default type of request to perform
      */
     private final static String DEFAULT_REQUEST_TYPE = "GetRequest";
-    
+
     /**
      * Default MIB from which to make request
      */
     private final static String DEFAULT_REQUEST_MIB = "core";
-    
+
     /**
      * Default table from which to make request
      */
     private final static String DEFAULT_REQUEST_TABLE = "";
-    
+
     /**
      * Default object name to request
      */
     private final static String DEFAULT_REQUEST_OBJECT = "sysObjectID";
-    
+
     /**
      * Default instance to request (for SelectTableRequest only)
      */
     private final static String DEFAULT_REQUEST_INSTANCE = "*";
-    
+
     /**
      * Default string against which to match the returned value(s)
      */
     private final static String DEFAULT_VALUE_MATCH = null;
-    
+
     /**
      * Default string against which to match the returned instance(s)
      */
     private final static String DEFAULT_INSTANCE_MATCH = null;
-    
+
     /**
      * Default integer denoting minimum number of
      * matches allowed
      */
     private final static int DEFAULT_MIN_MATCHES = 1;
-    
+
     /**
      * Default integer denoting maximum number of
      * matches allowed.
      */
     private final static int DEFAULT_MAX_MATCHES = 1;
-    
+
     /**
      * Default boolean indicating whether maximum number
      * of matches is actually unbounded
@@ -189,7 +189,7 @@ public final class XmpPlugin extends AbstractPlugin {
      */
     @Override
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
-        
+
         XmpConfig protoConfig = XmpConfigFactory.getInstance().getXmpConfig();
         XmpSession session;
         SocketOpts sockopts = new SocketOpts();
@@ -230,10 +230,10 @@ public final class XmpPlugin extends AbstractPlugin {
             String maxMatchesUnboundedStr = ParameterMap.getKeyedString(qualifiers, "max-matches", "unbounded");
             maxMatchesUnbounded = (maxMatchesUnboundedStr.equalsIgnoreCase("unbounded"));
         }
-        
+
         // Set the SO_TIMEOUT so that this thing has a prayer of working over a WAN
         sockopts.setConnectTimeout(timeout);
-        
+
         // If this is a SelectTableRequest, then you can't use the defaults
         // for Table and Object.
         if (requestType.equalsIgnoreCase("SelectTableRequest")) {
@@ -244,7 +244,7 @@ public final class XmpPlugin extends AbstractPlugin {
                 throw new IllegalArgumentException("When performing a SelectTableRequest, object must be specified and must be tabular");
             }
         }
-        
+
         // If this is a GetRequest, then you can't specify a table or
         // an instance
         else if (requestType.equalsIgnoreCase("GetRequest")) {
@@ -257,13 +257,13 @@ public final class XmpPlugin extends AbstractPlugin {
         } else {
             throw new IllegalArgumentException("Unknown request type " + requestType + ", only GetRequest and SelectTableRequest are supported");
         }
-        
+
         RE instanceRegex = null;
         try {
             if (instanceMatch == null) {
                 instanceRegex = null;
             } else if (instanceMatch != null) {
-                instanceRegex = new RE(instanceMatch);                
+                instanceRegex = new RE(instanceMatch);
             }
         } catch (RESyntaxException e) {
             throw new java.lang.reflect.UndeclaredThrowableException(e);
@@ -289,7 +289,7 @@ public final class XmpPlugin extends AbstractPlugin {
             } catch (XmpUtilException e) {
                 result = false;
             }
-        }        
+        }
         return result;
     }
 }

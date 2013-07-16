@@ -123,9 +123,9 @@ public class JRobinConverter {
 
     /**
      * @param args
-     * @throws ParseException 
-     * @throws ConverterException 
-     * @throws RrdException 
+     * @throws ParseException
+     * @throws ConverterException
+     * @throws RrdException
      */
     public static void main(final String[] args) throws ParseException, ConverterException, RrdException {
         new JRobinConverter().execute(args);
@@ -206,7 +206,7 @@ public class JRobinConverter {
         }
 
         final List<File> files = new ArrayList<File>();
-        
+
         for (final File f : rrdGroupFile.getAbsoluteFile().getParentFile().listFiles()) {
             for (final String dsName : dsNames) {
                 if (f.getName().equals(dsName + ".rrd") || f.getName().equals(dsName + ".jrb")) {
@@ -214,7 +214,7 @@ public class JRobinConverter {
                 }
             }
         }
-        
+
         return files;
     }
 
@@ -279,7 +279,7 @@ public class JRobinConverter {
         findRrds(topDirectory, files);
         return files;
     }
-    
+
     public List<File> findGroupRrds(final File topDirectory) throws ConverterException {
         final List<File> files = new ArrayList<File>();
         findRrds(topDirectory, files);
@@ -366,5 +366,5 @@ public class JRobinConverter {
         }
         return false;
     }
-    
+
 }

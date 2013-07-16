@@ -57,18 +57,18 @@ public class DefaultOutageServiceTest {
 	DefaultOutageService outageService = new DefaultOutageService();
 
 	private OutageDao outageDao;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		outageDao = createMock(OutageDao.class);
 		outageService.setDao(outageDao);
 	}
-	
+
 	@Test
 	public void testLoadOneOutage() {
 	    assertNotNull(outageService);
 	    assertNotNull(outageDao);
-	    
+
 		Integer outageId = Integer.valueOf(505);
 		OnmsOutage outage = new OnmsOutage();
 
@@ -88,7 +88,7 @@ public class DefaultOutageServiceTest {
 	public void testGetCurrentOutageCount() {
 	    assertNotNull(outageService);
 	    assertNotNull(outageDao);
-	    
+
 		Integer expectedCount = Integer.valueOf(1);
 
 		expect(outageDao.currentOutageCount()).andReturn(expectedCount);
@@ -114,29 +114,29 @@ public class DefaultOutageServiceTest {
 //		assertTrue("All is suppressed ", count.equals(1));
 
 	}
-	
+
 	@Test
 	public void testCurrentOutages() {
 	    assertNotNull(outageService);
 	    assertNotNull(outageDao);
-        
+
 	    Collection<OnmsOutage> expectedOutages = new HashSet<OnmsOutage>();
 		OnmsOutage expectedCurrent = new OnmsOutage();
 		expectedCurrent.setId(1);
 		expectedOutages.add(expectedCurrent);
 
 		expect(outageDao.currentOutages()).andReturn(expectedOutages);
-        
+
 		replay(outageDao);
 		Collection<OnmsOutage> current = outageService.getCurrentOutages();
 		verify(outageDao);
-        
+
 		assertTrue("Current Outages", current.equals(expectedOutages));
 	}
-	
+
 	@Ignore("The features here have yet been implemented")
 	public void testSuppressedOutages() {
-		
+
 		fail("Needs to be upgraded to hibernate");
 
 //	 	Collection<OnmsOutage> expectedOutages = new JdbcSet();
@@ -151,7 +151,7 @@ public class DefaultOutageServiceTest {
 //		verify(outageDao);
 //		assertTrue("Current Outages", suppressed.equals(expectedOutages));
 	}
-	
+
 	@Ignore("The features here have yet been implemented")
 	public void testOpenAndResolved() {
 
@@ -170,12 +170,12 @@ public class DefaultOutageServiceTest {
 //		assertTrue("Current Outages", suppressed.equals(expectedOutages));
 
 	}
-	
+
 	@Test
 	public void testCurrentByRange() {
 		assertNotNull(outageService);
 		assertNotNull(outageDao);
-		
+
 	    List<OnmsOutage> expectedOutages = new LinkedList<OnmsOutage>();
 		OnmsOutage expectedCurrent = new OnmsOutage();
 		expectedCurrent.setId(1);
@@ -187,14 +187,14 @@ public class DefaultOutageServiceTest {
 
                 OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
 		expect(outageDao.findMatching(criteria)).andReturn(expectedOutages);
-                
+
 		replay(outageDao);
 		Collection<OnmsOutage> outages = outageService.getOutagesByRange(1, 1, "iflostservice", "asc", criteria);
 		verify(outageDao);
-                
+
 		assertTrue("Current Outages", outages.equals(expectedOutages));
 	}
-	
+
 	@Ignore("The features here have yet been implemented")
 	public void testSuppressedByRange() {
 
@@ -213,7 +213,7 @@ public class DefaultOutageServiceTest {
 //		assertTrue("Current Outages", suppressed.equals(expectedOutages));
 
 	}
-	
+
 	@Ignore("The features here have yet been implemented")
 	public void testGetOpenAndResolvedByRange() {
 

@@ -41,7 +41,7 @@ import org.opennms.netmgt.provision.adapters.link.endpoint.PingEndPointValidatio
  * @version $Id: $
  */
 public abstract class EndPointValidationExpressions {
-    
+
     /**
      * <p>ping</p>
      *
@@ -50,7 +50,7 @@ public abstract class EndPointValidationExpressions {
     public static EndPointValidationExpressionImpl ping() {
         return new PingEndPointValidationExpression();
     }
-    
+
     /**
      * <p>match</p>
      *
@@ -61,7 +61,7 @@ public abstract class EndPointValidationExpressions {
     public static EndPointValidationExpressionImpl match(final String oid, final String regex) {
         return new MatchingSnmpEndPointValidationExpression(regex, oid);
     }
-    
+
     /**
      * <p>and</p>
      *
@@ -71,7 +71,7 @@ public abstract class EndPointValidationExpressions {
     public static EndPointValidationExpressionImpl and(final EndPointValidationExpressionImpl... validators) {
         return new AndEndPointValidationExpression(validators);
     }
-    
+
     /**
      * <p>or</p>
      *
@@ -81,5 +81,5 @@ public abstract class EndPointValidationExpressions {
     public static EndPointValidationExpressionImpl or(final EndPointValidationExpressionImpl... validators) {
         return new OrEndPointValidationExpression(validators);
     }
-    
+
 }

@@ -69,7 +69,7 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
         super(serviceName, DEFAULT_PORT, DEFAULT_TIMEOUT, DEFAULT_RETRIES);
     }
 
-    
+
     /**
      * Constructor for overriding defaults
      *
@@ -85,9 +85,9 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
     @Override
     protected void onInit() {
         expectBanner(validateAddressIsNotSame());
-        
+
     }
-    
+
     private static ResponseValidator<NbtAddressResponse> validateAddressIsNotSame(){
         return new ResponseValidator<NbtAddressResponse>() {
 
@@ -95,10 +95,10 @@ public class SmbDetector extends BasicDetector<LineOrientedRequest, NbtAddressRe
             public boolean validate(NbtAddressResponse response) {
                 return response.validateAddressIsNotSame();
             }
-            
+
         };
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Client<LineOrientedRequest, NbtAddressResponse> getClient() {

@@ -37,7 +37,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class SystemDefChoice.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -76,7 +76,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -85,20 +85,20 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof SystemDefChoice) {
-        
+
             SystemDefChoice temp = (SystemDefChoice)obj;
             if (this._sysoid != null) {
                 if (temp._sysoid == null) return false;
-                else if (!(this._sysoid.equals(temp._sysoid))) 
+                else if (!(this._sysoid.equals(temp._sysoid)))
                     return false;
             }
             else if (temp._sysoid != null)
                 return false;
             if (this._sysoidMask != null) {
                 if (temp._sysoidMask == null) return false;
-                else if (!(this._sysoidMask.equals(temp._sysoidMask))) 
+                else if (!(this._sysoidMask.equals(temp._sysoidMask)))
                     return false;
             }
             else if (temp._sysoidMask != null)
@@ -113,7 +113,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * the following description: system object identifier (sysoid)
      * which uniquely
      *  identifies the system.
-     * 
+     *
      * @return the value of field 'Sysoid'.
      */
     public java.lang.String getSysoid(
@@ -126,7 +126,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'sysoidMask' has the following description: Sysoid mask
      * which can be used to match multiple
      *  systems if their sysoid begins with the mask
-     * 
+     *
      * @return the value of field 'SysoidMask'.
      */
     public java.lang.String getSysoidMask(
@@ -139,14 +139,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_sysoid != null) {
            result = 37 * result + _sysoid.hashCode();
@@ -154,13 +154,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_sysoidMask != null) {
            result = 37 * result + _sysoidMask.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -174,8 +174,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -189,8 +189,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -210,7 +210,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: system object identifier (sysoid)
      * which uniquely
      *  identifies the system.
-     * 
+     *
      * @param sysoid the value of field 'sysoid'.
      */
     public void setSysoid(
@@ -223,7 +223,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * has the following description: Sysoid mask which can be used
      * to match multiple
      *  systems if their sysoid begins with the mask
-     * 
+     *
      * @param sysoidMask the value of field 'sysoidMask'.
      */
     public void setSysoidMask(
@@ -233,7 +233,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -249,8 +249,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

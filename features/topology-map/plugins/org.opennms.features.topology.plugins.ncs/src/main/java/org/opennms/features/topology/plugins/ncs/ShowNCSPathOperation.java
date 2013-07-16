@@ -38,15 +38,15 @@ import com.vaadin.ui.UI;
 import com.vaadin.ui.Window;
 
 public class ShowNCSPathOperation implements Operation {
-    
-    
+
+
     private NCSEdgeProvider m_ncsEdgeProvider;
     private NCSPathProviderService m_ncsPathProvider;
     private NCSComponentRepository m_dao;
     private NodeDao m_nodeDao;
     private NCSServiceCriteria m_storedCriteria;
     private NCSCriteriaServiceManager m_serviceManager;
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
         //Get the current NCS criteria from here you can get the foreignIds foreignSource and deviceA and Z
@@ -54,26 +54,26 @@ public class ShowNCSPathOperation implements Operation {
         if(criteria.size() > 0) {
             m_storedCriteria = criteria;
         }
-        
-        
+
+
         final VertexRef defaultVertRef = targets.get(0);
         final SelectionManager selectionManager = operationContext.getGraphContainer().getSelectionManager();
         final Collection<VertexRef> vertexRefs = getVertexRefsForNCSService(m_storedCriteria); //selectionManager.getSelectedVertexRefs();
-        
+
         final UI mainWindow = operationContext.getMainWindow();
-        
+
         final Window ncsPathPrompt = new Window("Show NCS Path");
         ncsPathPrompt.setModal(true);
         ncsPathPrompt.setResizable(false);
         ncsPathPrompt.setWidth("300px");
         ncsPathPrompt.setHeight("220px");
-        
+
         //Items used in form field
         final PropertysetItem item = new PropertysetItem();
         item.addItemProperty("Device A", new ObjectProperty<String>("", String.class));
         item.addItemProperty("Device Z", new ObjectProperty<String>("", String.class));
-        
-        
+
+
         FormFieldFactory fieldFactory = new FormFieldFactory() {
             private static final long serialVersionUID = 1L;
 
@@ -90,19 +90,19 @@ public class ShowNCSPathOperation implements Operation {
                 select.setNullSelectionAllowed(false);
                 select.setImmediate(true);
                 select.setScrollToSelectedItem(true);
-                
+
                 if("Device A".equals(pid)) {
                     select.setCaption("Device A");
                 } else {
                     select.setCaption("Device Z");
-                    
+
                 }
-                
+
                 return select;
             }
-            
+
         };
-        
+
         final Form promptForm = new Form() {
 
 
@@ -110,35 +110,35 @@ public class ShowNCSPathOperation implements Operation {
             public void commit() {
                 String deviceA = (String)getField("Device A").getValue();
                 String deviceZ = (String)getField("Device Z").getValue();
-                
+
                 OnmsNode nodeA = m_nodeDao.get(Integer.valueOf(deviceA));
                 String deviceANodeForeignId = nodeA.getForeignId();
                 //Use nodeA's foreignSource, deviceZ should have the same foreignSource. It's an assumption
                 // which might need to changed in the future. Didn't want to hard code it it "space" if they
                 // change it in the future
                 String nodeForeignSource = nodeA.getForeignSource();
-                
+
                 String deviceZNodeForeignId = m_nodeDao.get(Integer.valueOf(deviceZ)).getForeignId();
-                
+
                 NCSComponent ncsComponent = m_dao.get(m_storedCriteria.get(0));
                 String foreignSource = ncsComponent.getForeignSource();
                 String foreignId = ncsComponent.getForeignId();
                 String serviceName = ncsComponent.getName();
                 try {
                     NCSServicePath path = getNcsPathProvider().getPath(foreignId, foreignSource, deviceANodeForeignId, deviceZNodeForeignId, nodeForeignSource, serviceName);
-                    
+
                     if(path.getStatusCode() == 200) {
                         NCSServicePathCriteria criteria = new NCSServicePathCriteria(path.getEdges());
                         m_serviceManager.registerCriteria(criteria, operationContext.getGraphContainer().getSessionId());
-                    
+
                         //Select only the vertices in the path
                         selectionManager.setSelectedVertexRefs(path.getVertices());
                     } else {
                         LoggerFactory.getLogger(this.getClass()).warn("An error occured while retrieving the NCS Path, Juniper NetworkAppsApi send error code: " + path.getStatusCode());
                         mainWindow.showNotification("An error occurred while retrieving the NCS Path\nStatus Code: " + path.getStatusCode(), Notification.TYPE_ERROR_MESSAGE);
                     }
-                    
-                    
+
+
                 } catch (Exception e) {
                     LoggerFactory.getLogger(this.getClass()).warn("Exception Occurred while retreiving path {}", e);
                     Notification.show("An error occurred while calculating the path please check the karaf.log file for the exception: \n" + e.getMessage(), Notification.Type.ERROR_MESSAGE);
@@ -155,19 +155,19 @@ public class ShowNCSPathOperation implements Operation {
                             mainWindow.showNotification("An error occurred while retrieving the NCS Path\n" + httpException.getMessage(), Notification.TYPE_ERROR_MESSAGE);
                         }
                     } else {
-                    
+
                         LoggerFactory.getLogger(this.getClass()).warn("Exception Occurred while retreiving path {}", e);
                         mainWindow.showNotification("An error occurred while calculating the path please check the karaf.log file for the exception: \n" + e.getMessage(), Notification.TYPE_ERROR_MESSAGE);
                     }
                 }
             }
-            
+
         };
-        
+
         promptForm.setBuffered(true);
         promptForm.setFormFieldFactory(fieldFactory);
         promptForm.setItemDataSource(item);
-        
+
         Button ok = new Button("OK");
         ok.addClickListener(new ClickListener() {
 
@@ -178,10 +178,10 @@ public class ShowNCSPathOperation implements Operation {
                 promptForm.commit();
                 mainWindow.removeWindow(ncsPathPrompt);
             }
-            
+
         });
         promptForm.getFooter().addComponent(ok);
-        
+
         Button cancel = new Button("Cancel");
         cancel.addClickListener(new ClickListener(){
             private static final long serialVersionUID = -9026067481179449095L;
@@ -190,7 +190,7 @@ public class ShowNCSPathOperation implements Operation {
             public void buttonClick(ClickEvent event) {
                 mainWindow.removeWindow(ncsPathPrompt);
             }
-            
+
         });
         promptForm.getFooter().addComponent(cancel);
         ncsPathPrompt.setContent(promptForm);
@@ -217,7 +217,7 @@ public class ShowNCSPathOperation implements Operation {
 
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-        
+
         for(VertexRef targetRef : targets) {
             String namespace = targetRef.getNamespace();
             if(!namespace.equals("nodes")) {
@@ -227,7 +227,7 @@ public class ShowNCSPathOperation implements Operation {
                 return criteria != null && criteria.size() == 1;
             }
         }
-        
+
         return false;
     }
 
@@ -242,7 +242,7 @@ public class ShowNCSPathOperation implements Operation {
                 return criteria != null && criteria.size() == 1;
             }
         }
-        
+
         return false;
     }
 
@@ -282,7 +282,7 @@ public class ShowNCSPathOperation implements Operation {
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     public void setNcsCriteriaServiceManager(NCSCriteriaServiceManager manager) {
         m_serviceManager = manager;
     }

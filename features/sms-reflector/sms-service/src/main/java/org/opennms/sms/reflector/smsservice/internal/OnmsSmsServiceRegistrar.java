@@ -44,17 +44,17 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, InitializingBean {
-	
+
 	private ServiceRegistry m_serviceRegistry;
 	private Map<SmsService, Registration> m_registrationMap = new HashMap<SmsService, Registration>();
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void registerSmsService(SmsService service) {
 		Registration registration = getServiceRegistry().register(service, SmsService.class);
 		m_registrationMap.put(service, registration);
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void unregisterSmsService(SmsService service) {
@@ -81,7 +81,7 @@ public class OnmsSmsServiceRegistrar implements SmsServiceRegistrar, Initializin
 	public ServiceRegistry getServiceRegistry() {
 		return m_serviceRegistry;
 	}
-	
+
 	/**
 	 * <p>afterPropertiesSet</p>
 	 *

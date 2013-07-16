@@ -53,12 +53,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminRancidDeleteController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidDeleteController.class);
 
 
     InventoryService m_inventoryService;
-        
+
     /**
      * <p>getInventoryService</p>
      *
@@ -85,7 +85,7 @@ public class AdminRancidDeleteController extends SimpleFormController {
         LOG.debug("AdminRancidDeleteController ModelAndView onSubmit");
 
         AdminRancidRouterDbCommClass bean = (AdminRancidRouterDbCommClass) command;
-                       
+
         LOG.debug("AdminRancidDeleteController ModelAndView onSubmit delete device[{}] group[{}] status[{}]", bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
 
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
@@ -106,5 +106,5 @@ public class AdminRancidDeleteController extends SimpleFormController {
         throws ServletException {
         LOG.debug("AdminRancidStatusController initBinder");
     }
-    
+
 }

@@ -44,7 +44,7 @@ public class BasicSchedule {
 	public String getName() {
 		return m_name;
 	}
-	
+
 	public void setName(final String name) {
 		m_name = name;
 	}
@@ -70,7 +70,7 @@ public class BasicSchedule {
 			return m_times;
 		}
 	}
-	
+
 	public Enumeration<Time> enumerateTime() {
 		synchronized(m_times) {
 			return Collections.enumeration(m_times);

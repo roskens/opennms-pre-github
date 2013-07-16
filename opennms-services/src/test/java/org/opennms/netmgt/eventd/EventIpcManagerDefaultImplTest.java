@@ -45,7 +45,7 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventIpcManagerDefaultImplTest extends TestCase {
@@ -71,25 +71,25 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
             }
         });
     }
-    
+
     @Override
     public void runTest() throws Throwable {
         super.runTest();
-        
+
         assertEquals("unprocessed received events", 0, m_listener.getEvents().size());
-        
+
         if (m_caughtThrowable != null) {
             throw new Exception("Thread " + m_caughtThrowableThread + " threw an uncaught exception: " + m_caughtThrowable, m_caughtThrowable);
         }
     }
-    
+
     public void testInitWithNoHandlerPoolSize() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("handlerPoolSize not set"));
 
         EventIpcManagerDefaultImpl manager = new EventIpcManagerDefaultImpl();
         manager.setEventHandler(m_eventHandler);
-        
+
         try {
             manager.afterPropertiesSet();
         } catch (Throwable t) {
@@ -98,7 +98,7 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testInitWithNoEventHandler() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("eventHandler not set"));
@@ -114,14 +114,14 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testInit() throws Exception {
         EventIpcManagerDefaultImpl manager = new EventIpcManagerDefaultImpl();
         manager.setEventHandler(m_eventHandler);
         manager.setHandlerPoolSize(5);
         manager.afterPropertiesSet();
     }
-    
+
     public void testBroadcastWithNoListeners() throws Exception {
         EventBuilder bldr = new EventBuilder(null, "testBroadcastWithNoListeners");
 
@@ -129,10 +129,10 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         m_manager.broadcastNow(bldr.getEvent());
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
     }
-    
+
     public void testSendNowNullEvent() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("event argument cannot be null"));
@@ -171,7 +171,7 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testAddEventListenerAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder(null, "testAddEventListenerAndBroadcast");
         Event event = bldr.getEvent();
@@ -181,9 +181,9 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         m_manager.addEventListener(m_listener);
         m_manager.broadcastNow(event);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(event));
     }
 
@@ -212,95 +212,95 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testAddEventListenerTwoArgumentStringAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, e.getUei());
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
     public void testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartAndBroadcast");
         Event e = bldr.getEvent();
 
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, "uei.opennms.org/");
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
     public void testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartMultipleTrimAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, "uei.opennms.org/");
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartTooLittleAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, "uei.opennms.org");
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
     }
-    
+
     public void testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerTwoArgumentStringWithUeiPartTooMuchAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, "uei.opennms.org/*");
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
     }
 
     public void testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerWithUeiAndSubUeiMatchAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, "uei.opennms.org/foo");
         m_manager.addEventListener(m_listener, "uei.opennms.org/");
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
     public void testAddEventListenerTwoArgumentStringNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -365,7 +365,7 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testRemoveEventListenerTwoArgumentStringNullListener() throws Exception {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("listener argument cannot be null"));
@@ -391,43 +391,43 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testAddEventListenerThenAddEventListenerWithUeiAndBroadcast() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerThenAddEventListenerWithUeiAndBroadcast");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener);
         m_manager.addEventListener(m_listener, e.getUei());
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
     public void testAddEventListenerWithUeiAndBroadcastThenAddEventListener() throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/foo", "testAddEventListenerWithUeiAndBroadcastThenAddEventListener");
         Event e = bldr.getEvent();
-        
+
         m_mocks.replayAll();
 
         m_manager.addEventListener(m_listener, e.getUei());
         m_manager.addEventListener(m_listener);
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
-        
+
         assertTrue("could not remove broadcasted event--did it make it?", m_listener.getEvents().remove(e));
     }
-    
+
 
     /**
      * This is the type of exception we want to catch.
-     * 
+     *
      * 2006-05-28 18:30:12,532 WARN  [EventHandlerPool-fiber0] OpenNMS.Xmlrpcd.org.opennms.netmgt.eventd.EventHandler: Unknown exception processing event
      * java.lang.NullPointerException
      *    at java.text.SimpleDateFormat.parse(SimpleDateFormat.java:1076)
@@ -450,13 +450,13 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
 
         m_manager.broadcastNow(e);
         Thread.sleep(100);
-        
+
         m_mocks.verifyAll();
     }
-    
+
     public class MockEventListener implements EventListener {
         private List<Event> m_events = new ArrayList<Event>();
-        
+
         @Override
         public String getName() {
             return "party on, Wayne";
@@ -466,7 +466,7 @@ public class EventIpcManagerDefaultImplTest extends TestCase {
         public void onEvent(Event e) {
             m_events.add(e);
         }
-        
+
         public List<Event> getEvents() {
             return m_events;
         }

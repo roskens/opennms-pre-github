@@ -49,41 +49,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
 public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
-	
+
 	@Autowired
 	NCSComponentRepository m_repository;
-	
+
 	@Autowired
 	DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	NodeDao m_nodeDao;
 
 	int m_pe1NodeId;
-	
+
 	int m_pe2NodeId;
 
 	@Before
 	public void setUp() {
-		
+
 		OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
-		
+
 		m_distPollerDao.save(distPoller);
-		
-		
+
+
 		NetworkBuilder bldr = new NetworkBuilder(distPoller);
 		bldr.addNode("PE1").setForeignSource("space").setForeignId("1111-PE1");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe1NodeId = bldr.getCurrentNode().getId();
-		
+
 		bldr.addNode("PE2").setForeignSource("space").setForeignId("2222-PE2");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe2NodeId = bldr.getCurrentNode().getId();
-		
+
 		NCSComponent svc = new NCSBuilder("Service", "NA-Service", "123")
 		.setName("CokeP2P")
 		.pushComponent("ServiceElement", "NA-ServiceElement", "8765")
@@ -171,20 +171,20 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 			.popComponent()
 		.popComponent()
 		.get();
-		
+
 		m_repository.save(svc);
 
 	}
-    
-	
+
+
 	@Test
     @DirtiesContext
     @Ignore("Non Deterministic!!!")
     public void testDependencyAnyRules() throws Exception {
-        
+
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("monolithicDependencyRules");
-        
+
         // Anticipate component lspA down event
         getAnticipator().reset();
         anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 17 ) );
@@ -195,8 +195,8 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 		engine.correlate( event );
 		// Check down event
 		getAnticipator().verifyAnticipated();
-		
-		
+
+
 		// Anticipate component lspB down event
 		// Parent should go down too
         getAnticipator().reset();
@@ -204,7 +204,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
         anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ) );
         anticipate(  createComponentImpactedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ) );
         anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 18) );
-        
+
         //anticipate(  createComponentImpactedEvent( "Service", "NA-Service", "123", 17 ) );
         // Generate down event
         event = createMplsLspPathDownEvent( m_pe1NodeId, "10.1.1.1", "lspB-PE1-PE2" );
@@ -213,51 +213,51 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
         engine.correlate( event );
         // Check down event
         getAnticipator().verifyAnticipated();
-		
-        
+
+
 		// Anticipate up event
         getAnticipator().reset();
         anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "lspA-PE1-PE2", "NA-SvcElemComp", "8765,lspA-PE1-PE2", 18 ) );
         anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "8765,jnxVpnPw-vcid(50)", 18 ) );
         anticipate(  createComponentResolvedEvent( "ServiceElement", "PE1,SE1", "NA-ServiceElement", "8765", 18 ) );
         anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 18) );
-        
+
         //Generate up event
         event = createMplsLspPathUpEvent( m_pe1NodeId, "10.1.1.1", "lspA-PE1-PE2" );
         event.setDbid(17);
         System.err.println("SENDING MplsLspPathUp on LspA EVENT!!");
         engine.correlate( event );
-        
+
         // Check up event
-        getAnticipator().verifyAnticipated();	
-        
-	
+        getAnticipator().verifyAnticipated();
+
+
     }
-    
+
 
 	@Test
     @DirtiesContext
     public void testSimpleUpDownCase() throws Exception {
-		
+
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("monolithicDependencyRules");
-		
-        
+
+
         // Antecipate down event
         getAnticipator().reset();
         anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
         anticipate(  createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
         anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
-		
+
 		// Generate down event
 		Event event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
 		event.setDbid(17);
 		System.err.println("SENDING VpnPwDown EVENT!!");
 		engine.correlate( event );
-		
+
 		// Check down event
 		getAnticipator().verifyAnticipated();
-		
+
 		// Generate additional down event - nothing should happen
 //		getAnticipator().reset();
 //        event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
@@ -265,47 +265,47 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 //        System.err.println("SENDING VpnPwDown EVENT!!");
 //        engine.correlate( event );
 //        getAnticipator().verifyAnticipated();
-		
+
 		// Anticipate up event
         getAnticipator().reset();
         anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
         anticipate(  createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
         anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
-        
+
         // Generate up event
         event = createVpnPwUpEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
         event.setDbid(17);
         System.err.println("SENDING VpnPwUp EVENT!!");
         engine.correlate( event );
-        
+
         // Check up event
-        getAnticipator().verifyAnticipated();	
-	
+        getAnticipator().verifyAnticipated();
+
     }
-    
+
     @Test
     @DirtiesContext
     @Ignore("not yet implemented")
     public void testMultipleDownAndSingleUpCase() throws Exception {
-        
+
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("monolithicDependencyRules");
-        
+
         // Anticipate down event
         getAnticipator().reset();
         anticipate(  createComponentImpactedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
         anticipate(  createComponentImpactedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
         anticipate(  createComponentImpactedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
-		
+
 		// Generate down event
 		Event event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
 		event.setDbid(17);
 		System.err.println("SENDING VpnPwDown EVENT!!");
 		engine.correlate( event );
-		
+
 		// Check down event
 		getAnticipator().verifyAnticipated();
-		
+
 		// Generate additional down event - nothing should happen
 		getAnticipator().reset();
         event = createVpnPwDownEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
@@ -313,24 +313,24 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
         System.err.println("SENDING VpnPwDown EVENT!!");
         engine.correlate( event );
         getAnticipator().verifyAnticipated();
-		
+
 		// Anticipate up event
         getAnticipator().reset();
         anticipate(  createComponentResolvedEvent( "ServiceElementComponent", "jnxVpnPw-vcid(50)", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)", 17 ) );
         anticipate(  createComponentResolvedEvent( "ServiceElement", "PE2,SE1", "NA-ServiceElement", "9876", 17 ) );
         anticipate(  createComponentResolvedEvent( "Service", "CokeP2P", "NA-Service", "123", 17 ) );
-        
+
         // Generate up event
         event = createVpnPwUpEvent( m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
         event.setDbid(17);
         System.err.println("SENDING VpnPwUp EVENT!!");
         engine.correlate( event );
-        
+
         // Check up event
-        getAnticipator().verifyAnticipated();	
-	
+        getAnticipator().verifyAnticipated();
+
     }
-    
+
     // dependencies must be loaded when needed by propagation rules
     // loaded deps needed by multiple events should not load more than once
     // deps no longer needed by one event should remain loaded if need by others
@@ -344,18 +344,18 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
     // map various events to outages and resolutions
     // ignore duplicate cause events
     // ignore duplicate resolution events
-    
+
     private Event createMplsLspPathDownEvent( int nodeid, String ipaddr, String lspname ) {
-        
+
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
                 .addParam("mplsLspName", lspname )
                 .getEvent();
     }
-    
+
     private Event createMplsLspPathUpEvent( int nodeid, String ipaddr, String lspname ) {
-        
+
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -365,7 +365,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 
 
     private Event createVpnPwDownEvent( int nodeid, String ipaddr, String pwtype, String pwname ) {
-		
+
 		return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test")
 				.setNodeid(nodeid)
 				.setInterface( addr( ipaddr ) )
@@ -375,7 +375,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 	}
 
     private Event createVpnPwUpEvent( int nodeid, String ipaddr, String pwtype, String pwname ) {
-        
+
         return new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -388,9 +388,9 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
 //    private Event createRootCauseEvent(int symptom, int cause) {
 //        return new EventBuilder(createNodeEvent("rootCauseEvent", cause)).getEvent();
 //    }
-	
+
 	private Event createComponentImpactedEvent( String type, String name, String foreignSource, String foreignId, int cause ) {
-        
+
         return new EventBuilder("uei.opennms.org/internal/ncs/componentImpacted", "Component Correlator")
         .addParam("componentType", type )
         .addParam("componentName", name )
@@ -399,7 +399,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
         .addParam("cause", cause )
         .getEvent();
     }
-	
+
 	private Event createComponentResolvedEvent(String type, String name, String foreignSource, String foreignId, int cause) {
         return new EventBuilder("uei.opennms.org/internal/ncs/componentResolved", "Component Correlator")
         .addParam("componentType", type )
@@ -414,21 +414,21 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
     }
-    
+
     public Event createNodeUpEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
-    
+
     public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName)
     {
     	return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
-    
+
     public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName)
     {
     	return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
-    
+
     private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName)
     {
     	return new EventBuilder(uei, "Test")
@@ -436,7 +436,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
     		.setInterface( addr( ipaddr ) )
     		.setService( svcName )
     		.getEvent();
-    		
+
     }
 
     private Event createNodeEvent(String uei, int nodeid) {
@@ -444,7 +444,7 @@ public class MonolithicDependencyRulesTest extends CorrelationRulesTestCase {
             .setNodeid(nodeid)
             .getEvent();
     }
-    
+
 
 
 

@@ -38,7 +38,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.dao.DataAccessResourceFailureException;
 
 public class RequisitionAccessService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RequisitionAccessService.class);
 
 
@@ -61,7 +61,7 @@ public class RequisitionAccessService {
     });
 
     static class RequisitionAccessor {
-    	
+
     	private static final Logger LOG = LoggerFactory.getLogger(RequisitionAccessor.class);
 
         private final String m_foreignSource;
@@ -91,7 +91,7 @@ public class RequisitionAccessService {
             return m_deployedRepo;
         }
 
-       
+
 
         public Requisition getActiveRequisition(boolean createIfMissing) {
 
@@ -847,6 +847,6 @@ public class RequisitionAccessService {
         });
     }
 
-    
+
 
 }

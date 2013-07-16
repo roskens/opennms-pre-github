@@ -19,5 +19,5 @@ public class MockNCSCompontentRepositoryActivator implements BundleActivator {
     public void stop(final BundleContext context) throws Exception {
         m_registration.unregister();
     }
-    
+
 }

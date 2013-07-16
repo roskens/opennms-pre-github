@@ -47,9 +47,9 @@ import org.slf4j.LoggerFactory;
  * performance and avoid file handle leaks caused by using too many {@link NioSocketConnector}
  * instances simultaneously.
  * </p>
- * 
+ *
  * <p>
- * Because of the way that the MINA API works, there will be one {@link ConnectionFactory} 
+ * Because of the way that the MINA API works, there will be one {@link ConnectionFactory}
  * for each discrete connection timeout value.
  * </p>
  *
@@ -58,11 +58,11 @@ import org.slf4j.LoggerFactory;
  * @author Duncan Mackintosh
  */
 public abstract class ConnectionFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactory.class);
 	/** Map of timeoutInMillis to a ConnectionFactory with that timeout */
     private static final ConcurrentHashMap<Integer, ConnectionFactory> s_connectorPool = new ConcurrentHashMap<Integer, ConnectionFactory>();
-	
+
     /**
      * Count the number of references to this factory so we can dispose it
      * when there are no active references.
@@ -84,14 +84,14 @@ public abstract class ConnectionFactory {
     protected ConnectionFactory(int timeoutInMillis) {
         m_timeout = timeoutInMillis;
     }
-    
+
     /**
      * <p>Get a new ConnectionFactory. If there is already a Factory with the
      * desired timeout, you will get that one; otherwise a new one is created.</p>
-     * 
+     *
      * <p>If org.opennms.netmgt.provision.maxConcurrentConnectors is set, this may
      * block until a connector is available.</p>
-     * 
+     *
      * @param timeoutInMillis
      * 		Connection timeout
      * @return
@@ -127,10 +127,10 @@ public abstract class ConnectionFactory {
     /**
      * <p>Connect to a remote socket. If org.opennms.netmgt.provision.maxConcurrentConnections
      * is set, this may block until a connection slot is available.</p>
-     * 
+     *
      * <p>You must dispose the {@link ConnectionFactory} when done
      * by calling {@link #dispose(ConnectionFactory)}.</p>
-     * 
+     *
      * @param remoteAddress
      * 		Destination address
      * @param init
@@ -144,7 +144,7 @@ public abstract class ConnectionFactory {
      * Retry a connection. This does not consume a connection slot, so will not
      * block or throw {@link InterruptedException}. Use only if you have already
      * acquired a connection slot using {@link #connect(SocketAddress, IoSessionInitializer)}.
-     * 
+     *
      * @param remoteAddress
      * @param init
      * @return
@@ -164,7 +164,7 @@ public abstract class ConnectionFactory {
     public static final void dispose(ConnectionFactory factory) {
         // If the reference count on the factory is zero...
         if (--factory.m_references <= 0) {
-            // ... then remove it from the map of available connectors 
+            // ... then remove it from the map of available connectors
             synchronized (s_connectorPool) {
                 LOG.debug("Disposing of factory {} for interval {}", factory, factory.m_timeout);
                 Iterator<Entry<Integer, ConnectionFactory>> i = s_connectorPool.entrySet().iterator();

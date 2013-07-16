@@ -42,8 +42,8 @@ import com.vaadin.ui.AbstractSelect.NewItemHandler;
 
 /**
  * A factory for creating Event Field objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public final class EventFormFieldFactory implements FormFieldFactory {

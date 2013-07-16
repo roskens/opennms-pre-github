@@ -51,7 +51,7 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
     public String getName() {
         return "xml";
     }
-    
+
     @Override
     public String getDescription() {
         return "Simple output in XML text format";
@@ -75,7 +75,7 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
     @Override
     public void write(final SystemReportPlugin plugin) {
         if (!hasDisplayable(plugin)) return;
-        
+
         if (m_handler == null) {
             try {
                 StreamResult streamResult = new StreamResult(getOutputStream());
@@ -133,7 +133,7 @@ public class XmlSystemReportFormatter extends AbstractSystemReportFormatter impl
             LOG.warn("An error occurred while attempting to write XML data.", e);
         }
     }
-    
+
     @Override
     public void end() {
         if (m_handler != null) {

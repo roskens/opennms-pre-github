@@ -52,7 +52,7 @@ public interface SurveillanceStatus {
      * <li>'Normal' representing that there are no ouages for active services on the set of associated nodes<li>
      * <li>'Warning' representing exactly one service from set of all active services on the associated nodes has an outage
      * <li>'Critical' representing that more than one service on the from the set of all active services on the assocuate nodes has an outage
-     * </ul> 
+     * </ul>
      */
     String getStatus();
 

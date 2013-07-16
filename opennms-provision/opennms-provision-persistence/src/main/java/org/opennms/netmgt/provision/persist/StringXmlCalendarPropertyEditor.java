@@ -42,7 +42,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  * @version $Id: $
  */
 public class StringXmlCalendarPropertyEditor extends PropertyEditorSupport implements PropertyEditor {
-    
+
     /** {@inheritDoc} */
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
@@ -61,5 +61,5 @@ public class StringXmlCalendarPropertyEditor extends PropertyEditorSupport imple
     @Override
     public String getAsText() {
         return ((XMLGregorianCalendar)getValue()).toXMLFormat();
-    } 
+    }
 }

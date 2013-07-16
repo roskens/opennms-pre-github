@@ -46,7 +46,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class MockService extends MockElement implements MonitoredService {
-    
+
     public static enum SvcMgmtStatus {
         ACTIVE("A"),
         DELETED("D"),
@@ -54,17 +54,17 @@ public class MockService extends MockElement implements MonitoredService {
         FORCE_UNMANAGED("F"),
         NOT_POLLED("N"),
         REMOTE_ONLY("X");
-        
+
         private final String m_dbString;
-        
+
         SvcMgmtStatus(String dbString) {
             m_dbString = dbString;
         }
-        
+
         public String toDbString() {
             return m_dbString;
         }
-        
+
         public static SvcMgmtStatus fromDbString(String dbString) {
             if (dbString == null) {
                 return null;
@@ -79,13 +79,13 @@ public class MockService extends MockElement implements MonitoredService {
      }
 
     private int m_pollCount;
-    
+
     private PollStatus m_pollStatus;
 
     private int m_serviceId;
 
     private final String m_svcName;
-    
+
     private SvcMgmtStatus m_mgmtStatus = SvcMgmtStatus.ACTIVE;
 
     private List<PollAnticipator> m_triggers = new ArrayList<PollAnticipator>();
@@ -107,7 +107,7 @@ public class MockService extends MockElement implements MonitoredService {
         m_pollCount = 0;
 
     }
-   
+
    // test
    /**
     * <p>bringDown</p>
@@ -232,7 +232,7 @@ public class MockService extends MockElement implements MonitoredService {
     public int getPollCount() {
         return m_pollCount;
     }
-    
+
     // test
     /**
      * <p>getPollStatus</p>
@@ -243,7 +243,7 @@ public class MockService extends MockElement implements MonitoredService {
     public PollStatus getPollStatus() {
         return m_pollStatus;
     }
-    
+
     /**
      * <p>getMgmtStatus</p>
      *
@@ -252,7 +252,7 @@ public class MockService extends MockElement implements MonitoredService {
     public SvcMgmtStatus getMgmtStatus() {
         return m_mgmtStatus;
     }
-    
+
     /**
      * <p>setMgmtStatus</p>
      *
@@ -270,7 +270,7 @@ public class MockService extends MockElement implements MonitoredService {
      */
     public PollStatus poll() {
         m_pollCount++;
-        
+
         for (PollAnticipator trigger : m_triggers) {
             trigger.poll(this);
         }
@@ -312,7 +312,7 @@ public class MockService extends MockElement implements MonitoredService {
         super.visit(v);
         v.visitService(this);
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -364,7 +364,7 @@ public class MockService extends MockElement implements MonitoredService {
     public Event createResponsiveEvent() {
         return MockEventUtil.createServiceResponsiveEvent("Test", this);
     }
-    
+
     /**
      * <p>createNewEvent</p>
      *
@@ -394,7 +394,7 @@ public class MockService extends MockElement implements MonitoredService {
     public NetworkInterface<InetAddress> getNetInterface() {
         if (m_netAddr == null)
             m_netAddr = new InetNetworkInterface(getAddress());
-        
+
         return m_netAddr;
     }
 
@@ -405,7 +405,7 @@ public class MockService extends MockElement implements MonitoredService {
      */
     @Override
     public InetAddress getAddress() {
-        return getInterface().getAddress();    
+        return getInterface().getAddress();
     }
 
 	/**

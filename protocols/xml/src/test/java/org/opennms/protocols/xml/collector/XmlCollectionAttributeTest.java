@@ -35,7 +35,7 @@ import org.opennms.protocols.xml.config.XmlObject;
 
 /**
  * The Test Class for XmlCollectionAttribute.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectionAttributeTest {
@@ -48,7 +48,7 @@ public class XmlCollectionAttributeTest {
         XmlObject object = new XmlObject("test", "gauge");
         AttributeGroupType group = new AttributeGroupType("xml-data", "all");
         final XmlCollectionAttributeType type = new XmlCollectionAttributeType(object, group);
-        
+
         // Standard Numeric Value
         XmlCollectionAttribute a = new XmlCollectionAttribute(null, type, "4.6");
         Assert.assertEquals("4.6", a.getNumericValue());

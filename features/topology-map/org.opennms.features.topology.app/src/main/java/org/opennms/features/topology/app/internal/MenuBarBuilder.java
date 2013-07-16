@@ -44,23 +44,23 @@ import com.vaadin.ui.MenuBar.MenuItem;
 public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 
     public MenuBarBuilder() {
-        
+
     }
-    
+
     private void add(List<String> menuPath, Command command, Map<String, Object> menu) {
         if(menuPath.isEmpty()) {
             return;
         }
-        
+
         String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.')) : menuPath.get(0);
-        
+
         if(menuPath.size() == 1) {
             if(menu.containsKey(first)) {
                 add(Collections.singletonList(first + "_dup"), command, menu );
             }else {
                 menu.put(first, command);
             }
-            
+
         }else {
             Object item = menu.get(first);
             if(item == null) {
@@ -77,14 +77,14 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
                 newMenuPath.addAll(menuPath.subList(1, menuPath.size()));
                 add(newMenuPath, command, menu);
             }
-            
+
         }
     }
 
     @SuppressWarnings("unchecked")
 	public MenuBar get() {
         MenuBar menuBar = new MenuBar();
-        
+
         Set<Entry<String, Object>> sortedEntrySet = getSortedMenuItems();
         for(Entry<String, Object> entry : sortedEntrySet) {
             if(entry.getValue() instanceof Map<?,?>) {
@@ -93,7 +93,7 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
             }else {
                 menuBar.addItem(entry.getKey(), (Command) entry.getValue());
             }
-            
+
         }
         return menuBar;
     }
@@ -101,7 +101,7 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 	@SuppressWarnings("unchecked")
     @Override
 	protected void addMenuItems(MenuItem subMenu, Map<String, Object> value) {
-	    
+
 	    Set<Entry<String, Object>> sortedEntrySet = getSortedSubmenuGroup(subMenu.getText(), value);
 	    for(Entry<String, Object> entry : sortedEntrySet) {
 	        String commandKey = entry.getKey();
@@ -115,7 +115,7 @@ public class MenuBarBuilder extends MenuBuilder<MenuBar.Command, MenuItem> {
 	                subMenu.addItem(removeLabelProperties(commandKey), (Command) entry.getValue());
 	            }
 	        }
-	        
+
 	    }
 	}
 

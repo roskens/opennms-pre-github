@@ -18,7 +18,7 @@ import org.xml.sax.SAXException;
 
 public class NCSPathRouteUtil {
 
-    
+
     private NCSComponentRepository m_dao;
     private NodeDao m_nodeDao;
 
@@ -26,7 +26,7 @@ public class NCSPathRouteUtil {
         m_dao = dao;
         m_nodeDao = nodeDao;
     }
-    
+
     public void getServiceName(@JuniperXPath(value="//juniper:ServiceType") String data, Exchange exchange) throws ParserConfigurationException, SAXException, IOException {
         Message in = exchange.getIn();
         LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [getServiceName] received message: " + in.toString());
@@ -41,18 +41,18 @@ public class NCSPathRouteUtil {
         exchange.getOut().setHeaders(header);
         LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil send headers: " + exchange.getOut().getHeaders());
     }
-    
+
     public NCSServicePath createPath(@JuniperXPath("//juniper:Data") Node data, Exchange exchange) {
         Message in = exchange.getIn();
         LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil [createPath] received message: " + in.toString());
         String nodeForeignSource = (String) in.getHeader("nodeForeignSource");
         String serviceForeignSource = (String) in.getHeader("foreignSource");
         Node servicePath = data;
-        
+
         String deviceA = (String) in.getHeader("deviceA");
         String deviceZ = (String) in.getHeader("deviceZ");
         String serviceName = (String) in.getHeader("serviceName");
-        
+
         String string = servicePath.getOwnerDocument().getTextContent();
         LoggerFactory.getLogger(this.getClass()).info("NCSPathRouteUtil parsing nodes: " + string);
         return new NCSServicePath(servicePath, m_dao, m_nodeDao, nodeForeignSource, serviceForeignSource, deviceA, deviceZ, serviceName);

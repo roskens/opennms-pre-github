@@ -42,7 +42,7 @@ public class RequestTrackerTest extends TestCase {
 
     /**
      * Test Cases for RtTicketerPlugin
-     * 
+     *
      * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
      */
 
@@ -136,7 +136,7 @@ public class RequestTrackerTest extends TestCase {
         RTQueue queue = m_tracker.getQueue(1);
         assertNotNull("queue should not be null", queue);
     }
-    
+
     public void testGetQueuesForUser() throws Exception {
         List<RTQueue> queues = m_tracker.getQueuesForUser("root");
         LOG.debug("queues = {}", queues);

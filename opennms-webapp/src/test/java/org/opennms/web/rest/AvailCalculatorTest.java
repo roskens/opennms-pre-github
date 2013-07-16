@@ -54,24 +54,24 @@ public class AvailCalculatorTest {
         m_locationMon = new OnmsLocationMonitor();
         m_locationMon.setDefinitionName("IPv6");
         m_locationMon.setStatus(MonitorStatus.STARTED);
-        
+
         m_svc = new OnmsMonitoredService();
     }
-    
-    
+
+
     @Test
     public void testGetAvailabilityOneStatus() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
-       
+
         PollStatus pollStatus = PollStatus.unavailable();
         Date timestamp = new Date(endTime.getTime() - 50);
         OnmsLocationSpecificStatus statusChange = createStatusChange(pollStatus, timestamp);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
         AvailCalculator calculator = new AvailCalculator(chunker);
-        
+
         calculator.onStatusChange(statusChange);
-        
+
         chunker.getNextSegment();
         double uptimePercent = calculator.getAvailabilityFor(getServices(), 0);
         assertEquals(0.5, uptimePercent, 0.00);
@@ -93,58 +93,58 @@ public class AvailCalculatorTest {
         svcs.add(m_svc);
         return svcs;
     }
-    
+
     @Test
     public void testGetAvailabilityStatusFlipFlop() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
         AvailCalculator calculator = new AvailCalculator(chunker);
-        
+
         calculator.onStatusChange(createStatusChange(PollStatus.unavailable(), new Date(endTime.getTime() - 90)));
         calculator.onStatusChange(createStatusChange(PollStatus.available(), new Date(endTime.getTime() - 70)));
         calculator.onStatusChange(createStatusChange(PollStatus.unavailable(), new Date(endTime.getTime() - 50)));
         calculator.onStatusChange(createStatusChange(PollStatus.available(), new Date(endTime.getTime() - 20)));
-        
+
         Collection<OnmsMonitoredService> svcs = getServices();
-        
-        
+
+
         double uptimePercent = calculator.getAvailabilityFor(svcs, 0);
         assertEquals(0.5, uptimePercent, 0.00);
     }
-    
+
     @Test
     public void testGetAvailabilityUnavailableBefore() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
         AvailCalculator calculator = new AvailCalculator(chunker);
-        
+
         calculator.onStatusChange(createStatusChange(PollStatus.unavailable(), new Date(endTime.getTime() - 150)));
         calculator.onStatusChange(createStatusChange(PollStatus.available(), new Date(endTime.getTime() - 50)));
-        
+
         Collection<OnmsMonitoredService> svcs = getServices();
-        
-        
+
+
         double uptimePercent = calculator.getAvailabilityFor(svcs, 0);
         assertEquals(0.5, uptimePercent, 0.00);
     }
-    
+
     @Test
     public void testNotAvailabileDuringTimeChunk() {
         Date endTime = new Date(System.currentTimeMillis());
         Date startTime = new Date(endTime.getTime() - 100);
         TimeChunker chunker = new TimeChunker((int)(endTime.getTime() - startTime.getTime()), startTime, endTime);
         AvailCalculator calculator = new AvailCalculator(chunker);
-        
+
         calculator.onStatusChange(createStatusChange(PollStatus.unavailable(), new Date(endTime.getTime() - 150)));
         calculator.onStatusChange(createStatusChange(PollStatus.available(), new Date(endTime.getTime() + 50)));
-        
+
         Collection<OnmsMonitoredService> svcs = getServices();
-        
-        
+
+
         double uptimePercent = calculator.getAvailabilityFor(svcs, 0);
         assertEquals(0.0, uptimePercent, 0.00);
     }
-    
+
 }

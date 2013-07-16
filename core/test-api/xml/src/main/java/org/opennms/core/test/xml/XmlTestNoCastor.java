@@ -59,7 +59,7 @@ public abstract class XmlTestNoCastor<T> extends XmlTest<T> {
 	@Ignore
 	public void marshalJaxbUnmarshalCastor() throws Exception {
 	}
-	
+
 	@Test
 	@Override
 	@Ignore

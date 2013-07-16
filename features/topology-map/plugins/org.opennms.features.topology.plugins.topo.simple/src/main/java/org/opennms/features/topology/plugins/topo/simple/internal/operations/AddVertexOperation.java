@@ -39,12 +39,12 @@ import org.opennms.features.topology.api.topo.VertexRef;
 import org.slf4j.LoggerFactory;
 
 public class AddVertexOperation implements Operation{
-    
+
     private String m_iconKey;
     public AddVertexOperation(String iconKey) {
         m_iconKey = iconKey;
     }
-    
+
     @Override
     public boolean display(List<VertexRef> targets, OperationContext operationContext) {
         return true;
@@ -84,15 +84,15 @@ public class AddVertexOperation implements Operation{
             else {
                 Vertex vertId = operationContext.getGraphContainer().getBaseTopology().addVertex(250, 250);
                 vertId.setParent(null);
-                
+
             }
         } else {
-            
+
             connectNewVertex(vertexId.toString(), icon, operationContext.getGraphContainer());
         }
         operationContext.getGraphContainer().redoLayout();
-        
+
         return null;
     }
-    
+
 }

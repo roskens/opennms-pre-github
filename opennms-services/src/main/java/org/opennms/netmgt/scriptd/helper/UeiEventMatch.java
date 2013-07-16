@@ -35,19 +35,19 @@ import org.opennms.netmgt.xml.event.Event;
 public class UeiEventMatch implements EventMatch {
 
 	private String ueimatch;
-	
+
 	public UeiEventMatch() {
 		super();
 		this.ueimatch = null;
 	}
-	
-	
+
+
 	public UeiEventMatch(String ueimatch) {
 		super();
 		this.ueimatch = ueimatch;
 	}
 
-	
+
         @Override
 	public boolean match(Event event) {
 		if (event == null) return false;
@@ -57,7 +57,7 @@ public class UeiEventMatch implements EventMatch {
 			return rematch(event.getUei(), this.ueimatch.substring(1));
 		else
 			return (event.getUei().equals(this.ueimatch));
-		
+
 	}
 
 	private boolean rematch(String text, String regex) {

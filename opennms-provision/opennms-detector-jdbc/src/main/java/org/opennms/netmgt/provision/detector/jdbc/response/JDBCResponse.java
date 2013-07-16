@@ -43,12 +43,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JDBCResponse {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JDBCResponse.class);
     private ResultSet m_result;
     private boolean m_isValidProcedureCall = false;
     private boolean m_isValidQuery = false;
-    
+
     /**
      * <p>receive</p>
      *
@@ -56,14 +56,14 @@ public class JDBCResponse {
      * @throws java.sql.SQLException if any.
      */
     public void receive(Connection conn) throws SQLException {
-        
+
         DatabaseMetaData metadata = conn.getMetaData();
         LOG.debug("got database metadata");
 
         m_result = metadata.getCatalogs();
-        
+
     }
-    
+
     /**
      * <p>resultSetNotNull</p>
      *
@@ -76,7 +76,7 @@ public class JDBCResponse {
                 m_result.getString(1);
                 LOG.debug("Metadata catalog: '{}'", m_result.getString(1));
             }
-            
+
             m_result.close();
             return true;
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class JDBCResponse {
 
         return false;
     }
-    
+
     /**
      * <p>validProcedureCall</p>
      *

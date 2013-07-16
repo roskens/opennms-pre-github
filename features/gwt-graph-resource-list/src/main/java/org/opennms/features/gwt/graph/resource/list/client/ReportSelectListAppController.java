@@ -42,7 +42,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 
 public class ReportSelectListAppController implements Presenter {
 
-    
+
     private List<ResourceListItem> m_resourceList;
     private String m_baseUrl;
 
@@ -55,7 +55,7 @@ public class ReportSelectListAppController implements Presenter {
     public void go(HasWidgets container) {
         new ReportSelectListPresenter(new ReportSelectListViewImpl(m_resourceList), new SearchPopup(), m_baseUrl).go(container);
     }
-    
+
     private List<ResourceListItem> convertJsArrayToList(JsArray<ResourceListItem> resourceList) {
         List<ResourceListItem> data = new ArrayList<ResourceListItem>();
         for(int i = 0; i < resourceList.length(); i++) {

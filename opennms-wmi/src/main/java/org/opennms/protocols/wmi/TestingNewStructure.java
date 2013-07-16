@@ -125,7 +125,7 @@ public class TestingNewStructure {
 //                }
 //
 //            }
-            
+
             // Disconenct from the WMI server.
             wmiClient.disconnect();
         } catch (final WmiException e) {

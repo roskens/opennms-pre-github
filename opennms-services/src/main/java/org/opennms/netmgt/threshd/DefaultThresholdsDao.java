@@ -49,11 +49,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultThresholdsDao.class);
-    
+
     private ThresholdingConfigFactory m_thresholdingConfigFactory;
-    
+
     /** {@inheritDoc} */
     @Override
     public ThresholdGroup get(String name) {
@@ -92,7 +92,7 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
 
         return newGroup;
     }
-    
+
     private Map<String, Set<ThresholdEntity>> createThresholdStateMap(String groupName, String typeName) {
         Map<String, Set<ThresholdEntity>> thresholdMap = new HashMap<String, Set<ThresholdEntity>>();
         fillThresholdStateMap(groupName, typeName, thresholdMap);
@@ -138,7 +138,7 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
                         }
                     } catch (IllegalStateException e) {
                         LOG.warn("fillThresholdStateMap: Encountered duplicate {} for datasource {}", thresh.getType(), wrapper.getDatasourceExpression(), e);
-                    } 
+                    }
                 }
                 catch (ThresholdExpressionException e) {
                     LOG.warn("fillThresholdStateMap: Could not parse threshold expression", e);
@@ -179,7 +179,7 @@ public class DefaultThresholdsDao implements ThresholdsDao, InitializingBean {
         resourceType.setThresholdMap(createThresholdStateMap(groupName, typeName));
         return resourceType;
     }
-    
+
 
     private ThresholdResourceType mergeType(String groupName, String typeName, ThresholdResourceType type) {
         ThresholdResourceType resourceType = new ThresholdResourceType(typeName);

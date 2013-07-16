@@ -42,11 +42,11 @@ public class GroupsTest extends XmlTest<Groups> {
     public GroupsTest(final Groups sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Groups groups = new Groups();
-        
+
         final Group group = new Group();
         group.setName("windows-host");
         group.setIfType("ignore");
@@ -58,7 +58,7 @@ public class GroupsTest extends XmlTest<Groups> {
         obj.setAlias("cpuPercentBusy");
         obj.setType("integer");
         group.addMibObj(obj);
-        
+
         obj = new MibObj();
         obj.setOid(".1.3.6.1.2.1.25.2.2");
         obj.setInstance("0");
@@ -71,9 +71,9 @@ public class GroupsTest extends XmlTest<Groups> {
         return Arrays.asList(new Object[][] { {
                 groups,
                 "    <groups>\n" +
-                "      <group name=\"windows-host\" ifType=\"ignore\">\n" + 
-                "        <mibObj oid=\".1.3.6.1.2.1.25.3.3.1.2\" instance=\"1\" alias=\"cpuPercentBusy\" type=\"integer\" />\n" + 
-                "        <mibObj oid=\".1.3.6.1.2.1.25.2.2\"     instance=\"0\" alias=\"memorySize\"     type=\"integer\" />\n" + 
+                "      <group name=\"windows-host\" ifType=\"ignore\">\n" +
+                "        <mibObj oid=\".1.3.6.1.2.1.25.3.3.1.2\" instance=\"1\" alias=\"cpuPercentBusy\" type=\"integer\" />\n" +
+                "        <mibObj oid=\".1.3.6.1.2.1.25.2.2\"     instance=\"0\" alias=\"memorySize\"     type=\"integer\" />\n" +
                 "        <includeGroup>foo</includeGroup>\n" +
                 "      </group>\n" +
                 "    </groups>\n",

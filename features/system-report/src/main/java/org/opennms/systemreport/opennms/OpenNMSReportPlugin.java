@@ -53,13 +53,13 @@ public class OpenNMSReportPlugin extends AbstractSystemReportPlugin implements I
 
     @Autowired
     public IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     public SnmpInterfaceDao m_snmpInterfaceDao;
-    
+
     @Autowired
     public EventDao m_eventDao;
-    
+
     @Autowired
     public AlarmDao m_alarmDao;
 
@@ -96,7 +96,7 @@ public class OpenNMSReportPlugin extends AbstractSystemReportPlugin implements I
                 LOG.warn("Unable to load from version.properties", e);
             }
         }
-        
+
         if (m_nodeDao != null) {
             map.put("Number of Nodes", getResource(Integer.toString(m_nodeDao.countAll())));
         }

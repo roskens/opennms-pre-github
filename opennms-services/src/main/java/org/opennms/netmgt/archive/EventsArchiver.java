@@ -95,9 +95,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class EventsArchiver {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(EventsArchiver.class);
-    
+
     /**
      * The SQL statement to select events that have their eventCreateTime
      * earlier than a specified age
@@ -179,7 +179,7 @@ public class EventsArchiver {
     private void init() throws ArchiverException {
 
         EventsArchiverConfigFactory eaFactory;
-        
+
         try {
             EventsArchiverConfigFactory.init();
              eaFactory =
@@ -280,7 +280,7 @@ public class EventsArchiver {
     /**
      * Select the events created before 'age', log them to the archive file if
      * required and delete these events.
-     * 
+     *
      * NOTE: Postgres does not have the ResultSet.deleteRow() implemented! - so
      * use the eventID to delete!
      */
@@ -388,7 +388,7 @@ public class EventsArchiver {
 
     /**
      * Archive the current row of the result set
-     * 
+     *
      * @exception SQLException
      *                thrown if there is an error getting column values from the
      *                result set
@@ -432,13 +432,13 @@ public class EventsArchiver {
         } catch (SQLException e) {
             LOG.warn("Unable to close get statement", e);
         }
-        
+
         try {
             m_eventDeleteStmt.close();
         } catch (SQLException e) {
             LOG.warn("Unable to close delete statement", e);
         }
-        
+
         try {
             m_conn.close();
         } catch (SQLException e) {
@@ -457,7 +457,7 @@ public class EventsArchiver {
     public EventsArchiver() throws ArchiverException {
         // call init
         init();
-        
+
         // initialize the prepared statements
         try {
             m_eventsGetStmt =

@@ -41,7 +41,7 @@ import org.opennms.netmgt.config.groups.Group;
  * @since 1.8.1
  */
 public class WebGroup {
-    
+
     private String m_name;
     private String m_comments;
     private String m_defaultMap = "";
@@ -49,7 +49,7 @@ public class WebGroup {
     private List<String> m_dutySchedules = new ArrayList<String>();
     private List<String> m_authorizedCategories = new ArrayList<String>();
     private List<String> m_users = new ArrayList<String>();
-    
+
     /**
      * <p>Constructor for WebGroup.</p>
      */
@@ -71,7 +71,7 @@ public class WebGroup {
         m_users.addAll(group.getUserCollection());
         m_authorizedCategories.addAll(authorizedCategories);
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -120,7 +120,7 @@ public class WebGroup {
     public void setDutySchedules(List<String> dutySchedules) {
         m_dutySchedules = dutySchedules;
     }
-    
+
     /**
      * <p>addDutySchedule</p>
      *
@@ -129,7 +129,7 @@ public class WebGroup {
     public void addDutySchedule(String dutySchedule) {
         m_dutySchedules.add(dutySchedule);
     }
-    
+
     /**
      * <p>getAuthorizedCategories</p>
      *
@@ -146,7 +146,7 @@ public class WebGroup {
     public void setAuthorizedCategories(List<String> authorizedCategories) {
         m_authorizedCategories = authorizedCategories;
     }
-    
+
     /**
      * <p>getUsers</p>
      *
@@ -176,7 +176,7 @@ public class WebGroup {
         unauthorizedCategories.removeAll(m_authorizedCategories);
         return unauthorizedCategories;
     }
-    
+
     /**
      * <p>getRemainingUsers</p>
      *
@@ -188,7 +188,7 @@ public class WebGroup {
         remainingUsers.removeAll(m_users);
         return remainingUsers;
     }
-    
+
     /**
      * <p>getDefaultMap</p>
      *
@@ -207,5 +207,5 @@ public class WebGroup {
         m_defaultMap = defaultMap;
     }
 
-    
+
 }

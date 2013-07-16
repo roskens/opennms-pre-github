@@ -42,7 +42,7 @@ public class MobileSequenceNamespacePrefixMapper extends NamespacePrefixMapper {
      */
     public MobileSequenceNamespacePrefixMapper() {
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getPreferredPrefix(String namespaceUri, String suggestion, boolean requirePrefix) {

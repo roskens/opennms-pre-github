@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Label;
  * @since 1.8.1
  */
 public class OutageDashlet extends Dashlet {
-    
+
     /**
      * <p>Constructor for OutageDashlet.</p>
      *

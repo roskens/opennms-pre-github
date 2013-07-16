@@ -50,7 +50,7 @@ public class MemcachedDetector extends AsyncLineOrientedDetectorMinaImpl {
     public MemcachedDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -60,7 +60,7 @@ public class MemcachedDetector extends AsyncLineOrientedDetectorMinaImpl {
     public MemcachedDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>onInit</p>
      */
@@ -68,5 +68,5 @@ public class MemcachedDetector extends AsyncLineOrientedDetectorMinaImpl {
     protected void onInit(){
         send(request("version"), startsWith("VERSION"));
     }
-    
+
 }

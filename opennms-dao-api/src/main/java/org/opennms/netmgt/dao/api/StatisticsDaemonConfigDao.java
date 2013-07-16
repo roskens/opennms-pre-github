@@ -49,14 +49,14 @@ public interface StatisticsDaemonConfigDao {
      * @return a {@link java.util.List} object.
      */
     public List<Report> getReports();
-    
+
     /**
      * <p>getPackages</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<StatsdPackage> getPackages();
-    
+
     /**
      * <p>reloadConfiguration</p>
      *

@@ -71,7 +71,7 @@ public class AssetCommand implements IsSerializable {
     private ArrayList<String> m_connectionOptions;
 
     private Float m_longitude;
-    
+
     private Float m_latitude;
 
     private String m_country;

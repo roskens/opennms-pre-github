@@ -1,13 +1,13 @@
-/* 
+/*
  * Licensed to the OpenNMS Group Inc. under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The OpenNMS Group Inc. licences this file to You under the Apache License, 
+ * The OpenNMS Group Inc. licences this file to You under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,16 +31,16 @@ public class ClientPropertiesLoader {
 	private String password  = "admin";   // password for accessing REST interface
 	private String foreign_source= "imported:TestForeignSource1"; // foreign source for importing data
 	private String propertiesFilename="onmsclient.properties"; // file name of properties file
-	
+
 	private Properties properties = null;
-	
+
 	private String path="";
 
 	private void loadProperties() {
 		properties = new Properties();
-		try { 
+		try {
 
-			// try to Load from the startup directory of application (ex. directory containing the jar) 
+			// try to Load from the startup directory of application (ex. directory containing the jar)
 			String p=getClass().getProtectionDomain().getCodeSource().getLocation().toString().substring(6);
 			path= "/"+p.substring(0, p.lastIndexOf("/"));
 
@@ -50,7 +50,7 @@ public class ClientPropertiesLoader {
 				java.io.FileInputStream fis = new java.io.FileInputStream(propfile);
 				properties.load(fis);
 			} else {
-				// try to load from class path 
+				// try to load from class path
 				log.debug("PropertiesLoader() Properties file not in directory path:'"+path+"' Loading properties file '"+propertiesFilename+"' from classpath");
 				URL url = ClassLoader.getSystemResource(propertiesFilename);
 				properties.load(url.openStream());
@@ -72,9 +72,9 @@ public class ClientPropertiesLoader {
 				foreign_source= properties.getProperty("foreign_source");
 			} else log.error ("PropertiesLoader() 'foreign_source' property does not exist in '"+propertiesFilename+"' file. Using default value.");
 
-		} catch (Throwable e) { 
+		} catch (Throwable e) {
 			log.error("PropertiesLoader() unable to load '"+propertiesFilename+"' file from classpath or file path '"+path+"'. Using default properties. ");
-		} 
+		}
 		log.info("PropertiesLoader() using properties: foreign_source='"+foreign_source
 				+"', opennmsUrl='"+opennmsUrl+"', username='"+username+"', password='"+password+"'");
 	}

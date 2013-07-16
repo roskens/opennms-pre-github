@@ -34,22 +34,22 @@ import org.opennms.netmgt.model.discovery.IPAddressRange;
 import org.opennms.netmgt.model.discovery.IPAddressRangeSet;
 
 /**
- * This is a wrapper class for the Definition class from the config package.  Has the logic for 
+ * This is a wrapper class for the Definition class from the config package.  Has the logic for
  * comparing definitions, sorting child elements, etc.
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  *
  */
 final class MergeableDefinition {
-    
+
     /**
      * This field should remaining encapsulated for there is
      * synchronization in the getter.
-     * 
+     *
      */
     private final Definition m_snmpConfigDef;
     private IPAddressRangeSet m_configRanges = new IPAddressRangeSet();
-    
+
     /**
      * <p>Constructor for MergeableDefinition.</p>
      *
@@ -57,16 +57,16 @@ final class MergeableDefinition {
      */
     public MergeableDefinition(Definition def) {
         m_snmpConfigDef = def;
-        
+
         for (Range r : def.getRangeCollection()) {
             m_configRanges.add(new IPAddressRange(r.getBegin(), r.getEnd()));
         }
-        
+
         for(String s : def.getSpecificCollection()) {
             m_configRanges.add(new IPAddressRange(s));
         }
     }
-    
+
     public IPAddressRangeSet getAddressRanges() {
         return m_configRanges;
     }
@@ -79,12 +79,12 @@ final class MergeableDefinition {
      * @param eventDefefinition a {@link org.opennms.netmgt.config.MergeableDefinition} object.
      */
     protected void mergeMatchingAttributeDef(MergeableDefinition eventDefinition)  {
-        
+
         m_configRanges.addAll(eventDefinition.getAddressRanges());
-        
+
         getConfigDef().removeAllRange();
         getConfigDef().removeAllSpecific();
-        
+
         for(IPAddressRange range : m_configRanges) {
             if (range.isSingleton()) {
                 getConfigDef().addSpecific(range.getBegin().toUserString());
@@ -94,10 +94,10 @@ final class MergeableDefinition {
                 xmlRange.setEnd(range.getEnd().toUserString());
                 getConfigDef().addRange(xmlRange);
             }
-            
-        }        
+
+        }
     }
-    
+
     /**
      * <p>getConfigDef</p>
      *
@@ -106,14 +106,14 @@ final class MergeableDefinition {
     final public Definition getConfigDef() {
         return m_snmpConfigDef;
     }
-    
+
     final private <T> boolean areEquals(T object1, T object2) {
     	return SnmpConfigManager.areEquals(object1, object2);
     }
 
     boolean matches(MergeableDefinition other) {
         return areEquals(getConfigDef().getReadCommunity(), other.getConfigDef().getReadCommunity())
-                && areEquals(getConfigDef().getPort(), other.getConfigDef().getPort()) 
+                && areEquals(getConfigDef().getPort(), other.getConfigDef().getPort())
                 && areEquals(getConfigDef().getRetry(), other.getConfigDef().getRetry())
                 && areEquals(getConfigDef().getTimeout(), other.getConfigDef().getTimeout())
                 && areEquals(getConfigDef().getVersion(), other.getConfigDef().getVersion())
@@ -130,22 +130,22 @@ final class MergeableDefinition {
         		&& areEquals(getConfigDef().getPrivacyProtocol(), other.getConfigDef().getPrivacyProtocol())
         		&& areEquals(getConfigDef().getProxyHost(), other.getConfigDef().getProxyHost())
         		&& areEquals(getConfigDef().getSecurityLevel(), other.getConfigDef().getSecurityLevel())
-        		&& areEquals(getConfigDef().getSecurityName(), other.getConfigDef().getSecurityName()) 
+			&& areEquals(getConfigDef().getSecurityName(), other.getConfigDef().getSecurityName())
         		&& areEquals(getConfigDef().getWriteCommunity(), other.getConfigDef().getWriteCommunity());
     }
-    
+
     boolean isEmpty(String s) {
         return s == null || "".equals(s.trim());
     }
-    
+
     /**
-     * Returns true if the definition has no attributes (e.g. version, port, etc.) set. 
+     * Returns true if the definition has no attributes (e.g. version, port, etc.) set.
      * That means each range or specific matches the default values.
-     * 
+     *
      * @return true if the definition has no attributes (e.g. version, port, etc.) set.
      */
     boolean isTrivial() {
-        return isEmpty(getConfigDef().getReadCommunity()) 
+        return isEmpty(getConfigDef().getReadCommunity())
         && isEmpty(getConfigDef().getVersion())
         && isEmpty(getConfigDef().getAuthPassphrase())
         && isEmpty(getConfigDef().getAuthProtocol())
@@ -169,12 +169,12 @@ final class MergeableDefinition {
 
 
     void removeRanges(MergeableDefinition eventDefinition) {
-        
+
         m_configRanges.removeAll(eventDefinition.getAddressRanges());
 
         getConfigDef().removeAllRange();
         getConfigDef().removeAllSpecific();
-        
+
         for(IPAddressRange r : m_configRanges) {
             if (r.isSingleton()) {
                 getConfigDef().addSpecific(r.getBegin().toUserString());
@@ -184,7 +184,7 @@ final class MergeableDefinition {
                 xmlRange.setEnd(r.getEnd().toUserString());
                 getConfigDef().addRange(xmlRange);
             }
-            
+
         }
     }
 

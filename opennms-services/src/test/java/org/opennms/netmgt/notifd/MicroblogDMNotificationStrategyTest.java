@@ -46,11 +46,11 @@ public class MicroblogDMNotificationStrategyTest extends MicroblogNotificationSt
 
         Assert.assertEquals("NotificationStrategy should return 0 on success", 0, ns.send(arguments));
     }
-    
+
     @Override
     public List<Argument> configureArgs() {
         List<Argument> arguments = super.configureArgs();
-        
+
         Argument arg = new Argument("-ublog", null, "jeffg", false);
         arguments.add(arg);
         return arguments;

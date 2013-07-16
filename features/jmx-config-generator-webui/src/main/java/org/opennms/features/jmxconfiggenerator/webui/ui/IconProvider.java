@@ -35,7 +35,7 @@ import com.vaadin.server.ThemeResource;
 /**
  * This class provides the application with icons. If any icon changes or new
  * icons are needed, please put them below.
- * 
+ *
  * @author Markus von Rüden
  */
 public class IconProvider {

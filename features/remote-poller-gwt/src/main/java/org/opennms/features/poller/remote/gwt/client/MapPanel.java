@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public interface MapPanel {
-    
+
     /**
      * <p>getWidget</p>
      *
@@ -75,5 +75,5 @@ public interface MapPanel {
      * @param marker a {@link org.opennms.features.poller.remote.gwt.client.GWTMarkerState} object.
      */
     public void placeMarker(GWTMarkerState marker);
-    
+
 }

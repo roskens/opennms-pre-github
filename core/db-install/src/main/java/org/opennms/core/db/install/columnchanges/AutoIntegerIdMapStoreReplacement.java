@@ -49,7 +49,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
     private final String[] m_indexColumns;
     private final Map<MultiColumnKey, Integer> m_idMap =
         new HashMap<MultiColumnKey, Integer>();
-    
+
     /**
      * <p>Constructor for AutoIntegerIdMapStoreReplacement.</p>
      *
@@ -60,7 +60,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
         m_value = initialValue;
         m_indexColumns = indexColumns;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Integer getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
@@ -69,7 +69,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
         m_idMap.put(key, newInteger);
         return newInteger;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -79,7 +79,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>getIntegerForColumns</p>
      *
@@ -95,45 +95,45 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
 
         Integer oldInteger = m_idMap.get(key);
         Assert.isTrue(oldInteger != null || noMatchOkay, "No entry in the map for " + key);
-        
+
         return oldInteger;
     }
-    
+
     private MultiColumnKey getKeyForColumns(ResultSet rs, Map<String, ColumnChange> columnChanges, String[] columns) throws SQLException {
         Object[] objects = new Object[columns.length];
-        for (int i = 0; i < columns.length; i++) { 
+        for (int i = 0; i < columns.length; i++) {
             String indexColumn = columns[i];
-            
+
             ColumnChange columnChange = columnChanges.get(indexColumn);
             Assert.notNull(columnChange, "No ColumnChange entry for '" + indexColumn + "'");
-            
+
             int index = columnChange.getSelectIndex();
             Assert.isTrue(index > 0, "ColumnChange entry for '" + indexColumn + "' has no select index");
-            
+
             objects[i] = rs.getObject(index);
         }
 
         return new MultiColumnKey(objects);
     }
-    
+
     public class MultiColumnKey {
         private final Object[] m_keys;
-        
+
         public MultiColumnKey(Object[] keys) {
             m_keys = keys;
         }
-        
+
         @Override
         public boolean equals(Object otherObject) {
             if (!(otherObject instanceof MultiColumnKey)) {
                 return false;
             }
             MultiColumnKey other = (MultiColumnKey) otherObject;
-            
+
             if (m_keys.length != other.m_keys.length) {
                 return false;
             }
-            
+
             for (int i = 0; i < m_keys.length; i++) {
                 if (m_keys[i] == null && other.m_keys[i] == null) {
                     continue;
@@ -145,15 +145,15 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
                     return false;
                 }
             }
-            
+
             return true;
         }
-        
+
         @Override
         public String toString() {
             return StringUtils.arrayToDelimitedString(m_keys, ", ");
         }
-        
+
         @Override
         public int hashCode() {
             int value = 1;
@@ -166,7 +166,7 @@ public class AutoIntegerIdMapStoreReplacement implements ColumnChangeReplacement
             return value;
         }
     }
-    
+
     /**
      * <p>close</p>
      */

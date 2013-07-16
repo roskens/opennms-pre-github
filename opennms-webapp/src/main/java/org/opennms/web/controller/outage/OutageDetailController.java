@@ -68,7 +68,7 @@ public class OutageDetailController extends AbstractController implements Initia
         }
         catch( NumberFormatException e ) {
             throw new OutageIdNotFoundException("The outage id must be an integer.", outageIdString);
-        }        
+        }
 
         Outage outage = m_webOutageRepository.getOutage(outageId);
 
@@ -100,7 +100,7 @@ public class OutageDetailController extends AbstractController implements Initia
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

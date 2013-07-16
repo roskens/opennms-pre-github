@@ -80,13 +80,13 @@ public class FilterPanel extends Composite {
     SuggestBox applicationNameSuggestBox;
     @UiField
     Panel applicationTray;
-    @UiField 
+    @UiField
     Label noApplicationsCaption;
     @UiField
     Panel applicationFilters;
 
     private final MultiWordSuggestOracle applicationNames = new MultiWordSuggestOracle();
-    
+
     private class ApplicationFilter extends HorizontalPanel {
         public ApplicationFilter(final ApplicationInfo app) {
             Image appIcon = new Image(new GWTMarkerState("filter", null, app.getStatusDetails().getStatus()).getImageURL());
@@ -175,7 +175,7 @@ public class FilterPanel extends Composite {
      *
      * @param event a {@link com.google.gwt.event.logical.shared.SelectionEvent} object.
      */
-    @UiHandler("applicationNameSuggestBox") 
+    @UiHandler("applicationNameSuggestBox")
     public void onApplicationSelect(final SelectionEvent<Suggestion> event) {
         Suggestion item = event.getSelectedItem();
         m_eventBus.fireEvent(new ApplicationSelectedEvent(item.getReplacementString()));
@@ -210,7 +210,7 @@ public class FilterPanel extends Composite {
             noApplicationsCaption.setVisible(true);
         }
     }
-    
+
     /**
      * <p>showApplicationFilters</p>
      *

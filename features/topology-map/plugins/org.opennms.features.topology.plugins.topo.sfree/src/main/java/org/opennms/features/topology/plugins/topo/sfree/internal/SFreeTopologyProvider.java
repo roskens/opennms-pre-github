@@ -42,7 +42,7 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
 		clearEdges();
 
 		if (filename.equals(ERDOS_RENIS))
-			createERRandomTopology(200,4);		
+			createERRandomTopology(200,4);
 		else if (filename.equals(BARABASI_ALBERT))
 			createBARandomTopology(200,4);
 	}
@@ -54,7 +54,7 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
 		for(int i=0; i<2*averageNumberofNeighboors; i++){
                     System.err.println("Creating First Cluster from: " + i);
                     int j=(i+1)%(2*averageNumberofNeighboors);
-                    
+
                     SimpleLeafVertex vertexi = new SimpleLeafVertex(TOPOLOGY_NAMESPACE_SFREE, Integer.toString(i), 0, 0);
                     vertexi.setIconKey("sfree:system");
                     vertexi.setLabel("BarabasiAlbertNode"+i);
@@ -62,7 +62,7 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
                         nodes.put(i, vertexi);
                         System.err.println("Added Node: " + nodes.get(i).getId());
                     }
-                    
+
                     SimpleLeafVertex vertexj = new SimpleLeafVertex(TOPOLOGY_NAMESPACE_SFREE, Integer.toString(j), 0, 0);
                     vertexj.setIconKey("sfree:system");
                     vertexj.setLabel("BarabasiAlbertNode"+j);
@@ -80,13 +80,13 @@ public class SFreeTopologyProvider extends AbstractTopologyProvider implements G
 
 		Random r = new Random((new Date()).getTime());
 		for(int i=2*averageNumberofNeighboors;i<numberOfNodes;i++){
-			
+
 		    SimpleLeafVertex vertexi = new SimpleLeafVertex(TOPOLOGY_NAMESPACE_SFREE, Integer.toString(i),0,0);
 		    vertexi.setIconKey("sfree:system");
 		    vertexi.setLabel("BarabasiAlbertNode"+i);
 		    nodes.put(i, vertexi);
 		    System.err.println("Adding Node: " + i);
-			
+
 		    for(int times=0; times<averageNumberofNeighboors; times++){
 		        AbstractEdge edge;
 		        double d = r.nextDouble()*nodes.size(); // choose node to attach to

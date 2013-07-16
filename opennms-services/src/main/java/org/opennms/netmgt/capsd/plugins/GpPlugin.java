@@ -82,7 +82,7 @@ public final class GpPlugin extends AbstractPlugin {
      * generate a banner line which contains the text from the banner or match
      * argument.
      * </P>
-     * 
+     *
      * @param host
      *            The host to pass to the script
      * @param retry
@@ -100,7 +100,7 @@ public final class GpPlugin extends AbstractPlugin {
      *            The option string passed to the exec for the IP address (hostname)
      * @param toption
      *            The option string passed to the exec for the timeout
-     * 
+     *
      * @return True if a connection is established with the script and the
      *         banner line returned by the script matches the regular expression
      *         regex.

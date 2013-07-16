@@ -49,11 +49,11 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class PurdyChartServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PurdyChartServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2449309268355063862L;
 
@@ -63,7 +63,7 @@ public class PurdyChartServlet extends HttpServlet {
     public PurdyChartServlet() {
         super();
     }
-    
+
 /*    public void init() {
         try {
             ChartConfigFactory.init();
@@ -78,7 +78,7 @@ public class PurdyChartServlet extends HttpServlet {
             log().error("init: Error initializing database connection factory: ",e);
         }
     }
-*/    
+*/
 
     /** {@inheritDoc} */
     @Override
@@ -86,12 +86,12 @@ public class PurdyChartServlet extends HttpServlet {
 
         String chartName = request.getParameter("chart-name");
         String buffered = request.getParameter("buffered");
-        
+
         if (chartName == null) {
             LOG.warn("doGet: request doesn't contain a chart-name parameter.");
             return;
         }
-        
+
         if (buffered == null) {
             buffered = "0";
         }
@@ -105,9 +105,9 @@ public class PurdyChartServlet extends HttpServlet {
 */
         response.setContentType("image/png");
         OutputStream out = response.getOutputStream();
-        
+
         LOG.debug("doGet: displaying chart: {}", chartName);
-        
+
         try {
                 ChartUtils.getBarChartPNG(chartName, out);
         } catch (MarshalException e) {
@@ -122,14 +122,14 @@ public class PurdyChartServlet extends HttpServlet {
 
         out.flush();
         out.close();
-        
+
 /*        pw = response.getWriter();
         response.setContentType("text/html");
         pw.println("</body>");
         pw.println("</html>");
-*/        
+*/
     }
 
-    
+
 
 }

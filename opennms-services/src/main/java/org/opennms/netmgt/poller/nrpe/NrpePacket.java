@@ -251,7 +251,7 @@ public class NrpePacket {
 		return "Version: " + m_version + "\n" + "Type: " + m_type + "\n"
 				+ "Result Code: " + m_resultCode + "\n" + "Buffer: " + m_buffer;
 	}
-	
+
 	/**
 	 * <p>buildPacket</p>
 	 *
@@ -260,13 +260,13 @@ public class NrpePacket {
 	 */
 	public byte[] buildPacket(int padding) {
 		SecureRandom random;
-		
+
 		try {
 			random = SecureRandom.getInstance("SHA1PRNG");
 		} catch (NoSuchAlgorithmException e) {
 			random = null;
 		}
-		
+
 		return buildPacket(padding, random);
 	}
 

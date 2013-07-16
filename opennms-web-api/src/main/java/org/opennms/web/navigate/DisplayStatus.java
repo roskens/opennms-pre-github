@@ -37,10 +37,10 @@ package org.opennms.web.navigate;
  */
 public enum DisplayStatus {
     NO_DISPLAY(false, false), DISPLAY_NO_LINK(true, false), DISPLAY_LINK(true, true);
-    
+
     private boolean m_display;
     private boolean m_displayLink;
-    
+
     DisplayStatus(boolean display, boolean displayLink) {
         m_display = display;
         m_displayLink = displayLink;

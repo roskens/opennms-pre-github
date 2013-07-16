@@ -58,8 +58,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
  */
 /**
  * The Event's VarbindsDecode Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.VarbindsDecodeArrayList> implements Button.ClickListener {
@@ -145,7 +145,7 @@ public class VarbindsDecodeField extends CustomField<VarbindsDecodeField.Varbind
 
     @Override
     public VarbindsDecodeArrayList getValue() {
-        VarbindsDecodeArrayList beans = new VarbindsDecodeArrayList(); 
+        VarbindsDecodeArrayList beans = new VarbindsDecodeArrayList();
         for (Object itemId: container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }

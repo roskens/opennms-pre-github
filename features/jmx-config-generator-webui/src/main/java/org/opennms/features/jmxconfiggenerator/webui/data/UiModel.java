@@ -39,7 +39,7 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.JmxDatacollectionConfig;
  * multiple data soruces (and therefore multiple JmxDatacollectionConfigs), and
  * so on. Or we find out, that we do not need this class, then we will remove
  * it.
- * 
+ *
  * @author Markus von Rüden
  */
 public class UiModel {
@@ -78,7 +78,7 @@ public class UiModel {
 	/**
 	 * Checks if the given <code>rawModel</code> is not null and does have
 	 * Mbeans (count can be 0, but not NULL).
-	 * 
+	 *
 	 * @param rawModel
 	 * @return true if valid, false otherwise
 	 */
@@ -135,7 +135,7 @@ public class UiModel {
 
 	/**
 	 * Creates a CollectdConfiguration snippet depending on the data saved here.
-	 * 
+	 *
 	 * @return The CollecdConfiguration snippet depending on the data saved in
 	 *         this model.
 	 */

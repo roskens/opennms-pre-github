@@ -43,10 +43,10 @@ public class ArgumentParser {
     private String m_argHelp;
     PrintStream out = System.err;
     private Map<Option, Method> m_options = new LinkedHashMap<Option, Method>();
-     
+
     public ArgumentParser(String programName, Object argHandler) {
         m_programName = programName;
-        m_argHandler = argHandler;  
+        m_argHandler = argHandler;
         Method [] methods = m_argHandler.getClass().getMethods();
         for(Method m: methods){
             if(m.isAnnotationPresent(Option.class)){
@@ -76,7 +76,7 @@ public class ArgumentParser {
                 m_argMethod.invoke(m_argHandler, arg);
             }
         }
-        
+
     }
     public void printHelpOptions() {
         out.printf("Usage: %s <options> <arguments> \n", m_programName);
@@ -86,13 +86,13 @@ public class ArgumentParser {
         for(Option o : m_options.keySet()){
             out.printf("   -%-5s or --%-15s : %s\n", o.shortName(), o.longName(), o.help());
         }
-      
-        
+
+
     }
     public void executeOption(Option o, String arg) throws IllegalArgumentException, IllegalAccessException, InvocationTargetException {
         if(o != null){
             Method m = m_options.get(o);
-            m.invoke(m_argHandler);      
+            m.invoke(m_argHandler);
         }else{
             throw new IllegalArgumentException("Illegal Argument: " + arg);
         }

@@ -51,13 +51,13 @@ import org.springframework.validation.BindException;
 
 /**
  * Test case for DefaultStatisticsReportService.
- * 
+ *
  * @see DefaultStatisticsReportService
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultStatisticsReportServiceTest {
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     private DefaultStatisticsReportService m_service = new DefaultStatisticsReportService();
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
     private StatisticsReportDao m_statisticsReportDao = m_mocks.createMock(StatisticsReportDao.class);
@@ -73,12 +73,12 @@ public class DefaultStatisticsReportServiceTest {
     public void verify() throws Throwable {
         m_mocks.verifyAll();
     }
-    
+
     @Test
     public void testNullCommandObjectId() {
         StatisticsReportCommand command = new StatisticsReportCommand();
         BindException errors = new BindException(command, "");
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("id property on command object cannot be null"));
 
@@ -95,7 +95,7 @@ public class DefaultStatisticsReportServiceTest {
     public void testDatumWithNonExistentResource() {
         StatisticsReport report = new StatisticsReport();
         report.setId(1);
-        
+
         StatisticsReportData datum = new StatisticsReportData();
         ResourceReference resourceRef = new ResourceReference();
         resourceRef.setId(1);
@@ -108,20 +108,20 @@ public class DefaultStatisticsReportServiceTest {
 
         StatisticsReportCommand command = new StatisticsReportCommand();
         command.setId(report.getId());
-        
+
         BindException errors = new BindException(command, "");
-        
+
         expect(m_statisticsReportDao.load(report.getId())).andReturn(report);
         m_statisticsReportDao.initialize(report);
         m_statisticsReportDao.initialize(report.getData());
         expect(m_resourceDao.getResourceById(resourceRef.getResourceId())).andReturn(null);
-        
+
         m_mocks.replayAll();
         StatisticsReportModel model = m_service.getReport(command, errors);
-        
+
         assertNotNull("model should not be null", model);
         assertNotNull("model.getData() should not be null", model.getData());
-        
+
         SortedSet<Datum> data = model.getData();
         assertEquals("data size", 1, data.size());
         Datum d = data.first();

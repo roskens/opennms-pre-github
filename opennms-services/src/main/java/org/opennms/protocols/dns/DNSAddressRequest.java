@@ -186,7 +186,7 @@ public class DNSAddressRequest {
      * </P>
      */
     private static int globalID = 1;
-    
+
     /**
      * <P>
      * The list of response codes to be considered fatal
@@ -243,7 +243,7 @@ public class DNSAddressRequest {
         //
         m_fatalResponseCodes = new ArrayList<Integer>();
         m_fatalResponseCodes.add(2);
-        
+
         //
         // Split the host into its component
         // parts.
@@ -489,7 +489,7 @@ public class DNSAddressRequest {
 
         return ((code >= 1) && (code <= 5)) ? codeNames[code - 1] : "Unknown error";
     }
-    
+
     /**
      * <p>getFatalResponseCodes</p>
      *
@@ -498,7 +498,7 @@ public class DNSAddressRequest {
     public List<Integer> getFatalResponseCodes() {
         return m_fatalResponseCodes;
     }
-    
+
     /**
      * <p>setFatalResponseCodes</p>
      *
@@ -507,7 +507,7 @@ public class DNSAddressRequest {
     public void setFatalResponseCodes(List<Integer> codes) {
         m_fatalResponseCodes = codes;
     }
-    
+
     private boolean isResponseCodeFatal(int code) {
         if (m_fatalResponseCodes.contains(code))
             return true;

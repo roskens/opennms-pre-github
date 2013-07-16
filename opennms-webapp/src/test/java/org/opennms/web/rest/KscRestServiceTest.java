@@ -49,7 +49,7 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
     protected void beforeServletStart() throws Exception {
         KSC_PerformanceReportFactory.setConfigFile(m_configFile);
     }
-    
+
     @Override
     protected void afterServletStart() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -92,19 +92,19 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
                 System.err.println(line);
                 sb.append(line).append('\n');
             }
-    
+
             return sb.toString();
         } finally {
             IOUtils.closeQuietly(reader);
             IOUtils.closeQuietly(fileReader);
         }
     }
-    
+
     /*
     @Test
     public void testWriteGroup() throws Exception {
         createGroup("test");
-        
+
         String xml = sendRequest(GET, "/groups/test", 200);
         assertTrue(xml.contains("<group><name>test</name>"));
 
@@ -117,12 +117,12 @@ public class KscRestServiceTest extends AbstractSpringJerseyRestTestCase {
     @Test
     public void testDeleteGroup() throws Exception {
         createGroup("deleteMe");
-        
+
         String xml = sendRequest(GET, "/groups", 200);
         assertTrue(xml.contains("deleteMe"));
 
         sendRequest(DELETE, "/groups/idontexist", 400);
-        
+
         sendRequest(DELETE, "/groups/deleteMe", 200);
 
         sendRequest(GET, "/groups/deleteMe", 404);

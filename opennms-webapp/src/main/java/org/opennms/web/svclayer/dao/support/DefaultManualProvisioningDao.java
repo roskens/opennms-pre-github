@@ -54,7 +54,7 @@ import org.springframework.util.Assert;
  * @since 1.8.1
  */
 public class DefaultManualProvisioningDao implements ManualProvisioningDao {
-    
+
     private static final Pattern XML_FILE_PATTERN = Pattern.compile("^(.*)\\.xml$");
     private File m_importFileDir;
 
@@ -76,17 +76,17 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
     @Override
     public Requisition get(final String name) {
         checkGroupName(name);
-        
+
         final File importFile = getImportFile(name);
-        
+
         if (!importFile.exists()) {
             return null;
         }
-        
+
         if (!importFile.canRead()) {
             throw new PermissionDeniedDataAccessException("Unable to read file "+importFile, null);
         }
-        
+
         return CastorUtils.unmarshalWithTranslatedExceptions(Requisition.class, new FileSystemResource(importFile));
     }
 
@@ -101,14 +101,14 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
      */
     @Override
     public Collection<String> getProvisioningGroupNames() {
-        
+
         final String[] importFiles = m_importFileDir.list(getImportFilenameFilter());
-        
+
         final String[] groupNames = new String[importFiles.length];
         for (int i = 0; i < importFiles.length; i++) {
             groupNames[i] = getGroupNameForImportFileName(importFiles[i]);
         }
-        
+
         return Arrays.asList(groupNames);
     }
 
@@ -116,9 +116,9 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
     @Override
     public void save(final String groupName, final Requisition group) {
         checkGroupName(groupName);
-        
+
         final File importFile = getImportFile(groupName);
-        
+
         if (importFile.exists()) {
             final Requisition currentData = get(groupName);
             if (currentData.getDateStamp().compare(group.getDateStamp()) > 0) {
@@ -140,7 +140,7 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
         checkGroupName(groupName);
         return new File(m_importFileDir, groupName+".xml");
     }
-    
+
     /**
      * <p>getImportFilenameFilter</p>
      *
@@ -153,10 +153,10 @@ public class DefaultManualProvisioningDao implements ManualProvisioningDao {
                 final Matcher matcher = XML_FILE_PATTERN.matcher(name);
                 return matcher.matches();
             }
-            
+
         };
     }
-    
+
     private String getGroupNameForImportFileName(final String filename) {
         final Matcher matcher = XML_FILE_PATTERN.matcher(filename);
         if (!matcher.matches()) {

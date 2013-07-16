@@ -50,14 +50,14 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
     private String m_coordinates;
     private Long m_priority;
     private Set<String> m_tags = new HashSet<String>();
-    
+
     /**
      * <p>Constructor for OnmsMonitoringLocationDefinition.</p>
      */
     public OnmsMonitoringLocationDefinition() {
-        
+
     }
-    
+
     /**
      * <p>Constructor for OnmsMonitoringLocationDefinition.</p>
      *
@@ -68,7 +68,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
         m_name = name;
         m_pollingPackageName = pollingPackageName;
     }
-    
+
     /**
      * <p>Constructor for OnmsMonitoringLocationDefinition.</p>
      *
@@ -168,7 +168,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
     public void setPollingPackageName(final String pollingPackageName) {
         m_pollingPackageName = pollingPackageName;
     }
-    
+
 	/**
 	 * <p>getGeolocation</p>
 	 *
@@ -186,7 +186,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
 	public void setGeolocation(final String location) {
 		m_geolocation = location;
 	}
-	
+
 	/**
 	 * <p>getCoordinates</p>
 	 *
@@ -204,7 +204,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
 	public void setCoordinates(final String coordinates) {
 		m_coordinates = coordinates;
 	}
-	
+
 	/**
 	 * <p>getPriority</p>
 	 *
@@ -213,7 +213,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
 	public Long getPriority() {
 		return m_priority;
 	}
-	
+
 	/**
 	 * <p>setPriority</p>
 	 *
@@ -222,7 +222,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
 	public void setPriority(final Long priority) {
 		m_priority = priority;
 	}
-	
+
 	/**
 	 * <p>getTags</p>
 	 *
@@ -231,7 +231,7 @@ public class OnmsMonitoringLocationDefinition implements Serializable {
 	public Set<String> getTags() {
 		return m_tags;
 	}
-	
+
 	/**
 	 * <p>setTags</p>
 	 *

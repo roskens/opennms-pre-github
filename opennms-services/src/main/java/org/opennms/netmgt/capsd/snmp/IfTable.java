@@ -61,10 +61,10 @@ import org.slf4j.LoggerFactory;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213 </A>
  */
 public final class IfTable extends SnmpTable<IfTableEntry> {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(IfTable.class);
-    
+
     /**
      * <P>
      * Constructs an IfTable object that is used to collect the interface
@@ -79,7 +79,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     public IfTable(InetAddress address) {
         super(address, "ifTable", IfTableEntry.ms_elemList);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected IfTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
@@ -100,10 +100,10 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
                 return entry;
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * <p>getOperStatus</p>
      *
@@ -124,7 +124,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
         }
         return -1;
     }
-        
+
     /**
      * <p>getAdminStatus</p>
      *
@@ -174,7 +174,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * @return a {@link java.lang.String} object.
      */
     public String getIfDescr(final int ifIndex) {
-        String ifDescr = null;   
+        String ifDescr = null;
         for(IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
@@ -191,7 +191,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * @return a {@link java.lang.Long} object.
      */
     public Long getIfSpeed(final int ifIndex) {
-        Long ifSpeed = null;   
+        Long ifSpeed = null;
         for(IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
@@ -200,7 +200,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
         }
         return ifSpeed;
     }
-    
+
     /**
      * <p>getPhysAddr</p>
      *
@@ -208,7 +208,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
      * @return a {@link java.lang.String} object.
      */
     public String getPhysAddr(final int ifIndex) {
-        String physAddr = null;   
+        String physAddr = null;
         for(IfTableEntry entry : this) {
             Integer ndx = entry.getIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {

@@ -47,18 +47,18 @@ public class LinkInterface
         private final String  m_lastPollTime;
         private final String  m_status;
         private final Integer m_linktypeid;
-        
+
 	private final Integer m_nodeId;
         private final Integer m_ifindex;
         private final Integer m_linkedNodeId;
         private final Integer m_linkedIfindex;
 
         private static final Map<Integer, String> linktypeMap = new HashMap<Integer, String>();
-                
+
         static {
         	linktypeMap.put(9999, "Unknown");
         	linktypeMap.put(777, "DWO connection");
-        	linktypeMap.put(1777, "Summary Link");        	
+		linktypeMap.put(1777, "Summary Link");
         }
 
         LinkInterface( DataLinkInterface dl, boolean isParent, Interface iface, Interface linkedIface)
@@ -76,9 +76,9 @@ public class LinkInterface
         	}
             m_iface = iface;
             m_linkedInterface = linkedIface;
-            m_lastPollTime = Util.formatDateToUIString(dl.getLastPollTime()); 
+            m_lastPollTime = Util.formatDateToUIString(dl.getLastPollTime());
             m_status = StatusType.getStatusString(dl.getStatus().getCharCode());
-            m_linktypeid = dl.getLinkTypeId();                
+            m_linktypeid = dl.getLinkTypeId();
         }
 
 		/**
@@ -104,7 +104,7 @@ public class LinkInterface
         public Integer getIfindex() {
         	return m_ifindex;
         }
-        
+
 		public Integer getLinkedNodeId() {
 			return m_linkedNodeId;
 		}
@@ -130,17 +130,17 @@ public class LinkInterface
 		public String getStatus() {
 			return m_status;
 		}
-		        
+
         public Integer getLinktypeId() {
         	return m_linktypeid;
         }
-        
+
         public String getLinkTypeIdString() {
         	if (linktypeMap.containsKey(m_linktypeid))
         		return linktypeMap.get(m_linktypeid);
-        	return null; 
+		return null;
         }
-        
+
         public Interface getLinkedInterface() {
 			return m_linkedInterface;
 		}

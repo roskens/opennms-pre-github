@@ -35,20 +35,20 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Object used to identify which alarm fields should be updated during Alarm reduction.
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 @XmlRootElement(name="update-field")
 @XmlAccessorType(XmlAccessType.FIELD)
 //@ValidateUsing("event.xsd")
 public class UpdateField {
-    
+
     @XmlAttribute(name="field-name", required=true)
     private java.lang.String m_fieldName;
-    
+
     @XmlAttribute(name="update-on-reduction", required=false)
     private java.lang.Boolean m_updateOnReduction = Boolean.TRUE;
-    
+
     public String getFieldName() {
         return m_fieldName;
     }
@@ -56,11 +56,11 @@ public class UpdateField {
     public void setFieldName(String fieldName) {
         m_fieldName = fieldName;
     }
-    
+
     public Boolean isUpdateOnReduction() {
         return m_updateOnReduction;
     }
-    
+
     public void setUpdateOnReduction(Boolean update) {
         m_updateOnReduction = update;
     }

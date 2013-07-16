@@ -46,9 +46,9 @@ import org.opennms.netmgt.config.datacollection.Parameter;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SiblingColumnStorageStrategy.class);
-    
+
     private static final String PARAM_SIBLING_COLUMN_NAME = "sibling-column-name";
     private String m_siblingColumnName;
 
@@ -63,7 +63,7 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
         super();
         m_replaceOps = new ArrayList<StringReplaceOperation>();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getResourceNameFromIndex(CollectionResource resource) {
@@ -71,10 +71,10 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
         StringAttributeVisitor visitor = new StringAttributeVisitor(m_siblingColumnName);
         resource.visit(visitor);
         String value = (visitor.getValue() != null ? visitor.getValue() : resource.getInstance());
-        
-        // First remove all non-US-ASCII characters and turn all forward slashes into dashes 
+
+        // First remove all non-US-ASCII characters and turn all forward slashes into dashes
         String name = value.replaceAll("[^\\x00-\\x7F]", "").replaceAll("/", "-");
-        
+
         // Then perform all replacement operations specified in the parameters
         for (StringReplaceOperation op : m_replaceOps) {
             LOG.debug("Doing string replacement on instance name '{}' using {}", name, op);
@@ -84,7 +84,7 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
         LOG.debug("Inbound instance name was '{}', outbound was '{}'", resource.getInstance(), ("".equals(name) ? resource.getInstance() : name));
         return ("".equals(name) ? resource.getInstance() : name);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setParameters(List<Parameter> parameterCollection) throws IllegalArgumentException {
@@ -93,7 +93,7 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
             LOG.error(msg);
             throw new IllegalArgumentException(msg);
         }
-        
+
         for (Parameter param : parameterCollection) {
             if (PARAM_SIBLING_COLUMN_NAME.equals(param.getKey())) {
                 m_siblingColumnName = param.getValue();
@@ -111,7 +111,7 @@ public class SiblingColumnStorageStrategy extends IndexStorageStrategy {
                 }
             }
         }
-        
+
         if (m_siblingColumnName == null) {
             final String msg = "The provided parameter list must contain a '" + PARAM_SIBLING_COLUMN_NAME + "' parameter.";
             LOG.error(msg);

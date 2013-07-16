@@ -62,13 +62,13 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  * @since 1.8.1
  */
 public class JdbcWebNotificationRepository implements WebNotificationRepository, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JdbcWebNotificationRepository.class);
 
-    
+
     @Autowired
     SimpleJdbcTemplate m_simpleJdbcTemplate;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -76,11 +76,11 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
 
     private String getSql(final String selectClause, final NotificationCriteria criteria) {
         final StringBuilder buf = new StringBuilder(selectClause);
-        
+
         criteria.visit(new NotificationCriteriaVisitor<RuntimeException>() {
-            
+
             boolean first = true;
-            
+
             public void and(StringBuilder buf){
                 if(first){
                     buf.append(" WHERE ");
@@ -105,7 +105,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             @Override
              public void visitLimit(int limit, int offset) throws RuntimeException {
                 buf.append(" LIMIT ").append(limit).append(" OFFSET ").append(offset);
-                
+
             }
 
             @Override
@@ -115,7 +115,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             }
 
         });
-        
+
         return buf.toString();
     }
 
@@ -136,16 +136,16 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
                     }
                 });
             }
-            
+
         };
     }
-    
+
     private static class NotificationMapper implements ParameterizedRowMapper<Notification>{
 
         @Override
         public Notification mapRow(ResultSet rs, int rowNum) throws SQLException {
             Notification notice = new Notification();
-            
+
             notice.m_notifyID = Integer.valueOf(rs.getInt("notifyid"));
             notice.m_timeSent = getTimestamp("pagetime", rs);
             notice.m_timeReply = getTimestamp("respondtime", rs);
@@ -155,12 +155,12 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
             notice.m_nodeID = Integer.valueOf(rs.getInt("nodeid"));
             notice.m_interfaceID = rs.getString("interfaceid");
             notice.m_eventId = Integer.valueOf(rs.getInt("eventid"));
-            
+
             notice.m_serviceName = rs.getString("servicename");
 
             return notice;
         }
-    
+
         private long getTimestamp(String field, ResultSet rs) throws SQLException{
             if(rs.getTimestamp(field) != null){
                 return rs.getTimestamp(field).getTime();
@@ -168,9 +168,9 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
                 return 0;
             }
         }
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void acknowledgeMatchingNotification(String user, Date timestamp, NotificationCriteria criteria) {
@@ -208,12 +208,12 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
         return queryForInt(sql, paramSetter(criteria));
 
     }
-    
+
     private int queryForInt(String sql, PreparedStatementSetter setter) throws DataAccessException {
         Integer number = queryForObject(sql, setter, new SingleColumnRowMapper<Integer>(Integer.class));
         return (number != null ? number.intValue() : 0);
     }
-    
+
     private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper) throws DataAccessException {
         return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
@@ -222,7 +222,7 @@ public class JdbcWebNotificationRepository implements WebNotificationRepository,
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
-    
+
     private JdbcOperations jdbc(){
         return m_simpleJdbcTemplate.getJdbcOperations();
     }

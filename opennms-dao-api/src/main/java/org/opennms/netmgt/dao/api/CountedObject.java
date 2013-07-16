@@ -50,11 +50,11 @@ public class CountedObject<T> implements Comparable<CountedObject<T>> {
     public T getObject() {
         return m_object;
     }
-    
+
     public void setCount(final int count) {
         m_count = count;
     }
-    
+
     public Long getCount() {
         return m_count;
     }
@@ -66,7 +66,7 @@ public class CountedObject<T> implements Comparable<CountedObject<T>> {
             .append(this.getObject(), (o == null? null:o.getObject()))
             .toComparison();
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

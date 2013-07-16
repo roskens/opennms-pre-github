@@ -47,8 +47,8 @@ import com.google.gwt.visualization.client.visualizations.AnnotatedTimeLine;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class Application implements EntryPoint, LocationUpdateEventHandler, HostUpdateEventHandler {
-    
-    
+
+
     public class UpdateGraphCallback implements RequestCallback {
 
         @Override
@@ -70,45 +70,45 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
     AnnotatedTimeLine m_timeline;
     ChartService m_chartService;
     private Navigation m_nav;
-    
+
   /**
    * This is the entry point method.
    */
   public void onModuleLoad() {
       m_chartService = new DefaultChartService();
-      
+
       Image img = new Image();
       img.setUrl("../images/logo.png");
       img.getElement().getStyle().setPaddingTop(14, Unit.PX);
       img.getElement().getStyle().setPaddingLeft(14, Unit.PX);
-      
+
       FlowPanel header = new FlowPanel();
       header.getElement().setId("header");
       header.add(img);
-      
+
       final DockLayoutPanel dockLayoutPanel = new DockLayoutPanel(Unit.PX);
       dockLayoutPanel.addNorth(header, 75.00);
       RootLayoutPanel.get().add(dockLayoutPanel);
-      
-      
+
+
       m_nav = new Navigation();
       m_nav.addLocationUpdateEventHandler(this);
       m_nav.addHostUpdateEventHandler(this);
-      
+
       m_flowPanel = new FlowPanel();
-      
-      
+
+
       Runnable timelineCallback = new Runnable() {
 
         public void run() {
-            
+
             m_chartService.getAllLocationsAvailability(new RequestCallback() {
 
                 @Override
                 public void onResponseReceived(Request request,Response response) {
                     if(response.getStatusCode() == 200) {
                         m_timeline = new AnnotatedTimeLine(ChartUtils.convertJSONToDataTable(response.getText()), createTimelineOptions(), "440px", "250px");
-                        
+
                         m_flowPanel.add(m_timeline);
                         m_flowPanel.add(m_nav);
                         dockLayoutPanel.add(m_flowPanel);
@@ -118,18 +118,18 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
                 @Override
                 public void onError(Request request, Throwable exception) {
                     Window.alert("Error Initializing Chart");
-                    
+
                 }});
-            
-            
+
+
         }
-          
+
       };
-      
+
       VisualizationUtils.loadVisualizationApi(timelineCallback, AnnotatedTimeLine.PACKAGE);
       initializeNav();
   }
-  
+
   private void initializeNav() {
     m_chartService.getAllLocations(new RequestCallback() {
 
@@ -144,9 +144,9 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
         public void onError(Request request, Throwable exception) {
             Window.alert("An error occured loading the locations");
         }
-        
+
     });
-    
+
     m_chartService.getAllParticipants(new RequestCallback() {
 
         @Override
@@ -160,7 +160,7 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
         public void onError(Request request, Throwable exception) {
             Window.alert("An error occured loading participants");
         }});
-    
+
   }
 
   protected AnnotatedTimeLine.Options createTimelineOptions() {
@@ -173,7 +173,7 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
       return options;
   }
 
-  
+
 
   public void onHostUpdate(HostUpdateEvent event) {
       m_chartService.getAvailabilityByParticipant(event.getHost(), new UpdateGraphCallback());
@@ -186,5 +186,5 @@ public class Application implements EntryPoint, LocationUpdateEventHandler, Host
   public void onLocationUpdate(LocationUpdateEvent event) {
       m_chartService.getAvailabilityByLocation(event.getLocation(), new UpdateGraphCallback());
   }
-  
+
 }

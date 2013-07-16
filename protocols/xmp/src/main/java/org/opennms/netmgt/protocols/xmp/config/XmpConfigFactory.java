@@ -79,7 +79,7 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException 
+    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException
     {
 
         if (instance == null) {
@@ -116,15 +116,15 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public XmpConfigFactory(String configFile) 
-    throws MarshalException, ValidationException, IOException 
-    { 
+    public XmpConfigFactory(String configFile)
+    throws MarshalException, ValidationException, IOException
+    {
         InputStream cfgIn = new FileInputStream(configFile);
 
         config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,
                                                    new InputStreamReader(cfgIn, "UTF-8"));
         cfgIn.close();
-        return; 
+        return;
     }
 
     /**
@@ -135,8 +135,8 @@ public class XmpConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public XmpConfigFactory(Reader rdr) 
-    throws MarshalException, ValidationException, IOException 
+    public XmpConfigFactory(Reader rdr)
+    throws MarshalException, ValidationException, IOException
     {
         config = (XmpConfig)Unmarshaller.unmarshal(XmpConfig.class,rdr);
     }

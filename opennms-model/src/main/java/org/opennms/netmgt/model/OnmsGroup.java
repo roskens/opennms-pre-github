@@ -46,23 +46,23 @@ public class OnmsGroup implements Serializable {
 
     @XmlElement(name="name", required=true)
     private String m_name;
-    
+
     @XmlElement(name="comments", required=false)
     private String m_comments;
-    
+
     @XmlElement(name="user", required=false)
     private List<String> m_users = new ArrayList<String>();
 
     public OnmsGroup() { }
-    
+
     public OnmsGroup(final String groupName) {
         m_name = groupName;
     }
-    
+
     public String getName() {
         return m_name;
     }
-    
+
     public void setName(final String name) {
         m_name = name;
     }
@@ -70,7 +70,7 @@ public class OnmsGroup implements Serializable {
     public String getComments() {
         return m_comments;
     }
-    
+
     public void setComments(final String comments) {
         m_comments = comments;
     }

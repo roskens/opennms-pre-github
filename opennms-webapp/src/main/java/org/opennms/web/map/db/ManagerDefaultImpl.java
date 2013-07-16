@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class ManagerDefaultImpl implements Manager {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ManagerDefaultImpl.class);
 
 
@@ -125,11 +125,11 @@ public class ManagerDefaultImpl implements Manager {
 
     boolean adminMode = false;
 
-    
+
     private List<VElementInfo> elemInfo = new ArrayList<VElementInfo>();
 
     private List<VMapInfo> mapInfo = new ArrayList<VMapInfo>();
-    
+
     private HashMap<String, Command> commandmap = new HashMap<String, Command>();
 
     /**
@@ -283,7 +283,7 @@ public class ManagerDefaultImpl implements Manager {
     @Override
     public void deleteMap() throws MapNotFoundException, MapsException {
         deleteMap(sessionMap.getId());
-        
+
     }
 
     /**
@@ -753,7 +753,7 @@ public class ManagerDefaultImpl implements Manager {
     public VElement newElement(int mapId, int elementId, String type)
             throws MapsException {
         VElement velem = new VElement(dbManager.newElement(elementId, mapId, type));
-        
+
         if (velem.isNode())
             velem.setIcon(getIconBySysoid(velem.getSysoid()));
         else if (velem.isMap())
@@ -801,7 +801,7 @@ public class ManagerDefaultImpl implements Manager {
         if (iconname == null ) {
             if (type == MapsConstants.MAP_TYPE)
                 iconname = mapsPropertiesFactory.getDefaultMapIcon();
-            else 
+            else
                 iconname = mapsPropertiesFactory.getDefaultNodeIcon();
         }
         velem.setIcon(iconname);
@@ -844,7 +844,7 @@ public class ManagerDefaultImpl implements Manager {
         deleteMap(map.getId());
         deleteFromMapInfo(map.getId());
     }
-    
+
     private void deleteFromMapInfo(int mapId) {
         List<VMapInfo> mapinfolist = new ArrayList<VMapInfo>();
         for (VMapInfo vmapinfo: mapInfo) {
@@ -959,7 +959,7 @@ public class ManagerDefaultImpl implements Manager {
     /** {@inheritDoc} */
     @Override
     public VMap refreshMap(VMap map) throws MapsException {
-        
+
         if (map == null) {
             throw new MapNotFoundException("map is null");
         }
@@ -969,7 +969,7 @@ public class ManagerDefaultImpl implements Manager {
         for (VElement mapElement : velems) {
             map.addElement(mapElement);
         }
-        
+
         map.removeAllLinks();
         map.addLinks(getLinks(map.getElements().values()));
 
@@ -1062,22 +1062,22 @@ public class ManagerDefaultImpl implements Manager {
             Vector<Integer> deletedNodeids,
             java.util.Map<Integer, AlarmInfo> outagedNodes,
             java.util.Map<Integer, Double> avails) throws MapsException {
-        
+
         VElement ve = mapElement.clone();
-        
+
             LOG.debug("refresh: parsing VElement ID {}{}, label:{} with node by sources: {} deletedNodeids: {} outagedNode: {}", ve.getId(), ve.getType(), ve.getLabel(), nodesBySource.toString(), deletedNodeids.toString(), outagedNodes.keySet().toString());
 
         if (ve.isNode())
             return refreshNodeElement(ve, nodesBySource, deletedNodeids,outagedNodes,avails);
-        else 
+        else
             return refreshMapElement(ve,nodesBySource, deletedNodeids,outagedNodes,avails);
     }
-    
+
     private VElement refreshNodeElement(VElement ve, Set<Integer> nodesBySource,
             Vector<Integer> deletedNodeids,
             java.util.Map<Integer, AlarmInfo> outagedNodes,
             java.util.Map<Integer, Double> avails) throws MapsException {
-    
+
 
         if (deletedNodeids.contains(Integer.valueOf(ve.getId())) ) {
             ve.setAvail(mapsPropertiesFactory.getUndefinedAvail().getMin());
@@ -1086,7 +1086,7 @@ public class ManagerDefaultImpl implements Manager {
             LOG.warn("refresh: The node with id={} has been deleted", ve.getId());
             return ve;
         }
-        
+
         ve.setAvail(mapsPropertiesFactory.getDisabledAvail().getMin());
         ve.setStatus(mapsPropertiesFactory.getDefaultStatus().getId());
         ve.setSeverity(mapsPropertiesFactory.getDefaultSeverity().getId());
@@ -1113,8 +1113,8 @@ public class ManagerDefaultImpl implements Manager {
                 }
             }
             return ve;
-        } 
-       
+        }
+
         AlarmInfo oi = outagedNodes.get(Integer.valueOf(ve.getId()));
         if (oi != null) {
             ve.setStatus(oi.getStatus());
@@ -1126,7 +1126,7 @@ public class ManagerDefaultImpl implements Manager {
             ve.setAvail(avails.get(Integer.valueOf(ve.getId())).doubleValue());
         }
         return ve;
-    } 
+    }
 
 
     private VElement refreshMapElement(VElement ve, Set<Integer> nodesBySource,
@@ -1140,21 +1140,21 @@ public class ManagerDefaultImpl implements Manager {
             ve.setSeverity(mapsPropertiesFactory.getIndeterminateSeverity().getId());
             LOG.warn("refresh: The map with id={} was deleted", ve.getId());
             return ve;
-        } 
+        }
         //reset status
         ve.setStatus(-1);
         Set<Integer> nodesonve = getNodeidsOnElement(ve);
         LOG.debug("refresh: found nodes on Map element :{}", nodesonve.toString());
         if (nodesonve.size() == 0) return ve;
-            
+
         for (Integer nextNodeId : nodesonve) {
             LOG.debug("refresh: Iterating on Map nodes with nodeid = {}", nextNodeId);
             double avail = 100/nodesonve.size();
             int status = mapsPropertiesFactory.getDefaultStatus().getId();
             int severity = mapsPropertiesFactory.getDefaultSeverity().getId();
-            
+
             if (deletedNodeids.contains(nextNodeId)) {
-                severity = mapsPropertiesFactory.getIndeterminateSeverity().getId(); 
+                severity = mapsPropertiesFactory.getIndeterminateSeverity().getId();
                 status = mapsPropertiesFactory.getUnknownStatus().getId();
             } else if (nodesBySource.contains(nextNodeId)) {
                 int srcstatus = mapsPropertiesFactory.getStatus(dataSource.getStatus(nextNodeId));
@@ -1185,30 +1185,30 @@ public class ManagerDefaultImpl implements Manager {
             }
             ve=recalculateMapElementStatus(ve, severity,status, avail);
         }
-                
-        
+
+
         return recalculateSeverity(ve, nodesonve.size());
 
     }
 
     private VElement recalculateSeverity(VElement ve, int size) {
 
-        if (mapsPropertiesFactory.getSeverityMapAs().equalsIgnoreCase("avg")) 
+        if (mapsPropertiesFactory.getSeverityMapAs().equalsIgnoreCase("avg"))
            ve.setSeverity(new BigDecimal(ve.getSeverity()/size + 1 / 2).intValue());
         if (!mapsPropertiesFactory.isAvailEnabled())
-            ve.setAvail(mapsPropertiesFactory.getDisabledAvail().getMin());            
+            ve.setAvail(mapsPropertiesFactory.getDisabledAvail().getMin());
         return ve;
     }
 
     private VElement recalculateMapElementStatus(VElement ve, int severity, int status, double avail) {
         LOG.debug("recalculateMapElementStatus: previuos severity =  {}", ve.getSeverity());
         LOG.debug("recalculateMapElementStatus: previous status = {}", ve.getStatus());
-        LOG.debug("recalculateMapElementStatus: previuos avail = {}", ve.getAvail()); 
-        
+        LOG.debug("recalculateMapElementStatus: previuos avail = {}", ve.getAvail());
+
         LOG.debug("recalculateMapElementStatus: current node severity =  {}", severity);
         LOG.debug("recalculateMapElementStatus: current node status = {}", status);
-        LOG.debug("recalculateMapElementStatus: current node avail = {}", avail);        
-        
+        LOG.debug("recalculateMapElementStatus: current node avail = {}", avail);
+
         if (ve.getStatus() == -1 ) {
             ve.setStatus(status);
             ve.setSeverity(severity);
@@ -1227,7 +1227,7 @@ public class ManagerDefaultImpl implements Manager {
                 if (ve.getStatus() > status)
                     ve.setStatus(status);
             } else if (calculateSeverityAs.equalsIgnoreCase("best")) {
-                if (ve.getSeverity() < severity) 
+                if (ve.getSeverity() < severity)
                     ve.setSeverity(severity);
                 if (ve.getStatus() < status)
                     ve.setStatus(status);
@@ -1240,7 +1240,7 @@ public class ManagerDefaultImpl implements Manager {
 
         return ve;
     }
-        
+
     private java.util.Map<Integer, AlarmInfo> getAlarmedNodes()
             throws MapsException {
 
@@ -1282,7 +1282,7 @@ public class ManagerDefaultImpl implements Manager {
      * gets the id corresponding to the link defined in configuration file.
      * The match is performed first by snmptype, then by speed (if more are
      * defined). If there is no match, the default link id is returned.
-     * 
+     *
      * @param linkinfo
      * @return the id corresponding to the link defined in configuration file.
      *         If there is no match, the default link id is returned.
@@ -1323,17 +1323,17 @@ public class ManagerDefaultImpl implements Manager {
         for (LinkInfo linfo : dbManager.getLinksOnElements(allNodes)) {
             LOG.debug("Found link: node1:{} node2: {}", linfo.nodeid, linfo.nodeparentid);
             LOG.debug("Getting linkinfo for nodeid {}", linfo.nodeid);
-            
+
             for (VElement first : node2Element.get(linfo.nodeid)) {
                 LOG.debug("Getting linkinfo for nodeid {}", linfo.nodeparentid);
                 for (VElement second : node2Element.get(linfo.nodeparentid)) {
                     if (first.hasSameIdentifier(second)) {
                         continue;
                     }
-                    
+
                     int status=getLinkStatus(linfo);
                     String statusString = getLinkStatusString(status);
- 
+
                     VLink vlink = new VLink(first.getId(), first.getType(),
                                             second.getId(), second.getType(), getLinkTypeId(linfo));
                     vlink.setLinkStatusString(statusString);
@@ -1343,7 +1343,7 @@ public class ManagerDefaultImpl implements Manager {
                     nodeids.add(linfo.nodeparentid);
                     vlink.setNodeids(nodeids);
                     LOG.debug("adding new link as single link: {}", vlink.toString());
-                    
+
                     List<VLink> templinks=null;
                     if (singlevlinkmap.containsKey(vlink.getId())) {
                         templinks=singlevlinkmap.get(vlink.getId());
@@ -1352,7 +1352,7 @@ public class ManagerDefaultImpl implements Manager {
                     }
                     templinks.add(vlink);
                     singlevlinkmap.put(vlink.getId(), templinks);
-                    
+
                     int numberofelement=1;
                     if (numberofsinglelinksmap.containsKey(vlink.getIdWithoutLinkType())) {
                         numberofelement = numberofsinglelinksmap.get(vlink.getIdWithoutLinkType());
@@ -1372,10 +1372,10 @@ public class ManagerDefaultImpl implements Manager {
                         LOG.debug("Updated {} on Link: {}", numberOfLinks, alreadyIn.getId());
                         int numberOfLinkwithStatus = alreadyIn.increaseStatusMapLinks(statusString);
                         LOG.debug("Updated Status Map: found: {} links with Status: {}", numberOfLinkwithStatus, statusString );
-                        if ( ( multilinkStatus.equals(MapPropertiesFactory.MULTILINK_BEST_STATUS) 
+                        if ( ( multilinkStatus.equals(MapPropertiesFactory.MULTILINK_BEST_STATUS)
                                && status < getLinkStatusInt(alreadyIn.getLinkStatusString())
-                             ) 
-                          || ( multilinkStatus.equals(MapPropertiesFactory.MULTILINK_WORST_STATUS) 
+                             )
+                          || ( multilinkStatus.equals(MapPropertiesFactory.MULTILINK_WORST_STATUS)
                                && status > getLinkStatusInt(alreadyIn.getLinkStatusString())
                              )
                             ) {
@@ -1415,12 +1415,12 @@ public class ManagerDefaultImpl implements Manager {
                 }
             } else {
                 for (String linkid : multivlinkmap.keySet()) {
-                    if (linkid.indexOf(elid) != -1) { 
+                    if (linkid.indexOf(elid) != -1) {
                         LOG.debug("adding multi link for : {}", linkid);
                         links.add(multivlinkmap.get(linkid));
                     }
                 }
-                
+
             }
         }
         LOG.debug("Found links #{}", links.size());
@@ -1511,13 +1511,13 @@ public class ManagerDefaultImpl implements Manager {
         m.setBackground(mapsPropertiesFactory.getDefaultBackgroundColor());
         m.setAccessMode(MapsConstants.ACCESS_MODE_ADMIN);
         m.setType(MapsConstants.USER_GENERATED_MAP);
-        
+
         m.addElements(elems);
         m.addLinks(getLinks(elems));
-        
+
         sessionMap = m;
         searchMap = m;
-        return m;    
+        return m;
     }
 
     /** {@inheritDoc} */
@@ -1629,7 +1629,7 @@ public class ManagerDefaultImpl implements Manager {
                LOG.debug("No Hidden Element found for id: {}{}", ve.getId(), ve.getType());
             }
             map.addElement(ve);
-        }            
+        }
         map.addLinks(getLinks(map.getElements().values()));
         return map;
     }
@@ -1680,12 +1680,12 @@ public class ManagerDefaultImpl implements Manager {
         for (String key: keytoremove) {
             commandmap.remove(key);
         }
-        
+
         if ( commandmap.size() > 5 )
             return false;
         return true;
-        
+
     }
-    
-    
+
+
 }

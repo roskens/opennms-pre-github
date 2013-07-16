@@ -64,7 +64,7 @@ import org.w3c.dom.NodeList;
  * @version $Id: $
  */
 public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
-    
+
     /** Constant <code>REF_ATTR="ref"</code> */
     public static final String REF_ATTR = "ref";
     /** Constant <code>INTERFACE_ATTR="interface"</code> */
@@ -72,8 +72,8 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
     /** Constant <code>INTERFACES_ELEM="interfaces"</code> */
     public static final String INTERFACES_ELEM = "interfaces";
     public static final String PROPS_ELEM = "service-properties";
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected Class<?> getBeanClass(Element element) {
@@ -83,43 +83,43 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
     /** {@inheritDoc} */
     @Override
     public void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean) {
-        
+
         String ref = element.getAttribute(REF_ATTR);
         bean.addPropertyReference("target", ref);
         bean.addPropertyReference("serviceRegistry", SERVICE_REGISTRY_BEAN_NAME);
-        
+
         String serviceInterface = element.getAttribute(INTERFACE_ATTR);
         if (StringUtils.hasText(serviceInterface)) {
             bean.addPropertyValue("interfaces", serviceInterface);
         }
-        
+
         NodeList nodeList = element.getChildNodes();
-        
+
         for(int i = 0; i < nodeList.getLength(); i++) {
             Node n = nodeList.item(i);
-            
+
             if (n instanceof Element) {
                 Element child = (Element) n;
-                
+
                 if (INTERFACES_ELEM.equals(child.getLocalName())) {
-                    
+
                     if (element.hasAttribute(INTERFACE_ATTR)) {
                         context.getReaderContext().error("either 'interface' attribute or <intefaces> sub-element has be specified", element);
-                    }                
-                
+                    }
+
                     Set<?> interfaces = context.getDelegate().parseSetElement(child, bean.getBeanDefinition());
                     bean.addPropertyValue("interfaces", interfaces);
-                
+
                 } else if (PROPS_ELEM.equals(child.getLocalName())) {
                     Map<?,?> svcProps = context.getDelegate().parseMapElement(child, bean.getBeanDefinition());
                     bean.addPropertyValue("serviceProperties", svcProps);
                 }
-                
+
             }
 
-            
+
         }
-        
+
 
     }
 
@@ -128,7 +128,7 @@ public class ServiceBeanDefinitionParser extends AbstractSingleBeanDefinitionPar
     protected boolean shouldGenerateIdAsFallback() {
         return true;
     }
-    
-    
+
+
 
 }

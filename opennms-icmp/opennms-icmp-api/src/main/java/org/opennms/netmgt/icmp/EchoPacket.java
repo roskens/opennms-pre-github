@@ -45,7 +45,7 @@ public interface EchoPacket {
     long getSentTimeNanos();
 
 	/**
-	 * Returns the round trip time in the requested TimeUnit 
+	 * Returns the round trip time in the requested TimeUnit
 	 * (note that a fractional value will be returned if necessary)
 	 */
 	double elapsedTime(TimeUnit timeUnit);

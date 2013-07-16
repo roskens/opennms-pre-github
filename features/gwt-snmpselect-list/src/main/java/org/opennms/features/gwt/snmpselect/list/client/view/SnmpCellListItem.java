@@ -31,11 +31,11 @@ package org.opennms.features.gwt.snmpselect.list.client.view;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class SnmpCellListItem extends JavaScriptObject {
-    
+
     protected SnmpCellListItem() {
-        
+
     }
-    
+
     public final native String getIfIndex()/*-{
         return this["@ifIndex"];
     }-*/;
@@ -59,7 +59,7 @@ public class SnmpCellListItem extends JavaScriptObject {
     public final native String getCollectFlag() /*-{
         return this["@collectFlag"];
     }-*/;
-    
+
     public final native void setCollectFlag(String flag) /*-{
         this["@collectFlag"] = flag;
     }-*/;
@@ -75,5 +75,5 @@ public class SnmpCellListItem extends JavaScriptObject {
     public final native int getId() /*-{
         return parseInt(this["@id"]);
     }-*/;
-         
+
 }

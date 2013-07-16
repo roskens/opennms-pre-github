@@ -68,7 +68,7 @@ public class PluginParameter implements Serializable, Comparable<PluginParameter
      */
     public PluginParameter() {
     }
-    
+
     /**
      * <p>Constructor for PluginParameter.</p>
      *

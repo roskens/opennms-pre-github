@@ -155,12 +155,12 @@ public abstract class SmbUtils {
      * entry with a DOMAIN_NAME (0x00) suffix. WORKSTATION_SERVICE and
      * INTERNET_INFORMATION_SERVER share the same 0x00 suffix so these entries
      * must be ignored while processing the address list.
-     * 
+     *
      * @param addresses
      *            List of NbtAddress objects associated with the remote host.
      * @param cname
      *            NetBIOS name of the remote host.
-     * 
+     *
      * @return remote host's authentication domain or null if unavailable.
      */
     static String getAuthenticationDomainName(NbtAddress[] addresses, String cname) {
@@ -202,7 +202,7 @@ public abstract class SmbUtils {
      * table in the databse. This call should be made after an attempt to
      * determine if the interface supports Microsoft Exchange. This is
      * determined by the {@link MSExchangePlugin MSExchangePlugin}class.
-     * 
+     *
      * @param nativeOS
      *            OS string returned by jCIFS following SMB session
      *            establishment with the remote host.
@@ -214,7 +214,7 @@ public abstract class SmbUtils {
      *            is running Samba.
      * @param hasExchange
      *            <em>true</em> if the service supports microsoft exhange.
-     * 
+     *
      * @return The Operating system label
      */
     static String getOsLabel(String nativeOS, NbtAddress[] addresses, boolean isSamba, boolean hasExchange) {
@@ -279,14 +279,14 @@ public abstract class SmbUtils {
      * objects associated with a particular node and determining if that node is
      * an NT server versus an NT workstation based on the services it has
      * registered.
-     * 
+     *
      * If the remote host is registered as a DOMAIN_CONTROLLERS or a
      * MS_EXCHANGE_MTA we return 'true'; otherwise, 'false' is returned.
-     * 
+     *
      * @param addresses
      *            Array of NbtAddress objects associated with the remote host
      *            being tested.
-     * 
+     *
      * @return <em>true</em> if NT Server, <em>false</em> otherwise.
      */
     static boolean isNTServer(NbtAddress[] addresses) {
@@ -317,7 +317,7 @@ public abstract class SmbUtils {
                 // So...if we detect MICROSOFT_EXCHANGE_STORE or
                 // MICROSOFT_EXCHANGE_DIRECTORY we will assume we
                 // have a server.
-                // 
+                //
                 // ??? Can we really assume we have an exchange server
                 // based on this and therefore NT Server???
                 //
@@ -360,12 +360,12 @@ public abstract class SmbUtils {
      * information and the NetBIOS name for a remote server and builds the
      * appropriate SMB url string which can be used to enumerate the server's
      * shares.
-     * 
+     *
      * @param smbAuth
      *            SMB Authentication object w/ userid/password info
      * @param cname
      *            NetBIOS address of remote server
-     * 
+     *
      * @return URL string which can be used in a subsequent SmbFile() call.
      */
     static String getSmbURL(SmbAuth smbAuth, String cname) {
@@ -373,7 +373,7 @@ public abstract class SmbUtils {
         //
         // If we don't have a valid SmbAuth object url has format:
         // smb://<netbios_name>
-        // 
+        //
         // For server authentication url has format:
         // smb://<userid>:<password>@<netbios_name>
         //

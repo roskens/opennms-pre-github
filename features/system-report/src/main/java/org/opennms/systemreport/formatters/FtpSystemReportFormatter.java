@@ -106,19 +106,19 @@ public class FtpSystemReportFormatter extends AbstractSystemReportFormatter impl
             throw new IllegalStateException("Unable to create temporary file for system report FTP transfer");
         }
     }
-    
+
     @Override
     public void write(final SystemReportPlugin plugin) {
         if (m_url == null) return;
 
         m_zipFormatter.write(plugin);
     }
-    
+
     @Override
     public void end() {
         m_zipFormatter.end();
         IOUtils.closeQuietly(m_outputStream);
-        
+
         final FTPClient ftp = new FTPClient();
         FileInputStream fis = null;
         try {

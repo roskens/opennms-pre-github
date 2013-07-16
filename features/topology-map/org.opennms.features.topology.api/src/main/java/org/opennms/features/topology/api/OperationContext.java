@@ -31,7 +31,7 @@ package org.opennms.features.topology.api;
 import com.vaadin.ui.UI;
 
 public interface OperationContext {
-	
+
 	enum DisplayLocation { MENUBAR, CONTEXTMENU };
 
     UI getMainWindow();

@@ -64,28 +64,28 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcWebNotificationRepositoryTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     WebNotificationRepository m_notificationRepo;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp(){
         m_dbPopulator.populateDatabase();
     }
-    
+
     @After
     public void tearDown(){
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testNotificationCount(){
@@ -95,7 +95,7 @@ public class JdbcWebNotificationRepositoryTest implements InitializingBean {
         int notificationCount = m_notificationRepo.countMatchingNotifications(new NotificationCriteria(ackType, filters));
         assertEquals(1, notificationCount);
     }
-    
+
     @Test
     @Transactional
     public void testGetMatchingNotifications() {
@@ -116,14 +116,14 @@ public class JdbcWebNotificationRepositoryTest implements InitializingBean {
         Notification notice = m_notificationRepo.getNotification(1);
         assertNotNull(notice);
     }
-    
+
     @Test
     @Transactional
     public void testAcknowledgeNotification(){
         m_notificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
-        
+
         int notifCount = m_notificationRepo.countMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(1, notifCount);
     }
-   
+
 }

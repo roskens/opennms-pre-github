@@ -50,9 +50,9 @@ public class ImportJobFactory implements JobFactory {
 
         JobDetail jobDetail = bundle.getJobDetail();
         Class<ImportJob> jobClass = getJobClass(jobDetail);
-        
+
         ImportJob job = null;
-        
+
         try {
             job = jobClass.newInstance();
             job.setProvisioner(getProvisioner());
@@ -77,7 +77,7 @@ public class ImportJobFactory implements JobFactory {
     public void setProvisioner(Provisioner provisioner) {
         m_provisioner = provisioner;
     }
-    
+
     private Provisioner getProvisioner() {
         return m_provisioner;
     }

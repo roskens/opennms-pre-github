@@ -60,7 +60,7 @@ public class IntervalTestCase {
     protected Date date(String dateStr) throws Exception {
         return m_dateFormat.parse(dateStr);
     }
-    
+
     protected TimeInterval interval(int startMonth, int startDay, int startHour, int endMonth, int endDay, int endHour) throws Exception {
         return new TimeInterval(date(startDay+"-"+startMonth+"-2005 "+startHour+":00:00"), date(endDay+"-"+endMonth+"-2005 "+endHour+":00:00"));
     }
@@ -96,7 +96,7 @@ public class IntervalTestCase {
     protected TimeInterval jun(int day, int beginHour, int endHour) throws Exception {
         return jun(day, beginHour, day, endHour);
     }
-    
+
     protected TimeInterval jul(int day, int beginHour, int endHour) throws Exception {
         return jul(day, beginHour, day, endHour);
     }
@@ -121,7 +121,7 @@ public class IntervalTestCase {
         return dec(day, beginHour, day, endHour);
     }
 
-    
+
     protected TimeInterval aug(int day) throws Exception {
         return aug(day, 0, 24);
     }
@@ -134,7 +134,7 @@ public class IntervalTestCase {
             count++;
         }
         assertEquals(intervals.length, count);
-        
+
     }
 
     protected void assertInterval(TimeInterval expected, TimeInterval actual) {

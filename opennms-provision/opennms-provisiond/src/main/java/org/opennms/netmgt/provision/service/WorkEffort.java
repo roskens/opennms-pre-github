@@ -36,12 +36,12 @@ package org.opennms.netmgt.provision.service;
  * @version $Id: $
  */
 public class WorkEffort {
-	
+
 	private String m_name;
 	private long m_totalTime;
 	private long m_sectionCount;
 	private ThreadLocal<WorkDuration> m_pendingSection = new ThreadLocal<WorkDuration>();
-	
+
 	/**
 	 * <p>Constructor for WorkEffort.</p>
 	 *
@@ -68,7 +68,7 @@ public class WorkEffort {
 		m_sectionCount++;
 		m_totalTime += pending.getLength();
 	}
-	
+
 	/**
 	 * <p>getTotalTime</p>
 	 *
@@ -77,7 +77,7 @@ public class WorkEffort {
 	public long getTotalTime() {
 		return m_totalTime;
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *

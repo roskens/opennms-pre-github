@@ -50,8 +50,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Implementation of the ProblemEventHandler interface for OpenNMS.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class OnmsProblemEventHandler implements ProblemEventHandler {
     private static final Logger LOG = LoggerFactory.getLogger(OnmsProblemEventHandler.class);

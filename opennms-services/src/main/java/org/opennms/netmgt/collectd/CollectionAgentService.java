@@ -49,14 +49,14 @@ public interface CollectionAgentService {
      * @return a {@link java.lang.String} object.
      */
     public abstract String getHostAddress();
-    
+
     /**
      * <p>isStoreByForeignSource</p>
-     * 
+     *
      * @return a {@link java.lang.Boolean} object.
      */
     public abstract Boolean isStoreByForeignSource();
-    
+
     /**
      * <p>getForeignSource</p>
      *
@@ -85,7 +85,7 @@ public interface CollectionAgentService {
      * @return a int.
      */
     public abstract int getNodeId();
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -106,7 +106,7 @@ public interface CollectionAgentService {
      * @return a {@link org.opennms.netmgt.model.PrimaryType} object.
      */
     public abstract PrimaryType getIsSnmpPrimary();
-    
+
     /**
      * <p>getAgentConfig</p>
      *
@@ -120,7 +120,7 @@ public interface CollectionAgentService {
      * @return a {@link java.util.Set} object.
      */
     public abstract Set<SnmpIfData> getSnmpInterfaceData();
-    
+
     /**
      * <p>getInetAddress</p>
      *

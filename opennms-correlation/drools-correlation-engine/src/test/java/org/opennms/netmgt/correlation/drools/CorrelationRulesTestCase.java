@@ -58,7 +58,7 @@ public abstract class CorrelationRulesTestCase {
     @Autowired
     private MockEventIpcManager m_eventIpcMgr;
     protected Integer m_anticipatedMemorySize = 0;
-    
+
     @Autowired
     private CorrelationEngineRegistrar m_correlator;
 
@@ -69,7 +69,7 @@ public abstract class CorrelationRulesTestCase {
     public void setCorrelationEngineRegistrar(CorrelationEngineRegistrar correlator) {
         m_correlator = correlator;
     }
-    
+
     protected void resetAnticipated() {
     	getAnticipator().reset();
     	m_anticipatedMemorySize = null;

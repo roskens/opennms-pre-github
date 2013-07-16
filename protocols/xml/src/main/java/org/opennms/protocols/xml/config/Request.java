@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The Class Request.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="request")

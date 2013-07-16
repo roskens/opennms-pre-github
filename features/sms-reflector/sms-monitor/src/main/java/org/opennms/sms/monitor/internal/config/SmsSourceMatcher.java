@@ -55,7 +55,7 @@ public class SmsSourceMatcher extends SequenceResponseMatcher {
 	public SmsSourceMatcher() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for SmsSourceMatcher.</p>
 	 *

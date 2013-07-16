@@ -174,7 +174,7 @@ public class OutagesFilteringView {
         if (request.getParameter("not_serviceid") != null && request.getParameter("not_serviceid").length() > 0) {
             criteria.add(Restrictions.ne("monitoredService.serviceType.id", WebSecurityUtils.safeParseInt(request.getParameter("not_serviceid"))));
         }
-        
+
         if (request.getParameter("ifserviceid") != null && request.getParameter("ifserviceid").length() > 0) {
             criteria.add(Restrictions.eq("monitoredService.id", WebSecurityUtils.safeParseInt(request.getParameter("ifserviceid"))));
         }
@@ -207,7 +207,7 @@ public class OutagesFilteringView {
             criteria.createAlias("node.assetRecord", "assetRecord");
             criteria.add(Restrictions.eq("assetRecord.building", request.getParameter("building")));
         }
-        
+
         if (request.getParameter("category1") != null && request.getParameter("category1").length() > 0 && request.getParameter("category2") != null && request.getParameter("category2").length() > 0) {
             for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(request.getParameterValues("category1"), request.getParameterValues("category2"))) {
                 criteria.add(criterion);

@@ -40,7 +40,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#add(java.lang.Object)
      */
     /**
@@ -55,7 +55,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#addAll(java.util.Collection)
      */
     /**
@@ -70,7 +70,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#clear()
      */
     /**
@@ -82,7 +82,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#contains(java.lang.Object)
      */
     /**
@@ -97,7 +97,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#containsAll(java.util.Collection)
      */
     /**
@@ -112,7 +112,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#isEmpty()
      */
     /**
@@ -126,7 +126,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#iterator()
      */
     /**
@@ -140,7 +140,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#remove(java.lang.Object)
      */
     /**
@@ -155,7 +155,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#removeAll(java.util.Collection)
      */
     /**
@@ -170,7 +170,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#retainAll(java.util.Collection)
      */
     /**
@@ -185,7 +185,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#size()
      */
     /**
@@ -199,7 +199,7 @@ public class IntSet {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.util.Collection#toArray()
      */
     /**

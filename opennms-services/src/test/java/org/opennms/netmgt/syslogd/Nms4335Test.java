@@ -82,7 +82,7 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
 @Transactional
 public class Nms4335Test implements InitializingBean {
-    
+
     String m_localhost = "127.0.0.1";
 
     private Syslogd m_syslogd;
@@ -106,48 +106,48 @@ public class Nms4335Test implements InitializingBean {
 
         InputStream stream = null;
         try {
-            final String config = "<?xml version=\"1.0\"?> \n" + 
-            		"<syslogd-configuration> \n" + 
-            		"    <configuration \n" + 
-            		"            syslog-port=\"10514\" \n" + 
-            		"            new-suspect-on-message=\"false\" \n" + 
-            		"            forwarding-regexp=\"^((.+?) (.*))\\n?$\" \n" + 
-            		"            matching-group-host=\"2\" \n" + 
-            		"            matching-group-message=\"3\" \n" + 
-            		"            discard-uei=\"DISCARD-MATCHING-MESSAGES\" \n" + 
-            		"            /> \n" + 
-            		"\n" + 
-            		"    <!-- Use the following to convert UEI ad-hoc --> \n" + 
-            		"    <ueiList> \n" + 
-            		"        <ueiMatch> \n" + 
-            		"            <match type=\"substr\" expression=\"CRISCO\"/> \n" + 
-            		"            <uei>CISCO</uei> \n" + 
-            		"        </ueiMatch> \n" + 
-            		"        <ueiMatch> \n" + 
-            		"            <match type=\"regex\" expression=\".*su:auth.*authentication failure.*\"/> \n" + 
-            		"            <uei>uei.opennms.org/syslog/pam/su/suFailure</uei> \n" + 
-            		"        </ueiMatch> \n" + 
-            		"        <!-- Use the following to discard a syslog message without ever creating an event for it. \n" + 
-            		"             If you change the value of \"discard-uei\" above, you must change the UEI used here to match. --> \n" + 
-            		"        <ueiMatch> \n" + 
-            		"            <match type=\"substr\" expression=\"JUNK\"/> \n" + 
-            		"            <uei>DISCARD-MATCHING-MESSAGES</uei> \n" + 
-            		"        </ueiMatch> \n" + 
-            		"    </ueiList> \n" + 
-            		"\n" + 
-            		"    <!-- Use the following to remove a syslog message from the event-trail --> \n" + 
-            		"\n" + 
-            		"    <hideMessage> \n" + 
-            		"        <hideMatch> \n" + 
-            		"            <match type=\"substr\" expression=\"SECRET\"/> \n" + 
-            		"        </hideMatch> \n" + 
-            		"        <hideMatch> \n" + 
-            		"            <match type=\"regex\" expression=\".*(double|triple)secret.*\"/> \n" + 
-            		"        </hideMatch> \n" + 
-            		"    </hideMessage> \n" + 
-            		"\n" + 
+            final String config = "<?xml version=\"1.0\"?> \n" +
+			"<syslogd-configuration> \n" +
+			"    <configuration \n" +
+			"            syslog-port=\"10514\" \n" +
+			"            new-suspect-on-message=\"false\" \n" +
+			"            forwarding-regexp=\"^((.+?) (.*))\\n?$\" \n" +
+			"            matching-group-host=\"2\" \n" +
+			"            matching-group-message=\"3\" \n" +
+			"            discard-uei=\"DISCARD-MATCHING-MESSAGES\" \n" +
+			"            /> \n" +
+			"\n" +
+			"    <!-- Use the following to convert UEI ad-hoc --> \n" +
+			"    <ueiList> \n" +
+			"        <ueiMatch> \n" +
+			"            <match type=\"substr\" expression=\"CRISCO\"/> \n" +
+			"            <uei>CISCO</uei> \n" +
+			"        </ueiMatch> \n" +
+			"        <ueiMatch> \n" +
+			"            <match type=\"regex\" expression=\".*su:auth.*authentication failure.*\"/> \n" +
+			"            <uei>uei.opennms.org/syslog/pam/su/suFailure</uei> \n" +
+			"        </ueiMatch> \n" +
+			"        <!-- Use the following to discard a syslog message without ever creating an event for it. \n" +
+			"             If you change the value of \"discard-uei\" above, you must change the UEI used here to match. --> \n" +
+			"        <ueiMatch> \n" +
+			"            <match type=\"substr\" expression=\"JUNK\"/> \n" +
+			"            <uei>DISCARD-MATCHING-MESSAGES</uei> \n" +
+			"        </ueiMatch> \n" +
+			"    </ueiList> \n" +
+			"\n" +
+			"    <!-- Use the following to remove a syslog message from the event-trail --> \n" +
+			"\n" +
+			"    <hideMessage> \n" +
+			"        <hideMatch> \n" +
+			"            <match type=\"substr\" expression=\"SECRET\"/> \n" +
+			"        </hideMatch> \n" +
+			"        <hideMatch> \n" +
+			"            <match type=\"regex\" expression=\".*(double|triple)secret.*\"/> \n" +
+			"        </hideMatch> \n" +
+			"    </hideMessage> \n" +
+			"\n" +
             		"</syslogd-configuration>\n";
-            
+
             stream = new ByteArrayInputStream(config.getBytes());
             SyslogdConfigFactory.setInstance(new SyslogdConfigFactory(stream));
         } finally {
@@ -172,7 +172,7 @@ public class Nms4335Test implements InitializingBean {
                       "uei.opennms.org/syslog/pam/su/suFailure",
                       "pam_unix(su:auth): authentication failure; logname=jeffg uid=1004 euid=0 tty=pts/1 ruser=jeffg rhost= user=root");
     }
-    
+
     @Test
     @Ignore
     public void testAuthFailureShouldNotLog() throws Exception {
@@ -180,33 +180,33 @@ public class Nms4335Test implements InitializingBean {
                       "192.168.0.1",
                       "uei.opennms.org/blah",
                       "");
-        
+
     }
-    
+
     /**
      * Send a raw syslog message and expect a given event as a result
-     * 
+     *
      * @param testPDU The raw syslog message as it would appear on the wire (just the UDP payload)
      * @param expectedHost The host from which the event should be resolved as originating
      * @param expectedUEI The expected UEI of the resulting event
-     * @param expectedLogMsg The expected contents of the logmsg for the resulting event 
-     * 
-     * @throws UnknownHostException 
-     * @throws InterruptedException 
-     * @throws ExecutionException 
+     * @param expectedLogMsg The expected contents of the logmsg for the resulting event
+     *
+     * @throws UnknownHostException
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
     private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg) throws UnknownHostException, InterruptedException, ExecutionException {
         startSyslogdGracefully();
-        
+
         final EventBuilder expectedEventBldr = new EventBuilder(expectedUEI, "syslogd");
         expectedEventBldr.setInterface(addr(expectedHost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(expectedLogMsg);
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         final SyslogClient sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         final DatagramPacket pkt = sc.getPacket(SyslogClient.LOG_DEBUG, testPDU);
         final SyslogdConfig config = SyslogdConfigFactory.getInstance();
@@ -215,10 +215,10 @@ public class Nms4335Test implements InitializingBean {
         ea.verifyAnticipated(5000,0,0,0,0);
         final Event receivedEvent = ea.getAnticipatedEventsRecieved().get(0);
         assertEquals("Log messages do not match", expectedLogMsg, receivedEvent.getLogmsg().getContent());
-        
+
         return ea.getAnticipatedEventsRecieved();
     }
-    
+
     private void startSyslogdGracefully() {
         try {
             m_syslogd.start();

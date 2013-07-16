@@ -16,12 +16,12 @@ public class TerminalConnector extends AbstractComponentConnector {
     public VTerminal getWidget() {
         return (VTerminal) super.getWidget();
     }
-	
+
 	@Override
 	public SSHTerminalState getState() {
 	    return (SSHTerminalState) super.getState();
 	}
-	
+
 	@Override
 	public void onStateChanged(StateChangeEvent event) {
 	    super.onStateChanged(event);

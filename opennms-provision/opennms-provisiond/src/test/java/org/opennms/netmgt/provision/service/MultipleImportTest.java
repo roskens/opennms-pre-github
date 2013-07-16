@@ -70,25 +70,25 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class MultipleImportTest extends ProvisioningTestCase {
-    
+
     @Autowired
     private Provisioner m_provisioner;
-    
+
     @Autowired
     private ResourceLoader m_resourceLoader;
-    
+
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
 
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -116,7 +116,7 @@ public class MultipleImportTest extends ProvisioningTestCase {
         waitForEverything();
 
         System.err.println("finished triggering imports");
-        
+
         eventReceived.await(5, TimeUnit.MINUTES);
 
         final List<OnmsNode> nodes = getNodeDao().findAll();

@@ -60,13 +60,13 @@ public class RenameGroupServlet extends HttpServlet {
         	throw new ServletException("RenameGroupServlet: Error initialising group factory." + e);
         }
         GroupManager groupFactory = GroupFactory.getInstance();
-        
+
     	String groupName = request.getParameter("groupName");
         String newName = request.getParameter("newName");
         if (newName == null) {
         	newName = "";
         }
-        
+
         // now save to the xml file
         boolean hasGroup = false;
         try {
@@ -82,7 +82,7 @@ public class RenameGroupServlet extends HttpServlet {
 	        } catch (Throwable e) {
 	            throw new ServletException("Error renaming group " + groupName + " to " + newName, e);
 	        }
-	
+
 	        response.sendRedirect("list.jsp");
         }
     }

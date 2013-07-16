@@ -39,13 +39,13 @@ import org.opennms.protocols.snmp.asn1.AsnEncoder;
  * This SnmpIPAddress is used to extend the SNMP Octet String SMI class. This is
  * normally used to transmit IP Addresses with a length of 4 bytes.
  * </p>
- * 
+ *
  * <p>
  * Most of the management of the data is handled by the base class.
  * </p>
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- * 
+ *
  */
 public class SnmpIPAddress extends SnmpOctetString {
     /**
@@ -61,7 +61,7 @@ public class SnmpIPAddress extends SnmpOctetString {
     /**
      * Constructs a default object with a length of zero. See the super class
      * constructor for more details.
-     * 
+     *
      */
     public SnmpIPAddress() {
         byte[] tmp = { 0, 0, 0, 0 };
@@ -71,10 +71,10 @@ public class SnmpIPAddress extends SnmpOctetString {
     /**
      * Constructs an Application String with the passed data. The data is
      * managed by the base class.
-     * 
+     *
      * @param data
      *            The application string to manage (UTF-8)
-     * 
+     *
      * @throws java.security.InvalidParameterException
      *             Thrown if the passed buffer is not exactly 4 octets in size.
      */
@@ -89,10 +89,10 @@ public class SnmpIPAddress extends SnmpOctetString {
     /**
      * Copy constructor. Constructs a duplicate object based on the passed
      * application string object.
-     * 
+     *
      * @param second
      *            The object to copy.
-     * 
+     *
      */
     public SnmpIPAddress(SnmpIPAddress second) {
         super(second);
@@ -100,10 +100,10 @@ public class SnmpIPAddress extends SnmpOctetString {
 
     /**
      * Copy constructor based on the base class.
-     * 
+     *
      * @param second
      *            The object to copy
-     * 
+     *
      * @throws java.security.InvalidParameterException
      *             Thrown if the passed buffer is not exactly 4 octets in size.
      */
@@ -118,10 +118,10 @@ public class SnmpIPAddress extends SnmpOctetString {
     /**
      * Constructs a new instance of the class with the IP Address recovered from
      * the passed address object.
-     * 
+     *
      * @param inetAddr
      *            The internet address instance that contains the IP Address.
-     * 
+     *
      */
     public SnmpIPAddress(InetAddress inetAddr) {
         this(inetAddr.getAddress());
@@ -132,10 +132,10 @@ public class SnmpIPAddress extends SnmpOctetString {
      * evaluated argument. The argument is evaluated by the
      * {@link java.net.InetAddress#getByName InetAddress}class and the returned
      * address is encoded in this instance.
-     * 
+     *
      * @param inetAddr
      *            The string encoded IP Address to encapsulate.
-     * 
+     *
      * @exception SnmpBadConversionException
      *                Thrown if the string address cannot be converted to an IP
      *                Address.
@@ -151,9 +151,9 @@ public class SnmpIPAddress extends SnmpOctetString {
 
     /**
      * Returns the ASN.1 type for this object.
-     * 
+     *
      * @return The ASN.1 value for this object.
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -162,9 +162,9 @@ public class SnmpIPAddress extends SnmpOctetString {
 
     /**
      * Create a new object that is a duplicate of the current object.
-     * 
+     *
      * @return A newly created duplicate object.
-     * 
+     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -173,9 +173,9 @@ public class SnmpIPAddress extends SnmpOctetString {
 
     /**
      * Create a new object that is a duplicate of the current object.
-     * 
+     *
      * @return A newly created duplicate object.
-     * 
+     *
      */
     @Override
     public Object clone() {
@@ -189,15 +189,15 @@ public class SnmpIPAddress extends SnmpOctetString {
      * construction of the object are not reflected in the SnmpOctetString
      * Object.
      * </p>
-     * 
+     *
      * <p>
      * If the buffer is not valid according to the SNMP SMI then an exception is
      * thrown and the object is not modified.
      * </p>
-     * 
+     *
      * @param data
      *            The new octet string data.
-     * 
+     *
      * @throws java.security.InvalidParameterException
      *             Thrown if the passed buffer is not valid against the SMI
      *             definition.
@@ -221,19 +221,19 @@ public class SnmpIPAddress extends SnmpOctetString {
      * method getBytes(). This may cause some data corruption since the
      * conversion is platform specific.
      * </p>
-     * 
+     *
      * <p>
      * If the buffer is not valid according to the SNMP SMI then an exception is
      * thrown and the object is not modified.
      * </p>
-     * 
+     *
      * @param data
      *            The new octet string data.
-     * 
+     *
      * @throws java.security.InvalidParameterException
      *             Thrown if the passed buffer is not valid against the SMI
      *             definition.
-     * 
+     *
      * @see java.lang.String#getBytes()
      */
     @Override
@@ -252,17 +252,17 @@ public class SnmpIPAddress extends SnmpOctetString {
      * during the decoding sequence then an AsnDecodingException is thrown by
      * the method. The value is decoded using the AsnEncoder passed to the
      * object.
-     * 
+     *
      * @param buf
      *            The encode buffer
      * @param offset
      *            The offset byte to begin decoding
      * @param encoder
      *            The decoder object.
-     * 
+     *
      * @return The index of the byte immediantly after the last decoded byte of
      *         information.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown by the encoder if an error occurs trying to decode
      *                the data buffer.
@@ -289,13 +289,13 @@ public class SnmpIPAddress extends SnmpOctetString {
      * Converts the current Application String to an IPv4Address object. If the
      * length is not four bytes in length or an error occurs during the
      * conversion then an exception is thrown.
-     * 
+     *
      * @return The IPv4Address converted from the appliation string
-     * 
+     *
      * @exception SnmpBadConversionException
      *                Thrown if the length of the string is invalid. Must be
      *                equal to four
-     * 
+     *
      */
     public InetAddress convertToIpAddress() {
         byte[] data = getString();
@@ -305,7 +305,7 @@ public class SnmpIPAddress extends SnmpOctetString {
         addr[1] = data[1];
         addr[2] = data[2];
         addr[3] = data[3];
-                       
+
         try {
             return InetAddress.getByAddress(addr);
         } catch (UnknownHostException e) {

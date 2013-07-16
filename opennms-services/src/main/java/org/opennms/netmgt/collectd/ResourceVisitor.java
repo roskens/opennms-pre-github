@@ -37,7 +37,7 @@ import org.opennms.netmgt.config.collector.CollectionResource;
  * @version $Id: $
  */
 public abstract class ResourceVisitor extends AbstractCollectionSetVisitor {
-    
+
     /** {@inheritDoc} */
     @Override
     abstract public void visitResource(CollectionResource resource);

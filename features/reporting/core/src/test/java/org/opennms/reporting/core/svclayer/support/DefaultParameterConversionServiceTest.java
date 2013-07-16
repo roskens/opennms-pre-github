@@ -45,12 +45,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 public class DefaultParameterConversionServiceTest {
-    
+
     private static DefaultOnmsReportConfigDao m_dao;
     private static DefaultParameterConversionService m_conversionService;
-    
+
     private static final String ID = "defaultCalendarReport";
-    
+
     @BeforeClass
     public static void setUp() throws Exception {
         Resource resource = new ClassPathResource("/opennms-reports-testdata.xml");
@@ -59,13 +59,13 @@ public class DefaultParameterConversionServiceTest {
         m_dao.afterPropertiesSet();
         m_conversionService = new DefaultParameterConversionService();
     }
-    
+
     @Test
     public void testGetDateParms() {
         assertNotNull(m_dao.getDateParms(ID));
         assertEquals(1,m_dao.getDateParms(ID).length);
     }
-    
+
     @Test
     public void testDefaultDateConversion() {
         ReportParameters parameters = m_conversionService.convert(m_dao.getParameters(ID));
@@ -79,7 +79,7 @@ public class DefaultParameterConversionServiceTest {
         Date configDate = parameters.getDateParms().get(0).getDate();
         assertEquals(0, configDate.compareTo(cal.getTime()));
     }
-    
+
     @Test
     public void testModifiedDateConversion() {
         ReportParameters parameters = m_conversionService.convert(m_dao.getParameters(ID));
@@ -98,6 +98,6 @@ public class DefaultParameterConversionServiceTest {
         Date storedDate = (Date) parmMap.get("endDate");
         assertEquals(0, storedDate.compareTo(cal.getTime()));
     }
-    
+
 
 }

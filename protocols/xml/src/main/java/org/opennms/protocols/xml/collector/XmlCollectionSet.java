@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
 /**
  * The Class XmlCollectionSet.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectionSet implements CollectionSet {

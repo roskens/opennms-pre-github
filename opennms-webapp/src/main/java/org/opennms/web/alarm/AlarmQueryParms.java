@@ -52,7 +52,7 @@ public class AlarmQueryParms extends Object {
     public int limit;
 
     public int multiple;
-    
+
     public String display;
 
     /**

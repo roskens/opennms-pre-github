@@ -123,7 +123,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         };
         //m_timer.schedule(m_task, UPDATE_PERIOD, UPDATE_PERIOD);
     }
-    
+
     /**
      * <p>destroy</p>
      */
@@ -132,7 +132,7 @@ public class LocationBroadcastProcessor implements InitializingBean, DisposableB
         if (m_task != null) {
             m_task.cancel();
         }
-        
+
     }
 
     /**

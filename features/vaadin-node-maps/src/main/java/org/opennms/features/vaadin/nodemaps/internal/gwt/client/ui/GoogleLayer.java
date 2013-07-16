@@ -26,5 +26,5 @@ public class GoogleLayer extends ILayer {
         public GoogleLayer setOptions(final Options options) {
                 return (GoogleLayer)super.setOptions(options);
         }
-                
+
 }

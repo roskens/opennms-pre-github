@@ -140,10 +140,10 @@ public class ImportOperationsManagerTest implements InitializingBean {
     protected ModelImporter getModelImporter() {
         ModelImporter mi = new ModelImporter();
         mi.setDistPollerDao(m_distPollerDao);
-        mi.setNodeDao(m_nodeDao); 
+        mi.setNodeDao(m_nodeDao);
         mi.setServiceTypeDao(m_serviceTypeDao);
         mi.setCategoryDao(m_categoryDao);
-        return mi; 
+        return mi;
     }
 
     @Test

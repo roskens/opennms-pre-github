@@ -59,7 +59,7 @@ public class IpRouteTable extends SnmpTable<IpRouteTableEntry>
 	{
         super(address, "ipRouteTable", IpRouteTableEntry.ms_elemList);
 	}
-	
+
     /** {@inheritDoc} */
         @Override
     protected IpRouteTableEntry createTableEntry(final SnmpObjId base, final SnmpInstId inst, final Object val) {

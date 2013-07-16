@@ -39,7 +39,7 @@ import org.hibernate.criterion.Restrictions;
  * @since 1.8.1
  */
 public abstract class LessThanFilter<T> extends OneArgFilter<T> {
-    
+
     /**
      * <p>Constructor for LessThanFilter.</p>
      *
@@ -53,7 +53,7 @@ public abstract class LessThanFilter<T> extends OneArgFilter<T> {
     public LessThanFilter(String filterType, SQLType<T> type, String fieldName, String daoPropertyName, T value){
         super(filterType, type, fieldName, daoPropertyName, value);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {

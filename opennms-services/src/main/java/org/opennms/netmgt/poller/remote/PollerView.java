@@ -35,7 +35,7 @@ package org.opennms.netmgt.poller.remote;
  * @version $Id: $
  */
 public interface PollerView {
-	
+
 	/**
 	 * <p>showView</p>
 	 */

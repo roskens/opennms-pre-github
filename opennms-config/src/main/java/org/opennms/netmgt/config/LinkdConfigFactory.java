@@ -76,7 +76,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
@@ -158,7 +158,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -199,7 +199,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
             getWriteLock().unlock();
         }
     }
-    
+
     /**
      * <p>update</p>
      *
@@ -214,7 +214,7 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
             getWriteLock().unlock();
         }
     }
-    
+
     /**
      * <p>reloadXML</p>
      *
@@ -245,18 +245,18 @@ public final class LinkdConfigFactory extends LinkdConfigManager {
     @Override
     public void save() throws MarshalException, IOException, ValidationException {
         getWriteLock().lock();
-        
+
         try {
             // marshall to a string first, then write the string to the file. This
             // way the original config isn't lost if the xml from the marshall is hosed.
             final StringWriter stringWriter = new StringWriter();
             Marshaller.marshal(m_config, stringWriter);
-            saveXml(stringWriter.toString());        
+            saveXml(stringWriter.toString());
         } finally {
             getWriteLock().unlock();
         }
     }
-    
+
     /**
      * <p>reloadXML</p>
      *

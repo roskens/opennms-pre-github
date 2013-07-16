@@ -74,7 +74,7 @@ public class NewSuspectScan implements RunInBatch {
         m_agentConfigFactory = agentConfigFactory;
         m_taskCoordinator = taskCoordinator;
     }
-    
+
     /**
      * <p>createTask</p>
      *
@@ -83,7 +83,7 @@ public class NewSuspectScan implements RunInBatch {
     public Task createTask() {
         return m_taskCoordinator.createBatch().add(this).get();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void run(final BatchTask phase) {
@@ -99,7 +99,7 @@ public class NewSuspectScan implements RunInBatch {
     	final String addrString = str(m_ipAddress);
 		LOG.info("Attempting to scan new suspect address {}", addrString);
         final OnmsNode node = m_provisionService.createUndiscoveredNode(addrString);
-        
+
         if (node != null) {
 
             phase.getBuilder().addSequence(
@@ -135,7 +135,7 @@ public class NewSuspectScan implements RunInBatch {
     protected void reparentNodes(final BatchTask batch, final Integer nodeId) {
         LOG.debug("reparenting node ID {} not supported", nodeId);
     }
-    
+
 
 
 }

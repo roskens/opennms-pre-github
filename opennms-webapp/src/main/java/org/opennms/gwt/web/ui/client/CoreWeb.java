@@ -44,7 +44,7 @@ public class CoreWeb implements EntryPoint {
      */
     @Override
     public void onModuleLoad() {
-        
+
     }
 
 }

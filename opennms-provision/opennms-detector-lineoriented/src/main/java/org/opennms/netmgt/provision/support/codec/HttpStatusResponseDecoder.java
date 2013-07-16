@@ -49,9 +49,9 @@ public class HttpStatusResponseDecoder extends LineOrientedDecoder {
      */
     public HttpStatusResponseDecoder(final Charset charset) {
         super(charset);
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Object parseCommand(final IoBuffer in) throws CharacterCodingException {

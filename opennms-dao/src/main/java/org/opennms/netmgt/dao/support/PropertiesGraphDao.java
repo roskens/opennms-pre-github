@@ -68,9 +68,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
 public class PropertiesGraphDao implements GraphDao, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PropertiesGraphDao.class);
-    
+
     /** Constant <code>DEFAULT_GRAPH_LIST_KEY="reports"</code> */
     public static final String DEFAULT_GRAPH_LIST_KEY = "reports";
 
@@ -118,7 +118,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * Same as findPrefabGraphTypeByName, but has the sub-class return type.
      * For use within the package, where access to the subclass methods is
      * required and we don't want to cast (ugly)
-     * 
+     *
      * @param name
      * @return
      */
@@ -138,7 +138,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * loadProperties
      * </p>
-     * 
+     *
      * @param type
      *            a {@link java.lang.String} object.
      * @param resource
@@ -166,7 +166,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * pathing to. Also anything loaded in this fashion will *not* have auto
      * reloading on changes, because there's no underlying Resource/File to
      * check against. Like, duh!
-     * 
+     *
      * @param type
      *            a {@link java.lang.String} object.
      * @param in
@@ -206,7 +206,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         }
 
     }
-    
+
     private void loadIncludedFile(PrefabGraphTypeDao type, File file)
             throws FileNotFoundException, IOException {
         Properties props = new Properties();
@@ -240,14 +240,14 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
             type.addMalformedFile(file); //Record that the file was completely broken
         }
     }
-    
+
     /**
      * Checks for any files which were malformed last time the include directory for this type
      * was scanned.  If any of them have changed since then, attempt to read them again.
-     * 
+     *
      * This is meant to ensure that if the administrator made a mistake when adding a new file
-     * they don't need to wait for include.directory.rescan before the fix will be noticed 
-     * 
+     * they don't need to wait for include.directory.rescan before the fix will be noticed
+     *
      * It's necessary because if the file was broken, the broken graphs won't be stored in a
      * FileReloadContainer to be noticed.
      * @param type
@@ -265,7 +265,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
             }
         }
     }
-    
+
     private void scanIncludeDirectory(PrefabGraphTypeDao type) throws IOException {
         Resource includeDirectoryResource = type.getIncludeDirectoryResource();
 
@@ -293,7 +293,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * Wrapper around the createPrefabGraphType which takes a reloadable
      * argument, defaulting to reloadable = true For simplicity in the
      * default/expected case.
-     * 
+     *
      * @param type
      * @param sourceResource
      * @return
@@ -313,7 +313,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * in future with new classes and types that do have a File underneath
      * them. This way, it's up to the caller, who *should* be able to make a
      * sensible choice as to whether the resource is reloadable or not.
-     * 
+     *
      * @param type
      * @param sourceResource
      * @param reloadable
@@ -337,7 +337,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
 
             String includeDirectoryString = properties.getProperty("include.directory");
             t.setIncludeDirectory(includeDirectoryString);
-            
+
             if (includeDirectoryString != null) {
                 Resource includeDirectoryResource;
 
@@ -348,9 +348,9 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                 } else {
                     includeDirectoryResource = sourceResource.createRelative(includeDirectoryString);
                 }
-                
+
                 File includeDirectory = includeDirectoryResource.getFile();
-                
+
                 if (includeDirectory.isDirectory()) {
                     t.setIncludeDirectoryResource(includeDirectoryResource);
                 } else {
@@ -388,11 +388,11 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                     } else {
                         container = new FileReloadContainer<PrefabGraph>(graph);
                     }
-    
+
                     t.addPrefabGraph(container);
                 }
             }
-            
+
             //This *must* come after loading the main graph file, to ensure overrides are correct
             this.scanIncludeDirectory(t);
             return t;
@@ -410,7 +410,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>createPrefabGraphType
      * loadAdhocProperties
      * </p>
-     * 
+     *
      * @param type
      *            a {@link java.lang.String} object.
      * @param resource
@@ -437,7 +437,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * loadAdhocProperties
      * </p>
-     * 
+     *
      * @param type
      *            a {@link java.lang.String} object.
      * @param in
@@ -456,7 +456,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * createAdhocGraphType
      * </p>
-     * 
+     *
      * @param type
      *            a {@link java.lang.String} object.
      * @param in
@@ -494,8 +494,8 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * @return A list of the graphs found.  THIS LIST MAY CONTAIN NULL ENTRIES, one for each
      * graph in a multi-graph file that failed to load (e.g. missing properties).  Other than
      * logging an error, this is the only way this method indicates a problem with just one graph
-     * The only cause for a real exception is if there's neither a "reports" nor a "report.id" 
-     * property, which cannot be recovered from   
+     * The only cause for a real exception is if there's neither a "reports" nor a "report.id"
+     * property, which cannot be recovered from
      */
     private List<PrefabGraph> loadPrefabGraphDefinitions(
             PrefabGraphTypeDao type, Properties properties) {
@@ -521,7 +521,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                 // was missing
                 // But, we need to be more clear in the report (no report.id
                 // *or* "reports" property).  However, we shouldn't throw
-                // an exception, because that would break loading of all 
+                // an exception, because that would break loading of all
                 // graphs if just one file was broken
                 throw new DataAccessResourceFailureException("Properties must "
                                     + "contain a 'report.id' property "
@@ -728,7 +728,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * getAllPrefabGraphs
      * </p>
-     * 
+     *
      * @return a {@link java.util.List} object.
      */
     @Override
@@ -875,7 +875,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * afterPropertiesSet
      * </p>
-     * 
+     *
      * @throws java.io.IOException
      *             if any.
      */
@@ -894,7 +894,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * getAdhocConfigs
      * </p>
-     * 
+     *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Resource> getAdhocConfigs() {
@@ -905,7 +905,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * setAdhocConfigs
      * </p>
-     * 
+     *
      * @param adhocConfigs
      *            a {@link java.util.Map} object.
      */
@@ -917,7 +917,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * getPrefabConfigs
      * </p>
-     * 
+     *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Resource> getPrefabConfigs() {
@@ -928,7 +928,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * <p>
      * setPrefabConfigs
      * </p>
-     * 
+     *
      * @param prefabConfigs
      *            a {@link java.util.Map} object.
      */
@@ -940,18 +940,18 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
      * An package internal subclass of PrefabGraphType, intended for use only
      * within this Dao.  This object has knowledge of FileReloadContainers,
      * rescan intervals, and the original resources used to load the types.
-     * (i.e. info that shouldn't be in the PrefabGraphType itself, which is 
+     * (i.e. info that shouldn't be in the PrefabGraphType itself, which is
      * a model object, in opennms-model)
      * It stores the actual graphs that belong to the PrefabGraphType, in said
      * FileReloadContainers; all access to graph objects is via this Dao anyway
      */
     class PrefabGraphTypeDao extends PrefabGraphType {
         private Map<String, FileReloadContainer<PrefabGraph>> m_reportMap;
-        
+
         //The ordering to use for the next graph added to this type, to ensure sortability
         private int m_ordering;
-        
-        //The time-stamp when the include directory was last scanned.  
+
+        //The time-stamp when the include directory was last scanned.
         //Like FileReloadContainers. this doesn't belong in the model
         //The value is maintained by the PropertiesGraphDao itself, not this object
         private long m_lastIncludeScan;
@@ -960,11 +960,11 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         // re-add the
         // new graph to this PrefabGraphTypeDao instance
         private PrefabGraphCallback m_callback;
-        
+
         // A set of files that were malformed last time they were read by scanIncludeDirectory
         // and their previous time-stamps
         private Map<File, Long> m_malformedFiles;
-        
+
         /**
          * The resource that is the include directory
          * Stored because otherwise we'll have to recalculate it from the root resource
@@ -976,7 +976,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
             m_reportMap = new HashMap<String, FileReloadContainer<PrefabGraph>>();
             m_ordering = 0;
             m_callback = new PrefabGraphCallback(this);
-            
+
             m_malformedFiles = new HashMap<File, Long>();
 
         }
@@ -997,7 +997,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
          * Adds the specified graph to the internal map, replacing any
          * previous ones with the same name (name being the name from the
          * graph object itself)
-         * 
+         *
          * @param graph
          */
         public void addPrefabGraph(FileReloadContainer<PrefabGraph> graph) {
@@ -1010,7 +1010,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
          * </p>
          * A map of graphs, keyed by their name. The returned value is
          * readonly (unmodifiable)
-         * 
+         *
          * @return a {@link java.util.Map} object.
          */
         public Map<String, FileReloadContainer<PrefabGraph>> getReportMap() {
@@ -1021,7 +1021,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
          * <p>
          * getQuery
          * </p>
-         * 
+         *
          * @param queryName
          *            a {@link java.lang.String} object.
          * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
@@ -1032,7 +1032,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
                 return null;
             }
             //TODO check all columns against meta files and add metricIds to prefabgraph
-            /*TODO maybe a later point in the process could be an option for the metricId matching, 
+            /*TODO maybe a later point in the process could be an option for the metricId matching,
             /*if we have more infromation about the folder to look into.
              */
             return container.getObject();
@@ -1051,7 +1051,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         }
 
         /**
-         * Returns the malformed files map.  
+         * Returns the malformed files map.
          * DO NOT EDIT THIS MAP DIRECTLY (well, it probably doesn't matter, but it's bad form old chap)
          * @return
          */
@@ -1060,7 +1060,7 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         }
 
         /**
-         * Add a malformed file to the list for this type; it's last modified time will be 
+         * Add a malformed file to the list for this type; it's last modified time will be
          * stored as the Long value in the map, allowing callers to later check if it's been modified
          * since being noted as malformed
          * @param malformedFile
@@ -1068,11 +1068,11 @@ public class PropertiesGraphDao implements GraphDao, InitializingBean {
         public void addMalformedFile(File malformedFile) {
             m_malformedFiles.put(malformedFile, malformedFile.lastModified());
         }
-        
+
         /**
          * Remove a malformed file from the malformed files list, presumably because it loaded correctly
          * and is no longer malformed
-         * 
+         *
          * @param malformedFile
          */
         public void removeMalformedFile(File malformedFile) {

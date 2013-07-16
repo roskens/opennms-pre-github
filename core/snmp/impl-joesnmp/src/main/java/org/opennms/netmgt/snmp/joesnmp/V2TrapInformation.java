@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * V2 Trap information object for processing by the queue reader
  */
 public class V2TrapInformation extends TrapInformation {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(V2TrapInformation.class);
-	
+
 	/**
 	 * The received PDU
 	 */
@@ -81,7 +81,7 @@ public class V2TrapInformation extends TrapInformation {
 	/**
 	 * Constructs a new trap information instance that contains the sending
 	 * agent, the community string, and the Protocol Data Unit.
-	 * 
+	 *
 	 * @param agent
 	 *            The sending agent's address
 	 * @param community
@@ -89,7 +89,7 @@ public class V2TrapInformation extends TrapInformation {
 	 * @param pdu
 	 *            The encapsulated Protocol Data Unit.
 	 * @param trapProcessor The trap processor used to process the trap data
-	 * 
+	 *
 	 */
 	public V2TrapInformation(InetAddress agent, String community, SnmpPduPacket pdu, TrapProcessor trapProcessor) {
 		super(agent, community, trapProcessor);
@@ -100,7 +100,7 @@ public class V2TrapInformation extends TrapInformation {
 	protected int getPduLength() {
         return m_pdu.getLength();
     }
-    
+
     @Override
     protected long getTimeStamp() {
 
@@ -178,7 +178,7 @@ public class V2TrapInformation extends TrapInformation {
             if (i == 0) {
             	LOG.debug("Skipping processing of varbind it is the sysuptime and the first varbind, it is not processed as a parm per RFC2089");
             } else {
-            	LOG.debug("Skipping processing of varbind it is the trap OID and the second varbind, it is not processed as a parm per RFC2089");				
+		LOG.debug("Skipping processing of varbind it is the trap OID and the second varbind, it is not processed as a parm per RFC2089");
 			}
     	} else {
     		SnmpObjId name = SnmpObjId.get(getVarBindAt(i).getName().getIdentifiers());

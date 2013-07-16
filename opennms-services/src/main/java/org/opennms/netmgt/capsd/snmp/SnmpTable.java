@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SnmpTable<T extends SnmpStore> extends AggregateTracker implements Collection<T> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTable.class);
 
     private final Map<SnmpInstId, T> m_results = new TreeMap<SnmpInstId, T>();

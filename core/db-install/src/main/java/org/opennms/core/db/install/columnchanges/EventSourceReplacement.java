@@ -43,7 +43,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class EventSourceReplacement implements ColumnChangeReplacement {
     private static final String m_replacement = "OpenNMS.Eventd";
-    
+
     /**
      * <p>Constructor for EventSourceReplacement.</p>
      */
@@ -56,7 +56,7 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return m_replacement;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -66,7 +66,7 @@ public class EventSourceReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

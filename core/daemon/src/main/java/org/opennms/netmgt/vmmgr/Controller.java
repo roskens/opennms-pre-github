@@ -74,9 +74,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj</a>
  */
 public class Controller {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Controller.class);
-	
+
     private static final String JMX_HTTP_ADAPTER_NAME = ":Name=HttpAdaptorMgmt";
 
     /**
@@ -90,23 +90,23 @@ public class Controller {
      * The log4j category used to log debug messsages and statements.
      */
     private static final String LOG4J_CATEGORY = "manager";
-    
+
     /**
      * Default read timeout for HTTP requests in milliseconds.
      * The default is zero which means wait forever.
      */
     private static final int DEFAULT_HTTP_REQUEST_READ_TIMEOUT = 0;
-    
+
     private boolean m_verbose = false;
     private String m_invokeUrl = DEFAULT_INVOKER_URL;
     private Authenticator m_authenticator;
     private int m_httpRequestReadTimeout = DEFAULT_HTTP_REQUEST_READ_TIMEOUT;
-    
+
     /**
      * <p>Constructor for Controller.</p>
      */
     public Controller() {
-        
+
     }
 
     /**
@@ -115,9 +115,9 @@ public class Controller {
      * @param argv an array of {@link java.lang.String} objects.
      */
     public static void main(String[] argv) {
-        
+
         Logging.putPrefix(LOG4J_CATEGORY);
-        
+
         Controller c = new Controller();
 
         for (int i = 0; i < argv.length; i++) {
@@ -154,7 +154,7 @@ public class Controller {
                                + " option for help");
             System.exit(1);
         }
-        
+
         c.setAuthenticator(c.createAuthenticatorUsingConfigCredentials());
 
         String command = argv[argv.length - 1];
@@ -192,7 +192,7 @@ public class Controller {
     public int stop() {
         return invokeOperation("stop");
     }
-    
+
     /**
      * <p>status</p>
      *
@@ -203,7 +203,7 @@ public class Controller {
 
         StatusGetter statusGetter = new StatusGetter();
         statusGetter.setVerbose(isVerbose());
-        
+
         String url = getInvokeUrl() + "&operation=status";
         try {
             statusGetter.setInvokeURL(new URL(url));
@@ -266,7 +266,7 @@ public class Controller {
     public int exit() {
         return invokeOperation("doSystemExit");
     }
-    
+
     int invokeOperation(String operation) {
         Authenticator.setDefault(getAuthenticator());
 
@@ -329,7 +329,7 @@ public class Controller {
                 break;
             }
         }
-            
+
         if (!usingBasic) {
             // AuthenticationMethod is not set to basic, so no authentication
             return null;
@@ -340,7 +340,7 @@ public class Controller {
             // No username or password could be set
             return null;
         }
-        
+
         String username = null;
         String password = null;
         for (Invoke invoke : invokes) {
@@ -354,15 +354,15 @@ public class Controller {
                 }
             }
         }
-            
+
         if (username == null || password == null) {
             // Didn't find a username or password
             return null;
         }
-            
+
         final String username_f = username;
         final String password_f = password;
-        
+
         return new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -391,7 +391,7 @@ public class Controller {
                 return service;
             }
         }
-        
+
         return null;
     }
 

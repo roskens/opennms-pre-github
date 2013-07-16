@@ -47,13 +47,13 @@ import org.joda.time.format.ISODateTimeFormat;
  */
 public class ISO8601DateEditor extends PropertyEditorSupport {
     static final DateTimeFormatter m_formatter = ISODateTimeFormat.dateTime().withZone(DateTimeZone.UTC);
-    
+
     /**
      * <p>Constructor for ISO8601DateEditor.</p>
      */
     public ISO8601DateEditor() {
         super();
-        
+
     }
 	/** {@inheritDoc} */
 	@Override

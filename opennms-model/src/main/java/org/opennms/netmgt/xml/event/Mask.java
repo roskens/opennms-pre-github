@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -56,7 +56,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * snmphost,
  *  nodeid, interface, service, id(SNMP EID), specific, generic,
  *  community
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -92,8 +92,8 @@ public class Mask implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMaskelement
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -105,8 +105,8 @@ public class Mask implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMaskelement
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -121,7 +121,7 @@ public class Mask implements Serializable {
 
     /**
      * Method enumerateMaskelement.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -132,7 +132,7 @@ public class Mask implements Serializable {
 
     /**
      * Method getMaskelement.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -146,7 +146,7 @@ public class Mask implements Serializable {
         if (index < 0 || index >= this._maskelementList.size()) {
             throw new IndexOutOfBoundsException("getMaskelement: Index value '" + index + "' not in range [0.." + (this._maskelementList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.xml.event.Maskelement) _maskelementList.get(index);
     }
 
@@ -156,7 +156,7 @@ public class Mask implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.xml.event.Maskelement[] getMaskelement(
@@ -169,7 +169,7 @@ public class Mask implements Serializable {
      * Method getMaskelementCollection.Returns a reference to
      * '_maskelementList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.xml.event.Maskelement> getMaskelementCollection(
@@ -179,7 +179,7 @@ public class Mask implements Serializable {
 
     /**
      * Method getMaskelementCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getMaskelementCount(
@@ -189,7 +189,7 @@ public class Mask implements Serializable {
 
     /**
      * Method iterateMaskelement.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -207,7 +207,7 @@ public class Mask implements Serializable {
 
     /**
      * Method removeMaskelement.
-     * 
+     *
      * @param vMaskelement
      * @return true if the object was removed from the collection.
      */
@@ -219,7 +219,7 @@ public class Mask implements Serializable {
 
     /**
      * Method removeMaskelementAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -230,8 +230,8 @@ public class Mask implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMaskelement
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -245,20 +245,20 @@ public class Mask implements Serializable {
         if (index < 0 || index >= this._maskelementList.size()) {
             throw new IndexOutOfBoundsException("setMaskelement: Index value '" + index + "' not in range [0.." + (this._maskelementList.size() - 1) + "]");
         }
-        
+
         this._maskelementList.set(index, vMaskelement);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMaskelementArray
      */
     public void setMaskelement(
             final org.opennms.netmgt.xml.event.Maskelement[] vMaskelementArray) {
         //-- copy array
         _maskelementList.clear();
-        
+
         for (int i = 0; i < vMaskelementArray.length; i++) {
                 this._maskelementList.add(vMaskelementArray[i]);
         }
@@ -267,14 +267,14 @@ public class Mask implements Serializable {
     /**
      * Sets the value of '_maskelementList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vMaskelementList the Vector to copy.
      */
     public void setMaskelement(
             final java.util.List<org.opennms.netmgt.xml.event.Maskelement> vMaskelementList) {
         // copy vector
         this._maskelementList.clear();
-        
+
         this._maskelementList.addAll(vMaskelementList);
     }
 
@@ -282,7 +282,7 @@ public class Mask implements Serializable {
      * Sets the value of '_maskelementList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param maskelementList the Vector to set.
      */
     public void setMaskelementCollection(

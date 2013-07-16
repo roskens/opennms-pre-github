@@ -52,7 +52,7 @@ public class StringSqlType implements SQLType<String> {
     public void bindParam(PreparedStatement ps, int parameterIndex, String value) throws SQLException {
         ps.setString(parameterIndex, value);
     }
-    
+
     /**
      * <p>getValueAsString</p>
      *

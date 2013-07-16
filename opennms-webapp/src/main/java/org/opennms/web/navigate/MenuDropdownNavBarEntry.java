@@ -37,7 +37,7 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
     private String m_url = null;
     private String m_contents = null;
     private List<NavBarEntry> m_entries = null;
- 
+
     /**
      * <p>getUrl</p>
      *
@@ -78,7 +78,7 @@ public class MenuDropdownNavBarEntry implements NavBarEntry {
 
         return sb.toString();
     }
-    
+
     public void setName(final String name) {
         m_name = name;
     }

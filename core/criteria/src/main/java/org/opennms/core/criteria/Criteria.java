@@ -213,7 +213,7 @@ public class Criteria implements Cloneable {
      * Given a class, a list of spring-resource-style path sections, and an
      * array of aliases to process, return the type of class associated with
      * the resource.
-     * 
+     *
      * @param clazz
      *            The class to process for properties.
      * @param pathSections

@@ -65,7 +65,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 
 	@Autowired
 	AlarmDao m_alarmDao;
-	
+
 	@Autowired
 	EventDao m_eventDao;
 
@@ -112,7 +112,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 	@Transactional
 	public NCSComponent addSubcomponent(final String type, final String foreignSource, final String foreignId, final NCSComponent subComponent, final boolean deleteOrphans) {
 		final ComponentIdentifier subComponentId = getIdentifier(subComponent);
-		
+
 		LOG.debug("addSubcomponent({}, {}, {}, {}, {})", type, foreignSource, foreignId, subComponentId, Boolean.valueOf(deleteOrphans));
 
 		final NCSComponent component = getComponent(type, foreignSource, foreignId);
@@ -125,7 +125,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 
 		final NCSComponent updatedSubComponent = addOrUpdateComponents(subComponentId, subComponent, ceq, deleteOrphans);
 		component.addSubcomponent(updatedSubComponent);
-		
+
 		m_componentDao.update(component);
 		ceq.componentUpdated(id);
 
@@ -167,7 +167,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 		}
 		return identifiers;
 	}
-	
+
 	private ComponentIdentifier getIdentifier(final NCSComponent component) {
 		return new ComponentIdentifier(component.getId(), component.getType(), component.getForeignSource(), component.getForeignId(), component.getName(), component.getDependenciesRequired());
 	}
@@ -178,7 +178,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 
 	private NCSComponent addOrUpdateComponents(final ComponentIdentifier id, final NCSComponent component, final ComponentEventQueue ceq, final boolean deleteOrphans) {
 		final Set<NCSComponent> subcomponents = new LinkedHashSet<NCSComponent>();
-		
+
 		final NCSComponent existing = new UpsertTemplate<NCSComponent, NCSComponentDao>(m_transactionManager, m_componentDao) {
 			@Override
 			protected NCSComponent query() {
@@ -197,7 +197,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
 				ceq.componentAdded(getIdentifier(component));
 				return component;
 			}
-			
+
 			@Override
 			protected NCSComponent doUpdate(final NCSComponent dbObj) {
 				for (final NCSComponent subcomponent : component.getSubcomponents()) {
@@ -255,7 +255,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         // and any events or alarms depending on it
         deleteEvents(id.getForeignSource(), id.getForeignId());
         deleteAlarms(id.getForeignSource(), id.getForeignId());
-        
+
         // alert that the component is deleted
 		ceq.componentDeleted(getIdentifier(component));
 
@@ -299,7 +299,7 @@ public class NCSComponentServiceImpl implements NCSComponentService {
         	ceq.componentUpdated(parentId);
         }
 	}
-	
+
 	private void deleteOrphanedComponents(final Set<ComponentIdentifier> oldComponents, final Set<ComponentIdentifier> newComponents, final ComponentEventQueue ceq) {
 		for (final ComponentIdentifier id : oldComponents) {
 			if (!newComponents.contains(id)) {

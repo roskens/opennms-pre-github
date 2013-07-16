@@ -75,24 +75,24 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 						String action = (String)m_ackCombo.getValue();
 						if (ACTION_ACKNOWLEDGE.equals(action)) {
 							m_alarmRepo.acknowledgeAlarms(
-									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])), 
+									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])),
 									getUser(),
 									new Date()
 							);
 						} else if (ACTION_UNACKNOWLEDGE.equals(action)) {
 							m_alarmRepo.unacknowledgeAlarms(
-									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])), 
+									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])),
 									getUser()
 							);
 						} else if (ACTION_ESCALATE.equals(action)) {
 							m_alarmRepo.escalateAlarms(
-									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])), 
+									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])),
 									getUser(),
 									new Date()
 							);
 						} else if (ACTION_CLEAR.equals(action)) {
 							m_alarmRepo.clearAlarms(
-									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])), 
+									ArrayUtils.toPrimitive(selected.toArray(new Integer[0])),
 									getUser(),
 									new Date()
 							);
@@ -123,7 +123,7 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 	}
 
 	private class RefreshLinkButton extends Button {
-	    
+
 	    private RefreshLinkButton(String caption) {
 	        super(caption);
 	        setStyleName(BaseTheme.BUTTON_LINK);
@@ -135,7 +135,7 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 	        });
 	    }
 	}
-	
+
 	private class SelectAllButton extends Button {
 
 		private CheckboxGenerator m_generator;
@@ -203,7 +203,7 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 		m_submitButton = new CheckboxButton("Submit");
 		m_submitButton.setCombo(m_ackCombo);
 	}
-	
+
 	@Override
 	public void containerItemSetChange(Container.ItemSetChangeEvent event) {
 		for (ItemSetChangeListener listener : m_itemSetChangeListeners ) {
@@ -240,7 +240,7 @@ public class AlarmTable extends SelectionAwareTable implements HasExtraComponent
 				m_submitButton
 		};
 	}
-	
+
 	private String getUser() {
 	    return "admin"; // TODO use real user name
 	}

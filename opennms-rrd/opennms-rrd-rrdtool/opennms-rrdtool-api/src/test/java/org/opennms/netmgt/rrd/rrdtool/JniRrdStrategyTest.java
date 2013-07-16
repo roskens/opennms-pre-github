@@ -42,13 +42,13 @@ import org.springframework.util.StringUtils;
 /**
  * Unit tests for the JniRrdStrategy.  This requires that the shared object
  * for JNI rrdtool support can be found and linked (see findJrrdLibrary).
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestExecutionListeners({})
 public class JniRrdStrategyTest {
-    
+
     private JniRrdStrategy m_strategy;
 
     @Before
@@ -90,13 +90,13 @@ public class JniRrdStrategyTest {
             long start = end - (24 * 60 * 60 * 1000);
             String[] command = new String[] {
                     rrdtoolBin,
-                    "graph", 
+                    "graph",
                     "-",
                     "--start=" + start,
                     "--end=" + end,
                     "COMMENT:test"
             };
-            
+
             m_strategy.createGraph(StringUtils.arrayToDelimitedString(command, " "), (new File(rrdtoolBin)).getParentFile());
         }
     }

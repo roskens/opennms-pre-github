@@ -37,7 +37,7 @@ import com.vaadin.ui.Window;
 
 
 /**
-* The InfoWindow class constructs a custom Window component that contains an embedded 
+* The InfoWindow class constructs a custom Window component that contains an embedded
 * browser displaying the embeddedURL.
 * @author Leonardo Bell
 * @author Philip Grenon
@@ -52,15 +52,15 @@ public class InfoWindow extends Window {
     public static interface LabelCreator {
             String getLabel();
     }
-    
+
     private static final long serialVersionUID = -510407825043696244L;
-	
+
     private final double sizePercentage = 0.80; // Window size ratio to the main window
     private final int widthCushion = 50; //Border cushion for width of window;
     private final int heightCushion = 110; //Border cushion for height of window
     private Embedded infoBrowser = null; //Browser component which is directed at the Resource Graphs page
 
-    
+
     public InfoWindow(final URL embeddedURL, LabelCreator labelCreator) {
         infoBrowser = new Embedded("", new ExternalResource(embeddedURL));
 
@@ -69,21 +69,21 @@ public class InfoWindow extends Window {
         setImmediate(true);
         setResizable(false);
         setModal(true);
-        
+
         /*Adds the browser to the main layout*/
         VerticalLayout layout = new VerticalLayout();
         layout.addComponent(infoBrowser);
 
         setContent(layout);
     }
-    
+
     @Override
     public void attach() {
     	super.attach();
-    	
+
     	int width = getUI().getPage().getBrowserWindowWidth();
     	int height = getUI().getPage().getBrowserWindowHeight();
-    	
+
     	/*Sets the browser and window sizes based on the main window*/
         int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);
         int windowWidth = browserWidth + widthCushion, windowHeight = browserHeight + heightCushion;
@@ -91,7 +91,7 @@ public class InfoWindow extends Window {
         setHeight("" + windowHeight + "px");
         setPositionX((width - windowWidth)/2);
 		setPositionY((height - windowHeight)/2);
-        
+
         /*Sets the size of the browser to fit within the sub-window*/
         infoBrowser.setType(Embedded.TYPE_BROWSER);
         infoBrowser.setWidth("" + browserWidth + "px");

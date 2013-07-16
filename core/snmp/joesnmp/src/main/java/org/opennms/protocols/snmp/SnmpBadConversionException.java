@@ -33,15 +33,15 @@ import java.io.PrintWriter;
 
 /**
  * Constructed when the library is unable to covert a value to another.
- * 
+ *
  * @see SnmpIPAddress#convertToIpAddress()
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- * 
+ *
  */
 public class SnmpBadConversionException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5888208447180460071L;
     /**
@@ -51,7 +51,7 @@ public class SnmpBadConversionException extends Exception {
 
     /**
      * The exception constructor.
-     * 
+     *
      * @param why
      *            The message for the exception.
      */
@@ -62,12 +62,12 @@ public class SnmpBadConversionException extends Exception {
 
     /**
      * The exception constructor
-     * 
+     *
      * @param why
      *            The message for the exception.
      * @param reason
      *            The original exception that caused the problem
-     * 
+     *
      */
     public SnmpBadConversionException(String why, Exception reason) {
         super(why);
@@ -76,7 +76,7 @@ public class SnmpBadConversionException extends Exception {
 
     /**
      * The exception constructor
-     * 
+     *
      */
     public SnmpBadConversionException() {
         super();
@@ -86,7 +86,7 @@ public class SnmpBadConversionException extends Exception {
     /**
      * Constructs a new exception which is based upon a previous exception. The
      * two exceptions are chained together internally.
-     * 
+     *
      * @param reason
      *            The original exception
      */
@@ -107,7 +107,7 @@ public class SnmpBadConversionException extends Exception {
     /**
      * Prints the stack trace of the exception. If the exception has been
      * chained then the original exception is also printed to the stream.
-     * 
+     *
      * @param writer
      *            The stream to writer the stack trace onto.
      */
@@ -125,7 +125,7 @@ public class SnmpBadConversionException extends Exception {
     /**
      * Prints the stack trace of the exception. If the exception has been
      * chained then the original exception is also printed to the stream.
-     * 
+     *
      * @param stream
      *            The stream to writer the stack trace onto.
      */

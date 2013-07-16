@@ -42,15 +42,15 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class PathElement implements Serializable {
     private static final long serialVersionUID = 2437052160139305371L;
-    
+
     private String m_ipAddress;
 	private String m_serviceName;
-	
+
 	/**
 	 * <p>Constructor for PathElement.</p>
 	 */
 	public PathElement() {
-		
+
 	}
 
 	/**
@@ -73,7 +73,7 @@ public class PathElement implements Serializable {
 	public String getIpAddress() {
 		return m_ipAddress;
 	}
-	
+
 	/**
 	 * <p>setIpAddress</p>
 	 *
@@ -82,7 +82,7 @@ public class PathElement implements Serializable {
 	public void setIpAddress(String ipAddress) {
 		m_ipAddress = ipAddress;
 	}
-	
+
 	/**
 	 * <p>getServiceName</p>
 	 *
@@ -92,7 +92,7 @@ public class PathElement implements Serializable {
 	public String getServiceName() {
 		return m_serviceName;
 	}
-	
+
 	/**
 	 * <p>setServiceName</p>
 	 *

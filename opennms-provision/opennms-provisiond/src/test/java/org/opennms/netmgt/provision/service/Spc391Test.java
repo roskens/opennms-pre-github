@@ -102,7 +102,7 @@ public class Spc391Test extends ProvisioningTestCase {
         m_provisioner.getProvisionService().setForeignSourceRepository(mfsr);
         m_provisioner.start();
     }
-    
+
     @After
     public void tearDown() throws InterruptedException {
         m_populator.resetDatabase();

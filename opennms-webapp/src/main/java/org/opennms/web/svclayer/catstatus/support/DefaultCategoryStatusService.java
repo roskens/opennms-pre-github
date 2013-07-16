@@ -60,7 +60,7 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
 	private ViewDisplayDao m_viewDisplayDao;
 	private CategoryConfigDao m_categoryConfigDao;
 	private OutageDao m_outageDao;
-	
+
 	/**
 	 * <p>getCategoriesStatus</p>
 	 *
@@ -71,44 +71,44 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
 		View view = m_viewDisplayDao.getView();
 
 		Collection<Section> sections = getSectionsForView(view);
-		
+
         Collection<StatusSection> statusSections = new ArrayList<StatusSection>();
 		for (Section section : sections) {
 			statusSections.add(createSection(section));
 		}
-		
+
 		return statusSections;
 	}
 
 	private StatusSection createSection(Section section) {
 		StatusSection statusSection = new StatusSection();
-		
+
 		statusSection.setName(section.getSectionName());
-			
+
 		Collection<String> categories = getCategoriesForSection(section);
-		
+
 		for (String category : categories) {
 			StatusCategory statusCategory = createCategory(category);
 			statusSection.addCategory(statusCategory);
 		}
-			
+
 		return statusSection;
 	}
 
 	private StatusCategory createCategory(String category) {
-		Collection<OnmsOutage> outages; 
-		
+		Collection<OnmsOutage> outages;
+
 		CategoryBuilder categoryBuilder = new CategoryBuilder();
-		
+
 		StatusCategory statusCategory = new StatusCategory();
 		Category categoryDetail =  m_categoryConfigDao.getCategoryByLabel(category);
-		
-		//statusCategory.setComment(categoryDetail.getCategoryComment());	
+
+		//statusCategory.setComment(categoryDetail.getCategoryComment());
 		statusCategory.setLabel(category);
-				
+
 		ServiceSelector selector = new ServiceSelector(categoryDetail.getRule(), getServicesForCategory(categoryDetail));
 		outages = m_outageDao.matchingCurrentOutages(selector);
-		
+
 		for (OnmsOutage outage : outages) {
 			OnmsMonitoredService monitoredService = outage.getMonitoredService();
 			OnmsServiceType serviceType = monitoredService.getServiceType();
@@ -116,22 +116,22 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
 
 			final String ipAddress = InetAddressUtils.str(ipInterface.getIpAddress());
 			categoryBuilder.addOutageService(
-					monitoredService.getNodeId(), 
-					ipAddress, 
-					ipAddress, 
-					ipInterface.getNode().getLabel(), 
+					monitoredService.getNodeId(),
+					ipAddress,
+					ipAddress,
+					ipInterface.getNode().getLabel(),
 					serviceType.getName());
-		
+
 		}
-		
+
 		for (StatusNode node : categoryBuilder.getNodes()) {
 			statusCategory.addNode(node);
 		}
 
 		return statusCategory;
-	
-		
-		
+
+
+
 	}
 
 	/**
@@ -139,7 +139,7 @@ public class DefaultCategoryStatusService implements CategoryStatusService {
 	 *
 	 * @param viewDisplayDao a {@link org.opennms.web.svclayer.dao.ViewDisplayDao} object.
 	 */
-	public void setViewDisplayDao(ViewDisplayDao viewDisplayDao){	
+	public void setViewDisplayDao(ViewDisplayDao viewDisplayDao){
 		m_viewDisplayDao = viewDisplayDao;
 	}
 

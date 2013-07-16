@@ -7,10 +7,10 @@
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software 
+ *
+ * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -47,7 +47,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @author ranger
  * @version $Id: $
  */
-public class AlarmListJ2eeConnectionManagerThread extends Thread implements AlarmListConnectionManager 
+public class AlarmListJ2eeConnectionManagerThread extends Thread implements AlarmListConnectionManager
 {
     private static final Logger LOG = LoggerFactory.getLogger(AlarmListJ2eeConnectionManagerThread.class);
 	private int status = DISCONNECTED;
@@ -61,10 +61,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 	private int send_status = SENT;
 	private boolean init = false;
 	private String rebuilt_message="not set";
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#reset_list(java.lang.String)
-	 */ 
+	 */
 	/** {@inheritDoc} */
         @Override
 	public void reset_list(String _rebuilt_message)
@@ -73,7 +73,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		send_status = REBUILD;
 		interrupt();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#send(java.util.Hashtable)
 	 */
@@ -85,7 +85,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		send_status = SEND;
 		interrupt();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#run()
 	 */
@@ -103,15 +103,15 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		 */
 		if(!init)
 			throw new IllegalStateException("AlarmListJ2eeConnectionManagerThread - You must call init() before calling run()");
-		
+
 		while(true)
 		{
 			//LOG.debug("Status = {}", status);
 			//LOG.debug("Send_status = {}", send_status);
-			
-			/* If we are connected to the bean and we need to 
+
+			/* If we are connected to the bean and we need to
 			 * send some alarms then try to send them. If the
-			 * connection has failed, reconnect. 
+			 * connection has failed, reconnect.
 			 */
 			if((status == CONNECTED) && ((send_status == SEND) || (send_status == REBUILD)) )
 			{
@@ -120,7 +120,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 				{
 					if(alarmInternals == null)
 						LOG.error("AlarmListJ2eeConnectionManagerThread.run() alarmInternals is null");
-					
+
 					if (send_status == REBUILD) {
 						if(alarmInternals == null) {
 							LOG.error("AlarmListJ2eeConnectionManagerThread.run() rebuilt_message is null");
@@ -148,21 +148,21 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 					send_status = SEND;
 				}
 			}
-			
-			
+
+
 			/* If we are connected to the bean and we don't
 			 * need to send anything, then test that we are
-			 * still connected. If not try to reestablish the 
+			 * still connected. If not try to reestablish the
 			 * connection before we need to use it again.
 			 */
 			if(status == CONNECTED && send_status == SENT)
 			{
 				LOG.debug("AlarmListJ2eeConnectionManagerThread.run() - Polling connection");
 				/* test if the connection has been lost
-				 * by polling the getVersion method of the 
+				 * by polling the getVersion method of the
 				 * bean periodically. If the call throws a
 				 * remote exception then the bean connection
-				 * has been lost. 
+				 * has been lost.
 				 */
 				try
 				{
@@ -174,9 +174,9 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 					status = DISCONNECTED;
 				}
 			}
-			
+
 			/*If we have disconnected from the bean, reconnect
-			 */			
+			 */
 			if(status == DISCONNECTED)
 			{
 				LOG.debug("AlarmListJ2eeConnectionManagerThread.run() Attempting Connecting to bean");
@@ -195,19 +195,19 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 				{
 					LOG.error("AlarmListJ2eeConnectionManagerThread.run() RemoteException caught, cannot connect to bean", remote_ex);
 					status = DISCONNECTED;
-					
+
 				}
-				
+
 			}
-			
-			/*routine to halt thread excecution*/ 
+
+			/*routine to halt thread excecution*/
 			if(status == STOP)
 			{
 				LOG.info("AlarmListJ2eeConnectionManagerThread.run() Stopping thread");
-				cleanUp();			
+				cleanUp();
 				return;
 			}
-			
+
 			/* Wait for 1 minute between connection/polling attempts
 			 * when interrupted excecution can continue for urgent
 			 * requests such as sending the alarm list.
@@ -226,10 +226,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 				LOG.debug("AlarmListJ2eeConnectionManagerThread.run() Connection State = {}", status);
 				LOG.debug("AlarmListJ2eeConnectionManagerThread.run() send_status = {}", send_status);
 			}
-			
+
 		}
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#init(org.openoss.opennms.spring.qosd.PropertiesLoader, java.util.Properties)
 	 */
@@ -239,10 +239,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 	{
 		this.props = props;
 		this.env = env;
-		init = true;		//inform the thread that it has been initialised 
+		init = true;		//inform the thread that it has been initialised
 		//and can execute the run() method.
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#kill()
 	 */
@@ -259,7 +259,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		status = STOP;
 		interrupt();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.openoss.opennms.spring.qosd.ejb.ConnectionManager#getStatus()
 	 */
@@ -273,15 +273,15 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 	{
 		return status;
 	}
-	
-	
+
+
 	/**
 	 *  Method to find and connect to the remote bean.
 	 */
 	private void lookupBean() throws NamingException, RemoteException
 	{
-		
-		/* Create a new InitialContext with the properties paramters - 
+
+		/* Create a new InitialContext with the properties paramters -
 		 * The starting point of naming resolution
 		 */
 		LOG.info("AlarmListJ2eeConnectionManagerThread.lookupBean() Looking up QoS bean");
@@ -291,15 +291,15 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		{
 			ref = ic.lookup(props.getProperty("org.openoss.opennms.spring.qosd.jvthome"));
 			LOG.info("AlarmListJ2eeConnectionManagerThread.lookupBean() QoS Bean found");
-			home = (JVTAlarmMonitorHome) PortableRemoteObject.narrow( ref, 
+			home = (JVTAlarmMonitorHome) PortableRemoteObject.narrow( ref,
 					JVTAlarmMonitorHome.class );
-			
+
 			LOG.debug("AlarmListJ2eeConnectionManagerThread.lookupBean() home initialised");
-			
+
 			session = home.create();
-			
+
 			LOG.debug("AlarmListJ2eeConnectionManagerThread.lookupBean() Session created");
-			
+
 			alarmInternals = (AlarmMonitor) PortableRemoteObject.narrow(
 					session.getHandle().getEJBObject(), AlarmMonitor.class );
 			if(alarmInternals == null)
@@ -313,7 +313,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		 {
 		 log.error("Cannot connect to bean", remote_ex);
 		 status = DISCONNECTED;
-		 
+
 		 }*/
 		catch(CreateException create_ex)
 		{
@@ -327,10 +327,10 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		{
 			ic.close();
 		}
-		
+
 		LOG.info("AlarmListJ2eeConnectionManagerThread.lookupBean() New bean session started");
 	}
-	
+
 	/**
 	 * Private method to finally clean up the connections
 	 */
@@ -350,7 +350,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		}
 	}
 
-	
+
 	/**
 	 * Makes a new empty alarm value object
 	 * NOTE THIS IS A PATCH to proxy for JVTAlarmMonitorSession.makeAlarmValue()
@@ -374,9 +374,9 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 		javax.oss.fm.monitor.AlarmValue alarmValueSpecification = (javax.oss.fm.monitor.AlarmValue)m_context.getBean("alarmValueSpecification");
 			return alarmValueSpecification;
 		}
-	
+
 	// SPRING DAO SETTERS
-	
+
 	/**
 	 * used to hold a local reference to the application context from which this bean was started
 	 */
@@ -391,7 +391,7 @@ public class AlarmListJ2eeConnectionManagerThread extends Thread implements Alar
 	public  void setApplicationContext(ClassPathXmlApplicationContext m_context){
 		this.m_context = m_context;
 	}
-	
+
 }
 
 

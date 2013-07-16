@@ -37,7 +37,7 @@ import org.opennms.core.test.xml.XmlTest;
 
 /**
  * The Test Class for CompMember.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class CompMemberTest extends XmlTest<CompMember> {

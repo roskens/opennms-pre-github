@@ -35,7 +35,7 @@ import java.util.List;
 
 /**
  * Report Configuration for local reports
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "database-reports")

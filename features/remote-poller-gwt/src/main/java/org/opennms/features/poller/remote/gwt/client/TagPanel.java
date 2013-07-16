@@ -99,7 +99,7 @@ public class TagPanel extends Composite implements Collection<String> {
     public interface TagClearedEventHandler extends EventHandler {
         public void onTagCleared();
     }
-    
+
     public interface TagResizeEventHandler extends EventHandler{
         public void onTagPanelResize();
     }
@@ -141,7 +141,7 @@ public class TagPanel extends Composite implements Collection<String> {
             return TYPE;
         }
     }
-    
+
     public static class TagResizeEvent extends GwtEvent<TagResizeEventHandler>{
 
         public static Type<TagResizeEventHandler> TYPE = new Type<TagResizeEventHandler>();
@@ -154,7 +154,7 @@ public class TagPanel extends Composite implements Collection<String> {
         public com.google.gwt.event.shared.GwtEvent.Type<TagResizeEventHandler> getAssociatedType() {
             return TYPE;
         }
-        
+
     }
 
     /**
@@ -392,7 +392,7 @@ public class TagPanel extends Composite implements Collection<String> {
             tagPanel.add(tagLabel);
             // without this, the tag cloud doesn't wrap properly
             tagPanel.add(new InlineHTML(" "));
-            
+
         }
     }
 }

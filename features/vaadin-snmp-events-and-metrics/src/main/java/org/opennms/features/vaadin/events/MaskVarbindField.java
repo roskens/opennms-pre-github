@@ -55,8 +55,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Event's MaskVarbind Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class MaskVarbindField extends CustomField<MaskVarbindField.VarbindArrayList> implements Button.ClickListener {

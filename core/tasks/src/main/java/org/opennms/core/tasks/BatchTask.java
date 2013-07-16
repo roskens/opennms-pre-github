@@ -36,7 +36,7 @@ package org.opennms.core.tasks;
  * @version $Id: $
  */
 public class BatchTask extends ContainerTask<BatchTask> {
-    
+
     /**
      * <p>Constructor for BatchTask.</p>
      *
@@ -46,7 +46,7 @@ public class BatchTask extends ContainerTask<BatchTask> {
     public BatchTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent) {
         super(coordinator, parent);
     }
-    
+
     /**
      * <p>toString</p>
      *

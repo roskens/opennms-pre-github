@@ -131,7 +131,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
     /**
      * Constructs a new DHCP server instance. All of the internal fields are
      * initialized to <code>null</code>.
-     * 
+     *
      */
     private Dhcpd() {
     	super("dhcpd");
@@ -197,7 +197,7 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
             }
         }
         LOG.debug("Setting relay mode {}", relayMode);
-        
+
         // open the receiver socket(s)
         if(!relayMode || (dFactory.getExtendedMode() != null && dFactory.getExtendedMode().equalsIgnoreCase("true"))) {
             try {
@@ -239,12 +239,12 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
 	if (m_worker == null) {
             return;
         }
-        
+
         // stop the receiver
         if (m_listener != null) {
             m_listener.stop();
         }
-        
+
         // stop the other receiver
         if (m_listener2 != null) {
         	m_listener2.stop();
@@ -279,15 +279,15 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      */
     @Override
     public void run() {
-        
+
         try {
             waitForStatus(RUNNING);
         } catch (InterruptedException e1) {
             // ignore
         }
-        
+
         LOG.debug("run: DHCPD client daemon running...");
-        
+
         /*
          * Begin accepting connections from clients
          * For each new client create new DHCP Client Handler
@@ -402,6 +402,6 @@ public final class Dhcpd extends AbstractServiceDaemon implements Runnable, Obse
      */
     @Override
     protected void onInit() {
-    	
+
     }
 }

@@ -49,13 +49,13 @@ import org.opennms.features.poller.remote.gwt.client.utils.StringUtils;
  * @since 1.8.1
  */
 public class AppStatusDetailsComputer {
-    
+
     final Date m_startTime;
     final Date m_endTime;
-    final Collection<GWTLocationMonitor> m_monitors; 
+    final Collection<GWTLocationMonitor> m_monitors;
     final Collection<GWTMonitoredService> m_services;
-    final Collection<GWTLocationSpecificStatus> m_statuses; 
-    
+    final Collection<GWTLocationSpecificStatus> m_statuses;
+
     /**
      * <p>Constructor for AppStatusDetailsComputer.</p>
      *
@@ -82,15 +82,15 @@ public class AppStatusDetailsComputer {
         if (m_statuses == null || m_statuses.size() == 0) {
             return StatusDetails.unknown("No locations have reported status updates.");
         }
-    
+
         if (m_monitors == null || m_monitors.size() == 0) {
             return StatusDetails.unknown("No location monitors are currently reporting.");
         }
-    
+
         final Set<Integer> monitorIds = new HashSet<Integer>();
         final Set<GWTMonitoredService> servicesWithOutages = new HashSet<GWTMonitoredService>();
         final Set<GWTMonitoredService> servicesDown = new HashSet<GWTMonitoredService>();
-    
+
         boolean foundActiveMonitor = false;
         for (final GWTLocationMonitor monitor : m_monitors) {
             if (monitor.getStatus().equals("STARTED")) {
@@ -101,7 +101,7 @@ public class AppStatusDetailsComputer {
         if (! foundActiveMonitor) {
             return StatusDetails.unknown("No location monitors are currently reporting.");
         }
-    
+
         Map<Integer, Map<Integer, List<GWTServiceOutage>>> outages = getOutages();
         for (final Integer serviceId : outages.keySet()) {
             final List<GWTServiceOutage> locationOutages = new ArrayList<GWTServiceOutage>();
@@ -111,17 +111,17 @@ public class AppStatusDetailsComputer {
                 }
                 locationOutages.addAll(outages.get(serviceId).get(monitorId));
             }
-    
+
             GWTMonitoredService service = null;
             if (locationOutages.size() > 0) {
                  service = locationOutages.iterator().next().getService();
             } else {
                 return StatusDetails.unknown("No locations reporting for service ID " + serviceId);
             }
-    
+
             final Set<GWTLocationMonitor> monitorsFailing = new HashSet<GWTLocationMonitor>();
             final Set<GWTLocationMonitor> monitorsPassing = new HashSet<GWTLocationMonitor>(m_monitors);
-    
+
             Collections.sort(locationOutages);
             for (final GWTServiceOutage outage : locationOutages) {
                 final GWTLocationMonitor monitor = outage.getMonitor();
@@ -133,7 +133,7 @@ public class AppStatusDetailsComputer {
                     monitorsFailing.remove(monitor);
                 }
             }
-    
+
             if (monitorsFailing.size() > 0) {
                 if (monitorsPassing.size() == 0) {
                     servicesDown.add(service);
@@ -143,7 +143,7 @@ public class AppStatusDetailsComputer {
             }
         }
         outages = null;
-    
+
         Set<String> allServiceNames = new HashSet<String>();
         Map<String,Integer> unmonitoredServiceCounts = new HashMap<String,Integer>();
         for (final GWTMonitoredService service : m_services) {
@@ -166,7 +166,7 @@ public class AppStatusDetailsComputer {
                 }
             }
         }
-    
+
         if (unmonitoredServiceCounts.size() > 0) {
             final Set<String> names = new TreeSet<String>();
             for (final String key : unmonitoredServiceCounts.keySet()) {
@@ -175,7 +175,7 @@ public class AppStatusDetailsComputer {
             }
             return StatusDetails.unknown("The following services were not being reported on by any monitor: " + StringUtils.join(names, ", "));
         }
-    
+
         if (servicesDown.size() > 0) {
             final Set<String> names = new TreeSet<String>();
             for (final GWTMonitoredService service : servicesDown) {
@@ -183,7 +183,7 @@ public class AppStatusDetailsComputer {
             }
             return StatusDetails.down("The following services were reported as down by all monitors: " + StringUtils.join(names, ","));
         }
-    
+
         if (servicesWithOutages.size() == m_services.size()) {
             final Set<String> names = new TreeSet<String>();
             for (final GWTMonitoredService service : servicesWithOutages) {
@@ -191,7 +191,7 @@ public class AppStatusDetailsComputer {
             }
             return StatusDetails.marginal("The following services were reported to have outages in this application: " + StringUtils.join(names, ", "));
         }
-    
+
         return StatusDetails.up();
     }
 
@@ -215,7 +215,7 @@ public class AppStatusDetailsComputer {
         if (m_statuses == null) {
             return outages;
         }
-        
+
         for (final GWTLocationSpecificStatus status : m_statuses) {
             final Integer serviceId = status.getMonitoredService().getId();
             final Integer monitorId = status.getLocationMonitor().getId();
@@ -227,27 +227,27 @@ public class AppStatusDetailsComputer {
                     lastOutage = monitorOutages.get(monitorOutages.size() - 1);
                 }
             }
-        
+
             if (lastOutage != null && lastOutage.getTo() == null) {
                 // there's an existing outage, and it's unfinished
-        
+
                 if (!status.getPollResult().isDown()) {
                     // it's back up
                     lastOutage.setTo(status.getPollResult().getTimestamp());
                     continue;
                 }
                 // otherwise, it's still down... leave the "to" incomplete
-        
+
             } else {
                 // there's no existing outage
-        
+
                 if (status.getPollResult().isDown()) {
                     // but the service is down on this monitor, start a new outage
                     lastOutage = new GWTServiceOutage();
                     lastOutage.setService(status.getMonitoredService());
                     lastOutage.setMonitor(status.getLocationMonitor());
                     lastOutage.setFrom(status.getPollResult().getTimestamp());
-        
+
                     if (serviceOutages == null) {
                         serviceOutages = new HashMap<Integer, List<GWTServiceOutage>>();
                         outages.put(serviceId, serviceOutages);
@@ -261,7 +261,7 @@ public class AppStatusDetailsComputer {
                 }
             }
         }
-        
+
         for (final Integer serviceId : outages.keySet()) {
             for (final Integer monitorId : outages.get(serviceId).keySet()) {
                 for (GWTServiceOutage outage : outages.get(serviceId).get(monitorId)) {
@@ -274,7 +274,7 @@ public class AppStatusDetailsComputer {
                 }
             }
         }
-        
+
         return outages;
     }
 

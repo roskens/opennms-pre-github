@@ -44,13 +44,13 @@ public class CheckNrpe {
 	public static final int DEFAULT_PORT = 5666;
 	/** Constant <code>DEFAULT_TIMEOUT=10</code> */
 	public static final int DEFAULT_TIMEOUT = 10;
-	
+
 	private static final String s_usage =
 		"Usage: java CheckNrpe -H <host> [-p <port>] [-P <padding>] \\\n" +
 		"                      [-t <timeout>] [-c <command>] [-a <arglist ...>]\n" +
 		"Note: if the -a option is specified it *must* be the last option\n";
-	
-	
+
+
 	/**
 	 * <p>executeQuery</p>
 	 *
@@ -63,7 +63,7 @@ public class CheckNrpe {
 		return executeQuery(host, DEFAULT_PORT, buffer,
 				NrpePacket.DEFAULT_PADDING);
 	}
-	
+
 	/**
 	 * <p>executeQuery</p>
 	 *
@@ -76,7 +76,7 @@ public class CheckNrpe {
 	public static NrpePacket executeQuery(String host, String buffer, int padding) throws Exception {
 		return executeQuery(host, DEFAULT_PORT, buffer, padding);
 	}
-	
+
 	/**
 	 * <p>executeQuery</p>
 	 *
@@ -95,10 +95,10 @@ public class CheckNrpe {
 		Socket s = new Socket(host, port);
 		OutputStream o = s.getOutputStream();
 		o.write(b);
-		
+
 		return NrpePacket.receivePacket(s.getInputStream(), padding);
 	}
-	
+
 	/**
 	 * <p>sendPacket</p>
 	 *
@@ -110,16 +110,16 @@ public class CheckNrpe {
 	 */
 	public static NrpePacket sendPacket(short type, short resultCode, String buffer) throws Exception {
 		int padding = NrpePacket.DEFAULT_PADDING;
-		
+
 		NrpePacket p = new NrpePacket(type, resultCode, buffer);
 		byte[] b = p.buildPacket(padding);
 		Socket s = new Socket("localhost", DEFAULT_PORT);
 		OutputStream o = s.getOutputStream();
 		o.write(b);
-		
+
 		return NrpePacket.receivePacket(s.getInputStream(), padding);
 	}
-	
+
 	/**
 	 * <p>main</p>
 	 *
@@ -134,7 +134,7 @@ public class CheckNrpe {
         int timeout = DEFAULT_TIMEOUT;
 		String command = NrpePacket.HELLO_COMMAND;
 		LinkedList<String> arglist = new LinkedList<String>();
-		
+
 		for (int i = 0; i < argv.length; i++) {
 			if (argv[i].equals("-h")) {
 				System.out.print(s_usage);
@@ -159,25 +159,25 @@ public class CheckNrpe {
 				"Use \"-h\" option for help.");
 			}
 		}
-		
+
 		if (host == null) {
 			throw new Exception("You must specify a -H option.  " +
 			"Use \"-h\" option for help.");
 		}
-		
+
 		StringBuffer buffer = new StringBuffer();
 		buffer.append(command);
 		for (Iterator<String> i = arglist.iterator(); i.hasNext(); ) {
 			buffer.append(" ");
 			buffer.append(i.next());
 		}
-		
+
 		// XXX still need to do something with the timeout
 		NrpePacket p = executeQuery(host, port, buffer.toString(), padding);
 		System.out.println(p.getBuffer());
 		System.exit(p.getResultCode());
 	}
-	
+
 	/**
 	 * <p>nextArg</p>
 	 *

@@ -42,68 +42,68 @@ import org.apache.commons.lang.builder.CompareToBuilder;
 import org.apache.commons.lang.builder.EqualsBuilder;
 
 public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
-    
+
     private static final long serialVersionUID = -9083835215058208854L;
 
     private static final JdbcColumn[] OF_JDBC_COLUMNS = new JdbcColumn[0];
-    
+
     @XmlAttribute(name="name", required=true)
     private String m_queryName;
-    
+
     @XmlAttribute(name="recheckInterval")
     private int m_recheckInterval;
-    
+
     @XmlAttribute(name="ifType", required=true)
     private String m_ifType;
-    
+
     @XmlAttribute(name="resourceType", required=true)
     private String m_resourceType;
 
     @XmlElement(name="statement", required=true)
     private JdbcStatement m_jdbcStatement;
-    
+
     @XmlAttribute(name="instance-column", required=false)
     private String m_instanceColumn;
-    
+
     @XmlElementWrapper(name="columns")
     @XmlElement(name="column")
     private List<JdbcColumn> m_jdbcColumns = new ArrayList<JdbcColumn>();
-    
+
     @XmlTransient
     public String getQueryName() {
         return m_queryName;
     }
-    
+
     public void setQueryName(String queryName) {
         m_queryName = queryName;
     }
-    
+
     @XmlTransient
     public JdbcStatement getJdbcStatement() {
         return m_jdbcStatement;
     }
-    
+
     public void setJdbcStatement(JdbcStatement jdbcStatement) {
         m_jdbcStatement = jdbcStatement;
     }
-    
+
     @XmlTransient
     public List<JdbcColumn> getJdbcColumns() {
         return m_jdbcColumns;
     }
-    
+
     public void setJdbcColumns(List<JdbcColumn> jdbcColumns) {
         m_jdbcColumns = jdbcColumns;
     }
-    
+
     public void addJdbcColumn(JdbcColumn column) {
         m_jdbcColumns.add(column);
     }
-    
+
     public void removeJdbcColumn(JdbcColumn column) {
         m_jdbcColumns.remove(column);
     }
-    
+
     public void removeColumnByName(String name) {
         for (Iterator<JdbcColumn> itr = m_jdbcColumns.iterator(); itr.hasNext(); ) {
             JdbcColumn column = itr.next();
@@ -113,7 +113,7 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
             }
         }
     }
-    
+
     @XmlTransient
     public int getRecheckInterval() {
         return m_recheckInterval;
@@ -122,7 +122,7 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
     public void setRecheckInterval(int recheckInterval) {
         m_recheckInterval = recheckInterval;
     }
-    
+
     @XmlTransient
     public String getIfType() {
         return m_ifType;
@@ -131,8 +131,8 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
     public void setIfType(String ifType) {
         m_ifType = ifType;
     }
-    
-    
+
+
     @XmlTransient
     public String getResourceType() {
         return m_resourceType;
@@ -161,7 +161,7 @@ public class JdbcQuery implements Serializable, Comparable<JdbcQuery> {
             .append(getIfType(), obj.getIfType())
             .toComparison();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcQuery) {

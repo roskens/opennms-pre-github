@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class CompAttrib.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -103,8 +103,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCompMember
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -116,8 +116,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCompMember
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -132,7 +132,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateCompMember.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -143,7 +143,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -152,34 +152,34 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof CompAttrib) {
-        
+
             CompAttrib temp = (CompAttrib)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._alias != null) {
                 if (temp._alias == null) return false;
-                else if (!(this._alias.equals(temp._alias))) 
+                else if (!(this._alias.equals(temp._alias)))
                     return false;
             }
             else if (temp._alias != null)
                 return false;
             if (this._type != null) {
                 if (temp._type == null) return false;
-                else if (!(this._type.equals(temp._type))) 
+                else if (!(this._type.equals(temp._type)))
                     return false;
             }
             else if (temp._type != null)
                 return false;
             if (this._compMemberList != null) {
                 if (temp._compMemberList == null) return false;
-                else if (!(this._compMemberList.equals(temp._compMemberList))) 
+                else if (!(this._compMemberList.equals(temp._compMemberList)))
                     return false;
             }
             else if (temp._compMemberList != null)
@@ -191,7 +191,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'alias'.
-     * 
+     *
      * @return the value of field 'Alias'.
      */
     public java.lang.String getAlias(
@@ -201,7 +201,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getCompMember.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -216,7 +216,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._compMemberList.size()) {
             throw new IndexOutOfBoundsException("getCompMember: Index value '" + index + "' not in range [0.." + (this._compMemberList.size() - 1) + "]");
         }
-        
+
         return (CompMember) _compMemberList.get(index);
     }
 
@@ -226,7 +226,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public CompMember[] getCompMember(
@@ -239,7 +239,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getCompMemberCollection.Returns a reference to
      * '_compMemberList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<CompMember> getCompMemberCollection(
@@ -249,7 +249,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getCompMemberCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getCompMemberCount(
@@ -259,7 +259,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -269,7 +269,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'type'.
-     * 
+     *
      * @return the value of field 'Type'.
      */
     public java.lang.String getType(
@@ -282,14 +282,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -303,13 +303,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_compMemberList != null) {
            result = 37 * result + _compMemberList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -325,7 +325,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateCompMember.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -335,8 +335,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -351,8 +351,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -377,7 +377,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeCompMember.
-     * 
+     *
      * @param vCompMember
      * @return true if the object was removed from the collection.
      */
@@ -389,7 +389,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeCompMemberAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -401,7 +401,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'alias'.
-     * 
+     *
      * @param alias the value of field 'alias'.
      */
     public void setAlias(
@@ -410,8 +410,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCompMember
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -425,20 +425,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._compMemberList.size()) {
             throw new IndexOutOfBoundsException("setCompMember: Index value '" + index + "' not in range [0.." + (this._compMemberList.size() - 1) + "]");
         }
-        
+
         this._compMemberList.set(index, vCompMember);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCompMemberArray
      */
     public void setCompMember(
             final CompMember[] vCompMemberArray) {
         //-- copy array
         _compMemberList.clear();
-        
+
         for (int i = 0; i < vCompMemberArray.length; i++) {
                 this._compMemberList.add(vCompMemberArray[i]);
         }
@@ -447,14 +447,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_compMemberList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vCompMemberList the Vector to copy.
      */
     public void setCompMember(
             final java.util.List<CompMember> vCompMemberList) {
         // copy vector
         this._compMemberList.clear();
-        
+
         this._compMemberList.addAll(vCompMemberList);
     }
 
@@ -462,7 +462,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_compMemberList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param compMemberList the Vector to set.
      */
     public void setCompMemberCollection(
@@ -472,7 +472,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -482,7 +482,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'type'.
-     * 
+     *
      * @param type the value of field 'type'.
      */
     public void setType(
@@ -492,7 +492,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -509,8 +509,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

@@ -50,7 +50,7 @@ import org.opennms.netmgt.config.mailtransporttest.SendmailTest;
  * @version $Id: $
  */
 public class MailTransportParameters {
-    
+
     /** Constant <code>KEY="MailTransportParameters.class.getName()"</code> */
     public static final String KEY = MailTransportParameters.class.getName();
 	private static final int DEFAULT_RETRY = 1;
@@ -69,7 +69,7 @@ public class MailTransportParameters {
         }
         m_transportTest = parseMailTransportTest(test);
     }
-    
+
     static synchronized MailTransportParameters get(Map<String,Object> parameterMap) {
         MailTransportParameters parms = (MailTransportParameters)parameterMap.get(KEY);
         if (parms == null) {
@@ -78,7 +78,7 @@ public class MailTransportParameters {
         }
         return parms;
     }
-            
+
     Map<String,Object> getParameterMap() {
         return Collections.unmodifiableMap(m_parameterMap);
     }
@@ -97,13 +97,13 @@ public class MailTransportParameters {
         } catch (UnsupportedEncodingException e) {
             throw new IllegalArgumentException("Unable to parse mail-test-sequence for MailTransportMonitor: "+test, e);
         }
-    
+
     }
 
     private String getStringParm(String key, String deflt) {
         return ParameterMap.getKeyedString(this.getParameterMap(), key, deflt);
     }
-    
+
     private int getIntParm(String key, int defValue) {
         return ParameterMap.getKeyedInteger(getParameterMap()  , key, defValue);
     }
@@ -125,7 +125,7 @@ public class MailTransportParameters {
 	public int getTimeout() {
 		return getIntParm("timeout", MailTransportParameters.DEFAULT_TIMEOUT);
 	}
-	
+
     /**
      * <p>getReadTestPassword</p>
      *
@@ -175,7 +175,7 @@ public class MailTransportParameters {
 	        return null;
 	    }
 	}
-	
+
     String getSendTestFrom() {
         if (getSendTest() == null) {
             throw new IllegalStateException("Request for send mailparmaters invalid due to no sendmail specification in config");
@@ -459,7 +459,7 @@ public class MailTransportParameters {
     public boolean isReadTestStartTlsEnabled() {
         return getReadTest().getReadmailHost().getReadmailProtocol().isStartTls();
     }
-    
+
     /**
      * <p>isReadTestSslEnabled</p>
      *
@@ -477,7 +477,7 @@ public class MailTransportParameters {
     public void setEnd2EndTestInProgress(boolean b) {
         m_end2EndTestInProgress  = b;
     }
-    
+
     /**
      * <p>isEnd2EndTestInProgress</p>
      *
@@ -486,7 +486,7 @@ public class MailTransportParameters {
     public boolean isEnd2EndTestInProgress() {
         return m_end2EndTestInProgress;
     }
-    
+
     /**
      * <p>getReadTestAttemptInterval</p>
      *
@@ -495,7 +495,7 @@ public class MailTransportParameters {
     public long getReadTestAttemptInterval() {
         return getReadTest().getAttemptInterval();
     }
-    
+
     /**
      * <p>getSendTestAttemptInterval</p>
      *

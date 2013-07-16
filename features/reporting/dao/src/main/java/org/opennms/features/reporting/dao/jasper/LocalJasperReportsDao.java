@@ -85,18 +85,18 @@ public interface LocalJasperReportsDao {
 
     /**
      * <p>setConfigResource</p>
-     * 
+     *
      * Set configuration resource DAO for jasper reports
-     * 
+     *
      * @param configResource a {@link org.springframework.core.io.Resource} object
      */
     void setConfigResource(Resource configResource);
 
     /**
      * <p>getConfigResource</p>>
-     * 
+     *
      * Get configuration resource DAO for jasper reports
-     * 
+     *
      * @return a {@link org.springframework.core.io.Resource} object
      */
     Resource getConfigResource();

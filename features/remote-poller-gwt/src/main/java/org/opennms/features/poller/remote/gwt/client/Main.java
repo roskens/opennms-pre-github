@@ -40,7 +40,7 @@ import de.novanic.eventservice.client.event.RemoteEventService;
 import de.novanic.eventservice.client.event.RemoteEventServiceFactory;
 
 public class Main implements EntryPoint {
-    
+
     private class DeferredCommandExecutor implements CommandExecutor{
 
         @Override
@@ -52,9 +52,9 @@ public class Main implements EntryPoint {
         public void schedule(Command command) {
             DeferredCommand.addCommand(command);
         }
-        
+
     }
-    
+
     private HandlerManager m_eventBus;
 
     @Override
@@ -62,7 +62,7 @@ public class Main implements EntryPoint {
         m_eventBus = new HandlerManager(null);
         Application application = new Application(getEventBus());
         MapPanel mapPanel = createMap(application);
-        
+
         LocationStatusServiceAsync remoteService = GWT.create(LocationStatusService.class);
         RemoteEventService remoteEventService = RemoteEventServiceFactory.getInstance().getRemoteEventService();
         application.initialize(new DefaultApplicationView(application, getEventBus(), mapPanel), remoteService, remoteEventService, new DeferredCommandExecutor());

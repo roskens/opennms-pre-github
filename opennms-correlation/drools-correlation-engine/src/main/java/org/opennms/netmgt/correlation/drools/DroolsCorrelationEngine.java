@@ -68,7 +68,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     private Map<String, Object> m_globals = new HashMap<String, Object>();
     private String m_name;
     private String m_assertBehaviour;
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized void correlate(final Event e) {
@@ -93,7 +93,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     public List<String> getInterestingEvents() {
         return m_interestingEvents;
     }
-    
+
     /**
      * <p>setInterestingEvents</p>
      *
@@ -102,7 +102,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     public void setInterestingEvents(final List<String> ueis) {
         m_interestingEvents = ueis;
     }
-    
+
     /**
      * <p>setRulesResources</p>
      *
@@ -111,7 +111,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     public void setRulesResources(final List<Resource> rules) {
         m_rules = rules;
     }
-    
+
     /**
      * <p>setGlobals</p>
      *
@@ -132,9 +132,9 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
 
         final PackageBuilderConfiguration conf = new PackageBuilderConfiguration(props);
         final PackageBuilder builder = new PackageBuilder( conf );
-        
+
         loadRules(builder);
-        
+
         AssertBehaviour behaviour = AssertBehaviour.determineAssertBehaviour(m_assertBehaviour);
         RuleBaseConfiguration config = new RuleBaseConfiguration();
         config.setAssertBehaviour(behaviour);
@@ -150,7 +150,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
 
         m_workingMemory = ruleBase.newStatefulSession();
         m_workingMemory.setGlobal("engine", this);
-        
+
         for (final Map.Entry<String, Object> entry : m_globals.entrySet()) {
             m_workingMemory.setGlobal(entry.getKey(), entry.getValue());
         }
@@ -158,7 +158,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     }
 
     private void loadRules(final PackageBuilder builder) throws DroolsParserException, IOException {
-        
+
         for (final Resource rulesFile : m_rules) {
             Reader rdr = null;
             try {
@@ -170,7 +170,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
             }
         }
     }
-    
+
     /**
      * <p>getMemorySize</p>
      *
@@ -183,7 +183,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         }
     	return count;
     }
-    
+
     /**
      * <p>getMemoryObjects</p>
      *
@@ -196,7 +196,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
         }
         return objects;
     }
-    
+
     public WorkingMemory getWorkingMemory() {
     	return m_workingMemory;
     }
@@ -209,7 +209,7 @@ public class DroolsCorrelationEngine extends AbstractCorrelationEngine {
     public void setName(final String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>getName</p>
      *

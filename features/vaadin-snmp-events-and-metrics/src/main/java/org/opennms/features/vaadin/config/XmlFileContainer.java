@@ -38,8 +38,8 @@ import com.vaadin.data.util.FilesystemContainer;
 
 /**
  * The Class XmlFileContainer.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class XmlFileContainer extends FilesystemContainer {

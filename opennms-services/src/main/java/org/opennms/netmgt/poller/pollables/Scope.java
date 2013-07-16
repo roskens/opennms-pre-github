@@ -41,7 +41,7 @@ public enum Scope {
     INTERFACE,
     NODE,
     NETWORK;
-    
+
     /**
      * <p>fromUei</p>
      *
@@ -58,7 +58,7 @@ public enum Scope {
         }
         return null;
     }
-    
+
     /**
      * <p>isLargerThan</p>
      *
@@ -69,7 +69,7 @@ public enum Scope {
         if (s == null) return true;
         return this.ordinal() > s.ordinal();
     }
-    
+
     /**
      * <p>isSmallerThan</p>
      *
@@ -80,7 +80,7 @@ public enum Scope {
         if (s == null) return false;
         return this.ordinal() < s.ordinal();
     }
-    
+
     /**
      * <p>isLargerThan</p>
      *
@@ -99,7 +99,7 @@ public enum Scope {
             return a.isLargerThan(b);
         }
     }
-    
+
     /**
      * <p>isSmallerThan</p>
      *
@@ -110,5 +110,5 @@ public enum Scope {
     public static boolean isSmallerThan(Scope a, Scope b) {
         return a != b && !isLargerThan(a, b);
     }
-    
+
 }

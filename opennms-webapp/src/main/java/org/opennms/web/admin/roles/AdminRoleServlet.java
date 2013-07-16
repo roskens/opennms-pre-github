@@ -61,7 +61,7 @@ import org.opennms.netmgt.config.groups.Time;
  */
 public class AdminRoleServlet extends HttpServlet implements Servlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7805283401513004127L;
     private static final String LIST = "/admin/userGroupView/roles/list.jsp";
@@ -71,25 +71,25 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
     private static final String EDIT_WEEKLY = "/admin/userGroupView/roles/editWeekly.jsp";
     private static final String EDIT_MONTHLY = "/admin/userGroupView/roles/editMonthly.jsp";
     private static final String EDIT_SPECIFIC = "/admin/userGroupView/roles/editSpecific.jsp";
-    
+
     /**
      * <p>Constructor for AdminRoleServlet.</p>
      */
     public AdminRoleServlet() {
 		super();
 	}
-    
+
     private interface Action {
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException;
     }
-    
+
     private class ListAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) {
             return LIST;
         }
     }
-    
+
     private class DeleteAction implements Action {
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
@@ -98,9 +98,9 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             return list.execute(request, response);
         }
     }
-    
+
     private class ViewAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -118,11 +118,11 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 throw new ServletException("Unable to parse date: "+e.getMessage(), e);
             }
         }
-        
+
     }
-    
+
     private class AddEntryAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
@@ -139,22 +139,22 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 throw new ServletException("Unable to parse date: "+e.getMessage(), e);
             }
         }
-        
+
     }
-    
+
     private class EditEntryAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().getRole(request.getParameter("role"));
             request.setAttribute("role", role);
-            
+
             int schedIndex = WebSecurityUtils.safeParseInt(request.getParameter("schedIndex"));
             request.setAttribute("schedIndex", request.getParameter("schedIndex"));
-            
+
             int timeIndex = WebSecurityUtils.safeParseInt(request.getParameter("timeIndex"));
             request.setAttribute("timeIndex", request.getParameter("timeIndex"));
-            
+
             Schedule schedule = role.getSchedule(schedIndex);
             request.setAttribute("schedule", schedule);
             Time time = role.getTime(schedIndex, timeIndex);
@@ -172,20 +172,20 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 request.setAttribute("end", BasicScheduleUtils.getSpecificTime(time.getEnds()));
                 return EDIT_SPECIFIC;
             }
-            
+
         }
-        
+
     }
-    
+
     private class SaveEntryAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             try {
                 WebRole role = getRoleManager().getRole(request.getParameter("role"));
                 request.setAttribute("role", role);
                 if (request.getParameter("save") != null) {
-                    
+
                     int schedIndex = getIntParameter("schedIndex", request);
                     int timeIndex = getIntParameter("timeIndex", request);
                     Date startDate = getDateParameters("start", request);
@@ -208,17 +208,17 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                         request.setAttribute("timeIndex", request.getParameter("timeIndex"));
                         return EDIT_SPECIFIC;
                     }
-                    
+
                     String user = request.getParameter("roleUser");
-                    
+
                     WebSchedEntry entry = new WebSchedEntry(schedIndex, timeIndex, user, startDate, endDate);
-                    
+
                     role.addEntry(entry);
-                    
+
                     getRoleManager().saveRole(role);
                 }
                 return new ViewAction().execute(request, response);
-                
+
             } catch (ParseException e) {
                 throw new ServletException("Unable to parse date: "+e.getMessage(), e);
             }
@@ -239,26 +239,26 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             buf.append(request.getParameter(prefix+"AmOrPm"));
             return new SimpleDateFormat("M-d-yyyy h:m a").parse(buf.toString());
         }
-        
+
         public int getIntParameter(String name, HttpServletRequest request) {
             return WebSecurityUtils.safeParseInt(request.getParameter(name));
         }
-        
+
     }
-    
+
     private class EditDetailsAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().getRole(request.getParameter("role"));
             request.setAttribute("role", role);
             return EDIT_DETAILS;
         }
-        
+
     }
-    
+
     private class NewAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             WebRole role = getRoleManager().createRole();
@@ -266,11 +266,11 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
             request.setAttribute("role", role);
             return EDIT_DETAILS;
         }
-        
+
     }
-    
+
     private class SaveDetailsAction implements Action {
-        
+
         @Override
         public String execute(HttpServletRequest request, HttpServletResponse response) throws ServletException {
             if (request.getParameter("save") != null) {
@@ -291,9 +291,9 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
                 return new ListAction().execute(request, response);
             }
         }
-        
+
     }
-    
+
     /**
      * <p>doIt</p>
      *
@@ -332,7 +332,7 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
         else
             return new ListAction();
     }
-	
+
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -340,8 +340,8 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
     @Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doIt(request, response);
-	}  	
-	
+	}
+
 	/* (non-Java-doc)
 	 * @see javax.servlet.http.HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -362,21 +362,21 @@ public class AdminRoleServlet extends HttpServlet implements Servlet {
 
         try {
             WebRoleContext.init();
-            
+
             getServletContext().setAttribute("roleManager", WebRoleContext.getWebRoleManager());
             getServletContext().setAttribute("userManager", WebRoleContext.getWebUserManager());
             getServletContext().setAttribute("groupManager", WebRoleContext.getWebGroupManager());
         } catch (Throwable e) {
             throw new ServletException("Error initializing RolesServlet", e);
         }
-        
+
 
     }
 
     private WebRoleManager getRoleManager() {
         return WebRoleContext.getWebRoleManager();
     }
-    
+
     private WebUserManager getUserManager() {
         return WebRoleContext.getWebUserManager();
     }

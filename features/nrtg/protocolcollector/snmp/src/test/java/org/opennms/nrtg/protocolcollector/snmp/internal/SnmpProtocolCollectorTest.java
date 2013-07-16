@@ -55,15 +55,15 @@ public class SnmpProtocolCollectorTest implements InitializingBean {
 
     @Autowired
     private ProtocolCollector protocolCollector;
-    
+
     private CollectionJob collectionJob;
     private InetAddress localhost;
     private SnmpAgentConfig snmpAgentConfig;
     private Set<String> destinations;
-    
+
     private final String testMetric = ".1.3.6.1.2.1.1.1.0";
     private final String testMetricValue = "Mock Juniper TCA Device";
-    
+
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 

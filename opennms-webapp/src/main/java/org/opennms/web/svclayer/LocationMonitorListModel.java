@@ -56,7 +56,7 @@ public class LocationMonitorListModel {
 
     private Errors m_errors;
     private List<LocationMonitorModel> m_locationMonitors;
-    
+
     /**
      * <p>Constructor for LocationMonitorListModel.</p>
      */
@@ -80,7 +80,7 @@ public class LocationMonitorListModel {
     public void setLocationMonitors(List<LocationMonitorModel> locationMonitors) {
         m_locationMonitors = locationMonitors;
     }
-    
+
     /**
      * <p>addLocationMonitor</p>
      *
@@ -124,11 +124,11 @@ public class LocationMonitorListModel {
 
         public LocationMonitorModel() {
         }
-        
+
         /**
          * Create a LocationMonitorModel and populate it with data from a
          * OnmsLocationMonitor and OnmsMonitoringLocationDefinition (if any).
-         * 
+         *
          * @param monitor the location monitor
          * @param def the monitoring location definition for the location monitor (if any; can be null)
          */
@@ -141,21 +141,21 @@ public class LocationMonitorListModel {
             if (def != null && def.getArea() != null) {
                 setArea(def.getArea());
             }
-            
+
             setDefinitionName(monitor.getDefinitionName());
             setId(monitor.getId());
             setHostName(monitor.getDetails().get(HOST_NAME_KEY));
             setIpAddress(monitor.getDetails().get(HOST_ADDRESS_KEY));
             setStatus(monitor.getStatus());
             setLastCheckInTime(monitor.getLastCheckInTime());
-            
+
             List<Entry<String, String>> details = new ArrayList<Entry<String, String>>(monitor.getDetails().entrySet());
             Collections.sort(details, new Comparator<Entry<String, String>>() {
                 @Override
                 public int compare(Entry<String, String> one, Entry<String, String> two) {
                     return one.getKey().compareToIgnoreCase(two.getKey());
                 }
-                
+
             });
             for (Entry<String, String> detail : details) {
                 if (!detail.getKey().equals(HOST_NAME_KEY) && !detail.getKey().equals(HOST_ADDRESS_KEY)) {
@@ -163,7 +163,7 @@ public class LocationMonitorListModel {
                 }
             }
         }
-        
+
         public Map<String, String> getAdditionalDetails() {
             return m_additionalDetails;
         }
@@ -171,7 +171,7 @@ public class LocationMonitorListModel {
         public void setAdditionalDetails(Map<String, String> additionalDetails) {
             m_additionalDetails = additionalDetails;
         }
-        
+
         public void addAdditionalDetail(String key, String value) {
             if (m_additionalDetails == null) {
                 m_additionalDetails = new LinkedHashMap<String, String>();
@@ -242,6 +242,6 @@ public class LocationMonitorListModel {
         public void setStatus(MonitorStatus status) {
             m_status = status;
         }
-        
+
     }
 }

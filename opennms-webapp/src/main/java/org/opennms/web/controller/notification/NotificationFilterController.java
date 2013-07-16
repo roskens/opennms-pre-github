@@ -69,7 +69,7 @@ public class NotificationFilterController extends AbstractController implements 
 
     /** Constant <code>DEFAULT_MULTIPLE=0</code> */
     public static final int DEFAULT_MULTIPLE = 0;
-    
+
     private String m_successView;
     private Integer m_defaultShortLimit;
     private Integer m_defaultLongLimit;
@@ -159,7 +159,7 @@ public class NotificationFilterController extends AbstractController implements 
 
         // put the parameters in a convenient struct
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         NoticeQueryParms parms = new NoticeQueryParms();
         parms.ackType = ackType;
         parms.display = display;
@@ -175,7 +175,7 @@ public class NotificationFilterController extends AbstractController implements 
         int noticeCount = m_webNotificationRepository.countMatchingNotifications(countCriteria);
         Map<Integer,String[]> nodeLabels = new HashMap<Integer,String[]>();
         Set<Integer> eventIds = new TreeSet<Integer>();
-        
+
         // really inefficient, is there a better way to do this?
         for (Notification notice : notices) {
             eventIds.add(notice.getEventId());
@@ -188,7 +188,7 @@ public class NotificationFilterController extends AbstractController implements 
                         labels = new String[] { "&lt;No Node Label&gt;", "&lt;No Node Label&gt;" };
                     } else {
                         if ( longLabel.length() > 32 ) {
-                            String shortLabel = longLabel.substring( 0, 31 ) + "...";                        
+                            String shortLabel = longLabel.substring( 0, 31 ) + "...";
                             labels = new String[] { shortLabel, longLabel };
                         } else {
                             labels = new String[] { longLabel, longLabel };
@@ -198,14 +198,14 @@ public class NotificationFilterController extends AbstractController implements 
                 nodeLabels.put( notice.getNodeId(), labels );
             }
         }
-        
+
         Map<Integer,Event> events = new HashMap<Integer,Event>();
         if (eventIds.size() > 0) {
             for (Event e : m_webEventRepository.getMatchingEvents(new EventCriteria(new EventIdListFilter(eventIds)))) {
                 events.put(e.getId(), e);
             }
         }
-    
+
         ModelAndView modelAndView = new ModelAndView(m_successView);
         modelAndView.addObject("notices", notices);
         modelAndView.addObject("noticeCount", noticeCount);
@@ -214,7 +214,7 @@ public class NotificationFilterController extends AbstractController implements 
         modelAndView.addObject("parms", parms);
         return modelAndView;
     }
-    
+
     /**
      * <p>setDefaultShortLimit</p>
      *
@@ -250,7 +250,7 @@ public class NotificationFilterController extends AbstractController implements 
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebEventRepository</p>
      *

@@ -210,7 +210,7 @@ public class MockLinkdConfig implements LinkdConfig {
 
     @Override
     public void reload() throws IOException, MarshalException,
-            ValidationException {        
+            ValidationException {
     }
 
     @Override

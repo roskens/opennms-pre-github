@@ -43,20 +43,20 @@ import org.opennms.netmgt.provision.support.jmx.connectors.Jsr160ConnectionFacto
  * @version $Id: $
  */
 public class Jsr160Client extends JMXClient {
-    
+
     private Map<String, Object> m_parameterMap;
-    
+
     /**
      * <p>Constructor for Jsr160Client.</p>
      */
     public Jsr160Client() {
         m_parameterMap = new HashMap<String, Object>();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Map<String, Object> generateMap(int port, int timeout) {
-        
+
         m_parameterMap.put("port",           port);
         m_parameterMap.put("timeout", timeout);
         return Collections.unmodifiableMap(m_parameterMap);
@@ -67,7 +67,7 @@ public class Jsr160Client extends JMXClient {
     protected ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
         return Jsr160ConnectionFactory.getMBeanServerConnection(parameterMap, address);
     }
-    
+
     /**
      * <p>setFactory</p>
      *
@@ -76,7 +76,7 @@ public class Jsr160Client extends JMXClient {
     public void setFactory(String factory) {
         m_parameterMap.put("factory", factory);
     }
-    
+
     /**
      * <p>setFriendlyName</p>
      *
@@ -85,7 +85,7 @@ public class Jsr160Client extends JMXClient {
     public void setFriendlyName(String name) {
         m_parameterMap.put("friendlyname", name);
     }
-    
+
     /**
      * <p>setUsername</p>
      *
@@ -94,7 +94,7 @@ public class Jsr160Client extends JMXClient {
     public void setUsername(String username) {
         m_parameterMap.put("username", username);
     }
-    
+
     /**
      * <p>setPassword</p>
      *
@@ -103,7 +103,7 @@ public class Jsr160Client extends JMXClient {
     public void setPassword(String password) {
         m_parameterMap.put("password", password);
     }
-    
+
     /**
      * <p>setUrlPath</p>
      *
@@ -112,7 +112,7 @@ public class Jsr160Client extends JMXClient {
     public void setUrlPath(String urlPath) {
         m_parameterMap.put("urlPath", urlPath);
     }
-    
+
     /**
      * <p>setType</p>
      *
@@ -129,7 +129,7 @@ public class Jsr160Client extends JMXClient {
      */
     public void setProtocol(String protocol) {
         m_parameterMap.put("protocol", protocol);
-        
+
     }
-    
+
 }

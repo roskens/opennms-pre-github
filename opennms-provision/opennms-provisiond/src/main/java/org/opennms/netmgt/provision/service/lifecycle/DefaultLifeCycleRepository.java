@@ -42,11 +42,11 @@ import org.opennms.core.tasks.DefaultTaskCoordinator;
  * @version $Id: $
  */
 public class DefaultLifeCycleRepository implements LifeCycleRepository {
-    
+
     final private Map<String, LifeCycle> m_lifeCycles = new HashMap<String, LifeCycle>();
-    
+
     final private DefaultTaskCoordinator m_coordinator;
-    
+
     /**
      * <p>Constructor for DefaultLifeCycleRepository.</p>
      *
@@ -68,7 +68,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
     @Override
     public LifeCycleInstance createNestedLifeCycleInstance(BatchTask containingPhase, String lifeCycleName, Object... providers) {
         LifeCycle lifeCycle = getLifeCycle(lifeCycleName);
-        
+
         return new DefaultLifeCycleInstance(containingPhase, this, m_coordinator, lifeCycle.getLifeCycleName(), lifeCycle.getPhaseNames(), providers);
     }
 
@@ -83,7 +83,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
     @Override
     public LifeCycleInstance createLifeCycleInstance(String lifeCycleName, Object... providers) {
         LifeCycle lifeCycle = getLifeCycle(lifeCycleName);
-        
+
         return new DefaultLifeCycleInstance(this, m_coordinator, lifeCycle.getLifeCycleName(), lifeCycle.getPhaseNames(), providers);
     }
 
@@ -96,7 +96,7 @@ public class DefaultLifeCycleRepository implements LifeCycleRepository {
 
         return lifeCycle;
     }
-    
+
     /**
      * <p>addLifeCycle</p>
      *

@@ -39,24 +39,24 @@ import org.opennms.test.ThrowableAnticipator;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class EventExpanderTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     private EventConfDao m_eventConfDao = m_mocks.createMock(EventConfDao.class);
 
     @Override
     protected void runTest() throws Throwable {
         super.runTest();
-        
+
         m_mocks.verifyAll();
     }
-    
+
     public void testAfterPropertiesSetWithNoEventConfDao() {
         m_mocks.replayAll();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property eventConfDao must be set"));
 
@@ -70,7 +70,7 @@ public class EventExpanderTest extends TestCase {
 
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSet() {
         m_mocks.replayAll();
 
@@ -78,7 +78,7 @@ public class EventExpanderTest extends TestCase {
         expander.setEventConfDao(m_eventConfDao);
         expander.afterPropertiesSet();
     }
-    
+
     public void testExpandEventWithNoDaoMatches() {
 
         String uei = "uei.opennms.org/internal/capsd/snmpConflictsWithDb";
@@ -88,7 +88,7 @@ public class EventExpanderTest extends TestCase {
         EventExpander expander = new EventExpander();
         expander.setEventConfDao(m_eventConfDao);
         expander.afterPropertiesSet();
-        
+
         Event event = builder.getEvent();
         assertNull("event description should be null before expandEvent is called", event.getDescr());
 
@@ -97,7 +97,7 @@ public class EventExpanderTest extends TestCase {
         m_mocks.replayAll();
 
         expander.expandEvent(event);
-        
+
         assertEquals("event UEI", uei, event.getUei());
         //assertNotNull("event description should not be null after expandEvent is called", event.getDescr());
         //

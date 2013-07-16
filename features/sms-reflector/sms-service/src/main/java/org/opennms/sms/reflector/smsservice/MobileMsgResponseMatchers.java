@@ -49,7 +49,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher smsFrom(final String originator) {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("smsFrom.matches({}, {}, {})", originator, request, response);
@@ -59,7 +59,7 @@ public class MobileMsgResponseMatchers {
 				}
 				return false;
 			}
-			
+
                         @Override
 			public String toString() {
 				return "smsFromRecipient()";
@@ -74,7 +74,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher smsFromRecipient() {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("smsFromRecipient.matches({}, {})", request, response);
@@ -92,7 +92,7 @@ public class MobileMsgResponseMatchers {
 
 				return false;
 			}
-			
+
                         @Override
 			public String toString() {
 				return "smsFromRecipient()";
@@ -108,7 +108,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher and(final MobileMsgResponseMatcher... matchers) {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("and.matches({})", (Object)matchers);
@@ -120,7 +120,7 @@ public class MobileMsgResponseMatchers {
 
 				return true;
 			}
-			
+
                         @Override
 			public String toString() {
 				StringBuffer sb = new StringBuffer();
@@ -148,7 +148,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher or(final MobileMsgResponseMatcher... matchers) {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("or.matches({})", (Object)matchers);
@@ -187,14 +187,14 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher textMatches(final String regex) {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("textMatches({}, {}, {})", regex, request, response);
 				String text = response.getText() == null ? "" : response.getText();
 				return text.matches(regex);
 			}
-			
+
                         @Override
 			public String toString() {
 				return "textMatches(\"" + regex + "\")";
@@ -209,7 +209,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher isSms() {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("sms({}, {})", request, response);
@@ -218,7 +218,7 @@ public class MobileMsgResponseMatchers {
 				}
 				return false;
 			}
-			
+
                         @Override
 			public String toString() {
 				return "isSms()";
@@ -233,7 +233,7 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher isUssd() {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("ussd({}, {})", request, response);
@@ -242,14 +242,14 @@ public class MobileMsgResponseMatchers {
 				}
 				return false;
 			}
-			
+
                         @Override
 			public String toString() {
 				return "isUssd()";
 			}
 		};
 	}
-	
+
 	/**
 	 * <p>ussdStatusIs</p>
 	 *
@@ -258,19 +258,19 @@ public class MobileMsgResponseMatchers {
 	 */
 	public static MobileMsgResponseMatcher ussdStatusIs(final USSDSessionStatus status) {
 		return new MobileMsgResponseMatcher() {
-			
+
                         @Override
 			public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
 				LOG.trace("ussdStatusIs({}, {})", status, request, response);
 				if (response instanceof UssdResponse) {
 					UssdResponse resp = (UssdResponse)response;
-					
+
 					return status.equals(resp.getSessionStatus());
 				}
 
 				return false;
 			}
-			
+
                         @Override
 			public String toString() {
 				return "ussdStatusIs(" + status + ")";

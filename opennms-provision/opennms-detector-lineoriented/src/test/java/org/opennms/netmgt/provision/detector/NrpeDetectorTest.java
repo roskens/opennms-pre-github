@@ -53,10 +53,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class NrpeDetectorTest implements ApplicationContextAware {
-    
+
     private NrpeDetector m_detector;
     private ApplicationContext m_applicationContext;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -64,19 +64,19 @@ public class NrpeDetectorTest implements ApplicationContextAware {
         m_detector.setPort(5666);
         m_detector.init();
     }
-    
+
     //Tested against a local windows box with NSClient++
     @Test(timeout=90000)
     public void testDetectorSuccess() throws UnknownHostException {
         //assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailWrongPort() throws UnknownHostException {
         //m_detector.setPort(12489);
         //assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailNotUsingSSL() throws UnknownHostException {
         //m_detector.setUseSsl(false);
@@ -90,7 +90,7 @@ public class NrpeDetectorTest implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }
-    
+
     private NrpeDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

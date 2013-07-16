@@ -38,7 +38,7 @@ import org.opennms.test.ThrowableAnticipator;
 
 public class TriggerSetIpInterfaceKeysOnUpdateTest extends
         PopulatedTemporaryDatabaseTestCase {
-    
+
     public void testSetIpInterfaceKeysOnUpdate() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
@@ -69,7 +69,7 @@ public class TriggerSetIpInterfaceKeysOnUpdateTest extends
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 1, 'COFFEE-READY' )");
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 2, 'FILTER-NEEDS-CHANGED' )");
         executeSQL("INSERT INTO ifServices (nodeID, ipAddr, ifIndex, serviceID) VALUES ( 1, '1.2.3.4', 1, 1)");
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new AssertionFailedError("Could not execute statement: 'UPDATE ifServices SET ipAddr = '0.0.0.0' WHERE nodeID = 1 AND ipAddr = '1.2.3.4' AND serviceID = 1': ERROR: IfServices Trigger Exception, Condition 0: ipAddr of 0.0.0.0 is not allowed in ifServices table"));
         try {
@@ -79,8 +79,8 @@ public class TriggerSetIpInterfaceKeysOnUpdateTest extends
         }
         ta.verifyAnticipated();
     }
-    
-    
+
+
     public void testSetIpInterfaceKeysOnUpdateNullIfIndexBoth()
             throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");

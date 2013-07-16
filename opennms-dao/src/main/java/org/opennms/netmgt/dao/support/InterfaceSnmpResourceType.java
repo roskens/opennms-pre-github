@@ -61,7 +61,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * values.  See bug #1703.
  */
 public class InterfaceSnmpResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(InterfaceSnmpResourceType.class);
 
     private ResourceDao m_resourceDao;
@@ -87,7 +87,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getName() {
         return "interfaceSnmp";
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -97,33 +97,33 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getLabel() {
         return "SNMP Interface Data";
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
         return isResourceTypeOnParentResource(Integer.toString(nodeId));
     }
-    
+
     private boolean isResourceTypeOnParentResource(String parentResource) {
         File parent = getParentResourceDirectory(parentResource, false);
         if (!parent.isDirectory()) {
             return false;
         }
-        
-        return parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER).length > 0; 
+
+        return parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER).length > 0;
     }
-    
+
     private File getParentResourceDirectory(String parentResource, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
-        
+
         File parent = new File(snmp, parentResource);
         if (verify && !parent.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No parent resource directory exists for " + parentResource + ": " + parent);
         }
-        
+
         return parent;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(int nodeId) {
@@ -131,14 +131,14 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, Integer.toString(nodeId), "Could not find node with node ID " + nodeId, null);
         }
-        
+
         File parent = getParentResourceDirectory(Integer.toString(nodeId), true);
         return OnmsResource.sortIntoResourceList(populateResourceList(parent, null, node, false));
-        
+
     }
-    
+
     private ArrayList<OnmsResource> populateResourceList(File parent, File relPath, OnmsNode node, Boolean isForeign) {
-            
+
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
         File[] intfDirs = parent.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
@@ -149,7 +149,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         for (OnmsSnmpInterface snmpInterface : snmpInterfaces) {
             /*
              * When Cisco Express Forwarding (CEF) or some ATM encapsulations
-             * (AAL5) are used on Cisco routers, an additional entry might be 
+             * (AAL5) are used on Cisco routers, an additional entry might be
              * in the ifTable for these sub-interfaces, but there is no
              * performance data available for collection.  This check excludes
              * ifTable entries where ifDescr contains "-cef".  See bug #803.
@@ -162,14 +162,14 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
             String replacedIfName = AlphaNumeric.parseAndReplace(snmpInterface.getIfName(), '_');
             String replacedIfDescr = AlphaNumeric.parseAndReplace(snmpInterface.getIfDescr(), '_');
-            
+
             String[] keys = new String[] {
                     replacedIfName + "-",
                     replacedIfDescr + "-",
                     replacedIfName + "-" + snmpInterface.getPhysAddr(),
                     replacedIfDescr + "-" + snmpInterface.getPhysAddr()
             };
-            
+
             for (String key : keys) {
                 if (!intfMap.containsKey(key)) {
                     intfMap.put(key, snmpInterface);
@@ -179,7 +179,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
         for (File intfDir : intfDirs) {
             String name = intfDir.getName();
-            
+
             String desc = name;
             String mac = "";
 
@@ -190,10 +190,10 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
                 desc = name.substring(0, dashIndex);
                 mac = name.substring(dashIndex + 1, name.length());
             }
-            
-            String key = desc + "-" + mac; 
+
+            String key = desc + "-" + mac;
             OnmsSnmpInterface snmpInterface = intfMap.get(key);
-            
+
             String label;
             Long ifSpeed = null;
             String ifSpeedFriendly = null;
@@ -274,8 +274,8 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             LOG.debug("populateResourceList: adding resource toString {}", resource.toString());
             resources.add(resource);
         }
-        
-        return resources; 
+
+        return resources;
     }
 
     private OnmsResource getResourceByNodeAndInterface(int nodeId, String intf, String label, Long ifSpeed, String ifSpeedFriendly) throws DataAccessException {
@@ -287,7 +287,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
         Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(relPath, intf, ifSpeed, ifSpeedFriendly));
         return new OnmsResource(intf, label, this, set);
     }
-    
+
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
         private String m_parent;
         private String m_resource;
@@ -312,12 +312,12 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
             }
             return attributes;
         }
-        
+
     }
-    
+
     private String getRelativePathForResource(String parent, String resource) {
         return DefaultResourceDao.SNMP_DIRECTORY
-            + File.separator + parent 
+            + File.separator + parent
             + File.separator + resource;
     }
 
@@ -331,7 +331,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnDomain(String domain) {
         return getQueryableInterfacesForDomain(domain).size() > 0;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForDomain(String domain) {
@@ -340,7 +340,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
         List<String> ifaces = getQueryableInterfacesForDomain(domain);
         for (String iface : ifaces) {
-            OnmsResource resource = getResourceByDomainAndInterface(domain, iface); 
+            OnmsResource resource = getResourceByDomainAndInterface(domain, iface);
             try {
                 resource.setLink("element/nodeList.htm?listInterfaces=true&snmpParm=ifAlias&snmpParmMatchType=contains&snmpParmValue=" + URLEncoder.encode(iface, "UTF-8"));
             } catch (UnsupportedEncodingException e) {
@@ -351,7 +351,7 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
 
         return OnmsResource.sortIntoResourceList(resources);
     }
-    
+
     private List<String> getQueryableInterfacesForDomain(String domain) {
         if (domain == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
@@ -387,14 +387,14 @@ public class InterfaceSnmpResourceType implements OnmsResourceType {
     public String getLinkForResource(OnmsResource resource) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         File parent = ResourceTypeUtils.getRelativeNodeSourceDirectory(nodeSource);
         return isResourceTypeOnParentResource(parent.toString());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {

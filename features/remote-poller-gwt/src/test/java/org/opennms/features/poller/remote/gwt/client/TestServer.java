@@ -57,7 +57,7 @@ public class TestServer extends AbstractTestServer {
     public void sendUserSpecificEvent( MapRemoteEvent remoteEvent ) {
         m_userSpecificListener.apply(remoteEvent);
     }
-    
+
     public void sendDomainEvent( MapRemoteEvent remoteEvent) {
         m_domainListener.apply(remoteEvent);
     }

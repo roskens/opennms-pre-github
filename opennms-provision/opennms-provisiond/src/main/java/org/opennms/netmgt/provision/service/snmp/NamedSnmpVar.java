@@ -84,7 +84,7 @@ public final class NamedSnmpVar {
 
     //
     // Class strings for valid SNMP data types
-    // 
+    //
     /** Constant <code>SNMPINT32="org.opennms.protocols.snmp.SnmpInt32"</code> */
     public static final String SNMPINT32 = "org.opennms.protocols.snmp.SnmpInt32";
 
@@ -217,7 +217,7 @@ public final class NamedSnmpVar {
     public String getOid() {
         return m_oid;
     }
-    
+
     /**
      * <p>getSnmpObjId</p>
      *
@@ -235,7 +235,7 @@ public final class NamedSnmpVar {
     public boolean isTableEntry() {
         return m_isTabular;
     }
-    
+
     /**
      * <p>getCollectionTracker</p>
      *
@@ -244,7 +244,7 @@ public final class NamedSnmpVar {
      */
     public CollectionTracker getCollectionTracker(final Set<SnmpInstId> instances) {
         if ( instances == null ) {
-            return m_isTabular ? new ColumnTracker(getSnmpObjId()) : 
+            return m_isTabular ? new ColumnTracker(getSnmpObjId()) :
                              new SingleInstanceTracker(getSnmpObjId(), SnmpInstId.INST_ZERO);
         } else {
             Collection<Collectable> trackers = new ArrayList<Collectable>();
@@ -279,7 +279,7 @@ public final class NamedSnmpVar {
         CollectionTracker[] trackers = new CollectionTracker[columns.length];
         for(int i = 0; i < columns.length; i++)
             trackers[i] = columns[i].getCollectionTracker(instances);
-        
+
          return trackers;
     }
 

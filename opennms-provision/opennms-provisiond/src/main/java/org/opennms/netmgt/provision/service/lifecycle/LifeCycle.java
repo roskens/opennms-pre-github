@@ -40,12 +40,12 @@ import java.util.List;
  * @version $Id: $
  */
 public class LifeCycle {
-   
+
     private static final String[] OF_STRINGS = new String[0];
-    
+
     private final String m_lifeCycleName;
     private final List<String> m_phases;
-    
+
     /**
      * <p>Constructor for LifeCycle.</p>
      *

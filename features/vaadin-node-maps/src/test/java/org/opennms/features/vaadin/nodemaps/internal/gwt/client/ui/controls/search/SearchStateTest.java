@@ -121,7 +121,7 @@ public class SearchStateTest {
         assertEquals(true, m_searchManager.isAutocompleteVisible());
         assertEquals(false, m_searchManager.isAutocompleteFocused());
         assertEquals(true, m_searchManager.isInputFocused());
-        
+
         typeCharacter(m_searchManager, (char)KeyCodes.KEY_BACKSPACE);
         m_searchManager.updateMatchCount(12);
         typeCharacter(m_searchManager, (char)KeyCodes.KEY_BACKSPACE);
@@ -155,7 +155,7 @@ public class SearchStateTest {
         assertEquals(false, m_searchManager.isAutocompleteFocused());
         assertEquals(true, m_searchManager.isInputFocused());
         assertEquals("ab", m_mockSearchInput.getValue());
-        
+
         // hit enter
         hitEnterInInput(m_searchManager);
         m_searchManager.updateMatchCount(0);

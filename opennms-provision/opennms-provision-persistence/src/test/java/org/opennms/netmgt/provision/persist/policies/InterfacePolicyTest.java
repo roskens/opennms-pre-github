@@ -66,7 +66,7 @@ public class InterfacePolicyTest implements InitializingBean {
     private DatabasePopulator m_populator;
 
     private List<OnmsIpInterface> m_interfaces;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -78,7 +78,7 @@ public class InterfacePolicyTest implements InitializingBean {
         m_populator.populateDatabase();
         m_interfaces = m_ipInterfaceDao.findAll();
     }
-    
+
     @After
     public void tearDown() {
         m_populator.resetDatabase();
@@ -88,7 +88,7 @@ public class InterfacePolicyTest implements InitializingBean {
     @Transactional
     public void testMatchingPolicy() {
         OnmsIpInterface o = null;
-        
+
         final MatchingIpInterfacePolicy p = new MatchingIpInterfacePolicy();
         p.setAction("DO_NOT_PERSIST");
         p.setMatchBehavior("NO_PARAMETERS");
@@ -96,7 +96,7 @@ public class InterfacePolicyTest implements InitializingBean {
 
         final List<OnmsIpInterface> populatedInterfaces = new ArrayList<OnmsIpInterface>();
         final List<OnmsIpInterface> matchedInterfaces = new ArrayList<OnmsIpInterface>();
-        
+
         for (final OnmsIpInterface iface : m_interfaces) {
             System.err.println(iface);
             o = p.apply(iface);
@@ -104,12 +104,12 @@ public class InterfacePolicyTest implements InitializingBean {
                 matchedInterfaces.add(o);
             }
             InetAddress addr = iface.getIpAddress();
-            
+
             if (str(addr).startsWith("10.")) {
                 populatedInterfaces.add(iface);
             }
         }
-        
+
         assertEquals(populatedInterfaces, matchedInterfaces);
     }
 

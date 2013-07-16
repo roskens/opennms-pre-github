@@ -32,19 +32,19 @@ package org.opennms.netmgt.model;
  * <p>PollResult class.</p>
  */
 public class PollResult {
-	
+
 	private Integer m_id;
 	private DemandPoll m_demandPoll;
 	private OnmsMonitoredService m_monitoredService;
 	private PollStatus m_status;
-	
+
 	/**
 	 * <p>Constructor for PollResult.</p>
 	 */
 	public PollResult() {
-		
+
 	}
-	
+
 	/**
 	 * <p>Constructor for PollResult.</p>
 	 *
@@ -53,7 +53,7 @@ public class PollResult {
 	public PollResult(int id) {
 		m_id = id;
 	}
-	
+
 	/**
 	 * <p>getId</p>
 	 *
@@ -124,6 +124,6 @@ public class PollResult {
 	 */
 	public void setDemandPoll(DemandPoll poll) {
 		this.m_demandPoll = poll;
-	}	
+	}
 
 }

@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 public class RequisitionFileUtils {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(RequisitionFileUtils.class);
 
     static void createPath(final File fsPath) throws ForeignSourceRepositoryException {
@@ -96,7 +96,7 @@ public class RequisitionFileUtils {
             return null;
         }
         final File sourceFile = new File(sourceFileName);
-        
+
         if (!sourceFile.exists()) {
             LOG.warn("Trying to create snapshot for {}, but {} does not exist.", url, sourceFileName);
             return null;
@@ -159,7 +159,7 @@ public class RequisitionFileUtils {
             LOG.debug("Resource {} can't be turned into a file, skipping snapshot delete detection.", resource, e);
             return;
         }
-        
+
     }
 
     public static void deleteAllSnapshots(final  ForeignSourceRepository repository) {

@@ -41,7 +41,7 @@ import org.slf4j.MDC;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServiceDaemon {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceDaemon.class);
     /**
      * <p>afterPropertiesSet</p>
@@ -59,7 +59,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     private int m_status;
 
     private String m_name;
-    
+
     private Object m_statusLock = new Object();
 
     /**
@@ -116,7 +116,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
             m_statusLock.notifyAll();
         }
     }
-    
+
     /**
      * <p>waitForStatus</p>
      *
@@ -126,7 +126,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
      */
     protected final void waitForStatus(final int status, final long timeout) throws InterruptedException {
         synchronized (m_statusLock) {
-            
+
             final long last = System.currentTimeMillis();
             long waitTime = timeout;
             while (status != m_status && waitTime > 0) {
@@ -134,7 +134,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
                 long now = System.currentTimeMillis();
                 waitTime -= (now - last);
             }
-        
+
         }
     }
 
@@ -178,8 +178,8 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
      * <p>status</p>
      *
      * @return a {@link java.lang.String} object.
-     * 
-     * @deprecated Use {@link #getStatusText()} instead. This field is only for 
+     *
+     * @deprecated Use {@link #getStatusText()} instead. This field is only for
      * backwards compatibility with JMX operations.
      */
     public String status() {
@@ -212,12 +212,12 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
     protected synchronized boolean isStarting() {
         return getStatus() == STARTING;
     }
-    
+
     /**
      * <p>init</p>
      */
     final public void init() {
-        
+
         Logging.withPrefix(getName(), new Runnable() {
 
             @Override
@@ -228,7 +228,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
                 LOG.info("{} initialization complete.", getName());
             }
-            
+
         });
     }
 
@@ -253,7 +253,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
                 LOG.info("{} paused.", getName());
             }
-            
+
         });
     }
 
@@ -262,7 +262,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
      */
     @Override
     final public void resume() {
-        
+
         Logging.withPrefix(getName(), new Runnable() {
 
             @Override
@@ -277,7 +277,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
                 LOG.info("{} resumed.", getName());
             }
-            
+
         });
     }
 
@@ -287,7 +287,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
      */
     @Override
     final public synchronized void start() {
-        
+
         Logging.withPrefix(getName(), new Runnable() {
 
             @Override
@@ -300,9 +300,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
                 LOG.info("{} started.", getName());
             }
-            
+
         });
-        
+
     }
 
     /**
@@ -311,7 +311,7 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
      */
     @Override
     final public synchronized void stop() {
-        
+
         Logging.withPrefix(getName(), new Runnable() {
 
             @Override
@@ -324,9 +324,9 @@ public abstract class AbstractServiceDaemon implements ServiceDaemon, SpringServ
 
                 LOG.info("{} stopped.", getName());
             }
-            
+
         });
-        
+
     }
 
     /**

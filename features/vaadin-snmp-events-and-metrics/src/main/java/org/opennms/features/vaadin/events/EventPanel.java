@@ -56,8 +56,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class Event Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class EventPanel extends Panel {

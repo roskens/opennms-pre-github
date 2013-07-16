@@ -81,7 +81,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
         m_resourceLabelExpression = resourceLabelExpression;
         m_storageStrategy = storageStrategy;
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -91,7 +91,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -101,7 +101,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public String getLabel() {
         return m_label;
     }
-    
+
     /**
      * <p>getStorageStrategy</p>
      *
@@ -110,16 +110,16 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public StorageStrategy getStorageStrategy() {
         return m_storageStrategy;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
       return getResourceTypeDirectory(nodeId, false).isDirectory();
     }
-    
+
     private File getResourceTypeDirectory(int nodeId, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
-        
+
         File node = new File(snmp, Integer.toString(nodeId));
         if (verify && !node.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No node directory exists for node " + nodeId + ": " + node);
@@ -132,7 +132,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         return generic;
     }
-    
+
     private File getResourceTypeDirectory(String nodeSource, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
 
@@ -148,7 +148,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         return generic;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(int nodeId) {
@@ -160,7 +160,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
         }
         return OnmsResource.sortIntoResourceList(resources);
     }
-    
+
     /**
      * <p>getQueryableIndexesForNode</p>
      *
@@ -169,20 +169,20 @@ public class GenericIndexResourceType implements OnmsResourceType {
      */
     public List<String> getQueryableIndexesForNode(int nodeId) {
         File nodeDir = getResourceTypeDirectory(nodeId, true);
-        
+
         List<String> indexes = new LinkedList<String>();
-        
+
         File[] indexDirs =
             nodeDir.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
 
         if (indexDirs == null) {
             return indexes;
         }
-        
+
         for (File indexDir : indexDirs) {
             indexes.add(indexDir.getName());
         }
-        
+
         return indexes;
     }
 
@@ -210,7 +210,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         return indexes;
     }
-    
+
     /**
      * <p>getResourceByNodeAndIndex</p>
      *
@@ -222,7 +222,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
         final Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new AttributeLoader(nodeId, index));
         return getResourceByIndex(set, index);
     }
-    
+
     /**
      * <p>getResourceByNodeSourceAndIndex</p>
      *
@@ -234,7 +234,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
         final Set<OnmsAttribute> set = new LazySet<OnmsAttribute>(new NodeSourceAttributeLoader(nodeSource, index));
         return getResourceByIndex(set, index);
     }
-    
+
     /**
      * <p>getResourceByIndex</p>
      *
@@ -243,7 +243,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
      * @return a {@link org.opennms.netmgt.model.OnmsResource} object.
      */
     public OnmsResource getResourceByIndex(final Set<OnmsAttribute> set, final String index) {
-    
+
         String label;
         if (m_resourceLabelExpression == null) {
             label = index;
@@ -251,13 +251,13 @@ public class GenericIndexResourceType implements OnmsResourceType {
             SymbolTable symbolTable = new SymbolTable() {
                 private int lastN;
                 private boolean lastNSet = false;
-                
+
                 @Override
                 public String getSymbolValue(String symbol) {
                     if (symbol.equals("index")) {
                         return index;
                     }
- 
+
                     Matcher subIndexMatcher = SUB_INDEX_PATTERN.matcher(symbol);
                     if (subIndexMatcher.matches()) {
                         Matcher subIndexArgumentsMatcher = SUB_INDEX_ARGUMENTS_PATTERN.matcher(subIndexMatcher.group(1));
@@ -265,9 +265,9 @@ public class GenericIndexResourceType implements OnmsResourceType {
                             // Invalid arguments
                             return null;
                         }
-                        
+
                         List<String> indexElements = tokenizeIndex(index);
-                        
+
                         int start;
                         int offset;
                         if ("n".equals(subIndexArgumentsMatcher.group(1)) && lastNSet) {
@@ -294,16 +294,16 @@ public class GenericIndexResourceType implements OnmsResourceType {
                         } else {
                             if (subIndexArgumentsMatcher.group(2) == null) {
                                 end = indexElements.size();
-                            } else {                            
+                            } else {
                                 end = start + Integer.parseInt(subIndexArgumentsMatcher.group(2));
                             }
                         }
-                        
+
                         if (start < 0 || start >= indexElements.size()) {
                             // Bogus index start
                             return null;
                         }
-                        
+
                         if (end < 0 || end > indexElements.size()) {
                             // Bogus index end
                             return null;
@@ -314,18 +314,18 @@ public class GenericIndexResourceType implements OnmsResourceType {
                             if (indexSubString.length() != 0) {
                                 indexSubString.append(".");
                             }
-                            
+
                             indexSubString.append(indexElements.get(i));
                         }
-                        
+
                         return indexSubString.toString();
                     }
-                    
+
                     Matcher hexMatcher = HEX_PATTERN.matcher(symbol);
                     if (hexMatcher.matches()) {
                         String subSymbol = getSymbolValue(hexMatcher.group(1));
                         List<String> indexElements = tokenizeIndex(subSymbol);
-                        
+
                         StringBuffer hexString = new StringBuffer();
                         for (String indexElement : indexElements) {
                             if (hexString.length() > 0) {
@@ -337,23 +337,23 @@ public class GenericIndexResourceType implements OnmsResourceType {
                                 return null;
                             }
                         }
-                        
+
                         return hexString.toString();
                     }
-                    
+
                     Matcher stringMatcher = STRING_PATTERN.matcher(symbol);
                     if (stringMatcher.matches()) {
                         String subSymbol = getSymbolValue(stringMatcher.group(1));
                         List<String> indexElements = tokenizeIndex(subSymbol);
-                        
+
                         StringBuffer stringString = new StringBuffer();
                         for (String indexElement : indexElements) {
                             stringString.append(String.format("%c", Integer.parseInt(indexElement)));
                         }
-                        
+
                         return stringString.toString();
                     }
-                    
+
                     for (OnmsAttribute attr : set) {
                         if (symbol.equals(attr.getName())) {
                             if (StringPropertyAttribute.class.isAssignableFrom(attr.getClass())) {
@@ -366,7 +366,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
                             }
                         }
                     }
-                    
+
                     return null;
                 }
 
@@ -379,7 +379,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
                     return indexElements;
                 }
             };
-            
+
             label = PropertiesUtils.substitute(m_resourceLabelExpression, symbolTable);
         }
 
@@ -387,7 +387,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     }
 
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
-    
+
         private int m_nodeId;
         private String m_index;
 
@@ -398,10 +398,10 @@ public class GenericIndexResourceType implements OnmsResourceType {
 
         @Override
         public Set<OnmsAttribute> load() {
-            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(m_nodeId, m_index)); 
+            return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(m_nodeId, m_index));
         }
     }
-    
+
     public class NodeSourceAttributeLoader implements LazySet.Loader<OnmsAttribute> {
 
         private String m_nodeSource;
@@ -431,7 +431,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
             + File.separator + getName()
             + File.separator + index;
     }
-    
+
     /**
      * <p>getRelativePathForNodeSourceResource</p>
      *
@@ -448,7 +448,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
             + File.separator + getName()
             + File.separator + index;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -459,7 +459,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnDomain(String domain) {
         return false;
     }
-    
+
 
     /** {@inheritDoc} */
     @Override
@@ -473,7 +473,7 @@ public class GenericIndexResourceType implements OnmsResourceType {
     public String getLinkForResource(OnmsResource resource) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
@@ -497,5 +497,5 @@ public class GenericIndexResourceType implements OnmsResourceType {
         }
         return OnmsResource.sortIntoResourceList(resources);
     }
-    
+
 }

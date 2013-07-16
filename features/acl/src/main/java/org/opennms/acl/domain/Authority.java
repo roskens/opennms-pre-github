@@ -61,7 +61,7 @@ import org.opennms.acl.service.AuthorityService;
 public class Authority implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8511033606854401267L;
     /**

@@ -55,7 +55,7 @@ import org.opennms.web.admin.users.parsers.User;
  */
 public class RemoveDutySchedulesServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7251657805301792512L;
 

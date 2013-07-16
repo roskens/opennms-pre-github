@@ -54,7 +54,7 @@ public class OnmsMonitoredServiceRequisition {
         m_svc = svc;
         m_categoryReqs = constructCategoryReqs();
     }
-    
+
     private List<OnmsServiceCategoryRequisition> constructCategoryReqs() {
         List<OnmsServiceCategoryRequisition> reqs = new ArrayList<OnmsServiceCategoryRequisition>(m_svc.getCategories().size());
         for (RequisitionCategory cat : m_svc.getCategories()) {
@@ -92,5 +92,5 @@ public class OnmsMonitoredServiceRequisition {
         return m_svc.getServiceName();
     }
 
-    
+
 }

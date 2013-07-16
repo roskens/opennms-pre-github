@@ -41,12 +41,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BaseDetectorHandler.class);
-    
+
     private DetectFutureMinaImpl m_future;
     private AsyncClientConversation<Request, Response> m_conversation;
-    
+
 
     /**
      * <p>setFuture</p>
@@ -67,11 +67,11 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
     public DetectFutureMinaImpl getFuture() {
         return m_future;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void sessionCreated(IoSession session) throws Exception {
-        
+
     }
 
     /** {@inheritDoc} */
@@ -117,11 +117,11 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
     public void messageReceived(IoSession session, Object message) throws Exception {
         try {
             LOG.debug("Client Receiving: {}", message.toString().trim());
-            
+
             if(getConversation().hasExchanges() && getConversation().validate((Response)message)) {
-               
+
                Object request = getConversation().getRequest();
-               
+
                 if(request != null) {
                    session.write(request);
                }else if(request == null && getConversation().isComplete()){
@@ -138,13 +138,13 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
                 getFuture().setServiceDetected(false);
                 session.close(false);
             }
-            
+
         }catch(Throwable e){
               if(!session.isClosing()){
                   session.close(true);
               }
         }
-        
+
     }
 
     /**
@@ -153,9 +153,9 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
      * @param conversation a {@link org.opennms.netmgt.provision.support.AsyncClientConversation} object.
      */
     public void setConversation(AsyncClientConversation<Request, Response> conversation) {
-        m_conversation = conversation;        
+        m_conversation = conversation;
     }
-    
+
     /**
      * <p>getConversation</p>
      *
@@ -164,5 +164,5 @@ public class BaseDetectorHandler<Request, Response> extends IoHandlerAdapter {
     public AsyncClientConversation<Request, Response> getConversation() {
         return m_conversation;
     }
-    
+
 }

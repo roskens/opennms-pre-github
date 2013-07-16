@@ -52,7 +52,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	@UiConstructor
 	public DisclosurePanelCookie(final String cookieName) {
-		
+
 		panel.setStyleName("DisclosurePanelCookie");
 		panel.setAnimationEnabled(true);
 
@@ -90,7 +90,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.user.client.ui.HasWidgets#add(com.google.gwt.user.client
 	 * .ui.Widget)
@@ -106,7 +106,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.google.gwt.user.client.ui.HasWidgets#clear()
 	 */
 	@Override
@@ -116,7 +116,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see com.google.gwt.user.client.ui.HasWidgets#iterator()
 	 */
 	@Override
@@ -126,7 +126,7 @@ public class DisclosurePanelCookie extends Composite implements HasWidgets {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.user.client.ui.HasWidgets#remove(com.google.gwt.user.client
 	 * .ui.Widget)

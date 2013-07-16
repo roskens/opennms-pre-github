@@ -40,7 +40,7 @@ package org.opennms.web.map;
  */
 public class MapNotFoundException extends MapsException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2982980097337281523L;
 

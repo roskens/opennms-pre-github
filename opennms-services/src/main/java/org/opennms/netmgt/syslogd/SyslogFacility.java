@@ -56,7 +56,7 @@ public enum SyslogFacility {
     UNKNOWN(99, "unknown");
 
     public static final int MASK = 0x03F8;
-    
+
     private final int m_facility;
     private final String m_name;
     private final String m_description;
@@ -66,11 +66,11 @@ public enum SyslogFacility {
         m_name = name().toLowerCase().intern();
         m_description = description.intern();
     }
-    
+
     public int getFacilityNumber() {
         return m_facility;
     }
-    
+
     public String getDescription() {
         return m_description;
     }
@@ -94,7 +94,7 @@ public enum SyslogFacility {
         }
         return facilities[fac];
     }
-    
+
     public static SyslogFacility getFacilityForCode(final int code) {
         return getFacility((code & MASK) >> 3);
     }

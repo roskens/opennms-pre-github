@@ -17,9 +17,9 @@ import org.opennms.netmgt.model.ncs.NCSComponentRepository;
 import com.vaadin.data.util.BeanItem;
 
 public class NCSServiceContainerTest {
-    
+
     private class TestRepository implements NCSComponentRepository{
-        
+
         List<NCSComponent> m_componentList = new ArrayList<NCSComponent>();
         public TestRepository() {
             m_componentList.add(createNCSComponent(1537, "MplsLSP", "ServiceElementComponent", "space_TransportActivate"));
@@ -52,9 +52,9 @@ public class NCSServiceContainerTest {
             m_componentList.add(createNCSComponent(2279, "VpnPW", "ServiceElementComponent", "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2280, "", "ServiceElement", "space_ServiceProvisioning"));
             m_componentList.add(createNCSComponent(2281, "VPLS_Multi_Point", "Service", "space_ServiceProvisioning"));
-            
+
         }
-        
+
         private NCSComponent createNCSComponent(long id, String name, String type , String foreignSource) {
             NCSComponent component = new NCSComponent();
             component.setId(id);
@@ -147,16 +147,16 @@ public class NCSServiceContainerTest {
         public List<NCSComponent> findComponentsByNodeId(int nodeid) {
             return null;
         }
-        
+
     }
 
     private NCSServiceContainer m_container;
-    
+
     @Before
     public void setUp() {
         m_container = new NCSServiceContainer(new TestRepository());
     }
-    
+
     @Test
     public void testRootIds() {
         Collection<Long> rootIds = m_container.rootItemIds();
@@ -164,7 +164,7 @@ public class NCSServiceContainerTest {
         BeanItem<NCSServiceItem> item = m_container.getItem(rootIds.iterator().next());
         System.out.println(item.getItemProperty("id").getValue());
     }
-    
+
     @Test
     public void testGetChildrenForItemId() {
         Collection<Long> rootItemIds = m_container.rootItemIds();
@@ -176,11 +176,11 @@ public class NCSServiceContainerTest {
         }
         System.out.println(children);
     }
-    
+
     @Test
     public void testAreChildrenAllowed() {
         Collection<Long> allItemIds = m_container.getItemIds();
-        
+
         for(Long itemId : allItemIds) {
             BeanItem<NCSServiceItem> item = m_container.getItem(itemId);
             boolean isRoot = (Boolean) item.getItemProperty("isRoot").getValue();
@@ -191,5 +191,5 @@ public class NCSServiceContainerTest {
             }
         }
     }
-    
+
 }

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -52,7 +52,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 /**
  * The script information for this event - describes a
  *  script to be executed whenever the event occurs.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -96,7 +96,7 @@ public class Script implements Serializable {
     /**
      * Returns the value of field 'content'. The field 'content'
      * has the following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public java.lang.String getContent(
@@ -106,7 +106,7 @@ public class Script implements Serializable {
 
     /**
      * Returns the value of field 'language'.
-     * 
+     *
      * @return the value of field 'Language'.
      */
     public java.lang.String getLanguage(
@@ -117,7 +117,7 @@ public class Script implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
-     * 
+     *
      * @param content the value of field 'content'.
      */
     public void setContent(
@@ -127,7 +127,7 @@ public class Script implements Serializable {
 
     /**
      * Sets the value of field 'language'.
-     * 
+     *
      * @param language the value of field 'language'.
      */
     public void setLanguage(

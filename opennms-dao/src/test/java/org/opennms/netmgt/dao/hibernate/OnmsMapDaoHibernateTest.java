@@ -69,9 +69,9 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     private static boolean m_populated = false;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -208,12 +208,12 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         m_onmsMapDao.clear();
 
         OnmsMap map2 = m_onmsMapDao.findMapById(map.getId());
-        
+
         map2.setType(OnmsMap.AUTOMATIC_SAVED_MAP);
         m_onmsMapDao.save(map2);
         m_onmsMapDao.flush();
         m_onmsMapDao.clear();
-       
+
         OnmsMap map3 = m_onmsMapDao.findMapById(map.getId());
         assertNotSame(map2, map3);
         assertEquals(map2.getName(), map3.getName());
@@ -368,7 +368,7 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(OnmsMap.ACCESS_MODE_ADMIN, map.getAccessMode());
         assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
-    
+
 	@Test
 	@Transactional
     public void testFindMapbyGroup() {
@@ -378,7 +378,7 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals("DB_Pop_Test_Map", map.getName());
         assertEquals("fake_background.jpg", map.getBackground());
         assertEquals(OnmsMap.ACCESS_MODE_ADMIN, map.getAccessMode());
-        assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());        
+        assertEquals(OnmsMap.USER_GENERATED_MAP, map.getType());
     }
 
 	@Test
@@ -388,7 +388,7 @@ public class OnmsMapDaoHibernateTest implements InitializingBean {
         assertEquals(0, maps.size());
     }
 
-    
+
 	@Test
 	@Transactional
     public void testFindVisibleMapByGroup() {

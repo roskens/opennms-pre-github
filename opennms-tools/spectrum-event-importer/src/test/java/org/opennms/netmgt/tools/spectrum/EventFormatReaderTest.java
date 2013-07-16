@@ -46,25 +46,25 @@ public class EventFormatReaderTest {
     public void setUp() {
         MockLogAppender.setupLogging();
     }
-    
+
     @Test
     public void oneArgConstructor() throws IOException {
         @SuppressWarnings("unused")
         EventFormatReader reader = new EventFormatReader(new FileSystemResource("src/test/resources/sonus-traps/CsEvFormat/Eventfff0034e"));
     }
-    
+
     @Test
     public void readCovergenceSystemHaltEventFormat() throws IOException {
         EventFormatReader reader = new EventFormatReader(new FileSystemResource("src/test/resources/sonus-traps/CsEvFormat/Eventfff0034e"));
         EventFormat ef = reader.getEventFormat();
-        
+
         Assert.assertEquals("Check the contents against known good copy",
                             "{d \"%w- %d %m-, %Y - %T\"} - A \"systemHalt\" event has occurred, from {t} device, named {m}.\n" +
                             "\n" +
                             "\"system: report that a system halt has been initiated\"\n" +
                             "\n" +
                             "(event [{e}])\n", ef.getContents());
-        
+
         Assert.assertEquals("Format should have four substitution tokens", 4, ef.getSubstTokens().size());
         Assert.assertEquals("Date stamp substitution token", "{d \"%w- %d %m-, %Y - %T\"}", ef.getSubstTokens().get(0));
         Assert.assertEquals("Model type substitution token", "{t}", ef.getSubstTokens().get(1));

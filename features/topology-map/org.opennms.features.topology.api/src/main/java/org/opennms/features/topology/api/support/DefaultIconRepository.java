@@ -41,7 +41,7 @@ public class DefaultIconRepository implements IconRepository {
     public boolean contains(String type) {
         return m_iconMap.containsKey(type);
     }
-    
+
     public void setIconMap(Map<String, String> icons) {
         m_iconMap = icons;
     }

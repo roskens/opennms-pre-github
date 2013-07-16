@@ -59,9 +59,9 @@ import org.slf4j.LoggerFactory;
 
 @EventListener(name="snmpPoller", logPrefix="snmp-poller")
 public class SnmpPoller extends AbstractServiceDaemon {
-    
+
     private final static Logger LOG = LoggerFactory.getLogger(SnmpPoller.class);
-    
+
     private final static SnmpPoller m_singleton = new SnmpPoller();
 
     private boolean m_initialized = false;
@@ -69,9 +69,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
     private LegacyScheduler m_scheduler = null;
 
     private SnmpInterfacePollerConfig m_pollerConfig;
-    
+
     private PollableNetwork m_network;
-        
+
     /**
      * <p>getNetwork</p>
      *
@@ -161,7 +161,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
      */
     @Override
     protected void onStop() {
-        
+
         if(getScheduler()!=null) {
             LOG.debug("onStop: stopping scheduler");
             getScheduler().stop();
@@ -194,7 +194,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
     public static SnmpPoller getInstance() {
         return m_singleton;
     }
-    
+
     /**
      * <p>Constructor for SnmpPoller.</p>
      */
@@ -205,9 +205,9 @@ public class SnmpPoller extends AbstractServiceDaemon {
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
-        
+
         createScheduler();
-        
+
         // Schedule the interfaces currently in the database
         //
         try {
@@ -218,31 +218,31 @@ public class SnmpPoller extends AbstractServiceDaemon {
         }
 
         m_initialized = true;
-        
+
     }
-        
+
     /**
      * <p>scheduleNewSnmpInterface</p>
      *
      * @param ipaddr a {@link java.lang.String} object.
      */
     protected void scheduleNewSnmpInterface(String ipaddr) {
- 
+
     	for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodesByIp(ipaddr)) {
-            schedulePollableInterface(iface);    		
+            schedulePollableInterface(iface);
     	}
-                
+
     }
-    
+
     /**
      * <p>scheduleExistingSnmpInterface</p>
      */
     protected void scheduleExistingSnmpInterface() {
-        
+
     	for (OnmsIpInterface iface : getNetwork().getContext().getPollableNodes()) {
-            schedulePollableInterface(iface);    		
+            schedulePollableInterface(iface);
     	}
-    }   
+    }
 
     /**
      * <p>schedulePollableInterface</p>
@@ -264,29 +264,29 @@ public class SnmpPoller extends AbstractServiceDaemon {
             }
         }
     }
-    
+
     private void scheduleSnmpCollection(PollableInterface nodeGroup,String pkgName) {
-    	
+
     	String excludingCriteria = new String(" snmpifindex > 0 ");
         for (String pkgInterfaceName: getPollerConfig().getInterfaceOnPackage(pkgName)) {
             LOG.debug("found package interface with name: {}", pkgInterfaceName);
             if (getPollerConfig().getStatus(pkgName, pkgInterfaceName)){
-                
+
                 String criteria = getPollerConfig().getCriteria(pkgName, pkgInterfaceName);
                 LOG.debug("package interface: criteria: {}", criteria);
                 excludingCriteria = excludingCriteria + " and not " + criteria;
-                
+
                 long interval = getPollerConfig().getInterval(pkgName, pkgInterfaceName);
                 LOG.debug("package interface: interval: {}", interval);
 
                 boolean hasPort = getPollerConfig().hasPort(pkgName, pkgInterfaceName);
                 int port = -1;
                 if (hasPort) port = getPollerConfig().getPort(pkgName, pkgInterfaceName);
-                
+
                 boolean hasTimeout = getPollerConfig().hasTimeout(pkgName, pkgInterfaceName);
                 int timeout = -1;
                 if (hasTimeout) timeout = getPollerConfig().getTimeout(pkgName, pkgInterfaceName);
-                
+
                 boolean hasRetries = getPollerConfig().hasRetries(pkgName, pkgInterfaceName);
                 int retries = -1;
                 if (hasRetries) retries = getPollerConfig().getRetries(pkgName, pkgInterfaceName);
@@ -295,7 +295,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
                 int maxVarsPerPdu = -1;
                 if (hasMaxVarsPerPdu) maxVarsPerPdu = getPollerConfig().getMaxVarsPerPdu(pkgName, pkgInterfaceName);
 
-                PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface(pkgInterfaceName, criteria, 
+                PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface(pkgInterfaceName, criteria,
                    hasPort, port, hasTimeout, timeout, hasRetries, retries, hasMaxVarsPerPdu, maxVarsPerPdu);
 
                 node.setSnmpinterfaces(getNetwork().getContext().get(node.getParent().getNodeid(), criteria));
@@ -307,7 +307,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
         }
         if (!getPollerConfig().useCriteriaFilters()) {
             LOG.debug("excluding criteria used for default polling: {}", excludingCriteria);
-            PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface("null", excludingCriteria, 
+            PollableSnmpInterface node = nodeGroup.createPollableSnmpInterface("null", excludingCriteria,
                 false, -1, false, -1, false, -1, false, -1);
 
             node.setSnmpinterfaces(getNetwork().getContext().get(node.getParent().getNodeid(), excludingCriteria));
@@ -315,7 +315,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
             getNetwork().schedule(node,getPollerConfig().getInterval(),getScheduler());
         }
     }
-    
+
     private void createScheduler() {
 
         // Create a scheduler
@@ -329,7 +329,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
             throw e;
         }
     }
-    
+
     /**
      * <p>reloadSnmpConfig</p>
      *
@@ -344,12 +344,12 @@ public class SnmpPoller extends AbstractServiceDaemon {
             LOG.debug("interrupted while waiting for reload", e);
             Thread.currentThread().interrupt();
         }
-        
+
         SnmpEventInfo info = null;
         try {
             info = new SnmpEventInfo(event);
-            
-            if (StringUtils.isBlank(info.getFirstIPAddress())) {                
+
+            if (StringUtils.isBlank(info.getFirstIPAddress())) {
                 LOG.error("configureSNMPHandler: event contained invalid firstIpAddress. {}", event);
                 return;
             }
@@ -357,7 +357,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
             LOG.error("reloadSnmpConfig: ", e);
             return;
         }
-        
+
         final IPAddressRange range = new IPAddressRange(info.getFirstIPAddress(), info.getLastIPAddress());
         for (final IPAddress ipaddr : range) {
             LOG.debug("reloadSnmpConfig: found ipaddr: {}", ipaddr);
@@ -370,7 +370,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
             }
         }
     }
-    
+
     /**
      * <p>reloadConfig</p>
      *
@@ -398,7 +398,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
         LOG.debug("primarychangeHandler: managing event: {}", event.getUei());
 
         getNetwork().delete(Long.valueOf(event.getNodeid()).intValue());
-        
+
         for (Parm parm : event.getParmCollection()){
             if (parm.isValid() && parm.getParmName().equals("newPrimarySnmpAddress")) {
                 scheduleNewSnmpInterface(parm.getValue().getContent());
@@ -406,7 +406,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
             }
         }
     }
-    
+
     /**
      * <p>deleteInterfaceHaldler</p>
      *
@@ -492,7 +492,7 @@ public class SnmpPoller extends AbstractServiceDaemon {
                 getNetwork().activate(event.getInterface());
             }
         }
-        
+
     }
 
     /**

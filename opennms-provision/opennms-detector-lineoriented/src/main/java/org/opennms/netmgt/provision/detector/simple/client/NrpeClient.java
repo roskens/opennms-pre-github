@@ -50,19 +50,19 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrapper {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NrpeClient.class);
-    /** 
+    /**
      * List of cipher suites to use when talking SSL to NRPE, which uses anonymous DH
      */
     private static final String[] ADH_CIPHER_SUITES = new String[] {"TLS_DH_anon_WITH_AES_128_CBC_SHA"};
-    
+
     private Socket m_socket;
     private int m_padding = 2;
     private boolean m_useSsl = true;
     private OutputStream m_out;
     private InputStream m_in;
-    
+
     /**
      * <p>close</p>
      */
@@ -74,11 +74,11 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
             if(socket != null) {
                 socket.close();
             }
-            
+
         } catch (final IOException e) {
             LOG.debug("failed to close socket", e);
         }
-        
+
     }
 
     /** {@inheritDoc} */
@@ -88,7 +88,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
         setOutput(m_socket.getOutputStream());
         setInput(m_socket.getInputStream());
     }
-    
+
     /**
      * <p>getWrappedSocket</p>
      *
@@ -109,7 +109,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
             return null;
         }
     }
-    
+
     /**
      * <p>wrapSocket</p>
      *
@@ -155,7 +155,7 @@ public class NrpeClient implements Client<NrpeRequest, NrpePacket>, SocketWrappe
         request.send(getOutput());
         return receiveResponse();
     }
-    
+
     private NrpePacket receiveResponse() throws Exception {
         final NrpePacket response = NrpePacket.receivePacket(getInput(), getPadding());
         LOG.info("what is response: {}", response.getResultCode());

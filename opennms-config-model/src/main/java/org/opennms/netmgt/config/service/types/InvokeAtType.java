@@ -40,7 +40,7 @@ import java.util.Hashtable;
 
 /**
  * Class InvokeAtType.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class InvokeAtType implements java.io.Serializable {
@@ -115,7 +115,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * Method enumerate.Returns an enumeration of all possible instances of
      * InvokeAtType
-     * 
+     *
      * @return an Enumeration over all possible instances of InvokeAtType
      */
     public static Enumeration<Object> enumerate() {
@@ -124,7 +124,7 @@ public class InvokeAtType implements java.io.Serializable {
 
     /**
      * Method getType.Returns the type of this InvokeAtType
-     * 
+     *
      * @return the type of this InvokeAtType
      */
     public int getType() {
@@ -133,7 +133,7 @@ public class InvokeAtType implements java.io.Serializable {
 
     /**
      * Method init.
-     * 
+     *
      * @return the initialized Hashtable for the member table
      */
     private static Hashtable<Object, Object> init() {
@@ -147,7 +147,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * Method readResolve. will be called during deserialization to replace
      * the deserialized object with the correct constant instance.
-     * 
+     *
      * @return this deserialized object
      */
     private Object readResolve() {
@@ -156,7 +156,7 @@ public class InvokeAtType implements java.io.Serializable {
 
     /**
      * Method toString.Returns the String representation of this InvokeAtType
-     * 
+     *
      * @return the String representation of this InvokeAtType
      */
     public String toString() {
@@ -166,7 +166,7 @@ public class InvokeAtType implements java.io.Serializable {
     /**
      * Method valueOf.Returns a new InvokeAtType based on the given String
      * value.
-     * 
+     *
      * @param string
      * @return the InvokeAtType value of parameter 'string'
      */

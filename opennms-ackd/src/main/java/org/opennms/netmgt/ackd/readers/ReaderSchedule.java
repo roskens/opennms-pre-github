@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.netmgt.ackd.readers;
 
@@ -40,12 +40,12 @@ import java.util.concurrent.TimeUnit;
  * @version $Id: $
  */
 public class ReaderSchedule {
-    
+
     private long m_initialDelay;
     private long m_interval;
     private long m_attemptsRemaining;
     private TimeUnit m_unit;
-    
+
     /**
      * <p>createSchedule</p>
      *
@@ -71,7 +71,7 @@ public class ReaderSchedule {
     private ReaderSchedule() {
         this(60, 60, 1, TimeUnit.SECONDS);
     }
-    
+
     private ReaderSchedule(long initDelay, long interval, int attempts, TimeUnit unit) {
         m_initialDelay = initDelay;
         m_interval = interval;
@@ -165,24 +165,24 @@ public class ReaderSchedule {
      */
     public static ReaderSchedule createSchedule(long interval, String unit) {
         TimeUnit tu = TimeUnit.SECONDS;
-        
+
         if ("d".equals(unit)) {
             interval = interval * 60*60*24;
-            
+
         } else if ("h".equals(unit)) {
             interval = interval * 60*60;
-            
+
         } else if ("m".equals(unit)) {
             interval = interval * 60;
-            
+
         } else if ("s".equals(unit)) {
-            
+
         } else if ("ms".equals(unit)) {
             tu = TimeUnit.MILLISECONDS;
-            
+
         }
-        
+
         return createSchedule(interval, interval, 0, tu);
     }
-    
+
 }

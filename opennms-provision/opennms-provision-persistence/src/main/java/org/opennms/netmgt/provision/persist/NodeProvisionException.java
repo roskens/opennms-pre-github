@@ -43,7 +43,7 @@ public class NodeProvisionException extends RuntimeException {
     public NodeProvisionException() {
         super();
     }
-    
+
     /**
      * <p>Constructor for NodeProvisionException.</p>
      *

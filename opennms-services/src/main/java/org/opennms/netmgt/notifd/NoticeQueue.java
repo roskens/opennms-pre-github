@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
     private static final Logger LOG = LoggerFactory.getLogger(NoticeQueue.class);
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7463770974135218140L;
 
@@ -54,7 +54,7 @@ public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
     public NotificationTask putItem(Long key, NotificationTask value) {
         NotificationTask ret = super.putItem(key, value);
 
-        
+
         if (LOG.isDebugEnabled()) {
             if (value.getNotifyId() == -1) {
                 LOG.debug("autoNotify task queued");
@@ -62,7 +62,7 @@ public class NoticeQueue extends DuplicateTreeMap<Long, NotificationTask> {
                 LOG.debug("task queued for notifyID {}", value.getNotifyId());
             }
         }
-        
+
         return ret;
     }
 }

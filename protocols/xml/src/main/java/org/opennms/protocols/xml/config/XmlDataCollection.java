@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlDataCollection.
- * 
+ *
  * <pre>
  * &lt;xml-datacollection-config rrdRepository="/opt/opennms/share/rrd/snmp/"
  *    xmlns="http://xmlns.opennms.org/xsd/config/xml-datacollection"&gt;
@@ -68,7 +68,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  *    &lt;/xml-collection&gt;
  * &lt;/xml-datacollection-config&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-collection")

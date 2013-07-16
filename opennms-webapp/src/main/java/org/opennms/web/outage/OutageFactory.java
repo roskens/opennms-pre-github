@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:jason@opennms.org">Jason Johns </A>
  */
 public class OutageFactory extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OutageFactory.class);
 
 
@@ -121,12 +121,12 @@ public class OutageFactory extends Object {
             }
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -277,12 +277,12 @@ public class OutageFactory extends Object {
             LOG.debug(select.toString());
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             outages = rs2Outages(rs);

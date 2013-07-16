@@ -174,11 +174,11 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     }
 
     private EventAnticipator m_anticipator;
-    
+
     private EventWriter m_eventWriter = new EventWriter() {
         @Override
         public void writeEvent(final Event e) {
-            
+
         }
     };
 
@@ -189,7 +189,7 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     private volatile int m_eventDelay = 20;
 
     private boolean m_synchronous = true;
-    
+
     private ScheduledExecutorService m_scheduler = null;
 
     private EventIpcManagerProxy m_proxy;
@@ -197,7 +197,7 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     public MockEventIpcManager() {
         m_anticipator = new EventAnticipator();
     }
-    
+
     @Override
     public void addEventListener(final EventListener listener) {
         m_listeners.add(new ListenerKeeper(listener, null));
@@ -215,14 +215,14 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
 
     @Override
     public void broadcastNow(final Event event) {
-    	
+
     	LOG.debug("Sending: {}", new EventWrapper(event));
         final List<ListenerKeeper> listeners = new ArrayList<ListenerKeeper>(m_listeners);
         for (final ListenerKeeper k : listeners) {
             k.sendEventIfAppropriate(event);
         }
     }
-    
+
     public void setEventWriter(final EventWriter eventWriter) {
         m_eventWriter = eventWriter;
     }
@@ -230,7 +230,7 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     public EventAnticipator getEventAnticipator() {
         return m_anticipator;
     }
-    
+
     public void setEventAnticipator(final EventAnticipator anticipator) {
         m_anticipator = anticipator;
     }
@@ -249,7 +249,7 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     public void removeEventListener(final EventListener listener, final String uei) {
         m_listeners.remove(new ListenerKeeper(listener, Collections.singleton(uei)));
     }
-    
+
     public synchronized void setEventDelay(final int millis) {
         m_eventDelay  = millis;
     }
@@ -265,11 +265,11 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     public void setSynchronous(final boolean syncState) {
         m_synchronous = syncState;
     }
-    
+
     public boolean isSynchronous() {
         return m_synchronous;
     }
-    
+
     @Override
     public synchronized void sendNow(final Event event) {
         // Expand the event parms
@@ -297,14 +297,14 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
                 }
             }
         };
-        
+
         if (isSynchronous()) {
             r.run();
         } else {
             getScheduler().schedule(r, m_eventDelay, TimeUnit.MILLISECONDS);
         }
     }
-    
+
     ScheduledExecutorService getScheduler() {
         if (m_scheduler == null) {
             m_scheduler = Executors.newSingleThreadScheduledExecutor(
@@ -322,7 +322,7 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
     }
 
     /**
-     * 
+     *
      */
     public synchronized void finishProcessingEvents() {
         while (m_pendingEvents > 0) {
@@ -342,16 +342,16 @@ public class MockEventIpcManager implements EventForwarder, EventProxy, EventIpc
 
     public void setEventdConfigMgr(final EventdConfigManager eventdConfigMgr) {
         // TODO Auto-generated method stub
-        
+
     }
 
     public void setDataSource(final DataSource instance) {
         // TODO Auto-generated method stub
-        
+
     }
-    
-    
-    
+
+
+
 
     public void reset() {
         m_listeners = new ArrayList<ListenerKeeper>();

@@ -39,14 +39,14 @@ import com.google.gwt.user.client.ui.RootPanel;
  * Entry point classes define <code>onModuleLoad()</code>.
  */
 public class NodeSuggestionCombobox implements EntryPoint {
-  
+
 
   /**
    * This is the entry point method.
    */
     @Override
     public void onModuleLoad() {
-        
+
         if(Window.Navigator.getUserAgent().contains("MSIE")) {
             NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
             for(int j = 0; j < divs.getLength(); j++) {
@@ -55,18 +55,18 @@ public class NodeSuggestionCombobox implements EntryPoint {
                     createView(element);
                 }
             }
-            
+
         }else {
             NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:nodeSuggestionCombobox");
             if(nodes.getLength() > 0) {
                 for(int i = 0; i < nodes.getLength(); i++) {
                     createView(nodes.getItem(i));
                 }
-                
+
             }
         }
-      
-    
+
+
     }
 
     private void createView(Element elem) {
@@ -74,5 +74,5 @@ public class NodeSuggestionCombobox implements EntryPoint {
         AppController appView = new AppController(eventBus);
         appView.go(RootPanel.get(elem.getId()));
     }
-    
+
 }

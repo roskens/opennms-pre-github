@@ -38,7 +38,7 @@ public class Time {
 
 	public Time() {
 	}
-	
+
 	public Time(final String id, final String day, final String begins, final String ends) {
 		m_id = id;
 		m_day = day;
@@ -49,11 +49,11 @@ public class Time {
 	public String getId() {
 		return m_id;
 	}
-	
+
 	public void setId(final String id) {
 		m_id = id;
 	}
-	
+
 	public String getDay() {
 		return m_day;
 	}
@@ -65,15 +65,15 @@ public class Time {
 	public String getBegins() {
 		return m_begins;
 	}
-	
+
 	public void setBegins(final String begins) {
 		m_begins = begins;
 	}
-	
+
 	public String getEnds() {
 		return m_ends;
 	}
-	
+
 	public void setEnds(final String ends) {
 		m_ends = ends;
 	}

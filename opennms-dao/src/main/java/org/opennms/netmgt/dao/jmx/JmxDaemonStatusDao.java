@@ -99,7 +99,7 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
     private Set<ObjectName> queryMbeanServerForNames(ObjectName foo1, QueryExp foo2) {
         return (Set<ObjectName>) mbeanServer.queryNames(foo1, foo2);
     }
-	
+
 	/**
 	 * <p>getCurrentDaemonStatusColl</p>
 	 *
@@ -109,7 +109,7 @@ public class JmxDaemonStatusDao implements DaemonStatusDao {
 		// TODO Auto-generated method stub
 		return this.getCurrentDaemonStatus().values();
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public ServiceDaemon getServiceHandle(String service) {

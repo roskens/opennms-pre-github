@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class RancidController implements Controller {
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *
@@ -72,7 +72,7 @@ public class RancidController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse arg1) throws Exception {
-       
+
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
         Map<String, Object> model = m_inventoryService.getRancidNode(nodeid);

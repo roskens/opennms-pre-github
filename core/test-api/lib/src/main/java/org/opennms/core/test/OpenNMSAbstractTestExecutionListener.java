@@ -43,9 +43,9 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  * @version $Id: $
  */
 public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OpenNMSAbstractTestExecutionListener.class);
-	
+
     /** {@inheritDoc} */
     @Override
     public void beforeTestMethod(final TestContext testContext) throws Exception {
@@ -74,16 +74,16 @@ public class OpenNMSAbstractTestExecutionListener extends AbstractTestExecutionL
         if (config != null) {
             return config;
         }
-        
+
         LOG.trace("unable to find method annotation for context {}", testContext.getApplicationContext());
 
         config = ((Class<?>) testContext.getTestClass()).getAnnotation(clazz);
         if (config != null) {
             return config;
         }
-        
+
         LOG.trace("unable to find class annotation for context {}", testContext.getApplicationContext());
-        
+
         return null;
     }
 }

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
 /**
  * Class AlarmDataDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -92,20 +92,20 @@ import org.opennms.netmgt.xml.event.AlarmData;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _reductionKey
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_reductionKey", "reduction-key", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getReductionKey();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -126,7 +126,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _reductionKey
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -141,7 +141,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_alarmType", "alarm-type", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -149,14 +149,14 @@ import org.opennms.netmgt.xml.event.AlarmData;
                 return new java.lang.Integer(target.getAlarmType());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
                     // ignore null values for non optional primitives
                     if (value == null) { return; }
-                    
+
                     target.setAlarmType( ((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
@@ -173,7 +173,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _alarmType
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -190,14 +190,14 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getClearKey();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -217,7 +217,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _clearKey
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -231,7 +231,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Boolean.TYPE, "_autoClean", "auto-clean", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -239,12 +239,12 @@ import org.opennms.netmgt.xml.event.AlarmData;
                 return (target.getAutoClean() ? java.lang.Boolean.TRUE : java.lang.Boolean.FALSE);
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteAutoClean();
                         return;
@@ -264,7 +264,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _autoClean
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -278,14 +278,14 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getX733AlarmType();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -305,7 +305,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _x733AlarmType
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -320,7 +320,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_x733ProbableCause", "x733-probable-cause", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -328,12 +328,12 @@ import org.opennms.netmgt.xml.event.AlarmData;
                 return new java.lang.Integer(target.getX733ProbableCause());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteX733ProbableCause();
                         return;
@@ -353,7 +353,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _x733ProbableCause
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -365,7 +365,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -375,7 +375,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -386,7 +386,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -398,7 +398,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -409,7 +409,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -420,7 +420,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -432,7 +432,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -444,7 +444,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -455,7 +455,7 @@ import org.opennms.netmgt.xml.event.AlarmData;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

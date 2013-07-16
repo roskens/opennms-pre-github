@@ -38,11 +38,11 @@ import java.util.Date;
  * @since 1.8.1
  */
 public class TriggerDescription {
-    
+
     private String m_triggerName;
     private String m_description;
     private Date m_nextFireTime;
-    
+
     /**
      * <p>getTriggerName</p>
      *
@@ -51,7 +51,7 @@ public class TriggerDescription {
     public String getTriggerName() {
         return m_triggerName;
     }
-    
+
     /**
      * <p>setTriggerName</p>
      *
@@ -60,7 +60,7 @@ public class TriggerDescription {
     public void setTriggerName(String triggerName) {
         m_triggerName = triggerName;
     }
-    
+
     /**
      * <p>getDescription</p>
      *
@@ -95,7 +95,7 @@ public class TriggerDescription {
     public void setNextFireTime(Date nextFireTime) {
         m_nextFireTime = nextFireTime;
     }
-    
-    
+
+
 
 }

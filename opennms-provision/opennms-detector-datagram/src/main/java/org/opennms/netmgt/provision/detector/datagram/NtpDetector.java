@@ -50,10 +50,10 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NtpDetector.class);
     private final NtpClient m_client;
-    
+
     /**
      * <p>Constructor for NtpDetector.</p>
      */
@@ -89,7 +89,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
                     return false;
                 }
             }
-            
+
         };
     }
 
@@ -100,7 +100,7 @@ public class NtpDetector extends BasicDetector<NtpMessage, DatagramPacket> {
             public NtpMessage getRequest() {
                 return new NtpMessage();
             }
-            
+
         };
     }
 

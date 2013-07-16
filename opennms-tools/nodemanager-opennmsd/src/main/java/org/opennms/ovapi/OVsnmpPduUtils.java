@@ -37,9 +37,9 @@ import org.opennms.nnm.swig.OVsnmpVarBind;
 
 
 public abstract class OVsnmpPduUtils {
-    
+
     private static class StringCreator {
-        
+
         private StringBuffer buf = new StringBuffer();
         private boolean m_first = true;
 
@@ -51,7 +51,7 @@ public abstract class OVsnmpPduUtils {
             appendFieldPrefix(name);
             buf.append(val);
         }
-        
+
         public void append(String name, int val) {
             appendFieldPrefix(name);
             buf.append(val);
@@ -66,17 +66,17 @@ public abstract class OVsnmpPduUtils {
             buf.append(name);
             buf.append(" = ");
         }
-        
+
         public String toString() {
             return buf.toString();
         }
-        
-        
-        
-        
-        
+
+
+
+
+
     }
-    
+
     public static String toString(OVsnmpPdu pdu) {
         StringCreator buf = new StringCreator(pdu);
         buf.append("address", pdu.getIpAddress());
@@ -86,7 +86,7 @@ public abstract class OVsnmpPduUtils {
         buf.append("generic", pdu.getGenericType());
         buf.append("specific", pdu.getSpecificType());
         buf.append("time", pdu.getTime()+" cs");
-        
+
         int count = 1;
         OVsnmpVarBind varbind = pdu.getVarBinds();
         while(varbind != null) {
@@ -96,10 +96,10 @@ public abstract class OVsnmpPduUtils {
             varbind = varbind.getNextVarBind();
             count++;
         }
-        
+
         return buf.toString();
     }
-    
+
     public static String getVarbindValue(OVsnmpVarBind varBind) {
         int type = varBind.getType();
         if (type == NNM.ASN_BOOLEAN) {

@@ -51,7 +51,7 @@ public class ResourceGraphsWindow extends Window {
 	private final int heightCushion = 110; //Border cushion for height of window
 	private Embedded rgBrowser = null; //Browser component which is directed at the Resource Graphs page
 	private final String noLabel = "no such label"; //Label given to vertexes that have no real label.
-	
+
 	/**
 	 * The ResourceGraphsWindow method constructs a sub-window instance which can be added to a
 	 * main window. The sub-window contains an embedded browser which displays the Resource Graphs
@@ -61,9 +61,9 @@ public class ResourceGraphsWindow extends Window {
 	 * @throws MalformedURLException
 	 */
 	public ResourceGraphsWindow(final Node node, final URL nodeURL) throws MalformedURLException{
-		
+
 		rgBrowser = new Embedded("", new ExternalResource(nodeURL));
-		
+
 		String label = node == null? "" : node.getLabel();
 		/*Sets up window settings*/
 		if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
@@ -74,21 +74,21 @@ public class ResourceGraphsWindow extends Window {
 		setCaption("Resource Graphs" + label);
 		setImmediate(true);
 		setResizable(false);
-		
+
 		/*Adds the browser component to the main layout*/
 		VerticalLayout layout = new VerticalLayout();
 		layout.addComponent(rgBrowser);
-		
+
 		setContent(layout);
 	}
-	
+
 	@Override
 	public void attach() {
 		super.attach();
-		
+
 		int width = getUI().getPage().getBrowserWindowWidth();
     	int height = getUI().getPage().getBrowserWindowHeight();
-    	
+
 		/*Sets the browser and window size based on the main window*/
 		int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);
 		int windowWidth = browserWidth + widthCushion, windowHeight = browserHeight + heightCushion;
@@ -96,7 +96,7 @@ public class ResourceGraphsWindow extends Window {
 		setHeight("" + windowHeight + "px");
 		setPositionX((width - windowWidth)/2);
 		setPositionY((height - windowHeight)/2);
-		
+
 		/*Changes the size of the browser to fit within the sub-window*/
 		rgBrowser.setType(Embedded.TYPE_BROWSER);
 		rgBrowser.setWidth("" + browserWidth + "px");

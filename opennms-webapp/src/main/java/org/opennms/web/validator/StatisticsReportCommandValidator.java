@@ -56,10 +56,10 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
     @Override
     public void validate(Object obj, Errors errors) {
         StatisticsReportCommand cmd = (StatisticsReportCommand) obj;
-        
+
         if (cmd.getId() == null) {
             errors.rejectValue("id", "statisticsReportId.notSpecified",
-                               new Object[] { "id" }, 
+                               new Object[] { "id" },
                                "Value required.");
         } else {
             try {
@@ -67,9 +67,9 @@ public class StatisticsReportCommandValidator implements Validator, Initializing
                 m_statisticsReportDao.load(id);
             } catch (DataAccessException e) {
                 errors.rejectValue("id", "statisticsReportId.notFound",
-                                   new Object[] { "id", cmd.getId() }, 
+                                   new Object[] { "id", cmd.getId() },
                                    "Valid statistics report ID required.");
-                
+
             }
         }
     }

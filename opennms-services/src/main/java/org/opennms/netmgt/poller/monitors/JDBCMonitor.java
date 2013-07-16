@@ -69,10 +69,10 @@ import org.slf4j.LoggerFactory;
 // NOTE: This requires that the JDBC Drivers for the dbs be included with the remote poller
 @Distributable
 public class JDBCMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(JDBCMonitor.class);
-    
+
 	/**
 	 * Number of miliseconds to wait before timing out a database login using
 	 * JDBC Hint: 1 minute is 6000 miliseconds.
@@ -202,7 +202,7 @@ public class JDBCMonitor extends AbstractServiceMonitor {
 		String url = null;
 		url = DBTools.constructUrl(ParameterMap.getKeyedString(parameters, "url", DBTools.DEFAULT_URL), ipv4Addr.getCanonicalHostName());
 		LOG.debug("JDBC url: {}", url);
-		
+
 		TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
 		String db_user = ParameterMap.getKeyedString(parameters, "user", DBTools.DEFAULT_DATABASE_USER);
@@ -239,7 +239,7 @@ public class JDBCMonitor extends AbstractServiceMonitor {
 					}
 				} // end if con
 			} catch (SQLException sqlEx) {
-				
+
 				String reason = "JDBC service is not responding on: " + ipv4Addr.getCanonicalHostName() + ", " + sqlEx.getSQLState() + ", " + sqlEx.toString();
                 LOG.debug(reason, sqlEx);
                 status = PollStatus.unavailable(reason);
@@ -258,8 +258,8 @@ public class JDBCMonitor extends AbstractServiceMonitor {
 		try {
 			con.close();
 		} catch (SQLException ignore) {
-		}	
-		
+		}
+
 	}
 
 	/**

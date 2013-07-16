@@ -96,12 +96,12 @@ public class EventFactory {
             select.append(" AND EVENTDISPLAY='Y' ");
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -148,12 +148,12 @@ public class EventFactory {
             select.append(" GROUP BY EVENTSEVERITY");
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -322,14 +322,14 @@ public class EventFactory {
             		"LEFT OUTER JOIN SERVICE USING(SERVICEID) WHERE");
             */
             StringBuffer select = new StringBuffer("" +
-            		"          SELECT events.*, node.nodelabel, service.servicename " + 
-            		"            FROM node " + 
+			"          SELECT events.*, node.nodelabel, service.servicename " +
+			"            FROM node " +
             		"RIGHT OUTER JOIN events " +
-            		"              ON (events.nodeid = node.nodeid) " + 
+			"              ON (events.nodeid = node.nodeid) " +
             		" LEFT OUTER JOIN service " +
-            		"              ON (service.serviceid = events.serviceid) " + 
+			"              ON (service.serviceid = events.serviceid) " +
             		"           WHERE ");
-            
+
             select.append(getAcknowledgeTypeClause(ackType));
 
             for (Filter filter : filters) {
@@ -348,12 +348,12 @@ public class EventFactory {
             }
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             events = rs2Events(rs);
@@ -449,7 +449,7 @@ public class EventFactory {
         if (ackType == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-        
+
         int eventCount = 0;
         Connection conn = Vault.getDbConnection();
 
@@ -1026,7 +1026,7 @@ public class EventFactory {
             PreparedStatement stmt = conn.prepareStatement(update.toString());
             stmt.setString(1, user);
             stmt.setTimestamp(2, new Timestamp(time.getTime()));
-            
+
             int parameterIndex = 3;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
@@ -1156,7 +1156,7 @@ public class EventFactory {
 
         try {
             PreparedStatement stmt = conn.prepareStatement(update.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
@@ -1222,14 +1222,14 @@ public class EventFactory {
 
             event.ipAddr = rs.getString("ipAddr");
 
-            // service id can be null 
+            // service id can be null
             element = rs.getObject("serviceID");
             event.serviceID = (element == null ) ? Integer.valueOf(0) : (Integer) element;
 
             event.nodeLabel = rs.getString("nodeLabel");
             event.serviceName = rs.getString("serviceName");
 
-            // event create time cannot be null 
+            // event create time cannot be null
             timestamp = rs.getTimestamp("eventCreateTime");
             event.createTime = new Date(timestamp.getTime());
 
@@ -1257,7 +1257,7 @@ public class EventFactory {
 
             // acknowledge time can be null
             timestamp = rs.getTimestamp("eventAckTime");
-            event.acknowledgeTime = (timestamp != null) ? new Date(timestamp.getTime()) : null; 
+            event.acknowledgeTime = (timestamp != null) ? new Date(timestamp.getTime()) : null;
 
             // alarm id can be null
             element = rs.getObject("alarmid");

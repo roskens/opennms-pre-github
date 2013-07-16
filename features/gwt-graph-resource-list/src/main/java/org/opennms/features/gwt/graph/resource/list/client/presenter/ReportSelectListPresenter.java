@@ -55,8 +55,8 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         initializeSearchPopup(searchView);
         m_baseUrl = baseUrl;
     }
-    
-    
+
+
     private void initializeSearchPopup(SearchPopupDisplay searchPopupView) {
         m_searchPopup = searchPopupView;
         m_searchPopup.setHeightOffset(425);
@@ -69,7 +69,7 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
                 getView().setDataList(filterList(m_searchPopup.getSearchText(), getView().getDataList()));
             }
         });
-        
+
         m_searchPopup.getCancelBtn().addClickHandler(new ClickHandler() {
 
             @Override
@@ -77,9 +77,9 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
                 m_searchPopup.hideSearchPopup();
             }
         });
-        
+
         m_searchPopup.getTextBox().addKeyPressHandler(new KeyPressHandler() {
-            
+
             @Override
             public void onKeyPress(KeyPressEvent event) {
                 if(event.getCharCode() == KeyCodes.KEY_ENTER) {
@@ -89,7 +89,7 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
             }
         });
     }
-    
+
     @Override
     public void go(HasWidgets container) {
         container.clear();
@@ -105,26 +105,26 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
         } else {
             getView().showWarning();
         }
-        
-        
+
+
     }
 
 
     private void buildUrlAndGoToGraphPage(List<ResourceListItem> reports) {
         StringBuilder sb = new StringBuilder();
         sb.append(m_baseUrl + "graph/results.htm?reports=all&resourceId=");
-        
-        
+
+
         boolean first = true;
         for(ResourceListItem item : reports) {
             if(!first) {
-                
+
                 sb.append("&resourceId=");
             }
             sb.append(item.getId());
             first = false;
         }
-        
+
         Location.assign(sb.toString());
     }
 
@@ -132,7 +132,7 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
     @Override
     public void onClearSelectionButtonClick() {
         getView().clearAllSelections();
-        
+
     }
 
 
@@ -140,7 +140,7 @@ public class ReportSelectListPresenter implements Presenter, ReportSelectListVie
     public void onSearchButtonClick() {
         m_searchPopup.showSearchPopup();
     }
-    
+
     private List<ResourceListItem> filterList(String searchText, List<ResourceListItem> dataList) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
         for(ResourceListItem item : dataList) {

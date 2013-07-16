@@ -40,12 +40,12 @@ import org.opennms.netmgt.config.notifications.Notification;
 import org.opennms.test.mock.MockUtil;
 
 public class NotificationsConfigTest {
-    
+
     @Test
     public void testFormattedNotificationsXml() throws Exception {
         MockUtil.println("################# Running Test ################");
         MockLogAppender.setupLogging();
-        
+
         MockNotifdConfigManager notifdConfig = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
 
         NotificationManager manager = new MockNotificationManager(notifdConfig, null, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifications-config-test.xml"));

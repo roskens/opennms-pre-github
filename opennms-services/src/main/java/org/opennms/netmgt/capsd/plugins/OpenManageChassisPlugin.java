@@ -55,9 +55,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class OpenManageChassisPlugin extends SnmpPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisPlugin.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -84,7 +84,7 @@ public final class OpenManageChassisPlugin extends SnmpPlugin {
             return this.state;
         }
     };
-    
+
     /**
      * Returns the name of the protocol that this plugin checks on the target
      * system for support.
@@ -109,10 +109,10 @@ public final class OpenManageChassisPlugin extends SnmpPlugin {
     public boolean isProtocolSupported(InetAddress ipaddr,
             Map<String, Object> qualifiers) {
         try {
-            
+
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
             if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
-            
+
             if (qualifiers != null) {
                 // "port" parm
                 //
@@ -153,7 +153,7 @@ public final class OpenManageChassisPlugin extends SnmpPlugin {
                 // Get the OpenManage chassis status
                 SnmpObjId chassisStatusSnmpObject = SnmpObjId.get(CHASSIS_STATUS_OID);
                 SnmpValue chassisStatus = SnmpUtils.get(agentConfig, chassisStatusSnmpObject);
-                
+
                 // If no chassis status received, do not detect the protocol and quit
                 if (chassisStatus == null)
                 {
@@ -164,7 +164,7 @@ public final class OpenManageChassisPlugin extends SnmpPlugin {
                 }
 
                 // Validate chassis status, check status is somewhere between OTHER and NON_RECOVERABLE
-                if  (Integer.parseInt(chassisStatus.toString()) >= DELL_STATUS.OTHER.value() && 
+                if  (Integer.parseInt(chassisStatus.toString()) >= DELL_STATUS.OTHER.value() &&
                     Integer.parseInt(chassisStatus.toString()) <= DELL_STATUS.NON_RECOVERABLE.value())
                 {
                     // OpenManage chassis status detected

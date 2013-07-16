@@ -52,7 +52,7 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
     protected LineOrientedDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>Constructor for LineOrientedDetector.</p>
      *
@@ -78,10 +78,10 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
             public boolean validate(final LineOrientedResponse response) {
                 return response.startsWith(pattern);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>equals</p>
      *
@@ -94,10 +94,10 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
             public boolean validate(final LineOrientedResponse response) {
                 return response.equals(pattern);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>matches</p>
      *
@@ -111,10 +111,10 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
             public boolean validate(final LineOrientedResponse response) {
                 return response.matches(regex);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>find</p>
      *
@@ -128,11 +128,11 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
             public boolean validate(final LineOrientedResponse response) {
                 return response.find(regex);
             }
-          
-            
+
+
         };
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -142,14 +142,14 @@ public abstract class LineOrientedDetector extends BasicDetector<LineOrientedReq
     public LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
-    
+
     /**
      * <p>expectClose</p>
      */
     public void expectClose() {
         send(LineOrientedRequest.Null, equals(null));
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Client<LineOrientedRequest, LineOrientedResponse> getClient() {

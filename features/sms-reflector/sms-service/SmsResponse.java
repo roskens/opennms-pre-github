@@ -35,9 +35,9 @@ import org.smslib.InboundMessage;
  *
  */
 public class SmsResponse extends MobileMsgResponse {
-    
+
     private InboundMessage m_msg;
-    
+
     public SmsResponse(InboundMessage msg) {
         m_msg = msg;
     }
@@ -61,7 +61,7 @@ public class SmsResponse extends MobileMsgResponse {
      */
     public InboundMessage getMessage() {
         return m_msg;
-        
+
     }
 
 

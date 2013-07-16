@@ -36,7 +36,7 @@ public class GraphPainter extends BaseGraphVisitor {
 		m_statusProvider = statusProvider;
 		m_componentState = componentState;
 	}
-	
+
 	public StatusProvider getStatusProvider() {
 	    return m_statusProvider;
 	}

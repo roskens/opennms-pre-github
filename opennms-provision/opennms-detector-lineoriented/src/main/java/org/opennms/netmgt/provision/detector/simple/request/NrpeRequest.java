@@ -39,16 +39,16 @@ import java.util.Arrays;
  * @version $Id: $
  */
 public class NrpeRequest {
-    
+
     /** Constant <code>Null</code> */
     public static final NrpeRequest Null = new NrpeRequest(null) {
         @Override
         public void send(final OutputStream out) throws IOException {
         }
     };
-    
+
     private final byte[] m_command;
-    
+
     /**
      * <p>Constructor for NrpeRequest.</p>
      *
@@ -71,7 +71,7 @@ public class NrpeRequest {
     public void send(final OutputStream out) throws IOException {
         out.write( m_command);
     }
-    
+
     /**
      * <p>toString</p>
      *

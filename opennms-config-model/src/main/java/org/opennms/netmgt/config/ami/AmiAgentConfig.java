@@ -51,7 +51,7 @@ public class AmiAgentConfig {
     public static final int DEFAULT_TLS_PORT = 5039;
     /** Constant <code>DEFAULT_USE_TLS=false</code> */
     public static final boolean DEFAULT_USE_TLS = false;
-    
+
     private InetAddress m_address;
     private int m_timeout;
     private int m_retries;
@@ -59,7 +59,7 @@ public class AmiAgentConfig {
     private String m_password;
     private int m_port;
     private boolean m_useTls;
-    
+
     String user = "";
 	String pass = "";
 	String matchType = "all";
@@ -69,7 +69,7 @@ public class AmiAgentConfig {
     public AmiAgentConfig() {
         setDefaults();
     }
-    
+
     /**
      * <p>Constructor for AmiAgentConfig.</p>
      *
@@ -87,7 +87,7 @@ public class AmiAgentConfig {
         m_useTls = DEFAULT_USE_TLS;
         m_username = DEFAULT_USERNAME;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -189,7 +189,7 @@ public class AmiAgentConfig {
     public String getUsername() {
         return m_username;
     }
-    
+
     /**
      * <p>setUsername</p>
      *
@@ -198,7 +198,7 @@ public class AmiAgentConfig {
     public void setUsername(String username) {
     	m_username = username;
     }
-    
+
     /**
      * <p>getPort</p>
      *
@@ -207,7 +207,7 @@ public class AmiAgentConfig {
     public int getPort() {
         return m_port;
     }
-    
+
     /**
      * <p>setPort</p>
      *
@@ -216,7 +216,7 @@ public class AmiAgentConfig {
     public void setPort(int port) {
         m_port = port;
     }
-    
+
     /**
      * <p>getUseTls</p>
      *

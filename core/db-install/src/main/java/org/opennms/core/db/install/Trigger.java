@@ -63,7 +63,7 @@ public class Trigger {
         m_storedProcedure = storedProcedure;
         m_sql = sql;
     }
-    
+
     /**
      * <p>findTriggerInString</p>
      *
@@ -75,7 +75,7 @@ public class Trigger {
         if (!m.find()) {
             return null;
         }
-        
+
         String sql = m.group(1);
         String name = m.group(2);
         String table = m.group(3);
@@ -83,7 +83,7 @@ public class Trigger {
 
         return new Trigger(name, table, storedProcedure, sql);
     }
-    
+
     /**
      * <p>isOnDatabase</p>
      *
@@ -93,7 +93,7 @@ public class Trigger {
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
-    
+
         Statement st = connection.createStatement();
         ResultSet rs = null;
         try {
@@ -110,7 +110,7 @@ public class Trigger {
             }
             st.close();
         }
-        
+
         return exists;
     }
 
@@ -128,7 +128,7 @@ public class Trigger {
             st.close();
         }
     }
-    
+
     /**
      * <p>addToDatabase</p>
      *

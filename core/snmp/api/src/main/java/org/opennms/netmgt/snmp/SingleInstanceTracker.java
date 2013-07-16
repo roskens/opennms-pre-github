@@ -32,17 +32,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SingleInstanceTracker extends CollectionTracker {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(SingleInstanceTracker.class);
 
     private SnmpObjId m_base;
     private SnmpInstId m_inst;
     private SnmpObjId m_oid;
-    
+
     public SingleInstanceTracker(SnmpObjId base, SnmpInstId inst) {
         this(base, inst, null);
     }
-    
+
     public SingleInstanceTracker(String baseOid, String instId) {
         this(SnmpObjId.get(baseOid), new SnmpInstId(instId));
     }
@@ -53,7 +53,7 @@ public class SingleInstanceTracker extends CollectionTracker {
         m_inst = inst;
         m_oid = SnmpObjId.get(m_base, m_inst);
     }
-    
+
     @Override
     public void setMaxRepetitions(int maxRepititions) {
         // do nothing since we are not a repeater
@@ -64,19 +64,19 @@ public class SingleInstanceTracker extends CollectionTracker {
         if (pduBuilder.getMaxVarsPerPdu() < 1) {
             throw new IllegalArgumentException("maxVarsPerPdu < 1");
         }
-        
+
         SnmpObjId requestOid = m_oid.decrement();
         LOG.debug("Requesting oid following: {}", requestOid);
         pduBuilder.addOid(requestOid);
         pduBuilder.setNonRepeaters(1);
         pduBuilder.setMaxRepetitions(1);
-        
+
         ResponseProcessor rp = new ResponseProcessor() {
 
             @Override
             public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
                 LOG.debug("Processing varBind: {} = {}", responseObjId, val);
-                
+
                 if (val.isEndOfMib()) {
                     receivedEndOfMib();
                 }
@@ -84,7 +84,7 @@ public class SingleInstanceTracker extends CollectionTracker {
                 if (m_oid.equals(responseObjId)) {
                     storeResult(new SnmpResult(m_base, m_inst, val));
                 }
-                
+
                 setFinished(true);
             }
 
@@ -107,7 +107,7 @@ public class SingleInstanceTracker extends CollectionTracker {
                 }
             }
         };
-        
+
         return rp;
 
     }

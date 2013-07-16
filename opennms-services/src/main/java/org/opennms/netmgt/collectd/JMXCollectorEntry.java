@@ -31,7 +31,7 @@ package org.opennms.netmgt.collectd;
 import java.util.Set;
 import java.util.TreeMap;
 /*
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -48,7 +48,7 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
     private static final long serialVersionUID = -3201821397014064610L;
 
     private String m_objectName;
-    
+
     /**
      * <P>
      * Creates a default instance of the JMXCollector entry map. The map
@@ -87,9 +87,9 @@ public class JMXCollectorEntry extends TreeMap<String, String> {
      */
     public JMXCollectorEntry(String objectName, String[] vars, String[] types) {
         this();
-        
+
         this.m_objectName = objectName;
-        
+
         for (int i = 0; i < vars.length;i++ ) {
             put(vars[i], types[i]);
         }

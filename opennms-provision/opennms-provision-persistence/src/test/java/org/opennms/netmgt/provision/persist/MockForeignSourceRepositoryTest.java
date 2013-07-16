@@ -55,7 +55,7 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         m_repository = new MockForeignSourceRepository();
         m_defaultForeignSourceName = "imported:";
     }
-    
+
     private Requisition createRequisition() throws Exception {
         return m_repository.importResourceRequisition(new ClassPathResource("/requisition-test.xml"));
     }
@@ -101,19 +101,19 @@ public class MockForeignSourceRepositoryTest extends ForeignSourceRepositoryTest
         assertEquals("AC", wrapper.getPropertyValue("node[0].category[0].name"));
         assertEquals("UK", wrapper.getPropertyValue("node[0].category[1].name"));
         assertEquals("low", wrapper.getPropertyValue("node[0].category[2].name"));
-        
+
         try {
             wrapper.getPropertyValue("node[1].category[0].name");
             fail("Did not catch expected InvalidPropertyException exception");
         } catch (InvalidPropertyException e) {
             // Expected failure
         }
-        
+
         assertEquals(0, ((RequisitionCategory[])wrapper.getPropertyValue("node[1].category")).length);
-        
+
         wrapper.setPropertyValue("node[1].categories[0]", new RequisitionCategory("Hello world"));
         wrapper.setPropertyValue("node[1].categories[1]", new RequisitionCategory("Hello again"));
-        
+
         assertEquals(2, ((RequisitionCategory[])wrapper.getPropertyValue("node[1].category")).length);
     }
 

@@ -47,11 +47,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class XmlCollector.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmlCollector.class);
 
 

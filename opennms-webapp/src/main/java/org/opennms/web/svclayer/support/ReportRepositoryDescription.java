@@ -29,12 +29,12 @@
 package org.opennms.web.svclayer.support;
 
 public class ReportRepositoryDescription {
-    
+
     private String m_id;
     private String m_displayName;
     private String m_description;
     private String m_managementUrl;
-    
+
     /**
      * <p>getId</p>
      *

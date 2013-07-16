@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class NodeCategoryBoxController extends AbstractController {
-    private AdminCategoryService m_adminCategoryService; 
+    private AdminCategoryService m_adminCategoryService;
 
     /** {@inheritDoc} */
     @Override
@@ -63,7 +63,7 @@ public class NodeCategoryBoxController extends AbstractController {
         int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
 
         List<OnmsCategory> categories = m_adminCategoryService.findByNode(nodeId);
-        
+
         ModelAndView modelAndView =
             new ModelAndView("/includes/nodeCategory-box", "categories",
                              categories);

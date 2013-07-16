@@ -46,10 +46,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ConfigurationReportRunner implements Runnable {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportRunner.class);
 
-        
+
     String theDate;
     String reportFormat;
     String reportEmail;
@@ -58,7 +58,7 @@ public class ConfigurationReportRunner implements Runnable {
 
     ConfigurationReportCalculator calculator;
 
-    ReportRenderer m_htmlReportRenderer;    
+    ReportRenderer m_htmlReportRenderer;
     ReportRenderer m_nullReportRenderer;
 
     /**
@@ -218,16 +218,16 @@ public class ConfigurationReportRunner implements Runnable {
         calculator.setReportRequestDate(reportRequestDate);
         calculator.setTheDate(theDate);
         calculator.setUser(user);
-        
+
         if (reportFormat.compareTo("pdftype") == 0){
             LOG.debug("run: generating pdf is still not supported :( sending xml");
-            
+
             renderer = m_nullReportRenderer;
         } else {
             LOG.debug("runRancidListReport generating html");
             renderer =  m_htmlReportRenderer;
         }
-       
+
         try {
             calculator.calculate();
             calculator.writeXML();

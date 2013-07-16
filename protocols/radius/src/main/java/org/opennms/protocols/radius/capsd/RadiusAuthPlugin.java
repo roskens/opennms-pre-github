@@ -64,7 +64,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public final class RadiusAuthPlugin extends AbstractPlugin {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthPlugin.class);
 
     /**
@@ -115,12 +115,12 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
     public static final String DEFAULT_SECRET = "secret";
 
     /**
-     * 
+     *
      * Default NAS_ID
      */
     public static final String DEFAULT_NAS_ID = "opennms";
     /**
-     * 
+     *
      * @param host
      *            The address for the radius server test.
      * @param authport
@@ -138,8 +138,8 @@ public final class RadiusAuthPlugin extends AbstractPlugin {
      *            Radius shared secret
      * @param timeout
      *            Timeout in milliseconds
-     * @param retry 
-     *		  Number of times to retry 
+     * @param retry
+     *		  Number of times to retry
      *
      * @param nasid
      *            NAS Identifier to use

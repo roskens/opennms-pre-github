@@ -69,12 +69,12 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "snmpInterface")
 public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpInterface.class);
 
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5396189389666285305L;
 
@@ -109,11 +109,11 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     /** identifier field */
     private String m_ifAlias;
-    
+
     private Date m_lastCapsdPoll;
 
     private String m_collect = "N";
-    
+
     private String m_poll = "N";
 
     private Date m_lastSnmpPoll;
@@ -175,7 +175,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     /**
      * <p>getNetMask</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Column(name = "snmpIpAdEntNetMask")
@@ -187,13 +187,13 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     /**
      * <p>setNetMask</p>
-     * 
+     *
      * @param snmpipadentnetmask a {@link java.lang.String} object.
      */
     public void setNetMask(InetAddress snmpipadentnetmask) {
         m_netMask = snmpipadentnetmask;
     }
-    
+
     /**
      * <p>getPhysAddr</p>
      *
@@ -365,7 +365,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void setIfAlias(String snmpifalias) {
         m_ifAlias = snmpifalias;
     }
-    
+
     /**
      * <p>getLastCapsdPoll</p>
      *
@@ -376,7 +376,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public Date getLastCapsdPoll() {
         return m_lastCapsdPoll;
     }
-    
+
     /**
      * <p>setLastCapsdPoll</p>
      *
@@ -385,7 +385,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void setLastCapsdPoll(Date lastCapsdPoll) {
         m_lastCapsdPoll = lastCapsdPoll;
     }
-    
+
     /**
      * <p>getCollect</p>
      *
@@ -396,7 +396,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public String getCollect() {
         return m_collect;
     }
-    
+
     /**
      * <p>setCollect</p>
      *
@@ -416,7 +416,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public String getPoll() {
         return m_poll;
     }
-    
+
     /**
      * <p>setPoll</p>
      *
@@ -436,7 +436,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public Date getLastSnmpPoll() {
         return m_lastSnmpPoll;
     }
-    
+
     /**
      * <p>setLastSnmpPoll</p>
      *
@@ -455,7 +455,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public boolean isCollectionUserSpecified(){
         return m_collect.startsWith("U");
     }
-    
+
     /**
      * <p>isCollectionEnabled</p>
      *
@@ -466,7 +466,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public boolean isCollectionEnabled() {
         return "C".equals(m_collect) || "UC".equals(m_collect);
     }
-    
+
     /**
      * <p>setCollectionEnabled</p>
      *
@@ -475,7 +475,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
     public void setCollectionEnabled(boolean shouldCollect) {
         setCollectionEnabled(shouldCollect, false);
     }
-    
+
     /**
      * <p>setCollectionEnabled</p>
      *
@@ -578,7 +578,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
 
     // @Transient
     // public Set getIpInterfaces() {
-    //		
+    //
     // Set ifsForSnmpIface = new LinkedHashSet();
     // for (Iterator it = getNode().getIpInterfaces().iterator();
     // it.hasNext();) {
@@ -600,7 +600,7 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         return getNode().getPrimaryInterface();
     }
 
-    
+
 
     /**
      * <p>computePhysAddrForRRD</p>
@@ -679,47 +679,47 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
      * @param scannedSnmpIface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     public void mergeSnmpInterfaceAttributes(OnmsSnmpInterface scannedSnmpIface) {
-        
+
         if (hasNewValue(scannedSnmpIface.getIfAdminStatus(), getIfAdminStatus())) {
             setIfAdminStatus(scannedSnmpIface.getIfAdminStatus());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getIfAlias(), getIfAlias())) {
             setIfAlias(scannedSnmpIface.getIfAlias());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getIfDescr(), getIfDescr())) {
             setIfDescr(scannedSnmpIface.getIfDescr());
         }
-            
+
         if (hasNewValue(scannedSnmpIface.getIfName(), getIfName())) {
             setIfName(scannedSnmpIface.getIfName());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getIfOperStatus(), getIfOperStatus())) {
             setIfOperStatus(scannedSnmpIface.getIfOperStatus());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getIfSpeed(), getIfSpeed())) {
             setIfSpeed(scannedSnmpIface.getIfSpeed());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getIfType(), getIfType())) {
             setIfType(scannedSnmpIface.getIfType());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getNetMask(), getNetMask())) {
             setNetMask(scannedSnmpIface.getNetMask());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getPhysAddr(), getPhysAddr())) {
             setPhysAddr(scannedSnmpIface.getPhysAddr());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getLastCapsdPoll(), getLastCapsdPoll())) {
             setLastCapsdPoll(scannedSnmpIface.getLastCapsdPoll());
         }
-        
+
         if (hasNewValue(scannedSnmpIface.getPoll(), getPoll())) {
             setPoll(scannedSnmpIface.getPoll());
         }
@@ -727,11 +727,11 @@ public class OnmsSnmpInterface extends OnmsEntity implements Serializable {
         if (hasNewValue(scannedSnmpIface.getLastSnmpPoll(), getLastSnmpPoll())) {
             setLastSnmpPoll(scannedSnmpIface.getLastSnmpPoll());
         }
-        
+
         if(scannedSnmpIface.isCollectionUserSpecified() || !isCollectionUserSpecified()){
             setCollectionEnabled(scannedSnmpIface.isCollectionEnabled(), scannedSnmpIface.isCollectionUserSpecified());
         }
-        
+
     }
 
 }

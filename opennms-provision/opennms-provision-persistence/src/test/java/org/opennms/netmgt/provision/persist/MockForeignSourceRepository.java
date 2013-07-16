@@ -60,7 +60,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
     public int getForeignSourceCount() {
         return m_foreignSources.size();
     }
-    
+
     @Override
     public Set<ForeignSource> getForeignSources() {
         return new TreeSet<ForeignSource>(m_foreignSources.values());
@@ -118,7 +118,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
     public void save(final Requisition requisition) {
         Assert.notNull(requisition);
         Assert.notNull(requisition.getForeignSource());
-        
+
         validate(requisition);
 
         requisition.updateDateStamp();
@@ -158,7 +158,7 @@ public class MockForeignSourceRepository extends AbstractForeignSourceRepository
         foreignSource.setDefault(true);
         foreignSource.setName("default");
         foreignSource.updateDateStamp();
-        
+
         save(foreignSource);
     }
 

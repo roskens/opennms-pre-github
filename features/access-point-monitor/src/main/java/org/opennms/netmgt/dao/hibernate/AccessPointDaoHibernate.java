@@ -43,7 +43,7 @@ import org.springframework.orm.hibernate3.HibernateCallback;
  * <p>
  * AccessPointDaoHibernate class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class AccessPointDaoHibernate extends AbstractDaoHibernate<OnmsAccessPoint, String> implements AccessPointDao {

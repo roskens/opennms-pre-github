@@ -56,7 +56,7 @@ public interface AcknowledgmentDao extends OnmsDao<OnmsAcknowledgment, Integer> 
      * @param ackable a {@link org.opennms.netmgt.model.Acknowledgeable} object.
      */
     void updateAckable(Acknowledgeable ackable);
-    
+
 
     /**
      * <p>processAck</p>

@@ -94,14 +94,14 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
      * @author brozow
      */
     public class MonitorTracker {
-        
+
         Map<String, List<OnmsLocationMonitor>> m_monitors = new HashMap<String, List<OnmsLocationMonitor>>();
-        
+
         public void onMonitor(OnmsLocationMonitor locationMon) {
             List<OnmsLocationMonitor> monitors = getMonitorList(locationMon.getDefinitionName());
             monitors.add(locationMon);
         }
-        
+
         private List<OnmsLocationMonitor> getMonitorList(String definitionName) {
             List<OnmsLocationMonitor> monitors = m_monitors.get(definitionName);
             if (monitors == null) {
@@ -114,13 +114,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
         public Collection<GWTLocationMonitor> drain(String defName) {
             final Collection<GWTLocationMonitor> gwtMonitors = new ArrayList<GWTLocationMonitor>();
             if (!m_monitors.containsKey(defName)) return gwtMonitors;
-            
+
             List<OnmsLocationMonitor> monitors = m_monitors.get(defName);
-            
+
             for (OnmsLocationMonitor monitor : monitors) {
                 gwtMonitors.add(transformLocationMonitor(monitor));
             }
-            
+
             return gwtMonitors;
         }
 
@@ -248,25 +248,25 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public LocationInfo getLocationInfo(final OnmsMonitoringLocationDefinition def) {
         waitForGeocoding("getLocationInfo");
-        
+
         if (def == null) {
             LOG.warn("no location definition specified");
             return null;
         }
-        
+
         final StatusDetails monitorStatus = getStatusDetailsForLocation(def);
-        
+
         return getLocationInfo(def, monitorStatus);
     }
 
     private LocationInfo getLocationInfo(final OnmsMonitoringLocationDefinition def, final StatusDetails monitorStatus) {
         GWTLatLng latLng = getLatLng(def, false);
-        
+
         if (latLng == null) {
             LOG.debug("no geolocation or coordinates found, using OpenNMS World HQ");
             latLng = new GWTLatLng(35.715751, -79.16262);
         }
-        
+
         final GWTMarkerState state = new GWTMarkerState(def.getName(), latLng, Status.UNKNOWN);
         final LocationInfo locationInfo = new LocationInfo(
             def.getName(),
@@ -278,10 +278,10 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             null,
             def.getTags()
         );
-        
+
         state.setStatus(monitorStatus.getStatus());
         locationInfo.setStatusDetails(monitorStatus);
-        
+
         //LOG.debug("getLocationInfo({}) returning {}", def.getName(), locationInfo);
         return locationInfo;
     }
@@ -291,7 +291,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public StatusDetails getStatusDetailsForLocation(final OnmsMonitoringLocationDefinition def) {
         waitForGeocoding("getStatusDetails");
-        
+
         final DefaultLocationDataService.MonitorStatusTracker mst = new DefaultLocationDataService.MonitorStatusTracker(def.getName());
 
         final List<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -356,14 +356,14 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public ApplicationInfo getApplicationInfo(final OnmsApplication app) {
         waitForGeocoding("getApplicationInfo");
-        
+
         ApplicationInfo info = null;
         if (app == null) {
             LOG.warn("no application specified");
         } else {
             info = getApplicationInfo(app, getStatusDetailsForApplication(app));
         }
-        
+
         return info;
     }
 
@@ -372,25 +372,25 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public StatusDetails getStatusDetailsForApplication(final OnmsApplication app) {
         waitForGeocoding("getStatusDetailsForApplication");
-        
+
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
-        
+
         final Date to = new Date();
         final Date from = new Date(to.getTime() - AVAILABILITY_MS);
-        
+
         final Collection<OnmsMonitoredService> services = m_monitoredServiceDao.findByApplication(app);
         final Set<GWTLocationMonitor> monitors = new LinkedHashSet<GWTLocationMonitor>();
         final Set<GWTMonitoredService> gwtServices = new LinkedHashSet<GWTMonitoredService>(services.size());
-        
+
         for (final OnmsMonitoredService service : services) {
             gwtServices.add(transformMonitoredService(service));
         }
-        
+
         for (OnmsLocationSpecificStatus status : m_locationDao.getStatusChangesForApplicationBetween(to, from, app.getName())) {
             monitors.add(transformLocationMonitor(status.getLocationMonitor()));
             statuses.add(transformLocationSpecificStatus(status));
         }
-        
+
         StatusDetails statusDetails = new AppStatusDetailsComputer(from, to, monitors, gwtServices, statuses).compute();
         LOG.warn("getStatusDetailsForApplication({}) returning {}", app.getName(), statusDetails);
         return statusDetails;
@@ -406,20 +406,20 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Transactional
     public StatusDetails getStatusDetailsForApplicationOld(final OnmsApplication app) {
         waitForGeocoding("getStatusDetailsForApplication");
-        
+
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
-        
+
         final Date to = new Date();
         final Date from = new Date(to.getTime() - AVAILABILITY_MS);
-        
+
         final Collection<OnmsMonitoredService> services = m_monitoredServiceDao.findByApplication(app);
         final List <GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
         final Set<GWTMonitoredService> gwtServices = new LinkedHashSet<GWTMonitoredService>(services.size());
-        
+
         for (final OnmsMonitoredService service : services) {
             gwtServices.add(transformMonitoredService(service));
         }
-        
+
         for (final OnmsLocationMonitor monitor : m_locationDao.findByApplication(app)) {
             monitors.add(transformLocationMonitor(monitor));
             for (final OnmsLocationSpecificStatus locationSpecificStatus : m_locationDao.getStatusChangesForLocationBetween(from, to, monitor.getDefinitionName())) {
@@ -428,14 +428,14 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
                 }
             }
         }
-        
+
         StatusDetails statusDetails = new AppStatusDetailsComputer(from, to, monitors, gwtServices, statuses).compute();
         LOG.warn("getStatusDetailsForApplication({}) returning {}", app.getName(), statusDetails);
         return statusDetails;
     }
 
     /** {@inheritDoc} */
-    @Transactional 
+    @Transactional
     @Override
     public ApplicationInfo getApplicationInfo(final OnmsApplication app, final StatusDetails status) {
         waitForGeocoding("getApplicationInfo");
@@ -447,17 +447,17 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
 
         final Set<GWTMonitoredService> services = new TreeSet<GWTMonitoredService>();
         final Set<String> locationNames = new TreeSet<String>();
-        
+
         for (final OnmsMonitoredService service : m_monitoredServiceDao.findByApplication(app)) {
             services.add(transformMonitoredService(service));
         }
-        
+
         for (final OnmsLocationMonitor mon : m_locationDao.findByApplication(app)) {
             locationNames.add(mon.getDefinitionName());
         }
-        
+
         final ApplicationInfo applicationInfo = new ApplicationInfo(app.getId(), app.getName(), services, locationNames, status);
-        
+
         LOG.debug("getApplicationInfo({}) returning {}", app.getName(), applicationInfo);
         return applicationInfo;
     }
@@ -552,13 +552,13 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
 
         final ApplicationInfo applicationInfo = getApplicationInfo(app, StatusDetails.unknown());
         List<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
-        
+
         final Date to = new Date();
         final Date from = new Date(to.getTime() - AVAILABILITY_MS);
-        
+
         final Collection<OnmsMonitoredService> services = m_monitoredServiceDao.findByApplication(app);
         final List <GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
-        
+
         for (final OnmsLocationMonitor monitor : m_locationDao.findByApplication(app)) {
             monitors.add(transformLocationMonitor(monitor));
             for (final OnmsLocationSpecificStatus locationSpecificStatus : m_locationDao.getStatusChangesForLocationBetween(from, to, monitor.getDefinitionName())) {
@@ -813,18 +813,18 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     private static interface StatusTracker {
         public void onStatus(final OnmsLocationSpecificStatus status);
     }
-    
+
     private static class AllMonitorStatusTracker implements StatusTracker {
         private final Map<String, MonitorStatusTracker> m_trackers = new HashMap<String, MonitorStatusTracker>();
-        
+
         @Override
         public void onStatus(final OnmsLocationSpecificStatus status) {
             String defName = status.getLocationMonitor().getDefinitionName();
-            
+
             MonitorStatusTracker t = getMonitorStatusTracker(defName);
             t.onStatus(status);
         }
-        
+
         MonitorStatusTracker getMonitorStatusTracker(String defName) {
             MonitorStatusTracker t = m_trackers.get(defName);
             if (t == null) {
@@ -833,12 +833,12 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             }
             return t;
         }
-        
+
         public Collection<GWTLocationSpecificStatus> drain(String defName) {
             if (!m_trackers.containsKey(defName)) {
                 return Collections.emptyList();
             }
-            
+
             return m_trackers.get(defName).drain();
 
         }
@@ -938,9 +938,9 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
     @Override
     public List<LocationInfo> getInfoForAllLocations() {
         waitForGeocoding("getInfoForAllLocations");
-        
+
         Map<String, StatusDetails> statusDetails = getStatusDetailsForAllLocations();
-        
+
         List<LocationInfo> locations = new ArrayList<LocationInfo>();
 
         for(Map.Entry<String, StatusDetails> entry : statusDetails.entrySet()) {
@@ -948,28 +948,28 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
             OnmsMonitoringLocationDefinition def = getLocationMonitorDao().findMonitoringLocationDefinition(entry.getKey());
             LocationInfo locationInfo = this.getLocationInfo(def, entry.getValue());
             locations.add(locationInfo);
-            
+
         }
-        
+
         return locations;
     }
 
     @Override
     public Map<String, StatusDetails> getStatusDetailsForAllLocations() {
         final Collection<OnmsMonitoringLocationDefinition> definitions = getLocationMonitorDao().findAllMonitoringLocationDefinitions();
-        
+
         AllMonitorStatusTracker tracker = new AllMonitorStatusTracker();
         MonitorTracker monTracker = new MonitorTracker();
-        
+
         for (OnmsLocationSpecificStatus status : m_locationDao.getAllMostRecentStatusChanges()) {
             tracker.onStatus(status);
         }
-        
+
         for(OnmsLocationMonitor monitor : m_locationDao.findAll()) {
             monTracker.onMonitor(monitor);
         }
-        
-        
+
+
         Map<String, StatusDetails> statusDetails = new LinkedHashMap<String, StatusDetails>();
         for (final OnmsMonitoringLocationDefinition def : definitions) {
             LocationMonitorState monitorState = new LocationMonitorState(monTracker.drain(def.getName()), tracker.drain(def.getName()));
@@ -1001,7 +1001,7 @@ public class DefaultLocationDataService implements LocationDataService, Initiali
 
     private Map<OnmsApplication, StatusDetails> getStatusDetailsForAllApplications() {
         final Collection<OnmsApplication> apps = m_applicationDao.findAll();
-        
+
         Map<OnmsApplication, StatusDetails> statusDetails = new LinkedHashMap<OnmsApplication, StatusDetails>();
 
         for (final OnmsApplication app : apps) {

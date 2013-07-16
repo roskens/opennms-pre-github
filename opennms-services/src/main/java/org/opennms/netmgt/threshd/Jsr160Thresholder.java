@@ -29,10 +29,10 @@
 package org.opennms.netmgt.threshd;
 
 /*
- * This class enables thresholding for JVM type data.  Since there will potentially be several 
+ * This class enables thresholding for JVM type data.  Since there will potentially be several
  * JVM's being monitored the user needs to provide a "friendly name", otherwise the port will be
- * used.  
- * 
+ * used.
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -43,7 +43,7 @@ package org.opennms.netmgt.threshd;
  * @version $Id: $
  */
 public class Jsr160Thresholder extends JMXThresholder {
-    
+
     /**
      * <p>Constructor for Jsr160Thresholder.</p>
      */

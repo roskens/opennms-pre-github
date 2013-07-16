@@ -52,15 +52,15 @@ import org.slf4j.LoggerFactory;
 /**
  * This class implements a simple scheduler to ensure that Capsd rescans occurs
  * at the expected intervals.
- * 
+ *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
- * 
+ *
  */
 final class Scheduler implements Runnable, PausableFiber {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Scheduler.class);
-    
+
     /**
      * The prefix for the fiber name.
      */
@@ -194,7 +194,7 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Constructs a new instance of the scheduler.
      * @param rescanProcessorFactory TODO
-     * 
+     *
      */
     Scheduler(ExecutorService rescanQ, RescanProcessorFactory rescanProcessorFactory) throws SQLException {
 
@@ -205,7 +205,7 @@ final class Scheduler implements Runnable, PausableFiber {
         m_worker = null;
 
         m_knownNodes = Collections.synchronizedList(new LinkedList<NodeInfo>());
-        
+
         // Get rescan interval from configuration factory
         //
         m_interval = CapsdConfigFactory.getInstance().getRescanFrequency();
@@ -236,7 +236,7 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Builds a list of NodeInfo objects representing each of the nodes in the
      * database capable of being scheduled for rescan.
-     * 
+     *
      * @throws SQLException
      *             if there is a problem accessing the database.
      */
@@ -247,7 +247,7 @@ final class Scheduler implements Runnable, PausableFiber {
         PreparedStatement ifStmt = null;
         ResultSet rs = null;
         ResultSet rset = null;
-        
+
         final DBUtils d = new DBUtils(getClass());
         try {
             db = DataSourceFactory.getInstance().getConnection();
@@ -294,10 +294,10 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Creates a NodeInfo object representing the specified node and adds it to
      * the known node list for scheduling.
-     * 
+     *
      * @param nodeId
      *            Id of node to be scheduled
-     * 
+     *
      * @throws SQLException
      *             if there is any problem accessing the database
      */
@@ -329,7 +329,7 @@ final class Scheduler implements Runnable, PausableFiber {
 
     /**
      * Removes the specified node from the known node list.
-     * 
+     *
      * @param nodeId
      *            Id of node to be removed.
      */
@@ -350,7 +350,7 @@ final class Scheduler implements Runnable, PausableFiber {
     /**
      * Creates a NodeInfo object representing the specified node and adds it to
      * the rescan queue for immediate rescanning.
-     * 
+     *
      * @param nodeId
      *            Id of node to be rescanned
      */
@@ -566,7 +566,7 @@ final class Scheduler implements Runnable, PausableFiber {
 
                             // Update the schedule information for the SMB
                             // reparenting node
-                            // 
+                            //
                             node.setLastScanned(new Date());
                             node.setScheduled(false);
 

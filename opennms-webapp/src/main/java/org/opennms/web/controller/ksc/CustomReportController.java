@@ -55,7 +55,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class CustomReportController extends AbstractController implements InitializingBean {
-    
+
     private KSC_PerformanceReportFactory m_kscReportFactory;
     private KscReportService m_kscReportService;
     private ResourceService m_resourceService;
@@ -69,19 +69,19 @@ public class CustomReportController extends AbstractController implements Initia
         if (report == null) {
             throw new IllegalStateException("There is no working report");
         }
-//        int report_index = getReportFactory().getWorkingReportIndex();      
+//        int report_index = getReportFactory().getWorkingReportIndex();
 //        String number_graphs[] = {"1", "2", "3", "4", "5", "6"};
-        
+
         ArrayList<KscResultSet> resultSets = new ArrayList<KscResultSet>(report.getGraphCount());
-        for (int i = 0; i < report.getGraphCount(); i++) { 
-            Graph current_graph = report.getGraph(i); 
+        for (int i = 0; i < report.getGraphCount(); i++) {
+            Graph current_graph = report.getGraph(i);
             PrefabGraph display_graph = getResourceService().getPrefabGraph(current_graph.getGraphtype());
-            
+
             OnmsResource resource = getKscReportService().getResourceFromGraph(current_graph);
 
             Calendar begin_time = Calendar.getInstance();
             Calendar end_time = Calendar.getInstance();
-            KSC_PerformanceReportFactory.getBeginEndTime(current_graph.getTimespan(), begin_time, end_time); 
+            KSC_PerformanceReportFactory.getBeginEndTime(current_graph.getTimespan(), begin_time, end_time);
 
             KscResultSet resultSet = new KscResultSet(current_graph.getTitle(), begin_time.getTime(), end_time.getTime(), resource, display_graph);
             resultSets.add(resultSet);
@@ -92,10 +92,10 @@ public class CustomReportController extends AbstractController implements Initia
         modelAndView.addObject("showTimeSpan", report.getShow_timespan_button());
         modelAndView.addObject("showGraphType", report.getShow_graphtype_button());
         modelAndView.addObject("graphsPerLine", report.getGraphs_per_line());
-        
+
         modelAndView.addObject("title", report.getTitle());
         modelAndView.addObject("resultSets", resultSets);
-        
+
         return modelAndView;
     }
 

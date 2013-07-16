@@ -47,13 +47,13 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
-    
+
     private static final String DEFAULT_SERVICE_NAME = "SSH";
     private static final int DEFAULT_PORT = 22;
     private String m_banner = null;
     private String m_match = null;
     private String m_clientBanner = Ssh.DEFAULT_CLIENT_BANNER;
-    
+
     /**
      * Default constructor
      */
@@ -91,14 +91,14 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
      * @return
      */
     private static ResponseValidator<SshResponse> sshIsAvailable() {
-        
+
         return new ResponseValidator<SshResponse>(){
 
             @Override
             public boolean validate(SshResponse response) {
                 return response.isAvailable();
             }
-            
+
         };
     }
 
@@ -155,5 +155,5 @@ public class SshDetector extends BasicDetector<NullRequest, SshResponse>{
     public String getClientBanner() {
         return m_clientBanner;
     }
-	
+
 }

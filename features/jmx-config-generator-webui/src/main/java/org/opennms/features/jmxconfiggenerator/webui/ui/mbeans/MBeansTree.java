@@ -97,7 +97,7 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
 	public void modelChanged(UiModel internalModel) {
 		container.updateDataSource(internalModel);
 		Object selectItemId = expandTree();
-		
+
 		// select anything in the tree
 		if (selectItemId != null) {
 			select(selectItemId); // first item
@@ -122,7 +122,7 @@ class MBeansTree extends Tree implements ModelChangeListener<UiModel>, ViewState
 	public Action[] getActions(Object target, Object sender) {
 		return ACTIONS;
 	}
-	
+
 	@Override
 	public void handleAction(Action action, Object sender, Object target) {
 		if (action == SELECT) controller.handleSelect(container, target);

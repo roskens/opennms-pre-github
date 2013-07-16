@@ -57,13 +57,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class RefreshMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RefreshMapController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -85,11 +85,11 @@ public class RefreshMapController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		String action = request.getParameter("action");
 		LOG.debug("Received action={}", action);
-		
-		
+
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 		VMap map = null;
@@ -97,10 +97,10 @@ public class RefreshMapController extends MapsLoggingController {
             map = manager.openMap();
 			if (action.equals(MapsConstants.REFRESH_ACTION)) {
 				map = manager.refreshMap(map);
-			} 
-			
+			}
+
 			if (action.equals(MapsConstants.RELOAD_ACTION)) {
-				map = manager.reloadMap(map);				
+				map = manager.reloadMap(map);
 			}
 
 

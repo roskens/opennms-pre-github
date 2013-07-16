@@ -58,8 +58,8 @@ import org.slf4j.LoggerFactory;
  * @author brozow
  */
 public abstract class EventUtils {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(EventUtils.class);
 
     /**
@@ -107,7 +107,7 @@ public abstract class EventUtils {
             throw new InsufficientInformationException("ipaddr for event is unavailable");
         }
     }
-    
+
     /**
      * Is the given interface a non-IP interface
      *
@@ -122,8 +122,8 @@ public abstract class EventUtils {
             return false;
         }
     }
-   
-    
+
+
     /**
      * Ensures the given event has an interface or ifIndex
      *
@@ -212,11 +212,11 @@ public abstract class EventUtils {
 
     private static EventBuilder createInterfaceEventBuilder(String uei, String source, long nodeId, String ipAddr, int ifIndex, long txNo) {
         EventBuilder bldr = new EventBuilder(uei, source);
-        
+
         if (ipAddr != null && ipAddr.length() != 0) {
             bldr.setInterface(addr(ipAddr));
         }
-        
+
         bldr.setNodeid(nodeId);
 
         if (ifIndex != -1) {
@@ -245,9 +245,9 @@ public abstract class EventUtils {
 
     private static EventBuilder createNodeEventBuilder(String uei, String source, long nodeId, long txNo) {
         EventBuilder bldr = new EventBuilder(uei, source);
-        
+
         bldr.setNodeid(nodeId);
-        
+
         if (txNo >= 0) {
             bldr.addParam(EventConstants.PARM_TRANSACTION_NO, txNo);
         }
@@ -286,7 +286,7 @@ public abstract class EventUtils {
     public static Event createInterfaceDeletedEvent(String source, long nodeId, String ipAddr, long txNo) {
         return createInterfaceDeletedEvent(source, nodeId, ipAddr, -1, txNo);
     }
-    
+
     /**
      * Construct an interfaceDeleted event for an interface.
      *
@@ -349,7 +349,7 @@ public abstract class EventUtils {
         bldr.setNodeid(nodeId);
         bldr.setInterface(addr(ipAddr));
         bldr.setService(service);
-        
+
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, txNo);
 
         return bldr;
@@ -406,7 +406,7 @@ public abstract class EventUtils {
                                                                      parmName,
                                                                      defaultValue);
     }
-    
+
     /**
      * <p>getIntParm</p>
      *
@@ -553,7 +553,7 @@ public abstract class EventUtils {
 		EventBuilder bldr = createNodeEventBuilder(EventConstants.NODE_ADDED_EVENT_UEI, source, nodeId, -1);
 
         bldr.setHost(Capsd.getLocalHostAddress());
-        
+
         bldr.setParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
         bldr.setParam(EventConstants.PARM_NODE_LABEL_SOURCE, labelSource);
 
@@ -583,12 +583,12 @@ public abstract class EventUtils {
 	 * @return a {@link org.opennms.netmgt.xml.event.Event} object.
 	 */
 	public static Event createNodeGainedInterfaceEvent(String source, int nodeId, InetAddress ifaddr) {
-	    
+
 	    EventBuilder bldr = new EventBuilder(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, source);
 	    bldr.setNodeid(nodeId);
 	    bldr.setHost(Capsd.getLocalHostAddress());
 	    bldr.setInterface(ifaddr);
-	    
+
 	    bldr.addParam(EventConstants.PARM_IP_HOSTNAME, ifaddr.getHostName());
 
 	    return bldr.getEvent();
@@ -610,13 +610,13 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeDeletedEvent(String source, int nodeId, String hostName, String nodeLabel, long txNo) {
-        
+
         EventBuilder bldr = createNodeEventBuilder(EventConstants.NODE_DELETED_EVENT_UEI, source, nodeId, txNo);
-        
+
         if (nodeLabel != null && !"".equals(nodeLabel.trim())) {
             bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
         }
-        
+
         return bldr.getEvent();
     }
 
@@ -635,11 +635,11 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createAndSendDeleteNodeEvent(String source, String nodeLabel, String hostName, long txNo) {
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_NODE_EVENT_UEI, source);
 
         bldr.setHost(hostName);
-        
+
         bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, txNo);
 
@@ -682,7 +682,7 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createAndSendInterfaceDeletedEvent(String source, int nodeId, String ipaddr, String hostName, long txNo) {
-        
+
         return createInterfaceEventBuilder(EventConstants.INTERFACE_DELETED_EVENT_UEI, source, nodeId, ipaddr, -1, txNo)
             .setHost(hostName)
             .getEvent();
@@ -730,11 +730,11 @@ public abstract class EventUtils {
 	    EventBuilder bldr = createServiceEventBuilder(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, source, nodeId, InetAddressUtils.str(ifaddr), service, -1);
 
         bldr.setHost(Capsd.getLocalHostAddress());
-        
+
         bldr.addParam(EventConstants.PARM_IP_HOSTNAME, ifaddr.getHostName());
         bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
         bldr.addParam(EventConstants.PARM_NODE_LABEL_SOURCE, labelSource);
-        
+
         // Add sysName if available
 		if (sysName != null) {
 		    bldr.addParam(EventConstants.PARM_NODE_SYSNAME, sysName);
@@ -771,7 +771,7 @@ public abstract class EventUtils {
         EventBuilder bldr = createServiceEventBuilder(EventConstants.DELETE_SERVICE_EVENT_UEI, source, nodeEntry.getNodeId(), InetAddressUtils.str(ifaddr), service, txNo);
 
         bldr.setHost(hostName);
-        
+
         bldr.addParam(EventConstants.PARM_IP_HOSTNAME, ifaddr.getHostName());
         bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeEntry.getLabel());
         bldr.addParam(EventConstants.PARM_NODE_LABEL_SOURCE, nodeEntry.getLabelSource());
@@ -828,7 +828,7 @@ public abstract class EventUtils {
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_INTERFACE_EVENT_UEI, source);
         bldr.setInterface(addr(ipaddr));
         bldr.setHost(hostName);
-        
+
         bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, txNo);
 
@@ -858,7 +858,7 @@ public abstract class EventUtils {
         EventBuilder bldr = new EventBuilder(EventConstants.CHANGE_SERVICE_EVENT_UEI, source);
         bldr.setInterface(addr(ipaddr));
         bldr.setService(service);
-        
+
         bldr.addParam(EventConstants.PARM_ACTION, action);
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, txNo);
 
@@ -883,9 +883,9 @@ public abstract class EventUtils {
      *         nodeId, ipaddr
      */
     public static Event createDeleteServiceEvent(String source, long nodeId, String ipAddr, String service, long txNo) {
-        
+
         return createServiceEventBuilder(EventConstants.DELETE_SERVICE_EVENT_UEI, source, nodeId, ipAddr, service, txNo).getEvent();
-        
+
     }
 
     /**
@@ -898,7 +898,7 @@ public abstract class EventUtils {
     public static String toString(Event event) {
         return org.opennms.netmgt.model.events.EventUtils.toString(event);
     }
-    
+
     /**
      * <p>toString</p>
      *

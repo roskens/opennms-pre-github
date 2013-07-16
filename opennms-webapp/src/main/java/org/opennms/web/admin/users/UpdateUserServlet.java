@@ -57,7 +57,7 @@ import org.opennms.netmgt.config.users.User;
  */
 public class UpdateUserServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -945279264373810897L;
 
@@ -73,7 +73,7 @@ public class UpdateUserServlet extends HttpServlet {
             } catch (Throwable e) {
                 throw new ServletException("UpdateUserServlet:init Error initialising UserFactory " + e);
             }
-            
+
             // get the rest of the user information from the form
             newUser.setFullName(request.getParameter("fullName"));
             newUser.setUserComments(request.getParameter("userComments"));
@@ -89,7 +89,7 @@ public class UpdateUserServlet extends HttpServlet {
                 pass.setSalt(true);
                 newUser.setPassword(pass);
             }
-            
+
             String tuiPin = request.getParameter("tuiPin");
             if (tuiPin != null && !tuiPin.trim().equals("")) {
                 newUser.setTuiPin(tuiPin);
@@ -123,12 +123,12 @@ public class UpdateUserServlet extends HttpServlet {
             tmpContact.setInfo(xmppAddress);
             tmpContact.setType(ContactType.xmppAddress.toString());
             newUser.addContact(tmpContact);
-            
+
             tmpContact = new Contact();
             tmpContact.setInfo(microblog);
             tmpContact.setType(ContactType.microblog.toString());
             newUser.addContact(tmpContact);
-            
+
             tmpContact = new Contact();
             tmpContact.setInfo(numericPin);
             tmpContact.setServiceProvider(numericPage);
@@ -140,12 +140,12 @@ public class UpdateUserServlet extends HttpServlet {
             tmpContact.setServiceProvider(textPage);
             tmpContact.setType(ContactType.textPage.toString());
             newUser.addContact(tmpContact);
-            
+
             tmpContact = new Contact();
             tmpContact.setInfo(workPhone);
             tmpContact.setType(ContactType.workPhone.toString());
             newUser.addContact(tmpContact);
-            
+
             tmpContact = new Contact();
             tmpContact.setInfo(mobilePhone);
             tmpContact.setType(ContactType.mobilePhone.toString());
@@ -193,5 +193,5 @@ public class UpdateUserServlet extends HttpServlet {
     private List<String> getDutySchedulesForUser(User newUser) {
         return newUser.getDutyScheduleCollection();
     }
-    
+
 }

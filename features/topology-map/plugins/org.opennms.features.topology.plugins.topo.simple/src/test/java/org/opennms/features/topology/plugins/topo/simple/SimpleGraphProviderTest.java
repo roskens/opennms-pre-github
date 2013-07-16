@@ -188,7 +188,7 @@ public class SimpleGraphProviderTest {
         m_topologyProvider.connectVertices(vertexA, vertexE);
         m_topologyProvider.connectVertices(vertexD, vertexE);
 
-        // Ensure that the WrappedVertex class is working properly 
+        // Ensure that the WrappedVertex class is working properly
         WrappedVertex wrappedVertex = new WrappedLeafVertex(vertexA);
         assertEquals("v0", wrappedVertex.id);
         assertEquals("simple", wrappedVertex.namespace);

@@ -34,7 +34,7 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
  * representation of an object is needed and toString() cannot be overwritten or
  * does not fulfill the requirements.<br/>
  * <br/>
- * 
+ *
  * @author Markus von Rüden
  * @param <T>
  *            the type of the object which needs to be rendered as a String
@@ -43,7 +43,7 @@ public interface StringRenderer<T> {
 
 	/**
 	 * Transforms the input-object to a String.
-	 * 
+	 *
 	 * @param input
 	 *            The input object.
 	 * @return The formatted string of the input object.

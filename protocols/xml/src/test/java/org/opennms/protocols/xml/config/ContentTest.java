@@ -37,7 +37,7 @@ import org.opennms.protocols.xml.config.Request;
 
 /**
  * The Test Class for Content.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ContentTest {

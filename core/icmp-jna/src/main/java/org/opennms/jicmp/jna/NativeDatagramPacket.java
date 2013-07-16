@@ -41,17 +41,17 @@ public class NativeDatagramPacket {
     private ByteBuffer m_data;
     private InetAddress m_address;
     private int m_port;
-    
+
     public NativeDatagramPacket(ByteBuffer data, InetAddress address, int port) {
         m_data = data;
         m_address = address;
         m_port = port;
     }
-    
+
     public NativeDatagramPacket(int size) {
         this(ByteBuffer.allocate(size), null, -1);
     }
-    
+
     public NativeDatagramPacket(byte[] data, InetAddress host, int port) {
         this(ByteBuffer.wrap(data), host, port);
     }
@@ -86,23 +86,23 @@ public class NativeDatagramPacket {
 
     @Override
     public String toString() {
-    
+
         StringBuilder buf = new StringBuilder();
-        
+
         buf.append("Address: ");
         buf.append(m_address);
         buf.append(" Port: ");
         buf.append(m_port);
         buf.append("\nData: ");
-        
+
         ByteBuffer data = m_data.duplicate();
-        
+
         buf.append(data.limit());
         buf.append(" Bytes\n");
-        
+
         final int bytesPerRow = 4;
         final int limit = data.limit();
-        final int rows = (limit + bytesPerRow) / bytesPerRow; 
+        final int rows = (limit + bytesPerRow) / bytesPerRow;
         int index = 0;
         for(int i = 0; i < rows && index < limit; i++) {
             for(int j = 0; j < bytesPerRow && index < limit; j++) {
@@ -110,9 +110,9 @@ public class NativeDatagramPacket {
             }
             buf.append("\n");
         }
-        
+
         buf.append("\n");
-            
+
         return buf.toString();
     }
 

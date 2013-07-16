@@ -49,7 +49,7 @@ public class PingEndPointValidationExpression extends EndPointValidationExpressi
            throw new EndPointStatusException(String.format("unable to ping endPoint %s", endPoint));
        }
     }
-    
+
     /**
      * <p>toString</p>
      *

@@ -40,7 +40,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class ProvisionServer {
-    
+
     private ClassPathXmlApplicationContext m_context;
 
     /**

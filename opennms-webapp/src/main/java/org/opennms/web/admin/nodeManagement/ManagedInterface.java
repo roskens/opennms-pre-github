@@ -43,22 +43,22 @@ import java.util.List;
  */
 public class ManagedInterface {
     /**
-     * 
+     *
      */
     protected String address;
 
     /**
-     * 
+     *
      */
     protected List<ManagedService> services;
 
     /**
-     * 
+     *
      */
     protected String status;
 
     /**
-     * 
+     *
      */
     protected int nodeid;
 

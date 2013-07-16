@@ -58,7 +58,7 @@ import org.xml.sax.SAXException;
 
 /**
  * The Class TcaDataCollectionConfigTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class TcaDataCollectionConfigTest {

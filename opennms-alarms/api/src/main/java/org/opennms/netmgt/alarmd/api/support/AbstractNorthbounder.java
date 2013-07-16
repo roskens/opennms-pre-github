@@ -37,19 +37,19 @@ import org.opennms.netmgt.alarmd.api.NorthbounderException;
 
 /**
  * AbstractNorthBounder
- * 
+ *
  * The purpose of this class is manage the queue of alarms that need to be forward and receive queries to/from a Southbound Interface.
- * 
- * It passes Alarms on to the forwardAlarms method implemented by base classes in batches as they are 
+ *
+ * It passes Alarms on to the forwardAlarms method implemented by base classes in batches as they are
  * added to the queue.  The forwardAlarms method does the actual work of sending them to the Southbound Interface.
- * 
- * preserve, accept and discard are called to add the Alarms to the queue as appropriate.  
- * 
+ *
+ * preserve, accept and discard are called to add the Alarms to the queue as appropriate.
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 
 public abstract class AbstractNorthbounder implements Northbounder, Runnable, StatusFactory<NorthboundAlarm> {
-    
+
     private final String m_name;
     private final AlarmQueue<NorthboundAlarm> m_queue;
 
@@ -57,7 +57,7 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     private volatile boolean m_stopped = true;
 
     private long m_retryInterval = 1000;
-    
+
     protected AbstractNorthbounder(String name) {
     	m_name = name;
     	m_queue = new AlarmQueue<NorthboundAlarm>(this);
@@ -71,15 +71,15 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     public void setNaglesDelay (long delay) {
         m_queue.setNaglesDelay(delay);
     }
-    
+
     public void setRetryInterval(int retryInterval) {
         m_retryInterval = retryInterval;
     }
-    
+
     public void setMaxBatchSize(int maxBatchSize) {
         m_queue.setMaxBatchSize(maxBatchSize);
     }
-    
+
     public void setMaxPreservedAlarms(int maxPreservedAlarms) {
         m_queue.setMaxPreservedAlarms(maxPreservedAlarms);
     }
@@ -100,15 +100,15 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
         m_thread.start();
         this.onPostStart();
     }
-    
+
     @Override
     public final void onAlarm(NorthboundAlarm alarm) throws NorthbounderException {
         if (accepts(alarm)) {
             m_queue.accept(alarm);
         }
     };
-    
-    
+
+
     protected abstract boolean accepts(NorthboundAlarm alarm);
 
     protected void preserve(NorthboundAlarm alarm) throws NorthbounderException {
@@ -118,7 +118,7 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
     protected void discard(NorthboundAlarm alarm) throws NorthbounderException {
         m_queue.discard(alarm);
     }
-    
+
     /** Override this to perform actions when stopping. **/
     protected void onStop() {
     }
@@ -128,16 +128,16 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
         this.onStop();
         m_stopped = true;
     }
-    
+
     @Override
     public void run() {
-        
+
         try {
 
             while(!m_stopped) {
 
                 List<NorthboundAlarm> alarmsToForward = m_queue.getAlarmsToForward();
-                
+
                 try {
                     forwardAlarms(alarmsToForward);
                     m_queue.forwardSuccessful(alarmsToForward);
@@ -148,15 +148,15 @@ public abstract class AbstractNorthbounder implements Northbounder, Runnable, St
                         Thread.sleep(m_retryInterval);
                     }
                 }
-            
+
             }
-        
+
         } catch (InterruptedException e) {
             // thread interrupted so complete it
         }
-        
+
     }
-    
+
     @Override
 	public NorthboundAlarm createSyncLostMessage() {
     	return NorthboundAlarm.SYNC_LOST_ALARM;

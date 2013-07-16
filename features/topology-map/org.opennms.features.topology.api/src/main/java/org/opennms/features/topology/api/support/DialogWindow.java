@@ -15,7 +15,7 @@ public class DialogWindow extends Window implements ClickListener {
     private static final long serialVersionUID = -2235453349601991807L;
     final Button okayButton = new Button("OK", this);
     final UI parentWindow;
-    
+
      public DialogWindow(final UI parentWindow, final String title, final String description) {
         this.parentWindow = parentWindow;
         setCaption(title);
@@ -26,7 +26,7 @@ public class DialogWindow extends Window implements ClickListener {
         setContent(createContent(description));
         parentWindow.addWindow(this);
     }
-     
+
      private Layout createMainArea(final String description) {
          HorizontalLayout layout = new HorizontalLayout();
          layout.setSpacing(true);
@@ -37,20 +37,20 @@ public class DialogWindow extends Window implements ClickListener {
          layout.addComponent(label);
          return layout;
      }
-     
+
      private Layout createContent(final String description) {
          VerticalLayout content = new VerticalLayout();
          content.setWidth(100, Unit.PERCENTAGE);
-         
+
          Layout footer = createFooter();
          Layout mainArea = createMainArea(description);
-         
+
          content.addComponent(mainArea);
          content.addComponent(footer);
          content.setExpandRatio(mainArea, 1);
          return content;
      }
-     
+
      private Layout createFooter() {
          HorizontalLayout footer = new HorizontalLayout();
          footer.setSpacing(true);

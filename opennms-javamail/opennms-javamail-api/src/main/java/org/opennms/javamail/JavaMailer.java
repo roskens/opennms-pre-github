@@ -75,7 +75,7 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class JavaMailer {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JavaMailer.class);
 
     private static final String DEFAULT_FROM_ADDRESS = "root@[127.0.0.1]";
@@ -102,7 +102,7 @@ public class JavaMailer {
      * properties from configuration
      */
     private Properties m_mailProps;
-    
+
     /*
      * fields from properties used for deterministic behavior of the mailer
      */
@@ -133,10 +133,10 @@ public class JavaMailer {
     private InputStream m_inputStream;
     private String m_inputStreamName;
     private String m_inputStreamContentType;
-    
+
     private Map<String,String> m_extraHeaders = new HashMap<String,String>();
 
-    
+
     /**
      * <p>Constructor for JavaMailer.</p>
      *
@@ -144,13 +144,13 @@ public class JavaMailer {
      * @throws org.opennms.javamail.JavaMailerException if any.
      */
     public JavaMailer(Properties javamailProps) throws JavaMailerException {
-        
+
         try {
             configureProperties(javamailProps);
         } catch (IOException e) {
             throw new JavaMailerException("Failed to construct mailer", e);
         }
-        
+
         //Now set the properties into the session
         m_session = Session.getInstance(getMailProps(), createAuthenticator());
     }
@@ -170,18 +170,18 @@ public class JavaMailer {
      * This method uses a properties file reader to pull in opennms styled javamail properties and sets
      * the actual javamail properties.  This is here to preserve the backwards compatibility but configuration
      * will probably change soon.
-     * 
+     *
      * @throws IOException
      */
-    
+
     private void configureProperties(Properties javamailProps) throws IOException {
-        
+
         //this loads the opennms defined properties
         m_mailProps = JavaMailerConfig.getProperties();
-        
+
         //this sets any javamail defined properties sent in to the constructor
         m_mailProps.putAll(javamailProps);
-        
+
         /*
          * fields from properties used for deterministic behavior of the mailer
          */
@@ -205,7 +205,7 @@ public class JavaMailer {
         //Set the actual JavaMailProperties... any that are defined in the file will not be overridden
         //Eventually, all configuration will be defined in properties and this strange parsing will not happen
         //TODO: fix this craziness!
-        
+
         if (!m_mailProps.containsKey("mail.smtp.auth")) {
             m_mailProps.setProperty("mail.smtp.auth", String.valueOf(isAuthenticate()));
         }
@@ -232,12 +232,12 @@ public class JavaMailer {
 //                getMailProps().setProperty("mail.smtp.socketFactory.fallback", "false");
 //            }
         }
-        
+
         if (!m_mailProps.containsKey("mail.smtp.quitwait")) {
             m_mailProps.setProperty("mail.smtp.quitwait", "true");
         }
         //getMailProps().setProperty("mail.store.protocol", "pop3");
-        
+
     }
 
     /**
@@ -246,7 +246,7 @@ public class JavaMailer {
      * @throws org.opennms.javamail.JavaMailerException if any.
      */
     public void mailSend() throws JavaMailerException {
-        LOG.debug(createSendLogMsg());        
+        LOG.debug(createSendLogMsg());
         sendMessage(buildMessage());
     }
 
@@ -290,8 +290,8 @@ public class JavaMailer {
                 BodyPart streamBodyPart = new MimeBodyPart();
                 streamBodyPart.setDataHandler(new DataHandler(new InputStreamDataSource(m_inputStreamName, m_inputStreamContentType, m_inputStream)));
                 streamBodyPart.setFileName(m_inputStreamName);
-                streamBodyPart.setHeader("Content-Transfer-Encoding", "base64");  
-                streamBodyPart.setDisposition(Part.ATTACHMENT); 
+                streamBodyPart.setHeader("Content-Transfer-Encoding", "base64");
+                streamBodyPart.setDisposition(Part.ATTACHMENT);
                 MimeMultipart mp = new MimeMultipart();
                 mp.addBodyPart(streamBodyPart);
                 message.setContent(mp);
@@ -390,10 +390,10 @@ public class JavaMailer {
 
     /**
      * Check that required envelope and message contents properties have been
-     * set. 
-     * 
+     * set.
+     *
      * @throws JavaMailerException if any of the required properties have not
-     *      been set 
+     *      been set
      */
     private void checkEnvelopeAndContents() throws JavaMailerException {
         if (getFrom() == null) {
@@ -466,56 +466,56 @@ public class JavaMailer {
             }
         }
     }
-    
-    private class InputStreamDataSource implements DataSource { 
-    	
 
-        
-        private String name;  
-        private String contentType;  
-        private ByteArrayOutputStream baos;  
-          
-        InputStreamDataSource(String name, String contentType, InputStream inputStream) throws JavaMailerException {  
-            this.name = name;  
+    private class InputStreamDataSource implements DataSource {
+
+
+
+        private String name;
+        private String contentType;
+        private ByteArrayOutputStream baos;
+
+        InputStreamDataSource(String name, String contentType, InputStream inputStream) throws JavaMailerException {
+            this.name = name;
             this.contentType = contentType;
-            
+
             LOG.debug("setting contentType {}", this.contentType);
-              
-            baos = new ByteArrayOutputStream();  
-              
-            int read;  
-            byte[] buff = new byte[256];  
+
+            baos = new ByteArrayOutputStream();
+
+            int read;
+            byte[] buff = new byte[256];
             try {
-                while((read = inputStream.read(buff)) != -1) {  
-                    baos.write(buff, 0, read);  
+                while((read = inputStream.read(buff)) != -1) {
+                    baos.write(buff, 0, read);
                 }
             } catch (IOException e) {
                 LOG.error("Could not read attachment from input stream: {}", e, e);
                 throw new JavaMailerException("Could not read attachment from input stream: " + e, e);
-            }  
-        }  
-          
+            }
+        }
+
         @Override
         public String getContentType() {
             LOG.debug("getContentType: {}", contentType);
-            return contentType;  
-        }  
-   
+            return contentType;
+        }
+
         @Override
-        public InputStream getInputStream() throws IOException {  
-            return new ByteArrayInputStream(baos.toByteArray());  
-        }  
-   
+        public InputStream getInputStream() throws IOException {
+            return new ByteArrayInputStream(baos.toByteArray());
+        }
+
         @Override
-        public String getName() {  
-            return name;  
-        }  
-   
+        public String getName() {
+            return name;
+        }
+
         @Override
-        public OutputStream getOutputStream() throws IOException {  
-            throw new IOException("Cannot write to this read-only resource");  
-        }  
-    } 
+        public OutputStream getOutputStream() throws IOException {
+            throw new IOException("Cannot write to this read-only resource");
+        }
+    }
 
     /**
      * <p>getPassword</p>
@@ -628,7 +628,7 @@ public class JavaMailer {
     public void setFileName(String fileName) {
         m_fileName = fileName;
     }
-    
+
     /**
      * <p>getInputStream</p>
      *
@@ -647,7 +647,7 @@ public class JavaMailer {
     public void setInputStream(InputStream inputStream) {
         m_inputStream = inputStream;
     }
-    
+
     /**
      * <p>getInputStreamName</p>
      *
@@ -666,7 +666,7 @@ public class JavaMailer {
     public void setInputStreamName(String inputStreamName) {
         m_inputStreamName = inputStreamName;
     }
-    
+
     /**
      * <p>getInputStreamContentType</p>
      *
@@ -827,13 +827,13 @@ public class JavaMailer {
     /**
      * @return log4j Category
      */
-    
+
 
     public static class LoggingByteArrayOutputStream extends ByteArrayOutputStream {
 
     	private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
 
-       
+
 
         @Override
         public void flush() throws IOException {
@@ -841,7 +841,7 @@ public class JavaMailer {
 
             String buffer = toString().replaceAll("\n", "");
             if (buffer.length() > 0) {
-                LOG.debug(buffer);   
+                LOG.debug(buffer);
             }
 
             reset();
@@ -849,14 +849,14 @@ public class JavaMailer {
     }
 
     public static class LoggingTransportListener implements TransportListener {
-    	
+
     	private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
 
         private List<Address> m_invalidAddresses = new ArrayList<Address>();
         private List<Address> m_validSentAddresses = new ArrayList<Address>();
         private List<Address> m_validUnsentAddresses = new ArrayList<Address>();
 
-        
+
 
         @Override
         public void messageDelivered(TransportEvent event) {
@@ -900,8 +900,8 @@ public class JavaMailer {
          * This isn't perfect, but it's somewhat of a shot in the dark to
          * hope that we catch most things, to try to catch as many errors
          * as possible so we can fairly reliably report if anything had
-         * problems. 
-         * 
+         * problems.
+         *
          * @throws JavaMailerException
          */
         public void assertAllMessagesDelivered() throws JavaMailerException {
@@ -1092,11 +1092,11 @@ public class JavaMailer {
     public Map<String,String> getExtraHeaders() {
     	return m_extraHeaders;
     }
-    
+
     public void setExtraHeaders(final Map<String,String> headers) {
     	m_extraHeaders = headers;
     }
-    
+
     public void addExtraHeader(final String key, final String value) {
     	m_extraHeaders.put(key, value);
     }

@@ -39,14 +39,14 @@ import org.opennms.netmgt.model.RrdRepository;
  * @version $Id: $
  */
 public interface ResourceIdentifier {
-    
+
     /**
      * <p>getOwnerName</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getOwnerName();
-    
+
     /**
      * <p>getResourceDir</p>
      *

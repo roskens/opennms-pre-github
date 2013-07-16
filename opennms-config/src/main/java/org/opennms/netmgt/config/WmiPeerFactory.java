@@ -95,7 +95,7 @@ public class WmiPeerFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -441,12 +441,12 @@ public class WmiPeerFactory {
 
     private void setWmiAgentConfig(WmiAgentConfig agentConfig, Definition def) {
         setCommonAttributes(agentConfig, def);
-        agentConfig.setPassword(determinePassword(def));       
+        agentConfig.setPassword(determinePassword(def));
     }
 
     /**
      * This is a helper method to set all the common attributes in the agentConfig.
-     * 
+     *
      * @param agentConfig
      * @param def
      */
@@ -486,7 +486,7 @@ public class WmiPeerFactory {
     }
 
     /**
-     * Helper method to search the wmi-config 
+     * Helper method to search the wmi-config
      * @param def
      * @return a long containing the timeout, WmiAgentConfig.DEFAULT_TIMEOUT if not specified.
      */
@@ -495,7 +495,7 @@ public class WmiPeerFactory {
         return (long)(def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? timeout : m_config.getTimeout()) : def.getTimeout());
     }
 
-    private int determineRetries(Definition def) {        
+    private int determineRetries(Definition def) {
         int retries = WmiAgentConfig.DEFAULT_RETRIES;
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? retries : m_config.getRetry()) : def.getRetry());
     }

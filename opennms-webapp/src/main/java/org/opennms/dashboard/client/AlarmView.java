@@ -35,19 +35,19 @@ import com.google.gwt.user.client.ui.HTML;
 
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class AlarmView extends PageableTableView {
-    
+
     private Alarm[] m_alarms;
     private RegExp m_regex = RegExp.compile("<(.|\n)*?>", "g");
-    
+
     AlarmView(Dashlet dashlet) {
 		super(dashlet, 5, new String[] { "Node", "Log Msg", "Count", "First Time", "Last Time" });
 	}
-    
+
     /**
      * <p>setAlarms</p>
      *
@@ -56,9 +56,9 @@ class AlarmView extends PageableTableView {
     public void setAlarms(Alarm[] alarms) {
         m_alarms = alarms;
         refresh();
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void setRow(FlexTable table, int row, int elementIndex) {
@@ -68,7 +68,7 @@ class AlarmView extends PageableTableView {
     	} else {
             table.setHTML(row, 0, "<a href=\"element/node.jsp?node=" + alarm.getNodeId() + "\">" + alarm.getNodeLabel() + "</a>");
     	}
-    	
+
         HTML label = new HTML();
         label.setTitle(stripHtmlTags(alarm.getDescrption()));
         label.setHTML(SafeHtmlUtils.fromTrustedString(alarm.getLogMsg()));
@@ -78,7 +78,7 @@ class AlarmView extends PageableTableView {
         table.setText(row, 4, alarm.getLastEventTime().toString());
         table.getRowFormatter().setStyleName(row, alarm.getSeverity());
     }
-    
+
     private String stripHtmlTags(String description) {
         return m_regex.replace(description, "");
     }
@@ -99,5 +99,5 @@ class AlarmView extends PageableTableView {
 		super.formatCells(table, row);
 	    table.getCellFormatter().addStyleName(row, 1, "bright");
 	}
-    
+
 }

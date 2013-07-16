@@ -226,7 +226,7 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
         Integer number = queryForObject(sql, setter, new SingleColumnRowMapper<Integer>(Integer.class));
         return (number != null ? number.intValue() : 0);
     }
-    
+
     private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper) throws DataAccessException {
         return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
@@ -235,7 +235,7 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
-    
+
     private JdbcOperations jdbc() {
         return m_simpleJdbcTemplate.getJdbcOperations();
     }
@@ -280,7 +280,7 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
             outage.regainedServiceTime = getTimestamp("ifRegainedService", rs);
             outage.suppressTime = getTimestamp("suppressTime", rs);
             outage.suppressedBy = ((String) rs.getObject("suppressedBy"));
-            
+
             outage.hostname = ((String) rs.getObject("ipHostname"));
             outage.lostServiceNotificationAcknowledgedBy = ((String) rs.getObject("answeredBy"));
             outage.lostServiceNotificationId = ((Integer) rs.getObject("notifyId"));
@@ -289,7 +289,7 @@ public class JdbcWebOutageRepository implements WebOutageRepository, Initializin
 
             return outage;
         }
-        
+
     }
 
     private static Date getTimestamp(String field, ResultSet rs) throws SQLException{

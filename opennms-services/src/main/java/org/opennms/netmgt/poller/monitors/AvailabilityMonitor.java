@@ -47,8 +47,8 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public class AvailabilityMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(AvailabilityMonitor.class);
 
     private static final int DEFAULT_RETRY = 3;
@@ -71,9 +71,9 @@ public class AvailabilityMonitor extends AbstractServiceMonitor {
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
-        
+
         TimeoutTracker timeoutTracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
-        
+
         for(timeoutTracker.reset(); timeoutTracker.shouldRetry(); timeoutTracker.nextAttempt()) {
             try {
                 timeoutTracker.startAttempt();
@@ -85,7 +85,7 @@ public class AvailabilityMonitor extends AbstractServiceMonitor {
             }
         }
         String reason = svc+" failed to respond";
-        
+
         LOG.debug(reason);
         return PollStatus.unavailable(reason);
     }

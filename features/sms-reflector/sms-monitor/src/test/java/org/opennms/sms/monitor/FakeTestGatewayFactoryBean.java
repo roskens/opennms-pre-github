@@ -35,14 +35,14 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.util.Assert;
 
 public class FakeTestGatewayFactoryBean implements InitializingBean {
-	
-	
+
+
 	private ServiceRegistry m_serviceRegistry;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		Assert.notNull(getServiceRegistry(), "serviceRegistry must not be null");
-		
+
 		GatewayGroup gatewayGroup = new GatewayGroup() {
 
                         @Override
@@ -50,11 +50,11 @@ public class FakeTestGatewayFactoryBean implements InitializingBean {
 				System.err.println("getting ACM0");
 				return new AGateway[] { new FakeTestGateway( "ACM0" ) };
 			}
-			
+
 		};
-		
+
 		getServiceRegistry().register(gatewayGroup, GatewayGroup.class);
-		
+
 	}
 
 	public void setServiceRegistry(ServiceRegistry serviceRegistry) {
@@ -64,6 +64,6 @@ public class FakeTestGatewayFactoryBean implements InitializingBean {
 	public ServiceRegistry getServiceRegistry() {
 		return m_serviceRegistry;
 	}
-	
-	
+
+
 }

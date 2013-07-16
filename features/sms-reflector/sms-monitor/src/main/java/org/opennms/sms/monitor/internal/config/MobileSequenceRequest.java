@@ -54,7 +54,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
 	public MobileSequenceRequest() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for MobileSequenceRequest.</p>
 	 *
@@ -87,7 +87,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
 	public String getText() {
 		return m_text;
 	}
-	
+
 	/**
 	 * <p>setText</p>
 	 *
@@ -96,7 +96,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
 	public void setText(String text) {
 		m_text = text;
 	}
-	
+
 	/**
 	 * <p>getTransaction</p>
 	 *
@@ -106,7 +106,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
 	public MobileSequenceTransaction getTransaction() {
 	    return m_transaction;
 	}
-	
+
 	/**
 	 * <p>setTransaction</p>
 	 *
@@ -115,7 +115,7 @@ public abstract class MobileSequenceRequest extends MobileSequenceOperation {
 	public void setTransaction(MobileSequenceTransaction transaction) {
 	    m_transaction = transaction;
 	}
-	
+
 	/**
 	 * <p>getGatewayId</p>
 	 *

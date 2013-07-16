@@ -54,7 +54,7 @@ public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>
      * The sender's address.
      */
     private final Inet6Address m_address;
-    
+
     /**
      * The received packet.
      */
@@ -82,7 +82,7 @@ public final class Jni6PingResponse implements ResponseWithId<Jni6PingRequestId>
     private ICMPv6EchoReply getPacket() {
         return m_packet;
     }
-    
+
     /**
      * Returns the internet address of the host that sent the reply.
      *

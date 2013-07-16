@@ -38,7 +38,7 @@ import java.util.EventListener;
  * @version $Id: $
  */
 public interface ConfigurationChangedListener extends EventListener {
-	
+
 	/**
 	 * <p>configurationChanged</p>
 	 *

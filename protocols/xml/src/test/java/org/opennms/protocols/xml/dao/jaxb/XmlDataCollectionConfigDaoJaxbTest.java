@@ -46,7 +46,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * The Class XmlDataCollectionConfigDaoJaxbTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlDataCollectionConfigDaoJaxbTest {
@@ -112,7 +112,7 @@ public class XmlDataCollectionConfigDaoJaxbTest {
 
     /**
      * Test after properties set with nested files (external references to XML groups).
-     * 
+     *
      * @throws Exception the exception
      */
     @Test

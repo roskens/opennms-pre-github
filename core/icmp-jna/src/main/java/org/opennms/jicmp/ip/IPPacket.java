@@ -40,22 +40,22 @@ import org.opennms.jicmp.jna.NativeDatagramPacket;
  * @author brozow
  */
 public class IPPacket {
-    
+
     public enum Protocol {
         ICMP(1),
         TCP(6),
         UDP(17),
         V6_OVER_V4(41);
-        
+
         private int m_code;
         private Protocol(int code) {
             m_code = code;
         }
-        
+
         public int getCode() {
             return m_code;
         }
-        
+
         public static Protocol toProtocol(int code) {
             for(Protocol p : Protocol.values()) {
                 if (code == p.getCode()) {
@@ -64,19 +64,19 @@ public class IPPacket {
             }
             throw new IllegalArgumentException(String.format("Unabled to find Protocol with code %d", code));
         }
-        
+
     }
-    
+
     private ByteBuffer m_buffer;
-    
+
     public IPPacket(IPPacket p) {
         this(p.m_buffer.duplicate());
     }
-    
+
     public IPPacket(ByteBuffer buffer) {
         m_buffer = buffer;
     }
-    
+
     public IPPacket(byte[] data, int offset, int length) {
         this(ByteBuffer.wrap(data, offset, length).slice());
     }
@@ -84,14 +84,14 @@ public class IPPacket {
     public IPPacket(NativeDatagramPacket datagram) {
         this(datagram.getContent());
     }
-    
+
     /**
      * Returns the version of the IP Packet which must be '4'
      */
     public int getVersion() {
         return ((m_buffer.get(0) & 0xf0) >> 4);
     }
-    
+
     /**
      * Returns the length of the header in bytes
      */
@@ -100,7 +100,7 @@ public class IPPacket {
         // This is stored in bits 4-7 of header (low bits of first byte)
         return (m_buffer.get(0) & 0xf) << 2; // shift effectively does * 4 (4 bytes per 32 bit word)
     }
-    
+
     private InetAddress getAddrAtOffset(int offset) {
         byte[] addr = new byte[4];
         int oldPos = m_buffer.position();
@@ -110,34 +110,34 @@ public class IPPacket {
         } finally {
             m_buffer.position(oldPos);
         }
-        
+
         InetAddress result = null;
         try {
             result = InetAddress.getByAddress(addr);
         } catch (UnknownHostException e) {
             // this can't happen
         }
-        
+
         return result;
 
     }
-    
+
     public int getTimeToLive() {
         return 0xff & m_buffer.get(8);
     }
-    
+
     public Protocol getProtocol() {
         return Protocol.toProtocol(m_buffer.get(9));
     }
-    
+
     public InetAddress getSourceAddress() {
         return getAddrAtOffset(12);
     }
-    
+
     public InetAddress getDestinationAddress() {
         return getAddrAtOffset(16);
     }
-    
+
     public ByteBuffer getPayload() {
         ByteBuffer data = m_buffer.duplicate();
         data.position(getHeaderLength());
@@ -146,5 +146,5 @@ public class IPPacket {
     public int getPayloadLength() {
         return getPayload().remaining();
     }
-    
+
 }

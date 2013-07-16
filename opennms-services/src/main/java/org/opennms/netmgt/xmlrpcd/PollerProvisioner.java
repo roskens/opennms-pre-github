@@ -37,7 +37,7 @@ import java.util.Map;
  * @version $Id: $
  */
 public interface PollerProvisioner {
-    
+
     /**
      * <p>addMonitor</p>
      *
@@ -46,7 +46,7 @@ public interface PollerProvisioner {
      * @return a boolean.
      */
     boolean addMonitor(String svcName, String className);
-    
+
     /**
      * <p>addPackage</p>
      *
@@ -56,7 +56,7 @@ public interface PollerProvisioner {
      * @return a boolean.
      */
     boolean addPackage(String packageName, int downtimeInterval, int downtimeDuration);
-    
+
     /**
      * <p>getDowntimeInterval</p>
      *
@@ -64,7 +64,7 @@ public interface PollerProvisioner {
      * @return a int.
      */
     int getDowntimeInterval(String packageName);
-    
+
     /**
      * <p>getDowntimeDuration</p>
      *
@@ -72,7 +72,7 @@ public interface PollerProvisioner {
      * @return a int.
      */
     int getDowntimeDuration(String packageName);
-    
+
     /**
      * <p>addService</p>
      *
@@ -83,7 +83,7 @@ public interface PollerProvisioner {
      * @return a boolean.
      */
     boolean addService(String packageName, String svcName, int interval, Map<?,?> parameters);
-    
+
     /**
      * <p>getServiceInterval</p>
      *
@@ -92,7 +92,7 @@ public interface PollerProvisioner {
      * @return a int.
      */
     int getServiceInterval(String packageName, String svcName);
-    
+
     /**
      * <p>getServiceParameters</p>
      *

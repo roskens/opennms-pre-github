@@ -47,11 +47,11 @@ import org.opennms.protocols.snmp.asn1.AsnEncoder;
 /**
  * Abstracts the communication related details from the SnmpSession and
  * SnmpTrapSession.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj </a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
- * 
+ *
  * @see SnmpSession
  * @see SnmpTrapSession
  * @see java.net.DatagramSocket
@@ -63,13 +63,13 @@ public class SnmpPortal {
      * The packet handler that is used to process received SNMP packets and
      * invalid datagrams. The handler must also process any exceptions that
      * occurs in the receiving thread.
-     * 
+     *
      */
     private SnmpPacketHandler m_handler;
 
     /**
      * The datagram socket used to send and receive SNMP messages.
-     * 
+     *
      */
     private DatagramSocket m_comm;
 
@@ -82,7 +82,7 @@ public class SnmpPortal {
      * ASN.1 encoder used to decode the SNMP messages. If the decoded fails to
      * decode the specific messages the is should throw and appropiate ASN.1
      * exception
-     * 
+     *
      */
     private AsnEncoder m_encoder;
 
@@ -124,7 +124,7 @@ public class SnmpPortal {
 
     /**
      * Private constructor used to disallow the default constructor.
-     * 
+     *
      * @exception java.lang.UnsupportedOperationException
      *                Always thrown!
      */
@@ -137,20 +137,20 @@ public class SnmpPortal {
      * The SnmpPortal constructor. The constructor is used to build a portal on
      * the specified port, and forward messages to the defined handler. All
      * messages are decoded using the encoder specified during construction.
-     * 
+     *
      * @param handler
      *            The SNMP packet handler.
      * @param encoder
      *            The ASN.1 codec object.
      * @param port
      *            The port to send and receive datagram from.
-     * 
+     *
      * @exception java.net.SocketException
      *                Thrown if an error occurs setting up the communication
      *                channel.
      * @exception java.lang.IllegalArgumentException
      *                Thrown if any of the parameters are null or invalid.
-     * 
+     *
      */
     SnmpPortal(final SnmpPacketHandler handler, final AsnEncoder encoder, final int port) throws SocketException {
     	if (handler == null || encoder == null)
@@ -185,7 +185,7 @@ public class SnmpPortal {
 
         initializePortal(encoder);
     }
-    
+
 	public void initializePortal(final AsnEncoder encoder) throws SocketException {
 		//
         // Determine whether or not it is necessary to use the
@@ -240,7 +240,7 @@ public class SnmpPortal {
      * Defines the inner class that monitors the datagram socket and receives
      * all the PDU responses. If an exception is generated then it is saved in
      * m_why and can be re-generated with a call to raise().
-     * 
+     *
      */
     private class Receiver implements Runnable {
         /**
@@ -248,7 +248,7 @@ public class SnmpPortal {
          * attempts to set the received buffer size to 64k. If it fails then the
          * default buffer size is recovered. If the default buffer size cannot
          * be recovered then a zero is returned.
-         * 
+         *
          * @return The communications channel receive buffer size. A zero is
          *         returned on error
          */
@@ -278,10 +278,10 @@ public class SnmpPortal {
          * The run method is an infinite loop method that receives all datagrams
          * for the session. If an unrecoverable error occurs then the m_handler
          * is informed of the error
-         * 
+         *
          * If a pdu is recovered from the channel then the associated handler is
          * invoked to process the pdu.
-         * 
+         *
          * @see SnmpPacketHandler
          */
         @Override
@@ -391,26 +391,26 @@ public class SnmpPortal {
     /**
      * Recovers a SnmpPduPacket or SnmpPduTrap from the passed datagram and
      * calls the appropriate method in the handler.
-     * 
+     *
      * If an error occurs recovering the packet then an exception is generated.
      * The pdu can be one of SnmpPduRequest or SnmpPduBulk. The internal session
      * AsnEncoder defined in the SnmpParameters is used to recover the pdu.
-     * 
+     *
      * @param pkt
      *            The datagram packet to be decoded
-     * 
+     *
      * @exception SnmpPduEncodingException
      *                Thrown if a pdu or session level error occurs
      * @exception AsnDecodingException
      *                Thrown if the AsnEncoder encounters an error
-     * 
+     *
      * @see SnmpPduTrap
      * @see SnmpPduPacket
      * @see SnmpPduRequest
      * @see SnmpPduBulk
      * @see SnmpParameters
      * @see org.opennms.protocols.snmp.asn1.AsnEncoder
-     * 
+     *
      */
     void handlePkt(DatagramPacket pkt) throws SnmpPduEncodingException, AsnDecodingException {
         //
@@ -529,19 +529,19 @@ public class SnmpPortal {
     /**
      * Transmits the passed buffer to the respective peer agent. If a failure
      * occurs then an IOException is thrown.
-     * 
+     *
      * @param peer
      *            The SNMP peer destination
      * @param buf
      *            The buffer to transmit.
      * @param length
      *            The valid length of the buffer
-     * 
+     *
      * @exception java.lang.IOException
      *                For more details see java.net.DatagramSocket.
-     * 
+     *
      * @see java.net.DatagramSocket
-     * 
+     *
      */
     void send(SnmpPeer peer, byte[] buf, int length) throws java.io.IOException {
         //
@@ -556,17 +556,17 @@ public class SnmpPortal {
     /**
      * Transmits the passed buffer to the respective peer agent. If a failure
      * occurs then an IOException is thrown.
-     * 
+     *
      * @param peer
      *            The SNMP peer destination
      * @param buf
      *            The buffer to transmit.
-     * 
+     *
      * @exception java.lang.IOException
      *                For more details see java.net.DatagramSocket.
-     * 
+     *
      * @see java.net.DatagramSocket
-     * 
+     *
      */
     void send(SnmpPeer peer, byte[] buf) throws java.io.IOException {
         send(peer, buf, buf.length);
@@ -574,10 +574,10 @@ public class SnmpPortal {
 
     /**
      * Sets the default SnmpPacketHandler.
-     * 
+     *
      * @param hdl
      *            The new handler
-     * 
+     *
      */
     void setPacketHandler(SnmpPacketHandler hdl) {
         if (hdl == null)
@@ -588,7 +588,7 @@ public class SnmpPortal {
 
     /**
      * Gets the default SnmpPacketHandler for the session.
-     * 
+     *
      * @return the SnmpPacketHandler
      */
     SnmpPacketHandler getPacketHandler() {
@@ -597,10 +597,10 @@ public class SnmpPortal {
 
     /**
      * Sets the default encoder.
-     * 
+     *
      * @param encoder
      *            The new encoder
-     * 
+     *
      */
     void setAsnEncoder(AsnEncoder encoder) {
         if (encoder == null)
@@ -611,7 +611,7 @@ public class SnmpPortal {
 
     /**
      * Gets the AsnEncoder for the session.
-     * 
+     *
      * @return the AsnEncoder
      */
     AsnEncoder getAsnEncoder() {
@@ -621,7 +621,7 @@ public class SnmpPortal {
     /**
      * Returns true if this portal has had it's <CODE>close</CODE> method
      * called.
-     * 
+     *
      */
     boolean isClosed() {
         return m_isClosing;
@@ -630,7 +630,7 @@ public class SnmpPortal {
     /**
      * Used to close the session. Once called the session should be considered
      * invalid and unusable.
-     * 
+     *
      */
     void close() {
         m_isClosing = true;

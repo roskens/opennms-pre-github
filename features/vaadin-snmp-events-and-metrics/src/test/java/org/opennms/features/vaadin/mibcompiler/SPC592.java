@@ -48,8 +48,8 @@ import org.opennms.netmgt.xml.eventconf.Maskelement;
 
 /**
  * The Test Class for <a href="http://issues.opennms.org/browse/SPC-592">SPC-592</a>
- * 
- * @author <a href="mailto:agalue@opennms.org">Jeff Gehlbach</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Jeff Gehlbach</a>
  */
 public class SPC592 {
 
@@ -71,7 +71,7 @@ public class SPC592 {
     /**
      * Test standard parse.
      * <p>This test is to verify that the problem is not JsmiParser.</p>
-     * 
+     *
      * @throws Exception the exception
      */
     @Test
@@ -139,7 +139,7 @@ public class SPC592 {
         Events isisEvents = parser.getEvents("uei.opennms.org/issues/SPC592/");
         assertEquals(isisEvents.getEventCollection().size(), 18);
         assertEquals("uei.opennms.org/issues/SPC592/isisAdjacencyChange", isisEvents.getEvent(16).getUei());
-        
+
         boolean foundId = false;
         for (Maskelement me : isisEvents.getEvent(16).getMask().getMaskelementCollection()) {
             if ("id".equals(me.getMename())) {
@@ -155,7 +155,7 @@ public class SPC592 {
         if (! foundId) {
             Assert.fail("Never found the 'id' mask-element in the isisAdjacencyChange event");
         }
-        
+
         boolean foundSpecific = false;
         for (Maskelement me : isisEvents.getEvent(16).getMask().getMaskelementCollection()) {
             if ("specific".equals(me.getMename())) {

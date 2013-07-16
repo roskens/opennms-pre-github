@@ -33,7 +33,7 @@ import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Widget;
 
 /**
- * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a> 
+ * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
  * </br>
  * For later use. Don't use it jet!
  */

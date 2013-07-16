@@ -42,7 +42,7 @@ public class StringNoWhiteSpacesValidator implements Validator {
 	/**
 	 * Validates that String doesn't contain any whitespaces. Validation will run
 	 * against <code>(String) object</code> so make sure to use a proper object.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

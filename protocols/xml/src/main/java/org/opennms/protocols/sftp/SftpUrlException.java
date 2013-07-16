@@ -30,7 +30,7 @@ package org.opennms.protocols.sftp;
 
 /**
  * The Class SftpUrlException.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SftpUrlException extends RuntimeException {

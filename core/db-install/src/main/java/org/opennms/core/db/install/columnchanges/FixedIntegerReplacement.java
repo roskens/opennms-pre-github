@@ -43,7 +43,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class FixedIntegerReplacement implements ColumnChangeReplacement {
     private final Integer m_replacement;
-    
+
     /**
      * <p>Constructor for FixedIntegerReplacement.</p>
      *
@@ -58,7 +58,7 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return m_replacement;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -68,7 +68,7 @@ public class FixedIntegerReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

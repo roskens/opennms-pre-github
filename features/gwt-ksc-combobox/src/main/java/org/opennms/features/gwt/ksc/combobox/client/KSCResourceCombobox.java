@@ -47,8 +47,8 @@ public class KSCResourceCombobox implements EntryPoint {
    */
   @Override
   public void onModuleLoad() {
-      
-      
+
+
       if(Window.Navigator.getUserAgent().contains("MSIE")) {
           NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
           for(int j = 0; j < divs.getLength(); j++) {
@@ -57,7 +57,7 @@ public class KSCResourceCombobox implements EntryPoint {
                   createView(element);
               }
           }
-          
+
       }else {
           NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:kscReportCombobox");
           if(nodes.getLength() > 0) {
@@ -72,9 +72,9 @@ public class KSCResourceCombobox implements EntryPoint {
       AppController appView = new AppController(getKscComboboxData());
       appView.go(RootPanel.get(elem.getId()));
   }
-  
+
   public static native JsArray<KscReportDetail> getKscComboboxData() /*-{
       return $wnd.kscComboData;
   }-*/;
-  
+
 }

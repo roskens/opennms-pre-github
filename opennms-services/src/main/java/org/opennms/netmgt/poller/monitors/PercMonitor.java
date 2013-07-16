@@ -65,10 +65,10 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable(DistributionContext.DAEMON)
 final public class PercMonitor extends SnmpMonitorStrategy {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(PercMonitor.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -85,7 +85,7 @@ final public class PercMonitor extends SnmpMonitorStrategy {
     private static final String PHYSICAL_BASE_OID = ".1.3.6.1.4.1.3582.1.1.3.1.4";
 
     private static final String ARRAY_POSITION_BASE_OID = ".1.3.6.1.4.1.3582.1.1.3.1.5";
-    
+
     /**
      * <P>
      * Returns the name of the service that the plug-in monitors ("SNMP").
@@ -172,7 +172,7 @@ final public class PercMonitor extends SnmpMonitorStrategy {
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
         agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
-        
+
         String arrayNumber = ParameterMap.getKeyedString(parameters,"array","0.0");
 
         LOG.debug("poll: service= SNMP address= {}", agentConfig);
@@ -183,47 +183,47 @@ final public class PercMonitor extends SnmpMonitorStrategy {
             LOG.debug("PercMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
             SnmpObjId snmpObjectId = SnmpObjId.get(LOGICAL_BASE_OID + "." + arrayNumber);
 
-            // First walk the physical OID Tree and check the returned values 
+            // First walk the physical OID Tree and check the returned values
 
-            String returnValue = ""; 
-          
+            String returnValue = "";
+
             SnmpValue value = SnmpUtils.get(agentConfig,snmpObjectId);
-            
+
             if (value.toInt()!=2){
             	LOG.debug("PercMonitor.poll: Bad Disk Found");
             	returnValue = "log vol(" + arrayNumber + ") degraded"; // XXX should degraded be the virtualDiskState ?
             	// array is bad
             	// lets find out which disks are bad in the array
-            	
+
             	// first we need to fetch the arrayPosition table.
             	SnmpObjId arrayPositionSnmpObject = SnmpObjId.get(ARRAY_POSITION_BASE_OID);
-            	SnmpObjId diskStatesSnmpObject = SnmpObjId.get(PHYSICAL_BASE_OID); 
-            	
+		SnmpObjId diskStatesSnmpObject = SnmpObjId.get(PHYSICAL_BASE_OID);
+
             	Map<SnmpInstId,SnmpValue> arrayDisks = SnmpUtils.getOidValues(agentConfig, "PercMonitor", arrayPositionSnmpObject);
             	Map<SnmpInstId,SnmpValue> diskStates = SnmpUtils.getOidValues(agentConfig, "PercMonitor", diskStatesSnmpObject);
-            	
+
             	for (Map.Entry<SnmpInstId, SnmpValue> disk: arrayDisks.entrySet()) {
-            		
+
             		if (disk.getValue().toString().contains("A" + arrayNumber.toString() + "-")) {
             			// this is a member of the array
-            			
+
             			if ( diskStates.get(disk.getKey()).toInt() !=3 ){
             				// this is bad disk.
-            				
+
             				returnValue  += "phy drv(" + disk.getKey().toString() + ")";
-            				
+
             			}
-            			
+
             		}
-            
+
             		return PollStatus.unavailable(returnValue);
             	}
-            	
-            	
+
+
             }
-        
+
             status = PollStatus.available();
-            
+
 
         } catch (NumberFormatException e) {
             String reason = "Number operator used on a non-number " + e.getMessage();

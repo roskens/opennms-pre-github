@@ -36,11 +36,11 @@ package org.opennms.web.controller.inventory;
  * @since 1.8.1
  */
 public class AdminStorageCommClass {
-        
-    
+
+
     private String bucket;
-    
-    
+
+
     /**
      * <p>Getter for the field <code>bucket</code>.</p>
      *

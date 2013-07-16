@@ -36,14 +36,14 @@ import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
 class V6PingRequest extends ICMPv6EchoPacket {
-    
+
     public static final int PACKET_LENGTH = 64;
     public static final long COOKIE = 0x4F70656E4E4D5321L;
     public static final int OFFSET_COOKIE = 0;
     public static final int OFFSET_TIMESTAMP = 8;
     public static final int OFFSET_THREAD_ID = 16;
     public static final int DATA_LENGTH = 8*3;
-    
+
     public V6PingRequest() {
         super(PACKET_LENGTH);
         setType(Type.EchoRequest);
@@ -57,7 +57,7 @@ class V6PingRequest extends ICMPv6EchoPacket {
         setCode(0);
         setIdentifier(id);
         setSequenceNumber(seqNum);
-        
+
         // data fields
         setThreadId(threadId);
         setCookie();
@@ -77,7 +77,7 @@ class V6PingRequest extends ICMPv6EchoPacket {
         setCode(0);
         setIdentifier(id);
         setSequenceNumber(seqNum);
-        
+
         // data fields
         setThreadId(threadId);
         setCookie();
@@ -89,11 +89,11 @@ class V6PingRequest extends ICMPv6EchoPacket {
             buf.put(b, (byte)b);
         }
     }
-    
+
     public long getThreadId() {
         return getContentBuffer().getLong(OFFSET_THREAD_ID);
     }
-    
+
     public void setThreadId(long threadId) {
         getContentBuffer().putLong(OFFSET_THREAD_ID, threadId);
     }

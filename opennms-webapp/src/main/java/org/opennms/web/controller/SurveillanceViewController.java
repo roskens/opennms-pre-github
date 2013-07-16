@@ -73,7 +73,7 @@ public class SurveillanceViewController extends AbstractController implements In
     public void setService(SurveillanceService svc) {
         m_service = svc;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */

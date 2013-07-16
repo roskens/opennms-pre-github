@@ -52,11 +52,11 @@ public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationPr
         Assert.notNull(m_userManager);
         Assert.notNull(m_userDao);
     }
-    
+
     public UserManager getUserManager() {
         return m_userManager;
     }
-    
+
     public void setUserManager(final UserManager userManager) {
         m_userManager = userManager;
     }
@@ -64,11 +64,11 @@ public class HybridOpenNMSUserAuthenticationProvider implements AuthenticationPr
     public SpringSecurityUserDao getUserDao() {
         return m_userDao;
     }
-    
+
     public void setUserDao(final SpringSecurityUserDao userDao) {
         m_userDao = userDao;
     }
-    
+
     @Override
     public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
         final String authUsername = authentication.getPrincipal().toString();

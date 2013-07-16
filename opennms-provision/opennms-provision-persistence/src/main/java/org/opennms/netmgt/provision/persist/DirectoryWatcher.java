@@ -12,7 +12,7 @@ import org.opennms.core.utils.FileReloadCallback;
 import org.opennms.core.utils.FileReloadContainer;
 
 public class DirectoryWatcher<T> {
-	
+
 	private File m_directory;
 	private FileReloadCallback<T> m_loader;
 	private ConcurrentHashMap<String, FileReloadContainer<T>> m_contents = new ConcurrentHashMap<String, FileReloadContainer<T>>();
@@ -23,11 +23,11 @@ public class DirectoryWatcher<T> {
 		m_directory.mkdirs();
 		m_loader = loader;
 	}
-	
+
 	public Set<String> getFileNames() {
 		return checkFileChanges();
 	}
-	
+
 	private Set<String> checkFileChanges() {
 		while (true) {
 			LinkedHashSet<String> fileNames = new LinkedHashSet<String>(Arrays.asList(m_directory.list()));
@@ -40,10 +40,10 @@ public class DirectoryWatcher<T> {
 			}
 		}
 	}
-	
+
 	public Set<String> getBaseNamesWithExtension(String extension) {
 		Set<String> fileNames = checkFileChanges();
-		Set<String> basenames = new LinkedHashSet<String>(); 
+		Set<String> basenames = new LinkedHashSet<String>();
 		for(String fileName : fileNames) {
 			if (fileName.endsWith(extension)) {
 				String basename = fileName.substring(0, fileName.length()-extension.length());
@@ -55,9 +55,9 @@ public class DirectoryWatcher<T> {
 
 	public T getContents(String fileName) throws FileNotFoundException {
 		checkFileChanges();
-		
+
 		File file = new File(m_directory, fileName);
-		
+
 		if (file.exists()) {
 			FileReloadContainer<T> newContainer = new FileReloadContainer<T>(file, m_loader);
 			newContainer.setReloadCheckInterval(0);
@@ -68,8 +68,8 @@ public class DirectoryWatcher<T> {
 			m_contents.remove(fileName);
 			throw new FileNotFoundException("there is no file " + fileName + " in directory " + m_directory);
 		}
-		
+
 	}
-		
+
 
 }

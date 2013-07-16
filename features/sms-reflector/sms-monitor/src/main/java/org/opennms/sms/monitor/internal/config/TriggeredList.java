@@ -80,7 +80,7 @@ public class TriggeredList<T> extends AbstractList<T> {
         onSet(index, old, element);
         return old;
     }
-    
+
     /**
      * <p>onSet</p>
      *

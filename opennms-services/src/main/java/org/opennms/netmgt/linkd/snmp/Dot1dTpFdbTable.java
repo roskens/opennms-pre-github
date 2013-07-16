@@ -53,7 +53,7 @@ public class Dot1dTpFdbTable extends SnmpTable<Dot1dTpFdbTableEntry> {
 	public Dot1dTpFdbTable(InetAddress address) {
         super(address, "dot1dTpFdbTable", Dot1dTpFdbTableEntry.ms_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected Dot1dTpFdbTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

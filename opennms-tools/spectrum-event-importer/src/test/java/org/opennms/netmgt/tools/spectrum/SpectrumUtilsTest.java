@@ -41,14 +41,14 @@ import org.opennms.core.test.MockLogAppender;
  */
 public class SpectrumUtilsTest {
     private SpectrumUtils m_utils;
-    
+
     @Before
     public void setUp() {
         m_utils = new SpectrumUtils();
         m_utils.setModelTypeAssetField("manufacturer");
         MockLogAppender.setupLogging();
     }
-    
+
     @Test
     public void translateSimpleVarbindTokens() {
         /*
@@ -58,14 +58,14 @@ public class SpectrumUtilsTest {
                             "\"system: report that a system halt has been initiated\"\n" +
                             "\n" +
                             "(event [{e}])\n", ef.getContents());  */
-        
+
         Assert.assertEquals("Simple single-digit integer varbind token", "%parm[#1]%", m_utils.translateFormatSubstToken("{I 1}"));
         Assert.assertEquals("Simple two-digit integer varbind token", "%parm[#42]%", m_utils.translateFormatSubstToken("{I 42}"));
         Assert.assertEquals("Model type substitution token", "%asset[manufacturer]%", m_utils.translateFormatSubstToken("{t}"));
         Assert.assertEquals("Model type substitution token", "%nodelabel%", m_utils.translateFormatSubstToken("{m}"));
         Assert.assertEquals("Event code substitution token", "%uei%", m_utils.translateFormatSubstToken("{e}"));
     }
-    
+
     @Test
     public void translateAllVarbindTokensInMessage() {
         String input =  "{d \"%w- %d %m-, %Y - %T\"} - A \"empSIP4xxErrorsBelowEvent\" event has occurred, from {t} device, named {m}.\n\n" +
@@ -88,7 +88,7 @@ public class SpectrumUtilsTest {
         Assert.assertTrue("Event-ID token got removed", !output.contains("{e}"));
         Assert.assertTrue("Event-ID token got replaced correctly", output.contains("%uei%"));
     }
-    
+
     @Test
     public void translateSimpleEventTable() {
         EventTable et = new EventTable("foobar");

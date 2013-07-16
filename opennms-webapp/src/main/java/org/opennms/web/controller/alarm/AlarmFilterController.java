@@ -64,13 +64,13 @@ public class AlarmFilterController extends AbstractController implements Initial
     private Integer m_defaultShortLimit;
 
     private Integer m_defaultLongLimit;
-    
+
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
 
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
     private AlarmRepository m_webAlarmRepository;
-    
+
     /**
      * {@inheritDoc}
      *
@@ -147,9 +147,9 @@ public class AlarmFilterController extends AbstractController implements Initial
         }
 
         // put the parameters in a convenient struct
-        
+
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         AlarmQueryParms parms = new AlarmQueryParms();
         parms.ackType = ackType;
         parms.display = display;
@@ -157,15 +157,15 @@ public class AlarmFilterController extends AbstractController implements Initial
         parms.limit = limit;
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
-        
+
         AlarmCriteria queryCriteria = new AlarmCriteria(filters, sortStyle, ackType, limit, limit * multiple);
         AlarmCriteria countCriteria = new AlarmCriteria(ackType, filters);
 
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(AlarmUtil.getOnmsCriteria(queryCriteria));
-        
+
         // get the total alarm count
         int alarmCount = m_webAlarmRepository.countMatchingAlarms(AlarmUtil.getOnmsCriteria(countCriteria));
-        
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("alarms", alarms);
         modelAndView.addObject("alarmCount", alarmCount);
@@ -211,7 +211,7 @@ public class AlarmFilterController extends AbstractController implements Initial
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebAlarmRepository</p>
      *
@@ -220,7 +220,7 @@ public class AlarmFilterController extends AbstractController implements Initial
     public void setAlarmRepository(AlarmRepository webAlarmRepository) {
         m_webAlarmRepository = webAlarmRepository;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */

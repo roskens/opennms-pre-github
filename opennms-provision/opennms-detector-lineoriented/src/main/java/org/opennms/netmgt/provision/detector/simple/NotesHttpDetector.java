@@ -48,7 +48,7 @@ public class NotesHttpDetector extends MultilineHttpDetector {
         super();
         setServiceName("NOTES");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {

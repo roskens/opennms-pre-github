@@ -51,7 +51,7 @@ public enum ViewState {
 	 * View is in edit mode.
 	 */
 	Edit;
-	
+
 	public boolean isEdit() {
 		return this == Edit;
 	}

@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CiscoIpSlaPlugin extends SnmpPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CiscoIpSlaPlugin.class);
 
     /**
@@ -210,7 +210,7 @@ public class CiscoIpSlaPlugin extends SnmpPlugin {
                     LOG.debug("poll: admin tag={} value={} oper state={}", adminTag, tagResults.get(ipslaInstance), operStateResults.get(ipslaInstance));
                     /*
                      *  Check if a configured ip sla with specific tag exist
-                     *  and is the operational state active 
+                     *  and is the operational state active
                      */
                     if (tagResults.get(ipslaInstance).toString().equals(
                                                                         adminTag)

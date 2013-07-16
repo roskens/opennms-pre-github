@@ -40,7 +40,7 @@ import org.hibernate.criterion.Restrictions;
  * @since 1.8.1
  */
 public class AndFilter extends ConditionalFilter {
-    
+
     /**
      * <p>Constructor for AndFilter.</p>
      *
@@ -54,11 +54,11 @@ public class AndFilter extends ConditionalFilter {
     @Override
     public Criterion getCriterion() {
         Conjunction conjunction = Restrictions.conjunction();
-        
+
         for(Filter filter : getFilters()) {
             conjunction.add(filter.getCriterion());
         }
-        
+
         return conjunction;
     }
 

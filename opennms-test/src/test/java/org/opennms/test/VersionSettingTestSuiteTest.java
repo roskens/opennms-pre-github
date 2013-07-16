@@ -34,9 +34,9 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 public class VersionSettingTestSuiteTest extends TestCase {
-    
+
     public int version = 0;
-    
+
     public static TestSuite suite() {
         return new VersionSettingTestSuite(VersionSettingTestSuiteTest.class, "Version 1 Suite", 1);
     }
@@ -50,11 +50,11 @@ public class VersionSettingTestSuiteTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-    
+
     public void testThatVersionIsSet() {
         assertEquals(1, version);
     }
-    
+
     public void setVersion(int v) {
         version = v;
     }

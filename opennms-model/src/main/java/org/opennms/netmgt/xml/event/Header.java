@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Class Header.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -114,7 +114,7 @@ public class Header implements Serializable {
      * using the
      *  DateFormat.FULL style for the default locale. For example:
      *  "Monday, February 18, 2002 3:01:58 PM EST"
-     * 
+     *
      * @return the value of field 'Created'.
      */
     public java.lang.String getCreated(
@@ -124,7 +124,7 @@ public class Header implements Serializable {
 
     /**
      * Returns the value of field 'dpName'.
-     * 
+     *
      * @return the value of field 'DpName'.
      */
     public java.lang.String getDpName(
@@ -134,7 +134,7 @@ public class Header implements Serializable {
 
     /**
      * Returns the value of field 'mstation'.
-     * 
+     *
      * @return the value of field 'Mstation'.
      */
     public java.lang.String getMstation(
@@ -144,7 +144,7 @@ public class Header implements Serializable {
 
     /**
      * Returns the value of field 'ver'.
-     * 
+     *
      * @return the value of field 'Ver'.
      */
     public java.lang.String getVer(
@@ -160,7 +160,7 @@ public class Header implements Serializable {
      * using the
      *  DateFormat.FULL style for the default locale. For example:
      *  "Monday, February 18, 2002 3:01:58 PM EST"
-     * 
+     *
      * @param created the value of field 'created'.
      */
     public void setCreated(
@@ -170,7 +170,7 @@ public class Header implements Serializable {
 
     /**
      * Sets the value of field 'dpName'.
-     * 
+     *
      * @param dpName the value of field 'dpName'.
      */
     public void setDpName(
@@ -180,7 +180,7 @@ public class Header implements Serializable {
 
     /**
      * Sets the value of field 'mstation'.
-     * 
+     *
      * @param mstation the value of field 'mstation'.
      */
     public void setMstation(
@@ -190,7 +190,7 @@ public class Header implements Serializable {
 
     /**
      * Sets the value of field 'ver'.
-     * 
+     *
      * @param ver the value of field 'ver'.
      */
     public void setVer(

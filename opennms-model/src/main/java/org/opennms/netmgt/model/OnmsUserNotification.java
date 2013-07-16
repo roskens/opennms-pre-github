@@ -59,9 +59,9 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsUserNotification implements Serializable {
 
     private static final long serialVersionUID = -1750912427062821742L;
-    
+
     private Integer m_id;
-    
+
     /** identifier field */
     private String m_userId;
 
@@ -106,7 +106,7 @@ public class OnmsUserNotification implements Serializable {
      */
     public OnmsUserNotification() {
     }
-    
+
     /**
      * <p>getId</p>
      *
@@ -129,7 +129,7 @@ public class OnmsUserNotification implements Serializable {
     public void setId(Integer id) {
         m_id = id;
     }
-    
+
     /**
      * <p>getUserId</p>
      *

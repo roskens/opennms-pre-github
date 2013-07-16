@@ -65,7 +65,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public final class IfTable extends SnmpTable<IfTableEntry> {
     private static final Logger LOG = LoggerFactory.getLogger(IfTable.class);
-    
+
 
     /**
      * <P>
@@ -81,7 +81,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     public IfTable(InetAddress address) {
         this(address, null);
     }
-    
+
     /**
      * <p>Constructor for IfTable.</p>
      *
@@ -107,7 +107,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     public Integer getOperStatus(int ifIndex) {
         return (getEntry(ifIndex) == null ? null : getEntry(ifIndex).getIfOperStatus());
     }
-        
+
     /**
      * <p>getAdminStatus</p>
      *
@@ -147,7 +147,7 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     public Long getIfSpeed(final int ifIndex) {
         return (getEntry(ifIndex) == null ? null : getEntry(ifIndex).getIfSpeed());
     }
-    
+
     /**
      * <p>getPhysAddr</p>
      *
@@ -177,12 +177,12 @@ public final class IfTable extends SnmpTable<IfTableEntry> {
     public void updateSnmpInterfaceData(OnmsNode node, Integer ifIndex) {
         // first look to see if an snmpIf was created already
         OnmsSnmpInterface snmpIf = node.getSnmpInterfaceWithIfIndex(ifIndex);
-        
+
         if (snmpIf == null) {
             // if not then create one
             snmpIf = new OnmsSnmpInterface(node, ifIndex);
         }
-        
+
         // IfTable Attributes
         snmpIf.setIfType(getIfType(ifIndex));
         snmpIf.setIfAdminStatus(getAdminStatus(ifIndex));

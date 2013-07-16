@@ -34,7 +34,7 @@ package org.opennms.netmgt.snmp;
  * @author brozow
  */
 public interface RowResultFactory {
-    
+
     SnmpRowResult createRowResult(int columnCount, SnmpInstId instance);
 
 }

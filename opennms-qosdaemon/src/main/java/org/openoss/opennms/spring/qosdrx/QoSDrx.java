@@ -47,7 +47,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 public class QoSDrx extends AbstractServiceDaemon {
     private static final Logger LOG = LoggerFactory.getLogger(QoSDrx.class);
-    
+
 	/**
 	 * <p>Constructor for QoSDrx.</p>
 	 */
@@ -90,7 +90,7 @@ public class QoSDrx extends AbstractServiceDaemon {
 
 	/**
 	 * Used to obtain opennms node information for inclusion in alarms
-	 * @see org.opennms.netmgt.dao.api.NodeDao 
+	 * @see org.opennms.netmgt.dao.api.NodeDao
 	 */
 	@SuppressWarnings("unused")
 	private static NodeDao _nodeDao;
@@ -140,7 +140,7 @@ public class QoSDrx extends AbstractServiceDaemon {
 
 
 	public static final String NAME = "oss-qosdrx";
-	private static String m_stats=null;  //not used but needed for initialisation	
+	private static String m_stats=null;  //not used but needed for initialisation
 
 
 
@@ -254,15 +254,15 @@ public class QoSDrx extends AbstractServiceDaemon {
 		}
 		return runtimeStats;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * not used but needed for initialisation
 	 *
 	 * @return stats
 	 */
-	public String getStats() { 
+	public String getStats() {
 		return (m_stats == null ? "QoSDrx.getStats(): No Stats Available" : m_stats.toString());
 	}
 

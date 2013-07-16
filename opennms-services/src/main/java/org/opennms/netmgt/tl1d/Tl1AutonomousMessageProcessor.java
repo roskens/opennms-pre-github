@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Tl1AutonomousMessageProcessor.class);
 
     /**
@@ -83,9 +83,9 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         } catch (IllegalStateException e) {
             return null;
         }
-        
+
         return message;
-        
+
     }
 
     private void processHeader(StringTokenizer lineParser, Tl1AutonomousMessage message) {
@@ -118,7 +118,7 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         message.setHost(message.getHeader().getSid());
         message.getHeader().setDate(headerParser.nextToken());
         message.getHeader().setTime(headerParser.nextToken());
-        
+
         try {
             if (message.getHeader().getDate().matches("^[0-9]{4}")) {
                 message.getHeader().setTimestamp(SDF_4DY.get().parse(message.getHeader().getDate()+" "+message.getHeader().getTime()));
@@ -129,7 +129,7 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         } catch (ParseException e) {
             throw new IllegalArgumentException("The line: "+line+", doesn't contain date and time in the format: "+SDF_2DY.get().toLocalizedPattern() + " or " + SDF_4DY.get().toLocalizedPattern());
         }
-        
+
         return true;
     }
 
@@ -151,7 +151,7 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
             throw new IllegalArgumentException("The line: "+line+" is not an Autonomouse message id.  Expected 3 or more tokens " +
                     "and received: "+idParser.countTokens());
         }
-        
+
         message.getId().setRawMessage(line);
         message.getId().setAlarmCode(idParser.nextToken());
         message.getId().setAlarmTag(idParser.nextToken());
@@ -177,30 +177,30 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
             }
         }
     }
-    
+
     /* Auto block of an Alarm always has the follow form
      *  aid:ntfcncde, followed by additional comma separated parms.
-     * ntfcncde may be in the form ntfcncde=code or just the code 
+     * ntfcncde may be in the form ntfcncde=code or just the code
      * where the code is CR, MJ, MN, CL for the severity.
      */
     private boolean parseAutoBlock(String line, Tl1AutonomousMessage message) {
-        
+
         message.getAutoBlock().setBlock(line);
 
         StringTokenizer autoBlockParser = new StringTokenizer(line,",");
-        
+
         LOG.debug("parseAutoBlock: Autoblock: {}", line);
-        
+
         // should count tokens and see if only aid:code;
         // for now I am assuming more than one parm.
         // Also we could have muliple messages in this block. Need to handle later.
         String aidAndCode = autoBlockParser.nextToken().trim();
         LOG.debug("parseAutoBlock: aidAndCode: {}", aidAndCode);
-        
+
         StringTokenizer aidParser = new StringTokenizer(aidAndCode,":");
         //get the aid. Trimoff the begining "
         message.getAutoBlock().setAid(aidParser.nextToken().substring(1));
-        
+
         // There are two forms that the NTFCNCDE IE can take...
         String ntfcncde = aidParser.nextToken().trim();
         StringTokenizer codeParser;
@@ -225,9 +225,9 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
             }
 
         }
-          
+
         message.getAutoBlock().setNtfcncde(ntfcncde);
-        
+
         //build other params.
         //This needs to be configurable or able to override.
         final StringBuffer sb = new StringBuffer();
@@ -237,7 +237,7 @@ public class Tl1AutonomousMessageProcessor implements Tl1MessageProcessor {
         }
 
         message.getAutoBlock().setAdditionalParams(sb.toString().trim());
-   
+
         return true;
     }
 }

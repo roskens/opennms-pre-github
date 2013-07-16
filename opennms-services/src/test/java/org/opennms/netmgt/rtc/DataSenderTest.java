@@ -61,15 +61,15 @@ public class DataSenderTest {
         InputStream stream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/rtc-configuration.xml");
         RTCConfigFactory.setInstance(new RTCConfigFactory(stream));
         stream.close();
-        
+
         Resource categoryResource = ConfigurationTestUtils.getSpringResourceForResource(this, "/org/opennms/netmgt/config/categories.xml");
         CategoryFactory.setInstance(new CategoryFactory(categoryResource));
-        
+
         stream = ConfigurationTestUtils.getInputStreamForResource(this, "/org/opennms/netmgt/config/test-database-schema.xml");
         DatabaseSchemaConfigFactory.setInstance(new DatabaseSchemaConfigFactory(stream));
         stream.close();
 
-        
+
         DataManager dataManager = new DataManager();
         RTCManager.setDataManager(dataManager);
 
@@ -83,7 +83,7 @@ public class DataSenderTest {
         RTCCategory rtcCategory = new RTCCategory(category, categoryName);
         Map<String, RTCCategory> rtcCategories = new HashMap<String, RTCCategory>();
         rtcCategories.put(categoryName, rtcCategory);
-        
+
         DataSender sender = new DataSender(rtcCategories, 1);
         sender.subscribe("http://localhost:8080/opennms-webapp/rtc/post/" + categoryNameUrl, categoryName, "rtc", "rtc");
         sender.sendData();

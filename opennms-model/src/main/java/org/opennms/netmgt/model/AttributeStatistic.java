@@ -38,7 +38,7 @@ package org.opennms.netmgt.model;
 public class AttributeStatistic implements Comparable<AttributeStatistic> {
     private OnmsAttribute m_attribute;
     private Double m_statistic;
-    
+
     /**
      * <p>Constructor for AttributeStatistic.</p>
      *
@@ -49,7 +49,7 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
         m_attribute = attribute;
         m_statistic = statistic;
     }
-    
+
     /**
      * <p>getAttribute</p>
      *
@@ -58,7 +58,7 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
     public OnmsAttribute getAttribute() {
         return m_attribute;
     }
-    
+
     /**
      * <p>getStatistic</p>
      *
@@ -78,17 +78,17 @@ public class AttributeStatistic implements Comparable<AttributeStatistic> {
     @Override
     public int compareTo(AttributeStatistic o) {
         int diff;
-        
-        diff = getStatistic().compareTo(o.getStatistic()); 
+
+        diff = getStatistic().compareTo(o.getStatistic());
         if (diff != 0) {
             return diff;
         }
-        
+
         diff = getAttribute().getResource().getId().compareToIgnoreCase(o.getAttribute().getResource().getId());
         if (diff != 0) {
             return diff;
         }
-        
+
         return new Integer(getAttribute().hashCode()).compareTo(o.getAttribute().hashCode());
     }
 }

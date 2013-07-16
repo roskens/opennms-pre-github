@@ -44,7 +44,7 @@ import org.opennms.protocols.json.collector.MockDocumentBuilder;
 
 /**
  * The Test class for JSON Collector for Solaris Zones Statistics
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -57,7 +57,7 @@ public class JsonCollectorSolarisZonesTest extends AbstractJsonCollectorTest {
     public String getJSONConfigFileName() {
         return "src/test/resources/solaris-zones-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */

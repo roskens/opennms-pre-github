@@ -1,13 +1,13 @@
-/* 
+/*
  * Licensed to the OpenNMS Group Inc. under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The OpenNMS Group Inc. licences this file to You under the Apache License, 
+ * The OpenNMS Group Inc. licences this file to You under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -31,7 +31,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory; 
+import org.apache.commons.logging.LogFactory;
 
 
 /**
@@ -81,8 +81,8 @@ public class BasicHttpMethods  {
 				}
 				URL url = new URL(urlStr);
 				URLConnection conn = url.openConnection ();
-				
-				// set username and password 
+
+				// set username and password
 				// see http://www.javaworld.com/javaworld/javatips/jw-javatip47.html
 				String userPassword = username + ":" + password;
 				// Encode String
@@ -127,7 +127,7 @@ public class BasicHttpMethods  {
 				throw new Exception("Shouldn't happen: HttpURLConnection doesn't support POST??", e);
 			}
 
-			// set username and password 
+			// set username and password
 			// see http://www.javaworld.com/javaworld/javatips/jw-javatip47.html
 			String userPassword = username + ":" + password;
 			// Encode String
@@ -207,7 +207,7 @@ public class BasicHttpMethods  {
 				throw new Exception("Shouldn't happen: HttpURLConnection doesn't support DELETE??", e);
 			}
 
-			// set username and password 
+			// set username and password
 			// see http://www.javaworld.com/javaworld/javatips/jw-javatip47.html
 			String userPassword = username + ":" + password;
 			// Encode String
@@ -262,7 +262,7 @@ public class BasicHttpMethods  {
 				throw new Exception("Shouldn't happen: HttpURLConnection doesn't support PUT??", e);
 			}
 
-			// set username and password 
+			// set username and password
 			// see http://www.javaworld.com/javaworld/javatips/jw-javatip47.html
 			String userPassword = username + ":" + password;
 			// Encode String

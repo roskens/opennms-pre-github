@@ -36,11 +36,11 @@ import javax.management.remote.JMXConnector;
 /**
  * This class manages the connection to the remote jmx server.  The Jsr160ConnectionFactory
  * class creates the connection and the close method closes it.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public class Jsr160ConnectionWrapper implements ConnectionWrapper{
-    
+
     private JMXConnector connector;
     private MBeanServerConnection connection;
 
@@ -54,7 +54,7 @@ public class Jsr160ConnectionWrapper implements ConnectionWrapper{
         this.connector  = connector;
         this.connection = connection;
     }
-    
+
     /**
      * <p>getMBeanServer</p>
      *
@@ -64,7 +64,7 @@ public class Jsr160ConnectionWrapper implements ConnectionWrapper{
     public MBeanServerConnection getMBeanServer() {
         return connection;
     }
-    
+
     /**
      * <p>close</p>
      */

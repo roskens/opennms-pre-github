@@ -53,12 +53,12 @@ public class TcaProtocolCollectorTest implements InitializingBean {
 
     @Autowired
     private ProtocolCollector protocolCollector;
-    
+
     private CollectionJob collectionJob;
     private InetAddress localhost;
     private SnmpAgentConfig snmpAgentConfig;
     private Set<String> destinations;
-    
+
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
@@ -77,36 +77,36 @@ public class TcaProtocolCollectorTest implements InitializingBean {
         destinations = new HashSet<String>();
         destinations.add("test");
     }
-    
+
     @Test
     public void testGetCompositeValue() {
         // snmpResult without "|amount-of-elements|"
         // timestamp, inboundDelay, inboundJitter, outboundDelay, outboundJitter, timesyncStatus
         String snmpResult = "1327451762,42,23,11,0,1|1327451763,11,0,11,0,1|1327451764,11,0,11,0,1|1327451765,11,0,11,0,1|1327451766,11,0,11,0,1|1327451767,11,0,11,0,1|1327451768,11,0,11,0,1|1327451769,11,0,11,0,1|1327451770,11,0,11,0,1|1327451771,11,0,11,0,1|1327451772,11,0,11,0,1|1327451773,11,0,11,0,1|1327451774,11,0,11,0,1|1327451775,11,0,11,0,1|1327451776,11,0,11,0,1|1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,12,0,11,0,423|";
-        
+
         TcaProtocolCollector tcaProtocolCollector = (TcaProtocolCollector)protocolCollector;
         String result = tcaProtocolCollector.getCompositeValue("inboundDelay", "|1|" + snmpResult);
         Assert.assertEquals("42", result);
-        
+
         result = tcaProtocolCollector.getCompositeValue("inboundJitter", "|1|" + snmpResult);
         Assert.assertEquals("23", result);
 
         result = tcaProtocolCollector.getCompositeValue("timesyncStatus", "|25|" + snmpResult );
         Assert.assertEquals("423", result);
-        
+
         Assert.assertNull(tcaProtocolCollector.getCompositeValue("foo", "|1|" + snmpResult));
-        
+
         Assert.assertNull(tcaProtocolCollector.getCompositeValue(null, "|1|" + snmpResult));
-        
+
         Assert.assertNull(tcaProtocolCollector.getCompositeValue("inboundDelay", null));
     }
-    
+
     @Test
     public void testCollectWithCompountMertic() {
 
         final String testMetric = ".1.3.6.1.4.1.27091.3.1.6.1.2.171.19.37.60_inboundDelay";
         final String testMetricValue = "12";
-        
+
         collectionJob.setService("TCA");
         collectionJob.setNodeId(1);
         collectionJob.setNetInterface(localhost.getHostAddress());

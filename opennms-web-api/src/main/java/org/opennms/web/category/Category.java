@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public class Category {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Category.class);
 
     /** The category definition (from the categories.xml file). */

@@ -10,7 +10,7 @@ public class SimpleNode {
 	private String m_primaryFlag;
 
 	public SimpleNode(Integer nodeId, String label, String foreignSource, String foreignId, String ipaddr, String primaryFlag) {
-		
+
 		m_nodeId = nodeId;
 		m_label = label;
 		m_foreignSource = foreignSource;
@@ -34,11 +34,11 @@ public class SimpleNode {
 	public void setLabel(String m_label) {
 		this.m_label = m_label;
 	}
-	
+
 	public String getForeignSource() {
 		return m_foreignSource;
 	}
-	
+
 	public void setForeignSource(String foreignSource) {
 		m_foreignSource = foreignSource;
 	}
@@ -46,7 +46,7 @@ public class SimpleNode {
 	public String getForeignId() {
 		return m_foreignId;
 	}
-	
+
 	public void setForeignId(String foreignId) {
 		m_foreignId = foreignId;
 	}

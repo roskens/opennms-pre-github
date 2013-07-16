@@ -33,7 +33,7 @@ import java.net.UnknownHostException;
 import org.opennms.netmgt.xml.event.Event;
 
 public class SnmpV1TrapEventForwarder extends SnmpTrapForwarderHelper implements
-		EventForwarder {	
+		EventForwarder {
 
 	public SnmpV1TrapEventForwarder(String source_ip, String ip, int port, String community, SnmpTrapHelper snmpTrapHelper) {
 		super(source_ip,ip, port, community, snmpTrapHelper);
@@ -48,7 +48,7 @@ public class SnmpV1TrapEventForwarder extends SnmpTrapForwarderHelper implements
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		}		
+		}
 	}
 
         @Override
@@ -66,5 +66,5 @@ public class SnmpV1TrapEventForwarder extends SnmpTrapForwarderHelper implements
 		throw new UnsupportedOperationException();
 	}
 
-	
+
 }

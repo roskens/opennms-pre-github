@@ -52,7 +52,7 @@ public class V1TrapInformation extends TrapInformation {
     /**
      * Constructs a new trap information instance that contains the sending
      * agent, the community string, and the Protocol Data Unit.
-     * 
+     *
      * @param agent
      *            The sending agent's address
      * @param community
@@ -60,7 +60,7 @@ public class V1TrapInformation extends TrapInformation {
      * @param pdu
      *            The encapsulated Protocol Data Unit.
      * @param trapProcessor The trap processor used to process the trap data
-     * 
+     *
      */
     public V1TrapInformation(InetAddress agent, String community, SnmpPduTrap pdu, TrapProcessor trapProcessor) {
         super(agent, community, trapProcessor);

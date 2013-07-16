@@ -8,8 +8,8 @@ public class EqFilter extends AttributeComparisonFilter {
         super(attribute);
         m_value = value;
     }
-    
-    
+
+
 
     @Override
     protected boolean valueMatches(String value) {
@@ -25,9 +25,9 @@ public class EqFilter extends AttributeComparisonFilter {
         buf.append(escaped(m_value));
         buf.append(")");
         return buf.toString();
-        
+
     }
-    
+
     private String escaped(String value) {
         return value
             .replace("\\", "\\\\")

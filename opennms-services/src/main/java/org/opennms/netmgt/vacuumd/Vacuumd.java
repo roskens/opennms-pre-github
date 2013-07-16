@@ -69,9 +69,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href=mailto:dj@opennms.org>DJ Gregor</a>
  */
 public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Vacuumd.class);
-    
+
     private static volatile Vacuumd m_singleton;
 
     private volatile Thread m_thread;
@@ -105,7 +105,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#init()
      */
     /** {@inheritDoc} */
@@ -171,7 +171,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Runnable#run()
      */
     /**
@@ -242,9 +242,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
         LOG.info("Vacuumd executing statement: {}", sql);
         // update the database
         Connection dbConn = null;
-        
+
         //initially set doCommit to avoid doing a commit in the finally
-        //if an exception is thrown.        
+        //if an exception is thrown.
         boolean commitRequired = false;
         boolean autoCommitFlag = !transactional;
         try {
@@ -336,7 +336,7 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
     /** {@inheritDoc} */
     @Override
     public void onEvent(Event event) {
-        
+
         if (isReloadConfigEvent(event)) {
             handleReloadConifgEvent();
         }
@@ -344,9 +344,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     private void handleReloadConifgEvent() {
         LOG.info("onEvent: reloading configuration...");
-        
+
         EventBuilder ebldr = null;
-        
+
         try {
             LOG.debug("onEvent: Number of elements in schedule:{}; calling stop on scheduler...", m_scheduler.getScheduled());
             stop();
@@ -367,10 +367,10 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
             start();
             LOG.debug("onEvent: Number of elements in schedule: {}", m_scheduler.getScheduled());
-            
+
             ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, getName());
             ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Vacuumd");
-            
+
         } catch (MarshalException e) {
             LOG.error("onEvent: problem marshaling vacuumd configuration", e);
             ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_FAILED_UEI, getName());
@@ -392,9 +392,9 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
             ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Vacuumd");
             ebldr.addParam(EventConstants.PARM_REASON, e.getLocalizedMessage().substring(0, 128));
         }
-        
+
         LOG.info("onEvent: completed configuration reload.");
-        
+
         if (ebldr != null) {
             m_eventMgr.sendNow(ebldr.getEvent());
         }
@@ -402,29 +402,29 @@ public class Vacuumd extends AbstractServiceDaemon implements Runnable, EventLis
 
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
-        
+
         if (EventConstants.RELOAD_DAEMON_CONFIG_UEI.equals(event.getUei())) {
             List<Parm> parmCollection = event.getParmCollection();
-            
+
             for (Parm parm : parmCollection) {
                 if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Vacuumd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
-        
+
         //Depreciating this one...
         } else if (EventConstants.RELOAD_VACUUMD_CONFIG_UEI.equals(event.getUei())) {
             isTarget = true;
         }
-        
+
         return isTarget;
     }
-    
+
     private VacuumdConfigFactory getVacuumdConfig() {
         return VacuumdConfigFactory.getInstance();
     }
-    
+
     private DataSource getDataSourceFactory() {
         return DataSourceFactory.getInstance();
     }

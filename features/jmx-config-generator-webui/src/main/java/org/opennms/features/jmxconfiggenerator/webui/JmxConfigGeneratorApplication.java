@@ -75,7 +75,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 	/**
 	 * The Header panel which holds the steps which are necessary to complete
 	 * the configuration for a new service to get collected.
-	 * 
+	 *
 	 */
 	private HeaderPanel headerPanel;
 
@@ -134,7 +134,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 	private void setContentPanelComponent(Component c) {
 		contentPanel.setContent(c);
 	}
-	
+
 	public void updateView(UiState uiState) {
 		switch (uiState) {
 			case IntroductionView:
@@ -155,7 +155,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 		}
 		notifyObservers(UiState.class,  uiState);
 	}
-	
+
 	private Component createView(UiState uiState, JmxConfigGeneratorApplication app) {
 		Component component = null;
 		switch (uiState) {
@@ -178,7 +178,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 		return component;
 	}
 
-	
+
 	private Component getView(UiState uiState) {
 		if (viewCache.get(uiState) == null) {
 			Component component = createView(uiState, JmxConfigGeneratorApplication.this);
@@ -207,7 +207,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
 	private void notifyObservers(Class<?> aClass, Object object) {
 		modelChangeRegistry.notifyObservers(aClass, object);
 	}
-	
+
     private class DetectMBeansWorkerThread extends Thread {
 
         @Override
@@ -223,7 +223,7 @@ public class JmxConfigGeneratorApplication extends UI implements ModelChangeList
                 connector.close();
 
                 model.setRawModel(generateJmxConfigModel);
-                
+
                 updateView(UiState.MbeansView);
                 removeWindow(getProgressWindow());
             } catch (MalformedURLException ex) {

@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TcpDetectorHandler extends BaseDetectorHandler<LineOrientedRequest, LineOrientedResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpDetectorHandler.class);
     @Override
     public void sessionOpened(IoSession session) throws Exception {

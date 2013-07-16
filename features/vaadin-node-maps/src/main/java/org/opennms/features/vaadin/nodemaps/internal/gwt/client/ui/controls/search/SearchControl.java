@@ -51,7 +51,7 @@ public class SearchControl extends Control {
     private HTMLPanel m_container;
     private SearchTextBox m_inputBox;
     private HistoryWrapper m_historyWrapper;
-    
+
     private HTML m_submitIcon;
 
     private SearchConsumer m_searchConsumer;
@@ -90,7 +90,7 @@ public class SearchControl extends Control {
 
     public Element doOnAdd(final JavaScriptObject map) {
         logger.log(Level.INFO, "onAdd() called");
-        
+
         m_container.add(m_inputBox);
         m_container.add(m_submitIcon);
         m_container.add(m_autoComplete);
@@ -192,7 +192,7 @@ public class SearchControl extends Control {
             public void focusInput() {
                 m_inputBox.setFocus(true);
             }
-            
+
         };
     }
 
@@ -311,7 +311,7 @@ public class SearchControl extends Control {
         public void setValue(final String value) {
             History.newItem(value);
         }
-        
+
 
     }
 }

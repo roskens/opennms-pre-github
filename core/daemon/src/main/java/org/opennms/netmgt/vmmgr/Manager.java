@@ -79,9 +79,9 @@ import org.slf4j.MDC;
  * @author <a href="http://www.opennms.org">OpenNMS.org</a>
  */
 public class Manager implements ManagerMBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Manager.class);
-	
+
     /**
      * The log4j category used to log debug messages and statements.
      */
@@ -99,7 +99,7 @@ public class Manager implements ManagerMBean {
             stop(server);
         }
     }
-    
+
     private void stop(MBeanServer server) {
         LOG.debug("Beginning shutdown");
         Invoker invoker = new Invoker();
@@ -107,7 +107,7 @@ public class Manager implements ManagerMBean {
         invoker.setAtType(InvokeAtType.STOP);
         invoker.setReverse(true);
         invoker.setFailFast(false);
-        
+
         List<InvokerService> services = InvokerService.createServiceList(Invoker.getDefaultServiceConfigFactory().getServices());
         invoker.setServices(services);
         invoker.getObjectInstances();
@@ -115,7 +115,7 @@ public class Manager implements ManagerMBean {
 
         LOG.debug("Shutdown complete");
     }
-    
+
     /**
      * <p>status</p>
      *
@@ -131,7 +131,7 @@ public class Manager implements ManagerMBean {
         }
         return result;
     }
-    
+
     private List<String> status(final MBeanServer server) {
         LOG.debug("Beginning status check");
         final Invoker invoker = new Invoker();
@@ -143,7 +143,7 @@ public class Manager implements ManagerMBean {
         invoker.setServices(services);
         invoker.getObjectInstances();
         final List<InvokerResult> results = invoker.invokeMethods();
-        
+
         final List<String> statusInfo = new ArrayList<String>(results.size());
         for (final InvokerResult invokerResult : results) {
             if (invokerResult.getThrowable() == null) {
@@ -153,7 +153,7 @@ public class Manager implements ManagerMBean {
             }
         }
         LOG.debug("Status check complete");
-        
+
         return statusInfo;
     }
 
@@ -168,14 +168,14 @@ public class Manager implements ManagerMBean {
         setLogPrefix();
 
         LOG.debug("doSystemExit called");
-        
+
         if (LOG.isDebugEnabled()) {
             dumpThreads();
-            
+
             Runtime r = Runtime.getRuntime();
             LOG.debug("memory usage (free/used/total/max allowed): {}/{}/{}/{}", r.freeMemory(), (r.totalMemory() - r.freeMemory()), r.totalMemory(), (r.maxMemory() == Long.MAX_VALUE ? "infinite" : r.maxMemory()));
         }
-        
+
         LOG.info("calling System.exit(1)");
         shutdownLogging();
         System.exit(1);
@@ -210,7 +210,7 @@ public class Manager implements ManagerMBean {
 
     private void shutdownLogging() {
     }
-    
+
     /**
      * <p>doTestLoadLibraries</p>
      */
@@ -264,14 +264,14 @@ public class Manager implements ManagerMBean {
 
         final String requireV4String = System.getProperty("org.opennms.netmgt.icmp.requireV4");
         final String requireV6String = System.getProperty("org.opennms.netmgt.icmp.requireV6");
-        
+
         if ("true".equalsIgnoreCase(requireV4String) && !hasV4) {
             throwPingError("org.opennms.netmgt.icmp.requireV4 is true, but IPv4 ICMP could not be initialized.");
         }
         if ("true".equalsIgnoreCase(requireV6String) && !hasV6) {
             throwPingError("org.opennms.netmgt.icmp.requireV6 is true, but IPv6 ICMP could not be initialized.");
         }
-        
+
         // at least one is initialized, and we haven't said otherwise, so barrel ahead
     }
 

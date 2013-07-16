@@ -61,7 +61,7 @@ public class ApplicationController extends AbstractController {
     	}
     	return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -70,17 +70,17 @@ public class ApplicationController extends AbstractController {
         String applicationIdString = getNonEmptyParameter(request, "applicationid");
         String editString = getNonEmptyParameter(request, "edit");
         String ifServiceIdString = getNonEmptyParameter(request, "ifserviceid");
-        
+
         if (removeApplicationIdString != null) {
             m_adminApplicationService.removeApplication(removeApplicationIdString);
-            
-            
+
+
             return new ModelAndView(new RedirectView("/admin/applications.htm", true));
         }
-        
+
         if (newApplicationName != null) {
             m_adminApplicationService.addNewApplication(newApplicationName);
-            
+
             /*
              * We could be smart and take the user straight to the edit page
              * for this new application, which would be great, however it's
@@ -90,7 +90,7 @@ public class ApplicationController extends AbstractController {
              */
             return new ModelAndView(new RedirectView("/admin/applications.htm", true));
         }
-        
+
         if (applicationIdString != null && editString != null) {
             String editAction = getNonEmptyParameter(request, "action");
             if (editAction != null) {
@@ -102,7 +102,7 @@ public class ApplicationController extends AbstractController {
                                                       toAdd,
                                                       toDelete);
 
-                ModelAndView modelAndView = 
+                ModelAndView modelAndView =
                     new ModelAndView(new RedirectView("/admin/applications.htm", true));
                 modelAndView.addObject("applicationid", applicationIdString);
                 modelAndView.addObject("edit", "edit");
@@ -116,13 +116,13 @@ public class ApplicationController extends AbstractController {
                                     "model",
                                     model);
         }
-        
+
         if (applicationIdString != null) {
             return new ModelAndView("/admin/showApplication",
                                     "model",
                                     m_adminApplicationService.getApplication(applicationIdString));
         }
-        
+
         if (ifServiceIdString != null && editString != null) {
             String editAction = getNonEmptyParameter(request, "action");
             if (editAction != null) {
@@ -133,8 +133,8 @@ public class ApplicationController extends AbstractController {
                                                        editAction,
                                                        toAdd,
                                                        toDelete);
-                
-                ModelAndView modelAndView = 
+
+                ModelAndView modelAndView =
                     new ModelAndView(new RedirectView("/admin/applications.htm", true));
                 modelAndView.addObject("ifserviceid", ifServiceIdString);
                 modelAndView.addObject("edit", "edit");
@@ -151,7 +151,7 @@ public class ApplicationController extends AbstractController {
 
         List<OnmsApplication> sortedApplications
             = m_adminApplicationService.findAllApplications();
-        
+
         return new ModelAndView("/admin/applications",
                                 "applications",
                                 sortedApplications);

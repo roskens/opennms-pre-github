@@ -71,7 +71,7 @@ public class HttpNotificationStrategyTest {
     @Test
     @Ignore
     public void testSend() {
-        
+
         try {
         NotificationStrategy ns = new HttpNotificationStrategy();
         List<Argument> arguments = new ArrayList<Argument>();
@@ -86,20 +86,20 @@ public class HttpNotificationStrategyTest {
 //        arguments.add(arg);
 //        arg = new Argument("post-message", null, "JUnit Test RT Integration", false);
 //        arguments.add(arg);
-        
+
 //        arg = new Argument("result-match", null, ".*OK\\s([0-9]+)\\s.*", false);
         arg = new Argument("result-match", null, "(?s).*OK\\s+([0-9]+).*", false);
         arguments.add(arg);
-        
+
         arg = new Argument("post-message", null, "-tm", false);
         arguments.add(arg);
-        
+
         arg = new Argument("-tm", null, "text message for unit testing", false);
         arguments.add(arg);
-        
+
         arg = new Argument("sql", null, "UPDATE alarms SET tticketID=${1} WHERE lastEventID = 1", false);
         arguments.add(arg);
-        
+
         ns.send(arguments);
         } catch (Throwable e) {
             e.printStackTrace();

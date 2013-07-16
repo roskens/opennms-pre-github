@@ -44,7 +44,7 @@ public interface SystemReportPlugin extends Comparable<SystemReportPlugin> {
      * @return the description
      */
     public String getDescription();
-    
+
     /**
      * Get the priority of this plugin.  This will be used to sort the various plugins' output when creating an aggregate report.
      * 1-10: system-level plugins

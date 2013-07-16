@@ -39,15 +39,15 @@ import com.vaadin.ui.AbstractSelect.NewItemHandler;
 
 /**
  * A factory for creating MIB Group Field objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public final class GroupFieldFactory implements FormFieldFactory {
-    
+
     /** The resource types. */
     private final List<String> resourceTypes;
-    
+
     /**
      * Instantiates a new group field factory.
      *

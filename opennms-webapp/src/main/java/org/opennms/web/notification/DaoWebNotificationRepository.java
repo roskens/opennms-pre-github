@@ -57,13 +57,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 1.8.1
  */
 public class DaoWebNotificationRepository implements WebNotificationRepository, InitializingBean {
-    
+
     @Autowired
     NotificationDao m_notificationDao;
-    
+
     @Autowired
     AcknowledgmentDao m_ackDao;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -73,7 +73,7 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("serviceType", "serviceType", OnmsCriteria.LEFT_JOIN);
-        
+
         notificationCriteria.visit(new NotificationCriteriaVisitor<RuntimeException>(){
 
             @Override
@@ -81,7 +81,7 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
                 if(ackType == AcknowledgeType.ACKNOWLEDGED) {
                     criteria.add(Restrictions.isNotNull("answeredBy"));
                 } else if (ackType == AcknowledgeType.UNACKNOWLEDGED) {
-                   criteria.add(Restrictions.isNull("answeredBy")); 
+                   criteria.add(Restrictions.isNull("answeredBy"));
                 }
                 // AcknowledgeType.BOTH just adds no restriction
             }
@@ -89,20 +89,20 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
             @Override
             public void visitFilter(Filter filter) throws RuntimeException {
                 criteria.add(filter.getCriterion());
-                
+
             }
 
             @Override
             public void visitLimit(int limit, int offset) throws RuntimeException {
                 criteria.setMaxResults(limit);
-                criteria.setFirstResult(offset);                
+                criteria.setFirstResult(offset);
             }
 
             @Override
             public void visitSortStyle(SortStyle sortStyle) throws RuntimeException {
                 switch(sortStyle){
                     case RESPONDER:
-                        criteria.addOrder(Order.desc("answeredBy"));        
+                        criteria.addOrder(Order.desc("answeredBy"));
                         break;
                     case PAGETIME:
                         criteria.addOrder(Order.desc("pageTime"));
@@ -123,7 +123,7 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
                         criteria.addOrder(Order.desc("notifyId"));
                         break;
                     case REVERSE_RESPONDER:
-                        criteria.addOrder(Order.asc("answeredBy"));            
+                        criteria.addOrder(Order.asc("answeredBy"));
                         break;
                     case REVERSE_PAGETIME:
                         criteria.addOrder(Order.asc("pageTime"));
@@ -143,13 +143,13 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
                     case REVERSE_ID:
                         criteria.addOrder(Order.asc("notifyId"));
                         break;
-                    
+
                 }
-                
+
             }
-            
+
         });
-        
+
         return criteria;
     }
 
@@ -167,28 +167,28 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
             notif.m_timeReply = onmsNotification.getRespondTime() != null ? onmsNotification.getRespondTime().getTime() : 0;
             notif.m_timeSent = onmsNotification.getPageTime() != null ? onmsNotification.getPageTime().getTime() : 0;
             notif.m_txtMsg = onmsNotification.getTextMsg();
-            
+
             return notif;
         }else{
             return null;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
     public void acknowledgeMatchingNotification(String user, Date timestamp, NotificationCriteria criteria) {
         List<OnmsNotification> notifs = m_notificationDao.findMatching(getOnmsCriteria(criteria));
-        
+
         for (OnmsNotification notif : notifs) {
-            
+
             OnmsAcknowledgment ack = new OnmsAcknowledgment(notif, user);
             ack.setAckAction(AckAction.ACKNOWLEDGE);
             ack.setAckTime(timestamp);
             m_ackDao.processAck(ack);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -206,17 +206,17 @@ public class DaoWebNotificationRepository implements WebNotificationRepository, 
         for (OnmsNotification notif : onmsNotifs) {
             notifications.add(mapOnmsNotificationToNotification(notif));
         }
-        
+
         return notifications.toArray(new Notification[0]);
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
     public Notification getNotification(int noticeId) {
         return mapOnmsNotificationToNotification(m_notificationDao.get(noticeId));
     }
-    
+
     private int queryForInt(OnmsCriteria onmsCriteria) {
         return m_notificationDao.countMatching(onmsCriteria);
     }

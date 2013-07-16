@@ -44,12 +44,12 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultPollService implements PollService {
-    
+
     TimeAdjustment m_timeAdjustment;
-	
+
     Collection<ServiceMonitorLocator> m_locators;
     Map<String, ServiceMonitor> m_monitors;
-    
+
 
     /**
      * @param timeAdjustment the timeAdjustment to set
@@ -62,15 +62,15 @@ public class DefaultPollService implements PollService {
     @Override
     public void setServiceMonitorLocators(Collection<ServiceMonitorLocator> locators) {
         m_locators = locators;
-        
+
         Map<String, ServiceMonitor> monitors = new HashMap<String, ServiceMonitor>();
         for (ServiceMonitorLocator locator : locators) {
             monitors.put(locator.getServiceName(), locator.getServiceMonitor());
         }
-        
+
         m_monitors = monitors;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void initialize(PolledService polledService) {

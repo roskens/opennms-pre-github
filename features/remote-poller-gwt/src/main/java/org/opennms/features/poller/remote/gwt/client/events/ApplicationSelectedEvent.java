@@ -38,11 +38,11 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<ApplicationSelectedEventHandler> TYPE = new Type<ApplicationSelectedEventHandler>();
     private String m_applicationName;
-    
+
     /**
      * <p>Constructor for ApplicationSelectedEvent.</p>
      *
@@ -51,7 +51,7 @@ public class ApplicationSelectedEvent extends GwtEvent<ApplicationSelectedEventH
     public ApplicationSelectedEvent(final String applicationName) {
         m_applicationName = applicationName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(ApplicationSelectedEventHandler handler) {

@@ -40,13 +40,13 @@ public class SnmpCollectionTest extends XmlTest<SnmpCollection> {
     public SnmpCollectionTest(final SnmpCollection sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final SnmpCollection snmpc = new SnmpCollection();
         snmpc.setName("default");
         snmpc.setSnmpStorageFlag("select");
-        
+
         final Rrd rrd = new Rrd();
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
@@ -55,23 +55,23 @@ public class SnmpCollectionTest extends XmlTest<SnmpCollection> {
         rrd.addRra("RRA:MAX:0.5:288:366");
         rrd.addRra("RRA:MIN:0.5:288:366");
         snmpc.setRrd(rrd);
-        
+
         final IncludeCollection ic = new IncludeCollection();
         ic.setDataCollectionGroup("MIB2");
         snmpc.addIncludeCollection(ic);
 
         return Arrays.asList(new Object[][] { {
                 snmpc,
-                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" + 
-                "    <rrd step=\"300\">\n" + 
-                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + 
-                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" + 
-                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" + 
-                "      <rra>RRA:MAX:0.5:288:366</rra>\n" + 
-                "      <rra>RRA:MIN:0.5:288:366</rra>\n" + 
-                "    </rrd>\n" + 
-                "\n" + 
-                "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" + 
+                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" +
+                "    <rrd step=\"300\">\n" +
+                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
+                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" +
+                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" +
+                "      <rra>RRA:MAX:0.5:288:366</rra>\n" +
+                "      <rra>RRA:MIN:0.5:288:366</rra>\n" +
+                "    </rrd>\n" +
+                "\n" +
+                "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" +
                 "  </snmp-collection>\n",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }

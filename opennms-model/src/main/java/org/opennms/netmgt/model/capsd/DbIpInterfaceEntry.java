@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
  * NOTE: if the connection is passed in and is not in auto commit mode, then the
  * caller must call <code>commit</code> to inform the database that the
  * transaction is complete.
- * 
+ *
  * @deprecated Objects like this that control their own data access are deprecated in favor
  * of the JAXB beans (opennms-model) and DAO objects (opennms-dao).
  *
@@ -68,7 +68,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  */
 public final class DbIpInterfaceEntry {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DbIpInterfaceEntry.class);
 
     /** Constant <code>SNMP_PRIMARY='P'</code> */
@@ -100,7 +100,7 @@ public final class DbIpInterfaceEntry {
 
     /** Constant <code>STATE_NOT_POLLED='N'</code> */
     public final static char STATE_NOT_POLLED = 'N';
-    
+
     /** Constant <code>STATE_REMOTE='X'</code> */
     public final static char STATE_REMOTE = 'X';
 
@@ -200,10 +200,10 @@ public final class DbIpInterfaceEntry {
     /**
      * Inserts the new interface into the ipInterface table of the OpenNMS
      * databasee.
-     * 
+     *
      * @param c
      *            The connection to the database.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -291,13 +291,13 @@ public final class DbIpInterfaceEntry {
         m_fromDb = true;
         m_changed = 0;
     }
-    
+
     /**
      * Updates an existing record in the OpenNMS ipInterface table.
-     * 
+     *
      * @param c
      *            The connection used for the update.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -431,10 +431,10 @@ public final class DbIpInterfaceEntry {
      * Load the current interface from the database. If the interface was
      * modified, the modifications are lost. The nodeid and ip address must be
      * set prior to this call.
-     * 
+     *
      * @param c
      *            The connection used to load the data.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -447,7 +447,7 @@ public final class DbIpInterfaceEntry {
         PreparedStatement stmt = null;
         ResultSet rset = null;
         final DBUtils d = new DBUtils(getClass());
-  
+
         try {
             if (m_useIfIndexAsKey) {
                 stmt = c.prepareStatement(SQL_LOAD_REC_IFINDEX);
@@ -519,7 +519,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Default constructor.
-     * 
+     *
      */
     private DbIpInterfaceEntry() {
         throw new UnsupportedOperationException("Default constructor not supported!");
@@ -527,14 +527,14 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Constructs a new interface.
-     * 
+     *
      * @param nid
      *            The node identifier.
      * @param address
      *            The target interface address.
      * @param exists
      *            True if the interface already exists.
-     * 
+     *
      */
     private DbIpInterfaceEntry(long nid, InetAddress address, boolean exists) {
         m_fromDb = exists;
@@ -553,7 +553,7 @@ public final class DbIpInterfaceEntry {
     /**
      * Constructs a new interface, this constructor will only work for entries
      * loaded from the database!
-     * 
+     *
      * @param nid
      *            The node identifier.
      * @param address
@@ -562,7 +562,7 @@ public final class DbIpInterfaceEntry {
      *            The target ifIndex of the node/address pair
      * @param exists
      *            True if the interface already exists.
-     * 
+     *
      */
     private DbIpInterfaceEntry(long nid, InetAddress address, int ifIndex, boolean exists) {
         m_fromDb = exists;
@@ -582,7 +582,7 @@ public final class DbIpInterfaceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
-     * 
+     *
      */
     public long getNodeId() {
         return m_nodeId;
@@ -591,7 +591,7 @@ public final class DbIpInterfaceEntry {
     /**
      * Returns the name of the distributed poller for the entry. This is a
      * non-mutable element of the record.
-     * 
+     *
      */
     public InetAddress getIfAddress() {
         return m_ipAddr;
@@ -617,10 +617,10 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the current creation time.
-     * 
+     *
      * @param time
      *            The creation time.
-     * 
+     *
      */
     public void setLastPoll(String time) throws ParseException {
         if (time == null) {
@@ -634,10 +634,10 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the current creation time.
-     * 
+     *
      * @param time
      *            The creation time.
-     * 
+     *
      */
     public void setLastPoll(Date time) {
         m_lastPoll = new Timestamp(time.getTime());
@@ -646,10 +646,10 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the current creation time.
-     * 
+     *
      * @param time
      *            The creation time.
-     * 
+     *
      */
     public void setLastPoll(Timestamp time) {
         m_lastPoll = time;
@@ -672,7 +672,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the ifIndex value
-     * 
+     *
      * @param ndx
      *            The new ifIndex.
      */
@@ -706,7 +706,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the current hostname.
-     * 
+     *
      * @param name
      *            The new hostname
      */
@@ -753,7 +753,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the managed state of the instance.
-     * 
+     *
      * @param state
      *            The new managed state
      */
@@ -788,10 +788,10 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the current status of the interface
-     * 
+     *
      * @param status
      *            The new status.
-     * 
+     *
      */
     public void setStatus(int status) {
         m_status = status;
@@ -824,7 +824,7 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Sets the new primary state.
-     * 
+     *
      * @param state
      *            The new primary state.
      */
@@ -883,7 +883,7 @@ public final class DbIpInterfaceEntry {
      * interfaca does not exist the a new row in the table is created. If the
      * element already exists then it's current row is updated as needed based
      * upon the current changes to the node.
-     * 
+     *
      * @param db
      *            The database connection used to write the record.
      */
@@ -951,12 +951,12 @@ public final class DbIpInterfaceEntry {
     /**
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
-     * 
+     *
      * @param address
      *            The address of the interface.
      * @param l
      *            The node id of the interface.
-     * 
+     *
      * @return A new interface record.
      */
     public static DbIpInterfaceEntry create(long l, InetAddress address) {
@@ -966,14 +966,14 @@ public final class DbIpInterfaceEntry {
     /**
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
-     * 
+     *
      * @param address
      *            The address of the interface.
      * @param nid
      *            The node id of the interface.
      * @param ifIndex
      *            The ifindex of the interface.
-     * 
+     *
      * @return A new interface record.
      */
     public static DbIpInterfaceEntry create(int nid, InetAddress address, int ifIndex) {
@@ -982,10 +982,10 @@ public final class DbIpInterfaceEntry {
 
     /**
      * Clones an existing entry.
-     * 
+     *
      * @param entry
      *            The entry to be cloned
-     * 
+     *
      * @return a new DbIpInterfaceEntry identical to the original
      */
     public static DbIpInterfaceEntry clone(DbIpInterfaceEntry entry) {
@@ -1004,14 +1004,14 @@ public final class DbIpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ipAddr</em>. If the record cannot be found
      * then a null reference is returned.
-     * 
+     *
      * @param nid
      *            The node id key
      * @param addr
      *            The ip address.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbIpInterfaceEntry get(int nid, InetAddress addr) throws SQLException {
         Connection db = null;
@@ -1033,16 +1033,16 @@ public final class DbIpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ipAddr</em>. If the record cannot be found
      * then a null reference is returned.
-     * 
+     *
      * @param nid
      *            The node id key
      * @param addr
      *            The ip address.
      * @param ifIndex
      *            The interface index.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbIpInterfaceEntry get(int nid, InetAddress addr, int ifIndex) throws SQLException {
         Connection db = null;
@@ -1064,16 +1064,16 @@ public final class DbIpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ipAddr</em>. If the record cannot be found
      * then a null reference is returnd.
-     * 
+     *
      * @param db
      *            The databse connection used to load the entry.
      * @param nid
      *            The node id key
      * @param addr
      *            The internet address.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbIpInterfaceEntry get(Connection db, long nid, InetAddress addr)
     throws SQLException {
@@ -1088,7 +1088,7 @@ public final class DbIpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ipAddr</em>. If the record cannot be found
      * then a null reference is returned.
-     * 
+     *
      * @param db
      *            The database connection used to load the entry.
      * @param nid
@@ -1097,9 +1097,9 @@ public final class DbIpInterfaceEntry {
      *            The IP address.
      * @param ifIndex
      *            The interface index.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbIpInterfaceEntry get(Connection db, long nid, InetAddress addr, int ifIndex) throws SQLException {
         DbIpInterfaceEntry entry = new DbIpInterfaceEntry(nid, addr, ifIndex, true);

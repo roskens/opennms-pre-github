@@ -39,18 +39,18 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SyncTask extends Task {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SyncTask.class);
-    
+
     /** Constant <code>DEFAULT_EXECUTOR="default"</code> */
     public static final String DEFAULT_EXECUTOR = "default";
     /** Constant <code>ADMIN_EXECUTOR="admin"</code> */
     public static final String ADMIN_EXECUTOR = "admin";
-    
+
     private final Runnable m_action;
 
     private String m_preferredExecutor = DEFAULT_EXECUTOR;
-    
+
     /**
      * <p>Constructor for SyncTask.</p>
      *
@@ -93,7 +93,7 @@ public class SyncTask extends Task {
             m_action.run();
         }
     }
-    
+
     /**
      * This method is used by the TaskCoordinator to create runnable that will run this task
      */

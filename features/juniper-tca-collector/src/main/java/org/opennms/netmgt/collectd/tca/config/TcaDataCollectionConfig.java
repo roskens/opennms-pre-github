@@ -45,7 +45,7 @@ import org.opennms.netmgt.model.RrdRepository;
 
 /**
  * The Class TcaDataCollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="tca-datacollection-config")

@@ -57,7 +57,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * DefaultDataCollectionConfigDao
- * 
+ *
  * <p>This class is the main repository for SNMP data collection configuration
  * information used by the SNMP service monitor. When this class is loaded it
  * reads the SNNMP data collection configuration into memory.</p>
@@ -65,9 +65,9 @@ import org.springframework.core.io.Resource;
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<DatacollectionConfig, DatacollectionConfig> implements DataCollectionConfigDao {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(DefaultDataCollectionConfigDao.class);
-    
+
     private String m_configDirectory;
 
     // have we validated the config since last reloading?
@@ -86,7 +86,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         m_validationException = null;
         return super.loadConfig(resource);
     }
-    
+
     @Override
     protected DatacollectionConfig translateConfig(final DatacollectionConfig config) {
         final DataCollectionConfigParser parser = new DataCollectionConfigParser(getConfigDirectory());
@@ -170,7 +170,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         // IPADDRESS MATCH
         //
         // In order to match on IP Address one of the following must be true:
-        // 
+        //
         // The SystemDef's IP address list (ipList) must contain the 'anAddress'
         // parm (must be an exact match)
         //
@@ -362,7 +362,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
      * will be called recursively for each sub-group until the entire
      * log.debug("processGroupName: adding MIB objects from group: " +
      * groupName); group is processed.
-     * 
+     *
      * @param cName
      *            Collection name
      * @param groupName
@@ -538,13 +538,13 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
         //
         // CollectionGroupMap
         // collectionName -> groupMap
-        // 
+        //
         // GroupMap
         // groupMapName -> Group
         //
         // This is parsed and built at initialization for
         // faster processing at run-timne.
-        // 
+        //
         final Map<String,Map<String,Group>> collectionGroupMap = new HashMap<String,Map<String,Group>>();
 
         for (final SnmpCollection collection : container.getObject().getSnmpCollectionCollection()) {
@@ -599,7 +599,7 @@ public class DefaultDataCollectionConfigDao extends AbstractJaxbConfigDao<Dataco
     public DatacollectionConfig getRootDataCollection() {
         return getContainer().getObject();
     }
-    
+
     @Override
     public List<String> getAvailableDataCollectionGroups() {
         return dataCollectionGroups;

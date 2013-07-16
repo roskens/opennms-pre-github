@@ -34,9 +34,9 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.opennms.protocols.snmp.SnmpSMI;
 
 public class JoeSnmpAgentConfig {
-    
+
     private SnmpAgentConfig m_config;
-    
+
     public JoeSnmpAgentConfig(SnmpAgentConfig config) {
         m_config = config;
     }
@@ -60,11 +60,11 @@ public class JoeSnmpAgentConfig {
     public int getMaxVarsPerPdu() {
         return m_config.getMaxVarsPerPdu();
     }
-    
+
     public int getMaxRepetitions() {
         return m_config.getMaxRepetitions();
     }
-    
+
     public int getPort() {
         return m_config.getPort();
     }
@@ -129,7 +129,7 @@ public class JoeSnmpAgentConfig {
     public void setMaxVarsPerPdu(int maxVarsPerPdu) {
         m_config.setMaxVarsPerPdu(maxVarsPerPdu);
     }
-    
+
     public void setMaxRepetitions(int maxRepetitions) {
         m_config.setMaxRepetitions(maxRepetitions);
     }

@@ -80,8 +80,8 @@ public class IpList implements Serializable {
 
 
     /**
-     * 
-     * 
+     *
+     *
      * @param ipAddr
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -91,8 +91,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param ipAddr
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -103,8 +103,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param ipAddrMask
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -114,8 +114,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param ipAddrMask
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -127,7 +127,7 @@ public class IpList implements Serializable {
 
     /**
      * Method enumerateIpAddr.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -137,7 +137,7 @@ public class IpList implements Serializable {
 
     /**
      * Method enumerateIpAddrMask.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -147,7 +147,7 @@ public class IpList implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -155,20 +155,20 @@ public class IpList implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof IpList) {
-        
+
             final IpList temp = (IpList)obj;
             if (m_ipAddresses != null) {
                 if (temp.m_ipAddresses == null) return false;
-                else if (!(m_ipAddresses.equals(temp.m_ipAddresses))) 
+                else if (!(m_ipAddresses.equals(temp.m_ipAddresses)))
                     return false;
             }
             else if (temp.m_ipAddresses != null)
                 return false;
             if (m_ipAddressMasks != null) {
                 if (temp.m_ipAddressMasks == null) return false;
-                else if (!(m_ipAddressMasks.equals(temp.m_ipAddressMasks))) 
+                else if (!(m_ipAddressMasks.equals(temp.m_ipAddressMasks)))
                     return false;
             }
             else if (temp.m_ipAddressMasks != null)
@@ -180,7 +180,7 @@ public class IpList implements Serializable {
 
     /**
      * Method getIpAddr.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -199,7 +199,7 @@ public class IpList implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="ipAddr")
@@ -211,7 +211,7 @@ public class IpList implements Serializable {
      * Method getIpAddrCollection.Returns a reference to
      * '_ipAddrList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getIpAddrCollection() {
@@ -220,7 +220,7 @@ public class IpList implements Serializable {
 
     /**
      * Method getIpAddrCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIpAddrCount() {
@@ -229,7 +229,7 @@ public class IpList implements Serializable {
 
     /**
      * Method getIpAddrMask.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -248,7 +248,7 @@ public class IpList implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="ipAddrMask")
@@ -260,7 +260,7 @@ public class IpList implements Serializable {
      * Method getIpAddrMaskCollection.Returns a reference to
      * '_ipAddrMaskList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getIpAddrMaskCollection() {
@@ -269,7 +269,7 @@ public class IpList implements Serializable {
 
     /**
      * Method getIpAddrMaskCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIpAddrMaskCount() {
@@ -281,26 +281,26 @@ public class IpList implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_ipAddresses != null) {
            result = 37 * result + m_ipAddresses.hashCode();
         }
         if (m_ipAddressMasks != null) {
            result = 37 * result + m_ipAddressMasks.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -315,7 +315,7 @@ public class IpList implements Serializable {
 
     /**
      * Method iterateIpAddr.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -325,7 +325,7 @@ public class IpList implements Serializable {
 
     /**
      * Method iterateIpAddrMask.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -334,8 +334,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -348,8 +348,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -373,7 +373,7 @@ public class IpList implements Serializable {
 
     /**
      * Method removeIpAddr.
-     * 
+     *
      * @param ipAddr
      * @return true if the object was removed from the collection.
      */
@@ -383,7 +383,7 @@ public class IpList implements Serializable {
 
     /**
      * Method removeIpAddrAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -393,7 +393,7 @@ public class IpList implements Serializable {
 
     /**
      * Method removeIpAddrMask.
-     * 
+     *
      * @param ipAddrMask
      * @return true if the object was removed from the collection.
      */
@@ -403,7 +403,7 @@ public class IpList implements Serializable {
 
     /**
      * Method removeIpAddrMaskAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -412,8 +412,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param ipAddr
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -427,13 +427,13 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param ipAddrs
      */
     public void setIpAddr(final String[] ipAddrs) {
         m_ipAddresses.clear();
-        
+
         for (int i = 0; i < ipAddrs.length; i++) {
                 m_ipAddresses.add(ipAddrs[i].intern());
         }
@@ -442,7 +442,7 @@ public class IpList implements Serializable {
     /**
      * Sets the value of '_ipAddrList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param ipAddrs the Vector to copy.
      */
     public void setIpAddr(final List<String> ipAddrs) {
@@ -456,7 +456,7 @@ public class IpList implements Serializable {
      * Sets the value of '_ipAddrList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ipAddrs the Vector to set.
      */
     public void setIpAddrCollection(final List<String> ipAddrs) {
@@ -477,13 +477,13 @@ public class IpList implements Serializable {
         if (index < 0 || index >= m_ipAddressMasks.size()) {
             throw new IndexOutOfBoundsException("setIpAddrMask: Index value '" + index + "' not in range [0.." + (m_ipAddressMasks.size() - 1) + "]");
         }
-        
+
         m_ipAddressMasks.set(index, ipAddrMask.intern());
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param ipAddrMasks
      */
     public void setIpAddrMask(final String[] ipAddrMasks) {
@@ -496,7 +496,7 @@ public class IpList implements Serializable {
     /**
      * Sets the value of '_ipAddrMaskList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param ipAddrMasks the Vector to copy.
      */
     public void setIpAddrMask(final List<String> ipAddrMasks) {
@@ -510,7 +510,7 @@ public class IpList implements Serializable {
      * Sets the value of '_ipAddrMaskList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ipAddrMasks the Vector to set.
      */
     public void setIpAddrMaskCollection(final List<String> ipAddrMasks) {
@@ -522,7 +522,7 @@ public class IpList implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -537,8 +537,8 @@ public class IpList implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

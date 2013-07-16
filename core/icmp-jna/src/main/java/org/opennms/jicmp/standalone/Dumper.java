@@ -43,10 +43,10 @@ import com.sun.jna.Platform;
  * @author brozow
  */
 public class Dumper {
-    
+
     public void dump() throws Exception {
         NativeDatagramSocket m_pingSocket =  NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6, Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM : NativeDatagramSocket.SOCK_RAW, NativeDatagramSocket.IPPROTO_ICMPV6);
-        
+
         if (Platform.isWindows()) {
             ICMPv6EchoPacket packet = new ICMPv6EchoPacket(64);
             packet.setCode(0);
@@ -62,14 +62,14 @@ public class Dumper {
                 m_pingSocket.receive(datagram);
                 System.err.println(datagram);
             }
-    
-    
+
+
         } catch(Throwable e) {
             e.printStackTrace();
         }
- 
+
     }
-    
+
     public static void main(String args[]) throws Exception {
         new Dumper().dump();
     }

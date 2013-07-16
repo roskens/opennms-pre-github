@@ -37,7 +37,7 @@ import java.util.Map;
 
 /**
  * Access point status enumeration.
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public enum AccessPointStatus implements Serializable {
@@ -64,7 +64,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * getId
      * </p>
-     * 
+     *
      * @return a int.
      */
     public int getId() {
@@ -75,7 +75,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * getLabel
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public String getLabel() {
@@ -86,7 +86,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * get
      * </p>
-     * 
+     *
      * @param id
      *            a int.
      * @return a {@link org.opennms.netmgt.model.AccessPointStatus} object.
@@ -103,7 +103,7 @@ public enum AccessPointStatus implements Serializable {
      * <p>
      * get
      * </p>
-     * 
+     *
      * @param label
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.AccessPointStatus} object.

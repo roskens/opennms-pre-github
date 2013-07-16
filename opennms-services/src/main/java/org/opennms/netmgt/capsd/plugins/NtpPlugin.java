@@ -79,14 +79,14 @@ public final class NtpPlugin extends AbstractPlugin {
     private final static int DEFAULT_TIMEOUT = 3000; // in milliseconds
 
     /**
-     * 
+     *
      * @param nserver
      *            The address for the NTP server test.
      * @param port
      *            The port to test for NTP
      * @param timeout
      *            Timeout in milliseconds
-     * 
+     *
      * @return True if server, false if not.
      */
     private boolean isServer(InetAddress nserver, int port, int retries, int timeout) {

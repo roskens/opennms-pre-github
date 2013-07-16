@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class OnmsSnmpCollection {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(OnmsSnmpCollection.class);
 
     private ServiceParameters m_params;
@@ -316,14 +316,14 @@ public class OnmsSnmpCollection {
     public SnmpCollectionSet createCollectionSet(CollectionAgent agent) {
         return new SnmpCollectionSet(agent, this);
     }
-    
+
     private List<SnmpAttributeType> getIndexedAttributeTypes(CollectionAgent agent) {
         if (m_indexedAttributeTypes == null) {
             m_indexedAttributeTypes = loadAttributeTypes(agent, DataCollectionConfigDao.ALL_IF_ATTRIBUTES);
         }
         return m_indexedAttributeTypes;
     }
-    
+
     /**
      * <p>getIndexedAttributeTypesForResourceType</p>
      *
@@ -439,12 +439,12 @@ public class OnmsSnmpCollection {
      */
     public IfAliasResourceType getIfAliasResourceType(CollectionAgent agent) {
         if (m_ifAliasResourceType == null) {
-            m_ifAliasResourceType = new IfAliasResourceType(agent, this, m_params, getIfResourceType(agent));            
+            m_ifAliasResourceType = new IfAliasResourceType(agent, this, m_params, getIfResourceType(agent));
         }
         return m_ifAliasResourceType;
 
     }
-    
+
     /**
      * <p>getGenericIndexResourceTypes</p>
      *
@@ -471,7 +471,7 @@ public class OnmsSnmpCollection {
         }
         return m_genericIndexResourceTypes;
     }
-    
+
     private ResourceType getGenericIndexResourceType(CollectionAgent agent, String name) {
         return getGenericIndexResourceTypeMap(agent).get(name);
     }
@@ -535,12 +535,12 @@ public class OnmsSnmpCollection {
         ifAliasMibObject.setAlias("ifAlias");
         ifAliasMibObject.setType("string");
         ifAliasMibObject.setInstance("ifIndex");
-        
+
         ifAliasMibObject.setGroupName("aliasedResource");
         ifAliasMibObject.setGroupIfType("all");
-    
+
         AttributeGroupType groupType = new AttributeGroupType(ifAliasMibObject.getGroupName(), ifAliasMibObject.getGroupIfType());
-    
+
         SnmpAttributeType type = SnmpAttributeType.create(resType, resType.getCollectionName(), ifAliasMibObject, groupType);
         return Collections.singletonList(type);
     }

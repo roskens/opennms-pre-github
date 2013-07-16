@@ -69,7 +69,7 @@ public class IPv6Validator {
 				if (m.matches()) {
 					servicePack = Integer.valueOf(m.group(1));
 				}
-				
+
 				if (servicePack > 0) {
 					debug(null, "Found Service Pack " + servicePack);
 				}
@@ -78,7 +78,7 @@ public class IPv6Validator {
 			// Windows XP
 			if (version < 6.0f) {
 				final String productName = getStringFromRegistry("ProductName");
-				
+
 				// Can't do XP on x86, unless it's Server 2003
 				if (architecture.equals("x86")) {
 					if (productName == null || !productName.contains("Server 2003")) {
@@ -106,7 +106,7 @@ public class IPv6Validator {
 					}
 				}
 			}
-			
+
 			// Windows Vista and Windows Server 2008
 			if (version < 6.1f) {
 				if (servicePack < 1) {

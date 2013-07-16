@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class RancidReportController implements Controller {
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *
@@ -71,7 +71,7 @@ public class RancidReportController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse arg1) throws Exception {
-       
+
         Map<String, Object> model = new TreeMap<String, Object>();
         model.put("Report", "report");
         ModelAndView modelAndView = new ModelAndView("inventory/rancidReport","model",model);

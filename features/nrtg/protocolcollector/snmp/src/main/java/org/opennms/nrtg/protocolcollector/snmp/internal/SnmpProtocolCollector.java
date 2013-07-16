@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author Markus Neumann
  */
 public class SnmpProtocolCollector implements ProtocolCollector {
-	
+
     private static Logger logger = LoggerFactory.getLogger(SnmpProtocolCollector.class);
 
     private static final String PROTOCOL = "SNMP";
@@ -104,11 +104,11 @@ public class SnmpProtocolCollector implements ProtocolCollector {
 
         List<Collectable> trackers = new ArrayList<Collectable>();
         for (final String metricObjId : collectionJob.getAllMetrics()) {
-        	
+
         	SnmpObjId requestOid = SnmpObjId.get(metricObjId);
         	SnmpObjId base = requestOid.getPrefix(requestOid.length()-1);
         	int lastId = requestOid.getLastSubId();
-        	
+
         	SingleInstanceTracker instanceTracker = new SingleInstanceTracker(base, new SnmpInstId(lastId)) {
 
 				@Override
@@ -135,11 +135,11 @@ public class SnmpProtocolCollector implements ProtocolCollector {
 
         	};
 			trackers.add(instanceTracker);
-        	
+
         }
-        
+
         CollectionTracker tracker = new AggregateTracker(trackers);
-        
+
         SnmpWalker walker = m_snmpStrategy.createWalker(snmpAgentConfig, "SnmpProtocolCollector for " + snmpAgentConfig.getAddress(), tracker);
 
         walker.start();
@@ -149,7 +149,7 @@ public class SnmpProtocolCollector implements ProtocolCollector {
 			// TODO What should we do here
 		}
         return collectionJob;
-        
+
     }
 
     /*

@@ -35,10 +35,10 @@ public class MockEventWriterTest {
 
     @Autowired
     private DistPollerDao m_distPollerDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
 

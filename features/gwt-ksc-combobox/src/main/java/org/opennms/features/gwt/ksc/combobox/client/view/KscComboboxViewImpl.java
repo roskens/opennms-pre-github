@@ -76,7 +76,7 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
                             // TODO Auto-generated method stub
                             return reportDetail.getLabel();
                         }
-                        
+
                     };
                 }
 
@@ -95,32 +95,32 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
     }
 
     private static KscComboboxViewImplUiBinder uiBinder = GWT.create(KscComboboxViewImplUiBinder.class);
-    
+
     @UiTemplate("KscComboboxViewImpl.ui.xml")
     interface KscComboboxViewImplUiBinder extends UiBinder<Widget, KscComboboxViewImpl> {}
-    
+
     @UiField
     LayoutPanel m_layoutPanel;
-    
+
     @UiField
     TextBox m_textBox;
-    
+
     @UiField
     Button m_searchButton;
-    
+
     CellList<KscReportDetail> m_reportList;
     SimplePager m_pager;
     PopupPanel m_popupPanel;
-    
+
     private Presenter<KscReportDetail> m_presenter;
     private ListDataProvider<KscReportDetail> m_dataList;
 
     private SingleSelectionModel<KscReportDetail> m_selectionModel;
-    
+
 
     public KscComboboxViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         m_layoutPanel.setSize("100%", "23px");
         m_textBox.addKeyDownHandler(new KeyDownHandler() {
 
@@ -133,16 +133,16 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
                 }
             }
         });
-        
+
         m_selectionModel = new SingleSelectionModel<KscReportDetail>();
         m_selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-            
+
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 m_presenter.onKscReportSelected();
             }
         });
-        
+
         m_reportList = new CellList<KscReportDetail>(new KscReportDetailCell());
         m_reportList.setPageSize(10);
         m_reportList.getElement().getStyle().setFontSize(12, Unit.PX);
@@ -150,12 +150,12 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
 
         m_dataList = new ListDataProvider<KscReportDetail>();
         m_dataList.addDataDisplay(m_reportList);
-        
+
         m_pager = new SimplePager();
         m_pager.setStyleName("onms-table-no-borders-margin");
         m_pager.getElement().getStyle().setWidth(100, Unit.PCT);
         m_pager.setDisplay(m_reportList);
-        
+
         FlowPanel flowPanel = new FlowPanel();
         flowPanel.add(m_reportList);
         flowPanel.add(m_pager);
@@ -182,9 +182,9 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
     @Override
     public void setDataList(List<KscReportDetail> dataList) {
         m_dataList.setList(dataList);
-        
+
         m_popupPanel.setPopupPositionAndShow(new PositionCallback() {
-            
+
             @Override
             public void setPosition(int offsetWidth, int offsetHeight) {
                 m_popupPanel.setWidth((getOffsetWidth() - 5) + "px");
@@ -197,7 +197,7 @@ public class KscComboboxViewImpl extends Composite implements KscComboboxView<Ks
     public KscReportDetail getSelectedReport() {
         return m_selectionModel.getSelectedObject();
     }
-    
+
     @UiHandler("m_searchButton")
     public void handleSearchButton(ClickEvent event) {
         m_presenter.onSearchButtonClicked();

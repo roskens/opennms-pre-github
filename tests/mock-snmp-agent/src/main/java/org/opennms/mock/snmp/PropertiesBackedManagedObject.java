@@ -70,26 +70,26 @@ import org.snmp4j.smi.VariableBinding;
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  */
 public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOLoader, Updatable, MOAccess {
-    
+
 	private static final LogAdapter s_log = LogFactory.getLogger(PropertiesBackedManagedObject.class);
-    
+
     private TreeMap<OID, Object> m_vars = null;
-    
+
     private MOScope m_scope = null;
 
 	private Object m_oldValue;
-	
+
 	/*
 	 * Cache the dynamic variable types to speed things up.
 	 * This removes the need to search the class-path and use reflection at every call.
 	 */
 	HashMap<String,DynamicVariable> m_dynamicVariableCache = new HashMap<String,DynamicVariable>();
-    
+
     /** {@inheritDoc} */
         @Override
     public List<ManagedObject> loadMOs(URL moFile) {
     	final Properties props = loadProperties(moFile);
-    	
+
     	// Clear cache on reload
     	m_dynamicVariableCache.clear();
 
@@ -114,7 +114,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 
 
         m_scope = new DefaultMOScope(m_vars.firstKey(), true, m_vars.lastKey(), true);
-        
+
         return Collections.singletonList((ManagedObject)this);
     }
 
@@ -132,7 +132,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 		}
 		return moProps;
 	}
-	
+
 	private void closeQuietly(InputStream in) {
 		try {
 			in.close();
@@ -140,16 +140,16 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 			// ignore this -- hence the quietly
 		}
 	}
-    
+
     /** {@inheritDoc} */
         @Override
     public OID find(final MOScope range) {
         if (!m_scope.isOverlapping(range)) {
             return null;
         }
-        
+
         OID first = range.getLowerBound();
-        
+
         if (range.isLowerIncluded()) {
             first = first.successor();
         }
@@ -160,7 +160,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
         }
         return tail.firstKey(); // skip the leading '.'
     }
-    
+
     /**
      * <p>findNextOid</p>
      *
@@ -168,16 +168,16 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      * @return a {@link org.snmp4j.smi.OID} object.
      */
     public OID findNextOid(final OID given) {
-        
+
     	final OID next = given.successor();
-        
+
         final SortedMap<OID, Object> tail = m_vars.tailMap(next);
         if (tail.isEmpty()) {
             return null;
         }
         return tail.firstKey();
     }
-    
+
     private Variable findValueForOID(final OID oid) {
     	final Object val = m_vars.get(oid);
         if (val == null) {
@@ -317,16 +317,16 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 	 */
 	private Variable getVariableFromValueString(String oidStr, String valStr) {
 	    Variable newVar;
-	
+
 	    if ("\"\"".equals(valStr)) {
 	        newVar = new Null();
 	    }
 	    else {
 	        String moTypeStr = valStr.substring(0, valStr.indexOf(':'));
 	        String moValStr = valStr.substring(valStr.indexOf(':') + 2);
-	
+
 	        try {
-	
+
 	            if (moTypeStr.equals("STRING")) {
                    if (moValStr.startsWith("\"") && moValStr.endsWith("\"")) {
                        moValStr = moValStr.substring(1, moValStr.length() - 1);
@@ -374,20 +374,20 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
      */
 	protected Variable handleDynamicVariable(String oidStr, String typeStr) {
 		DynamicVariable responder = m_dynamicVariableCache.get(oidStr);
-		
+
 		if( responder != null ) {
 			return responder.getVariableForOID(oidStr);
 		} else if( m_dynamicVariableCache.containsKey(oidStr) ) {
 			throw new IllegalArgumentException("Already failed to initialize the dynamic variable "+typeStr);
 		}
-		
+
 		try{
 			// Create a new instance of the class in typeStr
 			final Class<? extends DynamicVariable> dv = Class.forName(typeStr).asSubclass(DynamicVariable.class);
 			if (!DynamicVariable.class.isAssignableFrom(dv)) {
 				throw new IllegalArgumentException(typeStr+" must implement the DynamicVariable interface");
 			}
-			
+
 			// Attempt to instantiate the object using the singleton pattern
 			try{
 				Method method = dv.getMethod("getInstance", new Class[0]);
@@ -395,7 +395,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 			} catch(NoSuchMethodException e) {
 				// Do nothing
 			}
-			
+
 			// If the singleton initialization failed, then create a new instance
 			if(responder==null) {
 				responder = (DynamicVariable)dv.newInstance();
@@ -408,7 +408,7 @@ public class PropertiesBackedManagedObject implements ManagedObject, MockSnmpMOL
 			// Cache the result - good or bad
 			m_dynamicVariableCache.put(oidStr, responder);
 		}
-		
+
 		return responder.getVariableForOID(oidStr);
 	}
 }

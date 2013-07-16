@@ -47,7 +47,7 @@ public interface ManagerMBean {
      * <p>doSystemExit</p>
      */
     public void doSystemExit();
-    
+
     /**
      * <p>doTestLoadLibraries</p>
      */

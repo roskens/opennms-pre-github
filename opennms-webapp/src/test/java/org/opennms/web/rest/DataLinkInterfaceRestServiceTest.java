@@ -117,20 +117,20 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
 
         MockHttpServletResponse response = sendPost("/links", xml, 303, null);
         assertTrue(response.getHeader("Location").toString().contains("opennms/rest/links/"));
-        
+
         final String newXml = sendRequest(GET, "/links", 200);
         assertTrue(newXml.contains("<links count=\"4\""));
     }
-    
+
     @Test
     public void testPut() throws Exception {
         String xml = sendRequest(GET, "/links/64", 200);
         assertNotNull(xml);
         assertTrue(xml.contains("<link "));
         assertTrue(xml.contains("source=\"linkd\""));
-        
+
         sendPut("/links/64", "source=monkey", 303, "/links/64");
-        
+
         xml = sendRequest(GET, "/links/64", 200);
         assertNotNull(xml);
         assertTrue(xml.contains("<link "));
@@ -142,7 +142,7 @@ public class DataLinkInterfaceRestServiceTest extends AbstractSpringJerseyRestTe
         String xml = sendRequest(GET, "/links/64", 200);
         assertNotNull(xml);
         assertTrue(xml.contains("<link "));
-        
+
         sendRequest(DELETE, "/links/64", 200);
 
         xml = sendRequest(GET, "/links/64", 204);

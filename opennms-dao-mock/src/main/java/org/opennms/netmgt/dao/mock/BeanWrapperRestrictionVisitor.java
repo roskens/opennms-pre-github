@@ -108,7 +108,7 @@ final class BeanWrapperRestrictionVisitor extends BaseRestrictionVisitor {
         }
         return null;
     }
-    
+
     protected Object getProperty(final AttributeRestriction restriction) {
         return getProperty(restriction.getAttribute());
     }

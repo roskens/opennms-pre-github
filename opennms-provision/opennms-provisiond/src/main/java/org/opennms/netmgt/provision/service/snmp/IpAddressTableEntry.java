@@ -152,7 +152,7 @@ public final class IpAddressTableEntry extends SnmpTableEntry {
     	}
         return address;
     }
-    
+
     /**
      * This is a hack, we get the IP address from the instance information when storing one of the columns.  :P
      */

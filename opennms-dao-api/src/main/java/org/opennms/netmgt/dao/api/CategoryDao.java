@@ -37,7 +37,7 @@ import org.opennms.netmgt.model.OnmsCategory;
  * <p>CategoryDao interface.</p>
  */
 public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
-	
+
     /**
      * <p>findByName</p>
      *
@@ -45,7 +45,7 @@ public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     OnmsCategory findByName(String name);
-    
+
     /**
      * <p>findByName</p>
      *
@@ -54,14 +54,14 @@ public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
      * @return a {@link org.opennms.netmgt.model.OnmsCategory} object.
      */
     OnmsCategory findByName(String name, boolean useCached);
-    
+
     /**
      * <p>getAllCategoryNames</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<String> getAllCategoryNames();
-    
+
     /**
      * <p>getCriterionForCategorySetsUnion</p>
      *
@@ -69,7 +69,7 @@ public interface CategoryDao extends OnmsDao<OnmsCategory, Integer> {
      * @return a {@link java.util.List} object.
      */
     List<Criterion> getCriterionForCategorySetsUnion(String[]... categories);
-    
+
     /**
      * <p>getCategoriesWithAuthorizedGroup</p>
      *

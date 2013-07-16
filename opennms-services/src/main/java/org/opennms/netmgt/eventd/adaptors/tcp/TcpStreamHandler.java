@@ -66,15 +66,15 @@ import org.xml.sax.InputSource;
  * events from the remote document are then passed to the registered event
  * handlers. All successfully processed events are acknowledged to the client by
  * the generation of an XML event receipt.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- * 
+ *
  */
 final class TcpStreamHandler implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpStreamHandler.class);
-    
+
     /**
      * The registered list of event handlers. Each incoming event will be
      * passed to all event handlers. The event handlers <em>MUST NOT</em>
@@ -111,7 +111,7 @@ final class TcpStreamHandler implements Runnable {
 
     /**
      * Constructs a new TCP/IP stream handler to process the remote document.
-     * 
+     *
      * @param parent
      *            The parent fiber
      * @param sock
@@ -375,7 +375,7 @@ final class TcpStreamHandler implements Runnable {
                 // Now process the good events and send a receipt message
                 boolean hasReceipt = false;
                 final EventReceipt receipt = new EventReceipt();
-                
+
                 for (final Event event : okEvents) {
                     if (event.getUuid() != null) {
                         receipt.addUuid(event.getUuid());

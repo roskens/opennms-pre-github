@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.surveillanceViews.View;
 public class SurveillanceViewConfig {
     private SurveillanceViewConfiguration m_config;
     private Map<String, View> m_viewsMap;
-    
+
     /**
      * <p>Constructor for SurveillanceViewConfig.</p>
      *
@@ -55,7 +55,7 @@ public class SurveillanceViewConfig {
         m_config = config;
         createViewsMap();
     }
-    
+
     private void createViewsMap() {
         List<View> viewList = getViewList();
         m_viewsMap = new HashMap<String, View>(viewList.size());

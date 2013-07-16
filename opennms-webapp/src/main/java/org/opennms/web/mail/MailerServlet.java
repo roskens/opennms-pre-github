@@ -55,7 +55,7 @@ import org.opennms.web.servlet.MissingParameterException;
  */
 public class MailerServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final Logger LOG = LoggerFactory.getLogger(MailerServlet.class);
     private static final long serialVersionUID = -6241742874510146572L;

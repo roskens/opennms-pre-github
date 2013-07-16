@@ -40,16 +40,16 @@ public class DatacollectionConfigTest extends XmlTest<DatacollectionConfig> {
     public DatacollectionConfigTest(final DatacollectionConfig sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final DatacollectionConfig config = new DatacollectionConfig();
         config.setRrdRepository("${install.share.dir}/rrd/snmp/");
-        
+
         final SnmpCollection collection = new SnmpCollection();
         collection.setName("default");
         collection.setSnmpStorageFlag("select");
-        
+
         final Rrd rrd = new Rrd();
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
@@ -61,23 +61,23 @@ public class DatacollectionConfigTest extends XmlTest<DatacollectionConfig> {
 
         final IncludeCollection includeCollection = new IncludeCollection();
         includeCollection.setDataCollectionGroup("MIB2");
-        
+
         collection.addIncludeCollection(includeCollection);
 
         config.addSnmpCollection(collection);
 
         return Arrays.asList(new Object[][] { {
                 config,
-                "<datacollection-config rrdRepository=\"${install.share.dir}/rrd/snmp/\">\n" + 
-                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" + 
-                "    <rrd step=\"300\">\n" + 
-                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + 
-                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" + 
-                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" + 
-                "      <rra>RRA:MAX:0.5:288:366</rra>\n" + 
-                "      <rra>RRA:MIN:0.5:288:366</rra>\n" + 
-                "    </rrd>\n" + 
-                "\n" + 
+                "<datacollection-config rrdRepository=\"${install.share.dir}/rrd/snmp/\">\n" +
+                "  <snmp-collection name=\"default\" snmpStorageFlag=\"select\">\n" +
+                "    <rrd step=\"300\">\n" +
+                "      <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
+                "      <rra>RRA:AVERAGE:0.5:12:1488</rra>\n" +
+                "      <rra>RRA:AVERAGE:0.5:288:366</rra>\n" +
+                "      <rra>RRA:MAX:0.5:288:366</rra>\n" +
+                "      <rra>RRA:MIN:0.5:288:366</rra>\n" +
+                "    </rrd>\n" +
+                "\n" +
                 "    <include-collection dataCollectionGroup=\"MIB2\"/>\n" +
                 "  </snmp-collection>\n" +
                 "</datacollection-config>\n",

@@ -43,7 +43,7 @@ public class ResourceTypeTest extends XmlTest<ResourceType> {
     public ResourceTypeTest(final ResourceType sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final ResourceType type = new ResourceType();
@@ -55,9 +55,9 @@ public class ResourceTypeTest extends XmlTest<ResourceType> {
 
         return Arrays.asList(new Object[][] { {
                 type,
-                "    <resourceType name=\"rbshCpuIndivIndex\" label=\"Riverbed Steelhead CPU\" resourceLabel=\"CPU ${rbshCpuIndivId}\">\n" + 
-                "      <persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"/>\n" + 
-                "      <storageStrategy class=\"org.opennms.netmgt.dao.support.IndexStorageStrategy\"/>\n" + 
+                "    <resourceType name=\"rbshCpuIndivIndex\" label=\"Riverbed Steelhead CPU\" resourceLabel=\"CPU ${rbshCpuIndivId}\">\n" +
+                "      <persistenceSelectorStrategy class=\"org.opennms.netmgt.collectd.PersistAllSelectorStrategy\"/>\n" +
+                "      <storageStrategy class=\"org.opennms.netmgt.dao.support.IndexStorageStrategy\"/>\n" +
                 "    </resourceType>\n",
                 "target/classes/xsds/datacollection-config.xsd" } });
     }

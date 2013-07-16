@@ -47,7 +47,7 @@ public class MicroblogReplyNotificationStrategyTest extends MicroblogNotificatio
 
         Assert.assertEquals("NotificationStrategy should return 0 on success", 0, ns.send(arguments));
     }
-    
+
     @Override
     public List<Argument> configureArgs() {
         List<Argument> arguments = super.configureArgs();

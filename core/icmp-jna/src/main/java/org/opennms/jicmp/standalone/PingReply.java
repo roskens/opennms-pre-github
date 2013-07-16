@@ -40,7 +40,7 @@ interface PingReply {
     public abstract long getSentTimeNanos();
 
     public abstract long getReceivedTimeNanos();
-    
+
     public abstract long getElapsedTimeNanos();
 
     public abstract double elapsedTime(TimeUnit unit);

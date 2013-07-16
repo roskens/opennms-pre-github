@@ -132,15 +132,15 @@ public class ProvisionerRescanTest implements InitializingBean {
 
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
         assertTrue(m_snmpPeerFactory instanceof ProxySnmpAgentConfigFactory);
-        
+
         // ensure this property is unset for tests and set it only in tests that need it
         System.getProperties().remove("org.opennms.provisiond.enableDeletionOfRequisitionedEntities");
 
         m_eventAnticipator = m_mockEventIpcManager.getEventAnticipator();
-        
+
         //((TransactionAwareEventForwarder)m_provisioner.getEventForwarder()).setEventForwarder(m_mockEventIpcManager);
         m_provisioner.start();
-        
+
         m_foreignSource = new ForeignSource();
         m_foreignSource.setName("noRescanOnImport");
         m_foreignSource.setScanInterval(Duration.standardDays(1));
@@ -160,10 +160,10 @@ public class ProvisionerRescanTest implements InitializingBean {
         m_foreignSourceRepository.flush();
 
         m_provisionService.setForeignSourceRepository(m_foreignSourceRepository);
-        
+
         m_scheduledExecutor.pause();
     }
-    
+
     @After
     public void tearDown() {
     	// remove property set during tests
@@ -198,7 +198,7 @@ public class ProvisionerRescanTest implements InitializingBean {
 
         final List<OnmsNode> nodes = getNodeDao().findAll();
         assertEquals(1, nodes.size());
-        
+
         final OnmsNode node = nodes.get(0);
         assertEquals(1, node.getIpInterfaces().size());
 
@@ -222,7 +222,7 @@ public class ProvisionerRescanTest implements InitializingBean {
         		LOG.info("  interface: {}", iface);
         	}
         }
-        
+
         setupLogging("ERROR");
     }
 
@@ -237,7 +237,7 @@ public class ProvisionerRescanTest implements InitializingBean {
         builder.setNodeid(2);
         builder.setInterface(InetAddressUtils.addr("10.1.15.245"));
         m_eventAnticipator.anticipateEvent(builder.getEvent());
-        
+
         for (final String service : new String[] { "ICMP", "SNMP" }) {
             builder = new EventBuilder(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, name);
             builder.setNodeid(2);
@@ -250,7 +250,7 @@ public class ProvisionerRescanTest implements InitializingBean {
 	private void importFromResource(final String path, final Boolean rescanExisting) throws Exception {
         m_provisioner.importModelFromResource(m_resourceLoader.getResource(path), rescanExisting);
     }
-    
+
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }

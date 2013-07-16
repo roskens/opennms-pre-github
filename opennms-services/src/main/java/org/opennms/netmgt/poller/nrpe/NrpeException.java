@@ -44,7 +44,7 @@ public class NrpeException extends Exception {
     public NrpeException() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for NrpeException.</p>
 	 *

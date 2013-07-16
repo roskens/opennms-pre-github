@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -53,7 +53,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * The operator action to be taken when this event occurs
  *  with state controlling if action takes place. The menutext gets
  *  displayed in the UI.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -104,7 +104,7 @@ public class Operaction implements Serializable {
     /**
      * Returns the value of field 'content'. The field 'content'
      * has the following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public java.lang.String getContent(
@@ -114,7 +114,7 @@ public class Operaction implements Serializable {
 
     /**
      * Returns the value of field 'menutext'.
-     * 
+     *
      * @return the value of field 'Menutext'.
      */
     public java.lang.String getMenutext(
@@ -124,7 +124,7 @@ public class Operaction implements Serializable {
 
     /**
      * Returns the value of field 'state'.
-     * 
+     *
      * @return the value of field 'State'.
      */
     public java.lang.String getState(
@@ -135,7 +135,7 @@ public class Operaction implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
-     * 
+     *
      * @param content the value of field 'content'.
      */
     public void setContent(
@@ -145,7 +145,7 @@ public class Operaction implements Serializable {
 
     /**
      * Sets the value of field 'menutext'.
-     * 
+     *
      * @param menutext the value of field 'menutext'.
      */
     public void setMenutext(
@@ -155,7 +155,7 @@ public class Operaction implements Serializable {
 
     /**
      * Sets the value of field 'state'.
-     * 
+     *
      * @param state the value of field 'state'.
      */
     public void setState(

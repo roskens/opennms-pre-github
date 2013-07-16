@@ -36,7 +36,7 @@ package org.opennms.netmgt.daemon;
  */
 public class SimpleSpringContextJmxServiceDaemon extends
         AbstractSpringContextJmxServiceDaemon<SpringServiceDaemon> implements SimpleSpringContextJmxServiceDaemonMBean {
-    
+
     private String m_loggingPrefix;
     private String m_springContext;
     /**

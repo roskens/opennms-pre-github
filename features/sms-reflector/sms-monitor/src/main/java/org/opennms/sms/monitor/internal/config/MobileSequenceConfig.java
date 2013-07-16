@@ -54,16 +54,16 @@ import org.springframework.util.Assert;
  */
 @XmlRootElement(name="mobile-sequence")
 public class MobileSequenceConfig implements Serializable, Comparable<MobileSequenceConfig> {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 142043644615784730L;
     /* attributes and elements */
 	private List<SequenceSessionVariable> m_sessionVariables;
     private List<MobileSequenceTransaction> m_transactions;
 
-	
+
 	/**
 	 * <p>addSessionVariable</p>
 	 *
@@ -160,7 +160,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
 			.append(this.getTransactions(), o.getTransactions())
 			.toComparison();
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -182,7 +182,7 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
 			if (t.getGatewayId() != null) {
 				defaultGatewayId = t.getGatewayId();
 			}
-			
+
 			t.setDefaultGatewayId(defaultGatewayId);
 		}
 	}
@@ -198,9 +198,9 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
 
         MobileSequenceTransaction t = new MobileSequenceTransaction();
 		addTransaction(t);
-		
+
 		t.setRequest(request);
-		
+
 		t.addResponse(response);
         return t;
     }
@@ -215,11 +215,11 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
 	 * @throws java.lang.Throwable if any.
 	 */
 	public Map<String, Number> executeSequence(MobileSequenceSession session, DefaultTaskCoordinator coordinator) throws SequencerException, Throwable {
-	    
+
         MobileSequenceExecution execution = start(session, coordinator);
-        
+
         waitFor(session, execution);
-		
+
 		return execution.getResponseTimes();
 	}
 
@@ -232,15 +232,15 @@ public class MobileSequenceConfig implements Serializable, Comparable<MobileSequ
      * @throws org.opennms.sms.monitor.SequencerException if any.
      */
     public MobileSequenceExecution start(MobileSequenceSession session, DefaultTaskCoordinator coordinator) throws SequencerException {
-        
+
         Assert.notNull(coordinator);
 
         computeDefaultGateways();
-        
+
         MobileSequenceExecution execution = createExecution();
-        
+
         execution.start(session, coordinator);
-        
+
         return execution;
 
     }

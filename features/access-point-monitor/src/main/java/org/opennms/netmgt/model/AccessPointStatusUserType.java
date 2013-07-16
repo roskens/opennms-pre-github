@@ -40,7 +40,7 @@ import org.hibernate.usertype.UserType;
  * <p>
  * AccessPointStatusUserType class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class AccessPointStatusUserType implements UserType {

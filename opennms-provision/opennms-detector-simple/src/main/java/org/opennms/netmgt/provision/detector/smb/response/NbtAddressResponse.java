@@ -37,10 +37,10 @@ import jcifs.netbios.NbtAddress;
  * @version $Id: $
  */
 public class NbtAddressResponse {
-    
+
     private String m_address;
     private NbtAddress m_nbtAddress;
-    
+
     /**
      * <p>receive</p>
      *
@@ -51,22 +51,22 @@ public class NbtAddressResponse {
         m_address = address;
         m_nbtAddress = nbtAddress;
     }
-    
+
     /**
      * <p>validateAddressIsNotSame</p>
-     * 
+     *
      * TODO: In ticket 1608, Antonio is asking why this validation is used.
      * Maybe the behavior needs to be changed?
-     * 
+     *
      * "Something weird is here....why the address must be different?"
-     * 
+     *
      * @see https://mynms.opennms.com/Ticket/Display.html?id=1608
      *
      * @return a boolean.
      */
     public boolean validateAddressIsNotSame() {
         if(m_nbtAddress.getHostName().equals(m_address)) {
-           return false; 
+           return false;
         }else {
             return true;
         }

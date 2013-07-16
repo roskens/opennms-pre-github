@@ -54,7 +54,7 @@ public abstract class EndPointValidationExpressionImpl implements EndPointValida
     public String getValue() {
         return m_value;
     }
-    
+
     /**
      * <p>setValue</p>
      *
@@ -63,7 +63,7 @@ public abstract class EndPointValidationExpressionImpl implements EndPointValida
     public void setValue(String value) {
         m_value = value;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public abstract void validate(EndPoint endPoint) throws EndPointStatusException;

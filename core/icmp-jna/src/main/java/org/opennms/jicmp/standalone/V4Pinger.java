@@ -51,7 +51,7 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
 
     public V4Pinger() throws Exception {
         super(NativeDatagramSocket.create(NativeDatagramSocket.PF_INET, Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM : NativeDatagramSocket.SOCK_RAW, NativeDatagramSocket.IPPROTO_ICMP));
-        
+
         // Windows requires at least one packet sent before a receive call can be made without error
         // so we send a packet here to make sure...  This one should not match the normal ping requests
         // since it does not contain the cookie so it won't interface.
@@ -64,7 +64,7 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
             getPingSocket().send(packet.toDatagramPacket(InetAddress.getLocalHost()));
         }
     }
-    
+
     @Override
     public void run() {
         try {
@@ -72,13 +72,13 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
             while (!isFinished()) {
                 getPingSocket().receive(datagram);
                 long received = System.nanoTime();
-    
+
                 ICMPPacket icmpPacket = new ICMPPacket(getIPPayload(datagram));
                 V4PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V4PingReply(icmpPacket, received) : null;
-            
+
                 if (echoReply != null && echoReply.isValid()) {
                     // 64 bytes from 127.0.0.1: icmp_seq=0 time=0.069 ms
-                    System.out.printf("%d bytes from %s: tid=%d icmp_seq=%d time=%.3f ms\n", 
+                    System.out.printf("%d bytes from %s: tid=%d icmp_seq=%d time=%.3f ms\n",
                         echoReply.getPacketLength(),
                         datagram.getAddress().getHostAddress(),
                         echoReply.getIdentifier(),
@@ -99,7 +99,7 @@ public class V4Pinger extends AbstractPinger<Inet4Address> {
     private ByteBuffer getIPPayload(NativeDatagramPacket datagram) {
         return new IPPacket(datagram.getContent()).getPayload();
     }
-    
+
     @Override
     public PingReplyMetric ping(Inet4Address addr, int id, int sequenceNumber, int count, long interval) throws InterruptedException {
         PingReplyMetric metric = new PingReplyMetric(count, interval);

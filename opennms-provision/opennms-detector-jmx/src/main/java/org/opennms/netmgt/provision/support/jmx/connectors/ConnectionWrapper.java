@@ -33,7 +33,7 @@ import javax.management.MBeanServerConnection;
 /**
  * This interface defines the ability to handle a live connection and the ability to
  * close it.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public interface ConnectionWrapper {
@@ -43,7 +43,7 @@ public interface ConnectionWrapper {
      * @return a {@link javax.management.MBeanServerConnection} object.
      */
     public MBeanServerConnection getMBeanServer();
-    
+
     /**
      * <p>close</p>
      */

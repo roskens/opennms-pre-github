@@ -36,7 +36,7 @@ import org.opennms.netmgt.config.collector.CollectionSetVisitor;
 
 /**
  * StringAttributeVisitor
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class StringAttributeVisitor implements CollectionSetVisitor {

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface TopologyComponentServerRpc extends ServerRpc {
-    
+
     public void doubleClicked(MouseEventDetails eventDetails);
     public void deselectAllItems();
     public void edgeClicked(String edgeId);

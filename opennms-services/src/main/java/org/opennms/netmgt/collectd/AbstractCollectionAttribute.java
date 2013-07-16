@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class AbstractCollectionAttribute implements  CollectionAttribute {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCollectionAttribute.class);
 
     /**
@@ -103,6 +103,6 @@ public abstract class AbstractCollectionAttribute implements  CollectionAttribut
         LOG.debug("Visiting attribute {}", this);
         visitor.visitAttribute(this);
         visitor.completeAttribute(this);
-    }   
+    }
 
 }

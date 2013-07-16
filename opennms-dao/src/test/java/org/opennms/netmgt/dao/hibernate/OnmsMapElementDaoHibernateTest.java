@@ -68,15 +68,15 @@ import org.springframework.transaction.annotation.Transactional;
 public class OnmsMapElementDaoHibernateTest implements InitializingBean {
 	@Autowired
 	private OnmsMapElementDao m_onmsMapElementDao;
-	
+
 	@Autowired
 	private OnmsMapDao m_onmsMapDao;
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     private static boolean m_populated = false;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -185,7 +185,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, mapElement.getX());
         assertEquals(10, mapElement.getY());
     }
-    
+
 	@Test
 	@Transactional
     public void testFind() {
@@ -212,7 +212,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, mapElement.getX());
         assertEquals(10, mapElement.getY());
     }
-    
+
 	@Test
 	@Transactional
     public void testFindMapElementsByMapId() {
@@ -241,7 +241,7 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         assertEquals(0, mapElement.getX());
         assertEquals(10, mapElement.getY());
     }
-    
+
 	@Test
 	@Transactional
     public void testFindElementsByElementIdAndType1() {
@@ -323,14 +323,14 @@ public class OnmsMapElementDaoHibernateTest implements InitializingBean {
         m_onmsMapElementDao.delete(element);
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
-    
+
 	@Test
 	@Transactional
     public void testDeleteElementsByElementIdAndType() {
         m_onmsMapElementDao.deleteElementsByElementIdAndType(1, OnmsMapElement.NODE_TYPE);
         assertNull(m_onmsMapElementDao.findElementById(59));
     }
-    
+
 	@Test
 	@Transactional
     public void testDeleteElementsByMapType() {

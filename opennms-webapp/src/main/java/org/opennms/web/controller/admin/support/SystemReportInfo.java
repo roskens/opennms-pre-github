@@ -37,7 +37,7 @@ import org.opennms.systemreport.SystemReportPlugin;
 
 public class SystemReportInfo implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 4803853030354121419L;
     private final List<SystemReportPlugin> m_plugins;
@@ -55,15 +55,15 @@ public class SystemReportInfo implements Serializable {
         }
         return null;
     }
-    
+
     public List<SystemReportFormatter> getFormatters() {
         return m_formatters;
     }
-    
+
     public List<SystemReportPlugin> getPlugins() {
         return m_plugins;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

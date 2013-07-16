@@ -91,7 +91,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     @XmlAttribute(name="name", required=true)
@@ -101,7 +101,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(final String name) {
@@ -110,7 +110,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Returns the value of field 'systemDefChoice'.
-     * 
+     *
      * @return the value of field 'SystemDefChoice'.
      */
     public SystemDefChoice getSystemDefChoice() {
@@ -119,7 +119,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Sets the value of field 'systemDefChoice'.
-     * 
+     *
      * @param systemDefChoice the value of field 'systemDefChoice'.
      */
     public void setSystemDefChoice(final SystemDefChoice systemDefChoice) {
@@ -145,13 +145,13 @@ public class SystemDef implements Serializable {
         m_systemDefChoice.setSysoid(null);
         m_systemDefChoice.setSysoidMask(sysoidMask);
     }
-    
+
     /**
      * Returns the value of field 'ipList'. The field 'ipList' has
      * the following description: list of IP address or IP address
      * mask values to
      *  which this system definition applies.
-     * 
+     *
      * @return the value of field 'IpList'.
      */
     @XmlElement(name="ipList")
@@ -164,7 +164,7 @@ public class SystemDef implements Serializable {
      * following description: list of IP address or IP address mask
      * values to
      *  which this system definition applies.
-     * 
+     *
      * @param ipList the value of field 'ipList'.
      */
     public void setIpList(final IpList ipList) {
@@ -176,7 +176,7 @@ public class SystemDef implements Serializable {
      * has the following description: container for list of MIB
      * groups to be collected
      *  for the system
-     * 
+     *
      * @return the value of field 'Collect'.
      */
     @XmlElement(name="collect")
@@ -189,7 +189,7 @@ public class SystemDef implements Serializable {
      * the following description: container for list of MIB groups
      * to be collected
      *  for the system
-     * 
+     *
      * @param collect the value of field 'collect'.
      */
     public void setCollect(final Collect collect) {
@@ -198,7 +198,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -206,34 +206,34 @@ public class SystemDef implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof SystemDef) {
-        
+
             final SystemDef temp = (SystemDef)obj;
             if (m_name != null) {
                 if (temp.m_name == null) return false;
-                else if (!(m_name.equals(temp.m_name))) 
+                else if (!(m_name.equals(temp.m_name)))
                     return false;
             }
             else if (temp.m_name != null)
                 return false;
             if (m_systemDefChoice != null) {
                 if (temp.m_systemDefChoice == null) return false;
-                else if (!(m_systemDefChoice.equals(temp.m_systemDefChoice))) 
+                else if (!(m_systemDefChoice.equals(temp.m_systemDefChoice)))
                     return false;
             }
             else if (temp.m_systemDefChoice != null)
                 return false;
             if (m_ipList != null) {
                 if (temp.m_ipList == null) return false;
-                else if (!(m_ipList.equals(temp.m_ipList))) 
+                else if (!(m_ipList.equals(temp.m_ipList)))
                     return false;
             }
             else if (temp.m_ipList != null)
                 return false;
             if (m_collect != null) {
                 if (temp.m_collect == null) return false;
-                else if (!(m_collect.equals(temp.m_collect))) 
+                else if (!(m_collect.equals(temp.m_collect)))
                     return false;
             }
             else if (temp.m_collect != null)
@@ -248,7 +248,7 @@ public class SystemDef implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
@@ -267,13 +267,13 @@ public class SystemDef implements Serializable {
         if (m_collect != null) {
            result = 37 * result + m_collect.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -287,8 +287,8 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -301,8 +301,8 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -318,7 +318,7 @@ public class SystemDef implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -333,8 +333,8 @@ public class SystemDef implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

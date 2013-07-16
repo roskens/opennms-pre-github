@@ -40,7 +40,7 @@ public class SnmpAgentConfigProxyMapper {
 
 	protected SnmpAgentConfigProxyMapper() {
 	}
-	
+
 	public static SnmpAgentConfigProxyMapper getInstance() {
 		if (m_instance == null) {
 			m_instance = new SnmpAgentConfigProxyMapper();

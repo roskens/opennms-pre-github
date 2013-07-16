@@ -145,7 +145,7 @@ public class SnmpAttributeTest extends TestCase {
         OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(agent, new ServiceParameters(new HashMap<String, Object>()), new MockDataCollectionConfig());
         NodeResourceType resourceType = new NodeResourceType(agent, snmpCollection);
         NodeInfo nodeInfo = resourceType.getNodeInfo();
-        
+
 
         MibObject mibObject = new MibObject();
         mibObject.setOid(".1.3.6.1.4.1.12238.55.9997.4.1.2.9.116.101.109.112.95.117.108.107.111");
@@ -156,24 +156,24 @@ public class SnmpAttributeTest extends TestCase {
         NumericAttributeType attributeType = new NumericAttributeType(resourceType, snmpCollection.getName(), mibObject, new AttributeGroupType("foo", "ignore"));
 
         attributeType.storeResult(new SnmpCollectionSet(agent, snmpCollection), null, new SnmpResult(mibObject.getSnmpObjId(), new SnmpInstId(mibObject.getInstance()), snmpValue));
-        
+
 
         RrdRepository repository = new RrdRepository();
         repository.setRraList(new ArrayList<String>(Collections.singleton("RRA:AVERAGE:0.5:1:2016")));
 
         final BasePersister persister = new BasePersister(new ServiceParameters(new HashMap<String, Object>()), repository);
         persister.createBuilder(nodeInfo, "baz", attributeType);
-        
+
         final AtomicInteger count = new AtomicInteger(0);
-        
+
         nodeInfo.visit(new AbstractCollectionSetVisitor() {
-			
+
 			@Override
 			public void visitAttribute(CollectionAttribute attr) {
 		        attr.storeAttribute(persister);
 		        count.incrementAndGet();
 			}
-			
+
 		});
 
         assertEquals(1, count.get());

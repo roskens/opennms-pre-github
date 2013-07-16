@@ -49,7 +49,7 @@ import org.opennms.test.ThrowableAnticipator;
 
 /**
  * @author brozow
- * 
+ *
  * TODO To change the template for this generated type comment go to Window -
  * Preferences - Java - Code Style - Code Templates
  */
@@ -78,7 +78,7 @@ public class SnmpMonitorStrategyTest {
         SnmpValue result = nullValue();
         testSyntaxEquals(result, "", "1");
     }
-    
+
 
     @Test
     public void testMeetsCriteriaWithString() {
@@ -167,7 +167,7 @@ public class SnmpMonitorStrategyTest {
 	@Test
     public void testErrorConditions() {
     	SnmpValue result = int32Value(1);
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("operator X is unknown"));
         try {
@@ -177,7 +177,7 @@ public class SnmpMonitorStrategyTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testErrorConditions2() {
         SnmpValue result = int32Value(1);
@@ -192,7 +192,7 @@ public class SnmpMonitorStrategyTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     private void testSyntaxEquals(SnmpValue result, String eqString, String neString) {
         assertTrue(monitor.meetsCriteria(result, null, null));
 
@@ -208,7 +208,7 @@ public class SnmpMonitorStrategyTest {
         assertTrue(monitor.meetsCriteria(result, SnmpMonitor.MATCHES, matchString));
         assertFalse(monitor.meetsCriteria(result, SnmpMonitor.MATCHES, noMatchString));
     }
-    
+
     private void testOrderOperations(SnmpValue result, int value) {
         // less-than
         assertTrue(monitor.meetsCriteria(result, SnmpMonitor.LESS_THAN, Integer.toString(value + 1)));
@@ -230,19 +230,19 @@ public class SnmpMonitorStrategyTest {
         assertTrue(monitor.meetsCriteria(result, SnmpMonitor.GREATER_THAN_EQUALS, Integer.toString(value)));
         assertTrue(monitor.meetsCriteria(result, SnmpMonitor.GREATER_THAN_EQUALS, Integer.toString(value - 1)));
     }
-    
+
     SnmpValue octetString(String val) {
     	return SnmpUtils.getValueFactory().getOctetString(val.getBytes());
     }
-    
+
     SnmpValue nullValue() {
     	return SnmpUtils.getValueFactory().getNull();
     }
-    
+
     SnmpValue oid(String objectId) {
     	return SnmpUtils.getValueFactory().getObjectId(SnmpObjId.get(objectId));
     }
-    
+
     private SnmpValue ipAddr(String addr) throws UnknownHostException {
         return SnmpUtils.getValueFactory().getIpAddress(InetAddressUtils.addr(addr));
     }

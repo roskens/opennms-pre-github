@@ -52,9 +52,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SnmpCollectionResource implements CollectionResource {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectionResource.class);
-    
+
     private ResourceType m_resourceType;
 
     private Map<AttributeGroupType, AttributeGroup> m_groups = new HashMap<AttributeGroupType, AttributeGroup>();
@@ -67,7 +67,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public SnmpCollectionResource(final ResourceType def) {
         m_resourceType = def;
     }
-    
+
     /**
      * <p>getResourceType</p>
      *
@@ -76,7 +76,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public ResourceType getResourceType() {
         return m_resourceType;
     }
-    
+
     /**
      * <p>getCollectionAgent</p>
      *
@@ -103,7 +103,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     /** {@inheritDoc} */
     @Override
     public abstract File getResourceDir(RrdRepository repository);
-    
+
     /**
      * <p>getType</p>
      *
@@ -111,7 +111,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
      */
     @Override
     public abstract int getType();
-    
+
     /**
      * <p>rescanNeeded</p>
      *
@@ -121,7 +121,7 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     public boolean rescanNeeded() {
     	return false;
     }
-    
+
     /**
      * <p>setAttributeValue</p>
      *
@@ -152,11 +152,11 @@ public abstract class SnmpCollectionResource implements CollectionResource {
     @Override
     public void visit(final CollectionSetVisitor visitor) {
         visitor.visitResource(this);
-        
+
         for (AttributeGroup group : getGroups()) {
             group.visit(visitor);
         }
-        
+
         visitor.completeResource(this);
     }
 

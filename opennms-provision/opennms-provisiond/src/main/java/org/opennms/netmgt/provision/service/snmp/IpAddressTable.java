@@ -97,7 +97,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
     protected IpAddressTableEntry createTableEntry(final SnmpObjId base, final SnmpInstId inst, final Object val) {
         return new IpAddressTableEntry();
     }
-    
+
     /**
      * <p>getIfIndices</p>
      *
@@ -124,7 +124,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
         IpAddressTableEntry entry = getEntryByIfIndex(ifIndex);
         return entry == null ? null : entry.getIpAddress();
     }
-    
+
     /**
      * <p>getNetMask</p>
      *
@@ -134,9 +134,9 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
     public InetAddress getNetMask(int ifIndex) {
         IpAddressTableEntry entry = getEntryByIfIndex(ifIndex);
         return entry == null ? null : entry.getIpAddressNetMask();
-        
+
     }
-    
+
     /**
      * <p>getNetMask</p>
      *
@@ -146,7 +146,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
     public InetAddress getNetMask(InetAddress address) {
         return getEntry(address) == null ? null : getEntry(address).getIpAddressNetMask();
     }
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -168,7 +168,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
         if (getEntries() == null) {
             return null;
         }
-        
+
         for(IpAddressTableEntry entry : getEntries()) {
             Integer ndx = entry.getIpAddressIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
@@ -177,7 +177,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
         }
         return null;
     }
-     
+
     /**
      * <p>getEntry</p>
      *
@@ -231,7 +231,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
             }
 
             snmpIf.setCollectionEnabled(true);
-            
+
             ipIf.setSnmpInterface(snmpIf);
 
         }
@@ -250,7 +250,7 @@ public class IpAddressTable extends SnmpTable<IpAddressTableEntry> {
     		ipAddrs.add(InetAddressUtils.str(addr));
     	}
         return ipAddrs;
-        
+
     }
 
 	public static IpAddressTable createTable(final InetAddress address, final Set<InetAddress> ipAddresses) {

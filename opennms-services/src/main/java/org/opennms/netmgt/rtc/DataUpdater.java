@@ -46,7 +46,7 @@ import org.opennms.netmgt.xml.event.Value;
  * the event UEI, relevant information is read from the event and the
  * DataManager informed so that data maintained by the RTC is kept up-to-date
  * </P>
- * 
+ *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
@@ -367,7 +367,7 @@ final class DataUpdater implements Runnable {
         LOG.debug("{} asset info changed for node {}", m_event.getUei(), nodeid);
 
     }
-    
+
     /**
      * If a node's surveillance category membership changed,
      * update RTC since RTC categories may include surveillance

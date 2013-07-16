@@ -61,7 +61,7 @@ import org.smslib.USSDSessionStatus;
  * @author brozow
  */
 public class MobileMsgTrackerTest {
-    
+
 	private static final String PHONE_NUMBER = "+19195551212";
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
@@ -84,7 +84,7 @@ public class MobileMsgTrackerTest {
                 @Override
 		public void handleException(Throwable t) {
 		}
-		
+
 		public Long getLatency() {
 			if (m_end.get() == 0) {
 				return null;
@@ -99,7 +99,7 @@ public class MobileMsgTrackerTest {
      *
      */
     public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
-        
+
         Queue<MobileMsgResponse> m_q;
 
         /* (non-Javadoc)
@@ -118,7 +118,7 @@ public class MobileMsgTrackerTest {
         public void start(Queue<MobileMsgResponse> q) {
             m_q = q;
         }
-        
+
         public void sendTestResponse(MobileMsgResponse response) {
             m_q.offer(response);
         }
@@ -138,23 +138,23 @@ public class MobileMsgTrackerTest {
         }
 
     }
-    
+
     public static class TestCallback implements MobileMsgResponseCallback {
-        
+
         AtomicReference<String> m_calledMethods = new AtomicReference<String>();
         CountDownLatch m_latch = new CountDownLatch(1);
         AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
-        
+
         MobileMsgResponse getResponse() throws InterruptedException {
             m_latch.await();
             return m_response.get();
         }
-        
+
         String getCalledMethods() {
             return m_calledMethods.get();
         }
-        
+
         private void methodCalled(String methodName) {
             while (true) {
                 String prevVal = m_calledMethods.get();
@@ -198,7 +198,7 @@ public class MobileMsgTrackerTest {
 
         /**
          * @return
-         * @throws InterruptedException 
+         * @throws InterruptedException
          */
         public InboundMessage getMessage() throws InterruptedException {
             MobileMsgResponse response = getResponse();
@@ -206,9 +206,9 @@ public class MobileMsgTrackerTest {
                 return ((SmsResponse)response).getMessage();
             }
             return null;
-            
+
         }
-        
+
         public USSDResponse getUSSDResponse() throws InterruptedException{
             MobileMsgResponse response = getResponse();
             if (response instanceof UssdResponse) {
@@ -216,7 +216,7 @@ public class MobileMsgTrackerTest {
             }
             return null;
         }
-        
+
     }
 
     TestMessenger m_messenger;
@@ -224,15 +224,15 @@ public class MobileMsgTrackerTest {
 	DefaultTaskCoordinator m_coordinator;
 	@SuppressWarnings("unused")
 	private Properties m_session;
-    
+
     @Before
     public void setUp() throws Exception {
         m_messenger = new TestMessenger();
         m_tracker = new MobileMsgTrackerImpl("test", m_messenger);
         m_tracker.start();
-        
+
         m_session = new Properties();
-        
+
         m_coordinator = new DefaultTaskCoordinator("MobileMsgTrackerTest", Executors.newSingleThreadExecutor(
             new LogPreservingThreadFactory("MobileMsgTrackerTest", 1, false)
         ));
@@ -242,66 +242,66 @@ public class MobileMsgTrackerTest {
 
     @Test
     public void testResponseButNotTimeout() throws Exception {
-        
+
         long timeout = 1000L;
-        
+
         OutboundMessage msg = new OutboundMessage("+19195552121", "ping");
-        
+
         TestCallback cb = new TestCallback();
-        
+
         m_tracker.sendSmsRequest(msg, timeout, 0, cb, new PingResponseMatcher());
-        
+
         InboundMessage responseMsg = createInboundMessage("+19195552121", "pong");
-        
+
         m_messenger.sendTestResponse(responseMsg);
-        
+
         assertSame(responseMsg, cb.getMessage());
-        
+
         assertEquals("handleResponse", cb.getCalledMethods());
-        
+
         Thread.sleep(timeout);
-        
+
         assertEquals("Expect no 'handleTimeout' since response was received", "handleResponse", cb.getCalledMethods());
-        
+
     }
-    
+
     @Test
     public void testPing() throws Exception {
-        
+
         OutboundMessage msg = new OutboundMessage("+19195552121", "ping");
         OutboundMessage msg2 = new OutboundMessage("+19195553131", "ping");
-        
+
         TestCallback cb = new TestCallback();
         TestCallback cb2 = new TestCallback();
-        
+
         m_tracker.sendSmsRequest(msg, 60000L, 0, cb, new PingResponseMatcher());
         m_tracker.sendSmsRequest(msg2, 60000, 0, cb2, new PingResponseMatcher());
-        
+
         InboundMessage responseMsg = createInboundMessage("+19195552121", "pong");
         InboundMessage responseMsg2 = createInboundMessage("+19195553131", "pong");
-        
+
         m_messenger.sendTestResponse(responseMsg);
         m_messenger.sendTestResponse(responseMsg2);
-        
+
         assertSame(responseMsg, cb.getMessage());
         assertSame(responseMsg2, cb2.getMessage());
-        
-        
+
+
     }
-    
+
     @Test
     public void testTMobileGetBalance() throws Exception {
-        
+
         String gatewayId = "G";
-        
+
         TestCallback cb = new TestCallback();
-        
+
         USSDRequest request = new USSDRequest("#225#");
-        
+
         m_tracker.sendUssdRequest(request, 10000, 0, cb, and(isUssd(), textMatches(TMOBILE_USSD_MATCH)));
-        
+
         USSDResponse response = sendTmobileUssdResponse(gatewayId);
-        
+
         assertSame(response, cb.getUSSDResponse());
     }
 
@@ -310,7 +310,7 @@ public class MobileMsgTrackerTest {
         response.setContent(TMOBILE_RESPONSE);
         response.setUSSDSessionStatus(USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
         response.setDcs(USSDDcs.UNSPECIFIED_7BIT);
-        
+
         m_messenger.sendTestResponse(gatewayId, response);
 		return response;
 	}
@@ -324,6 +324,6 @@ public class MobileMsgTrackerTest {
         InboundMessage msg = new InboundMessage(new Date(), originator, text, 0, "0");
         return msg;
     }
-    
+
 
 }

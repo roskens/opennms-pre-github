@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Security;
 
 /**
  * Class SecurityDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,29 +88,29 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";
         _xmlName = "security";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- initialize element descriptors
-        
+
         //-- _doNotOverrideList
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_doNotOverrideList", "doNotOverride", org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Security target = (Security) object;
                 return target.getDoNotOverride();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -140,7 +140,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _doNotOverrideList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -160,7 +160,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -171,7 +171,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -183,7 +183,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -194,7 +194,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -205,7 +205,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -217,7 +217,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -229,7 +229,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -240,7 +240,7 @@ public class SecurityDescriptor extends org.exolab.castor.xml.util.XMLClassDescr
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

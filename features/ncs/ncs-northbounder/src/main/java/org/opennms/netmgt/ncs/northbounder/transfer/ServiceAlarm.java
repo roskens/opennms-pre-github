@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="ServiceAlarm")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ServiceAlarm {
-	
+
 	@XmlElement(name="Id")
 	private String m_id;
 

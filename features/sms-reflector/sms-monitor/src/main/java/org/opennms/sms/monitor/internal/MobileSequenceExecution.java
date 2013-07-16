@@ -51,7 +51,7 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
  * @version $Id: $
  */
 public class MobileSequenceExecution {
-    
+
     // Use a LinkedHashMap to ensure transaction latencies are ordered.
     private Map<String, Number> m_responseTimes = new LinkedHashMap<String,Number>();
     private Long m_startTime;
@@ -66,13 +66,13 @@ public class MobileSequenceExecution {
      */
     public MobileSequenceExecution(MobileSequenceConfig sequenceConfig) {
         m_sequenceConfig = sequenceConfig;
-        
+
         for(MobileSequenceTransaction transaction : sequenceConfig.getTransactions()) {
             m_transactionExecutions.add(new MobileTransactionExecution(transaction));
         }
-        
+
     }
-    
+
     /**
      * <p>getSequenceConfig</p>
      *
@@ -81,7 +81,7 @@ public class MobileSequenceExecution {
     public MobileSequenceConfig getSequenceConfig() {
         return m_sequenceConfig;
     }
-    
+
     /**
      * <p>getTransactionExecutions</p>
      *
@@ -99,7 +99,7 @@ public class MobileSequenceExecution {
     public Long getStartTime() {
         return m_startTime;
     }
-    
+
     /**
      * <p>setStartTime</p>
      *
@@ -108,7 +108,7 @@ public class MobileSequenceExecution {
     public void setStartTime(Long startTime) {
         m_startTime = startTime;
     }
-    
+
     /**
      * <p>getResponseTimes</p>
      *
@@ -139,7 +139,7 @@ public class MobileSequenceExecution {
             throw new IllegalStateException("attempting to wait for the sequence to complete but the sequence has never been started!");
         }
         task.waitFor();
-        
+
         end();
     }
 
@@ -184,15 +184,15 @@ public class MobileSequenceExecution {
      * @param coordinator a {@link org.opennms.core.tasks.DefaultTaskCoordinator} object.
      */
     public void start(MobileSequenceSession session, DefaultTaskCoordinator coordinator) {
-        
+
         setTask(coordinator.createSequence().get());
 
         for (MobileTransactionExecution execution : getTransactionExecutions()) {
             getTask().add(createAsync(session, execution), null);
         }
-    
+
         setStartTime(System.currentTimeMillis());
-        
+
         getTask().schedule();
     }
 

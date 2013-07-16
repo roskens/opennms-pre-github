@@ -96,7 +96,7 @@ public class AssetServiceImplTest implements InitializingBean {
 	// private SecurityContextService m_securityContextService;
 
 	private final GrantedAuthority ROLE_ADMIN = new SimpleGrantedAuthority(Authentication.ROLE_ADMIN);
-	
+
 	/*
 	private final GrantedAuthority ROLE_PROVISION = new GrantedAuthorityImpl(Authentication.ROLE_PROVISION);
 	private final GrantedAuthority ROLE_USER = new GrantedAuthorityImpl(Authentication.ROLE_USER);
@@ -105,25 +105,25 @@ public class AssetServiceImplTest implements InitializingBean {
 	private final String USERNAME = "opennms";
 
 	private final String PASS = "r0c|<Z";
-	
+
 	private User validAdmin;
-	
+
 	/*
 	private User invalidAdmin;
-	
+
 	private User validProvision;
-	
+
 	private User invalidProvision;
-	
+
 	private User validUser;
-	
+
 	private User invalidUser;
-	
+
 	private User validPower;
-	
+
 	private User invalidPower;
 	*/
-	
+
 	private org.springframework.security.core.Authentication m_auth;
 
 	private SecurityContext m_context;
@@ -137,19 +137,19 @@ public class AssetServiceImplTest implements InitializingBean {
 	public void setUp() {
 		m_databasePopulator.populateDatabase();
 		m_context = new SecurityContextImpl();
-		
+
 		validAdmin = new User(USERNAME, PASS, true, true, true, true,
 				Arrays.asList(new GrantedAuthority[] { ROLE_ADMIN }));
-		
+
 		/*
 		invalidAdmin = new User(USERNAME, PASS, true, true, true, true,
 				new GrantedAuthority[] { ROLE_ADMIN });
-		
+
 		validProvision = new User(USERNAME, PASS, true, true, true, true,
 				new GrantedAuthority[] { ROLE_PROVISION });
 		invalidProvision = new User(USERNAME, PASS, true, true, true, true,
 				new GrantedAuthority[] { ROLE_PROVISION });
-		
+
 		validUser = new User(USERNAME, PASS, true, true, true, true,
 				new GrantedAuthority[] { ROLE_USER });
 		invalidUser = new User(USERNAME, PASS, true, true, true, true,
@@ -253,8 +253,8 @@ public class AssetServiceImplTest implements InitializingBean {
 //		m_securityContextService = new SpringSecurityContextService();
 //		assertFalse("Test save or update by admin.", assetServiceImpl.getAssetByNodeId(7).getAllowModify());
 //	}
-	
-	
+
+
 	@Test
 	public void testSaveOrUpdate() {
 		OnmsNode onmsNode = new OnmsNode(m_distPollerDao.load("localhost"));
@@ -285,7 +285,7 @@ public class AssetServiceImplTest implements InitializingBean {
 		assetServiceImpl.setAssetRecordDao(m_assetRecordDao);
 		System.out.println();
 		assertTrue(assetServiceImpl.saveOrUpdateAssetByNodeId(onmsNode.getId(), assetCommand));
-		
+
 		OnmsAssetRecord updated = m_assetRecordDao.get(assetRecord.getId());
 		assertEquals(assetRecord.getGeolocation().getAddress1(), updated.getGeolocation().getAddress1());
                 assertEquals(assetRecord.getGeolocation().getState(), updated.getGeolocation().getState());

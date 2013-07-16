@@ -42,7 +42,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -56,27 +56,27 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class OpenNMSIntegrationTestCaseTest {
-    
+
 
     @Test
     public void testHomeDirCreated() {
 
         String homePath = System.getProperty("opennms.home");
         assertNotNull(homePath);
-        
+
         assertTrue(new File(homePath).exists());
-        
+
     }
-    
+
     @Test
     public void testEtcDirExists() {
-        
+
         String homePath = System.getProperty("opennms.home");
         assertNotNull(homePath);
-        
+
         File homeDir = new File(homePath);
         File etcDir = new File(homeDir, "etc");
-        
+
         assertTrue(etcDir.exists());
     }
 }

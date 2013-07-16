@@ -48,8 +48,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class Event Form.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class EventForm extends Form implements ClickListener {
@@ -72,7 +72,7 @@ public abstract class EventForm extends Form implements ClickListener {
         "varbindsdecodeCollection"
         /*
          * Not Implemented:
-         * 
+         *
          * autoactionCollection (CustomField)
          * operactionCollection (CustomField)
          * correlation (CustomField)
@@ -170,7 +170,7 @@ public abstract class EventForm extends Form implements ClickListener {
 
     /**
      * Sets the Event Data Source
-     * 
+     *
      * @param event the OpenNMS event
      */
     public void setEventDataSource(org.opennms.netmgt.xml.eventconf.Event event) {

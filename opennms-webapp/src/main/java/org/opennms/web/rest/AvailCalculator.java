@@ -46,51 +46,51 @@ import org.opennms.web.rest.support.TimeChunker;
 import org.opennms.web.rest.support.TimeChunker.TimeChunk;
 
 public class AvailCalculator {
-    
+
     public static class UptimeCalculator {
-        
+
         public static int count = 0;
-        
+
         private TimeChunker m_timeChunker;
-        
+
         SortedSet<OnmsLocationSpecificStatus> m_statusChanges = new TreeSet<OnmsLocationSpecificStatus>(new Comparator<OnmsLocationSpecificStatus>(){
 
             @Override
             public int compare(OnmsLocationSpecificStatus o1, OnmsLocationSpecificStatus o2) {
                 return o1.getPollResult().getTimestamp().compareTo(o2.getPollResult().getTimestamp());
             }
-        
+
         });
 
         public UptimeCalculator(TimeChunker timeChunker) {
             m_timeChunker = timeChunker;
 //            m_upIntervals = new TimeIntervalSequence[m_timeChunker.getSegmentCount()];
-//            
+//
 //            for(int i = 0; i < m_timeChunker.getSegmentCount(); i++) {
 //                TimeChunk chunk = m_timeChunker.getAt(i);
 //                m_upIntervals[i] = new TimeIntervalSequence(new TimeInterval(chunk.getStartDate(), chunk.getEndDate()));
 //            }
         }
-        
+
         public Date timestamp(OnmsLocationSpecificStatus status) {
             return new Date(status.getPollResult().getTimestamp().getTime());
         }
 
         public void onStatusChange(OnmsLocationSpecificStatus statusChange) {
-            
+
 //            Date startDate = m_lastChange == null ? new Date(0) : timestamp(m_lastChange);
 //            Date endDate = timestamp(statusChange);
-//            
+//
 //            int startIndex = m_timeChunker.getIndexContaining(startDate);
 //            int endIndex = m_timeChunker.getIndexContaining(endDate);
-//            
+//
 //            if (startIndex < 0) startIndex = 0;
 //            if (endIndex >= m_timeChunker.getSegmentCount()) endIndex = m_timeChunker.getSegmentCount()-1;
-//            
+//
 //            TimeInterval interval = new TimeInterval(startDate, endDate);
-//            
+//
 //            if (m_lastChange != null && m_lastChange.getPollResult().isDown()) {
-//            
+//
 //                for(int i = startIndex; i <= endIndex; i++) {
 //                    m_upIntervals[i].removeInterval(interval);
 //                }
@@ -100,7 +100,7 @@ public class AvailCalculator {
         }
 
         public double getUptimePercentage(int index) {
-            
+
 //            if (m_lastChange != null && m_lastChange.getPollResult().isDown()) {
 //                Date start = timestamp(m_lastChange);
 //                Date end = m_timeChunker.getEndDate();
@@ -111,13 +111,13 @@ public class AvailCalculator {
 //                    m_upIntervals[i].removeInterval(interval);
 //                }
 //                m_lastChange = null;
-//                
+//
 //            }
 //            return uptime(m_timeChunker.getAt(index), m_upIntervals[index]);
-            
+
             TimeChunk chunk = m_timeChunker.getAt(index);
             TimeIntervalSequence uptime = new TimeIntervalSequence(new TimeInterval(chunk.getStartDate(), chunk.getEndDate()));
-            
+
             OnmsLocationSpecificStatus lastChange = null;
             for(OnmsLocationSpecificStatus status : m_statusChanges) {
                 count++;
@@ -130,7 +130,7 @@ public class AvailCalculator {
                 }
                 lastChange = status;
             }
-            
+
             if (lastChange != null && lastChange.getPollResult().isDown() ) {
                 Date start = new Date(lastChange.getPollResult().getTimestamp().getTime());
                 Date end = new Date(chunk.getEndDate().getTime());
@@ -138,7 +138,7 @@ public class AvailCalculator {
                     uptime.removeInterval(new TimeInterval(start, end));
                 }
             }
-            
+
             return uptime(chunk, uptime);
         }
 
@@ -149,14 +149,14 @@ public class AvailCalculator {
                 TimeInterval interval = it.next();
                 uptimeMillis += (interval.getEnd().getTime() - interval.getStart().getTime());
             }
-            
+
             long totalMillis = chunk.getEndDate().getTime() - chunk.getStartDate().getTime();
-            
+
             return ((double)uptimeMillis)/((double)totalMillis);
         }
-        
+
     }
-    
+
     public static class ServiceAvailCalculator {
         Map<OnmsLocationMonitor, UptimeCalculator> m_uptimeCalculators = new HashMap<OnmsLocationMonitor, UptimeCalculator>();
         TimeChunker m_timeChunker;
@@ -169,7 +169,7 @@ public class AvailCalculator {
                 calc = new UptimeCalculator(m_timeChunker);
                 m_uptimeCalculators.put(statusChange.getLocationMonitor(), calc);
             }
-            
+
             calc.onStatusChange(statusChange);
         }
         public double getAvailability(int i) {
@@ -179,7 +179,7 @@ public class AvailCalculator {
             }
             return (m_uptimeCalculators.size() == 0 ? 1.0 : sum / m_uptimeCalculators.size());
         }
-        
+
     }
     /**
      * StatusChange:
@@ -187,32 +187,32 @@ public class AvailCalculator {
      *  - service
      *  - status
      *  - timestamp
-     *  
+     *
      *  service* -- 1application
-     *  
+     *
      *  statuschange* -- 1service
-     *  
+     *
      *  statuschange* -- 1monitor
-     *  
-     *  Trying to calculate overall availability of an application 
-     *  
-     *  application availability for a monitor for a time period is the average of the 
+     *
+     *  Trying to calculate overall availability of an application
+     *
+     *  application availability for a monitor for a time period is the average of the
      *  availability of the individual services of the application for that time period for
      *  that monitor
-     *  
-     *  service availability for a monitor for a time period is the percent of time in the time period 
+     *
+     *  service availability for a monitor for a time period is the percent of time in the time period
      *  that the service is available for that monitor discounting monitor disconnection periods and
-     *  stoppages.  A service whose monitor is stopped or disconnected for a time period is counted at 
+     *  stoppages.  A service whose monitor is stopped or disconnected for a time period is counted at
      *  100% available for that time period
-     *  
+     *
      *  overall availability of an application is the average of the availability at all monitors.
-     *  
+     *
      */
-    
-    
+
+
     Map<OnmsMonitoredService, ServiceAvailCalculator> m_svcCalculators = new HashMap<OnmsMonitoredService, ServiceAvailCalculator>();
     TimeChunker m_timeChunker;
-    
+
     public AvailCalculator(TimeChunker timeChunker) {
         m_timeChunker = timeChunker;
     }
@@ -232,15 +232,15 @@ public class AvailCalculator {
         }
         return calc;
     }
-    
-    
+
+
     public double getAvailabilityFor(Collection<OnmsMonitoredService> svcs, int i) {
-        
+
         double sum = 0.0;
         for(OnmsMonitoredService svc : svcs) {
             sum += getServiceAvailCalculator(svc).getAvailability(i);
         }
-        
+
         return svcs.size() == 0 ? 1.0 : sum / svcs.size();
     }
 

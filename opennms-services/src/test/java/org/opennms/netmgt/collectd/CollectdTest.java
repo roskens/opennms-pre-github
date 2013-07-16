@@ -86,7 +86,7 @@ import org.springframework.transaction.support.SimpleTransactionStatus;
 import org.springframework.transaction.support.TransactionTemplate;
 
 public class CollectdTest extends TestCase {
-    
+
     EasyMockUtils m_easyMockUtils = new EasyMockUtils();
 
     private Collectd m_collectd;
@@ -99,9 +99,9 @@ public class CollectdTest extends TestCase {
     private ServiceCollector m_collector;
 
     private MockScheduler m_scheduler;
-    
+
     private PlatformTransactionManager m_transactionManager;
-    
+
 
     private CollectdPackage m_collectdPackage;
 
@@ -208,7 +208,7 @@ public class CollectdTest extends TestCase {
         svc.setStatus("on");
 
         m_collectdPackage = new CollectdPackage(pkg, "localhost", false);
-        
+
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(ConfigurationTestUtils.getInputStreamForConfigFile("thresholds.xml")));
     }
 
@@ -219,7 +219,7 @@ public class CollectdTest extends TestCase {
         // MockLogAppender.assertNoWarningsOrGreater();
         EasyMock.verify(m_filterDao);
     }
-    
+
 
     @Override
     protected void tearDown() throws Exception {
@@ -230,7 +230,7 @@ public class CollectdTest extends TestCase {
     private ServiceCollector getCollector() {
         return m_collector;
     }
-    
+
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }
@@ -256,22 +256,22 @@ public class CollectdTest extends TestCase {
     }
 
     public void testCreate() throws CollectionInitializationException {
-        
+
         setupTransactionManager();
-        
+
         String svcName = "SNMP";
         setupCollector(svcName);
         setupTransactionManager();
-        
+
         Scheduler m_scheduler = m_easyMockUtils.createMock(Scheduler.class);
         m_collectd.setScheduler(m_scheduler);
-        
+
         m_scheduler.schedule(eq(0L), isA(ReadyRunnable.class));
         m_scheduler.start();
         m_scheduler.stop();
 
         m_easyMockUtils.replayAll();
-        
+
         m_collectd.init();
         m_collectd.start();
         m_collectd.stop();
@@ -287,14 +287,14 @@ public class CollectdTest extends TestCase {
     	map.put("max-repetitions", "11");
     	map.put("read-community", "notPublic");
 		ServiceParameters params = new ServiceParameters(map);
-		
+
 		int reps = params.getSnmpMaxRepetitions(6);
 		assertEquals("Overriding max repetitions failed.", 11, reps);
 		params = new ServiceParameters(map);
 		map.remove("max-repetitions");
 		map.put("maxRepetitions", "11");
 		assertEquals("Overriding max repetitions failed.", 11, reps);
-		
+
 		String s = params.getSnmpReadCommunity("public");
 		assertEquals("Overriding read community failed.", "notPublic", s);
 		map.remove("read-community");
@@ -322,7 +322,7 @@ public class CollectdTest extends TestCase {
         assertEquals(0, m_scheduler.getEntryCount());
 
         m_collectd.stop();
-        
+
         m_easyMockUtils.verifyAll();
     }
 
@@ -331,7 +331,7 @@ public class CollectdTest extends TestCase {
         OnmsIpInterface iface = getInterface();
 
         setupCollector(svcName);
-        
+
         m_collector.initialize(isA(CollectionAgent.class), isAMap(String.class, Object.class));
         CollectionSet collectionSetResult=new CollectionSet() {
         	private Date m_timestamp = new Date();
@@ -342,7 +342,7 @@ public class CollectdTest extends TestCase {
 
                 @Override
             public void visit(CollectionSetVisitor visitor) {
-                visitor.visitCollectionSet(this);   
+                visitor.visitCollectionSet(this);
                 visitor.completeCollectionSet(this);
             }
 
@@ -350,24 +350,24 @@ public class CollectdTest extends TestCase {
 			public boolean ignorePersist() {
 				return false;
 			}
-			
+
                 @Override
 			public Date getCollectionTimestamp() {
 				return m_timestamp;
 			}
-        };      
+        };
         expect(m_collector.collect(isA(CollectionAgent.class), isA(EventProxy.class), isAMap(String.class, Object.class))).andReturn(collectionSetResult);
         setupInterface(iface);
-        
+
         setupTransactionManager();
-  
+
         expect(m_collectorConfigDao.getPackages()).andReturn(Collections.singleton(m_collectdPackage));
-        
+
         m_easyMockUtils.replayAll();
 
         m_collectd.init();
         m_collectd.start();
-        
+
         m_scheduler.next();
 
         assertEquals("scheduler entry count", 1, m_scheduler.getEntryCount());
@@ -400,7 +400,7 @@ public class CollectdTest extends TestCase {
         m_transactionManager = m_easyMockUtils.createMock(PlatformTransactionManager.class);
         TransactionTemplate transactionTemplate = new TransactionTemplate(m_transactionManager);
         m_collectd.setTransactionTemplate(transactionTemplate);
-        
+
         expect(m_transactionManager.getTransaction(isA(TransactionDefinition.class))).andReturn(new SimpleTransactionStatus()).anyTimes();
         m_transactionManager.rollback(isA(TransactionStatus.class));
         expectLastCall().anyTimes();
@@ -417,31 +417,31 @@ public class CollectdTest extends TestCase {
         Collector collector = new Collector();
         collector.setService(svcName);
         collector.setClassName(MockServiceCollector.class.getName());
-        
+
         MockServiceCollector.setDelegate(getCollector());
-        
+
         EasyMockUtils m_mockUtils = new EasyMockUtils();
         m_collectd.setNodeDao(m_mockUtils.createMock(NodeDao.class));
         // Setup expectation
         Map<String,String> empty = Collections.emptyMap();
         m_collector.initialize(empty);
 
-        
+
         expect(m_collectorConfigDao.getCollectors()).andReturn(Collections.singleton(collector));
     }
 
-    
+
     public static class MockServiceCollector implements ServiceCollector {
         private static ServiceCollector s_delegate;
 
         public MockServiceCollector() {
-            
+
         }
-        
+
         public static void setDelegate(ServiceCollector delegate) {
             s_delegate = delegate;
         }
-        
+
         @Override
         public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) throws CollectionException {
             return s_delegate.collect(agent, eproxy, parameters);

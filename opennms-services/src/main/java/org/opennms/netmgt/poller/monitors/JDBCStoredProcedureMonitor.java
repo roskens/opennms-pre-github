@@ -67,7 +67,7 @@ final public class JDBCStoredProcedureMonitor extends JDBCMonitor
    @Override
    public PollStatus checkDatabaseStatus(Connection con, Map<String, Object> parameters)
    {
-	   
+
       PollStatus status = PollStatus.unavailable();
       CallableStatement cs = null;
       try
@@ -81,9 +81,9 @@ final public class JDBCStoredProcedureMonitor extends JDBCMonitor
 
          String procedureCall = "{ ? = call " + schemaName + "." + storedProcedure + "()}";
          cs = con.prepareCall( procedureCall );
-         
+
          LOG.debug("Calling stored procedure: {}", procedureCall);
-         
+
          cs.registerOutParameter(1, java.sql.Types.BIT );
          cs.executeUpdate();
          bPass = cs.getBoolean( 1 );

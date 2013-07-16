@@ -40,7 +40,7 @@ import org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation;
 public class RequisitionAccountant extends AbstractRequisitionVisitor {
 	private final ImportOperationsManager m_opsMgr;
     private SaveOrUpdateOperation m_currentOp;
-        
+
     /**
      * <p>Constructor for RequisitionAccountant.</p>
      *
@@ -49,13 +49,13 @@ public class RequisitionAccountant extends AbstractRequisitionVisitor {
     public RequisitionAccountant(ImportOperationsManager opsMgr) {
         m_opsMgr = opsMgr;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visitNode(OnmsNodeRequisition nodeReq) {
-        m_currentOp = m_opsMgr.foundNode(nodeReq.getForeignId(), nodeReq.getNodeLabel(), nodeReq.getBuilding(), nodeReq.getCity());        
+        m_currentOp = m_opsMgr.foundNode(nodeReq.getForeignId(), nodeReq.getNodeLabel(), nodeReq.getBuilding(), nodeReq.getCity());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void completeNode(OnmsNodeRequisition nodeReq) {
@@ -66,9 +66,9 @@ public class RequisitionAccountant extends AbstractRequisitionVisitor {
     @Override
     public void visitInterface(OnmsIpInterfaceRequisition ifaceReq) {
         m_currentOp.foundInterface(ifaceReq.getIpAddr().trim(), ifaceReq.getDescr(), ifaceReq.getSnmpPrimary(), ifaceReq.getManaged(), ifaceReq.getStatus());
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visitMonitoredService(OnmsMonitoredServiceRequisition svcReq) {

@@ -44,12 +44,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ForceRescanState {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ForceRescanState.class);
-    
+
     private CollectionAgent m_agent;
     private EventProxy m_eventProxy;
-    
+
     private boolean m_forceRescanSent = false;
 
     /**
@@ -62,7 +62,7 @@ public class ForceRescanState {
         m_agent = agent;
         m_eventProxy = eventProxy;
     }
-    
+
     /**
      * <p>getEventProxy</p>
      *
@@ -80,13 +80,13 @@ public class ForceRescanState {
     public Event createForceResanEvent() {
         // create the event to be sent
         EventBuilder bldr = new EventBuilder(EventConstants.FORCE_RESCAN_EVENT_UEI, "SnmpCollector");
-        
+
         bldr.setNodeid(m_agent.getNodeId());
 
         bldr.setInterface(m_agent.getInetAddress());
-        
+
         bldr.setService(SnmpCollector.SERVICE_NAME);
-        
+
         bldr.setHost(InetAddressUtils.getLocalHostName());
 
         return bldr.getEvent();
@@ -113,7 +113,7 @@ public class ForceRescanState {
     void sendForceRescanEvent() {
         // Log4j category
 	LOG.debug("generateForceRescanEvent: interface = {}", getAgent().getHostAddress());
-    
+
     	// Send event via EventProxy
     	try {
             getEventProxy().send(createForceResanEvent());
@@ -121,7 +121,7 @@ public class ForceRescanState {
 		LOG.error("generateForceRescanEvent: Unable to send forceRescan event.", e);
     	}
     }
-    
+
     void rescanIndicated() {
         if (!m_forceRescanSent) {
             sendForceRescanEvent();

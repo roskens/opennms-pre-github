@@ -110,7 +110,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
 
         for (Package pkg : Collections.list(m_linkdConfig.enumeratePackage())) {
             pkg.setForceIpRouteDiscoveryOnEthernet(true);
-        }        
+        }
     }
 
 	@Before
@@ -121,7 +121,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
 	    LinkdConfigFactory.setInstance(factory);
 	    m_linkdConfig = LinkdConfigFactory.getInstance();
 	}
-	    
+
     @After
     public void tearDown() throws Exception {
         for (final OnmsNode node : m_nodeDao.findAll()) {
@@ -132,7 +132,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
 /*
  *  (3)10.1.1.2<>R1<>10.1.3.1 (2)---(1) 10.1.3.2 <>R3<>
  *        	   10.1.2.1                          <>R3<>
- *          	 (1)                             <>R3<>                                  
+ *          	 (1)                             <>R3<>
  *                |                              <>R3<>10.1.4.1 (2)---(1) 10.1.4.2<>R4
  *               (1)                             <>R3<>
  *             10.1.2.2                          <>R3<>
@@ -150,7 +150,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
     	m_nodeDao.save(getR2());
     	m_nodeDao.save(getR3());
     	m_nodeDao.save(getR4());
-    	
+
         final OnmsNode cisco1 = m_nodeDao.findByForeignId("linkd", R1_NAME);
         final OnmsNode cisco2 = m_nodeDao.findByForeignId("linkd", R2_NAME);
         final OnmsNode cisco3 = m_nodeDao.findByForeignId("linkd", R3_NAME);
@@ -167,7 +167,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
         assertTrue(m_linkd.runSingleSnmpCollection(cisco4.getId()));
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
-        
+
         final List<DataLinkInterface> ifaces = m_dataLinkInterfaceDao.findAll();
         for (final DataLinkInterface link: ifaces) {
             printLink(link);
@@ -180,7 +180,7 @@ public class Nms4005Test extends Nms4005NetworkBuilder implements InitializingBe
         assertTrue(m_linkd.runSingleSnmpCollection(cisco4.getId()));
 
         assertTrue(m_linkd.runSingleLinkDiscovery("example1"));
-        
+
         assertEquals("we should have found 4 data links", 4, ifaces.size());
 
     }

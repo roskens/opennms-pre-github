@@ -58,10 +58,10 @@ import org.opennms.netmgt.xml.event.Script;
 /**
  * This class is used as a thread for launching scripts to handle received
  * events.
- * 
+ *
  * @author <a href="mailto:jim.doble@tavve.com">Jim Doble</a>
  * @author <a href="http://www.opennms.org"/>OpenNMS</a>
- * 
+ *
  */
 final class Executor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(Executor.class);
@@ -114,7 +114,7 @@ final class Executor implements Runnable, PausableFiber {
      * Constructs a new action daemon execution environment. The constructor
      * takes three arguments that define the source of commands to be executed and
      * the maximum time that a command may run.
-     * 
+     *
      * @param execQ
      *            The execution queue
      * @param config
@@ -330,7 +330,7 @@ final class Executor implements Runnable, PausableFiber {
 
 		if (node != null)
 		    m_mgr.unregisterBean("node");
-		
+
                 m_mgr.unregisterBean("event");
 
                 LOG.debug("Finished executing scripts for: {}", event.getUei());
@@ -346,22 +346,22 @@ final class Executor implements Runnable, PausableFiber {
 
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
-        
+
         if (EventConstants.RELOAD_DAEMON_CONFIG_UEI.equals(event.getUei())) {
             List<Parm> parmCollection = event.getParmCollection();
-            
+
             for (Parm parm : parmCollection) {
                 if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Scriptd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
-        
+
         //Depreciating this one...
         } else if ("uei.opennms.org/internal/reloadScriptConfig".equals(event.getUei())) {
             isTarget = true;
         }
-        
+
         return isTarget;
     }
 

@@ -37,7 +37,7 @@ package org.opennms.web.command;
  */
 public class LocationMonitorIdCommand {
     private Integer m_monitorId;
-    
+
     /**
      * <p>getMonitorId</p>
      *

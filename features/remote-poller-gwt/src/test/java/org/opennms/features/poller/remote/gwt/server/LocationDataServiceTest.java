@@ -138,7 +138,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         p.setProperty("log4j.logger.org.hibernate", "INFO");
         p.setProperty("log4j.logger.org.hibernate.SQL", "DEBUG");
         MockLogAppender.setupLogging(p);
-        
+
         OnmsApplication app = new OnmsApplication();
         app.setName("TestApp1");
         m_applicationDao.saveOrUpdate(app);
@@ -175,7 +175,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         m_rduMonitor2.setLastCheckInTime(m_pollingEnd);
         m_rduMonitor2.setStatus(MonitorStatus.STARTED);
         m_locationMonitorDao.saveOrUpdate(m_rduMonitor2);
-        
+
         m_applicationDao.flush();
         m_distPollerDao.flush();
         m_nodeDao.flush();
@@ -197,11 +197,11 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     private long days(int numDays) {
         return 86400000 * numDays;
     }
-    
+
     private long hours(int numHours) {
         return 3600000 * numHours;
     }
-    
+
     @SuppressWarnings("unused")
     private long minutes(int numMinutes) {
         return 60000 * numMinutes;
@@ -210,7 +210,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     private long now() {
         return System.currentTimeMillis();
     }
-    
+
     private OnmsMonitoredService createService(OnmsApplication app, OnmsIpInterface localhostIpInterface, OnmsServiceType httpServiceType) {
         OnmsMonitoredService service = new OnmsMonitoredService();
         service.addApplication(app);
@@ -230,13 +230,13 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Test
     public void testLocationInfo() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
-        
+
         LocationInfo li = m_locationDataService.getLocationInfo("RDU");
         assertEquals("RDU", li.getName());
         // Down because one of the services is down.
@@ -246,28 +246,28 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
     @Test
     public void testLocationDetails() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
-        
+
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         assertEquals(Status.UNKNOWN, ld.getApplicationState().getStatusDetails().getStatus());
         assertEquals(Status.DOWN, ld.getLocationMonitorState().getStatusDetails().getStatus());
     }
-    
+
     @Test
     public void testLocationMonitorState() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(3))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - days(20) - hours(2))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - days(20) - hours(1))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - days(20) - hours(4))));
-        
+
         LocationDetails ld = m_locationDataService.getLocationDetails("RDU");
         LocationMonitorState lms = ld.getLocationMonitorState();
         assertEquals(Status.DOWN, lms.getStatusDetails().getStatus());
@@ -277,20 +277,20 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         assertEquals(2, lms.getMonitorsStarted());
         assertEquals(0, lms.getMonitorsStopped());
         assertEquals(0, lms.getMonitorsDisconnected());
-        
-        
+
+
     }
 
     @Test
     public void testApplicationInfo() throws Exception {
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - hours(3))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getDown(new Date(now() - hours(2))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_localhostHttpService.getId(), getAvailable(new Date(now() - hours(1))));
-        
+
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(now() - hours(4))));
-        
+
         ApplicationInfo ai = m_locationDataService.getApplicationInfo("TestApp1");
         assertEquals("TestApp1", ai.getName());
         assertEquals(Status.DOWN, ai.getStatusDetails().getStatus());
@@ -314,7 +314,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
 
         // bring it down for 12 hours
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getDown(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 6))));
-        
+
         // bring it back up
         m_pollerBackEnd.reportResult(m_rduMonitor1.getId(), m_googleHttpService.getId(), getAvailable(new Date(m_pollingStart.getTime() + (1000 * 60 * 60 * 18))));
 
@@ -403,7 +403,7 @@ public class LocationDataServiceTest implements TemporaryDatabaseAware<Temporary
         System.err.println(detailString);
         assertTrue(detailString.contains(""));
     }
-    
+
     @Test
     public void testIntervalManipulation() {
         Set<Interval> intervals = IntervalUtils.getIntervalSet();

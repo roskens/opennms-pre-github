@@ -40,15 +40,15 @@ import org.springframework.test.context.TestExecutionListener;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
- * This runner will automagically register all of the boilerplate 
+ * This runner will automagically register all of the boilerplate
  * TestExecutionListener instances that the OpenNMS code craves.
  *
  * @author seth
  */
 public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OpenNMSJUnit4ClassRunner.class);
-	
+
     private static final String[] STANDARD_LISTENER_CLASS_NAMES = new String[] {
         "org.opennms.test.OpenNMSConfigurationExecutionListener",
         "org.opennms.core.test.db.TemporaryDatabaseExecutionListener",
@@ -67,7 +67,7 @@ public class OpenNMSJUnit4ClassRunner extends SpringJUnit4ClassRunner {
         public int compare(TestExecutionListener o1, TestExecutionListener o2) {
             return o1.getClass().getName().compareTo(o2.getClass().getName());
         }
-        
+
     }
 
     public OpenNMSJUnit4ClassRunner(Class<?> clazz) throws InitializationError {

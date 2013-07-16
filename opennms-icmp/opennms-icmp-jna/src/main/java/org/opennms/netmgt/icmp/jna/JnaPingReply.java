@@ -74,7 +74,7 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
         m_address = addr;
         m_packet = pkt;
     }
-    
+
     /**
      * <p>getRequestId</p>
      *
@@ -84,7 +84,7 @@ public final class JnaPingReply implements ResponseWithId<JnaPingRequestId>, Ech
     public JnaPingRequestId getRequestId() {
         return new JnaPingRequestId(getAddress(), getIdentifier(), getSequenceNumber(), getThreadId());
     }
-    
+
     /**
      * Returns the internet address of the host that sent the reply.
      *

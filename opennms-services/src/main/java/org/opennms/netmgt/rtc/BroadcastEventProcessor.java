@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.event.Event;
 /**
  * BroadcastEventProcessor is responsible for receiving events from eventd and
  * queuing them to the data updaters.
- * 
+ *
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj</a>
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
@@ -56,7 +56,7 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * Constructor
-     * 
+     *
      * @param updaterQ
      *            The queue where events of interest are added.
      */
@@ -84,7 +84,7 @@ final class BroadcastEventProcessor implements EventListener {
 
         // add the nodeUp event
         ueisOfInterest.add(EventConstants.NODE_UP_EVENT_UEI);
-        
+
         // add the nodeCategoryMembershipChanged event
         ueisOfInterest.add(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI);
 

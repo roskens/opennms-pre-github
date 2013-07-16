@@ -37,7 +37,7 @@ import org.junit.Test;
  * @author Markus von Rüden
  */
 public class SimpleEntryTest {
-	
+
 	@Test
 	public void testHashCodeAndEquals() {
 		SimpleEntry one = new SimpleEntry("123", "456");

@@ -50,7 +50,7 @@ public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
 	private static final long serialVersionUID = 621311104480258016L;
 	private final String alarmIdPropertyName;
 	private final AlarmDao alarmDao;
-	
+
 	/**
 	 * @param alarmIdPropertyName Property name of the alarm Id property (e.g. "id")
 	 */
@@ -63,7 +63,7 @@ public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
 	public Object generateCell(final Table source, Object itemId, Object columnId) {
 		if (source == null) return null; // no source
 		Property<Integer> alarmIdProperty = source.getContainerProperty(itemId,  alarmIdPropertyName);
-		final Integer alarmId = alarmIdProperty.getValue(); 
+		final Integer alarmId = alarmIdProperty.getValue();
 		if (alarmId == null) return null; // no value
 
 		// create Link
@@ -77,17 +77,17 @@ public class AlarmIdColumnLinkGenerator implements ColumnGenerator {
 			    // try if alarm is there, otherwise show information dialog
 			    OnmsAlarm alarm = alarmDao.get(alarmId);
 			    if (alarm == null) {
-		           new DialogWindow(source.getUI(), 
-		                         "Alarm does not exist!", 
+		           new DialogWindow(source.getUI(),
+		                         "Alarm does not exist!",
 		                         "The alarm information cannot be shown. \nThe alarm does not exist anymore. \n\nPlease refresh the Alarm Table.");
 			        return;
 			    }
-			    
+
 			    // alarm still exists, show alarm details
 				try {
 					source.getUI().addWindow(
 						new InfoWindow(new URL(Page.getCurrent().getLocation().toURL(), "../../alarm/detail.htm?id=" + alarmId), new LabelCreator() {
-								
+
 							@Override
 							public String getLabel() {
 								return "Alarm Info " + alarmId;

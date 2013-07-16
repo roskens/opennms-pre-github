@@ -57,7 +57,7 @@ public class InstrumentationLogReaderPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isElementPresent("link=Unsuccessful Percentage"));
         assertTrue(selenium.isElementPresent("link=Average Persistence Time"));
     }
-    
+
     @Test
     public void testSortingLinks() {
         selenium.click("link=Collections");

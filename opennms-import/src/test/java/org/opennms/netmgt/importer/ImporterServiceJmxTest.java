@@ -43,26 +43,26 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 public class ImporterServiceJmxTest {
-    
+
     @Before
     public void setUp() throws Exception {
-        
+
         MockDatabase db = new MockDatabase();
         DataSourceFactory.setInstance(db);
 
         MockLogAppender.setupLogging();
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.afterPropertiesSet();
-        
-        
+
+
         BeanFactoryReference ref = BeanUtils.getBeanFactory("daemonContext");
         ApplicationContext daemonContext = (ApplicationContext) ref.getFactory();
-        
+
         new ClassPathXmlApplicationContext(new String[] { "classpath:META-INF/opennms/mockEventIpcManager.xml" }, daemonContext);
-        
-        
+
+
     }
-    
+
     @Test
     public void testStartStop() throws InterruptedException {
         ImporterServiceMBean mbean = new ImporterService();

@@ -43,7 +43,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class Alarm implements IsSerializable {
-    
+
     private String m_logMsg;
     private String m_descrption;
     private String m_severity;
@@ -55,14 +55,14 @@ public class Alarm implements IsSerializable {
     private Date m_firstEventTime;
     private Date m_lastEventTime;
     private boolean m_isDashboardRole;
-    
+
     /**
      * <p>Constructor for Alarm.</p>
      */
     public Alarm() {
-        
+
     }
-    
+
     /**
      * <p>Constructor for Alarm.</p>
      *
@@ -253,7 +253,7 @@ public class Alarm implements IsSerializable {
     public void setLogMsg(String logMsg) {
         m_logMsg = logMsg;
     }
-    
+
     /**
      * <p>setIsDashboardRole</p>
      *

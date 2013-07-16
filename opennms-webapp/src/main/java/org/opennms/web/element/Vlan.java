@@ -59,7 +59,7 @@ public class Vlan
         m_vlanname = vlan.getVlanName();
         m_vlantype = VlanType.getVlanTypeString(vlan.getVlanType().getIntCode());
         m_vlanstatus = VlanStatus.getVlanStatusString(vlan.getVlanStatus().getIntCode());
-        m_lastPollTime = Util.formatDateToUIString(vlan.getLastPollTime()); 
+        m_lastPollTime = Util.formatDateToUIString(vlan.getLastPollTime());
         m_status = StatusType.getStatusString(vlan.getStatus().getCharCode());
     }
 

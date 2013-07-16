@@ -66,13 +66,13 @@ import org.springframework.util.StringUtils;
 @XmlType(propOrder={})
 public class Events implements Serializable {
     public interface EventCallback<T> {
-		
+
 		public T process(T accum, Event event);
 
 	}
 
 	public interface EventCriteria {
-		
+
 		public boolean matches(Event e);
 
 	}
@@ -95,19 +95,19 @@ public class Events implements Serializable {
 	// @Size(min=0)
 	@XmlElement(name="event-file", required=false)
     private List<String> m_eventFiles = new ArrayList<String>();
-	
+
 	@XmlTransient
 	private Map<String, Events> m_loadedEventFiles = new LinkedHashMap<String, Events>();
-	
+
 	@XmlTransient
 	private Partition m_partition;
-	
+
 	@XmlTransient
 	private Map<String, List<Event>> m_partitionedEvents;
-	
+
 	@XmlTransient
 	private List<Event> m_nullPartitionedEvents;
-	
+
     public void addEvent(final Event event) throws IndexOutOfBoundsException {
         m_events.add(event);
     }
@@ -306,7 +306,7 @@ public class Events implements Serializable {
 		}
 		return true;
 	}
-	
+
 	Resource getRelative(Resource baseRef, String relative) {
         try {
         	if (relative.startsWith("classpath:")) {
@@ -320,11 +320,11 @@ public class Events implements Serializable {
         }
 
 	}
-	
+
 
 	public void loadEventFiles(Resource configResource) throws IOException {
 		m_loadedEventFiles.clear();
-		
+
 		for(String eventFile : m_eventFiles) {
 			Resource eventResource = getRelative(configResource, eventFile);
 			Events events = JaxbUtils.unmarshal(Events.class, eventResource);
@@ -345,13 +345,13 @@ public class Events implements Serializable {
 	public boolean isSecureTag(String tag) {
 		return m_global == null ? false : m_global.isSecureTag(tag);
 	}
-	
+
 	private void partitionEvents(Partition partition) {
 		m_partition = partition;
 
 		m_partitionedEvents = new LinkedHashMap<String, List<Event>>();
 		m_nullPartitionedEvents = new ArrayList<Event>();
-		
+
 		for(Event event : m_events) {
 			List<String> keys = partition.group(event);
 			if (keys == null) {
@@ -367,10 +367,10 @@ public class Events implements Serializable {
 				}
 			}
 		}
-		
-		
+
+
 	}
-	
+
 	public Event findFirstMatchingEvent(org.opennms.netmgt.xml.event.Event matchingEvent) {
 		String key = m_partition.group(matchingEvent);
 		if (key != null) {
@@ -383,13 +383,13 @@ public class Events implements Serializable {
 				}
 			}
 		}
-		
+
 		for(Event event : m_nullPartitionedEvents) {
 			if (event.matches(matchingEvent)) {
 				return event;
 			}
 		}
-		
+
 		for(Entry<String, Events> loadedEvents : m_loadedEventFiles.entrySet()) {
 			Events subEvents = loadedEvents.getValue();
 			Event event = subEvents.findFirstMatchingEvent(matchingEvent);
@@ -397,17 +397,17 @@ public class Events implements Serializable {
 				return event;
 			}
 		}
-		
+
 		return null;
 	}
-	
+
 	public Event findFirstMatchingEvent(EventCriteria criteria) {
 		for(Event event : m_events) {
 			if (criteria.matches(event)) {
 				return event;
 			}
 		}
-		
+
 		for(Entry<String, Events> loadedEvents : m_loadedEventFiles.entrySet()) {
 			Events events = loadedEvents.getValue();
 			Event result = events.findFirstMatchingEvent(criteria);
@@ -415,10 +415,10 @@ public class Events implements Serializable {
 				return result;
 			}
 		}
-		
-		
+
+
 		return null;
-		
+
 	}
 
 	public <T> T forEachEvent(T initial, EventCallback<T> callback) {
@@ -426,23 +426,23 @@ public class Events implements Serializable {
 		for(Event event : m_events) {
 			result = callback.process(result, event);
 		}
-		
+
 		for(Entry<String, Events> loadedEvents : m_loadedEventFiles.entrySet()) {
 			Events events = loadedEvents.getValue();
 			result = events.forEachEvent(result, callback);
 		}
-		
-		
+
+
 		return result;
 	}
-	
+
 	public void initialize(Partition partition) {
 		for(Event event : m_events) {
 			event.initialize();
 		}
-		
+
 		partitionEvents(partition);
-		
+
 		for(Entry<String, Events> loadedEvents : m_loadedEventFiles.entrySet()) {
 			Events events = loadedEvents.getValue();
 			events.initialize(partition);
@@ -463,7 +463,7 @@ public class Events implements Serializable {
 		m_eventFiles.remove(relativePath);
 		m_loadedEventFiles.remove(relativePath);
 	}
-	
+
 	public void saveEvents(Resource resource) {
 		final StringWriter stringWriter = new StringWriter();
 		JaxbUtils.marshal(this, stringWriter);
@@ -501,17 +501,17 @@ public class Events implements Serializable {
 		}
 
 	}
-	
+
 	public void save(Resource resource) {
 		for(Entry<String, Events> entry : m_loadedEventFiles.entrySet()) {
 			String eventFile = entry.getKey();
 			Events events = entry.getValue();
-			
+
 			Resource eventResource = getRelative(resource, eventFile);
 			events.save(eventResource);
-			
+
 		}
-		
+
 		saveEvents(resource);
 	}
 

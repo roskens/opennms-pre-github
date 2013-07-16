@@ -79,7 +79,7 @@ public class SnmpEventInfo {
     private String m_contextName = null;
     private String m_enterpriseId = null;
     private String m_proxyHost = null;
-    
+
     private static int computeIntValue(String parmContent) throws IllegalArgumentException {
         int val = 0;
         try {
@@ -90,13 +90,13 @@ public class SnmpEventInfo {
         }
         return val;
     }
-    
+
     /**
      * Default constructor
      */
     public SnmpEventInfo() {
     }
-    
+
     /**
      * <p>Constructor for SnmpEventInfo.</p>
      *
@@ -107,17 +107,17 @@ public class SnmpEventInfo {
     	 String parmName = null;
          Value parmValue = null;
          String parmContent = null;
-         
+
          if (!event.getUei().equals(EventConstants.CONFIGURE_SNMP_EVENT_UEI)) {
              throw new IllegalArgumentException("Event is not an a \"configure SNMP\" event: "+event.toString());
          }
-         	
+
          for (Parm parm : event.getParmCollection()) {
             parmName = parm.getParmName();
             parmValue = parm.getValue();
             if (parmValue == null) continue;
             parmContent = parmValue.getContent();
-            
+
             try {
                 if (parmName.equals(EventConstants.PARM_FIRST_IP_ADDRESS)) {
                     setFirstIPAddress(parmContent);
@@ -184,7 +184,7 @@ public class SnmpEventInfo {
     public String getCommunityString() {
         return getReadCommunityString();
     }
-    
+
     /**
      * <p>sets the read community string.</p>
      *
@@ -195,23 +195,23 @@ public class SnmpEventInfo {
     public void setCommunityString(String communityString) {
         setReadCommunityString(communityString);
     }
-    
+
     public void setReadCommunityString(String readCommunityString) {
     	m_readCommunityString = readCommunityString;
     }
-    
+
     public String getReadCommunityString() {
     	return m_readCommunityString;
     }
-    
+
     public void setWriteCommunityString(String writeCommunityString) {
     	m_writeCommunityString = writeCommunityString;
     }
-    
+
     public String getWriteCommunityString() {
     	return m_writeCommunityString;
     }
-    
+
     /**
      * <p>getFirstIPAddress</p>
      *
@@ -220,7 +220,7 @@ public class SnmpEventInfo {
     public String getFirstIPAddress() {
         return m_firstIPAddress;
     }
-    
+
     /**
      * <p>setFirstIPAddress</p>
      *
@@ -230,7 +230,7 @@ public class SnmpEventInfo {
     public void setFirstIPAddress(String firstIPAddress) throws UnknownHostException {
         m_firstIPAddress = firstIPAddress;
     }
-    
+
     /**
      * <p>setFirstIPAddress</p>
      *
@@ -243,7 +243,7 @@ public class SnmpEventInfo {
             m_firstIPAddress = InetAddressUtils.str(firstIPAddress);
         }
     }
-    
+
     /**
      * <p>getLastIPAddress</p>
      *
@@ -252,7 +252,7 @@ public class SnmpEventInfo {
     public String getLastIPAddress() {
         return m_lastIPAddress;
     }
-    
+
     /**
      * <p>setLastIPAddress</p>
      *
@@ -265,7 +265,7 @@ public class SnmpEventInfo {
 	        m_lastIPAddress = lastIPAddress;
 		}
     }
-    
+
     /**
      * <p>setLastIPAddress</p>
      *
@@ -278,35 +278,35 @@ public class SnmpEventInfo {
             m_lastIPAddress = InetAddressUtils.str(lastIPAddress);
         }
     }
-    
+
     public int getMaxVarsPerPdu() {
     	return m_maxVarsPerPdu;
     }
-    
+
     public void setMaxVarsPerPdu(final int maxVarsPerPdu) {
     	m_maxVarsPerPdu = maxVarsPerPdu;
     }
-    
+
     public int getMaxRepetitions() {
     	return m_maxRepetitions;
     }
-    
+
     public void setMaxRepetitions(final int maxRepetitions) {
     	m_maxRepetitions = maxRepetitions;
     }
-    
+
     public String getAuthPassphrase() {
     	return m_authPassPhrase;
     }
-    
+
     public void setAuthPassPhrase(final String authPassPhrase) {
     	m_authPassPhrase = authPassPhrase;
     }
-    
+
     public String getAuthProtocol() {
     	return m_authProtocol;
     }
-    
+
     public void setAuthProtocol(final String authProtocol) {
     	m_authProtocol = authProtocol;
     }
@@ -314,67 +314,67 @@ public class SnmpEventInfo {
     public void setPrivProtocol(final String privProtocol) {
     	m_privProtocol = privProtocol;
     }
-    
+
     public String getPrivProtocol() {
     	return m_privProtocol;
     }
-    
+
     public String getPrivPassPhrase() {
     	return m_privPassPhrase;
     }
-    
+
     public void setPrivPassPhrase(final String privPassPhrase) {
     	m_privPassPhrase = privPassPhrase;
     }
-    
+
     public String getEngineId() {
     	return m_engineId;
     }
-    
+
     public void setEngineId(final String engineId) {
     	m_engineId = engineId;
     }
-    
+
     public String getContextEngineId() {
     	return m_contextEngineId;
     }
-    
+
     public void setContextEngineId(final String contextEngineId) {
     	m_contextEngineId = contextEngineId;
     }
-    
+
     public void setContextName(final String contextName) {
     	m_contextName = contextName;
     }
-    
+
     public String getContextName() {
     	return m_contextName;
     }
-    
+
     public void setEnterpriseId(final String enterpriseId) {
     	m_enterpriseId = enterpriseId;
     }
-    
+
     public String getEnterpriseId() {
     	return m_enterpriseId;
     }
-    
+
     public String getSecurityName() {
     	return m_securityName;
     }
-    
+
     public void setSecurityName(final String securityName) {
     	m_securityName = securityName;
     }
-    
+
     public void setSecurityLevel(final int securityLevel) {
     	m_securityLevel = securityLevel;
     }
-    
+
     public int getSecurityLevel() {
     	return m_securityLevel;
     }
-    
+
     /**
      * <p>getRetryCount</p>
      *
@@ -439,23 +439,23 @@ public class SnmpEventInfo {
     public void setPort(int port) {
         m_port  = port;
     }
-    
+
     public int getMaxRequestSize() {
     	return m_maxRequestSize;
     }
-    
+
     public void setMaxRequestSize(int maxRequestSize) {
     	m_maxRequestSize = maxRequestSize;
     }
-    
+
     public String getProxyHost() {
     	return m_proxyHost;
     }
-    
+
     public void setProxyHost(String proxyHost) {
     	m_proxyHost = proxyHost;
     }
-    
+
     /**
      * <p>getRange</p>
      *
@@ -470,7 +470,7 @@ public class SnmpEventInfo {
         newRange.setEnd(getLastIPAddress());
         return newRange;
     }
-    
+
     /**
      * Determines if the configureSNMP event is for a specific address.
      *
@@ -483,7 +483,7 @@ public class SnmpEventInfo {
             return false;
         }
     }
-    
+
     /**
      * Creates an event from <code>this</code>.
      * @param source The source to set in the Event. Must not be null.
@@ -496,7 +496,7 @@ public class SnmpEventInfo {
 
 	    bldr.addParam(EventConstants.PARM_FIRST_IP_ADDRESS, getFirstIPAddress());
 	    bldr.addParam(EventConstants.PARM_LAST_IP_ADDRESS, getLastIPAddress());
-	    
+
 	    if (!StringUtils.isEmpty(getAuthPassphrase())) bldr.addParam(EventConstants.PARM_SNMP_AUTH_PASSPHRASE, getAuthPassphrase());
 	    if (!StringUtils.isEmpty(getAuthProtocol())) bldr.addParam(EventConstants.PARM_SNMP_AUTH_PROTOCOL, getAuthProtocol());
 	    if (!StringUtils.isEmpty(getContextEngineId())) bldr.addParam(EventConstants.PARM_SNMP_CONTEXT_ENGINE_ID, getContextEngineId());
@@ -517,10 +517,10 @@ public class SnmpEventInfo {
 	    if (getTimeout() != 0) bldr.addParam(EventConstants.PARM_TIMEOUT, Integer.toString(getTimeout()));
 	    if (!StringUtils.isEmpty(getVersion())) bldr.addParam(EventConstants.PARM_VERSION, getVersion());
 	    if (!StringUtils.isEmpty(getWriteCommunityString())) bldr.addParam(EventConstants.PARM_SNMP_WRITE_COMMUNITY_STRING, getWriteCommunityString());
-	    
+
 	    return bldr.getEvent();
     }
-    
+
     /**
      * Creates an SNMP config definition representing the data in this class.
      * The defintion will either have one specific IP element or one Range element.
@@ -537,7 +537,7 @@ public class SnmpEventInfo {
     	if (getMaxVarsPerPdu() != 0) definition.setMaxVarsPerPdu(Integer.valueOf(getMaxVarsPerPdu()));
     	if (getMaxRequestSize() != 0) definition.setMaxRequestSize(Integer.valueOf(getMaxRequestSize()));
     	if (StringUtils.isNotEmpty(getProxyHost())) definition.setProxyHost(getProxyHost());
-    	
+
         // version dependend parameters
         if (getVersion() != null && getVersion().equals("v3")) {
         	if (StringUtils.isNotEmpty(getAuthPassphrase())) definition.setAuthPassphrase(getAuthPassphrase());
@@ -554,17 +554,17 @@ public class SnmpEventInfo {
         	if (getReadCommunityString() != null) definition.setReadCommunity(getReadCommunityString());
         	if (getWriteCommunityString() != null) definition.setWriteCommunity(getWriteCommunityString());
         }
-        
+
         if (isSpecific()) {
             definition.addSpecific(getFirstIPAddress());
         } else {
-            
+
         	// first ip address of range must be < than last ip address of range
             if (BigInteger.ZERO.compareTo(InetAddressUtils.difference(getFirstIPAddress(), getLastIPAddress())) < 0) {
                 LOG.error("createDef: Can not create Definition when specified last is < first IP address: {}", this);
                 throw new IllegalArgumentException("First: "+getFirstIPAddress()+" is greater than: "+getLastIPAddress());
             }
-            
+
             Range range = new Range();
             range.setBegin(getFirstIPAddress());
             range.setEnd(getLastIPAddress());
@@ -573,7 +573,7 @@ public class SnmpEventInfo {
         LOG.debug("createDef: created new Definition from: {}", this);
         return definition;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
     	return EqualsBuilder.reflectionEquals(this,  obj);
@@ -583,7 +583,7 @@ public class SnmpEventInfo {
     public int hashCode() {
     	return HashCodeBuilder.reflectionHashCode(this);
     }
-    
+
     @Override
     public String toString() {
     	return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);

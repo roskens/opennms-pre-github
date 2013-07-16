@@ -43,21 +43,21 @@ import org.opennms.api.reporting.ReportMode;
 public class ReportDateParm extends ReportParm implements Serializable {
 
     private static final long serialVersionUID = -8528562178984136887L;
-    
+
     private Date m_date;
     private Boolean m_useAbsoluteDate;
     private String m_interval;
     private Integer m_count;
     private Integer m_hours;
     private Integer m_minutes;
-    
+
     /**
      * <p>Constructor for ReportDateParm.</p>
      */
     public ReportDateParm() {
         super();
     }
-    
+
     /**
      * <p>getUseAbsoluteDate</p>
      *
@@ -111,7 +111,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
     public void setCount(Integer count) {
         m_count = count;
     }
-    
+
     /**
      * <p>getDate</p>
      *
@@ -128,7 +128,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
     public void setDate(Date date) {
         m_date = date;
     }
-       
+
     public Date getValue(ReportMode mode) {
         Calendar cal = Calendar.getInstance();
         if ((mode == ReportMode.SCHEDULED) && (m_useAbsoluteDate == false)) {
@@ -136,7 +136,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
             int amount = 0 - m_count;
             if (m_interval.equals("year")) {
                 cal.add(Calendar.YEAR, amount);
-            } else { 
+            } else {
                 if (m_interval.equals("month")) {
                     cal.add(Calendar.MONTH, amount);
                 } else {
@@ -145,7 +145,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
             }
         } else {
             cal.setTime(m_date);
-        } 
+        }
         if (m_hours != null) {
             cal.set(Calendar.HOUR_OF_DAY, m_hours);
         } else {
@@ -155,7 +155,7 @@ public class ReportDateParm extends ReportParm implements Serializable {
             cal.set(Calendar.MINUTE, m_minutes);
         } else {
             cal.set(Calendar.MINUTE, 0);
-        }                
+        }
         cal.set(Calendar.SECOND,0);
         cal.set(Calendar.MILLISECOND,0);
         return cal.getTime();
@@ -195,6 +195,6 @@ public class ReportDateParm extends ReportParm implements Serializable {
      */
     public void setMinutes(Integer minute) {
         m_minutes = minute;
-    } 
+    }
 
 }

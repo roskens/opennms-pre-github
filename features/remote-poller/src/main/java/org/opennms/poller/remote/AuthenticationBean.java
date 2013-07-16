@@ -37,7 +37,7 @@ package org.opennms.poller.remote;
 public class AuthenticationBean {
 	private String m_username;
 	private String m_password;
-	
+
 	/**
 	 * <p>setUsername</p>
 	 *
@@ -54,7 +54,7 @@ public class AuthenticationBean {
 	public String getUsername() {
 		return m_username;
 	}
-	
+
 	/**
 	 * <p>setPassword</p>
 	 *

@@ -45,7 +45,7 @@ import org.opennms.core.xml.ValidateUsing;
 
 /**
  * a MIB object
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -117,7 +117,7 @@ public class MibObj implements java.io.Serializable {
     public MibObj() {
         super();
     }
-    
+
     public MibObj(final String oid, final String instance, final String alias, final String type) {
         super();
         m_oid = oid;
@@ -128,7 +128,7 @@ public class MibObj implements java.io.Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -136,47 +136,47 @@ public class MibObj implements java.io.Serializable {
     public boolean equals(final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof MibObj) {
             final MibObj temp = (MibObj)obj;
             if (m_oid != null) {
                 if (temp.m_oid == null) return false;
-                else if (!(m_oid.equals(temp.m_oid))) 
+                else if (!(m_oid.equals(temp.m_oid)))
                     return false;
             }
             else if (temp.m_oid != null)
                 return false;
             if (m_instance != null) {
                 if (temp.m_instance == null) return false;
-                else if (!(m_instance.equals(temp.m_instance))) 
+                else if (!(m_instance.equals(temp.m_instance)))
                     return false;
             }
             else if (temp.m_instance != null)
                 return false;
             if (m_alias != null) {
                 if (temp.m_alias == null) return false;
-                else if (!(m_alias.equals(temp.m_alias))) 
+                else if (!(m_alias.equals(temp.m_alias)))
                     return false;
             }
             else if (temp.m_alias != null)
                 return false;
             if (m_type != null) {
                 if (temp.m_type == null) return false;
-                else if (!(m_type.equals(temp.m_type))) 
+                else if (!(m_type.equals(temp.m_type)))
                     return false;
             }
             else if (temp.m_type != null)
                 return false;
             if (m_maxval != null) {
                 if (temp.m_maxval == null) return false;
-                else if (!(m_maxval.equals(temp.m_maxval))) 
+                else if (!(m_maxval.equals(temp.m_maxval)))
                     return false;
             }
             else if (temp.m_maxval != null)
                 return false;
             if (m_minval != null) {
                 if (temp.m_minval == null) return false;
-                else if (!(m_minval.equals(temp.m_minval))) 
+                else if (!(m_minval.equals(temp.m_minval)))
                     return false;
             }
             else if (temp.m_minval != null)
@@ -197,7 +197,7 @@ public class MibObj implements java.io.Serializable {
      *  in length. If the SNMP data collector encounters an alias
      * which
      *  exceeds 19 characters it will be truncated.
-     * 
+     *
      * @return the value of field 'Alias'.
      */
     @XmlAttribute(name="alias", required=true)
@@ -215,7 +215,7 @@ public class MibObj implements java.io.Serializable {
      * substituted for
      *  the instance value for each interface the oid is retrieved
      *  for.
-     * 
+     *
      * @return the value of field 'Instance'.
      */
     @XmlAttribute(name="instance", required=true)
@@ -231,7 +231,7 @@ public class MibObj implements java.io.Serializable {
      * collection. For
      *  example, a 32-bit counter would have a max value of
      *  4294967295.
-     * 
+     *
      * @return the value of field 'Maxval'.
      */
     @XmlAttribute(name="maxval", required=false)
@@ -244,7 +244,7 @@ public class MibObj implements java.io.Serializable {
      * the following description: Minimum Value. For completeness,
      * adding the ability
      *  to use a minimum value.
-     * 
+     *
      * @return the value of field 'Minval'.
      */
     @XmlAttribute(name="minval", required=false)
@@ -255,7 +255,7 @@ public class MibObj implements java.io.Serializable {
     /**
      * Returns the value of field 'oid'. The field 'oid' has the
      * following description: object identifier
-     * 
+     *
      * @return the value of field 'Oid'.
      */
     @XmlAttribute(name="oid", required=true)
@@ -276,7 +276,7 @@ public class MibObj implements java.io.Serializable {
      *  -> RRD COUNTER; SNMP gauge, timeticks, integer, octetstring
      * ->
      *  RRD GAUGE; SNMP string -> String properties file
-     * 
+     *
      * @return the value of field 'Type'.
      */
     @XmlAttribute(name="type", required=true)
@@ -289,13 +289,13 @@ public class MibObj implements java.io.Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_oid != null) {
            result = 37 * result + m_oid.hashCode();
         }
@@ -314,13 +314,13 @@ public class MibObj implements java.io.Serializable {
         if (m_minval != null) {
            result = 37 * result + m_minval.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -334,8 +334,8 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -349,8 +349,8 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -376,7 +376,7 @@ public class MibObj implements java.io.Serializable {
      *  in length. If the SNMP data collector encounters an alias
      * which
      *  exceeds 19 characters it will be truncated.
-     * 
+     *
      * @param alias the value of field 'alias'.
      */
     public void setAlias(final String alias) {
@@ -393,7 +393,7 @@ public class MibObj implements java.io.Serializable {
      * substituted for
      *  the instance value for each interface the oid is retrieved
      *  for.
-     * 
+     *
      * @param instance the value of field 'instance'.
      */
     public void setInstance(final String instance) {
@@ -408,7 +408,7 @@ public class MibObj implements java.io.Serializable {
      * collection. For
      *  example, a 32-bit counter would have a max value of
      *  4294967295.
-     * 
+     *
      * @param maxval the value of field 'maxval'.
      */
     public void setMaxval(final String maxval) {
@@ -420,7 +420,7 @@ public class MibObj implements java.io.Serializable {
      * following description: Minimum Value. For completeness,
      * adding the ability
      *  to use a minimum value.
-     * 
+     *
      * @param minval the value of field 'minval'.
      */
     public void setMinval(final String minval) {
@@ -430,7 +430,7 @@ public class MibObj implements java.io.Serializable {
     /**
      * Sets the value of field 'oid'. The field 'oid' has the
      * following description: object identifier
-     * 
+     *
      * @param oid the value of field 'oid'.
      */
     public void setOid(final String oid) {
@@ -450,7 +450,7 @@ public class MibObj implements java.io.Serializable {
      *  -> RRD COUNTER; SNMP gauge, timeticks, integer, octetstring
      * ->
      *  RRD GAUGE; SNMP string -> String properties file
-     * 
+     *
      * @param type the value of field 'type'.
      */
     public void setType(final String type) {
@@ -459,7 +459,7 @@ public class MibObj implements java.io.Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -474,8 +474,8 @@ public class MibObj implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

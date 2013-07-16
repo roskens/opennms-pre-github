@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  *         OpenNMS db connector (Vault)
  */
 public class DBManager extends Manager {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DBManager.class);
 
 
@@ -707,7 +707,7 @@ public class DBManager extends Manager {
     /**
      * Completes the element in input (with id and type already valorized)
      * with its label (or name if is a map) and iconname
-     * 
+     *
      * @param e
      * @return the element completed of label and icon name
      */
@@ -768,7 +768,7 @@ public class DBManager extends Manager {
             rs.close();
             statement.close();
 
-            if (elements == null) 
+            if (elements == null)
                 return new DbElement[0];
             DbElement[] el = new DbElement[elements.size()];
             el = elements.toArray(el);
@@ -1768,8 +1768,8 @@ public class DBManager extends Manager {
             statement = conn.createStatement();
 
             String sql = "SELECT "
-                + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, " 
-                + "parentifindex, status, linktypeid," 
+                + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, "
+                + "parentifindex, status, linktypeid,"
                 + "snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
                 + "FROM datalinkinterface "
                 + "left join snmpinterface on nodeparentid = snmpinterface.nodeid "
@@ -1784,7 +1784,7 @@ public class DBManager extends Manager {
 
             LOG.debug("getLinksOnElements: executing query:\n {}", sql);
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 int id = -1;
                 int nodeid = -1;
@@ -1793,7 +1793,7 @@ public class DBManager extends Manager {
                 int parentifindex = -1;
                 int linktypeid = -1;
                 String status = "U";
-                
+
                 int snmpiftype = -1;
                 long snmpifspeed = -1;
                 int snmpifoperstatus = -1;
@@ -1803,7 +1803,7 @@ public class DBManager extends Manager {
                 if (element != null) {
                     id = ((Integer) element);
                 }
-    
+
                 element = Integer.valueOf(rs.getInt("nodeid"));
                 if (element != null) {
                     nodeid = ((Integer) element);
@@ -1828,7 +1828,7 @@ public class DBManager extends Manager {
                 if (element != null) {
                     status = ((String) element);
                 }
-                
+
                 element = Integer.valueOf(rs.getInt("linktypeid"));
                 if (element != null) {
                     linktypeid = ((Integer) element);
@@ -1838,17 +1838,17 @@ public class DBManager extends Manager {
                 if (element != null) {
                     snmpiftype = ((Integer) element);
                 }
-    
+
                 element = Long.valueOf(rs.getLong("snmpifspeed"));
                 if (element != null) {
                     snmpifspeed = ((Long) element);
                 }
-    
+
                 element = Integer.valueOf(rs.getInt("snmpifoperstatus"));
                 if (element != null) {
                     snmpifoperstatus = ((Integer) element);
                 }
-    
+
                 element = Integer.valueOf(rs.getInt("snmpifadminstatus"));
                 if (element != null) {
                     snmpifadminstatus = ((Integer) element);
@@ -1859,14 +1859,14 @@ public class DBManager extends Manager {
                                              snmpiftype, snmpifspeed,
                                              snmpifoperstatus,
                                              snmpifadminstatus, status,linktypeid);
-    
+
                 nodes.add(link);
             }
             rs.close();
 
             sql = "SELECT "
-                    + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, " 
-                    + "parentifindex, status, linktypeid, " 
+                    + "datalinkinterface.id, datalinkinterface.nodeid, ifindex,nodeparentid, "
+                    + "parentifindex, status, linktypeid, "
                     + "snmpiftype,snmpifspeed,snmpifoperstatus,snmpifadminstatus "
                     + "FROM datalinkinterface "
                     + "left join snmpinterface on datalinkinterface.nodeid = snmpinterface.nodeid "
@@ -1881,7 +1881,7 @@ public class DBManager extends Manager {
 
             LOG.debug("getLinksOnElements: executing query:\n{}", sql);
             rs = statement.executeQuery(sql);
-            
+
             while (rs.next()) {
                 int id = -1;
                 int nodeid = -1;
@@ -1920,12 +1920,12 @@ public class DBManager extends Manager {
                 if (element != null) {
                     parentifindex = ((Integer) element);
                 }
-                
+
                 element = new String(rs.getString("status"));
                 if (element != null) {
                     status = ((String) element);
                 }
-                
+
                 element = Integer.valueOf(rs.getInt("linktypeid"));
                 if (element != null) {
                     linktypeid = ((Integer) element);
@@ -1960,7 +1960,7 @@ public class DBManager extends Manager {
                 nodes.add(link);
             }
             rs.close();
- 
+
             sql = "SELECT "
                     + "id,nodeid, ifindex,nodeparentid, parentifindex, status, linktypeid "
                     + "FROM datalinkinterface " + "WHERE" + " (nodeid IN ("
@@ -1978,7 +1978,7 @@ public class DBManager extends Manager {
                 int parentifindex = -1;
                 int linktypeid = -1;
                 String status = "U";
-                
+
                 int snmpiftype = -1;
                 long snmpifspeed = -1;
                 int snmpifoperstatus = -1;
@@ -2008,12 +2008,12 @@ public class DBManager extends Manager {
                 if (element != null) {
                     parentifindex = ((Integer) element);
                 }
-                
+
                 element = new String(rs.getString("status"));
                 if (element != null) {
                     status = ((String) element);
                 }
-                
+
                 element = Integer.valueOf(rs.getInt("linktypeid"));
                 if (element != null) {
                     linktypeid = ((Integer) element);
@@ -2169,13 +2169,13 @@ public class DBManager extends Manager {
             return fqdn;
         }
     }
-    
-    private static final String IPADDRESS_PATTERN = 
+
+    private static final String IPADDRESS_PATTERN =
 		"^([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
 		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\." +
-		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$"; 
- 
+		"([01]?\\d\\d?|2[0-4]\\d|25[0-5])$";
+
    /**
     * Validate ip address with regular expression
     * @param ip ip address for validation
@@ -2183,10 +2183,10 @@ public class DBManager extends Manager {
     *
     * @deprecated Use {@link InetAddressUtils} instead
     */
-    private boolean validate(final String ip){		  
+    private boolean validate(final String ip){
   	  Pattern pattern = Pattern.compile(IPADDRESS_PATTERN);
 	  Matcher matcher = pattern.matcher(ip);
-	  return matcher.matches();	    	    
+	  return matcher.matches();
     }
 
 }

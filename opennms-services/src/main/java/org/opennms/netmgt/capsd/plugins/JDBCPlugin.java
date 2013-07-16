@@ -65,9 +65,9 @@ import org.slf4j.LoggerFactory;
  * @since 0.1
  */
 public class JDBCPlugin extends AbstractPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JDBCPlugin.class);
-    
+
     /**
      * The protocol supported by the plugin
      */
@@ -89,7 +89,7 @@ public class JDBCPlugin extends AbstractPlugin {
     }
 
     private boolean isServer(String hostname, Map<String, Object> qualifiers) {
-    	
+
         String user = ParameterMap.getKeyedString(qualifiers, "user", DBTools.DEFAULT_DATABASE_USER);
         String password = ParameterMap.getKeyedString(qualifiers, "password", DBTools.DEFAULT_DATABASE_PASSWORD);
         String db_url = ParameterMap.getKeyedString(qualifiers, "url", DBTools.DEFAULT_URL);
@@ -121,12 +121,12 @@ public class JDBCPlugin extends AbstractPlugin {
                 con = driver.connect(url, props);
                 connected = true;
                 LOG.debug("Got database connection: '{}' ({}, {}, {})", con, url, user, password);
-                
+
                 status = checkStatus(con, qualifiers);
 
                 if (status)
                     LOG.info("JDBC server detected on: '{}', attempt #: {}", hostname, (Object) attempts);
-                
+
             } catch (final Exception e) {
                 LOG.info("failed to make JDBC connection", e);
             } finally {
@@ -137,7 +137,7 @@ public class JDBCPlugin extends AbstractPlugin {
         }
         return status;
     }
-    
+
     /**
      * <p>checkStatus</p>
      *

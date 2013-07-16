@@ -36,9 +36,9 @@ package org.opennms.gwt.web.ui.client;
  * @since 1.8.1
  */
 public class UpperCasingLabel {
-    
+
     private String m_text;
-    
+
     /**
      * <p>setText</p>
      *
@@ -47,7 +47,7 @@ public class UpperCasingLabel {
     public void setText(String string) {
         m_text = string.toUpperCase();
     }
-    
+
     /**
      * <p>getText</p>
      *
@@ -56,6 +56,6 @@ public class UpperCasingLabel {
     public String getText() {
         return m_text;
     }
-    
-    
+
+
 }

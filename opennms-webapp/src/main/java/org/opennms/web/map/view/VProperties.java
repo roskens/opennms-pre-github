@@ -51,38 +51,38 @@ public class VProperties {
 	private boolean doubleClickEnabled=true;
 	private boolean contextMenuEnabled=true;
     private boolean availEnabled=true;
-    
+
     private boolean useSemaphore=true;
 
     private int unknownstatusid;
     private int maxLinks;
     private int summaryLink;
-    
+
     private String summaryLinkColor;
     private String multilinkIgnoreColor;
     private String multilinkStatus;
 
     private ContextMenu contextMenu;
 
-	
+
 	private List<Link> links;
 	private List<LinkStatus> linkStatuses;
 	private List<Status> statuses;
 	private List<Severity> severities;
 	private List<Avail> avails;
-	
+
     private int defaultMapElementDimension;
 
     private java.util.Map<String,String> icons;
 	private java.util.Map<String,String> backgroundImages;
 	private java.util.Map<String, String> mapElementDimensions;
-    
+
     private String defaultNodeIcon;
     private String defaultMapIcon;
     private String defaultBackgroundColor;
-	
+
 	private List<String> categories;
-	
+
     /**
      * <p>Getter for the field <code>multilinkIgnoreColor</code>.</p>
      *
@@ -118,7 +118,7 @@ public class VProperties {
     public void setMultilinkStatus(String multilinkStatus) {
         this.multilinkStatus = multilinkStatus;
     }
-	
+
     /**
      * <p>Getter for the field <code>summaryLinkColor</code>.</p>
      *

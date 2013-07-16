@@ -59,10 +59,10 @@ public final class SmbPlugin extends AbstractPlugin {
 
     /**
      * Test to see if the passed host talks SMB &amp; has a NetBIOS name.
-     * 
+     *
      * @param host
      *            The remote host to check.
-     * 
+     *
      * @return True if the remote interface responds talks SMB and has a NETBIOS
      *         name. False otherwise.
      */

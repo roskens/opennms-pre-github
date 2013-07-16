@@ -40,60 +40,60 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.dom.client.NativeEvent;
 
 public class D3 extends JavaScriptObject {
-    
+
     protected D3() {};
-    
+
     public final native D3 select(String elementId) /*-{
         return this.select(elementId);
     }-*/;
-    
+
     public final native Element selectElement(String selector) /*-{
         var retElement = this.select(selector);
         if(retElement.length > 0){
             return retElement[0][0];
         }
-        
+
         return null;
     }-*/;
-    
+
     public static final native Element getElement(D3 selection, int index) /*-{
         return selection[0][index];
     }-*/;
-    
+
     public final native D3 select(Element elem) /*-{
         return this.select(elem);
     }-*/;
-    
+
     public final native D3 append(String tagName) /*-{
         return this.append(tagName);
     }-*/;
-    
+
     public final native D3 attr(String propName, int value) /*-{
         return this.attr(propName, value);
     }-*/;
-    
+
     public final native D3 attr(String propName, JavaScriptObject func) /*-{
         return this.attr(propName, func);
     }-*/;
-    
+
     public final native D3 attr(String attrName, Func<?,?> func) /*-{
 		var f = function(d, i){
 			return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
 		}
 		return this.attr(attrName, f);
     }-*/;
-    
+
     public final native D3 attrTween(String attrName, Func<?, ?>func) /*-{
         var f = function(d, i){
             return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
         }
         return this.attrTween(attrName, f);
     }-*/;
-    
+
     public final native D3 attrTweenZoom(String string, GWTBoundingBox boundingBox,GWTBoundingBox oldBBox, int width, int height) /*-{
         var width = 1000,
             height = 600;
-        
+
         function matchAspect(p){
             var R = width/height;
             var r = p[2]/p[3];
@@ -104,17 +104,17 @@ public class D3 extends JavaScriptObject {
                     r < R ? p[3] : p[2]/R
                    ];
         }
-        
+
         function transform(p) {
             var k = width / p[2];
             var retVal = "translate(" + (center[0] - p[0] * k) + "," + (center[1] - p[1] * k) + ")scale(" + k + ")";
             $wnd.console.log(retVal);
             return retVal;
         }
-        
+
         var p0 = [250, 200, 30, 90],
             p1 = [560, 300, 200, 120];
-        
+
         var s = [oldBBox.width/2 + oldBBox.x, oldBBox.height/2 + oldBBox.y, oldBBox.width, oldBBox.height];
         var e = [boundingBox.width/2 + boundingBox.x, boundingBox.height/2 + boundingBox.y, boundingBox.width, boundingBox.height];
         $wnd.console.log("s: " + s);
@@ -126,25 +126,25 @@ public class D3 extends JavaScriptObject {
         $wnd.console.log("start: " + start);
         $wnd.console.log("end: " + end);
         $wnd.console.log(i)
-        
+
         return this.attr("transform", transform(start)).transition().duration(i.duration * 2).attrTween(string, function(){ function(t){ return transform(i(t))} });
     }-*/;
-    
+
     public final native void html(Func<?, ?> func) /*-{
         var f = function(d, i){
             return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
         }
         return this.html(f);
-        
+
     }-*/;
-    
+
     public final native void html(String html) /*-{
         this.html(html);
     }-*/;
-    
+
     public final native void zoomTransition(D3 selection, int width, int height, JsArrayInteger p0, JsArrayInteger p1) /*-{
 		transition(p0, p1);
-		
+
 		function matchAspect(p) {
 			var R = width/height;
 			var r = p[2]/p[3];
@@ -155,14 +155,14 @@ public class D3 extends JavaScriptObject {
 			        r < R ? p[3] : p[2]/R
 			       ];
 		}
-		     
-		
+
+
 		function transition(s, e) {
 		  var start = matchAspect(s);
 		  var end = matchAspect(e);
 		  var center = [width / 2, height / 2],
 		      i = $wnd.d3.interpolateZoom(start, end);
-		  
+
 		  selection
 		      .attr("transform", transform(start))
 		    .transition()
@@ -170,7 +170,7 @@ public class D3 extends JavaScriptObject {
 		      .duration(i.duration * 2)
 		      .attrTween("transform", function() { return function(t) { return transform(i(t)); }; })
 		      //.each("end", function() { $wnd.d3.select(this).call(transition, e, s); });
-		
+
 		  function transform(p) {
 		    var k = width / p[2];
 		    var retVal = "translate(" + (center[0] - p[0] * k) + "," + (center[1] - p[1] * k) + ")scale(" + k + ")";
@@ -178,26 +178,26 @@ public class D3 extends JavaScriptObject {
 		  }
 		}
     }-*/;
-    
+
     public final native void timer(BooleanFunc func) /*-{
         var f = function(){
             return func.@org.opennms.features.topology.app.internal.gwt.client.d3.BooleanFunc::call()();
         }
         $wnd.d3.timer(f);
     }-*/;
-    
+
     public final native void timer() /*-{
         $wnd.d3.timer(function() {
             $wnd.console.log("timer tick");
             return false;
-            
+
         })
     }-*/;
 
     public final native D3 selectAll(String selectionName) /*-{
         return this.selectAll(selectionName);
     }-*/;
-    
+
     public final native D3 data(JsArray<?> array) /*-{
         return this.data(array);
     }-*/;
@@ -205,7 +205,7 @@ public class D3 extends JavaScriptObject {
     public final native D3 enter() /*-{
         return this.enter();
     }-*/;
-    
+
     public final native D3 update() /*-{
         return this.update();
     }-*/;
@@ -213,11 +213,11 @@ public class D3 extends JavaScriptObject {
     public final native D3 attr(String propName, String value) /*-{
         return this.attr(propName, value);
     }-*/;
-    
+
     public final native D3 attr(String propName, double value) /*-{
         return this.attr(propName, value);
     }-*/;
-    
+
     public final native D3Scale scale() /*-{
         return this.scale;
     }-*/;
@@ -229,16 +229,16 @@ public class D3 extends JavaScriptObject {
     public final native D3 transition() /*-{
         return this.transition();
     }-*/;
-    
+
     public final native D3 styleTween(String name, Tween<?, ?> t) /*-{
-        
+
         function interpolate(a, b) {
           var numA = a.replace('px', '');
           var numB = b.replace('px', '');
           numB -= numA;
           return function(t) { $wnd.console.log("numA: " + numA + " numB: " + numB + " t: " + t); return (numA + numB * t) + "px"; };
         };
-        
+
         function tween(d, i, a){
             var f = $wnd.d3.interpolate(a,"11px");
             $wnd.console.log("f: ");
@@ -270,13 +270,13 @@ public class D3 extends JavaScriptObject {
         	return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
         };
         return this.data(data, f);
-		
+
     }-*/;
 
     public final native D3 text(JavaScriptObject textFunc) /*-{
         return this.text(textFunc);
     }-*/;
-    
+
     public final native D3 text(String t) /*-{
         return this.text(t);
     }-*/;
@@ -286,19 +286,19 @@ public class D3 extends JavaScriptObject {
 		   return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
 	   }
 	   return this.text(f);
-	
+
     }-*/;
-	
+
 	public final native void each(Handler<?> handler) /*-{
 	    var f = function(d, i){
 	        return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler::call(Ljava/lang/Object;I)(d,i);
 	    }
 	    return this.each(f);
 	}-*/;
-	
+
 	/**
 	 * Only used for transitions
-	 * 
+	 *
 	 * @param type
 	 * @param handler
 	 */
@@ -306,7 +306,7 @@ public class D3 extends JavaScriptObject {
         var f = function(){
             func.@org.opennms.features.topology.app.internal.gwt.client.d3.AnonymousFunc::call()();
         }
-        
+
         return this.each(type, f);
     }-*/;
 
@@ -314,7 +314,7 @@ public class D3 extends JavaScriptObject {
 	   	var f = function(d, i) {
 	   		return handler.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Events.Handler::call(Ljava/lang/Object;I)(d,i);
 	   	}
-	
+
 		return this.on(event, f);
 	}-*/;
 
@@ -323,7 +323,7 @@ public class D3 extends JavaScriptObject {
 			return func.@org.opennms.features.topology.app.internal.gwt.client.d3.Func::call(Ljava/lang/Object;I)(d,i);
 		}
 		return this.style(styleName, f);
-		
+
 	}-*/;
 
     public static final native NativeEvent getEvent() /*-{
@@ -332,45 +332,45 @@ public class D3 extends JavaScriptObject {
         }
         return $wnd.d3.event;
     }-*/;
-    
+
     public static final native void eventPreventDefault() /*-{
         $wnd.d3.event.preventDefault();
     }-*/;
-    
+
     public static final native D3 d3() /*-{
         return $wnd.d3;
     }-*/;
-    
+
     public static final native JavaScriptObject property(String propertName) /*-{
         return function(d,i){
             return d[propertName];
         };
     }-*/;
-    
+
     public static final native D3Drag getDragBehavior() /*-{
         return $wnd.d3.behavior.drag();
     }-*/;
 
     public static final native JavaScriptObject drag() /*-{
-        
+
         var drag = $wnd.d3.behavior.drag();
-        
-            
-        drag.on("dragstart", function(d,i){ 
+
+
+        drag.on("dragstart", function(d,i){
         });
-        
+
         //drag.on("drag", function(d,i){ console.log("drag") });
-        
+
         drag.on("dragend", function(d,i){ console.log("dragend :: event: " + $wnd.d3.event) });
-        
-        
+
+
         return drag;
      }-*/;
 
     public final native D3 call(JavaScriptObject behavior) /*-{
         return this.call(behavior);
     }-*/;
-    
+
     /**
      * Takes a D3Behavior and returns the current selection passed into the run method
      * @param behavior
@@ -380,7 +380,7 @@ public class D3 extends JavaScriptObject {
         behavior.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior::run(Lorg/opennms/features/topology/app/internal/gwt/client/d3/D3;)(this);
         return this;
     }-*/;
-    
+
     /**
      * Takes a D3Behavior and returns the resulting selection
      * @param behavior
@@ -389,9 +389,9 @@ public class D3 extends JavaScriptObject {
     public final native D3 with(D3Behavior behavior) /*-{
         return behavior.@org.opennms.features.topology.app.internal.gwt.client.d3.D3Behavior::run(Lorg/opennms/features/topology/app/internal/gwt/client/d3/D3;)(this);
     }-*/;
-    
+
     /**
-     * Create is intended to be used with enter methods. 
+     * Create is intended to be used with enter methods.
      * And the behavior is expected to return the created selection
      * @param behavior
      * @return
@@ -402,7 +402,7 @@ public class D3 extends JavaScriptObject {
 
 	public static final native JsArrayInteger getMouse(Element elem) /*-{
 		return $wnd.d3.mouse(elem);
-		
+
 	}-*/;
 
 	public static final native JsArrayNumber getMouse(D3 select) /*-{
@@ -430,7 +430,7 @@ public class D3 extends JavaScriptObject {
 
     public final native int length() /*-{
         return this.data().length;
-        
+
     }-*/;
 
     public final native String style(String style) /*-{

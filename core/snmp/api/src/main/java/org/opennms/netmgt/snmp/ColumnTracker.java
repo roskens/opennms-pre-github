@@ -32,9 +32,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class ColumnTracker extends CollectionTracker {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(ColumnTracker.class);
-    
+
     private SnmpObjId m_base;
     private SnmpObjId m_last;
     private int m_maxRepetitions;
@@ -46,7 +46,7 @@ public class ColumnTracker extends CollectionTracker {
     public ColumnTracker(SnmpObjId base, int maxRepititions) {
         this(null, base, maxRepititions);
     }
-    
+
     public ColumnTracker(CollectionTracker parent, SnmpObjId base) {
         this(parent, base, 2);
     }
@@ -81,7 +81,7 @@ public class ColumnTracker extends CollectionTracker {
         pduBuilder.addOid(m_last);
         pduBuilder.setNonRepeaters(0);
         pduBuilder.setMaxRepetitions(getMaxRepetitions());
-        
+
         ResponseProcessor rp = new ResponseProcessor() {
 
             @Override
@@ -100,11 +100,11 @@ public class ColumnTracker extends CollectionTracker {
                         storeResult(new SnmpResult(m_base, inst, val));
                     }
                 }
-                
+
                 if (!m_base.isPrefixOf(m_last)) {
                     setFinished(true);
                 }
-                
+
             }
 
             @Override
@@ -126,7 +126,7 @@ public class ColumnTracker extends CollectionTracker {
                 }
             }
         };
-        
+
         return rp;
     }
 
@@ -154,5 +154,5 @@ public class ColumnTracker extends CollectionTracker {
             return null;
         }
     }
-    
+
 }

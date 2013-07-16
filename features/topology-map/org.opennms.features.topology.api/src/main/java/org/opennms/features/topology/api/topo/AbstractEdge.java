@@ -102,6 +102,6 @@ public class AbstractEdge extends AbstractEdgeRef implements Edge {
 	}
 
 	@Override
-	public String toString() { return "Edge:"+getNamespace()+":"+getId() + "[label="+getLabel()+", styleName="+getStyleName()+"]"; } 
+	public String toString() { return "Edge:"+getNamespace()+":"+getId() + "[label="+getLabel()+", styleName="+getStyleName()+"]"; }
 
 }

@@ -59,7 +59,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     private String m_resourceAttributeKey;
     private String m_resourceAttributeValueMatch;
     private ResourceAttributeFilteringResourceVisitor m_resourceAttributeVisitor;
-    
+
     /**
      * <p>Constructor for FilteredReportInstance.</p>
      *
@@ -68,7 +68,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     public FilteredReportInstance(AttributeStatisticVisitorWithResults visitor) {
         m_attributeStatisticVisitor = visitor;
     }
-    
+
     /**
      * <p>setFilterDao</p>
      *
@@ -77,7 +77,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     public void setFilterDao(FilterDao filterDao) {
         m_walker.setFilterDao(filterDao);
     }
-    
+
     /**
      * <p>setFilter</p>
      *
@@ -86,7 +86,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     public void setFilter(String filter) {
         m_walker.setFilter(filter);
     }
-    
+
     /**
      * <p>setNodeDao</p>
      *
@@ -113,7 +113,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     public void setRrdDao(RrdDao rrdDao) {
         m_rrdVisitor.setRrdDao(rrdDao);
     }
-    
+
     /**
      * <p>walk</p>
      */
@@ -243,7 +243,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     public void setConsolidationFunction(String cf) {
         m_rrdVisitor.setConsolidationFunction(cf);
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getCount()
      */
@@ -275,7 +275,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
-        
+
         m_rrdVisitor.setStatisticVisitor(m_attributeStatisticVisitor);
         m_attributeVisitor.setAttributeVisitor(m_rrdVisitor);
         if (m_resourceAttributeKey != null && m_resourceAttributeValueMatch != null) {
@@ -284,7 +284,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
             m_resourceAttributeVisitor.setResourceAttributeKey(m_resourceAttributeKey);
             m_resourceAttributeVisitor.setResourceAttributeValueMatch(m_resourceAttributeValueMatch);
             m_resourceAttributeVisitor.afterPropertiesSet();
-            
+
             m_resourceTypeVisitor.setDelegatedVisitor(m_resourceAttributeVisitor);
         } else {
             m_resourceTypeVisitor.setDelegatedVisitor(m_attributeVisitor);
@@ -297,7 +297,7 @@ public class FilteredReportInstance extends AbstractReportInstance implements Re
         m_resourceTypeVisitor.afterPropertiesSet();
         m_walker.afterPropertiesSet();
     }
-    
+
 
     /** {@inheritDoc} */
     @Override

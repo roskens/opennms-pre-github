@@ -75,7 +75,7 @@ public abstract class MobileMsgResponse implements Response {
 	public long getReceiveTime() {
 		return m_receiveTime;
 	}
-	
+
     /**
      * <p>getText</p>
      *

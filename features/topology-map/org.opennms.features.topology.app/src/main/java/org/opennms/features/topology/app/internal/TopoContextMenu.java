@@ -39,36 +39,36 @@ public class TopoContextMenu extends ContextMenu {
 	private static final long serialVersionUID = -4506151279227147283L;
 
 	public class TopoContextMenuItem {
-		
+
 		ContextMenuItem m_item = null;
 		Operation m_operation = null;
 		List<TopoContextMenuItem> m_children = new ArrayList<TopoContextMenuItem>();
-		
+
 		public TopoContextMenuItem(ContextMenuItem item, Operation operation) {
 			m_item = item;
 			m_operation = operation;
 		}
-		
+
 		public ContextMenuItem getItem() {
 			return m_item;
 		}
-		
+
 		public boolean hasChildren() {
 			return m_children == null || m_children.size() == 0 ? false : true;
 		}
-		
+
 		public boolean hasOperation() {
 		    return m_operation == null ? false : true;
 		}
-		
+
 		public Operation getOperation() {
 		    return m_operation;
 		}
-		
+
 		public List<TopoContextMenuItem> getChildren() {
 			return m_children;
 		}
-		
+
 		public TopoContextMenuItem addItem(String label, Operation operation) {
 			TopoContextMenuItem topoContextMenuItem = new TopoContextMenuItem(m_item.addItem(label), operation);
 			m_children.add(topoContextMenuItem);
@@ -89,23 +89,23 @@ public class TopoContextMenu extends ContextMenu {
 	}
 
 	private List<TopoContextMenuItem> m_items = new ArrayList<TopoContextMenuItem>();
-	
+
 	private Object m_target = null;
-	
+
 	public Object getTarget() {
 		return m_target;
 	}
-	
+
 	public void setTarget(Object target) {
 		this.m_target = target;
 	}
-	
+
 	public TopoContextMenuItem addItem(String label, Operation operation) {
 	    TopoContextMenuItem item = new TopoContextMenuItem(addItem(label), operation);
 	    m_items.add(item);
 	    return item;
 	}
-	
+
 	public List<TopoContextMenuItem> getItems() {
 		return m_items;
 	}

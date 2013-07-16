@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Forwards north bound alarms via HTTP.
  * FIXME: Needs lots of work still :(
- * 
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class HttpNorthbounder extends AbstractNorthbounder {
@@ -88,11 +88,11 @@ public class HttpNorthbounder extends AbstractNorthbounder {
     // Make sure that the {@link EmptyKeyRelaxedTrustSSLContext} algorithm
     // is available to JSSE
     static {
-        
+
         //this is a safe call because the method returns -1 if it is already installed (by PageSequenceMonitor, etc.)
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
-    
+
 
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
@@ -102,35 +102,35 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         return false;
     }
 
-    
+
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
-        
+
         LOG.info("Forwarding {} alarms", alarms.size());
-        
+
         //Need a configuration bean for these
-        
+
         int connectionTimeout = 3000;
         int socketTimeout = 3000;
         Integer retryCount = Integer.valueOf(3);
-        
-        HttpVersion httpVersion = determineHttpVersion(m_config.getHttpVersion());        
+
+        HttpVersion httpVersion = determineHttpVersion(m_config.getHttpVersion());
         String policy = CookiePolicy.BROWSER_COMPATIBILITY;
-        
+
         URI uri = m_config.getURI();
-        
+
         DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout,
                 socketTimeout, policy, m_config.getVirtualHost()));
-        
+
         client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(retryCount, false));
-        
+
         if ("https".equals(uri.getScheme())) {
             final SchemeRegistry registry = client.getConnectionManager().getSchemeRegistry();
             final Scheme https = registry.getScheme("https");
 
             // Override the trust validation with a lenient implementation
             SSLSocketFactory factory = null;
-            
+
             try {
                 factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             } catch (Throwable e) {
@@ -141,26 +141,26 @@ public class HttpNorthbounder extends AbstractNorthbounder {
             // This will replace the existing "https" schema
             registry.register(lenient);
         }
-        
+
         HttpUriRequest method = null;
-        
+
         if (HttpMethod.POST == (m_config.getMethod())) {
             HttpPost postMethod = new HttpPost(uri);
-            
+
             //TODO: need to configure these
             List<NameValuePair> postParms = new ArrayList<NameValuePair>();
-            
+
             //FIXME:do this for now
             NameValuePair p = new BasicNameValuePair("foo", "bar");
             postParms.add(p);
-            
+
             try {
                 UrlEncodedFormEntity entity = new UrlEncodedFormEntity(postParms, "UTF-8");
                 postMethod.setEntity(entity);
             } catch (UnsupportedEncodingException e) {
                 throw new NorthbounderException(e);
             }
-            
+
             HttpEntity entity = null;
             try {
                 //I have no idea what I'm doing here ;)
@@ -170,15 +170,15 @@ public class HttpNorthbounder extends AbstractNorthbounder {
                 e.printStackTrace();
             }
             postMethod.setEntity(entity);
-            
+
             method = postMethod;
         } else if (HttpMethod.GET == m_config.getMethod()) {
-            
+
             //TODO: need to configure these
             //List<NameValuePair> getParms = null;
             method = new HttpGet(uri);
         }
-        
+
         method.getParams().setParameter(CoreProtocolPNames.USER_AGENT, m_config.getUserAgent());
 
         HttpResponse response = null;
@@ -189,7 +189,7 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         } catch (IOException e) {
             throw new NorthbounderException(e);
         }
-        
+
         if (response != null) {
             int code = response.getStatusLine().getStatusCode();
             HttpResponseRange range = new HttpResponseRange("200-399");
@@ -198,7 +198,7 @@ public class HttpNorthbounder extends AbstractNorthbounder {
                 throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range + " but received " + code);
             }
         }
-        
+
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
     }
 
@@ -224,7 +224,7 @@ public class HttpNorthbounder extends AbstractNorthbounder {
         parms.setParameter(ClientPNames.VIRTUAL_HOST, new HttpHost(vHost, 8080));
         return parms;
     }
-    
+
     public HttpNorthbounderConfig getConfig() {
         return m_config;
     }

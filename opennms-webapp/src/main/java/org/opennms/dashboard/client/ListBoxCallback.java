@@ -49,7 +49,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     private String m_emptyListItemValue;
     private String m_nullListItemName;
     private String m_nullListItemValue;
-    
+
     /**
      * <p>Constructor for ListBoxCallback.</p>
      *
@@ -60,7 +60,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
         m_dashletLoader = dashlet;
         m_listBox = listBox;
     }
-    
+
     /**
      * <p>getListBox</p>
      *
@@ -78,7 +78,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     public void setDirection(int direction) {
         m_direction = direction;
     }
-    
+
     /**
      * <p>getDirection</p>
      *
@@ -87,7 +87,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
     public int getDirection() {
         return m_direction;
     }
-    
+
     /**
      * <p>setNullListItem</p>
      *
@@ -98,7 +98,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
         m_nullListItemName = name;
         m_nullListItemValue = value;
     }
-    
+
     /**
      * <p>setEmptyListItem</p>
      *
@@ -117,7 +117,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
      */
     public void onDataLoaded(String[][] resources) {
         m_listBox.clear();
-        
+
         if (resources == null) {
             if (m_nullListItemName != null) {
                 m_listBox.addItem(m_nullListItemName, m_nullListItemValue);
@@ -131,7 +131,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
                 m_listBox.addItem(resources[i][1], resources[i][0]);
             }
         }
-        
+
         int itemCount = m_listBox.getItemCount();
         if (m_direction < 0 && itemCount > 0) {
             m_listBox.setSelectedIndex(itemCount - 1);
@@ -141,7 +141,7 @@ public class ListBoxCallback implements AsyncCallback<String[][]> {
 
         m_dashletLoader.complete();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void onFailure(Throwable caught) {

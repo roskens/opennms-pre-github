@@ -40,7 +40,7 @@ import java.util.regex.Pattern;
  * @author pdgrenon
  */
 public class BaseLogMessage implements LogMessage {
-    
+
     public enum MsgType {
         ERROR,
         BEGIN_COLLECTION,
@@ -48,7 +48,7 @@ public class BaseLogMessage implements LogMessage {
         BEGIN_PERSIST,
         END_PERSIST,
     }
-    
+
     /**
      *  Use ThreadLocal SimpleDateFormat instances because SimpleDateFormat is not thread-safe.
      */
@@ -79,7 +79,7 @@ public class BaseLogMessage implements LogMessage {
         }
         throw new IllegalArgumentException("No MsgType corresponding to indicator " + msgIndicator);
     }
-    
+
 
     public static Date parseTimestamp(String dateString) {
         try {
@@ -168,12 +168,12 @@ public class BaseLogMessage implements LogMessage {
 	public boolean isPersistMessage() {
 		return is(MsgType.BEGIN_PERSIST)  || is (MsgType.END_PERSIST);
 	}
-	
+
     @Override
 	public boolean isPersistBeginMessage(){
 	    return is(MsgType.BEGIN_PERSIST);
 	}
-	
+
     @Override
 	public boolean isPersistEndMessage() {
 	    return is(MsgType.END_PERSIST);

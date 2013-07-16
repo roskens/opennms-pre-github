@@ -76,14 +76,14 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 	 * if <code>alarmUpdateBehaviour</code> is set to SPECIFY_OUTSTATION
 	 * the receiver name will be used as the node name which will be updated with
 	 * alarms from this receiver. Usually this is set to the name of the node
-	 * associated with the outstation but it can be set to a node which is a 
+	 * associated with the outstation but it can be set to a node which is a
 	 * catch all for received alarms ( i.e. the local host perhaps )
 	 */
 	public static int SPECIFY_OUTSTATION=1;
 
 	/**
 	 * if <code>alarmUpdateBehaviour</code> is set to USE_TYPE_INSTANCE
-	 * the alarm will be created with the node name corrsponding to a concatenation 
+	 * the alarm will be created with the node name corrsponding to a concatenation
 	 * of the ManagedObjectID and ManagedObjectType. If these cannot be found
 	 * then the alarm will default to  the outstation node
 	 */
@@ -96,7 +96,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 	private Integer almUpdateBehaviour= null;
 
 	/*
-	 * string value of almUpdateBehaviour. Must be set to 
+	 * string value of almUpdateBehaviour. Must be set to
 	 * <code>"USE_TYPE_INSTANCE"</code>
 	 * or
 	 * <code>"SPECIFY_OUTSTATION"</code>
@@ -145,7 +145,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 
 	/**
 	 * Used to obtain opennms node information for inclusion in alarms
-	 * @see org.opennms.netmgt.dao.api.NodeDao 
+	 * @see org.opennms.netmgt.dao.api.NodeDao
 	 */
 	@SuppressWarnings("unused")
 	private NodeDao _nodeDao;
@@ -174,12 +174,12 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 	public  void setAlarmDao( AlarmDao alarmDao){
 		_alarmDao = alarmDao;
 	}
-	
+
 	/**
 	 * Used by Spring Application context to pass in distPollerDao;
 	 */
 	private DistPollerDao distPollerDao;
-	
+
 	/**
 	 * Used by Spring Application context to pass in distPollerDao;
 	 *
@@ -187,7 +187,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 	 */
 	public  void setDistPollerDao(DistPollerDao _distPollerDao) {
 		 distPollerDao =  _distPollerDao;
-	}	
+	}
 
 	private OssDao ossDao;
 
@@ -204,7 +204,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 	}
 
 	@SuppressWarnings("unused")
-	private OnmsAlarmOssjMapper onmsAlarmOssjMapper; 
+	private OnmsAlarmOssjMapper onmsAlarmOssjMapper;
 
 	/**
 	 * Used by Spring Application context to pass in OnmsAlarmOssjMapper
@@ -230,7 +230,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 		} catch (Throwable ex){
 		throw new UndeclaredThrowableException(ex, this.getClass().getSimpleName()+"init() problem initialising class");
 	}
-		
+
 // TODO remove
 //		if (! ossDaoIsInitialised){
 //			try {
@@ -243,7 +243,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 //		}
 //		initialised=true;
 	}
-	
+
 
 	// ************************
 	// On Event Methods
@@ -261,8 +261,8 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 			LOG.error("{} event handler not initialised. init() must be called by receiver before handling any events", logheader);
 			return;
 		}
-		
-		
+
+
 		//TODO ADD IN BUSINESS LOGIC
 
 		try{
@@ -281,15 +281,15 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 //				LOG.error("{} Alarm Already exists with this Unique ID", logheader);
 //				} else {
 				alarm=new OnmsAlarm();
-				
+
 				alarm.setUei(OnmsAlarmOssjMapper.ossjAlarmTypeToUei(nnae.getAlarmType()));
-				
+
 				alarm.setX733AlarmType((nnae.getAlarmType()==null) ? "" : nnae.getAlarmType());
 				alarm.setX733ProbableCause(nnae.getProbableCause());
 
 				alarm.setTTicketState(null); // needed?
 				alarm.setTTicketId(""); // TODO changed
-				alarm.setQosAlarmState("external_type"); // TODO changed				
+				alarm.setQosAlarmState("external_type"); // TODO changed
 				alarm.setSuppressedUser(""); // needed?
 				alarm.setSuppressedUntil(new Date()); // needed?
 				alarm.setSuppressedTime(new Date()); // needed?
@@ -301,7 +301,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 					LOG.error("{} problem setting severity used default:'WARNING'. Exception:", logheader, iae);
 					onmsseverity=OnmsSeverity.WARNING;
 				}
-				alarm.setSeverity(onmsseverity); 
+				alarm.setSeverity(onmsseverity);
 
 //TODO not needed
 //				OnmsServiceType service= new OnmsServiceType();
@@ -315,12 +315,12 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 						":applicationDN:-"+applicationDN); // must be unique because of alarm_reductionkey_idx
 
 				alarm.setOssPrimaryKey(ossPrimaryKey);
-				alarm.setOperInstruct(nnae.getProposedRepairActions()); 
+				alarm.setOperInstruct(nnae.getProposedRepairActions());
 
 				// defaultvalue if search fails - will update node with ID 1
-				OnmsNode node = new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode(); 
+				OnmsNode node = new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 				node.setId(new Integer(1));  // node id cannot be null
-				alarm.setNode(node); // 
+				alarm.setNode(node); //
 
 				if (almUpdateBehaviour==null) {
 					LOG.error("RX:{}: This receiver's alarmUpdateBehaviour is not set: defaulting to update nodeID:1", callingAer.getName());
@@ -349,18 +349,18 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 								alarm.setNode(node); // maps into FIRST instance of node with the same managedObjectInstance and managedObjectType
 							} else {
 								LOG.error("{} alarmUpdateBehaviour.equals(SPECIFY_OUTSTATION):NODE NOT FOUND for this RX Name:{} setting node id to default NodeID: 1", logheader, callingAer.getName());
-								node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode(); 
+								node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 								node.setId(new Integer(1));  // node id cannot be null
-								alarm.setNode(node); // 
+								alarm.setNode(node); //
 							}
 						} catch (Throwable ex){
 							LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE) Problem looking up Node for alarm Set to default nodeID:1", logheader, ex);
 						}
 
-					} 
+					}
 					else if (almUpdateBehaviour.equals(USE_TYPE_INSTANCE)){
 						// this will look for first match of node Managed object Instance and Managed Object type
-						// and set node id to this value. 
+						// and set node id to this value.
 						String managedObjectType=nnae.getManagedObjectClass();
 						String managedObjectInstance=nnae.getManagedObjectInstance();
 
@@ -375,12 +375,12 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 								LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE):NODE NOT FOUND for this managedObjectType:{} managedObjectInstance:{} setting node id to default NodeID: 1", logheader, managedObjectType, managedObjectInstance);
 								node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 								node.setId(new Integer(1));  // node id cannot be null
-								alarm.setNode(node); // 
+								alarm.setNode(node); //
 							}
 						} catch (Throwable ex){
 							LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE) Problem looking up Node for alarm Set to default nodeID:1", logheader, ex);
 						}
-					}		
+					}
 					else {
 						LOG.error("{} Invalid value for alarmUpdateBehaviour:{} {} defaulting to update nodeID:1", logheader, almUpdateBehaviour, alarmUpdateBehaviour);
 					}
@@ -397,24 +397,24 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 //TODO REMOVED - DO NOT CREATE EVENT WITH HIBERNATE AlarmDAo
 //				OnmsEvent event= new OnmsEvent();
 //				//event.setId(new Integer(1));  // This is NOT set since unique constraint in alarms table on Events table
-//				alarm.setLastEvent(event); 
+//				alarm.setLastEvent(event);
 
 				alarm.setIpAddr(InetAddressUtils.getLocalHostAddress()); // needed?
 				alarm.setId(null); // set null as updating alarm
 				alarm.setFirstEventTime(nnae.getEventTime());
 				alarm.setLastEventTime(nnae.getEventTime());
-				
-// TODO removed - do create distpoller with hibernate dao				
+
+// TODO removed - do create distpoller with hibernate dao
 //				alarm.setDistPoller(new OnmsDistPoller("undefined","localhost")); //simple constructor
 				alarm.setDistPoller(distPollerDao.get("localhost"));
-				
+
 				alarm.setDescription(nnae.getAdditionalText()); //TODO need Qosd Not to generate this if remote
 				alarm.setCounter(new Integer(1));
 				alarm.setApplicationDN(applicationDN);
 				alarm.setAlarmType(new Integer(1)); // set to raise alarm
 				//alarm.setAlarmAckUser(arg0);
 				//alarm.setAlarmAckTime(arg0);
-				
+
 				//TODO added for new alarm field
 				HashMap<String, String> m_details = new HashMap<String, String>();
 				alarm.setDetails(m_details);
@@ -454,7 +454,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 			String ossPrimaryKey=nclae.getAlarmKey().getAlarmPrimaryKey();
 			String applicationDN=nclae.getAlarmKey().getApplicationDN();
 			LOG.debug("{} Received an onNotifyClearedAlarmEvent() - AlarmPrimaryKey: {} ApplictionDN: {} eventtime: {}", logheader, ossPrimaryKey, applicationDN, nclae.getEventTime());
-			if ((applicationDN==null)||(applicationDN.equals("")) 
+			if ((applicationDN==null)||(applicationDN.equals(""))
 					|| (ossPrimaryKey==null)||(ossPrimaryKey.equals(""))) {
 				LOG.error("{} ApplicatioDN or PrimaryKey not set", logheader);
 			} else {
@@ -482,7 +482,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 					//alarm.setManagedObjectType(nclae.getManagedObjectClass()); // TODO check if changed
 					//alarm.setManagedObjectInstance(nclae.getManagedObjectInstance()); //TODO check if changed
 					//alarm.setLogMsg(arg0);
-					
+
 //TODO REMOVED - DO NOT CREATE EVENT WITH HIBERNATE AlarmDAo
 //					OnmsEvent event= new OnmsEvent();
 //					//event.setId(new Integer(1));  // This is NOT set since unique constraint in alarms table on Events table
@@ -493,10 +493,10 @@ public class QoSDrxAlarmEventReceiverEventHandlerImpl2 implements AlarmEventRece
 					//alarm.setFirstEventTime(arg0);
 					alarm.setLastEventTime(nclae.getEventTime()); // must be after .setLastEvent!!!
 					//alarm.setDistPoller(arg0);
-					//alarm.setDescription(arg0); 
+					//alarm.setDescription(arg0);
 					//alarm.setCounter(arg0);
 					//alarm.setApplicationDN(arg0);
-					//alarm.setAlarmType(arg0); 
+					//alarm.setAlarmType(arg0);
 					alarm.setAlarmAckUser("ossjclearevent"); //TODO CLEARING ALARMS ON RECEIPT OF CLEAR - NOT WAITING FOR ACK
 					alarm.setAlarmAckTime(new Date());
 

@@ -58,11 +58,11 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
         sendRequest(GET, "/groups/idontexist", 404);
     }
-    
+
     @Test
     public void testWriteGroup() throws Exception {
         createGroup("test");
-        
+
         String xml = sendRequest(GET, "/groups/test", 200);
         assertTrue(xml.contains("<group><name>test</name>"));
 
@@ -75,12 +75,12 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
     @Test
     public void testDeleteGroup() throws Exception {
         createGroup("deleteMe");
-        
+
         String xml = sendRequest(GET, "/groups", 200);
         assertTrue(xml.contains("deleteMe"));
 
         sendRequest(DELETE, "/groups/idontexist", 400);
-        
+
         sendRequest(DELETE, "/groups/deleteMe", 200);
 
         sendRequest(GET, "/groups/deleteMe", 404);
@@ -109,6 +109,6 @@ public class GroupRestServiceTest extends AbstractSpringJerseyRestTestCase {
                 "</group>";
         sendPost("/groups", group, 303, "/groups/" + groupname);
     }
-    
+
 
 }

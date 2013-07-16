@@ -35,7 +35,7 @@ import org.opennms.features.poller.remote.gwt.client.Status;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
 public class StatusFilter implements LocationFilter {
-    
+
     private final Set<Status> m_selectedStatuses = new HashSet<Status>();
 
     public Set<Status> getSelectedStatuses() {
@@ -59,6 +59,6 @@ public class StatusFilter implements LocationFilter {
         if (m_selectedStatuses == statuses) return;
         m_selectedStatuses.clear();
         m_selectedStatuses.addAll(statuses);
-        
+
     }
 }

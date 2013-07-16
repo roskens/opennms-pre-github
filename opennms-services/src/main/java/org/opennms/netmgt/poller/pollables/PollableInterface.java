@@ -66,7 +66,7 @@ public class PollableInterface extends PollableContainer {
     public PollableNode getNode() {
         return (PollableNode)getParent();
     }
-    
+
     private void setNode(PollableNode newNode) {
         setParent(newNode);
     }
@@ -79,7 +79,7 @@ public class PollableInterface extends PollableContainer {
     public PollableNetwork getNetwork() {
         return getNode().getNetwork();
     }
-    
+
     /**
      * <p>getContext</p>
      *
@@ -98,7 +98,7 @@ public class PollableInterface extends PollableContainer {
     public String getIpAddr() {
         return InetAddressUtils.str(m_addr);
     }
-    
+
     /**
      * <p>getAddress</p>
      *
@@ -142,9 +142,9 @@ public class PollableInterface extends PollableContainer {
                 return svc;
 
             }
-            
+
         });
-        
+
     }
 
     /**
@@ -163,14 +163,14 @@ public class PollableInterface extends PollableContainer {
         PollableService svc = (PollableService)member;
         return svc.getSvcName();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void visitThis(PollableVisitor v) {
         super.visitThis(v);
         v.visitInterface(this);
     }
-    
+
     /**
      * <p>recalculateStatus</p>
      */
@@ -184,7 +184,7 @@ public class PollableInterface extends PollableContainer {
             super.recalculateStatus();
         }
     }
-    
+
     /**
      * @return
      */
@@ -203,50 +203,50 @@ public class PollableInterface extends PollableContainer {
         PollableService critSvc = getCriticalService();
         return (critSvc != null ? critSvc : super.selectPollElement());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected PollStatus poll(PollableElement elem) {
         PollableService critSvc = getCriticalService();
         if (getStatus().isUp() || critSvc == null || elem == critSvc)
             return super.poll(elem);
-    
+
         return PollStatus.down();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public PollStatus pollRemainingMembers(PollableElement member) {
         PollableService critSvc = getCriticalService();
-        
-        
+
+
         if (critSvc != null && getStatus().isUp()) {
             if (member != critSvc)
                 critSvc.poll();
 
             return critSvc.getStatus().isUp() ? PollStatus.up() : PollStatus.down();
         }
-        
+
         if (getContext().isPollingAllIfCritServiceUndefined())
             return super.pollRemainingMembers(member);
         else {
             return getMemberStatus();
         }
-            
+
     }
     /** {@inheritDoc} */
     @Override
     public Event createDownEvent(Date date) {
         return getContext().createEvent(EventConstants.INTERFACE_DOWN_EVENT_UEI, getNodeId(), getAddress(), null, date, getStatus().getReason());
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     public Event createUpEvent(Date date) {
         return getContext().createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, getNodeId(), getAddress(), null, date, getStatus().getReason());
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -262,33 +262,33 @@ public class PollableInterface extends PollableContainer {
      */
     public void reparentTo(final PollableNode newNode) {
         final PollableNode oldNode = getNode();
-        
+
         if (oldNode.equals(newNode)) return;
-        
+
         // always lock the nodes in nodeId order so deadlock is not possible
         final PollableNode firstNode = (oldNode.getNodeId() <= newNode.getNodeId() ? oldNode : newNode);
         final PollableNode secondNode = (oldNode.getNodeId() <= newNode.getNodeId() ? newNode : oldNode);
-        
+
         final Runnable reparent = new Runnable() {
             @Override
             public void run() {
                 oldNode.resetStatusChanged();
                 newNode.resetStatusChanged();
-              
+
                 int oldNodeId = getNodeId();
                 String oldIp = getIpAddr();
                 int newNodeId = newNode.getNodeId();
-                
+
                 oldNode.removeMember(PollableInterface.this);
                 newNode.addMember(PollableInterface.this);
                 setNode(newNode);
 
                 getContext().reparentOutages(oldIp, oldNodeId, newNodeId);
-                
+
                 if (getCause() == null || getCause().equals(oldNode.getCause())) {
                     // the current interface outage is a node outage or no outage at all
                     if (newNode.getCause() != null) {
-                        // if the new Node has a node outage then we recursively set the 
+                        // if the new Node has a node outage then we recursively set the
                         // causes so when process events we properly handle the causes
                         PollableVisitor visitor = new PollableVisitorAdaptor() {
                             @Override
@@ -300,11 +300,11 @@ public class PollableInterface extends PollableContainer {
                             }
                         };
                         visit(visitor);
-                    } 
+                    }
                 }
-                
-                
-                // process the status changes related to the 
+
+
+                // process the status changes related to the
                 Date date = new Date();
                 oldNode.recalculateStatus();
                 oldNode.processStatusChange(date);
@@ -313,16 +313,16 @@ public class PollableInterface extends PollableContainer {
 
             }
         };
-        
+
         Runnable lockSecondNodeAndRun = new Runnable() {
             @Override
             public void run() {
                 secondNode.withTreeLock(reparent);
             }
         };
-        
+
         firstNode.withTreeLock(lockSecondNodeAndRun);
-        
+
     }
 
 

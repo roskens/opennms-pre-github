@@ -59,7 +59,7 @@ public class Filter implements Serializable {
     // @NotNull
     @XmlAttribute(name="pattern", required=true)
     private String m_pattern;
-    
+
     // @NotNull
     @XmlAttribute(name="replacement", required=true)
     private String m_replacement;

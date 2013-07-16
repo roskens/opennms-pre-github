@@ -56,7 +56,7 @@ import org.opennms.netmgt.xml.event.Event;
 
 /**
  * Test the MockNetwork and related classes
- * 
+ *
  * @author brozow
  */
 public class MockNetworkTest extends TestCase {
@@ -202,7 +202,7 @@ public class MockNetworkTest extends TestCase {
         m_network.addService("ICMP");
         m_network.addService("HTTP");
         m_network.addService("DNS");
-        
+
         m_eventMgr = new MockEventIpcManager();
 
         m_pollerConfig = new MockPollerConfig(m_network);
@@ -211,7 +211,7 @@ public class MockNetworkTest extends TestCase {
         m_pollerConfig.setDefaultPollInterval(1000L);
         m_pollerConfig.populatePackage(m_network);
         m_pollerConfig.setPollInterval("ICMP", 500L);
-        
+
         m_upChecker = new StatusChecker(PollStatus.up());
         m_downChecker = new StatusChecker(PollStatus.down());
 
@@ -391,7 +391,7 @@ public class MockNetworkTest extends TestCase {
         assertEquals(1, anticipator.unanticipatedEvents().size());
 
     }
-    
+
     public void testInvalidPoll() throws UnknownHostException {
         m_network.resetInvalidPollCount();
         MonitoredService svc = new MockMonitoredService(99, "InvalidNode", InetAddressUtils.addr("1.1.1.1"), "ICMP");
@@ -546,7 +546,7 @@ public class MockNetworkTest extends TestCase {
         m_pollerConfig.addScheduledOutage("outage2", now - tenMinutes, now, "192.168.1.2");
         m_pollerConfig.addScheduledOutage("outage3", now - tenMinutes, now, 1);
         m_pollerConfig.addScheduledOutage("outage4", now - tenMinutes, now, 2);
-        
+
         try { Thread.sleep(1000); } catch (InterruptedException e) {}
 
         Package pkg = m_pollerConfig.getPackage("TestPackage");
@@ -751,6 +751,6 @@ public class MockNetworkTest extends TestCase {
         assertEquals(m_upChecker.getServiceCount(), m_downChecker.getServiceCount());
 
     }
-    
+
 
 }

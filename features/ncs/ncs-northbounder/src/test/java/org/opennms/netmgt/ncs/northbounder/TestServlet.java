@@ -39,7 +39,7 @@ import org.apache.commons.io.IOUtils;
 
 @SuppressWarnings("serial")
 public class TestServlet extends HttpServlet {
-	
+
 	private static String m_posted = null;
 
 	@Override
@@ -50,10 +50,10 @@ public class TestServlet extends HttpServlet {
 	public static void reset() {
 		m_posted = null;
 	}
-	
+
 	public static String getPosted() {
 		return m_posted;
 	}
 
-	
+
 }

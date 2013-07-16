@@ -51,16 +51,16 @@ import javax.persistence.Transient;
 @Entity
 @Table(name="statisticsReportData")
 public class StatisticsReportData implements Serializable {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6112853375515080125L;
     private Integer m_id;
     private StatisticsReport m_report;
     private ResourceReference m_resource;
     private Double m_value;
-    
+
     /**
      * Unique identifier for data.
      *
@@ -69,7 +69,7 @@ public class StatisticsReportData implements Serializable {
     @Id
     @Column(name="id")
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
@@ -81,7 +81,7 @@ public class StatisticsReportData implements Serializable {
     public void setId(Integer id) {
         m_id = id;
     }
-    
+
     /**
      * <p>getReport</p>
      *
@@ -100,7 +100,7 @@ public class StatisticsReportData implements Serializable {
     public void setReport(StatisticsReport report) {
         m_report = report;
     }
-    
+
     /**
      * <p>getResource</p>
      *
@@ -119,7 +119,7 @@ public class StatisticsReportData implements Serializable {
     public void setResource(ResourceReference resource) {
         m_resource = resource;
     }
-    
+
     /**
      * <p>getResourceId</p>
      *
@@ -129,7 +129,7 @@ public class StatisticsReportData implements Serializable {
     public String getResourceId() {
         return m_resource.getResourceId();
     }
-    
+
     /**
      * <p>getValue</p>
      *

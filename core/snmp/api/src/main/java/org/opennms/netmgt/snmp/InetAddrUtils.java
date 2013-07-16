@@ -20,7 +20,7 @@ public class InetAddrUtils {
 	public static InetAddress getLocalHostAddress() {
 		return addr("127.0.0.1");
 	}
-	
-	
+
+
 
 }

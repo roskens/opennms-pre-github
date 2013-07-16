@@ -44,40 +44,40 @@ public class StatusNode {
 	private Boolean m_outagestatus;
 	private Collection<StatusInterface> m_ipinterfaces;
 	private Integer m_nodeid;
-	
-	
+
+
 	/**
 	 * <p>Constructor for StatusNode.</p>
 	 */
 	public StatusNode(){
-		
+
 		m_ipinterfaces = new ArrayList<StatusInterface>();
-		
+
 	}
-	
+
 	/**
 	 * <p>addIpInterface</p>
 	 *
 	 * @param ipInterface a {@link org.opennms.web.svclayer.catstatus.model.StatusInterface} object.
 	 */
 	public void addIpInterface(StatusInterface ipInterface){
-		
+
 		m_ipinterfaces.add(ipInterface);
-		
+
 	}
-	
+
 	/**
 	 * <p>getIpInterfaces</p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
 	public Collection<StatusInterface> getIpInterfaces(){
-		
+
 		return m_ipinterfaces;
-		
+
 	}
-	
-	
+
+
 	/**
 	 * <p>getLabel</p>
 	 *
@@ -128,7 +128,7 @@ public class StatusNode {
 	public void setNodeid(Integer nodeid) {
 		m_nodeid = nodeid;
 	}
-	
 
-	
+
+
 }

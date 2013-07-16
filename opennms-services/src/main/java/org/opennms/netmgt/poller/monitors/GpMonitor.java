@@ -148,7 +148,7 @@ final public class GpMonitor extends AbstractServiceMonitor {
 
                 int exitStatus = 100;
 
-		// Some scripts, such as Nagios check scripts, look for -H and -t versus --hostname and 
+		// Some scripts, such as Nagios check scripts, look for -H and -t versus --hostname and
 		// --timeout. If the optional parameter option-type is set to short, then the former
 		// will be used.
 
@@ -161,9 +161,9 @@ final public class GpMonitor extends AbstractServiceMonitor {
                     exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " " + timeoutInSeconds);
                 else
                     exitStatus = er.exec(script + " " + hoption + " " + hostAddress + " " + toption + " " + timeoutInSeconds + " " + args);
-                
+
                 double responseTime = tracker.elapsedTimeInMillis();
-                
+
                 if (exitStatus != 0) {
                         scriptoutput = er.getOutString();
                         String reason = script + " failed with exit code " + exitStatus + ". Standard out: " + scriptoutput;
@@ -171,7 +171,7 @@ final public class GpMonitor extends AbstractServiceMonitor {
                         serviceStatus = PollStatus.unavailable(reason);
                 }
                 if (er.isMaxRunTimeExceeded()) {
-                	
+
                 	String reason = script + " failed. Timeout exceeded";
                     LOG.debug(reason);
                     serviceStatus = PollStatus.unavailable(reason);
@@ -187,9 +187,9 @@ final public class GpMonitor extends AbstractServiceMonitor {
                         if (!scripterror.equals(""))
                             LOG.debug("{} error = {}", script, scripterror);
                         if (strBannerMatch == null || strBannerMatch.equals("*")) {
-                        	
+
                             serviceStatus = PollStatus.available(responseTime);
-                            
+
                         } else {
                             if (scriptoutput.indexOf(strBannerMatch) > -1) {
                                 serviceStatus = PollStatus.available(responseTime);
@@ -201,23 +201,23 @@ final public class GpMonitor extends AbstractServiceMonitor {
                 }
 
             } catch (ArrayIndexOutOfBoundsException e) {
-            	
+
             	String reason = script + " ArrayIndexOutOfBoundsException";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-            	
+
             } catch (IOException e) {
-            	
+
             	String reason = "IOException occurred. Check for proper operation of " + script;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-            	
+
             } catch (Throwable e) {
-            	
+
             	String reason = script + "Exception occurred";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-            	
+
             }
         }
 
@@ -227,5 +227,5 @@ final public class GpMonitor extends AbstractServiceMonitor {
         LOG.debug("poll: GP - serviceStatus= {} {}", hostAddress, serviceStatus);
         return serviceStatus;
     }
-    
+
 }

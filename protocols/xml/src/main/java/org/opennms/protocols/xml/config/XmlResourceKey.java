@@ -42,7 +42,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlResourceKey.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="resource-key")

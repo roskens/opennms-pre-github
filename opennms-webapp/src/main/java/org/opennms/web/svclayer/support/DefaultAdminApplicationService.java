@@ -49,7 +49,7 @@ import org.opennms.web.svclayer.AdminApplicationService;
  */
 public class DefaultAdminApplicationService implements
         AdminApplicationService {
-    
+
     private ApplicationDao m_applicationDao;
     private MonitoredServiceDao m_monitoredServiceDao;
 
@@ -61,14 +61,14 @@ public class DefaultAdminApplicationService implements
         }
 
         OnmsApplication application = findApplication(applicationIdString);
-        
+
         Collection<OnmsMonitoredService> memberServices =
             m_monitoredServiceDao.findByApplication(application);
         for (OnmsMonitoredService service : memberServices) {
             m_applicationDao.initialize(service.getIpInterface());
             m_applicationDao.initialize(service.getIpInterface().getNode());
         }
-        
+
         return new ApplicationAndMemberServices(application, memberServices);
     }
 
@@ -82,15 +82,15 @@ public class DefaultAdminApplicationService implements
         List<OnmsMonitoredService> list =
             new ArrayList<OnmsMonitoredService>(m_monitoredServiceDao.findAll());
         Collections.sort(list);
-        
+
         return list;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public EditModel findApplicationAndAllMonitoredServices(String applicationIdString) {
-        ApplicationAndMemberServices app = getApplication(applicationIdString); 
-        
+        ApplicationAndMemberServices app = getApplication(applicationIdString);
+
         List<OnmsMonitoredService> monitoredServices =
             findAllMonitoredServices();
         return new EditModel(app.getApplication(), monitoredServices,
@@ -150,15 +150,15 @@ public class DefaultAdminApplicationService implements
         if (editAction == null) {
             throw new IllegalArgumentException("editAction cannot be null");
         }
-        
-        OnmsApplication application = findApplication(applicationIdString); 
-       
+
+        OnmsApplication application = findApplication(applicationIdString);
+
         if (editAction.contains("Add")) { // @i18n
             if (toAdd == null) {
                 return;
                 //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
-           
+
             for (String idString : toAdd) {
                 Integer id;
                 try {
@@ -181,7 +181,7 @@ public class DefaultAdminApplicationService implements
                                                        + "application "
                                                        + application.getName());
                 }
-                
+
                 service.addApplication(application);
                 m_monitoredServiceDao.save(service);
             }
@@ -190,7 +190,7 @@ public class DefaultAdminApplicationService implements
                 return;
                 //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
-            
+
             for (String idString : toDelete) {
                 Integer id;
                 try {
@@ -213,7 +213,7 @@ public class DefaultAdminApplicationService implements
                                                        + "application "
                                                        + application.getName());
                 }
-                
+
                 service.removeApplication(application);
                 m_monitoredServiceDao.save(service);
             }
@@ -266,11 +266,11 @@ public class DefaultAdminApplicationService implements
                                                + "id of " + id
                                                + " could not be found");
         }
-        
+
         List<OnmsApplication> sortedApplications =
             new ArrayList<OnmsApplication>(service.getApplications());
         Collections.sort(sortedApplications);
-        
+
         return sortedApplications;
     }
 
@@ -291,7 +291,7 @@ public class DefaultAdminApplicationService implements
         if (editAction == null) {
             throw new IllegalArgumentException("editAction cannot be null");
         }
-        
+
         OnmsMonitoredService service = findService(ifServiceIdString);
 
         if (editAction.contains("Add")) { // @i18n
@@ -299,7 +299,7 @@ public class DefaultAdminApplicationService implements
                 return;
                 //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
-           
+
             for (String idString : toAdd) {
                 Integer id;
                 try {
@@ -324,14 +324,14 @@ public class DefaultAdminApplicationService implements
                 }
                 service.getApplications().add(application);
             }
-            
+
             m_monitoredServiceDao.save(service);
        } else if (editAction.contains("Remove")) { // @i18n
             if (toDelete == null) {
                 return;
                 //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
-            
+
             for (String idString : toDelete) {
                 Integer id;
                 try {
@@ -375,10 +375,10 @@ public class DefaultAdminApplicationService implements
 
         OnmsMonitoredService service = findService(ifServiceIdString);
         List<OnmsApplication> applications = findAllApplications();
-        
+
         m_monitoredServiceDao.initialize(service.getIpInterface());
         m_monitoredServiceDao.initialize(service.getIpInterface().getNode());
-        
+
         return new ServiceEditModel(service, applications);
     }
 
@@ -413,7 +413,7 @@ public class DefaultAdminApplicationService implements
 
     private OnmsMonitoredService findService(String ifServiceIdString) {
         int ifServiceId;
-        
+
         try {
             ifServiceId = WebSecurityUtils.safeParseInt(ifServiceIdString);
         } catch (NumberFormatException e) {
@@ -421,14 +421,14 @@ public class DefaultAdminApplicationService implements
                                                + ifServiceIdString
                                                + "' is not an integer");
         }
-        
+
         OnmsMonitoredService service = m_monitoredServiceDao.get(ifServiceId);
         if (service == null) {
             throw new IllegalArgumentException("monitored service with "
                                                + "id of " + ifServiceId
                                                + " could not be found");
         }
-        
+
         return service;
     }
 
@@ -461,9 +461,9 @@ public class DefaultAdminApplicationService implements
                 Collection<OnmsMonitoredService> memberServices) {
             m_application = application;
             m_monitoredServices = monitoredServices;
-            
+
             m_monitoredServices.removeAll(memberServices);
-            
+
             m_sortedMemberServices =
                 new ArrayList<OnmsMonitoredService>(memberServices);
             Collections.sort(m_sortedMemberServices);
@@ -480,7 +480,7 @@ public class DefaultAdminApplicationService implements
         public List<OnmsMonitoredService> getSortedMemberServices() {
             return m_sortedMemberServices;
         }
-        
+
     }
 
 
@@ -492,16 +492,16 @@ public class DefaultAdminApplicationService implements
         public ServiceEditModel(OnmsMonitoredService service, List<OnmsApplication> applications) {
             m_service = service;
             m_applications = applications;
-            
+
             for (OnmsApplication application : service.getApplications()) {
                 m_applications.remove(application);
             }
-            
+
             m_sortedApplications =
                 new ArrayList<OnmsApplication>(m_service.getApplications());
             Collections.sort(m_sortedApplications);
         }
-        
+
         public OnmsMonitoredService getService() {
             return m_service;
         }
@@ -513,7 +513,7 @@ public class DefaultAdminApplicationService implements
         public List<OnmsApplication> getSortedApplications() {
             return m_sortedApplications;
         }
-        
+
     }
 
 }

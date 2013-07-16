@@ -53,12 +53,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminStorageDeleteBucketController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminStorageDeleteBucketController.class);
 
 
     InventoryService m_inventoryService;
-        
+
     /**
      * <p>getInventoryService</p>
      *
@@ -85,7 +85,7 @@ public class AdminStorageDeleteBucketController extends SimpleFormController {
         LOG.debug("AdminStorageDeleteBucketController ModelAndView onSubmit");
 
         AdminStorageCommClass bean = (AdminStorageCommClass) command;
-                       
+
         LOG.debug("AdminStorageDeleteBucketController ModelAndView onSubmit delete bucket[{}]", bean.getBucket());
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
 
@@ -105,6 +105,6 @@ public class AdminStorageDeleteBucketController extends SimpleFormController {
         throws ServletException {
         LOG.debug("AdminStorageDeleteBucketController initBinder");
     }
-    
-    
+
+
 }

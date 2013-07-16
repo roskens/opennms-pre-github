@@ -61,7 +61,7 @@ public class GwtTerm extends Composite implements HasAllKeyHandlers, ClickHandle
     private Element promptSpan;
     private Element inputSpan;
     private Element sshSpan;
-    
+
     public Element getInputSpan() {
 		return inputSpan;
 	}
@@ -72,9 +72,9 @@ public class GwtTerm extends Composite implements HasAllKeyHandlers, ClickHandle
 
 	private Element cursor;
     private FocusPanel mainPanel;
-    
+
     public GwtTerm() {
-        
+
         mainPanel = new FocusPanel();
         //DOM.setElementAttribute(mainPanel.getElement(), "onkeydown", "keydown(event)");
         //DOM.setElementAttribute(mainPanel.getElement(), "onkeypress", "keypress(event, false)");
@@ -102,7 +102,7 @@ public class GwtTerm extends Composite implements HasAllKeyHandlers, ClickHandle
         DOM.appendChild(mainPanel.getElement(), pre);
         DOM.appendChild(mainPanel.getElement(), sshSpan);
 
-       
+
         // Set the class of the color selection feedback box to allow CSS
         // styling.
         // We need to obtain the DOM element for the current color label.
@@ -136,7 +136,7 @@ public class GwtTerm extends Composite implements HasAllKeyHandlers, ClickHandle
         else
             DOM.setStyleAttribute(nameelement, "color", "black");
     }
-	
+
     /** Handles click on a color button. */
     @Override
 	public void onClick(ClickEvent event) {

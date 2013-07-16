@@ -27,7 +27,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
-public final class ResourceServlet 
+public final class ResourceServlet
     extends HttpServlet
 {
     private final String path;
@@ -52,7 +52,7 @@ public final class ResourceServlet
 
         String resName = this.path + target;
         URL url = getServletContext().getResource(resName);
-        
+
         if (url == null) {
             res.sendError(HttpServletResponse.SC_NOT_FOUND);
         } else {

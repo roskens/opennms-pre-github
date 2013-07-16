@@ -127,10 +127,10 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byPartialServiceID(final String searchString) {
         return new Predicate<ServiceCollector>() {
-            
+
             @Override
             public boolean apply(ServiceCollector svcCollector){
                 return svcCollector.getServiceID().contains(searchString);
@@ -148,7 +148,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byTotalCollectionTime(final long totalCollectionTime) {
         return new Predicate<ServiceCollector>() {
 
@@ -159,7 +159,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byAverageCollectionTime(final long averageCollectionTime) {
         return new Predicate<ServiceCollector>() {
 
@@ -170,7 +170,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byAverageTimeBetweenCollections(final long averageTimeBetweenCollections) {
         return new Predicate<ServiceCollector>() {
 
@@ -181,7 +181,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byTotalSuccessfulCollections(final long totalSuccessfulCollections) {
         return new Predicate<ServiceCollector>() {
 
@@ -192,7 +192,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> bySuccessfulPercentage(final double successfulPercentage) {
         return new Predicate<ServiceCollector>() {
 
@@ -203,7 +203,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byAverageSuccessfulCollectionTime(final long averageSuccessfulCollectionTime) {
         return new Predicate<ServiceCollector>() {
 
@@ -214,7 +214,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byTotalUnsuccessfulCollections(final long totalUnsuccessfulCollections) {
         return new Predicate<ServiceCollector>() {
 
@@ -225,7 +225,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byUnsuccessfulPercentage(final double unsuccessfulPercentage) {
         return new Predicate<ServiceCollector>() {
 
@@ -236,7 +236,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byAverageUnsuccessfulCollectionTime(final long averageUnsuccessfulCollectionTime) {
         return new Predicate<ServiceCollector>() {
 
@@ -247,7 +247,7 @@ public class Filter {
 
         };
     }
-    
+
     static Predicate<ServiceCollector> byTotalPersistTime(final long totalPersistTime) {
         return new Predicate<ServiceCollector>() {
 
@@ -267,10 +267,10 @@ public class Filter {
                 if(i == j){
                     return true;
                 }else{
-                    return false;   
-                }            
+                    return false;
+                }
             }
-        }; 
+        };
         return predicate;
     }
     public Predicate<String> createStringBasedPredicate(final String filterString) {

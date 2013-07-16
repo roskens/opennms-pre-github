@@ -86,7 +86,7 @@ public class SSHTerminalTest {
 //			//sshTerm.paintContent(new SudoPaintTarget());
 //		} catch (PaintException e) {
 //			fail("PaintContent exception was thrown");
-//		} 
+//		}
 //	}
 
 	@Test
@@ -102,7 +102,7 @@ public class SSHTerminalTest {
 		map.put("toSSH", "data to the ssh server");
 		//sshTerm.changeVariables(new Object(), map);
 	}
-	
+
 	@Test
 	public void testClose() {
 		assertTrue(sshTerm.close());

@@ -57,47 +57,47 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.web.svclayer.AggregateStatus;
 
 public class DefaultSiteStatusServiceTest {
-    
+
     private NodeDao m_nodeDao;
     private CategoryDao m_categoryDao;
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
-    
+
     @Before
     public void setUp() throws Exception {
         m_nodeDao = createMock(NodeDao.class);
         m_categoryDao = createMock(CategoryDao.class);
         m_siteStatusViewConfigDao = createMock(SiteStatusViewConfigDao.class);
     }
-    
+
     @Test
     public void testCreateAggregateStatusUsingNodeId() {
         Collection<AggregateStatus> aggrStati;
         Collection<AggregateStatusDefinition> defs = new HashSet<AggregateStatusDefinition>();
-        
+
         OnmsCategory catRouters = new OnmsCategory("routers");
         OnmsCategory catSwitches = new OnmsCategory("switches");
-        
-        AggregateStatusDefinition definition = 
+
+        AggregateStatusDefinition definition =
             new AggregateStatusDefinition("Routers/Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ catRouters, catSwitches })));
         defs.add(definition);
-        
+
         OnmsCategory catServers = new OnmsCategory("servers");
-        
-        definition = 
+
+        definition =
             new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ catServers })));
         defs.add(definition);
-        
+
         DefaultSiteStatusViewService aggregateSvc = new DefaultSiteStatusViewService();
         aggregateSvc.setNodeDao(m_nodeDao);
         aggregateSvc.setCategoryDao(m_categoryDao);
         aggregateSvc.setSiteStatusViewConfigDao(m_siteStatusViewConfigDao);
-        
+
         OnmsNode node = new OnmsNode();
         node.setId(1);
         node.getAssetRecord().setBuilding("HQ");
         List<OnmsNode> nodes = new ArrayList<OnmsNode>();
         nodes.add(node);
-        
+
         for (AggregateStatusDefinition def : defs) {
             expect(m_nodeDao.findAllByVarCharAssetColumnCategoryList("building", "HQ", def.getCategories())).andReturn(nodes);
         }
@@ -105,19 +105,19 @@ public class DefaultSiteStatusServiceTest {
             expect(m_nodeDao.load(n.getId())).andReturn(n);
         }
         replay(m_nodeDao);
-        
+
         expect(m_categoryDao.findByName("switches")).andReturn(catSwitches);
         expect(m_categoryDao.findByName("routers")).andReturn(catRouters);
         expect(m_categoryDao.findByName("servers")).andReturn(catServers);
         replay(m_categoryDao);
-        
+
         Rows rows = new Rows();
         RowDef rowDef = new RowDef();
         Category category = new Category();
         category.setName("servers");
         rowDef.addCategory(category);
         rows.addRowDef(rowDef);
-        
+
         rowDef = new RowDef();
         category = new Category();
         category.setName("switches");
@@ -131,43 +131,43 @@ public class DefaultSiteStatusServiceTest {
         view.setRows(rows);
         expect(m_siteStatusViewConfigDao.getView("building")).andReturn(view);
         replay(m_siteStatusViewConfigDao);
-        
+
         aggrStati = aggregateSvc.createAggregateStatusesUsingNodeId(node.getId(), "building");
-        
+
         verify(m_nodeDao);
         verify(m_categoryDao);
         verify(m_siteStatusViewConfigDao);
-        
+
         assertNotNull(aggrStati);
     }
-    
+
     @Test
     public void testCreateAggregateStatusUsingBuilding() {
-        
+
         Collection<AggregateStatus> aggrStati;
         Collection<AggregateStatusDefinition> defs = new HashSet<AggregateStatusDefinition>();
-        
-        AggregateStatusDefinition definition = 
+
+        AggregateStatusDefinition definition =
             new AggregateStatusDefinition("Routers/Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("routers"), new OnmsCategory("switches") })));
         defs.add(definition);
-        
-        definition = 
+
+        definition =
             new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("servers") })));
-            
+
         defs.add(definition);
-        
+
         DefaultSiteStatusViewService aggregateSvc = new DefaultSiteStatusViewService();
         aggregateSvc.setNodeDao(m_nodeDao);
-        
+
         OnmsNode node = new OnmsNode();
         List<OnmsNode> nodes = new ArrayList<OnmsNode>();
         nodes.add(node);
-        
+
         for (AggregateStatusDefinition def : defs) {
             expect(m_nodeDao.findAllByVarCharAssetColumnCategoryList("building", "HQ", def.getCategories())).andReturn(nodes);
         }
         replay(m_nodeDao);
-        
+
         AggregateStatusView view = new AggregateStatusView();
         view.setColumnName("building");
         view.setColumnValue("HQ");
@@ -175,7 +175,7 @@ public class DefaultSiteStatusServiceTest {
         view.setStatusDefinitions(new LinkedHashSet<AggregateStatusDefinition>(defs));
         aggrStati = aggregateSvc.createAggregateStatusUsingAssetColumn(view);
         verify(m_nodeDao);
-        
+
         assertNotNull(aggrStati);
 
     }

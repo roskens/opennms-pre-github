@@ -39,14 +39,14 @@ import java.util.Set;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class AggregateStatusView {
-    
+
     private Integer m_id;
     private String m_name;
     private String m_tableName;
     private String m_columnName;
     private String m_columnValue;
     private Set<AggregateStatusDefinition> m_statusDefinitions;
-    
+
     /**
      * <p>getId</p>
      *
@@ -55,7 +55,7 @@ public class AggregateStatusView {
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -64,7 +64,7 @@ public class AggregateStatusView {
     public void setId(Integer id) {
         m_id = id;
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -100,7 +100,7 @@ public class AggregateStatusView {
     public void setTableName(String tableName) {
         m_tableName = tableName;
     }
-    
+
     /**
      * <p>getColumnName</p>
      *
@@ -109,7 +109,7 @@ public class AggregateStatusView {
     public String getColumnName() {
         return m_columnName;
     }
-    
+
     /**
      * <p>setColumnName</p>
      *
@@ -118,7 +118,7 @@ public class AggregateStatusView {
     public void setColumnName(String columnName) {
         m_columnName = columnName;
     }
-    
+
     /**
      * <p>getColumnValue</p>
      *
@@ -127,7 +127,7 @@ public class AggregateStatusView {
     public String getColumnValue() {
         return m_columnValue;
     }
-    
+
     /**
      * <p>setColumnValue</p>
      *
@@ -136,7 +136,7 @@ public class AggregateStatusView {
     public void setColumnValue(String columnValue) {
         m_columnValue = columnValue;
     }
-    
+
     /**
      * <p>getStatusDefinitions</p>
      *
@@ -153,7 +153,7 @@ public class AggregateStatusView {
     public void setStatusDefinitions(Set<AggregateStatusDefinition> statusDefinitions) {
         m_statusDefinitions = statusDefinitions;
     }
-    
+
 	/**
 	 * Good for debug logs and viewing in a debugger.
 	 *
@@ -175,5 +175,5 @@ public class AggregateStatusView {
 		result.append(" }");
 		return result.toString();
 	}
-    
+
 }

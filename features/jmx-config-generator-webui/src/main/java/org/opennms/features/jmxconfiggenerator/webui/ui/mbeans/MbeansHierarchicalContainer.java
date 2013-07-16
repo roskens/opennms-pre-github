@@ -59,14 +59,14 @@ public class MbeansHierarchicalContainer extends HierarchicalContainer {
 			String s2 = o2 == null ? "" : getStringComparable(o2.getData());
 			return s1.compareTo(s2);
 		}
-		
+
 		private String getStringComparable(Object data) {
 			if (data == null) return "";
 			StringRenderer renderer = controller.getStringRenderer(data.getClass());
 			return renderer == null ? data.toString() : renderer.render(data);
 		}
 	}
-	
+
 	private final MBeansController controller;
 	private TreeNode root = new TreeNodeImpl();
 	private Collection<Mbean> mbeans = new ArrayList<Mbean>();

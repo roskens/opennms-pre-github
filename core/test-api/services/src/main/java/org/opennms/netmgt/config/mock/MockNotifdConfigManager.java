@@ -40,15 +40,15 @@ import org.opennms.netmgt.config.NotifdConfigManager;
  * @author David Hustace <david@opennms.org>
  */
 public class MockNotifdConfigManager extends NotifdConfigManager {
-        
+
     private String m_nextNotifIdSql;
     private String m_nextUserNotifIdSql;
 
     /*
      * init the mock config
      */
-    
-    
+
+
     /**
      * @param configString
      * @throws IOException
@@ -83,7 +83,7 @@ public class MockNotifdConfigManager extends NotifdConfigManager {
             ValidationException {
         return m_nextNotifIdSql;
     }
-    
+
     public void setNextNotifIdSql(String sql) {
         m_nextNotifIdSql = sql;
     }
@@ -97,5 +97,5 @@ public class MockNotifdConfigManager extends NotifdConfigManager {
     public void setNextUserNotifIdSql(String sql) {
         m_nextUserNotifIdSql = sql;
     }
-    
+
 }

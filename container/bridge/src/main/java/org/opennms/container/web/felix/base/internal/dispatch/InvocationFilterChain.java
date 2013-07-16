@@ -30,7 +30,7 @@ public final class InvocationFilterChain
 {
     private final FilterHandler[] handlers;
     private final ServletPipeline servletPipeline;
-    private final FilterChain proceedingChain;    
+    private final FilterChain proceedingChain;
     private int index = -1;
 
     public InvocationFilterChain(FilterHandler[] handlers, ServletPipeline servletPipeline, FilterChain proceedingChain)

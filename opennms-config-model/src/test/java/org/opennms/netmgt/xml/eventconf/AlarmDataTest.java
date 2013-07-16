@@ -57,7 +57,7 @@ public class AlarmDataTest extends XmlTestNoCastor<AlarmData> {
 				"target/classes/xsds/eventconf.xsd" },
 				{alarmData1,
 				"<alarm-data reduction-key=\"%uei%:%dpname%:%nodeid%\" alarm-type=\"3\" auto-clean=\"true\" clear-key=\"uei.opennms.org/internal/importer/importFailed:%parm[importResource]%\"/>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

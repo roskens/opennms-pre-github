@@ -57,18 +57,18 @@ import org.springframework.beans.factory.InitializingBean;
 
 /**
  * Forwards alarms, N, via Syslog.
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 public class SyslogNorthbounder extends AbstractNorthbounder implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SyslogNorthbounder.class);
-	
+
 	private static final String NBI_NAME = "SyslogNBI" ;
 
     private SyslogNorthbounderConfig m_config;
-	
+
 	private NodeDao m_nodeDao;
-	
+
 	private SyslogDestination m_destination;
 
 	public SyslogNorthbounder(SyslogNorthbounderConfig config, SyslogDestination destination) {
@@ -79,17 +79,17 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		
+
 		if (m_config == null) {
-			
+
 			LOG.info("Syslog Northbounder is currently disabled, rejecting alarm.");
-			
+
 			String msg = "Syslog forwarding configuration is not initialized.";
 			IllegalStateException e = new IllegalStateException(msg);
 			LOG.error(msg, e);
 			throw e;
 		}
-		
+
 		createNorthboundInstance();
 		setNaglesDelay(m_config.getNaglesDelay());
 		setMaxBatchSize(m_config.getBatchSize());
@@ -99,45 +99,45 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 	/**
      * The abstraction makes a call here to determine if the alarm should be placed
      * on the queue of alarms to be sent northerly.
-     * 
+     *
      */
 	@Override
     public boolean accepts(NorthboundAlarm alarm) {
-		
+
 		if (!m_config.isEnabled()) {
 			return false;
 		}
-		
+
 		LOG.debug("Validating UEI of alarm: {}", alarm.getUei());
-		
+
         if (getConfig().getUeis() == null || getConfig().getUeis().contains(alarm.getUei())) {
     		LOG.debug("UEI: {}, accepted.", alarm.getUei());
             return true;
         }
-        
+
 		LOG.debug("UEI: {}, rejected.", alarm.getUei());
         return false;
     }
-    
+
 	/**
 	 * Each implementation of the AbstractNorthbounder has a nice queue (Nagle's algorithmic) and the worker
 	 * thread that processes the queue calls this method to send alarms to the northern NMS.
-	 * 
+	 *
 	 */
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
-        
+
         if (alarms == null) {
         	String errorMsg = "No alarms in alarms list for syslog forwarding.";
 			IllegalStateException e = new IllegalStateException(errorMsg);
         	LOG.error(errorMsg, e);
 			throw e;
         }
-        
+
         LOG.info("Forwarding {} alarms to destination:{}", alarms.size(), m_destination.getName());
 
-    	Map<Integer, Map<String, String>> alarmMappings = new HashMap<Integer, Map<String, String>>();    	
-        
+	Map<Integer, Map<String, String>> alarmMappings = new HashMap<Integer, Map<String, String>>();
+
     	SyslogIF instance;
     	try {
     		instance = Syslog.getInstance(m_destination.getName());
@@ -177,16 +177,16 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 
     			LOG.debug("Determining LOG_LEVEL for alarm: {}", alarm.getId());
     			level = determineLogLevel(alarm.getSeverity());
-    			
+
     			LOG.debug("Forwarding alarm: {} via syslog to destination: {}", alarm.getId(), m_destination.getName());
     			instance.log(level, syslogMessage);
-    			
+
     		} catch (Exception e1) {
     			LOG.error("Caught exception sending to destination: {}", m_destination.getName(), e1);
     		}
     	}
     }
-    
+
 	private Map<String, String> createMapping(Map<Integer, Map<String, String>> alarmMappings, NorthboundAlarm alarm) {
 		Map<String, String> mapping;
 		mapping = new HashMap<String, String>();
@@ -200,25 +200,25 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 		mapping.put("ticketId", alarm.getTicketId());
 		mapping.put("alarmUei", alarm.getUei());
 		mapping.put("ackTime", nullSafeToString(alarm.getAckTime(), ""));
-		
+
 		AlarmType alarmType = alarm.getAlarmType() == null ? AlarmType.NOTIFICATION : alarm.getAlarmType();
 		mapping.put("alarmType", alarmType.name());
-		
+
 		String count = alarm.getCount() == null ? "1" : alarm.getCount().toString();
 		mapping.put("count", count);
-		
+
 		mapping.put("firstOccurrence", nullSafeToString(alarm.getFirstOccurrence(), ""));
 		mapping.put("alarmId", alarm.getId().toString());
 		mapping.put("ipAddr", nullSafeToString(alarm.getIpAddr(), ""));
 		mapping.put("lastOccurrence", nullSafeToString(alarm.getLastOccurrence(), ""));
-		
-		
+
+
 		if (alarm.getNodeId() != null) {
 			mapping.put("nodeId", alarm.getNodeId().toString());
 
 			//Implement this so we don't have load the entire node.
 			//m_nodeDao.getLabelForId();
-			
+
 			Integer id = Integer.valueOf(777);
 			String nodeLabel = m_nodeDao.getLabelForId(id);
 			mapping.put("nodeLabel", nodeLabel);
@@ -226,28 +226,28 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 			mapping.put("nodeId", "");
 			mapping.put("nodeLabel", "");
 		}
-		
-		
+
+
 		String poller = alarm.getPoller() == null ? "localhost" : alarm.getPoller().getName();
 		mapping.put("distPoller", poller);
-		
-		String service = alarm.getService() == null ? "" : alarm.getService().getName();					
+
+		String service = alarm.getService() == null ? "" : alarm.getService().getName();
 		mapping.put("ifService", service);
-		
+
 		mapping.put("severity", nullSafeToString(alarm.getSeverity(), ""));
 		mapping.put("ticketState", nullSafeToString(alarm.getTicketState(), ""));
-		
+
 		mapping.put("x733AlarmType", alarm.getX733Type());
-		
+
 		try {
 			mapping.put("x733ProbableCause", nullSafeToString(x733ProbableCause.get(alarm.getX733Cause()), ""));
 		} catch (Exception e) {
 			LOG.info("Exception caught setting X733 Cause: {}", alarm.getX733Cause(), e);
 			mapping.put("x733ProbableCause", "");
 		}
-		
+
 		buildParmMappings(alarm, mapping);
-		
+
 		alarmMappings.put(alarm.getId(), mapping);
 		return mapping;
 	}
@@ -259,12 +259,12 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 		char separator = ';';
 		String[] parmArray = StringUtils.split(parms, separator);
 		for (String string : parmArray) {
-			
+
 			char nameValueDelim = '=';
 			String[] nameValueArray = StringUtils.split(string, nameValueDelim);
 			String parmName = nameValueArray[0];
 			String parmValue = StringUtils.split(nameValueArray[1], '(')[0];
-			
+
 			EventParm<String> eventParm = new EventParm<String>(parmName, parmValue);
 			parmCollection.add(eventParm);
 		}
@@ -277,17 +277,17 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 			mapping.put("parm["+parm.getParmName()+"]", parm.getParmValue().toString());
 		}
 	}
-	
-	
+
+
 	protected class EventParm<T extends Object> {
 		private String m_parmName;
 		private T m_parmValue;
-		
+
 		EventParm(String name, T value) {
 			m_parmName = name;
 			m_parmValue = value;
 		}
-		
+
 		public String getParmName() {
 			return m_parmName;
 		}
@@ -296,7 +296,7 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 			return (T) m_parmValue;
 		}
 	}
-	
+
 
 	private String nullSafeToString(Object obj, String defaultString) {
 		if (obj != null) {
@@ -305,16 +305,16 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 		return defaultString;
 	}
 
-    
+
     /**
      * This is here, for now, until it can be properly wired and proper configuration can be created.
      * This allows generic 127.0.0.1:UDP/514 to work with OpenNMS having no configuration.  This is
      * trickery in its finest hour.
      */
     private void createNorthboundInstance() throws SyslogRuntimeException {
-    	
+
     	LOG.info("Creating Syslog Northbound Instance:{}", m_destination.getName());
-    	
+
     	String instName = m_destination.getName();
     	int facility = convertFacility(m_destination.getFacility());
     	SyslogProtocol protocol = m_destination.getProtocol();
@@ -335,7 +335,7 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
     	}
 
 	}
-    
+
 	private SyslogConfigIF createConfig(final SyslogDestination dest, final SyslogProtocol protocol, int fac) {
 		SyslogConfigIF config;
 		switch (protocol) {
@@ -451,7 +451,7 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
 
 
     public SyslogNorthbounderConfig getConfig() {
-    	
+
     	if (m_config == null) {
     	    String errMsg = "Syslog Northbounder configuration is not set.";
     		LOG.error(errMsg);
@@ -461,13 +461,13 @@ public class SyslogNorthbounder extends AbstractNorthbounder implements Initiali
     }
 
     public void setConfig(final SyslogNorthbounderConfig config) {
-    	
+
     	if (config == null) {
     		String string = "Syslog Northbounder configuration cannot be set null";
     		LOG.error(string);
     		throw new IllegalStateException(string);
     	}
-    	
+
     }
 
 	public NodeDao getNodeDao() {

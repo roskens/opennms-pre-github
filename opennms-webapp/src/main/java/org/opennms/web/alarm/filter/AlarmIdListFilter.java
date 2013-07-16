@@ -42,18 +42,18 @@ import org.opennms.web.filter.SQLType;
 public class AlarmIdListFilter extends InFilter<Integer> {
     /** Constant <code>TYPE="alarmIdList"</code> */
     public static final String TYPE = "alarmIdList";
-    
+
     private static Integer[] box(int[] values) {
         if (values == null) return null;
-        
+
         Integer[] boxed = new Integer[values.length];
         for(int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
-        
+
         return boxed;
     }
-    
+
     /**
      * <p>Constructor for AlarmIdListFilter.</p>
      *
@@ -72,5 +72,5 @@ public class AlarmIdListFilter extends InFilter<Integer> {
     public String getTextDescription() {
         return String.format("alarmId in (%s)", getValueString());
     }
-    
+
 }

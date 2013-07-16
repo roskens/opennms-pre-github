@@ -30,7 +30,7 @@
  * Created on Apr 27, 2004
  *
  * TODO Need to javadoc this class.
- * 
+ *
  */
 package org.opennms.netmgt.capsd;
 
@@ -108,7 +108,7 @@ public class ConnectionConfig {
     public InetSocketAddress getSocketAddress() {
         return new InetSocketAddress(getInetAddress(), getPort());
     }
-    
+
     /**
      * <p>setQualifiers</p>
      *

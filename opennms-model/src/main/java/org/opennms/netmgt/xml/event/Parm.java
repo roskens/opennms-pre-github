@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * A varbind from the trap
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -100,7 +100,7 @@ public class Parm implements Serializable {
 	/**
      * Returns the value of field 'parmName'. The field 'parmName'
      * has the following description: parm name
-     * 
+     *
      * @return the value of field 'ParmName'.
      */
     public java.lang.String getParmName(
@@ -111,7 +111,7 @@ public class Parm implements Serializable {
     /**
      * Returns the value of field 'value'. The field 'value' has
      * the following description: parm value
-     * 
+     *
      * @return the value of field 'Value'.
      */
     public org.opennms.netmgt.xml.event.Value getValue(
@@ -122,7 +122,7 @@ public class Parm implements Serializable {
     /**
      * Sets the value of field 'parmName'. The field 'parmName' has
      * the following description: parm name
-     * 
+     *
      * @param parmName the value of field 'parmName'.
      */
     public void setParmName(
@@ -133,7 +133,7 @@ public class Parm implements Serializable {
     /**
      * Sets the value of field 'value'. The field 'value' has the
      * following description: parm value
-     * 
+     *
      * @param value the value of field 'value'.
      */
     public void setValue(

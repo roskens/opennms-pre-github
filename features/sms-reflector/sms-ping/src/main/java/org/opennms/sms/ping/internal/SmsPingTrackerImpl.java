@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> implements SmsPingTracker {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SmsPingTrackerImpl.class);
 
     /**
@@ -76,7 +76,7 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
         super.start();
         LOG.debug("Called start()");
     }
-    
+
 
     /**
      * <p>stop</p>
@@ -86,7 +86,7 @@ public class SmsPingTrackerImpl extends RequestTracker<PingRequest, PingReply> i
 
         LOG.debug("Called stop()");
     }
-    
-    
+
+
 
 }

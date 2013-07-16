@@ -53,25 +53,25 @@ public abstract class NoSubstringFilter extends OneArgFilter<String> {
         super(filterType, SQLType.STRING, fieldName, daoPropertyName, value);
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
         return " " + getSQLFieldName() + " NOT ILIKE %s ";
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
         return Restrictions.not(Restrictions.ilike(getPropertyName(), getValue(), MatchMode.ANYWHERE));
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getBoundValue(String value) {
         return '%' + value + '%';
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String formatValue(String value) {

@@ -64,7 +64,7 @@ import org.slf4j.MDC;
  * @version $Id: $
  */
 public class XMPPNotificationManager {
-    
+
         private static final Logger LOG = LoggerFactory.getLogger(XMPPNotificationManager.class);
 
 	private final Properties props = new Properties();
@@ -79,12 +79,12 @@ public class XMPPNotificationManager {
 
 	private final XMPPConnection xmpp;
 
-	private final ConnectionConfiguration xmppConfig; 
+	private final ConnectionConfiguration xmppConfig;
 
 	private final String xmppServer;
 
 	private final String xmppServiceName;
-	
+
 	private final String xmppUser;
 
 	private final String xmppPassword;
@@ -116,7 +116,7 @@ public class XMPPNotificationManager {
             LOG.warn("XMPP reconnection failed", e);
             xmpp.disconnect();
             instance = null;
-            
+
         }
 
                 @Override
@@ -201,11 +201,11 @@ public class XMPPNotificationManager {
 			if (xmpp.isConnected()) {
 				LOG.debug("XMPP Manager successfully connected");
 				// Following requires a later version of the library
-				if (xmpp.isSecureConnection()) 
+				if (xmpp.isSecureConnection())
 					LOG.debug("XMPP Manager successfully nogotiated a secure connection");
-				if (xmpp.isUsingTLS()) 
+				if (xmpp.isUsingTLS())
 					LOG.debug("XMPP Manager successfully nogotiated a TLS connection");
-				LOG.debug("XMPP Manager Connected"); 
+				LOG.debug("XMPP Manager Connected");
 				login();
 				// Add connection listener
 				xmpp.addConnectionListener(conlistener);
@@ -219,7 +219,7 @@ public class XMPPNotificationManager {
 
     /**
      * Check if manager is logged in to xmpp server.
-     * 
+     *
      * @return true if logged in, false otherwise
      */
 
@@ -263,7 +263,7 @@ public class XMPPNotificationManager {
 
 	/**
 	 * send an xmpp message to a specified recipient.
-	 * 
+	 *
 	 * @param xmppTo
 	 *            recipient of the xmpp message
 	 * @param xmppMessage

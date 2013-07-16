@@ -37,18 +37,18 @@ import java.io.Serializable;
  * @version $Id: $
  */
 public class ReportFloatParm extends ReportParm implements Serializable {
-    
+
     private static final long serialVersionUID = 5242917854258286117L;
     Float m_value;
     String m_type;
-    
+
     /**
      * <p>Constructor for ReportFloatParm.</p>
      */
     public ReportFloatParm() {
       super();
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -57,7 +57,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
     public Float getValue() {
         return m_value;
     }
-    
+
     /**
      * <p>setValue</p>
      *
@@ -66,7 +66,7 @@ public class ReportFloatParm extends ReportParm implements Serializable {
     public void setValue(Float value) {
         m_value = value;
     }
-    
+
     /**
      * <p>getInputType</p>
      *

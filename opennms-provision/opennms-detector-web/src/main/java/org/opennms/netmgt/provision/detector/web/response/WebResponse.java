@@ -44,7 +44,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class WebResponse {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(WebResponse.class);
     private String expectedRange;
     private String expectedText;

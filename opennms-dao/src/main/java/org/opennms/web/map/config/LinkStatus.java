@@ -39,8 +39,8 @@ public class LinkStatus {
 	String id;
 	String color;
 	boolean flash;
-	
-	
+
+
 	/**
 	 * <p>Constructor for LinkStatus.</p>
 	 *
@@ -54,7 +54,7 @@ public class LinkStatus {
 		this.color = color;
 		this.flash = flash;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>color</code>.</p>
 	 *
@@ -103,7 +103,7 @@ public class LinkStatus {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
-	
-	
+
+
+
 }

@@ -39,12 +39,12 @@ import org.opennms.test.mock.EasyMockUtils;
 
 public class DependencyRulesTest extends CorrelationRulesTestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     @Test
     public void testInitialize() throws Exception {
-        
+
         anticipate( createInitializedEvent( 1, 1 ) );
-        
+
     	EventBuilder bldr = new EventBuilder( "impactedService", "Drools" );
     	bldr.setNodeid( 1 );
     	bldr.setInterface( addr( "10.1.1.1" ) );
@@ -52,13 +52,13 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     	bldr.addParam("CAUSE", 17 );
 
     	anticipate( bldr.getEvent() );
-    	
+
     	bldr = new EventBuilder( "impactedApplication", "Drools" );
     	bldr.addParam("APP", "e-commerce" );
     	bldr.addParam("CAUSE", 17 );
-    	
+
     	anticipate( bldr.getEvent() );
-        
+
         DroolsCorrelationEngine engine = findEngineByName("dependencyRules");
 
         Event event = createNodeLostServiceEvent( 1, "10.1.1.1", "ICMP" );
@@ -67,13 +67,13 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
 
         // event + initialized
         m_anticipatedMemorySize = 18;
-        	
+
         m_mocks.verifyAll();
 
         verify(engine);
-        
+
     }
-    
+
     private Event createInitializedEvent(int symptom, int cause) {
         return new EventBuilder("initialized", "Drools").getEvent();
     }
@@ -87,21 +87,21 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     public Event createNodeDownEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_DOWN_EVENT_UEI, nodeid);
     }
-    
+
     public Event createNodeUpEvent(int nodeid) {
         return createNodeEvent(EventConstants.NODE_UP_EVENT_UEI, nodeid);
     }
-    
+
     public Event createNodeLostServiceEvent(int nodeid, String ipAddr, String svcName)
     {
     	return createSvcEvent("uei.opennms.org/nodes/nodeLostService", nodeid, ipAddr, svcName);
     }
-    
+
     public Event createNodeRegainedServiceEvent(int nodeid, String ipAddr, String svcName)
     {
     	return createSvcEvent("uei.opennms.org/nodes/nodeRegainedService", nodeid, ipAddr, svcName);
     }
-    
+
     private Event createSvcEvent(String uei, int nodeid, String ipaddr, String svcName)
     {
     	return new EventBuilder(uei, "Drools")
@@ -109,7 +109,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
     		.setInterface( addr( ipaddr ) )
     		.setService( svcName )
     		.getEvent();
-    		
+
     }
 
     private Event createNodeEvent(String uei, int nodeid) {
@@ -117,7 +117,7 @@ public class DependencyRulesTest extends CorrelationRulesTestCase {
             .setNodeid(nodeid)
             .getEvent();
     }
-    
+
 
 
 

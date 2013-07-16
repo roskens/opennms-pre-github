@@ -48,12 +48,12 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     @Test
     public void testSimpleScheduleExcluded() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"20-Aug-2005 13:00:00\" ends=\"20-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"20-Aug-2005 13:00:00\" ends=\"20-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
-        
+
         Owner owner = new Owner("unnamed", "simple", 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervalsCovering(aug(18), BasicScheduleUtils.getGroupSchedule(simpleSchedule), owner);
         assertNotNull(intervals);
@@ -63,47 +63,47 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
 
     @Test
     public void testSimpleScheduleIncluded() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
-        
+
         Owner owner = new Owner("unnamed", "simple", 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervalsCovering(aug(18), BasicScheduleUtils.getGroupSchedule(simpleSchedule), owner);
         assertNotNull(intervals);
         assertTimeIntervalSequence(new OwnedInterval[] { owned(owner, aug(18, 13, 14)) }, intervals);
 
     }
-    
+
     @Test
     public void testDoubleScheduleIncluded() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"double\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
-            "               <time begins=\"18-Aug-2005 16:00:00\" ends=\"18-Aug-2005 17:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
+            "               <time begins=\"18-Aug-2005 16:00:00\" ends=\"18-Aug-2005 17:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
-        
+
         Owner owner = new Owner("unnamed", "double", 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervalsCovering(aug(18), BasicScheduleUtils.getGroupSchedule(simpleSchedule), owner);
         assertNotNull(intervals);
         assertTimeIntervalSequence(new OwnedInterval[] { owned(owner, aug(18, 13, 14)), owned(owner, aug(18, 16, 17)) }, intervals);
 
     }
-    
+
     @Test
     public void testComplexScheduleIncluded() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"complex\" type=\"specific\">" +
-            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
-            "               <time day=\"friday\" begins=\"07:00:00\" ends=\"08:00:00\"/>\n" + 
-            "               <time day=\"18\" begins=\"19:00:00\" ends=\"20:00:00\"/>\n" + 
-            "               <time day=\"19\" begins=\"09:00:00\" ends=\"10:00:00\"/>\n" + 
-            "               <time begins=\"18-Aug-2005 16:00:00\" ends=\"18-Aug-2005 17:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
+            "               <time day=\"friday\" begins=\"07:00:00\" ends=\"08:00:00\"/>\n" +
+            "               <time day=\"18\" begins=\"19:00:00\" ends=\"20:00:00\"/>\n" +
+            "               <time day=\"19\" begins=\"09:00:00\" ends=\"10:00:00\"/>\n" +
+            "               <time begins=\"18-Aug-2005 16:00:00\" ends=\"18-Aug-2005 17:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
-        
+
         Owner owner = new Owner("unnamed", "complex", 0);
        OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervalsCovering(aug(18), BasicScheduleUtils.getGroupSchedule(simpleSchedule), owner);
         assertNotNull(intervals);
@@ -113,16 +113,16 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
                 owned(owner, aug(18, 16, 17)),
                 owned(owner, aug(18, 19, 20)),
         };
-        
+
         assertTimeIntervalSequence(expected, intervals);
 
     }
-    
+
     @Test
     public void testSpecificInterval() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" + 
+            "               <time begins=\"18-Aug-2005 13:00:00\" ends=\"18-Aug-2005 14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
@@ -131,77 +131,77 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         TimeInterval interval = BasicScheduleUtils.getInterval(new Date(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
-    
+
     @Test
     public void testMonthlyInterval() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time day=\"18\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"18\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        
+
         Owner owner = new Owner("unnamed", "simple", 0, 0);
         TimeInterval interval = BasicScheduleUtils.getInterval(aug(18).getStart(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
 
     @Test
     public void testWeeklyInterval() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"specific\">" +
-            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"13:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        
+
         Owner owner = new Owner("unnamed", "simple", 0, 0);
         TimeInterval interval = BasicScheduleUtils.getInterval(aug(18).getStart(), basicSchedule.getTime(0), owner);
         assertNotNull(interval);
         assertInterval(owned(owner, aug(18, 13, 14)), interval);
-        
+
     }
 
     @Test
     public void testGetIntervalsWeekly() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"weekly\">" +
-            "               <time day=\"thursday\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"thursday\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        
+
         Owner owner = new Owner("unnamed", "simple", 0, 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervals(aug(4, 13, 25, 12), basicSchedule.getTime(0), owner);
         assertNotNull(intervals);
-        
+
         OwnedInterval[] expected = {
                 owned(owner, aug(4, 13, 14)), // start of requested interval overlaps this one
                 owned(owner, aug(11, 11, 14)),
                 owned(owner, aug(18, 11, 14)),
                 owned(owner, aug(25, 11, 12)) // end of requested interval overlaps this one
         };
-        
+
         assertTimeIntervalSequence(expected, intervals);
     }
 
     @Test
     public void testGetIntervalsMonthly() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"monthly\">" +
-            "               <time day=\"7\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time day=\"7\" begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        
+
         Owner owner = new Owner("unnamed", "simple", 0, 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervals(interval(6 /* june */, 7, 13, 11 /* nov */, 7, 12), basicSchedule.getTime(0), owner);
         assertNotNull(intervals);
-        
+
         OwnedInterval[] expected = {
                 owned(owner, jun(7, 13, 14)),
                 owned(owner, jul(7, 11, 14)),
@@ -210,19 +210,19 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
                 owned(owner, oct(7, 11, 14)),
                 owned(owner, nov(7, 11, 12)),
         };
-        
+
         assertTimeIntervalSequence(expected, intervals);
     }
-    
+
     @Test
     public void testGetIntervalsDaily() throws Exception {
-        String schedSpec = 
+        String schedSpec =
             "           <schedule name=\"simple\" type=\"daily\">" +
-            "               <time begins=\"11:00:00\" ends=\"14:00:00\"/>\n" + 
+            "               <time begins=\"11:00:00\" ends=\"14:00:00\"/>\n" +
             "           </schedule>";
         Schedule simpleSchedule = CastorUtils.unmarshal(Schedule.class, new ByteArrayInputStream(schedSpec.getBytes()));
         BasicSchedule basicSchedule = BasicScheduleUtils.getGroupSchedule(simpleSchedule);
-        
+
         Owner owner = new Owner("unnamed", "simple", 0, 0);
         OwnedIntervalSequence intervals = BasicScheduleUtils.getIntervals(interval(6, 1, 0, 7, 1, 0), basicSchedule.getTime(0), owner);
         assertNotNull(intervals);
@@ -231,9 +231,8 @@ public class BasicScheduleUtilsTest extends IntervalTestCase {
         for (int i = 1; i < 31; i++) {
         	expected.add(owned(owner, jun(i, 11, i, 14)));
         }
-        
+
         assertTimeIntervalSequence(expected.toArray(new OwnedInterval[]{}), intervals);
     }
 
 }
- 

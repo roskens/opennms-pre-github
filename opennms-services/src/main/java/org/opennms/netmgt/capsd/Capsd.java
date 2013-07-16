@@ -63,7 +63,7 @@ import org.springframework.util.Assert;
 public class Capsd extends AbstractServiceDaemon {
 
     private static final Logger LOG = LoggerFactory.getLogger(Capsd.class);
-    
+
     /**
      * Database synchronization lock for synchronizing write access to the
      * database between the SuspectEventProcessor and RescanProcessor thread
@@ -84,7 +84,7 @@ public class Capsd extends AbstractServiceDaemon {
      */
     @Autowired
     private Scheduler m_scheduler;
-    
+
     /**
      * Event receiver.
      */
@@ -166,8 +166,8 @@ public class Capsd extends AbstractServiceDaemon {
         			"org.opennms.provisiond.enableDiscovery=false in opennms.properties!");
         }
 
-	    
-	    /* 
+
+	    /*
          * First any new services are added to the services table
          * with a call to syncServices().
          *
@@ -183,10 +183,10 @@ public class Capsd extends AbstractServiceDaemon {
 
         LOG.debug("init: Loading services into database...");
         m_capsdDbSyncer.syncServices();
-        
+
         LOG.debug("init: Syncing management state...");
         m_capsdDbSyncer.syncManagementState();
-        
+
         LOG.debug("init: Syncing primary SNMP interface state...");
         m_capsdDbSyncer.syncSnmpPrimaryState();
 
@@ -203,13 +203,13 @@ public class Capsd extends AbstractServiceDaemon {
     	// Set the Set that SuspectEventProcessor will use to track
     	// suspect scans that are in progress
     	SuspectEventProcessor.setQueuedSuspectsTracker(new HashSet<String>());
-    	
+
     	// Likewise, a separate Set for the RescanProcessor
     	RescanProcessor.setQueuedRescansTracker(new HashSet<Integer>());
-    	
+
         // Start the rescan scheduler
         LOG.debug("start: Starting rescan scheduler");
-        
+
         m_scheduler.start();
 	}
 
@@ -266,7 +266,7 @@ public class Capsd extends AbstractServiceDaemon {
                 final SuspectEventProcessor proc = m_suspectEventProcessorFactory.createSuspectEventProcessor(InetAddressUtils.str(addr));
                 proc.run();
             }
-            
+
         });
     }
 
@@ -286,7 +286,7 @@ public class Capsd extends AbstractServiceDaemon {
             public void run() {
                 m_scheduler.forceRescan(nodeId.intValue());
             }
-            
+
         });
     }
 

@@ -80,7 +80,7 @@ public class ResourceGraphsOperation extends AbstractOperation {
         }
         return null;
     }
-    
+
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -90,7 +90,7 @@ public class ResourceGraphsOperation extends AbstractOperation {
         }else {
             return false;
         }
-        
+
     }
 
     @Override
@@ -105,11 +105,11 @@ public class ResourceGraphsOperation extends AbstractOperation {
     public void setResourceGraphListURL(String resourceGraphListURL) {
         this.m_resourceGraphListURL = resourceGraphListURL;
     }
-    
+
     public String getResourceGraphNodeURL() {
         return m_resourceGraphNodeURL;
     }
-    
+
     public void setResourceGraphNodeURL(final String resourceGraphNodeURL) {
         m_resourceGraphNodeURL = resourceGraphNodeURL;
     }

@@ -38,9 +38,9 @@ import org.opennms.protocols.snmp.asn1.ASN1;
 /**
  * Defines an SNMPv2 Party Clock. The Party Clock is currently Obsolete, but
  * included for backwards compatability
- * 
+ *
  * @deprecated Obsoleted in RFC 1902.
- * 
+ *
  * @author Brian Weaver <weave@oculan.com>
  * @version 1.1.1.1
  */
@@ -65,10 +65,10 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Creates a SNMPv2 Party Clock with the specific value.
-     * 
+     *
      * @param value
      *            The unsigned value for the party clock
-     * 
+     *
      */
     public SnmpV2PartyClock(long value) {
         super(value);
@@ -76,10 +76,10 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Creates a SNMPv2 Party Clock with the specific value.
-     * 
+     *
      * @param value
      *            The unsigned value for the party clock
-     * 
+     *
      */
     public SnmpV2PartyClock(Long value) {
         super(value);
@@ -87,10 +87,10 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Class copy constructor. Constructs a duplicate party clock.
-     * 
+     *
      * @param second
      *            The party clock to duplicate
-     * 
+     *
      */
     public SnmpV2PartyClock(SnmpV2PartyClock second) {
         super(second);
@@ -98,10 +98,10 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Constructs a SNMPv2 Party Clock with the specified value.
-     * 
+     *
      * @param uint32
      *            The super class value to initialize self with.
-     * 
+     *
      */
     public SnmpV2PartyClock(SnmpUInt32 uint32) {
         super(uint32);
@@ -109,9 +109,9 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Used to retreive the ASN.1 value for this object.
-     * 
+     *
      * @return The ASN.1 type.
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -120,9 +120,9 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Creates and returns a duplicate object of self.
-     * 
+     *
      * @return A newly created copy of self.
-     * 
+     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -131,9 +131,9 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Creates and returns a duplicate object of self.
-     * 
+     *
      * @return A newly created copy of self.
-     * 
+     *
      */
     @Override
     public Object clone() {
@@ -142,7 +142,7 @@ public class SnmpV2PartyClock extends SnmpUInt32 {
 
     /**
      * Returns the string representation of the object.
-     * 
+     *
      */
     @Override
     public String toString() {

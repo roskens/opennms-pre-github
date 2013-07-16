@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.AlarmData;
 
 /**
  * Class AlarmDataDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -92,20 +92,20 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _reductionKey
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_reductionKey", "reduction-key", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getReductionKey();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -125,7 +125,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _reductionKey
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -140,7 +140,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_alarmType", "alarm-type", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -148,14 +148,14 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
                 return new java.lang.Integer(target.getAlarmType());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
                     // ignore null values for non optional primitives
                     if (value == null) { return; }
-                    
+
                     target.setAlarmType( ((java.lang.Integer) value).intValue());
                 } catch (java.lang.Exception ex) {
                     throw new IllegalStateException(ex.toString());
@@ -171,7 +171,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _alarmType
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -188,14 +188,14 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getClearKey();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -214,7 +214,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _clearKey
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -228,7 +228,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Boolean.TYPE, "_autoClean", "auto-clean", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -236,12 +236,12 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
                 return (target.getAutoClean() ? java.lang.Boolean.TRUE : java.lang.Boolean.FALSE);
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteAutoClean();
                         return;
@@ -260,7 +260,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _autoClean
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -274,14 +274,14 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
                 return target.getX733AlarmType();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -300,7 +300,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _x733AlarmType
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -315,7 +315,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_x733ProbableCause", "x733-probable-cause", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 AlarmData target = (AlarmData) object;
@@ -323,12 +323,12 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
                 return new java.lang.Integer(target.getX733ProbableCause());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     AlarmData target = (AlarmData) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteX733ProbableCause();
                         return;
@@ -347,7 +347,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _x733ProbableCause
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -359,7 +359,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -369,7 +369,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -380,7 +380,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -392,7 +392,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -403,7 +403,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -414,7 +414,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -426,7 +426,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -438,7 +438,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -449,7 +449,7 @@ public class AlarmDataDescriptor extends org.exolab.castor.xml.util.XMLClassDesc
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

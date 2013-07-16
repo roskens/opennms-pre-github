@@ -28,20 +28,20 @@
 
 package org.opennms.core.utils;
 /**
- * 
+ *
  * <p>
  * CommandBeanMockup class.
  * </p>
- * 
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  */
 public class CommandBeanMockup {
 	String script = "<script>foo</script>";
 	String htmlTable = "<table>";
 	int number = 1;
 	Boolean cool = false;
-	
+
 	public String getScript() {
 		return script;
 	}

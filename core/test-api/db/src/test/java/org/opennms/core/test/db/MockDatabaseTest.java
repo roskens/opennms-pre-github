@@ -70,21 +70,21 @@ public class MockDatabaseTest extends TestCase {
         // set the initial status to N as a test
         m_network.addService("HTTP").setMgmtStatus(SvcMgmtStatus.NOT_POLLED);
         m_network.addInterface("192.168.1.2");
-        
+
         m_db = new MockDatabase();
         m_db.populate(m_network);
-        
+
 
     }
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        
+
         m_db.drop();
         if (m_secondDb != null) m_secondDb.drop();
     }
-    
+
     public void testNodeQuery() {
         Querier querier = new Querier(m_db, "select * from node") {
             @Override
@@ -100,24 +100,24 @@ public class MockDatabaseTest extends TestCase {
         querier.execute();
         assertEquals(m_network.getNodeCount(), querier.getCount());
     }
-    
+
     public void testMultipleDatabases() throws Exception {
     		m_secondDb = new MockDatabase(m_db.getTestDatabase() + "_test2");
-    	
+
     		Querier secondQuerier = new Querier(m_secondDb, "select * from node");
     		secondQuerier.execute();
     		Querier querier = new Querier(m_db, "select * from node");
     		querier.execute();
     		assertFalse(secondQuerier.getCount() == querier.getCount());
-    		
+
     		MockNode node = m_network.getNode(1);
     		m_secondDb.writeNode(node);
     		secondQuerier = new Querier(m_secondDb, "select * from node");
     		secondQuerier.execute();
     		assertEquals(1, secondQuerier.getCount());
-    		
+
     }
-    
+
     public void testIFQuery() {
         Querier querier = new Querier(m_db, "select * from ipInterface") {
             @Override
@@ -133,7 +133,7 @@ public class MockDatabaseTest extends TestCase {
         querier.execute();
         assertEquals(m_network.getInterfaceCount(), querier.getCount());
     }
-    
+
     public void testServiceQuery() {
         Querier querier = new Querier(m_db, "select nodeId, ipAddr, ifServices.status as status, ifServices.serviceId as serviceId, service.serviceName as serviceName from ifServices, service where ifServices.serviceId = service.serviceId;") {
             @Override
@@ -155,18 +155,18 @@ public class MockDatabaseTest extends TestCase {
         querier.execute();
         assertEquals(m_network.getServiceCount(), querier.getCount());
     }
-    
+
     public void testCascade() {
         m_db.update("delete from node where nodeid = '1'");
         assertEquals(0, m_db.countRows("select * from node where nodeid = '1'"));
         assertEquals(0, m_db.countRows("select * from ipInterface where nodeid = '1'"));
         assertEquals(0, m_db.countRows("select * from ifServices where nodeid = '1'"));
     }
-    
+
     public void testOutage() {
         final MockService svc = m_network.getService(1, "192.168.1.1", "ICMP");
         Event svcLostEvent = MockEventUtil.createNodeLostServiceEvent("TEST", svc);
-        
+
         m_db.writeEvent(svcLostEvent);
         m_db.createOutage(svc, svcLostEvent);
         m_db.createOutage(svc, svcLostEvent);
@@ -184,23 +184,23 @@ public class MockDatabaseTest extends TestCase {
         };
         querier.execute();
         assertEquals(2, querier.getCount());
-        
+
     }
-    
+
     public void testUpdateNodeSequence() {
         int maxNodeId = m_db.getJdbcTemplate().queryForInt("select max(nodeid) from node");
         int nextSeqNum = m_db.getJdbcTemplate().queryForInt("select nextval('nodeNxtId')");
         assertTrue(nextSeqNum > maxNodeId);
-        
+
     }
-    
+
     public void testSetServiceStatus() {
         MockService svc = m_network.getService(1, "192.168.1.1", "SMTP");
         assertEquals('A', m_db.getServiceStatus(svc));
         m_db.setServiceStatus(svc, 'U');
         assertEquals('U', m_db.getServiceStatus(svc));
     }
-    
-    
+
+
 
 }

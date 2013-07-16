@@ -81,5 +81,5 @@ public class Filter{
 	protected void setTable(String table) {
 		this.table = table;
 	}
-	
+
 }

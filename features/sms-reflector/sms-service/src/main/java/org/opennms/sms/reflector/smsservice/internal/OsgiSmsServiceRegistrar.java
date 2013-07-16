@@ -53,19 +53,19 @@ public class OsgiSmsServiceRegistrar implements SmsServiceRegistrar, BundleConte
 	    ServiceRegistration<SmsService> registration = m_bundleContext.registerService(SmsService.class, service, null);
 	    m_registrationMap.put(service, registration);
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void unregisterSmsService(SmsService smsService) {
 	    ServiceRegistration<SmsService> registration = m_registrationMap.remove(smsService);
 	    registration.unregister();
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void setBundleContext(BundleContext bundleContext) {
 		m_bundleContext = bundleContext;
-		
+
 	}
 
 

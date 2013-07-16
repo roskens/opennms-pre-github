@@ -44,13 +44,13 @@ abstract public class RequestPdu extends TestPdu {
     }
 
     /*
-     * This simulates send a packet and waiting for a response. 
-     * 
+     * This simulates send a packet and waiting for a response.
+     *
      * This is a template method based on te getBulk algorithm. We use the getBulk
      * algorithm for get and nexts as well.  nonRepeaters for gets and nexts is always
      * equals to pdu size so there are no repeaters. maxRepitions is also always zero
      * for gets and nexts.
-     * 
+     *
      * The method getRespObjIdFromReqObjId which by default goes 'next' is overridden
      * and does 'get' in the GetPdu.
      */
@@ -66,18 +66,18 @@ abstract public class RequestPdu extends TestPdu {
                 SnmpObjId lastOid = varBind.getObjId();
                 TestVarBind newVarBind = getResponseVarBind(agent, lastOid, errIndex);
                 resp.addVarBind(newVarBind);
-                
+
                 // make sure we haven't exceeded response size
                 validateResponseSize(resp, agent);
             }
-            
+
             // make a list to track the repititions
             int repeaters = size() - nonRepeaters;
             List<SnmpObjId> repeaterList = new ArrayList<SnmpObjId>(repeaters);
             for(int i = nonRepeaters; i < size(); i++) {
                 repeaterList.add(getVarBindAt(i).getObjId());
             }
-            
+
             // now generate varbinds for the repeaters
             for(int count = 0; count < getMaxRepititions(); count++) {
                 for(int i = 0; i < repeaterList.size(); i++) {
@@ -86,7 +86,7 @@ abstract public class RequestPdu extends TestPdu {
                     TestVarBind newVarBind = getResponseVarBind(agent, lastOid, errIndex);
                     resp.addVarBind(newVarBind);
                     repeaterList.set(i, newVarBind.getObjId());
-                    
+
                     // make sure we haven't exceeded response size
                     validateResponseSize(resp, agent);
                 }

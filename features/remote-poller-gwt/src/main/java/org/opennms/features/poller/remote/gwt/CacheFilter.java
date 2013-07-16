@@ -75,7 +75,7 @@ public class CacheFilter implements Filter {
 		}
 		final HttpServletRequest request = (HttpServletRequest)req;
 		final HttpServletResponse response = (HttpServletResponse)resp;
-		
+
 		final String requestURI = request.getRequestURI();
 		if (requestURI.endsWith(".png") || requestURI.endsWith(".css")) {
 			final long today = new Date().getTime();

@@ -39,12 +39,12 @@ import org.opennms.features.poller.remote.gwt.client.GWTLatLng;
  * @since 1.8.1
  */
 public class BoundsBuilder {
-    
+
     Double neLat;
     Double neLng;
     Double swLat;
     Double swLng;
-    
+
     /**
      * <p>getBounds</p>
      *
@@ -53,11 +53,11 @@ public class BoundsBuilder {
     public GWTBounds getBounds() {
         return isEmpty() ? new GWTBounds(-90, -180, 90, 180) : new GWTBounds(swLat, swLng, neLat, neLng);
     }
-    
+
     private boolean isEmpty() {
         return neLat == null;
     }
-    
+
     /**
      * <p>extend</p>
      *
@@ -71,7 +71,7 @@ public class BoundsBuilder {
        } else {
            swLat = Math.min(swLat, lat);
            neLat = Math.max(neLat, lat);
-           
+
            if (!containsLongitude(lng)) {
                if (distanceEast(lng) < distanceWest(lng)) {
                    neLng = lng;
@@ -79,10 +79,10 @@ public class BoundsBuilder {
                    swLng = lng;
                }
            }
-           
+
        }
     }
-    
+
     /**
      * <p>extend</p>
      *
@@ -91,7 +91,7 @@ public class BoundsBuilder {
     public void extend(GWTLatLng coords) {
         extend(coords.getLatitude(), coords.getLongitude());
     }
-    
+
     private boolean containsLongitude(double lng) {
         if (swLng <= neLng) {
             return swLng <= lng && lng <= neLng;
@@ -101,7 +101,7 @@ public class BoundsBuilder {
     }
 
 
-    
+
     /**
      * <p>distanceEast</p>
      *
@@ -111,7 +111,7 @@ public class BoundsBuilder {
     public double distanceEast(double lng) {
         return lng > neLng ? lng - neLng : lng+360.0 - neLng;
     }
-    
+
     /**
      * <p>distanceWest</p>
      *

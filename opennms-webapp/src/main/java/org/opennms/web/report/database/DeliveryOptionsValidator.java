@@ -71,9 +71,9 @@ public class DeliveryOptionsValidator {
             messages.addMessage(new MessageBuilder().error().source("instanceId").
                                 defaultText("report instanceId is already in use").build());
         }
-        
+
     }
-    
+
     /**
      * <p>setReportSchedulerService</p>
      *

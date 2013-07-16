@@ -36,7 +36,7 @@ import org.junit.runners.Parameterized.Parameters;
 import org.opennms.core.test.xml.XmlTestNoCastor;
 
 public class VarbindsdecodeTest extends XmlTestNoCastor<Varbindsdecode> {
-	
+
 	public VarbindsdecodeTest(final Varbindsdecode sampleObject, final String sampleXml, final String schemaFile) {
 		super(sampleObject, sampleXml, schemaFile);
 	}
@@ -55,7 +55,7 @@ public class VarbindsdecodeTest extends XmlTestNoCastor<Varbindsdecode> {
 				"<parmid>parm[#1]</parmid>" +
 				"<decode varbinddecodedstring=\"testing\" varbindvalue=\"3\"/>" +
 				"</varbindsdecode>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 		});
 	}
 

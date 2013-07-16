@@ -45,7 +45,7 @@ import org.opennms.test.ThrowableAnticipator;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class TopNAttributeStatisticVisitorTest extends TestCase {
-    
+
     public void testAfterPropertiesSet() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
@@ -58,7 +58,7 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property count must be set to a non-null value"));
-        
+
         visitor.setCount(null);
 
         try {
@@ -73,24 +73,24 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         Map<OnmsAttribute, Double> attributes = new HashMap<OnmsAttribute, Double>();
         attributes.put(new MockAttribute("foo"), 0.0);
         new OnmsResource("1", "Node One", new MockResourceType(), attributes.keySet());
-        
+
         for (Entry<OnmsAttribute, Double> entry : attributes.entrySet()) {
             visitor.visit(entry.getKey(), entry.getValue());
         }
     }
-    
+
     public void testVisitWithNull() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("attribute argument must not be null"));
-        
+
         try {
             visitor.visit(null, 0.0);
         } catch (Throwable t) {
@@ -98,16 +98,16 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testVisitGetResults() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         Map<OnmsAttribute, Double> attributes = new HashMap<OnmsAttribute, Double>();
         attributes.put(new MockAttribute("foo"), 0.0);
         new OnmsResource("1", "Node One", new MockResourceType(), attributes.keySet());
-        
+
         for (Entry<OnmsAttribute, Double> entry : attributes.entrySet()) {
             visitor.visit(entry.getKey(), entry.getValue());
         }
@@ -115,76 +115,76 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         SortedSet<AttributeStatistic> top = visitor.getResults();
         assertNotNull("topN list should not be null", top);
         assertEquals("topN list size", 1, top.size());
-        
+
         int i = 0;
-        for (AttributeStatistic stat : top) { 
+        for (AttributeStatistic stat : top) {
             assertEquals("topN[" + i + "] value", 0.0, stat.getStatistic());
         }
     }
-    
+
     public void testVisitGetResultsSameValue() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         Map<OnmsAttribute, Double> attributes = new HashMap<OnmsAttribute, Double>();
         for (int i = 0; i < 5; i++) {
             attributes.put(new MockAttribute("foo"), 0.0);
         }
         new OnmsResource("1", "Node One", new MockResourceType(), attributes.keySet());
-        
+
         for (Entry<OnmsAttribute, Double> entry : attributes.entrySet()) {
             visitor.visit(entry.getKey(), entry.getValue());
         }
-        
+
         SortedSet<AttributeStatistic> top = visitor.getResults();
         assertNotNull("topN list should not be null", top);
         assertEquals("topN list size", 5, top.size());
 
         int i = 0;
-        for (AttributeStatistic stat : top) { 
+        for (AttributeStatistic stat : top) {
             assertEquals("topN[" + i + "] value", 0.0, stat.getStatistic());
             i++;
         }
     }
-    
+
     public void testVisitGetResultsDifferentValues() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         Map<OnmsAttribute, Double> attributes = new HashMap<OnmsAttribute, Double>();
         for (int i = 0; i < 5; i++) {
             attributes.put(new MockAttribute("foo"), 0.0 + i);
         }
         new OnmsResource("1", "Node One", new MockResourceType(), attributes.keySet());
-        
+
         for (Entry<OnmsAttribute, Double> entry : attributes.entrySet()) {
             visitor.visit(entry.getKey(), entry.getValue());
         }
-        
+
         SortedSet<AttributeStatistic> top = visitor.getResults();
         assertNotNull("topN list should not be null", top);
         assertEquals("topN list size", 5, top.size());
 
         int i = 0;
-        for (AttributeStatistic stat : top) { 
+        for (AttributeStatistic stat : top) {
             assertEquals("topN[" + i + "] value", 4.0 - i, stat.getStatistic());
             i++;
         }
     }
-    
+
     public void testVisitGetResultsLimitedByCount() throws Exception {
         BottomNAttributeStatisticVisitor visitor = new TopNAttributeStatisticVisitor();
         visitor.setCount(20);
         visitor.afterPropertiesSet();
-        
+
         Map<OnmsAttribute, Double> attributes = new HashMap<OnmsAttribute, Double>();
         for (int i = 0; i < 100; i++) {
             attributes.put(new MockAttribute("foo"), 0.0 + i);
         }
         new OnmsResource("1", "Node One", new MockResourceType(), attributes.keySet());
-        
+
         for (Entry<OnmsAttribute, Double> entry : attributes.entrySet()) {
             visitor.visit(entry.getKey(), entry.getValue());
         }
@@ -194,21 +194,21 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         assertEquals("topN list size", 20, top.size());
 
         int i = 0;
-        for (AttributeStatistic stat : top) { 
+        for (AttributeStatistic stat : top) {
             assertEquals("topN[" + i + "] value", 99.0 - i, stat.getStatistic());
             i++;
         }
     }
-    
-    
+
+
     public class MockAttribute implements OnmsAttribute {
         private String m_name;
         private OnmsResource m_resource;
-        
+
         public MockAttribute(String name) {
             m_name = name;
         }
-        
+
         /**
          * @see org.opennms.netmgt.model.OnmsAttribute#getName()
          */
@@ -232,6 +232,6 @@ public class TopNAttributeStatisticVisitorTest extends TestCase {
         public void setResource(OnmsResource resource) {
             m_resource = resource;
         }
-        
+
     }
 }

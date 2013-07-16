@@ -77,7 +77,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     private static final Comparator<OnmsIpInterface> IP_INTERFACE_COMPARATOR = new IpInterfaceComparator();
     private static final Comparator<OnmsArpInterface> ARP_INTERFACE_COMPARATOR = new ArpInterfaceComparator();
     private static final Comparator<OnmsSnmpInterface> SNMP_INTERFACE_COMPARATOR = new SnmpInterfaceComparator();
-    
+
     private NodeDao m_nodeDao;
     private CategoryDao m_categoryDao;
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
@@ -86,13 +86,13 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     @Override
     public NodeListModel createNodeList(NodeListCommand command) {
         Collection<OnmsNode> onmsNodes = null;
-        
+
         /*
          * All search queries can be done solely with
          * criteria, so we build a common criteria object with common
          * restrictions and sort options.  Each specific search query
          * adds its own crtieria restrictions (if any).
-         * 
+         *
          * A set of booleans is maintained for aliases that might be
          * added in muliple places to ensure we don't add the same alias
          * multiple times.
@@ -103,7 +103,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
 
         // Add additional criteria based on the command object
         addCriteriaForCommand(criteria, command);
-            
+
         criteria.addOrder(Order.asc("node.label"));
         onmsNodes = m_nodeDao.findMatching(criteria);
 
@@ -111,7 +111,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             AggregateStatus as = new AggregateStatus(onmsNodes);
             onmsNodes = as.getDownNodes();
         }
-        
+
         return createModelForNodes(command, onmsNodes);
     }
 
@@ -175,19 +175,19 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         criteria.add(Restrictions.isNull("currentOutages.ifRegainedService"));
         criteria.add(Restrictions.or(Restrictions.isNull("currentOutages.suppressTime"), Restrictions.lt("currentOutages.suppressTime", new Date())));
         */
-        
-        // This SQL restriction does work fine, however 
+
+        // This SQL restriction does work fine, however
         criteria.add(Restrictions.sqlRestriction("{alias}.nodeId in (select o.nodeId from outages o where o.ifregainedservice is null and o.suppresstime is null or o.suppresstime < now())"));
     }
 
     private void addCriteriaForNodename(OnmsCriteria criteria, String nodeName) {
         criteria.add(Restrictions.ilike("node.label", nodeName, MatchMode.ANYWHERE));
     }
-    
+
     private void addCriteriaForNodeId(OnmsCriteria criteria, int nodeId) {
         criteria.add(Restrictions.idEq(nodeId));
     }
-    
+
     private void addCriteriaForForeignSource(OnmsCriteria criteria, String foreignSource) {
         criteria.add(Restrictions.ilike("node.foreignSource", foreignSource, MatchMode.ANYWHERE));
     }
@@ -195,10 +195,10 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
     private void addCriteriaForIpLike(OnmsCriteria criteria, String iplike) {
         OnmsCriteria ipInterface = criteria.createCriteria("node.ipInterfaces", "ipInterface");
         ipInterface.add(Restrictions.ne("isManaged", "D"));
-        
+
         ipInterface.add(OnmsRestrictions.ipLike(iplike));
     }
-    
+
 
     private void addCriteriaForService(OnmsCriteria criteria, int serviceId) {
         criteria.createAlias("node.ipInterfaces", "ipInterface");
@@ -212,19 +212,19 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
 
     private void addCriteriaForMaclike(OnmsCriteria criteria, String macLike) {
         String macLikeStripped = macLike.replaceAll("[:-]", "");
-        
+
         criteria.createAlias("node.snmpInterfaces", "snmpInterface", OnmsCriteria.LEFT_JOIN);
         criteria.createAlias("node.arpInterfaces", "arpInterface", OnmsCriteria.LEFT_JOIN);
         Disjunction physAddrDisjunction = Restrictions.disjunction();
         physAddrDisjunction.add(Restrictions.ilike("snmpInterface.physAddr", macLikeStripped, MatchMode.ANYWHERE));
         physAddrDisjunction.add(Restrictions.ilike("arpInterface.physAddr", macLikeStripped, MatchMode.ANYWHERE));
         criteria.add(physAddrDisjunction);
-  
-        // This is an alternative to the above code if we need to use the out-of-the-box DetachedCriteria which doesn't let us specify the join type 
+
+        // This is an alternative to the above code if we need to use the out-of-the-box DetachedCriteria which doesn't let us specify the join type
         /*
         String propertyName = "nodeId";
         String value = "%" + macLikeStripped + "%";
-        
+
         Disjunction physAddrDisjuction = Restrictions.disjunction();
         physAddrDisjuction.add(Restrictions.sqlRestriction("{alias}." + propertyName + " IN (SELECT nodeid FROM snmpinterface WHERE snmpphysaddr LIKE ? )", value, new StringType()));
         physAddrDisjuction.add(Restrictions.sqlRestriction("{alias}." + propertyName + " IN (SELECT nodeid FROM atinterface WHERE atphysaddr LIKE ? )", value, new StringType()));
@@ -247,7 +247,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                 }
             }
         }
-        
+
         int categoryCount = 0;
         for (String[] categoryStrings : categories) {
             OnmsCriteria categoriesCriteria = criteria.createCriteria("categories", "category" + categoryCount++);
@@ -255,26 +255,26 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         }
     }
     */
-    
+
     private void addCriteriaForCategories(OnmsCriteria criteria, String[]... categories) {
         Assert.notNull(criteria, "criteria argument must not be null");
-        
+
         for (Criterion criterion : m_categoryDao.getCriterionForCategorySetsUnion(categories)) {
             criteria.add(criterion);
         }
     }
-        
+
     private void addCriteriaForSiteStatusView(OnmsCriteria criteria, String statusViewName, String statusSite, String rowLabel) {
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
         RowDef rowDef = getRowDef(view, rowLabel);
         Set<String> categoryNames = getCategoryNamesForRowDef(rowDef);
-        
+
         addCriteriaForCategories(criteria, categoryNames.toArray(new String[categoryNames.size()]));
-        
+
         String sql = "{alias}.nodeId in (select nodeId from assets where " + view.getColumnName() + " = ?)";
         criteria.add(Restrictions.sqlRestriction(sql, statusSite, new StringType()));
     }
-    
+
 
     private RowDef getRowDef(View view, String rowLabel) {
         Rows rows = view.getRows();
@@ -284,13 +284,13 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                 return rowDef;
             }
         }
-        
+
         throw new DataRetrievalFailureException("Unable to locate row: "+rowLabel+" for status view: "+view.getName());
     }
-    
+
     private Set<String> getCategoryNamesForRowDef(RowDef rowDef) {
         Set<String> categories = new LinkedHashSet<String>();
-        
+
         List<Category> cats = rowDef.getCategoryCollection();
         for (Category cat : cats) {
             categories.add(cat.getName());
@@ -370,7 +370,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                     }
                 }
             }
-            
+
             Collections.sort(displayInterfaces, IP_INTERFACE_COMPARATOR);
             Collections.sort(displayArpInterfaces, ARP_INTERFACE_COMPARATOR);
             Collections.sort(displaySnmpInterfaces, SNMP_INTERFACE_COMPARATOR);
@@ -383,8 +383,8 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
 
         return new NodeListModel(displayNodes, interfaceCount);
     }
-    
-    
+
+
 
     /**
      * <p>getCategoryDao</p>
@@ -452,10 +452,10 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
         Assert.state(m_categoryDao != null, "categoryDao property cannot be null");
         Assert.state(m_siteStatusViewConfigDao != null, "siteStatusViewConfigDao property cannot be null");
     }
-    
+
     public static class IpInterfaceComparator implements Comparator<OnmsIpInterface>, Serializable {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 1538654897829381114L;
 
@@ -476,7 +476,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                     return 1;
                 }
             }
-            
+
             // If we don't have an SNMP interface for both, compare by ID
             if (o1.getSnmpInterface() == null || o2.getSnmpInterface() == null) {
                 // List interfaces without SNMP interface first
@@ -497,7 +497,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             } else if ((diff = o1.getSnmpInterface().getIfName().compareTo(o2.getSnmpInterface().getIfName())) != 0) {
                 return diff;
             }
-            
+
             // Sort by ifDescr
             if (o1.getSnmpInterface().getIfDescr() == null || o2.getSnmpInterface().getIfDescr() == null) {
                 if (o1.getSnmpInterface().getIfDescr() != null) {
@@ -508,7 +508,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             } else if ((diff = o1.getSnmpInterface().getIfDescr().compareTo(o2.getSnmpInterface().getIfDescr())) != 0) {
                 return diff;
             }
-            
+
             // Sort by ifIndex
             if ((diff = o1.getSnmpInterface().getIfIndex().compareTo(o2.getSnmpInterface().getIfIndex())) != 0) {
                 return diff;
@@ -524,14 +524,14 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
      */
     public static class SnmpInterfaceComparator implements Comparator<OnmsSnmpInterface>, Serializable {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 3751865611949289845L;
 
         @Override
         public int compare(OnmsSnmpInterface o1, OnmsSnmpInterface o2) {
             int diff;
-            
+
             // Sort by ifName
             if (o1.getIfName() == null || o2.getIfName() == null) {
                 if (o1.getIfName() != null) {
@@ -542,7 +542,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             } else if ((diff = o1.getIfName().compareTo(o2.getIfName())) != 0) {
                 return diff;
             }
-            
+
             // Sort by ifDescr
             if (o1.getIfDescr() == null || o2.getIfDescr() == null) {
                 if (o1.getIfDescr() != null) {
@@ -553,7 +553,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             } else if ((diff = o1.getIfDescr().compareTo(o2.getIfDescr())) != 0) {
                 return diff;
             }
-            
+
             // Sort by ifIndex
             if ((diff = o1.getIfIndex().compareTo(o2.getIfIndex())) != 0) {
                 return diff;
@@ -583,7 +583,7 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
                     return 1;
                 }
             }
-            
+
             // Sort by mac address
             if (o1.getPhysAddr() == null || o2.getPhysAddr() == null) {
                 if (o1.getPhysAddr() != null) {
@@ -594,10 +594,10 @@ public class DefaultNodeListService implements NodeListService, InitializingBean
             } else if ((diff = o1.getPhysAddr().compareTo(o2.getPhysAddr())) != 0) {
                 return diff;
             }
-            
+
             // Fallback to id
             return o1.getId().compareTo(o2.getId());
         }
-        
+
     }
 }

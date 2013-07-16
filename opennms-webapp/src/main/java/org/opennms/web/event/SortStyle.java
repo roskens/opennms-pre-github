@@ -58,17 +58,17 @@ public enum SortStyle {
 
     /** Constant <code>m_sortStylesString</code> */
     private static final Map<String, SortStyle> m_sortStylesString;
-    
+
     private String m_shortName;
-    
+
     static {
         m_sortStylesString = new HashMap<String, SortStyle>();
         for (SortStyle sortStyle : SortStyle.values()) {
             m_sortStylesString.put(sortStyle.getShortName(), sortStyle);
-            
+
         }
     }
-    
+
     private SortStyle(String shortName) {
         m_shortName = shortName;
     }
@@ -121,68 +121,68 @@ public enum SortStyle {
      */
     protected String getOrderByClause() {
         String clause = null;
-    
+
         switch (this) {
         case SEVERITY:
             clause = " ORDER BY EVENTSEVERITY DESC";
             break;
-    
+
         case REVERSE_SEVERITY:
             clause = " ORDER BY EVENTSEVERITY ASC";
             break;
-    
+
         case TIME:
             clause = " ORDER BY EVENTTIME DESC";
             break;
-    
+
         case REVERSE_TIME:
             clause = " ORDER BY EVENTTIME ASC";
             break;
-    
+
         case NODE:
             clause = " ORDER BY NODELABEL ASC";
             break;
-    
+
         case REVERSE_NODE:
             clause = " ORDER BY NODELABEL DESC";
             break;
-    
+
         case INTERFACE:
             clause = " ORDER BY IPADDR ASC";
             break;
-    
+
         case REVERSE_INTERFACE:
             clause = " ORDER BY IPADDR DESC";
             break;
-    
+
         case SERVICE:
             clause = " ORDER BY SERVICENAME ASC";
             break;
-    
+
         case REVERSE_SERVICE:
             clause = " ORDER BY SERVICENAME DESC";
             break;
-    
+
         case POLLER:
             clause = " ORDER BY EVENTDPNAME ASC";
             break;
-    
+
         case REVERSE_POLLER:
             clause = " ORDER BY EVENTDPNAME DESC";
             break;
-    
+
         case ID:
             clause = " ORDER BY EVENTID DESC";
             break;
-    
+
         case REVERSE_ID:
             clause = " ORDER BY EVENTID ASC";
             break;
-    
+
         default:
             throw new IllegalArgumentException("Unknown SortStyle: " + this);
         }
-    
+
         return clause;
     }
 }

@@ -62,7 +62,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
 	public SmsSequenceRequest(String label, String text) {
 		super(label, text);
 	}
-	
+
 	/**
 	 * <p>Constructor for SmsSequenceRequest.</p>
 	 *
@@ -83,7 +83,7 @@ public class SmsSequenceRequest extends MobileSequenceRequest {
 	public String getRecipient() {
 		return m_recipient;
 	}
-	
+
 	/**
 	 * <p>setRecipient</p>
 	 *

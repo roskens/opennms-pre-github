@@ -46,7 +46,7 @@ public class StringRegexpValidator implements Validator {
 
 	/**
 	 * The regexp used to validate.
-	 * 
+	 *
 	 * @return String regexp
 	 */
 	public String getRegexp() {
@@ -56,7 +56,7 @@ public class StringRegexpValidator implements Validator {
 	/**
 	 * Validates length of a String against a maximum. Validation will run
 	 * against <code>(String) object</code> so make sure to use a proper object.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

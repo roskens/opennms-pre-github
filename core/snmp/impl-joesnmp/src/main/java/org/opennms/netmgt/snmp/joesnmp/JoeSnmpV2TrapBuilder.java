@@ -40,12 +40,12 @@ import org.opennms.protocols.snmp.SnmpVarBind;
 public class JoeSnmpV2TrapBuilder implements SnmpTrapBuilder {
 
     SnmpPduRequest m_pdu;
-    
+
     public JoeSnmpV2TrapBuilder() {
         m_pdu = new SnmpPduRequest(SnmpPduPacket.V2TRAP);
         m_pdu.setRequestId(SnmpPduPacket.nextSequence());
     }
-    
+
     @Override
     public void send(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.send(destAddr, destPort, community, m_pdu);
@@ -55,7 +55,7 @@ public class JoeSnmpV2TrapBuilder implements SnmpTrapBuilder {
     public void sendTest(String destAddr, int destPort, String community) throws Exception {
         JoeSnmpStrategy.sendTest(destAddr, destPort, community, m_pdu);
     }
-    
+
     @Override
     public void addVarBind(SnmpObjId name, SnmpValue value) {
         SnmpSyntax val = ((JoeSnmpValue) value).getSnmpSyntax();

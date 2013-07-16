@@ -55,5 +55,5 @@ public class InstallerIpLikeTest {
     	String[] args = {"-d", "-i", "-s", "-Z" };
     	m_installer.install(args);
     }
-    
+
 }

@@ -141,7 +141,7 @@ public class ExportAssetsServlet extends HttpServlet {
                 "Longitude",
                 "Latitude"
         };
-        
+
         out.writeNext(header);
 
         // print a single line for each asset
@@ -211,7 +211,7 @@ public class ExportAssetsServlet extends HttpServlet {
             entries.add(asset.getCountry());
             entries.add(asset.getLongitude());
             entries.add(asset.getLatitude());
-            
+
             out.writeNext(entries.toArray(new String[0]));
         }
 

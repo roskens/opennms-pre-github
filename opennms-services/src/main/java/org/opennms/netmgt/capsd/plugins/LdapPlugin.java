@@ -111,12 +111,12 @@ public class LdapPlugin extends AbstractPlugin {
      * true is returned from the method. Otherwise a false value is returned to
      * the caller.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to connect to.
      * @param port
      *            The remote port to connect to.
-     * 
+     *
      * @return True if server supports HTTP on the specified port, false
      *         otherwise
      */

@@ -61,7 +61,7 @@ public class Code {
 			charCode = kP_Event.getUnicodeCharCode();
 		} else if (kD_Event != null){
 			temp = keyCode = kD_Event.getNativeKeyCode();
-		} 
+		}
 		isFunctionKey = false;
 		for (int k : keyCodes){
 			if (temp == k) {
@@ -70,31 +70,31 @@ public class Code {
 			}
 		}
 	}
-	
+
 	public int getCharCode() {
 		return charCode;
 	}
-	
+
 	public int getKeyCode() {
 		return keyCode;
 	}
-	
+
 	public boolean isCtrlDown() {
 		return isCtrlDown;
 	}
-	
+
 	public boolean isAltDown() {
 		return isAltDown;
 	}
-	
+
 	public boolean isShiftDown() {
 		return isShiftDown;
 	}
-	
+
 	public boolean isFunctionKey() {
 		return isFunctionKey;
 	}
-	
+
 	public boolean isControlKey() {
 		return (getKeyCode() >= 16 && getKeyCode() <= 18);
 	}

@@ -46,7 +46,7 @@ public class StringMaxLengthValidator implements Validator {
 
 	/**
 	 * The defined maximum for a valid string length.
-	 * 
+	 *
 	 * @return int maxLength
 	 */
 	public int getMaxLength() {
@@ -56,7 +56,7 @@ public class StringMaxLengthValidator implements Validator {
 	/**
 	 * Validates length of a String against a maximum. Validation will run
 	 * against <code>(String) object</code> so make sure to use a proper object.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

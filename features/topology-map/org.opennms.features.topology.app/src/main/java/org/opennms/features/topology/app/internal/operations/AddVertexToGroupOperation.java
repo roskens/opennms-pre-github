@@ -65,7 +65,7 @@ import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
 
 public class AddVertexToGroupOperation implements Constants, Operation {
-	
+
 	private static Collection<Vertex> findGroups(GraphProvider provider, Collection<Vertex> vertices) {
 		final Collection<Vertex> groups = new ArrayList<Vertex>();
 		for (Vertex vertex : vertices) {
@@ -77,10 +77,10 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 		}
 		return groups;
 	}
-	
+
 	/**
-	 * This method returns all vertices which should be considered as a target. 
-	 * 
+	 * This method returns all vertices which should be considered as a target.
+	 *
 	 * The returned List is created as follows:
 	 * <ul>
 	 *     <li>If the target is selected, than all selected vertices including the target are ŕeturned.</li>
@@ -94,7 +94,7 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 	    if (!selectionManager.isVertexRefSelected(target)) return Arrays.asList(target);
 	    return new ArrayList<VertexRef>(selectionManager.getSelectedVertexRefs());
 	}
-	
+
 	/**
 	 * This method removes all children of the given selection. This is necessary, because if a group is selected, we only want
 	 * this group to be added to the group. We do not want the children of the group to be added to the target as well.
@@ -119,7 +119,7 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 	@Override
 	public Undoer execute(List<VertexRef> targets, final OperationContext operationContext) {
 	    if (targets == null || targets.isEmpty()) return null;
-	    
+
 		final Logger log = LoggerFactory.getLogger(this.getClass());
 		final GraphContainer graphContainer = operationContext.getGraphContainer();
 
@@ -162,10 +162,10 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 					        if (isValid(value)) return;
 					        throw new InvalidValueException(String.format("You cannot add group '%s' to itself.", select.getItemCaption(value)));
 					    };
-					    
+
 			            /**
 			             * Ensures that if only one element is selected that this element cannot be added to itself.
-			             * If there are more than one elements selected, we assume as valid. 
+			             * If there are more than one elements selected, we assume as valid.
 			             */
 			            private boolean isValid(Object value) {
 			                if (vertices.size() > 1) return true; // more than 1 -> assume valid
@@ -242,7 +242,7 @@ public class AddVertexToGroupOperation implements Constants, Operation {
 				window.removeWindow(groupNamePrompt); // Close the prompt window
 			}
 		});
-		
+
 		promptForm.setFooter(new HorizontalLayout());
 		promptForm.getFooter().addComponent(ok);
 		promptForm.getFooter().addComponent(cancel);

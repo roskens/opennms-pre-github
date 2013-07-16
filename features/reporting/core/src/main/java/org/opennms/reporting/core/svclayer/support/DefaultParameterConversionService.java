@@ -52,13 +52,13 @@ public class DefaultParameterConversionService implements
     public ReportParameters convert(Parameters configParameters) {
 
         ReportParameters reportParameters = new ReportParameters();
-        
+
         if (configParameters == null) {
             return reportParameters;
         }
-        
+
         // add date parms to criteria
-        
+
         ArrayList<ReportDateParm> dateParms = new ArrayList<ReportDateParm>();
         DateParm[] dates = configParameters.getDateParm();
         if (dates.length > 0) {
@@ -84,7 +84,7 @@ public class DefaultParameterConversionService implements
                 int amount = 0 - dates[i].getDefaultCount();
                 if (dates[i].getDefaultInterval().equals("year")) {
                     cal.add(Calendar.YEAR, amount);
-                } else { 
+                } else {
                     if (dates[i].getDefaultInterval().equals("month")) {
                         cal.add(Calendar.MONTH, amount);
                     } else {
@@ -96,9 +96,9 @@ public class DefaultParameterConversionService implements
             }
         }
         reportParameters.setDateParms(dateParms);
-        
+
         // add string parms to criteria
-        
+
         ArrayList<ReportStringParm> stringParms = new ArrayList<ReportStringParm>();
         StringParm[] strings = configParameters.getStringParm();
         if (strings.length > 0) {
@@ -112,9 +112,9 @@ public class DefaultParameterConversionService implements
             }
         }
         reportParameters.setStringParms(stringParms);
-        
+
         // add int parms to criteria
-        
+
         ArrayList<ReportIntParm> intParms = new ArrayList<ReportIntParm>();
         IntParm[] integers = configParameters.getIntParm();
         if (integers.length > 0) {

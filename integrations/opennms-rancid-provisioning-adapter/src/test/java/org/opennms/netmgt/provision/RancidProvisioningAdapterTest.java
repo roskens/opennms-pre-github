@@ -66,13 +66,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class RancidProvisioningAdapterTest implements InitializingBean {
     @Autowired
     private RancidProvisioningAdapter m_adapter;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
 
     private AdapterOperation m_addOperation;
     private AdapterOperation m_deleteOperation;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -112,7 +112,7 @@ public class RancidProvisioningAdapterTest implements InitializingBean {
         m_adapter.processPendingOperationForNode(m_addOperation);
         Thread.sleep(3000);
     }
-    
+
     /**
      * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
      * for simulated RANCID REST operations.

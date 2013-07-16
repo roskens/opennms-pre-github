@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class NotificationModel extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NotificationModel.class);
 
     private static final String USERID = "userID";
@@ -97,7 +97,7 @@ public class NotificationModel extends Object {
 
     private static final String USER_OUTSTANDING_COUNT = "SELECT COUNT(notifyid) AS TOTAL FROM NOTIFICATIONS WHERE (respondTime is NULL) AND notifications.notifyid in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)";
 
-    
+
 
     /**
      * <p>getNoticeInfo</p>
@@ -183,7 +183,7 @@ public class NotificationModel extends Object {
     public Notification[] allNotifications() throws SQLException {
     	return this.allNotifications(null);
     }
-    
+
     /**
      * Return all notifications, both outstanding and acknowledged.
      *
@@ -209,7 +209,7 @@ public class NotificationModel extends Object {
             	}
             }
             query += ";";
-            
+
             ResultSet rs = stmt.executeQuery(query);
             notices = rs2NotifyBean(conn, rs);
 
@@ -229,11 +229,11 @@ public class NotificationModel extends Object {
         if (id == null) {
             return null;
         }
-        
+
         String serviceName = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
-        
+
         try {
             ps = conn.prepareStatement("SELECT servicename from service where serviceid = ?");
             ps.setInt(1, id);
@@ -278,7 +278,7 @@ public class NotificationModel extends Object {
     protected Notification[] rs2NotifyBean(Connection conn, ResultSet rs) throws SQLException {
         Notification[] notices = null;
         Vector<Notification> vector = new Vector<Notification>();
-        
+
         try {
 
             while (rs.next()) {

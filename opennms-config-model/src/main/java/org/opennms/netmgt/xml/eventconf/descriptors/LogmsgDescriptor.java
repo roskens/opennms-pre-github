@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Logmsg;
 
 /**
  * Class LogmsgDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -96,14 +96,14 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Logmsg target = (Logmsg) object;
                 return target.getContent();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -121,7 +121,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setSchemaType("string");
         desc.setHandler(handler);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _content
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -132,12 +132,12 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         }
         desc.setValidator(fieldValidator);
         //-- initialize attribute descriptors
-        
+
         //-- _notify
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Boolean.TYPE, "_notify", "notify", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Logmsg target = (Logmsg) object;
@@ -145,12 +145,12 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
                 return (target.getNotify() ? java.lang.Boolean.TRUE : java.lang.Boolean.FALSE);
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Logmsg target = (Logmsg) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteNotify();
                         return;
@@ -169,7 +169,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _notify
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -183,14 +183,14 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Logmsg target = (Logmsg) object;
                 return target.getDest();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -209,7 +209,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _dest
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -221,7 +221,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -231,7 +231,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -242,7 +242,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -254,7 +254,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -265,7 +265,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -276,7 +276,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -288,7 +288,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -300,7 +300,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -311,7 +311,7 @@ public class LogmsgDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

@@ -31,7 +31,7 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
 /**
  * Meta interface to address all properties of an ConfigModel bean in vaadin
  * framework. In this way we do not need use strings!
- * 
+ *
  * @author Markus von Rüden
  * @see ServiceConfig
  */

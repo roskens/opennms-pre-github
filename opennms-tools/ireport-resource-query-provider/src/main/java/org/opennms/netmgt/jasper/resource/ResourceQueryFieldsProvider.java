@@ -54,19 +54,19 @@ public class ResourceQueryFieldsProvider implements FieldsProvider{
 
     public JRField[] getFields(IReportConnection irConn, JRDataset reportDataset, Map parameters) throws JRException, UnsupportedOperationException {
         String query = "";
-        
+
         if(reportDataset.getQuery() == null || reportDataset.getQuery().getText() == null || reportDataset.getQuery().getText().length() == 0) {
             return new JRField[0];
         }
-        
+
         List<JRField> fields = new ArrayList<JRField>();
         query = reportDataset.getQuery().getText();
-        
+
         addPathColumn(fields);
         if(query.contains("--dsName")) {
             String[] splitDsNames = query.split("--dsName");
             String dsNames = splitDsNames[splitDsNames.length - 1];
-            String[] dsNameList = checkForCommandsAndTrim(dsNames).split(","); 
+            String[] dsNameList = checkForCommandsAndTrim(dsNames).split(",");
             for(String ds : dsNameList) {
                 JRDesignField field = new JRDesignField();
                 field.setName(ds.trim());
@@ -75,11 +75,11 @@ public class ResourceQueryFieldsProvider implements FieldsProvider{
                 fields.add(field);
             }
         }
-        
+
         if(query.contains("--string")) {
             String[] splitStrProps = query.split("--string");
             String strProp = splitStrProps[splitStrProps.length - 1];
-            String[] strPropList = checkForCommandsAndTrim(strProp).split(","); 
+            String[] strPropList = checkForCommandsAndTrim(strProp).split(",");
             for(String prop : strPropList) {
                 JRDesignField field = new JRDesignField();
                 field.setName(prop.trim());
@@ -88,9 +88,9 @@ public class ResourceQueryFieldsProvider implements FieldsProvider{
                 fields.add(field);
             }
         }
-        
+
         return fields.toArray(new JRField[fields.size()]);
-        
+
     }
 
     private String checkForCommandsAndTrim(String str) {
@@ -98,7 +98,7 @@ public class ResourceQueryFieldsProvider implements FieldsProvider{
             String[] splitStr = str.split("--");
             return splitStr[0];
         }
-        
+
         return str;
     }
 

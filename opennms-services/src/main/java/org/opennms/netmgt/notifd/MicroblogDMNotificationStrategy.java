@@ -48,7 +48,7 @@ import twitter4j.TwitterException;
  */
 public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(MicroblogDMNotificationStrategy.class);
-    
+
     /**
      * <p>Constructor for MicroblogDMNotificationStrategy.</p>
      *
@@ -57,7 +57,7 @@ public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrate
     public MicroblogDMNotificationStrategy() throws IOException {
         super();
     }
-    
+
     /**
      * <p>Constructor for MicroblogDMNotificationStrategy.</p>
      *
@@ -66,7 +66,7 @@ public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrate
     public MicroblogDMNotificationStrategy(Resource configResource) {
         super(configResource);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int send(List<Argument> arguments) {
@@ -78,13 +78,13 @@ public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrate
             LOG.error("Cannot send a microblog DM notice to a user with no microblog username set. Either set a microblog username for this OpenNMS user or use the MicroblogUpdateNotificationStrategy instead.");
             return 1;
         }
-        
+
         // In case the user tried to be helpful, avoid a double @@
         if (destUser.startsWith("@"))
             destUser = destUser.substring(1);
-        
+
         String fullMessage = buildMessageBody(arguments);
-        
+
         LOG.debug("Dispatching microblog DM notification for user '{}' at base URL '{}' with destination user '{}' and message '{}'", svc.getUserId(), svc.getBaseURL(), destUser, fullMessage);
         try {
             response = svc.sendDirectMessage(destUser, fullMessage);
@@ -93,7 +93,7 @@ public class MicroblogDMNotificationStrategy extends MicroblogNotificationStrate
             LOG.info("Failed to send DM for user '{}' at service URL '{}' to destination user '{}', caught exception", svc.getUserId(), svc.getBaseURL(), destUser, e);
             return 1;
         }
-        
+
         LOG.info("Microblog DM notification succeeded: DM sent with ID {}", response.getId());
         return 0;
     }

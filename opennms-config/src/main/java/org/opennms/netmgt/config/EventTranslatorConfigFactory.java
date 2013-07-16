@@ -94,7 +94,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
     private EventTranslatorConfiguration m_config;
 
 	private List<TranslationSpec> m_translationSpecs;
-	
+
     /**
      * This member is set to true if the configuration file has been loaded.
      */
@@ -105,17 +105,17 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      */
 	private DataSource m_dbConnFactory = null;
 
-    
+
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * 
+     *
      */
     private EventTranslatorConfigFactory(String configFile, DataSource dbConnFactory) throws IOException, MarshalException, ValidationException {
         InputStream stream = null;
@@ -145,7 +145,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         m_config = CastorUtils.unmarshal(EventTranslatorConfiguration.class, stream);
         m_dbConnFactory = dbConnFactory;
     }
-    
+
     private synchronized void unmarshall(InputStream stream) throws MarshalException, ValidationException {
         unmarshall(stream, null);
     }
@@ -157,12 +157,12 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
      */
     @Override
     public void update() throws Exception  {
-        
+
         synchronized (this) {
-            
+
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
             InputStream stream = null;
-            
+
             try {
                 stream = new FileInputStream(cfgFile);
                 unmarshall(stream);
@@ -171,7 +171,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
                     IOUtils.closeQuietly(stream);
                 }
             }
-            
+
         }
     }
 
@@ -198,7 +198,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             // to reload, reload() will need to be called
             return;
         }
-        
+
         DataSourceFactory.init();
 
         File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.TRANSLATOR_CONFIG_FILE_NAME);
@@ -230,7 +230,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
         init();
     }
-    
+
     /**
      * Return the singleton instance of this factory.
      *
@@ -254,16 +254,16 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		m_singleton=singleton;
 		m_loaded=true;
 	}
-	
+
     /**
      * Return the PassiveStatus configuration.
-     * 
+     *
      * @return the PassiveStatus configuration
      */
     private synchronized EventTranslatorConfiguration getConfig() {
         return m_config;
     }
-    
+
 
     /*
      *  (non-Javadoc)
@@ -283,14 +283,14 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		Translation translation = getConfig().getTranslation();
 		if (translation == null)
 			return Collections.emptyList();
-		
+
 		List<String> ueis = new ArrayList<String>();
 		for (EventTranslationSpec event : translation.getEventTranslationSpecCollection()) {
             ueis.add(event.getUei());
 		}
 		return ueis;
 	}
-    
+
 	static class TranslationFailedException extends RuntimeException {
         private static final long serialVersionUID = -7219413891842193464L;
 
@@ -308,7 +308,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		}
 		return false;
     }
-    
+
 	/** {@inheritDoc} */
     @Override
 	public List<Event> translateEvent(Event e) {
@@ -318,11 +318,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		}
 		return events;
 	}
-	
+
 	private List<TranslationSpec> getTranslationSpecs() {
 		if (m_translationSpecs == null)
 			m_translationSpecs = constructTranslationSpecs();
-		
+
 		return m_translationSpecs;
 	}
 
@@ -333,7 +333,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		}
 		return specs;
 	}
-	
+
 	class TranslationSpec {
 		private EventTranslationSpec m_spec;
 		private List<TranslationMapping> m_translationMappings;
@@ -352,28 +352,28 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 				if (translatedEvent != null)
 					events.add(translatedEvent);
 			}
-			
+
 			return events;
 		}
 		String getUei() { return m_spec.getUei(); }
 		public EventTranslationSpec getEventTranslationSpec() {
 			return m_spec;
 		}
-		
+
 		private List<TranslationMapping> constructTranslationMappings() {
 			if (m_spec.getMappings() == null) return Collections.emptyList();
 
 			List<Mapping> mappings = m_spec.getMappings().getMappingCollection();
-			
+
 			List<TranslationMapping> transMaps = new ArrayList<TranslationMapping>(mappings.size());
 			for (Mapping mapping : mappings) {
 				TranslationMapping transMap = new TranslationMapping(mapping);
 				transMaps.add(transMap);
 			}
-			
+
 			return Collections.unmodifiableList(transMaps);
 		}
-		
+
 		List<TranslationMapping> getTranslationMappings() {
 			if (m_translationMappings == null)
 				m_translationMappings = constructTranslationMappings();
@@ -385,52 +385,52 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			    LOG.debug("TransSpec.matches: No match comparing spec UEI: {} with event UEI: {}", e.getUei(), m_spec.getUei());
                 return false;
             }
-			
+
 			// uei matches to go thru the mappings
             LOG.debug("TransSpec.matches: checking mappings for spec.");
             for (TranslationMapping transMap : getTranslationMappings()) {
-				if (transMap.matches(e)) 
+				if (transMap.matches(e))
 					return true;
 			}
 			return false;
 		}
-		
+
 		private boolean ueiMatches(Event e) {
 			return e.getUei().equals(m_spec.getUei())
                            || m_spec.getUei().endsWith("/")
                            && e.getUei().startsWith(m_spec.getUei());
 		}
-		
-		
+
+
 	}
-	
+
 	class TranslationMapping {
 		Mapping m_mapping;
 		List<AssignmentSpec> m_assignments;
-		TranslationMapping(Mapping mapping) { 
+		TranslationMapping(Mapping mapping) {
 			m_mapping = mapping;
 			m_assignments = null; // lazy init
 		}
-		
+
 		public Event translate(Event srcEvent) {
 			// if the event doesn't match the mapping then don't apply the translation
 			if (!matches(srcEvent)) return null;
-			
+
 			Event targetEvent = cloneEvent(srcEvent);
 			for (AssignmentSpec assignSpec : getAssignmentSpecs()) {
 				assignSpec.apply(srcEvent, targetEvent);
 			}
-			
+
 			targetEvent.setSource(TRANSLATOR_NAME);
 			return targetEvent;
 		}
 
         private Event cloneEvent(Event srcEvent) {
             Event clonedEvent = EventUtil.cloneEvent(srcEvent);
-            /* since alarmData and severity are computed based on translated information in 
+            /* since alarmData and severity are computed based on translated information in
              * eventd using the data from eventconf, we unset it here to eventd
              * can reset to the proper new settings.
-             */ 
+             */
             clonedEvent.setAlarmData(null);
             clonedEvent.setSeverity(null);
             /* the reasoning for alarmData and severity also applies to description (see NMS-4038). */
@@ -441,19 +441,19 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		public Mapping getMapping() {
 			return m_mapping;
 		}
-		
+
 		private List<AssignmentSpec> getAssignmentSpecs() {
 			if (m_assignments == null)
 				m_assignments = constructAssignmentSpecs();
 			return m_assignments;
 		}
-		
+
 		private List<AssignmentSpec> constructAssignmentSpecs() {
 			Mapping mapping = getMapping();
             List<AssignmentSpec> assignments = new ArrayList<AssignmentSpec>();
 			for (Assignment assign : mapping.getAssignmentCollection()) {
-				AssignmentSpec assignSpec = 
-					("parameter".equals(assign.getType()) ? 
+				AssignmentSpec assignSpec =
+					("parameter".equals(assign.getType()) ?
 							(AssignmentSpec)new ParameterAssignmentSpec(assign) :
 							(AssignmentSpec)new FieldAssignmentSpec(assign)
 							);
@@ -461,7 +461,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			}
 			return assignments;
 		}
-		
+
 		private boolean assignmentsMatch(Event e) {
             AssignmentSpec assignSpec = null;
 			for (Iterator<AssignmentSpec> it = getAssignmentSpecs().iterator(); it.hasNext();) {
@@ -478,32 +478,32 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			return assignmentsMatch(e);
 		}
 	}
-	
+
 	abstract class AssignmentSpec {
 		private Assignment m_assignment;
 		private ValueSpec m_valueSpec;
 		AssignmentSpec(Assignment assignment) {
-			m_assignment = assignment; 
+			m_assignment = assignment;
 			m_valueSpec = null; // lazy init
 		}
-		
+
 		public void apply(Event srcEvent, Event targetEvent) {
 			setValue(targetEvent, getValueSpec().getResult(srcEvent));
 		}
-		
+
 		private Assignment getAssignment() { return m_assignment; }
-		
+
 		protected String getAttributeName() { return getAssignment().getName(); }
 
 		private ValueSpec constructValueSpec() {
 			Value val = getAssignment().getValue();
-			
-			
+
+
 			return EventTranslatorConfigFactory.this.getValueSpec(val);
 		}
 
 		protected abstract void setValue(Event targetEvent, String value);
-		
+
 		private ValueSpec getValueSpec() {
 			if (m_valueSpec == null)
 				m_valueSpec = constructValueSpec();
@@ -513,10 +513,10 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			return getValueSpec().matches(e);
 		}
 	}
-	
+
 	class FieldAssignmentSpec extends AssignmentSpec {
 		FieldAssignmentSpec(Assignment field) { super(field); }
-		
+
                 @Override
 		protected void setValue(Event targetEvent, String value) {
 			try {
@@ -527,9 +527,9 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 				throw new TranslationFailedException("Unable to set value for attribute "+getAttributeName()+" to value "+value);
 			}
 		}
-		
+
 	}
-	
+
 	class ParameterAssignmentSpec extends AssignmentSpec {
 		ParameterAssignmentSpec(Assignment assign) {
 			super(assign);
@@ -554,7 +554,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 					return;
 				}
 			}
-			
+
 			// if we got here then we didn't find the existing parameter
 			Parm newParm = new Parm();
 			newParm.setParmName(getAttributeName());
@@ -565,7 +565,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			targetEvent.addParm(newParm);
 		}
 	}
-	
+
 	ValueSpec getValueSpec(Value val) {
 		if ("field".equals(val.getType()))
 			return new FieldValueSpec(val);
@@ -578,22 +578,22 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		else
 			return new ValueSpecUnspecified();
 	}
-	
+
 
 	abstract class ValueSpec {
 
 		public abstract boolean matches(Event e);
-		
+
 		public abstract String getResult(Event srcEvent);
 	}
-	
+
 	class ConstantValueSpec extends ValueSpec {
 		Value m_constant;
 
 		public ConstantValueSpec(Value constant) {
 			m_constant = constant;
 		}
-		
+
 
                 @Override
 		public boolean matches(Event e) {
@@ -613,7 +613,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 	}
 
 	class ValueSpecUnspecified extends ValueSpec {
-		
+
                 @Override
 		public boolean matches(Event e) {
 			// TODO: this should probably throw an exception since it makes no sense
@@ -626,7 +626,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		}
 
 	}
-	
+
 	class SqlValueSpec extends ValueSpec {
 		Value m_val;
 		List<ValueSpec> m_nestedValues;
@@ -634,7 +634,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			m_val = val;
 			m_nestedValues = null; // lazy init
 		}
-		
+
 		public List<ValueSpec> getNestedValues() {
 			if (m_nestedValues == null)
 				m_nestedValues = constructNestedValues();
@@ -655,7 +655,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 				if (!nestedVal.matches(e))
 					return false;
 			}
-		    
+
 		    Query query = createQuery(e);
 		    int rowCount = query.execute();
 
@@ -663,14 +663,14 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
                 LOG.info("No results found for query {}. No match.", query.reproduceStatement());
                 return false;
 		    }
-		    
+
 		    return true;
 		}
-		
+
 		private class Query {
 		    SingleResultQuerier m_querier;
 		    Object[] m_args;
-		    
+
 		    Query(SingleResultQuerier querier, Object[] args) {
 		        m_querier = querier;
 		        m_args = args;
@@ -684,27 +684,27 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		        m_querier.execute(m_args);
 		        return getRowCount();
 		    }
-		    
+
 		    public String reproduceStatement() {
 		        return m_querier.reproduceStatement(m_args);
 		    }
-		    
+
 		    public Object getResult() {
 		        return m_querier.getResult();
 		    }
-		    
+
 		}
-		
+
 		public Query createQuery(Event srcEvent) {
             Object[] args = new Object[getNestedValues().size()];
             SingleResultQuerier querier = new SingleResultQuerier(m_dbConnFactory, m_val.getResult());
             for (int i = 0; i < args.length; i++) {
                 args[i] = (getNestedValues().get(i)).getResult(srcEvent);
             }
-            
+
             return new Query(querier, args);
 		}
-		
+
                 @Override
 		public String getResult(Event srcEvent) {
 		    Query query = createQuery(srcEvent);
@@ -723,7 +723,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			    }
 			}
 		}
-		
+
 	}
 
 	abstract class AttributeValueSpec extends ValueSpec {
@@ -732,7 +732,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 
                 @Override
 		public boolean matches(Event e) {
-			
+
 			String attributeValue = getAttributeValue(e);
 			if (attributeValue == null) {
                 LOG.debug("AttributeValueSpec.matches: Event attributeValue doesn't match because attributeValue itself is null");
@@ -769,18 +769,18 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			final Matcher m = p.matcher(attributeValue);
 			if (!m.matches())
 				throw new TranslationFailedException("failed to match "+attributeValue+" against '"+m_val.getMatches()+"' for attribute "+getAttributeName());
-			
+
 			MatchTable matches = new MatchTable(m);
 
 			return PropertiesUtils.substitute(m_val.getResult(), matches);
 		}
-		
+
 		public String getAttributeName() { return m_val.getName(); }
 
 
 		abstract public String getAttributeValue(Event e);
 	}
-    
+
     // XXX: This is here because Spring converting to a String appears
     // to be broken.  It if probably a Hack and we probably need to have
     // a better way to access the Spring property editors and convert
@@ -804,11 +804,11 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
         public void setAsText(String text) throws IllegalArgumentException {
             super.setValue(text);
         }
-        
-        
-        
+
+
+
     }
-	
+
     class FieldValueSpec extends AttributeValueSpec {
 		public FieldValueSpec(Value val) {
 			super(val);
@@ -818,7 +818,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 		public String getAttributeValue(Event e) {
 			try {
 				BeanWrapper bean = getBeanWrapper(e);
-                
+
 				return (String)bean.convertIfNecessary(bean.getPropertyValue(getAttributeName()), String.class);
 			} catch (FatalBeanException ex) {
 				LOG.error("Property {} does not exist on Event", ex, getAttributeName());
@@ -832,23 +832,23 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
             return bean;
         }
 	}
-	
+
 	class ParameterValueSpec extends AttributeValueSpec {
 		ParameterValueSpec(Value val) { super(val); }
-		
+
                 @Override
 		public String getAttributeValue(Event e) {
-			
+
 			String attrName = getAttributeName();
 			for (Parm parm : e.getParmCollection()) {
-				
+
                 if (parm.getParmName().equals(attrName)) {
                     LOG.debug("getAttributeValue: eventParm name: '{} equals translation parameter name: ' {}", attrName, parm.getParmName());
                     return (parm.getValue() == null ? "" : parm.getValue().getContent());
                 }
-                
+
 				String trimmedAttrName = StringUtils.removeStart(attrName, "~");
-				
+
                 if (attrName.startsWith("~") && (parm.getParmName().matches(trimmedAttrName))) {
                     LOG.debug("getAttributeValue: eventParm name: '{} matches translation parameter name expression: ' {}", trimmedAttrName, parm.getParmName());
                     return (parm.getValue() == null ? "" : parm.getValue().getContent());
@@ -857,7 +857,7 @@ public final class EventTranslatorConfigFactory implements EventTranslatorConfig
 			return null;
 		}
 	}
-	
+
 
 
 }

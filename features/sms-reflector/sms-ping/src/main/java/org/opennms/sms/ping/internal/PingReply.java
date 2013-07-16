@@ -94,7 +94,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
     public PingRequestId getRequestId() {
         return m_requestId;
     }
-    
+
     /**
      * <p>getPacket</p>
      *
@@ -103,7 +103,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
     public InboundMessage getPacket() {
         return m_packet;
     }
-    
+
     /**
      * <p>setReceiveTimestamp</p>
      *
@@ -112,7 +112,7 @@ public final class PingReply implements ResponseWithId<PingRequestId> {
     public void setReceiveTimestamp(long millis){
     	m_receiveTimestamp = millis;
     }
-    
+
     /**
      * <p>getReceiveTimestamp</p>
      *

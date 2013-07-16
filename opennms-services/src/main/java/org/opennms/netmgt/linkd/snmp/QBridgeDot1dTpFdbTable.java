@@ -53,7 +53,7 @@ public class QBridgeDot1dTpFdbTable extends SnmpTable<QBridgeDot1dTpFdbTableEntr
 	public QBridgeDot1dTpFdbTable(InetAddress address) {
         super(address, "qBridgedot1dTpFdbTable", QBridgeDot1dTpFdbTableEntry.ms_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected QBridgeDot1dTpFdbTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

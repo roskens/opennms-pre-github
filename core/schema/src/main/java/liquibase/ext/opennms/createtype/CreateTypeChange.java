@@ -56,7 +56,7 @@ public class CreateTypeChange extends AbstractChange implements ChangeWithColumn
 	public String getName() {
 		return m_typeName;
 	}
-	
+
 	public void setName(final String name) {
 		m_typeName = name;
 	}

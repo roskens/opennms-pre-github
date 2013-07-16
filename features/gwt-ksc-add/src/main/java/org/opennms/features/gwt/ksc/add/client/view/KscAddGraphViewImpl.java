@@ -96,10 +96,10 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     }
 
     private static KscAddGraphViewImplUiBinder uiBinder = GWT.create(KscAddGraphViewImplUiBinder.class);
-    
+
     @UiTemplate("KscAddGraphViewImpl.ui.xml")
     interface KscAddGraphViewImplUiBinder extends UiBinder<Widget, KscAddGraphViewImpl> {}
-    
+
     @UiField
     LayoutPanel m_layoutPanel;
 
@@ -108,7 +108,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
 
     @UiField
     TextBox m_textBox;
-    
+
     @UiField
     Button m_addButton;
 
@@ -121,12 +121,12 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     CellList<KscReport> m_reportList;
     SimplePager m_pager;
     PopupPanel m_popupPanel;
-    
+
     private Presenter<KscReport> m_presenter;
     private ListDataProvider<KscReport> m_dataList;
     private SingleSelectionModel<KscReport> m_selectionModel;
     private PositionCallback m_repositionPopupPanel;
-    
+
 
     public KscAddGraphViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
@@ -148,7 +148,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
                 }
             }
         });
-        
+
         m_selectionModel = new SingleSelectionModel<KscReport>();
         m_selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
             @Override
@@ -162,7 +162,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
 
         m_titleLabel.getElement().getStyle().setFontSize(12, Unit.PX);
         m_reportLabel.getElement().getStyle().setFontSize(12, Unit.PX);
-        
+
         m_reportList = new CellList<KscReport>(new KscReportCell());
         m_reportList.setPageSize(10);
         m_reportList.getElement().getStyle().setFontSize(12, Unit.PX);
@@ -170,12 +170,12 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
 
         m_dataList = new ListDataProvider<KscReport>();
         m_dataList.addDataDisplay(m_reportList);
-        
+
         m_pager = new SimplePager();
         m_pager.setStyleName("onms-table-no-borders-margin");
         m_pager.getElement().getStyle().setWidth(100, Unit.PCT);
         m_pager.setDisplay(m_reportList);
-        
+
         final FlowPanel flowPanel = new FlowPanel();
         flowPanel.add(m_reportList);
         flowPanel.add(m_pager);
@@ -187,7 +187,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
         m_popupPanel.getElement().getStyle().setBorderWidth(1, Unit.PX);
         m_popupPanel.getElement().getStyle().setBorderColor("#B5B8C8");
         m_popupPanel.getElement().getStyle().setPadding(1, Unit.PX);
-        
+
         m_repositionPopupPanel = new PositionCallback() {
             @Override
             public void setPosition(final int offsetWidth, final int offsetHeight) {
@@ -195,7 +195,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
                 m_popupPanel.setPopupPosition(getAbsoluteLeft(), getAbsoluteTop() + 74);
             }
         };
-        
+
         Window.addResizeHandler(new ResizeHandler() {
             @Override
             public void onResize(final ResizeEvent event) {
@@ -225,7 +225,7 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     public String getTitle() {
         return m_titleBox.getValue();
     }
-    
+
     @Override
     public void setTitle(final String title) {
         m_titleBox.setValue(title == null? "" : title);
@@ -235,22 +235,22 @@ public class KscAddGraphViewImpl extends Composite implements KscAddGraphView<Ks
     public KscReport getSelectedReport() {
         return m_selectionModel.getSelectedObject();
     }
-    
+
     @Override
     public void select(final KscReport report) {
         m_selectionModel.setSelected(report, true);
     }
-    
+
     @Override
     public void clearSelection() {
         m_selectionModel.setSelected(m_selectionModel.getSelectedObject(), false);
     }
-    
+
     @UiHandler("m_addButton")
     public void handleAddButton(final ClickEvent event) {
         m_presenter.onAddButtonClicked();
     }
-    
+
     @Override
     public boolean isPopupShowing() {
         return m_popupPanel.isShowing();

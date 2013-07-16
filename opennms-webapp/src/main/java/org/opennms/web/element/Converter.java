@@ -39,7 +39,7 @@ package org.opennms.web.element;
  * @since 1.8.1
  */
 public class Converter {
- 
+
  /**
   * <p>highToLow</p>
   *
@@ -50,7 +50,7 @@ public class Converter {
  public static double highToLow(double value, int multiplicator){
 	return value*multiplicator;
  }
- 
+
  /**
   * <p>lowToHigh</p>
   *
@@ -59,7 +59,7 @@ public class Converter {
   * @return a double.
   */
  public static  double lowToHigh(double value, int divisor){
-	
+
 	return value/divisor;
   }
 

@@ -47,7 +47,7 @@ public class ControllerTest {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
-    
+
     @After
     public void runTest() throws Throwable {
         MockLogAppender.assertNoWarningsOrGreater();
@@ -56,31 +56,31 @@ public class ControllerTest {
     @Test
     public void testClientTimeout() throws Exception {
         final ServerSocket server = new ServerSocket(0);
-        
+
         final Controller c = new Controller();
         c.setInvokeUrl(Controller.DEFAULT_INVOKER_URL.replaceAll(":8181", ":" + server.getLocalPort()));
         c.setHttpRequestReadTimeout(2000);
-        
+
         Thread clientThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 c.invokeOperation("testClientTimeout");
             }
         }, this.getClass().getSimpleName() + "-clientThread");
-        
+
         final StringBuffer exceptionBuffer = new StringBuffer();
-        
+
         UncaughtExceptionHandler handler  = new UncaughtExceptionHandler() {
             @Override
             public void uncaughtException(Thread thread, Throwable t) {
                 exceptionBuffer.append(t.toString());
             }
         };
-                
+
         clientThread.setUncaughtExceptionHandler(handler);
-        
+
         clientThread.start();
-        
+
         Thread acceptThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -93,20 +93,20 @@ public class ControllerTest {
         }, this.getClass().getSimpleName() + "-acceptThread");
 
         acceptThread.setUncaughtExceptionHandler(handler);
-        
+
         acceptThread.start();
-        
+
         acceptThread.join(1000);
         assertFalse("the accept thread should have stopped because it should have received a connection", acceptThread.isAlive());
 
         clientThread.join(c.getHttpRequestReadTimeout() * 2);
         assertFalse("the client thread should have stopped within " + c.getHttpRequestReadTimeout() + " because it should have timed out its connection", clientThread.isAlive());
-        
+
         assertEquals("exception buffer is non-empty: " + exceptionBuffer.toString(), 0, exceptionBuffer.length());
-        
+
 //        assertEquals("there should be exactly one logged message", 1, MockLogAppender.getEvents().length);
 //        assertEquals("the first log message should be an error", Level.ERROR, MockLogAppender.getEvents()[0].getLevel());
-        
+
         MockLogAppender.resetEvents();
     }
 }

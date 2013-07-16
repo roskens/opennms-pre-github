@@ -36,14 +36,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class OspfGeneralGroup extends AggregateTracker {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(OspfGeneralGroup.class);
 
     public final static String OSPF_ROUTER_ID_ALIAS = "ospfRouterId";
     public final static String OSPF_ROUTER_ID_OID = ".1.3.6.1.2.1.14.1.1";
-        
+
     public static NamedSnmpVar[] ms_elemList = null;
-    
+
     static {
         ms_elemList = new NamedSnmpVar[1];
         int ndx = 0;
@@ -56,7 +56,7 @@ public final class OspfGeneralGroup extends AggregateTracker {
          * DESCRIPTION
          * "A  32-bit  integer  uniquely  identifying  the
          * router in the Autonomous System.
-         * 
+         *
          * By  convention,  to  ensure  uniqueness,   this
          * should  default  to  the  value  of  one of the
          * router's IP interface addresses."
@@ -67,22 +67,22 @@ public final class OspfGeneralGroup extends AggregateTracker {
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS,OSPF_ROUTER_ID_ALIAS,OSPF_ROUTER_ID_OID);
 
     }
-    
+
     public static final String OSPF_GENERAL_GROUP_OID = ".1.3.6.1.2.1.14.1";
 
     private SnmpStore m_store;
     private InetAddress m_address;
-    
+
     public OspfGeneralGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
         m_store = new SnmpStore(ms_elemList);
     }
-    
+
     public InetAddress getOspfRouterId() {
-        return m_store.getIPAddress(OSPF_ROUTER_ID_ALIAS);        
+        return m_store.getIPAddress(OSPF_ROUTER_ID_ALIAS);
     }
-       
+
     /** {@inheritDoc} */
     @Override
     protected void storeResult(SnmpResult res) {

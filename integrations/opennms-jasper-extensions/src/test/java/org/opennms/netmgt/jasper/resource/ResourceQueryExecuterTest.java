@@ -45,17 +45,17 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ResourceQueryExecuterTest {
-    
+
     private JasperReport m_jasperReport;
     private JasperPrint m_jasperPrint;
-    
+
     @Before
     public void setUp() {
         File reportDir = new File("target/reports");
         reportDir.mkdirs();
     }
-    
-    
+
+
     @Test
     public void test() throws JRException {
         compile();
@@ -67,12 +67,12 @@ public class ResourceQueryExecuterTest {
 
     private void xhtml() throws JRException {
         File destFile = new File("target/reports/ResourceTypeTest.x.html");
-        
+
         JRXhtmlExporter exporter = new JRXhtmlExporter();
-        
+
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, m_jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, destFile.toString());
-        
+
         exporter.exportReport();
     }
 
@@ -86,7 +86,7 @@ public class ResourceQueryExecuterTest {
         Map<String, Object> params = new HashMap<String, Object>();
         params.put("nodeid", 1);
         params.put("resourceType", "nsVpnMonitor");
-        
+
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
     }
 

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -49,7 +49,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class CompMember.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -108,7 +108,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -117,41 +117,41 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof CompMember) {
-        
+
             CompMember temp = (CompMember)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._alias != null) {
                 if (temp._alias == null) return false;
-                else if (!(this._alias.equals(temp._alias))) 
+                else if (!(this._alias.equals(temp._alias)))
                     return false;
             }
             else if (temp._alias != null)
                 return false;
             if (this._type != null) {
                 if (temp._type == null) return false;
-                else if (!(this._type.equals(temp._type))) 
+                else if (!(this._type.equals(temp._type)))
                     return false;
             }
             else if (temp._type != null)
                 return false;
             if (this._maxval != null) {
                 if (temp._maxval == null) return false;
-                else if (!(this._maxval.equals(temp._maxval))) 
+                else if (!(this._maxval.equals(temp._maxval)))
                     return false;
             }
             else if (temp._maxval != null)
                 return false;
             if (this._minval != null) {
                 if (temp._minval == null) return false;
-                else if (!(this._minval.equals(temp._minval))) 
+                else if (!(this._minval.equals(temp._minval)))
                     return false;
             }
             else if (temp._minval != null)
@@ -163,7 +163,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'alias'.
-     * 
+     *
      * @return the value of field 'Alias'.
      */
     public java.lang.String getAlias(
@@ -173,7 +173,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'maxval'.
-     * 
+     *
      * @return the value of field 'Maxval'.
      */
     public java.lang.String getMaxval(
@@ -183,7 +183,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'minval'.
-     * 
+     *
      * @return the value of field 'Minval'.
      */
     public java.lang.String getMinval(
@@ -193,7 +193,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -203,7 +203,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'type'.
-     * 
+     *
      * @return the value of field 'Type'.
      */
     public java.lang.String getType(
@@ -216,14 +216,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -240,13 +240,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_minval != null) {
            result = 37 * result + _minval.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -261,8 +261,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -277,8 +277,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -296,7 +296,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'alias'.
-     * 
+     *
      * @param alias the value of field 'alias'.
      */
     public void setAlias(
@@ -306,7 +306,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'maxval'.
-     * 
+     *
      * @param maxval the value of field 'maxval'.
      */
     public void setMaxval(
@@ -316,7 +316,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'minval'.
-     * 
+     *
      * @param minval the value of field 'minval'.
      */
     public void setMinval(
@@ -326,7 +326,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -336,7 +336,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'type'.
-     * 
+     *
      * @param type the value of field 'type'.
      */
     public void setType(
@@ -346,7 +346,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -363,8 +363,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

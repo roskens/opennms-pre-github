@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * An NSClient Object Group
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -57,21 +57,21 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * The name of this group, for user id purposes
-     *  
+     *
      */
     private java.lang.String _name;
 
     /**
      * The Key value which, if present, indicates that the rest of
      * this group should be collected
-     *  
+     *
      */
     private java.lang.String _keyvalue;
 
     /**
      * Specifies how often the key value of this group
      *  should be rechecked for existence. In milliseconds
-     *  
+     *
      */
     private int _recheckInterval;
 
@@ -82,7 +82,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * An NSClient Object
-     *  
+     *
      */
     private java.util.List<org.opennms.netmgt.config.nsclient.Attrib> _attribList;
 
@@ -102,8 +102,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -115,8 +115,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -138,7 +138,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateAttrib.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -149,7 +149,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -158,20 +158,20 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Wpm) {
-        
+
             Wpm temp = (Wpm)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._keyvalue != null) {
                 if (temp._keyvalue == null) return false;
-                else if (!(this._keyvalue.equals(temp._keyvalue))) 
+                else if (!(this._keyvalue.equals(temp._keyvalue)))
                     return false;
             }
             else if (temp._keyvalue != null)
@@ -182,7 +182,7 @@ import org.exolab.castor.xml.Unmarshaller;
                 return false;
             if (this._attribList != null) {
                 if (temp._attribList == null) return false;
-                else if (!(this._attribList.equals(temp._attribList))) 
+                else if (!(this._attribList.equals(temp._attribList)))
                     return false;
             }
             else if (temp._attribList != null)
@@ -194,7 +194,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getAttrib.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -208,7 +208,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._attribList.size()) {
             throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.nsclient.Attrib) _attribList.get(index);
     }
 
@@ -218,7 +218,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.nsclient.Attrib[] getAttrib(
@@ -231,7 +231,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getAttribCollection.Returns a reference to
      * '_attribList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.nsclient.Attrib> getAttribCollection(
@@ -241,7 +241,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getAttribCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getAttribCount(
@@ -254,8 +254,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * has the following description: The Key value which, if
      * present, indicates that the rest of this group should be
      * collected
-     *  
-     * 
+     *
+     *
      * @return the value of field 'Keyvalue'.
      */
     public java.lang.String getKeyvalue(
@@ -267,8 +267,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'name'. The field 'name' has the
      * following description: The name of this group, for user id
      * purposes
-     *  
-     * 
+     *
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -281,8 +281,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'recheckInterval' has the following description: Specifies
      * how often the key value of this group
      *  should be rechecked for existence. In milliseconds
-     *  
-     * 
+     *
+     *
      * @return the value of field 'RecheckInterval'.
      */
     public int getRecheckInterval(
@@ -292,7 +292,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasRecheckInterval.
-     * 
+     *
      * @return true if at least one RecheckInterval has been added
      */
     public boolean hasRecheckInterval(
@@ -305,14 +305,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -324,13 +324,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_attribList != null) {
            result = 37 * result + _attribList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -345,7 +345,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateAttrib.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -355,8 +355,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -370,8 +370,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -395,7 +395,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeAttrib.
-     * 
+     *
      * @param vAttrib
      * @return true if the object was removed from the collection.
      */
@@ -407,7 +407,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeAttribAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -418,8 +418,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -433,20 +433,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._attribList.size()) {
             throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
         }
-        
+
         this._attribList.set(index, vAttrib);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttribArray
      */
     public void setAttrib(
             final org.opennms.netmgt.config.nsclient.Attrib[] vAttribArray) {
         //-- copy array
         _attribList.clear();
-        
+
         for (int i = 0; i < vAttribArray.length; i++) {
                 this._attribList.add(vAttribArray[i]);
         }
@@ -455,14 +455,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_attribList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vAttribList the Vector to copy.
      */
     public void setAttrib(
             final java.util.List<org.opennms.netmgt.config.nsclient.Attrib> vAttribList) {
         // copy vector
         this._attribList.clear();
-        
+
         this._attribList.addAll(vAttribList);
     }
 
@@ -470,7 +470,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_attribList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param attribList the Vector to set.
      */
     public void setAttribCollection(
@@ -482,8 +482,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'keyvalue'. The field 'keyvalue' has
      * the following description: The Key value which, if present,
      * indicates that the rest of this group should be collected
-     *  
-     * 
+     *
+     *
      * @param keyvalue the value of field 'keyvalue'.
      */
     public void setKeyvalue(
@@ -495,8 +495,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'name'. The field 'name' has the
      * following description: The name of this group, for user id
      * purposes
-     *  
-     * 
+     *
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -509,8 +509,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'recheckInterval' has the following description: Specifies
      * how often the key value of this group
      *  should be rechecked for existence. In milliseconds
-     *  
-     * 
+     *
+     *
      * @param recheckInterval the value of field 'recheckInterval'.
      */
     public void setRecheckInterval(
@@ -521,7 +521,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -536,8 +536,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

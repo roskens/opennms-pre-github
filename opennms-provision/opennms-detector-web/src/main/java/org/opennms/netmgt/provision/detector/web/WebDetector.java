@@ -73,7 +73,7 @@ public class WebDetector extends BasicDetector<WebRequest, WebResponse> {
     private String responseText;
 
     private String responseRange = "100-399";
-    
+
     private String schema = "http";
 
     /**

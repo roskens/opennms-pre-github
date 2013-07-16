@@ -35,14 +35,14 @@ import org.opennms.netmgt.config.surveillanceViews.Views;
  * <p>SurveillanceViewConfigDao interface.</p>
  */
 public interface SurveillanceViewConfigDao {
-    
+
     /**
      * <p>getViews</p>
      *
      * @return a {@link org.opennms.netmgt.config.surveillanceViews.Views} object.
      */
     Views getViews();
-    
+
     /**
      * <p>getView</p>
      *

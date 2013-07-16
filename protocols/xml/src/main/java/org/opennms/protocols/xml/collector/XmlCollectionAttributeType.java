@@ -36,7 +36,7 @@ import org.opennms.protocols.xml.config.XmlObject;
 
 /**
  * The Class XmlCollectionAttributeType.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectionAttributeType implements CollectionAttributeType {

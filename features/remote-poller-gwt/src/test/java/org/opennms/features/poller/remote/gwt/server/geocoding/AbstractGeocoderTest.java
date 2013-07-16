@@ -44,7 +44,7 @@ public class AbstractGeocoderTest {
 	protected String getApiKey() {
 		return System.getProperty("gwt.apikey");
 	}
-	
+
 	@Test
 	public void testNothing() throws Exception {
 	}

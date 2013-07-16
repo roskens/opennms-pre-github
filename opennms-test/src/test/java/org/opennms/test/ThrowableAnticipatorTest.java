@@ -47,16 +47,16 @@ public class ThrowableAnticipatorTest extends TestCase {
     protected void tearDown() throws Exception {
         m_anticipator.verifyAnticipated();
     }
-    
+
     public void testConstructor() throws Exception {
         setUp();
     }
-    
+
     public void testAnticipate() {
         m_anticipator.anticipate(m_throwable);
         m_anticipator.reset();
     }
-    
+
     public void testThrowableReceivedVoid() {
         try {
             m_anticipator.throwableReceived(null);
@@ -69,10 +69,10 @@ public class ThrowableAnticipatorTest extends TestCase {
         } catch (Throwable t) {
             fail("Received unexpected Throwable: " + t);
         }
-        
+
         fail("Did not receive expected IllegalArgumentException.");
     }
-    
+
     public void testThrowableReceivedVoidMessage() {
         try {
             m_anticipator.throwableReceived(new Exception());
@@ -85,10 +85,10 @@ public class ThrowableAnticipatorTest extends TestCase {
         } catch (Throwable t) {
             fail("Received unexpected Throwable: " + t);
         }
-        
+
         fail("Did not receive expected AssertionFailedError.");
     }
-    
+
     public void testThrowableReceivedIgnoreMessage() {
         m_anticipator.anticipate(new Exception(ThrowableAnticipator.IGNORE_MESSAGE));
         try {
@@ -103,7 +103,7 @@ public class ThrowableAnticipatorTest extends TestCase {
         m_anticipator.anticipate(m_throwable);
         m_anticipator.throwableReceived(m_throwable);
     }
-    
+
     public void testThrowableReceivedNotAnticipated() {
         try {
             m_anticipator.throwableReceived(m_throwable);
@@ -116,10 +116,10 @@ public class ThrowableAnticipatorTest extends TestCase {
         } catch (Throwable t) {
             fail("Received unexpected Throwable: " + t);
         }
-        
+
         fail("Did not receive expected AssertionFailedError.");
     }
-    
+
     public void testThrowableReceivedNotAnticipatedCheckCause() {
         try {
             m_anticipator.throwableReceived(m_throwable);
@@ -136,21 +136,21 @@ public class ThrowableAnticipatorTest extends TestCase {
         } catch (Throwable t) {
             fail("Received unexpected Throwable: " + t);
         }
-        
+
         fail("Did not receive expected AssertionFailedError.");
     }
-    
+
     public void testSetFailFast() {
         assertTrue(m_anticipator.isFailFast());
         m_anticipator.setFailFast(false);
         assertFalse(m_anticipator.isFailFast());
     }
-    
+
     public void testSetFailFastWithUnanticipated() {
         assertTrue(m_anticipator.isFailFast());
         m_anticipator.setFailFast(false);
         m_anticipator.throwableReceived(new Throwable("this should be unanticipated"));
-        
+
         try {
             m_anticipator.setFailFast(true);
         } catch (AssertionFailedError e) {
@@ -163,7 +163,7 @@ public class ThrowableAnticipatorTest extends TestCase {
         } catch (Throwable t) {
             fail("Received unexpected Throwable: " + t);
         }
-        
+
         fail("Did not receive expected AssertionFailedError.");
     }
 
@@ -175,9 +175,9 @@ public class ThrowableAnticipatorTest extends TestCase {
         m_anticipator.throwableReceived(new Throwable("yet another thing"));
         m_anticipator.reset();
     }
-    
+
     public void testVerifyAnticipated() {
         m_anticipator.verifyAnticipated();
     }
-    
+
 }

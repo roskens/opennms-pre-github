@@ -58,17 +58,17 @@ import org.slf4j.LoggerFactory;
  * <P>
  * The LatencyThresholder class ...
  * </P>
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * 
+ *
  * FIXME: This thresholder does not support ranges yet.
- * 
+ *
  */
 final class LatencyThresholder implements ServiceThresholder {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LatencyThresholder.class);
-    
+
     /**
      * SQL statement to retrieve interface's 'ipinterface' table information.
      */
@@ -76,15 +76,15 @@ final class LatencyThresholder implements ServiceThresholder {
 
     /**
      * Default thresholding interval (in milliseconds).
-     * 
+     *
      */
     static final int DEFAULT_INTERVAL = 300000; // 300s or 5m
 
     /**
      * Default age before which a data point is considered "out of date"
      */
-    
-    static final int DEFAULT_RANGE = 0; 
+
+    static final int DEFAULT_RANGE = 0;
 
 
     /**
@@ -136,13 +136,13 @@ final class LatencyThresholder implements ServiceThresholder {
         m_svcName = (String) parameters.get("svcName");
         LOG.debug("initialize: latency thresholder for service '{}'", m_svcName);
     }
-    
+
     /**
      * <p>reinitialize</p>
      */
     @Override
     public void reinitialize() {
-        //Nothing to do 
+        //Nothing to do
     }
 
     /**
@@ -169,7 +169,7 @@ final class LatencyThresholder implements ServiceThresholder {
         String groupName = ParameterMap.getKeyedString(parameters, "thresholding-group", "default");
 
         // Get the threshold group's RRD repository path
-        // 
+        //
         String repository = null;
         try {
             repository = ThresholdingConfigFactory.getInstance().getRrdRepository(groupName);
@@ -335,28 +335,28 @@ final class LatencyThresholder implements ServiceThresholder {
     public int check(ThresholdNetworkInterface iface, EventProxy eproxy, Map<?,?> parameters) {
 		LatencyInterface latIface = new LatencyInterface(iface, m_svcName);
 		LatencyParameters latParms = new LatencyParameters(parameters, m_svcName);
-        
+
         try {
-            
+
             // Get configuration parameters
             //
             // NodeId attribute
             LOG.debug("check: service={} interface={} nodeId={} thresholding-group={} interval={}ms", m_svcName, latIface.getHostAddress(), latIface.getNodeId(), latParms.getGroupName(), latParms.getInterval());
-            
+
             // RRD Repository attribute
             //
             // Create empty Events object to hold any threshold
             // events generated during the thresholding check...
             Events events = checkRrdDir(latIface, latParms);
-            
+
             // Send created events
             //
             sendEvents(eproxy, events);
-            
+
             // return the status of the threshold check
             //
             return THRESHOLDING_SUCCEEDED;
-            
+
         } catch(ThresholdingException e) {
             LOG.error(e.getMessage());
             return e.getFailureCode();
@@ -380,8 +380,8 @@ final class LatencyThresholder implements ServiceThresholder {
      * objects are stored for performing threshold checking.
      * @param latIface TODO
      * @param latParms TODO
-     * @param parameters 
-     * @param iface 
+     * @param parameters
+     * @param iface
      * @param directory
      *            RRD repository directory
      * @param m_nodeId
@@ -400,7 +400,7 @@ final class LatencyThresholder implements ServiceThresholder {
      *            a result of threshold checking.
      * @throws IllegalArgumentException
      *             if path parameter is not a directory.
-     * @throws ThresholdingException 
+     * @throws ThresholdingException
      */
     Events checkRrdDir(LatencyInterface latIface, LatencyParameters latParms) throws IllegalArgumentException, ThresholdingException {
 		Map<String,ThresholdEntity> thresholdMap = latIface.getThresholdMap();
@@ -409,7 +409,7 @@ final class LatencyThresholder implements ServiceThresholder {
         if (latIface.getInetAddress() == null || thresholdMap == null) {
             throw new ThresholdingException("check: Threshold checking failed for " + m_svcName + "/" + latIface.getHostAddress(), THRESHOLDING_FAILED);
         }
-        
+
         Events events = new Events();
         Date date = new Date();
 
@@ -427,7 +427,7 @@ final class LatencyThresholder implements ServiceThresholder {
                 }
 
                 completeEventListAndAddToEvents(events, eventList, latIface);
-                
+
 
                 /*
                 threshold.evaluateThreshold(dsValue, events, date, latIface);

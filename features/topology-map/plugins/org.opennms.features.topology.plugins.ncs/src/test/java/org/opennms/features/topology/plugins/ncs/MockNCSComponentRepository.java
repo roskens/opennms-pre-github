@@ -14,13 +14,13 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
     @Override
     public void flush() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void clear() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -32,7 +32,7 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
     @Override
     public void delete(NCSComponent component) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -68,19 +68,19 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
     @Override
     public void save(NCSComponent component) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void saveOrUpdate(NCSComponent component) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void update(NCSComponent component) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
@@ -115,5 +115,5 @@ public class MockNCSComponentRepository implements NCSComponentRepository {
         // TODO Auto-generated method stub
         return null;
     }
-    
+
 }

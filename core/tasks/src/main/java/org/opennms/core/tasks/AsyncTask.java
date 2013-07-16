@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class AsyncTask<T> extends Task {
-    
+
     private final Async<T> m_async;
     private final Callback<T> m_callback;
 
@@ -52,7 +52,7 @@ public class AsyncTask<T> extends Task {
     public AsyncTask(DefaultTaskCoordinator coordinator, ContainerTask<?> parent, Async<T> async) {
         this(coordinator, parent, async, null);
     }
-    
+
     /**
      * <p>Constructor for AsyncTask.</p>
      *
@@ -67,7 +67,7 @@ public class AsyncTask<T> extends Task {
         m_async = async;
         m_callback = callback;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -84,7 +84,7 @@ public class AsyncTask<T> extends Task {
             callback.handleException(t);
         }
     }
-    
+
     private Callback<T> callback() {
         return new Callback<T>() {
             @Override
@@ -109,5 +109,5 @@ public class AsyncTask<T> extends Task {
             }
         };
     }
-    
+
 }

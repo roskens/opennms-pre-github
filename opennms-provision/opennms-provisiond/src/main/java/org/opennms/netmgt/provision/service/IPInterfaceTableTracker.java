@@ -47,10 +47,10 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @version $Id: $
  */
 public class IPInterfaceTableTracker extends TableTracker {
-    
+
     /** Constant <code>IP_ADDR_TABLE_ENTRY</code> */
     public static final SnmpObjId IP_ADDR_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.20.1");
-    
+
     /** Constant <code>IP_ADDR_ENT_ADDR</code> */
     public static final SnmpObjId IP_ADDR_ENT_ADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "1");
     /** Constant <code>IP_ADDR_IF_INDEX</code> */
@@ -59,26 +59,26 @@ public class IPInterfaceTableTracker extends TableTracker {
     public static final SnmpObjId IP_ADDR_ENT_NETMASK = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "3");
     /** Constant <code>IP_ADDR_ENT_BCASTADDR</code> */
     public static final SnmpObjId IP_ADDR_ENT_BCASTADDR = SnmpObjId.get(IP_ADDR_TABLE_ENTRY, "4");
-    
-    
+
+
     private static SnmpObjId[] s_tableColumns = new SnmpObjId[] {
         IP_ADDR_ENT_ADDR,
         IP_ADDR_IF_INDEX,
         IP_ADDR_ENT_NETMASK,
         IP_ADDR_ENT_BCASTADDR
     };
-    
+
     class IPInterfaceRow extends SnmpRowResult {
 
         public IPInterfaceRow(int columnCount, SnmpInstId instance) {
             super(columnCount, instance);
         }
-        
+
         public Integer getIfIndex() {
             SnmpValue value = getValue(IP_ADDR_IF_INDEX);
             return value == null ? null : value.toInt();
         }
-        
+
         public String getIpAddress() {
             SnmpValue value = getValue(IP_ADDR_ENT_ADDR);
             if (value != null) {
@@ -103,7 +103,7 @@ public class IPInterfaceTableTracker extends TableTracker {
         }
 
         public OnmsIpInterface createInterfaceFromRow() {
-            
+
             String ipAddr = getIpAddress();
             InetAddress netMask = getNetMask();
             Integer ifIndex = getIfIndex();
@@ -115,18 +115,18 @@ public class IPInterfaceTableTracker extends TableTracker {
             final InetAddress inetAddress = InetAddressUtils.addr(ipAddr);
             OnmsIpInterface iface = new OnmsIpInterface(inetAddress, null);
             iface.setSnmpInterface(snmpIface);
-            
+
             iface.setIfIndex(ifIndex);
             String hostName = null;
             if (inetAddress != null) hostName = inetAddress.getHostName();
             if (hostName == null) hostName = InetAddressUtils.normalize(ipAddr);
             iface.setIpHostName(hostName == null? ipAddr : hostName);
-            
+
             return iface;
         }
 
     }
-    
+
     /**
      * <p>Constructor for IPInterfaceTableTracker.</p>
      */
@@ -142,7 +142,7 @@ public class IPInterfaceTableTracker extends TableTracker {
     public IPInterfaceTableTracker(RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public SnmpRowResult createRowResult(int columnCount, SnmpInstId instance) {
@@ -161,7 +161,7 @@ public class IPInterfaceTableTracker extends TableTracker {
      * @param row a {@link org.opennms.netmgt.provision.service.IPInterfaceTableTracker.IPInterfaceRow} object.
      */
     public void processIPInterfaceRow(IPInterfaceRow row) {
-        
+
     }
 
 }

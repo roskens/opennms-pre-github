@@ -55,40 +55,40 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
 
     @UiField
     LayoutPanel m_layoutPanel;
-    
+
     @UiField
     FlowPanel m_treeContainer;
-    
+
     @UiField
     Button m_removeButton;
-    
+
     @UiField
     Button m_selectAllButton;
-    
+
     @UiField
     Button m_graphButton;
-    
+
     @UiField
     Button m_searchButton;
-    
+
     @UiField
     Button m_graphAllButton;
-    
+
     ReportSelectListCellTree m_reportCellTree;
-    
+
     private List<ResourceListItem> m_dataList;
-    
+
     private final MultiSelectionModel<ResourceListItem> m_selectionModel;
     private List<ResourceListItem> m_selectedReports;
 
     private Presenter<ResourceListItem> m_presenter;
-    
+
     public ReportSelectListViewImpl(List<ResourceListItem> dataList) {
         m_dataList = dataList;
-        
+
         m_selectionModel = new MultiSelectionModel<ResourceListItem>();
         m_selectionModel.addSelectionChangeHandler(new Handler() {
-            
+
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 if(m_selectionModel.getSelectedSet().size() > 0) {
@@ -96,49 +96,49 @@ public class ReportSelectListViewImpl extends Composite implements ReportSelectL
                 }else {
                     m_selectedReports = null;
                 }
-                
+
             }
         });
-        
+
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         m_layoutPanel.setSize("100%", "500px");
         m_layoutPanel.getElement().getStyle().setOverflow(Overflow.AUTO);
         m_treeContainer.add(makeCellTree(m_dataList));
-        
+
     }
-    
+
     private ReportSelectListCellTree makeCellTree(List<ResourceListItem> list) {
         return new ReportSelectListCellTree(list, m_selectionModel);
     }
-    
+
     @UiHandler("m_graphButton")
     public void onGraphButtonClick(ClickEvent event) {
         m_presenter.onGraphButtonClick();
     }
-    
+
     @UiHandler("m_removeButton")
     public void onRemoveButtonClick(ClickEvent event) {
         m_presenter.onClearSelectionButtonClick();
     }
-    
+
     @UiHandler("m_selectAllButton")
     public void onSelectAllButtonClick(ClickEvent event) {
         for(ResourceListItem item : m_dataList) {
             m_selectionModel.setSelected(item, true);
         }
     }
-    
+
     @UiHandler("m_searchButton")
     public void onSearchButtonClick(ClickEvent event) {
         m_presenter.onSearchButtonClick();
     }
-    
+
     @UiHandler("m_graphAllButton")
     public void onGraphAllClick(ClickEvent event) {
         m_presenter.onGraphAllButtonClick();
     }
-    
+
     @Override
     public void setDataList(List<ResourceListItem> dataList) {
         m_treeContainer.clear();

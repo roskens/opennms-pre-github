@@ -41,7 +41,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  *   <li>retries</li>
  *   <li>timeout</li>
  * </ul>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="parameter")

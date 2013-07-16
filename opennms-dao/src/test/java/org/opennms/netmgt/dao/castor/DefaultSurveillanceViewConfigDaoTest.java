@@ -47,18 +47,18 @@ import org.springframework.core.io.Resource;
 public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
     private static final String CONFIG_WITH_VIEWS_RESOURCE = "/surveillance-views.testdata.xml";
     private static final String CONFIG_NO_VIEWS_RESOURCE = "/surveillance-views.testdata.noviews.xml";
-    
+
     private DefaultSurveillanceViewConfigDao m_dao;
-    
+
     @Override
     protected void setUp() throws Exception {
         super.setUp();
         MockUtil.println("------------ Begin Test "+getName()+" --------------------------");
         MockLogAppender.setupLogging();
-        
+
         createDaoWithResource(CONFIG_WITH_VIEWS_RESOURCE);
     }
-    
+
     @Override
     public void runTest() throws Throwable {
         super.runTest();
@@ -69,112 +69,112 @@ public class DefaultSurveillanceViewConfigDaoTest extends TestCase {
     public void testNothing() {
         // test that setUp() / tearDown() works
     }
-    
+
     public void testDefaultView() {
         View view = m_dao.getDefaultView();
         assertNotNull("default view should not be null", view);
         assertEquals("default view name", "default", view.getName());
-        
+
         Columns columns = view.getColumns();
         assertNotNull("default view columns should not be null", columns);
         assertEquals("default view column count", 3, columns.getColumnDefCount());
-        
+
         Rows rows = view.getRows();
         assertNotNull("default view rows should not be null", rows);
         assertEquals("default view row count", 3, rows.getRowDefCount());
     }
-    
+
     public void testViewByName() {
         View view = m_dao.getView("default");
         assertNotNull("default view should not be null", view);
         assertEquals("default view name", "default", view.getName());
-        
+
         Columns columns = view.getColumns();
         assertNotNull("default view columns should not be null", columns);
         assertEquals("default view column count", 3, columns.getColumnDefCount());
-        
+
         Rows rows = view.getRows();
         assertNotNull("default view rows should not be null", rows);
         assertEquals("default view row count", 3, rows.getRowDefCount());
     }
-    
+
     public void testGetViews() {
         Views views = m_dao.getViews();
         assertNotNull("views should not be null", views);
         assertEquals("view count", 1, views.getViewCount());
-        
+
         View view = views.getView(0);
         assertNotNull("first view should not be null", view);
         assertEquals("first view name", "default", view.getName());
-        
+
         Columns columns = view.getColumns();
         assertNotNull("first view columns should not be null", columns);
         assertEquals("first view column count", 3, columns.getColumnDefCount());
-        
+
         Rows rows = view.getRows();
         assertNotNull("first view rows should not be null", rows);
         assertEquals("first view row count", 3, rows.getRowDefCount());
     }
-    
+
     public void testGetViewMap() {
         Map<String, View> viewMap = m_dao.getViewMap();
         assertEquals("view count", 1, viewMap.size());
-        
+
         assertNull("shouldn't have 'bogus' view", viewMap.get("bogus"));
-        
+
         View view = viewMap.get("default");
         assertNotNull("should have 'default' view", view);
-        
+
         assertNotNull("first view should not be null", view);
         assertEquals("first view name", "default", view.getName());
-        
+
         Columns columns = view.getColumns();
         assertNotNull("first view columns should not be null", columns);
         assertEquals("first view column count", 3, columns.getColumnDefCount());
-        
+
         Rows rows = view.getRows();
         assertNotNull("first view rows should not be null", rows);
         assertEquals("first view row count", 3, rows.getRowDefCount());
     }
-    
+
     public void testInitNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
     }
-    
+
     public void testGetDefaultViewNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
-        
+
         View view = m_dao.getDefaultView();
         assertNull("default view should be null", view);
     }
-    
+
     public void testGetViewByNameNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
-        
+
         View view = m_dao.getView("default");
         assertNull("view by name 'default' should be null", view);
     }
-    
+
     public void testGetViewsNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
-        
+
         Views views = m_dao.getViews();
         assertNotNull("views should not be null", views);
         assertEquals("view count", 0, views.getViewCount());
     }
-    
+
     public void testGetViewMapNoViews() throws IOException {
         createDaoWithResource(CONFIG_NO_VIEWS_RESOURCE);
-        
+
         Map<String, View> viewMap = m_dao.getViewMap();
         assertNotNull("viewMap should not be null", viewMap);
         assertEquals("view count", 0, viewMap.size());
     }
-    
+
     public void testConfigProduction() throws IOException {
         createDaoWithConfigFile("surveillance-views.xml");
     }
-    
+
     public void testConfigExample() throws IOException {
         createDaoWithConfigFile("examples/surveillance-views.xml");
     }

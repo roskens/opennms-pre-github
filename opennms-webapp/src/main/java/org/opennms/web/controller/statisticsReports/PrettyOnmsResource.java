@@ -48,7 +48,7 @@ public class PrettyOnmsResource extends OnmsResource {
     public PrettyOnmsResource(OnmsResource rs) {
         super(rs.getName(), rs.getLabel(), rs.getResourceType(), rs.getAttributes(), rs.getChildResources());
     }
-    
+
     /**
      * <p>toString</p>
      *

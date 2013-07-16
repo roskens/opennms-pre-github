@@ -53,7 +53,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Class BasicSchedule.
- * 
+ *
  */
 
 @XmlRootElement(name="basicSchedule", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
@@ -87,8 +87,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vTime
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -98,8 +98,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vTime
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -111,7 +111,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method enumerateTime.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -121,7 +121,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -136,21 +136,21 @@ public class BasicSchedule implements java.io.Serializable {
             BasicSchedule temp = (BasicSchedule)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._type != null) {
                 if (temp._type == null) return false;
-                else if (!(this._type.equals(temp._type))) 
+                else if (!(this._type.equals(temp._type)))
                     return false;
             }
             else if (temp._type != null)
                 return false;
             if (this._timeList != null) {
                 if (temp._timeList == null) return false;
-                else if (!(this._timeList.equals(temp._timeList))) 
+                else if (!(this._timeList.equals(temp._timeList)))
                     return false;
             }
             else if (temp._timeList != null)
@@ -163,7 +163,7 @@ public class BasicSchedule implements java.io.Serializable {
     /**
      * Returns the value of field 'name'. The field 'name' has the
      * following description: outage name
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public String getName() {
@@ -172,7 +172,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method getTime.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -194,7 +194,7 @@ public class BasicSchedule implements java.io.Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Time[] getTime() {
@@ -206,7 +206,7 @@ public class BasicSchedule implements java.io.Serializable {
      * Method getTimeCollection.Returns a reference to '_timeList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Time> getTimeCollection() {
@@ -215,7 +215,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method getTimeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getTimeCount() {
@@ -225,7 +225,7 @@ public class BasicSchedule implements java.io.Serializable {
     /**
      * Returns the value of field 'type'. The field 'type' has the
      * following description: outage type
-     * 
+     *
      * @return the value of field 'Type'.
      */
     public String getType() {
@@ -237,7 +237,7 @@ public class BasicSchedule implements java.io.Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
@@ -259,7 +259,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -273,7 +273,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method iterateTime.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -282,8 +282,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -296,8 +296,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -319,7 +319,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method removeTime.
-     * 
+     *
      * @param vTime
      * @return true if the object was removed from the collection.
      */
@@ -329,7 +329,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method removeTimeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -340,7 +340,7 @@ public class BasicSchedule implements java.io.Serializable {
     /**
      * Sets the value of field 'name'. The field 'name' has the
      * following description: outage name
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(final String name) {
@@ -348,8 +348,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vTime
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -365,8 +365,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vTimeArray
      */
     public void setTime(final Time[] vTimeArray) {
@@ -381,7 +381,7 @@ public class BasicSchedule implements java.io.Serializable {
     /**
      * Sets the value of '_timeList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vTimeList the Vector to copy.
      */
     public void setTime(final List<Time> vTimeList) {
@@ -395,7 +395,7 @@ public class BasicSchedule implements java.io.Serializable {
      * Sets the value of '_timeList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param timeList the Vector to set.
      */
     public void setTimeCollection(final List<Time> timeList) {
@@ -405,7 +405,7 @@ public class BasicSchedule implements java.io.Serializable {
     /**
      * Sets the value of field 'type'. The field 'type' has the
      * following description: outage type
-     * 
+     *
      * @param type the value of field 'type'.
      */
     public void setType(final String type) {
@@ -414,7 +414,7 @@ public class BasicSchedule implements java.io.Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -429,8 +429,8 @@ public class BasicSchedule implements java.io.Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

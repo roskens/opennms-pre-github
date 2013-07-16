@@ -58,12 +58,12 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(FilesystemForeignSourceRepository.class);
     private String m_requisitionPath;
     private String m_foreignSourcePath;
     private boolean m_updateDateStamps = true;
-    
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
@@ -128,7 +128,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>getForeignSourceCount</p>
      *
@@ -144,7 +144,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_readLock.unlock();
         }
     }
- 
+
     /**
      * <p>getForeignSources</p>
      *
@@ -244,7 +244,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>getRequisitions</p>
      *
@@ -260,7 +260,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             if (directory.exists()) {
                 for (final File file : directory.listFiles()) {
                     if (file.getName().endsWith(".xml")) {
-                        try {  
+                        try {
                             requisitions.add(RequisitionFileUtils.getRequisitionFromFile(file));
                         } catch (ForeignSourceRepositoryException e) {
                             // race condition, probably got deleted by the importer as part of moving things
@@ -274,7 +274,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_readLock.unlock();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
@@ -324,7 +324,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
         if (requisition == null) {
             throw new ForeignSourceRepositoryException("can't save a null requisition!");
         }
-        
+
         LOG.debug("Writing requisition {} to {}", requisition.getForeignSource(), m_requisitionPath);
         validate(requisition);
 
@@ -375,7 +375,7 @@ public class FilesystemForeignSourceRepository extends AbstractForeignSourceRepo
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>setRequisitionPath</p>
      *

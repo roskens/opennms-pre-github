@@ -438,7 +438,7 @@ public class RequestTracker {
                 final Matcher cfMatcherNew = m_customFieldPatternNew.matcher(line);
                 if (inTokensMatcher.matches()) {
                     if (cfMatcherOld.matches()) {
-                        lastKey = "CF.{" + cfMatcherOld.group(1) + "}"; 
+                        lastKey = "CF.{" + cfMatcherOld.group(1) + "}";
                     } else if (cfMatcherNew.matches()) {
                         lastKey = "CF.{" + cfMatcherNew.group(1) + "}";
                     }

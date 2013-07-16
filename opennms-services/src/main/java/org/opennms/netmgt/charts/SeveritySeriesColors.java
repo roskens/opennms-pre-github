@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SeveritySeriesColors implements CustomSeriesColors {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SeveritySeriesColors.class);
 
     /**
@@ -57,11 +57,11 @@ public class SeveritySeriesColors implements CustomSeriesColors {
     /** {@inheritDoc} */
     @Override
     public Paint getPaint(Comparable<?> cat) {
-        
+
         int sev = 0;
         String severity = cat.toString();
         Paint converted = Color.BLACK;
-        
+
         try {
             sev = Integer.parseInt(severity);
         } catch (NumberFormatException e) {

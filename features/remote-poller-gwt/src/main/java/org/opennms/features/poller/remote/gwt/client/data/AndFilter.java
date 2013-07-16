@@ -32,7 +32,7 @@ import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
 public class AndFilter implements LocationFilter {
 
-    private LocationFilter[] m_filters; 
+    private LocationFilter[] m_filters;
     public AndFilter(LocationFilter... filters) {
         m_filters = filters;
     }

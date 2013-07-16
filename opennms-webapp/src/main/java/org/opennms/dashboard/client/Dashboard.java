@@ -54,7 +54,7 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public class Dashboard implements EntryPoint, ErrorHandler {
-    
+
     Dashlet m_surveillance;
     AlarmDashlet m_alarms;
     OutageDashlet m_outages;
@@ -68,18 +68,18 @@ public class Dashboard implements EntryPoint, ErrorHandler {
      */
     @Override
     public void onModuleLoad() {
-        
-        
+
+
         add(createSurveillanceDashlet(), "surveillanceView");
         add(createAlarmDashlet(),        "alarms");
         add(createGraphDashlet(),        "graphs");
         add(createNotificationDashlet(), "notifications");
         //add(createOutageDashlet(),       "outages");
         add(createNodeStatusDashlet(),   "nodeStatus");
-        
-        
+
+
         setSurveillanceSet(SurveillanceSet.DEFAULT);
-        
+
     }
 
     private GraphDashlet createGraphDashlet() {
@@ -108,7 +108,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
 
     private Dashlet createSurveillanceDashlet() {
         SurveillanceDashlet surveillance = new SurveillanceDashlet(this);
-        
+
         SurveillanceListener listener = new SurveillanceListener() {
 
             @Override
@@ -125,20 +125,20 @@ public class Dashboard implements EntryPoint, ErrorHandler {
             public void onSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group) {
                 setSurveillanceSet(group);
             }
-            
+
         };
-        
+
         surveillance.addSurveillanceViewListener(listener);
-        
+
         final SurveillanceServiceAsync svc = getSurveillanceService();
-        
-        
+
+
         surveillance.setSurveillanceService(svc);
-        
+
         m_surveillance = surveillance;
         return m_surveillance;
     }
-    
+
     private SurveillanceServiceAsync getSurveillanceService() {
         if (m_surveillanceService == null) {
             String serviceEntryPoint = GWT.getHostPageBaseURL()+"surveillanceService.gwt";
@@ -158,7 +158,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
         m_nodeStatus.setSurveillanceSet(SurveillanceSet.DEFAULT);
         return m_nodeStatus;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -177,7 +177,7 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     public void error(Throwable e) {
         error(e.toString());
     }
-    
+
     /**
      * <p>error</p>
      *
@@ -186,32 +186,32 @@ public class Dashboard implements EntryPoint, ErrorHandler {
     public void error(String err) {
         final DialogBox dialog = new DialogBox();
         dialog.setText("Error Occurred");
-        
+
         VerticalPanel panel = new VerticalPanel();
         HTMLPanel html = new HTMLPanel(err);
         html.setStyleName("Message");
         panel.add(html);
-        
+
         Button ok = new Button("OK");
         SimplePanel buttonPanel = new SimplePanel();
         buttonPanel.setWidget(ok);
         buttonPanel.setStyleName("Button");
         panel.add(buttonPanel);
-        
+
         dialog.setPopupPosition(Window.getScrollLeft() + 100, Window.getScrollTop() + 100);
         dialog.setWidget(panel);
-        
+
         ok.addClickHandler(new ClickHandler() {
 
             @Override
             public void onClick(ClickEvent arg0) {
                 dialog.hide();
             }
-            
+
         });
-        
+
         dialog.show();
-        
+
     }
 
     private void setSurveillanceSet(SurveillanceSet set) {

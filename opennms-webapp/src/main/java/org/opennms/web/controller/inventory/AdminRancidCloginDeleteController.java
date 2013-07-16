@@ -52,25 +52,25 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminRancidCloginDeleteController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginDeleteController.class);
 
-    
+
     InventoryService m_inventoryService;
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
             Object command, BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidCloginDeleteController ModelAndView onSubmit");
-        
+
         AdminRancidCloginCommClass bean = (AdminRancidCloginCommClass) command;
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             boolean done = m_inventoryService.deleteClogin(bean.getDeviceName());
             if (!done){
                 LOG.debug("AdminRancidCloginController error on submitting cLogin changes");
-            }            
+            }
         }
         String redirectURL = request.getHeader("Referer");
         response.sendRedirect(redirectURL);
@@ -81,7 +81,7 @@ public class AdminRancidCloginDeleteController extends SimpleFormController {
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
         LOG.debug("AdminRancidCloginController initBinder");
     }
-    
+
     /**
      * <p>getInventoryService</p>
      *

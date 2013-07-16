@@ -48,7 +48,7 @@ import org.springframework.jms.core.MessageCreator;
 
 /**
  * Northbound Interface JMS Implementation
- * 
+ *
  * FIXME: Needs LOTS of work.  Need to implement ActiveMQ client instead of Geronimo.
  * FIXME: Needs configuration DAO
  *
@@ -56,24 +56,24 @@ import org.springframework.jms.core.MessageCreator;
  * @version $Id: $
  */
 public class JmsNorthbounder extends AbstractNorthbounder implements InitializingBean {
-    
+
     protected JmsNorthbounder() {
         super("JmsNorthbounder");
     }
 
     @Autowired
     private JmsTemplate m_template;
-    
+
     //Wire this so that we can have a single connection factory in OpenNMS
     @Autowired
     private ConnectionFactory m_connectionFactory;
 
     //TODO needs to be configured
     private Queue m_queue;
-    
+
     //@Autowired
     //private JmsNorthbounderConfig m_config;
-    
+
     @Override
     public boolean accepts(NorthboundAlarm alarm) {
         return true;
@@ -86,11 +86,11 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
 
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
-        
+
         for (NorthboundAlarm alarm : alarms) {
             m_template.convertAndSend(alarm);
         }
-        
+
         for (final NorthboundAlarm alarm : alarms) {
             m_template.send(m_queue, new MessageCreator() {
 
@@ -98,13 +98,13 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
                 public Message createMessage(Session session) throws JMSException {
                     return session.createTextMessage(convertAlarmToXml(alarm));
                 }
-                
+
             });
-            
+
         }
-        
+
     }
-    
+
 
     protected String convertAlarmToXml(NorthboundAlarm alarm) {
         return "This is a test alarm.";
@@ -114,5 +114,5 @@ public class JmsNorthbounder extends AbstractNorthbounder implements Initializin
     public void onPreStart() throws NorthbounderException {
         m_template = new JmsTemplate(m_connectionFactory);
     }
-    
+
 }

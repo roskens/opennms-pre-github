@@ -53,7 +53,7 @@ public class DNSAddressRequestTest extends TestCase {
         (byte) 0x00, (byte) 0x00, (byte) 0x04, (byte) 0x7f,
         (byte) 0x00, (byte) 0x00, (byte) 0x01
     };
-    
+
     private static final byte[] servFailResponseBytes = new byte[] {
         (byte) 0x5e,
         (byte) 0x94,
@@ -82,9 +82,9 @@ public class DNSAddressRequestTest extends TestCase {
         (byte) 0x00,
         (byte) 0x01,
         (byte) 0x00,
-        (byte) 0x01      
+        (byte) 0x01
     };
-    
+
     private static final byte[] nxDomainResponseBytes = new byte[] {
         (byte) 0x2f, (byte) 0x3e, (byte) 0x81, (byte) 0x83,
         (byte) 0x00, (byte) 0x01, (byte) 0x00, (byte) 0x00,
@@ -113,7 +113,7 @@ public class DNSAddressRequestTest extends TestCase {
         (byte) 0x3a, (byte) 0x80, (byte) 0x00, (byte) 0x01,
         (byte) 0x51, (byte) 0x80
     };
-    
+
     private DNSAddressRequest m_request;
 
     @Before
@@ -127,7 +127,7 @@ public class DNSAddressRequestTest extends TestCase {
     public void testNormalResponse() throws Exception {
         m_request.m_reqID = 0x9ef2;
         m_request.verifyResponse(normalResponseBytes, normalResponseBytes.length);
-        
+
         m_request.receiveResponse(normalResponseBytes, normalResponseBytes.length);
         assertEquals(1, m_request.getAnswers().size());
         DNSAddressRR answer = (DNSAddressRR) m_request.getAnswers().get(0);
@@ -137,19 +137,19 @@ public class DNSAddressRequestTest extends TestCase {
         assertEquals(0, answer.getAddress()[2]);
         assertEquals(1, answer.getAddress()[3]);
     }
-    
+
     @Test
     public void testServerFailed() throws Exception {
         m_request.m_reqID = 24212;
         try {
-            m_request.verifyResponse(servFailResponseBytes, servFailResponseBytes.length);            
+            m_request.verifyResponse(servFailResponseBytes, servFailResponseBytes.length);
         } catch (IOException ioe) {
             assertEquals("Server Failure (2)", ioe.getMessage());
             return;
         }
         throw new Exception("Should have caught an IOException for ServFail!");
     }
-    
+
     @Test
     public void testNxDomainPass() throws Exception {
         List<Integer> fatalCodes = new ArrayList<Integer>();

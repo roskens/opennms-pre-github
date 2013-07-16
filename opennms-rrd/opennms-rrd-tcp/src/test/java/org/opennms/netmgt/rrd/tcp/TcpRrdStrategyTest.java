@@ -62,7 +62,7 @@ import org.python.util.PythonInterpreter;
 
 /**
  * Unit tests for the TcpRrdStrategy.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class TcpRrdStrategyTest {
@@ -88,10 +88,10 @@ public class TcpRrdStrategyTest {
                              * This python code is not working properly under Jython. My
                              * hunch is that it would be better under the new Jython 2.5.1
                              * but that version is not easy to use under Maven, see:
-                             * 
+                             *
                              * http://bugs.jython.org/issue1512
                              * http://bugs.jython.org/issue1513
-                             * 
+                             *
                             PythonInterpreter python = new PythonInterpreter();
                             python.execfile(
                                     // Load the python path parser script from the classpath
@@ -113,10 +113,10 @@ public class TcpRrdStrategyTest {
                                     values.append(message.getValue(i));
                                 }
                                 values.append(" }");
-                                System.out.println("Message received: { " + 
-                                        "path: \"" + message.getPath() + "\", " + 
-                                        "owner: \"" + message.getOwner() + "\", " + 
-                                        "timestamp: \"" + message.getTimestamp() + "\", " + 
+                                System.out.println("Message received: { " +
+                                        "path: \"" + message.getPath() + "\", " +
+                                        "owner: \"" + message.getOwner() + "\", " +
+                                        "timestamp: \"" + message.getTimestamp() + "\", " +
                                         "values: " + values.toString() + " }");
 
                                 /*
@@ -176,7 +176,7 @@ public class TcpRrdStrategyTest {
 
     @Test
     public void testInitialize() {
-        // Don't do anything... just check that setUp works 
+        // Don't do anything... just check that setUp works
     }
 
     @Test
@@ -224,7 +224,7 @@ public class TcpRrdStrategyTest {
         dataSources.add(new RrdDataSource("bar", "GAUGE", 3000, "U", "U"));
         List<String> rraList = new ArrayList<String>();
         rraList.add("RRA:AVERAGE:0.5:1:2016");
-        File tempDir = m_fileAnticipator.getTempDir(); 
+        File tempDir = m_fileAnticipator.getTempDir();
         m_tempDir = tempDir.getAbsolutePath();
         // Create an '/rrd/snmp/1' directory in the temp directory so that the
         // RRDs created by the test will have a realistic path

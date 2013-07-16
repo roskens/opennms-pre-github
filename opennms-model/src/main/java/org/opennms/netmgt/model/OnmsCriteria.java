@@ -58,12 +58,12 @@ public class OnmsCriteria implements Serializable {
     public static final int INNER_JOIN = Criteria.INNER_JOIN;
     /** Constant <code>LEFT_JOIN=Criteria.LEFT_JOIN</code> */
     public static final int LEFT_JOIN = Criteria.LEFT_JOIN;
-    
+
     private OnmsCriteria.OnmsDetachedCriteria m_criteria;
     private String m_entityName;
     private Integer m_firstResult = null;
     private Integer m_maxResults = null;
-    
+
     /**
      * <p>Constructor for OnmsCriteria.</p>
      *
@@ -72,7 +72,7 @@ public class OnmsCriteria implements Serializable {
     public OnmsCriteria(String entityName) {
         this(entityName, OnmsCriteria.OnmsDetachedCriteria.forEntityName(entityName));
     }
-    
+
     /**
      * <p>Constructor for OnmsCriteria.</p>
      *
@@ -82,7 +82,7 @@ public class OnmsCriteria implements Serializable {
     public OnmsCriteria(String entityName, String alias) {
         this(entityName, OnmsCriteria.OnmsDetachedCriteria.forEntityName(entityName, alias));
     }
-    
+
     /**
      * <p>Constructor for OnmsCriteria.</p>
      *
@@ -91,7 +91,7 @@ public class OnmsCriteria implements Serializable {
     public OnmsCriteria(Class<?> clazz) {
         this(clazz.getName(), OnmsCriteria.OnmsDetachedCriteria.forClass(clazz));
     }
-    
+
     /**
      * <p>Constructor for OnmsCriteria.</p>
      *
@@ -101,7 +101,7 @@ public class OnmsCriteria implements Serializable {
     public OnmsCriteria(Class<?> clazz, String alias) {
         this(clazz.getName(), OnmsCriteria.OnmsDetachedCriteria.forClass(clazz, alias));
     }
-    
+
     /**
      * <p>Constructor for OnmsCriteria.</p>
      *
@@ -112,7 +112,7 @@ public class OnmsCriteria implements Serializable {
         m_entityName = entityName;
         m_criteria = criteria;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -147,7 +147,7 @@ public class OnmsCriteria implements Serializable {
         m_criteria.createAlias(associationPath, alias);
         return this;
     }
-    
+
     /**
      * <p>createAlias</p>
      *
@@ -236,7 +236,7 @@ public class OnmsCriteria implements Serializable {
         m_criteria.setResultTransformer(resultTransformer);
         return this;
     }
-    
+
     /**
      * <p>getDetachedCriteria</p>
      *
@@ -259,7 +259,7 @@ public class OnmsCriteria implements Serializable {
             return clazz.getName().endsWith(m_entityName);
         }
     }
-    
+
     /**
      * <p>getFirstResult</p>
      *
@@ -268,7 +268,7 @@ public class OnmsCriteria implements Serializable {
     public Integer getFirstResult() {
     	return m_firstResult;
     }
-    
+
     /**
      * <p>setFirstResult</p>
      *
@@ -277,7 +277,7 @@ public class OnmsCriteria implements Serializable {
     public void setFirstResult(Integer offset) {
     	m_firstResult = offset;
     }
-    
+
     /**
      * <p>getMaxResults</p>
      *
@@ -286,7 +286,7 @@ public class OnmsCriteria implements Serializable {
     public Integer getMaxResults() {
     	return m_maxResults;
     }
-    
+
     /**
      * <p>setMaxResults</p>
      *
@@ -295,7 +295,7 @@ public class OnmsCriteria implements Serializable {
     public void setMaxResults(Integer limit) {
     	m_maxResults = limit;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -326,12 +326,12 @@ public class OnmsCriteria implements Serializable {
      * We create our own CriteriaImpl and pass it to the constructor for our
      * superclass, keeping a reference to the CriteriaImpl for ourselves so
      * we can use it for feature that DetachedCriteria doesn't support.
-     * 
+     *
      * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
      */
     public static class OnmsDetachedCriteria extends DetachedCriteria implements Cloneable {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = -2016788794945601848L;
         private CriteriaImpl m_impl;
@@ -339,7 +339,7 @@ public class OnmsCriteria implements Serializable {
         protected OnmsDetachedCriteria(String entityName) {
             this(new CriteriaImpl(entityName, null));
         }
-        
+
         protected OnmsDetachedCriteria(String entityName, String alias) {
             this(new CriteriaImpl(entityName, alias, null));
         }
@@ -348,30 +348,30 @@ public class OnmsCriteria implements Serializable {
             super(impl, impl);
             m_impl = impl;
         }
-        
+
         protected OnmsDetachedCriteria(CriteriaImpl impl, Criteria criteria) {
             super(impl, criteria);
             m_impl = impl;
         }
-        
+
         public static OnmsCriteria.OnmsDetachedCriteria forEntityName(String entityName) {
             return new OnmsCriteria.OnmsDetachedCriteria(entityName);
         }
-        
+
         public static OnmsCriteria.OnmsDetachedCriteria forEntityName(String entityName, String alias) {
             return new OnmsCriteria.OnmsDetachedCriteria(entityName, alias);
         }
-        
+
         @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
         public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz) {
             return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName());
         }
-        
+
         @SuppressWarnings("unchecked") // Needs to have the same erasure as the Hibernate API
         public static OnmsCriteria.OnmsDetachedCriteria forClass(Class clazz, String alias) {
             return new OnmsCriteria.OnmsDetachedCriteria(clazz.getName() , alias);
         }
-        
+
         @Override
         public OnmsCriteria.OnmsDetachedCriteria createAlias(String associationPath, String alias, int joinType) {
             m_impl.createAlias(associationPath, alias, joinType);
@@ -382,7 +382,7 @@ public class OnmsCriteria implements Serializable {
         public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath, int joinType) {
             return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath, joinType));
         }
-        
+
         @Override
         public OnmsCriteria.OnmsDetachedCriteria createCriteria(String associationPath, String alias) {
             return new OnmsCriteria.OnmsDetachedCriteria(m_impl, m_impl.createCriteria(associationPath));

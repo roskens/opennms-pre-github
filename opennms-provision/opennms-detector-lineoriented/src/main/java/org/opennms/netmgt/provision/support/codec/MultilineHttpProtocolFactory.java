@@ -42,17 +42,17 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  * @version $Id: $
  */
 public class MultilineHttpProtocolFactory implements ProtocolCodecFactory {
-    
+
     private LineOrientedEncoder m_encoder;
     private MultilineHttpStatusResponseDecoder m_decoder;
-    
+
     /**
      * <p>Constructor for MultilineHttpProtocolFactory.</p>
      */
     public MultilineHttpProtocolFactory() {
         this(Charset.defaultCharset());
     }
-    
+
     /**
      * <p>Constructor for MultilineHttpProtocolFactory.</p>
      *
@@ -62,7 +62,7 @@ public class MultilineHttpProtocolFactory implements ProtocolCodecFactory {
         m_encoder = new LineOrientedEncoder(charset);
         m_decoder = new MultilineHttpStatusResponseDecoder(charset);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ProtocolDecoder getDecoder(final IoSession session) throws Exception {

@@ -53,7 +53,7 @@ public class Phase extends BatchTask {
     private LifeCycleInstance m_lifecycle;
     private String m_name;
     private Object[] m_providers;
-        
+
     /**
      * <p>Constructor for Phase.</p>
      *
@@ -79,7 +79,7 @@ public class Phase extends BatchTask {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>getLifeCycleInstance</p>
      *
@@ -88,7 +88,7 @@ public class Phase extends BatchTask {
     public LifeCycleInstance getLifeCycleInstance() {
         return m_lifecycle;
     }
-    
+
     /**
      * <p>createNestedLifeCycle</p>
      *
@@ -98,7 +98,7 @@ public class Phase extends BatchTask {
     public LifeCycleInstance createNestedLifeCycle(String lifeCycleName) {
         return m_lifecycle.createNestedLifeCycle(this, lifeCycleName);
     }
-    
+
     /**
      * <p>addPhaseMethods</p>
      */
@@ -107,7 +107,7 @@ public class Phase extends BatchTask {
             addPhaseMethods(provider);
         }
     }
-    
+
     /**
      * <p>addPhaseMethods</p>
      *
@@ -122,18 +122,18 @@ public class Phase extends BatchTask {
             }
         }
     }
-    
+
 //    public void run() {
 //        for(Object provider : m_providers) {
 //            PhaseMethod[] methods = findPhaseMethods(provider);
 //            for(PhaseMethod method : methods) {
 //                method.invoke();
 //            }
-//            
+//
 //        }
-//        
+//
 //    }
-//    
+//
 //    private PhaseMethod[] findPhaseMethods(Object provider) {
 //        List<PhaseMethod> methods = new ArrayList<PhaseMethod>();
 //        for(Method method : provider.getClass().getMethods()) {
@@ -151,16 +151,16 @@ public class Phase extends BatchTask {
         }
         return null;
     }
-    
+
     PhaseMethod createPhaseMethod(Object provider, Method method, String schedulingHint) {
         return new PhaseMethod(this, provider, method, schedulingHint);
     }
-    
+
     public static class PhaseMethod extends BatchTask {
         private Phase m_phase;
         private Object m_target;
         private Method m_method;
-        
+
         public PhaseMethod(Phase phase, Object target, Method method, String schedulingHint) {
             super(phase.getCoordinator(), phase);
             m_phase = phase;
@@ -168,7 +168,7 @@ public class Phase extends BatchTask {
             m_method = method;
             add(phaseRunner(), schedulingHint);
         }
-        
+
         private Runnable phaseRunner() {
             return new Runnable() {
                 @Override
@@ -187,11 +187,11 @@ public class Phase extends BatchTask {
         }
 
         private void doInvoke(LifeCycleInstance lifeCycle) throws IllegalAccessException, InvocationTargetException {
-            
+
             lifeCycle.setAttribute("currentPhase", m_phase);
-            
+
             Object[] args = findArguments(lifeCycle);
-            
+
             Object retVal = m_method.invoke(m_target, args);
             Attribute retValAttr = m_method.getAnnotation(Attribute.class);
             if (retValAttr != null) {
@@ -205,7 +205,7 @@ public class Phase extends BatchTask {
         }
 
         private Object[] findArguments(LifeCycleInstance lifeCycle) {
-            
+
             Type[] types = m_method.getGenericParameterTypes();
 
             Object[] args = new Object[types.length];
@@ -225,7 +225,7 @@ public class Phase extends BatchTask {
                         args[i] = null;
                     }
                 }
-                
+
             }
 
             return args;
@@ -234,13 +234,13 @@ public class Phase extends BatchTask {
 
         private <T extends Annotation> T getParameterAnnotation(Method method, int parmIndex, Class<T> annotationClass) {
             Annotation[] annotations = method.getParameterAnnotations()[parmIndex];
-            
+
             for(Annotation a : annotations) {
                 if (annotationClass.isInstance(a)) {
                     return annotationClass.cast(a);
                 }
             }
-            
+
             return null;
         }
 
@@ -248,10 +248,10 @@ public class Phase extends BatchTask {
         public String toString() {
             return String.format("%s.%s(%s)", m_target.getClass().getSimpleName(), m_method.getName(), m_phase.getLifeCycleInstance());
         }
-        
+
     }
-    
-    
+
+
     /**
      * <p>toString</p>
      *

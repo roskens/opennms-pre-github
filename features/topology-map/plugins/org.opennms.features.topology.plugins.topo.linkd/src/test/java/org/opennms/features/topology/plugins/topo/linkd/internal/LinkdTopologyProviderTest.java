@@ -91,7 +91,7 @@ public class LinkdTopologyProviderTest {
 	private VertexRef addVertexToTopr() {
 		return m_topologyProvider.addVertex(0, 0);
 	}
-	
+
 	private String m_originalFilename;
 
 	@Before
@@ -113,7 +113,7 @@ public class LinkdTopologyProviderTest {
 		m_topologyProvider.setConfigurationFile(m_originalFilename);
 	}
 
-	@Test 
+	@Test
 	public void testGetIcon() {
 		Assert.assertTrue("linkd:system:snmp:1.3.6.1.4.1.5813.1.25".equals(LinkdTopologyProvider.getIconName(m_databasePopulator.getNode1())));
 		Assert.assertTrue(LinkdTopologyProvider.SERVER_ICON_KEY.equals(LinkdTopologyProvider.getIconName(m_databasePopulator.getNode2())));
@@ -144,7 +144,7 @@ public class LinkdTopologyProviderTest {
 		m_databasePopulator.check(m_topologyProvider);
 	}
 
-	@Test 
+	@Test
 	public void testAddGroup() {
 		Vertex parentId = m_topologyProvider.addGroup("Linkd Group", LinkdTopologyProvider.GROUP_ICON_KEY);
 		Assert.assertEquals(true, m_topologyProvider.containsVertexId(parentId));
@@ -154,7 +154,7 @@ public class LinkdTopologyProviderTest {
 	public void test() throws Exception {
 		new File("target/test-classes/test.xml").delete();
 		m_topologyProvider.setConfigurationFile("target/test-classes/test.xml");
-		
+
 		// Load 8 vertices
 		assertEquals(8, m_topologyProvider.getVertices().size());
 
@@ -166,7 +166,7 @@ public class LinkdTopologyProviderTest {
 		assertTrue(m_topologyProvider.containsVertexId(vertexA));
 		assertTrue(m_topologyProvider.containsVertexId("v0"));
 		assertFalse(m_topologyProvider.containsVertexId("v1"));
-		
+
 		((AbstractVertex)vertexA).setIpAddress("10.0.0.4");
 
 		// Search by VertexRef
@@ -207,15 +207,15 @@ public class LinkdTopologyProviderTest {
 		m_topologyProvider.connectVertices(vertexC, vertexD);
 		m_topologyProvider.connectVertices(vertexA, vertexE);
 		m_topologyProvider.connectVertices(vertexD, vertexE);
-		
-		// Ensure that the WrappedVertex class is working properly 
+
+		// Ensure that the WrappedVertex class is working properly
 		WrappedVertex wrappedVertex = new WrappedLeafVertex(vertexA);
 		assertEquals("v0", wrappedVertex.id);
 		assertEquals("nodes", wrappedVertex.namespace);
 		assertEquals("10.0.0.4", wrappedVertex.ipAddr);
 		assertEquals(50, wrappedVertex.x.intValue());
 		assertEquals(100, wrappedVertex.y.intValue());
-		
+
 		assertEquals(1, m_topologyProvider.getVertices(Collections.singletonList(vertexAref)).size());
 		assertEquals(1, m_topologyProvider.getVertices(Collections.singletonList(vertexBref)).size());
 		assertEquals(15, m_topologyProvider.getVertices().size());
@@ -228,11 +228,11 @@ public class LinkdTopologyProviderTest {
 		assertEquals(1, m_topologyProvider.getSemanticZoomLevel(vertexC));
 		assertEquals(1, m_topologyProvider.getSemanticZoomLevel(vertexD));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexE));
-		
+
 		m_topologyProvider.save();
-		
+
 		m_topologyProvider.resetContainer();
-		
+
 		// Ensure that the topology provider has been erased
 		assertEquals(0, m_topologyProvider.getVertices(Collections.singletonList(vertexAref)).size());
 		assertEquals(0, m_topologyProvider.getVertices(Collections.singletonList(vertexBref)).size());
@@ -246,11 +246,11 @@ public class LinkdTopologyProviderTest {
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexC));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexD));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexE));
-		
+
 		m_topologyProvider.refresh();
-		
+
 		// Ensure that all of the content has been reloaded properly
-		
+
 		// Plain vertices should not be reloaded from the XML
 		assertEquals(0, m_topologyProvider.getVertices(Collections.singletonList(vertexAref)).size());
 		assertEquals(0, m_topologyProvider.getVertices(Collections.singletonList(vertexBref)).size());
@@ -270,31 +270,31 @@ public class LinkdTopologyProviderTest {
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexD));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(vertexE));
 	}
-	
+
 	@Test
 	public void loadSampleGraph() throws Exception {
 		m_topologyProvider.setConfigurationFile("target/test-classes/saved-vmware-graph.xml");
-		
+
 		//GraphProvider topologyProvider = new LinkdTopologyProvider();
 		m_topologyProvider.load(null);
-		
+
 		assertEquals(8, m_topologyProvider.getVertices().size());
 		assertEquals(8, m_topologyProvider.getEdges().size());
 	}
-	
+
 	@Test
 	public void loadSavedGraphWithOnlyGroups() throws Exception {
 		m_topologyProvider.setConfigurationFile("target/test-classes/saved-linkd-graph.xml");
-		
+
 		// Temporarily replace the DataLinkInterfaceDao with a mock empty impl
 		DataLinkInterfaceDao dao = m_topologyProvider.getDataLinkInterfaceDao();
 		DataLinkInterfaceDao mockDao = EasyMock.createMock(DataLinkInterfaceDao.class);
 		EasyMock.expect(mockDao.findAll()).andReturn(new ArrayList<DataLinkInterface>()).anyTimes();
 		EasyMock.replay(mockDao);
 		m_topologyProvider.setDataLinkInterfaceDao(mockDao);
-		
+
 		m_topologyProvider.load(null);
-		
+
 		// Should have 8 groups
 		assertEquals(8, m_topologyProvider.getVertices().size());
 		// Ensure that all of the vertices are groups
@@ -352,10 +352,10 @@ public class LinkdTopologyProviderTest {
 		m_topologyProvider = new LinkdTopologyProvider();
 		m_topologyProvider.load("target/test-classes/simple-graph.xml");
 		*/
-		
+
 		assertEquals(8, m_topologyProvider.getVertices().size());
 		assertEquals(8, m_topologyProvider.getEdges().size());
-		
+
 		Vertex v1 = m_topologyProvider.getVertex("nodes", "1");
 		Vertex v2 = m_topologyProvider.getVertex("nodes", "2");
 		Vertex v3 = m_topologyProvider.getVertex("nodes", "3");
@@ -370,16 +370,16 @@ public class LinkdTopologyProviderTest {
 		assertEquals((Object)new Integer(0), (Object)v1.getX());
 		assertEquals((Object)new Integer(0), (Object)v1.getY());
 		//assertEquals(v5, v1.getParent());
-		
+
 		//assertEquals(2, m_topologyProvider.getChildren(v5).size());
-		
+
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v1));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v2));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v3));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v4));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v5));
 		assertEquals(0, m_topologyProvider.getSemanticZoomLevel(v6));
-		
+
 		assertEquals(2, m_topologyProvider.getEdgeIdsForVertex(v1).length);
 		assertEquals(2, m_topologyProvider.getEdgeIdsForVertex(v2).length);
 		assertEquals(2, m_topologyProvider.getEdgeIdsForVertex(v3).length);
@@ -395,41 +395,41 @@ public class LinkdTopologyProviderTest {
 			assertEquals("nodes", edge.getNamespace());
 		}
 	}
-	
+
     @Test
 	public void testConnectVertices() {
 		m_topologyProvider.resetContainer();
 
 		Vertex vertexId = m_topologyProvider.addVertex(0, 0);
-        
+
         assertEquals(1, m_topologyProvider.getVertices().size());
         Vertex vertex0 = m_topologyProvider.getVertices().iterator().next();
         assertEquals("v0", vertex0.getId());
-        
+
         Vertex vertex1 = m_topologyProvider.addVertex(0, 0);
         assertEquals(2, m_topologyProvider.getVertices().size());
-        
+
         Edge edgeId = m_topologyProvider.connectVertices(vertex0, vertex1);
         assertEquals(1, m_topologyProvider.getEdges().size());
         SimpleLeafVertex sourceLeafVert = (SimpleLeafVertex) edgeId.getSource().getVertex();
         SimpleLeafVertex targetLeafVert = (SimpleLeafVertex) edgeId.getTarget().getVertex();
-        
+
         assertEquals("v0", sourceLeafVert.getId());
         assertEquals("v1", targetLeafVert.getId());
-        
+
         EdgeRef[] edgeIds = m_topologyProvider.getEdgeIdsForVertex(vertexId);
         assertEquals(1, edgeIds.length);
         assertEquals(edgeId, edgeIds[0]);
-        
+
 	}
-    
+
     @Test
     public void testTopoProviderSetParent() {
         VertexRef vertexId1 = addVertexToTopr();
         VertexRef vertexId2 = addVertexToTopr();
-        
+
         final AtomicInteger eventsReceived = new AtomicInteger(0);
-        
+
         m_topologyProvider.addVertexListener(new VertexListener() {
 
             @Override
@@ -449,15 +449,15 @@ public class LinkdTopologyProviderTest {
         Vertex groupId = m_topologyProvider.addGroup("Test Group", "groupIcon.jpg");
         assertEquals(1, eventsReceived.get());
         eventsReceived.set(0);
-        
+
         m_topologyProvider.setParent(vertexId1, groupId);
         m_topologyProvider.setParent(vertexId2, groupId);
-        
+
         assertEquals(2, eventsReceived.get());
     }
-    
+
     /**
-     * Tests that the Linkdprovider does load the information stored in the xml file 
+     * Tests that the Linkdprovider does load the information stored in the xml file
      * correctly. So that all groups are loaded as expected and all groups have the expected
      * children as well.
      * @throws MalformedURLException
@@ -470,7 +470,7 @@ public class LinkdTopologyProviderTest {
         DataLinkInterfaceDao datalinkIfDaoMock = EasyMock.createNiceMock(DataLinkInterfaceDao.class);
         EasyMock.expect(datalinkIfDaoMock.findAll()).andReturn(new ArrayList<DataLinkInterface>()).anyTimes();
         EasyMock.replay(datalinkIfDaoMock);
-        
+
         topologyProvider.setDataLinkInterfaceDao(datalinkIfDaoMock);
         topologyProvider.setNodeDao(m_databasePopulator.getNodeDao());
         topologyProvider.setIpInterfaceDao(m_databasePopulator.getIpInterfaceDao());
@@ -478,14 +478,14 @@ public class LinkdTopologyProviderTest {
         topologyProvider.setConfigurationFile(getClass().getResource("/saved-linkd-graph2.xml").getFile());
         topologyProvider.setAddNodeWithoutLink(true);
         topologyProvider.load(null); // simulate refresh
-        
+
         // test if topology is loaded correctly results
         for (int i=0; i<topologyProvider.getGroups().size(); i++)  Assert.assertTrue(topologyProvider.containsVertexId("g" + i));
         Assert.assertFalse(topologyProvider.containsVertexId("g" + topologyProvider.getGroups().size()));
         for (int i=0; i<topologyProvider.getVerticesWithoutGroups().size(); i++) Assert.assertTrue(topologyProvider.containsVertexId("" + (i+1)));
         Assert.assertFalse(topologyProvider.containsVertexId("" + (topologyProvider.getVerticesWithoutGroups().size()+1)));
-       
-        // now check the parent stuff        
+
+        // now check the parent stuff
         final String namespace = topologyProvider.getVertexNamespace();
         check(topologyProvider.getVertex(namespace, "1"), m_databasePopulator.getNode1(), topologyProvider.getVertex(namespace, "g2"));
         check(topologyProvider.getVertex(namespace, "2"), m_databasePopulator.getNode2(), null);
@@ -496,9 +496,9 @@ public class LinkdTopologyProviderTest {
         Assert.assertEquals(topologyProvider.getVertex(namespace, "g0").getParent(), null);
         Assert.assertEquals(topologyProvider.getVertex(namespace, "g1").getParent(), null);
         Assert.assertEquals(topologyProvider.getVertex(namespace, "g2").getParent(), topologyProvider.getVertex(namespace, "g1"));
-        
+
     }
-    
+
     // checks that the vertex and the node are equal
     private void check(Vertex child, OnmsNode node, Vertex parent) {
         Assert.assertNotNull(child);

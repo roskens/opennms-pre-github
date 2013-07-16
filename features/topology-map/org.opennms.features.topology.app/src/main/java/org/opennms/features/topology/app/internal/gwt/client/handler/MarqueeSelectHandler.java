@@ -48,23 +48,23 @@ import com.google.gwt.dom.client.Element;
 public class MarqueeSelectHandler implements DragBehaviorHandler{
 
     public class Interval{
-        
+
         private int m_lo;
         public int getLo() {
             return m_lo;
         }
-    
+
         private int m_hi;
-    
+
         public int getHi() {
             return m_hi;
         }
-    
+
         public Interval(int lo, int hi) {
             m_lo = Math.min(lo, hi);
             m_hi = Math.max(lo, hi);
         }
-        
+
         public boolean contains(int value) {
             return m_lo <= value && value <= m_hi;
         }
@@ -78,32 +78,32 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
     private int m_offsetY;
     private SVGTopologyMap m_svgTopologyMap;
     private TopologyView<TopologyViewRenderer> m_topologyView;
-    
+
     public MarqueeSelectHandler(SVGTopologyMap topologyMap, TopologyView<TopologyViewRenderer> topologyView) {
         m_svgTopologyMap = topologyMap;
         m_topologyView = topologyView;
     }
-    
+
     @Override
     public void onDragStart(Element elem) {
         if(!m_dragging) {
             m_dragging = true;
-            
+
             SVGElement svg = m_topologyView.getSVGElement().cast();
             SVGMatrix rect = svg.getScreenCTM();
-            
+
             m_offsetX = (int) rect.getE();
             m_offsetY = (int) rect.getF();
             consoleLog(rect);
             consoleLog("m_offsetX: " + m_offsetX + " m_offsetY: " + m_offsetY);
             m_x1 = D3.getEvent().getClientX() - m_offsetX;
             m_y1 = D3.getEvent().getClientY() - m_offsetY;
-            
+
             setMarquee(m_x1, m_y1, 0, 0);
             D3.d3().select(m_topologyView.getMarqueeElement()).attr("display", "inline");
         }
     }
-    
+
     public final native void consoleLog(Object log)/*-{
         $wnd.console.log(log);
     }-*/;
@@ -114,7 +114,7 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
             int clientX = D3.getEvent().getClientX() - m_offsetX;
             int clientY = D3.getEvent().getClientY() - m_offsetY;
             setMarquee(
-                Math.min(m_x1, clientX), Math.min(m_y1, clientY), 
+                Math.min(m_x1, clientX), Math.min(m_y1, clientY),
                 Math.abs(m_x1 - clientX), Math.abs(m_y1 - clientY)
             );
             selectVertices();
@@ -125,7 +125,7 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
     public void onDragEnd(Element elem) {
         m_dragging = false;
         D3.d3().select(m_topologyView.getMarqueeElement()).attr("display", "none");
-        
+
         final List<String> vertIds = new ArrayList<String>();
         m_svgTopologyMap.selectAllVertexElements().each(new Handler<GWTVertex>() {
 
@@ -136,50 +136,50 @@ public class MarqueeSelectHandler implements DragBehaviorHandler{
                 }
             }
         });
-        
+
         m_svgTopologyMap.setVertexSelection(vertIds);
     }
-    
+
     private void setMarquee(int x, int y, int width, int height) {
         D3.d3().select(m_topologyView.getMarqueeElement()).attr("x", x).attr("y", y).attr("width", width).attr("height", height);
     }
-    
+
     private void selectVertices() {
         D3 vertices = m_svgTopologyMap.selectAllVertexElements();
         JsArray<JsArray<SVGElement>> selection = vertices.cast();
-        
+
         final JsArray<SVGElement> elemArray = selection.get(0);
-        
+
         vertices.each(new Handler<GWTVertex>() {
 
             @Override
             public void call(GWTVertex vertex, int index) {
                 SVGElement elem = elemArray.get(index).cast();
-                
+
                 if(inSelection(elem)) {
                     vertex.setSelected(true);
                 }else {
                     vertex.setSelected(false);
                 }
-                
+
             }
         });
-        
+
     }
 
     private boolean inSelection(SVGElement elem) {
         SVGElement marquee = m_topologyView.getMarqueeElement().cast();
         SVGRect mBBox = marquee.getBBox();
         ClientRect elemClientRect = elem.getBoundingClientRect();
-        
+
         Interval marqueeX = new Interval(mBBox.getX(), mBBox.getX() + mBBox.getWidth());
         Interval marqueeY = new Interval(mBBox.getY(), mBBox.getY() + mBBox.getHeight());
-        
+
         int left = elemClientRect.getLeft() - m_offsetX;
         int top = elemClientRect.getTop() - m_offsetY;
         Interval vertexX = new Interval(left, left + elemClientRect.getWidth());
         Interval vertexY = new Interval(top, top + elemClientRect.getHeight());
-        
+
         return marqueeX.contains(vertexX.getLo()) &&
                marqueeX.contains(vertexX.getHi()) &&
                marqueeY.contains(vertexY.getLo()) &&

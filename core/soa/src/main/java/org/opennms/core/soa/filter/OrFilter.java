@@ -40,7 +40,7 @@ import org.opennms.core.soa.Filter;
  * @author brozow
  */
 public class OrFilter extends AbstractFilter {
-    
+
     private List<Filter> m_filters;
 
     public OrFilter(List<Filter> filters) {

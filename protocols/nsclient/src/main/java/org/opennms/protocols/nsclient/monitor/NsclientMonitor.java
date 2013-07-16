@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public class NsclientMonitor extends AbstractServiceMonitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NsclientMonitor.class);
 
     /**
@@ -112,7 +112,7 @@ public class NsclientMonitor extends AbstractServiceMonitor {
                                                      NsclientManager.convertTypeToString(NsclientManager.CHECK_CLIENTVERSION));
         int port = ParameterMap.getKeyedInteger(parameters, "port",
                                                 NsclientManager.DEFAULT_PORT);
-        
+
         String password = ParameterMap.getKeyedString(parameters, "password", NSClientAgentConfig.DEFAULT_PASSWORD);
         String params = ParameterMap.getKeyedString(parameters, "parameter",
                                                     null);
@@ -129,7 +129,7 @@ public class NsclientMonitor extends AbstractServiceMonitor {
 
         for (tracker.reset(); tracker.shouldRetry() && serviceStatus != PollStatus.SERVICE_AVAILABLE; tracker.nextAttempt()) {
             try {
-                
+
                 tracker.startAttempt();
 
                 // Create a client, set up details and connect.

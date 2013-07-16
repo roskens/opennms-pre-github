@@ -46,7 +46,7 @@ public class Statsd extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
     /** {@inheritDoc} */
     @Override
     protected String getSpringContext() {
-        return "statisticsDaemonContext";       
+        return "statisticsDaemonContext";
     }
 
 }

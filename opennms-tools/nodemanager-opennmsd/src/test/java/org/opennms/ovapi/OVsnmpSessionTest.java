@@ -49,22 +49,22 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 public class OVsnmpSessionTest extends TestCase {
-    
+
     MockSnmpAgent m_agent;
     String m_host;
-    
+
     public void setUp() throws Exception {
         Resource snmpData = new ClassPathResource("snmpTestData1.properties");
-    
+
         m_host = InetAddress.getLocalHost().getHostAddress();
-        
+
         m_agent = MockSnmpAgent.createAgentAndRun(snmpData, m_host+"/9161");
     }
-    
+
     protected void tearDown() throws Exception {
         Thread.sleep(1000);
         m_agent.shutDownAndWait();
-        
+
     }
 
     public void testOpenClose() throws Exception {
@@ -73,89 +73,89 @@ public class OVsnmpSessionTest extends TestCase {
         assertNotNull(sess);
         close(sess);
     }
-    
+
     OVsnmpSession open(String peername, int remotePort) {
         return OVsnmpSession.open(peername, remotePort, null);
     }
-    
+
     void close(OVsnmpSession session) {
         session.close();
     }
-    
+
     public void testCreatePdu() throws Exception {
         SnmpObjId sysName = SnmpObjId.get(".1.3.6.1.2.1.1.5.0");
-        
-        
+
+
         OVsnmpPdu request = OVsnmpPdu.create(NNM.GET_REQ_MSG);
-        
+
         assertNull(request.getVarBinds());
-        
+
         request.addNullVarBind(sysName.getIds());
-        
+
         OVsnmpVarBind varBind = request.getVarBinds();
         assertNotNull(varBind);
-        
+
         assertEquals(sysName.toString(), varBind.getObjectId());
-        
+
         assertNull(varBind.getNextVarBind());
-        
+
         request.free();
     }
-    
+
     public void testBlockingSend() {
         SnmpObjId sysName = SnmpObjId.get(".1.3.6.1.2.1.1.5.0");
-        
-        
+
+
         OVsnmpPdu request = OVsnmpPdu.create(NNM.GET_REQ_MSG);
         request.addNullVarBind(sysName.getIds());
-        
+
         OVsnmpSession session = open(m_host, 9161);
-        
-                
+
+
         OVsnmpPdu reply = session.blockingSend(request);
         assertNotNull(reply);
-        
+
         OVsnmpVarBind varbind = reply.getVarBinds();
-        
+
         assertNotNull(varbind);
         assertNull(varbind.getNextVarBind());
-        
+
         assertEquals(NNM.ASN_OCTET_STR, varbind.getType());
-        
+
         byte[] octets = new byte[varbind.getValLength()];
-        
+
         assertTrue(varbind.getValue().getOctetString(octets));
-        
+
         assertEquals("brozow.local", new String(octets));
-        
+
         reply.free();
-        
+
         close(session);
-        
+
     }
-    
-    
+
+
     private static class Walker extends SnmpCallback {
-        
+
         boolean m_finished = false;
         String m_peername;
         int m_port;
         SnmpObjId m_base;
-        
+
         OVsnmpSession m_session;
-        
+
         public Walker(String peername, int port, SnmpObjId base) {
             m_peername = peername;
             m_port = port;
             m_base = base;
         }
-        
+
         public void start() {
             m_session = OVsnmpSession.open(m_peername, m_port, this);
             m_finished = false;
             sendNext(m_base);
         }
-        
+
         public void callback(int reason, OVsnmpSession session, OVsnmpPdu reply) {
             try {
                 if (reason == NNM.SNMP_ERR_NO_RESPONSE) {
@@ -171,23 +171,23 @@ public class OVsnmpSessionTest extends TestCase {
                 } else {
                     finished();
                 }
-            
+
             } finally {
                 if (reply != null) {
                     reply.free();
                 }
             }
-            
+
         }
-        
+
         private SnmpObjId processVarBinds(OVsnmpVarBind varBind) {
             SnmpObjId oid =  SnmpObjId.get(varBind.getObjectId());
 
             System.err.println("Received: "+oid+ " type: "+Integer.toHexString(varBind.getType())+" "+getValue(varBind));
-            
+
             return oid;
         }
-        
+
         private String getValue(OVsnmpVarBind varBind) {
             int type = varBind.getType();
             if (type == NNM.ASN_BOOLEAN) {
@@ -223,11 +223,11 @@ public class OVsnmpSessionTest extends TestCase {
                 return "UNKNOWN TYPE: "+type;
             }
 /*
-            
+
 #define ASN_BOOLEAN         (0x01)
 #define ASN_INTEGER         (0x02)
 #define ASN_BIT_STR         (0x03)
-#define ASN_U_INTEGER       (0x07) 
+#define ASN_U_INTEGER       (0x07)
 #define ASN_OCTET_STR       (0x04)
 #define ASN_NULL            (0x05)
 #define ASN_OBJECT_ID       (0x06)
@@ -258,24 +258,24 @@ public class OVsnmpSessionTest extends TestCase {
             m_finished = true;
             System.err.println("Timed Out");
             close();
-            
+
         }
-        
+
         private void finished() {
             m_finished = true;
             System.err.println("Finished");
             close();
         }
-        
+
         private void sendNext(SnmpObjId oid) {
-            
+
             OVsnmpPdu next = OVsnmpPdu.create(NNM.GETNEXT_REQ_MSG);
-            
+
             next.addNullVarBind(oid.getIds());
-            
+
             m_session.send(next);
         }
-        
+
         private void close() {
             m_session.close();
         }
@@ -283,31 +283,31 @@ public class OVsnmpSessionTest extends TestCase {
         public boolean isFinished() {
             return m_finished;
         }
-        
+
     }
-    
+
     public void testAsynchronousCallbacks() throws Exception {
-        
+
         Thread.sleep(20000);
 
         Walker system = new Walker(m_host, 9161, SnmpObjId.get(".1.3.6.1.2.1.1"));
         Walker ifTable = new Walker(m_host, 9161, SnmpObjId.get(".1.3.6.1.2.1.2"));
         Walker ipAddrTable = new Walker(m_host, 9161, SnmpObjId.get(".1.3.6.1.2.1.4.20.1"));
-        
+
         List walkers = new LinkedList();
         walkers.add(system);
         walkers.add(ifTable);
         walkers.add(ipAddrTable);
-        
+
         fd_set fdset = new fd_set();
         timeval timeout = new timeval();
-        
+
         for(Iterator it = walkers.iterator(); it.hasNext(); ) {
             Walker walker = (Walker)it.next();
             walker.start();
             System.err.println("New Walker");
             while(!walker.isFinished()) {
-        
+
                 int maxFDs = OVsnmpSession.getRetryInfo(fdset, timeout);
 
                 int count = NNM.select(maxFDs, fdset, null, null, timeout);
@@ -315,14 +315,14 @@ public class OVsnmpSessionTest extends TestCase {
                 if (count > 0) {
                     OVsnmpSession.read(fdset);
                 }
-        
+
                 OVsnmpSession.doRetry();
             }
         }
-        
+
 
     }
-    
+
 
 
 }

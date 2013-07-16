@@ -46,11 +46,11 @@ import org.w3c.dom.Document;
 
 /**
  * The Mock Class for Sftp3gppXmlCollectionHandler.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockSftp3gppStrictCollectionHandler extends Sftp3gppXmlCollectionHandler {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MockSftp3gppStrictCollectionHandler.class);
 
 

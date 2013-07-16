@@ -54,7 +54,7 @@ import org.opennms.netmgt.config.service.types.InvokeAtTypeAdapter;
 
 /**
  * Class Invoke.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "invoke")
@@ -113,8 +113,8 @@ public class Invoke implements Serializable {
     // -----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -125,8 +125,8 @@ public class Invoke implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
@@ -145,7 +145,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method enumerateArgument.
-     * 
+     *
      * @return an Enumeration over all possible elements of this collection
      */
     public Enumeration<Argument> enumerateArgument() {
@@ -154,7 +154,7 @@ public class Invoke implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -196,7 +196,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method getArgument.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -222,7 +222,7 @@ public class Invoke implements Serializable {
      * thread, we pass a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of exactly the
      * correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Argument[] getArgument() {
@@ -233,7 +233,7 @@ public class Invoke implements Serializable {
     /**
      * Method getArgumentCollection.Returns a reference to '_argumentList'. No
      * type checking is performed on any modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Argument> getArgumentCollection() {
@@ -242,7 +242,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method getArgumentCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getArgumentCount() {
@@ -251,7 +251,7 @@ public class Invoke implements Serializable {
 
     /**
      * Returns the value of field 'at'.
-     * 
+     *
      * @return the value of field 'At'.
      */
     public InvokeAtType getAt() {
@@ -260,7 +260,7 @@ public class Invoke implements Serializable {
 
     /**
      * Returns the value of field 'method'.
-     * 
+     *
      * @return the value of field 'Method'.
      */
     public String getMethod() {
@@ -269,7 +269,7 @@ public class Invoke implements Serializable {
 
     /**
      * Returns the value of field 'pass'.
-     * 
+     *
      * @return the value of field 'Pass'.
      */
     public int getPass() {
@@ -278,7 +278,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method hasPass.
-     * 
+     *
      * @return true if at least one Pass has been added
      */
     public boolean hasPass() {
@@ -290,7 +290,7 @@ public class Invoke implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -312,7 +312,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method iterateArgument.
-     * 
+     *
      * @return an Iterator over all possible elements in this collection
      */
     public Iterator<Argument> iterateArgument() {
@@ -327,7 +327,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method removeArgument.
-     * 
+     *
      * @param vArgument
      * @return true if the object was removed from the collection.
      */
@@ -338,7 +338,7 @@ public class Invoke implements Serializable {
 
     /**
      * Method removeArgumentAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -348,8 +348,8 @@ public class Invoke implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vArgument
      * @throws java.lang.IndexOutOfBoundsException
@@ -368,8 +368,8 @@ public class Invoke implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vArgumentArray
      */
     public void setArgument(final Argument[] vArgumentArray) {
@@ -384,7 +384,7 @@ public class Invoke implements Serializable {
     /**
      * Sets the value of '_argumentList' by copying the given Vector. All
      * elements will be checked for type safety.
-     * 
+     *
      * @param vArgumentList
      *            the Vector to copy.
      */
@@ -397,7 +397,7 @@ public class Invoke implements Serializable {
 
     /**
      * Sets the value of field 'at'.
-     * 
+     *
      * @param at
      *            the value of field 'at'.
      */
@@ -407,7 +407,7 @@ public class Invoke implements Serializable {
 
     /**
      * Sets the value of field 'method'.
-     * 
+     *
      * @param method
      *            the value of field 'method'.
      */
@@ -417,7 +417,7 @@ public class Invoke implements Serializable {
 
     /**
      * Sets the value of field 'pass'.
-     * 
+     *
      * @param pass
      *            the value of field 'pass'.
      */

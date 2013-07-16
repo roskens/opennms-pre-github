@@ -40,7 +40,7 @@ import org.opennms.core.utils.TimeoutTracker;
 import org.opennms.netmgt.protocols.ssh.Ssh;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:ranger@opennms.org">Ben Reed</a>
  */
@@ -53,14 +53,14 @@ public class SshTest extends TestCase {
     private static final int TIMEOUT = 2000;
     private TimeoutTracker tt;
     Ssh ssh;
-    
+
     @Override
     public void setUp() throws Exception {
         Map<String, String> parameters = new HashMap<String,String>();
         parameters.put("retries", "0");
         parameters.put("port", "22");
         parameters.put("timeout", Integer.toString(TIMEOUT));
-        
+
         tt = new TimeoutTracker(parameters, 0, TIMEOUT);
         ssh = new Ssh();
         ssh.setPort(PORT);
@@ -68,12 +68,12 @@ public class SshTest extends TestCase {
 
         good = InetAddressUtils.addr(GOOD_HOST);
     }
-    
+
     public void testSshGood() throws Exception {
         ssh.setAddress(good);
         assertTrue(ssh.poll(tt).isAvailable());
     }
-    
+
     public void testSshBad() throws Exception {
         Date start = new Date();
         ssh.setAddress(bad);
@@ -83,5 +83,5 @@ public class SshTest extends TestCase {
         // give it 2.5 seconds to time out
         assertTrue(end.getTime() - start.getTime() < 2500);
     }
-    
+
 }

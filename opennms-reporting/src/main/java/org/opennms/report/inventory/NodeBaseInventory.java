@@ -52,7 +52,7 @@ public class NodeBaseInventory {
     String configurationurl;
 
     List<InventoryElement2> ie;
-    
+
     /**
      * <p>Constructor for NodeBaseInventory.</p>
      */
@@ -203,14 +203,14 @@ public class NodeBaseInventory {
     public void setIe(List<InventoryElement2> ie) {
         this.ie = ie;
     }
-    
+
     /**
      * <p>expand</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String expand () {
-        
+
         Iterator<InventoryElement2> iter1 = ie.iterator();
 
         String tot="";
@@ -222,6 +222,6 @@ public class NodeBaseInventory {
 
     }
 
-    
+
 }
 

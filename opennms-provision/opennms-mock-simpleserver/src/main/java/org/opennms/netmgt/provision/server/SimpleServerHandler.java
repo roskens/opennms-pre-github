@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SimpleServerHandler extends IoHandlerAdapter {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SimpleServerHandler.class);
-    
+
     private LineConversation m_conversation;
-    
+
     /**
      * <p>Constructor for SimpleServerHandler.</p>
      *
@@ -55,13 +55,13 @@ public class SimpleServerHandler extends IoHandlerAdapter {
     public SimpleServerHandler(LineConversation conversation) {
         m_conversation = conversation;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void exceptionCaught(IoSession session, Throwable cause) throws Exception {
         LOG.warn("An error was caught in session {}", session, cause);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void sessionOpened(IoSession session) throws Exception {
@@ -71,7 +71,7 @@ public class SimpleServerHandler extends IoHandlerAdapter {
             session.write(m_conversation.getBanner());
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void messageReceived (IoSession session, Object message) throws Exception {
@@ -81,14 +81,14 @@ public class SimpleServerHandler extends IoHandlerAdapter {
             if(m_conversation.getExpectedCloseResponse() != null) {
                 session.write(m_conversation.getExpectedCloseResponse());
             }
-            if (!session.close(false).await(500)) { 
+            if (!session.close(false).await(500)) {
                 LOG.warn("Conversation did not complete promptly in 500ms");
             }
             return;
         }
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void sessionIdle(IoSession session, IdleStatus status) throws Exception {

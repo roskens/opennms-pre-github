@@ -53,7 +53,7 @@ public class AutoacknowledgeTest extends XmlTestNoCastor<Autoacknowledge> {
 				"target/classes/xsds/eventconf.xsd" },
 				{autoacknowledge1,
 				"<autoacknowledge state=\"on\">These are important data</autoacknowledge>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

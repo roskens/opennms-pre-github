@@ -54,12 +54,12 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class CustomGraphEditDetailsController extends AbstractController implements InitializingBean {
-    
+
     public enum Parameters {
         resourceId,
         graphtype
     }
-    
+
     private KSC_PerformanceReportFactory m_kscReportFactory;
     private KscReportService m_kscReportService;
     private ResourceService m_resourceService;
@@ -71,21 +71,21 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
         if (resourceId == null) {
             throw new MissingParameterException(Parameters.resourceId.toString());
         }
-        
+
         //optional parameter graphtype
         String prefabReportName = request.getParameter(Parameters.graphtype.toString());
-        
+
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
-        
-        Report report = editor.getWorkingReport(); 
-        org.opennms.netmgt.config.kscReports.Graph sample_graph = editor.getWorkingGraph(); 
+
+        Report report = editor.getWorkingReport();
+        org.opennms.netmgt.config.kscReports.Graph sample_graph = editor.getWorkingGraph();
         if (sample_graph == null) {
             throw new IllegalArgumentException("Invalid working graph argument -- null pointer. Possibly missing prefab report in snmp-graph.properties?");
         }
 
         // Set the resourceId in the working graph in case it changed
         sample_graph.setResourceId(resourceId);
-        
+
         OnmsResource resource = getKscReportService().getResourceFromGraph(sample_graph);
         PrefabGraph[] graph_options = getResourceService().findPrefabGraphsForResource(resource);
 
@@ -97,33 +97,33 @@ public class CustomGraphEditDetailsController extends AbstractController impleme
                 display_graph = getPrefabGraphFromList(graph_options, sample_graph.getGraphtype());
             }
         }
-        
+
         Calendar begin_time = Calendar.getInstance();
         Calendar end_time = Calendar.getInstance();
         KSC_PerformanceReportFactory.getBeginEndTime(sample_graph.getTimespan(), begin_time, end_time);
-        
+
         KscResultSet resultSet = new KscResultSet(sample_graph.getTitle(), begin_time.getTime(), end_time.getTime(), resource, display_graph);
-        
+
         ModelAndView modelAndView = new ModelAndView("KSC/customGraphEditDetails");
-        
+
         modelAndView.addObject("resultSet", resultSet);
-        
+
         modelAndView.addObject("prefabGraphs", graph_options);
-        
+
         modelAndView.addObject("timeSpans", getKscReportService().getTimeSpans(false));
         modelAndView.addObject("timeSpan", sample_graph.getTimespan());
-        
-        int graph_index = editor.getWorkingGraphIndex(); 
+
+        int graph_index = editor.getWorkingGraphIndex();
         int max_graphs = report.getGraphCount();
         if (graph_index == -1) {
             graph_index = max_graphs++;
         }
         modelAndView.addObject("graphIndex", graph_index);
         modelAndView.addObject("maxGraphIndex", max_graphs);
-        
+
         return modelAndView;
     }
-    
+
     /**
      * <p>getPrefabGraphFromList</p>
      *

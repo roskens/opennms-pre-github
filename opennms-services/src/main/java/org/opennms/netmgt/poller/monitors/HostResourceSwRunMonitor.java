@@ -79,9 +79,9 @@ import antlr.StringUtils;
  */
 @Distributable(DistributionContext.DAEMON)
 public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HostResourceSwRunMonitor.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -183,7 +183,7 @@ public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
         String serviceName = ParameterMap.getKeyedString(parameters, "service-name", null);
         // The service name may appear in the table more than once. If this is set to true, all values must match the run level.
         String matchAll = ParameterMap.getKeyedString(parameters, "match-all", "false");
-        // This is one of: 
+        // This is one of:
         //                   running(1),
         //                   runnable(2),    -- waiting for resource
         //                                   -- (i.e., CPU, memory, IO)
@@ -259,7 +259,7 @@ public class HostResourceSwRunMonitor extends SnmpMonitorStrategy {
                         if ("false".equals(matchAll)) {
                            return status;
                         }
-                    // if we get here, that means the meetsCriteria test failed. 
+                    // if we get here, that means the meetsCriteria test failed.
                     } else {
                         String reason = "HostResourceSwRunMonitor poll failed, addr=" + hostAddress + ", service-name=" + serviceName + ", status=" + statusResults.get(nameInstance);
                         LOG.debug(reason);

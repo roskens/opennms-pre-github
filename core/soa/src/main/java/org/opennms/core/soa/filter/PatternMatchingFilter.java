@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 public class PatternMatchingFilter extends AttributeComparisonFilter {
 
     private Pattern m_pattern;
-    
+
     private PatternMatchingFilter(String attribute, Pattern pattern) {
         super(attribute);
         m_pattern = pattern;
@@ -68,39 +68,39 @@ public class PatternMatchingFilter extends AttributeComparisonFilter {
         // a pattern matching filter - convert value to regexp
         // 1. first hide 'escaped' stars so the aren't replaced later
         value = value.replace("\\*", "~~ESCAPED_STAR~~");
-        
+
         // 2. replace all other backslashed chars with their actual values
         value = value.replaceAll("\\\\(.)", "$1");
-        
+
         // 3. first escape the back slashes (before we escape the other chars
         value = escapeAll(value, "\\");
-        
+
         // 4. escape regexp special chars (other than star and backslash)
         value = escapeAll(value, "?+.[]()^${}");
-        
+
         // 5. convert wildcards into .*
         value = value.replace("*", ".*");
-        
+
         // 6. put back escaped starts
         value = value.replace("~~ESCAPED_STAR~~", "\\*");
-        
+
         Pattern pattern = Pattern.compile(value);
         return pattern;
     }
-    
+
     public static String toFilterMatch(Pattern pattern) {
         String value = pattern.pattern();
-        
+
         value = value.replace("\\*", "~~ESCAPED_STAR~~");
-        
+
         value = value.replace(".*", "*");
-        
+
         value = value.replaceAll("\\\\(.)", "$1");
-        
+
         value = escapeAll(value, "\\");
 
         value = escapeAll(value, "()");
-        
+
         value = value.replace("~~ESCAPED_STAR~~", "\\*");
 
         return value;

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -47,7 +47,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Top-level element for the dhcpd-configuration.xml
  *  configuration file.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -168,7 +168,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
 
     /**
      * Method hasPort.
-     * 
+     *
      * @return true if at least one Port has been added
      */
     public boolean hasPort() {
@@ -183,13 +183,13 @@ public class DhcpdConfiguration implements java.io.Serializable {
      * daemons.
      *  The port is set to 5818 in the default configuration
      *  file.
-     * 
+     *
      * @return the value of field 'Port'.
      */
     public Integer getPort() {
         return m_port == null ? 0 : m_port;
     }
-    
+
     /**
      * Sets the value of field 'port'. The field 'port' has the
      * following description: TCP port number used for internal
@@ -198,7 +198,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      * daemons.
      *  The port is set to 5818 in the default configuration
      *  file.
-     * 
+     *
      * @param port the value of field 'port'.
      */
     public void setPort(final Integer port) {
@@ -218,7 +218,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  in DHCP DISCOVER packets sent by OpenNMS. The MAC address
      * is set to
      *  00:06:0D:BE:9C:B2 in the default configuration file.
-     * 
+     *
      * @return the value of field 'MacAddress'.
      */
     public String getMacAddress() {
@@ -232,7 +232,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  in DHCP DISCOVER packets sent by OpenNMS. The MAC address
      * is set to
      *  00:06:0D:BE:9C:B2 in the default configuration file.
-     * 
+     *
      * @param macAddress the value of field 'macAddress'.
      */
     public void setMacAddress(final String macAddress) {
@@ -259,13 +259,13 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  and without the aid of an external relay. This is usually
      * set to the
      *  IP address of the OpenNMS server.
-     * 
+     *
      * @return the value of field 'MyIpAddress'.
      */
     public String getMyIpAddress() {
         return m_myIpAddress;
     }
-    
+
     /**
      * Sets the value of field 'myIpAddress'. The field
      * 'myIpAddress' has the following description: IP address used
@@ -286,7 +286,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  and without the aid of an external relay. This is usually
      * set to the
      *  IP address of the OpenNMS server.
-     * 
+     *
      * @param myIpAddress the value of field 'myIpAddress'.
      */
     public void setMyIpAddress(final String myIpAddress) {
@@ -314,7 +314,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  by a factor of 3. Thus it is a good idea to limit the
      * number of
      *  retries to a small number.
-     * 
+     *
      * @return the value of field 'ExtendedMode'.
      */
     public String getExtendedMode() {
@@ -342,7 +342,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  by a factor of 3. Thus it is a good idea to limit the
      * number of
      *  retries to a small number.
-     * 
+     *
      * @param extendedMode the value of field 'extendedMode'.
      */
     public void setExtendedMode(final String extendedMode) {
@@ -374,7 +374,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  server's subnet length is 31 or 32. Otherwise, the
      * algorithm used
      *  should be reliable.
-     * 
+     *
      * @return the value of field 'RequestIpAddress'.
      */
     public String getRequestIpAddress() {
@@ -406,16 +406,16 @@ public class DhcpdConfiguration implements java.io.Serializable {
      *  server's subnet length is 31 or 32. Otherwise, the
      * algorithm used
      *  should be reliable.
-     * 
+     *
      * @param requestIpAddress the value of field 'requestIpAddress'
      */
     public void setRequestIpAddress(final String requestIpAddress) {
         m_requestIpAddress = requestIpAddress;
     }
-    
+
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -423,36 +423,36 @@ public class DhcpdConfiguration implements java.io.Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof DhcpdConfiguration) {
-        
+
             DhcpdConfiguration temp = (DhcpdConfiguration)obj;
             if (m_port != temp.m_port)
                 return false;
             if (m_macAddress != null) {
                 if (temp.m_macAddress == null) return false;
-                else if (!(m_macAddress.equals(temp.m_macAddress))) 
+                else if (!(m_macAddress.equals(temp.m_macAddress)))
                     return false;
             }
             else if (temp.m_macAddress != null)
                 return false;
             if (m_myIpAddress != null) {
                 if (temp.m_myIpAddress == null) return false;
-                else if (!(m_myIpAddress.equals(temp.m_myIpAddress))) 
+                else if (!(m_myIpAddress.equals(temp.m_myIpAddress)))
                     return false;
             }
             else if (temp.m_myIpAddress != null)
                 return false;
             if (m_extendedMode != null) {
                 if (temp.m_extendedMode == null) return false;
-                else if (!(m_extendedMode.equals(temp.m_extendedMode))) 
+                else if (!(m_extendedMode.equals(temp.m_extendedMode)))
                     return false;
             }
             else if (temp.m_extendedMode != null)
                 return false;
             if (m_requestIpAddress != null) {
                 if (temp.m_requestIpAddress == null) return false;
-                else if (!(m_requestIpAddress.equals(temp.m_requestIpAddress))) 
+                else if (!(m_requestIpAddress.equals(temp.m_requestIpAddress)))
                     return false;
             }
             else if (temp.m_requestIpAddress != null)
@@ -468,13 +468,13 @@ public class DhcpdConfiguration implements java.io.Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         long tmp;
         result = 37 * result + m_port;
         if (m_macAddress != null) {
@@ -489,7 +489,7 @@ public class DhcpdConfiguration implements java.io.Serializable {
         if (m_requestIpAddress != null) {
            result = 37 * result + m_requestIpAddress.hashCode();
         }
-        
+
         return result;
     }
 

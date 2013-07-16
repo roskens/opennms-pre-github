@@ -47,13 +47,13 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
     private static final int PORT = 9161;
 
     private InetAddress m_addr;
-    
+
     private volatile MockSnmpAgent m_agent;
 
     private volatile IfSnmpCollector m_ifSnmpc;
 
     private volatile boolean m_hasRun = false;
-    
+
     public static class JoeSnmpIfSnmpCollectorTestCase extends IfSnmpCollectorTestCase {
         @Override
         public void setUp() throws Exception {
@@ -80,7 +80,7 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         m_ifSnmpc = new IfSnmpCollector(m_addr);
 
         m_agent = MockSnmpAgent.createAgentAndRun(new ClassPathResource("org/opennms/netmgt/snmp/snmpTestData1.properties").getURL(), InetAddressUtils.str(m_addr) + "/" + PORT);
-        
+
         runCollection();
     }
 
@@ -138,11 +138,11 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
 
     public final void testGetIpAddrTable() throws UnknownHostException {
         IpAddrTable ipAddrTable = m_ifSnmpc.getIpAddrTable();
-        
+
         assertNotNull("ipAddrTable should not be null", ipAddrTable);
         assertFalse("ipAddrTable collection should not hahve failed", ipAddrTable.failed());
         assertEquals("ipAddrTable ifIndex of 127.0.0.1", 1, ipAddrTable.getIfIndex(InetAddressUtils.addr(DEFAULT_HOST)));
-        
+
         List<InetAddress> addresses = ipAddrTable.getIpAddresses();
         assertTrue("ipAddrTable should contain 172.20.1.201", addresses.contains(InetAddressUtils.addr("172.20.1.201")));
         assertTrue("ipAddrTable should contain 127.0.0.1 like any good IP stack should", addresses.contains(InetAddressUtils.addr(DEFAULT_HOST)));
@@ -191,7 +191,7 @@ public class IfSnmpCollectorTestCase extends OpenNMSTestCase {
         assertNotNull("ifName should not be null", ifName);
         assertEquals("ifName", "There's no place like 127.0.0.1", ifName);
     }
-    
+
     public final void testGetIfSpeed() {
         Long ifSpeed = m_ifSnmpc.getInterfaceSpeed(4);
         assertNotNull("ifSpeed should not be null", ifSpeed);

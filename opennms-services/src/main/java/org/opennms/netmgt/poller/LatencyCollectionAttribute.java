@@ -46,7 +46,7 @@ public class LatencyCollectionAttribute implements CollectionAttribute {
     private LatencyCollectionResource m_resource;
     private Double m_value;
     private String m_name;
-    
+
     /**
      * <p>Constructor for LatencyCollectionAttribute.</p>
      *

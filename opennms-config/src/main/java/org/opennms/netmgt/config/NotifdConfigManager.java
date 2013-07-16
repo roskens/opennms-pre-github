@@ -59,7 +59,7 @@ public abstract class NotifdConfigManager {
     private static final Logger LOG = LoggerFactory.getLogger(NotifdConfigManager.class);
 
     /**
-     * 
+     *
      */
     protected NotifdConfiguration configuration;
 
@@ -85,7 +85,7 @@ public abstract class NotifdConfigManager {
      */
     public NotifdConfiguration getConfiguration() throws IOException, MarshalException, ValidationException {
         update();
-    
+
         return configuration;
     }
 
@@ -185,7 +185,7 @@ public abstract class NotifdConfigManager {
     public String getNextNotifIdSql() throws IOException, MarshalException, ValidationException {
         return getConfiguration().getNextNotifId();
     }
-    
+
     // TODO This change only works for one parameter, need to expand it to many.
     /**
      * <p>matchNotificationParameters</p>

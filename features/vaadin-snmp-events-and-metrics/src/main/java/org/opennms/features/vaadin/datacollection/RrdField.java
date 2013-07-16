@@ -58,8 +58,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The RRD Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
@@ -157,7 +157,7 @@ public class RrdField extends CustomField<Rrd> implements Button.ClickListener {
 
     /**
      * Instantiates a new RRD field.
-     * 
+     *
      * @Param caption the field's caption
      */
     public RrdField(String caption) {

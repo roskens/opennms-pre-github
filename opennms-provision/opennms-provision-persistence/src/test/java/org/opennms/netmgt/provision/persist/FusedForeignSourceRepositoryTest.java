@@ -58,11 +58,11 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pending;
-    
+
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_active;
-    
+
     @Autowired
     @Qualifier("fused")
     private ForeignSourceRepository m_repository;
@@ -70,7 +70,7 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
     @Before
     public void setUp() throws IOException {
         System.err.println("setUp()");
-        /* 
+        /*
          * since we share the filesystem with other tests, best
          * to make sure it's totally clean here.
          */
@@ -86,7 +86,7 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         for (final Requisition r : m_active.getRequisitions()) {
             m_active.delete(r);
         }
-        
+
         FileUtils.deleteDirectory(new File("target/opennms-home/etc/imports/pending"));
 
         m_pending.flush();
@@ -95,7 +95,7 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
 
     @After
     public final void tearDown() {
-        /* 
+        /*
          * since we share the filesystem with other tests, best
          * to make sure it's totally clean here.
          */
@@ -159,14 +159,14 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
 
         // then, "import" the B snapshot
         final Requisition bReq = m_repository.importResourceRequisition(new FileSystemResource(pendingSnapshotB));
-        
+
         assertFalse(pendingSnapshotA.exists());
         assertFalse(pendingSnapshotB.exists());
 
         // now the pending test.xml should be gone
         pendingUrl = m_pending.getRequisitionURL(foreignSource);
         assertNull(pendingUrl);
-        
+
         // the last (B) pending import should match the deployed
         final Requisition deployedRequisition = m_active.getRequisition(foreignSource);
         assertEquals(deployedRequisition.getDate().getTime(), bReq.getDate().getTime());
@@ -182,7 +182,7 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         m_pending.save(pendingReq);
         m_pending.flush();
 
-        /* 
+        /*
          * Then, the user makes a foreign source configuration to go along
          * with that requisition.
          */
@@ -200,12 +200,12 @@ public class FusedForeignSourceRepositoryTest extends ForeignSourceRepositoryTes
         Requisition activeReq = m_repository.importResourceRequisition(new UrlResource(m_pending.getRequisitionURL("test")));
         ForeignSource activeSource = m_active.getForeignSource("test");
         // and the foreign source should be the same as the one we made earlier, only this time it's active
-        
+
         assertEquals(activeSource.getName(), pendingSource.getName());
         assertEquals(activeSource.getDetectorNames(), pendingSource.getDetectorNames());
         assertEquals(activeSource.getScanInterval(), pendingSource.getScanInterval());
         assertRequisitionsMatch("active and pending requisitions should match", activeReq, pendingReq);
-        
+
         /*
          * Since it's been officially deployed, the requisition and foreign
          * source should no longer be in the pending repo.

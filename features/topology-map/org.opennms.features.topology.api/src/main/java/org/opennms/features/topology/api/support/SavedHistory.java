@@ -64,7 +64,7 @@ public class SavedHistory {
         selectedVertices.addAll(vertices);
         return Collections.unmodifiableSet(selectedVertices);
     }
-    
+
     private static Map<String,String> getOperationSettings(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
         Map<String,String> retval = new HashMap<String,String>();
         for (HistoryOperation operation : operations) {
@@ -72,10 +72,10 @@ public class SavedHistory {
         }
         return retval;
     }
-    
+
     public SavedHistory(GraphContainer graphContainer, Collection<HistoryOperation> operations) {
         this(
-            graphContainer.getSemanticZoomLevel(), 
+            graphContainer.getSemanticZoomLevel(),
             graphContainer.getMapViewManager().getCurrentBoundingBox(),
             saveLocations(graphContainer.getGraph()),
             getUnmodifiableSet(graphContainer.getSelectionManager().getSelectedVertexRefs()),
@@ -106,11 +106,11 @@ public class SavedHistory {
     public int getSemanticZoomLevel() {
         return m_szl;
     }
-    
+
     public BoundingBox getBoundingBox() {
         return m_boundBox;
     }
-    
+
     public String getFragment() {
         StringBuffer retval = new StringBuffer().append("(").append(m_szl).append("),").append(m_boundBox.fragment()).append(",").append(m_boundBox.getCenter());
         // Add a CRC of all of the key-value pairs in m_settings to make the fragment unique
@@ -172,7 +172,7 @@ public class SavedHistory {
             layout.setLocation(ref, locations.get(ref));
         }
     }
-    
+
     @Override
     public String toString() {
         StringBuffer retval = new StringBuffer().append(this.getClass().getSimpleName()).append(": ").append(getFragment());

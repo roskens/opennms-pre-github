@@ -58,7 +58,7 @@ import org.springframework.core.io.UrlResource;
  * @version $Id: $
  */
 public class ImporterService extends BaseImporter implements SpringServiceDaemon, DisposableBean, EventListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ImporterService.class);
 
 	/** Constant <code>NAME="ModelImporter"</code> */
@@ -68,18 +68,18 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 	private volatile EventIpcManager m_eventManager;
 	private volatile ImporterStats m_stats;
 
-            
+
 	/**
 	 * <p>doImport</p>
 	 */
 	public void doImport() {
 	    doImport(null);
 	}
-        
+
     /**
      * Begins importing from resource specified in model-importer.properties file or
-     * in event parameter: url.  Import Resources are managed with a "key" called 
-     * "foreignSource" specified in the XML retreived by the resource and can be overridden 
+     * in event parameter: url.  Import Resources are managed with a "key" called
+     * "foreignSource" specified in the XML retreived by the resource and can be overridden
      * as a parameter of an event.
      * @param event
      */
@@ -87,7 +87,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         Resource resource = null;
         try {
             m_stats = new ImporterStats();
-            resource = ((event != null && getEventUrl(event) != null) ? new UrlResource(getEventUrl(event)) : m_importResource); 
+            resource = ((event != null && getEventUrl(event) != null) ? new UrlResource(getEventUrl(event)) : m_importResource);
             sendImportStarted(resource);
 			importModelFromResource(resource, m_stats, event);
             LOG.info("Finished Importing: {}", m_stats);
@@ -106,7 +106,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
     private String getEventUrl(Event event) {
         return EventUtils.getParm(event, EventConstants.PARM_URL);
     }
-    
+
     /**
      * <p>getStats</p>
      *
@@ -120,7 +120,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         builder.addParam(EventConstants.PARM_IMPORT_STATS, stats.toString());
 		m_eventManager.sendNow(builder.getEvent());
 	}
-    
+
 	private void sendImportFailed(String msg, Resource resource) {
         EventBuilder builder = new EventBuilder(EventConstants.IMPORT_FAILED_UEI, NAME);
         builder.addParam(EventConstants.PARM_IMPORT_RESOURCE, resource.toString());
@@ -187,7 +187,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
         @Override
 	public void destroy() throws Exception {
 		m_eventManager.removeEventListener(this, EventConstants.RELOAD_IMPORT_UEI);
-		
+
 	}
 
 	/**
@@ -203,7 +203,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 	/** {@inheritDoc} */
         @Override
 	public void onEvent(Event e) {
-        	
+
             Map mdc = Logging.getCopyOfContextMap();
             try {
                 Logging.putPrefix(NAME);
@@ -270,7 +270,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
                 @Override
 		public void beginPersisting(ImportOperation oper) {
 			m_processingEffort.begin();
-			
+
 		}
 
                 @Override
@@ -319,7 +319,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 		public void finishAuditNodes() {
 			m_auditDuration.end();
 		}
-		
+
                 @Override
 		public void setDeleteCount(int deleteCount) {
 			m_deleteCount = deleteCount;
@@ -344,7 +344,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 		public void finishRelateNodes() {
 			m_relateDuration.end();
 		}
-		
+
                 @Override
 		public String toString() {
 			StringBuffer stats = new StringBuffer();
@@ -363,18 +363,18 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 			if (m_eventCount > 0) {
 				stats.append("Avg ").append((double)m_eventEffort.getTotalTime()/(double)m_eventCount).append(" ms per event");
 			}
-			
+
 			return stats.toString();
 		}
 
 	}
-		
+
 	public class Duration {
 
 		private String m_name = null;
 		private long m_start = -1L;
 		private long m_end = -1L;
-		
+
 		public Duration() {
 			this(null);
 		}
@@ -382,7 +382,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 		public Duration(String name) {
 			m_name = name;
 		}
-		
+
 		public void setName(String name) {
 			m_name = name;
 		}
@@ -394,7 +394,7 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 		public void end() {
 			m_end = System.currentTimeMillis();
 		}
-		
+
 		public long getLength() {
 			if (m_start == -1L) return 0L;
 			long end = (m_end == -1L ? System.currentTimeMillis() : m_end);
@@ -434,12 +434,12 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 	}
 
 	public class WorkEffort {
-		
+
 		private String m_name;
 		private long m_totalTime;
 		private long m_sectionCount;
 		private ThreadLocal<Duration> m_pendingSection = new ThreadLocal<Duration>();
-		
+
 		public WorkEffort(String name) {
 			m_name = name;
 		}
@@ -455,11 +455,11 @@ public class ImporterService extends BaseImporter implements SpringServiceDaemon
 			m_sectionCount++;
 			m_totalTime += pending.getLength();
 		}
-		
+
 		public long getTotalTime() {
 			return m_totalTime;
 		}
-		
+
                 @Override
 		public String toString() {
 			StringBuffer buf = new StringBuffer();

@@ -48,16 +48,16 @@ public class AlertMapReader {
     private Resource m_resource;
     private Reader m_reader;
     private StreamTokenizer m_tokenizer;
-    
+
     private static final String oidExpr = "^\\.?(\\d+\\.){2,}\\d+$";
     private static final String eventCodeExpr = "^0[Xx][0-9A-Fa-f]{1,8}$";
-    
+
     /**
      * Alert Code               Event Code  OID Mappings
-     * 1.3.6.1.4.1.9.9.13.3.6.5 0x180000    1.3.6.1.4.1.9.9.13.1.5.1.2(1,2) \ 
+     * 1.3.6.1.4.1.9.9.13.3.6.5 0x180000    1.3.6.1.4.1.9.9.13.1.5.1.2(1,2) \
      *                                      1.3.6.1.4.1.9.9.13.1.5.1.3(3,0)
      */
-    
+
     public AlertMapReader(Resource rsrc) throws IOException {
         m_resource = rsrc;
         m_reader = new BufferedReader(new InputStreamReader(m_resource.getInputStream()));
@@ -74,17 +74,17 @@ public class AlertMapReader {
         m_tokenizer.wordChars('a', 'z');
         m_tokenizer.wordChars('A', 'Z');
     }
-    
+
     public List<AlertMapping> getAlertMappings() throws IOException {
         List<AlertMapping> alertMappings = new ArrayList<AlertMapping>();
         AlertMapping thisAlertMapping = null;
         OidMapping thisOidMapping = null;
-        
+
         int lastEventCodeLine = -1;
-        
+
         while (m_tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
             //System.err.println(m_tokenizer);
-            
+
             if (m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches(oidExpr)) {
                 String observedOid = m_tokenizer.sval;
                 LOG.trace("Found an OID: {} on line {}; what to do with it...", observedOid, m_tokenizer.lineno());
@@ -131,7 +131,7 @@ public class AlertMapReader {
                     m_tokenizer.pushBack();
                 }
             }
-            
+
             else if (m_tokenizer.ttype == '(') {
                 if (m_tokenizer.nextToken() == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches("^\\d+$")) {
 					LOG.trace(
@@ -147,7 +147,7 @@ public class AlertMapReader {
                     throw new IllegalArgumentException("An apparent OID mapping went wrong while expecting event variable number on line " + m_tokenizer.lineno() + " of " + m_resource);
                 }
             }
-            
+
             else if (m_tokenizer.ttype == ',') {
                 if (m_tokenizer.nextToken() == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches("^\\d+$")) {
 					LOG.trace(
@@ -169,7 +169,7 @@ public class AlertMapReader {
                     throw new IllegalArgumentException("An apparent OID mapping went wrong while expecting index length on line " + m_tokenizer.lineno() + " of " + m_resource);
                 }
             }
-            
+
             else if (m_tokenizer.ttype == ')') {
                 if (m_tokenizer.nextToken() == '\\') {
 					LOG.trace(
@@ -189,5 +189,5 @@ public class AlertMapReader {
         LOG.info("Loaded {} alert-mappings from [{}]", alertMappings.size(), m_resource);
         return Collections.unmodifiableList(alertMappings);
     }
-    
+
 }

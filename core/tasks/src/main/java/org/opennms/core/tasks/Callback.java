@@ -35,7 +35,7 @@ package org.opennms.core.tasks;
  * @version $Id: $
  */
 public interface Callback<T> {
-    
+
     /**
      * <p>complete</p>
      *

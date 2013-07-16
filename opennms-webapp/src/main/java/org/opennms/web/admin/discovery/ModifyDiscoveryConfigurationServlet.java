@@ -54,12 +54,12 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class ModifyDiscoveryConfigurationServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ModifyDiscoveryConfigurationServlet.class);
 
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -3782436743630940629L;
 
@@ -78,13 +78,13 @@ public class ModifyDiscoveryConfigurationServlet extends HttpServlet {
         //RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/discovery/index.jsp");
         //dispatcher.forward(request, response);
     }
-	
+
 	/** {@inheritDoc} */
     @Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-	
+
 	/**
 	 * <p>getDiscoveryConfig</p>
 	 *

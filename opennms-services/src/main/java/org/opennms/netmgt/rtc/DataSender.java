@@ -57,19 +57,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The DataSender is responsible to send data out to 'listeners'
- * 
+ *
  * When the RTCManager's timers go off, the DataSender is prompted to send data,
  * which it does by maintaining a 'SendRequest' runnable queue so as to not
  * block the RTCManager
- * 
+ *
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj</A>
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver</A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org</A>
  */
 final class DataSender implements Fiber {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DataSender.class);
-    
+
     /**
      * The category map
      */
@@ -245,7 +245,7 @@ final class DataSender implements Fiber {
             urlList = new HashSet<HttpPostInfo>();
             m_catUrlMap.put(catlabel, urlList);
         }
-        
+
         if (!urlList.add(postInfo)) {
             LOG.debug("Already subscribed to URL: {}\tcatlabel: {}\tuser: {} - IGNORING LATEST subscribe event", url, catlabel, user);
         } else {
@@ -393,7 +393,7 @@ final class DataSender implements Fiber {
                         inp = HttpUtils.post(postInfo.getURL(), inr, postInfo.getUser(), postInfo.getPassword(), 8 * HttpUtils.DEFAULT_POST_BUFFER_SIZE);
 
                         LOG.debug("DataSender: posted data for category: {}", catlabel);
-                        
+
 
                         byte[] tmp = new byte[1024];
                         int bytesRead;

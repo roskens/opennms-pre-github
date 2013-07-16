@@ -296,8 +296,8 @@ public class Maskelement implements Serializable {
 		}
 		return true;
 	}
-	
-	
+
+
 
 	public EventMatcher constructMatcher() {
 		List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
@@ -311,7 +311,7 @@ public class Maskelement implements Serializable {
 				valueMatchers.add(valueEqualsMatcher(field(m_name), value));
 			}
 		}
-		
+
 		if (valueMatchers.size() == 1) {
 			return valueMatchers.get(0);
 		} else {
@@ -319,6 +319,6 @@ public class Maskelement implements Serializable {
 			return EventMatchers.or(matchers);
 		}
 
-	}	
+	}
 
 }

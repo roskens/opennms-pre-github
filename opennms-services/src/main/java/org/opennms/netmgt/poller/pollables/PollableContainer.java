@@ -77,7 +77,7 @@ abstract public class PollableContainer extends PollableElement {
     protected synchronized int getMemberCount() {
         return m_members.size();
     }
-    
+
     /**
      * <p>getMembers</p>
      *
@@ -86,7 +86,7 @@ abstract public class PollableContainer extends PollableElement {
     protected synchronized Collection<PollableElement> getMembers() {
         return new ArrayList<PollableElement>(m_members.values());
     }
-    
+
     /**
      * <p>createMemberKey</p>
      *
@@ -104,7 +104,7 @@ abstract public class PollableContainer extends PollableElement {
         Object key = createMemberKey(member);
         m_members.put(key, member);
     }
-    
+
     /**
      * <p>removeMember</p>
      *
@@ -115,7 +115,7 @@ abstract public class PollableContainer extends PollableElement {
         m_members.remove(key);
     }
 
-    
+
     /**
      * <p>deleteMember</p>
      *
@@ -126,7 +126,7 @@ abstract public class PollableContainer extends PollableElement {
         if (m_members.size() == 0)
             this.delete();
     }
-    
+
     /**
      * <p>delete</p>
      */
@@ -144,16 +144,16 @@ abstract public class PollableContainer extends PollableElement {
             }
         };
         withTreeLock(r);
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visit(PollableVisitor v) {
         visitThis(v);
         visitMembers(v);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void visitThis(PollableVisitor v) {
@@ -171,13 +171,13 @@ abstract public class PollableContainer extends PollableElement {
             PollableElement element = it.next();
             element.visit(v);
         }
-        
+
     }
-    
+
     protected interface Iter {
         public void forEachElement(PollableElement element);
     }
-    
+
     abstract protected class SimpleIter<T> implements Iter {
         private T result;
         public SimpleIter(T initial) { result = initial; }
@@ -185,7 +185,7 @@ abstract public class PollableContainer extends PollableElement {
         public T getResult() { return result; }
         public void setResult(T newResult) { result = newResult; }
     }
-    
+
     abstract protected class Accumulator<T> extends SimpleIter<T> {
         public Accumulator(T initial) { super(initial); }
         public Accumulator() { super(null); }
@@ -195,9 +195,9 @@ abstract public class PollableContainer extends PollableElement {
         }
         abstract T processNextMember(PollableElement member, T currentValue);
     }
-    
-    
-    
+
+
+
     /**
      * <p>forEachMember</p>
      *
@@ -206,7 +206,7 @@ abstract public class PollableContainer extends PollableElement {
     protected void forEachMember(Iter iter) {
         forEachMember(false, iter);
     }
-    
+
     /**
      * <p>deriveValueFromMembers</p>
      *
@@ -217,7 +217,7 @@ abstract public class PollableContainer extends PollableElement {
     protected <T> T deriveValueFromMembers(SimpleIter<T> iter) {
         return deriveValueFromMembers(false, iter);
     }
-    
+
     /**
      * <p>deriveValueFromMembers</p>
      *
@@ -230,7 +230,7 @@ abstract public class PollableContainer extends PollableElement {
         forEachMember(withTreeLock, iter);
         return iter.getResult();
     }
-    
+
     /**
      * <p>forEachMember</p>
      *
@@ -247,14 +247,14 @@ abstract public class PollableContainer extends PollableElement {
                 }
             }
         };
-        
+
         if (withTreeLock) {
             withTreeLock(r);
         } else {
             r.run();
         }
     }
-    
+
     /**
      * <p>recalculateStatus</p>
      */
@@ -277,7 +277,7 @@ abstract public class PollableContainer extends PollableElement {
         };
         withTreeLock(r);
     }
-    
+
     /**
      * <p>resetStatusChanged</p>
      */
@@ -298,7 +298,7 @@ abstract public class PollableContainer extends PollableElement {
         };
         withTreeLock(r);
     }
-    
+
     PollableElement findMemberWithDescendent(PollableElement elem) {
         PollableElement member = elem;
         while (member != null && member.getParent() != this) {
@@ -346,7 +346,7 @@ abstract public class PollableContainer extends PollableElement {
         forEachMember(iter);
         return iter.getResult();
     }
-    
+
     /**
      * <p>getMemberStatus</p>
      *
@@ -359,12 +359,12 @@ abstract public class PollableContainer extends PollableElement {
                 if (elem.getStatus().isUp())
                     setResult(PollStatus.up());
             }
-            
+
         };
         forEachMember(iter);
         return iter.getResult();
     }
-    
+
     /**
      * <p>poll</p>
      *
@@ -384,12 +384,12 @@ abstract public class PollableContainer extends PollableElement {
      */
     @Override
     public PollableElement selectPollElement() {
-        if (getMemberCount() == 0) 
+        if (getMemberCount() == 0)
             return null;
 
         PollableElement member = (PollableElement)getMembers().iterator().next();
         return member.selectPollElement();
-            
+
     }
 
     /** {@inheritDoc} */
@@ -406,7 +406,7 @@ abstract public class PollableContainer extends PollableElement {
             }
         };
         withTreeLock(r);
-        
+
     }
 
     /**
@@ -420,13 +420,13 @@ abstract public class PollableContainer extends PollableElement {
             public void forEachElement(PollableElement elem) {
                 elem.processStatusChange(date);
             }
-            
+
         };
         forEachMember(iter);
     }
 
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected void processResolution(PollEvent resolvedCause, PollEvent resolution) {
@@ -440,12 +440,12 @@ abstract public class PollableContainer extends PollableElement {
             public void forEachElement(PollableElement elem) {
                 elem.processLingeringCauses(resolvedCause, resolution);
             }
-            
+
         };
         forEachMember(iter);
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected void processCause(final PollEvent cause) {
@@ -455,12 +455,12 @@ abstract public class PollableContainer extends PollableElement {
             public void forEachElement(PollableElement elem) {
                 elem.processCause(cause);
             }
-            
+
         };
         forEachMember(iter);
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected void resolveAllOutages(final PollEvent resolvedCause, final PollEvent resolution) {
@@ -471,7 +471,7 @@ abstract public class PollableContainer extends PollableElement {
                 if (!hasOpenOutage())
                     elem.resolveAllOutages(resolvedCause, resolution);
             }
-            
+
         };
         forEachMember(iter);
     }
@@ -489,7 +489,7 @@ abstract public class PollableContainer extends PollableElement {
             // we must be down set set status appropriately
             updateStatus(PollStatus.down());
         }
-        
+
         // return the cause to parent container
         return cause;
     }
@@ -503,7 +503,7 @@ abstract public class PollableContainer extends PollableElement {
                 // choose between the current scope and the newly found scope be taking
                 // the cause with the largest scope
                 cause = PollEvent.withLargestScope(cause, memberCause);
-                
+
             }
         }
         return cause;
@@ -516,7 +516,7 @@ abstract public class PollableContainer extends PollableElement {
         for(PollableElement member : getMembers()) {
             member.inheritParentalCause();
         }
-        
+
     }
-    
+
 }

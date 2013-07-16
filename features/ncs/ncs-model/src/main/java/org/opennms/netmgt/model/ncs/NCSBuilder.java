@@ -32,10 +32,10 @@ import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 import org.opennms.netmgt.model.ncs.NCSComponent.NodeIdentification;
 
 public class NCSBuilder {
-	
+
 	final private NCSBuilder m_parent;
 	final private NCSComponent m_component;
-	
+
 	/**
 	 * @param type
 	 * @param foreignSource
@@ -44,7 +44,7 @@ public class NCSBuilder {
 	public NCSBuilder(String type, String foreignSource, String foreignId) {
 		this(null, new NCSComponent(type, foreignSource, foreignId));
 	}
-	
+
 	/**
 	 * @param parent
 	 * @param component
@@ -53,7 +53,7 @@ public class NCSBuilder {
 		m_parent = parent;
 		m_component = component;
 	}
-	
+
 	/**
 	 * @param foreignSource
 	 */
@@ -61,7 +61,7 @@ public class NCSBuilder {
 		m_component.setForeignSource(foreignSource);
 		return this;
 	}
-	
+
 	/**
 	 * @param foreignId
 	 */
@@ -69,7 +69,7 @@ public class NCSBuilder {
 		m_component.setForeignId(foreignId);
 		return this;
 	}
-	
+
 	/**
 	 * @param nodeForeignSource
 	 * @param nodeForeignId
@@ -78,7 +78,7 @@ public class NCSBuilder {
 		m_component.setNodeIdentification(new NodeIdentification(nodeForeignSource, nodeForeignId));
 		return this;
 	}
-	
+
 	/**
 	 * @param type
 	 */
@@ -86,7 +86,7 @@ public class NCSBuilder {
 		m_component.setType(type);
 		return this;
 	}
-	
+
 	/**
 	 * @param name
 	 */
@@ -94,7 +94,7 @@ public class NCSBuilder {
 		m_component.setName(name);
 		return this;
 	}
-	
+
 	/**
 	 * @param upEventUei
 	 */
@@ -119,7 +119,7 @@ public class NCSBuilder {
 		m_component.setAttribute(key, value);
 		return this;
 	}
-	
+
 	/**
 	 * @param requirements
 	 */
@@ -139,11 +139,11 @@ public class NCSBuilder {
 		m_component.addSubcomponent(sub);
 		return new NCSBuilder(this, sub);
 	}
-	
+
 	public NCSBuilder popComponent() {
 		return m_parent;
 	}
-	
+
 	public NCSComponent get() {
 		return m_component;
 	}

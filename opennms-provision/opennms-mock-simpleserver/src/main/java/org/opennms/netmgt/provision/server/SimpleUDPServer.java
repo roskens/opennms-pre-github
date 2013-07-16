@@ -45,34 +45,34 @@ import org.opennms.core.utils.InetAddressUtils;
  * @version $Id: $
  */
 public class SimpleUDPServer {
-    
+
     public static interface RequestMatcher{
         public boolean matches(DatagramPacket input);
     }
-    
+
     public static interface Exchange {
         public boolean sendReply(DatagramSocket socket) throws IOException;
         public boolean processRequest(DatagramSocket socket) throws IOException;
     }
-    
+
     public static class SimpleServerExchange implements Exchange{
         private byte[] m_response;
         private RequestMatcher m_requestMatcher;
         private int m_responsePort;
         private InetAddress m_responseAddress;
-        
+
         public SimpleServerExchange(RequestMatcher requestMatcher, byte[] response){
             m_response = response;
             m_requestMatcher = requestMatcher;
         }
-        
+
         @Override
         public boolean processRequest(DatagramSocket socket) throws IOException {
             byte[] data = new byte[512];
             DatagramPacket packet = new DatagramPacket(data, data.length, socket.getLocalAddress(), socket.getLocalPort());
-            
+
             socket.receive(packet);
-            
+
             setResponsePort(packet.getPort());
             setResponseAddress(packet.getAddress());
             return m_requestMatcher.matches(packet);
@@ -82,7 +82,7 @@ public class SimpleUDPServer {
         public boolean sendReply(DatagramSocket socket) throws IOException {
             DatagramPacket packet = new DatagramPacket(m_response, m_response.length, getResponseAddress(), getResponsePort());
             socket.send(packet);
-            
+
             return true;
         }
 
@@ -101,25 +101,25 @@ public class SimpleUDPServer {
         public InetAddress getResponseAddress() {
             return m_responseAddress;
         }
-        
+
     }
-    
+
     private static int DEFAULT_TEST_PORT = 8888;
-    
+
     private Thread m_serverThread = null;
     private int m_timeout;
     private DatagramSocket m_socket;
     private List<Exchange> m_conversation = new ArrayList<Exchange>();
     private int m_port = DEFAULT_TEST_PORT;
     private InetAddress m_testInetAddress;
-    
+
     /**
      * <p>onInit</p>
      */
     public void onInit() {
         // Do nothing by default
-    } 
-    
+    }
+
     /**
      * <p>startServer</p>
      *
@@ -129,7 +129,7 @@ public class SimpleUDPServer {
         m_serverThread = new Thread(getRunnable(), this.getClass().getSimpleName());
         m_serverThread.start();
     }
-    
+
     /**
      * <p>stopServer</p>
      *
@@ -139,15 +139,15 @@ public class SimpleUDPServer {
         if(getServerSocket() != null ){
             getServerSocket().close();
         }
-        if(m_serverThread != null && m_serverThread.isAlive()) { 
-            
+        if(m_serverThread != null && m_serverThread.isAlive()) {
+
             if(m_socket != null && !m_socket.isClosed()) {
-                m_socket.close();  
+                m_socket.close();
             }
-            
+
         }
     }
-    
+
     private DatagramSocket getServerSocket() {
         return m_socket;
     }
@@ -160,24 +160,24 @@ public class SimpleUDPServer {
      */
     public Runnable getRunnable() throws Exception{
         return new Runnable(){
-            
+
             @Override
             public void run(){
                 try{
                     m_socket = new DatagramSocket(getPort(), getInetAddress());
                     m_socket.setSoTimeout(getTimeout());
-                    
+
                     attemptConversation(m_socket);
-                    
+
                     m_socket.close();
                 }catch(Throwable e){
                     throw new UndeclaredThrowableException(e);
                 }
             }
-            
+
         };
     }
-    
+
     /**
      * <p>setPort</p>
      *
@@ -185,8 +185,8 @@ public class SimpleUDPServer {
      */
     public void setPort(int port) {
         m_port = port;
-    }  
-    
+    }
+
     /**
      * <p>getPort</p>
      *
@@ -195,7 +195,7 @@ public class SimpleUDPServer {
     public int getPort(){
         return m_port;
     }
-    
+
     /**
      * <p>setTimeout</p>
      *
@@ -212,7 +212,7 @@ public class SimpleUDPServer {
     public int getTimeout() {
         return m_timeout;
     }
-    
+
     /**
      * <p>attemptConversation</p>
      *
@@ -225,15 +225,15 @@ public class SimpleUDPServer {
             if(!ex.processRequest(socket)){
                 return false;
             }
-            
+
             if(!ex.sendReply(socket)){
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * <p>addRequestResponse</p>
      *
@@ -243,7 +243,7 @@ public class SimpleUDPServer {
     protected void addRequestResponse(DatagramPacket request, byte[] response){
         m_conversation.add(new SimpleServerExchange(recievedPacket(request), response));
     }
-    
+
     /**
      * <p>recievedPacket</p>
      *
@@ -257,7 +257,7 @@ public class SimpleUDPServer {
             public boolean matches(DatagramPacket packet) {
                 return packet != null ? true : false;
             }
-            
+
         };
     }
 
@@ -283,6 +283,6 @@ public class SimpleUDPServer {
         }
     }
 
-    
-    
+
+
 }

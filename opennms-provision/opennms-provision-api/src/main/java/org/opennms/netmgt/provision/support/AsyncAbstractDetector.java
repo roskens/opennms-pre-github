@@ -39,7 +39,7 @@ import org.opennms.netmgt.provision.DetectFuture;
  * @author thedesloge
  */
 public abstract class AsyncAbstractDetector extends AbstractDetector implements AsyncServiceDetector {
-    
+
     /**
      * <p>Constructor for AsyncAbstractDetector.</p>
      *
@@ -61,7 +61,7 @@ public abstract class AsyncAbstractDetector extends AbstractDetector implements 
     protected AsyncAbstractDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     abstract public DetectFuture isServiceDetected(final InetAddress address);

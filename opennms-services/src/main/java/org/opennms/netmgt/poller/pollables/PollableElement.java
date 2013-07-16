@@ -45,7 +45,7 @@ import org.opennms.netmgt.xml.event.Event;
  */
 abstract public class PollableElement {
     private static final Logger LOG = LoggerFactory.getLogger(PollableElement.class);
-    private final Scope m_scope; 
+    private final Scope m_scope;
 
     private volatile PollableContainer m_parent;
     private volatile PollStatus m_status = PollStatus.unknown();
@@ -76,7 +76,7 @@ abstract public class PollableElement {
     public PollableContainer getParent() {
         return m_parent;
     }
-    
+
     /**
      * <p>setParent</p>
      *
@@ -103,7 +103,7 @@ abstract public class PollableElement {
     public void visit(PollableVisitor v) {
         visitThis(v);
     }
-    
+
     /**
      * <p>visitThis</p>
      *
@@ -112,7 +112,7 @@ abstract public class PollableElement {
     protected void visitThis(PollableVisitor v) {
         v.visitElement(this);
     }
-    
+
     /**
      * <p>getStatus</p>
      *
@@ -143,7 +143,7 @@ abstract public class PollableElement {
     public void updateStatus(PollStatus newStatus) {
         PollStatus oldStatus = getStatus();
         if (!oldStatus.equals(newStatus)) {
-            
+
             LOG.info("Changing status of PollableElement {} from {} to {}", newStatus, this, oldStatus);
             setStatus(newStatus);
             setStatusChanged(true);
@@ -161,7 +161,7 @@ abstract public class PollableElement {
     public void recalculateStatus() {
         // do nothing for just an element
     }
-    
+
     /**
      * <p>getContext</p>
      *
@@ -183,7 +183,7 @@ abstract public class PollableElement {
         else
             return getParent().doPoll(elem);
     }
-    
+
     /**
      * <p>getLockRoot</p>
      *
@@ -193,7 +193,7 @@ abstract public class PollableElement {
         PollableContainer parent = getParent();
         return (parent == null ? this : parent.getLockRoot());
     }
-    
+
     /**
      * <p>isTreeLockAvailable</p>
      *
@@ -202,7 +202,7 @@ abstract public class PollableElement {
     public boolean isTreeLockAvailable() {
         return getLockRoot().isTreeLockAvailable();
     }
-    
+
     /**
      * <p>obtainTreeLock</p>
      *
@@ -211,7 +211,7 @@ abstract public class PollableElement {
     public void obtainTreeLock(long timeout) {
         getLockRoot().obtainTreeLock(timeout);
     }
-    
+
     /**
      * <p>releaseTreeLock</p>
      */
@@ -227,7 +227,7 @@ abstract public class PollableElement {
     public void withTreeLock(Runnable r) {
         withTreeLock(r, 0);
     }
-    
+
     /**
      * <p>withTreeLock</p>
      *
@@ -238,8 +238,8 @@ abstract public class PollableElement {
     public <T> T withTreeLock(Callable<T> c) {
         return withTreeLock(c, 0);
     }
-    
-    
+
+
     /**
      * <p>withTreeLock</p>
      *
@@ -271,7 +271,7 @@ abstract public class PollableElement {
         }
     }
 
-    
+
 
     /**
      * <p>poll</p>
@@ -289,7 +289,7 @@ abstract public class PollableElement {
     protected PollStatus poll(PollableElement elem) {
         if (elem != this)
             throw new IllegalArgumentException("Invalid parameter to poll on "+this+": "+elem);
-        
+
         return poll();
     }
 
@@ -335,7 +335,7 @@ abstract public class PollableElement {
     protected void resolveOutage(PollEvent resolution) {
         setCause(null);
     }
-    
+
     /**
      * <p>hasOpenOutage</p>
      *
@@ -344,7 +344,7 @@ abstract public class PollableElement {
     public boolean hasOpenOutage() {
         return m_cause != null;
     }
-    
+
     /**
      * <p>setCause</p>
      *
@@ -353,7 +353,7 @@ abstract public class PollableElement {
     public void setCause(PollEvent cause) {
         m_cause = cause;
     }
-    
+
     /**
      * <p>getCause</p>
      *
@@ -428,7 +428,7 @@ abstract public class PollableElement {
         if (resolvedCause.equals(getCause()))
             resolveOutage(resolution);
     }
-    
+
     /**
      * <p>isDeleted</p>
      *
@@ -494,7 +494,7 @@ abstract public class PollableElement {
     protected PollEvent doExtrapolateCause() {
         return getCause();
     }
-    
+
     /**
      * <p>inheritParentalCause</p>
      */
@@ -505,32 +505,32 @@ abstract public class PollableElement {
             public void run() {
                 doInheritParentalCause();
             }
-            
+
         });
     }
-    
+
     /**
      * <p>doInheritParentalCause</p>
      */
     protected void doInheritParentalCause() {
         if (getParent() == null) return;
-            
+
         PollEvent parentalCause = getParent().getCause();
         PollStatus parentalStatus = getParent().getStatus();
         if (parentalCause == null) {
             // parent has no cause so no need to do anything here
             return;
         }
-        
-        if (getCause() == null || getCause().hasScopeLargerThan(getScope())) { 
+
+        if (getCause() == null || getCause().hasScopeLargerThan(getScope())) {
             // I have no cause but my parent is down.. mark me as down as well
             // I already have a cause that's larger than myself then inherit as well
             setCause(parentalCause);
             updateStatus(parentalStatus);
         }
-        
-        
+
+
     }
-    
+
 
 }

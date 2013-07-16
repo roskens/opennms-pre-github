@@ -112,7 +112,7 @@ public class JmxDatacollectionConfiggeneratorTest {
 
     //@Test
     public void testGenerateJmxConfigJmxMp() throws MalformedURLException, IOException {
-    	
+
     	JMXServiceURL url = jmxConfiggenerator.getJmxServiceURL(false, "connect.opennms-edu.net", "9998");
     	JMXConnector jmxConnector = jmxConfiggenerator.getJmxConnector(null, null, url);
         MBeanServerConnection mBeanServerConnection = jmxConfiggenerator.createMBeanServerConnection(jmxConnector);

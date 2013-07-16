@@ -66,7 +66,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitTemporaryDatabase
 public class MigratorTest {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MigratorTest.class);
 
     @Autowired
@@ -126,7 +126,7 @@ public class MigratorTest {
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME").toLowerCase();
                 tables.add(tableName);
-                if (!first) { 
+                if (!first) {
                     tableNames.append(",\n ");
                 }
                 tableNames.append(tableName);
@@ -171,7 +171,7 @@ public class MigratorTest {
             while (rs.next()) {
                 String tableName = rs.getString("TABLE_NAME").toLowerCase();
                 tables.add(tableName);
-                if (!first) { 
+                if (!first) {
                     tableNames.append(",\n ");
                 }
                 tableNames.append(tableName);

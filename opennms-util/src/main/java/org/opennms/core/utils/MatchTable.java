@@ -30,7 +30,7 @@ package org.opennms.core.utils;
 
 import java.util.regex.Matcher;
 public class MatchTable implements PropertiesUtils.SymbolTable {
-    
+
     private Matcher m_matcher;
 
     /**
@@ -54,5 +54,5 @@ public class MatchTable implements PropertiesUtils.SymbolTable {
             return null;
         }
     }
-    
+
 }

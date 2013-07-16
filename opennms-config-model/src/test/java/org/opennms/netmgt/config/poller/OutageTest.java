@@ -40,7 +40,7 @@ public class OutageTest extends XmlTest<Outage> {
     public OutageTest(final Outage sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Outage outage = new Outage();
@@ -54,7 +54,7 @@ public class OutageTest extends XmlTest<Outage> {
         time.setBegins("13:30:00");
         time.setEnds("14:45:00");
         outage.addTime(time);
-        
+
         return Arrays.asList(new Object[][] {
             {
                 outage,

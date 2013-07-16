@@ -53,8 +53,8 @@ import org.opennms.netmgt.xml.eventconf.Varbindsdecode;
 
 /**
  * The Test Class for JsmiMibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JsmiMibParserTest {
 

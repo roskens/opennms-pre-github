@@ -82,7 +82,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     protected IfXTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IfXTableEntry(inst.toInt());
     }
-    
+
     /**
      * <p>getIfName</p>
      *
@@ -122,7 +122,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     public void updateSnmpInterfaceData(OnmsNode node, Integer ifIndex) {
         // first look to see if an snmpIf was created already
         OnmsSnmpInterface snmpIf2 = node.getSnmpInterfaceWithIfIndex(ifIndex);
-        
+
         if (snmpIf2 == null) {
             // if not then create one
             snmpIf2 = new OnmsSnmpInterface(node, ifIndex);

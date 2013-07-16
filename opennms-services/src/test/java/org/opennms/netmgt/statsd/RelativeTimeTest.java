@@ -103,12 +103,12 @@ public class RelativeTimeTest {
             public TimeZone getTimeZone() {
                 return m_timeZone;
             }
-            
+
         });
-        
+
         Date start = yesterday.getStart();
         Date end = yesterday.getEnd();
-        
+
         System.err.println("start = " + start);
         System.err.println("end = " + end);
 
@@ -131,7 +131,7 @@ public class RelativeTimeTest {
 
         assertEquals("end date - start date", 82800000, end.getTime() - start.getTime());
     }
-    
+
     @Test
     public void testYesterdayEndingDST() {
         RelativeTime yesterday = RelativeTime.YESTERDAY;
@@ -153,9 +153,9 @@ public class RelativeTimeTest {
             public TimeZone getTimeZone() {
                 return m_timeZone;
             }
-            
+
         });
-        
+
         Date start = yesterday.getStart();
         Date end = yesterday.getEnd();
 
@@ -178,5 +178,5 @@ public class RelativeTimeTest {
 
         assertEquals("end date - start date", 90000000, end.getTime() - start.getTime());
     }
-    
+
 }

@@ -40,10 +40,10 @@ import junit.framework.TestSuite;
  * @version $Id: $
  */
 public class PropertySettingTestSuite extends TestSuite {
-    
+
     String m_propertyName;
     String m_propertyValue;
-    
+
     /**
      * <p>Constructor for PropertySettingTestSuite.</p>
      *
@@ -55,7 +55,7 @@ public class PropertySettingTestSuite extends TestSuite {
         m_propertyName = propertyName;
         m_propertyValue = propertyValue;
     }
-    
+
     /**
      * <p>Constructor for PropertySettingTestSuite.</p>
      *
@@ -95,7 +95,7 @@ public class PropertySettingTestSuite extends TestSuite {
         m_propertyName = propertyName;
         m_propertyValue = propertyValue;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void runTest(Test test, TestResult result) {
@@ -106,7 +106,7 @@ public class PropertySettingTestSuite extends TestSuite {
     private void setProperty() {
         System.setProperty(m_propertyName, m_propertyValue);
     }
-    
-    
+
+
 
 }

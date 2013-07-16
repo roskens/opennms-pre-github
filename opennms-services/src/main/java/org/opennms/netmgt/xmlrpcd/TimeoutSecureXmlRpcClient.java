@@ -1,12 +1,12 @@
 /*
  * Copyright 1999,2005 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -30,7 +30,7 @@ import org.apache.xmlrpc.secure.SecurityTool;
  * @author ranger
  * @version $Id: $
  */
-public class TimeoutSecureXmlRpcClient 
+public class TimeoutSecureXmlRpcClient
     extends XmlRpcClient
 {
     protected int timeout;
@@ -58,7 +58,7 @@ public class TimeoutSecureXmlRpcClient
         super(new URL(url), new TimeoutSecureXmlRpcTransportFactory(new URL(url), timeout));
         this.timeout = timeout;
     }
-   
+
     /**
      * Construct a XML-RPC client for the specified hostname and port, with
      * timeout.
@@ -71,14 +71,14 @@ public class TimeoutSecureXmlRpcClient
     public TimeoutSecureXmlRpcClient (final String hostname, final int port, final int timeout) throws MalformedURLException {
         this("https://" + hostname + ':' + port + "/RPC2", timeout);
     }
-    
+
      /**
       * This allows us to setup
       *
       * @throws java.lang.Exception if any.
       */
      public void setup() throws Exception {
-         SecurityTool.setup();    
+         SecurityTool.setup();
      }
 
     /**

@@ -29,7 +29,7 @@
 package org.opennms.web.command;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class NodeListCommand {
@@ -50,7 +50,7 @@ public class NodeListCommand {
     private boolean m_nodesWithDownAggregateStatus = false;
     private boolean m_listInterfaces = false;
     private int m_nodeId = -1;
-    
+
     public void setNodeId(int nodeId) {
         m_nodeId = nodeId;
     }
@@ -69,7 +69,7 @@ public class NodeListCommand {
     public boolean hasNodename() {
         return m_nodename != null;
     }
-    
+
     public void setIplike(String iplike) {
         m_iplike = iplike;
     }
@@ -79,7 +79,7 @@ public class NodeListCommand {
     public boolean hasIplike() {
         return m_iplike != null;
     }
-    
+
     public void setMaclike(String maclike) {
         m_maclike = maclike;
     }
@@ -89,19 +89,19 @@ public class NodeListCommand {
     public boolean hasMaclike() {
         return m_maclike != null;
     }
-    
+
     public void setForeignSource(String foreignSourceLike) {
         m_foreignsource = foreignSourceLike;
     }
-    
+
     public String getForeignSource() {
         return m_foreignsource;
     }
-    
+
     public boolean hasForeignSource() {
         return m_foreignsource != null;
     }
-    
+
     public void setService(Integer service) {
         m_service = service;
     }
@@ -111,7 +111,7 @@ public class NodeListCommand {
     public boolean hasService() {
         return m_service != null;
     }
-    
+
     public void setSnmpParm(String snmpParm) {
         m_snmpParm = snmpParm;
     }
@@ -139,7 +139,7 @@ public class NodeListCommand {
     public boolean hasSnmpParmMatchType() {
         return m_snmpParmMatchType != null;
     }
-        
+
     public void setCategory1(String[] category1) {
         m_category1 = category1;
     }
@@ -149,7 +149,7 @@ public class NodeListCommand {
     public boolean hasCategory1() {
         return m_category1 != null && m_category1.length > 0;
     }
-    
+
     public void setCategory2(String[] category2) {
         m_category2 = category2;
     }
@@ -159,7 +159,7 @@ public class NodeListCommand {
     public boolean hasCategory2() {
         return m_category2 != null && m_category2.length > 0;
     }
-    
+
     public void setStatusViewName(String statusViewName) {
         m_statusViewName = statusViewName;
     }
@@ -169,7 +169,7 @@ public class NodeListCommand {
     public boolean hasStatusViewName() {
         return m_statusViewName != null;
     }
-    
+
     public void setStatusSite(String statusSite) {
         m_statusSite = statusSite;
     }
@@ -189,26 +189,26 @@ public class NodeListCommand {
     public boolean hasStatusRowLabel() {
         return m_statusRowLabel != null;
     }
-    
+
     public void setNodesWithOutages(boolean nodesWithOutages) {
         m_nodesWithOutages = nodesWithOutages;
     }
     public boolean getNodesWithOutages() {
         return m_nodesWithOutages;
     }
-    
+
     public void setNodesWithDownAggregateStatus(boolean nodesWithDownAggregateStatus) {
         m_nodesWithDownAggregateStatus = nodesWithDownAggregateStatus;
     }
     public boolean getNodesWithDownAggregateStatus() {
         return m_nodesWithDownAggregateStatus;
     }
-    
+
     public void setListInterfaces(boolean listInterfaces) {
         m_listInterfaces = listInterfaces;
     }
     public boolean getListInterfaces() {
         return m_listInterfaces;
     }
-    
+
 }

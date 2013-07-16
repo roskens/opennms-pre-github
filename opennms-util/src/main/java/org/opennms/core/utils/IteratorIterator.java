@@ -34,10 +34,10 @@ import java.util.Iterator;
 import java.util.List;
 
 public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
-    
+
     private Iterator<Iterator<T>> m_iterIter;
     private Iterator<T> m_currentIter;
-    
+
     /**
      * <p>Constructor for IteratorIterator.</p>
      *
@@ -50,11 +50,11 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
          * just calling Arrays.asList(..) because we cannot call the remove()
          * method on an Iterator that we get from Arrays.asList (it is not
          * modifyable).
-         */ 
+         */
         List<Iterator<T>> iters = new ArrayList<Iterator<T>>(Arrays.asList(iterators));
         m_iterIter = iters.iterator();
     }
-    
+
     /**
      * <p>Constructor for IteratorIterator.</p>
      *
@@ -64,7 +64,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
         List<Iterator<T>> iters = new ArrayList<Iterator<T>>(iterators);
         m_iterIter = iters.iterator();
     }
-    
+
     /**
      * <p>hasNext</p>
      *
@@ -77,10 +77,10 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
             m_currentIter = m_iterIter.next();
             m_iterIter.remove();
         }
-        
+
         return (m_currentIter == null ? false : m_currentIter.hasNext());
     }
-    
+
     /**
      * <p>next</p>
      *
@@ -93,7 +93,7 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
         }
         return m_currentIter.next();
     }
-    
+
     /**
      * <p>remove</p>
      */
@@ -111,6 +111,6 @@ public class IteratorIterator<T> implements Iterator<T>, Iterable<T> {
     public Iterator<T> iterator() {
         return this;
     }
-    
-    
+
+
 }

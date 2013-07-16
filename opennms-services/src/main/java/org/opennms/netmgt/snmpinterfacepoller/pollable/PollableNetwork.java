@@ -40,12 +40,12 @@ import org.opennms.netmgt.scheduler.Schedule;
  * @version $Id: $
  */
 public class PollableNetwork {
-    
+
     private final Map<String, PollableInterface>m_members = new HashMap<String, PollableInterface>();
     private final Map<Integer,String> m_node = new HashMap<Integer, String>();
 
     private PollContext m_context;
-    
+
     /**
      * <p>Constructor for PollableNetwork.</p>
      *
@@ -54,7 +54,7 @@ public class PollableNetwork {
     public PollableNetwork(PollContext context) {
         m_context = context;
     }
-    
+
     /**
      * <p>create</p>
      *
@@ -73,7 +73,7 @@ public class PollableNetwork {
         m_node.put(Integer.valueOf(nodeGroup.getNodeid()), nodeGroup.getIpaddress());
         return nodeGroup;
     }
-    
+
     /**
      * <p>schedule</p>
      *
@@ -84,7 +84,7 @@ public class PollableNetwork {
      */
     public void schedule(PollableSnmpInterface node, long interval, org.opennms.netmgt.scheduler.Scheduler scheduler) {
 
-        
+
 
         PollableSnmpInterfaceConfig nodeconfig = new PollableSnmpInterfaceConfig(scheduler,interval);
 
@@ -96,7 +96,7 @@ public class PollableNetwork {
                 node.setSchedule(schedule);
             }
         }
-        
+
             node.schedule();
     }
 
@@ -110,7 +110,7 @@ public class PollableNetwork {
         m_members.clear();
         m_node.clear();
     }
-    
+
     /**
      * <p>delete</p>
      *
@@ -124,7 +124,7 @@ public class PollableNetwork {
             pi.delete();
         }
     }
-    
+
     /**
      * <p>delete</p>
      *
@@ -133,7 +133,7 @@ public class PollableNetwork {
     public void delete(int nodeid) {
         delete(getIp(nodeid));
     }
-    
+
     /**
      * <p>refresh</p>
      *
@@ -145,7 +145,7 @@ public class PollableNetwork {
             getInterface(ipaddress).refresh();
         }
     }
-    
+
     /**
      * <p>suspend</p>
      *
@@ -155,7 +155,7 @@ public class PollableNetwork {
         PollableInterface pi = getInterface(ipaddress);
         if (pi != null) pi.suspend();
     }
-    
+
     /**
      * <p>activate</p>
      *
@@ -174,7 +174,7 @@ public class PollableNetwork {
         String ipprimary = getIp(nodeid);
         if (ipprimary != null) suspend(ipprimary);
     }
-    
+
     /**
      * <p>activate</p>
      *
@@ -184,7 +184,7 @@ public class PollableNetwork {
         String ipprimary = getIp(nodeid);
         if (ipprimary != null) activate(ipprimary);
     }
-    
+
     /**
      * <p>getIp</p>
      *
@@ -194,12 +194,12 @@ public class PollableNetwork {
     public String getIp(int nodeid) {
         return m_node.get(Integer.valueOf(nodeid));
     }
-    
+
     private PollableInterface getInterface(String ipaddress) {
         if ( m_members.containsKey(ipaddress)) return m_members.get(ipaddress);
         return null;
     }
-    
+
     /**
      * <p>hasPollableInterface</p>
      *

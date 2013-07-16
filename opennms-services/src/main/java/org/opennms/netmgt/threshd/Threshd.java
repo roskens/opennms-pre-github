@@ -61,13 +61,13 @@ import org.springframework.dao.DataRetrievalFailureException;
  * @version $Id: $
  */
 public final class Threshd extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Threshd.class);
-    
+
     /**
      * SQL used to retrieve all the interfaces which support a particular
      * service.
-     * 
+     *
      * @see DbIfServiceEntry#STATUS_ACTIVE
      */
     private final static String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.status = 'A' AND ifServices.serviceid = service.serviceid AND service.servicename = ?";
@@ -233,7 +233,7 @@ public final class Threshd extends AbstractServiceDaemon {
             thresholder.reinitialize();
         }
     }
-    
+
     /**
      * <p>onStart</p>
      */
@@ -316,7 +316,7 @@ public final class Threshd extends AbstractServiceDaemon {
 
     /**
      * Schedule existing interfaces for thresholding.
-     * 
+     *
      * @throws SQLException
      *             if database errors encountered.
      */
@@ -334,7 +334,7 @@ public final class Threshd extends AbstractServiceDaemon {
                 public void processRow(ResultSet rs) throws SQLException {
                     int nodeId = rs.getInt(1);
                     String ipAddress = rs.getString(2);
-                    
+
                     LOG.debug("Scheduling service nodeId/ipAddress/svcName {}/{}/{}",nodeId,ipAddress,svcName);
                     scheduleService(nodeId, ipAddress, svcName, true);
                 }
@@ -342,13 +342,13 @@ public final class Threshd extends AbstractServiceDaemon {
             };
             querier.execute(svcName);
 
-        } 
+        }
     }
 
     /**
      * This method is responsible for scheduling the specified
      * node/address/svcname tuple for thresholding.
-     * 
+     *
      * @param nodeId
      *            Node id
      * @param ipAddress
@@ -361,7 +361,7 @@ public final class Threshd extends AbstractServiceDaemon {
      */
     void scheduleService(int nodeId, String ipAddress, String svcName, boolean existing) {
         Enumeration<org.opennms.netmgt.config.threshd.Package> epkgs = m_threshdConfig.getConfiguration().enumeratePackage();
-        
+
         // Compare interface/service pair against each threshd package
         // For each match, create new ThresholdableService object and
         // schedule it for collection

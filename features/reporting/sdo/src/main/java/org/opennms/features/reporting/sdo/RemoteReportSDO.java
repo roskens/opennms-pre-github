@@ -112,7 +112,7 @@ public class RemoteReportSDO {
     public void setSubreport(boolean subreport) {
         m_subreport = subreport;
     }
-    
+
     public void setAllowAccess(boolean allowAccess) {
         m_allowAccess = allowAccess;
     }

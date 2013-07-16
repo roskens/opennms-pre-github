@@ -39,14 +39,14 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public interface MicroblogConfigurationDao {
-    
+
     /**
      * <p>getConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.microblog.MicroblogConfiguration} object.
      */
     MicroblogConfiguration getConfig();
-    
+
     /**
      * <p>getProfile</p>
      *
@@ -54,14 +54,14 @@ public interface MicroblogConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile} object.
      */
     MicroblogProfile getProfile(String name);
-    
+
     /**
      * <p>getDefaultProfile</p>
      *
      * @return a {@link org.opennms.netmgt.config.microblog.MicroblogProfile} object.
      */
     MicroblogProfile getDefaultProfile();
-        
+
     /**
      * The underlying Castor based DAO abstraction in the default implementation doesn't provide access to the container so
      * this method is defined so that access to the container doesn't have to be exposed and a reload can still be controlled

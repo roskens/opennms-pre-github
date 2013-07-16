@@ -52,7 +52,7 @@ public interface RrdDao {
      * @return value
      */
     public double getPrintValue(OnmsAttribute attribute, String cf, long start, long end);
-    
+
     /**
      * Get the value for an attribute over a period of time.
      *
@@ -63,7 +63,7 @@ public interface RrdDao {
      * @return value
      * @param printFunctions a {@link java.lang.String} object.
      */
-    public double[] getPrintValues(OnmsAttribute attribute,String rraConsolidationFunction, 
+    public double[] getPrintValues(OnmsAttribute attribute,String rraConsolidationFunction,
 			long startTimeInMillis, long endTimeInMillis, String... printFunctions);
 
     /**
@@ -112,7 +112,7 @@ public interface RrdDao {
      *             if an error occurs retrieving the last value
      */
     public Double getLastFetchValue(OnmsAttribute attribute, int interval) throws DataAccessException;
-    
+
     /**
      * This method issues an round robin fetch command to retrieve the last
      * value of the data source stored in the specified RRD file.

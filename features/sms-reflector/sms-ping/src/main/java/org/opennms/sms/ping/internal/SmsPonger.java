@@ -55,14 +55,14 @@ import org.smslib.Message.MessageTypes;
  */
 public class SmsPonger implements OnmsInboundMessageNotification {
     private static final Logger LOG = LoggerFactory.getLogger(SmsPonger.class);
-    
+
     Map<String,String> s_tokenResponses = buildTokenResponses();
-    
+
     /** {@inheritDoc} */
     @Override
     public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
         LOG.debug("SmsPonger.processInboundMessage");
-        
+
         if (isPingRequest(msg)) {
             LOG.debug("Message is a ping request: {}", msg.getText());
             sendPong(gateway, msg);
@@ -75,30 +75,30 @@ public class SmsPonger implements OnmsInboundMessageNotification {
                 (isPseudoPingRequest(msg)
                    || isCanonicalPingRequest(msg));
     }
-    
+
     private boolean isCanonicalPingRequest(InboundMessage msg) {
-        return (!(msg instanceof InboundBinaryMessage)) 
-            && msg.getText() != null 
-            && msg.getText().length() >= 4 
+        return (!(msg instanceof InboundBinaryMessage))
+            && msg.getText() != null
+            && msg.getText().length() >= 4
             && "ping".equalsIgnoreCase(msg.getText().substring(0, 4));
     }
-    
+
     private boolean isPseudoPingRequest(InboundMessage msg) {
         if (s_tokenResponses.size() == 0) {
             LOG.debug("No token responses found, not processing pseudo-pings");
             return false;
         }
-        
+
         if (msg instanceof InboundBinaryMessage || msg.getText() == null)
             return false;
-        
+
         for (String token : s_tokenResponses.keySet()) {
             if (msg.getText().matches(token))
                 return true;
         }
         return false;
     }
-    
+
     private void sendPong(AGateway gateway, InboundMessage msg) {
         String pongResponse = (isCanonicalPingRequest(msg)) ? "pong" : getPseudoPongResponse(msg);
         LOG.debug("SmsPonger.sendPong: sending string '{}'", pongResponse);
@@ -116,16 +116,16 @@ public class SmsPonger implements OnmsInboundMessageNotification {
             LOG.error("IOException sending pong request to {}", msg.getOriginator(), e);
         } catch (InterruptedException e) {
             LOG.error("InterruptedException sending poing request to {}", msg.getOriginator(), e);
-        } 
+        }
     }
-    
+
     private String getPseudoPongResponse(InboundMessage msg) {
         for (Entry<String, String> tuple : s_tokenResponses.entrySet()) {
             if (msg.getText().matches(tuple.getKey())) {
                 return tuple.getValue();
             }
         }
-        
+
         LOG.debug("No pseudo-ping response found, defaulting to 'pong' (this should not happen)");
         return "";
     }
@@ -133,7 +133,7 @@ public class SmsPonger implements OnmsInboundMessageNotification {
     private static Map<String,String> buildTokenResponses() {
         // Use a LinkedHashMap to preserve ordering
         Map<String,String> tokenResponses = new LinkedHashMap<String,String>();
-        
+
         String pseudoPingTokensPsv = System.getProperty("sms.ping.tokens", "");
         String pseudoPingResponsesPsv = System.getProperty("sms.ping.responses", "");
         String[] tokens = pseudoPingTokensPsv.split(";");
@@ -146,12 +146,12 @@ public class SmsPonger implements OnmsInboundMessageNotification {
             LOG.error("Length of sms.ping.tokens ({}) is mismatched with length of sms.ping.responses ({})", tokens.length, responses.length);
             return tokenResponses;
         }
-        
+
         for (int i = 0; i < tokens.length; i++) {
             tokenResponses.put(tokens[i], responses[i]);
             LOG.debug("Setting response '{}' for pseudo-ping token '{}'", responses[i], tokens[i]);
         }
-        
+
         return tokenResponses;
     }
 }

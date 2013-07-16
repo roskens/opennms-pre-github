@@ -91,22 +91,22 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class PollerBackEndIntegrationTest implements InitializingBean {
-    
+
     @Resource(name="daemon")
     PollerBackEnd m_backEnd;
-    
+
     @Autowired
     SessionFactory m_sessionFactory;
-    
+
     @Autowired
     JdbcTemplate m_jdbcTemplate;
-    
+
     @Autowired
     DistPollerDao m_distPollerDao;
-    
+
     @Autowired
     NodeDao m_nodeDao;
-    
+
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
@@ -122,31 +122,31 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
     public void setUp(){
         MockLogAppender.setupLogging();
     }
-    
+
     @Test
     @Transactional
     public void testRegister() {
-        
+
         final Collection<OnmsMonitoringLocationDefinition> locations = m_backEnd.getMonitoringLocations();
         assertNotNull("locations list should not be null", locations);
         assertFalse("locations list should not be empty", locations.isEmpty());
 
         final int initialCount = m_locationMonitorDao.findAll().size();
-        
+
         for (final OnmsMonitoringLocationDefinition location : locations) {
             final int locationMonitorId = m_backEnd.registerLocationMonitor(location.getName());
             assertTrue(locationMonitorId > 0);
             assertEquals(MonitorStatus.REGISTERED, m_locationMonitorDao.get(locationMonitorId).getStatus());
         }
-        
+
         assertEquals(initialCount + locations.size(), m_locationMonitorDao.findAll().size());
     }
-    
+
     @Test
     @Transactional
     public void testPollingStarted() {
         final int locationMonitorId = m_backEnd.registerLocationMonitor("RDU");
-        
+
         m_backEnd.pollerStarting(locationMonitorId, getPollerDetails());
 
         final OnmsLocationMonitor monitor = m_locationMonitorDao.get(locationMonitorId);
@@ -157,32 +157,32 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertEquals(2, details.keySet().size());
         assertEquals("WonkaOS", details.get("os.name"));
     }
-    
+
     @Test
     @Transactional
     public void testPollingStopped() {
 
         int locationMonitorId = m_backEnd.registerLocationMonitor("RDU");
-        
+
         m_backEnd.pollerStarting(locationMonitorId, getPollerDetails());
-        
+
         assertEquals(MonitorStatus.STARTED, m_locationMonitorDao.get(locationMonitorId).getStatus());
 
         m_backEnd.pollerStopping(locationMonitorId);
-        
+
         assertEquals(MonitorStatus.STOPPED, m_locationMonitorDao.get(locationMonitorId).getStatus());
     }
-    
+
     @Test
     @Transactional
     public void testPollerDisconnected() throws Exception {
 
         int locationMonitorId = m_backEnd.registerLocationMonitor("RDU");
-        
+
         m_backEnd.pollerStarting(locationMonitorId, getPollerDetails());
 
         assertEquals(MonitorStatus.STARTED, m_locationMonitorDao.get(locationMonitorId).getStatus());
-        
+
         Thread.sleep(1500);
 
         m_backEnd.checkForDisconnectedMonitors();
@@ -190,21 +190,21 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         assertEquals(MonitorStatus.STARTED, m_locationMonitorDao.get(locationMonitorId).getStatus());
 
         Thread.sleep(2000);
-        
+
         m_backEnd.checkForDisconnectedMonitors();
-        
+
         assertEquals(MonitorStatus.DISCONNECTED, m_locationMonitorDao.get(locationMonitorId).getStatus());
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testGetServiceMonitorLocators() {
-        
+
         Collection<ServiceMonitorLocator> results = m_backEnd.getServiceMonitorLocators(DistributionContext.REMOTE_MONITOR);
-        
+
         assertNotNull(results);
-        
+
         assertTrue(results.size() > 0);
     }
 
@@ -223,7 +223,7 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         iface.setMonitoredServices(Collections.singleton(service));
         m_nodeDao.save(node);
         m_nodeDao.flush();
-        
+
         final int locationMonitorId = m_backEnd.registerLocationMonitor("RDU");
         final int serviceId = service.getId();
 
@@ -232,7 +232,7 @@ public class PollerBackEndIntegrationTest implements InitializingBean {
         if (rrdFile.exists()) {
             rrdFile.delete();
         }
-        
+
         assertFalse(rrdFile.exists());
 
         m_backEnd.reportResult(locationMonitorId, serviceId, PollStatus.available(1234.0));

@@ -46,23 +46,23 @@ public interface SnmpStrategy {
 
     SnmpValue getNext(SnmpAgentConfig agentConfig, SnmpObjId oid);
     SnmpValue[] getNext(SnmpAgentConfig agentConfig, SnmpObjId[] oids);
-    
+
     SnmpValue[] getBulk(SnmpAgentConfig agentConfig, SnmpObjId[] oids);
 
     void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory, InetAddress address, int snmpTrapPort, List<SnmpV3User> snmpv3Users) throws IOException;
 
     void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory, InetAddress address, int snmpTrapPort) throws IOException;
-    
+
     void registerForTraps(TrapNotificationListener listener, TrapProcessorFactory processorFactory, int snmpTrapPort) throws IOException;
 
     void unregisterForTraps(TrapNotificationListener listener, InetAddress address, int snmpTrapPort) throws IOException;
-    
+
     void unregisterForTraps(TrapNotificationListener listener, int snmpTrapPort) throws IOException;
 
     SnmpValueFactory getValueFactory();
 
     SnmpV1TrapBuilder getV1TrapBuilder();
-    
+
     SnmpTrapBuilder getV2TrapBuilder();
 
     SnmpV3TrapBuilder getV3TrapBuilder();
@@ -70,7 +70,7 @@ public interface SnmpStrategy {
     SnmpV2TrapBuilder getV2InformBuilder();
 
     SnmpV3TrapBuilder getV3InformBuilder();
-    
+
     byte[] getLocalEngineID();
 
 }

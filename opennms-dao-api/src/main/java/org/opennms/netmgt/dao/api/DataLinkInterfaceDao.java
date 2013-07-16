@@ -79,7 +79,7 @@ public interface DataLinkInterfaceDao extends OnmsDao<DataLinkInterface, Integer
     void setStatusForNode(Integer nodeid, StatusType action);
 
     void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action);
-    
+
     void setStatusForNode(Integer nodeid, String source, StatusType action);
 
     void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, String source, StatusType action);

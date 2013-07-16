@@ -50,9 +50,9 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SnmpNodeCollector extends AggregateTracker {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpNodeCollector.class);
-    
+
     /**
      * Used to store the collected MIB data.
      */
@@ -78,7 +78,7 @@ public class SnmpNodeCollector extends AggregateTracker {
      */
     public SnmpNodeCollector(InetAddress address, Collection<SnmpAttributeType> objList, SnmpCollectionSet collectionSet) {
         super(SnmpAttributeType.getCollectionTrackers(objList));
-        
+
         m_primaryIf = InetAddressUtils.str(address);
         m_collectionSet = collectionSet;
         m_collectorEntry = new SNMPCollectorEntry(objList, m_collectionSet);
@@ -96,7 +96,7 @@ public class SnmpNodeCollector extends AggregateTracker {
     public SNMPCollectorEntry getEntry() {
         return m_collectorEntry;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void reportGenErr(String msg) {

@@ -52,9 +52,9 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class JdbcEventdServiceManager implements InitializingBean, EventdServiceManager {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JdbcEventdServiceManager.class);
-    
+
     private DataSource m_dataSource;
 
     /**
@@ -80,7 +80,7 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
             return m_serviceMap.get(serviceName).intValue();
         } else {
             LOG.debug("Could not find entry for '{}' in service name cache.  Looking up in database.", serviceName);
-            
+
             int serviceId;
             try {
                 serviceId = new JdbcTemplate(m_dataSource).queryForInt("SELECT serviceID FROM service WHERE serviceName = ?", new Object[] { serviceName });
@@ -92,11 +92,11 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
                     throw e; // more than one found... WTF?!?!
                 }
             }
-            
+
             m_serviceMap.put(serviceName, serviceId);
-            
+
             LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName, serviceId);
-            
+
             return serviceId;
         }
     }
@@ -110,7 +110,7 @@ public class JdbcEventdServiceManager implements InitializingBean, EventdService
     @Override
     public synchronized void dataSourceSync() {
         m_serviceMap.clear();
-        
+
         new JdbcTemplate(m_dataSource).query(EventdConstants.SQL_DB_SVC_TABLE_READ, new RowCallbackHandler() {
             @Override
             public void processRow(ResultSet resultSet) throws SQLException {

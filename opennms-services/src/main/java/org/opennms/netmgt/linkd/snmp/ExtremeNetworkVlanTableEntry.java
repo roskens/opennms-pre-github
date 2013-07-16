@@ -61,12 +61,12 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
 
     /** Constant <code>EXTREME_VLAN_GLOBAL_ID="extremeVlanIfGlobalIdentifier"</code> */
     public final static String EXTREME_VLAN_GLOBAL_ID="extremeVlanIfGlobalIdentifier";
-	
+
 	private static String VLAN_INDEX_OID=".1.3.6.1.4.1.1916.1.2.1.2.1.10";
 	private static String VLAN_NAME_OID=".1.3.6.1.4.1.1916.1.2.1.2.1.2";
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -113,7 +113,7 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
 
 	@Override
 	public VlanStatus getVlanStatus() {
-		
+
 		return VlanStatus.get(VlanStatus.ROWSTATUS_STARTING_INDEX + getInt32(VLAN_STATUS));
 	}
 
@@ -121,7 +121,7 @@ public final class ExtremeNetworkVlanTableEntry extends Vlan {
 	public VlanType getVlanType() {
 		if (getInt32(VLAN_TYPE) == 1)
 			return VlanType.EXTREME_LAYER2;
-		return VlanType.UNKNOWN;		
+		return VlanType.UNKNOWN;
 	}
-	
+
 }

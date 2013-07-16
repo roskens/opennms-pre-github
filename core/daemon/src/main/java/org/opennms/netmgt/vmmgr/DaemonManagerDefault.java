@@ -38,11 +38,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DaemonManagerDefault implements DaemonManager {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DaemonManagerDefault.class);
-	
+
 	private List<ServiceDaemon> m_serviceDaemons;
-	
+
 	/**
 	 * <p>setServiceDaemons</p>
 	 *
@@ -107,7 +107,7 @@ public class DaemonManagerDefault implements DaemonManager {
 		System.exit(0);
 	}
 
-	
+
 	private void stopService(ServiceDaemon serviceDaemon) {
 		try {
 			serviceDaemon.stop();

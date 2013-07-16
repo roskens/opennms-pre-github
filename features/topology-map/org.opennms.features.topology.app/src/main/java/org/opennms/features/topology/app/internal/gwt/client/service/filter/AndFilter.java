@@ -7,13 +7,13 @@ import java.util.Map;
 import org.opennms.features.topology.app.internal.gwt.client.service.Filter;
 
 public class AndFilter extends AbstractFilter {
-    
+
     List<Filter> m_filters;
 
     public AndFilter(List<Filter> filters) {
         m_filters = filters;
     }
-    
+
     public AndFilter(Filter... filters) {
         this(Arrays.asList(filters));
     }

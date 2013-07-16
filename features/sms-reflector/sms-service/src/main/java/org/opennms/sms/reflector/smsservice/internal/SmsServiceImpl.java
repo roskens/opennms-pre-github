@@ -56,9 +56,9 @@ import org.smslib.routing.Router;
  * @version $Id: $
  */
 public class SmsServiceImpl implements SmsService {
-    
+
 	private static Logger log = LoggerFactory.getLogger(SmsServiceImpl.class);
-	
+
 	private Service m_service = Service.getInstance();
 	private String m_modemId;
 	private String m_modemPort;
@@ -87,7 +87,7 @@ public class SmsServiceImpl implements SmsService {
 		}
 
     }
-	
+
     /**
      * <p>getOutboundListeners</p>
      *
@@ -222,7 +222,7 @@ public class SmsServiceImpl implements SmsService {
     public void setModel(String model) {
         this.m_model = model;
     }
-    
+
     /**
      * <p>start</p>
      */
@@ -232,10 +232,10 @@ public class SmsServiceImpl implements SmsService {
         } catch (Throwable e) {
             throw new RuntimeException(e);
         }
-        
+
     }
-    
-    
+
+
     /**
      * <p>stop</p>
      */
@@ -251,7 +251,7 @@ public class SmsServiceImpl implements SmsService {
 	public void refresh(Map<?,?> properties) {
 	log.debug("Received a configuration refresh! {}", properties);
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void addGateway(AGateway gateway) throws GatewayException {
@@ -785,7 +785,7 @@ public class SmsServiceImpl implements SmsService {
     public void register(SmsServiceRegistrar smsServiceRegistrar) {
     	smsServiceRegistrar.registerSmsService(this);
     }
-    
+
     /**
      * <p>unregister</p>
      *

@@ -77,11 +77,11 @@ import org.springframework.util.Assert;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory, TrapNotificationListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Trapd.class);
 
     private static final String LOG4J_CATEGORY = "trapd";
-    
+
     /**
      * The last status sent to the service control manager.
      */
@@ -103,7 +103,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
      */
     @Autowired
     private BroadcastEventProcessor m_eventReader;
-    
+
     /**
      * Trapd IP manager.  Contains IP address -> node ID mapping.
      */
@@ -134,7 +134,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
     public Trapd() {
         super(LOG4J_CATEGORY);
     }
-    
+
     /**
      * <p>createTrapProcessor</p>
      *
@@ -234,7 +234,7 @@ public class Trapd extends AbstractServiceDaemon implements TrapProcessorFactory
         }
 
         m_status = PAUSE_PENDING;
-        
+
         LOG.debug("pause: Calling pause on processor");
 
         m_status = PAUSED;

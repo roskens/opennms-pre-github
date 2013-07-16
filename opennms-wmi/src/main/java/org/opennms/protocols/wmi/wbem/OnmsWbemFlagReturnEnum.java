@@ -43,7 +43,7 @@ import java.util.Map;
  * @version $Id: $
  */
 public enum OnmsWbemFlagReturnEnum {
-   
+
     wbemFlagForwardOnly(32, "wbemFlagForwardOnly"),
     wbemFlagBidirectional(0, "wbemFlagBidirectional"),
     wbemFlagReturnImmediately(16, "wbemFlagReturnImmediately"),

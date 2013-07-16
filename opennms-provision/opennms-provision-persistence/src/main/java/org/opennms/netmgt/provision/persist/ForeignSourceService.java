@@ -161,5 +161,5 @@ public interface ForeignSourceService {
      * @return a {@link java.util.Map} object.
      */
     Map<String,PluginWrapper> getWrappers();
-    
+
 }

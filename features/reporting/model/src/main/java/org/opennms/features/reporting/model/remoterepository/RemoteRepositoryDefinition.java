@@ -42,7 +42,7 @@ public class RemoteRepositoryDefinition {
     private String m_repositoryDescription;
     private String m_repositoryManagementURL;
     private String m_repositoryId;
-     
+
     public String getLoginRepoPassword() {
         return m_loginRepoPassword;
     }
@@ -51,7 +51,7 @@ public class RemoteRepositoryDefinition {
     }
     public String getRepositoryDescription() {
         return m_repositoryDescription;
-    } 
+    }
     public String getRepositoryId() {
         return m_repositoryId;
     }

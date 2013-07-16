@@ -43,7 +43,7 @@ import com.google.gwt.user.client.ui.ListBox;
  */
 public class ValidatedListBox extends ListBox {
     /**
-     * 
+     *
      */
     private Dashlet m_dashlet;
     private boolean m_allowWrapAround = true;
@@ -59,7 +59,7 @@ public class ValidatedListBox extends ListBox {
         super();
         m_dashlet = dashlet;
     }
-    
+
     /**
      * <p>setParent</p>
      *
@@ -68,7 +68,7 @@ public class ValidatedListBox extends ListBox {
     public void setParent(ValidatedListBox parent) {
         m_parent = parent;
     }
-    
+
     /**
      * <p>setDirectionalChangeHandler</p>
      *
@@ -77,7 +77,7 @@ public class ValidatedListBox extends ListBox {
     public void setDirectionalChangeHandler(DirectionalChangeHandler handler) {
         m_directionalChangeHandler = handler;
     }
-    
+
     /**
      * <p>getSelectedValue</p>
      *
@@ -89,7 +89,7 @@ public class ValidatedListBox extends ListBox {
             m_dashlet.error("Error: list box index " + index + " is out of range");
             return null;
         }
-        
+
         return getValue(index);
     }
 
@@ -104,10 +104,10 @@ public class ValidatedListBox extends ListBox {
         if (relativeIndex < 0 || relativeIndex >= getItemCount()) {
             return null;
         }
-        
+
         return getValue(relativeIndex);
     }
-    
+
     /**
      * <p>adjustSelectedValue</p>
      *
@@ -138,9 +138,9 @@ public class ValidatedListBox extends ListBox {
                 }
             }
         }
-        
+
         setSelectedIndex(newPrefabIndex);
-        
+
         if (m_directionalChangeHandler != null) {
             m_directionalChangeHandler.onChange(null, direction);
         }

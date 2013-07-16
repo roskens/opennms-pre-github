@@ -47,7 +47,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class IcmpDetector extends SyncAbstractDetector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IcmpDetector.class);
     /**
      * <p>Constructor for IcmpDetector.</p>
@@ -56,7 +56,7 @@ public class IcmpDetector extends SyncAbstractDetector {
         super("ICMP", -1);
         init();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isServiceDetected(InetAddress address) {
@@ -66,14 +66,14 @@ public class IcmpDetector extends SyncAbstractDetector {
         try {
             for(int i = 0; i < getRetries() && !found; i++) {
                 Number retval = PingerFactory.getInstance().ping(address, getTimeout(), getRetries());
-                
+
                 LOG.debug("isServiceDetected: Response time for address: {} is: {}.", address, retval);
-                
+
                 if (retval != null) {
                     found = true;
                 }
             }
-            
+
             LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}.", address, found);
 
         } catch (final InterruptedException e) {
@@ -82,11 +82,11 @@ public class IcmpDetector extends SyncAbstractDetector {
         } catch (Throwable e) {
             LOG.info("isServiceDetected: ICMP based service for address: {} is detected: {}. Received an Exception {}.", address, false, e);
         }
-        
+
         return found;
     }
 
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
@@ -98,6 +98,6 @@ public class IcmpDetector extends SyncAbstractDetector {
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
-        
+
     }
 }

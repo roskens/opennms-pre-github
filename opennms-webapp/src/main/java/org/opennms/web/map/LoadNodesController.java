@@ -56,13 +56,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class LoadNodesController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LoadNodesController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -84,9 +84,9 @@ public class LoadNodesController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		LOG.debug("Loading Nodes" );
-		
+
 		String user = request.getRemoteUser();
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 		try {

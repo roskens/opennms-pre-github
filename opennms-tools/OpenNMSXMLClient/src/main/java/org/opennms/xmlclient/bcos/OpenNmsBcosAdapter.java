@@ -1,13 +1,13 @@
-/* 
+/*
  * Licensed to the OpenNMS Group Inc. under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The OpenNMS Group Inc. licences this file to You under the Apache License, 
+ * The OpenNMS Group Inc. licences this file to You under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,29 +26,29 @@ import org.opennms.xmlclient.BasicHttpMethods;
 import org.opennms.xmlclient.ClientPropertiesLoader;
 import org.opennms.xmlclient.OpenNmsXmlClient;
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory; 
+import org.apache.commons.logging.LogFactory;
 import com.bt.bcos.adapter.AdapterIf;
 
 /**
  * OpenNMSBcosAdapter
  * This class implements the com.bt.bcos.adapter.AdapterIf interface as an adaptor to
- * the OpenNMS REST provisioning interface. 
- * 
+ * the OpenNMS REST provisioning interface.
+ *
  * add(String service, HashMap<String, String> params)
- * params 
+ * params
  * key              value                          What happens in OpenNMS
  * "description",   "<a textual description>"      Added to node description inventory record
  * "machine_ident", "<a unique identifier>"        Set as foreign ID and OpenNMS Node Label
  * "ip_address",    "<IP address>"                 set as IP address of first port on node
  * "http_listen_port",  "<HTTP listen port, typically "80"    NOT USED - automatically discovered
  * "https_listen_port", "<HTTPS listen port, typically "443"  NOT USED - trial not using Https
- * 
+ *
  */
 public class OpenNmsBcosAdapter implements AdapterIf {
 	private Log log = LogFactory.getLog(OpenNmsBcosAdapter.class.getName());
 
 	private String opennmsUrl;       // URL to address opennms e.g "http://localhost:8980";
-	private String username;         // user ID for accessing REST interface e.g "admin"; 
+	private String username;         // user ID for accessing REST interface e.g "admin";
 	private String password;         // password for accessing REST interface  e.g "admin";
 	private String foreign_source;   // foreign source for importing data e.g  "imported:BTForeignSource";
 
@@ -89,7 +89,7 @@ public class OpenNmsBcosAdapter implements AdapterIf {
 	 * @param nagiosService the service provisioned on the node identified in the requisition
 	 * @param params Hash map containing additional information to identify the interface, node and service
 	 * @return true if provisioning succeeds false if fails
-	 * 
+	 *
 	 * @see com.bt.bcos.adapter.AdapterIf#add(java.lang.String, java.util.HashMap)
 	 */
 	public boolean add(String nagiosService, HashMap<String, String> params) {
@@ -99,8 +99,8 @@ public class OpenNmsBcosAdapter implements AdapterIf {
 		log.debug("params HashMap contents");
 		Iterator<String> iterator = params.keySet().iterator();
 		while(iterator.hasNext()) {
-			String key = iterator.next().toString();  
-			String val  = params.get(key);  
+			String key = iterator.next().toString();
+			String val  = params.get(key);
 			log.debug("   Key is: " + key + "\t\t  Value is : " + val);
 		}
 
@@ -144,7 +144,7 @@ public class OpenNmsBcosAdapter implements AdapterIf {
 			java.io.Reader data = new java.io.StringReader(marshalledStr.toString());
 			java.io.Writer output= new java.io.StringWriter();
 			URL url = new URL(opennmsUrl+requisitionCmd+"/"+foreign_source+"/nodes");
-			
+
 			BasicHttpMethods basicHttpMethods= new BasicHttpMethods();
 			basicHttpMethods.setLog(log);
 			basicHttpMethods.postData(data, url, output, username, password);
@@ -162,7 +162,7 @@ public class OpenNmsBcosAdapter implements AdapterIf {
 
 	/**
 	 * This method implements the bcos nagios remove method.
-	 * It removes an OpenNMS monitored service from a node in a requisition 
+	 * It removes an OpenNMS monitored service from a node in a requisition
 	 * @param nagiosService the service provisioned on the node identified in the requisition
 	 * @param machine_ident the node name of the node as identified in the requisition
 	 * string nagios
@@ -184,9 +184,9 @@ public class OpenNmsBcosAdapter implements AdapterIf {
 		return true;
 	}
 
-	/** 
+	/**
 	 * This method implements the restartNagios method.
-	 * It loads the provisioned requisition and changes the  OpenNMS configuration 
+	 * It loads the provisioned requisition and changes the  OpenNMS configuration
 	 * without restarting OpenNMS
 	 * @return true if requisition is accepted into OpenNNS. False if fails
 	 * @see com.bt.bcos.adapter.AdapterIf#commit()

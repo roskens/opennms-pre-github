@@ -68,19 +68,19 @@ public class Asset extends Object {
 
     /** Constant <code>AUTOENABLE="A"</code> */
     public static final String AUTOENABLE = "A";
-    
+
     /** Constant <code>AUTOENABLES="new String[] { AUTOENABLE }"</code> */
     public static final String[] AUTOENABLES = new String[] { AUTOENABLE };
 
     /** Constant <code>TELNET_CONNECTION="telnet"</code> */
     public static final String TELNET_CONNECTION = "telnet";
-    
+
     /** Constant <code>SSH_CONNECTION="ssh"</code> */
     public static final String SSH_CONNECTION = "ssh";
-    
+
     /** Constant <code>RSH_CONNECTION="rsh"</code> */
     public static final String RSH_CONNECTION = "rsh";
-    
+
     /** Constant <code>CONNECTIONS="new String[] { TELNET_CONNECTION,SSH_CO"{trunked}</code> */
     public static final String[] CONNECTIONS = new String[] { TELNET_CONNECTION,SSH_CONNECTION, RSH_CONNECTION};
 
@@ -169,9 +169,9 @@ public class Asset extends Object {
     protected String thresholdCategory = "";
 
     protected String comments = "";
-    
+
     protected String username ="";
-    
+
     protected String password ="";
 
     protected String enable ="";
@@ -179,13 +179,13 @@ public class Asset extends Object {
     protected String connection ="";
 
     protected String autoenable ="";
-    
+
     protected String cpu ="";
-    
+
     protected String ram ="";
 
     protected String storagectrl ="";
-    
+
     protected String hdd1 ="";
 
     protected String hdd2 ="";
@@ -229,7 +229,7 @@ public class Asset extends Object {
             this.rackunitheight = rackunitheight;
         } else {
             this.rackunitheight = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>snmpcommunity</code>.</p>
@@ -250,7 +250,7 @@ public class Asset extends Object {
             this.snmpcommunity = snmpcommunity;
         } else {
             this.snmpcommunity = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>admin</code>.</p>
@@ -271,7 +271,7 @@ public class Asset extends Object {
             this.admin = admin;
         } else {
             this.admin = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>additionalhardware</code>.</p>
@@ -292,7 +292,7 @@ public class Asset extends Object {
             this.additionalhardware = additionalhardware;
         } else {
             this.additionalhardware = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>inputpower</code>.</p>
@@ -313,7 +313,7 @@ public class Asset extends Object {
             this.inputpower = inputpower;
         } else {
             this.inputpower = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>numpowersupplies</code>.</p>
@@ -334,7 +334,7 @@ public class Asset extends Object {
             this.numpowersupplies = numpowersupplies;
         } else {
             this.numpowersupplies = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd6</code>.</p>
@@ -355,7 +355,7 @@ public class Asset extends Object {
             this.hdd6 = hdd6;
         } else {
             this.hdd6 = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd5</code>.</p>
@@ -376,7 +376,7 @@ public class Asset extends Object {
             this.hdd5 = hdd5;
         } else {
             this.hdd5 = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd4</code>.</p>
@@ -397,7 +397,7 @@ public class Asset extends Object {
             this.hdd4 = hdd4;
         } else {
             this.hdd4 = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd3</code>.</p>
@@ -418,7 +418,7 @@ public class Asset extends Object {
             this.hdd3 = hdd3;
         } else {
             this.hdd3 = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd2</code>.</p>
@@ -439,7 +439,7 @@ public class Asset extends Object {
             this.hdd2 = hdd2;
         } else {
             this.hdd2 = "";
-        }        
+        }
       }
     /**
      * <p>Getter for the field <code>hdd1</code>.</p>
@@ -460,7 +460,7 @@ public class Asset extends Object {
             this.hdd1 = hdd1;
         } else {
             this.hdd1 = "";
-        }        
+        }
       }
 
     /**
@@ -482,9 +482,9 @@ public class Asset extends Object {
             this.storagectrl = storagectrl;
         } else {
             this.storagectrl = "";
-        }        
+        }
       }
-    
+
     /**
      * <p>Setter for the field <code>nodeId</code>.</p>
      *
@@ -1442,7 +1442,7 @@ public class Asset extends Object {
             this.username = username;
         } else {
             this.username = "";
-        }        
+        }
     }
 
     /**
@@ -1464,7 +1464,7 @@ public class Asset extends Object {
             this.password = password;
         } else {
             this.password = "";
-        }        
+        }
     }
 
     /**
@@ -1486,7 +1486,7 @@ public class Asset extends Object {
             this.enable = enable;
         } else {
             this.enable = "";
-        }        
+        }
     }
 
     /**
@@ -1508,7 +1508,7 @@ public class Asset extends Object {
             this.connection = connection;
         } else {
             this.connection = "";
-        }        
+        }
    }
 
     /**
@@ -1530,7 +1530,7 @@ public class Asset extends Object {
             this.autoenable = autoenable;
         } else {
             this.autoenable = "";
-        }        
+        }
       }
 
     /**
@@ -1552,7 +1552,7 @@ public class Asset extends Object {
             this.cpu = cpu;
         } else {
             this.cpu = "";
-        }        
+        }
       }
 
     /**
@@ -1566,7 +1566,7 @@ public class Asset extends Object {
 
     /**
      * <p>Setter for the field <code>ram</code>.</p>
-     * 
+     *
      * @param ram a {@link java.lang.String} object.
      */
     public void setRam(String ram) {

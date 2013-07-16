@@ -47,11 +47,11 @@ public class SnmpTableResult implements RowResultFactory {
     private final List<SnmpObjId> m_finishedColumns;
     private final Map<SnmpInstId,SnmpRowResult> m_pendingData;
     private volatile boolean m_finished = false;
-    
+
     public SnmpTableResult(RowCallback callback, SnmpObjId... columns) {
         this(callback, null, columns);
     }
- 
+
     public SnmpTableResult(RowCallback callback, RowResultFactory rowResultFactory, SnmpObjId... columns) {
         m_callback = callback;
         m_columns = columns;
@@ -60,7 +60,7 @@ public class SnmpTableResult implements RowResultFactory {
         m_finishedColumns = new ArrayList<SnmpObjId>();
         m_pendingData = new TreeMap<SnmpInstId,SnmpRowResult>();
     }
-    
+
     private int getColumnCount() {
         return m_columns.length;
     }
@@ -95,7 +95,7 @@ public class SnmpTableResult implements RowResultFactory {
                 lastInstance = row.getInstance();
             }
         }
-        
+
         if (lastInstance != null || isFinished()) {
             Iterator<SnmpInstId> i = m_pendingData.keySet().iterator();
             while (i.hasNext()) {

@@ -79,7 +79,7 @@ public class AsteriskOriginator {
      * properties from configuration
      */
     private Properties m_amiProps;
-    
+
     /*
      * fields from properties used for deterministic behavior of the originator
      */
@@ -105,12 +105,12 @@ public class AsteriskOriginator {
     private String m_legAChannel;
     private String m_subject;
     private String m_messageText;
-    
+
     /*
      * A Map for setting channel variables
      */
     private Map<String,String> m_channelVars;
-    
+
     /**
      * <p>Constructor for AsteriskOriginator.</p>
      *
@@ -118,13 +118,13 @@ public class AsteriskOriginator {
      * @throws org.opennms.netmgt.asterisk.utils.AsteriskOriginatorException if any.
      */
     public AsteriskOriginator(Properties amiProps) throws AsteriskOriginatorException {
-        
+
         try {
             configureProperties(amiProps);
         } catch (IOException e) {
             throw new AsteriskOriginatorException("Failed to construct originator", e);
         }
-        
+
         // Get the details for this AMI peer from the AmiPeerFactory
         try {
             AmiPeerFactory.init();
@@ -135,7 +135,7 @@ public class AsteriskOriginator {
         } catch (IOException ioe) {
             throw new AsteriskOriginatorException("I/O error initializing AMI peer factory", ioe);
         }
-        
+
         AmiAgentConfig agentConfig = AmiPeerFactory.getInstance().getAgentConfig(m_amiHost);
         // Now create and configure the manager connection
         ManagerConnectionFactory mcf = new ManagerConnectionFactory(InetAddressUtils.str(m_amiHost), agentConfig.getPort(), agentConfig.getUsername(), agentConfig.getPassword());
@@ -145,7 +145,7 @@ public class AsteriskOriginator {
             m_managerConnection = (DefaultManagerConnection)mcf.createManagerConnection();
         }
         m_managerConnection.setDefaultResponseTimeout(m_responseTimeout);
-        
+
         m_channelVars = new HashMap<String,String>();
     }
 
@@ -162,18 +162,18 @@ public class AsteriskOriginator {
      * This method uses a properties file reader to pull in opennms styled AMI properties and sets
      * the actual AMi properties.  This is here to preserve the backwards compatibility but configuration
      * will probably change soon.
-     * 
+     *
      * @throws IOException
      */
-    
+
     private void configureProperties(Properties amiProps) throws IOException {
-        
+
         //this loads the OpenNMS-defined properties
         m_amiProps = AsteriskConfig.getProperties();
-        
+
         //this sets any Asterisk-Java defined properties sent in to the constructor
         m_amiProps.putAll(amiProps);
-        
+
         /*
          * fields from properties used for deterministic behavior of the originator
          */
@@ -199,7 +199,7 @@ public class AsteriskOriginator {
      */
     public void originateCall() throws AsteriskOriginatorException {
         m_originateAction = buildOriginateAction();
-        
+
         LOG.info("Logging in Asterisk manager connection");
         try {
             m_managerConnection.login();
@@ -213,11 +213,11 @@ public class AsteriskOriginator {
             throw new AsteriskOriginatorException("Timed out logging in Asterisk manager connection", toe);
         }
         LOG.info("Successfully logged in Asterisk manager connection");
-        
+
         LOG.info("Originating a call to extension {}", m_legAExtension);
         LOG.debug(createCallLogMsg());
         LOG.debug("Originate action:\n\n{}", m_originateAction.toString());
-        
+
         try {
             m_managerResponse = m_managerConnection.sendAction(m_originateAction);
         } catch (IllegalArgumentException iae) {
@@ -233,15 +233,15 @@ public class AsteriskOriginator {
             m_managerConnection.logoff();
             throw new AsteriskOriginatorException("Timed out sending originate action", toe);
         }
-        
+
         LOG.info("Asterisk manager responded: {}", m_managerResponse.getResponse());
         LOG.info("Asterisk manager message: {}", m_managerResponse.getMessage());
-        
+
         if (m_managerResponse.getResponse().toLowerCase().startsWith("error")) {
             m_managerConnection.logoff();
             throw new AsteriskOriginatorException("Got error response sending originate event. Response: " + m_managerResponse.getResponse() + "; Message: " + m_managerResponse.getMessage());
         }
-        
+
         LOG.info("Logging off Asterisk manager connection");
         m_managerConnection.logoff();
         LOG.info("Successfully logged off Asterisk manager connection");
@@ -275,7 +275,7 @@ public class AsteriskOriginator {
     private String expandPattern(String pattern) {
         LOG.debug("Expanding pattern {}", pattern);
         String expanded = AsteriskUtils.expandPattern(pattern);
-        
+
         // Further expand AsteriskOriginator-specific tokens
         Properties props = new Properties();
         props.put("exten", getLegAExtension());
@@ -451,7 +451,7 @@ public class AsteriskOriginator {
     public Properties getAmiProps() {
         return m_amiProps;
     }
-    
+
     /**
      * Sets a variable on the channel used for the originated call
      *
@@ -461,7 +461,7 @@ public class AsteriskOriginator {
     public void setChannelVariable(String name, String value) {
         m_channelVars.put(name, value);
     }
-    
+
     /**
      * Retrieves a Map of channel variables for the originated call
      *
@@ -470,7 +470,7 @@ public class AsteriskOriginator {
     public Map<String,String> getChannelVariables() {
         return Collections.unmodifiableMap(m_channelVars);
     }
-    
+
     /**
      * Retrieves a named channel variable for the originated call
      *

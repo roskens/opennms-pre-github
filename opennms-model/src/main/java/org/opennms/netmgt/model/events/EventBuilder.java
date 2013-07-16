@@ -55,12 +55,12 @@ import org.springframework.util.StringUtils;
  * <p>EventBuilder class.</p>
  */
 public class EventBuilder {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventBuilder.class);
 
-    
+
     private Event m_event;
-    
+
     /**
      * <p>Constructor for EventBuilder.</p>
      *
@@ -85,7 +85,7 @@ public class EventBuilder {
         setCreationTime(date);
         setSource(source);
     }
-    
+
     /**
      * <p>Constructor for EventBuilder.</p>
      *
@@ -115,7 +115,7 @@ public class EventBuilder {
 	public Event getEvent() {
         return m_event;
     }
-	
+
     public EventBuilder setUei(final String uei) {
         m_event.setUei(uei);
         return this;
@@ -132,7 +132,7 @@ public class EventBuilder {
        m_event.setTime(EventConstants.formatToString(date));
        return this;
     }
-    
+
     /**
      * <p>setCreationTime</p>
      *
@@ -153,9 +153,9 @@ public class EventBuilder {
     public EventBuilder setSource(final String source) {
         m_event.setSource(source);
         return this;
-        
+
     }
-    
+
     /**
      * <p>setSeverity</p>
      *
@@ -188,7 +188,7 @@ public class EventBuilder {
         m_event.setHost(hostname);
         return this;
     }
-    
+
     /**
      * <p>setInterface</p>
      *
@@ -231,37 +231,37 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final String val) {
         return addParam(parmName, val, null, null);
     }
-    
+
     public EventBuilder addParam(final String parmName, final String val, final String type, final String encoding) {
         if (parmName != null) {
             Value value = new Value();
             value.setContent(val);
-            
+
             if (type != null) {
                 value.setType(type);
             }
-            
+
             if (encoding != null) {
                 value.setEncoding(encoding);
             }
-            
+
             Parm parm = new Parm();
             parm.setParmName(parmName);
             parm.setValue(value);
-            
+
             addParam(parm);
         }
-        
+
         return this;
     }
 
-    
+
     public EventBuilder addParam(final Parm parm) {
         m_event.addParm(parm);
 
         return this;
     }
-    
+
     /**
      * <p>addParam</p>
      *
@@ -283,7 +283,7 @@ public class EventBuilder {
 
         return this;
     }
-    
+
     /**
      * <p>setParam</p>
      *
@@ -318,7 +318,7 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final double val) {
         return addParam(parmName, Double.toString(val));
     }
-    
+
     /**
      * <p>addParam</p>
      *
@@ -329,7 +329,7 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final long val) {
         return addParam(parmName, Long.toString(val));
     }
-    
+
     /**
      * <p>addParam</p>
      *
@@ -340,7 +340,7 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final int val) {
         return addParam(parmName, Integer.toString(val));
     }
-    
+
     /**
      * <p>addParam</p>
      *
@@ -351,7 +351,7 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final char ch) {
         return addParam(parmName, Character.toString(ch));
     }
-    
+
     /**
      * <p>addParam</p>
      *
@@ -362,7 +362,7 @@ public class EventBuilder {
     public EventBuilder addParam(final String parmName, final Collection<String> vals) {
     	final String val = StringUtils.collectionToCommaDelimitedString(vals);
         return addParam(parmName, val);
-        
+
     }
 
     /**
@@ -377,7 +377,7 @@ public class EventBuilder {
         }
         return this;
     }
-    
+
     /**
      * <p>setNode</p>
      *
@@ -390,7 +390,7 @@ public class EventBuilder {
         }
         return this;
     }
-    
+
     /**
      * <p>setIpInterface</p>
      *
@@ -406,7 +406,7 @@ public class EventBuilder {
         }
         return this;
     }
-    
+
     /**
      * <p>setMonitoredService</p>
      *
@@ -439,9 +439,9 @@ public class EventBuilder {
 		if (m_event.getSnmp() == null) {
 			m_event.setSnmp(new Snmp());
 		}
-		
+
 	}
-	
+
 	public EventBuilder setCommunity(final String community) {
 	    ensureSnmp();
 	    m_event.getSnmp().setCommunity(community);
@@ -493,9 +493,9 @@ public class EventBuilder {
 	public EventBuilder setSnmpHost(final String snmpHost) {
 		m_event.setSnmphost(snmpHost);
 		return this;
-		
+
 	}
-	
+
     public EventBuilder setSnmpTimeStamp(final long timeStamp) {
         ensureSnmp();
         m_event.getSnmp().setTimeStamp(timeStamp);
@@ -526,7 +526,7 @@ public class EventBuilder {
             }
         }
     }
-    
+
     private void ensureLogmsg() {
         if (m_event.getLogmsg() == null) {
             m_event.setLogmsg(new Logmsg());

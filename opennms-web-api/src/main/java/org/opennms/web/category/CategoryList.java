@@ -60,7 +60,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CategoryList {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CategoryList.class);
 
 

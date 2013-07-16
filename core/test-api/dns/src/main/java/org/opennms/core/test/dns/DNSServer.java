@@ -8,9 +8,9 @@
  *
  * This file is a derivative work, containing both original code, included code,
  * and modified code that was published under the GNU General Public License.
- * 
+ *
  * Original code Copyright (c) 1999-2004 Brian Wellington (bwelling@xbill.org)
- * 
+ *
  * Refactored from DNSServer in the JDNSS server
  * http://sourceforge.net/projects/jdnss/
  *
@@ -50,9 +50,9 @@ import org.slf4j.LoggerFactory;
 import org.xbill.DNS.*;
 
 public class DNSServer {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DNSServer.class);
-	
+
     private static final int DEFAULT_SOCKET_TIMEOUT = 100;
 
     private final class TCPListener implements Stoppable {
@@ -133,7 +133,7 @@ public class DNSServer {
                 m_latch.countDown();
             }
         }
-        
+
         @Override
         public void stop() {
             m_stopped = true;
@@ -228,7 +228,7 @@ public class DNSServer {
     final Map<Name, TSIG> m_TSIGs = new HashMap<Name, TSIG>();
     final List<Integer> m_ports = new ArrayList<Integer>();
     final List<InetAddress> m_addresses = new ArrayList<InetAddress>();
-    
+
     final List<Stoppable> m_activeListeners = new ArrayList<Stoppable>();
 
     private static String addrport(final InetAddress addr, final int port) {
@@ -270,7 +270,7 @@ public class DNSServer {
             LOG.debug("stopped {}", listener);
         }
     }
-    
+
     protected void parseConfiguration(final String conffile) throws ConfigurationException, IOException,
             ZoneTransferException, UnknownHostException {
         final FileInputStream fs;
@@ -349,11 +349,11 @@ public class DNSServer {
         m_ports.clear();
         m_ports.addAll(ports);
     }
-    
+
     public void addAddress(final InetAddress address) {
         m_addresses.add(address);
     }
-    
+
     public void setAddresses(final List<InetAddress> addresses) {
         if (m_addresses == addresses) return;
         m_addresses.clear();

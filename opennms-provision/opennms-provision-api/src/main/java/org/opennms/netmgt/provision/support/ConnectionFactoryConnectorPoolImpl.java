@@ -49,27 +49,27 @@ import org.slf4j.LoggerFactory;
  * to reuse the connector for each {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
  * call.
  * </p>
- * 
+ *
  * <p>
  * There will be one ConnectionFactory for each discrete connection timeout
  * value.
  * </p>
- * 
+ *
  * @author Seth
  * @author ranger
  * @author Duncan Mackintosh
  */
 public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactoryConnectorPoolImpl.class);
-    
+
     /**
      * The connector that will be reused for each incoming connection.
      */
     private NioSocketConnector m_connector;
 
     /**
-     * A mutex that protects the connector instance since we must dispose() and 
+     * A mutex that protects the connector instance since we must dispose() and
      * recreate it if it encounters errors.
      */
     private final Object m_connectorMutex = new Object();
@@ -94,10 +94,10 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
     /**
      * <p>Connect to a remote socket. If org.opennms.netmgt.provision.maxConcurrentConnections
      * is set, this may block until a connection slot is available.</p>
-     * 
+     *
      * <p>You must dispose both the {@link ConnectionFactoryConnectorPoolImpl} and {@link ConnectFuture} when done
      * by calling {@link #dispose(ConnectionFactoryConnectorPoolImpl, ConnectFuture)}.</p>
-     * 
+     *
      * @param remoteAddress
      * 		Destination address
      * @param init
@@ -107,7 +107,7 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
      */
     @Override
     public ConnectFuture connect(SocketAddress remoteAddress, IoSessionInitializer<? extends ConnectFuture> init, IoHandler handler) {
-        for (int retries = 0; retries < 3; retries++) { 
+        for (int retries = 0; retries < 3; retries++) {
             synchronized (m_connectorMutex) {
                 if (m_connector == null) {
                     // Sanity check for null connector instance
@@ -182,7 +182,7 @@ public class ConnectionFactoryConnectorPoolImpl extends ConnectionFactory {
     /**
      * Delegates completely to {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
      * since we are reusing the same connector for all invocations.
-     * 
+     *
      * @param remoteAddress
      * @param localAddress
      * @param init

@@ -75,11 +75,11 @@ public class PingWindow extends Window{
 	private int topHeight = 280; //Set height size for everything above the split
 	private final String noLabel = "no such label"; //Label given to vertexes that have no real label.
 	private String pingUrl;
-	
+
 	/**
-	 * The PingWindow method constructs a PingWindow component with a size proportionate to the 
+	 * The PingWindow method constructs a PingWindow component with a size proportionate to the
 	 * width and height of the main window.
-	 * @param node 
+	 * @param node
 	 * @param width Width of Main window
 	 * @param height Height of Main window
 	 */
@@ -97,7 +97,7 @@ public class PingWindow extends Window{
 		/*Sets up window settings*/
 		if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
 			label = "";
-		} 
+		}
 		if (!label.equals("")) caption = " - " + label;
 		setCaption("Ping" + caption);
 		setImmediate(true);
@@ -173,13 +173,13 @@ public class PingWindow extends Window{
 		grid.setComponentAlignment(packetSizeDropdown, Alignment.MIDDLE_LEFT);
 
 		/*Creates the Ping button and sets up the listener*/
-		pingButton = new Button("Ping"); 
+		pingButton = new Button("Ping");
 		pingButton.addClickListener(new Button.ClickListener() {
 			@Override
 			public void buttonClick(ClickEvent event) {
 				changeBrowserURL(buildURL());
 			}
-		}); 
+		});
 
 		/*Adds components to the form and sets the width and spacing*/
 		form.addComponent(grid);
@@ -244,7 +244,7 @@ public class PingWindow extends Window{
 			 * the server, this is currently one of the only ways to accomplish the
 			 * the needed update.
 			 */
-			resultsBrowser.setVisible(false); 
+			resultsBrowser.setVisible(false);
 			resultsBrowser.setSource(new ExternalResource(url));
 			resultsBrowser.setVisible(true);
 		}
@@ -298,19 +298,19 @@ public class PingWindow extends Window{
 	 */
 	protected boolean validateInput() throws NumberFormatException {
 		int timeout = 0, requests = 0;
-		
+
 		if ("".equals(timeoutField.getValue().toString())) timeout = 1;
 		else timeout = Integer.parseInt(timeoutField.getValue().toString());
 		if ("".equals(requestsField.getValue().toString())) requests = 1;
 		else requests = Integer.parseInt(requestsField.getValue().toString());
-		
+
 		if (timeout < 1 || timeout > 9999) return false;
 		if (requests < 1 || requests > 9999) return false;
 		return true;
 	}
 
 	/**
-	 * The buildEmbeddedBrowser method creates a new browser instance and adds it to the 
+	 * The buildEmbeddedBrowser method creates a new browser instance and adds it to the
 	 * bottom layout. The browser is set to invisible by default.
 	 */
 	private void buildEmbeddedBrowser() {

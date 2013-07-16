@@ -44,7 +44,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class DeleteOperation extends AbstractImportOperation {
-    
+
     Integer m_nodeId;
     NodeDao m_nodeDao;
 

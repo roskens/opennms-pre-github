@@ -46,7 +46,7 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
 
     String m_serviceName;
     Class<? extends ServiceMonitor> m_serviceClass;
-    
+
     /**
      * <p>Constructor for DefaultServiceMonitorLocator.</p>
      *
@@ -101,5 +101,5 @@ public class DefaultServiceMonitorLocator implements ServiceMonitorLocator, Seri
     public String getServiceLocatorKey() {
         return m_serviceClass.getName();
     }
-    
+
 }

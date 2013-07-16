@@ -45,7 +45,7 @@ public class NSClientTest extends AbstractNsclientTest {
 
     private String[] counters = {
             "\\Processor(_Total)\\% Processor Time",
-            "\\Processor(_Total)\\% Interrupt Time", 
+            "\\Processor(_Total)\\% Interrupt Time",
             "\\Processor(_Total)\\% Privileged Time",
             "\\Processor(_Total)\\% User Time"
     };
@@ -91,7 +91,7 @@ public class NSClientTest extends AbstractNsclientTest {
         Assert.assertEquals(10, value);
         boolean isAvailable = (result.getResultCode() == NsclientPacket.RES_STATE_OK);
         Assert.assertTrue(isAvailable);
-    }    
+    }
 
     private NsclientPacket getCounter(String counter) throws NsclientException {
         NsclientCheckParams params = new NsclientCheckParams(counter);

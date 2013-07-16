@@ -74,7 +74,7 @@ public class NetworkBuilderTest {
         assertEquals(2, node.getIpInterfaces().size());
         assertEquals(1, node.getSnmpInterfaces().size());
     }
-    
+
     @Test
     public void testIpInterface() {
         final NetworkBuilder builder = new NetworkBuilder("localhost", "127.0.0.1");
@@ -92,7 +92,7 @@ public class NetworkBuilderTest {
         builder.addCategory("DEV_AC");
         builder.addCategory("IMP_mid");
         builder.addCategory("OPS_Online");
-        builder.addCategory("Routers"); 
+        builder.addCategory("Routers");
         builder.setBuilding("HQ");
         builder.addSnmpInterface(1)
             .setCollectionEnabled(true)
@@ -126,7 +126,7 @@ public class NetworkBuilderTest {
             .addIpInterface("fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5").setIsManaged("M").setIsSnmpPrimary("N");
         builder.addService("ICMP");
         final OnmsNode node1 = builder.getCurrentNode();
-        
+
         assertEquals("node1", node1.getLabel());
         assertEquals("imported:", node1.getForeignSource());
         assertEquals("1", node1.getForeignId());
@@ -135,7 +135,7 @@ public class NetworkBuilderTest {
         assertNull(node1.getSysContact());
         assertEquals(4, node1.getSnmpInterfaces().size());
         assertEquals(4, node1.getIpInterfaces().size());
-        
+
         final OnmsIpInterface two = node1.getIpInterfaceByIpAddress("192.168.1.2");
         assertNotNull(two);
         final OnmsServiceType twoIcmp = two.getMonitoredServiceByServiceType("ICMP").getServiceType();
@@ -149,7 +149,7 @@ public class NetworkBuilderTest {
         //assertEquals(twoIcmp, threeIcmp);
         //assertEquals(twoIcmp.getId(), threeIcmp.getId());
         //assertEquals(twoIcmp.hashCode(), threeIcmp.hashCode());
-        
+
         final OnmsMonitoredService svc = two.getMonitoredServiceByServiceType("ICMP");
         assertEquals(addr("192.168.1.2"), svc.getIpAddress());
         assertEquals("ICMP", svc.getServiceName());
@@ -169,14 +169,14 @@ public class NetworkBuilderTest {
         builder.addService("ICMP");
         builder.addAtInterface(node1, "192.168.2.1", "AA:BB:CC:DD:EE:FF").setIfIndex(1).setLastPollTime(new Date()).setStatus('A');
         final OnmsNode node2 = builder.getCurrentNode();
-        
+
         assertNotNull(node2);
         assertEquals("node2", node2.getLabel());
         final OnmsIpInterface twoTwo = node2.getIpInterfaceByIpAddress("192.168.2.2");
         assertNotNull(twoTwo);
         final OnmsServiceType twoTwoIcmp = twoTwo.getMonitoredServiceByServiceType("ICMP").getServiceType();
         assertEquals(twoTwoIcmp.getName(), twoIcmp.getName());
-        
+
         final OnmsCategory catNode1 = getCategory("IMP_mid", node1);
         final OnmsCategory catNode2 = getCategory("IMP_mid", node2);
         assertEquals(catNode1, catNode2);

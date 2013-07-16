@@ -62,7 +62,7 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name = "location_monitors")
 public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
-    
+
     public static enum MonitorStatus {
     	/** @deprecated */
         NEW,
@@ -73,16 +73,16 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
         UNRESPONSIVE,
         DISCONNECTED,
         PAUSED,
-        CONFIG_CHANGED, 
+        CONFIG_CHANGED,
         DELETED
     }
 
     private Integer m_id;
 
     //private String m_name;
-    
+
     private MonitorStatus m_status = MonitorStatus.REGISTERED;
-    
+
     private Date m_lastCheckInTime;
 
     /*
@@ -155,7 +155,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     public void setStatus(MonitorStatus status) {
     	m_status = normalize(status);
     }
-    
+
     private MonitorStatus normalize(MonitorStatus status) {
     	switch(status) {
     	case UNRESPONSIVE:
@@ -166,7 +166,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     		return status;
     	}
     }
-    
+
     /**
      * <p>getLastCheckInTime</p>
      *
@@ -177,7 +177,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
     public Date getLastCheckInTime() {
         return m_lastCheckInTime;
     }
-    
+
     /**
      * <p>setLastCheckInTime</p>
      *
@@ -194,7 +194,7 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
      */
     @Transient
     public String getName() {
-        return m_definitionName+'-'+getId(); 
+        return m_definitionName+'-'+getId();
     }
 
     /**
@@ -242,5 +242,5 @@ public class OnmsLocationMonitor implements Comparable<OnmsLocationMonitor> {
         }
         return getId().compareTo(o.getId());
     }
-    
+
 }

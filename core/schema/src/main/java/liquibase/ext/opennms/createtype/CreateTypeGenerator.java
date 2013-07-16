@@ -58,7 +58,7 @@ public class CreateTypeGenerator extends AbstractSqlGenerator<CreateTypeStatemen
 		for (int i = 0; i < columns.size(); i++) {
     		final String columnName = columns.get(i);
     		final String columnType = statement.getColumnType(columnName);
-    		
+
     		sb.append(database.escapeColumnName(null, null, columnName));
     		sb.append(" ");
     		sb.append(columnType);

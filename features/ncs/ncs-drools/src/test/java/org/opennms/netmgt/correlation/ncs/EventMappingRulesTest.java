@@ -57,43 +57,43 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
 public class EventMappingRulesTest extends CorrelationRulesTestCase {
-	
+
 	@Autowired
 	NCSComponentRepository m_repository;
-	
+
 	@Autowired
 	DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	NodeDao m_nodeDao;
 
 	int m_pe1NodeId;
-	
+
 	int m_pe2NodeId;
 
     private NCSComponent m_svc;
 
 	@Before
 	public void setUp() {
-		
+
 		OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
-		
+
 		m_distPollerDao.save(distPoller);
-		
-		
+
+
 		NetworkBuilder bldr = new NetworkBuilder(distPoller);
 		bldr.addNode("PE1").setForeignSource("space").setForeignId("1111-PE1");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe1NodeId = bldr.getCurrentNode().getId();
-		
+
 		bldr.addNode("PE2").setForeignSource("space").setForeignId("2222-PE2");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe2NodeId = bldr.getCurrentNode().getId();
-		
+
 		m_svc = new NCSBuilder("Service", "NA-Service", "123")
 		.setName("CokeP2P")
 		.pushComponent("ServiceElement", "NA-ServiceElement", "8765")
@@ -181,47 +181,47 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 			.popComponent()
 		.popComponent()
 		.get();
-		
+
 		m_repository.save(m_svc);
 
 	}
-	
-	
+
+
 	@Test
 	@DirtiesContext
 	public void testNodeDown() throws Exception {
 	    Event event = createNodeDownEvent(17, m_pe1NodeId);
-	    
+
 	    testNodeEventMapping(event, ComponentDownEvent.class, findSubcomponentsOnNode(m_svc, "space", "1111-PE1"));
-	    
+
 	}
 
     @Test
     @DirtiesContext
     public void testNodeUp() throws Exception {
         Event event = createNodeUpEvent(17, m_pe1NodeId);
-        
+
         testNodeEventMapping(event, ComponentUpEvent.class, findSubcomponentsOnNode(m_svc, "space", "1111-PE1"));
-        
+
     }
 
 
-	
+
 	@Test
     @DirtiesContext
     public void testMapPwDown() throws Exception {
-		
+
 		Event event = createVpnPwDownEvent(17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
 
 		testEventMapping(event, ComponentDownEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
 
     }
-	
+
 	@Test
 	//@Ignore( "Not ready for this yet")
     @DirtiesContext
     public void testDupPwDown() throws Exception {
-		
+
 		Event event = createVpnPwDownEvent(17, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
 		Event event2 = createVpnPwDownEvent(18, m_pe2NodeId, "10.1.1.1", "5", "ge-3/1/4.50" );
 
@@ -239,54 +239,54 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 		testEventMapping(event, ComponentUpEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
 
     }
-    
+
     @Test
     @DirtiesContext
     public void testMapIfDown() throws Exception {
-        
+
         Event event = createVpnIfDownEvent(17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" );
 
         testEventMapping(event, ComponentDownEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "8765,jnxVpnIf");
 
     }
-    
+
     @Test
     @DirtiesContext
     public void testMapIfUp() throws Exception {
-        
+
         Event event = createVpnIfUpEvent(17, m_pe1NodeId, "10.1.1.1", "5", "ge-1/0/2.50" );
 
         testEventMapping(event, ComponentUpEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "8765,jnxVpnIf");
 
     }
-    
+
 	@Test
     @DirtiesContext
     public void testMapMplsLspPathDown() throws Exception {
-		
+
 		Event event = createMplsLspPathDownEvent(37, m_pe2NodeId, "10.1.1.1", "lspA-PE2-PE1");
 
 		testEventMapping(event, ComponentDownEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "9876,lspA-PE2-PE1");
 
 	}
-    
+
 	@Test
     @DirtiesContext
     public void testMapMplsLspPathUp() throws Exception {
-		
+
 		Event event = createMplsLspPathUpEvent(37, m_pe2NodeId, "10.1.1.1", "lspA-PE2-PE1");
 
 		testEventMapping(event, ComponentUpEvent.class, "ServiceElementComponent", "NA-SvcElemComp", "9876,lspA-PE2-PE1");
     }
-    
+
     private void testEventMapping(Event event, Class<? extends ComponentEvent> componentEventClass, String componentType, String componentForeignSource, String componentForeignId) {
         // Get engine
         DroolsCorrelationEngine engine = findEngineByName("eventMappingRules");
-        
+
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
-        
+
         engine.correlate( event );
-        
+
         List<Object> memObjects = engine.getMemoryObjects();
 
         assertEquals("Unexpected size of workingMemory " + memObjects, 1, memObjects.size());
@@ -295,55 +295,55 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
         assertTrue( "expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj) );
         assertTrue( eventObj instanceof ComponentEvent );
-        
+
         ComponentEvent c = (ComponentEvent) eventObj;
-        
+
         assertSame(event, c.getEvent());
-        
+
         Component component = c.getComponent();
         assertEquals(componentType, component.getType());
         assertEquals(componentForeignSource, component.getForeignSource());
         assertEquals(componentForeignId, component.getForeignId());
     }
-    
+
 	private void testNodeEventMapping(Event event, Class<? extends ComponentEvent> componentEventClass,	Set<String> componentIds) {
 		// Get engine
         DroolsCorrelationEngine engine = findEngineByName("eventMappingRules");
-        
+
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
-        
+
 		engine.correlate( event );
-		
+
 		List<Object> memObjects = engine.getMemoryObjects();
 
 		// expect an ComponentX event for each component
 		assertEquals("Unexpected number of events added to memory " + memObjects, componentIds.size(), memObjects.size());
-		
+
 		Set<String> remainingIds = new HashSet<String>(componentIds);
 		for(Object eventObj : memObjects) {
 
 		    assertTrue( "expected " + eventObj + " to be an instance of " + componentEventClass, componentEventClass.isInstance(eventObj) );
 		    assertTrue( eventObj instanceof ComponentEvent );
-		
+
 		    ComponentEvent c = (ComponentEvent) eventObj;
-		
+
 		    assertSame(event, c.getEvent());
-		    
+
             Component component = c.getComponent();
-            
+
             String id = component.getForeignSource()+":"+component.getForeignId();
 		    assertTrue("Expected an event for component "+id, remainingIds.remove(id));
 		}
 	}
-	
+
 	private void testEventDup(Event event, Event event2, Class<? extends ComponentEvent> componentEventClass,	String componentType, String componentForeignSource, String componentForeignId) {
 		// Get engine
         DroolsCorrelationEngine engine = findEngineByName("eventMappingRules");
-        
+
         assertEquals("Expected nothing but got " + engine.getMemoryObjects(), 0, engine.getMemorySize());
-        
+
 		engine.correlate( event );
-		
+
 		List<Object> memObjects = engine.getMemoryObjects();
 
 		assertEquals("Unexpected size of workingMemory " + memObjects, 1, memObjects.size());
@@ -352,19 +352,19 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
 		assertTrue( componentEventClass.isInstance(eventObj) );
 		assertTrue( eventObj instanceof ComponentEvent );
-		
+
 		ComponentEvent c = (ComponentEvent) eventObj;
-		
+
 		assertSame(event, c.getEvent());
-		
+
 		Component component = c.getComponent();
 		assertEquals(componentType, component.getType());
 		assertEquals(componentForeignSource, component.getForeignSource());
 		assertEquals(componentForeignId, component.getForeignId());
-		
+
 		// Adding a copy of the event should not add to working memory
 		engine.correlate( event2 );
-		
+
 		memObjects = engine.getMemoryObjects();
 
 		assertEquals("Unexpected size of workingMemory " + memObjects, 1, memObjects.size());
@@ -373,20 +373,20 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
 		assertTrue( componentEventClass.isInstance(eventObj) );
 		assertTrue( eventObj instanceof ComponentEvent );
-		
+
 		c = (ComponentEvent) eventObj;
-		
+
 		assertSame(event, c.getEvent());
-		
+
 		component = c.getComponent();
 		assertEquals(componentType, component.getType());
 		assertEquals(componentForeignSource, component.getForeignSource());
 		assertEquals(componentForeignId, component.getForeignId());
-		
-		
-		
+
+
+
 	}
-    
+
 
     // dependencies must be loaded when needed by propagation rules
     // loaded deps needed by multiple events should not load more than once
@@ -401,21 +401,21 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
     // map various events to outages and resolutions
     // ignore duplicate cause events
     // ignore duplicate resolution events
-    
+
     private Event createMplsLspPathDownEvent( int dbId, int nodeid, String ipaddr, String lspname ) {
-        
+
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathDown", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
                 .addParam("1.2.3.1", lspname )
                 .getEvent();
-        
+
         event.setDbid(dbId);
 		return event;
     }
-    
+
     private Event createMplsLspPathUpEvent( int dbId, int nodeid, String ipaddr, String lspname ) {
-        
+
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/mplsLspPathUp", "Drools")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -427,7 +427,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 
 
     private Event createVpnPwDownEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
-		
+
 		Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwDown", "Test")
 				.setNodeid(nodeid)
 				.setInterface( addr( ipaddr ) )
@@ -439,7 +439,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
 	}
 
     private Event createVpnPwUpEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
-        
+
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnPwUp", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -451,7 +451,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
     }
 
     private Event createVpnIfDownEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
-        
+
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfDown", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -463,7 +463,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
     }
 
     private Event createVpnIfUpEvent( int dbId, int nodeid, String ipaddr, String pwtype, String pwname ) {
-        
+
         Event event = new EventBuilder("uei.opennms.org/vendor/Juniper/traps/jnxVpnIfUp", "Test")
                 .setNodeid(nodeid)
                 .setInterface( addr( ipaddr ) )
@@ -473,7 +473,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         event.setDbid(dbId);
         return event;
     }
-    
+
     private Event createNodeDownEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeDown", "Test")
                 .setNodeid(nodeid)
@@ -481,7 +481,7 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         event.setDbid(dbId);
         return event;
     }
-    
+
     private Event createNodeUpEvent(int dbId, int nodeid) {
         Event event = new EventBuilder("uei.opennms.org/nodes/nodeUp", "Test")
                 .setNodeid(nodeid)
@@ -489,12 +489,12 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
         event.setDbid(dbId);
         return event;
     }
-    
+
     private Set<String> findSubcomponentsOnNode(NCSComponent svc, String nodeForeignSource, String nodeForeignId) {
         final Set<String> expectedIds = new HashSet<String>();
 
         final NodeIdentification nodeIdent = new NodeIdentification(nodeForeignSource, nodeForeignId);
-        
+
         NCSComponentVisitor visitor = new AbstractNCSComponentVisitor() {
 
             @Override
@@ -503,14 +503,14 @@ public class EventMappingRulesTest extends CorrelationRulesTestCase {
                     expectedIds.add(component.getForeignSource()+":"+component.getForeignId());
                 }
             }
-            
+
         };
-        
+
         svc.visit(visitor);
 
         return expectedIds;
     }
-    
+
 
 
 }

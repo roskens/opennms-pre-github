@@ -64,7 +64,7 @@ public class SnmpInterfaceDaoTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -85,9 +85,9 @@ public class SnmpInterfaceDaoTest implements InitializingBean {
 			assertNotNull(snmpIf.getNode());
 			assertEquals(1, snmpIf.getNode().getId().intValue());
 			assertEquals("node1", snmpIf.getNode().getLabel());
-			
+
 		}
-		
+
 	}
 
 }

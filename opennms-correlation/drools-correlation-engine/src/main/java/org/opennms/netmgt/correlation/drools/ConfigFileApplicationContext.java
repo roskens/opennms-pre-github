@@ -38,17 +38,17 @@ import org.springframework.core.io.Resource;
 
 public class ConfigFileApplicationContext extends AbstractXmlApplicationContext {
     private static final Logger LOG = LoggerFactory.getLogger(ConfigFileApplicationContext.class);
-    
+
 	private Resource m_resource;
     private String m_configFileLocation;
-    
+
     public ConfigFileApplicationContext(Resource basePath, final String configFileLocation, final ApplicationContext parent) {
         super(parent);
         m_resource = basePath;
         m_configFileLocation = configFileLocation;
         refresh();
     }
-    
+
     @Override
     protected String[] getConfigLocations() {
         if ( m_configFileLocation == null ) {
@@ -66,5 +66,5 @@ public class ConfigFileApplicationContext extends AbstractXmlApplicationContext 
     		throw new IllegalArgumentException("Failed to create relative path for " + path);
     	}
     }
-    
+
 }

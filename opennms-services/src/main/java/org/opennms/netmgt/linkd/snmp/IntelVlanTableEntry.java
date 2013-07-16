@@ -54,9 +54,9 @@ public final class IntelVlanTableEntry extends Vlan {
 
 	private final static String VLAN_INDEX_OID=".1.3.6.1.4.1.343.6.11.1.9.1.1";
 	private final static String VLAN_NAME_OID=".1.3.6.1.4.1.343.6.11.1.9.1.2";
-	
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -90,7 +90,7 @@ public final class IntelVlanTableEntry extends Vlan {
 	public IntelVlanTableEntry() {
 		super(intelVlan_elemList);
 	}
-	
+
 	@Override
 	protected boolean hasVlanIndexOid() {
 		return true;

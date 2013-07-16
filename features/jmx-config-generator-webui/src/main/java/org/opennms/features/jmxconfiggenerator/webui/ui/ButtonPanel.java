@@ -48,11 +48,11 @@ public class ButtonPanel extends HorizontalLayout implements ModelChangeListener
 	public Button getNext() {
 		return next;
 	}
-	
+
 	public Button getPrevious() {
 		return previous;
 	}
-	
+
 	@Override
 	public void modelChanged(UiState newModel) {
 //		help.setVisible(false); // TODO enable/disable help dynamically

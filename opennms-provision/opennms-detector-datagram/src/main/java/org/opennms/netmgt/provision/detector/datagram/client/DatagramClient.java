@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
  */
 public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(DatagramClient.class);    
+    private static final Logger LOG = LoggerFactory.getLogger(DatagramClient.class);
     private DatagramSocket m_socket;
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.provision.detector.Client#close()
      */
@@ -85,7 +85,7 @@ public class DatagramClient implements Client<DatagramPacket, DatagramPacket> {
     @Override
     public DatagramPacket receiveBanner() throws IOException {
         throw new UnsupportedOperationException("Client<DatagramPacket,DatagramPacket>.receiveBanner is not yet implemented");
-        
+
     }
 
     /* (non-Javadoc)

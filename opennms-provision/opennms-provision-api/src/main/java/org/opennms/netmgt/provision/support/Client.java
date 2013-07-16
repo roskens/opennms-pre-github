@@ -38,7 +38,7 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public interface Client<Request, Response> {
-    
+
     /**
      * <p>connect</p>
      *
@@ -51,7 +51,7 @@ public interface Client<Request, Response> {
      * @throws java.lang.Exception if any.
      */
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception;
-    
+
     /**
      * <p>receiveBanner</p>
      *
@@ -60,7 +60,7 @@ public interface Client<Request, Response> {
      * @throws java.lang.Exception if any.
      */
     Response receiveBanner() throws IOException, Exception;
-    
+
     /**
      * <p>sendRequest</p>
      *
@@ -69,8 +69,8 @@ public interface Client<Request, Response> {
      * @throws java.io.IOException if any.
      * @throws java.lang.Exception if any.
      */
-    Response sendRequest(Request request) throws IOException, Exception; 
-    
+    Response sendRequest(Request request) throws IOException, Exception;
+
     /**
      * <p>close</p>
      */

@@ -42,7 +42,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
  * @version $Id: $
  */
 public abstract class Vlan extends SnmpStore {
-	
+
 	private boolean hasVlanIndex = false;
 
 	private Integer vlanIndex = null;
@@ -54,7 +54,7 @@ public abstract class Vlan extends SnmpStore {
 	public final static String VLAN_STATUS = "vlanStatus";
 
 	public final static String VLAN_TYPE = "vlanType";
-	
+
 	public Vlan(NamedSnmpVar[] list) {
 		super(list);
 	}
@@ -70,22 +70,22 @@ public abstract class Vlan extends SnmpStore {
 	}
 
 	abstract protected boolean hasVlanIndexOid();
-	
+
 	public Integer getVlanIndex() {
 		if (hasVlanIndex)
 			return vlanIndex;
 		return getInt32(VLAN_INDEX);
 	}
-	
+
     public String getVlanName() {
     	return getDisplayString(VLAN_NAME);
     }
-    
+
     abstract public VlanStatus getVlanStatus();
     abstract public VlanType getVlanType();
-    
+
     public OnmsVlan getOnmsVlan() {
     	return new OnmsVlan(getVlanIndex(),getVlanName(),getVlanStatus(),getVlanType());
     }
-    
+
 }

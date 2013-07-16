@@ -82,25 +82,25 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Transactional
 public class OnmsMonitoredServiceResource extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsMonitoredServiceResource.class);
 
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
 
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     private MonitoredServiceDao m_serviceDao;
-    
+
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
-    
+
     @Autowired
     private EventProxy m_eventProxy;
 
@@ -143,7 +143,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             readUnlock();
         }
     }
-    
+
     /**
      * <p>addService</p>
      *
@@ -156,7 +156,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_XML)
     public Response addService(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("ipAddress") String ipAddress, OnmsMonitoredService service) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) throw getException(Status.BAD_REQUEST, "addService: can't find node " + nodeCriteria);
@@ -174,10 +174,10 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             service.setIpInterface(intf);
             LOG.debug("addService: adding service {}", service);
             m_serviceDao.save(service);
-            
-            Event e = EventUtils.createNodeGainedServiceEvent(getClass().getName(), node.getId(), intf.getIpAddress(), 
+
+            Event e = EventUtils.createNodeGainedServiceEvent(getClass().getName(), node.getId(), intf.getIpAddress(),
                     service.getServiceName(), node.getLabel(), node.getLabelSource(), node.getSysName(), node.getSysDescription());
-            
+
             try {
                 m_eventProxy.send(e);
             } catch (EventProxyException ex) {
@@ -188,7 +188,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>updateService</p>
      *
@@ -210,7 +210,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             if (intf == null) throw getException(Status.BAD_REQUEST, "addService: can't find ip interface on " + nodeCriteria + "@" + ipAddress);
             OnmsMonitoredService service = intf.getMonitoredServiceByServiceType(serviceName);
             if (service == null) throw getException(Status.BAD_REQUEST, "addService: can't find service " + serviceName + " on " + nodeCriteria + "@" + ipAddress);
-    
+
             LOG.debug("updateService: updating service {}", service);
             BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(service);
             for(String key : params.keySet()) {
@@ -240,7 +240,7 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
     @Path("{service}")
     public Response deleteService(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("ipAddress") String ipAddress, @PathParam("service") String serviceName) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) throw getException(Status.BAD_REQUEST, "deleteService: can't find node " + nodeCriteria);
@@ -251,12 +251,12 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             LOG.debug("deleteService: deleting service {} from node {}", serviceName, nodeCriteria);
             intf.getMonitoredServices().remove(service);
             m_ipInterfaceDao.saveOrUpdate(intf);
-            
+
             EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_DELETED_EVENT_UEI, getClass().getName());
             bldr.setNodeid(node.getId());
             bldr.setInterface(addr(ipAddress));
             bldr.setService(serviceName);
-    
+
             try {
                 m_eventProxy.send(bldr.getEvent());
             } catch (EventProxyException ex) {
@@ -267,5 +267,5 @@ public class OnmsMonitoredServiceResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
 }

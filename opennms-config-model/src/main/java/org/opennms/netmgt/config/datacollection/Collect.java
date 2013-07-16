@@ -68,8 +68,8 @@ public class Collect implements Serializable {
     private List<String> m_includeGroups = new ArrayList<String>();
 
     /**
-     * 
-     * 
+     *
+     *
      * @param includeGroup
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -79,8 +79,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIncludeGroup
      * @throws IndexOutOfBoundsException if the index
@@ -92,7 +92,7 @@ public class Collect implements Serializable {
 
     /**
      * Method enumerateIncludeGroup.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -102,7 +102,7 @@ public class Collect implements Serializable {
 
     /**
      * Overrides the Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -110,13 +110,13 @@ public class Collect implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Collect) {
-        
+
             final Collect temp = (Collect)obj;
             if (m_includeGroups != null) {
                 if (temp.m_includeGroups == null) return false;
-                else if (!(m_includeGroups.equals(temp.m_includeGroups))) 
+                else if (!(m_includeGroups.equals(temp.m_includeGroups)))
                     return false;
             }
             else if (temp.m_includeGroups != null)
@@ -128,7 +128,7 @@ public class Collect implements Serializable {
 
     /**
      * Method getIncludeGroup.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -145,10 +145,10 @@ public class Collect implements Serializable {
      * Method getIncludeGroup.Returns the contents of the
      * collection in an Array.  <p>Note:  Just in case the
      * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call. 
+     * a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of
      * exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="includeGroup")
@@ -160,7 +160,7 @@ public class Collect implements Serializable {
      * Method getIncludeGroupCollection.Returns a reference to
      * '_includeGroupList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getIncludeGroupCollection() {
@@ -169,7 +169,7 @@ public class Collect implements Serializable {
 
     /**
      * Method getIncludeGroupCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIncludeGroupCount() {
@@ -181,23 +181,23 @@ public class Collect implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_includeGroups != null) {
            result = 37 * result + m_includeGroups.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -212,7 +212,7 @@ public class Collect implements Serializable {
 
     /**
      * Method iterateIncludeGroup.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -221,8 +221,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -235,8 +235,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -258,7 +258,7 @@ public class Collect implements Serializable {
 
     /**
      * Method removeIncludeGroup.
-     * 
+     *
      * @param includeGroup
      * @return true if the object was removed from the collection.
      */
@@ -268,7 +268,7 @@ public class Collect implements Serializable {
 
     /**
      * Method removeIncludeGroupAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -277,8 +277,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param includeGroup
      * @throws IndexOutOfBoundsException if the index
@@ -292,8 +292,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param includeGroups
      */
     public void setIncludeGroup(final String[] includeGroups) {
@@ -306,7 +306,7 @@ public class Collect implements Serializable {
     /**
      * Sets the value of '_includeGroupList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param includeGroups the Vector to copy.
      */
     public void setIncludeGroup(final List<String> includeGroups) {
@@ -320,7 +320,7 @@ public class Collect implements Serializable {
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param includeGroups the Vector to set.
      */
     public void setIncludeGroupCollection(final List<String> includeGroups) {
@@ -332,7 +332,7 @@ public class Collect implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -347,8 +347,8 @@ public class Collect implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

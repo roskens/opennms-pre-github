@@ -39,7 +39,7 @@ public class ServiceTypeDaoHibernate extends AbstractCachingDaoHibernate<OnmsSer
     public ServiceTypeDaoHibernate() {
 		super(OnmsServiceType.class, false);
 	}
-    
+
 
     /** {@inheritDoc} */
     @Override
@@ -54,6 +54,6 @@ public class ServiceTypeDaoHibernate extends AbstractCachingDaoHibernate<OnmsSer
     public OnmsServiceType findByName(final String name) {
         return findByCacheKey("from OnmsServiceType as svcType where svcType.name = ?", name);
     }
-    
-    
+
+
 }

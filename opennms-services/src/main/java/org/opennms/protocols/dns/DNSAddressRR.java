@@ -124,7 +124,7 @@ public final class DNSAddressRR {
      * <P>
      * Returns the address in the dotted decimal format.
      * </P>
-     * 
+     *
      * @return The address in the dotted decimal format.
      */
     private String AddressToByteString() {

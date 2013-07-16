@@ -39,16 +39,16 @@ import javax.xml.bind.annotation.XmlType;
 
 /**
  * Configuration for the various Syslog hosts to receive alarms via Syslog\
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  *
  */
 @XmlRootElement(name="syslog-destination")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class SyslogDestination implements Serializable {
-	
+
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -56,22 +56,22 @@ public class SyslogDestination implements Serializable {
     @XmlEnum(String.class)
     public static enum SyslogProtocol {
         UDP ("udp"), TCP ("tcp");
-        
+
         private String m_id;
-        
+
         SyslogProtocol(String id) {
         	m_id = id;
         }
-        
+
         public String getId() {
         	return m_id;
         }
     }
-    
+
     @XmlType
     @XmlEnum(String.class)
     public static enum SyslogFacility {
-    	KERN ("KERN"), USER ("USER"), 
+	KERN ("KERN"), USER ("USER"),
     	MAIL ("MAIL"), DAEMON ("DAEMON"),
     	AUTH ("AUTH"), SYSLOG ("SYSLOG"),
     	LPR ("LPR"), NEWS ("NEWS"),
@@ -82,13 +82,13 @@ public class SyslogDestination implements Serializable {
     	LOCAL4 ("LOCAL4"), LOCAL5 ("LOCAL5"),
     	LOCAL6 ("LOCAL6"), LOCAL7 ("LOCAL7"),
     	;
-    	
+
     	private String m_id;
 
 		SyslogFacility(String facility) {
     		m_id = facility;
     	}
-		
+
 		public String getId() {
 			return m_id;
 		}
@@ -97,55 +97,55 @@ public class SyslogDestination implements Serializable {
 
     @XmlElement(name="destination-name", required=true)
     private String m_destinationName;
-    
+
     @XmlElement(name="host", defaultValue="localhost", required=false)
 	private String m_host = "localhost";
-    
+
     @XmlElement(name="port", defaultValue="514", required=false)
 	private int m_port = 514;
-    
+
     @XmlElement(name="ip-protocol", defaultValue="udp", required=false)
 	private SyslogProtocol m_protocol = SyslogProtocol.UDP;
-    
+
     @XmlElement(name="facility", defaultValue="USER", required=false)
 	private SyslogFacility m_facility = SyslogFacility.USER;
-    
+
     @XmlElement(name="char-set", defaultValue="UTF-8", required=false)
 	private String m_charSet = "UTF-8";
-    
+
     @XmlElement(name="max-message-length", defaultValue="1024", required=false)
 	private int m_maxMessageLength = 1024;
-    
+
     @XmlElement(name="send-local-name", defaultValue="true", required=false)
 	private boolean m_sendLocalName = true;
-    
+
     @XmlElement(name="send-local-time", defaultValue="true", required=false)
 	private boolean m_sendLocalTime = true;
-    
+
     @XmlElement(name="truncate-message", defaultValue="false", required=false)
 	private boolean m_truncateMessage = false;
-    
+
     @XmlElement(name="first-occurrence-only", defaultValue="false", required=false)
     private boolean m_firstOccurrenceOnly = false;
-	
+
 
 	public SyslogDestination() {
 	}
-	
+
 	public SyslogDestination(String name, SyslogProtocol protocol, SyslogFacility facility) {
 		m_destinationName = name;
 		m_protocol = protocol;
 		m_facility = facility;
 	}
-	
+
 	public String getName() {
 		return m_destinationName;
 	}
-	
+
 	public void setName(String name) {
 		m_destinationName = name;
 	}
-	
+
 	public String getHost() {
 		return m_host;
 	}
@@ -173,11 +173,11 @@ public class SyslogDestination implements Serializable {
 	public SyslogFacility getFacility() {
 		return m_facility;
 	}
-	
+
 	public String getCharSet() {
 		return m_charSet;
 	}
-	
+
 	public void setCharSet(String charSet) {
 		m_charSet = charSet;
 	}
@@ -185,7 +185,7 @@ public class SyslogDestination implements Serializable {
 	public int getMaxMessageLength() {
 		return m_maxMessageLength;
 	}
-	
+
 	public void setCharSet(int maxMessageLength) {
 		m_maxMessageLength = maxMessageLength;
 	}
@@ -193,15 +193,15 @@ public class SyslogDestination implements Serializable {
 	public boolean isSendLocalName() {
 		return m_sendLocalName;
 	}
-	
+
 	public void setSendLocalName(boolean sendLocalName) {
 		m_sendLocalName = sendLocalName;
 	}
-	
+
 	public boolean isSendLocalTime() {
 		return m_sendLocalTime;
 	}
-	
+
 	public void setSendLocalTime(boolean sendLocalTime) {
 		m_sendLocalTime = sendLocalTime;
 	}
@@ -209,7 +209,7 @@ public class SyslogDestination implements Serializable {
 	public boolean isTruncateMessage() {
 		return m_truncateMessage;
 	}
-	
+
 	public void setTruncateMessage(boolean truncateMessage) {
 		m_truncateMessage = truncateMessage;
 	}
@@ -221,5 +221,5 @@ public class SyslogDestination implements Serializable {
 	public void setFirstOccurrenceOnly(boolean firstOccurrenceOnly) {
 		m_firstOccurrenceOnly = firstOccurrenceOnly;
 	}
-	
+
 }

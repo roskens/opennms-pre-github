@@ -63,21 +63,21 @@ import org.slf4j.LoggerFactory;
  * This class uses the JavaMail API to connect to a mail store and retrieve messages, using
  * the configured host and user details, and detects replies to notifications that have
  * an acknowledgment action: acknowledge, unacknowledge, clear, escalate.
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
 class MailAckProcessor implements AckProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(MailAckProcessor.class);
-    
+
     private static final int LOG_FIELD_WIDTH = 128;
-    
+
     private AckdConfigurationDao m_ackdDao;
-    
+
     private AcknowledgmentDao m_ackDao;
-    
+
     private volatile JavaMailConfigurationDao m_jmConfigDao;
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -95,14 +95,14 @@ class MailAckProcessor implements AckProcessor {
      * and creates and processes the acknowledgments.
      */
     protected void findAndProcessAcks() {
-        
+
         LOG.debug("findAndProcessAcks: checking for acknowledgments...");
         Collection<OnmsAcknowledgment> acks;
 
         try {
             List<Message> msgs = retrieveAckMessages();  //TODO: need a read *new* messages feature
             acks = createAcks(msgs);
-            
+
             if (acks != null) {
                 LOG.debug("findAndProcessAcks: Found {} acks.  Processing...", acks.size());
                 m_ackDao.processAcks(acks);
@@ -111,7 +111,7 @@ class MailAckProcessor implements AckProcessor {
         } catch (JavaMailerException e) {
             LOG.error("findAndProcessAcks: Exception thrown in JavaMail", e);
         }
-        
+
         LOG.debug("findAndProcessAcks: completed checking for and processing acknowledgments.");
     }
 
@@ -124,21 +124,21 @@ class MailAckProcessor implements AckProcessor {
      * @return a {@link java.util.List} object.
      */
     protected List<OnmsAcknowledgment> createAcks(final List<Message> msgs) {
-        
+
         LOG.info("createAcks: Detecting and possibly creating acknowledgments from {} messages...", msgs.size());
         List<OnmsAcknowledgment> acks = null;
-        
+
         if (msgs != null && msgs.size() > 0) {
             acks = new ArrayList<OnmsAcknowledgment>();
-            
+
             Iterator<Message> it = msgs.iterator();
             while (it.hasNext()) {
                 Message msg = (Message) it.next();
                 try {
-                    
+
                     LOG.debug("createAcks: detecting acks in message: {}", msg.getSubject());
                     Integer id = detectId(msg.getSubject(), m_ackdDao.getConfig().getNotifyidMatchExpression());
-                    
+
                     if (id != null) {
                         final OnmsAcknowledgment ack = createAck(msg, id);
                         ack.setAckType(AckType.NOTIFICATION);
@@ -148,9 +148,9 @@ class MailAckProcessor implements AckProcessor {
                         LOG.debug("createAcks: found notification acknowledgment: {}", ack);
                         continue;
                     }
-                    
+
                     id = detectId(msg.getSubject(), m_ackdDao.getConfig().getAlarmidMatchExpression());
-                    
+
                     if (id != null) {
                         final OnmsAcknowledgment ack = createAck(msg, id);
                         ack.setAckType(AckType.ALARM);
@@ -160,7 +160,7 @@ class MailAckProcessor implements AckProcessor {
                         LOG.debug("createAcks: found alarm acknowledgment: {}", ack);
                         continue;
                     }
-                    
+
                 } catch (MessagingException e) {
                     LOG.error("createAcks: messaging error", e);
                 } catch (IOException e) {
@@ -170,7 +170,7 @@ class MailAckProcessor implements AckProcessor {
         } else {
             LOG.debug("createAcks: No messages for acknowledgment processing.");
         }
-        
+
         LOG.info("createAcks: Completed detecting and possibly creating acknowledgments.  Created {} acknowledgments.", (acks == null? 0 : acks.size()));
         return acks;
     }
@@ -188,7 +188,7 @@ class MailAckProcessor implements AckProcessor {
 
         //TODO: force opennms config '~' style regex attribute identity because this is the only way for this to work
         String ackExpression = null;
-        
+
         if (expression.startsWith("~")) {
             ackExpression = expression.substring(1);
         } else {
@@ -236,14 +236,14 @@ class MailAckProcessor implements AckProcessor {
      */
     protected AckAction determineAckAction(final Message msg) throws IOException, MessagingException {
         LOG.info("determineAckAcktion: evaluating message looking for user specified acktion...");
-        
+
         List<String> messageText = JavaReadMailer.getText(msg);
-        
+
         AckAction action = AckAction.UNSPECIFIED;
         if (messageText != null && messageText.size() > 0) {
-            
+
             LOG.debug("determineAction: message text: {}", messageText);
-            
+
             if (m_ackdDao.acknowledgmentMatch(messageText)) {
                 action = AckAction.ACKNOWLEDGE;
             } else if (m_ackdDao.clearMatch(messageText)) {
@@ -255,7 +255,7 @@ class MailAckProcessor implements AckProcessor {
             } else {
                 action = AckAction.UNSPECIFIED;
             }
-            
+
         } else {
             String concern = "determineAckAction: a reply message to a notification has no text to evaluate.  " +
             		"No action can be determined.";
@@ -274,38 +274,38 @@ class MailAckProcessor implements AckProcessor {
      */
     protected List<Message> retrieveAckMessages() throws JavaMailerException {
         LOG.debug("retrieveAckMessages: Retrieving messages...");
-        
+
         ReadmailConfig readMailConfig = determineMailReaderConfig();
-        
+
         LOG.debug("retrieveAckMessages: creating JavaReadMailer with config: host: {} port: {} ssl: {} transport: {} user: {} password: {}", readMailConfig.getReadmailHost().getHost(), readMailConfig.getReadmailHost().getPort(), readMailConfig.getReadmailHost().getReadmailProtocol().getSslEnable(), readMailConfig.getReadmailHost().getReadmailProtocol().getTransport(), readMailConfig.getUserAuth().getUserName(), readMailConfig.getUserAuth().getPassword());
-        
+
         //TODO: make flag for folder open mode
         //TODO: Make sure configuration supports flag for deleting acknowledgments
         JavaReadMailer readMailer = new JavaReadMailer(readMailConfig, true);
 
         String notifRe = m_ackdDao.getConfig().getNotifyidMatchExpression();
         notifRe = notifRe.startsWith("~") ? notifRe.substring(1) : notifRe;
-        
+
         String alarmRe = m_ackdDao.getConfig().getAlarmidMatchExpression();
         alarmRe = alarmRe.startsWith("~") ? alarmRe.substring(1) : alarmRe;
-        
+
         Pattern notifPattern = Pattern.compile(notifRe);
         Pattern alarmPattern = Pattern.compile(alarmRe);
-        
+
         List<Message> msgs = readMailer.retrieveMessages();
         LOG.info("retrieveAckMessages: Iterating {} messages with notif expression: {} and alarm expression: {}", msgs.size(), notifRe, alarmRe);
-        
+
         for (Iterator<Message> iterator = msgs.iterator(); iterator.hasNext();) {
             Message msg = iterator.next();
             try {
                 String subject = msg.getSubject();
-                
+
                 Matcher alarmMatcher = alarmPattern.matcher(subject);
                 Matcher notifMatcher = notifPattern.matcher(subject);
-                
+
                 LOG.debug("retrieveAckMessages: comparing the subject: {}", subject);
                 if (!(notifMatcher.matches() || alarmMatcher.matches())) {
-                    
+
                     LOG.debug("retrieveAckMessages: Subject doesn't match either expression.");
                     iterator.remove();
                 } else {
@@ -345,7 +345,7 @@ class MailAckProcessor implements AckProcessor {
         return StringUtils.truncate(bldr.toString(), LOG_FIELD_WIDTH);
     }
 
-    
+
     /**
      * <p>run</p>
      */
@@ -360,31 +360,31 @@ class MailAckProcessor implements AckProcessor {
         } finally {
             LOG.debug("run: method completed.");
         }
-        
+
     }
-    
+
     /**
      * <p>determineMailReaderConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
      */
     public ReadmailConfig determineMailReaderConfig() {
-    	
+
     	LOG.info("determineMailReaderConfig: determining mail reader configuration...");
-    	
+
         List<Parameter> parms = m_ackdDao.getParametersForReader("JavaMailReader");
         ReadmailConfig config = m_jmConfigDao.getDefaultReadmailConfig();
-        
+
         for (Parameter parameter : parms) {
             if ("readmail-config".equalsIgnoreCase(parameter.getKey())) {
                 config = m_jmConfigDao.getReadMailConfig(parameter.getValue());
             }
         }
-        
+
 	LOG.info("determinedMailReaderConfig: {}", config);
         return config;
     }
-    
+
     /**
      * <p>setAckdConfigDao</p>
      *
@@ -393,14 +393,14 @@ class MailAckProcessor implements AckProcessor {
     public synchronized void setAckdConfigDao(final AckdConfigurationDao configDao) {
         m_ackdDao = configDao;
     }
-    
+
     /**
      * @param ackDao a {@link org.opennms.netmgt.dao.api.AcknowledgmentDao} object.
      */
     public synchronized void setAcknowledgmentDao(final AcknowledgmentDao ackDao) {
         m_ackDao = ackDao;
     }
-    
+
     /**
      * <p>reloadConfigs</p>
      */
@@ -410,7 +410,7 @@ class MailAckProcessor implements AckProcessor {
         m_jmConfigDao.reloadConfiguration();
         LOG.debug("reloadConfigs: configuration reloaded");
     }
-    
+
     /**
      * <p>getJmConfigDao</p>
      *

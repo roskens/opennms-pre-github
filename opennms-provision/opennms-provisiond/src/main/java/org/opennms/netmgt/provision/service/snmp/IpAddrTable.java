@@ -89,7 +89,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     protected IpAddrTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IpAddrTableEntry();
     }
-    
+
     /**
      * <p>getIfIndices</p>
      *
@@ -116,7 +116,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
         IpAddrTableEntry entry = getEntryByIfIndex(ifIndex);
         return entry == null ? null : entry.getIpAdEntAddr();
     }
-    
+
     /**
      * <p>getNetMask</p>
      *
@@ -126,9 +126,9 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     public InetAddress getNetMask(final int ifIndex) {
         IpAddrTableEntry entry = getEntryByIfIndex(ifIndex);
         return entry == null ? null : entry.getIpAdEntNetMask();
-        
+
     }
-    
+
     /**
      * <p>getNetMask</p>
      *
@@ -138,7 +138,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
     public InetAddress getNetMask(final InetAddress address) {
         return getEntry(address) == null ? null : getEntry(address).getIpAdEntNetMask();
     }
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -160,7 +160,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
         if (getEntries() == null) {
             return null;
         }
-        
+
         for(IpAddrTableEntry entry : getEntries()) {
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null && ndx.intValue() == ifIndex) {
@@ -169,7 +169,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
         }
         return null;
     }
-     
+
     /**
      * <p>getEntry</p>
      *
@@ -223,7 +223,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
             }
 
             snmpIf.setCollectionEnabled(true);
-            
+
             ipIf.setSnmpInterface(snmpIf);
 
         }
@@ -242,7 +242,7 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
             ipAddrs.add(inst.toString());
         }
         return ipAddrs;
-        
+
     }
 
 }

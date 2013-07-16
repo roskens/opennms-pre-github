@@ -143,7 +143,7 @@ public interface AlarmRepository {
 
     /**
      * Updates the StickyMemo of the alarm to persistence.
-     * 
+     *
      * @param alarmId the alarmId of the alarm where the StickyMemo has to be persisted.
      */
     public abstract void updateStickyMemo(Integer alarmId, String body, String user);

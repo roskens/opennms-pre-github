@@ -64,14 +64,14 @@ import org.springframework.util.StringUtils;
  * @since 1.8.1
  */
 public class DefaultSurveillanceService implements SurveillanceService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
 
 
     private NodeDao m_nodeDao;
     private CategoryDao m_categoryDao;
     private SurveillanceViewConfigDao m_surveillanceConfigDao;
-    
+
     interface CellStatusStrategy {
         public SurveillanceStatus[][] calculateCellStatus(SurveillanceView sView, ProgressMonitor progressMonitor);
 
@@ -133,24 +133,24 @@ public class DefaultSurveillanceService implements SurveillanceService {
     }
 
     class LowMemCellStatusStrategy implements CellStatusStrategy {
-        
+
         private String toString(final Collection<OnmsCategory> categories) {
         	final StringBuilder buf = new StringBuilder();
-            
+
             buf.append("{");
-            
+
             for(final OnmsCategory cat : categories) {
             	if (buf.length() != 0) {
                     buf.append(", ");
                 }
                 buf.append(cat.getName());
             }
-            
+
             buf.append("}");
-            
+
             return buf.toString();
         }
-        
+
 
         @Override
         public SurveillanceStatus[][] calculateCellStatus(final SurveillanceView sView, final ProgressMonitor progressMonitor) {
@@ -159,7 +159,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
             for(int rowIndex = 0; rowIndex < sView.getRowCount(); rowIndex++) {
 
                 for(int colIndex = 0; colIndex < sView.getColumnCount(); colIndex++) {
-                    
+
                 	final Collection<OnmsCategory> rowCategories = sView.getCategoriesForRow(rowIndex);
                 	final Collection<OnmsCategory> columnCategories = sView.getCategoriesForColumn(colIndex);
 
@@ -183,24 +183,24 @@ public class DefaultSurveillanceService implements SurveillanceService {
     }
 
     class VeryLowMemCellStatusStrategy implements CellStatusStrategy {
-        
+
         private String toString(final Collection<OnmsCategory> categories) {
         	final StringBuilder buf = new StringBuilder();
-            
+
             buf.append("{");
-            
+
             for(final OnmsCategory cat : categories) {
             	if (buf.length() != 0) {
                     buf.append(", ");
                 }
                 buf.append(cat.getName());
             }
-            
+
             buf.append("}");
-            
+
             return buf.toString();
         }
-        
+
 
         @Override
         public SurveillanceStatus[][] calculateCellStatus(final SurveillanceView sView, final ProgressMonitor progressMonitor) {
@@ -210,14 +210,14 @@ public class DefaultSurveillanceService implements SurveillanceService {
             for(int rowIndex = 0; rowIndex < sView.getRowCount(); rowIndex++) {
 
                 for(int colIndex = 0; colIndex < sView.getColumnCount(); colIndex++) {
-                    
+
                 	final Collection<OnmsCategory> rowCategories = sView.getCategoriesForRow(rowIndex);
                 	final Collection<OnmsCategory> columnCategories = sView.getCategoriesForColumn(colIndex);
 
                     progressMonitor.beginNextPhase(String.format("Finding status for nodes in %s intersect %s", toString(rowCategories), toString(columnCategories)));
 
                     final SurveillanceStatus status = m_nodeDao.findSurveillanceStatusByCategoryLists(rowCategories, columnCategories);
-                    
+
                     cellStatus[rowIndex][colIndex] = status;
 
                 }
@@ -317,7 +317,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
      */
     @Override
     public SimpleWebTable createSurveillanceTable(final String surveillanceViewName, final ProgressMonitor progressMonitor) {
-        
+
         CellStatusStrategy strategy = getCellStatusStrategy();
 
         final String name = (surveillanceViewName == null ? m_surveillanceConfigDao.getDefaultView().getName() : surveillanceViewName);
@@ -327,7 +327,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
         progressMonitor.setPhaseCount(strategy.getPhaseCount(sView) + 1);
 
         /*
-         * Initialize a status table 
+         * Initialize a status table
          */
         final SimpleWebTable webTable = new SimpleWebTable();
         webTable.setTitle(view.getName());
@@ -394,7 +394,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
     	Set<OnmsCategory> rows    = Collections.emptySet();
 
     	try {
-    		columns = view.getCategoriesForColumn(colIndex); 
+		columns = view.getCategoriesForColumn(colIndex);
     	} catch (final ObjectRetrievalFailureException e) {
     		LOG.warn("An error occurred while getting categories for view {}, column {}", view, colIndex);
     	}
@@ -497,7 +497,7 @@ public class DefaultSurveillanceService implements SurveillanceService {
         Collections.sort(viewNames);
         return viewNames;
     }
-    
+
     private Collection<View> getViewCollection() {
         return m_surveillanceConfigDao.getViews().getViewCollection();
     }

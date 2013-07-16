@@ -59,11 +59,11 @@ import org.springframework.jdbc.datasource.lookup.DataSourceLookupFailureExcepti
  */
 public class DefaultAdminCategoryService implements
         AdminCategoryService {
-    
+
     private CategoryDao m_categoryDao;
     private NodeDao m_nodeDao;
     private EventProxy m_eventProxy;
-    
+
     /**
      * <p>getCategoryDao</p>
      *
@@ -99,7 +99,7 @@ public class DefaultAdminCategoryService implements
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>setEventProxy</p>
      *
@@ -117,7 +117,7 @@ public class DefaultAdminCategoryService implements
         }
 
         OnmsCategory category = findCategory(categoryIdString);
-        
+
         final Collection<OnmsNode> memberNodes = new ArrayList<OnmsNode>();
         for (final OnmsNode node : getNodeDao().findByCategory(category)) {
         	if (!"D".equals(node.getType())) {
@@ -125,10 +125,10 @@ public class DefaultAdminCategoryService implements
         	}
         }
         // XXX does anything need to be initialized in each member node?
-        
+
         return new CategoryAndMemberNodes(category, memberNodes);
     }
-    
+
     private OnmsCategory findCategory(String name) {
         int categoryId = -1;
         try {
@@ -165,14 +165,14 @@ public class DefaultAdminCategoryService implements
     		}
     	}
         Collections.sort(list);
-        
+
         return list;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public EditModel findCategoryAndAllNodes(String categoryIdString) {
-        CategoryAndMemberNodes cat = getCategory(categoryIdString); 
+        CategoryAndMemberNodes cat = getCategory(categoryIdString);
         List<OnmsNode> monitoredNodes = findAllNodes();
         return new EditModel(cat.getCategory(), monitoredNodes, cat.getMemberNodes());
     }
@@ -194,15 +194,15 @@ public class DefaultAdminCategoryService implements
         if (editAction == null) {
             throw new IllegalArgumentException("editAction cannot be null");
         }
-        
+
         OnmsCategory category = findCategory(categoryIdString);
-       
+
         if (editAction.contains("Add")) { // @i18n
             if (toAdd == null) {
                 return;
                 //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
-           
+
             for (String idString : toAdd) {
                 Integer id;
                 try {
@@ -233,7 +233,7 @@ public class DefaultAdminCategoryService implements
                 return;
                 //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
-            
+
             for (String idString : toDelete) {
                 Integer id;
                 try {
@@ -319,12 +319,12 @@ public class DefaultAdminCategoryService implements
         if (node == null) {
             throw new IllegalArgumentException("node with id of " + nodeId + "could not be found");
         }
-        
+
         List<OnmsCategory> categories = new ArrayList<OnmsCategory>(node.getCategories());
         Collections.sort(categories);
         return categories;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public NodeEditModel findNodeCategories(String nodeIdString) {
@@ -334,10 +334,10 @@ public class DefaultAdminCategoryService implements
 
         OnmsNode node = findNode(nodeIdString);
         List<OnmsCategory> categories = findAllCategories();
-        
+
         return new NodeEditModel(node, categories);
     }
-    
+
     /**
      * <p>performNodeEdit</p>
      *
@@ -355,20 +355,20 @@ public class DefaultAdminCategoryService implements
         if (editAction == null) {
             throw new IllegalArgumentException("editAction cannot be null");
         }
-        
+
         OnmsNode node = findNode(nodeIdString);
         if (node == null) {
             throw new IllegalArgumentException("No 'node' with id '"
                                                + nodeIdString
                                                + "' could be found");
         }
-       
+
         if (editAction.contains("Add")) { // @i18n
             if (toAdd == null) {
                 return;
                 //throw new IllegalArgumentException("toAdd cannot be null if editAction is 'Add'");
             }
-           
+
             for (String idString : toAdd) {
                 Integer id;
                 try {
@@ -392,7 +392,7 @@ public class DefaultAdminCategoryService implements
                 }
                 node.getCategories().add(category);
             }
-            
+
             getNodeDao().save(node);
             notifyCategoryChange(node);
        } else if (editAction.contains("Remove")) { // @i18n
@@ -400,7 +400,7 @@ public class DefaultAdminCategoryService implements
                 return;
                 //throw new IllegalArgumentException("toDelete cannot be null if editAction is 'Remove'");
             }
-            
+
             for (String idString : toDelete) {
                 Integer id;
                 try {
@@ -437,7 +437,7 @@ public class DefaultAdminCategoryService implements
 
     private OnmsNode findNode(String nodeIdString) {
     	final int nodeId;
-        
+
         try {
             nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
         } catch (final NumberFormatException e) {
@@ -452,7 +452,7 @@ public class DefaultAdminCategoryService implements
         bldr.setParam("nodelabel", node.getLabel());
         send(bldr.getEvent());
     }
-    
+
     private void send(final Event e) {
         try {
             m_eventProxy.send(e);
@@ -460,7 +460,7 @@ public class DefaultAdminCategoryService implements
             throw new DataSourceLookupFailureException("Unable to send event to eventd", e1);
         }
     }
-    
+
     public class CategoryAndMemberNodes {
         private OnmsCategory m_category;
         private Collection<OnmsNode> m_memberNodes;
@@ -489,11 +489,11 @@ public class DefaultAdminCategoryService implements
                 Collection<OnmsNode> memberNodes) {
             m_category = category;
             m_nodes = nodes;
-            
+
             for (OnmsNode node : memberNodes) {
                 m_nodes.remove(node);
             }
-            
+
             m_sortedMemberNodes =
                 new ArrayList<OnmsNode>(memberNodes);
             Collections.sort(m_sortedMemberNodes);
@@ -510,9 +510,9 @@ public class DefaultAdminCategoryService implements
         public List<OnmsNode> getSortedMemberNodes() {
             return m_sortedMemberNodes;
         }
-        
+
     }
-    
+
     public class NodeEditModel {
         private OnmsNode m_node;
         private List<OnmsCategory> m_categories;
@@ -521,11 +521,11 @@ public class DefaultAdminCategoryService implements
         public NodeEditModel(OnmsNode node, List<OnmsCategory> categories) {
             m_node = node;
             m_categories = categories;
-            
+
             for (OnmsCategory category : m_node.getCategories()) {
                 m_categories.remove(category);
             }
-            
+
             m_sortedCategories =
                 new ArrayList<OnmsCategory>(m_node.getCategories());
             Collections.sort(m_sortedCategories);
@@ -542,6 +542,6 @@ public class DefaultAdminCategoryService implements
         public List<OnmsCategory> getSortedCategories() {
             return m_sortedCategories;
         }
-        
+
     }
 }

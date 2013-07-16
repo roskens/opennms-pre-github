@@ -36,10 +36,10 @@ import com.vaadin.ui.VerticalLayout;
 /**
  * This class represents the header panel of the JMX config UI tool. It simply
  * creates a label with the text according to the {@link UiState}s.
- * 
+ *
  * @author Markus von Rüden
  * @see #updateLabel(UiState)
- * 
+ *
  */
 public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
 
@@ -60,7 +60,7 @@ public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
 	 * printed with a number prefix. If one uiState from {@link UiState} matches
 	 * the parameter <code>state</code> it is highlighted as a link. Updates the
 	 * label.
-	 * 
+	 *
 	 * @param state
 	 *            The current ui State.
 	 */
@@ -79,7 +79,7 @@ public class HeaderPanel extends Panel implements ModelChangeListener<UiState> {
 		}
 		label.setValue(labelString.trim());
 	}
-	
+
 	@Override
 	/**
 	 * Is invoked when the uiState changes and updates the label.

@@ -51,12 +51,12 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The MIB Object Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implements Button.ClickListener {
-	
+
 	public static class MibObjArrayList extends ArrayList<MibObj> {}
 
     private static final long serialVersionUID = 3665919460707298011L;
@@ -137,7 +137,7 @@ public class MibObjField extends CustomField<MibObjField.MibObjArrayList> implem
 
     @Override
     public MibObjArrayList getValue() {
-        MibObjArrayList beans = new MibObjArrayList(); 
+        MibObjArrayList beans = new MibObjArrayList();
         for (Object itemId: container.getItemIds()) {
             beans.add(container.getItem(itemId).getBean());
         }

@@ -48,65 +48,65 @@ public class StatusCategory {
 	private Boolean m_outagestatus;
 	private String  m_filter;
 	private Collection<StatusNode> m_nodelist;
-	
-	
+
+
 	/**
 	 * <p>Constructor for StatusCategory.</p>
 	 */
 	public StatusCategory(){
-	
+
 		m_nodelist = new ArrayList<StatusNode>();
-	
+
 	}
-	
+
 	/**
 	 * <p>getFilter</p>
 	 *
 	 * @return a {@link java.lang.String} object.
 	 */
 	public String getFilter() {
-		
+
 		return m_filter;
-		
+
 	}
-	
+
 	/**
 	 * <p>setFilter</p>
 	 *
 	 * @param filter a {@link java.lang.String} object.
 	 */
 	public void setFilter(String filter) {
-		
+
 		m_filter = filter;
-				
+
 	}
-	
-	
-	
-	
+
+
+
+
 	/**
 	 * <p>getNodes</p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
 	public Collection<StatusNode> getNodes() {
-	
+
 		return m_nodelist;
-	
+
 	}
-	
-	
+
+
 	/**
 	 * <p>addNode</p>
 	 *
 	 * @param NewNode a {@link org.opennms.web.svclayer.catstatus.model.StatusNode} object.
 	 */
 	public void addNode(StatusNode NewNode){
-		
+
 		m_nodelist.add(NewNode);
-		
+
 	}
-	
+
 
 	/**
 	 * <p>getOutageStatus</p>
@@ -125,7 +125,7 @@ public class StatusCategory {
 	public void setOutageStatus(Boolean OutageStatus) {
 		m_outagestatus = OutageStatus;
 	}
-	
+
 	/**
 	 * <p>getComment</p>
 	 *
@@ -204,5 +204,5 @@ public class StatusCategory {
 	public void setWarning(Integer m_warning) {
 		this.m_warning = m_warning;
 	}
-	
+
 }

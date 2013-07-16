@@ -44,18 +44,18 @@ import java.io.InputStream;
 /**
  * <p>RrdGraphController class.</p>
  *
- * Is the front end handler of graph requests.  
- * 
- * Accepts start/end parameters that conform to the "specification" used by rrdfetch, 
+ * Is the front end handler of graph requests.
+ *
+ * Accepts start/end parameters that conform to the "specification" used by rrdfetch,
  * as defined in it's manpage, or at http://oss.oetiker.ch/rrdtool/doc/rrdfetch.en.html
- * 
+ *
  * Or at least, it should.  If it doesn't, write a test and fix the code.
- * 
+ *
  * NB; If the start/end are integers, they'll be interpreted as an epoch based timestamp
  * This precludes some of the more compact forms available to rrdtool (e.g. just specifying
- * an hour of the day without am/pm designator.  But there are ways and means of working 
- * around that (specifying the time with hh:mm where mm is 00, or using am/pm; either will 
- * not parse as integers, resulting in evaluation by the rrdtool-alike parser. 
+ * an hour of the day without am/pm designator.  But there are ways and means of working
+ * around that (specifying the time with hh:mm where mm is 00, or using am/pm; either will
+ * not parse as integers, resulting in evaluation by the rrdtool-alike parser.
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -72,7 +72,7 @@ public class RrdGraphController extends AbstractController {
                 "start",
                 "end"
         };
-        
+
         for (String requiredParameter : requiredParameters) {
             if (request.getParameter(requiredParameter) == null) {
                 throw new MissingParameterException(requiredParameter,
@@ -81,9 +81,9 @@ public class RrdGraphController extends AbstractController {
         }
 
         String resourceId = request.getParameter("resourceId");
-        
+
         long times[] = this.parseTimes(request);
-        
+
         long startTime = times[0];
         long endTime = times[1];
 
@@ -97,7 +97,7 @@ public class RrdGraphController extends AbstractController {
                     "dstitle",
                     "style"
             };
-            
+
             for (String requiredParameter : adhocRequiredParameters) {
                 if (request.getParameter(requiredParameter) == null) {
                     throw new MissingParameterException(requiredParameter,
@@ -111,7 +111,7 @@ public class RrdGraphController extends AbstractController {
             String[] colors = request.getParameterValues("color");
             String[] dataSourceTitles = request.getParameterValues("dstitle");
             String[] styles = request.getParameterValues("style");
-            
+
             tempIn = m_rrdGraphService.getAdhocGraph(resourceId,
                                                      title,
                                                      dataSources,
@@ -125,7 +125,7 @@ public class RrdGraphController extends AbstractController {
             if (report == null) {
                 throw new MissingParameterException("report");
             }
-            
+
             String width = request.getParameter("width");
             String height = request.getParameter("height");
 
@@ -140,22 +140,22 @@ public class RrdGraphController extends AbstractController {
         }
 
         response.setContentType("image/png");
-        
+
         StreamUtils.streamToStream(tempIn, response.getOutputStream());
 
         tempIn.close();
-                
+
         return null;
     }
-    
+
     public long[] parseTimes(HttpServletRequest request) {
     	String startTime = request.getParameter("start");
     	String endTime = request.getParameter("end");
-    	
+
     	if(startTime == null || "".equals(startTime)) {
     		startTime = "now - 1day";
     	}
-    	
+
     	if(endTime == null || "".equals(endTime)) {
     		endTime = "now";
     	}
@@ -167,17 +167,17 @@ public class RrdGraphController extends AbstractController {
     		startIsInteger = true;
     	} catch (NumberFormatException e) {
     	}
-    	
+
     	try {
     		end = Long.valueOf(endTime);
     		endIsInteger = true;
     	} catch (NumberFormatException e) {
     	}
-    	
+
     	if(endIsInteger && startIsInteger) {
-    		return new long[] {start, end};	
+		return new long[] {start, end};
     	}
-    	
+
     	//One or both of start/end aren't integers, so we need to do full parsing using TimeParser
     	//But, if one of them *is* an integer, convert from incoming milliseconds to seconds that
     	// is expected for epoch times by TimeParser
@@ -188,7 +188,7 @@ public class RrdGraphController extends AbstractController {
     	if(endIsInteger) {
     		endTime = "" +(end/1000);
     	}
-    	
+
     	TimeParser startParser = new TimeParser(startTime);
     	TimeParser endParser = new TimeParser(endTime);
         try {
@@ -196,7 +196,7 @@ public class RrdGraphController extends AbstractController {
         	TimeSpec specStart = startParser.parse();
         	TimeSpec specEnd = endParser.parse();
         	long results[] = TimeSpec.getTimestamps(specStart, specEnd);
-        	//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.  Gah.  
+		//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.  Gah.
         	results[0] = results[0]*1000;
         	results[1] = results[1]*1000;
         	return results;

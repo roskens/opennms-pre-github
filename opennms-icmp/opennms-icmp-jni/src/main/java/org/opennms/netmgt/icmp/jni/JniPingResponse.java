@@ -54,7 +54,7 @@ public final class JniPingResponse implements ResponseWithId<JniPingRequestId>, 
      * The sender's address.
      */
     private final InetAddress m_address;
-    
+
     /**
      * The received packet.
      */
@@ -82,7 +82,7 @@ public final class JniPingResponse implements ResponseWithId<JniPingRequestId>, 
     private ICMPEchoPacket getPacket() {
         return m_packet;
     }
-    
+
     /**
      * Returns the internet address of the host that sent the reply.
      *

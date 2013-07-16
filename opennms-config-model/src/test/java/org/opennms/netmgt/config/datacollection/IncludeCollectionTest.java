@@ -40,7 +40,7 @@ public class IncludeCollectionTest extends XmlTest<IncludeCollection> {
     public IncludeCollectionTest(final IncludeCollection sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final IncludeCollection ic = new IncludeCollection();

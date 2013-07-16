@@ -40,7 +40,7 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
 
     private String m_inst;
     private String m_name;
-    
+
     public JdbcMultiInstanceCollectionResource(CollectionAgent agent, String instance, String name) {
         super(agent);
         m_inst = instance;
@@ -56,7 +56,7 @@ public class JdbcMultiInstanceCollectionResource extends JdbcCollectionResource 
         LOG.debug("getResourceDir: {}", instDir.toString());
         return instDir;
     }
-    
+
     @Override
     public String getResourceTypeName() {
         return m_name;

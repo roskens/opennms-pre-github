@@ -40,7 +40,7 @@ import java.sql.SQLException;
 public class DatabaseConnectionException extends SQLException {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6548231456647908279L;
 

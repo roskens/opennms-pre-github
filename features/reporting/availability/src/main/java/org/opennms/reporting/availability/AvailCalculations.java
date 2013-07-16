@@ -163,7 +163,7 @@ public class AvailCalculations extends Object {
         category.setNodeCount(nodes.size());
         int ipaddrCount = 0;
         int serviceCount = 0;
-        
+
         for(Node tmpNode : nodes) {
             if (tmpNode != null) {
                 ipaddrCount += tmpNode.getInterfaceCount();
@@ -251,7 +251,7 @@ public class AvailCalculations extends Object {
 		}else {
 			lastMTDDailyAvailability(numDaysInMonth, m_endTime, catSections, label, descr, "MonthToDateDailyAvailability");
 		}
-        
+
 
         LOG.debug("Computed lastNDaysDailyAvailability");
 
@@ -339,7 +339,7 @@ public class AvailCalculations extends Object {
         }
 
         m_services = new HashMap<String, Map<IfService, OutageSvcTimesList>>();
-            
+
         for(Node node : nodes) {
             if (node != null) {
                 for(Interface intf : node.getInterfaces()) {
@@ -437,7 +437,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last Months Top N Service Outages.
-     * 
+     *
      * @param catSections
      *            Castors sections
      * @param label
@@ -452,11 +452,11 @@ public class AvailCalculations extends Object {
         // For each monitored service, get all individual outages.
         //
         TreeMap<Long, List<OutageSince>> treeMap = null;
-        
+
         for(String service : m_services.keySet()) {
             treeMap = new TreeMap<Long, List<OutageSince>>();
             Map<IfService, OutageSvcTimesList> ifSvcOutageList = m_services.get(service);
-            
+
             for(IfService ifservice : ifSvcOutageList.keySet()) {
                 if (ifservice != null) {
                     OutageSvcTimesList outageSvcList = (OutageSvcTimesList) ifSvcOutageList.get(ifservice);
@@ -477,8 +477,8 @@ public class AvailCalculations extends Object {
                 }
             }
             LOG.debug("Top 20 service outages from the list {}", treeMap);
-            
-            
+
+
             int top20Count = 0;
             Rows rows = new Rows();
 
@@ -539,7 +539,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last Month To Date Daily Availability
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -560,7 +560,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last Month To Date Daily Availability
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -580,7 +580,7 @@ public class AvailCalculations extends Object {
     }
     /**
      * Last N Days Total Availability.
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -596,12 +596,12 @@ public class AvailCalculations extends Object {
     private void lastMoTotalAvailability(int days, long endTime, CatSections catSections, String label, String descr) {
         lastNDaysTotalAvailability(days, endTime, catSections, label, descr);
     }
-	
-	
+
+
     /**
-     * 
+     *
      * Last Months Top N offenders.
-     * 
+     *
      * @param offenders
      *            Top Offenders
      * @param catSections
@@ -610,7 +610,7 @@ public class AvailCalculations extends Object {
      *            Section name in the xml
      * @param descr
      *            Section descr.
-     * 
+     *
      */
     private void lastMoTopNOffenders(TreeMap<Double, List<String>> offenders, CatSections catSections, String label, String descr) {
         // copy this method from the outage data code.
@@ -672,7 +672,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last Months Daily availability
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made
@@ -692,7 +692,7 @@ public class AvailCalculations extends Object {
     }
 	/**
      * Last Months Daily availability
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made
@@ -710,10 +710,10 @@ public class AvailCalculations extends Object {
     private void lastCalMoDailyAvailability(int days, long endTime, CatSections sections, String label, String descr, String sectionName) {
         lastNDaysCalDailyAvailability(days, endTime, sections, label, descr, sectionName);
     }
-	
+
 	/**
      * Last N days daily availability.
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -751,7 +751,7 @@ public class AvailCalculations extends Object {
             }
             double percentAvail;
             if (serviceCount > 0){
-                
+
                 LOG.debug("LOOK: calculating percentAvail using outage {} service count {} ROLLING_WINODW {} endTime {}", endTime, outage, serviceCount, ROLLING_WINDOW);
                 percentAvail = 100.0 * (1 - (outage * 1.0) / (1.0 * serviceCount * ROLLING_WINDOW));
         }
@@ -759,7 +759,7 @@ public class AvailCalculations extends Object {
                 percentAvail = 100.0;
 
             //need a double object in here
-			
+
 			treeMap.put(new Date(endTime), new Double (percentAvail));
                         Date nicedate = new Date(endTime);
                         LOG.debug("Inserting {} into {}", nicedate, percentAvail);
@@ -779,7 +779,7 @@ public class AvailCalculations extends Object {
                         LOG.debug("Inserting value {} into date slot {}", dateSlot, percent.doubleValue());
 			calBuilder.setPctValue(dateSlot, percent.doubleValue());
 		}
-		
+
 		Section section = new Section();
         section.setCalendarTable(calBuilder.getTable());
         section.setSectionName(sectionName); // "LastMonthsDailyAvailability");
@@ -790,13 +790,13 @@ public class AvailCalculations extends Object {
         m_sectionIndex++;
         catSections.addSection(section);
         LOG.debug("Leaving lastNDaysCalDailyAvailability");
-		
+
 		}
 
-	
+
     /**
      * Last N days daily availability.
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -885,7 +885,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last N Days Total Availability.
-     * 
+     *
      * @param days
      *            Number of days for which the availability computations are
      *            made.
@@ -955,7 +955,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Last N Months Availability
-     * 
+     *
      * @param nMonths
      *            Number of months for which the availability computations are
      *            made.
@@ -1065,7 +1065,7 @@ public class AvailCalculations extends Object {
     /**
      * Returns the number of days in the month, also considers checks for leap
      * year.
-     * 
+     *
      * @param isLeap
      *            the leap year flag.
      * @param month
@@ -1099,7 +1099,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Returns the number of Days in the month
-     * 
+     *
      * @param endTime
      *            The end of the month (time in milliseconds)
      */
@@ -1114,7 +1114,7 @@ public class AvailCalculations extends Object {
 
     /**
      * Compute N days daily service availability.
-     * 
+     *
      * @param endTime
      *            End time
      * @param catSections

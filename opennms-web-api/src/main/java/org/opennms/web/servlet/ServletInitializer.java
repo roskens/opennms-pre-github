@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class ServletInitializer extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ServletInitializer.class);
 
     /**
@@ -90,7 +90,7 @@ public class ServletInitializer extends Object {
          * All ThreadCategory instances in the WebUI should use this as their
          * category prefix
          */
-        
+
         Logging.putPrefix("web");
 
         Properties properties = new Properties(System.getProperties());

@@ -88,12 +88,12 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 public class NtpMessage {
-    
+
     /**
      * This is a two-bit code warning of an impending leap second to be
      * inserted/deleted in the last minute of the current day. It's values may
      * be as follows:
-     * 
+     *
      * Value Meaning ----- ------- 0 no warning 1 last minute has 61 seconds 2
      * last minute has 59 seconds) 3 alarm condition (clock not synchronized)
      */
@@ -109,11 +109,11 @@ public class NtpMessage {
 
     /**
      * This value indicates the mode, with values defined as follows:
-     * 
+     *
      * Mode Meaning ---- ------- 0 reserved 1 symmetric active 2 symmetric
      * passive 3 client 4 server 5 broadcast 6 reserved for NTP control message
      * 7 reserved for private use
-     * 
+     *
      * In unicast and anycast modes, the client sets this field to 3 (client) in
      * the request and the server sets it to 4 (server) in the reply. In
      * multicast mode, the server sets this field to 5 (broadcast).
@@ -123,7 +123,7 @@ public class NtpMessage {
     /**
      * This value indicates the stratum level of the local clock, with values
      * defined as follows:
-     * 
+     *
      * Stratum Meaning ---------------------------------------------- 0
      * unspecified or unavailable 1 primary reference (e.g., radio clock) 2-15
      * secondary reference (via NTP or SNTP) 16-255 reserved
@@ -174,7 +174,7 @@ public class NtpMessage {
      * according to the following list. If the external reference is one of
      * those listed, the associated code should be used. Codes for sources not
      * listed can be contrived as appropriate.
-     * 
+     *
      * Code External Reference Source ---- ------------------------- LOCL
      * uncalibrated local clock used as a primary reference for a subnet without
      * external means of synchronization PPS atomic clock or other

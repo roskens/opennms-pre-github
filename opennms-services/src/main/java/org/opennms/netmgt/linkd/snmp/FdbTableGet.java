@@ -79,7 +79,7 @@ public final class FdbTableGet {
 	 * @return a int.
 	 */
 	public int getBridgePort() {
-		
+
 		SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(FDB_PORT_OID));
 		if (val == null) return -1;
 		if (val.isNull() || val.isError()) return -1;
@@ -95,7 +95,7 @@ public final class FdbTableGet {
 	 * @return a int.
 	 */
 	public int getQBridgePort() {
-		
+
 		SnmpValue val = SnmpUtils.get(m_agentConfig, getOid(QFDB_PORT_OID));
 		if (val == null) return -1;
 		if (val.isNull() || val.isError()) return -1;
@@ -117,7 +117,7 @@ public final class FdbTableGet {
 		if (val.isNumeric()) return val.toInt();
 		LOG.debug("getBridgePortStatus: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
 		return -1;
-		
+
 	}
 
 	/**
@@ -132,15 +132,15 @@ public final class FdbTableGet {
 		if (val.isNumeric()) return val.toInt();
 		LOG.debug("getQBridgePortStatus: mac/bridgeport: {}/{}", m_mac, val.toDisplayString());
 		return -1;
-		
+
 	}
 
 	private SnmpObjId getOid(String oid) {
 		return SnmpObjId.get(oid+"."+m_mac);
 	}
-	
+
 	private String getInstanceString(String mac) {
-		
+
 		return 		Integer.parseInt(mac.substring(0, 2),16) + "." +
 					Integer.parseInt(mac.substring(2, 4),16) + "." +
 					Integer.parseInt(mac.substring(4, 6),16) + "." +

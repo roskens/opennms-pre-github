@@ -75,10 +75,10 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
     private static GoogleMapsPanelUiBinder uiBinder = GWT.create(GoogleMapsPanelUiBinder.class);
 
     interface GoogleMapsPanelUiBinder extends UiBinder<Widget, GoogleMapsPanel> {}
-    
+
     @UiField
     MapWidget m_mapWidget;
-    
+
     private Map<String, Marker> m_markers = new HashMap<String, Marker>();
     private Map<String, GWTMarkerState> m_markerStates = new HashMap<String,GWTMarkerState>();
     private HandlerManager m_eventBus;
@@ -101,7 +101,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
             }
         });
     }
-    
+
     private MapWidget getMapWidget() {
         return m_mapWidget;
     }
@@ -143,13 +143,13 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         LatLngBounds bounds = toLatLngBounds(b);
     	getMapWidget().setCenter(bounds.getCenter(), getMapWidget().getBoundsZoomLevel(bounds));
     }
-    
+
     private void initializeMapPanel() {
         getMapWidget().setSize("100%", "100%");
         getMapWidget().setUIToDefault();
         getMapWidget().addControl(new LargeMapControl());
         getMapWidget().setScrollWheelZoomEnabled(true);
-      
+
         Window.addResizeHandler(new ResizeHandler() {
             @Override
             public void onResize(final ResizeEvent resizeEvent) {
@@ -170,7 +170,7 @@ public class GoogleMapsPanel extends Composite implements MapPanel {
         icon.setIconAnchor(Point.newInstance(16, 32));
         String markerImageURL = marker.getImageURL();
         icon.setImageURL(markerImageURL);
-        
+
         final MarkerOptions markerOptions = MarkerOptions.newInstance();
         markerOptions.setAutoPan(true);
         markerOptions.setClickable(true);

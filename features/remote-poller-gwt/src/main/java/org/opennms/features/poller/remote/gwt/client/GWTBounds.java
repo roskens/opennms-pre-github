@@ -38,10 +38,10 @@ import org.opennms.features.poller.remote.gwt.client.utils.HashCodeBuilder;
  * @since 1.8.1
  */
 public class GWTBounds {
-    
+
     GWTLatLng m_northEastCorner;
     GWTLatLng m_southWestCorner;
-    
+
     /**
      * <p>Constructor for GWTBounds.</p>
      *
@@ -52,7 +52,7 @@ public class GWTBounds {
         m_northEastCorner = northEastCorner;
         m_southWestCorner = southWestCorner;
     }
-    
+
     /**
      * <p>Constructor for GWTBounds.</p>
      *
@@ -86,7 +86,7 @@ public class GWTBounds {
     private boolean containsLatitude(Double latitude) {
         return m_southWestCorner.getLatitude() <= latitude && latitude <= m_northEastCorner.getLatitude();
     }
-        
+
     /**
      * <p>contains</p>
      *

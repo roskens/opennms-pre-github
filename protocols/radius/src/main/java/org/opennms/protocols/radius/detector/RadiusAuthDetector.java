@@ -63,10 +63,10 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacket>{
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthDetector.class);
 
-    
+
     private static final String DEFAULT_SERVICE_NAME = "RadiusAuth";
 
     /**
@@ -100,11 +100,11 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     public static final String DEFAULT_SECRET = "secret";
 
     /**
-     * 
+     *
      * Default NAS_ID
      */
     public static final String DEFAULT_NAS_ID = "opennms";
-    
+
     private int m_authport = DEFAULT_AUTH_PORT;
     private int m_acctport = DEFAULT_ACCT_PORT;
     private String m_secret = DEFAULT_SECRET;
@@ -112,7 +112,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     private String m_nasid = DEFAULT_NAS_ID;
     private String m_user = DEFAULT_USER;
     private String m_password = DEFAULT_PASSWORD;
-    
+
     /**
      * Default constructor
      */
@@ -135,25 +135,25 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     public void onInit() {
         send(request(getNasID(), getUser(), getPassword()), expectValidResponse(AccessAccept.class, AccessChallenge.class, AccessReject.class));
     }
-    
+
     /**
      * @return
      */
     private static ResponseValidator<RadiusPacket> expectValidResponse(final Class<?> accept, final Class<?> challenge, final Class<?> reject) {
-        
+
         return new ResponseValidator<RadiusPacket>() {
 
             @Override
             public boolean validate(final RadiusPacket response) {
             	return (accept.isInstance(response) || challenge.isInstance(response) || reject.isInstance(response));
             }
-            
+
         };
     }
 
     private static RequestBuilder<AttributeList> request(final String nasID, final String user, final String password) {
     	LOG.debug("request: nasID = {}, user = {}, password = {}", nasID, user, password);
-    	
+
         return new RequestBuilder<AttributeList>() {
 
             @Override
@@ -164,10 +164,10 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     	    	attributes.add(new Attr_UserPassword(password));
     	    	return attributes;
             }
-            
+
         };
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Client<AttributeList, RadiusPacket> getClient() {
@@ -178,7 +178,7 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
         rdc.setAuthenticator(getAuthenticator());
         return rdc;
     }
-    
+
     /**
      * <p>setAuthPort</p>
      *
@@ -325,5 +325,5 @@ public class RadiusAuthDetector extends BasicDetector<AttributeList, RadiusPacke
     public String getPassword() {
         return m_password;
     }
-	
+
 }

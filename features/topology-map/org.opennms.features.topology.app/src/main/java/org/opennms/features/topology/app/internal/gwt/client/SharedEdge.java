@@ -28,7 +28,7 @@ public class SharedEdge {
     public void setCssClass(String styleName) {
         m_styleName = styleName;
     }
-    
+
     public String getCssClass() {
         return m_styleName;
     }

@@ -25,9 +25,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JUnitServer {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JUnitServer.class);
-	
+
     private Server m_server;
     private JUnitHttpServer m_config;
 
@@ -46,7 +46,7 @@ public class JUnitServer {
             factory.setKeyManagerPassword(config.keyPassword());
             factory.setTrustStore(config.keystore());
             factory.setTrustStorePassword(config.keystorePassword());
-            
+
             final SslSocketConnector connector = new SslSocketConnector(factory);
             connector.setPort(config.port());
             server.setConnectors(new Connector[] { connector });
@@ -60,7 +60,7 @@ public class JUnitServer {
         context1.setResourceBase(config.resource());
         context1.setClassLoader(Thread.currentThread().getContextClassLoader());
         context1.setVirtualHosts(config.vhosts());
-        
+
         final ContextHandler context = context1;
 
         Handler topLevelHandler = null;
@@ -95,7 +95,7 @@ public class JUnitServer {
             security.setLoginService(loginService);
             security.setStrict(false);
             security.setRealmName("MyRealm");
-            
+
             security.setHandler(context);
             topLevelHandler = security;
         } else {
@@ -121,7 +121,7 @@ public class JUnitServer {
         handlers.addHandler(new DefaultHandler());
 
         context.setHandler(handlers);
-        m_server.setHandler(topLevelHandler);        
+        m_server.setHandler(topLevelHandler);
     }
 
     public synchronized void start() throws Exception {

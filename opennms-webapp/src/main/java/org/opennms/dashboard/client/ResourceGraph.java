@@ -55,7 +55,7 @@ public class ResourceGraph extends Image {
     public void displayNoGraph() {
         setUrl("images/rrd/error.png");
     }
-    
+
     /**
      * <p>setGraph</p>
      *
@@ -67,7 +67,7 @@ public class ResourceGraph extends Image {
     public void setGraph(String resourceId, String reportName, String start, String end) {
         setUrl(buildGraphUrl(resourceId, reportName, start, end));
     }
-    
+
     /**
      * <p>prefetchGraph</p>
      *

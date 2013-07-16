@@ -47,14 +47,14 @@ public class DropForeignKeyConstraintCascadeStatement extends DropForeignKeyCons
 		m_cascade = cascade;
 		return this;
 	}
-	
+
 	public Boolean getCascade() {
 		return m_cascade;
 	}
 
 	public static SqlStatement[] createFromSqlStatements(final SqlStatement[] superSql, final Boolean cascade) {
 		final List<SqlStatement> statements = new ArrayList<SqlStatement>();
-		
+
 		for (final SqlStatement statement : superSql) {
 			if (statement instanceof DropForeignKeyConstraintStatement) {
 				statements.add(new DropForeignKeyConstraintCascadeStatement((DropForeignKeyConstraintStatement)statement, cascade));

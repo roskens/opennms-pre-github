@@ -42,16 +42,16 @@ public class StatusSection {
 
 	private String m_name;
 	private Collection<StatusCategory> m_categorylist;
-	
+
 	/**
 	 * <p>Constructor for StatusSection.</p>
 	 */
 	public StatusSection(){
-		
+
 		m_categorylist = new ArrayList<StatusCategory>();
-		
+
 	}
-	
+
 	/**
 	 * <p>setName</p>
 	 *
@@ -60,7 +60,7 @@ public class StatusSection {
 	public void setName(String name){
 		m_name = name;
 	}
-	
+
 	/**
 	 * <p>getName</p>
 	 *
@@ -69,7 +69,7 @@ public class StatusSection {
 	public String getName() {
 		return m_name;
 	}
-	
+
 	/**
 	 * <p>getCategories</p>
 	 *
@@ -78,7 +78,7 @@ public class StatusSection {
 	public Collection<StatusCategory> getCategories() {
 		return m_categorylist;
 	}
-	
+
 	/**
 	 * <p>addCategory</p>
 	 *
@@ -87,5 +87,5 @@ public class StatusSection {
 	public void addCategory(StatusCategory newCategory) {
 		m_categorylist.add(newCategory);
 	}
-	
+
 }

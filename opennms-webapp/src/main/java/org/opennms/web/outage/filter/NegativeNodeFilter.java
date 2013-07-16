@@ -66,7 +66,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        
+
         String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getNode());
         if(nodeName == null) {
             nodeName = Integer.toString(getNode());

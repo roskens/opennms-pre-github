@@ -36,7 +36,7 @@ public class DuplicateTreeMapTest extends TestCase {
     public void testPutItem() {
         DuplicateTreeMap<Long, String> m = new DuplicateTreeMap<Long, String>();
         m.putItem((long) 1, "foo");
-        
+
         assertNotNull("value of key 1 is null", m.get((long) 1));
         assertTrue("class is not an instance of List", m.get((long) 1) instanceof List<?>);
         List<String> list = m.get((long) 1);

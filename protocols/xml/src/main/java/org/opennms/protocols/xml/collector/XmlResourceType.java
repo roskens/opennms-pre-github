@@ -37,7 +37,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 
 /**
  * The Class XmlResourceType.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlResourceType  {

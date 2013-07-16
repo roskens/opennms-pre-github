@@ -37,7 +37,7 @@ import org.opennms.api.reporting.ReportService;
  * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
  */
 public interface ReportServiceLocator  {
-    
+
     /**
      * This method is used to retrieve the ReportService bean associated with
      *
@@ -46,8 +46,8 @@ public interface ReportServiceLocator  {
      * @return  the ReportService bean used to run this report
      * @throws  org.opennms.reporting.core.svclayer.ReportServiceLocatorException if any.
      */
-    public ReportService getReportService(String reportServiceName) throws ReportServiceLocatorException; 
-    
+    public ReportService getReportService(String reportServiceName) throws ReportServiceLocatorException;
+
     /**
      * This method is used to retrieve the ReportService bean associated with a report Id
      *
@@ -55,6 +55,6 @@ public interface ReportServiceLocator  {
      * @return  the ReportService bean used to run this report
      * @throws  org.opennms.reporting.core.svclayer.ReportServiceLocatorException if any.
      */
-    public ReportService getReportServiceForId(String reportId) throws ReportServiceLocatorException; 
+    public ReportService getReportServiceForId(String reportId) throws ReportServiceLocatorException;
 
 }

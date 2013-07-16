@@ -59,9 +59,9 @@ import org.opennms.core.concurrent.PausibleScheduledThreadPoolExecutor;
  * @version $Id: $
  */
 public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAdapter {
-    
+
     private volatile PausibleScheduledThreadPoolExecutor m_executorService;
-    
+
     /**
      * <p>Constructor for SimpleQueuedProvisioningAdapter2.</p>
      *
@@ -70,7 +70,7 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
     protected SimpleQueuedProvisioningAdapter2(PausibleScheduledThreadPoolExecutor executorService) {
         m_executorService = executorService;
     }
-    
+
     /**
      * <p>Constructor for SimpleQueuedProvisioningAdapter2.</p>
      */
@@ -80,7 +80,7 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
 
     private static PausibleScheduledThreadPoolExecutor createDefaultSchedulerService() {
         PausibleScheduledThreadPoolExecutor executorService = new PausibleScheduledThreadPoolExecutor(1);
-        
+
         return executorService;
     }
 
@@ -95,7 +95,7 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
      */
     @Override
     public abstract String getName();
-    
+
     /**
      * This method is called when the scheduled
      * Adapters extending this class must implement this method
@@ -111,11 +111,11 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
      * @throws org.opennms.netmgt.provision.ProvisioningAdapterException if any.
      */
     public abstract void processPendingOperationForNode(AdapterOperation op) throws ProvisioningAdapterException;
-    
+
 
     /**
      * Override this method to change the default schedule
-     * @param adapterOperationType 
+     * @param adapterOperationType
      * @return
      */
     AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType adapterOperationType) {
@@ -129,15 +129,15 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> addNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.ADD, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.ADD,
                                                    createScheduleForNode(nodeId, AdapterOperationType.ADD));
-        
+
         synchronized (m_executorService) {
             if (!m_executorService.getQueue().contains(op)) {
                 return op.schedule(m_executorService);
             }
         }
-        
+
         return null;
     }
 
@@ -148,18 +148,18 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> updateNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.UPDATE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.UPDATE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.UPDATE));
-        
+
         synchronized (m_executorService) {
             if (!m_executorService.getQueue().contains(op)) {
                 return op.schedule(m_executorService);
             }
         }
-        
+
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.opennms.netmgt.provision.ProvisioningAdapter#deleteNode(int)
@@ -167,18 +167,18 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> deleteNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.DELETE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.DELETE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.DELETE));
-        
+
         synchronized (m_executorService) {
             if (!m_executorService.getQueue().contains(op)) {
                 return op.schedule(m_executorService);
             }
         }
-        
+
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.opennms.netmgt.provision.ProvisioningAdapter#nodeConfigChanged(int)
@@ -186,92 +186,92 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> nodeConfigChanged(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.CONFIG_CHANGE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.CONFIG_CHANGE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.CONFIG_CHANGE));
-        
+
         synchronized (m_executorService) {
             if (!m_executorService.getQueue().contains(op)) {
                 return op.schedule(m_executorService);
             }
         }
-        
+
         return null;
     }
-        
+
     /**
      * Represents a node operation to be queued and scheduled.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      *
      */
     class AdapterOperation implements Runnable {
-        
+
         private final Integer m_nodeId;
         private final AdapterOperationType m_type;
         private AdapterOperationSchedule m_schedule;
         private final Date m_createTime;
-        
+
         public AdapterOperation(Integer nodeId, AdapterOperationType type, AdapterOperationSchedule schedule) {
             m_nodeId = nodeId;
             m_type = type;
             m_schedule = schedule;
             m_createTime = new Date();
         }
-        
+
         public Integer getNodeId() {
             return m_nodeId;
         }
-        
+
         public Date getCreateTime() {
             return m_createTime;
         }
-        
+
         public AdapterOperationType getType() {
             return m_type;
         }
-        
+
         public AdapterOperationSchedule getSchedule() {
             return m_schedule;
         }
-        
+
         ScheduledFuture<?> schedule(ScheduledExecutorService executor) {
             ScheduledFuture<?> future = executor.scheduleWithFixedDelay(this, m_schedule.m_initalDelay, m_schedule.m_interval, m_schedule.m_unit);
             return future;
         }
-        
+
         //TODO: Test this behavior with Unit Tests, for sure!
         @Override
         public boolean equals(Object that) {
             boolean equals = false;
-            
+
             if (this == that) {
                 equals = true;
             }
-            
+
             if (that == null) {
                 throw new IllegalArgumentException("the Operation Object passed is either null or of the wrong class");
             }
-            
+
             if (this.m_nodeId == ((AdapterOperation)that).getNodeId() &&
                 this.m_type == ((AdapterOperation)that).getType()) {
                 equals = true;
             }
             return equals;
         }
-        
+
         @Override
         public String toString() {
             return "Operation: "+m_type+" on Node: "+m_nodeId;
         }
-        
+
         @Override
         public void run() {
-            
+
             if (isNodeReady(m_nodeId)) {
                 processPendingOperationForNode(this);
             }
-            
-            
+
+
             if (isNodeReady(m_nodeId)) {
                 synchronized (m_executorService) {
                     processPendingOperationForNode(this);
@@ -282,32 +282,32 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
 
     /**
      * Simple class for handling the scheduling bits for an AdapterOperation
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      */
     static class AdapterOperationSchedule {
         long m_initalDelay;
         long m_interval;
         TimeUnit m_unit;
-        
+
         public AdapterOperationSchedule(long initalDelay, long interval, TimeUnit unit) {
             m_initalDelay = initalDelay;
             m_interval = interval;
             m_unit = unit;
         }
-        
+
         public AdapterOperationSchedule() {
             this(60, 60, TimeUnit.SECONDS);
         }
-        
+
         public long getInitalDelay() {
             return m_initalDelay;
         }
-        
+
         public long getInterval() {
             return m_interval;
         }
-        
+
         public TimeUnit getUnit() {
             return m_unit;
         }
@@ -317,7 +317,7 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
      * Since the operations are queued, we need a way of identifying type of provisioning action
      * happened to create the operation.  The adapters will need to know what is the appropriate
      * action to take.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      */
     static enum AdapterOperationType {
@@ -325,14 +325,14 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
         UPDATE(2, "Update"),
         DELETE(3, "Delete"),
         CONFIG_CHANGE(4, "Configuration Change");
-        
-        private static final Map<Integer, AdapterOperationType> m_idMap; 
+
+        private static final Map<Integer, AdapterOperationType> m_idMap;
         private static final List<Integer> m_ids;
 
-        
+
         private int m_id;
         private String m_label;
-        
+
         static {
             m_ids = new ArrayList<Integer>(values().length);
             m_idMap = new HashMap<Integer, AdapterOperationType>(values().length);
@@ -355,7 +355,7 @@ public abstract class SimpleQueuedProvisioningAdapter2 implements ProvisioningAd
         public String toString() {
             return m_label;
         }
-        
+
         public static AdapterOperationType get(int id) {
             if (m_idMap.containsKey(id)) {
                 return m_idMap.get(id);

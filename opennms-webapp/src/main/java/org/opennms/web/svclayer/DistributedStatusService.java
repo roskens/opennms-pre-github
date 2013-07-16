@@ -51,8 +51,8 @@ public interface DistributedStatusService {
      * @param errors a {@link org.springframework.validation.Errors} object.
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
-    public SimpleWebTable createStatusTable(DistributedStatusDetailsCommand command, Errors errors); 
-    
+    public SimpleWebTable createStatusTable(DistributedStatusDetailsCommand command, Errors errors);
+
     /**
      * <p>createFacilityStatusTable</p>
      *

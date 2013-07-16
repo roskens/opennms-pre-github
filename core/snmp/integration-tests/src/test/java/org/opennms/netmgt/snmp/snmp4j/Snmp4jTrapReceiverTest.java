@@ -85,13 +85,13 @@ public class Snmp4jTrapReceiverTest extends MockSnmpAgentTestCase implements Tra
      *
      * The sentence <code>snmp.getUSM().addUser(...)</code>, is the only requirement
      * in order to properly process SNMPv3 traps.
-     * 
+     *
      * This is related with the credentials that should be created for Trapd in order
      * to properly authenticate and/or decode SNMPv3 traps in OpenNMS.
-     * 
+     *
      * This is a user that should be configured (or should be used) by the external
      * devices to send SNMPv3 Traps to OpenNMS.
-     * 
+     *
      * The SNMPv3 users should be configured in trapd-configuration.xml
      */
     @Test

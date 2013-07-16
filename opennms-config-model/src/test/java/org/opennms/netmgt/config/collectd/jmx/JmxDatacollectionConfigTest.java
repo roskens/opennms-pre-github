@@ -37,7 +37,7 @@ import org.opennms.core.test.xml.XmlTest;
 
 /**
  * The Test Class for JmxDatacollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JmxDatacollectionConfigTest extends XmlTest<JmxDatacollectionConfig> {
@@ -80,7 +80,7 @@ public class JmxDatacollectionConfigTest extends XmlTest<JmxDatacollectionConfig
         m2.setAlias("EdenPeakUsgCmmttd");
         m2.setType("gauge");
         comp.addCompMember(m2);
-        
+
         final Mbean bean = new Mbean();
         bean.setName("JVM MemoryPool:Eden Space");
         bean.setObjectname("java.lang:type=MemoryPool,name=Eden Space");
@@ -98,7 +98,7 @@ public class JmxDatacollectionConfigTest extends XmlTest<JmxDatacollectionConfig
         collection.setName("default");
         collection.setRrd(rrd);
         collection.setMbeans(mbeans);
-        
+
         final JmxDatacollectionConfig config = new JmxDatacollectionConfig();
         config.setRrdRepository("/opt/opennms/share/rrd/snmp");
         config.addJmxCollection(collection);

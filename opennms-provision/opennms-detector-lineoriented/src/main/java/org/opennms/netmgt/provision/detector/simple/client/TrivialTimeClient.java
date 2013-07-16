@@ -44,7 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TrivialTimeClient implements Client<TrivialTimeRequest, TrivialTimeResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeClient.class);
     /**
      * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp

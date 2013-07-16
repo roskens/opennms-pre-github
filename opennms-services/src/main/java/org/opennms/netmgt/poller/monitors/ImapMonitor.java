@@ -145,7 +145,7 @@ final public class ImapMonitor extends AbstractServiceMonitor {
         // Process parameters
         //
 
-        
+
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
         // Retries
         //
@@ -174,7 +174,7 @@ final public class ImapMonitor extends AbstractServiceMonitor {
 
                 // We're connected, so upgrade status to unresponsive
                 serviceStatus = PollStatus.unresponsive();
-                
+
                 BufferedReader rdr = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
                 //
@@ -182,7 +182,7 @@ final public class ImapMonitor extends AbstractServiceMonitor {
                 // line for a valid return.
                 //
                 String banner = rdr.readLine();
-                
+
                 double responseTime = tracker.elapsedTimeInMillis();
 
 
@@ -215,7 +215,7 @@ final public class ImapMonitor extends AbstractServiceMonitor {
                 }
 
             } catch (NoRouteToHostException e) {
-            	
+
             	String reason = "No route to host exception for address: " + ipv4Addr;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);

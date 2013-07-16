@@ -53,13 +53,13 @@ public class ResourceReference implements Serializable {
 
     private Integer m_id;
     private String m_resourceId;
-    
+
     /**
      * <p>Constructor for ResourceReference.</p>
      */
     public ResourceReference() {
     }
-    
+
     /**
      * Unique identifier for resource reference.
      *
@@ -68,7 +68,7 @@ public class ResourceReference implements Serializable {
     @Id
     @Column(name="id")
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
@@ -90,7 +90,7 @@ public class ResourceReference implements Serializable {
     public String getResourceId() {
         return m_resourceId;
     }
-    
+
     /**
      * <p>setResourceId</p>
      *

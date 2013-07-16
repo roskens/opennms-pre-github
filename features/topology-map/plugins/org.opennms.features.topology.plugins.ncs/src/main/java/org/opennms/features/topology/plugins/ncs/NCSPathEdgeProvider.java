@@ -16,17 +16,17 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
 public class NCSPathEdgeProvider implements EdgeProvider {
-    
+
     private static final String HTML_TOOLTIP_TAG_OPEN = "<p>";
     private static final String HTML_TOOLTIP_TAG_END  = "</p>";
-    
+
     public static class NCSServicePathCriteria extends ArrayList<Edge> implements Criteria {
         private static final long serialVersionUID = 5833760704861282509L;
 
         public NCSServicePathCriteria(List<Edge> edges) {
             super(edges);
         }
-        
+
         @Override
         public ElementType getType() {
             return ElementType.EDGE;
@@ -36,9 +36,9 @@ public class NCSPathEdgeProvider implements EdgeProvider {
         public String getNamespace() {
             return "ncsPath";
         }
-        
+
     }
-    
+
     public static class NCSPathEdge extends AbstractEdge {
         private final String m_serviceName;
         private final String m_deviceA;

@@ -284,7 +284,7 @@ public class ConfigTesterTest {
     @Test
     /**
      * FIXME: Don't know why this is ignored.
-     * 
+     *
      * See GatewayGroupLoader for the code that we'd need to call in the ConfigTester.
      */
     public void testModemConfig() {
@@ -578,7 +578,7 @@ public class ConfigTesterTest {
     @Test
     /**
      * FIXME: Configuration code is not in its own class.
-     * 
+     *
      * It's embedded in XMPPNotificationManager's constructor.
      */
     public void testXmppConfiguration() {
@@ -598,7 +598,7 @@ public class ConfigTesterTest {
     private void testConfigFile(String file) {
         /*
          * Add to the tested list first, so if we get a test failure
-         * for a specific file test, we don't also make 
+         * for a specific file test, we don't also make
          * testCheckAllDaemonXmlConfigFilesTested fail.
          */
         m_filesTested.add(file);

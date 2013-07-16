@@ -51,9 +51,9 @@ import org.springframework.util.Assert;
  */
 public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     private static final GroupManagerCastorExceptionTranslator CASTOR_EXCEPTION_TRANSLATOR = new GroupManagerCastorExceptionTranslator();
-    
+
     private GroupManager m_groupManager;
-    
+
     /** {@inheritDoc} */
     @Override
     public void deleteGroup(String name) {
@@ -299,7 +299,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
             throw CASTOR_EXCEPTION_TRANSLATOR.translate("checking to see if user '" + user + "' has role '" + role + "'", e);
         }
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */
@@ -325,7 +325,7 @@ public class GroupManagerGroupDao implements GroupDao, InitializingBean {
     public void setGroupManager(GroupManager groupManager) {
         m_groupManager = groupManager;
     }
-    
+
     public static class GroupManagerCastorExceptionTranslator extends MarshallingExceptionTranslator {
         public DataAccessException translate(String task, Throwable e) {
             return new ConfigObjectRetrievalFailureException("General error while " + task + ": " + e, e);

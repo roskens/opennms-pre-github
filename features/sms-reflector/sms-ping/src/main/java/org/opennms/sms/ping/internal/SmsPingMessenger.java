@@ -51,13 +51,13 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, OnmsInboundMessageNotification, InitializingBean {
-    
+
     Logger log = LoggerFactory.getLogger(getClass());
-    
+
     private SmsService m_smsService;
-    
+
     private Queue<PingReply> m_replyQueue;
-    
+
     /**
      * <p>setSmsService</p>
      *
@@ -66,7 +66,7 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
     public void setSmsService(SmsService smsService) {
         m_smsService = smsService;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -76,7 +76,7 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_smsService, "the smsService property must be set");
     }
-    
+
     /**
      * <p>sendRequest</p>
      *
@@ -98,14 +98,14 @@ public class SmsPingMessenger implements Messenger<PingRequest, PingReply>, Onms
         debugf("SmsMessenger.start");
         m_replyQueue = replyQueue;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
     	long receiveTime = System.currentTimeMillis();
-    	
+
         debugf("SmsMessenger.processInboundMessage");
-        
+
         if (m_replyQueue != null) {
             m_replyQueue.add(new PingReply(msg, receiveTime));
         }

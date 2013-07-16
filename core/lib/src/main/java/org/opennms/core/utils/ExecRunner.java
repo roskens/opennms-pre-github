@@ -3,10 +3,10 @@
  *
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
- * 
+ *
  * This file is a derivative work, containing both original code, included code,
  * and modified code that was published under the GNU General Public License.
- * 
+ *
  * Original code for this file Copyright (C) 2002 Scott McCrory.
  * All rights reserved.
  *
@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -419,7 +419,7 @@ public class ExecRunner {
     /**
      * We override the <code>readObject</code> method here to prevent
      * deserialization of our class for security reasons.
-     * 
+     *
      * @param in
      *            java.io.ObjectInputStream
      * @throws IOException
@@ -447,7 +447,7 @@ public class ExecRunner {
     /**
      * We override the <code>writeObject</code> method here to prevent
      * serialization of our class for security reasons.
-     * 
+     *
      * @param out
      *            java.io.ObjectOutputStream
      * @throws IOException

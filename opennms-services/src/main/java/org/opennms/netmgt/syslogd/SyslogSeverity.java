@@ -51,11 +51,11 @@ public enum SyslogSeverity {
         m_name = (name().substring(0, 1) + name().substring(1).toLowerCase()).intern();
         m_description = description.intern();
     }
-    
+
     public int getSeverityNumber() {
         return m_severity;
     }
-    
+
     public String getDescription() {
         return m_description;
     }
@@ -66,7 +66,7 @@ public enum SyslogSeverity {
         }
         return (facility.getFacilityNumber() & SyslogFacility.MASK) | m_severity;
     }
-    
+
     @Override
     public String toString() {
         return m_name;
@@ -79,7 +79,7 @@ public enum SyslogSeverity {
         }
         return severities[severity];
     }
-    
+
     public static SyslogSeverity getSeverityForCode(final int code) {
         return getSeverity(code & MASK);
     }

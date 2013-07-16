@@ -46,64 +46,64 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public class Pager extends Composite {
-    
+
     private class PageControl extends Composite {
-        
+
         Label m_label;
         int m_direction;
-        
+
         PageControl(String text, int direction) {
             m_label = new Label(text);
             m_label.addStyleName(direction > 0 ? "pagerRight" : "pagerLeft");
             m_direction = direction;
-            
+
             m_label.addClickHandler(new ClickHandler() {
 
                 @Override
                 public void onClick(ClickEvent sender) {
                     adjustPage(m_direction);
-                    
+
                 }
-                
+
             });
             initWidget(m_label);
         }
 
 
     }
-    
+
 
     private DockPanel m_panel = new DockPanel();
     private Label m_label = new Label();
     private Pageable m_pageable;
-    
+
     /**
      * <p>Constructor for Pager.</p>
      *
      * @param pageable a {@link org.opennms.dashboard.client.Pageable} object.
      */
     public Pager(Pageable pageable) {
-        
+
         m_pageable = pageable;
         m_panel.addStyleName("pager");
         m_panel.add(createLeftPageControl(), DockPanel.WEST);
         m_label.addStyleName("pagerText");
         m_panel.add(m_label, DockPanel.CENTER);
         m_panel.add(createRightPageControl(), DockPanel.EAST);
-        
+
         initWidget(m_panel);
-        
+
         updateLabel();
     }
-    
+
     private void updateLabel() {
         int current = m_pageable.getCurrentElement();
         int pageSize = m_pageable.getPageSize();
         int total = m_pageable.getElementCount();
-        
+
         int first = current+1;
         int last = Math.min(current+pageSize, total);
-                
+
         m_label.setText(first+" to "+last+" of "+total);
 
     }
@@ -115,14 +115,14 @@ public class Pager extends Composite {
     private Widget createLeftPageControl() {
         return new PageControl("<<", -1);
     }
-    
+
     private int getPageSize() {
         return Math.max(1, m_pageable.getPageSize());
     }
-    
+
     /**
      * This index is the maximum index that can be set paged on page size.
-     * 
+     *
      * So for a 5 item page with 7 total elements then the max index is 5
      * with will show the last two items on the last page (maxIndex must be a multiple of page size)
      *
@@ -130,7 +130,7 @@ public class Pager extends Composite {
      * @return
      */
     private int getMaxIndex() {
-        
+
         int pages = m_pageable.getElementCount() / getPageSize();
         int extras = m_pageable.getElementCount() % getPageSize();
 
@@ -141,9 +141,9 @@ public class Pager extends Composite {
         }
 
     }
-    
+
     private void adjustPage(int direction) {
-        
+
         int adjustment = direction * getPageSize();
         int maxIndex = getMaxIndex();
 

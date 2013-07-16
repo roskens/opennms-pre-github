@@ -62,16 +62,16 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * @version $Id: $
  */
 public class DefaultForeignSourceService implements ForeignSourceService, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultForeignSourceService.class);
-    
+
     @Autowired
     private ServiceRegistry m_serviceRegistry;
-    
+
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_deployedForeignSourceRepository;
-    
+
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
@@ -95,7 +95,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     public void setPendingForeignSourceRepository(ForeignSourceRepository repo) {
         m_pendingForeignSourceRepository = repo;
     }
-    
+
     /**
      * <p>getAllForeignSources</p>
      *
@@ -159,7 +159,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         ForeignSource fs = getForeignSource(foreignSourceName);
         PropertyPath path = new PropertyPath(pathToAdd);
         Object obj = path.getValue(fs);
-        
+
         try {
             MethodUtils.invokeMethod(obj, "addParameter", new Object[] { "key", "value" });
         } catch (NoSuchMethodException e) {
@@ -179,14 +179,14 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
     public ForeignSource deletePath(String foreignSourceName, String pathToDelete) {
         ForeignSource fs = getForeignSource(foreignSourceName);
         PropertyPath path = new PropertyPath(pathToDelete);
-        
+
         Object objToDelete = path.getValue(fs);
         Object parentObject = path.getParent() == null ? fs : path.getParent().getValue(fs);
-        
+
         String propName = path.getPropertyName();
         String methodSuffix = Character.toUpperCase(propName.charAt(0))+propName.substring(1);
         String methodName = "delete"+methodSuffix;
-        
+
         try {
             MethodUtils.invokeMethod(parentObject, methodName, new Object[] { objToDelete });
         } catch (NoSuchMethodException e) {
@@ -226,7 +226,7 @@ public class DefaultForeignSourceService implements ForeignSourceService, Initia
         m_pendingForeignSourceRepository.save(fs);
         return fs;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ForeignSource addPolicyToForeignSource(String foreignSource, String name) {

@@ -40,7 +40,7 @@ import org.opennms.netmgt.model.OnmsSecretAttribute;
  * likely be replaced by or refactored into the new ResourceDao.
  */
 public interface AttributeSecretDao {
-	
+
 	/**
 	 * <p>getAttributesForNode</p>
 	 *

@@ -225,7 +225,7 @@ public class WmiManager {
 
 		return false;
 	}
-	
+
 	/**
 	 * <p>isValidOpType</p>
 	 *
@@ -265,7 +265,7 @@ public class WmiManager {
 		m_WmiClient = client;
 		m_WmiClient.connect(m_Domain, m_Username, m_Password);
 	}
-	
+
 	/**
 	 * <p>close</p>
 	 *
@@ -306,7 +306,7 @@ public class WmiManager {
     public WmiResult performExecQuery(final WmiParams params) throws WmiException {
         final ArrayList<Object> wmiObjects = new ArrayList<Object>();
         final OnmsWbemObjectSet wos = m_WmiClient.performExecQuery(params.getWql());
-        
+
         for(int i=0; i<wos.count(); i++) {
             wmiObjects.add(wos.get(i).getWmiProperties().getByName(params.getWmiObject()).getWmiValue());
         }
@@ -366,7 +366,7 @@ public class WmiManager {
 		for (int i = 0; i < total; i++) {
 		    final Object wmiObj = wmiObjects.get(i);
 		    final WmiMgrOperation op = WmiMgrOperation.valueOf(params.getCompareOperation());
-			
+
 			if(op.compareString(wmiObj, (String)params.getCompareValue())) {
 				matches++;
 			}

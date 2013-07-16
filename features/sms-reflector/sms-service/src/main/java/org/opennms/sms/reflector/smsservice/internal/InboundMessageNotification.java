@@ -49,7 +49,7 @@ import org.springframework.context.ApplicationContext;
 public class InboundMessageNotification implements OnmsInboundMessageNotification {
 
     private static Logger log = LoggerFactory.getLogger(InboundMessageNotification.class);
-    
+
 	private Collection<OnmsInboundMessageNotification> m_listenerList;
     // private SmsService m_smsService;
 	@SuppressWarnings("unused")
@@ -70,7 +70,7 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
 	    // m_smsService = smsService;
 	    m_listenerList = listeners;
 	}
-	
+
 	/**
 	 * <p>getListeners</p>
 	 *
@@ -83,7 +83,7 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
 	/** {@inheritDoc} */
     @Override
 	public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
-	    
+
 	    deleteMessage(gateway, msg);
 
 	    for(OnmsInboundMessageNotification listener : getListeners()){
@@ -109,7 +109,7 @@ public class InboundMessageNotification implements OnmsInboundMessageNotificatio
             log.error("Unable to delete message {}", msg, e);
         }
     }
-	
+
 	/**
 	 * <p>setListenerList</p>
 	 *

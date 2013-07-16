@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
 /**
  * Class SystemDefDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class SystemDefDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,27 +88,27 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";
         _xmlName = "systemDef";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _name
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDef target = (SystemDef) object;
                 return target.getName();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -129,7 +129,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _name
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -141,19 +141,19 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
         //-- _systemDefChoice
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.SystemDefChoice.class, "_systemDefChoice", "-error-if-this-is-used-", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDef target = (SystemDef) object;
                 return target.getSystemDefChoice();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -178,7 +178,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _systemDefChoice
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -189,14 +189,14 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.IpList.class, "_ipList", "ipList", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDef target = (SystemDef) object;
                 return target.getIpList();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -218,7 +218,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _ipList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -228,14 +228,14 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.datacollection.Collect.class, "_collect", "collect", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDef target = (SystemDef) object;
                 return target.getCollect();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -258,7 +258,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _collect
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -274,7 +274,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -285,7 +285,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -297,7 +297,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -308,7 +308,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -319,7 +319,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -331,7 +331,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -343,7 +343,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -354,7 +354,7 @@ import org.opennms.netmgt.config.datacollection.SystemDef;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

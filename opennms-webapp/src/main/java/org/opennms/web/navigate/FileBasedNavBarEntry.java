@@ -40,8 +40,8 @@ import javax.servlet.http.HttpServletRequest;
  * @since 1.8.1
  */
 public class FileBasedNavBarEntry extends LocationBasedNavBarEntry {
-    private File m_file; 
-    
+    private File m_file;
+
     /** {@inheritDoc} */
     @Override
     public DisplayStatus evaluate(HttpServletRequest request) {

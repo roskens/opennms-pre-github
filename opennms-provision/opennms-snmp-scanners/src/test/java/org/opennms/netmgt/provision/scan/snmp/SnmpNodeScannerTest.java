@@ -53,10 +53,10 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitSnmpAgent(host=SnmpNodeScannerTest.TEST_IP_ADDRESS, resource="classpath:org/opennms/netmgt/provision/scan/snmp/snmpTestData1.properties")
 public class SnmpNodeScannerTest implements InitializingBean {
 	static final String TEST_IP_ADDRESS = "172.20.1.205";
-	
+
 	@Autowired
 	private SnmpPeerFactory m_snmpPeerFactory;
-    
+
     /**
      * @author brozow
      *
@@ -127,7 +127,7 @@ public class SnmpNodeScannerTest implements InitializingBean {
 
     private InetAddress m_agentAddress;
     private MockScanContext m_scanContext;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -149,7 +149,7 @@ public class SnmpNodeScannerTest implements InitializingBean {
         scanner.setSnmpAgentConfigFactory(m_snmpPeerFactory);
         scanner.init();
         scanner.scan(m_scanContext);
-        
+
         assertEquals(".1.3.6.1.4.1.8072.3.2.255", m_scanContext.getSysObjectId());
         assertEquals("brozow.local", m_scanContext.getSysName());
         assertEquals("Darwin brozow.local 7.9.0 Darwin Kernel Version 7.9.0: Wed Mar 30 20:11:17 PST 2005; root:xnu/xnu-517.12.7.obj~1/RELEASE_PPC  Power Macintosh", m_scanContext.getSysDescription());

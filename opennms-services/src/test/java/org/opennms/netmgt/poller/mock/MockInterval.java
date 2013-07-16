@@ -36,11 +36,11 @@ import org.opennms.netmgt.scheduler.Timer;
 
 
 public class MockInterval implements ScheduleInterval {
-    
+
     private Timer m_timer;
     private long m_interval;
     private List<Suspension> m_suspensions = new LinkedList<Suspension>();
-    
+
     /**
      * @param l
      */
@@ -48,7 +48,7 @@ public class MockInterval implements ScheduleInterval {
         m_timer = timer;
         m_interval = interval;
     }
-    
+
     @Override
     public long getInterval() {
         return m_interval;
@@ -57,7 +57,7 @@ public class MockInterval implements ScheduleInterval {
     public void setInterval(long interval) {
         m_interval = interval;
     }
-    
+
     class Suspension {
         private long m_start;
         private long m_end;
@@ -66,7 +66,7 @@ public class MockInterval implements ScheduleInterval {
             m_start = start;
             m_end = end;
         }
-        
+
         public boolean contains(long time) {
             return m_start <= time && time <= m_end;
         }
@@ -75,7 +75,7 @@ public class MockInterval implements ScheduleInterval {
     public void addSuspension(long start, long end) {
         m_suspensions.add(new Suspension(start, end));
     }
-    
+
     @Override
     public boolean scheduledSuspension() {
         for (Suspension suspension : m_suspensions) {

@@ -32,21 +32,21 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class FilterChain {
-    
+
     private List<Filter> m_filters = new LinkedList<Filter>();
-    
+
     public void addFilter(Filter filter) {
         m_filters.add(filter);
     }
-    
+
     public String filterEvent(NNMEvent event) {
         for(Filter filter : m_filters) {
             if (filter.matches(event)) {
                 return filter.getAction();
             }
         }
-        
+
         return Filter.DISCARD;
     }
-    
+
 }

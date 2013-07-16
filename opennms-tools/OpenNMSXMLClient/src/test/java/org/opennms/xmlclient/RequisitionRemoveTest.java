@@ -1,13 +1,13 @@
-/* 
+/*
  * Licensed to the OpenNMS Group Inc. under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The OpenNMS Group Inc. licences this file to You under the Apache License, 
+ * The OpenNMS Group Inc. licences this file to You under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,14 +28,14 @@ public class RequisitionRemoveTest {
 	public void requisitionRemoveTest(){
 		ClientPropertiesLoader clientProps = new ClientPropertiesLoader();
 		clientProps.setPropertiesFilename("onmsxmlclient.properties");
-		
+
 		OpenNmsXmlClient onmsClient = new OpenNmsXmlClient();
-		
+
 		onmsClient.setOpennmsUrl(clientProps.getOpennmsUrl());
 		onmsClient.setPassword(clientProps.getPassword());
 		onmsClient.setUsername(clientProps.getUsername());
 		String foreign_source = clientProps.getForeign_source();// "imported:TestForeignSource1";
-		
+
 		// Remove a requisition with the given foreign source.
 		assertTrue (onmsClient.requisitionRemove(foreign_source, false));
 	}
@@ -48,8 +48,8 @@ public class RequisitionRemoveTest {
                     If the optional argument "deployed" is specified, it
                     will remove the already-imported foreign source
                     configuration.
-                    
-                    
+
+
 //NOTE: http://stackoverflow.com/questions/1051004/how-to-send-put-delete-http-request-in-http urlconnection-looks-like-not-workin
 http://stackoverflow.com/questions/1051004/how-to-send-put-delete
 To perform an HTTP PUT:
@@ -73,6 +73,6 @@ httpCon.setRequestProperty(
 httpCon.setRequestMethod("DELETE");
 httpCon.connect();
 
-               
+
 
  */

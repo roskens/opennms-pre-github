@@ -93,7 +93,7 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name=FilterManager.AUTH_FILTER_NAME, condition="exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsNode extends OnmsEntity implements Serializable,
         Comparable<OnmsNode> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsNode.class);
 
 
@@ -143,9 +143,9 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
     /** nullable persistent field */
     private Date m_lastCapsdPoll;
-    
+
     private String m_foreignSource;
-    
+
     private String m_foreignId;
 
     /** persistent field */
@@ -169,7 +169,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     private Set<OnmsCategory> m_categories = new LinkedHashSet<OnmsCategory>();
 
 	private PathElement m_pathElement;
-	
+
     /**
      * <p>Constructor for OnmsNode.</p>
      */
@@ -192,7 +192,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     	this(distPoller);
     	setLabel(label);
     }
-    
+
     /**
      * Unique identifier for node.
      *
@@ -206,7 +206,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>getNodeId</p>
      *
@@ -535,7 +535,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setLastCapsdPoll(Date lastcapsdpoll) {
         m_lastCapsdPoll = lastcapsdpoll;
     }
-    
+
     /**
      * <p>getForeignId</p>
      *
@@ -575,7 +575,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setForeignSource(String foreignSource) {
         m_foreignSource = foreignSource;
     }
-    
+
     /**
      * Distributed Poller responsible for this node
      *
@@ -596,7 +596,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setDistPoller(org.opennms.netmgt.model.OnmsDistPoller distpoller) {
         m_distPoller = distpoller;
     }
-    
+
     /**
      * The assert record associated with this node
      *
@@ -615,7 +615,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setAssetRecord(OnmsAssetRecord asset) {
         m_assetRecord = asset;
     }
-    
+
     /**
      * <p>getPathElement</p>
      *
@@ -630,7 +630,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public PathElement getPathElement() {
     	return m_pathElement;
     }
-    
+
     /**
      * <p>setPathElement</p>
      *
@@ -661,7 +661,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setIpInterfaces(Set<OnmsIpInterface> ipinterfaces) {
         m_ipInterfaces = ipinterfaces;
     }
-    
+
     /**
      * <p>addIpInterface</p>
      *
@@ -692,7 +692,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setSnmpInterfaces(Set<OnmsSnmpInterface> snmpinterfaces) {
         m_snmpInterfaces = snmpinterfaces;
     }
-    
+
     /**
      * The ARP interfaces with this node as a source
      *
@@ -711,7 +711,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setArpInterfacesBySource(Set<OnmsArpInterface> arpInterfaces) {
         m_arpInterfacesBySource = arpInterfaces;
     }
-    
+
     /**
      * @param iface a {@link org.opennms.netmgt.model.OnmsArpInterface} object.
      */
@@ -739,7 +739,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setArpInterfaces(Set<OnmsArpInterface> arpInterfaces) {
         m_arpInterfaces = arpInterfaces;
     }
-    
+
     /**
      * <p>addArpInterface</p>
      *
@@ -765,7 +765,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public Set<OnmsCategory> getCategories() {
         return m_categories;
     }
-    
+
     /**
      * <p>setCategories</p>
      *
@@ -774,7 +774,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void setCategories(Set<OnmsCategory> categories) {
         m_categories = categories;
     }
-    
+
     /**
      * <p>addCategory</p>
      *
@@ -784,7 +784,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public boolean addCategory(OnmsCategory category) {
         return getCategories().add(category);
     }
-    
+
     /**
      * <p>removeCategory</p>
      *
@@ -794,7 +794,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public boolean removeCategory(OnmsCategory category) {
         return getCategories().remove(category);
     }
-    
+
     /**
      * <p>hasCategory</p>
      *
@@ -837,15 +837,15 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     @Override
 	public void visit(EntityVisitor visitor) {
 		visitor.visitNode(this);
-		
+
 		for (OnmsIpInterface iface : getIpInterfaces()) {
 			iface.visit(visitor);
 		}
-		
+
 		for (OnmsSnmpInterface snmpIface : getSnmpInterfaces()) {
 			snmpIface.visit(visitor);
 		}
-		
+
 		visitor.visitNodeComplete(this);
 	}
 
@@ -893,7 +893,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
     /**
      * <p>getIpInterfaceByIpAddress</p>
-     * 
+     *
      * @param ipAddress a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
@@ -942,7 +942,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 
     /**
      * <p>getPrimaryInterface</p>
-     * 
+     *
      * This function should be kept similar to {@link IpInterfaceDao#findPrimaryInterfaceByNodeId()}.
      *
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
@@ -1011,7 +1011,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
 		for(OnmsIpInterface iface : getIpInterfaces()) {
 			if (iface.getMonitoredServiceByServiceType(svcName) != null) {
 				return iface;
-			}	
+			}
 		}
 		return null;
 	}
@@ -1023,14 +1023,14 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      */
     @Transient
     public OnmsIpInterface getCriticalInterface() {
-    	
+
     	OnmsIpInterface critIface = getPrimaryInterface();
     	if (critIface != null) {
     		return critIface;
     	}
-    	
+
     	return getInterfaceWithService("ICMP");
-    	
+
     }
 
     /**
@@ -1042,19 +1042,19 @@ public class OnmsNode extends OnmsEntity implements Serializable,
         if (hasNewValue(scannedNode.getSysContact(), getSysContact())) {
         	setSysContact(scannedNode.getSysContact());
         }
-       
+
         if (hasNewValue(scannedNode.getSysDescription(), getSysDescription())) {
         	setSysDescription(scannedNode.getSysDescription());
         }
-       
+
         if (hasNewValue(scannedNode.getSysLocation(), getSysLocation())) {
         	setSysLocation(scannedNode.getSysLocation());
         }
-       
+
         if (hasNewValue(scannedNode.getSysName(), getSysName())) {
         	setSysName(scannedNode.getSysName());
         }
-       
+
         if (hasNewValue(scannedNode.getSysObjectId(), getSysObjectId())) {
         	setSysObjectId(scannedNode.getSysObjectId());
         }
@@ -1088,36 +1088,36 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             // Update the node label value
             setLabel(scannedNode.getLabel());
         }
-    
+
         if (hasNewValue(scannedNode.getForeignSource(), getForeignSource())) {
             setForeignSource(scannedNode.getForeignSource());
         }
-    
+
         if (hasNewValue(scannedNode.getForeignId(), getForeignId())) {
             setForeignId(scannedNode.getForeignId());
         }
-        
+
         if (hasNewValue(scannedNode.getLabelSource(), getLabelSource())) {
             setLabelSource(scannedNode.getLabelSource());
         }
-        
+
         if (hasNewValue(scannedNode.getNetBiosName(), getNetBiosDomain())) {
             setNetBiosName(scannedNode.getNetBiosDomain());
         }
-        
+
         if (hasNewValue(scannedNode.getNetBiosDomain(), getNetBiosDomain())) {
             setNetBiosDomain(scannedNode.getNetBiosDomain());
         }
-        
+
         if (hasNewValue(scannedNode.getOperatingSystem(), getOperatingSystem())) {
             setOperatingSystem(scannedNode.getOperatingSystem());
         }
-        
+
         mergeAgentAttributes(scannedNode);
-        
+
         mergeAdditionalCategories(scannedNode);
     }
-    
+
     /**
      * <p>mergeAdditionalCategories</p>
      *
@@ -1134,14 +1134,14 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @param deleteMissing a boolean.
      */
     public void mergeSnmpInterfaces(OnmsNode scannedNode, boolean deleteMissing) {
-        
+
         // we need to skip this step if there is an indication that snmp data collection failed
         if (scannedNode.getSnmpInterfaces().size() == 0) {
             // we assume here that snmp collection failed and we don't update the snmp data
             return;
         }
-        
-        
+
+
         // Build map of ifIndices to scanned SnmpInterfaces
         Map<Integer, OnmsSnmpInterface> scannedInterfaceMap = new HashMap<Integer, OnmsSnmpInterface>();
         for (OnmsSnmpInterface snmpIface : scannedNode.getSnmpInterfaces()) {
@@ -1149,13 +1149,13 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                 scannedInterfaceMap.put(snmpIface.getIfIndex(), snmpIface);
             }
         }
-        
+
         // for each interface on existing node...
         for (Iterator<OnmsSnmpInterface> it = getSnmpInterfaces().iterator(); it.hasNext();) {
-    
+
             OnmsSnmpInterface iface = it.next();
             OnmsSnmpInterface imported = scannedInterfaceMap.get(iface.getIfIndex());
-    
+
             // remove it since there is no corresponding scanned interface
             if (imported == null) {
                 if (deleteMissing) {
@@ -1167,9 +1167,9 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                 iface.mergeSnmpInterfaceAttributes(imported);
                 scannedInterfaceMap.remove(iface.getIfIndex());
             }
-        
+
         }
-        
+
         // for any scanned interface that was not found on the node add it the database
         for (OnmsSnmpInterface snmpIface : scannedInterfaceMap.values()) {
             addSnmpInterface(snmpIface);
@@ -1194,16 +1194,16 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             }else if(iface.isPrimary()){
                 iface.setIsSnmpPrimary(PrimaryType.SECONDARY);
             }
-            
+
             ipInterfaceMap.put(iface.getIpAddress(), iface);
         }
-    
+
         // for each ipInterface from the database
         for (Iterator<OnmsIpInterface> it = getIpInterfaces().iterator(); it.hasNext();) {
             OnmsIpInterface dbIface = it.next();
             // find the corresponding scanned Interface
             OnmsIpInterface scannedIface = ipInterfaceMap.get(dbIface.getIpAddress());
-            
+
             // if we can't find a scanned interface remove from the database
             if (scannedIface == null) {
                 if (deleteMissing) {
@@ -1212,7 +1212,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                 }else if(scannedPrimaryIf != null && dbIface.isPrimary()){
                    dbIface.setIsSnmpPrimary(PrimaryType.SECONDARY);
                    oldPrimaryInterface = dbIface;
-                   
+
                 }
             } else {
                 // else update the database with scanned info
@@ -1222,12 +1222,12 @@ public class OnmsNode extends OnmsEntity implements Serializable,
                     oldPrimaryInterface = dbIface;
                 }
             }
-            
+
             // now remove the interface from the map to indicate it was processed
             ipInterfaceMap.remove(dbIface.getIpAddress());
         }
-        
-        
+
+
         // for any remaining scanned interfaces, add them to the database
         for (OnmsIpInterface iface : ipInterfaceMap.values()) {
             addIpInterface(iface);
@@ -1236,14 +1236,14 @@ public class OnmsNode extends OnmsEntity implements Serializable,
             }
             iface.visit(new AddEventVisitor(eventForwarder));
         }
-        
+
         if(oldPrimaryInterface != null && scannedPrimaryIf != null){
             EventBuilder bldr = new EventBuilder(EventConstants.PRIMARY_SNMP_INTERFACE_CHANGED_EVENT_UEI, "Provisiond");
             bldr.setIpInterface(scannedPrimaryIf);
             bldr.setService("SNMP");
             bldr.addParam(EventConstants.PARM_OLD_PRIMARY_SNMP_ADDRESS, InetAddressUtils.str(oldPrimaryInterface.getIpAddress()));
             bldr.addParam(EventConstants.PARM_NEW_PRIMARY_SNMP_ADDRESS, InetAddressUtils.str(scannedPrimaryIf.getIpAddress()));
-            
+
             eventForwarder.sendNow(bldr.getEvent());
         }
     }
@@ -1267,7 +1267,7 @@ public class OnmsNode extends OnmsEntity implements Serializable,
     public void mergeAssets(OnmsNode scannedNode) {
         this.getAssetRecord().mergeRecord(scannedNode.getAssetRecord());
     }
-    
+
     /**
      * Simply replaces the current asset record with the new record
      *
@@ -1287,15 +1287,15 @@ public class OnmsNode extends OnmsEntity implements Serializable,
      * @param deleteMissing a boolean.
      */
     public void mergeNode(OnmsNode scannedNode, EventForwarder eventForwarder, boolean deleteMissing) {
-        
+
         mergeNodeAttributes(scannedNode, eventForwarder);
-    
+
     	mergeSnmpInterfaces(scannedNode, deleteMissing);
-        
+
         mergeIpInterfaces(scannedNode, eventForwarder, deleteMissing);
-        
+
     	mergeCategorySet(scannedNode);
-    	
+
     	mergeAssets(scannedNode);
     }
 

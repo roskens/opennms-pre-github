@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class PollableNetwork extends PollableContainer {
-    
+
     private final PollContext m_context;
 
     /**
@@ -58,7 +58,7 @@ public class PollableNetwork extends PollableContainer {
         super(null, Scope.NETWORK);
         m_context = context;
     }
-    
+
     /**
      * <p>getContext</p>
      *
@@ -81,7 +81,7 @@ public class PollableNetwork extends PollableContainer {
         addMember(node);
         return node;
     }
-    
+
     /**
      * <p>createNodeIfNecessary</p>
      *
@@ -96,7 +96,7 @@ public class PollableNetwork extends PollableContainer {
         }
 
     }
-    
+
     /**
      * <p>getNode</p>
      *
@@ -115,7 +115,7 @@ public class PollableNetwork extends PollableContainer {
     public int getNodeCount() {
         return getMemberCount();
     }
-    
+
     /**
      * <p>createInterface</p>
      *
@@ -172,7 +172,7 @@ public class PollableNetwork extends PollableContainer {
         PollableNode node = (PollableNode)member;
         return Integer.valueOf(node.getNodeId());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void visitThis(PollableVisitor v) {
@@ -192,18 +192,18 @@ public class PollableNetwork extends PollableContainer {
     public Event createDownEvent(Date date) {
         throw new UnsupportedOperationException("No down event for the network");
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     public Event createUpEvent(Date date) {
         throw new UnsupportedOperationException("No up event for the network");
     }
-    
+
     static class DumpVisitor extends PollableVisitorAdaptor {
-        
+
         private static final Logger LOG = LoggerFactory.getLogger(PollableNetwork.DumpVisitor.class);
-        
+
         @Override
         public void visitNode(PollableNode pNode) {
             LOG.debug(" nodeid={} status={}", pNode.getNodeId(), getStatusString(pNode));
@@ -218,7 +218,7 @@ public class PollableNetwork extends PollableContainer {
         public void visitService(PollableService pSvc) {
             LOG.debug("         service={} status={}", pSvc.getSvcName(), getStatusString(pSvc));
         }
-        
+
         private String getStatusString(PollableElement e) {
             PollStatus status = e.getStatus();
             boolean up = status.isUp();
@@ -230,7 +230,7 @@ public class PollableNetwork extends PollableContainer {
     }
 
 
-    
+
     /**
      * <p>dump</p>
      */
@@ -238,7 +238,7 @@ public class PollableNetwork extends PollableContainer {
 
         DumpVisitor dumper = new DumpVisitor();
         visit(dumper);
-        
+
     }
 
     /**
@@ -297,7 +297,7 @@ public class PollableNetwork extends PollableContainer {
     public PollableElement getLockRoot() {
         return this;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void obtainTreeLock(long timeout) {
@@ -323,7 +323,7 @@ public class PollableNetwork extends PollableContainer {
         return null;
 
     }
-    
+
     /**
      * <p>propagateInitialCause</p>
      */
@@ -331,6 +331,6 @@ public class PollableNetwork extends PollableContainer {
         extrapolateCause();
         inheritParentalCause();
     }
-    
-    
+
+
 }

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.netmgt.provision.service;
 
@@ -60,7 +60,7 @@ final class NodeInfoScan implements RunInBatch {
     private boolean restoreCategories = false;
     private final ProvisionService m_provisionService;
     private final ScanProgress m_scanProgress;
-    
+
 
     NodeInfoScan(OnmsNode node, InetAddress agentAddress, String foreignSource, ScanProgress scanProgress, SnmpAgentConfigFactory agentConfigFactory, ProvisionService provisionService, Integer nodeId){
         m_node = node;
@@ -75,7 +75,7 @@ final class NodeInfoScan implements RunInBatch {
     /** {@inheritDoc} */
     @Override
     public void run(BatchTask phase) {
-        
+
         phase.getBuilder().addSequence(
                 new RunInBatch() {
                     @Override
@@ -118,7 +118,7 @@ final class NodeInfoScan implements RunInBatch {
     private OnmsNode getNode() {
         return m_node;
     }
-    
+
     private Integer getNodeId() {
         return m_nodeId;
     }
@@ -131,28 +131,28 @@ final class NodeInfoScan implements RunInBatch {
         Assert.notNull(getAgentConfigFactory(), "agentConfigFactory was not injected");
         InetAddress primaryAddress = getAgentAddress();
         SnmpAgentConfig agentConfig = getAgentConfig(primaryAddress);
-        
+
         SystemGroup systemGroup = new SystemGroup(primaryAddress);
-        
+
         SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "systemGroup", systemGroup);
         walker.start();
-        
+
         try {
-        
+
             walker.waitFor();
-        
+
             if (walker.timedOut()) {
                 abort("Aborting node scan : Agent timed out while scanning the system table");
             }
             else if (walker.failed()) {
                 abort("Aborting node scan : Agent failed while scanning the system table: " + walker.getErrorMessage());
             } else {
-        
+
                 systemGroup.updateSnmpDataForNode(getNode());
             }
-        
+
             List<NodePolicy> nodePolicies = getProvisionService().getNodePoliciesForForeignSource(getEffectiveForeignSource());
-            
+
             OnmsNode node = null;
             if (isAborted()) {
                 if (getNodeId() != null && nodePolicies.size() > 0) {
@@ -169,7 +169,7 @@ final class NodeInfoScan implements RunInBatch {
                     node = policy.apply(node);
                 }
             }
-        
+
             if (node == null) {
                 restoreCategories = false;
                 if (!isAborted()) {
@@ -179,7 +179,7 @@ final class NodeInfoScan implements RunInBatch {
             } else {
                 setNode(node);
             }
-        
+
         } catch (final InterruptedException e) {
             abort("Aborting node scan : Scan thread interrupted!");
             Thread.currentThread().interrupt();

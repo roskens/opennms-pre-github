@@ -50,7 +50,7 @@ public class IntegerSqlType implements SQLType<Integer> {
     public String formatValue(Integer value) {
         return value.toString();
     }
-    
+
     /**
      * <p>getValueAsString</p>
      *

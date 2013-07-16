@@ -44,8 +44,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class SNMP Collection Form.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class SnmpCollectionForm extends Form implements ClickListener {

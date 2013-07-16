@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
  */
 public class CorrelationEngineFactoryBean implements FactoryBean<List<CorrelationEngine>>, InitializingBean, ApplicationContextAware {
     private static final Logger LOG = LoggerFactory.getLogger(CorrelationEngineFactoryBean.class);
-    
+
 	private List<CorrelationEngine> m_correlationEngines = Collections.emptyList();
     private ApplicationContext m_applicationContext;
 
@@ -86,7 +86,7 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
     public boolean isSingleton() {
         return true;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -95,14 +95,14 @@ public class CorrelationEngineFactoryBean implements FactoryBean<List<Correlatio
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.state(m_applicationContext != null, "applicationContext must be set");
-        
+
         final Map<String, CorrelationEngine> beans = getBeans();
-        
+
         // put them in a set to deduplicate the beans
         LOG.debug("Deduplicating engines");
-        final HashSet<CorrelationEngine> engineSet = new HashSet<CorrelationEngine>(beans.values()); 
+        final HashSet<CorrelationEngine> engineSet = new HashSet<CorrelationEngine>(beans.values());
         m_correlationEngines = new LinkedList<CorrelationEngine>(engineSet);
-        
+
         LOG.debug("Found {} engines.", m_correlationEngines.size());
     }
 

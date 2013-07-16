@@ -43,38 +43,38 @@ import org.opennms.core.test.MockLogAppender;
 import org.springframework.remoting.RemoteAccessException;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class XmlRpcTest {
-    
+
     private WebServer m_webServer;
 
     @Before
     public void setUp() throws Exception {
-        
+
         MockLogAppender.setupLogging();
-        
+
         XmlRpcWebServerFactoryBean wsf = new XmlRpcWebServerFactoryBean();
         wsf.setPort(9192);
         wsf.setSecure(false);
         wsf.afterPropertiesSet();
-        
+
         m_webServer = (WebServer)wsf.getObject();
     }
-    
+
     @After
     public void tearDown() {
         m_webServer.shutdown();
-        
+
     }
 
     @Test
 	public void testXmlRpcProxyFactoryBeanAndServiceExporter() throws Throwable {
 		TestBean target = new TestBean("myname", 99);
-        
-        
+
+
 		final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
 		exporter.setServiceInterface(ITestBean.class);
 		exporter.setService(target);
@@ -98,8 +98,8 @@ public class XmlRpcTest {
     @Ignore("We're not set up for HTTPS for these tests.")
     public void testXmlRpcProxyFactoryBeanAndServiceExporterWithHttps() throws Throwable {
         TestBean target = new TestBean("myname", 99);
-        
-        
+
+
         final XmlRpcServiceExporter exporter = new XmlRpcServiceExporter();
         exporter.setServiceInterface(ITestBean.class);
         exporter.setService(target);
@@ -145,13 +145,13 @@ public class XmlRpcTest {
 			assertTrue(ex.getCause() instanceof IOException);
 		}
 	}
-    
+
     public static interface ITestBean {
         public String getName();
         public int getAge();
         public void setAge(int age);
     }
-    
+
      static class TestBean implements ITestBean {
         private String name;
         private int age;
@@ -160,17 +160,17 @@ public class XmlRpcTest {
             this.name = name;
             this.age = age;
         }
-        
+
         @Override
         public String getName() {
             return this.name;
         }
-        
+
         @Override
         public int getAge() {
             return this.age;
         }
-        
+
         @Override
         public void setAge(int age) {
             this.age = age;

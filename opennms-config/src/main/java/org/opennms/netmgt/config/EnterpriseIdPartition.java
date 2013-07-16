@@ -20,5 +20,5 @@ public class EnterpriseIdPartition implements Partition {
 	public String group(org.opennms.netmgt.xml.event.Event matchingEvent) {
 		return m_field.get(matchingEvent);
 	}
-	
+
 }

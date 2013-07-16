@@ -83,9 +83,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class RTCManager extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(RTCManager.class);
-    
+
     private Logger log() { return LOG; }
 
     /**
@@ -201,7 +201,7 @@ public final class RTCManager extends AbstractServiceDaemon {
 
         /**
          * Constructor for the timer task
-         * 
+         *
          * @param id
          *            the timertask ID
          */
@@ -211,7 +211,7 @@ public final class RTCManager extends AbstractServiceDaemon {
 
         /**
          * Return the ID
-         * 
+         *
          * @return the ID
          */
         public String getID() {
@@ -230,18 +230,18 @@ public final class RTCManager extends AbstractServiceDaemon {
 
     /**
      * Handles a completed task.
-     * 
+     *
      * <P>
      * If the low threshold or high threshold timers expire, send category data
      * out and set both timer(task)s to null so they can be reset when the next
      * event comes in
      * <P>
-     * 
+     *
      * <P>
      * If the user refresh timer is the one that expired, send category data out
      * and reset the user timer(task)
      * <P>
-     * 
+     *
      * @param tt
      *            the task that is finishing.
      */

@@ -52,7 +52,7 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
         super.update(node);
         updateSubObjects(node);
     }
-    
+
     @Override
     public void save(final OnmsNode node) {
         if (node == null) return;
@@ -232,7 +232,7 @@ public class MockNodeDao extends AbstractMockDao<OnmsNode, Integer> implements N
         final List<OnmsIpInterface> ifaces = new ArrayList<OnmsIpInterface>();
         final OnmsNode node = get(nodeId);
         if (node == null) return ifaces;
-        
+
         for (final OnmsIpInterface iface : node.getIpInterfaces()) {
             if (iface.isPrimary()) continue;
             if (iface.getIpLastCapsdPoll() == null

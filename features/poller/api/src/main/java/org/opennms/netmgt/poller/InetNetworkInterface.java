@@ -57,7 +57,7 @@ import java.util.Map;
  */
 public class InetNetworkInterface implements NetworkInterface<InetAddress>, Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6076361991057260210L;
 
@@ -70,7 +70,7 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
      * Interface address
      */
     protected InetAddress m_address;
-    
+
     /**
      * <p>Constructor for InetNetworkInterface.</p>
      *
@@ -105,7 +105,7 @@ public class InetNetworkInterface implements NetworkInterface<InetAddress>, Seri
     public InetAddress getAddress() {
         return m_address;
     }
-    
+
     /**
      * <p>getInetAddress</p>
      *

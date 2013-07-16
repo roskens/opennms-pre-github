@@ -37,7 +37,7 @@ import org.opennms.core.test.xml.XmlTest;
 
 /**
  * The Test Class for Mbean.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MbeanTest extends XmlTest<Mbean> {

@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name="detector")
 public class DetectorWrapper extends PluginConfig {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6956786613597618966L;
 
@@ -49,7 +49,7 @@ public class DetectorWrapper extends PluginConfig {
      */
     public DetectorWrapper() {
     }
-    
+
     /**
      * <p>Constructor for DetectorWrapper.</p>
      *

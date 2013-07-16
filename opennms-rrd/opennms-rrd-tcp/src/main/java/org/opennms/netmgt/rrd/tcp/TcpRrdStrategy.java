@@ -47,12 +47,12 @@ import org.opennms.netmgt.rrd.RrdStrategy;
  * The receiver of this strategy is not defined in any way. This is just a fire
  * and forget strategy. There is no way to read data back into opennms.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  */
 public class TcpRrdStrategy implements RrdStrategy<TcpRrdStrategy.RrdDefinition,TcpRrdStrategy.RrdOutputSocketWithFilename> {
-	
+
     public static class RrdDefinition {
         private final String m_directory, m_rrdName;
         public RrdDefinition(

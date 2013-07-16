@@ -44,7 +44,7 @@ import org.springframework.webflow.mvc.servlet.AbstractFlowHandler;
  * @since 1.8.1
  */
 public class BatchReportFlowHander extends AbstractFlowHandler {
-    
+
     /** {@inheritDoc} */
     @Override
     public String handleExecutionOutcome(FlowExecutionOutcome outcome, HttpServletRequest request,

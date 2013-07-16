@@ -51,28 +51,28 @@ public abstract class SurveillanceSet implements IsSerializable {
      * @return a boolean.
      */
     public boolean isDefault() { return false; }
-    
+
     /**
      * <p>visit</p>
      *
      * @param v a {@link org.opennms.dashboard.client.Visitor} object.
      */
     public abstract void visit(Visitor v);
-    
+
     public static class DefaultSurveillanceSet extends SurveillanceSet {
-        
+
         @Override
         public boolean isDefault() { return true; }
-        
+
         @Override
         public String toString() {
             return "All Surveillance Nodes";
         }
-        
+
         @Override
         public void visit(Visitor v) {
             v.visitAll();
         }
     }
-    
+
 }

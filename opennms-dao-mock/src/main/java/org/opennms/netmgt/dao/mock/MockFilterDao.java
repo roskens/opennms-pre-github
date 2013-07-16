@@ -76,7 +76,7 @@ public class MockFilterDao implements FilterDao, InitializingBean {
     @Override
     public void validateRule(final String rule) throws FilterParseException {
         throw new UnsupportedOperationException("Not yet implemented!");
-        
+
     }
 
     public IpInterfaceDao getIpInterfaceDao() {

@@ -31,7 +31,7 @@ package org.opennms.netmgt.provision.support.nrpe;
 public class NrpeException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 215200184476127614L;
 
@@ -41,7 +41,7 @@ public class NrpeException extends Exception {
     public NrpeException() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for NrpeException.</p>
 	 *

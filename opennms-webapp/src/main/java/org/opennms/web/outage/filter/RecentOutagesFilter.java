@@ -47,14 +47,14 @@ import org.opennms.web.filter.SQLType;
 public class RecentOutagesFilter extends OneArgFilter<Date> {
     /** Constant <code>TYPE="recent"</code> */
     public static final String TYPE = "recent";
-    
+
     /**
      * <p>Constructor for RecentOutagesFilter.</p>
      */
     public RecentOutagesFilter() {
         this(yesterday());
     }
-    
+
     /**
      * <p>Constructor for RecentOutagesFilter.</p>
      *
@@ -63,7 +63,7 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
     public RecentOutagesFilter(Date since) {
         super(TYPE, SQLType.DATE, "OUTAGES.IFREGAINEDSERVICE", "ifRegainedService", since);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
@@ -81,7 +81,7 @@ public class RecentOutagesFilter extends OneArgFilter<Date> {
     public String getTextDescription() {
         return "outage since " + getValueAsString(getValue());
     }
-    
+
     /**
      * <p>yesterday</p>
      *

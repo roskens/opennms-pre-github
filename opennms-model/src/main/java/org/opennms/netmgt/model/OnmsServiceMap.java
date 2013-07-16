@@ -39,10 +39,10 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsServiceMap extends OnmsEntity implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6550492519192174055L;
-    
+
     private Integer m_id;
 
     /** identifier field */
@@ -67,7 +67,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
      */
     public OnmsServiceMap() {
     }
-    
+
 
 /**
  * <p>getId</p>
@@ -79,7 +79,7 @@ public class OnmsServiceMap extends OnmsEntity implements Serializable {
 public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -143,7 +143,7 @@ public Integer getId() {
 	public void visit(EntityVisitor visitor) {
 		// TODO Auto-generated method stub
 		throw new RuntimeException("visitor method not implemented");
-		
+
 	}
 
 }

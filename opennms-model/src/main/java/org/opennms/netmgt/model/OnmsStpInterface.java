@@ -75,10 +75,10 @@ public class OnmsStpInterface {
 
     @Embeddable
     public static class StpPortStatus implements Comparable<StpPortStatus>, Serializable {
-        
-    	
+
+
     	/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 7669097061380115150L;
 
@@ -89,13 +89,13 @@ public class OnmsStpInterface {
     	public static final int STP_PORT_STATUS_LEARNING = 4;
     	public static final int STP_PORT_STATUS_FORWARDING = 5;
     	public static final int STP_PORT_STATUS_BROKEN = 6;
-    	
+
         private static final Integer[] s_order = {0,1,2,3,4,5,6};
 
         private Integer m_stpPortStatus;
 
         private static final Map<Integer, String> stpPortStatusMap = new HashMap<Integer, String>();
-        
+
         static {
             stpPortStatusMap.put(0, "Unknown" );
             stpPortStatusMap.put(1, "disabled" );
@@ -184,7 +184,7 @@ public class OnmsStpInterface {
                     return stpPortStatusMap.get( code);
             return null;
         }
-        
+
         public static StpPortStatus UNKNOWN = new StpPortStatus(STP_PORT_STATUS_UNKNOWN);
         public static StpPortStatus DISABLED = new StpPortStatus(STP_PORT_STATUS_DISABLED);
         public static StpPortStatus BLOCKING = new StpPortStatus(STP_PORT_STATUS_BLOCKING);
@@ -228,11 +228,11 @@ public class OnmsStpInterface {
     @Column(nullable=false)
     @XmlTransient
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
-    
+
     @XmlID
     @XmlAttribute(name="id")
     @Transient
@@ -243,7 +243,7 @@ public class OnmsStpInterface {
     public void setId(final Integer id) {
         m_id = id;
     }
-    
+
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -362,7 +362,7 @@ public class OnmsStpInterface {
 	public Integer getVlan() {
 		return m_vlan;
 	}
-	
+
 	public void setVlan(final Integer vlan) {
 		m_vlan = vlan;
 	}

@@ -46,10 +46,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class WmiDetector extends SyncAbstractDetector {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(WmiDetector.class);
-    
+
     private final static String PROTOCOL_NAME = "WMI";
 
     private final static String DEFAULT_WMI_CLASS = "Win32_ComputerSystem";
@@ -76,12 +76,12 @@ public class WmiDetector extends SyncAbstractDetector {
     private String m_password;
 
     private String m_domain;
-    
+
     public WmiDetector() {
         super(PROTOCOL_NAME, 0);
     }
-    
-    
+
+
     @Override
     protected void onInit() {
         setMatchType(getMatchType() != null ? getMatchType() : DEFAULT_WMI_MATCH_TYPE);
@@ -127,7 +127,7 @@ public class WmiDetector extends SyncAbstractDetector {
         return (result != null && result.getResultCode() != WmiResult.RES_STATE_CRIT
                 && result.getResultCode() != WmiResult.RES_STATE_UNKNOWN);
     }
-    
+
     private WmiResult isServer(InetAddress host, String user, String pass,
             String domain, String matchType, int retries, int timeout,
             WmiParams params) {
@@ -176,7 +176,7 @@ public class WmiDetector extends SyncAbstractDetector {
     @Override
     public void dispose() {
         // TODO Auto-generated method stub
-        
+
     }
 
 

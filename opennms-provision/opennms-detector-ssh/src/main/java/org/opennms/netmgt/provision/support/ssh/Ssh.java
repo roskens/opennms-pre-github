@@ -48,7 +48,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Ssh extends AbstractPoll {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Ssh.class);
     // SSH port is 22
     /** Constant <code>DEFAULT_PORT=22</code> */
@@ -65,7 +65,7 @@ public class Ssh extends AbstractPoll {
     protected String m_serverBanner = "";
     protected InetAddress m_address;
     protected Throwable m_error;
-    
+
     private Socket m_socket = null;
     private BufferedReader m_reader = null;
     private OutputStream m_writer = null;
@@ -74,7 +74,7 @@ public class Ssh extends AbstractPoll {
      * <p>Constructor for Ssh.</p>
      */
     public Ssh() { }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -83,7 +83,7 @@ public class Ssh extends AbstractPoll {
     public Ssh(InetAddress address) {
         setAddress(address);
     }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -94,7 +94,7 @@ public class Ssh extends AbstractPoll {
         setAddress(address);
         setPort(port);
     }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -116,7 +116,7 @@ public class Ssh extends AbstractPoll {
     public void setAddress(InetAddress address) {
         m_address = address;
     }
- 
+
     /**
      * Get the address to connect to.
      *
@@ -134,7 +134,7 @@ public class Ssh extends AbstractPoll {
     public void setPort(int port) {
         m_port = port;
     }
-    
+
     /**
      * Get the port to connect to.
      *
@@ -146,7 +146,7 @@ public class Ssh extends AbstractPoll {
         }
         return m_port;
     }
-    
+
     /**
      * Set the username to connect as.
      *
@@ -155,7 +155,7 @@ public class Ssh extends AbstractPoll {
     public void setUsername(String username) {
         m_username = username;
     }
-    
+
     /**
      * Get the username to connect as.
      *
@@ -164,7 +164,7 @@ public class Ssh extends AbstractPoll {
     public String getUsername() {
         return m_username;
     }
-    
+
     /**
      * Set the password to connect with.
      *
@@ -200,7 +200,7 @@ public class Ssh extends AbstractPoll {
     public String getClientBanner() {
         return m_banner;
     }
-    
+
     /**
      * Get the SSH server version banner.
      *
@@ -218,7 +218,7 @@ public class Ssh extends AbstractPoll {
     protected void setError(Throwable t) {
         m_error = t;
     }
-    
+
     /**
      * <p>getError</p>
      *
@@ -245,7 +245,7 @@ public class Ssh extends AbstractPoll {
             m_socket.setTcpNoDelay(true);
             m_socket.connect(new InetSocketAddress(getAddress(), getPort()), getTimeout());
             m_socket.setSoTimeout(getTimeout());
-            
+
             m_reader = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
             m_writer = m_socket.getOutputStream();
 
@@ -306,7 +306,7 @@ public class Ssh extends AbstractPoll {
         double responseTime = tracker.elapsedTimeInMillis();
 
         PollStatus ps = PollStatus.unavailable();
-        
+
         String errorMessage = "";
         if (getError() != null) {
             errorMessage = getError().getMessage();
@@ -328,7 +328,7 @@ public class Ssh extends AbstractPoll {
         } else if (errorMessage.matches("^.*java.io.IOException.*$")) {
             ps = PollStatus.unavailable("I/O exception");
         }
-        
+
         return ps;
     }
 }

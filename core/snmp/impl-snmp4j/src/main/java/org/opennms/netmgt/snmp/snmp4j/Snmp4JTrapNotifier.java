@@ -55,7 +55,7 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 
 public class Snmp4JTrapNotifier implements CommandResponder {
-	
+
 	public static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JTrapNotifier.class);
 
     private TrapProcessorFactory m_trapProcessorFactory;
@@ -65,7 +65,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         m_listener = listener;
         m_trapProcessorFactory = processorFactory;
     }
-    
+
     public static class Snmp4JV1TrapInformation extends TrapInformation {
 
         private PDUv1 m_pdu;
@@ -99,7 +99,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         protected TrapIdentity getTrapIdentity() {
             return new TrapIdentity(SnmpObjId.get(m_pdu.getEnterprise().getValue()), m_pdu.getGenericTrap(), m_pdu.getSpecificTrap());
         }
-        
+
         protected VariableBinding getVarBindAt(int i) {
             return m_pdu.get(i);
         }
@@ -117,7 +117,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
          * The received PDU
          */
         private PDU m_pdu;
-        
+
         /**
          * The name of the PDU's type
          */
@@ -152,7 +152,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         /**
          * Constructs a new trap information instance that contains the sending
          * agent, the community string, and the Protocol Data Unit.
-         * 
+         *
          * @param agent
          *            The sending agent's address
          * @param community
@@ -160,7 +160,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
          * @param pdu
          *            The encapsulated Protocol Data Unit.
          * @param trapProcessor The trap processor used to process the trap data
-         * 
+         *
          */
         public Snmp4JV2TrapInformation(InetAddress agent, String community, PDU pdu, TrapProcessor trapProcessor) {
             super(agent, community, trapProcessor);
@@ -175,12 +175,12 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         private PDU getPdu() {
             return m_pdu;
         }
-        
+
         @Override
         protected int getPduLength() {
             return getPdu().size();
         }
-        
+
         @Override
         protected long getTimeStamp() {
 
@@ -226,13 +226,13 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             if (pduType != PDU.TRAP && pduType != PDU.INFORM) {
                 throw new IllegalArgumentException("Received not SNMPv2 Trap|Inform from host " + getTrapAddress() + " PDU Type = " + PDU.getTypeString(getPdu().getType()));
             }
-            
+
             LOG.debug("V2 {} numVars or pdu length: {}", m_pduTypeString, getPduLength());
-            
+
             if (getPduLength() < 2) {
                 throw new IllegalArgumentException("V2 "+m_pduTypeString+" from " + getTrapAddress() + " IGNORED due to not having the required varbinds.  Have " + getPduLength() + ", needed at least 2");
             }
-            
+
             OID varBindName0 = getVarBindAt(0).getOid();
             OID varBindName1 = getVarBindAt(1).getOid();
 
@@ -249,7 +249,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
                 		);
                 varBindName0 = SNMP_SYSUPTIME_OID;
             }
-            
+
             /*
              * Confirm that the two required varbinds (sysUpTime and
              * snmpTrapOID) are present and in that order.
@@ -264,7 +264,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             if (i == 0) {
                 LOG.debug("Skipping processing of varbind {}: it is sysuptime and the first varbind, and is not processed as a parm per RFC2089", i);
             } else if (i == 1) {
-                LOG.debug("Skipping processing of varbind {}: it is the trap OID and the second varbind, and is not processed as a parm per RFC2089", i);				
+                LOG.debug("Skipping processing of varbind {}: it is the trap OID and the second varbind, and is not processed as a parm per RFC2089", i);
             } else {
                 SnmpObjId name = SnmpObjId.get(getVarBindAt(i).getOid().getValue());
                 SnmpValue value = new Snmp4JValue(getVarBindAt(i).getVariable());
@@ -272,14 +272,14 @@ public class Snmp4JTrapNotifier implements CommandResponder {
             }
         }
     }
-        
-    
+
+
 
     @Override
     public void processPdu(CommandResponderEvent e) {
     	PDU command = new PDU(e.getPDU());
         IpAddress addr = ((IpAddress)e.getPeerAddress());
-        
+
         if (command != null) {
         	if (command.getType() == PDU.INFORM) {
         		PDU response = new PDU(command);
@@ -304,7 +304,7 @@ public class Snmp4JTrapNotifier implements CommandResponder {
         		}
         	}
         }
-        
+
         if (e.getPDU() instanceof PDUv1) {
             m_listener.trapReceived(new Snmp4JV1TrapInformation(addr.getInetAddress(), new String(e.getSecurityName()), (PDUv1)e.getPDU(), m_trapProcessorFactory.createTrapProcessor()));
         } else {

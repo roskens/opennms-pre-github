@@ -63,7 +63,7 @@ public class AddNewGroupServlet extends HttpServlet {
     		throw new ServletException("AddNewGroupServlet: Error initialising group factory." + e);
     	}
     	GroupManager groupFactory = GroupFactory.getInstance();
-    	
+
         String groupName = request.getParameter("groupName");
         String groupComment = request.getParameter("groupComment");
         if (groupComment == null) {
@@ -76,7 +76,7 @@ public class AddNewGroupServlet extends HttpServlet {
         } catch (Throwable e) {
         	throw new ServletException("Can't determine if group " + groupName + " already exists in groups.xml.", e);
         }
-        
+
         if (hasGroup) {
         	RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/userGroupView/groups/newGroup.jsp?action=redo");
             dispatcher.forward(request, response);
@@ -87,12 +87,12 @@ public class AddNewGroupServlet extends HttpServlet {
 
         	HttpSession groupSession = request.getSession(false);
             groupSession.setAttribute("group.modifyGroup.jsp", newGroup);
-            
+
             // forward the request for proper display
             RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/userGroupView/groups/modifyGroup.jsp");
             dispatcher.forward(request, response);
         }
     }
 
-    
+
 }

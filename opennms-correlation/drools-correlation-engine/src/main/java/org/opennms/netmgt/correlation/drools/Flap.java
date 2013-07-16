@@ -45,7 +45,7 @@ public class Flap {
     Integer m_locationMonitor;
     boolean m_counted;
     Integer m_timerId;
-    
+
     /**
      * <p>Constructor for Flap.</p>
      *
@@ -64,7 +64,7 @@ public class Flap {
         m_startTime = new Date();
         m_counted = false;
     }
-    
+
     /**
      * <p>getEndTime</p>
      *
@@ -197,6 +197,6 @@ public class Flap {
     public void setTimerId(final Integer timerId) {
         m_timerId = timerId;
     }
-    
-    
+
+
 }

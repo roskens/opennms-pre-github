@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class RancidViewVcController implements Controller {
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *
@@ -71,7 +71,7 @@ public class RancidViewVcController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse arg1) throws Exception {
-       
+
         String node = request.getParameter("node");
         String iframelink = request.getParameter("viewvc");
         String group = request.getParameter("group");

@@ -198,7 +198,7 @@ public class LocationInfo implements IsSerializable, Serializable, Comparable<Lo
 	public Set<String> getTags() {
 		return m_tags;
 	}
-	
+
 	/**
 	 * <p>setTags</p>
 	 *

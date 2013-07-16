@@ -49,7 +49,7 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponse;
 public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 
     private List<SequenceResponseMatcher> m_matchers = Collections.synchronizedList(new ArrayList<SequenceResponseMatcher>());
-	
+
 	private MobileSequenceTransaction m_transaction;
 
 	/**
@@ -58,7 +58,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 	public MobileSequenceResponse() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for MobileSequenceResponse.</p>
 	 *
@@ -77,7 +77,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 	public MobileSequenceResponse(String gatewayId, String label) {
 		super(gatewayId, label);
 	}
-	
+
 	/**
 	 * <p>getMatchers</p>
 	 *
@@ -87,7 +87,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 	public List<SequenceResponseMatcher> getMatchers() {
 		return m_matchers;
 	}
-	
+
 	/**
 	 * <p>setMatchers</p>
 	 *
@@ -98,7 +98,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 		m_matchers.clear();
 		m_matchers.addAll(matchers);
 	}
-	
+
 	/**
 	 * <p>addMatcher</p>
 	 *
@@ -107,7 +107,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 	public void addMatcher(SequenceResponseMatcher matcher) {
 		m_matchers.add(matcher);
 	}
-	
+
     /**
      * <p>getEffectiveLabel</p>
      *
@@ -115,7 +115,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
      * @return a {@link java.lang.String} object.
      */
     public String getEffectiveLabel(MobileSequenceSession session) {
-        return getLabel() != null ? session.substitute(getLabel()) : getTransaction().getResponseLabel(session, this); 
+        return getLabel() != null ? session.substitute(getLabel()) : getTransaction().getResponseLabel(session, this);
     }
 
     /**
@@ -159,7 +159,7 @@ public abstract class MobileSequenceResponse extends MobileSequenceOperation {
 	 * @return a boolean.
 	 */
 	protected abstract boolean matchesResponseType(MobileMsgRequest request, MobileMsgResponse response);
-    
+
     private boolean matchesCriteria(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
 
         for (SequenceResponseMatcher m : getMatchers()) {

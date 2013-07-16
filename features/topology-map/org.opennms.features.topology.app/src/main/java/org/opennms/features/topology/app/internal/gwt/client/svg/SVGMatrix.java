@@ -31,9 +31,9 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class SVGMatrix extends JavaScriptObject {
-    
+
     protected SVGMatrix() {};
-    
+
     public final native SVGMatrix translate(double x, double y)/*-{
         return this.translate(x, y);
     }-*/;
@@ -49,23 +49,23 @@ public class SVGMatrix extends JavaScriptObject {
     public final native double getA() /*-{
         return this.a;
     }-*/;
-    
+
     public final native double getB() /*-{
         return this.b;
     }-*/;
-    
+
     public final native double getC() /*-{
         return this.c;
     }-*/;
-    
+
     public final native double getD() /*-{
         return this.d;
     }-*/;
-    
+
     public final native double getE() /*-{
         return this.e;
     }-*/;
-    
+
     public final native double getF() /*-{
         return this.f;
     }-*/;

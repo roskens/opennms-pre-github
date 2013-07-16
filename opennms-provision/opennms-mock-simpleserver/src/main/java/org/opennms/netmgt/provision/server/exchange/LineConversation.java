@@ -38,12 +38,12 @@ import java.util.Map;
  * @version $Id: $
  */
 public class LineConversation {
-    
+
     private String m_banner;
     private Map<String, String> m_responseMap = new HashMap<String, String>();
     private String m_closeRequest;
     private String m_closeResponse;
-    
+
     /**
      * <p>setBanner</p>
      *
@@ -52,7 +52,7 @@ public class LineConversation {
     public void setBanner(String banner) {
         m_banner = banner;
     }
-    
+
     /**
      * <p>getBanner</p>
      *
@@ -61,7 +61,7 @@ public class LineConversation {
     public String getBanner() {
         return m_banner;
     }
-    
+
     /**
      * <p>setExpectedClose</p>
      *
@@ -70,7 +70,7 @@ public class LineConversation {
     public void setExpectedClose(String closeRequest) {
         m_closeRequest = closeRequest;
     }
-    
+
     /**
      * <p>setExpectedClose</p>
      *
@@ -81,7 +81,7 @@ public class LineConversation {
         m_closeRequest = closeRequest;
         m_closeResponse = closeResponse;
     }
-    
+
     /**
      * <p>getExpectedClose</p>
      *
@@ -90,7 +90,7 @@ public class LineConversation {
     public String getExpectedClose() {
         return m_closeRequest;
     }
-    
+
     /**
      * <p>getExpectedCloseResponse</p>
      *
@@ -99,7 +99,7 @@ public class LineConversation {
     public String getExpectedCloseResponse() {
         return m_closeResponse;
     }
-    
+
     /**
      * <p>addRequestHandler</p>
      *
@@ -109,7 +109,7 @@ public class LineConversation {
     public void addRequestHandler(String request, String response){
         m_responseMap.put(request, response);
     }
-    
+
     /**
      * <p>getResponse</p>
      *

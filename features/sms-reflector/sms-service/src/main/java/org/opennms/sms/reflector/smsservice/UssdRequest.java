@@ -53,9 +53,9 @@ public class UssdRequest extends MobileMsgRequest {
     public UssdRequest(USSDRequest msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher responseMatcher) {
         super(timeout, retries, cb, responseMatcher);
         m_msg = msg;
-        
+
     }
-    
+
     /**
      * <p>getGatewayId</p>
      *
@@ -91,7 +91,7 @@ public class UssdRequest extends MobileMsgRequest {
         } else {
             return null;
         }
-        
+
     }
 
     /**

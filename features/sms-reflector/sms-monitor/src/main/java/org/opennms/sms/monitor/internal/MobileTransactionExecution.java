@@ -50,7 +50,7 @@ import org.opennms.sms.reflector.smsservice.MobileMsgResponseHandler;
  * @version $Id: $
  */
 public class MobileTransactionExecution {
-    
+
     /**
      * TransactionResponseHandler
      *
@@ -93,22 +93,22 @@ public class MobileTransactionExecution {
         public boolean handleResponse(MobileMsgRequest request, MobileMsgResponse response) {
             if (request != null) setSendTime(request.getSentTime());
             if (response != null) setReceiveTime(response.getReceiveTime());
-            
+
             synchronized (m_pendingResponses) {
                 // remove processing response
                 for(Iterator<MobileSequenceResponse> it = m_pendingResponses.iterator(); it.hasNext(); ) {
                     MobileSequenceResponse r = it.next();
                     if (r.matches(m_session, request, response)) {
-                        
+
                         r.processResponse(m_session, request, response);
-                        
+
                         it.remove();
                     }
                 }
 
             }
             m_cb.complete(response);
-            
+
             // return true only if all of the expected responses have been processed
             return !m_pendingResponses.isEmpty();
         }
@@ -118,7 +118,7 @@ public class MobileTransactionExecution {
             setError(t);
             m_cb.handleException(t);
         }
-        
+
         @Override
         public String toString() {
             return new ToStringBuilder(this)
@@ -131,9 +131,9 @@ public class MobileTransactionExecution {
     private MobileSequenceTransaction m_transaction;
     private Long m_sendTime;
     private Long m_receiveTime;
-    
+
     private Throwable m_error;
-    
+
 
     /**
      * <p>Constructor for MobileTransactionExecution.</p>
@@ -143,15 +143,15 @@ public class MobileTransactionExecution {
     public MobileTransactionExecution(MobileSequenceTransaction transaction) {
         m_transaction = transaction;
     }
-    
+
     private void setSendTime(Long sendTime) {
         m_sendTime = sendTime;
     }
-    
+
     private void setReceiveTime(Long receiveTime) {
         m_receiveTime = receiveTime;
     }
-    
+
     /**
      * <p>getLatency</p>
      *
@@ -188,7 +188,7 @@ public class MobileTransactionExecution {
     public MobileSequenceTransaction getTransaction() {
         return m_transaction;
     }
-    
+
     Callback<MobileMsgResponse> getCallback() {
         return new Callback<MobileMsgResponse>() {
             @Override
@@ -198,7 +198,7 @@ public class MobileTransactionExecution {
                     setReceiveTime(t.getReceiveTime());
                 }
             }
-        
+
             @Override
             public void handleException(Throwable t) {
                 setError(t);

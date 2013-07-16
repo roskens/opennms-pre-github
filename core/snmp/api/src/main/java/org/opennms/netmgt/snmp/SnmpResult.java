@@ -32,7 +32,7 @@ public class SnmpResult implements Comparable<SnmpResult> {
     private final SnmpObjId m_base;
     private final SnmpInstId m_instance;
     private final SnmpValue m_value;
-    
+
     public SnmpResult(SnmpObjId base, SnmpInstId instance, SnmpValue value) {
         m_base = base;
         m_instance = instance;
@@ -68,8 +68,8 @@ public class SnmpResult implements Comparable<SnmpResult> {
 	public int compareTo(SnmpResult other) {
 		return getAbsoluteInstance().compareTo(other.getAbsoluteInstance());
 	}
-    
-    
-    
+
+
+
 
 }

@@ -36,7 +36,7 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerService {
@@ -50,37 +50,37 @@ class InvokerService {
     private InvokerService(Service service) {
         setService(service);
     }
-    
+
     static List<InvokerService> createServiceList(Service[] services) {
         List<InvokerService> invokerServices = new ArrayList<InvokerService>(services.length);
-        
+
         for (Service service : services) {
             invokerServices.add(new InvokerService(service));
         }
-        
+
         return invokerServices;
     }
-    
+
     void setBadThrowable(Throwable badThrowable) {
         m_badThrowable = badThrowable;
     }
-    
+
     Throwable getBadThrowable() {
         return m_badThrowable;
     }
-    
+
     ObjectInstance getMbean() {
         return m_mbean;
     }
-    
+
     void setMbean(ObjectInstance mbean) {
         m_mbean = mbean;
     }
-    
+
     Service getService() {
         return m_service;
     }
-    
+
     private void setService(Service service) {
         m_service = service;
     }

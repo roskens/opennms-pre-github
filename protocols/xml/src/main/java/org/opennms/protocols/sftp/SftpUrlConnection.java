@@ -44,7 +44,7 @@ import com.jcraft.jsch.SftpException;
 /**
  * The class for managing SFTP URL Connection.
  * <p>The default connection timeout is 30 seconds.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SftpUrlConnection extends URLConnection {
@@ -53,7 +53,7 @@ public class SftpUrlConnection extends URLConnection {
     public static final int DEFAULT_TIMEOUT = 30000;
 
     /** The SSH session. */
-    private Session m_session; 
+    private Session m_session;
 
     /** The SFTP channel. */
     private ChannelSftp m_channel;

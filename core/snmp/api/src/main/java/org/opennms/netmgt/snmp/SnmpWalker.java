@@ -37,17 +37,17 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class SnmpWalker {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(SnmpWalker.class);
-    
+
     protected static abstract class WalkerPduBuilder extends PduBuilder {
         protected WalkerPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
-        
+
         abstract public void reset();
     }
-    
+
     private final String m_name;
     private final CollectionTracker m_tracker;
 
@@ -60,21 +60,21 @@ public abstract class SnmpWalker {
     private boolean m_error = false;
     private String m_errorMessage = "";
     private Throwable m_errorThrowable = null;
-    
+
     protected SnmpWalker(InetAddress address, String name, int maxVarsPerPdu, int maxRepititions, CollectionTracker tracker) {
         m_address = address;
         m_signal = new CountDownLatch(1);
-        
+
         m_name = name;
 
         m_tracker = tracker;
         m_tracker.setMaxRepetitions(maxRepititions);
-        
+
         m_maxVarsPerPdu = maxVarsPerPdu;
     }
 
     protected abstract WalkerPduBuilder createPduBuilder(int maxVarsPerPdu);
-    
+
     public void start() {
         m_pduBuilder = createPduBuilder(m_maxVarsPerPdu);
         try {
@@ -83,7 +83,7 @@ public abstract class SnmpWalker {
             handleFatalError(e);
         }
     }
-    
+
     public int getMaxVarsPerPdu() {
         return (m_pduBuilder == null ? m_maxVarsPerPdu : m_pduBuilder.getMaxVarsPerPdu());
     }
@@ -112,7 +112,7 @@ public abstract class SnmpWalker {
     public boolean failed() {
         return m_error;
     }
-    
+
     public boolean timedOut() {
         return m_tracker.timedOut();
     }
@@ -138,7 +138,7 @@ public abstract class SnmpWalker {
         m_tracker.setFailed(true);
         processError("Unexpected error occurred processing", e.toString(), e);
     }
-    
+
     protected void handleTimeout(String msg) {
         m_tracker.setTimedOut(true);
         processError("Timeout retrieving", msg, null);
@@ -150,7 +150,7 @@ public abstract class SnmpWalker {
         m_error = true;
         m_errorMessage = logMessage;
         m_errorThrowable = t;
-        
+
         finish();
     }
 
@@ -164,7 +164,7 @@ public abstract class SnmpWalker {
     }
 
     protected abstract void close() throws IOException;
-    
+
     public String getName() {
         return m_name;
     }
@@ -181,16 +181,16 @@ public abstract class SnmpWalker {
     public void waitFor() throws InterruptedException {
         m_signal.await();
     }
-    
+
     public void waitFor(long timeout) throws InterruptedException {
         m_signal.await(timeout, TimeUnit.MILLISECONDS);
     }
-    
+
     // processErrors returns true if we need to retry the request and false otherwise
     protected boolean processErrors(int errorStatus, int errorIndex) {
         return m_responseProcessor.processErrors(errorStatus, errorIndex);
     }
-    
+
     protected void processResponse(SnmpObjId receivedOid, SnmpValue val) {
         m_responseProcessor.processResponse(receivedOid, val);
     }

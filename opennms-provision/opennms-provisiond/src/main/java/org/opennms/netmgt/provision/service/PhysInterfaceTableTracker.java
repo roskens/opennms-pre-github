@@ -43,7 +43,7 @@ import org.opennms.netmgt.snmp.TableTracker;
  * @version $Id: $
  */
 public class PhysInterfaceTableTracker extends TableTracker {
-    
+
     /** Constant <code>IF_TABLE_ENTRY</code> */
     public static final SnmpObjId IF_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.2.2.1");
     /** Constant <code>IF_INDEX</code> */
@@ -64,8 +64,8 @@ public class PhysInterfaceTableTracker extends TableTracker {
     public static final SnmpObjId IF_OPER_STATUS = SnmpObjId.get(IF_TABLE_ENTRY, "8");
     /** Constant <code>IF_LAST_CHANGE</code> */
     public static final SnmpObjId IF_LAST_CHANGE = SnmpObjId.get(IF_TABLE_ENTRY, "9");
-    
-    
+
+
     /** Constant <code>IF_XTABLE_ENTRY</code> */
     public static final SnmpObjId IF_XTABLE_ENTRY = SnmpObjId.get( ".1.3.6.1.2.1.31.1.1.1");
     /** Constant <code>IF_NAME</code> */
@@ -88,7 +88,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
     public static final SnmpObjId IF_ALIAS = SnmpObjId.get(IF_XTABLE_ENTRY, "18");
     /** Constant <code>IF_COUNTER_DISCONTINUITY_TIME</code> */
     public static final SnmpObjId IF_COUNTER_DISCONTINUITY_TIME = SnmpObjId.get(IF_XTABLE_ENTRY, "19");
-    
+
     private static SnmpObjId[] s_tableColumns = new SnmpObjId[] {
         IF_INDEX,
         IF_DESCR,
@@ -103,13 +103,13 @@ public class PhysInterfaceTableTracker extends TableTracker {
         IF_ALIAS,
         IF_HIGH_SPEED
     };
-    
+
     class PhysicalInterfaceRow extends SnmpRowResult {
 
         public PhysicalInterfaceRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
         }
-        
+
         public Integer getIfIndex() {
         	final SnmpValue value = getValue(IF_INDEX);
             if (value != null) {
@@ -123,7 +123,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
             }
             return null;
         }
-        
+
         private Integer getIfType() {
             final SnmpValue value = getValue(IF_TYPE);
             return value == null ? null : value.toInt();
@@ -134,12 +134,12 @@ public class PhysInterfaceTableTracker extends TableTracker {
             final SnmpValue value = getValue(IF_SPEED);
             return value == null ? null : value.toLong();
         }
-        
+
         private Long getIfHighSpeed() {
             final SnmpValue value = getValue(IF_HIGH_SPEED);
             return value == null ? null : value.toLong();
         }
-        
+
         private Long getSpeed() {
             final Long highSpeed = getIfHighSpeed();
             return (highSpeed != null && highSpeed > 4294) ? (highSpeed*1000000L) : getIfSpeed();
@@ -169,12 +169,12 @@ public class PhysInterfaceTableTracker extends TableTracker {
             final SnmpValue value = getValue(IF_ADMIN_STATUS);
             return value == null ? null : value.toInt();
         }
-        
+
         private String getPhysAddr() {
             final SnmpValue value = getValue(IF_PHYS_ADDR);
             return value == null ? null : value.toHexString();
         }
-        
+
         public OnmsSnmpInterface createInterfaceFromRow() {
             final OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(null, getIfIndex());
             snmpIface.setIfAdminStatus(getIfAdminStatus());
@@ -189,7 +189,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
         }
 
     }
-    
+
     /**
      * <p>Constructor for PhysInterfaceTableTracker.</p>
      */
@@ -205,7 +205,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
     public PhysInterfaceTableTracker(final RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public SnmpRowResult createRowResult(final int columnCount, final SnmpInstId instance) {
@@ -224,7 +224,7 @@ public class PhysInterfaceTableTracker extends TableTracker {
      * @param row a {@link org.opennms.netmgt.provision.service.PhysInterfaceTableTracker.PhysicalInterfaceRow} object.
      */
     public void processPhysicalInterfaceRow(final PhysicalInterfaceRow row) {
-        
+
     }
 
 }

@@ -52,11 +52,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class AbstractSnmpScanner implements Scanner {
-    
+
     private String m_name = null;
     private SnmpAgentConfigFactory m_snmpAgentConfigFactory = null;
     private List<SnmpExchange> m_exchangeCollection = null;
-    
+
     /**
      * <p>Constructor for AbstractSnmpScanner.</p>
      *
@@ -66,7 +66,7 @@ public class AbstractSnmpScanner implements Scanner {
         m_name = name;
         m_exchangeCollection = new ArrayList<SnmpExchange>();
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -75,7 +75,7 @@ public class AbstractSnmpScanner implements Scanner {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>setSnmpAgentConfigFactory</p>
      *
@@ -95,9 +95,9 @@ public class AbstractSnmpScanner implements Scanner {
     public void init() {
         Assert.notNull(m_snmpAgentConfigFactory, "snmpAgentConfigFactory must be set");
 
-        
+
         onInit();
-        
+
     }
 
     /**
@@ -116,16 +116,16 @@ public class AbstractSnmpScanner implements Scanner {
         if (agentAddress == null) {
             return;
         }
-        
+
         SnmpAgentConfig agentConfig = m_snmpAgentConfigFactory.getAgentConfig(agentAddress);
-        
+
         SnmpWalker walker = SnmpUtils.createWalker(agentConfig, getName(), createCollectionTracker(context));
         walker.start();
-        
+
         walker.waitFor();
-        
-        
-        
+
+
+
     }
 
     /**
@@ -139,16 +139,16 @@ public class AbstractSnmpScanner implements Scanner {
         }
         return new AggregateTracker(trackers);
      }
-    
+
     public static interface Storer {
         public void storeResult(ScanContext scanContext, SnmpResult res);
     }
-    
+
     public interface SnmpExchange {
         public CollectionTracker createTracker(ScanContext context);
         public void andStoreIn(Storer storer);
     }
-    
+
     /**
      * <p>getSingleInstance</p>
      *
@@ -166,7 +166,7 @@ public class AbstractSnmpScanner implements Scanner {
                     protected void storeResult(SnmpResult res) {
                         m_storer.storeResult(scanContext, res);
                     }
-                    
+
                 };
             }
             @Override
@@ -174,11 +174,11 @@ public class AbstractSnmpScanner implements Scanner {
                 m_storer = storer;
             }
         };
-        
+
         m_exchangeCollection.add(exchange);
         return exchange;
     }
-    
+
 
 
 }

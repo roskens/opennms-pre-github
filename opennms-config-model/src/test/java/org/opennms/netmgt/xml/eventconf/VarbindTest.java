@@ -56,13 +56,13 @@ public class VarbindTest extends XmlTestNoCastor<Varbind> {
 				"<vbnumber>5</vbnumber>" +
 				"<vbvalue>0</vbvalue>" +
 				"</varbind>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 				{varbind1,
 					"<varbind textual-convention=\"MacAddress\">" +
 					"<vbnumber>5</vbnumber>" +
 					"<vbvalue>0</vbvalue>" +
 					"</varbind>",
-					"target/classes/xsds/eventconf.xsd" } 
+					"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

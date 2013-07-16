@@ -49,7 +49,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DefaultResourceListPresenter implements Presenter, DefaultResourceListView.Presenter<ResourceListItem> {
-    
+
     public interface SearchPopupDisplay {
         HasClickHandlers getSearchConfirmBtn();
         HasClickHandlers getCancelBtn();
@@ -61,7 +61,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         void hideSearchPopup();
         void setTargetWidget(Widget target);
     }
-    
+
     private DefaultResourceListView<ResourceListItem> m_view;
     private SearchPopupDisplay m_searchPopup;
     private List<ResourceListItem> m_dataList;
@@ -70,21 +70,21 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
     public DefaultResourceListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopup, JsArray<ResourceListItem> dataList, String baseUrl) {
         setView(view);
         getView().setPresenter(this);
-        
+
         initializeSearchPopup(searchPopup);
-        
+
         m_dataList = convertJsArrayToList(dataList);
         getView().setDataList(m_dataList);
-        
+
         setBaseUrl(baseUrl);
     }
-    
+
     private List<ResourceListItem> convertJsArrayToList(JsArray<ResourceListItem> resourceList) {
         List<ResourceListItem> data = new ArrayList<ResourceListItem>();
         for(int i = 0; i < resourceList.length(); i++) {
             data.add(resourceList.get(i));
         }
-        
+
         Collections.sort(data, new Comparator<ResourceListItem>() {
 
             @Override
@@ -94,7 +94,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         });
         return data;
     }
-    
+
     private void initializeSearchPopup(SearchPopupDisplay searchPopupView) {
         m_searchPopup = searchPopupView;
         m_searchPopup.setTargetWidget(getView().asWidget());
@@ -106,7 +106,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
                 getView().setDataList(filterList(m_searchPopup.getSearchText()));
             }
         });
-        
+
         m_searchPopup.getCancelBtn().addClickHandler(new ClickHandler() {
 
             @Override
@@ -114,9 +114,9 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
                 m_searchPopup.hideSearchPopup();
             }
         });
-        
+
         m_searchPopup.getTextBox().addKeyPressHandler(new KeyPressHandler() {
-            
+
             @Override
             public void onKeyPress(KeyPressEvent event) {
                 if(event.getCharCode() == KeyCodes.KEY_ENTER) {
@@ -126,7 +126,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
             }
         });
     }
-    
+
     private List<ResourceListItem> filterList(String searchText) {
         List<ResourceListItem> list = new ArrayList<ResourceListItem>();
         for(ResourceListItem item : m_dataList) {
@@ -136,7 +136,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         }
         return list;
     }
-    
+
     @Override
     public void go(HasWidgets container) {
         container.clear();
@@ -149,7 +149,7 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         url.append("graph/chooseresource.htm");
         url.append("?reports=all");
         url.append("&parentResourceId=" + getView().getSelectedResource().getId());
-        
+
         Location.assign(url.toString());
     }
 
@@ -174,6 +174,6 @@ public class DefaultResourceListPresenter implements Presenter, DefaultResourceL
         return m_baseUrl;
     }
 
-    
+
 
 }

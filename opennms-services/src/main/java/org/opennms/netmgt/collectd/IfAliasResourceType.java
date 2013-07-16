@@ -44,9 +44,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class IfAliasResourceType extends ResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfAliasResourceType.class);
-    
+
     private IfResourceType m_ifResourceType;
     private Map<Integer, AliasedResource> m_aliasedIfs = new HashMap<Integer, AliasedResource>();
     private ServiceParameters m_params;
@@ -80,20 +80,20 @@ public class IfAliasResourceType extends ResourceType {
         AliasedResource resource = (AliasedResource) m_aliasedIfs.get(key);
         if (resource == null) {
             IfInfo ifInfo = (IfInfo)m_ifResourceType.findResource(inst);
-            
+
             if(ifInfo == null) {
             	LOG.info("Not creating an aliased resource for ifInfo = null");
             } else {
                 LOG.info("Creating an aliased resource for {}", ifInfo);
-            
+
                 resource = new AliasedResource(this, m_params.getDomain(), ifInfo, m_params.getIfAliasComment(), ifAlias);
-            
+
                 m_aliasedIfs.put(key, resource);
             }
         }
         return resource;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public SnmpInstId[] getCollectionInstances() {

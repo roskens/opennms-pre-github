@@ -109,7 +109,7 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
             LOG.error("Unable to create entry '{}'", name, e);
             return;
         }
-        
+
         if (hasDisplayable(plugin)) {
             try {
                 createEntry(name);
@@ -123,7 +123,7 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
             formatter.write(plugin);
             formatter.end();
         }
-        
+
         byte[] buf = new byte[1024];
 
         for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
@@ -168,7 +168,7 @@ public class ZipSystemReportFormatter extends AbstractSystemReportFormatter impl
             LOG.warn("Unable to close last entry.", e);
         }
         IOUtils.closeQuietly(m_zipOutputStream);
-        
+
         InputStream is = null;
         try {
             byte[] buf = new byte[1024];

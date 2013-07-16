@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -45,7 +45,7 @@ import org.exolab.castor.xml.Unmarshaller;
 /**
  * Top-level element for the xmp-datacollection-config.xml
  *  configuration file.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -83,8 +83,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vXmpCollection
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -96,8 +96,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vXmpCollection
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -112,7 +112,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateXmpCollection.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -123,7 +123,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -132,20 +132,20 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof XmpDatacollectionConfig) {
-        
+
             XmpDatacollectionConfig temp = (XmpDatacollectionConfig)obj;
             if (this._rrdRepository != null) {
                 if (temp._rrdRepository == null) return false;
-                else if (!(this._rrdRepository.equals(temp._rrdRepository))) 
+                else if (!(this._rrdRepository.equals(temp._rrdRepository)))
                     return false;
             }
             else if (temp._rrdRepository != null)
                 return false;
             if (this._xmpCollectionList != null) {
                 if (temp._xmpCollectionList == null) return false;
-                else if (!(this._xmpCollectionList.equals(temp._xmpCollectionList))) 
+                else if (!(this._xmpCollectionList.equals(temp._xmpCollectionList)))
                     return false;
             }
             else if (temp._xmpCollectionList != null)
@@ -160,7 +160,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'rrdRepository' has the following description: full path to
      * the RRD repository for collected XMP
      *  data
-     * 
+     *
      * @return the value of field 'RrdRepository'.
      */
     public java.lang.String getRrdRepository(
@@ -170,7 +170,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getXmpCollection.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -185,7 +185,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._xmpCollectionList.size()) {
             throw new IndexOutOfBoundsException("getXmpCollection: Index value '" + index + "' not in range [0.." + (this._xmpCollectionList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.xmpDataCollection.XmpCollection) _xmpCollectionList.get(index);
     }
 
@@ -193,10 +193,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getXmpCollection.Returns the contents of the
      * collection in an Array.  <p>Note:  Just in case the
      * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call. 
+     * a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of
      * exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.xmpDataCollection.XmpCollection[] getXmpCollection(
@@ -209,7 +209,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getXmpCollectionCollection.Returns a reference to
      * '_xmpCollectionList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.xmpDataCollection.XmpCollection> getXmpCollectionCollection(
@@ -219,7 +219,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getXmpCollectionCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getXmpCollectionCount(
@@ -232,14 +232,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_rrdRepository != null) {
            result = 37 * result + _rrdRepository.hashCode();
@@ -247,13 +247,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_xmpCollectionList != null) {
            result = 37 * result + _xmpCollectionList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -268,7 +268,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateXmpCollection.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -278,8 +278,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -293,8 +293,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -318,7 +318,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeXmpCollection.
-     * 
+     *
      * @param vXmpCollection
      * @return true if the object was removed from the collection.
      */
@@ -330,7 +330,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeXmpCollectionAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -345,7 +345,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'rrdRepository' has the following description: full path to
      * the RRD repository for collected XMP
      *  data
-     * 
+     *
      * @param rrdRepository the value of field 'rrdRepository'.
      */
     public void setRrdRepository(
@@ -354,8 +354,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vXmpCollection
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -369,20 +369,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._xmpCollectionList.size()) {
             throw new IndexOutOfBoundsException("setXmpCollection: Index value '" + index + "' not in range [0.." + (this._xmpCollectionList.size() - 1) + "]");
         }
-        
+
         this._xmpCollectionList.set(index, vXmpCollection);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vXmpCollectionArray
      */
     public void setXmpCollection(
             final org.opennms.netmgt.config.xmpDataCollection.XmpCollection[] vXmpCollectionArray) {
         //-- copy array
         _xmpCollectionList.clear();
-        
+
         for (int i = 0; i < vXmpCollectionArray.length; i++) {
                 this._xmpCollectionList.add(vXmpCollectionArray[i]);
         }
@@ -391,14 +391,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_xmpCollectionList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vXmpCollectionList the Vector to copy.
      */
     public void setXmpCollection(
             final java.util.List<org.opennms.netmgt.config.xmpDataCollection.XmpCollection> vXmpCollectionList) {
         // copy vector
         this._xmpCollectionList.clear();
-        
+
         this._xmpCollectionList.addAll(vXmpCollectionList);
     }
 
@@ -406,7 +406,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_xmpCollectionList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param xmpCollectionList the Vector to set.
      */
     public void setXmpCollectionCollection(
@@ -416,7 +416,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -432,8 +432,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

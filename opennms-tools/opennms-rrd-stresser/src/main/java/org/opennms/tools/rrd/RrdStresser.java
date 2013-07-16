@@ -43,7 +43,7 @@ import org.opennms.netmgt.rrd.RrdStrategy;
 import org.opennms.netmgt.rrd.RrdUtils;
 
 public class RrdStresser {
-	
+
     static int currFileNum = 0;
 
     static int[] dataPosition = null;
@@ -60,7 +60,7 @@ public class RrdStresser {
 
     static final String[] RRA_LIST = System.getProperty("rras.list", "RRA:AVERAGE:0.5:1:8928,RRA:AVERAGE:0.5:12:8784,RRA:MIN:0.5:12:8784,RRA:MAX:0.5:12:8784").split(",");
 
-    //This is the number of updates that will be performed during a run of this tool 
+    //This is the number of updates that will be performed during a run of this tool
     static final int MAX_UPDATES = Integer.getInteger("stresstest.maxupdates", 1000).intValue();
 
     //Output interim statistics every 'stresstest.modulus' updates
@@ -107,7 +107,7 @@ public class RrdStresser {
     static RrdStrategy<Object,Object> rrd = null;
 
     /**
-     * 
+     *
      */
     private static synchronized void countUpdate() {
         if (updateCount == FILE_COUNT) {
@@ -119,7 +119,7 @@ public class RrdStresser {
     }
 
     /**
-     * 
+     *
      */
     private static void printStats() {
         Date now = new Date();
@@ -172,12 +172,12 @@ public class RrdStresser {
     }
 
     public static void main(final String[] args) throws Exception {
-    	
+
         String strategy = System.getProperty("org.opennms.rrd.strategyClass");
         if (strategy == null) {
             System.setProperty("org.opennms.rrd.strategyClass", "org.opennms.netmgt.rrd.jrobin.JRobinRrdStrategy");
         }
-    	
+
         printHeader();
         print("Starting demo at " + new Date() + " using " + System.getProperty("org.opennms.rrd.strategyClass"));
 
@@ -244,7 +244,7 @@ public class RrdStresser {
     }
 
     /**
-     * 
+     *
      */
     private static void printHeader() {
         System.out.println("********************************************************************");

@@ -77,7 +77,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiCollector.class);
 
 
@@ -104,7 +104,7 @@ public class WmiCollector implements ServiceCollector {
         loadAttributeTypeList(collection);
 
         // Create a new collection set.
-        final WmiCollectionSet collectionSet = new WmiCollectionSet(agent);        
+        final WmiCollectionSet collectionSet = new WmiCollectionSet(agent);
         collectionSet.setCollectionTimestamp(new Date());
 
         // Iterate through the WMI collection groups.
@@ -157,7 +157,7 @@ public class WmiCollector implements ServiceCollector {
 
 
                             for (final Attrib attrib : wpm.getAttrib()) {
-                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());                                
+                                final OnmsWbemProperty prop = obj.getWmiProperties().getByName(attrib.getWmiObject());
                                 final WmiCollectionAttributeType attribType = m_attribTypeList.get(attrib.getName());
                                 resource.setAttributeValue(attribType, prop.getWmiValue().toString());
                             }
@@ -225,7 +225,7 @@ public class WmiCollector implements ServiceCollector {
             LOG.warn("Error checking group ({}) availability.", wpm.getName(), e);
             // Set the group as unavailable.
             agentState.setGroupIsAvailable(wpm.getName(), false);
-            
+
             // And then continue on to check the next wpm entry.
             return false;
         } finally {

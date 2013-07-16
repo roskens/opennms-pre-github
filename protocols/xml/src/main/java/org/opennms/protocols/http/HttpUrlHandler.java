@@ -37,7 +37,7 @@ import org.opennms.protocols.xml.config.Request;
 
 /**
  * The class for handling HTTP URL Connection using Apache HTTP Client
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HttpUrlHandler extends URLStreamHandler {

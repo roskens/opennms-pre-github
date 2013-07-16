@@ -58,7 +58,7 @@ public class IntelVlanTable extends VlanTableBasic {
 	public IntelVlanTable(InetAddress address) {
         super(address, "intelVlanTable", IntelVlanTableEntry.intelVlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected IntelVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

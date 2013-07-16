@@ -43,15 +43,15 @@ import org.opennms.netmgt.provision.support.ResponseValidator;
  * @version $Id: $
  */
 public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JDBCResponse> {
-    
+
     /** Constant <code>DEFAULT_PORT=3306</code> */
     protected static int DEFAULT_PORT = 3306;
-    
+
     private String m_dbDriver = DBTools.DEFAULT_JDBC_DRIVER;
     private String m_user = DBTools.DEFAULT_DATABASE_USER;
     private String m_password = DBTools.DEFAULT_DATABASE_PASSWORD;
     private String m_url = DBTools.DEFAULT_URL;
-    
+
     /**
      * <p>Constructor for AbstractJdbcDetector.</p>
      *
@@ -60,9 +60,9 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
      */
     protected AbstractJdbcDetector(String serviceName, int port) {
         super(serviceName, port);
-        
+
     }
-    
+
     /**
      * <p>resultSetNotNull</p>
      *
@@ -77,7 +77,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
             }
         };
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Client<JDBCRequest, JDBCResponse> getClient() {
@@ -88,7 +88,7 @@ public abstract class AbstractJdbcDetector extends BasicDetector<JDBCRequest, JD
         client.setUrl(getUrl());
         return client;
     }
-    
+
     /**
      * <p>setDbDriver</p>
      *

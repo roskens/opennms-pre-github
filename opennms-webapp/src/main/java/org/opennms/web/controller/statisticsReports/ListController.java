@@ -58,7 +58,7 @@ public class ListController extends AbstractController implements InitializingBe
         // Reverse the list for intuitive presentation -- it should come out of the DAO
         // in ascending order of ID, but users will expect newer reports to be at the top
         Collections.reverse(reports);
-        
+
         return new ModelAndView("statisticsReports/index", "model", reports);
     }
 

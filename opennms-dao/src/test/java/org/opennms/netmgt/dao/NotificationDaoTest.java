@@ -70,7 +70,7 @@ public class NotificationDaoTest implements InitializingBean {
 
 	@Autowired
 	private DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -79,7 +79,7 @@ public class NotificationDaoTest implements InitializingBean {
 
 	@Autowired
 	private EventDao m_eventDao;
-	
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -89,7 +89,7 @@ public class NotificationDaoTest implements InitializingBean {
 	public void setUp() {
 		m_databasePopulator.populateDatabase();
 	}
-	
+
 	@Test
 	@Transactional
     public void testNotificationSave() {
@@ -118,12 +118,12 @@ public class NotificationDaoTest implements InitializingBean {
         m_eventDao.save(event);
         OnmsEvent newEvent = m_eventDao.load(event.getId());
         assertEquals("uei://org/opennms/test/NotificationDaoTest", newEvent.getEventUei());
-        
+
         OnmsNotification notification = new OnmsNotification();
         notification.setEvent(newEvent);
         notification.setTextMsg("Tests are fun!");
         m_notificationDao.save(notification);
-       
+
         OnmsNotification newNotification = m_notificationDao.load(notification.getNotifyId());
         assertEquals("uei://org/opennms/test/NotificationDaoTest", newNotification.getEvent().getEventUei());
     }

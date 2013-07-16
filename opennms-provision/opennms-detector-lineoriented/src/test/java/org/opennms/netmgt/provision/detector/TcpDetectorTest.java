@@ -60,7 +60,7 @@ public class TcpDetectorTest implements ApplicationContextAware {
     private String m_serviceName;
     private int m_timeout;
     private String m_banner;
-    
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
@@ -73,23 +73,23 @@ public class TcpDetectorTest implements ApplicationContextAware {
         m_detector.setBanner(getBanner());
         m_detector.init();
     }
-    
+
     private void initializeDefaultDetector() {
         setServiceName("TCP");
         setTimeout(1000);
         setBanner(".*");
-        
+
         initializeDetector();
     }
-    
+
     private void intializeNullBannerDetector() {
         setServiceName("TCP");
         setTimeout(1000);
         setBanner(null);
-        
+
         initializeDetector();
     }
-    
+
     @After
     public void tearDown() throws IOException {
         if(m_server != null){
@@ -97,24 +97,24 @@ public class TcpDetectorTest implements ApplicationContextAware {
             m_server = null;
         }
     }
-    
-    
+
+
     @Test(timeout=90000)
     public void testSuccessServer() throws Exception {
         initializeDefaultDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                setBanner("Hello");
             }
-            
+
         };
         m_server.init();
         m_server.startServer();
         m_detector.setPort(m_server.getLocalPort());
-        
+
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         future.addListener(new DetectFutureListener<DetectFuture>() {
 
@@ -124,75 +124,75 @@ public class TcpDetectorTest implements ApplicationContextAware {
                 m_detector = null;
                 detector.dispose();
             }
-            
+
         });
-        
+
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertTrue(future.isServiceDetected());
     }
 
-    
-    
+
+
     @Test(timeout=90000)
     public void testFailureNoBannerSentWhenExpectingABanner() throws Exception {
         initializeDefaultDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
-            	
+
             }
-            
+
         };
         m_server.init();
         m_server.startServer();
-        
+
         m_detector.setPort(m_server.getLocalPort());
 
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse("Test should fail because no banner was sent when expecting a banner to be sent",future.isServiceDetected());
-    
+
     }
-    
+
     @Test(timeout=90000)
     public void testFailureConnectionTimesOutWhenExpectingABanner() throws Exception {
         initializeDefaultDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                 setTimeout(3000);
             }
-            
+
         };
         m_server.init();
         m_server.startServer();
-        
+
         m_detector.setPort(m_server.getLocalPort());
 
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse("Test should fail because no banner was sent when expecting a banner to be sent",future.isServiceDetected());
-    
+
     }
-    
+
     @Test(timeout=90000)
     public void testSuccessNotExpectingBannerNoBannerSent() throws Exception {
         intializeNullBannerDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                 setTimeout(3000);
             }
-            
+
         };
         m_server.init();
         m_server.startServer();
@@ -204,34 +204,34 @@ public class TcpDetectorTest implements ApplicationContextAware {
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertTrue("Test should pass if we don't set a banner property and nothing responds", future.isServiceDetected());
-    
+
     }
 
-    
-    
+
+
     @Test(timeout=90000)
     public void testFailureClosedPort() throws Exception {
         initializeDefaultDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                setBanner("BLIP");
             }
-            
+
         };
         m_server.init();
         //m_server.startServer();
         m_detector.setPort(m_server.getLocalPort());
-        
+
         //assertFalse("Test should fail because the server closes before detection takes place", m_detector.isServiceDetected(m_server.getInetAddress()));
-        
+
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse(future.isServiceDetected());
-    
+
     }
 
     /**
@@ -241,31 +241,31 @@ public class TcpDetectorTest implements ApplicationContextAware {
     @Test(timeout=90000)
     public void testServerCloses() throws Exception{
         initializeDefaultDetector();
-        
+
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                shutdownServer("Closing");
             }
-            
+
         };
         m_server.init();
         //m_server.startServer();
         m_detector.setPort(m_server.getLocalPort());
-        
+
         //assertFalse("Test should fail because the server closes before detection takes place", m_detector.isServiceDetected(m_server.getInetAddress()));
-        
+
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse(future.isServiceDetected());
     }
-    
+
     @Test(timeout=90000)
     public void testNoServerPresent() throws Exception {
         initializeDefaultDetector();
-        
+
         m_detector.setPort(1999);
         //assertFalse("Test should fail because the server closes before detection takes place", m_detector.isServiceDetected(m_server.getInetAddress()));
         DetectFuture future = m_detector.isServiceDetected(InetAddress.getLocalHost());
@@ -277,7 +277,7 @@ public class TcpDetectorTest implements ApplicationContextAware {
                 m_detector = null;
                 detector.dispose();
             }
-            
+
         });
         assertNotNull(future);
         future.awaitForUninterruptibly();
@@ -291,7 +291,7 @@ public class TcpDetectorTest implements ApplicationContextAware {
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }
-    
+
     private TcpDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

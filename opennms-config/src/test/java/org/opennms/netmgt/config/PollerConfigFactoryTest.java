@@ -56,7 +56,7 @@ public class PollerConfigFactoryTest extends TestCase {
     public static void main(String[] args) {
         junit.textui.TestRunner.run(PollerConfigFactoryTest.class);
     }
-    
+
     public static final String POLLER_CONFIG = "\n" +
             "<poller-configuration\n" +
             "   threads=\"10\"\n" +
@@ -65,11 +65,11 @@ public class PollerConfigFactoryTest extends TestCase {
             "   <node-outage status=\"on\" pollAllIfNoCriticalServiceDefined=\"true\"></node-outage>\n" +
             "   <package name=\"default\">\n" +
             "       <filter>IPADDR IPLIKE *.*.*.*</filter>\n" +
-            "       <rrd step = \"300\">\n" + 
-            "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" + 
-            "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" + 
-            "           <rra>RRA:MIN:0.5:12:4464</rra>\n" + 
-            "           <rra>RRA:MAX:0.5:12:4464</rra>\n" + 
+            "       <rrd step = \"300\">\n" +
+            "           <rra>RRA:AVERAGE:0.5:1:2016</rra>\n" +
+            "           <rra>RRA:AVERAGE:0.5:12:4464</rra>\n" +
+            "           <rra>RRA:MIN:0.5:12:4464</rra>\n" +
+            "           <rra>RRA:MAX:0.5:12:4464</rra>\n" +
             "       </rrd>\n" +
             "       <service name=\"ICMP\" interval=\"300000\">\n" +
             "         <parameter key=\"test-key\" value=\"test-value\"/>\n" +
@@ -79,7 +79,7 @@ public class PollerConfigFactoryTest extends TestCase {
             "            </config>" +
             "         </parameter>" +
             "       </service>\n" +
-            "       <downtime begin=\"0\" end=\"30000\"/>\n" + 
+            "       <downtime begin=\"0\" end=\"30000\"/>\n" +
             "   </package>\n" +
             "   <monitor service=\"ICMP\" class-name=\"org.opennms.netmgt.mock.MockMonitor\"/>\n"+
             "</poller-configuration>\n";
@@ -88,7 +88,7 @@ public class PollerConfigFactoryTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         MockLogAppender.setupLogging();
-        
+
         Resource dbConfig = new ClassPathResource("/org/opennms/netmgt/config/test-database-schema.xml");
         InputStream s = dbConfig.getInputStream();
         DatabaseSchemaConfigFactory dscf = new DatabaseSchemaConfigFactory(s);
@@ -124,11 +124,11 @@ public class PollerConfigFactoryTest extends TestCase {
         network.addNode(5, "TestNode122");
         network.addInterface("123.12.123.122");
         network.addService("HTTP");
-        
+
         MockDatabase db = new MockDatabase();
         db.populate(network);
         DataSourceFactory.setInstance(db);
-        
+
     }
 
     @Override
@@ -136,7 +136,7 @@ public class PollerConfigFactoryTest extends TestCase {
         super.tearDown();
 		MockLogAppender.assertNoWarningsOrGreater();
     }
-    
+
     static class TestPollerConfigManager extends PollerConfigManager {
         private String m_xml;
 
@@ -160,92 +160,92 @@ public class PollerConfigFactoryTest extends TestCase {
             return m_xml;
         }
     }
-    
+
     public void testPollerConfigFactory() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         assertNull(factory.getPackage("TestPkg"));
         Package pkg = new Package();
         pkg.setName("TestPkg");
-        
+
         Filter filter = new Filter();
         filter.setContent("IPADDR IPLIKE *.*.*.*");
         pkg.setFilter(filter);
-        
+
         Rrd rrd = new Rrd();
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
         pkg.setRrd(rrd);
-        
+
         Service svc = new Service();
         svc.setName("TestService");
         svc.setInterval(300000);
         pkg.addService(svc);
-        
+
         Downtime dt = new Downtime();
         dt.setBegin(0);
         pkg.addDowntime(dt);
-        
+
         IncludeRange inclde = new IncludeRange();
         inclde.setBegin("192.169.0.0");
         inclde.setEnd("192.169.255.255");
         pkg.addIncludeRange(inclde);
-        
+
         factory.addPackage(pkg);
         factory.save();
-        
+
         assertNotNull(factory.getPackage("TestPkg"));
-        
+
         TestPollerConfigManager newFactory = new TestPollerConfigManager(factory.getXml(), "localhost", false);
         Package p = newFactory.getPackage("TestPkg");
         assertNotNull(p);
         assertTrue(newFactory.isInterfaceInPackage("192.169.1.5", p));
         assertFalse(newFactory.isInterfaceInPackage("192.168.1.5", p));
-        
+
     }
-    
+
     public void testInterfaceInPackage() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         Package pkg = factory.getPackage("default");
         assertNotNull("Unable to find pkg default", pkg);
-        
+
         assertTrue("Expected 192.168.1.1 to be in the package", factory.isInterfaceInPackage("192.168.1.1", pkg));
-        
-        
-        
+
+
+
     }
-    
+
     public void testSpecific() throws Exception {
         TestPollerConfigManager factory = new TestPollerConfigManager(POLLER_CONFIG, "localhost", false);
         assertNull(factory.getPackage("TestPkg"));
         Package pkg = new Package();
         pkg.setName("TestPkg");
-        
+
         Filter filter = new Filter();
         filter.setContent("IPADDR != '0.0.0.0'");
         pkg.setFilter(filter);
-        
+
         Rrd rrd = new Rrd();
         rrd.setStep(300);
         rrd.addRra("RRA:AVERAGE:0.5:1:2016");
         pkg.setRrd(rrd);
-        
+
         Service svc = new Service();
         svc.setName("TestService");
         svc.setInterval(300000);
         pkg.addService(svc);
-        
+
         Downtime dt = new Downtime();
         dt.setBegin(0);
         pkg.addDowntime(dt);
-        
+
         pkg.addSpecific("123.12.123.121");
         pkg.addSpecific("123.12.123.122");
-        
+
         factory.addPackage(pkg);
         factory.save();
-        
+
         assertNotNull(factory.getPackage("TestPkg"));
-        
+
         TestPollerConfigManager newFactory = new TestPollerConfigManager(factory.getXml(), "localhost", false);
         Package p = newFactory.getPackage("TestPkg");
         assertNotNull(p);
@@ -253,7 +253,7 @@ public class PollerConfigFactoryTest extends TestCase {
         assertTrue("Expect 123.12.123.121 to be part of the package", newFactory.isInterfaceInPackage("123.12.123.121", p));
         assertTrue("Expect 123.12.123.122 to be part of the package", newFactory.isInterfaceInPackage("123.12.123.122", p));
         assertFalse("Expected 192.168.1.1 to be excluded from the package", newFactory.isInterfaceInPackage("192.168.1.1", p));
-        
+
     }
 
 }

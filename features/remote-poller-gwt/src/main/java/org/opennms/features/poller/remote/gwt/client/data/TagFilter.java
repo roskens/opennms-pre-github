@@ -31,8 +31,8 @@ package org.opennms.features.poller.remote.gwt.client.data;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
 public class TagFilter implements LocationFilter {
-    
-    
+
+
     private String m_selectedTag = null;
 
     public void setSelectedTag(String selectedTag) {

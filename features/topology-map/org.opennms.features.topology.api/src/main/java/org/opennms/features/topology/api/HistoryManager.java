@@ -35,5 +35,5 @@ public interface HistoryManager {
     public String create(String userId, GraphContainer container);
 	void onBind(HistoryOperation operation);
 	void onUnbind(HistoryOperation operation);
-    
+
 }

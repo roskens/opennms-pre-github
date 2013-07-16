@@ -199,7 +199,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
 
         executor.setContinueExistingPeriodicTasksAfterShutdownPolicy(false);
         executor.setExecuteExistingDelayedTasksAfterShutdownPolicy(false);
-        m_future = executor.scheduleWithFixedDelay(this.getAckProcessor(), getSchedule().getInitialDelay(), 
+        m_future = executor.scheduleWithFixedDelay(this.getAckProcessor(), getSchedule().getInitialDelay(),
                 getSchedule().getInterval(), getSchedule().getUnit());
         LOG.debug("scheduleReads: exited lock, schedule updated.");
         LOG.debug("scheduleReads: schedule is: attempts remaining: {}; initial delay: {}; interval: {}; unit: {}",
@@ -274,7 +274,7 @@ public class DefaultAckReader implements AckReader, InitializingBean {
 
     /**
      * Anything calling this method should already have the lock.
-     * 
+     *
      * @param state
      */
     private synchronized void setState(AckReaderState state) {

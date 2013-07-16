@@ -47,9 +47,9 @@ import org.springframework.stereotype.Component;
 @Scope("prototype")
 @Policy("Set Node Category")
 public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements NodePolicy {
-    
-    private String m_category; 
-    
+
+    private String m_category;
+
     /** {@inheritDoc} */
     @Override
     public OnmsNode act(OnmsNode node) {
@@ -58,20 +58,20 @@ public class NodeCategorySettingPolicy extends BasePolicy<OnmsNode> implements N
         }
 
         OnmsCategory category = new OnmsCategory(getCategory());
-        
+
         node.addCategory(category);
-        
+
         return node;
-        
+
     }
 
-    
+
     /**
      * <p>getCategory</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    @Require(value = { }) 
+    @Require(value = { })
     public String getCategory() {
         return m_category;
     }

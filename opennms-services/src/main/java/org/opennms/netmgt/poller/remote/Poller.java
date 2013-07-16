@@ -48,13 +48,13 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class Poller implements InitializingBean, PollObserver, ConfigurationChangedListener, PropertyChangeListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
-	
+
 	private PollerFrontEnd m_pollerFrontEnd;
 	private Scheduler m_scheduler;
 	private long m_initialSpreadTime = 300000L;
-	
+
 	/**
 	 * <p>setPollerFrontEnd</p>
 	 *
@@ -72,7 +72,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 	public void setScheduler(Scheduler scheduler) {
 		m_scheduler = scheduler;
 	}
-	
+
 	/**
 	 * <p>setInitialSpreadTime</p>
 	 *
@@ -81,7 +81,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 	public void setInitialSpreadTime(long initialSpreadTime) {
 		m_initialSpreadTime = initialSpreadTime;
 	}
-	
+
 
 	/**
 	 * <p>afterPropertiesSet</p>
@@ -92,10 +92,10 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 	public void afterPropertiesSet() throws Exception {
 		assertNotNull(m_scheduler, "scheduler");
 		assertNotNull(m_pollerFrontEnd, "pollerFrontEnd");
-        
+
         m_pollerFrontEnd.addConfigurationChangedListener(this);
         m_pollerFrontEnd.addPropertyChangeListener(this);
-		
+
         if (m_pollerFrontEnd.isStarted()) {
             schedulePolls();
         } else {
@@ -103,7 +103,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
         }
 
 	}
-    
+
     private void unschedulePolls() throws Exception {
         if (m_scheduler.isShutdown()) {
             // no need to unschedule in this case
@@ -113,11 +113,11 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
             m_scheduler.deleteJob(jobName, PollJobDetail.GROUP);
         }
     }
-	
+
 	private void schedulePolls() throws Exception {
-        
+
         LOG.debug("Enter schedulePolls");
-		
+
 		Collection<PolledService> polledServices = m_pollerFrontEnd.getPolledServices();
 
 		if (polledServices == null || polledServices.size() == 0) {
@@ -128,9 +128,9 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
 
 		long startTime = System.currentTimeMillis();
 		long scheduleSpacing = m_initialSpreadTime / polledServices.size();
-		
+
         for (PolledService polledService : polledServices) {
-            
+
             String jobName = polledService.toString();
 
             // remove any currently scheduled job
@@ -139,26 +139,26 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
             } else {
                 LOG.debug("Scheduling job for {}", polledService);
             }
-			
+
 			Date initialPollTime = new Date(startTime);
-			
+
 			m_pollerFrontEnd.setInitialPollTime(polledService.getServiceId(), initialPollTime);
-			
+
 			Trigger pollTrigger = new PolledServiceTrigger(polledService);
 			pollTrigger.setStartTime(initialPollTime);
-			
+
             PollJobDetail jobDetail = new PollJobDetail(jobName, PollJob.class);
 			jobDetail.setPolledService(polledService);
 			jobDetail.setPollerFrontEnd(m_pollerFrontEnd);
-			
-            
+
+
 			m_scheduler.scheduleJob(jobDetail, pollTrigger);
-			
+
 			startTime += scheduleSpacing;
 		}
-		
+
         LOG.debug("Exit schedulePolls");
-		
+
 	}
 
 	private void assertNotNull(Object propertyValue, String propertyName) {
@@ -175,7 +175,7 @@ public class Poller implements InitializingBean, PollObserver, ConfigurationChan
         @Override
 	public void pollStarted(String pollId) {
 		LOG.info("Begin Poll for {}", pollId);
-		
+
 	}
 
     /** {@inheritDoc} */

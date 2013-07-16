@@ -61,7 +61,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class DistPollerDaoTest implements InitializingBean {
 	@Autowired
 	private DistPollerDao m_distPollerDao;
-	
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -70,23 +70,23 @@ public class DistPollerDaoTest implements InitializingBean {
 	@Test
 	@Transactional
 	public void testCreate() {
-        OnmsDistPoller distPoller = new OnmsDistPoller("otherpoller", "192.168.7.7");   
+        OnmsDistPoller distPoller = new OnmsDistPoller("otherpoller", "192.168.7.7");
         distPoller.setLastEventPull(new Date(1000000));
         getDistPollerDao().save(distPoller);
-        
+
     }
-    
+
 	@Test
     @Transactional
     public void testGet() {
         assertNull(getDistPollerDao().get("otherpoller"));
-        
+
         testCreate();
-        
+
         OnmsDistPoller distPoller = getDistPollerDao().get("otherpoller");
         assertNotNull(distPoller);
         assertEquals(new Date(1000000), distPoller.getLastEventPull());
-        
+
     }
 
 	private DistPollerDao getDistPollerDao() {

@@ -59,7 +59,7 @@ public class Migration {
      */
     public String getJdbcUrl() {
         if (m_jdbcUrl == null) {
-               return String.format("jdbc:postgresql://%s/%s", getDatabaseHost(), getDatabaseName()); 
+               return String.format("jdbc:postgresql://%s/%s", getDatabaseHost(), getDatabaseName());
         }
         return m_jdbcUrl;
     }
@@ -126,7 +126,7 @@ public class Migration {
     public String getSchemaName() {
     	return m_schemaName;
     }
-    
+
     public void setSchemaName(final String schemaName) {
     	m_schemaName = schemaName;
     }
@@ -215,7 +215,7 @@ public class Migration {
     public void setChangeLog(String changeLog) {
         m_changeLog = changeLog;
     }
-    
+
     public ResourceAccessor getAccessor() {
         return m_accessor;
     }

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
 /**
  * Class SystemDefChoiceDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class SystemDefChoiceDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -87,29 +87,29 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
         super();
         _nsURI = "http://xmlns.opennms.org/xsd/config/datacollection";
         _elementDefinition = false;
-        
+
         //-- set grouping compositor
         setCompositorAsChoice();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- initialize element descriptors
-        
+
         //-- _sysoid
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_sysoid", "sysoid", org.exolab.castor.xml.NodeType.Element);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDefChoice target = (SystemDefChoice) object;
                 return target.getSysoid();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -132,7 +132,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _sysoid
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -148,14 +148,14 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 SystemDefChoice target = (SystemDefChoice) object;
                 return target.getSysoidMask();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -178,7 +178,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _sysoidMask
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -198,7 +198,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -209,7 +209,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -221,7 +221,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -232,7 +232,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -243,7 +243,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -255,7 +255,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -267,7 +267,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -278,7 +278,7 @@ import org.opennms.netmgt.config.datacollection.SystemDefChoice;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

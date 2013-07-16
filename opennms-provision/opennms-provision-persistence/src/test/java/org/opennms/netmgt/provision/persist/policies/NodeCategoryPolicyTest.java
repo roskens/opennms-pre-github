@@ -78,7 +78,7 @@ public class NodeCategoryPolicyTest implements InitializingBean {
         m_populator.populateDatabase();
         m_nodes = m_nodeDao.findAll();
     }
-    
+
     @After
     public void tearDown() {
         m_populator.resetDatabase();
@@ -110,7 +110,7 @@ public class NodeCategoryPolicyTest implements InitializingBean {
         OnmsNode o;
         List<OnmsNode> populatedNodes = new ArrayList<OnmsNode>();
         List<OnmsNode> matchedNodes = new ArrayList<OnmsNode>();
-        
+
         for (OnmsNode node : m_nodes) {
             System.err.println(node);
             o = p.apply(node);

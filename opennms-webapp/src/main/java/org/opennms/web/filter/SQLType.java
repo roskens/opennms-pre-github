@@ -43,12 +43,12 @@ import org.opennms.web.alarm.filter.OnmsSeveritySqlType;
  * @since 1.8.1
  */
 public interface SQLType<T> {
-    
+
     public static final SQLType<Integer> INT = new IntegerSqlType();
     public static final SQLType<String> STRING = new StringSqlType();
     public static final SQLType<Date> DATE = new DateSqlType();
     public static final SQLType<OnmsSeverity> SEVERITY = new OnmsSeveritySqlType();
-    
+
     /**
      * <p>getValueAsString</p>
      *
@@ -57,7 +57,7 @@ public interface SQLType<T> {
      * @return a {@link java.lang.String} object.
      */
     public String getValueAsString(T value);
-    
+
     /**
      * <p>formatValue</p>
      *
@@ -75,7 +75,7 @@ public interface SQLType<T> {
      * @throws java.sql.SQLException if any.
      */
     public void bindParam(PreparedStatement ps, int parameterIndex, T value) throws SQLException;
-    
+
     /**
      * <p>createArray</p>
      *
@@ -84,5 +84,5 @@ public interface SQLType<T> {
      * @return an array of T objects.
      */
     public T[] createArray(T value1, T value2);
-    
+
 }

@@ -50,14 +50,14 @@ import org.snmp4j.smi.Variable;
 
 class Snmp4JValue extends AbstractSnmpValue {
     Variable m_value;
-    
+
     Snmp4JValue(final Variable value) {
         if (value == null) {
             throw new NullPointerException("value attribute cannot be null");
         }
         m_value = value;
     }
-    
+
     Snmp4JValue(final int syntax, final byte[] bytes) {
         switch (syntax) {
         case SMIConstants.SYNTAX_INTEGER: {
@@ -124,7 +124,7 @@ class Snmp4JValue extends AbstractSnmpValue {
         }
 
     }
-    
+
     @Override
     public byte[] getBytes() {
         switch (m_value.getSyntax()) {
@@ -156,12 +156,12 @@ class Snmp4JValue extends AbstractSnmpValue {
     public int getType() {
         return m_value.getSyntax();
     }
-    
+
     @Override
     public boolean isEndOfMib() {
         return m_value.getSyntax() == SMIConstants.EXCEPTION_END_OF_MIB_VIEW;
     }
-    
+
     @Override
     public boolean isNumeric() {
         switch (m_value.getSyntax()) {
@@ -175,7 +175,7 @@ class Snmp4JValue extends AbstractSnmpValue {
             return false;
         }
     }
-    
+
     @Override
     public int toInt() {
         switch (m_value.getSyntax()) {
@@ -191,7 +191,7 @@ class Snmp4JValue extends AbstractSnmpValue {
             return Integer.parseInt(m_value.toString());
         }
     }
-    
+
     @Override
     public long toLong() {
         switch (m_value.getSyntax()) {
@@ -244,7 +244,7 @@ class Snmp4JValue extends AbstractSnmpValue {
             case SMIConstants.SYNTAX_IPADDRESS:
                 return ((IpAddress)m_value).getInetAddress();
             default:
-                throw new IllegalArgumentException("cannot convert "+m_value+" to an InetAddress"); 
+                throw new IllegalArgumentException("cannot convert "+m_value+" to an InetAddress");
         }
     }
 
@@ -257,7 +257,7 @@ class Snmp4JValue extends AbstractSnmpValue {
                 throw new IllegalArgumentException("cannot convert "+m_value+" to a HexString");
         }
     }
-        
+
     @Override
     public String toString() {
         return toDisplayString();
@@ -293,21 +293,21 @@ class Snmp4JValue extends AbstractSnmpValue {
                 throw new IllegalArgumentException("cannot convert "+m_value+" to an SnmpObjId");
         }
     }
-    
+
     @Override
     public boolean isDisplayable() {
         if (isNumeric()) {
             return true;
         }
-        
+
         if (getType() == SnmpValue.SNMP_OBJECT_IDENTIFIER || getType() == SnmpValue.SNMP_IPADDRESS) {
             return true;
         }
-        
+
         if (getType() == SnmpValue.SNMP_OCTET_STRING) {
             return allBytesDisplayable(getBytes());
         }
-        
+
         return false;
     }
 
@@ -329,7 +329,7 @@ class Snmp4JValue extends AbstractSnmpValue {
         default:
             return false;
         }
-        
+
     }
 
     @Override
@@ -337,7 +337,7 @@ class Snmp4JValue extends AbstractSnmpValue {
         if (m_value == null) return 5231;
     	return m_value.hashCode();
     }
-    
+
     @Override
     public boolean equals(final Object obj) {
     	   if (obj == null) return false;
@@ -347,5 +347,5 @@ class Snmp4JValue extends AbstractSnmpValue {
     	   final Snmp4JValue that = (Snmp4JValue)obj;
     	   return this.m_value == null ? that.m_value == null : this.m_value.equals(that.m_value);
     }
-    
+
 }

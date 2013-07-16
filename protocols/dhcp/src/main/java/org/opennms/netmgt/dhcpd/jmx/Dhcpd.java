@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Dhcpd implements DhcpdMBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Dhcpd.class);
 
     /**

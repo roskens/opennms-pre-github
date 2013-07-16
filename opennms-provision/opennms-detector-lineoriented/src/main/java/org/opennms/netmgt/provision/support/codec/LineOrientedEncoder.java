@@ -47,11 +47,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class LineOrientedEncoder extends ProtocolEncoderAdapter {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedEncoder.class);
     private final AttributeKey ENCODER = new AttributeKey(getClass(), "encoder");
     private final Charset m_charset;
-    
+
     /**
      * <p>Constructor for LineOrientedEncoder.</p>
      *
@@ -60,7 +60,7 @@ public class LineOrientedEncoder extends ProtocolEncoderAdapter {
     public LineOrientedEncoder(final Charset charset) {
         m_charset = charset;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void encode(final IoSession session, final Object message, final ProtocolEncoderOutput out) throws Exception {

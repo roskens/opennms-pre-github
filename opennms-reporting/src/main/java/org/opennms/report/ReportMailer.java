@@ -45,15 +45,15 @@ import org.opennms.javamail.JavaMailerException;
  */
 public class ReportMailer {
     private static final Logger LOG = LoggerFactory.getLogger(ReportMailer.class);
-    
+
 	private static final String LOG4J_CATEGORY = "reports";
-	
+
 	private String m_filename;
-	
+
 	private String m_address;
 
 	private String m_subject;
-	
+
 	/**
 	 * <p>Constructor for ReportMailer.</p>
 	 */
@@ -61,7 +61,7 @@ public class ReportMailer {
 	    this(null, null, null);
 	}
 
-	
+
 	/**
 	 * <p>Constructor for ReportMailer.</p>
 	 *
@@ -73,11 +73,11 @@ public class ReportMailer {
 		this.m_address = address;
 		this.m_filename = filename;
 		this.m_subject = subject;
-		
+
 		// TODO wrap the methods is probably better
 		Logging.putPrefix(LOG4J_CATEGORY);
 	}
-	
+
 	/**
 	 * <p>send</p>
 	 *

@@ -61,7 +61,7 @@ public class AssetPagePresenter implements Presenter {
 
 		/**
 		 * Recommend by GWT MVP design. Get the ui widgets up.
-		 * 
+		 *
 		 * @return {@link Widget}
 		 */
 		Widget asWidget();
@@ -73,21 +73,21 @@ public class AssetPagePresenter implements Presenter {
 
 		/**
 		 * Fetches all data from the display as an {@link AssetCommand}.
-		 * 
+		 *
 		 * @return {@link AssetCommand}
 		 */
 		AssetCommand getData();
 
 		/**
 		 * get the reset button to add manage the related actions
-		 * 
+		 *
 		 * @return {@link HasClickHandlers}
 		 */
 		HasClickHandlers getResetButton();
 
 		/**
 		 * get the save button to add manage the related actions
-		 * 
+		 *
 		 * @return {@link HasClickHandlers}
 		 */
 		HasClickHandlers getSaveButton();
@@ -95,7 +95,7 @@ public class AssetPagePresenter implements Presenter {
 		/**
 		 * Checks if the display ui is in a valid status. So all inputs are
 		 * valid an ready for save or update.
-		 * 
+		 *
 		 * @return boolean ui is valid ture / false
 		 */
 		boolean isUiValid();
@@ -103,7 +103,7 @@ public class AssetPagePresenter implements Presenter {
 		/**
 		 * Puts an {@link AssetCommand} to the display. To show all necessary
 		 * content into the ui. AssetCommand contains asset-data and additional.
-		 * 
+		 *
 		 * @param {@link AssetCommand}
 		 */
 		void setData(AssetCommand asset);
@@ -117,7 +117,7 @@ public class AssetPagePresenter implements Presenter {
 		/**
 		 * Set the display ui in write enable or disable mode. So changing data
 		 * is possible or not.
-		 * 
+		 *
 		 * @param enabled
 		 *            for edit-mode.
 		 */
@@ -125,7 +125,7 @@ public class AssetPagePresenter implements Presenter {
 
 		/**
 		 * Puts an error with description and throwable to the display ui.
-		 * 
+		 *
 		 * @param description
 		 *            of the error
 		 * @param throwable
@@ -135,7 +135,7 @@ public class AssetPagePresenter implements Presenter {
 
 		/**
 		 * Sets status info to the display ui.
-		 * 
+		 *
 		 * @param String
 		 *            info what will be shown at the display ui.
 		 */

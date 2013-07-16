@@ -39,49 +39,49 @@ public class JdbcCollectionAttribute extends AbstractCollectionAttribute impleme
     String m_value;
     JdbcCollectionResource m_resource;
     CollectionAttributeType m_attribType;
-    
+
     public JdbcCollectionAttribute(JdbcCollectionResource resource, CollectionAttributeType attribType, String alias, String value) {
         m_resource=resource;
         m_attribType=attribType;
         m_alias = alias;
         m_value = value;
     }
-    
+
     @Override
     public CollectionAttributeType getAttributeType() {
         return m_attribType;
     }
-    
+
     @Override
     public String getName() {
         return m_alias;
     }
-    
+
     @Override
     public String getNumericValue() {
         return m_value;
     }
-    
+
     @Override
     public CollectionResource getResource() {
         return m_resource;
     }
-    
+
     @Override
     public String getStringValue() {
         return m_value; //Should this be null instead?
     }
-    
+
     @Override
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
-    
+
     @Override
     public String getType() {
         return m_attribType.getType();
     }
-    
+
     @Override
     public String toString() {
         return "JdbcCollectionAttribute " + m_alias+"=" + m_value;

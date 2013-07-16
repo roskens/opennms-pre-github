@@ -40,7 +40,7 @@ import org.slf4j.LoggerFactory;
  * This class holds all OpenNMS related config filenames
  */
 public final class ConfigFileConstants {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigFileConstants.class);
 
     private static final String[] FILE_ID_TO_NAME;
@@ -177,27 +177,27 @@ public final class ConfigFileConstants {
 
     /**
      * The config file specifying the JavaMailer config (ie SMTP HOST)
-     * 
+     *
      */
 
     public static final int JAVA_MAIL_CONFIG_FILE_NAME;
 
     /**
      * The config file specifying the XMPP config (host, user, password, etc.)
-     * 
+     *
      */
     public static final int XMPP_CONFIG_FILE_NAME;
-    
+
     /**
      * JFree Chart configuration file
      */
     public static final int CHART_CONFIG_FILE_NAME;
-    
+
     /**
      * JFree Chart configuration file
      */
     public static final int TRANSLATOR_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for specifying JMX MBeans
      */
@@ -331,7 +331,7 @@ public final class ConfigFileConstants {
      * The opennms surveillance views config file
      */
     public static final int SITE_STATUS_VIEWS_FILE_NAME;
-    
+
     /** Constant <code>HTTP_COLLECTION_CONFIG_FILE_NAME</code> */
     public static final int HTTP_COLLECTION_CONFIG_FILE_NAME;
 
@@ -377,12 +377,12 @@ public final class ConfigFileConstants {
      * The Linkd discovery configuration file
      */
     public static final int LINKD_CONFIG_FILE_NAME;
-    
+
     /**
      * The OpenNMS DataSourceConfiguration file
      */
     public static final int OPENNMS_DATASOURCE_CONFIG_FILE_NAME;
-    
+
     /**
      * The map properties config file
      */
@@ -411,7 +411,7 @@ public final class ConfigFileConstants {
      */
     public static final int NOTIFY_REPORT_DTD;
 
-    
+
     /**
      * The NSClient data collection configuration file
      */
@@ -421,7 +421,7 @@ public final class ConfigFileConstants {
      * The NSClient data collection configuration file
      */
     public static final int NSCLIENT_CONFIG_FILE_NAME;
-    
+
     /**
      * The WMI agent configuration file
      */
@@ -436,12 +436,12 @@ public final class ConfigFileConstants {
      * The XMP agent configuration file
      */
     public static final int XMP_CONFIG_FILE_NAME;
-    
+
     /**
      * The RWS (RestFul Web Service) configuration file
      * used to access Rancid
      */
-    public static final int RWS_CONFIG_FILE_NAME;   
+    public static final int RWS_CONFIG_FILE_NAME;
 
     /**
      * The Rancid Provisioning Adapter configuration file
@@ -458,7 +458,7 @@ public final class ConfigFileConstants {
      * The WMI collection configuration file
      */
     public static final int WMI_COLLECTION_CONFIG_FILE_NAME;
-    
+
     /**
      * The Asterisk global configuration file (for notifications, etc.)
      */
@@ -468,12 +468,12 @@ public final class ConfigFileConstants {
      * The AMI agent configuration file
      */
     public static final int AMI_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for microblog notifications and acks
      */
     public static final int MICROBLOG_CONFIG_FILE_NAME;
-    
+
     /**
      * The config file for the JDBC Data Collector.
      */
@@ -559,58 +559,58 @@ public final class ConfigFileConstants {
         VACUUMD_CONFIG_FILE_NAME = 53;
 
         XMPP_CONFIG_FILE_NAME = 54;
-        
+
         CHART_CONFIG_FILE_NAME = 55;
 
         JMX_DATA_COLLECTION_CONF_FILE_NAME = 56;
-        
+
         TRANSLATOR_CONFIG_FILE_NAME = 57;
 
         SYSLOGD_CONFIG_FILE_NAME = 58;
-        
+
         LINKD_CONFIG_FILE_NAME = 59;
-        
+
         MAP_PROPERTIES_FILE_NAME = 60;
-        
+
         SURVEILLANCE_VIEWS_FILE_NAME = 61;
-        
+
         SITE_STATUS_VIEWS_FILE_NAME = 62;
-        
+
         HTTP_COLLECTION_CONFIG_FILE_NAME = 64;
-        
+
         NSCLIENT_COLLECTION_CONFIG_FILE_NAME = 65;
-        
+
         NSCLIENT_CONFIG_FILE_NAME = 66;
-        
+
         WMI_CONFIG_FILE_NAME = 67;
 
         WMI_COLLECTION_CONFIG_FILE_NAME = 68;
-        
+
         OPENNMS_DATASOURCE_CONFIG_FILE_NAME = 69;
-        
+
         RWS_CONFIG_FILE_NAME = 70;
 
         XMP_COLLECTION_CONFIG_FILE_NAME = 71;
-        
+
         XMP_CONFIG_FILE_NAME = 72;
 
         SNMP_INTERFACE_POLLER_CONFIG_FILE_NAME = 73;
-        
+
         ASTERISK_CONFIG_FILE_NAME = 74;
-        
+
         AMI_CONFIG_FILE_NAME = 75;
-        
+
         MAPS_ADAPTER_CONFIG_FILE_NAME = 76;
-        
+
         RANCID_CONFIG_FILE_NAME = 77;
-        
+
         MICROBLOG_CONFIG_FILE_NAME = 78;
-        
+
         SNMP_ASSET_ADAPTER_CONFIG_FILE_NAME = 79;
-        
+
         JDBC_COLLECTION_CONFIG_FILE_NAME = 80;
-        
-        
+
+
         // Allocate and build the mapping of identifiers to names
         //
         FILE_ID_TO_NAME = new String[81];

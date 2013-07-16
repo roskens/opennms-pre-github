@@ -37,19 +37,19 @@ import java.io.Serializable;
  * @version $Id: $
  */
 public class ReportIntParm extends ReportParm implements Serializable {
-    
+
     private static final long serialVersionUID = 4587512112540000518L;
-    
+
     int m_value;
     String m_type;
-    
+
     /**
      * <p>Constructor for ReportIntParm.</p>
      */
     public ReportIntParm() {
       super();
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -58,7 +58,7 @@ public class ReportIntParm extends ReportParm implements Serializable {
     public int getValue() {
         return m_value;
     }
-    
+
     /**
      * <p>setValue</p>
      *
@@ -67,7 +67,7 @@ public class ReportIntParm extends ReportParm implements Serializable {
     public void setValue(int value) {
         m_value = value;
     }
-    
+
     /**
      * <p>getInputType</p>
      *

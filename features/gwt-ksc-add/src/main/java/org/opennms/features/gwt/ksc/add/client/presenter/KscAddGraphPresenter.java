@@ -65,7 +65,7 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
     private final Image m_addImage;
     private GraphInfo m_graphInfo;
     private final KscReportService m_reportService = new DefaultKscReportService();
-    
+
     public KscAddGraphPresenter(final PopupPanel mainPopup, final KscAddGraphView<KscReport> addGraphView, final List<KscReport> kscReports, final GraphInfo graphInfo) {
         m_mainPopup = mainPopup;
         m_view = addGraphView;
@@ -85,7 +85,7 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
                 list.add(detail);
             }
         }
-        
+
         return list;
     }
 
@@ -186,7 +186,7 @@ public class KscAddGraphPresenter implements Presenter, KscAddGraphView.Presente
         container.add(m_addImage);
         container.add(m_mainPopup.asWidget());
     }
-    
+
     public native final String getBaseHref() /*-{
         try{
             return $wnd.getBaseHref();

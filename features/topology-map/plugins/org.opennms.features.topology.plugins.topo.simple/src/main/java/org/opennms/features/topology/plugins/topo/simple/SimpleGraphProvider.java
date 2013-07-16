@@ -72,7 +72,7 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
     public SimpleGraphProvider(String namespace) {
         super(namespace);
         s_log.debug("Creating a new SimpleTopologyProvider with namespace {}", namespace);
-        
+
         //URL defaultGraph = getClass().getResource("/saved-vmware-graph.xml");
 
         //setTopologyLocation(defaultGraph);
@@ -84,7 +84,7 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
 
 	public void setTopologyLocation(URI topologyLocation) throws MalformedURLException, JAXBException {
 		m_topologyLocation = topologyLocation;
-		
+
 		if (m_topologyLocation != null && new File(m_topologyLocation).exists()) {
 			s_log.debug("Loading topology from " + m_topologyLocation);
 			load(m_topologyLocation);
@@ -126,14 +126,14 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
         	s_log.error(e.getMessage(), e);
         }
     }
-    
+
     private void load(final URI source, final WrappedGraph graph) {
         String namespace = graph.m_namespace == null ? TOPOLOGY_NAMESPACE_SIMPLE : graph.m_namespace;
-        if (getVertexNamespace() != namespace) { 
+        if (getVertexNamespace() != namespace) {
             LoggerFactory.getLogger(this.getClass()).info("Creating new vertex provider with namespace {}", namespace);
             m_vertexProvider = new SimpleVertexProvider(namespace);
         }
-        if (getEdgeNamespace() != namespace) { 
+        if (getEdgeNamespace() != namespace) {
             LoggerFactory.getLogger(this.getClass()).info("Creating new edge provider with namespace {}", namespace);
             m_edgeProvider = new SimpleEdgeProvider(namespace);
         }
@@ -142,7 +142,7 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             if (vertex.namespace == null) {
                 vertex.namespace = getVertexNamespace();
                 LoggerFactory.getLogger(this.getClass()).warn("Setting namespace on vertex to default: {}", vertex);
-            } 
+            }
 
             if (vertex.id == null) {
                 LoggerFactory.getLogger(this.getClass()).warn("Invalid vertex unmarshalled from {}: {}", source.toString(), vertex);
@@ -166,12 +166,12 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
             newVertex.setTooltipText(vertex.tooltipText);
             addVertices(newVertex);
         }
-        
+
         for (WrappedEdge edge : graph.m_edges) {
             if (edge.namespace == null) {
                 edge.namespace = getEdgeNamespace();
                 LoggerFactory.getLogger(this.getClass()).warn("Setting namespace on edge to default: {}", edge);
-            } 
+            }
 
             if (edge.id == null) {
                 LoggerFactory.getLogger(this.getClass()).warn("Invalid edge unmarshalled from {}: {}", source.toString(), edge);
@@ -179,10 +179,10 @@ public class SimpleGraphProvider extends AbstractTopologyProvider implements Gra
                 try {
                     /*
                      * This code will be necessary if we allow edges to be created
-                    
+
                     // Find the highest index group number and start the index for new groups above it
                     int edgeNumber = Integer.parseInt(edge.getId().substring(SIMPLE_EDGE_ID_PREFIX.length()));
-                    
+
                     if (m_edgeCounter <= edgeNumber) {
                         m_edgeCounter = edgeNumber + 1;
                     }

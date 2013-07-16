@@ -35,9 +35,9 @@ public class ManualLayoutOperation extends LayoutOperation {
 
 	public ManualLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final ManualLayoutAlgorithm m_layoutAlgorithm = new ManualLayoutAlgorithm();
-		    
+
 			@Override
 			public LayoutAlgorithm getLayoutAlgorithm() {
 				return m_layoutAlgorithm;

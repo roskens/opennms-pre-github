@@ -34,6 +34,6 @@ public class AgentNoSuchNameException extends AgentIndexException {
 	public AgentNoSuchNameException(int errorIndex) {
         super(ResponsePdu.NO_SUCH_NAME_ERR, errorIndex);
     }
-    
+
 
 }

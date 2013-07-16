@@ -65,7 +65,7 @@ public class XmlRpcProxyFactoryBean<T> extends XmlRpcClientInterceptor implement
     public T getObject() throws Exception {
         return this.serviceProxy;
     }
-    
+
 
     /**
      * <p>getObjectType</p>

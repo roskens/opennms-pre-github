@@ -39,11 +39,11 @@ import java.util.Set;
  * <p>JdbcSet class.</p>
  */
 public class JdbcSet<E> extends AbstractSet<E> {
-    
+
     LinkedHashSet<E> m_added = new LinkedHashSet<E>();
     LinkedHashSet<E> m_entries = new LinkedHashSet<E>();
     LinkedHashSet<E> m_removed = new LinkedHashSet<E>();
-    
+
     /**
      * <p>Constructor for JdbcSet.</p>
      *
@@ -53,14 +53,14 @@ public class JdbcSet<E> extends AbstractSet<E> {
     public JdbcSet(Collection<E> c) {
         m_entries.addAll(c);
     }
-    
+
     /**
      * <p>Constructor for JdbcSet.</p>
      */
     public JdbcSet() {
-    	
+
     }
-    
+
     /**
      * <p>setElements</p>
      *
@@ -69,11 +69,11 @@ public class JdbcSet<E> extends AbstractSet<E> {
     protected void setElements(Collection<E> c) {
     	m_entries.addAll(c);
     }
-    
+
     public class JdbcSetIterator extends IteratorIterator<E> {
 
         private E m_last;
-        
+
         @SuppressWarnings("unchecked")
         public JdbcSetIterator(Iterator<E> entriesIter, Iterator<E> addedIter) {
             super(entriesIter, addedIter);
@@ -90,9 +90,9 @@ public class JdbcSet<E> extends AbstractSet<E> {
             m_removed.add(m_last);
             super.remove();
         }
-        
+
     }
-    
+
     /**
      * <p>iterator</p>
      *
@@ -127,7 +127,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
         m_added.add(o);
         return true;
     }
-    
+
     /**
      * <p>getRemoved</p>
      *
@@ -136,7 +136,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
     public Set<E> getRemoved() {
         return m_removed;
     }
-    
+
     /**
      * <p>getAdded</p>
      *
@@ -145,7 +145,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
     public Set<E> getAdded() {
         return m_added;
     }
-    
+
     /**
      * <p>getRemaining</p>
      *
@@ -154,7 +154,7 @@ public class JdbcSet<E> extends AbstractSet<E> {
     public Set<E> getRemaining() {
         return m_entries;
     }
-    
+
     /**
      * <p>reset</p>
      */

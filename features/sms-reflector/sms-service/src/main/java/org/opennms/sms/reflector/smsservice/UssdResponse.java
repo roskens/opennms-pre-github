@@ -41,7 +41,7 @@ public class UssdResponse extends MobileMsgResponse {
 
     private String m_gatewayId;
     private USSDResponse m_msg;
-    
+
     /**
      * <p>Constructor for UssdResponse.</p>
      *
@@ -73,8 +73,8 @@ public class UssdResponse extends MobileMsgResponse {
     public String getText() {
         return m_msg.getContent();
     }
-    
-    
+
+
     /**
      * <p>getSessionStatus</p>
      *
@@ -91,9 +91,9 @@ public class UssdResponse extends MobileMsgResponse {
      */
     public USSDResponse getMessage() {
         return m_msg;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

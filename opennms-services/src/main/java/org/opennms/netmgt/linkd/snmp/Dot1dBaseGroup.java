@@ -64,9 +64,9 @@ public final class Dot1dBaseGroup extends AggregateTracker {
 	public final static	String	BASE_NUM_PORTS		= "dot1dBaseNumPorts";
 	/** Constant <code>BASE_NUM_TYPE="dot1dBaseType"</code> */
 	public final static	String	BASE_NUM_TYPE		= "dot1dBaseType";
-	
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the STP Node table. Objects
 	 * in this list should be used by multiple instances of
@@ -87,7 +87,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
 
 		/**
 		 * <P> The number of ports controlled by this bridging entity.</P>
-		 * 
+		 *
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32,BASE_NUM_PORTS,".1.3.6.1.2.1.17.1.2"),
 
@@ -109,14 +109,14 @@ public final class Dot1dBaseGroup extends AggregateTracker {
 	 * <P>The SYSTEM_OID is the object identifier that represents the
 	 * root of the system information in the MIB forest. Each of the
 	 * system elements can be retrieved by adding their specific index
-	 * to the string, and an additional Zero(0) to signify the single 
+	 * to the string, and an additional Zero(0) to signify the single
 	 * instance item.</P>
 	 */
 	public static final String	SYSTEM_OID 	= ".1.3.6.1.2.1.17.1";
 
     private SnmpStore m_store;
     private InetAddress m_address;
-	
+
 	/**
 	 * <P>The class constructor is used to initialize the collector
 	 * and send out the initial SNMP packet requesting data. The
@@ -129,7 +129,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
 	public Dot1dBaseGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
-        m_store = new SnmpStore(ms_elemList); 
+        m_store = new SnmpStore(ms_elemList);
 	}
 
     /** {@inheritDoc} */
@@ -158,7 +158,7 @@ public final class Dot1dBaseGroup extends AggregateTracker {
     public String getBridgeAddress() {
         return m_store.getHexString(BASE_BRIDGE_ADDRESS);
     }
-    
+
     /**
      * <p>getNumberOfPorts</p>
      *
@@ -176,9 +176,9 @@ public final class Dot1dBaseGroup extends AggregateTracker {
     public Integer getBridgeType() {
     	return m_store.getInt32(BASE_NUM_TYPE);
     }
-    
+
     public OnmsStpNode getOnmsStpNode(OnmsStpNode node) {
-    	if (getBridgeAddress() == null) 
+	if (getBridgeAddress() == null)
     		return node;
     	node.setBaseBridgeAddress(getBridgeAddress());
     	if (getBridgeType() == null)

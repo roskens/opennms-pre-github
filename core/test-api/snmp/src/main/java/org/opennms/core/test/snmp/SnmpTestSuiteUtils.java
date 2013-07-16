@@ -40,7 +40,7 @@ import org.opennms.test.VersionSettingTestSuite;
 
 /**
  * Test utilities for creating an SNMP TestSuites for JUnit.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public abstract class SnmpTestSuiteUtils {
@@ -49,7 +49,7 @@ public abstract class SnmpTestSuiteUtils {
     private SnmpTestSuiteUtils() {
         throw new UnsupportedOperationException("you aren't the boss of me!");
     }
-    
+
     public static TestSuite createSnmpStrategyTestSuite(Class<? extends TestCase> testClass) {
         TestSuite suite = new TestSuite(testClass.getName());
         suite.addTest(new PropertySettingTestSuite(testClass, "JoeSnmp Tests", STRATEGY_CLASS_PROPERTY_NAME, JoeSnmpStrategy.class.getName()));
@@ -57,7 +57,7 @@ public abstract class SnmpTestSuiteUtils {
         suite.addTest(new PropertySettingTestSuite(testClass, "MockStrategy Tests", STRATEGY_CLASS_PROPERTY_NAME, MockSnmpStrategy.class.getName()));
         return suite;
     }
-    
+
     public static TestSuite createSnmpVersionTestSuite(Class<? extends TestCase> testClass) {
         TestSuite suite = new TestSuite(testClass.getName());
         suite.addTest(new VersionSettingTestSuite(testClass, "SNMPv1 Tests", SnmpAgentConfig.VERSION1));

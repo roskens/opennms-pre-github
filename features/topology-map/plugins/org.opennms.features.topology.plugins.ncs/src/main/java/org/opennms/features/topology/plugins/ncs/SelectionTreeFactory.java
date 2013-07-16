@@ -47,7 +47,7 @@ public class SelectionTreeFactory implements IViewContribution {
 
 	@Override
 	public SelectionTree getView(WidgetContext widgetContext) {
-		// Get the component by asking the blueprint container to instantiate a prototype bean 
+		// Get the component by asking the blueprint container to instantiate a prototype bean
 		SelectionTree tree = (SelectionTree)m_container.getComponentInstance(m_beanName);
 		tree.setGraphContainer(widgetContext.getGraphContainer());
 		return tree;

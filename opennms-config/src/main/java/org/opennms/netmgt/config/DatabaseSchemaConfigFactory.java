@@ -66,7 +66,7 @@ public final class DatabaseSchemaConfigFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     /**
      * The singleton instance of this factory
      */
@@ -97,8 +97,8 @@ public final class DatabaseSchemaConfigFactory {
 
     /**
      * Private constructor
-     * @throws ValidationException 
-     * @throws MarshalException 
+     * @throws ValidationException
+     * @throws MarshalException
      *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
@@ -133,7 +133,7 @@ public final class DatabaseSchemaConfigFactory {
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -366,7 +366,7 @@ public final class DatabaseSchemaConfigFactory {
                     }
                 }
             }
-    
+
             return joinedTables;
         } finally {
             getReadLock().unlock();
@@ -396,7 +396,7 @@ public final class DatabaseSchemaConfigFactory {
                 joinExpr.append(currentJoin.getTable() + "." + currentJoin.getTableColumn() + " = ");
                 joinExpr.append(joinTables.get(i) + "." + currentJoin.getColumn() + ")");
             }
-    
+
             if (joinExpr.length() > 0) return "FROM " + joinExpr.toString();
             return "";
         } finally {

@@ -26,7 +26,7 @@ public abstract class AbstractHistoryManager implements HistoryManager {
         saveHistory(userId, history);
         return history.getFragment();
     }
-    
+
     protected abstract SavedHistory getHistory(String userId, String fragment);
 
     protected abstract void saveHistory(String userId, SavedHistory history);

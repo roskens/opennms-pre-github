@@ -53,7 +53,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 		code = null;
 		this.output = null;
 	}
-	
+
 	public TermHandler(Element output){
 		keybuf = new KeyBuffer();
 		code = null;
@@ -104,7 +104,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			k = c.getCharCode();
 		}
 		else if (c.getKeyCode() != 0) k = c.getKeyCode();
-		
+
 		if (c.isCtrlDown()) {
 			k = ctrlPressed(k);
 			if (k == -1) return;

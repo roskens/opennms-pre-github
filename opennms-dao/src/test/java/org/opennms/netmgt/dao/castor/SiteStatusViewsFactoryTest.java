@@ -37,7 +37,7 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.netmgt.config.siteStatusViews.View;
 
 public class SiteStatusViewsFactoryTest extends TestCase {
-	
+
 	private SiteStatusViewsFactory m_factory;
 
         @Override
@@ -51,13 +51,13 @@ public class SiteStatusViewsFactoryTest extends TestCase {
 	protected void tearDown() throws Exception {
 		super.tearDown();
 	}
-	
+
 	public void testGetName() throws MarshalException, ValidationException, IOException {
 		String viewName = "default";
 		View view = m_factory.getView(viewName);
 		assertNotNull(view);
 		assertEquals(viewName, view.getName());
-        
+
         assertEquals(5, view.getRows().getRowDefCount());
 	}
 

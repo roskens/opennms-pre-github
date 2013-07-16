@@ -63,7 +63,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
@@ -79,37 +79,37 @@ public class SnmpThresholderTest {
     private DefaultThresholdsDao m_thresholdsDao;
     private FileAnticipator m_fileAnticipator;
     private IfInfoGetter m_ifInfoGetter;
-    
+
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     private FileOutputStream m_out = null;
-        
+
     @SuppressWarnings("deprecation")
     @Before
     public void setUp() throws Exception {
 
         m_fileAnticipator = new FileAnticipator();
-        
+
         int nodeId = 1;
         String ipAddress = "192.168.1.1";
-        
+
         setUpThresholdingConfig();
         m_thresholdsDao = new DefaultThresholdsDao();
         m_thresholdsDao.setThresholdingConfigFactory(ThresholdingConfigFactory.getInstance());
         m_thresholdsDao.afterPropertiesSet();
-        
+
         m_snmpThresholder = new SnmpThresholder();
         m_snmpThresholder.setThresholdsDao(m_thresholdsDao);
-        
+
         m_ifInfoGetter = m_mocks.createMock(IfInfoGetter.class);
         m_snmpThresholder.setIfInfoGetter(m_ifInfoGetter);
-        
+
         m_iface = new ThresholderTestCase.ThresholdNetworkInterfaceImpl(nodeId, InetAddressUtils.addr(ipAddress));
         m_params = new HashMap<String, String>();
         m_params.put("thresholding-group", "default-snmp");
         m_thresholdInterface = new SnmpThresholdNetworkInterface(m_thresholdsDao, m_iface, m_params);
     }
-    
+
     @After
     public void tearDown() {
     	IOUtils.closeQuietly(m_out);
@@ -117,7 +117,7 @@ public class SnmpThresholderTest {
     	System.gc();
         m_fileAnticipator.tearDown();
     }
-    
+
     private void setUpThresholdingConfig() throws Exception {
         Resource config = new ClassPathResource("/test-thresholds.xml");
         ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(config.getInputStream()));
@@ -128,7 +128,7 @@ public class SnmpThresholderTest {
     public void testCheckNodeDirNullDirectory() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("directory argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(null, m_thresholdInterface, new Date(), new Events());
         } catch (Throwable t) {
@@ -136,13 +136,13 @@ public class SnmpThresholderTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullThresholdNetworkInterface() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("thresholdNetworkInterface argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(new File(""), null, new Date(), new Events());
         } catch (Throwable t) {
@@ -151,13 +151,13 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
     }
 
-    // FIXME: This doesn't work now that config has been moved into SnmpThresholdNetworkInterface 
+    // FIXME: This doesn't work now that config has been moved into SnmpThresholdNetworkInterface
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullThresholdConfiguration() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("thresholdNetworkInterface argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(new File(""), null, new Date(), new Events());
         } catch (Throwable t) {
@@ -165,13 +165,13 @@ public class SnmpThresholderTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullDate() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("date argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(new File(""), m_thresholdInterface, null, new Events());
         } catch (Throwable t) {
@@ -179,13 +179,13 @@ public class SnmpThresholderTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullEvents() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("events argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(new File(""), m_thresholdInterface, new Date(), null);
         } catch (Throwable t) {
@@ -193,16 +193,16 @@ public class SnmpThresholderTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullSnmpIfaceInetAddress() {
         ThresholdNetworkInterface intf = new ThresholderTestCase.ThresholdNetworkInterfaceImpl(1, null);
         SnmpThresholdNetworkInterface snmpIface = new SnmpThresholdNetworkInterface(m_thresholdsDao, intf, m_params);
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("getInetAddress() of thresholdNetworkInterface argument cannot be null"));
-        
+
         try {
             m_snmpThresholder.checkNodeDir(new File(""), snmpIface, new Date(), new Events());
         } catch (Throwable t) {
@@ -210,14 +210,14 @@ public class SnmpThresholderTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testCheckNodeDirNullFoo() throws Exception {
         /*
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("directory argument cannot be null"));
-        
+
         try {
         */
                 m_snmpThresholder.checkNodeDir(new File(""), m_thresholdInterface, new Date(), new Events());
@@ -228,35 +228,35 @@ public class SnmpThresholderTest {
         ta.verifyAnticipated();
         */
     }
-    
-    
+
+
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtension() throws Exception {
-        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension()); 
+        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension());
         assertNotNull("stripped file name should not be null", strippedName);
         assertEquals("stripped file name", "foo", strippedName);
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithNoExtension() throws Exception {
         String strippedName = m_snmpThresholder.stripRrdExtension("foo");
         assertNull("stripped file name should be null, but was: " + strippedName, strippedName);
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtensionTwice() throws Exception {
-        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension() + RrdUtils.getExtension()); 
+        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension() + RrdUtils.getExtension());
         assertNotNull("stripped file name should not be null", strippedName);
         assertEquals("stripped file name", "foo" + RrdUtils.getExtension(), strippedName);
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testStripRrdExtensionWithValidExtensionNotAtEnd() throws Exception {
-        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension() + ".bar"); 
+        String strippedName = m_snmpThresholder.stripRrdExtension("foo" + RrdUtils.getExtension() + ".bar");
         assertNull("stripped file name should be null, but was: " + strippedName, strippedName);
     }
 
@@ -272,7 +272,7 @@ public class SnmpThresholderTest {
         }
         assertEquals(5, count); // Count how many resource-filter entries are defined on test-thresholods.xml
     }
-    
+
     @SuppressWarnings("deprecation")
     @Test
     public void testInterfaces() throws Exception {
@@ -286,7 +286,7 @@ public class SnmpThresholderTest {
         // Common Variables
         File path = m_fileAnticipator.getTempDir();
         File nodeDir = m_fileAnticipator.tempDir(path, "1");
-        long start = System.currentTimeMillis();        
+        long start = System.currentTimeMillis();
         List<String> sources = new ArrayList<String>();
         sources.add("ifInOctets");
         sources.add("ifOutOctets");
@@ -300,7 +300,7 @@ public class SnmpThresholderTest {
         List<String> data1 = new ArrayList<String>();
         data1.add("100:200:300:350"); // TRIGGERED:TRIGGERED:NONE:NONE
         createAndUpdateRrd(rrd1, start, sources, data1);
-                
+
         // Create Temporal Files for Resource 2
         File intf2Dir = m_fileAnticipator.tempDir(nodeDir, "wlan0");
         File rrd2 = m_fileAnticipator.tempFile(intf2Dir, "mib2-stats.jrb");
@@ -312,7 +312,7 @@ public class SnmpThresholderTest {
         // Run Thresholds Check and Validate. It must generate 3 events
         m_thresholdInterface.getThresholdConfiguration().setThresholdGroup(group);
         Events events = new Events();
-        
+
         // Creating Mock ifInfo Data for eth0
         Map<String,String> ifInfoEth0 = new HashMap<String,String>();
         ifInfoEth0.put("snmpifindex", "1");
@@ -333,11 +333,11 @@ public class SnmpThresholderTest {
         m_snmpThresholder.checkIfDir(intf1Dir, m_thresholdInterface, new Date(start), events);
         m_snmpThresholder.checkIfDir(intf2Dir, m_thresholdInterface, new Date(start), events);
         m_mocks.verifyAll();
-        
+
         //assertEquals(3, events.getEventCount()); // with no Filters. See test-thresholds.xml
         assertEquals(2, events.getEventCount()); // with Filters Enabled. See test-thresholds.xml
     }
-  
+
     @SuppressWarnings("deprecation")
     @Test
     public void testThresholdWithGenericResourceTypes() throws Exception {
@@ -365,7 +365,7 @@ public class SnmpThresholderTest {
         File r1Dir = m_fileAnticipator.tempDir(rtDir, "Se0.100");
         File rrd1 = m_fileAnticipator.tempFile(r1Dir, "rfc1315-frame-relay.jrb");
         createDsProperties(r1Dir, sources, "rfc1315-frame-relay");
-                
+
         // Creating strings.properties for Resource 1
         strings.setProperty("frName", "caracas");
         strings.setProperty("frDlci", "100");
@@ -374,12 +374,12 @@ public class SnmpThresholderTest {
         m_out = new FileOutputStream(sFile1);
 		strings.store(m_out, null);
 		m_out.close();
-        
+
         // Creating JRB content for Resource 1
         List<String> data1 = new ArrayList<String>();
         data1.add("100:200:300:350"); // TRIGGERED:TRIGGERED:NONE:NONE
         createAndUpdateRrd(rrd1, start, sources, data1);
-                
+
         // Create Temporal Files for Resource 2
         File r2Dir = m_fileAnticipator.tempDir(rtDir, "Se1.200");
         File rrd2 = m_fileAnticipator.tempFile(r2Dir, "rfc1315-frame-relay.jrb");
@@ -392,8 +392,8 @@ public class SnmpThresholderTest {
         m_out = new FileOutputStream(sFile2);
 		strings.store(m_out, null);
 		m_out.close();
-        
-        // Creating JRB content for Resource 2        
+
+        // Creating JRB content for Resource 2
         List<String> data2 = new ArrayList<String>();
         data2.add("50:150:400:300"); // RE_ARMED:NO_CHANGE:NONE:NONE
         createAndUpdateRrd(rrd2, start, sources, data2);
@@ -437,14 +437,14 @@ public class SnmpThresholderTest {
         File r1Dir = m_fileAnticipator.tempDir(rtDir, "opt");
         File rrd1 = m_fileAnticipator.tempFile(r1Dir, "mib2-host-resources-storage.jrb");
         createDsProperties(r1Dir, sources, "mib2-host-resources-storage");
-                
+
         // Creating strings.properties for Resource 1
         strings.setProperty("hrStorageDescr", "/opt");
         File sFile1 = m_fileAnticipator.tempFile(r1Dir, "strings.properties");
         m_out = new FileOutputStream(sFile1);
         strings.store(m_out, null);
         m_out.close();
-        
+
         // Creating JRB content for Resource 1
         List<String> data1 = new ArrayList<String>();
         data1.add("2:200:80");
@@ -473,7 +473,7 @@ public class SnmpThresholderTest {
         ds.store(m_out, null);
         m_out.close();
     }
-    
+
     private void createAndUpdateRrd(File rrdPath, long start, List<String> sources, List<String> values) throws Exception {
         // Creating RRD
         long ts = start/1000;

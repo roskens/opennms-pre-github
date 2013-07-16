@@ -50,7 +50,7 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
 	private String m_ifAlias;
     private final InetAddress m_inetAddr;
     private final int m_ifIndex;
-    
+
 
     /**
      * <p>Constructor for MockInterface.</p>
@@ -243,7 +243,7 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     public Event createUpEvent() {
         return MockEventUtil.createInterfaceUpEvent("Test", this);
     }
-    
+
     /**
      * <p>createNewEvent</p>
      *
@@ -300,6 +300,6 @@ public class MockInterface extends MockContainer<MockNode,MockService> {
     public int getIfIndex() {
         return m_ifIndex;
     }
-    
+
 
 }

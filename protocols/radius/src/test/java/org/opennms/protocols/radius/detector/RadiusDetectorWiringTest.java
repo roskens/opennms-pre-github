@@ -65,16 +65,16 @@ public class RadiusDetectorWiringTest implements ApplicationContextAware {
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
-    
+
     @Test
     public void testRadiusDetectorWiring() {
         testWiredDetector(RadiusAuthDetector.class);
     }
-    
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
-        
+
     }
 
 }

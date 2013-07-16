@@ -39,8 +39,8 @@ import org.opennms.netmgt.snmp.SnmpValue;
  * @version $Id: $
  */
 public class AliasedAttribute extends SnmpAttribute {
-    
-	
+
+
 	/**
 	 * <p>Constructor for AliasedAttribute.</p>
 	 *
@@ -126,6 +126,6 @@ public class AliasedAttribute extends SnmpAttribute {
         return getResource()+"."+getAttributeType()+" = "+getValue();
     }
 
-	
+
 
 }

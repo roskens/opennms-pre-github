@@ -77,7 +77,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AnnotationTest implements InitializingBean {
 	@Autowired
 	private SessionFactory m_sessionFactory;
-        
+
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
 
@@ -95,7 +95,7 @@ public class AnnotationTest implements InitializingBean {
 		public void checkCollection(Collection<T> collection);
 		public void check(T entity);
 	}
-	
+
 	public class NullChecker<T> implements Checker<T> {
 
                 @Override
@@ -105,7 +105,7 @@ public class AnnotationTest implements InitializingBean {
                 @Override
 		public void checkCollection(Collection<T> collection) {
 		}
-		
+
 	}
 
 
@@ -128,7 +128,7 @@ public class AnnotationTest implements InitializingBean {
 
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testAssetRecord() {
@@ -139,10 +139,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("node should not be null", entity.getNode());
 				assertNotNull("node label should not be null", entity.getNode().getLabel());
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testNode() {
@@ -161,9 +161,9 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("snmp interfaces list should not be null", entity.getSnmpInterfaces());
 				assertTrue("snmp interfaces list should be greater than or equal to zero", entity.getSnmpInterfaces().size() >= 0);
 			}
-			
+
 		});
-		
+
 	}
 
 	@Test
@@ -179,10 +179,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("monitored services list should not be null", entity.getMonitoredServices());
 				assertTrue("number of monitored services should be greater than or equal to zero", entity.getMonitoredServices().size() >= 0);
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testSnmpInterfaces() {
@@ -197,10 +197,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("ip interfaces list should not be null", entity.getIpInterfaces());
 				assertTrue("ip interfaces list size should be greater than 0", entity.getIpInterfaces().size() > 0);
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testCategories() {
@@ -210,10 +210,10 @@ public class AnnotationTest implements InitializingBean {
 			public void check(OnmsCategory entity) {
 				assertNotNull("name should not be null", entity.getName());
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testMonitoredServices() {
@@ -229,10 +229,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("service type should not be null", entity.getServiceType());
 				assertNotNull("service name should not be null", entity.getServiceName());
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testServiceTypes() {
@@ -243,10 +243,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("id should not be null", entity.getId());
 				assertNotNull("name should not be null", entity.getName());
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
     public void testOutages() {
@@ -263,12 +263,12 @@ public class AnnotationTest implements InitializingBean {
 					assertNotNull("outage has ended (ifregainedservice) so service regained event should not be null", entity.getServiceRegainedEvent());
 					assertNotNull("outage has ended (ifregainedservice) so service regained event UEI should not be null", entity.getServiceRegainedEvent().getEventUei());
 				}
-					
+
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testEvents() {
@@ -288,10 +288,10 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("notifications list should not be null", entity.getNotifications());
 				assertTrue("notifications list size should be greater than or equal to zero", entity.getNotifications().size() >= 0);
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
     public void testAlarms() {
@@ -304,29 +304,29 @@ public class AnnotationTest implements InitializingBean {
 				assertNotNull("dist poller should not be null", entity.getDistPoller());
 				assertNotNull("dist poller name should not be null", entity.getDistPoller().getName());
 			}
-			
+
 		});
 	}
-	
+
 	@Test
 	@Transactional
 	public void testNotifacations() {
 		assertLoadAll(OnmsNotification.class, new NullChecker<OnmsNotification>());
 	}
-	
+
 	@Test
 	@Transactional
 	public void testUsersNotified() {
 		assertLoadAll(OnmsUserNotification.class, new NullChecker<OnmsUserNotification>());
 	}
-	
+
 	private <T> void assertLoadAll(Class<T> annotatedClass, Checker<T> checker) {
 		HibernateTemplate template = new HibernateTemplate(m_sessionFactory);
 		Collection<T> results = template.loadAll(annotatedClass);
 		assertNotNull(results);
-		
+
 		checker.checkCollection(results);
-		
+
 		for (T t : results) {
 			checker.check(t);
             // we only need to check one

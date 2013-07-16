@@ -91,7 +91,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class SnmpCollectorMinMaxValTest implements TestContextAware, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectorMinMaxValTest.class);
     private static final String TEST_HOST_ADDRESS = "172.20.1.205";
-    private static final String TEST_NODE_LABEL = "TestNode"; 
+    private static final String TEST_NODE_LABEL = "TestNode";
 
 
     @Autowired
@@ -157,7 +157,7 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         final Set<OnmsIpInterface> ifaces = testNode.getIpInterfaces();
         assertEquals(1, ifaces.size());
         iface = ifaces.iterator().next();
-        
+
         LOG.debug("iface = {}", iface);
 
         final SnmpCollector collector = new SnmpCollector();
@@ -176,7 +176,7 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
 
     @Test
     @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-minmax-persistTest-config.xml", 
+            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-minmax-persistTest-config.xml",
             datacollectionType = "snmp",
             anticipateFiles = {
                     "1",
@@ -226,7 +226,7 @@ public class SnmpCollectorMinMaxValTest implements TestContextAware, Initializin
         // by now the values should be the new values
         assertEquals(Double.valueOf(456.0), RrdUtils.fetchLastValueInRange(rrdFile.getAbsolutePath(), "tcpCurrEstab", stepSizeInMillis, stepSizeInMillis));
         assertEquals(Double.valueOf(1234567.0), RrdUtils.fetchLastValueInRange(ifRrdFile.getAbsolutePath(), "ifInOctets", stepSizeInMillis, stepSizeInMillis + 20000));
-        
+
      // now update the data in the agent
 		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.6.9.0"), SnmpUtils.getValueFactory().getInt32(456));
 		SnmpUtils.set(m_agentConfig, SnmpObjId.get(".1.3.6.1.2.1.2.2.1.10.6"), SnmpUtils.getValueFactory().getCounter32(1234567));

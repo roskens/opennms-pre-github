@@ -58,7 +58,7 @@ public abstract class CustomizableTwoColumnRowLayout extends TwoColumnRowLayout 
     public void layout() {
         TableModel model = getTableModel();
         HtmlBuilder html = getHtmlBuilder();
-        
+
         if (!showLayout(model)) {
             return;
         }

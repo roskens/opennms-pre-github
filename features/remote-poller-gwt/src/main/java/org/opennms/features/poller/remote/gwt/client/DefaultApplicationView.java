@@ -59,18 +59,18 @@ import com.google.gwt.user.client.ui.SplitLayoutPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class DefaultApplicationView implements ApplicationView, ResizeHandler {
-    
+
     interface Binder extends UiBinder<DockLayoutPanel, DefaultApplicationView> {}
-    
+
     private static final Binder BINDER = GWT.create(Binder.class);
-    
+
     interface LinkStyles extends CssResource {
         String activeLink();
     }
-    
+
     @UiField
     protected LocationPanel locationPanel;
-    
+
 
     @UiField
     protected DockLayoutPanel mainPanel;
@@ -98,9 +98,9 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     protected CheckBox statusStopped;
     @UiField
     protected CheckBox statusUnknown;
-    
+
     private final MapPanel m_mapPanel;
-    
+
     private final HandlerManager m_eventBus;
 
 
@@ -108,19 +108,19 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
 
 
     static final DateTimeFormat UPDATE_TIMESTAMP_FORMAT = DateTimeFormat.getMediumDateTimeFormat();
-    
-    
+
+
     public DefaultApplicationView(Application presenter, HandlerManager eventBus, MapPanel mapPanel) {
         m_presenter = presenter;
         m_eventBus = eventBus;
         m_mapPanel = mapPanel;
         BINDER.createAndBindUi(this);
-        
+
         locationPanel.setEventBus(eventBus);
         setupWindow();
-        
+
     }
-    
+
     @UiHandler("statusDown")
     public void onDownClicked(final ClickEvent event) {
         getEventBus().fireEvent(new StatusSelectionChangedEvent(Status.DOWN, getStatusDown().getValue()));
@@ -154,7 +154,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     private HandlerManager getEventBus() {
         return m_eventBus;
     }
-    
+
     private DockLayoutPanel getMainPanel() {
         return mainPanel;
     }
@@ -190,11 +190,11 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     private CheckBox getStatusUnknown() {
         return statusUnknown;
     }
-    
+
     private LocationPanel getLocationPanel() {
         return locationPanel;
     }
-    
+
     private Hyperlink getLocationLink() {
         return locationLink;
     }
@@ -210,7 +210,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
     private Label getUpdateTimestamp() {
         return updateTimestamp;
     }
-    
+
     private Application getPresenter() {
         return m_presenter;
     }
@@ -272,7 +272,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
      */
     @Override
     public Set<Status> getSelectedStatuses() {
-        
+
         Set<Status> statuses = new HashSet<Status>();
         for (final Widget w : getStatusesPanel()) {
             if (w instanceof CheckBox) {
@@ -301,10 +301,10 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
         getSplitPanel().setWidgetMinSize(getLocationPanel(), 255);
         getMainPanel().setSize("100%", "100%");
         RootPanel.get("map").add(getMainPanel());
-        
+
         updateTimestamp();
         onLocationClick(null);
-        
+
         onResize(null);
     }
 
@@ -363,7 +363,7 @@ public class DefaultApplicationView implements ApplicationView, ResizeHandler {
             ((SmartMapFit)getMapPanel()).fitToBounds();
         } else {
             //TODO: Zoom in to visible locations on startup
-            
+
             getMapPanel().setBounds(locationBounds);
         }
     }

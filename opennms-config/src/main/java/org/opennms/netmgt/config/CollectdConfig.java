@@ -117,7 +117,7 @@ public class CollectdConfig {
             wpkg.createIpList(localServer, verifyServer);
         }
     }
-    
+
     /**
      * <p>rebuildPackageIpListMap</p>
      */

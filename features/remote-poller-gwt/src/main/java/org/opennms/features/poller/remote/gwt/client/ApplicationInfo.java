@@ -239,7 +239,7 @@ public class ApplicationInfo implements Serializable, IsSerializable, Comparable
 	public String summary() {
 		return "ApplicationInfo[id=" + m_id + ",name=" + m_name + "]";
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *

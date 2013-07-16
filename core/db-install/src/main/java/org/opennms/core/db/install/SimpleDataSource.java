@@ -60,13 +60,13 @@ public class SimpleDataSource implements DataSource {
     public SimpleDataSource(String driver, String url, String user, String password) throws ClassNotFoundException {
         m_driver = driver;
         m_url = url;
-        
+
         m_properties.put("user", user);
         m_properties.put("password", password);
-        
+
         Class.forName(m_driver);
     }
-    
+
     /**
      * <p>Constructor for SimpleDataSource.</p>
      *
@@ -75,7 +75,7 @@ public class SimpleDataSource implements DataSource {
      */
     public SimpleDataSource(JdbcDataSource ds) throws ClassNotFoundException {
         this(ds.getClassName(), ds.getUrl(), ds.getUserName(), ds.getPassword());
-        
+
         for (Param param : ds.getParamCollection()) {
             m_properties.put(param.getName(), param.getValue());
         }
@@ -214,7 +214,7 @@ public class SimpleDataSource implements DataSource {
     public String getUser() {
         return m_properties.getProperty("user");
     }
-    
+
     /**
      * <p>getProperties</p>
      *
@@ -223,7 +223,7 @@ public class SimpleDataSource implements DataSource {
     public Properties getProperties() {
         return m_properties;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -245,7 +245,7 @@ public class SimpleDataSource implements DataSource {
                 props.append("='");
                 props.append(entry.getValue());
                 props.append("'");
-                
+
                 first = false;
             }
         }

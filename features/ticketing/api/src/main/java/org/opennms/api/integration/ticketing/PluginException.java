@@ -38,7 +38,7 @@ package org.opennms.api.integration.ticketing;
 public class PluginException extends Exception {
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -6445393393836316186L;
 

@@ -48,7 +48,7 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactoryAware, InitializingBean, DisposableBean {
-    
+
     private BeanFactory m_beanFactory;
     private ServiceRegistry m_serviceRegistry;
     private String m_targetBeanName;
@@ -58,13 +58,13 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
 
     private Registration m_registration;
 
-    
+
     /** {@inheritDoc} */
     @Override
     public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
         m_beanFactory = beanFactory;
     }
-    
+
     /**
      * <p>setTargetBeanName</p>
      *
@@ -73,7 +73,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public void setTargetBeanName(String targetBeanName) {
         m_targetBeanName = targetBeanName;
     }
-    
+
     /**
      * <p>setTarget</p>
      *
@@ -82,7 +82,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public void setTarget(Object target) {
         m_target = target;
     }
-    
+
     /**
      * <p>setInterfaces</p>
      *
@@ -91,7 +91,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public void setInterfaces(Class<?>[] serviceInterfaces) {
         m_serviceInterfaces = serviceInterfaces;
     }
-    
+
     /**
      * <p>setServiceProperties</p>
      *
@@ -100,7 +100,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public void setServiceProperties(Map<String, String> serviceProperties) {
         m_serviceProperties = serviceProperties;
     }
-    
+
     /**
      * <p>setServiceRegistry</p>
      *
@@ -109,7 +109,7 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -117,22 +117,22 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
      */
     @Override
     public void afterPropertiesSet() throws Exception {
-        
+
         boolean hasText = StringUtils.hasText(m_targetBeanName);
         Assert.isTrue(hasText || m_target != null, "targetBeanName or target must be set");
         Assert.notEmpty(m_serviceInterfaces, "interfaces must be set");
 
-        
+
         if (m_target == null) {
             Assert.notNull(m_beanFactory, "beanFactory must not be null");
         }
-        
+
         Object provider = m_target != null ? m_target : m_beanFactory.getBean(m_targetBeanName);
-        
+
         m_registration = m_serviceRegistry.register(provider, m_serviceProperties, m_serviceInterfaces);
 
     }
-    
+
 
     /**
      * <p>destroy</p>
@@ -179,6 +179,6 @@ public class ServiceFactoryBean implements FactoryBean<Registration>, BeanFactor
 
 
 
-    
-    
+
+
 }

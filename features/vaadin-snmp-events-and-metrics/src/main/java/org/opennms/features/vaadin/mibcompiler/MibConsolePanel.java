@@ -43,8 +43,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class MIB Console Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class MibConsolePanel extends Panel implements Logger {

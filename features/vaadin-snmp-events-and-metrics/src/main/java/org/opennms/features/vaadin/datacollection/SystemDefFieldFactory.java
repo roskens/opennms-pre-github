@@ -37,15 +37,15 @@ import com.vaadin.ui.TextField;
 
 /**
  * A factory for creating System Definition Field objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public final class SystemDefFieldFactory implements FormFieldFactory {
 
     /** The groups. */
     private final List<String> groups;
-    
+
     /**
      * Instantiates a new system definition field factory.
      *
@@ -54,7 +54,7 @@ public final class SystemDefFieldFactory implements FormFieldFactory {
     public SystemDefFieldFactory(List<String> groups) {
         this.groups = groups;
     }
-    
+
     /* (non-Javadoc)
      * @see com.vaadin.ui.FormFieldFactory#createField(com.vaadin.data.Item, java.lang.Object, com.vaadin.ui.Component)
      */

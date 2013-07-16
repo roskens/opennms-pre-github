@@ -32,12 +32,12 @@ import org.opennms.features.topology.api.LayoutAlgorithm;
 import org.opennms.features.topology.app.internal.jung.FRLayoutAlgorithm;
 
 public class FRLayoutOperation extends LayoutOperation {
-    
+
 	public FRLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final FRLayoutAlgorithm m_layoutAlgorithm = new FRLayoutAlgorithm();
-		    
+
 		    @Override
 			public LayoutAlgorithm getLayoutAlgorithm() {
 				return m_layoutAlgorithm;

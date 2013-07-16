@@ -41,7 +41,7 @@ class GeneralSettingsLoader {
 	private static final Logger LOG = LoggerFactory.getLogger(GeneralSettingsLoader.class);
 
 	/** Constant <code>log</code> */
-	
+
 	/**
 	 * <p>load</p>
 	 *
@@ -55,40 +55,40 @@ class GeneralSettingsLoader {
 		String threadsStr = request.getParameter("threads");
 		String retriesStr = request.getParameter("retries");
 		String timeoutStr = request.getParameter("timeout");
-		
+
 		LOG.debug("initialsleeptime: {}", initSTStr);
 		LOG.debug("restartsleeptime: {}", restartSTStr);
 		LOG.debug("threads: {}", threadsStr);
 		LOG.debug("retries: {}", retriesStr);
 		LOG.debug("timeout: {}", timeoutStr);
-		
-		
+
+
 		long initSt = WebSecurityUtils.safeParseLong(initSTStr);
 		long restartSt = WebSecurityUtils.safeParseLong(restartSTStr);
-		
+
 		config.setInitialSleepTime(initSt);
 		config.setRestartSleepTime(restartSt);
 		//set the general settings loaded into current configuration
 		if(threadsStr!=null){
 			config.setThreads(WebSecurityUtils.safeParseInt(threadsStr));
 		}
-		
-		
+
+
 		if(retriesStr!=null && (!retriesStr.trim().equals("") && !retriesStr.trim().equals("3"))){
 				config.setRetries(WebSecurityUtils.safeParseInt(retriesStr));
 		}else{
 			config.deleteRetries();
 		}
-		
+
 		if(timeoutStr!=null && (!timeoutStr.trim().equals("") && !timeoutStr.trim().equals("800"))){
 			config.setTimeout(Long.valueOf(timeoutStr).longValue());
 		}else{
 			config.deleteTimeout();
 		}
-	
-		
+
+
 		LOG.debug("General settings uploaded.");
-		
+
 		return config;
 	}
 

@@ -40,13 +40,13 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ImportJob implements Job {
-    
+
     private Provisioner m_provisioner;
 
     /** Constant <code>KEY="url"</code> */
     protected static final String KEY = "url";
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
@@ -56,12 +56,12 @@ public class ImportJob implements Job {
             Assert.notNull(url);
 
             getProvisioner().doImport(url, true);
-            
+
         } catch (Throwable t) {
             throw new JobExecutionException(t);
         }
     }
-    
+
     /**
      * <p>setProvisioner</p>
      *
@@ -74,5 +74,5 @@ public class ImportJob implements Job {
     Provisioner getProvisioner() {
         return m_provisioner;
     }
-    
+
 }

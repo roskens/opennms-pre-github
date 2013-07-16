@@ -66,5 +66,5 @@ public class ModelImporter extends BaseImporter {
 	public void setEventManager(EventIpcManager eventManager) {
 		m_eventManager = eventManager;
 	}
-    
+
 }

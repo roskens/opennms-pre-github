@@ -41,14 +41,14 @@ import java.util.NoSuchElementException;
  * @version $Id: $
  */
 public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAddress> {
-    
+
     private final IPAddress m_begin;
     private final IPAddress m_end;
-    
+
     public IPAddressRange(String singleton) {
         this(singleton, singleton);
     }
-    
+
     public IPAddressRange(IPAddress singleton) {
         this(singleton, singleton);
     }
@@ -62,7 +62,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public IPAddressRange(String begin, String end) {
         this(new IPAddress(begin), new IPAddress(end));
     }
-    
+
     /**
      * <p>Constructor for IPAddressRange.</p>
      *
@@ -76,7 +76,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
         m_begin = begin;
         m_end = end;
     }
-    
+
     /**
      * <p>getBegin</p>
      *
@@ -85,7 +85,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public IPAddress getBegin() {
         return m_begin;
     }
-    
+
     /**
      * <p>getEnd</p>
      *
@@ -94,7 +94,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public IPAddress getEnd() {
         return m_end;
     }
-    
+
     /**
      * <p>size</p>
      *
@@ -120,7 +120,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
         }
         return addr.isGreaterThanOrEqualTo(m_begin) && addr.isLessThanOrEqualTo(m_end);
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -130,7 +130,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean contains(String addr) {
         return contains(new IPAddress(addr));
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -140,7 +140,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean contains(IPAddressRange range) {
         return this.contains(range.getBegin()) && this.contains(range.getEnd());
     }
-    
+
     /**
      * <p>overlaps</p>
      *
@@ -151,7 +151,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
         return this.contains(range.getBegin()) || this.contains(range.getEnd())
         || range.contains(this.getBegin()) || range.contains(this.getEnd());
     }
-    
+
     /**
      * <p>comesBefore</p>
      *
@@ -161,7 +161,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean comesBefore(IPAddress addr) {
         return m_end.isLessThan(addr);
     }
-    
+
     /**
      * <p>comesBefore</p>
      *
@@ -171,7 +171,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean comesBefore(IPAddressRange range) {
         return comesBefore(range.getBegin());
     }
-    
+
     /**
      * <p>comesAfter</p>
      *
@@ -181,7 +181,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean comesAfter(IPAddress addr) {
         return m_begin.isGreaterThan(addr);
     }
-    
+
     /**
      * <p>comesAfter</p>
      *
@@ -191,7 +191,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public boolean comesAfter(IPAddressRange range) {
         return comesAfter(range.getEnd());
     }
-    
+
     /**
      * <p>adjoins</p>
      *
@@ -209,7 +209,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     private boolean comesImmediatelyBefore(IPAddressRange range) {
         return this.comesBefore(range) && getEnd().isPredecessorOf(range.getBegin());
     }
-    
+
     /**
      * <p>iterator</p>
      *
@@ -219,9 +219,9 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
     public Iterator<IPAddress> iterator() {
         return new IPAddressRangeIterator(this);
     }
-    
+
     private static class IPAddressRangeIterator implements Iterator<IPAddress> {
-        
+
         private final IPAddressRange m_range;
         private IPAddress m_next;
 
@@ -240,7 +240,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
             if (m_next == null) {
                 throw new NoSuchElementException("Already returned the last element");
             }
-            
+
             final IPAddress next = m_next;
             m_next = next.incr();
             if (!m_range.contains(m_next)) {
@@ -253,13 +253,13 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
         public void remove() {
             throw new UnsupportedOperationException("IPAddressRangeIterator.remove() is not yet implemented");
         }
-        
+
     }
-    
+
     @Override
     public int compareTo(IPAddressRange r) {
         if (this.comesBefore(r)) {
-            // this is less than 
+            // this is less than
             return -1;
         } else if (this.comesAfter(r)) {
             // this is greater than
@@ -269,7 +269,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
             return 0;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
@@ -323,7 +323,7 @@ public class IPAddressRange implements Comparable<IPAddressRange>, Iterable<IPAd
                 ranges.add(new IPAddressRange(range.getEnd().incr(), getEnd()));
             }
             return ranges.toArray(new IPAddressRange[ranges.size()]);
-            
+
         }
     }
 

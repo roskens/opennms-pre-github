@@ -38,7 +38,7 @@ import org.springframework.binding.validation.ValidationContext;
  * @since 1.8.1
  */
 public class TriggerDetailsValidator {
-    
+
     /**
      * <p>ValidateTriggerDetails</p>
      *

@@ -41,7 +41,7 @@ import java.util.Date;
  * @version $Id: $
  */
 public interface Acknowledgeable {
-    
+
     /**
      * <p>acknowledge</p>
      *
@@ -66,7 +66,7 @@ public interface Acknowledgeable {
      * @param ackUser a {@link java.lang.String} object.
      */
     void escalate(String ackUser);
-    
+
     /**
      * <p>getType</p>
      *
@@ -94,7 +94,7 @@ public interface Acknowledgeable {
      * @return a {@link java.util.Date} object.
      */
     Date getAckTime();
-    
+
     /**
      * Might be null but probably supported already by most implementations, but still, here for convenience.  Also
      * guarantees that this is available in this API if the model changes where the node is not directly related and de-facto
@@ -103,5 +103,5 @@ public interface Acknowledgeable {
      * @return the related OnmsNode, null if non available or doesn't make sense
      */
     OnmsNode getNode();
-    
+
 }

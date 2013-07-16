@@ -52,7 +52,7 @@ public class IncludeBoxController extends AbstractController implements Initiali
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("KSC/include-box", "reports", getKscReportService().getReportList());
     }
-    
+
     /**
      * <p>getKscReportService</p>
      *

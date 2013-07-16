@@ -51,7 +51,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DnsDetector.class);
     private static final String DEFAULT_SERVICE_NAME = "DNS";
 
@@ -65,7 +65,7 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
     public DnsDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -75,7 +75,7 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
     public DnsDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>onInit</p>
      */
@@ -84,35 +84,35 @@ public class DnsDetector extends BasicDetector<DatagramPacket, DatagramPacket> {
         final DNSAddressRequest req = addrRequest(getLookup());
         send(encode(req), verifyResponse(req));
     }
-    
+
     /**
      * @param request
      * @return
      */
     private static ResponseValidator<DatagramPacket> verifyResponse(final DNSAddressRequest request) {
-        
+
         return new ResponseValidator<DatagramPacket>() {
 
             @Override
             public boolean validate(final DatagramPacket response) {
-                
+
                 try {
                     request.verifyResponse(response.getData(), response.getLength());
                 } catch (final IOException e) {
                     LOG.info("failed to connect", e);
                     return false;
-                } 
-                
+                }
+
                 return true;
             }
-            
+
         };
     }
-    
+
     private static DNSAddressRequest addrRequest(final String host) {
         return new DNSAddressRequest(host);
     }
-    
+
     private static DatagramPacket encode(final DNSAddressRequest dnsPacket) {
         final byte[] data = buildRequest(dnsPacket);
         return new DatagramPacket(data, data.length);

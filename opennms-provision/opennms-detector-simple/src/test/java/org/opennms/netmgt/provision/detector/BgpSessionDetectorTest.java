@@ -69,13 +69,13 @@ public class BgpSessionDetectorTest implements InitializingBean {
         m_detector.setRetries(2);
         m_detector.setTimeout(500);
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws UnknownHostException{
         m_detector.setBgpPeerIp("172.20.1.201");
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFail() throws UnknownHostException{
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));

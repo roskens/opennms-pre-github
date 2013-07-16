@@ -52,25 +52,25 @@ import org.springframework.util.Assert;
  */
 public abstract class ElementUtil {
     /**
-     * Do not use directly. Call {@link #getNodeStatusMap 
+     * Do not use directly. Call {@link #getNodeStatusMap
      * getInterfaceStatusMap} instead.
      */
     private static final Map<Character, String> m_nodeStatusMap;
 
     /**
-     * Do not use directly. Call {@link #getInterfaceStatusMap 
+     * Do not use directly. Call {@link #getInterfaceStatusMap
      * getInterfaceStatusMap} instead.
      */
     private static final Map<Character, String> m_interfaceStatusMap;
 
     /**
-     * Do not use directly. Call {@link #getSnmpInterfaceStatusMap 
+     * Do not use directly. Call {@link #getSnmpInterfaceStatusMap
      * getInterfaceStatusMap} instead.
      */
     private static final Map<Character, String> m_interfaceSnmpStatusMap;
 
     /**
-     * Do not use directly. Call {@link #getServiceStatusMap 
+     * Do not use directly. Call {@link #getServiceStatusMap
      * getServiceStatusMap} instead.
      */
     private static final Map<Character, String> m_serviceStatusMap;
@@ -80,18 +80,18 @@ public abstract class ElementUtil {
         m_nodeStatusMap.put('A', "Active");
         m_nodeStatusMap.put(' ', "Unknown");
         m_nodeStatusMap.put('D', "Deleted");
-        
+
         m_interfaceStatusMap = new HashMap<Character, String>();
         m_interfaceStatusMap.put('M', "Managed");
         m_interfaceStatusMap.put('U', "Unmanaged");
         m_interfaceStatusMap.put('D', "Deleted");
         m_interfaceStatusMap.put('F', "Forced Unmanaged");
         m_interfaceStatusMap.put('N', "Not Monitored");
-        
+
         m_interfaceSnmpStatusMap = new HashMap<Character, String>();
         m_interfaceSnmpStatusMap.put('P', "Polled");
         m_interfaceSnmpStatusMap.put('N', "Not Monitored");
-        
+
         m_serviceStatusMap = new HashMap<Character, String>();
         m_serviceStatusMap.put('A', "Managed");
         m_serviceStatusMap.put('U', "Unmanaged");
@@ -101,8 +101,8 @@ public abstract class ElementUtil {
         m_serviceStatusMap.put('R', "Rescan to Resume");
         m_serviceStatusMap.put('S', "Rescan to Suspend");
         m_serviceStatusMap.put('X', "Remotely Monitored");
-        
-        
+
+
     }
 
     static final String[] IFTYPES = new String[] {
@@ -358,7 +358,7 @@ public abstract class ElementUtil {
         "aluELP",                   //249
         "gpon",                     //250
       };
-    
+
      static final String[] OPER_ADMIN_STATUS = new String[] {
         "&nbsp;",          //0 (not supported)
         "Up",              //1
@@ -369,7 +369,7 @@ public abstract class ElementUtil {
         "NotPresent",      //6
         "LowerLayerDown"   //7
       };
-      
+
      static final String[] IP_ROUTE_TYPE = new String[] {
     	    "&nbsp;",         //0 (not supported)
     	    "Other",          //1
@@ -415,7 +415,7 @@ public abstract class ElementUtil {
               return "Unknown (" + ifStatusNum + ")";
           }
       }
-      
+
     /**
      * Return the human-readable name for a interface type, should never be null.
      *
@@ -452,7 +452,7 @@ public abstract class ElementUtil {
     public static String getNodeStatusString(char c) {
         return m_nodeStatusMap.get(c);
     }
-    
+
     /**
      * Return the human-readable name for a interface's status, may be null.
      *
@@ -521,7 +521,7 @@ public abstract class ElementUtil {
     public static String getServiceStatusString(char c) {
         return m_serviceStatusMap.get(c);
     }
-    
+
     /**
      * <p>hasLocallyMonitoredServices</p>
      *
@@ -570,7 +570,7 @@ public abstract class ElementUtil {
 
         return shortLabel;
     }
-    
+
 
     /**
      * <p>getNodeByParams</p>
@@ -584,7 +584,7 @@ public abstract class ElementUtil {
             throws ServletException, SQLException {
         return getNodeByParams(request, "node", servletContext);
     }
-    
+
     /**
      * <p>getNodeByParams</p>
      *
@@ -608,7 +608,7 @@ public abstract class ElementUtil {
             nodeId = Integer.parseInt(nodeIdString);
         } catch (NumberFormatException e) {
             throw new ElementIdNotFoundException("Wrong data type for \""
-                    + nodeIdParam + "\", should be integer", nodeIdString, 
+                    + nodeIdParam + "\", should be integer", nodeIdString,
                     "node", "element/node.jsp", "node", "element/nodeList.htm");
         }
 
@@ -617,7 +617,7 @@ public abstract class ElementUtil {
         if (node == null) {
             throw new ElementNotFoundException("No such node in database", "node", "element/node.jsp", "node", "element/nodeList.htm");
         }
-        
+
         return node;
 }
 
@@ -625,8 +625,8 @@ public abstract class ElementUtil {
         return getIpRouteInterfaceByParams(request, "node", servletContext);
 
     }
-    
-    
+
+
     public static IpRouteInterface[] getIpRouteInterfaceByParams(
 			HttpServletRequest request, String nodeIdParam,
 			ServletContext servletContext) {
@@ -642,10 +642,10 @@ public abstract class ElementUtil {
             nodeId = Integer.parseInt(nodeIdString);
         } catch (NumberFormatException e) {
             throw new ElementIdNotFoundException("Wrong data type for \""
-                    + nodeIdParam + "\", should be integer", nodeIdString, 
+                    + nodeIdParam + "\", should be integer", nodeIdString,
                     "node", "element/node.jsp", "node", "element/nodeList.htm");
         }
-        
+
         IpRouteInterface[] ipri = NetworkElementFactory.getInstance(servletContext).getIpRoute(nodeId);
         if (ipri ==  null )
         	return new IpRouteInterface[0];
@@ -664,7 +664,7 @@ public abstract class ElementUtil {
             throws ServletException, SQLException {
         return getInterfaceByParams(request, "ipinterfaceid", "node", "intf", servletContext);
     }
-    
+
     /**
      * <p>getInterfaceByParams</p>
      *
@@ -684,12 +684,12 @@ public abstract class ElementUtil {
                                                  ServletContext servletContext)
             throws ServletException, SQLException {
         Interface intf;
-        
+
         if (request.getParameter(ipInterfaceIdParam) != null) {
             String ifServiceIdString = request.getParameter(ipInterfaceIdParam);
-            
+
             int ipInterfaceId;
-            
+
             try {
                 ipInterfaceId = Integer.parseInt(ifServiceIdString);
             } catch (NumberFormatException e) {
@@ -701,11 +701,11 @@ public abstract class ElementUtil {
             intf = NetworkElementFactory.getInstance(servletContext).getInterface(ipInterfaceId);
             if (intf !=  null && intf.getIfIndex() <= 0)
             	intf.m_ifIndex = NetworkElementFactory.getInstance(servletContext).getIfIndex(ipInterfaceId);
-            	
+
         } else {
             String nodeIdString = request.getParameter(nodeIdParam);
             String ipAddr = request.getParameter(ipAddrParam);
-            
+
             int nodeId;
 
             final String[] requiredParameters = new String[] {
@@ -740,7 +740,7 @@ public abstract class ElementUtil {
         if (intf == null) {
             throw new ElementNotFoundException("No such interface in database", "interface", "element/interface.jsp", "ipinterfaceid", "element/interface.jsp");
         }
-        
+
         return intf;
     }
 
@@ -821,8 +821,8 @@ public abstract class ElementUtil {
 
     return intf;
     }
-    
-    
+
+
     /**
      * <p>getServiceByParams</p>
      *
@@ -836,7 +836,7 @@ public abstract class ElementUtil {
         return getServiceByParams(request, "ifserviceid", "node", "intf",
                                   "service", servletContext);
     }
-    
+
     /**
      * <p>getServiceByParams</p>
      *
@@ -857,12 +857,12 @@ public abstract class ElementUtil {
                                              ServletContext servletContext)
             throws ServletException, SQLException {
         Service service;
-        
+
         if (request.getParameter(ifServiceIdParam) != null) {
             String ifServiceIdString = request.getParameter(ifServiceIdParam);
-            
+
             int ifServiceId;
-            
+
             try {
                 ifServiceId = Integer.parseInt(ifServiceIdString);
             } catch (NumberFormatException e) {
@@ -876,7 +876,7 @@ public abstract class ElementUtil {
             String nodeIdString = request.getParameter(nodeIdParam);
             String ipAddr = request.getParameter(ipAddrParam);
             String serviceIdString = request.getParameter(serviceIdParam);
-            
+
             int nodeId;
             int serviceId;
 
@@ -908,7 +908,7 @@ public abstract class ElementUtil {
                         + nodeIdParam + "\", should be integer",
                         nodeIdString, "node");
             }
-        
+
             try {
                 serviceId = Integer.parseInt(serviceIdString);
             } catch (NumberFormatException e) {
@@ -926,10 +926,10 @@ public abstract class ElementUtil {
             throw new ElementNotFoundException("No such service in database for " + ipAddr +
                                                " with service ID " +serviceIdString, "service");
         }
-        
+
         return service;
     }
-    
+
     /**
      * <p>getServicesOnNodeByParams</p>
      *
@@ -941,7 +941,7 @@ public abstract class ElementUtil {
     public static Service[] getServicesOnNodeByParams(HttpServletRequest request, int serviceId, ServletContext servletContext) throws SQLException {
     	Service[] services;
     	int nodeId;
-    	
+
     	try {
     		nodeId = Integer.parseInt(request.getParameter("node"));
     	} catch (NumberFormatException nfe) {
@@ -951,19 +951,19 @@ public abstract class ElementUtil {
     	services = NetworkElementFactory.getInstance(servletContext).getServicesOnNode(nodeId, serviceId);
     	return services;
     }
-    
-    
-    
+
+
+
     public static Service[] getServicesOnInterface(int nodeId, String ipAddr, ServletContext servletContext) throws java.sql.SQLException {
 
     	ServiceNameComparator m_serviceComparator = new ServiceNameComparator();
-    	
+
         Service[] svcs = NetworkElementFactory.getInstance(servletContext).getServicesOnInterface(nodeId, ipAddr);
-        
+
         if (svcs != null) {
-            Arrays.sort(svcs, m_serviceComparator); 
+            Arrays.sort(svcs, m_serviceComparator);
         }
-        
+
         return svcs;
     }
 
@@ -976,7 +976,7 @@ public abstract class ElementUtil {
      */
     public static boolean isRouteInfoNodeByParams(HttpServletRequest request, ServletContext servletContext) throws SQLException {
     	int nodeId;
-    	
+
     	try {
     		nodeId = Integer.parseInt(request.getParameter("node"));
     	} catch (NumberFormatException nfe) {
@@ -985,7 +985,7 @@ public abstract class ElementUtil {
     	}
     	return NetworkElementFactory.getInstance(servletContext).isRouteInfoNode(nodeId);
     }
-    
+
     @SuppressWarnings("unused")
     private static String encodeUrl(String in) {
     	String out = "";

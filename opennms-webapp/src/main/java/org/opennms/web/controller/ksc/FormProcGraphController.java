@@ -65,8 +65,8 @@ public class FormProcGraphController extends AbstractController implements Initi
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
-        
-        // Get The Customizable (Working) Graph 
+
+        // Get The Customizable (Working) Graph
         Graph graph = editor.getWorkingGraph();
 
         // Get Form Variables
@@ -76,20 +76,20 @@ public class FormProcGraphController extends AbstractController implements Initi
         String title = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.title.toString()));
         String g_index = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.graphindex.toString()));
         int graph_index = WebSecurityUtils.safeParseInt(g_index);
-        graph_index--; 
-     
-        // Save the modified variables into the working graph 
+        graph_index--;
+
+        // Save the modified variables into the working graph
         graph.setTitle(title);
         graph.setTimespan(timespan);
         graph.setGraphtype(graphtype);
-        
+
         OnmsResource resource = getKscReportService().getResourceFromGraph(graph);
 
         if (action.equals("Save")) {
-            // The working graph is complete now... lets save working graph to working report 
+            // The working graph is complete now... lets save working graph to working report
             editor.unloadWorkingGraph(graph_index);
         }
-        
+
         if (action.equals("Save") || action.equals("Cancel")) {
             return new ModelAndView("redirect:/KSC/customReport.htm");
         } else if (action.equals("Update")) {

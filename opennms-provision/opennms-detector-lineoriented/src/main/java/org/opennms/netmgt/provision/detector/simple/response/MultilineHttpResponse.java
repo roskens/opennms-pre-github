@@ -39,15 +39,15 @@ import java.util.regex.Pattern;
  * @version $Id: $
  */
 public class MultilineHttpResponse extends MultilineOrientedResponse {
-    
-    
+
+
     private static final Pattern DEFAULT_REGEX = Pattern.compile("([H][T][T][P+]/[1].[0-1]) ([0-6]+) ([a-zA-Z ]+)\r\n");
 
     /**
      * <p>Constructor for MultilineHttpResponse.</p>
      */
     public MultilineHttpResponse(){}
-    
+
     /**
      * <p>validateResponse</p>
      *
@@ -76,10 +76,10 @@ public class MultilineHttpResponse extends MultilineOrientedResponse {
         if (m.matches()) {
             return getResponseListAsString(getResponseList().toArray()).contains(pattern);
         }
-        
+
         return false;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -89,7 +89,7 @@ public class MultilineHttpResponse extends MultilineOrientedResponse {
     public String toString() {
         return getResponseList().isEmpty() ? "MultilineHttpResponse" : String.format("Response: %s", getResponseListAsString(getResponseList().toArray()));
     }
-    
+
     private String getResponseListAsString(final Object[] array) {
         final StringBuffer retVal = new StringBuffer();
         for(int i = 0; i < array.length; i++){
@@ -106,5 +106,5 @@ public class MultilineHttpResponse extends MultilineOrientedResponse {
     protected String getResponse() {
         return getResponseList().toArray().toString();
     }
-    
+
 }

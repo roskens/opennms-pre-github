@@ -42,21 +42,21 @@ import com.sun.jna.Native;
  * @author brozow
  */
 public class SunV6NativeSocket extends NativeDatagramSocket {
-    
+
     static {
         Native.register((String)null);
     }
 
-    private int m_sock;     
-    
+    private int m_sock;
+
     public SunV6NativeSocket(int family, int type, int protocol) throws Exception {
         m_sock = socket(family, type, protocol);
     }
-    
+
     public native int socket(int domain, int type, int protocol) throws LastErrorException;
 
     public native int sendto(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 dest_addr, int dest_addr_len) throws LastErrorException;
-    
+
     public native int recvfrom(int socket, Buffer buffer, int buflen, int flags, sun_sockaddr_in6 in_addr, int[] in_addr_len) throws LastErrorException;
 
     public native int close(int socket) throws LastErrorException;
@@ -65,14 +65,14 @@ public class SunV6NativeSocket extends NativeDatagramSocket {
     public int receive(NativeDatagramPacket p) throws UnknownHostException {
         sun_sockaddr_in6 in_addr = new sun_sockaddr_in6();
         int[] szRef = new int[] { in_addr.size() };
-        
+
         ByteBuffer buf = p.getContent();
-        
+
         int n = recvfrom(getSock(), buf, buf.capacity(), 0, in_addr, szRef);
         p.setLength(n);
         p.setAddress(in_addr.getAddress());
         p.setPort(in_addr.getPort());
-        
+
         return n;
     }
 

@@ -51,14 +51,14 @@ public class Main {
                 "classpath*:/META-INF/spring/bundle-context.xml",
                 "classpath*:/META-INF/opennms/bundle-context-opennms.xml",
         };
-        
+
         ClassPathXmlApplicationContext appContext = new ClassPathXmlApplicationContext(contextFiles);
         appContext.registerShutdownHook();
-        
+
         Long latency = SmsPinger.ping("+19193602380");
-        
+
         System.err.println(String.format("Latency is %d", latency));
-        
+
         System.exit(0);
     }
 

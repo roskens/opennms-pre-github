@@ -57,11 +57,11 @@ public class NodeFilter extends EqualsFilter<Integer> {
 //    public String getSql() {
 //        return (" NODEID=" + this.nodeId);
 //    }
-//    
+//
 //    public String getParamSql() {
 //        return (" NODEID=?");
 //    }
-//    
+//
 //    public int bindParams(PreparedStatement ps, int parameterIndex) throws SQLException {
 //    	ps.setInt(parameterIndex, this.nodeId);
 //    	return 1;

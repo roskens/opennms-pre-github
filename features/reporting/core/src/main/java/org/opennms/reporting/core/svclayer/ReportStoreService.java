@@ -42,21 +42,21 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly = true)
 public interface ReportStoreService {
-    
+
     /**
      * <p>getAll</p>
      *
      * @return a {@link java.util.List} object.
      */
     public List<ReportCatalogEntry> getAll();
-    
+
     /**
      * <p>getFormatMap</p>
      *
      * @return a {@link java.util.Map} object.
      */
     public Map<String, Object> getFormatMap();
-    
+
     /**
      * <p>render</p>
      *
@@ -65,7 +65,7 @@ public interface ReportStoreService {
      * @param outputStream a {@link java.io.OutputStream} object.
      */
     public void render(Integer id, ReportFormat format, OutputStream outputStream);
-    
+
     /**
      * <p>delete</p>
      *
@@ -73,7 +73,7 @@ public interface ReportStoreService {
      */
     @Transactional(readOnly = false)
     public void delete(Integer[] ids);
-    
+
     /**
      * <p>delete</p>
      *
@@ -81,7 +81,7 @@ public interface ReportStoreService {
      */
     @Transactional(readOnly = false)
     public void delete(Integer id);
-    
+
     /**
      * <p>save</p>
      *
@@ -89,7 +89,7 @@ public interface ReportStoreService {
      */
     @Transactional(readOnly = false)
     public void save(ReportCatalogEntry reportCatalogEntry);
-    
+
     /**
      * <p>setReportCatalogDao</p>
      *

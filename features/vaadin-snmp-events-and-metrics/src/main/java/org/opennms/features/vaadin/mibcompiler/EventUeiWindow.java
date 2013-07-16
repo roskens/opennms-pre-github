@@ -37,8 +37,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class Event UEI Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class EventUeiWindow extends Window implements Button.ClickListener {
@@ -54,7 +54,7 @@ public abstract class EventUeiWindow extends Window implements Button.ClickListe
 
     /**
      * Instantiates a new Event Generator window.
-     * 
+     *
      * @param defaultUei the default value for UEI base
      */
     public EventUeiWindow(String defaultUei) {

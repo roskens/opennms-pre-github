@@ -86,7 +86,7 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase(dirtiesContext=false,tempDbClass=MockDatabase.class)
 @Transactional
 public class SyslogdTest implements InitializingBean {
-    
+
     String m_localhost = "127.0.0.1";
 
     private Syslogd m_syslogd;
@@ -145,28 +145,28 @@ public class SyslogdTest implements InitializingBean {
 
     /**
      * Send a raw syslog message and expect a given event as a result
-     * 
+     *
      * @param testPDU The raw syslog message as it would appear on the wire (just the UDP payload)
      * @param expectedHost The host from which the event should be resolved as originating
      * @param expectedUEI The expected UEI of the resulting event
-     * @param expectedLogMsg The expected contents of the logmsg for the resulting event 
-     * 
-     * @throws UnknownHostException 
-     * @throws InterruptedException 
-     * @throws ExecutionException 
+     * @param expectedLogMsg The expected contents of the logmsg for the resulting event
+     *
+     * @throws UnknownHostException
+     * @throws InterruptedException
+     * @throws ExecutionException
      */
     private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg) throws UnknownHostException, InterruptedException, ExecutionException {
         startSyslogdGracefully();
-        
+
         final EventBuilder expectedEventBldr = new EventBuilder(expectedUEI, "syslogd");
         expectedEventBldr.setInterface(addr(expectedHost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(expectedLogMsg);
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         final SyslogClient sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         final DatagramPacket pkt = sc.getPacket(SyslogClient.LOG_DEBUG, testPDU);
         final SyslogdConfig config = SyslogdConfigFactory.getInstance();
@@ -175,10 +175,10 @@ public class SyslogdTest implements InitializingBean {
         ea.verifyAnticipated(5000,0,0,0,0);
         final Event receivedEvent = ea.getAnticipatedEventsRecieved().get(0);
         assertEquals("Log messages do not match", expectedLogMsg, receivedEvent.getLogmsg().getContent());
-        
+
         return ea.getAnticipatedEventsRecieved();
     }
-    
+
 	private List<Event> doMessageTest(String testPDU, String expectedHost, String expectedUEI, String expectedLogMsg, Map<String,String> expectedParams) throws UnknownHostException, InterruptedException, ExecutionException {
     	final List<Event> receivedEvents = doMessageTest(testPDU, expectedHost, expectedUEI, expectedLogMsg);
 
@@ -228,16 +228,16 @@ public class SyslogdTest implements InitializingBean {
         final String testPDU = "2007-01-01 127.0.0.1 beer - Not just for dinner anymore";
         final String testUEI = "uei.opennms.org/tests/syslogd/nonMessageMatch/severityOnly";
         final String testMsg = "beer - Not just for dinner anymore";
-    
+
         final EventBuilder expectedEventBldr = new EventBuilder(testUEI, "syslogd");
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
@@ -257,20 +257,20 @@ public class SyslogdTest implements InitializingBean {
         final String testPDU = "2007-01-01 127.0.0.1 maltd: beer - Not just for lunch anymore";
         final String testUEI = "uei.opennms.org/tests/syslogd/nonMessageMatch/facilitySeverityProcess";
         final String testMsg = "beer - Not just for lunch anymore";
-    
+
         final EventBuilder expectedEventBldr = new EventBuilder(testUEI, "syslogd");
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         expectedEventBldr.addParam("process", "maltd");
         expectedEventBldr.addParam("service", "local1");
         expectedEventBldr.addParam("severity", "Warning");
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient("maltd", 10, SyslogClient.LOG_LOCAL1);
@@ -278,10 +278,10 @@ public class SyslogdTest implements InitializingBean {
         } catch (UnknownHostException uhe) {
             //Failures are for weenies
         }
-    
+
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
-    
+
     @Test
     public void testRegexFacilitySeverityMatch() throws Exception {
         startSyslogdGracefully();
@@ -290,19 +290,19 @@ public class SyslogdTest implements InitializingBean {
         final String testPDU = "2007-01-01 127.0.0.1 beer - Not just for lunch anymore";
         final String testUEI = "uei.opennms.org/tests/syslogd/nonMessageMatch/facilitySeverity";
         final String testMsg = "beer - Not just for lunch anymore";
-    
+
         final EventBuilder expectedEventBldr = new EventBuilder(testUEI, "syslogd");
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         expectedEventBldr.addParam("service", "local1");
         expectedEventBldr.addParam("severity", "Warning");
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient(null, 10, SyslogClient.LOG_LOCAL1);
@@ -310,10 +310,10 @@ public class SyslogdTest implements InitializingBean {
         } catch (UnknownHostException uhe) {
             //Failures are for weenies
         }
-    
+
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
-    
+
     @Test
     public void testRegexFacilityMatch() throws Exception {
         startSyslogdGracefully();
@@ -322,18 +322,18 @@ public class SyslogdTest implements InitializingBean {
         final String testPDU = "2007-01-01 127.0.0.1 beer - Not just for lunch anymore";
         final String testUEI = "uei.opennms.org/tests/syslogd/nonMessageMatch/facilityOnly";
         final String testMsg = "beer - Not just for lunch anymore";
-    
+
         final EventBuilder expectedEventBldr = new EventBuilder(testUEI, "syslogd");
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         expectedEventBldr.addParam("service", "local0");
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient(null, 10, SyslogClient.LOG_LOCAL0);
@@ -344,7 +344,7 @@ public class SyslogdTest implements InitializingBean {
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
-    
+
     @Test
     public void testRegexProcessMatch() throws Exception {
         startSyslogdGracefully();
@@ -358,13 +358,13 @@ public class SyslogdTest implements InitializingBean {
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         expectedEventBldr.addParam("process", "beerd");
 
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient("beerd", 10, SyslogClient.LOG_DAEMON);
@@ -372,7 +372,7 @@ public class SyslogdTest implements InitializingBean {
         } catch (UnknownHostException uhe) {
             //Failures are for weenies
         }
-    
+
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
 
@@ -397,7 +397,7 @@ public class SyslogdTest implements InitializingBean {
             //Failures are for weenies
         }
     }
-    
+
     private void startSyslogdGracefully() {
         try {
             m_syslogd.start();
@@ -409,7 +409,7 @@ public class SyslogdTest implements InitializingBean {
             }
         }
     }
-    
+
     @Test
     public void testSubstrUEIRewrite() throws Exception {
         doMessageTest("2007-01-01 localhost A CRISCO message",
@@ -424,29 +424,29 @@ public class SyslogdTest implements InitializingBean {
                       m_localhost, "uei.opennms.org/tests/syslogd/regexUeiRewriteTest",
                       "100 out of 666 tests failed for bar");
     }
-    
+
     @Test
     public void testSubstrTESTTestThatRemovesATESTString() throws Exception {
         doMessageTest("2007-01-01 localhost A CRISCO message that is also a TESTHIDING message -- hide me!",
                       m_localhost, "uei.opennms.org/tests/syslogd/substrUeiRewriteTest",
                       ConvertToEvent.HIDDEN_MESSAGE);
     }
-    
+
     @Test
     public void testRegexTESTTestThatRemovesADoubleSecretString() throws Exception {
         doMessageTest("2007-01-01 localhost foo: 100 out of 666 tests failed for doubleSecret",
                       m_localhost, "uei.opennms.org/tests/syslogd/regexUeiRewriteTest",
                       ConvertToEvent.HIDDEN_MESSAGE);
     }
-    
+
     @Test
     public void testSubstrDiscard() throws Exception {
         startSyslogdGracefully();
         final String testPDU = "2007-01-01 127.0.0.1 A JUNK message";
-        
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
-        
+
         SyslogClient sc = null;
         sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         sc.syslog(SyslogClient.LOG_DEBUG, testPDU);
@@ -458,24 +458,24 @@ public class SyslogdTest implements InitializingBean {
     public void testRegexDiscard() throws Exception {
         startSyslogdGracefully();
         final String testPDU = "2007-01-01 127.0.0.1 A TrAsH message";
-        
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
-        
+
         SyslogClient sc = null;
         sc = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);
         sc.syslog(SyslogClient.LOG_DEBUG, testPDU);
 
         ea.verifyAnticipated(5000, 0, 0, 0, 0);
     }
-    
+
     @Test
     public void testRegexUEIWithBothKindsOfParameterAssignments() throws Exception {
         final String testPDU = "2007-01-01 127.0.0.1 coffee: Secretly replaced rangerrick's coffee with 42 wombats";
         final String expectedUEI = "uei.opennms.org/tests/syslogd/regexParameterAssignmentTest/bothKinds";
         final String expectedLogMsg = "Secretly replaced rangerrick's coffee with 42 wombats";
         final String[] testGroups = { "rangerrick's", "42", "wombats" };
-        
+
         final Map<String,String> expectedParms = new HashMap<String,String>();
         expectedParms.put("group1", testGroups[0]);
         expectedParms.put("whoseBeverage", testGroups[0]);
@@ -483,14 +483,14 @@ public class SyslogdTest implements InitializingBean {
         expectedParms.put("count", testGroups[1]);
         expectedParms.put("group3", testGroups[2]);
         expectedParms.put("replacementItem", testGroups[2]);
-        
+
         doMessageTest(testPDU, m_localhost, expectedUEI, expectedLogMsg, expectedParms);
     }
 
     @Test
     public void testRegexUEIWithOnlyUserSpecifiedParameterAssignments() throws InterruptedException {
         startSyslogdGracefully();
-        
+
         final String localhost = m_localhost;
         final String testPDU = "2007-01-01 127.0.0.1 tea: Secretly replaced cmiskell's tea with 666 ferrets";
         final String testUEI = "uei.opennms.org/tests/syslogd/regexParameterAssignmentTest/userSpecifiedOnly";
@@ -501,15 +501,15 @@ public class SyslogdTest implements InitializingBean {
         expectedEventBldr.setInterface(addr(localhost));
         expectedEventBldr.setLogDest("logndisplay");
         expectedEventBldr.setLogMessage(testMsg);
-        
+
         expectedEventBldr.addParam("whoseBeverage", testGroups[0]);
         expectedEventBldr.addParam("count", testGroups[1]);
         expectedEventBldr.addParam("replacementItem", testGroups[2]);
-    
+
         final EventAnticipator ea = new EventAnticipator();
         m_eventIpcManager.addEventListener(ea);
         ea.anticipateEvent(expectedEventBldr.getEvent());
-        
+
         SyslogClient s = null;
         try {
             s = new SyslogClient(null, 10, SyslogClient.LOG_DAEMON);

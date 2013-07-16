@@ -52,7 +52,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionManager {
 
 	AlarmListJ2eeConnectionManagerThread cmt;
-	
+
 	/**
 	 * <p>Constructor for AlarmListConnectionManagerJ2eeImpl.</p>
 	 */
@@ -106,7 +106,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
 		cmt.send(alarmList);
 
 	}
-	
+
 	/**
 	 * Causes the thread supporting the connection Manager to start
 	 */
@@ -114,7 +114,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
 	public void start(){
 		cmt.start();
 	}
-	
+
 	/**
 	 * Makes a new empty alarm value object
 	 * NOTE THIS IS A PATCH to proxy for JVTAlarmMonitorSession.makeAlarmValue()
@@ -124,7 +124,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
         @Override
 	public  javax.oss.fm.monitor.AlarmValue makeAlarmValue(){
 		return cmt.makeAlarmValue();
-		
+
 	}
 
 	/**
@@ -138,7 +138,7 @@ public class AlarmListConnectionManagerJ2eeImpl implements AlarmListConnectionMa
 	public javax.oss.fm.monitor.AlarmValue makeAlarmValueFromSpec(){
 		return cmt.makeAlarmValueFromSpec();
 	}
-	
+
 	// SPRING DAO SETTERS - NOT USED IN THIS VERSION
 
 	/**

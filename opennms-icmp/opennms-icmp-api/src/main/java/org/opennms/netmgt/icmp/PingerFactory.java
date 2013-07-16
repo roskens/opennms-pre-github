@@ -85,7 +85,7 @@ public abstract class PingerFactory {
     public static void setInstance(final Pinger pinger) {
         m_pinger = pinger;
     }
-    
+
     /**
      * This is here for unit testing so we can reset this class before
      * every test.
@@ -93,5 +93,5 @@ public abstract class PingerFactory {
     protected static void reset() {
         m_pinger = null;
     }
-    
+
 }

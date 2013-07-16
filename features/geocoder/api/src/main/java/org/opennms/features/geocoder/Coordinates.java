@@ -50,7 +50,7 @@ public class Coordinates implements Serializable {
     public float getLatitude() {
         return m_latitude;
     }
-    
+
     @Override
     public String toString() {
         return m_longitude + "," + m_latitude;

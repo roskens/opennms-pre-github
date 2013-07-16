@@ -53,9 +53,9 @@ import org.springframework.util.Assert;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public final class DefaultEventHandlerImpl implements InitializingBean, EventHandler {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultEventHandlerImpl.class);
-    
+
     private List<EventProcessor> m_eventProcessors;
 
     /**
@@ -63,7 +63,7 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
      */
     public DefaultEventHandlerImpl() {
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.eventd.EventHandler#createRunnable(org.opennms.netmgt.xml.event.Log)
      */
@@ -81,10 +81,10 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
 
         public EventHandlerRunnable(Log eventLog) {
             Assert.notNull(eventLog, "eventLog argument must not be null");
-            
+
             m_eventLog = eventLog;
         }
-        
+
         /**
          * Process the received events. For each event, use the EventExpander to
          * look up matching eventconf entry and load info from that match, expand
@@ -137,7 +137,7 @@ public final class DefaultEventHandlerImpl implements InitializingBean, EventHan
 
     }
 
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *

@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 final public class RadiusAuthMonitor extends AbstractServiceMonitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthMonitor.class);
 
     /**
@@ -118,7 +118,7 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
     /**
      * Default NAS-ID
      */
-    
+
     public static final String DEFAULT_NASID ="opennms";
 
     /**
@@ -162,7 +162,7 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
         if (parameters == null) {
             throw new NullPointerException();
         }
-        
+
         final TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
         int authport = ParameterMap.getKeyedInteger(parameters, "authport", DEFAULT_AUTH_PORT);
@@ -235,4 +235,4 @@ final public class RadiusAuthMonitor extends AbstractServiceMonitor {
 		return timeout/1000 > 0 ? timeout/1000 : 1;
 	}
 
-} 
+}

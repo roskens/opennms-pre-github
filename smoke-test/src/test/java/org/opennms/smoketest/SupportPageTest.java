@@ -47,7 +47,7 @@ public class SupportPageTest extends OpenNMSSeleniumTestCase {
     }
 
     @Test
-    public void testAllLinksArePresent() {		
+    public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("link=About the OpenNMS Web Console"));
         assertTrue(selenium.isElementPresent("link=Release Notes"));
         assertTrue(selenium.isElementPresent("link=Online Documentation"));

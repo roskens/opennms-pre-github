@@ -51,15 +51,15 @@ public class GraphDashlet extends Dashlet {
 
     /**
      * The interval on which we round the start and end times for graph timespans
-     */ 
+     */
     private static final int TIME_ROUNDING_INTERVAL = (5 * 60);
 
     private SurveillanceServiceAsync m_surveillanceService;
-    
+
     private GraphView m_view;
-    
+
     private DashletLoader m_loader = new DashletLoader();
-    
+
     /**
      * <p>Constructor for GraphDashlet.</p>
      *
@@ -68,12 +68,12 @@ public class GraphDashlet extends Dashlet {
     public GraphDashlet(Dashboard dashboard) {
         super(dashboard, "Resource Graphs");
         setLoader(m_loader);
-        
+
         m_view = new GraphView(this);
         setView(m_view);
     }
-    
-    
+
+
 
     /**
      * <p>setSurveillanceService</p>
@@ -83,13 +83,13 @@ public class GraphDashlet extends Dashlet {
     public void setSurveillanceService(SurveillanceServiceAsync surveillanceService) {
         m_surveillanceService = surveillanceService;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setSurveillanceSet(SurveillanceSet set) {
         m_view.getTopLevelResourceLoader().load(set);
     }
-    
+
     public class GraphView extends DashletView {
         private VerticalPanel m_panel = new VerticalPanel();
         private SimplePager m_pager = new SimplePager(new SimplePageable() {
@@ -102,17 +102,17 @@ public class GraphDashlet extends Dashlet {
         private ValidatedListBox m_childResourceListBox = new ValidatedListBox(GraphDashlet.this);
         private ValidatedListBox m_prefabGraphListBox = new ValidatedListBox(GraphDashlet.this);
         private ResourceGraph m_graph = new ResourceGraph();
-        
+
         private TopLevelResourceLoader m_topLevelResourceLoader;
         private ChildResourceLoader m_childResourceLoader;
         private PrefabGraphLoader m_prefabGraphLoader;
-        
+
         private TopLevelResourceChangeHandler m_topLevelResourceHandler = new TopLevelResourceChangeHandler();
         private ChildResourceChangeHandler m_childResourceHandler = new ChildResourceChangeHandler();
         private PrefabGraphChangeHandler m_prefabGraphHandler = new PrefabGraphChangeHandler();
-        
+
         private String m_selectedResourceId = null;
-        
+
         public GraphView(Dashlet dashlet) {
             super(dashlet);
             //m_panel.add(m_pager);
@@ -120,7 +120,7 @@ public class GraphDashlet extends Dashlet {
             m_panel.add(m_childResourceListBox);
             m_panel.add(m_prefabGraphListBox);
             m_panel.add(m_graph);
-            
+
             m_topLevelResourceListBox.addChangeHandler(m_topLevelResourceHandler);
             m_topLevelResourceListBox.setDirectionalChangeHandler(m_topLevelResourceHandler);
 
@@ -131,15 +131,15 @@ public class GraphDashlet extends Dashlet {
             m_prefabGraphListBox.addChangeHandler(m_prefabGraphHandler);
             m_prefabGraphListBox.setDirectionalChangeHandler(m_prefabGraphHandler);
             m_prefabGraphListBox.setParent(m_childResourceListBox);
-            
+
             m_topLevelResourceLoader = new TopLevelResourceLoader(m_topLevelResourceListBox);
             m_childResourceLoader = new ChildResourceLoader(m_childResourceListBox);
             m_prefabGraphLoader = new PrefabGraphLoader(m_prefabGraphListBox);
-            
+
             initWidget(m_panel);
         }
-        
-        
+
+
         @Override
         public void onDashLoad() {
             addToTitleBar(m_pager, DockPanel.CENTER);
@@ -150,7 +150,7 @@ public class GraphDashlet extends Dashlet {
         public TopLevelResourceLoader getTopLevelResourceLoader() {
             return m_topLevelResourceLoader;
         }
-        
+
         public class TopLevelResourceLoader extends ListBoxCallback {
             public TopLevelResourceLoader(ListBox listBox) {
                 super(m_loader, listBox);
@@ -287,19 +287,19 @@ public class GraphDashlet extends Dashlet {
                 /*
                  * Get the current time and convert it from a long to integer so we
                  * can do reliable math in Javascript.
-                 * 
+                 *
                  * With GWT, a long is implemented in Javascript as a double since
                  * Javascript doesn't have a 64 bit integer type.  We want to make
                  * sure that the times that we return don't change even a millisecond,
                  * otherwise a graph that we prefetch might not be usable because the
                  * prefetched URL and the URL that we use when we want to show the
                  * image might not be the same.
-                 * 
+                 *
                  * FIXME This has a Y2038 issue where the signed integer will overflow.
                  */
                 int now = (int) (System.currentTimeMillis() / 1000);
 
-                int end = (now / TIME_ROUNDING_INTERVAL) * TIME_ROUNDING_INTERVAL; 
+                int end = (now / TIME_ROUNDING_INTERVAL) * TIME_ROUNDING_INTERVAL;
                 int start = end + TIME_START_OFFSET;
 
                 return new String[] { start + "000", end + "000" };

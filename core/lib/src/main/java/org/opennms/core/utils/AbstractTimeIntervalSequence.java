@@ -43,11 +43,11 @@ import java.util.List;
  * @version $Id: $
  */
 public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
-    
+
     private static class TimeIntervalSeqIter<T extends TimeInterval> implements Iterator<T> {
 
         private AbstractTimeIntervalSequence<T> m_current;
-        
+
         public TimeIntervalSeqIter(AbstractTimeIntervalSequence<T> seq) {
             m_current = seq;
         }
@@ -73,7 +73,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
 
     private T m_interval;
     private AbstractTimeIntervalSequence<T> m_tail;
-    
+
     /**
      * <p>Constructor for TimeIntervalSequence.</p>
      */
@@ -89,12 +89,12 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     public AbstractTimeIntervalSequence(T interval) {
         this(interval, null);
     }
-    
+
     private AbstractTimeIntervalSequence(T interval, AbstractTimeIntervalSequence<T> tail) {
         m_interval = interval;
         m_tail = tail;
     }
-    
+
     /**
      * <p>iterator</p>
      *
@@ -103,11 +103,11 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     public Iterator<T> iterator() {
         return new TimeIntervalSeqIter<T>(this);
     }
-    
+
     Date min(Date a, Date b) {
-       return (a.before(b) ? a : b); 
+       return (a.before(b) ? a : b);
     }
-    
+
     Date max(Date a, Date b) {
         return (b.before(a) ? a: b);
     }
@@ -127,20 +127,20 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         } else if (m_interval.overlaps(interval)) {
             addOverlappingInterval(interval);
         }
-        
+
     }
 
     private void addOverlappingInterval(T newInterval) {
         // overlapping intervals
         Collection<T> newIntervals = combineIntervals(m_interval, newInterval);
-        
+
         // remove the current interval since we are replacing it with the new ones
         removeCurrent();
-        
+
         // now add the new intervals
         addAll(newIntervals);
-        
-        
+
+
     }
 
     /**
@@ -152,27 +152,27 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      */
     protected Collection<T> combineIntervals(T currentInterval, T newInterval) {
         List<T> newIntervals = new ArrayList<T>(3);
-        
+
         // overlapping intervals get divided into three non-overlapping segments
         // that are bounded by the below
         Date first = min(currentInterval.getStart(), newInterval.getStart());
         Date second = max(currentInterval.getStart(), newInterval.getStart());
         Date third = min(currentInterval.getEnd(), newInterval.getEnd());
         Date fourth = max(currentInterval.getEnd(), newInterval.getEnd());
-        
+
         // Construct up to three non-overlapping intervals that can be added to the list
-        if (first.equals(second)) { 
+        if (first.equals(second)) {
             // if the first segment is empty then the second segment because head of the list
             // the second segment is not empty because intervals can't be empty
             newIntervals.add(createInterval(first, third));
         } else {
-            // first segment is not empty make it head of the list and add the 
+            // first segment is not empty make it head of the list and add the
             // second the the tail
             newIntervals.add(createInterval(first, second));
             newIntervals.add(createInterval(second, third));
         }
-        
-        
+
+
         if (!third.equals(fourth)) {
             // if the third segment no empty add it to the tail as well.
             // Note: this segment may overlap with the original lists next interval
@@ -202,7 +202,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             m_tail.addInterval(interval);
         }
     }
-    
+
     /**
      * <p>createInterval</p>
      *
@@ -211,7 +211,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * @return a {@link org.opennms.core.utils.TimeInterval} object.
      */
     protected abstract T createInterval(Date start, Date end);
-    
+
     /**
      * <p>createTail</p>
      *
@@ -219,7 +219,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
      * @return a {@link org.opennms.core.utils.AbstractTimeIntervalSequence} object.
      */
     protected abstract AbstractTimeIntervalSequence<T> createTail(T interval);
-    
+
     private void removeCurrent() {
         if (m_tail == null) {
             m_interval = null;
@@ -238,26 +238,26 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (m_interval == null) {
             return;
         }
-        
+
         if (m_interval.preceeds(removedInterval)) {
             removeFromTail(removedInterval);
         } else if (m_interval.follows(removedInterval)) {
             // no need to do anything because the entire remove interval is before this
-            return; 
+            return;
         } else if (m_interval.overlaps(removedInterval)) {
-            
+
             T origInterval = m_interval;
 
             // remove the region from the tail of sequence
             removeFromTail(removedInterval);
-            
+
             // remove the current element
             removeCurrent();
-            
-            
+
+
             // add back any part of the original interval that follows the remove interval
             Collection<T> newIntervals = separateIntervals(origInterval, removedInterval);
-            
+
             addAll(newIntervals);
         }
     }
@@ -274,7 +274,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (removedInterval.getEnd().before(origInterval.getEnd())) {
             newIntervals.add(createInterval(removedInterval.getEnd(), origInterval.getEnd()));
         }
-        
+
         // add back any part of the original interval the preceeded the remove interval
         if (origInterval.getStart().before(removedInterval.getStart())) {
             newIntervals.add(createInterval(origInterval.getStart(), removedInterval.getStart()));
@@ -286,13 +286,13 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (m_tail == null) {
             return;
         }
-        
+
         m_tail.removeInterval(interval);
         if (m_tail.m_interval == null) {
             m_tail = null;
         }
     }
-    
+
     /**
      * <p>bound</p>
      *
@@ -312,7 +312,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
     public void bound(T interval) {
         bound(interval.getStart(), interval.getEnd());
     }
-    
+
     /**
      * <p>getStart</p>
      *
@@ -322,7 +322,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (m_interval == null) return null;
         return m_interval.getStart();
     }
-    
+
     /**
      * <p>getEnd</p>
      *
@@ -333,7 +333,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
         if (m_tail == null) return m_interval.getEnd();
         return m_tail.getEnd();
     }
-    
+
     /**
      * <p>getBounds</p>
      *
@@ -356,7 +356,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             addInterval(interval);
         }
     }
-    
+
     /**
      * <p>addAll</p>
      *
@@ -368,7 +368,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             addInterval(interval);
         }
     }
-    
+
     /**
      * <p>removeAll</p>
      *
@@ -380,7 +380,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             removeInterval(interval);
         }
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -397,7 +397,7 @@ public abstract class AbstractTimeIntervalSequence<T extends TimeInterval> {
             } else {
                 buf.append(",");
             }
-            
+
             buf.append(interval);
         }
         buf.append(']');

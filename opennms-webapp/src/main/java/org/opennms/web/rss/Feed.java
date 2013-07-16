@@ -51,7 +51,7 @@ public interface Feed {
      * @param base a {@link java.lang.String} object.
      */
     public void setUrlBase(String base);
-    
+
     /**
      * <p>getFeedType</p>
      *
@@ -64,7 +64,7 @@ public interface Feed {
      * @param type a {@link java.lang.String} object.
      */
     public void setFeedType(String type);
-    
+
     /**
      * <p>getMaxEntries</p>
      *
@@ -90,12 +90,12 @@ public interface Feed {
      * @param request a {@link javax.servlet.ServletRequest} object.
      */
     public void setRequest(ServletRequest request);
-    
+
     /**
      * <p>render</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String render();
-    
+
 }

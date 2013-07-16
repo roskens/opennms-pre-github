@@ -33,7 +33,7 @@ import org.openqa.selenium.NoSuchElementException;
 
 
 public class ServicePageTest extends OpenNMSSeleniumTestCase {
-	
+
     interface Setter {
         public void setField(String prefix);
     }
@@ -57,7 +57,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         };
     }
-    
+
     String setTreeFieldsAndSave(String formName, Setter... setters) throws InterruptedException {
 
 		String currentNode = selenium.getAttribute("//input[@name='currentNode']@value");
@@ -67,7 +67,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
         for(Setter setter : setters) {
             setter.setField(prefix);
         }
-        
+
         selenium.click("//input[contains(@onclick, '" + currentNode + "') and @value='Save']");
         return currentNode;
     }
@@ -75,7 +75,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
     @Test
     public void testProvisioningGroupSetup() throws Exception {
-    	
+
         String groupName = "SeleniumTestGroup";
 
         selenium.click("link=Admin");
@@ -91,20 +91,20 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         selenium.click("//a[contains(@href, 'editForeignSource(\""+ groupName+"\")')]");
         waitForPageToLoad();
-        
+
         selenium.click("//input[@value='Add Detector']");
         waitForPageToLoad();
-        
+
         String detectorNode = setTreeFieldsAndSave("foreignSourceEditForm", type("name", "HTTP-8080"), select("pluginClass", "HTTP"));
         waitForPageToLoad();
-        
+
         selenium.click("//a[contains(@href, '"+detectorNode+"') and text() = '[Add Parameter]']");
         waitForPageToLoad();
-        
+
         setTreeFieldsAndSave("foreignSourceEditForm", select("key", "port"), type("value", "8080"));
-        
+
         waitForPageToLoad();
-        
+
         selenium.click("//input[@value='Done']");
         waitForPageToLoad();
 
@@ -113,10 +113,10 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         selenium.click("//input[@value='Add Node']");
         waitForPageToLoad();
-        
+
         String nodeForNode = setTreeFieldsAndSave("nodeEditForm", type("nodeLabel", "localNode"));
         waitForPageToLoad();
-        
+
         selenium.click("//a[contains(@href, '" + nodeForNode + "') and text() = '[Add Interface]']");
         waitForPageToLoad();
 
@@ -125,7 +125,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         selenium.click("//a[text() = 'Add Service']");
         waitForPageToLoad();
-        
+
         setTreeFieldsAndSave("nodeEditForm", type("serviceName", "HTTP-8080"));
         waitForPageToLoad();
 
@@ -137,13 +137,13 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         selenium.click("link=Log out");
         waitForPageToLoad();
-        
+
         // Yo dawg, I heard you liked hacks
         Thread.sleep(10000);
     }
 
     @Test
-    public void testCreateUser() { 
+    public void testCreateUser() {
         selenium.click("link=Admin");
         waitForPageToLoad();
         selenium.click("link=Configure Users, Groups and On-Call Roles");
@@ -164,7 +164,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
         waitForPageToLoad();
     }
 
-    @Test  
+    @Test
     public void testCreateGroup() {
         selenium.click("link=Admin");
         waitForPageToLoad();
@@ -255,7 +255,7 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
         selenium.click("link=Events");
         waitForPageToLoad();
         assertTrue(selenium.isTextPresent("Event Queries"));
-        assertTrue(selenium.isTextPresent("Outstanding and acknowledged events"));     
+        assertTrue(selenium.isTextPresent("Outstanding and acknowledged events"));
         selenium.click("link=Notifications");
         waitForPageToLoad();
         assertTrue(selenium.isTextPresent("Notification queries"));
@@ -318,16 +318,16 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
 
         long end = System.currentTimeMillis() + 300000;
         while (!selenium.isElementPresent("//input[@value='Delete Requisition']") && System.currentTimeMillis() < end) {
-        	
+
         	Thread.sleep(10000);
-        	
+
         	if (System.currentTimeMillis() >= end) {
         		throw new NoSuchElementException("Could not find the 'Delete Requisition' button after refreshing for 5 minutes");
         	} else {
         		selenium.refresh();
         		waitForPageToLoad();
         	}
-        }        
+        }
 
         selenium.click("//input[@value='Delete Requisition']");
         waitForPageToLoad();
@@ -349,9 +349,9 @@ public class ServicePageTest extends OpenNMSSeleniumTestCase {
         waitForPageToLoad();
         selenium.click("link=Configure Users");
         waitForPageToLoad();
-        selenium.click("xpath=//html/body/div[2]/form/table/tbody/tr[2]/td/a/img");  
+        selenium.click("xpath=//html/body/div[2]/form/table/tbody/tr[2]/td/a/img");
         selenium.click("link=Log out");
         waitForPageToLoad();
     }
-    
+
 }

@@ -35,13 +35,13 @@ import org.opennms.nrtg.api.model.MeasurementSet;
 /**
  * Abstraction for communication of the nrt feature.
  * Implementations could be message brokers or simple forwarding queues.
- * 
+ *
  * @author Christian Pape
  * @author Markus Neumann
  */
 public interface NrtBroker {
-    
+
     public void publishCollectionJob(CollectionJob collectionJob);
     public List<MeasurementSet> receiveMeasurementSets(String destination);
-    
+
 }

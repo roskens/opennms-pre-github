@@ -66,12 +66,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JoeSnmpStrategy implements SnmpStrategy {
-	
+
 	public static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpStrategy.class);
-	
+
     private static Map<TrapNotificationListener, RegistrationInfo> s_registrations = new HashMap<TrapNotificationListener, RegistrationInfo>();
     private static SnmpTrapSession s_trapSession;
-    
+
     private JoeSnmpValueFactory m_valueFactory;
 
         @Override
@@ -90,7 +90,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
     public SnmpValue[] set(SnmpAgentConfig snmpAgentConfig, SnmpObjId[] oids, SnmpValue[] values) {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
-      
+
         SnmpSyntax[] syntaxvalues = new SnmpSyntax[values.length];
         for (int i=0; i<values.length;i++) {
         	syntaxvalues[i] = new JoeSnmpValue(values[i].getType(), values[i].getBytes()).getSnmpSyntax();
@@ -103,14 +103,14 @@ public class JoeSnmpStrategy implements SnmpStrategy {
             SnmpParameters params = new SnmpParameters();
             setParameters(agentConfig, params);
             peer.setParameters(params);
-            
+
             configurePeer(peer, agentConfig);
-            
+
             session = new SnmpSession(peer);
             SnmpObjectId[] jOids = convertOids(oids);
             SnmpSyntax[]  results = session.set(jOids,syntaxvalues);
             values = convertSnmpSyntaxs(results);
-            
+
         } catch (SocketException e) {
             LOG.error("Could not create JoeSNMP session using AgentConfig: {}", agentConfig);
         } finally {
@@ -120,7 +120,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
     	return values;
     }
-    
+
         @Override
     public SnmpValue get(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
@@ -132,16 +132,16 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
         SnmpValue[] values = { null };
-        
+
         try {
             SnmpPeer peer = createPeer(agentConfig);
 
             SnmpParameters params = new SnmpParameters();
             setParameters(agentConfig, params);
             peer.setParameters(params);
-            
+
             configurePeer(peer, agentConfig);
-            
+
             session = new SnmpSession(peer);
             SnmpObjectId[] jOids = convertOids(oids);
             SnmpSyntax[] results = session.get(jOids);
@@ -155,7 +155,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         }
         return values;
     }
-    
+
         @Override
     public SnmpValue getNext(SnmpAgentConfig snmpAgentConfig, SnmpObjId oid) {
         SnmpObjId[] oids = { oid };
@@ -167,19 +167,19 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         JoeSnmpAgentConfig agentConfig = new JoeSnmpAgentConfig(snmpAgentConfig);
         SnmpSession session = null;
         SnmpValue[] values = { null };
-        
+
         try {
             SnmpPeer peer = createPeer(agentConfig);
 
             SnmpParameters params = new SnmpParameters();
             setParameters(agentConfig, params);
             peer.setParameters(params);
-            
+
             configurePeer(peer, agentConfig);
-            
+
             session = new SnmpSession(peer);
             SnmpObjectId[] jOids = convertOids(oids);
-            
+
             SnmpSyntax[] results = session.getNext(jOids);
             values = convertSnmpSyntaxs(results);
         } catch (SocketException e) {
@@ -194,19 +194,19 @@ public class JoeSnmpStrategy implements SnmpStrategy {
 
     /**
      * Convert JoeSnmp SnmpSyntax array to OpenNMS SnmpValue array
-     * 
+     *
      * @param results
      * @return
      *        values as an OpenNMS SnmpValue array
      */
     private SnmpValue[] convertSnmpSyntaxs(SnmpSyntax[] results) {
-        
+
         SnmpValue[] values = { null };
-        
+
         if (results == null || results[0] == null || results.length == 0) {
             return values;
         }
-            
+
         values = new JoeSnmpValue[results.length];
         for (int i=0; i<results.length; i++) {
             values[i] = new JoeSnmpValue(results[i]);
@@ -216,18 +216,18 @@ public class JoeSnmpStrategy implements SnmpStrategy {
 
     /**
      * Convert the OpenNMS Generic SnmpObjId[] array to a JoeSnmp SnmpObjectId[]
-     * 
+     *
      * @param oids
      * @return
      *        An array of JoeSnmp SnmpObjectIds
      */
     private SnmpObjectId[] convertOids(SnmpObjId[] oids) {
-        
+
         SnmpObjectId[] jOids = new SnmpObjectId[oids.length];
         for (int i=0; i<oids.length; i++) {
             jOids[i] = new SnmpObjectId(oids[i].toString());
         }
-        
+
         return jOids;
     }
 
@@ -256,19 +256,19 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         private TrapNotificationListener m_listener;
         private InetAddress m_address;
         private int m_port;
-        
+
         SnmpTrapSession m_trapSession;
         JoeSnmpTrapNotifier m_trapHandler;
-        
+
         public RegistrationInfo(final TrapNotificationListener listener, final int trapPort) {
             if (listener == null) {
                 throw new NullPointerException("listener is null");
             }
-    
+
             m_listener = listener;
             m_port = trapPort;
         }
-    
+
         public RegistrationInfo(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
         	m_listener = listener;
         	m_address = address;
@@ -278,19 +278,19 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         public void setSession(final SnmpTrapSession trapSession) {
             m_trapSession = trapSession;
         }
-        
+
         public SnmpTrapSession getSession() {
             return m_trapSession;
         }
-        
+
         public void setHandler(final JoeSnmpTrapNotifier trapHandler) {
             m_trapHandler = trapHandler;
         }
-        
+
         public JoeSnmpTrapNotifier getHandler() {
             return m_trapHandler;
         }
-        
+
         public InetAddress getAddress() {
         	return m_address;
         }
@@ -298,12 +298,12 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         public int getPort() {
         	return m_port;
         }
-        
+
         @Override
         public int hashCode() {
             return (m_listener.hashCode() + m_address.hashCode() ^ m_port);
         }
-        
+
         @Override
 		public boolean equals(final Object obj) {
             if (obj instanceof RegistrationInfo) {
@@ -312,7 +312,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
             }
             return false;
         }
-    
+
     }
 
         @Override
@@ -322,10 +322,10 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         info.setHandler(m_trapHandler);
         SnmpTrapSession m_trapSession = new SnmpTrapSession(m_trapHandler, address, snmpTrapPort);
         info.setSession(m_trapSession);
-        
+
         s_registrations.put(listener, info);
     }
-    
+
         @Override
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort, final List<SnmpV3User> snmpv3Users) throws IOException {
         registerForTraps(listener, processorFactory, address, snmpTrapPort);
@@ -335,7 +335,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
     public void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final int snmpTrapPort) throws IOException {
     	registerForTraps(listener, processorFactory, null, snmpTrapPort);
     }
-    
+
         @Override
     public void unregisterForTraps(final TrapNotificationListener listener, InetAddress address, int snmpTrapPort) {
     	RegistrationInfo info = s_registrations.remove(listener);
@@ -353,7 +353,7 @@ public class JoeSnmpStrategy implements SnmpStrategy {
         if (m_valueFactory == null) {
             m_valueFactory = new JoeSnmpValueFactory();
         }
-        
+
         return m_valueFactory;
     }
 

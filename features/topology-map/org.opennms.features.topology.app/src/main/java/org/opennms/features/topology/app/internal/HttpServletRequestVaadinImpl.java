@@ -55,7 +55,7 @@ import com.vaadin.server.VaadinRequest;
 public class HttpServletRequestVaadinImpl implements HttpServletRequest {
 
 	private final VaadinRequest m_request;
-	
+
 	public HttpServletRequestVaadinImpl(VaadinRequest request) {
 		m_request = request;
 	}

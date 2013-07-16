@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Event;
 
 /**
  * Class EventDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -928,7 +928,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getAccessMode.
-	 * 
+	 *
 	 * @return the access mode specified for this class.
 	 */
 	@Override()
@@ -939,7 +939,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getIdentity.
-	 * 
+	 *
 	 * @return the identity field, null if this class has no
 	 * identity.
 	 */
@@ -951,7 +951,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getJavaClass.
-	 * 
+	 *
 	 * @return the Java class represented by this descriptor.
 	 */
 	@Override()
@@ -962,7 +962,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getNameSpacePrefix.
-	 * 
+	 *
 	 * @return the namespace prefix to use when marshaling as XML.
 	 */
 	@Override()
@@ -973,7 +973,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getNameSpaceURI.
-	 * 
+	 *
 	 * @return the namespace URI used when marshaling and
 	 * unmarshaling as XML.
 	 */
@@ -985,7 +985,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getValidator.
-	 * 
+	 *
 	 * @return a specific validator for the class described by this
 	 * ClassDescriptor.
 	 */
@@ -997,7 +997,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method getXMLName.
-	 * 
+	 *
 	 * @return the XML Name for the Class being described.
 	 */
 	@Override()
@@ -1008,7 +1008,7 @@ public class EventDescriptor extends org.exolab.castor.xml.util.XMLClassDescript
 
 	/**
 	 * Method isElementDefinition.
-	 * 
+	 *
 	 * @return true if XML schema definition of this Class is that
 	 * of a global
 	 * element or element with anonymous type definition.

@@ -48,7 +48,7 @@ import org.opennms.reporting.availability.svclayer.LegacyAvailabilityDataService
 public class AvailabilityReportTest extends TestCase {
 
     protected MockDatabase m_db;
-    protected Categories m_categories; 
+    protected Categories m_categories;
     protected Calendar calendar;
     protected MockCategoryFactory m_catFactory;
 
@@ -76,16 +76,16 @@ public class AvailabilityReportTest extends TestCase {
 
         m_db.update("insert into service (serviceid, servicename) values\n" +
         "(1, 'ICMP');");
-        m_db.update("insert into service (serviceid, servicename) values\n" +	
+        m_db.update("insert into service (serviceid, servicename) values\n" +
         "(2, 'HTTP');");
-        m_db.update("insert into service (serviceid, servicename) values\n" +	
+        m_db.update("insert into service (serviceid, servicename) values\n" +
         "(3, 'SNMP');");
 
         m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" +
         "(1, 1,'192.168.100.1','M');");
-        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" +		
+        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" +
         "(2, 2,'192.168.100.2','M');");
-        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" +		
+        m_db.update("insert into ipinterface (id, nodeid, ipaddr, ismanaged) values\n" +
         "(3, 2,'192.168.100.3','M');");
 
         m_db.update("insert into ifservices (nodeid, ipaddr, serviceid, status, ipInterfaceId) values " +
@@ -131,7 +131,7 @@ public class AvailabilityReportTest extends TestCase {
                     match = section[j];
                 }
             }
-        }			
+        }
 
         return match;
     }
@@ -170,18 +170,18 @@ public class AvailabilityReportTest extends TestCase {
             for(int k= 0; k < value.length; k++){
                 if (value[k].getType().equals("title") &&
                         value[k].getContent().equals(title))
-                    titlematch = true;	
+                    titlematch = true;
                 if (value[k].getType().equals("data") &&
                         value[k].getContent().equals(data))
                     datamatch = true;
                 if (datamatch && titlematch)
                     rowMatched++;
-            }	
-        }			
-        return rowMatched; 
+            }
+        }
+        return rowMatched;
     }
     */
-    
+
     private Report buildReport(Calendar calendar, String calFormat){
 
 
@@ -199,7 +199,7 @@ public class AvailabilityReportTest extends TestCase {
             reportSource.setAvailabilityDataService(new LegacyAvailabilityDataService());
             reportSource.fillReport("Network Interfaces", report, "HTML", calFormat, "4", "18", "2005");
         } catch (Throwable e) {
-            throw new UndeclaredThrowableException(e); 
+            throw new UndeclaredThrowableException(e);
         }
         return report;
     }
@@ -207,7 +207,7 @@ public class AvailabilityReportTest extends TestCase {
     public void testMyDatabase () {
         assertEquals("node DB count", 2, m_db.countRows("select * from node"));
         assertEquals("service DB count", 3, m_db.countRows("select * from service"));
-        assertEquals("ip interface DB count", 3, m_db.countRows("select * from ipinterface"));	
+        assertEquals("ip interface DB count", 3, m_db.countRows("select * from ipinterface"));
         assertEquals("interface services DB count", 3, m_db.countRows("select * from ifservices"));
 //      assertEquals("outages DB count", 3, m_db.countRows("select * from outages"));
         assertEquals("ip interface where ipaddr = 192.168.100.1 count", 1, m_db.countRows("select * from ipinterface where ipaddr = '192.168.100.1'"));
@@ -218,12 +218,12 @@ public class AvailabilityReportTest extends TestCase {
     public void testBuiltClassicReport () {
 
         Report report = buildReport(calendar,"classic");
-        
+
         assertNotNull("report", report);
-        
+
         Categories categories = report.getCategories();
         assertNotNull("report categories", report.getCategories());
-        
+
         Category category = categories.getCategory(0);
         assertEquals("category count", 1,categories.getCategoryCount());
 
@@ -242,13 +242,13 @@ public class AvailabilityReportTest extends TestCase {
         Calendar calendar = new GregorianCalendar(2005,4,20);
         long oneHundred = 100;
         Day day;
-        
+
         Report report = buildReport(calendar,"calendar");
         assertNotNull("report", report);
-        
+
         Categories categories = report.getCategories();
         assertNotNull("report categories", report.getCategories());
-        
+
         Category category = categories.getCategory(0);
         assertEquals("category count", 1,categories.getCategoryCount());
 
@@ -263,15 +263,15 @@ public class AvailabilityReportTest extends TestCase {
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,0);
         assertNotNull("day 0,0 object", day);
         assertFalse("day 0,0 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,1);
         assertNotNull("day 0,1 object", day);
         assertFalse("day 0,1 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,2);
         assertNotNull("day 0,2 object", day);
         assertFalse("day 0,2 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,4);
         assertNotNull("day 0,4 object", day);
         assertFalse("day 0,4 visibility", day.getVisible());

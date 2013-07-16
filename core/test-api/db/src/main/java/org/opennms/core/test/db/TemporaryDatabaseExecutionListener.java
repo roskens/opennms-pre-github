@@ -60,10 +60,10 @@ import com.mchange.v2.c3p0.PooledDataSource;
  * This {@link TestExecutionListener} creates a temporary database and then
  * registers it as the default datasource inside {@link DataSourceFactory} by
  * using {@link DataSourceFactory#setInstance(DataSource)}.
- * 
- * To change the settings for the temporary database, use the 
+ *
+ * To change the settings for the temporary database, use the
  * {@link JUnitTemporaryDatabase} annotation on the test class or method.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabaseExecutionListener extends AbstractTestExecutionListener {

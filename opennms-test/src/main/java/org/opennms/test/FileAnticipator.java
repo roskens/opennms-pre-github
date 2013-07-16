@@ -61,16 +61,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class FileAnticipator extends Assert {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(FileAnticipator.class);
 
     private static final String JAVA_IO_TMPDIR = "java.io.tmpdir";
-    
+
     private LinkedList<File> m_expecting = new LinkedList<File>();
     private LinkedList<File> m_deleteMe = new LinkedList<File>();
     private File m_tempDir = null;
     private boolean m_initialized = false;
-    
+
     /**
      * <p>Constructor for FileAnticipator.</p>
      *
@@ -79,7 +79,7 @@ public class FileAnticipator extends Assert {
     public FileAnticipator() throws IOException {
         this(true);
     }
-    
+
     /**
      * <p>Constructor for FileAnticipator.</p>
      *
@@ -91,7 +91,7 @@ public class FileAnticipator extends Assert {
             initialize();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void finalize() {
@@ -105,12 +105,12 @@ public class FileAnticipator extends Assert {
         if (!isInitialized()) {
             return;
         }
-        
+
         try {
         	// Windows is really picky about filehandle reaping, triggering a GC
         	// keeps it from holding on to files when we're trying to delete them
             deleteExpected(true);
-            
+
             for (ListIterator<File> i = m_deleteMe.listIterator(m_deleteMe.size()); i.hasPrevious(); ) {
                 File f = i.previous();
                 if (!f.exists()) continue;
@@ -148,7 +148,7 @@ public class FileAnticipator extends Assert {
             }
         }
     }
-    
+
     /**
      * <p>initialize</p>
      *
@@ -158,17 +158,17 @@ public class FileAnticipator extends Assert {
         if (m_initialized) {
             return;
         }
-        
+
         String systemTempDir = System.getProperty(JAVA_IO_TMPDIR);
         assertNotNull(JAVA_IO_TMPDIR + " system property is not set, but must be", systemTempDir);
-        
-        File f = new File(systemTempDir); 
+
+        File f = new File(systemTempDir);
         assertTrue("path specified in system property " + JAVA_IO_TMPDIR + ", \"" +
                  systemTempDir + "\" is not a directory", f.isDirectory());
 
         String tempFileName = "FileAnticipator_temp_" + System.currentTimeMillis() + "_" + generateRandomHexString(8);
         m_tempDir = internalTempDir(f, tempFileName);
-        
+
         m_initialized = true;
     }
 
@@ -182,30 +182,30 @@ public class FileAnticipator extends Assert {
         if (length < 0) {
             throw new IllegalArgumentException("length argument is " + length + " and cannot be below zero");
         }
-        
+
         Random random=new Random();
         /*
         SecureRandom sometimes gets tied up in knots in testing (the test process goes off into lala land and never returns from .nextBytes)
         Slow debugging (with pauses) seems to work most of the time, but manual Thread.sleeps doesn't
         Using Random instead of SecureRandom (which should be fine in this context) works much better.  Go figure
-        
+
         SecureRandom random = null;
         try {
             random = SecureRandom.getInstance("SHA1PRNG");
         } catch (NoSuchAlgorithmException e) {
             fail("Could not initialize SecureRandom: " + e);
         }*/
-        
+
         byte bytes[] = new byte[length];
         random.nextBytes(bytes);
-        
+
         StringBuffer sb = new StringBuffer();
         for (byte b : bytes) {
             sb.append(String.format("%02x", b));
         }
         return sb.toString();
     }
-    
+
     /**
      * <p>getTempDir</p>
      *
@@ -213,10 +213,10 @@ public class FileAnticipator extends Assert {
      */
     public File getTempDir() {
         assertInitialized();
-        
+
         return m_tempDir;
     }
-    
+
     private void assertInitialized() {
         if (!isInitialized()) {
             throw new IllegalStateException("not initialized");
@@ -239,7 +239,7 @@ public class FileAnticipator extends Assert {
 
         return internalTempFile(m_tempDir, name);
     }
-    
+
     /**
      * <p>tempFile</p>
      *
@@ -255,12 +255,12 @@ public class FileAnticipator extends Assert {
         if (name == null) {
             throw new IllegalArgumentException("name argument cannot be null");
         }
-        
+
         assertInitialized();
-        
+
         return internalTempFile(parent, name);
     }
-    
+
     /**
      * <p>tempFile</p>
      *
@@ -276,12 +276,12 @@ public class FileAnticipator extends Assert {
         if (contents == null) {
             throw new IllegalArgumentException("contents argument cannot be null");
         }
-        
+
         assertInitialized();
-        
+
         return internalTempFile(m_tempDir, name, contents);
     }
-    
+
     /**
      * <p>tempFile</p>
      *
@@ -301,15 +301,15 @@ public class FileAnticipator extends Assert {
         if (contents == null) {
             throw new IllegalArgumentException("contents argument cannot be null");
         }
-        
+
         assertInitialized();
-        
+
         return internalTempFile(parent, name, contents);
     }
 
     /**
      * Non-asserting version of tempDir that can be used in initialize()
-     * 
+     *
      * @param parent
      * @param name
      * @return object representing the newly created temporary directory
@@ -360,10 +360,10 @@ public class FileAnticipator extends Assert {
         if (name == null) {
             throw new IllegalArgumentException("name argument cannot be null");
         }
-        
+
         return tempDir(m_tempDir, name);
     }
-    
+
     /**
      * <p>tempDir</p>
      *
@@ -379,12 +379,12 @@ public class FileAnticipator extends Assert {
         if (name == null) {
             throw new IllegalArgumentException("name argument cannot be null");
         }
-        
+
         assertInitialized();
-        
+
         return internalTempDir(parent, name);
     }
-    
+
     /**
      * <p>expecting</p>
      *
@@ -396,10 +396,10 @@ public class FileAnticipator extends Assert {
             throw new IllegalArgumentException("name argument cannot be null");
         }
         assertInitialized();
-        
+
         return internalExpecting(m_tempDir, name);
     }
-    
+
     /**
      * <p>expecting</p>
      *
@@ -414,18 +414,18 @@ public class FileAnticipator extends Assert {
         if (name == null) {
             throw new IllegalArgumentException("name argument cannot be null");
         }
-        
+
         assertInitialized();
 
         return internalExpecting(parent, name);
     }
-    
+
     private File internalExpecting(File parent, String name) {
         File f = new File(parent, name);
         m_expecting.add(f);
         return f;
     }
-    
+
     /**
      * Delete expected files, throwing an AssertionFailedError if any of
      * the expected files don't exist.
@@ -433,7 +433,7 @@ public class FileAnticipator extends Assert {
     public void deleteExpected() {
         deleteExpected(false);
     }
-    
+
     /**
      * Delete expected files, throwing an AssertionFailedError if any of
      * the expected files don't exist.
@@ -452,7 +452,7 @@ public class FileAnticipator extends Assert {
                 return a.getAbsolutePath().compareTo(b.getAbsolutePath());
             }
         });
-        
+
         List<String> errors = new ArrayList<String>();
 
         for (ListIterator<File> i = m_expecting.listIterator(m_expecting.size()); i.hasPrevious(); ) {
@@ -499,5 +499,5 @@ public class FileAnticipator extends Assert {
     public boolean isInitialized() {
         return m_initialized;
     }
-    
+
 }

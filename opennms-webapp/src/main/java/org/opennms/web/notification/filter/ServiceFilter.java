@@ -53,7 +53,7 @@ public class ServiceFilter extends EqualsFilter<Integer> {
     public ServiceFilter(int serviceId) {
         super(TYPE, SQLType.INT, "SERVICEID", "serviceType.id", serviceId);
     }
-    
+
     /**
      * <p>getTextDescription</p>
      *

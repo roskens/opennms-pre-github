@@ -75,7 +75,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class CustomViewController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CustomViewController.class);
 
 
@@ -91,14 +91,14 @@ public class CustomViewController extends AbstractController implements Initiali
     private ResourceService m_resourceService;
     private int m_defaultGraphsPerLine = 0;
     private Executor m_executor;
-    
+
     private Set<String> m_resourcesPendingPromotion = Collections.synchronizedSet(new HashSet<String>());
 
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String[] requiredParameters = new String[] { "report", "type" };
-      
+
         // Get Form Variable
         int reportId = -1;
         String reportType = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.type.toString()));
@@ -109,11 +109,11 @@ public class CustomViewController extends AbstractController implements Initiali
         if (reportIdString == null) {
             throw new MissingParameterException(Parameters.report.toString(), requiredParameters);
         }
-      
+
         if (reportType.equals("node") || reportType.equals("custom")) {
             reportId = WebSecurityUtils.safeParseInt(reportIdString);
         }
-      
+
         String overrideTimespan = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.timespan.toString()));
         if ("null".equals(overrideTimespan) || "none".equals(overrideTimespan)) {
             overrideTimespan = null;
@@ -123,8 +123,8 @@ public class CustomViewController extends AbstractController implements Initiali
         if ("null".equals(overrideGraphType) || "none".equals(overrideGraphType)) {
             overrideGraphType = null;
         }
-      
-        // Load report to view 
+
+        // Load report to view
         Report report = null;
         if ("node".equals(reportType)) {
             LOG.debug("handleRequestInternal: buildNodeReport(reportId) {}", reportId);
@@ -144,8 +144,8 @@ public class CustomViewController extends AbstractController implements Initiali
         } else {
             throw new IllegalArgumentException("value to 'type' parameter of '" + reportType + "' is not supported.  Must be one of: node, nodeSource, domain, or custom");
         }
-      
-        // Get the list of available prefabricated graph options 
+
+        // Get the list of available prefabricated graph options
         Map<String, OnmsResource> resourceMap = new HashMap<String, OnmsResource>();
         Set<PrefabGraph> prefabGraphs = new TreeSet<PrefabGraph>();
         removeBrokenGraphsFromReport(report);
@@ -160,17 +160,17 @@ public class CustomViewController extends AbstractController implements Initiali
                 }catch(IndexOutOfBoundsException e) {
                     LOG.debug("Resource List Index Out Of Bounds Caught ", e);
                 }
-                
+
                 resourceMap.put(graph.toString(), resource);
                 if (resource == null) {
                     LOG.debug("Could not get resource for graph {} in report {}", graph, report.getTitle());
                 } else {
                     prefabGraphs.addAll(Arrays.asList(getResourceService().findPrefabGraphsForResource(resource)));
                 }
-                
-                
+
+
             }
-      
+
             // Get default graph type from first element of graph_options
             // XXX Do we care about the tests on reportType?
             if (("node".equals(reportType) || "nodeSource".equals(reportType) || "domain".equals(reportType))
@@ -181,7 +181,7 @@ public class CustomViewController extends AbstractController implements Initiali
                     LOG.debug("custom_view: setting default graph type to {}", overrideGraphType);
             }
         }
-        
+
         List<KscResultSet> resultSets = new ArrayList<KscResultSet>(report.getGraphCount());
         for (Graph graph : graphCollection) {
             OnmsResource resource = resourceMap.get(graph.toString());
@@ -195,7 +195,7 @@ public class CustomViewController extends AbstractController implements Initiali
             } else {
                 displayGraphType = overrideGraphType;
             }
-            
+
             PrefabGraph displayGraph;
             try {
                 displayGraph = getResourceService().getPrefabGraph(displayGraphType);
@@ -203,7 +203,7 @@ public class CustomViewController extends AbstractController implements Initiali
                     LOG.debug("The prefabricated graph '{}' does not exist: {}", displayGraphType, e, e);
                 displayGraph = null;
             }
-            
+
             boolean foundGraph = false;
             if (resource != null) {
                 for (PrefabGraph availableGraph : getResourceService().findPrefabGraphsForResource(resource)) {
@@ -213,11 +213,11 @@ public class CustomViewController extends AbstractController implements Initiali
                     }
                 }
             }
-            
+
             if (!foundGraph) {
                 displayGraph = null;
             }
-            
+
             // gather start/stop time information
             String displayTimespan = null;
             if (overrideTimespan == null) {
@@ -228,11 +228,11 @@ public class CustomViewController extends AbstractController implements Initiali
             Calendar beginTime = Calendar.getInstance();
             Calendar endTime = Calendar.getInstance();
             KSC_PerformanceReportFactory.getBeginEndTime(displayTimespan, beginTime, endTime);
-            
+
             KscResultSet resultSet = new KscResultSet(graph.getTitle(), beginTime.getTime(), endTime.getTime(), resource, displayGraph);
             resultSets.add(resultSet);
         }
-        
+
         ModelAndView modelAndView = new ModelAndView("KSC/customView");
 
         modelAndView.addObject("loggedIn", request.getRemoteUser() != null);
@@ -240,10 +240,10 @@ public class CustomViewController extends AbstractController implements Initiali
         if (report != null) {
             modelAndView.addObject("report", reportIdString);
         }
-        
+
         modelAndView.addObject("title", report.getTitle());
         modelAndView.addObject("resultSets", resultSets);
-        
+
         if (report.getShow_timespan_button()) {
             if (overrideTimespan == null || !getKscReportService().getTimeSpans(true).containsKey(overrideTimespan)) {
                 modelAndView.addObject("timeSpan", "none");
@@ -262,7 +262,7 @@ public class CustomViewController extends AbstractController implements Initiali
             for (PrefabGraph graphOption : prefabGraphs) {
                 graphTypes.put(graphOption.getName(), graphOption.getName());
             }
-            
+
             if (overrideGraphType == null || !graphTypes.containsKey(overrideGraphType)) {
                 modelAndView.addObject("graphType", "none");
             } else {
@@ -273,7 +273,7 @@ public class CustomViewController extends AbstractController implements Initiali
             // Make sure it's null so the pulldown list isn't shown
             modelAndView.addObject("graphType", null);
         }
-        
+
         modelAndView.addObject("showCustomizeButton", ( request.isUserInRole( Authentication.ROLE_ADMIN ) || !request.isUserInRole(Authentication.ROLE_READONLY) ) && (request.getRemoteUser() != null));
 
         if (report.getGraphs_per_line() > 0) {
@@ -281,10 +281,10 @@ public class CustomViewController extends AbstractController implements Initiali
         } else {
             modelAndView.addObject("graphsPerLine", getDefaultGraphsPerLine());
         }
-        
+
         return modelAndView;
     }
-    
+
     private void removeBrokenGraphsFromReport(Report report) {
         for (Iterator<Graph> itr = report.getGraphCollection().iterator(); itr.hasNext();) {
             Graph graph = itr.next();
@@ -313,10 +313,10 @@ public class CustomViewController extends AbstractController implements Initiali
                         getResourceService().promoteGraphAttributesForResource(resource);
                         m_resourcesPendingPromotion.remove(resource.getId());
                 }
-                
+
             });
         }
-        
+
     }
 
 
@@ -405,7 +405,7 @@ public class CustomViewController extends AbstractController implements Initiali
         Assert.state(m_kscReportService != null, "property kscReportService must be set");
         Assert.state(m_resourceService != null, "property resourceService must be set");
         Assert.state(m_defaultGraphsPerLine != 0, "property defaultGraphsPerLine must be set");
-        
+
         m_executor = Executors.newSingleThreadExecutor(
             new LogPreservingThreadFactory(getClass().getSimpleName(), 1, false)
         );

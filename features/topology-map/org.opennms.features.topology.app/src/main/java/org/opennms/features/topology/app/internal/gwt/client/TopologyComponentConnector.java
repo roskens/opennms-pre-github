@@ -28,11 +28,11 @@ public class TopologyComponentConnector extends AbstractComponentConnector{
    public TopologyComponentState getState() {
        return (TopologyComponentState) super.getState();
    }
-   
+
    @Override
    public void onStateChanged(StateChangeEvent event) {
        super.onStateChanged(event);
-       
+
        getWidget().updateGraph(getConnection(), getState());
 
    }

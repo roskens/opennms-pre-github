@@ -47,18 +47,18 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ThresholdingEventProxy implements EventProxy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingEventProxy.class);
 
     private List<Event> m_events;
-    
+
     /**
      * <p>Constructor for ThresholdingEventProxy.</p>
      */
     public ThresholdingEventProxy() {
         m_events = new LinkedList<Event>();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void send(Event event) throws EventProxyException {
@@ -77,7 +77,7 @@ public class ThresholdingEventProxy implements EventProxy {
             add(e);
         }
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -102,7 +102,7 @@ public class ThresholdingEventProxy implements EventProxy {
     public void removeAllEvents() {
         m_events.clear();
     }
-    
+
     /**
      * <p>sendAllEvents</p>
      */

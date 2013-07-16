@@ -34,13 +34,13 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 public class MenuConfigManagedService implements ManagedService {
-    
+
     private CommandManager m_commandManager;
 
     public void setCommandManager(CommandManager commandManager) {
         m_commandManager = commandManager;
     }
-    
+
     // Implements OSGi API
     @Override
     public void updated(Dictionary<String,?> properties) throws ConfigurationException {

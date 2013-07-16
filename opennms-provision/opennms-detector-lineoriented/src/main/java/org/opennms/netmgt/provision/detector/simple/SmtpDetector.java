@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class SmtpDetector extends AsyncMultilineDetectorMinaImpl {
-    
+
     private static final String DEFAULT_SERVICE_NAME = "SMTP";
     private static final int DEFAULT_PORT = 25;
 
@@ -52,7 +52,7 @@ public class SmtpDetector extends AsyncMultilineDetectorMinaImpl {
     public SmtpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -62,14 +62,14 @@ public class SmtpDetector extends AsyncMultilineDetectorMinaImpl {
     public SmtpDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>onInit</p>
      */
     @Override
     protected void onInit() {
         setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineOrientedCodecFactory(CHARSET_UTF8, "-")));
-        
+
         expectBanner(startsWith("220"));
         send(request("HELO LOCALHOST"), startsWith("250"));
         send(request("QUIT"), startsWith("221"));

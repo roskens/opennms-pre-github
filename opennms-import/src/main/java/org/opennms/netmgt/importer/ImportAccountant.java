@@ -46,7 +46,7 @@ import org.opennms.netmgt.importer.specification.AbstractImportVisitor;
 public class ImportAccountant extends AbstractImportVisitor {
 	private final ImportOperationsManager m_opsMgr;
     private SaveOrUpdateOperation m_currentOp;
-        
+
     /**
      * <p>Constructor for ImportAccountant.</p>
      *
@@ -55,11 +55,11 @@ public class ImportAccountant extends AbstractImportVisitor {
     public ImportAccountant(ImportOperationsManager opsMgr) {
         m_opsMgr = opsMgr;
     }
-    
+
     /** {@inheritDoc} */
         @Override
     public void visitNode(Node node) {
-        m_currentOp = m_opsMgr.foundNode(node.getForeignId(), node.getNodeLabel(), node.getBuilding(), node.getCity());        
+        m_currentOp = m_opsMgr.foundNode(node.getForeignId(), node.getNodeLabel(), node.getBuilding(), node.getCity());
     }
     /** {@inheritDoc} */
         @Override
@@ -71,9 +71,9 @@ public class ImportAccountant extends AbstractImportVisitor {
         @Override
     public void visitInterface(Interface iface) {
         m_currentOp.foundInterface(iface.getIpAddr(), iface.getDescr(), iface.getSnmpPrimary(), iface.getManaged(), iface.getStatus());
-        
+
     }
-    
+
     /** {@inheritDoc} */
         @Override
     public void visitMonitoredService(MonitoredService svc) {

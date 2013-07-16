@@ -138,7 +138,7 @@ public class GWTPollResult implements Serializable, IsSerializable, Comparable<G
 	public void setTimestamp(final Date timestamp) {
 		m_timestamp = timestamp;
 	}
-	
+
 	/**
 	 * <p>isDown</p>
 	 *

@@ -41,7 +41,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 /**
  * The Class FormFields.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="form-fields")

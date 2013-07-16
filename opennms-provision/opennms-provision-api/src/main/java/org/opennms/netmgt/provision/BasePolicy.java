@@ -49,9 +49,9 @@ import org.springframework.beans.PropertyAccessorFactory;
  * @version $Id: $
  */
 public abstract class BasePolicy<T> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BasePolicy.class);
-    
+
     public static enum Match { ANY_PARAMETER, ALL_PARAMETERS, NO_PARAMETERS }
 
 
@@ -167,51 +167,51 @@ public abstract class BasePolicy<T> {
      * @return a boolean.
      */
     protected boolean matches(final T iface) {
-        
+
         switch (getMatch()) {
-        case ALL_PARAMETERS: 
+        case ALL_PARAMETERS:
             return matchAll(iface);
         case NO_PARAMETERS:
             return matchNone(iface);
         case ANY_PARAMETER:
         default:
             return matchAny(iface);
-        }                
-    
+        }
+
     }
 
     private boolean matchAll(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
 
         for(final Entry<String, String> term : getCriteria().entrySet()) {
-            
+
             final String val = getPropertyValueAsString(bean, term.getKey());
             final String matchExpression = term.getValue();
-            
+
             if (!match(val, matchExpression)) {
                 return false;
             }
         }
-        
+
         return true;
-        
-    
+
+
     }
 
 
     private boolean matchAny(final T iface) {
         final BeanWrapper bean = PropertyAccessorFactory.forBeanPropertyAccess(iface);
-        
+
         for(final Entry<String, String> term : getCriteria().entrySet()) {
-            
+
             final String val = getPropertyValueAsString(bean, term.getKey());
             final String matchExpression = term.getValue();
-            
+
             if (match(val, matchExpression)) {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -260,13 +260,13 @@ public abstract class BasePolicy<T> {
         if (iface == null) {
             return null;
         }
-        
+
         if (matches(iface)) {
             // TODO add MDC log info for resource at hand
             LOG.debug("Found Match {} for {}", iface, this);
             return act(iface);
         }
-        
+
         // TODO add MDC log info for resource at hand
         LOG.debug("No Match Found: {} for {}", iface, this);
         return iface;

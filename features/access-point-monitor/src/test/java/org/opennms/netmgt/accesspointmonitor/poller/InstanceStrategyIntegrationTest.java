@@ -618,7 +618,7 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
             // Do nothing
         }
     }
-		
+
     private String getEmptyConfig() {
     	return "<?xml version=\"1.0\"?>\n" +
     	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
@@ -636,7 +636,7 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
     	"</access-point-monitor-configuration>\n" +
     	"";
     }
-    
+
     private String getStandardConfig() {
     	return "<?xml version=\"1.0\"?>\n" +
     	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +
@@ -674,7 +674,7 @@ public class InstanceStrategyIntegrationTest implements InitializingBean {
     	"</access-point-monitor-configuration>\n" +
     	"";
     }
-    
+
     private String getMultiControllerClusteredConfig() {
     	return "<?xml version=\"1.0\"?>\n" +
     	"<access-point-monitor-configuration threads=\"30\" package-scan-interval=\"1000\">\n" +

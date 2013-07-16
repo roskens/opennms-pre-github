@@ -53,7 +53,7 @@ import org.springframework.util.Assert;
  */
 @Scope("prototype")
 public class SnmpDetector extends SyncAbstractDetector implements InitializingBean {
-    
+
     /** Constant <code>DEFAULT_SERVICE_NAME="SNMP"</code> */
     protected static final String DEFAULT_SERVICE_NAME = "SNMP";
 
@@ -61,18 +61,18 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
      * The system object identifier to retreive from the remote agent.
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
-    
-    //These are -1 so by default we use the AgentConfig 
+
+    //These are -1 so by default we use the AgentConfig
     private static final int DEFAULT_PORT = -1;
     private static final int DEFAULT_TIMEOUT = -1;
     private static final int DEFAULT_RETRIES = -1;
-    
+
     private String m_oid = DEFAULT_OID;
     private String m_forceVersion;
     private String m_vbvalue;
-    
+
     private SnmpAgentConfigFactory m_agentConfigFactory;
-    
+
     /**
      * <p>Constructor for SnmpDetector.</p>
      */
@@ -102,23 +102,23 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
 
             SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(address);
             String expectedValue = null;
-            
+
             configureAgentPTR(agentConfig);
-            
+
             configureAgentVersion(agentConfig);
-            
+
             if (getVbvalue() != null) {
                 expectedValue = getVbvalue();
             }
-            
+
             String retrievedValue = getValue(agentConfig, getOid());
-            
+
             if (retrievedValue != null && expectedValue != null) {
                 return (Pattern.compile(expectedValue).matcher(retrievedValue).matches());
             } else {
                 return (retrievedValue != null);
             }
-            
+
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
@@ -132,7 +132,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     protected void configureAgentVersion(SnmpAgentConfig agentConfig) {
         if (getForceVersion() != null) {
             String version = getForceVersion();
-            
+
             if (version.equalsIgnoreCase("snmpv1")) {
                 agentConfig.setVersion(SnmpAgentConfig.VERSION1);
             } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
@@ -152,16 +152,16 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
         if (getPort() > 0) {
             agentConfig.setPort(getPort());
         }
-        
+
         if (getTimeout() > 0) {
             agentConfig.setTimeout(getTimeout());
         }
-        
+
         if (getRetries() > -1) {
             agentConfig.setRetries(getRetries());
         }
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -177,7 +177,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
         else {
             return val.toString();
         }
-        
+
     }
 
     /**
@@ -233,7 +233,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     public String getVbvalue() {
         return m_vbvalue;
     }
-    
+
     /**
      * <p>setAgentConfigFactory</p>
      *
@@ -243,7 +243,7 @@ public class SnmpDetector extends SyncAbstractDetector implements InitializingBe
     public void setAgentConfigFactory(SnmpAgentConfigFactory agentConfigFactory) {
         m_agentConfigFactory = agentConfigFactory;
     }
-    
+
     /**
      * <p>getAgentConfigFactory</p>
      *

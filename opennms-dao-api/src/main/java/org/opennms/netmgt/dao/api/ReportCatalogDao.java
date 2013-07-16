@@ -37,7 +37,7 @@ import org.opennms.netmgt.model.ReportCatalogEntry;
  * @version $Id: $
  */
 public interface ReportCatalogDao extends OnmsDao<ReportCatalogEntry, Integer>{
-    
+
     /**
      * <p>delete</p>
      *

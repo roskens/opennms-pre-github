@@ -43,8 +43,8 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class CitrixDetector extends AsyncLineOrientedDetectorMinaImpl {
-    
-    
+
+
     private static final String DEFAULT_SERVICE_NAME = "CITRIX";
     private static final int DEFAULT_PORT = 1494;
 
@@ -64,7 +64,7 @@ public class CitrixDetector extends AsyncLineOrientedDetectorMinaImpl {
     public CitrixDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {

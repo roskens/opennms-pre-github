@@ -41,7 +41,7 @@ public class ReplaceAllOperation extends StringReplaceOperation {
     public ReplaceAllOperation(String spec) {
         super(spec);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String replace(String input) {

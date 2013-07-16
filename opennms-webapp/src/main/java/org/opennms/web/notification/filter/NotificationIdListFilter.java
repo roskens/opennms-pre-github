@@ -42,20 +42,20 @@ public class NotificationIdListFilter extends InFilter<Integer> {
     /** Constant <code>TYPE="notificationIdList"</code> */
     public static final String TYPE = "notificationIdList";
     //private int[] m_notificationIds;
-    
+
     private static Integer[] box(int[] values) {
         if (values == null) {
             return null;
         }
-        
+
         Integer[] boxed = new Integer[values.length];
         for(int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
-        
+
         return boxed;
     }
-    
+
     /**
      * <p>Constructor for NotificationIdListFilter.</p>
      *

@@ -163,5 +163,5 @@ public class RrdtoolDataSourceTest {
 
 		Assert.assertFalse(ds.next());
 	}
-    
+
 }

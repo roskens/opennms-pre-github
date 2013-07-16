@@ -40,7 +40,7 @@ import org.opennms.sms.phonebook.PropertyPhonebook;
  * @version $Id: $
  */
 public class SmsResponse {
-    
+
     //do this for now.
     private Phonebook m_smsDirectory = new PropertyPhonebook();
 
@@ -51,13 +51,13 @@ public class SmsResponse {
      * @return a boolean.
      */
     public boolean isSms(String ipAddr) {
-        
+
         try {
             m_smsDirectory.getTargetForAddress(ipAddr);
         } catch (PhonebookException e) {
             return false;
         }
-        
+
         return true;
     }
 

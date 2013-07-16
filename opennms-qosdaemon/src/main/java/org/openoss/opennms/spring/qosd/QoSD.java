@@ -96,7 +96,7 @@ public interface QoSD {
 	 */
 	public abstract void setAlarmListConnectionManager(
 			AlarmListConnectionManager alcm);
-	
+
 	/**
 	 * Used by jmx mbean QoSD to pass in Spring Application context
 	 *
@@ -179,7 +179,7 @@ public interface QoSD {
 	 * @return stats
 	 */
 	public abstract String getStats();
-	
+
 	/**
 	 * A method to request an alarm list from the OpenNMS database
 	 * and send the "unacked" alarms to the remote AlarmMonitor bean

@@ -52,7 +52,7 @@ public class ResourceTreeWalker implements InitializingBean {
     public void walk() {
         walk(m_resourceDao.findTopLevelResources());
     }
-    
+
     /**
      * <p>walk</p>
      *

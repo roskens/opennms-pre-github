@@ -49,7 +49,7 @@ import org.springframework.core.style.ToStringCreator;
  * <p>
  * OnmsAccessPoint class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @XmlRootElement(name = "accesspoint")
@@ -68,7 +68,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * Constructor for OnmsAccessPoint.
      * </p>
-     * 
+     *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
      * @param physAddr
@@ -95,7 +95,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getPhysAddr
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Id
@@ -109,7 +109,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setPhysAddr
      * </p>
-     * 
+     *
      * @param physaddr
      *            a {@link java.lang.String} object.
      */
@@ -121,7 +121,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getNodeId
      * </p>
-     * 
+     *
      * @return a {@link java.lang.Integer} object.
      */
     @Column(name = "nodeId", nullable = false)
@@ -134,7 +134,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setNodeId
      * </p>
-     * 
+     *
      * @param nodeId
      *            a {@link java.lang.Integer} object.
      */
@@ -146,7 +146,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getPollingPackage
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Column(name = "pollingPackage", length = 256)
@@ -159,7 +159,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setPollingPackage
      * </p>
-     * 
+     *
      * @param pollingpackage
      *            a {@link java.lang.String} object.
      */
@@ -171,7 +171,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getStatus
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.model.AccessPointStatus} object.
      */
     @Column(name = "status", nullable = false)
@@ -186,7 +186,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setStatus
      * </p>
-     * 
+     *
      * @param severity
      *            a {@link org.opennms.netmgt.model.AccessPointStatus} object.
      */
@@ -198,7 +198,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * getControllerIpAddress
      * </p>
-     * 
+     *
      * @return a {@link java.net.InetAddress} object.
      */
     @Column(name = "controllerIpAddr")
@@ -213,7 +213,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * setControllerIpAddress
      * </p>
-     * 
+     *
      * @param ipaddr
      *            a {@link java.lang.String} object.
      */
@@ -225,7 +225,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * toString
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -242,7 +242,7 @@ public class OnmsAccessPoint implements Serializable, Comparable<OnmsAccessPoint
      * <p>
      * compareTo
      * </p>
-     * 
+     *
      * @return a {@link java.lang.int} object.
      */
     @Override

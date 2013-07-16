@@ -37,10 +37,10 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 
 public class ResetOperation implements Constants, Operation {
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-        
+
         operationContext.getGraphContainer().getBaseTopology().resetContainer();
         Vertex groupId = operationContext.getGraphContainer().getBaseTopology().addGroup("Group", GROUP_ICON_KEY);
         Vertex vertexId = operationContext.getGraphContainer().getBaseTopology().addVertex(50, 50);

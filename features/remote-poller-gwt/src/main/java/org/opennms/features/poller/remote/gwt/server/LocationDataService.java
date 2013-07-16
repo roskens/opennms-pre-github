@@ -156,7 +156,7 @@ public interface LocationDataService {
      * @return a {@link java.util.Collection} object.
      */
     public Collection<ApplicationInfo> getApplicationsForLocation(final LocationInfo info);
-    
+
     /**
      * <p>getInfoForAllLocations</p>
      *
@@ -190,6 +190,6 @@ public interface LocationDataService {
      * @return a {@link org.opennms.features.poller.remote.gwt.client.StatusDetails} object.
      */
     public StatusDetails getStatusDetailsForApplication(OnmsApplication app);
-    
+
 
 }

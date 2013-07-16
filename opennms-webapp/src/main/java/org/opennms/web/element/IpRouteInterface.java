@@ -77,7 +77,7 @@ public class IpRouteInterface
             m_routenexthop = iproute.getRouteNextHop();
             m_routedest = iproute.getRouteDest();
             m_routemask = iproute.getRouteMask();
-            m_lastPollTime = Util.formatDateToUIString(iproute.getLastPollTime()); 
+            m_lastPollTime = Util.formatDateToUIString(iproute.getLastPollTime());
             m_status = StatusType.getStatusString(iproute.getStatus().getCharCode());
         }
 

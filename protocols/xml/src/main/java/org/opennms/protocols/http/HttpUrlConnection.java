@@ -75,7 +75,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The class for managing HTTP URL Connection using Apache HTTP Client
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HttpUrlConnection extends URLConnection {
@@ -95,7 +95,7 @@ public class HttpUrlConnection extends URLConnection {
      * Instantiates a new SFTP URL connection.
      *
      * @param url the URL
-     * @param request 
+     * @param request
      */
     protected HttpUrlConnection(URL url, Request request) {
         super(url);

@@ -38,7 +38,7 @@ public interface SVGTopologyMap {
     public static String EDGE_CSS_CLASS = ".edge";
     public static String VERTEX_CSS_CLASS = ".vertex";
     public static String VERTEX_SELECTED_CSS_CLASS = ".vertex .selected";
-    
+
     void setVertexSelection(List<String> vertIds);
 
     D3 selectAllVertexElements();

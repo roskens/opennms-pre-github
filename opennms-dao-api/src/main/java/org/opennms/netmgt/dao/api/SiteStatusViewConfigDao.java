@@ -39,14 +39,14 @@ import org.opennms.netmgt.config.siteStatusViews.Views;
  * @since 1.8.1
  */
 public interface SiteStatusViewConfigDao {
-    
+
     /**
      * <p>getViews</p>
      *
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.Views} object.
      */
     Views getViews();
-    
+
     /**
      * <p>getView</p>
      *
@@ -54,7 +54,7 @@ public interface SiteStatusViewConfigDao {
      * @return a {@link org.opennms.netmgt.config.siteStatusViews.View} object.
      */
     View getView(String viewName);
-    
+
     /**
      * <p>getDefaultView</p>
      *

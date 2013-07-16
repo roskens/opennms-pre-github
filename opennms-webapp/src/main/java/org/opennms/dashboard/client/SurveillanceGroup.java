@@ -41,18 +41,18 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class SurveillanceGroup extends SurveillanceSet implements IsSerializable {
-    
+
     private String m_label;
     private String m_id;
     private boolean m_column;
-    
+
     /**
      * <p>Constructor for SurveillanceGroup.</p>
      */
     public SurveillanceGroup() {
         this(null, null, false);
     }
-    
+
     /**
      * <p>Constructor for SurveillanceGroup.</p>
      *
@@ -119,7 +119,7 @@ public class SurveillanceGroup extends SurveillanceSet implements IsSerializable
     public void setColumn(boolean isColumn) {
         m_column = isColumn;
     }
-    
+
     /**
      * <p>toString</p>
      *

@@ -43,9 +43,9 @@ public class ResolutionTest {
         Date startDate = new Date(new Date().getTime() - 300000);
         long startTime = startDate.getTime();
         long endTime = startDate.getTime() + 300000;
-        
+
         TimeChunker resolution = new TimeChunker(TimeChunker.MINUTE, startDate, new Date(endTime));
-        
+
         assertEquals(1, resolution.getSegmentCount());
         Date startDate1 = resolution.getNextSegment().getStartDate();
         while(resolution.hasNext()) {
@@ -53,15 +53,15 @@ public class ResolutionTest {
             assertEquals(startDate, startDate1);
         }
     }
-    
+
     @Test
     public void testGetTimeIndex() {
         Date startDate = new Date(new Date().getTime() - 300000);
         long endTime = startDate.getTime() + 300000;
-        
+
         TimeChunker resolution = new TimeChunker(60000, startDate, new Date(endTime));
         Date date = new Date(startDate.getTime() + 150000);
         assertEquals(2, resolution.getIndexContaining(date));
-        
+
     }
 }

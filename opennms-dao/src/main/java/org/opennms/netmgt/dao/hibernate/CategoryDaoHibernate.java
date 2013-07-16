@@ -57,7 +57,7 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
     public CategoryDaoHibernate() {
         super(OnmsCategory.class, false);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public OnmsCategory findByName(String name) {
@@ -73,13 +73,13 @@ public class CategoryDaoHibernate extends AbstractCachingDaoHibernate<OnmsCatego
             return findUnique("from OnmsCategory as category where category.name = ?", name);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected String getKey(OnmsCategory category) {
         return category.getName();
     }
-    
+
     /**
      * <p>getAllCategoryNames</p>
      *

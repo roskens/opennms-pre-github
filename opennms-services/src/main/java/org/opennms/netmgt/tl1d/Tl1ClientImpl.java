@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Tl1ClientImpl implements Tl1Client {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Tl1ClientImpl.class);
 
     String m_host;
@@ -61,13 +61,13 @@ public class Tl1ClientImpl implements Tl1Client {
     //private long m_reconnectionDelay = 30000;
     private long m_reconnectionDelay;  //see configuration xsd for default and set by Tl1d after instantiation
     private int m_reconnectAttempts = 0;
-    
+
     /**
      * <p>Constructor for Tl1ClientImpl.</p>
      */
     public Tl1ClientImpl() {
     }
-    
+
     /**
      * <p>Constructor for Tl1ClientImpl.</p>
      *
@@ -77,12 +77,12 @@ public class Tl1ClientImpl implements Tl1Client {
      * @throws java.lang.IllegalAccessException if any.
      * @throws java.lang.ClassNotFoundException if any.
      */
-    public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element) 
+    public Tl1ClientImpl(BlockingQueue<Tl1AutonomousMessage> queue, Tl1Element element)
         throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        
+
         m_host = element.getHost();
         m_port = element.getPort();
-        
+
         m_tl1Queue = queue;
         m_messageProcessor = (Tl1AutonomousMessageProcessor) Class.forName(element.getTl1MessageParser()).newInstance();
         m_reconnectionDelay = element.getReconnectDelay();
@@ -123,7 +123,7 @@ public class Tl1ClientImpl implements Tl1Client {
     public void stop() {
         LOG.info("Stopping TL1 client: {}:{}", m_host, String.valueOf(m_port));
         setStarted(false);
-        
+
         //waiting a second or so for the reader thread to clean up the socket and shut
         //itself down.
         try {
@@ -142,23 +142,23 @@ public class Tl1ClientImpl implements Tl1Client {
 
     private BufferedReader createReader() throws InterruptedException {
         BufferedReader reader;
-        
+
         while (isStarted()) {
-            
+
             try {
                 m_tl1Socket = new Socket(m_host, m_port);
                 reader = new BufferedReader(new InputStreamReader(m_tl1Socket.getInputStream()));
                 resetTimeout();
                 return reader;
-                
+
             } catch (IOException e) {
                 LOG.error("TL1 Connection Failed to {}:{}", m_host, m_port);
                 LOG.debug(e.getMessage());
-                
+
                 waitUntilNextConnectTime();
-            } 
+            }
         }
-        
+
         return null;
     }
 
@@ -170,25 +170,25 @@ public class Tl1ClientImpl implements Tl1Client {
 
     private void waitUntilNextConnectTime() throws InterruptedException {
         LOG.debug("waitUntilNextConnectTime: current connection attempts: {}", m_reconnectAttempts);
-        
+
         if (isStarted()) {
-            
+
             if (m_sleeper == null) {
                 m_sleeper = new TimeoutSleeper();
             }
-            
+
             m_reconnectAttempts++;
             /* If the system is not responding, we want to wait longer and longer for the retry */
             long waitTime = computeWait();
             LOG.info("waitUntilNextConnectTime: Waiting {} ms......", waitTime);
-            
+
             m_sleeper.sleep(waitTime);
         }
     }
 
     private long computeWait() {
         long waitTime = m_reconnectionDelay;
-        
+
         if (m_reconnectAttempts > 5) {
             waitTime = m_reconnectionDelay * 5;
         } else if (m_reconnectAttempts > 10) {
@@ -199,45 +199,45 @@ public class Tl1ClientImpl implements Tl1Client {
 
     private void readMessages() {
         StringBuilder rawMessageBuilder = new StringBuilder();
-        
+
         LOG.info("readMessages: Begin reading off socket...");
-        
+
         while (isStarted()) {
             try {
                 LOG.debug("readMessages: reading line from TL1 socket...");
-                
+
                 BufferedReader reader = null;
-                
+
                 try {
                     reader = getReader();
-                    
+
                 } catch (InterruptedException e) {
                     LOG.warn("readMessages: interrupted.");
                     return;
                 }
-                
+
                 if (reader != null) {
                     int ch;
-                    
+
                     while((ch = reader.read()) != -1 && isStarted()) {
                         rawMessageBuilder.append((char)ch);
-                        
+
                         if((char)ch == ';') {
                             createAndQueueTl1Message(rawMessageBuilder);
                             rawMessageBuilder.setLength(0);
                         }
                     }
                     rawMessageBuilder = null;
-                    
+
                     LOG.warn("readMessages: resetting socket reader to client: {}:{}", m_host, m_port);
                     resetReader(null);
                 }
-                
+
             } catch (IOException e) {
                 resetReader(e);
             }
         }
-        
+
         LOG.info("TL1 client stopped for: {}:{}", m_host, String.valueOf(m_port));
     }
 
@@ -254,14 +254,14 @@ public class Tl1ClientImpl implements Tl1Client {
 
     //TODO: Lots of work to do here
     private Tl1AutonomousMessage detectMessageType(StringBuilder rawMessage) {
-        
+
         //check token 5 to see if this is a reply message.  This implies that the Tl1Client must
         //track message TAGs (Correlation TAGs (CTAG) vs. Autonomous TAGs (ATAG))
-        
+
         if(isAutonomousMessage(rawMessage)) {
             return m_messageProcessor.process(rawMessage.toString(), Tl1Message.AUTONOMOUS);
         }
-        
+
         return null;
     }
 
@@ -271,29 +271,29 @@ public class Tl1ClientImpl implements Tl1Client {
     }
 
     private void resetReader(IOException ex) {
-        
+
         if (ex != null) {
             LOG.error("resetReader: connection failure.", ex);
         }
-        
+
         try {
             m_reader.close();
-            
+
         } catch (IOException e) {
             LOG.warn("resetReader", e);
-            
+
         } finally {
             m_reader = null;
         }
-        
+
         try {
             m_tl1Socket.close();
-            
+
         } catch (IOException e) {
             LOG.warn("resetReader", e);
             m_tl1Socket = null;
         }
-        
+
     }
 
     /* (non-Javadoc)
@@ -418,11 +418,11 @@ public class Tl1ClientImpl implements Tl1Client {
             Thread.sleep(sleepTime);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
         return "Tl1Client: class: "+getClass()+"; host: "+m_host+"; port: "+m_port;
     }
-    
+
 }

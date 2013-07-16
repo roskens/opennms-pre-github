@@ -65,7 +65,7 @@ public class XmlRpcNotifierTest  {
     private MockNetwork m_network;
 
     private static final String s_uei = "uei!";
-    
+
     private static final int s_noNodeId = 0;
 
     static final int s_nodeId = 1;
@@ -80,26 +80,26 @@ public class XmlRpcNotifierTest  {
     private static final int s_unknownNodeId = 2;
 
     private static int s_port = 9000;
-    
+
     private static final boolean USE_DIFFERENT_PORT_PER_TEST = false;
 
     @Before
     public void setUp() throws Exception, InterruptedException, IOException  {
-        
-        
+
+
         MockLogAppender.setupLogging();
 
         int port = s_port;
         if (USE_DIFFERENT_PORT_PER_TEST) {
             s_port++;
         }
-        
+
         m_anticipator = new XmlrpcAnticipator(port);
         m_anticipator.anticipateCall("notifyReceivedEvent", "0", "uei.opennms.org/internal/capsd/xmlrpcNotification", "test connection");
 
         XmlrpcServer remoteServer = new XmlrpcServer();
         remoteServer.setUrl("http://localhost:" + port);
-        
+
         m_notifier = new XmlRpcNotifier(new XmlrpcServer[] { remoteServer }, 1, 1500, false, "");
 
         m_network = new MockNetwork();
@@ -107,12 +107,12 @@ public class XmlRpcNotifierTest  {
         m_network.addNode(1, "Router");
         m_network.addInterface("192.168.1.1");
         m_network.addService("ICMP");
-        
+
         m_db = new MockDatabase();
         m_db.populate(m_network);
         DataSourceFactory.setInstance(m_db);
     }
-    
+
     public void finishUp() {
         m_anticipator.verifyAnticipated();
         MockLogAppender.assertNoWarningsOrGreater();
@@ -141,7 +141,7 @@ public class XmlRpcNotifierTest  {
 
         finishUp();
     }
-    
+
     @Test
     public void testFailureNotifySuccess() throws Exception {
         long txNo = 12345;
@@ -166,7 +166,7 @@ public class XmlRpcNotifierTest  {
 
         finishUp();
     }
-    
+
     @Test
     public void testFailureNotifyFailure() throws Exception {
         long txNo = 12345;
@@ -211,10 +211,10 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = serviceEventBuilder(date);
         assertTrue("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
-    
+
     @Test
     public void testFailureSendServiceDownEvent() throws Exception {
         Date date = new Date();
@@ -224,7 +224,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = serviceEventBuilder(date);
         assertFalse("notifier sendServiceDownEvent", m_notifier.sendServiceDownEvent(bldr.getEvent()));
     }
-    
+
     @Test
     public void testSendServiceUpEvent() throws Exception {
         Date date = new Date();
@@ -232,10 +232,10 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = serviceEventBuilder(date);
         assertTrue("notifier sendServiceUpEvent", m_notifier.sendServiceUpEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
-    
+
     @Test
     public void testFailureSendServiceUpEvent() throws Exception {
         Date date = new Date();
@@ -253,7 +253,7 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = serviceEventBuilder(date);
         assertTrue("notifier sendInterfaceDownEvent", m_notifier.sendInterfaceDownEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -274,7 +274,7 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = serviceEventBuilder(date);
         assertTrue("notifier sendInterfaceUpEvent", m_notifier.sendInterfaceUpEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -295,7 +295,7 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = basicEventBuilder(date);
         assertTrue("notifier sendNodeDownEvent", m_notifier.sendNodeDownEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -317,7 +317,7 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = basicEventBuilder(date);
         assertTrue("notifier sendNodeUpEvent", m_notifier.sendNodeUpEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -332,7 +332,7 @@ public class XmlRpcNotifierTest  {
     }
 
     /**
-     * 
+     *
      * This tests the case when the following are null:
      * <ul>
      * <li>source</li>
@@ -352,7 +352,7 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = basicEventBuilder(date);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -377,7 +377,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setSource("some other source");
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -392,7 +392,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setHost("some other host");
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -407,7 +407,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setInterface(addr(s_interface));
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -423,7 +423,7 @@ public class XmlRpcNotifierTest  {
         bldr.setService(s_service);
 
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -438,7 +438,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setDescription(s_description);
         assertTrue("notifier sendEvent",m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -453,7 +453,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setSeverity(s_severity);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -465,7 +465,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.setParms(new ArrayList<Parm>());
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -485,7 +485,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = basicEventBuilder(date);
         bldr.addParam(parmZeroName, parmZeroContent, parmZeroType, "text");
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -494,7 +494,7 @@ public class XmlRpcNotifierTest  {
         String parmZeroName = "foo";
         String parmZeroContent = "bar";
         String parmZeroType = "string";
-        
+
         String parmOneName = "baz";
         String parmOneContent = "blam";
         String parmOneType = "string";
@@ -512,7 +512,7 @@ public class XmlRpcNotifierTest  {
         bldr.addParam(parmOneName, parmOneContent, parmOneType, "text");
 
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -532,13 +532,13 @@ public class XmlRpcNotifierTest  {
 
         EventBuilder bldr = new EventBuilder("hi!", s_source, date);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
 
 
-    
+
     /**
      * Check that when Event.setNodeid(int) is called with a
      * nodeId that isn't in the database that nodeLabel is not set.
@@ -556,7 +556,7 @@ public class XmlRpcNotifierTest  {
         EventBuilder bldr = new EventBuilder("hi!", s_source, date);
         bldr.setNodeid(s_unknownNodeId);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(bldr.getEvent()));
-        
+
         finishUp();
     }
 
@@ -570,11 +570,11 @@ public class XmlRpcNotifierTest  {
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
         finishUp();
     }
-    
+
     public static void addSnmpAttributes(EventBuilder bldr, String community, String enterpriseId, int generic, int specific, long dateLong, String version) {
         bldr.setCommunity(community);
         bldr.setGeneric(generic);
@@ -583,7 +583,7 @@ public class XmlRpcNotifierTest  {
         bldr.setSnmpTimeStamp(dateLong);
         bldr.setSnmpVersion(version);
     }
-    
+
     @Test
     public void testSendTrapSimple() {
         Date date = new Date();
@@ -599,7 +599,7 @@ public class XmlRpcNotifierTest  {
         Snmp snmp = bldr.getEvent().getSnmp();
         e.setSnmp(snmp);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
+
         finishUp();
     }
 
@@ -618,7 +618,7 @@ public class XmlRpcNotifierTest  {
         e.setSnmp(snmp);
         assertFalse("notifier sendEvent", m_notifier.sendEvent(e));
     }
-        
+
     @Test
     public void testSendTrapIdText() {
         Date date = new Date();
@@ -635,12 +635,12 @@ public class XmlRpcNotifierTest  {
         Snmp snmp = bldr.getEvent().getSnmp();
         snmp.setIdtext("foo!");
         e.setSnmp(snmp);
-        
+
         assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
+
         finishUp();
     }
-    
+
     @Test
     public void testSendTrapEmptySnmp() {
         Date date = new Date();
@@ -652,10 +652,10 @@ public class XmlRpcNotifierTest  {
         Snmp s = new Snmp();
         e.setSnmp(s);
         assertTrue("notifier sendEvent", m_notifier.sendEvent(e));
-        
+
         finishUp();
     }
-    
+
     public static EventBuilder basicEventBuilder(Date date) {
         return new EventBuilder(s_uei, s_source, date)
             .setHost(s_host)
@@ -666,7 +666,7 @@ public class XmlRpcNotifierTest  {
         return basicEventBuilder(date).setInterface(addr(s_interface))
             .setService(s_service);
     }
-    
+
     private static Hashtable<String, String> basicEventMap(Date date) {
         Hashtable<String, String> t = new Hashtable<String, String>();
         t.put("uei", s_uei);
@@ -681,7 +681,7 @@ public class XmlRpcNotifierTest  {
 
     static Hashtable<String, String> basicTrapMap(Date date, String community, String enterpriseId, int generic, int specific, long dateLong, String version) {
         Hashtable<String, String> trapMap = basicEventMap(date);
-                
+
         trapMap.put("communityString", community);
         trapMap.put("genericTrapNumber", String.valueOf(generic));
         trapMap.put("enterpriseId", enterpriseId);
@@ -690,28 +690,28 @@ public class XmlRpcNotifierTest  {
         trapMap.put("version", version);
         return trapMap;
     }
-    
+
     public Parm makeEventParm(String name, String content, String type, String encoding) {
         Parm p = new Parm();
         p.setParmName(name);
-        
+
         Value v = new Value();
         v.setContent(content);
         v.setType(type);
         v.setEncoding(encoding);
         p.setValue(v);
-        
+
         return p;
     }
-    
-    
+
+
     public static void addRpcParm(Hashtable<String, String> t, int index, String name, String content, String type) {
         String prefix = "param" + index + " ";
         t.put(prefix + "name", name);
         t.put(prefix + "value", content);
         t.put(prefix + "type", type);
     }
-    
+
 
 
 

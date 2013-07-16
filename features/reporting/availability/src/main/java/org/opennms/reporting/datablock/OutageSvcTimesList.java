@@ -42,7 +42,7 @@ import java.util.List;
  */
 public class OutageSvcTimesList extends ArrayList<Outage> {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4701288568774571119L;
 
@@ -157,7 +157,7 @@ public class OutageSvcTimesList extends ArrayList<Outage> {
             return null;
 
         // for each individual outage, get the down time
-        // 
+        //
         // calculate effective start time
         long startTime = curTime - rollingWindow;
         List<OutageSince> retList = new ArrayList<OutageSince>();

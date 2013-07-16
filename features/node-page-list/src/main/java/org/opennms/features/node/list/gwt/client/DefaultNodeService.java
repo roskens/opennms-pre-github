@@ -34,11 +34,11 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
 
 public class DefaultNodeService implements NodeService {
-    
+
     private static String BASE_URL = "rest/nodes/";
-    
+
     public static String SNMP_INTERFACES_TEST_RESPONSE = "{" +
-    "\"@totalCount\" : \"3\"," + 
+    "\"@totalCount\" : \"3\"," +
     "\"@count\" : \"3\"," +
     "\"snmpInterface\" : [ {" +
     " \"@poll\" : \"false\"," +
@@ -96,7 +96,7 @@ public class DefaultNodeService implements NodeService {
     " \"physAddr\" : \"00163e13f215\"" +
     " } ]" +
     "}";
-    
+
     public static String IP_INTERFACES_TEST_RESPONSE = "{" +
     		"\"@totalCount\" : \"23\"," +
     		"\"@count\" : \"23\"," +
@@ -118,15 +118,15 @@ public class DefaultNodeService implements NodeService {
     		  "\"nodeId\" : \"2\"" +
     		"}]" +
     		"}";
-    
+
     @Override
     public void getAllIpInterfacesForNode(int nodeId, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/ipinterfaces?limit=0";
         sendRequest(callback, url);
     }
 
-    
-    
+
+
     @Override
     public void getAllSnmpInterfacesForNode(int nodeId, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/snmpinterfaces?limit=0";
@@ -137,7 +137,7 @@ public class DefaultNodeService implements NodeService {
     public void findIpInterfacesMatching(int nodeId, String parameter, String value, RequestCallback callback) {
         String url = BASE_URL + nodeId + "/ipinterfaces?" + parameter + "=" + value + "&comparator=contains&limit=0";
         sendRequest(callback, url);
-        
+
     }
 
     @Override
@@ -148,9 +148,9 @@ public class DefaultNodeService implements NodeService {
         }
         url += "&limit=0";
         sendRequest(callback, url);
-        
+
     }
-    
+
     private void sendRequest(RequestCallback callback, String url) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("accept", "application/json");

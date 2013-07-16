@@ -37,27 +37,27 @@ public final class SnmpAgentAddress {
     public SnmpAgentAddress(final InetAddress agentAddress, final Integer agentPort) {
     	if (agentAddress == null) throw new NullPointerException("agentAddress cannot be null");
     	if (agentPort == null) throw new NullPointerException("agentPort cannot be null");
-        
+
         m_address = agentAddress;
         m_port = agentPort;
-        
+
     }
 
     public InetAddress getAddress() {
         return m_address;
     }
-    
+
     public Integer getPort() {
         return m_port;
     }
-    
+
     @Override
     public boolean equals(final Object obj) {
         if (!(obj instanceof SnmpAgentAddress)) return false;
         final SnmpAgentAddress that = (SnmpAgentAddress)obj;
         return m_address.equals(that.m_address) && m_port.equals(that.m_port);
     }
-    
+
     @Override
     public int hashCode() {
     	int hashCode = 1;
@@ -65,7 +65,7 @@ public final class SnmpAgentAddress {
     	hashCode = hashCode*37 + m_port.hashCode();
     	return hashCode;
     }
-    
+
     @Override
     public String toString() {
     	return InetAddrUtils.str(m_address) + ":" + m_port;

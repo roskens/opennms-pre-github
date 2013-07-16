@@ -48,23 +48,23 @@ import org.junit.Test;
 
 /**
  * Tests Marshaling of North bound Alarm
- * 
+ *
  * FIXME: This is just a stub for getting started.  Needs lots of work.
- * 
+ *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class JAXBTest {
-	
+
     @XmlRootElement(name="test-alarm")
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class TestNorthBoundAlarm {
-        
+
         @XmlElement(name="id")
         private String m_id;
         private String m_name;
         private String m_status;
-        
+
         public String getId() {
             return m_id;
         }
@@ -88,22 +88,22 @@ public class JAXBTest {
 
 	@Test
 	public void testMarshall() throws Exception {
-		
+
 		final String expectedXML = "" +
-				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
-				"<test-alarm>\n" + 
-				"    <id>23</id>\n" + 
+				"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+				"<test-alarm>\n" +
+				"    <id>23</id>\n" +
 				"</test-alarm>\n" +
 				"";
 
 		TestNorthBoundAlarm nba = new TestNorthBoundAlarm();
 		nba.setId("23");
-		
+
 		// Create a Marshaller
 		JAXBContext context = JAXBContext.newInstance(TestNorthBoundAlarm.class);
 		Marshaller marshaller = context.createMarshaller();
 		marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-		
+
 		// save the output in a byte array
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -115,31 +115,31 @@ public class JAXBTest {
 
 		String result = new String(utf8, "UTF-8");
 		assertXmlEquals(expectedXML, result);
-		
+
 		System.err.println(result);
-		
+
 		// unmarshall the generated XML
-		
+
 //		URL xsd = getClass().getResource("/ncs-model.xsd");
-//		
+//
 //		assertNotNull(xsd);
-//		
+//
 //		SchemaFactory schemaFactory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
 //		Schema schema = schemaFactory.newSchema(xsd);
-		
+
 		Unmarshaller unmarshaller = context.createUnmarshaller();
 //		unmarshaller.setSchema(schema);
 		Source source = new StreamSource(new ByteArrayInputStream(utf8));
 		TestNorthBoundAlarm read = unmarshaller.unmarshal(source, TestNorthBoundAlarm.class).getValue();
-		
+
 		assertNotNull(read);
-		
+
 		// round trip back to XML and make sure we get the same thing
 		ByteArrayOutputStream reout = new ByteArrayOutputStream();
 		marshaller.marshal(read, reout);
-		
+
 		String roundTrip = new String(reout.toByteArray(), "UTF-8");
-		
+
 		assertXmlEquals(expectedXML, roundTrip);
 	}
 

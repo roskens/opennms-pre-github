@@ -38,12 +38,12 @@ import java.util.Map;
  */
 public class BaseSessionVariableGenerator implements SessionVariableGenerator {
 	private Map<String, String> m_parameters;
-	
+
 	/**
 	 * <p>Constructor for BaseSessionVariableGenerator.</p>
 	 */
 	public BaseSessionVariableGenerator() {
-		
+
 	}
 
 	/**
@@ -79,7 +79,7 @@ public class BaseSessionVariableGenerator implements SessionVariableGenerator {
 	protected Map<String, String> getParameters() {
 		return m_parameters;
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void setParameters(Map<String, String> parameters) {

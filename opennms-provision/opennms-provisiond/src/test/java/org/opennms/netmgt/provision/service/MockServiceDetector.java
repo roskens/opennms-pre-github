@@ -38,13 +38,13 @@ import org.opennms.netmgt.provision.SyncServiceDetector;
  * @author brozow
  */
 public class MockServiceDetector implements SyncServiceDetector {
-    
+
     private String m_serviceName;
 
     @Override
     public void init() {
     }
-    
+
     @Override
     public String getServiceName() {
         return m_serviceName;

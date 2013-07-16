@@ -43,7 +43,7 @@ import java.util.List;
 public abstract class MultiArgFilter<T> extends BaseFilter<T> {
 
     private T[] m_values;
-    
+
     /**
      * <p>Constructor for MultiArgFilter.</p>
      *
@@ -58,7 +58,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
         super(filterType, sqlType, fieldName, propertyName);
         m_values = values;
     }
-    
+
     /**
      * <p>getValues</p>
      *
@@ -67,7 +67,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     public T[] getValues() {
         return m_values;
     }
-    
+
     /**
      * <p>getValuesAsList</p>
      *
@@ -76,7 +76,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     public List<T> getValuesAsList() {
         return Arrays.asList(m_values);
     }
-    
+
     /**
      * <p>getSQLTemplate</p>
      *
@@ -105,7 +105,7 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
         }
         return buf.toString();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     final public String getParamSql() {
@@ -120,14 +120,14 @@ public abstract class MultiArgFilter<T> extends BaseFilter<T> {
     @Override
     final public String getSql() {
         Object[] formattedVals = new String[m_values.length];
-        
+
         for(int i = 0; i < m_values.length; i++) {
             formattedVals[i] = formatValue(m_values[i]);
         }
         return String.format(getSQLTemplate(), formattedVals);
     }
 
-    
+
 
 
 }

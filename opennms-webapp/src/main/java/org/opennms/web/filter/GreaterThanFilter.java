@@ -59,7 +59,7 @@ public abstract class GreaterThanFilter<T> extends OneArgFilter<T> {
     public Criterion getCriterion() {
         return Restrictions.gt(getPropertyName(), getValue());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {

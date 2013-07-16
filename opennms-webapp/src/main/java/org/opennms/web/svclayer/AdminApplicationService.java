@@ -60,7 +60,7 @@ public interface AdminApplicationService {
      * @return a {@link java.util.List} object.
      */
     public List<OnmsMonitoredService> findAllMonitoredServices();
-    
+
     /**
      * <p>findApplicationAndAllMonitoredServices</p>
      *

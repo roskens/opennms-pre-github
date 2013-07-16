@@ -227,7 +227,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     public String getCollectFlag() {
         return m_collectFlag;
     }
-    
+
     /**
      * <p>setCollectFlag</p>
      *
@@ -236,7 +236,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
     public void setCollectFlag(String newCollectFlag) {
         m_collectFlag = newCollectFlag;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -273,7 +273,7 @@ public class SnmpManagedInterface implements Serializable, Comparable<SnmpManage
             .append(getCollectFlag(), obj.getCollectFlag())
             .toComparison();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {

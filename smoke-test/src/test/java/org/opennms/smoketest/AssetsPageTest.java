@@ -40,15 +40,15 @@ public class AssetsPageTest extends OpenNMSSeleniumTestCase {
     }
 
     @Test
-    public void testAllTextIsPresent() { 
+    public void testAllTextIsPresent() {
         assertTrue(selenium.isTextPresent("Search Asset Information"));
         assertTrue(selenium.isTextPresent("Assets Inventory"));
         assertTrue(selenium.isTextPresent("nter the data by hand"));
         assertTrue(selenium.isTextPresent("Assets with asset numbers"));
         assertTrue(selenium.isTextPresent("Assets in category"));
-    }    
+    }
 
-    @Test 
+    @Test
     public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("css=input[type=submit]"));
         assertTrue(selenium.isElementPresent("name=searchvalue"));

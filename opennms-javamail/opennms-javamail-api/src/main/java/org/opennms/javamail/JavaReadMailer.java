@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
 
 /*
  * TODO Handy API things I've found that should be implemented
- * 
+ *
             Message[] msgs = new Message[mailFolder.getMessageCount()];
             int unReadCnt = mailFolder.getUnreadMessageCount();
             int newCnt = mailFolder.getNewMessageCount();
@@ -63,7 +63,7 @@ import org.slf4j.LoggerFactory;
             fp.add(FetchProfileItem.FLAGS);
             mailFolder.fetch(msgs, fp);
             SearchTerm st = new SubjectTerm(subjectMatch);
-*/            
+*/
 /**
  * JavaMail implementation for reading electronic mail.
  *
@@ -71,10 +71,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JavaReadMailer extends JavaMailer2 {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JavaReadMailer.class);
 
-    
+
     private List<Message> m_messages;
     final private ReadmailConfig m_config;
     private Session m_session;
@@ -94,15 +94,15 @@ public class JavaReadMailer extends JavaMailer2 {
         if (m_messages != null && !m_messages.isEmpty() && m_messages.get(0).getFolder() != null && m_messages.get(0).getFolder().isOpen()) {
             m_messages.get(0).getFolder().close(m_deleteOnClose);
         }
-        
+
         if (m_store.isConnected()) {
             m_store.close();
         }
-        
+
         super.finalize();
         LOG.debug("finalize: Mail folder and store connections closed.");
     }
-    
+
     //TODO figure out why need this throws here
     /**
      * <p>Constructor for JavaReadMailer.</p>
@@ -118,7 +118,7 @@ public class JavaReadMailer extends JavaMailer2 {
         m_config = config;
         m_session = Session.getInstance(configureProperties(), createAuthenticator(config.getUserAuth().getUserName(), config.getUserAuth().getPassword()));
     }
-    
+
     /**
      * <p>retrieveMessages</p>
      *
@@ -128,7 +128,7 @@ public class JavaReadMailer extends JavaMailer2 {
     public List<Message> retrieveMessages() throws JavaMailerException {
         Message[] msgs;
         Folder mailFolder = null;
-        
+
         try {
             m_store = m_session.getStore(m_config.getReadmailHost().getReadmailProtocol().getTransport());
             m_store.connect(m_config.getReadmailHost().getHost(), (int)m_config.getReadmailHost().getPort(), m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
@@ -140,10 +140,10 @@ public class JavaReadMailer extends JavaMailer2 {
         } catch (MessagingException e) {
             throw new JavaMailerException("Problem reading messages from configured mail store", e);
         }
-        
+
         return new ArrayList<Message>(Arrays.asList(msgs));
     }
-    
+
 
     /*
      * TODO: Need readers that:
@@ -153,7 +153,7 @@ public class JavaReadMailer extends JavaMailer2 {
      * TODO: Need to make this more efficient... probably needs state so that message contents can be retrieved from the
      *       store after they are read via this message.
      */
-    
+
     /**
      * <p>retrieveMessages</p>
      *
@@ -164,7 +164,7 @@ public class JavaReadMailer extends JavaMailer2 {
     public List<Message> retrieveMessages(SearchTerm term) throws JavaMailerException {
         Message[] msgs;
         Folder mailFolder = null;
-        
+
         try {
             Store store = m_session.getStore(m_config.getReadmailHost().getReadmailProtocol().getTransport());
             store.connect(m_config.getReadmailHost().getHost(), (int)m_config.getReadmailHost().getPort(), m_config.getUserAuth().getUserName(), m_config.getUserAuth().getPassword());
@@ -176,27 +176,27 @@ public class JavaReadMailer extends JavaMailer2 {
         } catch (MessagingException e) {
             throw new JavaMailerException("Problem reading messages from configured mail store", e);
         }
-        
+
         List<Message> msgList = Arrays.asList(msgs);
-        
+
         return msgList;
     }
 
     /**
      * Configures the java mail api properties based on the settings ReadMailConfig
-     * @return A set of javamail properties based on the mail configuration 
+     * @return A set of javamail properties based on the mail configuration
      */
     private Properties configureProperties() {
         Properties props = new Properties();
-        
+
         props.setProperty("mail.debug", String.valueOf(m_config.isDebug()));
-        
+
         //first set the actual properties defined in the sendmail configuration
         List<JavamailProperty> jmps = m_config.getJavamailPropertyCollection();
         for (JavamailProperty jmp : jmps) {
             props.setProperty(jmp.getName(), jmp.getValue());
         }
-        
+
         String protocol = m_config.getReadmailHost().getReadmailProtocol().getTransport();
         props.put("mail." + protocol + ".host", m_config.getReadmailHost().getHost());
         props.put("mail." + protocol + ".user", m_config.getUserAuth().getUserName());
@@ -214,7 +214,7 @@ public class JavaReadMailer extends JavaMailer2 {
         props.put("mail." + protocol + ".connectiontimeout", 3000);
         props.put("mail." + protocol + ".timeout", 3000);
         props.put("mail.store.protocol", protocol);
-        
+
         return props;
     }
 
@@ -239,10 +239,10 @@ public class JavaReadMailer extends JavaMailer2 {
      * @throws java.io.IOException if any.
      */
     public static List<String> getText(Message msg) throws MessagingException, IOException {
-        
+
         Object content = null;
         String text = null;
-        
+
         LOG.debug("getText: getting text of message from MimeType: text/*");
 
         try {
@@ -268,7 +268,7 @@ public class JavaReadMailer extends JavaMailer2 {
         }
         return string2Lines(text);
     }
-    
+
     /**
      * <p>isDeleteOnClose</p>
      *

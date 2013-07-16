@@ -39,7 +39,7 @@ import org.opennms.netmgt.scheduler.Timer;
  * @version $Id: $
  */
 public interface PollConfig extends Timer {
-    
+
     /**
      * <p>poll</p>
      *
@@ -53,13 +53,13 @@ public interface PollConfig extends Timer {
      * @return a long.
      */
     @Override
-    public long getCurrentTime(); 
-    
+    public long getCurrentTime();
+
     /**
      * <p>refresh</p>
      */
     public void refresh();
-    
+
     /**
      * <p>refreshThresholds</p>
      */

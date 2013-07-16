@@ -81,7 +81,7 @@ public class PageSequenceMonitorTest {
     protected MonitoredService getHttpService(String hostname) throws Exception {
         return getHttpService(hostname, InetAddressUtils.addr(hostname));
     }
-    
+
     protected MonitoredService getHttpService(String hostname, InetAddress inetAddress) throws Exception {
         MonitoredService svc = new MockMonitoredService(1, hostname, inetAddress, "HTTP");
     	m_monitor.initialize(svc);
@@ -119,8 +119,8 @@ public class PageSequenceMonitorTest {
 
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page path=\"/index.html\" port=\"10342\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"It was written by monkeys.\" " + virtualHostParam + "/>\n" + 
+            "<page-sequence>\n" +
+            "  <page path=\"/index.html\" port=\"10342\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"It was written by monkeys.\" " + virtualHostParam + "/>\n" +
             "</page-sequence>\n");
     }
 
@@ -128,8 +128,8 @@ public class PageSequenceMonitorTest {
     public void testHttps() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page scheme=\"https\" host=\"scgi.ebay.com\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page scheme=\"https\" host=\"scgi.ebay.com\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\"/>\n" +
             "</page-sequence>\n");
 
         try {
@@ -144,8 +144,8 @@ public class PageSequenceMonitorTest {
     public void testHttpsWithHostValidation() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\" disable-ssl-verification=\"false\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\" disable-ssl-verification=\"false\"/>\n" +
             "</page-sequence>\n");
 
         try {
@@ -160,8 +160,8 @@ public class PageSequenceMonitorTest {
     public void testHttpsWithoutHostValidation() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\"/>\n" +
             "</page-sequence>\n");
 
         try {
@@ -173,8 +173,8 @@ public class PageSequenceMonitorTest {
 
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\" disable-host-verification=\"true\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page scheme=\"https\" path=\"/ws/eBayISAPI.dll\" query=\"RegisterEnterInfo\" port=\"443\" user-agent=\"Mozilla/4.0 (compatible; MSIE 5.5; Windows NT 5.0)\" successMatch=\"ebaystatic.com/\" virtual-host=\"scgi.ebay.com\" disable-host-verification=\"true\"/>\n" +
             "</page-sequence>\n");
 
         try {
@@ -191,14 +191,14 @@ public class PageSequenceMonitorTest {
 
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/\" port=\"10342\" successMatch=\"Password\" />\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" response-range=\"300-399\">\n" + 
-            "    <parameter key=\"j_username\" value=\"demo\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"demo\"/>\n" + 
-            "  </page>\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" + 
+            "<page-sequence>\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/\" port=\"10342\" successMatch=\"Password\" />\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" response-range=\"300-399\">\n" +
+            "    <parameter key=\"j_username\" value=\"demo\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"demo\"/>\n" +
+            "  </page>\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("localhost"), m_params);
@@ -210,8 +210,8 @@ public class PageSequenceMonitorTest {
     public void testVirtualHost() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page user-agent=\"Donald\" path=\"/\" port=\"80\" successMatch=\"Get the Network to Work\" virtual-host=\"www.opennms.com\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page user-agent=\"Donald\" path=\"/\" port=\"80\" successMatch=\"Get the Network to Work\" virtual-host=\"www.opennms.com\"/>\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("www.opennms.com"), m_params);
@@ -222,8 +222,8 @@ public class PageSequenceMonitorTest {
     public void testVirtualHostBadBehaviorForWordpressPlugin() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
-            "  <page path=\"/\" port=\"80\" successMatch=\"Get the Network to Work\" user-agent=\"Jakarta Commons-HttpClient/3.0.1\" virtual-host=\"www.opennms.com\"/>\n" + 
+            "<page-sequence>\n" +
+            "  <page path=\"/\" port=\"80\" successMatch=\"Get the Network to Work\" user-agent=\"Jakarta Commons-HttpClient/3.0.1\" virtual-host=\"www.opennms.com\"/>\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("www.opennms.com"), m_params);
@@ -235,7 +235,7 @@ public class PageSequenceMonitorTest {
     public void testLoginDynamicCredentials() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&lt;hea(.)&gt;&lt;titl(.)&gt;.*&lt;/for(.)&gt;&lt;/b(.)dy&gt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -243,11 +243,11 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" response-range=\"300-399\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("localhost"), m_params);
@@ -259,7 +259,7 @@ public class PageSequenceMonitorTest {
     public void testLoginDynamicCredentialsTwice() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&gt;Login (.)(.)(.)(.) Username and Password&lt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -267,12 +267,12 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\"  response-range=\"300-399\" port=\"10342\" method=\"POST\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/spring_security_login\"  port=\"10342\" failureMatch=\"(?s)Log out\" failureMessage=\"Login should have Failed but did not\" successMatch=\"(?s)Your login attempt was not successful.*\">\n" +
-            "    <parameter key=\"login_error\" value=\"\"/>\n" + 
-            "  </page>\n" + 
+            "    <parameter key=\"login_error\" value=\"\"/>\n" +
+            "  </page>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&lt;hea(.)&gt;&lt;titl(.)&gt;.*&lt;/for(.)&gt;&lt;/b(.)dy&gt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -280,11 +280,11 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\"  response-range=\"300-399\" port=\"10342\" method=\"POST\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" +
             "</page-sequence>\n");
 
         try {
@@ -300,7 +300,7 @@ public class PageSequenceMonitorTest {
     public void testLoginDynamicCredentialsRedirectPost() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&lt;hea(.)&gt;&lt;titl(.)&gt;.*&lt;/for(.)&gt;&lt;/b(.)dy&gt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -308,11 +308,11 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" failureMatch=\"(?s)Your login attempt was not successful.*Reason: ([^&lt;]*)\" failureMessage=\"Login in Failed: ${1}\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" + 
-            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/events.html\" port=\"10342\" successMatch=\"Event Queries\" />\n" +
+            "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_logout\" port=\"10342\" successMatch=\"Login with Username and Password\" />\n" +
             "</page-sequence>\n");
 
         Map<String,Object> params = new HashMap<String,Object>();
@@ -333,7 +333,7 @@ public class PageSequenceMonitorTest {
     public void testRedirectLocationMatch() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&lt;hea(.)&gt;&lt;titl(.)&gt;.*&lt;/for(.)&gt;&lt;/b(.)dy&gt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -341,9 +341,9 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" response-range=\"300-399\" locationMatch=\"/opennms/\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("localhost"), m_params);
@@ -355,7 +355,7 @@ public class PageSequenceMonitorTest {
     public void testRedirectLocationDoesNotMatch() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"(?s)&lt;hea(.)&gt;&lt;titl(.)&gt;.*&lt;/for(.)&gt;&lt;/b(.)dy&gt;\">\n" +
             "    <session-variable name=\"ltr1\" match-group=\"1\" />\n" +
             "    <session-variable name=\"ltr2\" match-group=\"2\" />\n" +
@@ -363,9 +363,9 @@ public class PageSequenceMonitorTest {
             "    <session-variable name=\"ltr4\" match-group=\"4\" />\n" +
             "  </page>\n" +
             "  <page virtual-host=\"localhost\" path=\"/opennms/j_spring_security_check\" port=\"10342\" method=\"POST\" response-range=\"300-399\" locationMatch=\"/opensadfnms/\">\n" +
-            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" + 
-            "  </page>\n" + 
+            "    <parameter key=\"j_username\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "    <parameter key=\"j_password\" value=\"${ltr1}${ltr2}${ltr3}${ltr4}\"/>\n" +
+            "  </page>\n" +
             "</page-sequence>\n");
 
         PollStatus status = m_monitor.poll(getHttpService("localhost"), m_params);
@@ -377,7 +377,7 @@ public class PageSequenceMonitorTest {
     public void testDsNamePerPage() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page path=\"/opennms/\" ds-name=\"test1\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"&lt;title&gt;(.*?)&lt;/title&gt;\" />\n" +
             "  <page path=\"/opennms/j_spring_security_check\" ds-name=\"test2\" port=\"10342\" virtual-host=\"localhost\" successMatch=\"&lt;title&gt;(.*?)&lt;/title&gt;\" />\n" +
                 "</page-sequence>\n");
@@ -394,7 +394,7 @@ public class PageSequenceMonitorTest {
     public void testRequireIPv6() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page host=\"localhost\" path=\"/opennms/\" port=\"10342\" requireIPv6=\"true\"/>\n" +
             "</page-sequence>\n");
 
@@ -407,7 +407,7 @@ public class PageSequenceMonitorTest {
     public void testRequireIPv4() throws Exception {
         m_params.put("page-sequence", "" +
             "<?xml version=\"1.0\"?>" +
-            "<page-sequence>\n" + 
+            "<page-sequence>\n" +
             "  <page host=\"localhost\" path=\"/opennms/\" port=\"10342\" requireIPv4=\"true\"/>\n" +
             "</page-sequence>\n");
 

@@ -33,7 +33,7 @@ import java.util.Map;
 public class TmobileBalance extends BaseSessionVariableGenerator {
 	public TmobileBalance() {
 	}
-	
+
 	public TmobileBalance(Map<String,String> parameters) {
 		super(parameters);
 	}

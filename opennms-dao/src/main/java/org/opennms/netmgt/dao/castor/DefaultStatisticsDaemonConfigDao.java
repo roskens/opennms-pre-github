@@ -54,13 +54,13 @@ public class DefaultStatisticsDaemonConfigDao extends AbstractCastorConfigDao<St
     public DefaultStatisticsDaemonConfigDao() {
         super(StatisticsDaemonConfiguration.class, "statistics daemon configuration");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public StatsdConfig translateConfig(StatisticsDaemonConfiguration castorConfig) {
         return new StatsdConfig(castorConfig);
     }
-    
+
     private StatsdConfig getConfig() {
         return getContainer().getObject();
     }
@@ -74,7 +74,7 @@ public class DefaultStatisticsDaemonConfigDao extends AbstractCastorConfigDao<St
     public List<Report> getReports() {
         return getConfig().getReports();
     }
-    
+
     /**
      * <p>getPackages</p>
      *
@@ -84,7 +84,7 @@ public class DefaultStatisticsDaemonConfigDao extends AbstractCastorConfigDao<St
     public List<StatsdPackage> getPackages() {
         return getConfig().getPackages();
     }
-    
+
     /**
      * <p>reloadConfiguration</p>
      *
@@ -98,7 +98,7 @@ public class DefaultStatisticsDaemonConfigDao extends AbstractCastorConfigDao<St
 
     private void verifyMarshaledConfiguration() {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

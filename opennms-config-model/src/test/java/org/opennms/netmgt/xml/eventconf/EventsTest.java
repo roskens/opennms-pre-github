@@ -155,31 +155,31 @@ public class EventsTest extends XmlTestNoCastor<Events> {
 				"<descr>descr</descr>" +
 				"<logmsg>log message</logmsg>" +
 				"<severity>normal</severity>" +
-				"</event>" + 
+				"</event>" +
 				"</events>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 				{events1,
 					"<events>" +
-					"  <global>" + 
-					"    <security>" + 
-					"      <doNotOverride>I'm very important, don't mess with me!</doNotOverride>" + 
-					"      <doNotOverride>Also important</doNotOverride>" + 
-					"     </security>" + 
+					"  <global>" +
+					"    <security>" +
+					"      <doNotOverride>I'm very important, don't mess with me!</doNotOverride>" +
+					"      <doNotOverride>Also important</doNotOverride>" +
+					"     </security>" +
 					"  </global>" +
 					"<event>" +
-					"  <mask>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>id</mename>\n" + 
-					"      <mevalue>.1.3.6.1.2.1.10.166.3</mevalue>\n" + 
-					"    </maskelement>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>generic</mename>\n" + 
-					"      <mevalue>6</mevalue>\n" + 
-					"    </maskelement>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>specific</mename>\n" + 
-					"      <mevalue>1</mevalue>\n" + 
-					"    </maskelement>\n" + 
+					"  <mask>\n" +
+					"    <maskelement>\n" +
+					"      <mename>id</mename>\n" +
+					"      <mevalue>.1.3.6.1.2.1.10.166.3</mevalue>\n" +
+					"    </maskelement>\n" +
+					"    <maskelement>\n" +
+					"      <mename>generic</mename>\n" +
+					"      <mevalue>6</mevalue>\n" +
+					"    </maskelement>\n" +
+					"    <maskelement>\n" +
+					"      <mename>specific</mename>\n" +
+					"      <mevalue>1</mevalue>\n" +
+					"    </maskelement>\n" +
 					"    <varbind>" +
 					"      <vbnumber>5</vbnumber>" +
 					"      <vbvalue>0</vbvalue>" +
@@ -221,7 +221,7 @@ public class EventsTest extends XmlTestNoCastor<Events> {
 					"</event>" +
 					"<event-file>test</event-file>" +
 					"</events>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 		});
 	}
 

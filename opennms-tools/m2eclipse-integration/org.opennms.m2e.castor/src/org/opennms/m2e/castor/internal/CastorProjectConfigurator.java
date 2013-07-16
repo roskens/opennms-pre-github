@@ -24,7 +24,7 @@ public class CastorProjectConfigurator
     {
         return new CastorBuildParticipant( execution );
     }
-    
+
     protected String getOutputFolderParameterName()
     {
         return "dest";

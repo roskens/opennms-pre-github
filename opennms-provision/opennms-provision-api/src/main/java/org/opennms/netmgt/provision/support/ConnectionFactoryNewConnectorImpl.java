@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
  * @author Duncan Mackintosh
  */
 public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionFactoryNewConnectorImpl.class);
-    
+
     private static final Executor m_executor = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
     private static final IoProcessor<NioSession> m_processor = new SimpleIoProcessorPool<NioSession>(NioProcessor.class, m_executor);
     private ThreadLocal<Integer> m_port = new ThreadLocal<Integer>();
@@ -110,10 +110,10 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
     /**
      * <p>Connect to a remote socket. If org.opennms.netmgt.provision.maxConcurrentConnections
      * is set, this may block until a connection slot is available.</p>
-     * 
+     *
      * <p>You must dispose both the {@link ConnectionFactoryNewConnectorImpl} and {@link ConnectFuture} when done
      * by calling {@link #dispose(ConnectionFactoryNewConnectorImpl, ConnectFuture)}.</p>
-     * 
+     *
      * @param remoteAddress
      * 		Destination address
      * @param init
@@ -193,7 +193,7 @@ public class ConnectionFactoryNewConnectorImpl extends ConnectionFactory {
     /**
      * Delegates completely to {@link #connect(SocketAddress, SocketAddress, IoSessionInitializer, IoHandler)}
      * since we are recreating connectors during each invocation.
-     * 
+     *
      * @param remoteAddress
      * @param localAddress
      * @param init

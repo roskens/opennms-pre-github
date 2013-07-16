@@ -35,7 +35,7 @@ package org.opennms.sms.reflector.smsservice;
  * @version $Id: $
  */
 public interface MobileMsgResponseMatcher {
-    
+
     /**
      * <p>matches</p>
      *

@@ -52,43 +52,43 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class ReferenceFactoryBeanTest implements InitializingBean {
-    
+
     @Autowired
     ServiceRegistry serviceRegistry;
-    
+
     @Autowired
     Hello hello;
-    
+
     @Autowired
     Goodbye goodbye;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         assertNotNull(serviceRegistry);
         assertNotNull(hello);
         assertNotNull(goodbye);
     }
-    
+
     @Test
     @DirtiesContext
     public void testFindReference() throws IOException {
-        
+
         MyProvider provider = new MyProvider();
-        
+
         serviceRegistry.register(provider, Hello.class, Goodbye.class);
-        
+
         assertEquals(0, provider.helloSaid());
-        
+
         hello.sayHello();
-        
+
         assertEquals(1, provider.helloSaid());
-        
+
         assertEquals(0, provider.goodbyeSaid());
-        
+
         goodbye.sayGoodbye();
-        
+
         assertEquals(1, provider.goodbyeSaid());
-        
+
     }
 
 }

@@ -69,10 +69,10 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class UserNotificationDaoTest implements InitializingBean {
-	
+
 	@Autowired
 	private DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -87,7 +87,7 @@ public class UserNotificationDaoTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -126,16 +126,16 @@ public class UserNotificationDaoTest implements InitializingBean {
         m_eventDao.save(event);
         OnmsEvent newEvent = m_eventDao.load(event.getId());
         assertEquals("uei://org/opennms/test/UserNotificationDaoTest", newEvent.getEventUei());
-        
-        
+
+
         OnmsNotification notification = new OnmsNotification();
         notification.setEvent(newEvent);
         notification.setTextMsg("Tests are fun!");
         m_notificationDao.save(notification);
-       
+
         OnmsNotification newNotification = m_notificationDao.load(notification.getNotifyId());
         assertEquals("uei://org/opennms/test/UserNotificationDaoTest", newNotification.getEvent().getEventUei());
-        
+
         OnmsUserNotification userNotif = new OnmsUserNotification();
         userNotif.setNotification(notification);
         userNotif.setNotifyTime(new Date());
@@ -143,7 +143,7 @@ public class UserNotificationDaoTest implements InitializingBean {
         userNotif.setMedia("E-mail");
         userNotif.setContactInfo("test@opennms.org");
         m_userNotificationDao.save(userNotif);
-        
+
         assertNotNull(userNotif.getNotification());
         assertEquals(userNotif.getUserId(), "OpenNMS User");
     }

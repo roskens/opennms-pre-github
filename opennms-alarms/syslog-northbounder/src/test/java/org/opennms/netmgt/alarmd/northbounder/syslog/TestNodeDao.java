@@ -25,7 +25,7 @@ public class TestNodeDao implements NodeDao {
 		node.setLabel("p-brane");
 		return node;
 	}
-	
+
 	@Override
 	public String getLabelForId(Integer id) {
 		if (id.intValue() == 777) {
@@ -33,7 +33,7 @@ public class TestNodeDao implements NodeDao {
 		}
 		return null;
 	}
-	
+
 	@Override
 	public OnmsNode load(Integer id) {
 		OnmsNode node = new OnmsNode();
@@ -41,16 +41,16 @@ public class TestNodeDao implements NodeDao {
 		node.setLabel("p-brane");
 		return node;
 	}
-	
+
 	@Override
 	public List<OnmsNode> findAll() {
-		
+
 		List<OnmsNode> nodeList = new LinkedList<OnmsNode>();
-		
+
 		OnmsNode node = new OnmsNode();
 		node.setId(777);
 		node.setLabel("p-brane");
-		
+
 		nodeList.add(node);
 		return nodeList;
 	}
@@ -120,7 +120,7 @@ public class TestNodeDao implements NodeDao {
 	public OnmsNode get(String lookupCriteria) {
 		return null;
 	}
-	
+
 	@Override
 	public List<OnmsNode> findByLabel(String label) {
 		return null;
@@ -233,5 +233,5 @@ public class TestNodeDao implements NodeDao {
 	public Integer getPreviousNodeId(Integer nodeId) {
 		return null;
 	}
-	
+
 }

@@ -37,7 +37,7 @@ package org.opennms.netmgt.config;
  */
 public class WebRolesException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 7520091278102237241L;
 

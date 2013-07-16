@@ -47,7 +47,7 @@ public interface NodeProvisionService {
      * @return a {@link org.springframework.web.servlet.ModelAndView} object.
      */
     public ModelAndView getModelAndView(HttpServletRequest request) ;
-    
+
     /**
      * <p>provisionNode</p>
      *

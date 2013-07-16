@@ -71,7 +71,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
         this.timeUp = timeUp;
         this.timeNow = timeNow;
     }
-    
+
     /**
      * <p>Constructor for OutageSummary.</p>
      *
@@ -83,7 +83,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
     public OutageSummary(final int nodeId, final String nodeLabel, final Date timeDown, final Date timeUp) {
         this(nodeId, nodeLabel, timeDown, timeUp, new Date());
     }
-    
+
     /**
      * <p>Constructor for OutageSummary.</p>
      *
@@ -139,7 +139,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
     public Date getTimeUp() {
         return (this.timeUp);
     }
-    
+
     /**
      * <p>getFuzzyTimeDown</p>
      *
@@ -149,7 +149,7 @@ public class OutageSummary implements Comparable<OutageSummary> {
         // mmm... I *love* Get Fuzzy!
         return FuzzyDateFormatter.calculateDifference(this.getTimeDown(), new Date());
     }
-    
+
     /**
      * <p>toString</p>
      *

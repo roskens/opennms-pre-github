@@ -52,7 +52,7 @@ public class ScanResource {
     public ScanResource(String type) {
         m_type = type;
     }
-    
+
     /**
      * <p>getType</p>
      *
@@ -101,7 +101,7 @@ public class ScanResource {
             } else if (key.equals("sysName")) {
                 m_node.setSysName(value);
             }
-            
+
         }
     }
 

@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 public abstract class StringReplaceOperation {
     protected String m_pattern;
     protected String m_replacement;
-    
+
     /**
      * <p>Constructor for StringReplaceOperation.</p>
      *
@@ -55,7 +55,7 @@ public abstract class StringReplaceOperation {
             throw new IllegalArgumentException("Specification '" + spec + "' is invalid; must be of the form s/pattern/replacement/ with no trailing modifiers");
         }
     }
-    
+
     /**
      * <p>getPattern</p>
      *
@@ -64,7 +64,7 @@ public abstract class StringReplaceOperation {
     public String getPattern() {
         return m_pattern;
     }
-    
+
     /**
      * <p>getReplacement</p>
      *
@@ -73,7 +73,7 @@ public abstract class StringReplaceOperation {
     public String getReplacement() {
         return m_replacement;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -83,7 +83,7 @@ public abstract class StringReplaceOperation {
     public String toString() {
         return "Class: " + getClass().getName() + "; Pattern: " + m_pattern + "; Replacement: " + m_replacement;
     }
-    
+
     /**
      * <p>replace</p>
      *
@@ -91,5 +91,5 @@ public abstract class StringReplaceOperation {
      * @return a {@link java.lang.String} object.
      */
     public abstract String replace(String input);
-    
+
 }

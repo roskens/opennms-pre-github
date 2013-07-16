@@ -49,9 +49,9 @@ import org.springframework.util.Assert;
  */
 @Transactional(readOnly = true)
 public class DaoEventdServiceManager implements InitializingBean, EventdServiceManager {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DaoEventdServiceManager.class);
-    
+
     private ServiceTypeDao m_serviceTypeDao;
 
     /**
@@ -77,17 +77,17 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
             return m_serviceMap.get(serviceName).intValue();
         } else {
             LOG.debug("Could not find entry for '{}' in service name cache.  Looking up in database.", serviceName);
-            
+
             OnmsServiceType serviceType = m_serviceTypeDao.findByName(serviceName);
             if (serviceType == null) {
                 LOG.debug("Did not find entry for '{}' in database.", serviceName);
                 return -1;
             }
-            
+
             LOG.debug("Found entry for '{}' (ID {}) in database.  Adding to service name cache.", serviceName, serviceType.getId());
 
             m_serviceMap.put(serviceType.getName(), serviceType.getId());
-            
+
             return serviceType.getId();
         }
     }
@@ -101,7 +101,7 @@ public class DaoEventdServiceManager implements InitializingBean, EventdServiceM
     @Override
     public synchronized void dataSourceSync() {
         m_serviceMap.clear();
-        
+
         for (OnmsServiceType serviceType : m_serviceTypeDao.findAll()) {
             m_serviceMap.put(serviceType.getName(), serviceType.getId());
         }

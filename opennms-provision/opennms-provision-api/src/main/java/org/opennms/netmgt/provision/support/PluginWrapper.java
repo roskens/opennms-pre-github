@@ -50,7 +50,7 @@ import org.springframework.beans.BeanWrapperImpl;
 public class PluginWrapper {
     private Map<String,Set<String>> m_required = new TreeMap<String,Set<String>>();
     private Map<String,Set<String>> m_optional = new TreeMap<String,Set<String>>();
-    
+
     private final String m_className;
 
     /**
@@ -62,7 +62,7 @@ public class PluginWrapper {
     public PluginWrapper(String className) throws ClassNotFoundException {
         this(Class.forName(className));
     }
-    
+
     /**
      * <p>Constructor for PluginWrapper.</p>
      *

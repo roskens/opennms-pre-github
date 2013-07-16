@@ -21,20 +21,20 @@ public class DefaultRemedyConfigDao {
 	Configuration m_config = null;
 	/**
 	 * Retrieves the properties defined in the remedy.properties file.
-	 * 
+	 *
 	 * @param remedyTicketerPlugin
 	 * @return a
 	 *         <code>java.util.Properties object containing remedy plugin defined properties
 	 */
-	
+
 	private Configuration getProperties() {
 		if (m_config != null) return m_config;
 		String propsFile = new String(System.getProperty("opennms.home") + "/etc/remedy.properties");
-		
+
 		LOG.debug("loading properties from: {}", propsFile);
-		
+
 		Configuration config = null;
-		
+
 		try {
 			config = new PropertiesConfiguration(propsFile);
 		} catch (final ConfigurationException e) {
@@ -42,9 +42,9 @@ public class DefaultRemedyConfigDao {
 		}
 		m_config = config;
 		return config;
-	
+
 	}
-	
+
 	/**
 	 * <p>getUserName</p>
 	 *
@@ -54,7 +54,7 @@ public class DefaultRemedyConfigDao {
 		return getProperties().getString("remedy.username");
 	}
 
-	
+
 	String getPassword() {
 		return getProperties().getString("remedy.password");
 	}
@@ -64,13 +64,13 @@ public class DefaultRemedyConfigDao {
 	}
 
 	String getLocale() {
-		return getProperties().getString("remedy.locale");		
+		return getProperties().getString("remedy.locale");
 	}
-	
+
 	String getTimeZone() {
 		return getProperties().getString("remedy.timezone");
 	}
-	
+
 	String getEndPoint() {
 		return getProperties().getString("remedy.endpoint");
 	}
@@ -96,7 +96,7 @@ public class DefaultRemedyConfigDao {
 		}
 		return targetGroups;
 	}
-	
+
 	String getAssignedGroup() {
 		return getProperties().getString("remedy.assignedgroup");
 	}
@@ -122,7 +122,7 @@ public class DefaultRemedyConfigDao {
 	String getServiceCIReconID() {
 		return getProperties().getString("remedy.serviceCIReconID");
 	}
-		
+
 	String getAssignedSupportCompany() {
 		return getProperties().getString("remedy.assignedsupportcompany");
 	}
@@ -154,11 +154,11 @@ public class DefaultRemedyConfigDao {
 	String getCategorizationtier3() {
 		return getProperties().getString("remedy.categorizationtier3");
 	}
-	
+
 	String getServiceType() {
 		return getProperties().getString("remedy.serviceType");
 	}
-	
+
 	String getReportedSource() {
 		return getProperties().getString("remedy.reportedSource");
 	}
@@ -170,7 +170,7 @@ public class DefaultRemedyConfigDao {
 	String getUrgency() {
 		return getProperties().getString("remedy.urgency");
 	}
-	
+
 	String getResolution() {
 		return getProperties().getString("remedy.resolution");
 	}
@@ -178,12 +178,12 @@ public class DefaultRemedyConfigDao {
 	String getReOpenStatusReason() {
 		return getProperties().getString("remedy.reason.reopen");
 	}
-	
+
 	String getResolvedStatusReason() {
 		return getProperties().getString("remedy.reason.resolved");
 	}
-	
+
 	String getCancelledStatusReason() {
 		return getProperties().getString("remedy.reason.cancelled");
-	}	
+	}
 }

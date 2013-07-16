@@ -20,7 +20,7 @@ import org.opennms.netmgt.model.OnmsSeverity;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 public class AlarmStatusProvider implements StatusProvider {
-    
+
     public class AlarmStatus implements Status{
 
         private int m_statusId;
@@ -45,12 +45,12 @@ public class AlarmStatusProvider implements StatusProvider {
             statusMap.put("statusCount", "" + m_alarmCount);
             return statusMap;
         }
-        
+
     }
 
     private AlarmDao m_alarmDao;
     private VertexProvider m_vertexProvider;
-    
+
     public VertexProvider getVertexProvider() {
         return m_vertexProvider;
     }
@@ -69,7 +69,7 @@ public class AlarmStatusProvider implements StatusProvider {
 
     @Override
     public Status getStatusForVertex(VertexRef vertexRef) {
-        
+
         if(vertexRef.getNamespace().equals("nodes")) {
             try {
                 Collection<Integer> nodeIds = new ArrayList<Integer>();
@@ -85,7 +85,7 @@ public class AlarmStatusProvider implements StatusProvider {
         } else {
             return createIndeterminateStatus();
         }
-        
+
     }
 
     @Override

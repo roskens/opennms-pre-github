@@ -59,7 +59,7 @@ public class NCSComponentDao extends AbstractDaoHibernate<NCSComponent, Long> im
 	public List<NCSComponent> findComponentsWithChild(final NCSComponent component) {
 		return find("from NCSComponent as ncs where ? in elements(ncs.parentcomponents)", component);
 	}
-	
+
 	@Override
 	public List<NCSComponent> findComponentsWithAttribute(String attrKey, String attrValue) {
 		return find("from NCSComponent as ncs where ncs.attributes[?] = ?", attrKey, attrValue);
@@ -69,7 +69,7 @@ public class NCSComponentDao extends AbstractDaoHibernate<NCSComponent, Long> im
 	public List<NCSComponent> findComponentsByNodeId(int nodeid) {
 			return find("select distinct ncs from NCSComponent as ncs, OnmsNode as n left join fetch ncs.attributes where ncs.nodeIdentification.foreignSource = n.foreignSource and ncs.nodeIdentification.foreignId = n.foreignId and n.id = ?", nodeid);
 	}
-	
+
 	@Override
 	public void save(final NCSComponent entity) throws DataAccessException {
 		validateEntity(entity);
@@ -80,7 +80,7 @@ public class NCSComponentDao extends AbstractDaoHibernate<NCSComponent, Long> im
 	public void saveOrUpdate(final NCSComponent entity) throws DataAccessException {
 		validateEntity(entity);
 		super.saveOrUpdate(entity);
-		
+
 	}
 
 	// enforcing no colons seems to be not very feasible in The Real World
@@ -107,7 +107,7 @@ public class NCSComponentDao extends AbstractDaoHibernate<NCSComponent, Long> im
 			super("Invalid Foreign ID (" + foreignId + "): " + msg);
 		}
 	}
-	
+
 	public static final class InvalidForeignSourceException extends DataAccessException {
 		private static final long serialVersionUID = -4762525172339952143L;
 		public InvalidForeignSourceException(final String msg) {

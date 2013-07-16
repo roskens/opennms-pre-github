@@ -37,7 +37,7 @@ import com.google.gwt.event.shared.EventHandler;
 public interface SavedAssetEventHandler extends EventHandler {
 	/**
 	 * Handle event on asset save...
-	 * 
+	 *
 	 * @param event
 	 *            {@link event}
 	 */

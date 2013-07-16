@@ -42,7 +42,7 @@ import org.opennms.netmgt.importer.config.Node;
  * @version $Id: $
  */
 public interface ImportVisitor {
-    
+
     /**
      * <p>visitModelImport</p>
      *

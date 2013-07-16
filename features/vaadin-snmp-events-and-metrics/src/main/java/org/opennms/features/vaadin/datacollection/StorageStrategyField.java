@@ -53,8 +53,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Storage Strategy Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class StorageStrategyField extends CustomField<StorageStrategy> implements Button.ClickListener {
@@ -117,7 +117,7 @@ public class StorageStrategyField extends CustomField<StorageStrategy> implement
         toolbar.setVisible(table.isEditable());
         setBuffered(true);
     }
-    
+
     @Override
     public Component initContent() {
         VerticalLayout layout = new VerticalLayout();

@@ -41,60 +41,60 @@ import org.junit.Test;
  */
 public class DefaultTimeAdjustmentTest {
     private static final long m_jitter = 2;
-    
+
     @Test
     public void testNoTimeDifference() {
-       
+
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
-        
+
         long time = System.currentTimeMillis();
-        
+
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
-        
+
         assertEqualsWithin(time, adjusted, m_jitter);
     }
-    
+
     @Test
     public void testServerTimeMatches() {
-        
+
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
-        
+
         timeAdjustment.setMasterTime(System.currentTimeMillis());
-        
+
         long time = System.currentTimeMillis();
-        
+
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
-        
+
         assertEqualsWithin(time, adjusted, m_jitter);
 
     }
 
     @Test
     public void testServerBehind() {
-        
+
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
-        
+
         timeAdjustment.setMasterTime(System.currentTimeMillis()-60000);
-        
+
         long time = System.currentTimeMillis();
-        
+
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
-        
+
         assertEqualsWithin(time-60000, adjusted, m_jitter);
 
     }
 
     @Test
     public void testServerAhead() {
-        
+
         TimeAdjustment timeAdjustment = new DefaultTimeAdjustment();
-        
+
         timeAdjustment.setMasterTime(System.currentTimeMillis()+60000);
-        
+
         long time = System.currentTimeMillis();
-        
+
         long adjusted = timeAdjustment.adjustTimeToMasterTime(time);
-        
+
         assertEqualsWithin(time+60000, adjusted, m_jitter);
 
     }
@@ -103,13 +103,13 @@ public class DefaultTimeAdjustmentTest {
     public void testAssertEqualsWithin() {
         assertEqualsWithin(5, 7, 2);
         assertEqualsWithin(7, 5, 2);
-        
+
         try {
             assertEqualsWithin(5, 8, 2);
         } catch (AssertionError e) {
             assertTrue(e != null);
         }
-        
+
         try {
             assertEqualsWithin(8, 5, 2);
         } catch (AssertionError e) {

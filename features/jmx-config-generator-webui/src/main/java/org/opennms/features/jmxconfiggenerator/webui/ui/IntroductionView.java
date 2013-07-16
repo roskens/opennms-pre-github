@@ -40,15 +40,15 @@ public class IntroductionView extends Panel implements ClickListener {
 
 	private final Button next;
 	private JmxConfigGeneratorApplication app;
-	
+
 	public IntroductionView(JmxConfigGeneratorApplication app) {
 		this.app = app;
 		next = UIHelper.createButton("next",  IconProvider.BUTTON_NEXT, this);
-		
+
 		setSizeFull();
 		setContent(new VerticalLayout());
 		getContent().setSizeFull();
-		
+
 		Layout layout = new VerticalLayout();
 		layout.addComponent(new Label(UIHelper.loadContentFromFile(getClass(), "/descriptions/IntroductionView.html"),
 				ContentMode.HTML));

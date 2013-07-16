@@ -53,7 +53,7 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
     public void setPluginClass(Class<? extends Plugin> pluginClass) {
         m_pluginClass = pluginClass;
     }
-    
+
     /**
      * <p>getObject</p>
      *
@@ -72,7 +72,7 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
             m_ticketerPlugin = (Plugin)m_pluginClass.newInstance();
         }
         return m_ticketerPlugin;
-        
+
     }
 
     /**
@@ -94,5 +94,5 @@ public class TicketerPluginFactory implements FactoryBean<Plugin> {
     public boolean isSingleton() {
         return true;
     }
-    
+
 }

@@ -47,7 +47,7 @@ public class AsteriskGateway extends AbstractServiceDaemon {
     AgiServerThread m_agiServerThread;
     private int m_port = 4573;
     private int m_maxPoolSize = 10;
-    
+
     /**
      * <p>Constructor for AsteriskGateway.</p>
      */
@@ -60,24 +60,24 @@ public class AsteriskGateway extends AbstractServiceDaemon {
     protected void onInit() {
         int port = Integer.getInteger("org.opennms.netmgt.asterisk.agi.listenPort", m_port);
         int maxPoolSize = Integer.getInteger("org.opennms.netmgt.asterisk.agi.maxPoolSize", m_maxPoolSize);
-        
+
         DefaultAgiServer agiServer = new DefaultAgiServer(new ClassNameMappingStrategy(false));
-        
+
         agiServer.setPort(port);
         agiServer.setMaximumPoolSize(maxPoolSize);
-        
+
         m_agiServerThread = new AgiServerThread(agiServer);
-        
+
         // This is the default, but be explicit
         m_agiServerThread.setDaemon(true);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onStart() {
         m_agiServerThread.startup();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onStop() {

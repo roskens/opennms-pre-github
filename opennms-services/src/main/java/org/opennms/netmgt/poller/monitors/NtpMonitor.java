@@ -158,29 +158,29 @@ final public class NtpMonitor extends AbstractServiceMonitor {
                 }
             }
         } catch (NoRouteToHostException e) {
-        	
+
         	String reason = "No route to host exception for address: " + ipv4Addr;
             LOG.debug(reason, e);
             serviceStatus = PollStatus.unavailable(reason);
-        	
+
         } catch (ConnectException e) {
-        	
+
         	String reason = "Connection exception for address: " + ipv4Addr;
             LOG.debug(reason, e);
             serviceStatus = PollStatus.unavailable(reason);
-        	
+
         } catch (IOException ex) {
-        	
+
         	String reason = "IOException while polling address: " + ipv4Addr;
             LOG.debug(reason, ex);
             serviceStatus = PollStatus.unavailable(reason);
-        	
+
         } finally {
             if (socket != null)
                 socket.close();
         }
 
-        // 
+        //
         //
         // return the status of the service
         //

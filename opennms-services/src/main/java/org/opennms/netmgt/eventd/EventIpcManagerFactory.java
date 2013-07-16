@@ -68,7 +68,7 @@ public abstract class EventIpcManagerFactory {
         Assert.notNull(ipcManager, "argument ipcManager must not be null");
         m_ipcManager = ipcManager;
     }
-    
+
     /**
      * This is here for unit testing so we can reset this class before
      * every test.

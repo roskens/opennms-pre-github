@@ -125,7 +125,7 @@ public class PollerBackEndTest extends TestCase {
                     m_expected.getNodeid() == actual.getNodeid() &&
                     nullSafeEquals(m_expected.getInterface(), actual.getInterface())  &&
                     nullSafeEquals(m_expected.getService(), actual.getService()) &&
-                    EventUtils.getLongParm(m_expected, EventConstants.PARM_LOCATION_MONITOR_ID, -1) 
+                    EventUtils.getLongParm(m_expected, EventConstants.PARM_LOCATION_MONITOR_ID, -1)
                     == EventUtils.getLongParm(actual, EventConstants.PARM_LOCATION_MONITOR_ID, -1)
             );
         }
@@ -349,7 +349,7 @@ public class PollerBackEndTest extends TestCase {
         m_backEnd.setEventIpcManager(m_eventIpcManager);
         m_backEnd.setDisconnectedTimeout(DISCONNECTED_TIMEOUT);
 
-        
+
         m_startTime = new Date(System.currentTimeMillis() - 600000);
         expect(m_timeKeeper.getCurrentDate()).andReturn(m_startTime);
         replay(m_timeKeeper);
@@ -536,10 +536,10 @@ public class PollerBackEndTest extends TestCase {
 
         m_backEnd.pollerStopping(1);
     }
-    
+
     public void testPollerStoppingWithBadLocationMonitorId() {
         expect(m_locMonDao.get(1)).andReturn(null);
-        
+
         m_mocks.replayAll();
         m_backEnd.pollerStopping(1);
     }
@@ -569,10 +569,10 @@ public class PollerBackEndTest extends TestCase {
         assertEquals(1, locationMonitorId);
 
     }
-    
+
     public void testReportResultWithBadLocationMonitorId() {
         expect(m_locMonDao.get(1)).andReturn(null);
-        
+
         m_mocks.replayAll();
         m_backEnd.reportResult(1, 1, PollStatus.up());
     }
@@ -580,11 +580,11 @@ public class PollerBackEndTest extends TestCase {
     public void testReportResultWithBadServiceId() {
         expect(m_locMonDao.get(1)).andReturn(new OnmsLocationMonitor());
         expect(m_monSvcDao.get(1)).andReturn(null);
-        
+
         m_mocks.replayAll();
         m_backEnd.reportResult(1, 1, PollStatus.up());
     }
-    
+
     public void testReportResultWithNullPollResult() {
     	expect(m_locMonDao.get(1)).andThrow(new RuntimeException("crazy location monitor exception"));
 
@@ -817,11 +817,11 @@ public class PollerBackEndTest extends TestCase {
         MockLogAppender.setupLogging(p);
 
         Locale.setDefault(Locale.FRENCH);
-        
+
         // Make sure we actually have a valid test
         NumberFormat nf = NumberFormat.getInstance();
         assertEquals("ensure that the newly set default locale (" + Locale.getDefault() + ") uses ',' as the decimal marker", "1,5", nf.format(1.5));
-        
+
         OnmsMonitoredService svc = new OnmsMonitoredService();
         OnmsServiceType svcType = new OnmsServiceType();
         svcType.setName("HTTP");
@@ -829,7 +829,7 @@ public class PollerBackEndTest extends TestCase {
         OnmsIpInterface intf = new OnmsIpInterface();
         intf.setIpAddress(InetAddressUtils.addr("1.2.3.4"));
         svc.setIpInterface(intf);
-        
+
         Package pkg = new Package();
         Service pkgService = new Service();
         pkgService.setName("HTTP");
@@ -840,9 +840,9 @@ public class PollerBackEndTest extends TestCase {
         rrd.setStep(300);
         rrd.addRra("bogusRRA");
         pkg.setRrd(rrd);
-        
+
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".rrd").anyTimes();
-        
+
         // TODO: Figure out why these mock calls aren't being invoked
         //expect(m_rrdStrategy.createDefinition(isA(String.class), isA(String.class), isA(String.class), anyInt(), isAList(RrdDataSource.class), isAList(String.class))).andReturn(new Object());
         //m_rrdStrategy.createFile(isA(Object.class));
@@ -863,10 +863,10 @@ public class PollerBackEndTest extends TestCase {
         param.setValue(value);
         pkgService.addParameter(param);
     }
-    
+
     @SuppressWarnings("unchecked")
     private static <T> List<T> isAList(Class<T> clazz) {
         return isA(List.class);
     }
-    
+
 }

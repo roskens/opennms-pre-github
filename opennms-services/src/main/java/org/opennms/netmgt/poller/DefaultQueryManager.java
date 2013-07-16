@@ -61,7 +61,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultQueryManager implements QueryManager {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultQueryManager.class);
 
     final static String SQL_RETRIEVE_INTERFACES = "SELECT nodeid,ipaddr FROM ifServices, service WHERE ifServices.serviceid = service.serviceid AND service.servicename = ? AND ifServices.status='A'";
@@ -90,8 +90,8 @@ public class DefaultQueryManager implements QueryManager {
     final static String SQL_FETCH_IFSERVICES_TO_POLL = "SELECT if.serviceid FROM ifservices if, service s WHERE if.serviceid = s.serviceid AND if.status = 'A' AND if.ipaddr = ?";
 
     final static String SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE ="SELECT ipaddr,servicename FROM ifservices,service WHERE nodeid= ? AND ifservices.serviceid=service.serviceid";
-    
-    
+
+
     private DataSource m_dataSource;
 
     /** {@inheritDoc} */
@@ -270,7 +270,7 @@ public class DefaultQueryManager implements QueryManager {
         final DBUtils d = new DBUtils(getClass());
 
         try {
-            
+
         java.sql.Connection dbConn = getConnection();
         d.watch(dbConn);
 
@@ -294,7 +294,7 @@ public class DefaultQueryManager implements QueryManager {
         } finally {
             d.cleanUp();
         }
-        
+
         return ifkeys;
     }
 
@@ -373,8 +373,8 @@ public class DefaultQueryManager implements QueryManager {
 
         return svcLostDate;
     }
-    
-    
+
+
     /**
      * <p>convertEventTimeToTimeStamp</p>
      *
@@ -390,29 +390,29 @@ public class DefaultQueryManager implements QueryManager {
             throw new RuntimeException("Invalid date format "+time, e);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void openOutage(String outageIdSQL, int nodeId, String ipAddr, String svcName, int dbId, String time) {
-        
+
         int attempt = 0;
         boolean notUpdated = true;
         int serviceId = getServiceID(svcName);
-        
+
         while (attempt < 2 && notUpdated) {
             try {
                 LOG.info("openOutage: opening outage for {}:{}:{} with cause {}:{}", nodeId, ipAddr, svcName, dbId, time);
-                
+
                 SingleResultQuerier srq = new SingleResultQuerier(getDataSource(), outageIdSQL);
                 srq.execute();
                 Object outageId = srq.getResult();
-                
+
                 if (outageId == null) {
                     throw (new Exception("Null outageId returned from Querier with SQL: "+outageIdSQL));
                 }
-                
+
                 String sql = "insert into outages (outageId, svcLostEventId, nodeId, ipAddr, serviceId, ifLostService) values ("+outageId+", ?, ?, ?, ?, ?)";
-                
+
                 Object values[] = {
                         Integer.valueOf(dbId),
                         Integer.valueOf(nodeId),
@@ -440,14 +440,14 @@ public class DefaultQueryManager implements QueryManager {
     public void resolveOutage(int nodeId, String ipAddr, String svcName, int dbId, String time) {
         int attempt = 0;
         boolean notUpdated = true;
-        
+
         while (attempt < 2 && notUpdated) {
             try {
                 LOG.info("resolving outage for {}:{}:{} with resolution {}:{}", nodeId, ipAddr, svcName, dbId, time);
                 int serviceId = getServiceID(svcName);
-                
+
                 String sql = "update outages set svcRegainedEventId=?, ifRegainedService=? where nodeId = ? and ipAddr = ? and serviceId = ? and ifRegainedService is null";
-                
+
                 Object values[] = {
                         Integer.valueOf(dbId),
                         convertEventTimeToTimeStamp(time),
@@ -469,14 +469,14 @@ public class DefaultQueryManager implements QueryManager {
             attempt++;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
         try {
             LOG.info("reparenting outages for {}:{} to new node {}", oldNodeId, ipAddr, newNodeId);
             String sql = "update outages set nodeId = ? where nodeId = ? and ipaddr = ?";
-            
+
             Object[] values = {
                     Integer.valueOf(newNodeId),
                     Integer.valueOf(oldNodeId),
@@ -488,7 +488,7 @@ public class DefaultQueryManager implements QueryManager {
         } catch (Throwable e) {
             LOG.error(" Error reparenting outage for {}:{} to {}", oldNodeId, ipAddr, newNodeId, e);
         }
-        
+
     }
 
     /**
@@ -511,16 +511,16 @@ public class DefaultQueryManager implements QueryManager {
     public String[] getCriticalPath(int nodeId) {
         final String[] cpath = new String[2];
         Querier querier = new Querier(getDataSource(), "SELECT criticalpathip, criticalpathservicename FROM pathoutage where nodeid=?") {
-    
+
             @Override
             public void processRow(ResultSet rs) throws SQLException {
                 cpath[0] = rs.getString(1);
                 cpath[1] = rs.getString(2);
             }
-    
+
         };
         querier.execute(Integer.valueOf(nodeId));
-    
+
         if (cpath[0] == null || cpath[0].equals("")) {
             cpath[0] = OpennmsServerConfigFactory.getInstance().getDefaultCriticalPathIp();
             cpath[1] = "ICMP";
@@ -535,25 +535,25 @@ public class DefaultQueryManager implements QueryManager {
     public List<String[]> getNodeServices(int nodeId){
         final LinkedList<String[]> servicemap = new LinkedList<String[]>();
         Querier querier = new Querier(getDataSource(),SQL_FETCH_INTERFACES_AND_SERVICES_ON_NODE) {
-            
+
             @Override
             public void processRow(ResultSet rs) throws SQLException {
-               
+
                 String row[] = new String[2];
                 row[0] = rs.getString(1);
                 row[1] = rs.getString(2);
-                
+
                 servicemap.add(row);
-                
+
             }
-            
+
         };
-        
+
         querier.execute(Integer.valueOf(nodeId));
-        
+
         return servicemap;
-        
+
     }
-    
-    
+
+
 }

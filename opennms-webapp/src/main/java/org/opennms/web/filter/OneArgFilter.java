@@ -39,9 +39,9 @@ import java.sql.SQLException;
  * @since 1.8.1
  */
 public abstract class OneArgFilter<T> extends BaseFilter<T> {
-    
+
     private T m_value;
-    
+
     /**
      * <p>Constructor for OneArgFilter.</p>
      *
@@ -56,7 +56,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
         super(filterType, sqlType, fieldName, propertyName);
         m_value = value;
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -70,7 +70,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
      * @return a {@link java.lang.String} object.
      */
     abstract public String getSQLTemplate();
-    
+
     /**
      * <p>getBoundValue</p>
      *
@@ -87,13 +87,13 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
         bindValue(ps, parameterIndex, getBoundValue(m_value));
         return 1;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     final public String getValueString() {
         return getValueAsString(m_value);
     }
-    
+
 
     /** {@inheritDoc} */
     @Override
@@ -106,7 +106,7 @@ public abstract class OneArgFilter<T> extends BaseFilter<T> {
     final public String getSql() {
         return String.format(getSQLTemplate(), formatValue(m_value));
     }
-    
+
     @Override
     public String getTextDescription() {
         return getDescription();

@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * <p>
  * Monitor class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class Monitor implements Serializable, Comparable<Monitor> {

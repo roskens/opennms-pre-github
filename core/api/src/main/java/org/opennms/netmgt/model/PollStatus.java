@@ -54,11 +54,11 @@ public class PollStatus implements Serializable {
      * Status of the pollable object.
      */
     private int m_statusCode;
-    
+
     private String m_reason;
 
     private Map<String, Number> m_properties = new LinkedHashMap<String, Number>();
-    
+
     /**
      * <P>
      * The constant that defines a service that is up but is most likely
@@ -450,7 +450,7 @@ public class PollStatus implements Serializable {
     public Double getResponseTime() {
         Number val = getProperty("response-time");
         return (val == null ? null : val.doubleValue());
-    	
+
     }
 
     /* stores the individual item for compatibility with database schema, as well as the new property map */
@@ -479,7 +479,7 @@ public class PollStatus implements Serializable {
     	}
     	return m_properties;
     }
-    
+
     /**
      * <p>setProperties</p>
      *
@@ -488,7 +488,7 @@ public class PollStatus implements Serializable {
     public void setProperties(Map<String, Number> p) {
     	m_properties = p;
     }
-    
+
     /**
      * <p>getProperty</p>
      *

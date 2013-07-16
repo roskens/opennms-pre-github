@@ -102,14 +102,14 @@ public class TrapHandlerTestCase implements InitializingBean {
     private boolean m_doStop = false;
 
     private static final String m_ip = "127.0.0.1";
-    
+
     private static final long m_nodeId = 1;
 
     @BeforeClass
     public static void setUpLogging() {
         MockLogAppender.setupLogging();
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -121,7 +121,7 @@ public class TrapHandlerTestCase implements InitializingBean {
         m_eventMgr.setEventAnticipator(m_anticipator);
 
         m_localhost = InetAddressUtils.addr(m_ip);
-        
+
         m_trapdIpMgr.clearKnownIpsMap();
         m_trapdIpMgr.setNodeId(m_ip, m_nodeId);
 
@@ -146,7 +146,7 @@ public class TrapHandlerTestCase implements InitializingBean {
             m_trapd.stop();
             m_trapd = null;
         }
-        
+
     }
 
     @Test
@@ -523,7 +523,7 @@ public class TrapHandlerTestCase implements InitializingBean {
         }
     }
 
-    private void sendTrap(String version, String enterprise, int generic, 
+    private void sendTrap(String version, String enterprise, int generic,
             int specific, LinkedHashMap<String, SnmpValue> varbinds) throws Exception {
         if (enterprise == null) {
             enterprise = ".0.0";

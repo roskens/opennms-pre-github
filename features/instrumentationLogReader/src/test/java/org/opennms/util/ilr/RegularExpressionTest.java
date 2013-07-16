@@ -53,13 +53,13 @@ public class RegularExpressionTest {
 		Pattern timestamp = Pattern.compile(regex);
 		Matcher timestampMatcher = timestamp.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		if (timestampMatcher.find()){
-			 sucess += timestampMatcher.group(); 
+			 sucess += timestampMatcher.group();
 		}else {
 			sucess += fail;
 		}
 		assertEquals("2010-06-01 13:53:41,062", sucess);
 	}
-	
+
 	@Test
 	public void testSeparateDate () {
 		String regex =  "\\s*(\\d+)-(\\d+)-(\\d+)\\s*(\\d+):(\\d+):(\\d+),(\\d+)";
@@ -68,7 +68,7 @@ public class RegularExpressionTest {
 		Pattern timestamp = Pattern.compile(regex);
 		Matcher timestampMatcher = timestamp.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		if (timestampMatcher.find()){
-			 sucess += timestampMatcher.group(); 
+			 sucess += timestampMatcher.group();
 		}else {
 			sucess += fail;
 		}
@@ -80,8 +80,8 @@ public class RegularExpressionTest {
 		assertEquals(timestampMatcher.group(5), "53");
 		assertEquals(timestampMatcher.group(6), "41");
 		assertEquals(timestampMatcher.group(7), "062");
-		
-		
+
+
 	}
 	@Test
 	public void testParseType (){
@@ -100,16 +100,16 @@ public class RegularExpressionTest {
 		Pattern type = Pattern.compile(regex);
 		Matcher typeMatcher = type.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		if (typeMatcher.find()){
-			 sucess += typeMatcher.group(); 
+			 sucess += typeMatcher.group();
 		}else {
 			sucess += fail;
 		}
 		assertEquals(" DEBUG ", sucess);
-		
+
 	}
 	@Test
 	public void testParseThread (){
-		String regex =  "\\s*\\[(\\D+)-(\\d+)\\s+(\\D+)-(\\D+)\\d\\]"; 
+		String regex =  "\\s*\\[(\\D+)-(\\d+)\\s+(\\D+)-(\\D+)\\d\\]";
 		Pattern thread = Pattern.compile(regex);
 		Matcher threadMatcher = thread.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		assertEquals(false,threadMatcher.matches());
@@ -124,7 +124,7 @@ public class RegularExpressionTest {
 		Pattern thread = Pattern.compile(regex);
 		Matcher threadMatcher = thread.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		if (threadMatcher.find()){
-			 sucess += threadMatcher.group(); 
+			 sucess += threadMatcher.group();
 		}else {
 			sucess += fail;
 		}
@@ -147,11 +147,11 @@ public class RegularExpressionTest {
 		Pattern event = Pattern.compile(regex);
 		Matcher eventMatcher = event.matcher("2010-06-01 13:53:41,062 DEBUG [CollectdScheduler-50 Pool-fiber0] Collectd: scheduleExistingInterfaces: begin");
 		if (eventMatcher.find()){
-			 sucess += eventMatcher.group(); 
+			 sucess += eventMatcher.group();
 		}else {
 			sucess += fail;
 		}
 		assertEquals(" Collectd: scheduleExistingInterfaces: begin", sucess);
 	}
-	
+
 }

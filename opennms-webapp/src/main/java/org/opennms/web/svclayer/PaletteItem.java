@@ -39,14 +39,14 @@ package org.opennms.web.svclayer;
  * @since 1.8.1
  */
 public class PaletteItem {
-	
+
 	/** Constant <code>SPACER</code> */
 	public static final PaletteItem SPACER = new PaletteItem(null, null, true);
-	
+
 	private String m_label;
 	private String m_id;
 	private boolean m_spacer = false;
-	
+
 	/**
 	 * <p>Constructor for PaletteItem.</p>
 	 *
@@ -59,7 +59,7 @@ public class PaletteItem {
 		m_label = label;
 		m_spacer = spacer;
 	}
-	
+
 	/**
 	 * <p>Constructor for PaletteItem.</p>
 	 *
@@ -69,7 +69,7 @@ public class PaletteItem {
 	public PaletteItem(String id, String label) {
 		this(id, label, false);
 	}
-	
+
 	/**
 	 * <p>getLabel</p>
 	 *
@@ -78,7 +78,7 @@ public class PaletteItem {
 	public String getLabel() {
 		return m_label;
 	}
-	
+
 	/**
 	 * <p>getId</p>
 	 *
@@ -87,7 +87,7 @@ public class PaletteItem {
 	public String getId() {
 		return m_id;
 	}
-	
+
 	/**
 	 * <p>isSpacer</p>
 	 *
@@ -96,7 +96,7 @@ public class PaletteItem {
 	public boolean isSpacer() {
 		return m_spacer;
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -111,5 +111,5 @@ public class PaletteItem {
 			return m_label+"<"+m_id+">";
 		}
 	}
-	
+
 }

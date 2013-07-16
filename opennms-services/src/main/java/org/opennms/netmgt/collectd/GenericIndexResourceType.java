@@ -64,7 +64,7 @@ public class GenericIndexResourceType extends ResourceType {
         super(agent, snmpCollection);
 
         Assert.notNull(resourceType, "resourceType argument must not be null");
-        
+
         m_name = resourceType.getName();
         instantiatePersistenceSelectorStrategy(resourceType.getPersistenceSelectorStrategy().getClazz());
         instantiateStorageStrategy(resourceType.getStorageStrategy().getClazz());

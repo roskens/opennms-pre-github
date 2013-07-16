@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiAgentState {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiAgentState.class);
 
     private WmiManager m_manager;

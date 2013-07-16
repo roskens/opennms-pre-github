@@ -62,7 +62,7 @@ import org.opennms.netmgt.model.events.EventIpcManager;
  */
 public class OpenNMSProvisioner implements Provisioner {
     private static final Logger LOG = LoggerFactory.getLogger(OpenNMSProvisioner.class);
-    
+
     private static final String JDBC_MONITOR = "org.opennms.netmgt.poller.monitors.JDBCMonitor";
     private static final String HTTPS_MONITOR = "org.opennms.netmgt.poller.monitors.HttpsMonitor";
     private static final String HTTP_MONITOR = "org.opennms.netmgt.poller.monitors.HttpMonitor";
@@ -101,41 +101,41 @@ public class OpenNMSProvisioner implements Provisioner {
     private void checkTimeout(final int timeout) {
         if (timeout <= 0) throw new IllegalArgumentException("Illegal timeout "+timeout+". Must be > 0");
     }
-    
+
     private void checkInterval(final int interval) {
         if (interval <= 0) throw new IllegalArgumentException("Illegal interval "+interval+". Must be > 0");
     }
-    
+
     private void checkDowntimeInterval(final int interval) {
         checkInterval(interval);
     }
-    
+
     private void checkDowntimeDuration(final int duration) {
         checkInterval(duration);
     }
-    
+
     private void checkPort(final int port) {
         if (port < 1 || port > 65535) throw new IllegalArgumentException("Illegal port "+port+". Must be between 1 and 65535 (inclusive)");
     }
-    
+
     private void checkHostname(final String hostname) {
         if (hostname == null) throw new NullPointerException("hostname must not be null");
         if (hostname.length() > 512) throw new IllegalArgumentException("Illegal hostname "+hostname+". Hostnames must not be longer than 512 characters");
     }
-    
+
     private void checkUrl(final String url) {
         if (url == null) throw new NullPointerException("url must not be null");
         if (url.length() == 0) throw new IllegalArgumentException("Illegal url \'\'.  Must not be zero length");
         if (url.length() > 512) throw new IllegalArgumentException("Illegal url "+url+". Must be no more than 512 chars");
     }
-    
+
     private void checkContentCheck(final String check) {
         if (check != null && check.length() > 128) throw new IllegalArgumentException("Illegal contentCheck "+check+". Must be no more than 128 chars.");
     }
-    
+
     private void checkResponseRange(final String response) {
         if (response == null || response.equals("")) return;
-        
+
         if (response.indexOf('-') < 0) {
         	checkResponseCode(response);
         } else {
@@ -149,31 +149,31 @@ public class OpenNMSProvisioner implements Provisioner {
         	checkResponseCode(endCode);
         }
     }
-    
+
     private void checkResponseCode(final String response) {
         if (response == null || response.equals("")) return;
-            
+
         final int code = Integer.parseInt(response);
         if (code < 100 || code > 599) throw new IllegalArgumentException("Illegal response code "+code+". Must be between 100 and 599");
     }
-    
+
     private void checkUsername(final String username) {
         if (username == null) throw new NullPointerException("username is null");
         if (username.length() > 64) throw new IllegalArgumentException("Illegal username "+username+". username must be no more than than 64 characters");
     }
-    
+
     private void checkPassword(final String pw) {
         if (pw == null) throw new NullPointerException("password is null");
         if (pw.length() > 64) throw new IllegalArgumentException("Illegal password "+pw+". password must be no more than than 64 charachters");
     }
-    
+
     private void checkDriver(final String driver) {
         if (driver == null) throw new NullPointerException("driver is null");
         if (driver.length() == 0) throw new IllegalArgumentException("Illegal driver.  Must not be zero length");
         if (driver.length() > 128) throw new IllegalArgumentException("Illegal driver "+driver+". Driver length must be no more than than 128 characters");
-            
+
     }
-    
+
     private void validateSchedule(final int retries, final int timeout, final int interval, final int downTimeInterval, final int downTimeDuration) {
         checkRetries(retries);
         checkTimeout(timeout);
@@ -181,7 +181,7 @@ public class OpenNMSProvisioner implements Provisioner {
         checkDowntimeInterval(downTimeInterval);
         checkDowntimeDuration(downTimeDuration);
     }
-        
+
 
 
     /** {@inheritDoc} */
@@ -190,11 +190,11 @@ public class OpenNMSProvisioner implements Provisioner {
         validateSchedule(retry, timeout, interval, downTimeInterval, downTimeDuration);
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, ICMP_MONITOR, ICMP_PLUGIN);
     }
-    
+
     private boolean addService(final String serviceId, final int retries, final int timeout, final int interval, final int downTimeInterval, final int downTimeDuration, final String monitor, final String plugin) {
         return addService(serviceId, retries, timeout, interval, downTimeInterval, downTimeDuration, monitor, plugin, new Parm[0]);
     }
-    
+
     private boolean addService(final String serviceId, final int retries, final int timeout, final int interval, final int downTimeInterval, final int downTimeDuration, final String monitor, final String plugin, final Parm[] entries) {
     	final String pkgName = serviceId;
     	final Package pkg = getPackage(pkgName, interval, downTimeInterval, downTimeDuration);
@@ -202,7 +202,7 @@ public class OpenNMSProvisioner implements Provisioner {
     	final Properties parms = new Properties();
         parms.setProperty("retry", ""+retries);
         parms.setProperty("timeout", ""+timeout);
-        
+
         for(int i = 0; i < entries.length; i++) {
             parms.setProperty(entries[i].getKey(), entries[i].getVal());
         }
@@ -212,14 +212,14 @@ public class OpenNMSProvisioner implements Provisioner {
         if (m_pollerConfig.getPackage(pkg.getName()) == null) {
             m_pollerConfig.addPackage(pkg);
         }
-        
+
         if (m_pollerConfig.getServiceMonitor(serviceId) == null) {
             LOG.debug("Adding a new monitor for {}", serviceId);
             m_pollerConfig.addMonitor(serviceId, monitor);
         } else {
             LOG.debug("No need to add a new monitor for {}", serviceId);
         }
-        
+
         if (m_capsdConfig.getProtocolPlugin(serviceId) == null) {
         	final ProtocolPlugin pPlugin = new ProtocolPlugin();
             pPlugin.setProtocol(serviceId);
@@ -227,7 +227,7 @@ public class OpenNMSProvisioner implements Provisioner {
             pPlugin.setScan("off");
             m_capsdConfig.addProtocolPlugin(pPlugin);
         }
-        
+
         saveConfigs();
         return true;
     }
@@ -242,11 +242,11 @@ public class OpenNMSProvisioner implements Provisioner {
             throw new RuntimeException("Error saving poller or capsd configuration: " + e, e);
         }
     }
-    
+
     private void syncServices() {
         getCapsdDbSyncer().syncServicesTable();
     }
-    
+
     private void addServiceToPackage(final Package pkg, final String serviceId, final int interval, final Properties parms) {
     	Service svc = m_pollerConfig.getServiceInPackage(serviceId, pkg);
         if (svc == null) {
@@ -271,7 +271,7 @@ public class OpenNMSProvisioner implements Provisioner {
         parm.setKey(key);
         parm.setValue(value);
     }
-    
+
     /**
      * <p>findParamterWithKey</p>
      *
@@ -294,11 +294,11 @@ public class OpenNMSProvisioner implements Provisioner {
         if (pkg == null) {
             pkg = new Package();
             pkg.setName(pkgName);
-            
+
             final Filter filter = new Filter();
             filter.setContent("IPADDR IPLIKE *.*.*.*");
             pkg.setFilter(filter);
-            
+
             final Rrd rrd = new Rrd();
             rrd.setStep(300);
             rrd.addRra("RRA:AVERAGE:0.5:1:2016");
@@ -306,7 +306,7 @@ public class OpenNMSProvisioner implements Provisioner {
             rrd.addRra("RRA:MIN:0.5:12:4464");
             rrd.addRra("RRA:MAX:0.5:12:4464");
             pkg.setRrd(rrd);
-            
+
         }
 
         final Downtime dt = new Downtime();
@@ -332,7 +332,7 @@ public class OpenNMSProvisioner implements Provisioner {
                 new Parm("port", port),
                 new Parm("lookup", lookup),
         };
-        
+
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, DNS_MONITOR, DNS_PLUGIN, parm);
     }
 
@@ -342,12 +342,12 @@ public class OpenNMSProvisioner implements Provisioner {
         validateSchedule(retry, timeout, interval, downTimeInterval, downTimeDuration);
         checkPort(port);
         checkContentCheck(banner);
-        
+
         final Parm[] parm = new Parm[] {
                 new Parm("port", port),
                 new Parm("banner", banner),
         };
-        
+
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, TCP_MONITOR, TCP_PLUGIN, parm);
     }
 
@@ -362,12 +362,12 @@ public class OpenNMSProvisioner implements Provisioner {
         checkResponseRange(response);
         checkContentCheck(responseText);
         checkUrl(url);
-        
+
         final List<Parm> parmList = new ArrayList<Parm>();
         final String responseString = "".equals(response)? null : response;
-        
+
         parmList.add(new Parm("port", port));
-        if (responseString != null) { 
+        if (responseString != null) {
             parmList.add(new Parm("response", responseString));
         }
         parmList.add(new Parm("response text", responseText));
@@ -375,16 +375,16 @@ public class OpenNMSProvisioner implements Provisioner {
         if (hostName != null) {
             parmList.add(new Parm("host-name", hostName));
         }
-        if (user != null) { 
+        if (user != null) {
             parmList.add(new Parm("user", user));
         }
-        if (passwd != null) { 
+        if (passwd != null) {
             parmList.add(new Parm("password", passwd));
         }
-        if (agent != null) { 
+        if (agent != null) {
             parmList.add(new Parm("user-agent", agent));
         }
-        
+
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, HTTP_MONITOR, HTTP_PLUGIN, parmList.toArray(new Parm[parmList.size()]));
     }
 
@@ -399,20 +399,20 @@ public class OpenNMSProvisioner implements Provisioner {
         checkResponseRange(response);
         checkContentCheck(responseText);
         checkUrl(url);
-        
+
         final List<Parm> parmList = new ArrayList<Parm>();
         final String responseString = "".equals(response)? null : response;
 
         parmList.add(new Parm("port", port));
-        if (responseString != null) { 
+        if (responseString != null) {
             parmList.add(new Parm("response", responseString));
         }
         parmList.add(new Parm("response text", responseText));
         parmList.add(new Parm("url", url));
-        if (hostName != null) { 
+        if (hostName != null) {
             parmList.add(new Parm("host-name", hostName));
         }
-        if (user != null) { 
+        if (user != null) {
             parmList.add(new Parm("user", user));
         }
         if (passwd != null) {
@@ -421,7 +421,7 @@ public class OpenNMSProvisioner implements Provisioner {
         if (agent != null) {
             parmList.add(new Parm("user-agent", agent));
         }
-        
+
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, HTTPS_MONITOR, HTTPS_PLUGIN, parmList.toArray(new Parm[parmList.size()]));
     }
 
@@ -433,17 +433,17 @@ public class OpenNMSProvisioner implements Provisioner {
         checkPassword(password);
         checkDriver(driver);
         checkUrl(url);
-        
+
         final Parm[] parm = new Parm[] {
                 new Parm("driver", driver),
                 new Parm("url", url),
                 new Parm("user", user),
                 new Parm("password", password),
         };
-        
+
         return addService(serviceId, retry, timeout, interval, downTimeInterval, downTimeDuration, JDBC_MONITOR, JDBC_PLUGIN, parm);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Map<String, Object> getServiceConfiguration(final String pkgName, final String serviceId) {
@@ -458,16 +458,16 @@ public class OpenNMSProvisioner implements Provisioner {
         if (pkg == null) {
             throw new IllegalArgumentException(pkgName+" is not a valid poller package name");
         }
-        
+
         final Service svc = m_pollerConfig.getServiceInPackage(serviceId, pkg);
         if (svc == null) {
             throw new IllegalArgumentException("Could not find service "+serviceId+" in package "+pkgName);
         }
-        
+
         final Map<String, Object> m = new HashMap<String, Object>();
         m.put("serviceid", serviceId);
         m.put("interval", Integer.valueOf((int)svc.getInterval()));
-        
+
         for(int i = 0; i < svc.getParameterCount(); i++) {
         	final Parameter param = svc.getParameter(i);
             String key = param.getKey();
@@ -503,10 +503,10 @@ public class OpenNMSProvisioner implements Provisioner {
                 m.put("password", passwd);
                 continue;
             }
-            
+
             m.put(key, val);
         }
-        
+
         for(int i = 0; i < pkg.getDowntimeCount(); i++) {
             final Downtime dt = pkg.getDowntime(i);
             final String suffix = (i == 0 ? "" : ""+i);
@@ -514,12 +514,12 @@ public class OpenNMSProvisioner implements Provisioner {
                 m.put("downtime_interval"+suffix, Integer.valueOf((int)dt.getInterval()));
                 int duration = (!dt.hasEnd() ? Integer.MAX_VALUE : (int)(dt.getEnd() - dt.getBegin()));
                 m.put("downtime_duration"+suffix, Integer.valueOf(duration));
-            }   
+            }
         }
-        
+
         return m;
     }
-    
+
     /**
      * <p>setCapsdConfig</p>
      *
@@ -544,7 +544,7 @@ public class OpenNMSProvisioner implements Provisioner {
     public void setEventManager(final EventIpcManager eventManager) {
         m_eventManager = eventManager;
     }
-    
+
     private CapsdDbSyncer getCapsdDbSyncer() {
         return m_capsdDbSyncer;
     }

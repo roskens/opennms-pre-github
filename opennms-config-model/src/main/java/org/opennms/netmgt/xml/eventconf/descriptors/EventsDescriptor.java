@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Events;
 
 /**
  * Class EventsDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,28 +88,28 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         _nsURI = "http://xmlns.opennms.org/xsd/eventconf";
         _xmlName = "events";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- initialize element descriptors
-        
+
         //-- _global
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.xml.eventconf.Global.class, "_global", "global", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Events target = (Events) object;
                 return target.getGlobal();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -130,7 +130,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _global
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -140,14 +140,14 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.xml.eventconf.Event.class, "_eventList", "event", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Events target = (Events) object;
                 return target.getEvent();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -178,7 +178,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _eventList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -190,14 +190,14 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Events target = (Events) object;
                 return target.getEventFile();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -226,7 +226,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _eventFileList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(0);
@@ -246,7 +246,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -257,7 +257,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -269,7 +269,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -280,7 +280,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -291,7 +291,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -303,7 +303,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -315,7 +315,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -326,7 +326,7 @@ public class EventsDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

@@ -56,9 +56,9 @@ import org.springframework.beans.factory.access.BeanFactoryReference;
  * @author <a href="http://www.opennms.org/">OpenNMS.org </a>
  */
 public final class Scriptd extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Scriptd.class);
-    
+
     public static final String NAME = "scriptd";
 
     /**

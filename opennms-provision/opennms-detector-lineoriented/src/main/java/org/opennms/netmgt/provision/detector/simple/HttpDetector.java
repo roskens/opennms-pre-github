@@ -48,13 +48,13 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, HttpStatusResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HttpDetector.class);
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
     private static final int DEFAULT_PORT = 80;
     private static String DEFAULT_URL="/";
     private static int DEFAULT_MAX_RET_CODE = 399;
-    
+
     private String m_url;
     private int m_maxRetCode;
     private boolean m_checkRetCode = false;
@@ -77,13 +77,13 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
         super(serviceName, port);
         contructDefaults();
     }
-    
+
     private void contructDefaults() {
         setProtocolCodecFilter(new ProtocolCodecFilter(new HttpProtocolCodecFactory()));
         setUrl(DEFAULT_URL);
         setMaxRetCode(DEFAULT_MAX_RET_CODE);
     }
-    
+
     /**
      * <p>onInit</p>
      */
@@ -91,7 +91,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     protected void onInit() {
         send(request(httpCommand("GET")), contains(DEFAULT_SERVICE_NAME, getUrl(), isCheckRetCode(), getMaxRetCode()));
     }
-    
+
     /**
      * <p>httpCommand</p>
      *
@@ -99,10 +99,10 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
      * @return a {@link java.lang.String} object.
      */
     protected String httpCommand(final String command) {
-        
+
         return String.format("%s %s  HTTP/1.0\r\n\r\n", command, getUrl());
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -112,7 +112,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
     protected static LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -127,7 +127,7 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
 
             @Override
             public boolean validate(final HttpStatusResponse message) {
-                
+
                 try {
                     return message.validateResponse(pattern, url, isCheckCode, maxRetCode);
                 } catch (final Exception e) {
@@ -135,13 +135,13 @@ public class HttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest
                     return false;
                 }
             }
-            
+
         };
     }
-    
-    
+
+
     //Public setters and getters
-    
+
     /**
      * <p>setUrl</p>
      *

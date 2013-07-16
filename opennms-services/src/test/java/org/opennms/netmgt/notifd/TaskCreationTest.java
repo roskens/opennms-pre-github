@@ -46,7 +46,7 @@ import org.opennms.netmgt.xml.event.Event;
 
 
 public class TaskCreationTest extends NotificationsTestCase {
-    
+
     private static final int INTERVAL = 1000;
     private BroadcastEventProcessor m_eventProcessor;
     private Notification m_notif;
@@ -58,11 +58,11 @@ public class TaskCreationTest extends NotificationsTestCase {
     public void setUp() throws Exception {
         super.setUp();
         m_eventProcessor = m_notifd.getBroadcastEventProcessor();
-        
+
         m_notif = m_notificationManager.getNotification("nodeDown");
         MockNode node = m_network.getNode(1);
         Event nodeDownEvent = node.createDownEvent();
-        
+
         m_params = BroadcastEventProcessor.buildParameterMap(m_notif, nodeDownEvent, 1);
         m_commands = new String[]{ "email" };
     }
@@ -103,7 +103,7 @@ public class TaskCreationTest extends NotificationsTestCase {
         assertEquals(startTime, task.getSendTime());
 
     }
-    
+
     private void assertTasksWithEmail(NotificationTask[] tasks, String... emails) throws Exception {
         assertNotNull(tasks);
         assertEquals("Unexpected number of tasks", emails.length, tasks.length);
@@ -111,7 +111,7 @@ public class TaskCreationTest extends NotificationsTestCase {
             assertNotNull("Expected to find a task with email "+email+" in "+tasks, findTaskWithEmail(tasks, email));
         }
     }
-    
+
     private void assertStartInterval(NotificationTask[] tasks, long startTime, long interval) {
         assertNotNull(tasks);
         long expectedTime = startTime;
@@ -124,14 +124,14 @@ public class TaskCreationTest extends NotificationsTestCase {
     @Test
     public void testMakeGroupTasks() throws Exception {
         long startTime = now();
-        
+
         NotificationTask[] tasks = m_eventProcessor.makeGroupTasks(startTime, m_params, 1, "EscalationGroup", m_commands, new LinkedList<NotificationTask>(), null, INTERVAL);
 
         assertTasksWithEmail(tasks, "brozow@opennms.org", "david@opennms.org");
         assertStartInterval(tasks, startTime, INTERVAL);
-        
+
     }
-    
+
     @Test
     public void testMakeGroupTasksWithDutySchedule() throws Exception {
         final String groupName = "EscalationGroup";
@@ -140,14 +140,14 @@ public class TaskCreationTest extends NotificationsTestCase {
         Group group = m_groupManager.getGroup(groupName);
         group.addDutySchedule("MoTuWeThFr0900-1700");
         m_groupManager.saveGroups();
-        
+
         long dayTime = getTimeStampFor("21-FEB-2005 11:59:56");
-        
+
         NotificationTask[] dayTasks = m_eventProcessor.makeGroupTasks(dayTime, m_params, 1, "EscalationGroup", m_commands, new LinkedList<NotificationTask>(), null, INTERVAL);
-        
+
         assertTasksWithEmail(dayTasks, "brozow@opennms.org", "david@opennms.org");
         assertStartInterval(dayTasks, dayTime, INTERVAL);
-        
+
         long nightTime = getTimeStampFor("21-FEB-2005 23:00:00");
 
         NotificationTask[] nightTasks = m_eventProcessor.makeGroupTasks(nightTime, m_params, 1, "EscalationGroup", m_commands, new LinkedList<NotificationTask>(), null, INTERVAL);
@@ -157,7 +157,7 @@ public class TaskCreationTest extends NotificationsTestCase {
         assertStartInterval(nightTasks, nightTime+36000000, INTERVAL);
 
     }
-    
+
     @Test
     public void testMakeRoleTasks() throws Exception {
         long dayTime = getTimeStampFor("21-FEB-2005 11:59:56");
@@ -166,11 +166,11 @@ public class TaskCreationTest extends NotificationsTestCase {
 
         assertTasksWithEmail(tasks, "brozow@opennms.org");
         assertStartInterval(tasks, dayTime, INTERVAL);
-        
+
         long sundayTime = getTimeStampFor("30-JAN-2005 11:59:56"); // sunday
 
         NotificationTask[] sundayTasks = m_eventProcessor.makeRoleTasks(sundayTime, m_params, 1, "oncall", m_commands, new LinkedList<NotificationTask>(), null, INTERVAL);
-        
+
         assertTasksWithEmail(sundayTasks, "brozow@opennms.org", "admin@opennms.org");
         assertStartInterval(sundayTasks, sundayTime, INTERVAL);
 
@@ -181,7 +181,7 @@ public class TaskCreationTest extends NotificationsTestCase {
     private long getTimeStampFor(String timeString) throws ParseException {
         return new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(timeString).getTime();
     }
-    
+
     private NotificationTask findTaskWithEmail(NotificationTask[] tasks, String email) throws Exception {
         assertNotNull(email);
         for(NotificationTask task : tasks) {
@@ -192,7 +192,7 @@ public class TaskCreationTest extends NotificationsTestCase {
         }
         return null;
     }
-    
-    
+
+
 
 }

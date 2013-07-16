@@ -43,7 +43,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class VarCharReplacement implements ColumnChangeReplacement {
     private final String m_replacement;
-    
+
     /**
      * <p>Constructor for VarCharReplacement.</p>
      *
@@ -58,7 +58,7 @@ public class VarCharReplacement implements ColumnChangeReplacement {
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return m_replacement;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -68,7 +68,7 @@ public class VarCharReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

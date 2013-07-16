@@ -70,7 +70,7 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
 	@Test
 	@Transactional
     public void testSave() {
-        
+
         Date date = new Date();
         ReportCatalogEntry catalogEntry = new ReportCatalogEntry();
         catalogEntry.setReportId("reportId_1");
@@ -78,23 +78,23 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
         catalogEntry.setTitle("title_1");
         catalogEntry.setDate(date);
         m_reportCatalogDao.save(catalogEntry);
-        
+
         Integer id = catalogEntry.getId();
-        
+
         ReportCatalogEntry retrievedEntry = m_reportCatalogDao.get(id);
-        
+
         assertEquals(catalogEntry.getReportId(),retrievedEntry.getReportId());
         assertEquals(catalogEntry.getTitle(), retrievedEntry.getTitle());
         assertEquals(catalogEntry.getLocation(), retrievedEntry.getLocation());
         assertEquals(0,catalogEntry.getDate().compareTo(retrievedEntry.getDate()));
-        
-        
+
+
     }
-    
+
 	@Test
 	@Transactional
     public void testDelete() {
-        
+
         Date date = new Date();
         ReportCatalogEntry catalogEntry = new ReportCatalogEntry();
         catalogEntry.setReportId("reportId_2");
@@ -102,14 +102,14 @@ public class ReportCatalogDaoHibernateTest implements InitializingBean {
         catalogEntry.setTitle("title_2");
         catalogEntry.setDate(date);
         m_reportCatalogDao.save(catalogEntry);
-        
+
         Integer id = catalogEntry.getId();
         assertNotNull(m_reportCatalogDao.get(id));
         m_reportCatalogDao.delete(id);
         assertNull(m_reportCatalogDao.get(id));
-        
+
     }
 
-    
+
 
 }

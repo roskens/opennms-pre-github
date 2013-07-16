@@ -67,7 +67,7 @@ public abstract class CorrelationRulesTestCase {
     @Qualifier("mock")
     private MockEventIpcManager m_eventIpcMgr;
     protected Integer m_anticipatedMemorySize = 0;
-    
+
     @Autowired
     private CorrelationEngineRegistrar m_correlator;
 

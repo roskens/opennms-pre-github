@@ -60,13 +60,13 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public abstract class JavaMailer2 {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JavaMailer2.class);
 
 
     private Session m_session = null;
     private Properties m_mailProps;
-    
+
     /**
      * <p>Constructor for JavaMailer2.</p>
      *
@@ -194,7 +194,7 @@ public abstract class JavaMailer2 {
     	private static final Logger LOG = LoggerFactory.getLogger(LoggingByteArrayOutputStream.class);
 
 
-       
+
 
         @Override
         public void flush() throws IOException {
@@ -202,7 +202,7 @@ public abstract class JavaMailer2 {
 
             String buffer = toString().replaceAll("\n", "");
             if (buffer.length() > 0) {
-                LOG.debug(buffer);   
+                LOG.debug(buffer);
             }
 
             reset();
@@ -210,14 +210,14 @@ public abstract class JavaMailer2 {
     }
 
     public static class LoggingTransportListener implements TransportListener {
-    	
+
     	private static final Logger LOG = LoggerFactory.getLogger(LoggingTransportListener.class);
 
         private List<Address> m_invalidAddresses = new ArrayList<Address>();
         private List<Address> m_validSentAddresses = new ArrayList<Address>();
         private List<Address> m_validUnsentAddresses = new ArrayList<Address>();
 
-        
+
 
         @Override
         public void messageDelivered(TransportEvent event) {
@@ -261,8 +261,8 @@ public abstract class JavaMailer2 {
          * This isn't perfect, but it's somewhat of a shot in the dark to
          * hope that we catch most things, to try to catch as many errors
          * as possible so we can fairly reliably report if anything had
-         * problems. 
-         * 
+         * problems.
+         *
          * @throws JavaMailerException
          */
         public void assertAllMessagesDelivered() throws JavaMailerException {

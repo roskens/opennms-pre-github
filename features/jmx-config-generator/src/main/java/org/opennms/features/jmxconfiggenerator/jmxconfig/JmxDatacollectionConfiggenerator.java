@@ -253,7 +253,7 @@ public class JmxDatacollectionConfiggenerator {
     /**
      * This method gets the JmxConnector to connect with the given
      * jmxServiceURL.
-     * 
+     *
      * @param username
      *            may be null
      * @param password
@@ -283,7 +283,7 @@ public class JmxDatacollectionConfiggenerator {
 
     /**
      * determines the jmxServiceUrl depending on jmxmp.
-     * 
+     *
      * @param jmxmp
      * @param hostName
      * @param port

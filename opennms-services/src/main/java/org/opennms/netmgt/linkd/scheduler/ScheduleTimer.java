@@ -36,7 +36,7 @@ import org.opennms.netmgt.scheduler.Timer;
  * @version $Id: $
  */
 public interface ScheduleTimer extends Timer {
-    
+
     /**
      * <p>schedule</p>
      *

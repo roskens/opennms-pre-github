@@ -40,7 +40,7 @@ public class Key {
 	private Key prev; //Pointer to the Key before this one in the list
 	private Key next; //Pointer to the Key after this one in the list
 	private String k; //Value of the Key
-	
+
 	/**
 	 * The Key(String K) constructor creates a Key with null pointers to
 	 * next and previous Keys, and the value is set to the passed in value
@@ -83,7 +83,7 @@ public class Key {
 	public void setPrev(Key prev) {
 		this.prev = prev;
 	}
-	
+
 	/**
 	 * The getValue method returns the string value of the Key
 	 * @return String value of Key
@@ -99,5 +99,5 @@ public class Key {
 	public void setValue(String k) {
 		this.k = k;
 	}
-	
+
 }

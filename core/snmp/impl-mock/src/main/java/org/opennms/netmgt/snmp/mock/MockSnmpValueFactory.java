@@ -43,11 +43,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MockSnmpValueFactory implements SnmpValueFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MockSnmpValueFactory.class);
-	
+
 	final Charset m_defaultCharset;
-	
+
 	public MockSnmpValueFactory() {
 		m_defaultCharset = Charset.defaultCharset();
 	}
@@ -137,7 +137,7 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
 	public SnmpValue getOpaque(final byte[] bs) {
 		throw new IllegalArgumentException("Unable to handle opaque types in MockSnmpValue");
 	}
-	
+
 	private static final Pattern HEX_CHUNK_PATTERN = Pattern.compile("(..)[ :]?");
 
 	SnmpValue parseMibValue(final String mibVal) {
@@ -190,7 +190,7 @@ public class MockSnmpValueFactory implements SnmpValueFactory {
 	    } else if (mibVal.equals("\"\"")) {
 	    	return getNull();
 	    }
-	
+
 	    throw new IllegalArgumentException("Unknown Snmp Type: "+mibVal);
 	}
 

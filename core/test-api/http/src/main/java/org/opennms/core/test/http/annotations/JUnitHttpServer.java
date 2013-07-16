@@ -47,7 +47,7 @@ public @interface JUnitHttpServer {
 
     /** the directory from which to serve test files **/
     String resource() default "target/test-classes";
-    
+
     /** the port to listen on **/
     int port() default 9162;
 
@@ -65,14 +65,14 @@ public @interface JUnitHttpServer {
 
     /** the location of the keystore if using HTTPS (defaults to target/test-classes/JUnitHttpServer.keystore) **/
     String keystore() default "target/test-classes/JUnitHttpServer.keystore";
-    
+
     /** the keystore password **/
     String keystorePassword() default "opennms";
-    
+
     /** the key password **/
     String keyPassword() default "opennms";
 
     /** zero or more webapps to include, with contexts **/
     Webapp[] webapps() default { };
-    
+
 }

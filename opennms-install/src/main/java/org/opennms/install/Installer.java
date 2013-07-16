@@ -155,7 +155,7 @@ public class Installer {
 
         if (doDatabase) {
         	final File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.OPENNMS_DATASOURCE_CONFIG_FILE_NAME);
-            
+
             InputStream is = new FileInputStream(cfgFile);
             final JdbcDataSource adminDsConfig = ConnectionFactoryUtil.marshalDataSourceFromConfig(is, ADMIN_DATA_SOURCE_NAME);
             final DataSource adminDs = new SimpleDataSource(adminDsConfig);
@@ -201,7 +201,7 @@ public class Installer {
             String jrrd_path = findLibrary("jrrd", m_library_search_path, false);
             writeLibraryConfig(icmp_path, icmp6_path, jrrd_path);
         }
-        
+
         /*
          * Everything needs to use the administrative data source until we
          * verify that the opennms database is created below (and where we
@@ -237,7 +237,7 @@ public class Installer {
         if (doDatabase) {
             m_installerDb.checkUnicode();
         }
-        
+
         handleConfigurationChanges();
 
         final GenericApplicationContext context = new GenericApplicationContext();
@@ -282,7 +282,7 @@ public class Installer {
         if (doDatabase) {
             m_installerDb.disconnect();
         }
-        
+
         if (m_update_database) {
             createConfiguredFile();
         }
@@ -336,7 +336,7 @@ public class Installer {
             public boolean accept(File dir, String name) {
                 return name.matches("imports-.*\\.xml");
             }
-            
+
         };
     }
 
@@ -380,10 +380,10 @@ public class Installer {
 
         m_opennms_home = fetchProperty("install.dir");
         m_etc_dir = fetchProperty("install.etc.dir");
-        
+
         loadEtcPropertiesFile("opennms.properties");
         loadEtcPropertiesFile("model-importer.properties");
-        
+
         m_install_servletdir = fetchProperty("install.servlet.dir");
         m_import_dir = fetchProperty("importer.requisition.dir");
 
@@ -1157,7 +1157,7 @@ public class Installer {
      */
     public void pingLocalhost() throws Exception {
         String host = "127.0.0.1";
-        
+
         java.net.InetAddress addr = null;
         try {
             addr = InetAddress.getByName(host);
@@ -1170,9 +1170,9 @@ public class Installer {
 
         Pinger pinger;
         try {
-       
+
             pinger = PingerFactory.getInstance();
-        
+
         } catch (UnsatisfiedLinkError e) {
             System.out.println("UnsatisfiedLinkError while creating an ICMP Pinger.  Most likely failed to load "
                     + "libjicmp.so.  Try setting the property 'opennms.library.jicmp' to point at the "
@@ -1189,19 +1189,19 @@ public class Installer {
             System.out.println("Exception while creating an Pinger.");
             throw e;
         }
-        
-        
+
+
         // using regular InetAddress toString here since is just printed for the users benefit
         System.out.print("Pinging " + host + " (" + addr + ")...");
 
         Number rtt = pinger.ping(addr);
-        
+
         if (rtt == null) {
             System.out.println("failed.!");
         } else {
             System.out.printf("successful.. round trip time: %.3f ms\n", rtt.doubleValue() / 1000.0);
         }
-        
+
     }
 
     /**

@@ -52,7 +52,7 @@ public class KeyBuffer {
 		}
 		size++;
 	}
-	
+
 	public String pop(){
 		if (head != null){
 			String headValue = head.getValue();
@@ -70,14 +70,14 @@ public class KeyBuffer {
 	public int size() {
 		return this.size;
 	}
-	
+
 	@Override
 	public String toString() {
 		String s = "";
 		Key current = head;
 		while (current != null) {
 			s += current.getValue();
-			current = current.getNext(); 
+			current = current.getNext();
 		}
 		return s;
 	}

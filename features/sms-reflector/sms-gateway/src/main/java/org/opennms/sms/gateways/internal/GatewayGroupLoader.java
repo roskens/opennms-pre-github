@@ -51,14 +51,14 @@ import org.springframework.beans.factory.InitializingBean;
  */
 public class GatewayGroupLoader implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(GatewayGroupLoader.class);
-    
-    private static Logger log = LoggerFactory.getLogger(GatewayGroupLoader.class); 
+
+    private static Logger log = LoggerFactory.getLogger(GatewayGroupLoader.class);
 
     private Properties m_configProperties;
     private GatewayGroup[] m_gatewayGroups;
     private GatewayGroupRegistrar m_gatewayGroupRegistrar;
-    
-    
+
+
     /**
      * <p>Constructor for GatewayGroupLoader.</p>
      *
@@ -68,7 +68,7 @@ public class GatewayGroupLoader implements InitializingBean {
     public GatewayGroupLoader(GatewayGroupRegistrar gatewayGroupRegistrar, URL configURL) {
         this(gatewayGroupRegistrar, loadProperties(configURL));
     }
-    
+
     /**
      * <p>Constructor for GatewayGroupLoader.</p>
      *
@@ -79,7 +79,7 @@ public class GatewayGroupLoader implements InitializingBean {
         m_gatewayGroupRegistrar = gatewayGroupRegistrar;
         m_configProperties = configProperties;
     }
-    
+
     /**
      * <p>getGatewayGroups</p>
      *
@@ -88,16 +88,16 @@ public class GatewayGroupLoader implements InitializingBean {
     public GatewayGroup[] getGatewayGroups() {
         return m_gatewayGroups;
     }
-	
+
     /**
      * <p>load</p>
      */
     public void load() {
 
         Properties modemProperties = m_configProperties;
-        
+
         String modems = System.getProperty("org.opennms.sms.gateways.modems");
-        
+
         if (modems == null || "".equals(modems.trim())) {
             modems = modemProperties.getProperty("modems");
         }
@@ -112,7 +112,7 @@ public class GatewayGroupLoader implements InitializingBean {
             for(int i = 0; i < tokens.length; i++){
                 String modemId = tokens[i];
                 String port = modemProperties.getProperty(modemId + ".port");
-                
+
                 if (port == null) {
                     throw new IllegalArgumentException("No port defined for modem with id " + modemId );
                 }
@@ -168,7 +168,7 @@ public class GatewayGroupLoader implements InitializingBean {
         }
         return modemProperties;
     }
-	
+
 	private void infof(String fmt, Object... args) {
 	    if (log.isInfoEnabled()) {
 	        log.info(String.format(fmt, args));

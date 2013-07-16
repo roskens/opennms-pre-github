@@ -55,7 +55,7 @@ public class CollectorThresholdingSet extends ThresholdingSet {
     // CollectionSpecification parameters
     boolean storeByIfAlias = false;
     boolean storeByForeignSource = false;
-    
+
     /**
      * <p>Constructor for CollectorThresholdingSet.</p>
      *
@@ -71,11 +71,11 @@ public class CollectorThresholdingSet extends ThresholdingSet {
         storeByForeignSource = isStoreByForeignSource();
         LOG.debug("storeByForeignSource = {}", storeByForeignSource);
     }
-    
+
     public static boolean isStoreByForeignSource() {
        return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
-    
+
     /*
      * Returns true if the specified attribute is involved in any of defined thresholds for node/address/service
      */
@@ -122,7 +122,7 @@ public class CollectorThresholdingSet extends ThresholdingSet {
         }
         return super.passedThresholdFilters(resource, thresholdEntity);
     }
-    
+
     protected boolean isCollectionEnabled(CollectionResource resource) {
         if (resource instanceof IfInfo) {
             return ((IfInfo) resource).isScheduledForCollection();

@@ -46,19 +46,19 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>CollectionResourceWrapper class.</p>
- * 
+ *
  * Wraps a CollectionResource with some methods and caching for the efficient application of thresholds (without
  * pulling thresholding code into CollectionResource itself)
- * 
+ *
  * A fresh instance should be created for each collection cycle (assumptions are made based on that premise)
  *
  * @author ranger
  * @version $Id: $
  */
 public class CollectionResourceWrapper {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectionResourceWrapper.class);
-    
+
     private final int m_nodeId;
     private final String m_hostAddress;
     private final String m_serviceName;
@@ -68,13 +68,13 @@ public class CollectionResourceWrapper {
     private final RrdRepository m_repository;
     private final CollectionResource m_resource;
     private final Map<String, CollectionAttribute> m_attributes;
-    
+
     /**
      * Keeps track of both the Double value, and when it was collected, for the static cache of attributes
-     * 
+     *
      * This is necessary for the *correct* calculation of Counter rates, across variable collection times and possible
      * collection failures (see NMS-4244)
-     * 
+     *
      * Just a holder class for two associated values; no need for the formality of accessors
      */
     static class CacheEntry {
@@ -95,24 +95,24 @@ public class CollectionResourceWrapper {
      * Holds last values for counter attributes (in order to calculate delta)
      */
     static final ConcurrentHashMap<String, CacheEntry> s_cache = new ConcurrentHashMap<String,CacheEntry>();
-    
+
     /*
      * To avoid update static cache on every call of getAttributeValue.
      * In some cases, the same DS could be needed in many thresholds definitions for same resource.
      * See Bug 3193
      */
     private final Map<String, Double> m_localCache = new HashMap<String,Double>();
-    
+
     /*
      * Holds interface ifInfo data for interface resource only. This avoid multiple calls to database for same resource.
      */
     private Map<String, String> m_ifInfo;
-    
+
     /*
 	 * Holds the timestamp of the collection being thresholded, for the calculation of counter rates
      */
     private final Date m_collectionTimestamp;
-        
+
     /**
      * <p>Constructor for CollectionResourceWrapper.</p>
      *
@@ -162,8 +162,8 @@ public class CollectionResourceWrapper {
                 LOG.info("Can't find ifInfo for {}", resource);
             }
         }
-    }    
-    
+    }
+
     /**
      * <p>getNodeId</p>
      *
@@ -226,7 +226,7 @@ public class CollectionResourceWrapper {
     public String getInstance() {
         return m_resource != null ? m_resource.getInstance() : null;
     }
-    
+
     /**
      * <p>getResourceTypeName</p>
      *
@@ -235,7 +235,7 @@ public class CollectionResourceWrapper {
     public String getResourceTypeName() {
         return m_resource != null ? m_resource.getResourceTypeName() : null;
     }
-    
+
     /**
      * <p>getIfLabel</p>
      *
@@ -244,7 +244,7 @@ public class CollectionResourceWrapper {
     public String getIfLabel() {
         return m_iflabel;
     }
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -253,7 +253,7 @@ public class CollectionResourceWrapper {
     public String getIfIndex() {
         return m_ifindex;
     }
-    
+
     /**
      * <p>getIfInfoValue</p>
      *
@@ -265,7 +265,7 @@ public class CollectionResourceWrapper {
             return m_ifInfo.get(attribute);
         return null;
     }
-    
+
     /**
      * <p>isAnInterfaceResource</p>
      *
@@ -297,7 +297,7 @@ public class CollectionResourceWrapper {
 
     /*
      * FIXME What happen with numeric fields from strings.properties ?
-     */ 
+     */
     /**
      * <p>getAttributeValue</p>
      *
@@ -344,7 +344,7 @@ public class CollectionResourceWrapper {
             if (last == null) {
                 LOG.info("getCounterValue: unknown last value, ignoring current");
                 m_localCache.put(id, Double.NaN);
-            } else {                
+            } else {
                 Double delta = current.doubleValue() - last.value.doubleValue();
                 // wrapped counter handling(negative delta), rrd style
                 if (delta < 0) {
@@ -361,7 +361,7 @@ public class CollectionResourceWrapper {
                 }
                 // Get the interval between when this current collection was taken, and the last time this
                 // value was collected (and had a counter rate calculated for it).
-                // If the interval is zero, than the current rate must returned as 0.0 since there can be 
+                // If the interval is zero, than the current rate must returned as 0.0 since there can be
                 // no delta across a time interval of zero.
                 long interval = ( m_collectionTimestamp.getTime() - last.timestamp.getTime() ) / 1000;
                 if (interval > 0) {
@@ -412,7 +412,7 @@ public class CollectionResourceWrapper {
             if (isAnInterfaceResource()) { // Get Value from ifInfo only for Interface Resource
                 value = getIfInfoValue(ds);
             }
-            if (value == null) { // Find value on saved string attributes                
+            if (value == null) { // Find value on saved string attributes
                 value = ResourceTypeUtils.getStringProperty(resourceDirectory, ds);
             }
         } catch (Throwable e) {
@@ -426,7 +426,7 @@ public class CollectionResourceWrapper {
         }
         return value;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

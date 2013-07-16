@@ -37,7 +37,7 @@ import org.springframework.util.Assert;
 
 public class OpenNMSUserDetailsService implements UserDetailsService, InitializingBean {
 	private SpringSecurityUserDao m_userDao;
-	
+
         @Override
 	public void afterPropertiesSet() throws Exception {
 	    Assert.notNull(m_userDao);
@@ -47,17 +47,17 @@ public class OpenNMSUserDetailsService implements UserDetailsService, Initializi
         @Override
 	public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException, DataAccessException {
 	    final UserDetails userDetails = m_userDao.getByUsername(username);
-		
+
 		if (userDetails == null) {
 			throw new UsernameNotFoundException("Unable to locate " + username + " in the userDao");
 		}
-		
+
 		return userDetails;
 	}
 
 	public void setUserDao(final SpringSecurityUserDao userDao) {
 		m_userDao = userDao;
-		
+
 	}
 
 	public SpringSecurityUserDao getUserDao() {

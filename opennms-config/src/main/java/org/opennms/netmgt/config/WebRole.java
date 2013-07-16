@@ -44,20 +44,20 @@ import org.opennms.netmgt.config.groups.Time;
  * @since 1.8.1
  */
 public abstract class WebRole {
-    
+
     private String m_name;
     private String m_description;
     private WebUser m_defaultUser;
     private WebGroup m_membershipGroup;
     private List<WebSchedEntry> m_newEntries = new ArrayList<WebSchedEntry>();
-    
-    
+
+
     /**
      * <p>Constructor for WebRole.</p>
      */
     public WebRole() {
     }
-    
+
     /**
      * <p>Constructor for WebRole.</p>
      *
@@ -123,7 +123,7 @@ public abstract class WebRole {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>setName</p>
      *
@@ -132,7 +132,7 @@ public abstract class WebRole {
     public void setName(String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>getSchedule</p>
      *
@@ -140,7 +140,7 @@ public abstract class WebRole {
      * @return a {@link org.opennms.netmgt.config.groups.Schedule} object.
      */
     abstract public Schedule getSchedule(int schedIndex);
-    
+
     /**
      * <p>getTime</p>
      *
@@ -156,7 +156,7 @@ public abstract class WebRole {
      * @return a {@link java.util.Collection} object.
      */
     abstract public Collection<WebUser> getCurrentUsers();
-    
+
     /**
      * <p>getWeeklyCalendar</p>
      *
@@ -165,7 +165,7 @@ public abstract class WebRole {
     public WebCalendar getWeeklyCalendar() {
         return null;
     }
-    
+
     /**
      * <p>getCalendar</p>
      *
@@ -189,10 +189,10 @@ public abstract class WebRole {
      * @param entry a {@link org.opennms.netmgt.config.WebSchedEntry} object.
      */
     public void addEntry(WebSchedEntry entry) {
-        
+
         m_newEntries.add(entry);
     }
-    
+
     /**
      * <p>getNewEntries</p>
      *
@@ -201,7 +201,7 @@ public abstract class WebRole {
     public Collection<WebSchedEntry> getNewEntries() {
         return m_newEntries;
     }
-    
-    
+
+
 
 }

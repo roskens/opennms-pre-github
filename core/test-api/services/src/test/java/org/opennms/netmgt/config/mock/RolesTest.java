@@ -75,14 +75,14 @@ public class RolesTest extends IntervalTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        
+
         MockLogAppender.setupLogging();
         m_groupManager = new MockGroupManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "/org/opennms/netmgt/config/mock/groups.xml", new String[][] {}));
         m_userManager = new MockUserManager(m_groupManager, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "/org/opennms/netmgt/config/mock/users.xml", new String[][] {}));
-        
+
         GroupFactory.setInstance(m_groupManager);
         UserFactory.setInstance(m_userManager);
-        
+
         m_roleMgr = WebRoleContext.getWebRoleManager();
         m_groupMgr = WebRoleContext.getWebGroupManager();
         m_userMgr = WebRoleContext.getWebUserManager();
@@ -93,7 +93,7 @@ public class RolesTest extends IntervalTestCase {
     public void testRoles() throws Exception {
         assertNotNull(m_roleMgr);
         assertNotNull(m_roleMgr.getRoles());
-        
+
         String[] roleNames = m_groupManager.getRoleNames();
         assertEquals(roleNames.length, m_roleMgr.getRoles().size());
         for (int i = 0; i < roleNames.length; i++) {
@@ -103,60 +103,60 @@ public class RolesTest extends IntervalTestCase {
             assertNotNull(webRole);
             assertRole(role, webRole);
         }
-        
+
         for (String groupName : m_groupManager.getGroupNames()) {
             Group group = m_groupManager.getGroup(groupName);
             WebGroup webGroup = m_groupMgr.getGroup(groupName);
             assertGroup(group, webGroup);
         }
-        
+
         for (String userName : m_userManager.getUserNames()) {
             User user = m_userManager.getUser(userName);
             WebUser webUser = m_userMgr.getUser(userName);
             assertUser(user, webUser);
         }
-        
+
         WebRole oncall = m_roleMgr.getRole("oncall");
         assertEquals("oncall", oncall.getName());
         assertEquals(m_groupMgr.getGroup("InitialGroup"), oncall.getMembershipGroup());
-        
+
     }
-    
+
     @Test
     public void testWeekCount() throws Exception {
         int firstDayOfWeek = Calendar.getInstance().getFirstDayOfWeek();
         if(firstDayOfWeek != Calendar.SUNDAY && firstDayOfWeek != Calendar.MONDAY) {
             fail("Start of week is not Monday or Sunday");
         }
-        
+
         Date aug3 = getDate("2005-08-03");
         MonthlyCalendar calendar = new MonthlyCalendar(aug3, null, null);
         assertEquals(5, calendar.getWeeks().length);
-        
+
         Date july17 = getDate("2005-07-17");
         calendar = new MonthlyCalendar(july17, null, null);
         assertEquals(firstDayOfWeek == Calendar.SUNDAY ? 6 : 5, calendar.getWeeks().length);
-        
+
         Date may27 = getDate("2005-05-27");
         calendar = new MonthlyCalendar(may27, null, null);
         assertEquals(firstDayOfWeek == Calendar.SUNDAY ? 5 : 6, calendar.getWeeks().length);
-        
+
         Date feb14_04 = getDate("2004-02-14");
         calendar = new MonthlyCalendar(feb14_04, null, null);
         assertEquals(5, calendar.getWeeks().length);
-        
+
         Date feb7_09 = getDate("2009-02-09");
         calendar = new MonthlyCalendar(feb7_09, null, null);
         assertEquals(firstDayOfWeek == Calendar.SUNDAY ? 4 : 5, calendar.getWeeks().length);
-        
+
     }
-    
+
     @Test
     public void testTimeIntervals() throws Exception {
         OwnedIntervalSequence intervals = m_groupManager.getRoleScheduleEntries("oncall", getDate("2005-08-18"), getDate("2005-08-19"));
-        
+
         assertNotNull(intervals);
-        
+
         Owner brozow = new Owner("oncall", "brozow", 1, 1);
         Owner admin = new Owner("oncall", "admin", 1, 1);
         Owner david = new Owner("oncall", "david", 1, 1);
@@ -172,12 +172,12 @@ public class RolesTest extends IntervalTestCase {
                 owned(david, aug(18, 17, 23)),
                 owned(brozow, aug(18, 23, 24)), // brozow is the supervisor and this period is unscheduled
         };
-        
+
         assertTimeIntervalSequence(expected, intervals);
 
-        
+
     }
-    
+
     private void assertUser(User user, WebUser webUser) {
         assertEquals(user.getUserId(), webUser.getName());
     }
@@ -190,7 +190,7 @@ public class RolesTest extends IntervalTestCase {
             WebUser user = it.next();
             assertTrue(userNames.contains(user.getName()));
             assertUser(m_userManager.getUser(user.getName()), user);
-            
+
         }
     }
 
@@ -211,7 +211,7 @@ public class RolesTest extends IntervalTestCase {
     private Date getDate(String date) throws ParseException {
         return new SimpleDateFormat("yyyy-MM-dd").parse(date);
     }
-    
-    
+
+
 
 }

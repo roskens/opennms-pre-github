@@ -49,7 +49,7 @@ import org.springframework.test.context.ContextConfiguration;
  * Test the startup and shutdown of eventd with the default wiring and
  * configuration files.  Don't override *any* beans so we can see if the
  * daemon will work as it does in production (as possible).
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

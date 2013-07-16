@@ -50,7 +50,7 @@ import org.opennms.netmgt.config.UserManager;
  */
 public class DeleteUserServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7274547687183446773L;
 

@@ -42,7 +42,7 @@ public class InstallerJniTest extends TestCase {
 
     public void testBogus() {
     }
-    
+
     public void XXXtestPingLocalhost() throws Exception {
         System.setProperty("opennms.library.jicmp", "/Users/dgregor/opennms/trunk/opennms/target/opennms-1.3.3-SNAPSHOT/lib/libjicmp.jnilib");
         m_installer.pingLocalhost();

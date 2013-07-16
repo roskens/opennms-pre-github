@@ -116,7 +116,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
 	 * .dom.client.KeyUpEvent)
@@ -128,7 +128,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
 	 * .event.dom.client.MouseUpEvent)
@@ -154,7 +154,7 @@ public class FieldSetSuggestBox extends AbstractFieldSet implements FieldSet, Va
 	public void setEnabled(Boolean enabled) {
 		suggBox.getTextBox().setEnabled(enabled);
 	}
-	
+
 	/**
 	 * Takes a Collection of Strings as suggestion model to support the uses.
 	 * @param suggestions

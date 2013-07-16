@@ -49,16 +49,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JDBCClient implements Client<JDBCRequest, JDBCResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JDBCClient.class);
     private String m_dbDriver;
     private String m_user;
     private String m_password;
     private String m_url;
-    
+
 //    private ResultSet m_result;
     private Connection m_connection;
-    
+
     /**
      * <p>close</p>
      */

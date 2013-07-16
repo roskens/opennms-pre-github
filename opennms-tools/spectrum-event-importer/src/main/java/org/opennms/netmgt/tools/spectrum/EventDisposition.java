@@ -46,14 +46,14 @@ public class EventDisposition {
     private boolean m_persistent;       /* Whether this alarm is persisted across restarts */
 
     private List<Integer> m_discriminators;     /* An optional list of event parameter numbers used in deduplication */
-    
-    
+
+
     public EventDisposition(String eventCode) {
         if (eventCode == null) {
             throw new IllegalArgumentException("The event code must not be null");
         }
         m_eventCode = eventCode;
-        
+
         m_logEvent = false;
         m_eventSeverity = -1;
         m_createAlarm = false;
@@ -66,7 +66,7 @@ public class EventDisposition {
         m_persistent = true;
         m_discriminators = new ArrayList<Integer>();
     }
-    
+
     public String toString() {
         StringBuilder bldr = new StringBuilder("EventDisposition [");
         bldr.append("eventCode: ").append(m_eventCode).append("; ");
@@ -88,7 +88,7 @@ public class EventDisposition {
         bldr.append("]");
         return bldr.toString();
     }
-    
+
     /**
      * @return the m_eventCode
      */
@@ -186,14 +186,14 @@ public class EventDisposition {
     public void setClearAlarm(boolean clearAlarm) {
         m_clearAlarm = clearAlarm;
     }
-    
+
     /**
      * @return the clearAlarmCause
      */
     public String getClearAlarmCause() {
         return m_clearAlarmCause;
     }
-    
+
     /**
      * @param clearAlarmCause the clearAlarmCause to set
      */
@@ -256,7 +256,7 @@ public class EventDisposition {
     public void setDiscriminators(List<Integer> discriminators) {
         m_discriminators = discriminators;
     }
-    
+
     /**
      * @param discriminator the discriminator to add
      */

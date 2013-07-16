@@ -48,9 +48,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Threshd.class);
-    
+
     /**
      * <p>Constructor for Threshd.</p>
      */
@@ -83,7 +83,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
             LOG.error("start: Failed to load threshd configuration", ex);
             throw new UndeclaredThrowableException(ex);
         }
-        
+
         // Load up the configuration for the scheduled outages.
         //
         try {
@@ -100,7 +100,7 @@ public class Threshd extends AbstractServiceDaemon implements ThreshdMBean {
         }
 
 
-        
+
         getInstance().setThreshdConfig(ThreshdConfigFactory.getInstance());
 
         getInstance().init();

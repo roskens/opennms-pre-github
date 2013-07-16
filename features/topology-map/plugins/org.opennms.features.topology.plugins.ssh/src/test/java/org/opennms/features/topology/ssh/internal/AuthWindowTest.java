@@ -55,8 +55,8 @@ public class AuthWindowTest {
 	String testUser = "usr";
 
 	AuthWindow normalWindow;
-	AuthWindow noPortWindow; 
-	AuthWindow noHostWindow; 
+	AuthWindow noPortWindow;
+	AuthWindow noHostWindow;
 	AuthWindow emptyWindow;
 	AuthWindow invalidHostWindow;
 	Window mainWindow;
@@ -64,7 +64,7 @@ public class AuthWindowTest {
 
 	@SuppressWarnings("serial")
 	@Before
-	public void setup (){     
+	public void setup (){
 		normalWindow = new AuthWindow(testHost, testPort);
 		noPortWindow = new AuthWindow(testHost, emptyPort);
 		noHostWindow = new AuthWindow(emptyHost, testPort);
@@ -85,21 +85,21 @@ public class AuthWindowTest {
 	}
 
 	@Test
-	public void testButtonClick() {        
+	public void testButtonClick() {
 		normalWindow.buttonClick(null);
 		assertEquals("Failed to log in", normalWindow.testString);
 
 		noPortWindow.portField.setValue(invalidPort);
 		noPortWindow.buttonClick(null);
 		assertEquals("Port must be between 1 and 65535", noPortWindow.testString);
-		
+
 		invalidHostWindow.buttonClick(null);
 		assertEquals("Failed to connect to host", invalidHostWindow.testString);
-		
+
 		emptyWindow.portField.setValue(invalidPortString);
 		emptyWindow.buttonClick(null);
 		assertEquals("Port must be an integer", emptyWindow.testString);
-		
+
 		emptyWindow.portField.setValue(validPort);
 		emptyWindow.hostField.setValue(invalidHost);
 		emptyWindow.buttonClick(null);
@@ -112,7 +112,7 @@ public class AuthWindowTest {
 		app.removeWindow(normalWindow);
 		assertFalse(app.getWindows().contains(normalWindow));
 	}
-	
+
 	@Test
 	public void testShowSSHWindow() {
 		normalWindow.showSSHWindow();

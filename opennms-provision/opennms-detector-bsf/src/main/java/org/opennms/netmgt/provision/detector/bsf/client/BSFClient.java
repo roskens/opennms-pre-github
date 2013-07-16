@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class BSFClient implements Client<BSFRequest, BSFResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BSFClient.class);
 
     private String m_serviceName;

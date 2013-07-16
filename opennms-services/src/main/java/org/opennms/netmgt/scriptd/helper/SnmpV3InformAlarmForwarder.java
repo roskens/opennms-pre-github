@@ -36,7 +36,7 @@ public class SnmpV3InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
 		EventForwarder {
 
 
-	public SnmpV3InformAlarmForwarder(String ip, int port,int timeout, int retries,int securityLevel, 
+	public SnmpV3InformAlarmForwarder(String ip, int port,int timeout, int retries,int securityLevel,
 			String securityname, String authPassPhrase, String authProtocol,
 			String privPassPhrase, String privprotocol, SnmpTrapHelper snmpTrapHelper) {
 		super(ip,port,securityLevel,securityname,authPassPhrase,authProtocol,privPassPhrase,privprotocol,timeout, retries, snmpTrapHelper);
@@ -78,6 +78,6 @@ public class SnmpV3InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
         @Override
 	public void sendEndSync() {
 		super.sendV3EndSyncInform();
-		
+
 	}
 }

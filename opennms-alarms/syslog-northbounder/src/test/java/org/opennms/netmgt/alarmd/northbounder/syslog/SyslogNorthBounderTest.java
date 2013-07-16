@@ -64,7 +64,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Tests the Syslog North Bound Interface
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 //@RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -73,7 +73,7 @@ import org.springframework.test.context.ContextConfiguration;
 // TODO:Would be great to do something like the following annotation...
 // @JUnitSyslogServer(port=8514)
 public class SyslogNorthBounderTest {
-    
+
 
     private static final int TEST_NODE_ID = 777;
     private static final String SERVER_HOST = "127.0.0.1";
@@ -88,9 +88,9 @@ public class SyslogNorthBounderTest {
     /**
      * Needed a String based OutputStream class for the Syslog4j eventhandler
      * interface.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
-     * 
+     *
      */
     class StringOutputStream extends OutputStream {
 
@@ -114,9 +114,9 @@ public class SyslogNorthBounderTest {
      * Syslog4j server. It wraps the String based OutputStream class, above,
      * such that it makes it handy to retrieve the contents of messages in the
      * Syslog server and avoids having to go to disk for file based ouptut.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
-     * 
+     *
      */
     class TestPrintStream extends PrintStream {
 
@@ -134,12 +134,12 @@ public class SyslogNorthBounderTest {
 
     /**
      * Getting ready for tests.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Before
     public void startServer() throws InterruptedException {
         MockLogAppender.setupLogging();
-        
+
 
         SyslogServerConfigIF serverConfig = new UDPNetSyslogServerConfig(SERVER_HOST, SERVER_PORT);
         serverConfig.setShutdownWait(0);
@@ -147,10 +147,10 @@ public class SyslogNorthBounderTest {
         SyslogServerEventHandlerIF eventHandler = new PrintStreamSyslogServerEventHandler(m_logStream);
         serverConfig.addEventHandler(eventHandler);
         m_server = SyslogServer.createThreadedInstance("test-udp", serverConfig);
-        
-        
+
+
         m_server.initialize("udp", serverConfig);
-        
+
         //Need this sleep, found a deadlock in the server.
         Thread.sleep(100);
         m_server.run();
@@ -158,36 +158,36 @@ public class SyslogNorthBounderTest {
 
     /**
      * Cleans up the Syslog server after each test runs.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @After
     public void stopServer() throws InterruptedException {
         m_server.shutdown();
     }
 
-    
+
     /**
      * This tests forwarding of 7 alarms, one for each OpenNMS severity to
      * verify the LOG_LEVEL agrees with the Severity based on our algorithm.
-     * @throws Exception 
+     * @throws Exception
      */
     @Test
     public void testForwardAlarms() throws Exception {
-        
+
         String xml = generateConfigXml();
-        
+
         Resource resource = new ByteArrayResource(xml.getBytes());
-        
+
         SyslogNorthbounderConfigDao dao = new SyslogNorthbounderConfigDao();
         dao.setConfigResource(resource);
         dao.afterPropertiesSet();
 
         SyslogNorthbounderConfig config = dao.getConfig();
-        
+
         List<SyslogDestination> destinations = config.getDestinations();
 
         List<SyslogNorthbounder> nbis = new LinkedList<SyslogNorthbounder>();
-        
+
         for (SyslogDestination syslogDestination : destinations) {
             SyslogNorthbounder nbi = new SyslogNorthbounder(config, syslogDestination);
             nbi.setNodeDao(new TestNodeDao());
@@ -197,20 +197,20 @@ public class SyslogNorthBounderTest {
 
         int j = 7;
         List<NorthboundAlarm> alarms = new LinkedList<NorthboundAlarm>();
-        
+
         OnmsDistPoller distpoller = new OnmsDistPoller("barbrady", "172.20.1.11");
         OnmsNode node = new OnmsNode(distpoller, "p-brane");
         node.setForeignSource("TestGroup");
         node.setForeignId("1");
         node.setId(TEST_NODE_ID);
-        
+
         OnmsSnmpInterface snmpInterface = new OnmsSnmpInterface(node, 1);
         snmpInterface.setId(1);
         snmpInterface.setIfAlias("Connection to OpenNMS Wifi");
         snmpInterface.setIfDescr("en1");
         snmpInterface.setIfName("en1/0");
         snmpInterface.setPhysAddr("00:00:00:00:00:01");
-        
+
         Set<OnmsIpInterface> ipInterfaces = new LinkedHashSet<OnmsIpInterface>(j);
         InetAddress address = InetAddress.getByName("10.0.1.1");
         OnmsIpInterface onmsIf = new OnmsIpInterface(address, node);
@@ -219,9 +219,9 @@ public class SyslogNorthBounderTest {
         onmsIf.setIfIndex(1);
         onmsIf.setIpHostName("p-brane");
         onmsIf.setIsSnmpPrimary(PrimaryType.PRIMARY);
-        
+
         ipInterfaces.add(onmsIf);
-        
+
         node.setIpInterfaces(ipInterfaces);
 
         for (SyslogNorthbounder nbi : nbis) {
@@ -250,7 +250,7 @@ public class SyslogNorthBounderTest {
                 alarms.add(a);
             }
             nbi.forwardAlarms(alarms);
-        }        
+        }
 
         Thread.sleep(100);
 
@@ -265,11 +265,11 @@ public class SyslogNorthBounderTest {
         }
 
         Assert.assertTrue("Log messages sent: 7, Log messages received: " + messages.size(), 7 == messages.size());
-        
+
         for (String message : messages) {
             System.out.println(message);
         }
-        
+
         int i = 0;
         for (String message : messages) {
             if (i == 0) {
@@ -306,30 +306,30 @@ public class SyslogNorthBounderTest {
         }
 
     }
-    
+
     private String generateConfigXml() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
-                "<syslog-northbounder-config>\n" + 
-                "  <enabled>true</enabled>\n" + 
-                "  <nagles-delay>1000</nagles-delay>\n" + 
-                "  <batch-size>30</batch-size>\n" + 
-                "  <queue-size>30000</queue-size>\n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+                "<syslog-northbounder-config>\n" +
+                "  <enabled>true</enabled>\n" +
+                "  <nagles-delay>1000</nagles-delay>\n" +
+                "  <batch-size>30</batch-size>\n" +
+                "  <queue-size>30000</queue-size>\n" +
                 "  <message-format>ALARM ID:${alarmId} NODE:${nodeLabel}; PARM-1-NAME: ${parm[name-#1]} PARM-1:${parm[#1]} PARM-2-NAME: ${parm[name-#2]} " +
-                "PARM-3-NAME: ${parm[name-#3]} PARM-foreignSource:${parm[foreignSource]} PARM-4-NAME: ${parm[name-#4]} PARM-4: ${parm[#4]} ${logMsg}</message-format>\n" + 
-                "  <destination>\n" + 
-                "    <destination-name>localTest</destination-name>\n" + 
-                "    <host>"+SERVER_HOST+"</host>\n" + 
-                "    <port>"+SERVER_PORT+"</port>\n" + 
-                "    <ip-protocol>"+SERVER_PROTOCOL+"</ip-protocol>\n" + 
-                "    <facility>"+FACILITY+"</facility>\n" + 
-                "    <max-message-length>1024</max-message-length>\n" + 
-                "    <send-local-name>true</send-local-name>\n" + 
-                "    <send-local-time>true</send-local-time>\n" + 
+                "PARM-3-NAME: ${parm[name-#3]} PARM-foreignSource:${parm[foreignSource]} PARM-4-NAME: ${parm[name-#4]} PARM-4: ${parm[#4]} ${logMsg}</message-format>\n" +
+                "  <destination>\n" +
+                "    <destination-name>localTest</destination-name>\n" +
+                "    <host>"+SERVER_HOST+"</host>\n" +
+                "    <port>"+SERVER_PORT+"</port>\n" +
+                "    <ip-protocol>"+SERVER_PROTOCOL+"</ip-protocol>\n" +
+                "    <facility>"+FACILITY+"</facility>\n" +
+                "    <max-message-length>1024</max-message-length>\n" +
+                "    <send-local-name>true</send-local-name>\n" +
+                "    <send-local-time>true</send-local-time>\n" +
                 "    <truncate-message>false</truncate-message>\n" +
-                "    <first-occurrence-only>false</first-occurrence-only>" + 
-                "  </destination>\n" + 
-                "  <uei>uei.opennms.org/nodes/nodeDown</uei>\n" + 
-                "  <uei>uei.opennms.org/nodes/nodeUp</uei>\n" + 
+                "    <first-occurrence-only>false</first-occurrence-only>" +
+                "  </destination>\n" +
+                "  <uei>uei.opennms.org/nodes/nodeDown</uei>\n" +
+                "  <uei>uei.opennms.org/nodes/nodeUp</uei>\n" +
                 "</syslog-northbounder-config>";
     }
 

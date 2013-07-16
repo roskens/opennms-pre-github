@@ -42,7 +42,7 @@ public class SnmpInterfaceDaoHibernate extends
 	public SnmpInterfaceDaoHibernate() {
 		super(OnmsSnmpInterface.class);
 	}
-	
+
 
 
     /** {@inheritDoc} */
@@ -50,10 +50,10 @@ public class SnmpInterfaceDaoHibernate extends
     public OnmsSnmpInterface findByNodeIdAndIfIndex(Integer nodeId, Integer ifIndex) {
         Assert.notNull(nodeId, "nodeId may not be null");
         Assert.notNull(ifIndex, "ifIndex may not be null");
-        return findUnique("select distinct snmpIf from OnmsSnmpInterface as snmpIf where snmpIf.node.id = ? and snmpIf.ifIndex = ?", 
-                          nodeId, 
+        return findUnique("select distinct snmpIf from OnmsSnmpInterface as snmpIf where snmpIf.node.id = ? and snmpIf.ifIndex = ?",
+                          nodeId,
                           ifIndex);
-        
+
     }
 
 
@@ -64,12 +64,12 @@ public class SnmpInterfaceDaoHibernate extends
         Assert.notNull(foreignSource, "foreignSource may not be null");
         Assert.notNull(foreignId, "foreignId may not be null");
         Assert.notNull(ifIndex, "ifIndex may not be null");
-        return findUnique("select distinct snmpIf from OnmsSnmpInterface as snmpIf join snmpIf.node as node where node.foreignSource = ? and node.foreignId = ? and node.type = 'A' and snmpIf.ifIndex = ?", 
-                          foreignSource, 
-                          foreignId, 
+        return findUnique("select distinct snmpIf from OnmsSnmpInterface as snmpIf join snmpIf.node as node where node.foreignSource = ? and node.foreignId = ? and node.type = 'A' and snmpIf.ifIndex = ?",
+                          foreignSource,
+                          foreignId,
                           ifIndex);
     }
 
-	
+
 
 }

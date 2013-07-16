@@ -40,7 +40,7 @@ public class SummarySpecification {
     private long m_startTime;
     private long m_endTime;
     private String m_attributeSieve;
-    
+
     /**
      * <p>getFilterRule</p>
      *
@@ -89,7 +89,7 @@ public class SummarySpecification {
     public void setEndTime(long endTime) {
         m_endTime = endTime;
     }
-    
+
     /**
      * <p>getAttributeSieve</p>
      *
@@ -98,7 +98,7 @@ public class SummarySpecification {
     public String getAttributeSieve() {
         return m_attributeSieve;
     }
-    
+
     /**
      * <p>setAttributeSieve</p>
      *

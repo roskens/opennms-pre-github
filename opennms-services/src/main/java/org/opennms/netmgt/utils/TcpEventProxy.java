@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public final class TcpEventProxy implements EventProxy {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpEventProxy.class);
-	
+
     /** Constant <code>DEFAULT_PORT=5817</code> */
     public static final int DEFAULT_PORT = 5817;
 
@@ -70,7 +70,7 @@ public final class TcpEventProxy implements EventProxy {
     public static final int DEFAULT_TIMEOUT = 2000;
 
     private InetSocketAddress m_address;
-    
+
     private int m_timeout = DEFAULT_TIMEOUT;
 
     /**
@@ -152,7 +152,7 @@ public final class TcpEventProxy implements EventProxy {
         private Socket m_sock;
 
         private Writer m_writer;
-        
+
         private InputStream m_input;
 
         private Thread m_rdrThread;
@@ -203,7 +203,7 @@ public final class TcpEventProxy implements EventProxy {
                 m_rdrThread.interrupt();
             }
         }
-        
+
         @Override
         protected void finalize() throws Throwable {
             close();

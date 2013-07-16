@@ -78,13 +78,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder implements InitializingBean {
 
-    
+
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
     @Autowired
     private Capsd m_capsd;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -96,9 +96,9 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
 
         super.setIpInterfaceDao(m_interfaceDao);
-        
+
         MockLogAppender.setupLogging(p);
-        assertTrue("Capsd must not be null", m_capsd != null);        
+        assertTrue("Capsd must not be null", m_capsd != null);
     }
 
     @Test
@@ -120,7 +120,7 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
     public final void testCapsdNms10205a() throws MarshalException, ValidationException, IOException {
         m_capsd.init();
         m_capsd.start();
-        
+
         m_capsd.scanSuspectInterface(MUMBAI_IP);
         m_capsd.scanSuspectInterface(CHENNAI_IP);
         m_capsd.scanSuspectInterface(DELHI_IP);
@@ -133,7 +133,7 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
         m_capsd.scanSuspectInterface(J6350_42_IP);
         m_capsd.scanSuspectInterface(SRX_100_IP);
         m_capsd.scanSuspectInterface(SSG550_IP);
-        
+
         printNode(MUMBAI_IP,"MUMBAI");
         printNode(CHENNAI_IP,"CHENNAI");
         printNode(DELHI_IP,"DELHI");
@@ -146,8 +146,8 @@ public class Nms10205aCapsdNetworkBuilderTest extends Nms10205aNetworkBuilder im
         printNode(J6350_42_IP,"J6350_42");
         printNode(SRX_100_IP,"SRX_100");
         printNode(SSG550_IP,"SSG550");
-        
+
         m_capsd.stop();
-    }        
+    }
 
 }

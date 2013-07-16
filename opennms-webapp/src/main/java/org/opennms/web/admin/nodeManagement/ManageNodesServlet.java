@@ -69,7 +69,7 @@ import org.opennms.web.api.Util;
  */
 public class ManageNodesServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4938417809629844445L;
 

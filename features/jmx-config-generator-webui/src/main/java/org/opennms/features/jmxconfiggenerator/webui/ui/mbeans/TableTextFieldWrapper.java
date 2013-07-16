@@ -40,7 +40,7 @@ import com.vaadin.ui.TextField;
  * table does not show any error indicator on a failed validation. The Vertical-
  * or HorizontalLayout does show an error indicator, so we wrap the layout
  * around the text field.
- * 
+ *
  */
 public class TableTextFieldWrapper extends HorizontalLayout implements Field<String> {
 

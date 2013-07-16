@@ -36,7 +36,7 @@ package org.opennms.web.command;
  * @since 1.8.1
  */
 public class ManageDatabaseReportCommand {
-    
+
     private Integer[] m_ids;
 
     /**
@@ -56,6 +56,6 @@ public class ManageDatabaseReportCommand {
     public Integer[] getIds() {
     return m_ids;
     }
-    
+
 
 }

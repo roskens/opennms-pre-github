@@ -36,7 +36,7 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 
 /**
  * The abstract Class XmlCollectionResource.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class XmlCollectionResource extends AbstractCollectionResource {

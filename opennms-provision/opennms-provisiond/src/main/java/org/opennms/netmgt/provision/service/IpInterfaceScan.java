@@ -147,7 +147,7 @@ public class IpInterfaceScan implements RunInBatch {
                                         setupAgentInfo(currentPhase);
                                     }
                                 }
-                            }, 
+                            },
                             new RunInBatch() {
                                 @Override
                                 public void run(final BatchTask batch) {
@@ -156,7 +156,7 @@ public class IpInterfaceScan implements RunInBatch {
                             });
 
 
-                    
+
 
                 }
                 getProvisionService().updateMonitoredServiceState(getNodeId(), hostAddress, serviceName); // NMS-3906

@@ -46,6 +46,6 @@ public class Trapd extends AbstractSpringContextJmxServiceDaemon<org.opennms.net
     /** {@inheritDoc} */
     @Override
     protected String getSpringContext() {
-        return "trapDaemonContext";       
+        return "trapDaemonContext";
     }
 }

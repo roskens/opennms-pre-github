@@ -72,7 +72,7 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class ManageNodeServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ManageNodeServlet.class);
 
     private static final long serialVersionUID = -544260517139205801L;
@@ -126,7 +126,7 @@ public class ManageNodeServlet extends HttpServlet {
 
         List<String> unmanageInterfacesList = new ArrayList<String>();
         List<String> manageInterfacesList = new ArrayList<String>();
-        
+
         Date curDate = new Date();
 
         final DBUtils d = new DBUtils(getClass());
@@ -195,7 +195,7 @@ public class ManageNodeServlet extends HttpServlet {
                             LOG.debug("doPost: executing manage service update for {} {}", curInterface.getAddress(), curService.getName());
                             stmt.executeUpdate();
                         } else if (!serviceList.contains(serviceKey) && curService.getStatus().equals("managed")) {
-                            
+
                             EventBuilder bldr = new EventBuilder(EventConstants.SERVICE_UNMANAGED_EVENT_UEI, "web ui", curDate);
                             bldr.setNodeid(curInterface.getNodeid());
                             bldr.setInterface(addr(curInterface.getAddress()));

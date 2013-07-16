@@ -143,7 +143,7 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
     public InetAddress getIpAdEntNetMask() {
         return getIPAddress(IpAddrTableEntry.IP_ADDR_ENT_NETMASK);
     }
-    
+
     /**
      * <p>getIpAdEntBcastAddr</p>
      *
@@ -153,5 +153,5 @@ public final class IpAddrTableEntry extends SnmpTableEntry {
         return getIPAddress(IpAddrTableEntry.IP_ADDR_ENT_BCASTADDR);
     }
 
-    
+
 }

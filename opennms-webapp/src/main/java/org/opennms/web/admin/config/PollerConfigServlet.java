@@ -69,10 +69,10 @@ import org.opennms.netmgt.config.poller.Service;
  */
 public class PollerConfigServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2622622848304715121L;
-    
+
     PollerConfiguration pollerConfig = null;
 
     CapsdConfiguration capsdConfig = null;

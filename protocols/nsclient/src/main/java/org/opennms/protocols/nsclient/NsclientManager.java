@@ -68,7 +68,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:jeffg@opennms.org">Jeff Gehlbach</A>
  */
 public class NsclientManager {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NsclientManager.class);
 
     /**
@@ -165,7 +165,7 @@ public class NsclientManager {
      * easy remote method of looking up potential COUNTER instances.
      */
     public static final String CHECK_INSTANCES = "10";
-    
+
     /**
      * The ID for checking the size of a directory.  NSClient++ only.
      */
@@ -419,7 +419,7 @@ public class NsclientManager {
         }
         throw e;
     }
-    
+
     /**
      * Closes the socket.
      */
@@ -433,7 +433,7 @@ public class NsclientManager {
 
     /**
      * This method sends the request string to the remote service.
-     * 
+     *
      * @param request
      *            the request string to be sent to the remote service
      * @return a <code>NsclientPacket</code> containing the response from
@@ -519,7 +519,7 @@ public class NsclientManager {
             throw e;
         }
     }
-    
+
     /**
      * This method performs a check of the client version on the remote
      * service. From the <code>NsclientCheckParams</code> object passed to
@@ -528,7 +528,7 @@ public class NsclientManager {
      * parameter does not contain for period delimited digits, the check will
      * return the packet with with
      * <code>NsclientPacket.RES_STATE_UNKNOWN</code> for a result code.
-     * 
+     *
      * @param param
      *            The param string member of this value contains the minimum
      *            client version.
@@ -621,7 +621,7 @@ public class NsclientManager {
     /**
      * This method is used to perform a check of the CPU percent in use it
      * higher than the warning and critical percent thresholds.
-     * 
+     *
      * @param param
      *            The param warning and critical percent members are used for
      *            validating CPU load results.
@@ -671,7 +671,7 @@ public class NsclientManager {
     /**
      * This method simply performs a check of the uptime from the remove
      * service and returns the results. No response validation is performed.
-     * 
+     *
      * @param param
      *            The param member is not currently in use.
      * @return the processed <code>NsclientPacket</code>.
@@ -706,7 +706,7 @@ public class NsclientManager {
      * <code>NsclientPacket.RES_STATE_OK</code> unless one of the services
      * responds as 'Stopped' - in which case the result code is set to
      * <code>NsclientPacket.RES_STATE_CRIT</code>
-     * 
+     *
      * @param param
      *            The param string member should contain a comma delimited
      *            list of NT services on the remote service.
@@ -749,7 +749,7 @@ public class NsclientManager {
      * <code>NsclientPacket.RES_STATE_OK</code> unless one of the processes
      * responds as 'not running' - in which case the result code is set to
      * <code>NsclientPacket.RES_STATE_CRIT</code>
-     * 
+     *
      * @param param
      *            The param string member should contain a comma delimited
      *            list of NT processes on the remote service.
@@ -792,7 +792,7 @@ public class NsclientManager {
      * specified in the 'parameter' string. The warning and critical
      * thresholds defined by 'warningPercent' and 'criticalPercent' are used
      * to validate the percent of used disk space.
-     * 
+     *
      * @param param
      *            The param string should contain a drive letter, warning and
      *            critical should contain non-zero percentages.
@@ -853,7 +853,7 @@ public class NsclientManager {
      * This method performs a check of the memory space used on the remote
      * server. The warning and critical thresholds defined by 'warningPercent'
      * and 'criticalPercent' are used to validate the percent of used memory.
-     * 
+     *
      * @param param
      *            The params warning and critical should contain non-zero
      *            percentages.
@@ -909,7 +909,7 @@ public class NsclientManager {
      * 'parameter' string. An example of this string would be:
      * \Memory(_Total)\Pool Paged Bytes - the warning and critical members of
      * param will define thresholds used to validate the perfmon object value.
-     * 
+     *
      * @param param
      *            The param string should contain a perfmon OID, warning and
      *            critical should contain non-zero values.
@@ -963,7 +963,7 @@ public class NsclientManager {
     /**
      * This method performs a check of a file's age as defined by the
      * 'parameter' string.
-     * 
+     *
      * @param param
      *            The param string should contain a full path to a file,
      *            warning and critical should contain non-zero ages in
@@ -1013,14 +1013,14 @@ public class NsclientManager {
             throw e;
         }
     }
-    
+
     /**
      * This method requests a list of instances for a perfmon object as
      * defined by the 'parameter' string. Examples of this string would be:
      * Processor or PhysicalDisk- the available instances are returned by the
      * agent as a comma-separated list.  The warning and critical members of
      * param are ignored.
-     * 
+     *
      * @param param
      *            The param string should contain a perfmon object name. Warning and
      *            critical values are ignored.
@@ -1041,7 +1041,7 @@ public class NsclientManager {
     			pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);
     			return pack;
     		}
-    		
+
     		// If we did not receive an ERROR report, then we are done here
     		LOG.debug("checkInstances: received result '{}'", pack.getResponse());
     		return pack;
@@ -1053,7 +1053,7 @@ public class NsclientManager {
     private String prepList(String list) {
         return list.replaceAll(",", "&");
     }
-    
+
     private NsclientPacket handleNumberFormatException(NsclientPacket pack, NumberFormatException e) throws NsclientException {
         pack.setResultCode(NsclientPacket.RES_STATE_UNKNOWN);
         LOG.info("Unable to parse numeric value returned ({})", pack.getResponse(), e);

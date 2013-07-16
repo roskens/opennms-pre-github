@@ -49,12 +49,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MultilineOrientedClient implements Client<LineOrientedRequest, MultilineOrientedResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MultilineOrientedClient.class);
     protected Socket m_socket;
     private OutputStream m_out;
     private BufferedReader m_in;
-    
+
     /**
      * <p>close</p>
      */
@@ -68,7 +68,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
             }
         } catch (final IOException e) {
             LOG.debug("Unable to close socket", e);
-        }       
+        }
     }
 
     /** {@inheritDoc} */
@@ -105,7 +105,7 @@ public class MultilineOrientedClient implements Client<LineOrientedRequest, Mult
         request.send(getOutput());
         return receiveResponse();
     }
-    
+
     /**
      * @return
      * @throws IOException

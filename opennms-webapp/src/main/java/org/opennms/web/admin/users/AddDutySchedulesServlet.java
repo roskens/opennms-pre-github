@@ -58,13 +58,13 @@ public class AddDutySchedulesServlet extends HttpServlet {
     private static final long serialVersionUID = 4112359172139681476L;
 
     private static final List<Boolean> FALSE_LIST;
-    
+
     static {
         List<Boolean> list = new ArrayList<Boolean>(7);
         for (int i = 0; i < 7; i++) {
             list.add(Boolean.FALSE);
         }
-        
+
         FALSE_LIST = Collections.unmodifiableList(list);
     }
 

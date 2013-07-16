@@ -60,7 +60,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class ConfigurationReportCalculator implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ConfigurationReportCalculator.class);
 
 
@@ -89,13 +89,13 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     RWSConfig m_rwsConfig;
-    
+
     String theDate;
     String user;
     Date reportRequestDate;
-    
+
     RwsRancidlistreport rlist;
-    
+
     /**
      * <p>Getter for the field <code>theDate</code>.</p>
      *
@@ -199,7 +199,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
     }
 
     private List<String> getGroups() {
-        
+
         try {
             return RWSClientApi.getRWSResourceGroupsList(m_cp).getResource();
         } catch (RancidApiException e) {
@@ -207,35 +207,35 @@ public class ConfigurationReportCalculator implements InitializingBean {
         }
         return new ArrayList<String>();
     }
-    
+
     private List<String> getDeviceListOnGroup(String groupName) {
         try {
             return RWSClientApi.getRWSResourceDeviceList(m_cp, groupName).getResource();
         } catch (RancidApiException e) {
-            LOG.error("getDeviceListOnGroup: group [{}]. Skipped", groupName); 
+            LOG.error("getDeviceListOnGroup: group [{}]. Skipped", groupName);
         }
         return new ArrayList<String>();
     }
-    
+
     private List<String> getVersionListOnDevice(String deviceName, String groupName) {
         try {
             return RWSClientApi.getRWSResourceConfigList(m_cp, groupName, deviceName).getResource();
         } catch (RancidApiException e) {
-            LOG.error("getVersionListOnDevice:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage()); 
+            LOG.error("getVersionListOnDevice:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
 
         return new ArrayList<String>();
     }
-    
+
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
             return RWSClientApi.getRWSRancidNodeInventory(m_cp ,groupName, deviceName);
         } catch (RancidApiException e) {
-            LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage()); 
+            LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
         return null;
     }
-    
+
     /**
      * <p>calculate</p>
      */
@@ -254,7 +254,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
         catch (ParseException pe){
             tmp_date = Calendar.getInstance().getTime();
         }
-        LOG.debug("calculate:report date[{}]", tmp_date.toString()); 
+        LOG.debug("calculate:report date[{}]", tmp_date.toString());
         rlist.setReportDate(tmp_date.toString());
 
         int totalGroups = 0;
@@ -265,7 +265,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
 
 
         for (String groupName : getGroups()) {
-            LOG.debug("calculate:report group [{}]", groupName); 
+            LOG.debug("calculate:report group [{}]", groupName);
             totalGroups++;
             GroupXSet gs = new GroupXSet();
             gs.setGroupXSetName(groupName);
@@ -282,7 +282,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
                 ns.setDevicename(deviceName);
                 ns.setGroupname(groupName);
                 LOG.debug("calculate:report device [{}]", deviceName);
-                
+
                 RancidNode rancidNode = getFullNode(groupName, deviceName);
                 if ( rancidNode == null ) {
                     ns.setVersion("No Configurations found");
@@ -291,17 +291,17 @@ public class ConfigurationReportCalculator implements InitializingBean {
                     gs.addNodeSet(ns);
                     continue;
                 }
-                
+
                 InventoryNode invNode = new InventoryNode(rancidNode);
                 boolean found = false;
-                
+
                 for (String versionMatch : getVersionListOnDevice(deviceName, groupName)) {
 
 
                     invNode = (InventoryNode)rancidNode.getNodeVersions().get(versionMatch);
 
-                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate()); 
-                    
+                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate());
+
                     if (tmp_date.compareTo(invNode.getCreationDate()) >  0 ) {
                         found = true;
                         LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(), versionMatch);
@@ -310,7 +310,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
                 }  //end for on version
                 if (found == false) {
                     // skip device
-                    LOG.debug("calculate:report device has no inventory at this date[{}]", deviceName); 
+                    LOG.debug("calculate:report device has no inventory at this date[{}]", deviceName);
                     groupHasNodesWithoutconfigurationAtrequestDate = true;
                     nodesWithoutConfigurationAtReportDate++;
                     ns.setVersion("No configuration found at Report Date");
@@ -326,7 +326,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
                }
                 gs.addNodeSet(ns);
             } //end for on devices
-            
+
             gs.setTotalNodes(totalNodes);
             gs.setNodesMatching(nodeMatching);
             gs.setNodesWithoutconfigurationAtReportDate(nodesWithoutConfigurationAtReportDate);
@@ -334,9 +334,9 @@ public class ConfigurationReportCalculator implements InitializingBean {
             rlist.addGroupXSet(gs);
             if (groupHasDevices) groupsMatching++;
             else groupWithoutNodes++;
-            if (groupHasDevices && groupHasNodesWithoutconfigurationAtAll) 
+            if (groupHasDevices && groupHasNodesWithoutconfigurationAtAll)
                 groupsWithNodesWithoutconfigurationAtAll++;
-            if (groupHasDevices &&groupHasNodesWithoutconfigurationAtrequestDate) 
+            if (groupHasDevices &&groupHasNodesWithoutconfigurationAtrequestDate)
                 groupsWithNodesWithoutconfigurationAtReportDate++;
         } //end for of groups
         rlist.setTotalGroups(totalGroups);
@@ -369,7 +369,7 @@ public class ConfigurationReportCalculator implements InitializingBean {
             throw new ConfigurationCalculationException(e);
         }
     }
-    
+
 
     /**
      * <p>marshal</p>

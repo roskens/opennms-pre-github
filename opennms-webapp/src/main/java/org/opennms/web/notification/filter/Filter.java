@@ -46,14 +46,14 @@ public interface Filter {
      * @return a {@link java.lang.String} object.
      */
     public String getSql();
-    
+
     /**
      * <p>getParamSql</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getParamSql();
-    
+
     /**
      * <p>bindParams</p>
      *

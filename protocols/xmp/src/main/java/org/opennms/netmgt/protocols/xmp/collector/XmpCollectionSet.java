@@ -77,8 +77,8 @@ public class XmpCollectionSet implements CollectionSet {
     private Date m_timestamp;
 
     /* constructors  ************************************* */
-    XmpCollectionSet(CollectionAgent agent) 
-    {  
+    XmpCollectionSet(CollectionAgent agent)
+    {
         // default status
         status = ServiceCollector.COLLECTION_SUCCEEDED;
         ignorePersistVar = false;
@@ -89,11 +89,11 @@ public class XmpCollectionSet implements CollectionSet {
 
         listOfResources = new HashSet<XmpCollectionResource>();
 
-        return; 
+        return;
     }
 
     /* private methods *********************************** */
-    
+
 
     /* public methods ************************************ */
 
@@ -112,12 +112,12 @@ public class XmpCollectionSet implements CollectionSet {
      *
      * @return a {@link java.util.Collection} object.
      */
-    public Collection<XmpCollectionResource>getResources() 
-    { 
-        return listOfResources; 
+    public Collection<XmpCollectionResource>getResources()
+    {
+        return listOfResources;
     }
 
-    // return a ServiceCollector status value 
+    // return a ServiceCollector status value
     /**
      * <p>getCollectionAgent</p>
      *
@@ -175,16 +175,16 @@ public class XmpCollectionSet implements CollectionSet {
      */
     public void ignorePersistFalse() { ignorePersistVar = false; }
 
-    // Visitor design pattern 
+    // Visitor design pattern
 
     // visit is called repeatedly with a vistor and I fill in values
-    // into CollectionSetVisitor 
+    // into CollectionSetVisitor
 
     //public XmpCollectionResource getResource() { return collectionResource; }
 
     /** {@inheritDoc} */
     @Override
-    public void visit(CollectionSetVisitor visitor) 
+    public void visit(CollectionSetVisitor visitor)
     {
         LOG.debug("XmpCollectionSet: visit starting for set {}", agent);
 

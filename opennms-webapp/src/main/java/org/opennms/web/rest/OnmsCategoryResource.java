@@ -71,18 +71,18 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("categories")
 @Transactional
 public class OnmsCategoryResource extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsCategoryResource.class);
 
-    @Context 
+    @Context
     UriInfo m_uriInfo;
 
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private CategoryDao m_categoryDao;
-    
+
     /**
      * <p>getCategories</p>
      *
@@ -93,7 +93,7 @@ public class OnmsCategoryResource extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public OnmsCategoryCollection getCategories(@PathParam("nodeCriteria") String nodeCriteria) {
         readLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -117,7 +117,7 @@ public class OnmsCategoryResource extends OnmsRestService {
     @Path("{categoryName}")
     public OnmsCategory getCategory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName) {
         readLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -140,7 +140,7 @@ public class OnmsCategoryResource extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_XML)
     public Response addCategory(@PathParam("nodeCriteria") String nodeCriteria, OnmsCategory category) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -161,7 +161,7 @@ public class OnmsCategoryResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>updateCategory</p>
      *
@@ -175,7 +175,7 @@ public class OnmsCategoryResource extends OnmsRestService {
     @Path("{categoryName}")
     public Response updateCategory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName, MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -201,7 +201,7 @@ public class OnmsCategoryResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>deleteCaegory</p>
      *
@@ -213,7 +213,7 @@ public class OnmsCategoryResource extends OnmsRestService {
     @Path("{categoryName}")
     public Response deleteCaegory(@PathParam("nodeCriteria") String nodeCriteria, @PathParam("categoryName") String categoryName) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -231,7 +231,7 @@ public class OnmsCategoryResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     private OnmsCategory getCategory(OnmsNode node, String categoryName) {
         for (OnmsCategory category : node.getCategories()) {
             if (category.getName().equals(categoryName)) {
@@ -240,5 +240,5 @@ public class OnmsCategoryResource extends OnmsRestService {
         }
         return null;
     }
-    
+
 }

@@ -63,15 +63,15 @@ import java.io.InputStream;
  */
 /*
  * TODO Design questions
- * 
+ *
  * 1) Several nodes can share the exact location, so we should determinate the points and associate a
  *    list of nodes to it.
  * 2) Regions are polygons that contains a list of points (nodes or group of nodes).
- *  
+ *
  */
 /*
  * Display Strategies
- * 
+ *
  * 1. Create the NodePoints object
  *    (which is essentially Map<PointVector,List<OnmsNode>>, or Map<PointVector,List<Integer>>).
  * 2. Create the NodeGroups objects
@@ -88,7 +88,7 @@ import java.io.InputStream;
         "http://cdn.leafletjs.com/leaflet-0.5.1/leaflet-src.js",
         "gwt/public/openlayers/OpenLayers.js",
         "gwt/public/markercluster/leaflet.markercluster-src.js"
-        
+
 })
 @StyleSheet({
         "gwt/public/markercluster/MarkerCluster.css",

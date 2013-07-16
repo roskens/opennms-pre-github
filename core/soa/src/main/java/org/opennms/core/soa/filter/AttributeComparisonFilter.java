@@ -36,13 +36,13 @@ import java.util.Map;
  * @author brozow
  */
 public abstract class AttributeComparisonFilter extends AbstractFilter {
-    
+
     private String m_attribute;
-    
+
     protected AttributeComparisonFilter(String attribute) {
         m_attribute = attribute;
     }
-    
+
     protected String getAttribute() {
         return m_attribute;
     }

@@ -67,9 +67,9 @@ import org.xml.sax.XMLReader;
 import org.xml.sax.helpers.XMLReaderFactory;
 
 public abstract class JaxbUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JaxbUtils.class);
-	
+
     private static final class LoggingValidationEventHandler implements ValidationEventHandler {
 
 		private LoggingValidationEventHandler() {
@@ -171,7 +171,7 @@ public abstract class JaxbUtils {
 
     public static <T> T unmarshal(final Class<T> clazz, final InputSource inputSource, final JAXBContext jaxbContext, final boolean validate) {
 		final Unmarshaller um = getUnmarshallerFor(clazz, jaxbContext, validate);
-		
+
 		LOG.trace("unmarshalling class {} from input source {} with unmarshaller {}", clazz.getSimpleName(), inputSource, um);
 		try {
 			final XMLFilter filter = getXMLFilterForClass(clazz);
@@ -237,7 +237,7 @@ public abstract class JaxbUtils {
 			final Schema schema = getValidatorFor(clazz);
 			marshaller.setSchema(schema);
 			if (jaxbContext == null) marshallers.put(clazz, marshaller);
-			
+
 			return marshaller;
 		} catch (JAXBException e) {
 			throw EXCEPTION_TRANSLATOR.translate("creating XML marshaller", e);
@@ -268,7 +268,7 @@ public abstract class JaxbUtils {
 				unmarshaller = unmarshallers.get(clazz);
 			}
 		}
-		
+
 		if (unmarshaller == null) {
             try {
                 final JAXBContext context;
@@ -320,7 +320,7 @@ public abstract class JaxbUtils {
 		if (schemaFileAnnotation == null || schemaFileAnnotation.value() == null) {
 			return null;
 		}
-		
+
 		final String schemaFileName = schemaFileAnnotation.value();
 		InputStream schemaInputStream = null;
 		try {

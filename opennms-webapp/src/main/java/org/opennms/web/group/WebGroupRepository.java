@@ -36,7 +36,7 @@ package org.opennms.web.group;
  * @since 1.8.1
  */
 public interface WebGroupRepository {
-    
+
     /**
      * <p>groupExists</p>
      *
@@ -44,7 +44,7 @@ public interface WebGroupRepository {
      * @return a boolean.
      */
     boolean groupExists(String groupName);
-    
+
     /**
      * <p>getGroup</p>
      *
@@ -52,7 +52,7 @@ public interface WebGroupRepository {
      * @return a {@link org.opennms.web.group.WebGroup} object.
      */
     WebGroup getGroup(String groupName);
-    
+
     /**
      * <p>saveGroup</p>
      *

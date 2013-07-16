@@ -53,19 +53,19 @@ public class LinkableNode {
     private final int m_nodeId;
 
     private final InetAddress m_snmpprimaryaddr;
-	
+
     private final String m_sysoid;
-    
+
     private String m_cdpDeviceId;
-    
+
 	private String m_lldpSysname;
-    
+
     private String m_lldpChassisId;
-    
+
     private Integer m_lldpChassisIdSubtype;
-    
+
     private InetAddress m_ospfRouterId;
-    
+
     public String getCdpDeviceId() {
 		return m_cdpDeviceId;
 	}
@@ -106,11 +106,11 @@ public class LinkableNode {
     private List<RouterInterface> m_routeinterfaces = new ArrayList<RouterInterface>();
 
     private List<OspfNbrInterface> m_ospfinterfaces = new ArrayList<OspfNbrInterface>();
-        
+
     private boolean m_hasrouteinterfaces = false;
-	
+
     private boolean m_isBridgeNode = false;
-	
+
 	/**
 	 * the list of bridge port that are backbone bridge ports ou that are
 	 * link between switches
@@ -171,11 +171,11 @@ public class LinkableNode {
 	    public List<LldpRemInterface> getLldpRemInterfaces() {
 	        return m_lldpreminterfaces;
 	    }
-	    
+
 	    public void setLldpRemInterfaces(List<LldpRemInterface> lldpreminterfaces) {
 	        m_lldpreminterfaces = lldpreminterfaces;
 	    }
-	    
+
 	    public List<OspfNbrInterface> getOspfinterfaces() {
 	        return m_ospfinterfaces;
 	    }
@@ -183,7 +183,7 @@ public class LinkableNode {
 	    public void setOspfinterfaces(List<OspfNbrInterface> ospfinterfaces) {
 	        m_ospfinterfaces = ospfinterfaces;
 	    }
-	    
+
 	/**
 	 * <p>getCdpInterfaces</p>
 	 *
@@ -202,7 +202,7 @@ public class LinkableNode {
 		m_hascdpinterfaces = true;
 		m_cdpinterfaces = cdpinterfaces;
 	}
-	
+
 	/**
 	 * <p>hasCdpInterfaces</p>
 	 *
@@ -230,7 +230,7 @@ public class LinkableNode {
 		m_hasrouteinterfaces = true;
 		m_routeinterfaces = routeinterfaces;
 	}
-	
+
 	/**
 	 * <p>hasRouteInterfaces</p>
 	 *
@@ -342,7 +342,7 @@ public class LinkableNode {
 	public boolean hasMacAddresses() {
 		return !m_portMacs.isEmpty();
 	}
-	
+
 	public Integer getVlan(final String macAddress) {
 		return m_macsVlan.get(macAddress);
 	}
@@ -432,14 +432,14 @@ public class LinkableNode {
 	public void setStpInterfaces(Map<Integer,List<OnmsStpInterface>> stpInterfaces) {
 		m_bridgeStpInterfaces = stpInterfaces;
 	}
-	
+
 	/**
 	 * <p>addStpInterface</p>
 	 *
 	 * @param stpIface a {@link org.opennms.netmgt.model.OnmsStpInterface} object.
 	 */
 	public void addStpInterface(final OnmsStpInterface stpIface) {
-		final Integer vlanindex = 
+		final Integer vlanindex =
 				stpIface.getVlan() == null ? 0 : stpIface.getVlan();
 		List<OnmsStpInterface> stpifs = new ArrayList<OnmsStpInterface>();
 		if (m_bridgeStpInterfaces.containsKey(vlanindex)) {

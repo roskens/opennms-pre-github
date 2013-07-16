@@ -69,7 +69,7 @@ public class LocationMonitorIpInterface {
     public OnmsLocationMonitor getLocationMonitor() {
         return m_locationMonitor;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringCreator(this)

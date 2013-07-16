@@ -65,7 +65,7 @@ public class UniqueAttributeNameValidator extends AbstractValidator<String> {
 			//use name from textFieldItemMap if an entry for itemId exists, otherwise use name from provider
 			nameMultiSet.add( textFieldItemMap.get(itemId) == null ? name : (String)textFieldItemMap.get(itemId).getValue());
 		}
-		return nameMultiSet.count(alias) <= 1; //is only valid if name exists 0 or 1 times 
+		return nameMultiSet.count(alias) <= 1; //is only valid if name exists 0 or 1 times
 	}
 
 	@Override

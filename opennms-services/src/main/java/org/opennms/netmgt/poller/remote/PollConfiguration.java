@@ -41,11 +41,11 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class PollConfiguration {
-	
+
 	private OnmsMonitoredService m_monitoredService;
 	private OnmsPollModel m_pollModel;
 	private Map<String,Object> m_monitorConfiguration;
-	
+
 	/**
 	 * <p>Constructor for PollConfiguration.</p>
 	 *
@@ -77,7 +77,7 @@ public class PollConfiguration {
 	public void setMonitoredService(OnmsMonitoredService monitoredService) {
 		m_monitoredService = monitoredService;
 	}
-	
+
 	/**
 	 * <p>getMonitorConfiguration</p>
 	 *

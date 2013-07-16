@@ -47,7 +47,7 @@ import org.springframework.util.Assert;
 public class EventIpcBroadcastProcessor implements EventProcessor, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(EventIpcBroadcastProcessor.class);
     private EventIpcBroadcaster m_eventIpcBroadcaster;
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *

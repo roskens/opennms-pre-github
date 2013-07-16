@@ -62,7 +62,7 @@ import org.springframework.beans.PropertyAccessorFactory;
  * @version $Id: $
  */
 public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperation implements SaveOrUpdateOperation {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractSaveOrUpdateOperation.class);
 
 
@@ -74,7 +74,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     private CategoryDao m_categoryDao;
     private ThreadLocal<HashMap<String, OnmsServiceType>> m_types;
     private ThreadLocal<HashMap<String, OnmsCategory>> m_categories;
-    
+
     private IfSnmpCollector m_collector;
 
     /**
@@ -115,7 +115,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 	/** {@inheritDoc} */
         @Override
 	public void foundInterface(final String ipAddr, final Object descr, final InterfaceSnmpPrimaryType snmpPrimary, final boolean managed, final int status) {
-		
+
 		if ("".equals(ipAddr)) {
 			LOG.error("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel());
 			// create a bogus OnmsIpInterface and set it to current to services we run across get ignored as well
@@ -127,7 +127,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
         m_currentInterface.setIsSnmpPrimary(PrimaryType.get(snmpPrimary.toString()));
         //m_currentInterface.setIpStatus(status == 3 ? new Integer(3) : new Integer(1));
-        
+
         if (InterfaceSnmpPrimaryType.P.equals(snmpPrimary)) {
         	final InetAddress addr = InetAddressUtils.addr(ipAddr);
         	if (addr == null) {
@@ -135,12 +135,12 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         	}
     		m_collector = new IfSnmpCollector(addr);
         }
-        
+
         //FIXME: verify this doesn't conflict with constructor.  The constructor already adds this
         //interface to the node.
         m_node.addIpInterface(m_currentInterface);
     }
-	
+
 	/**
 	 * <p>gatherAdditionalData</p>
 	 */
@@ -148,7 +148,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 	public void gatherAdditionalData() {
     	updateSnmpData();
 	}
-	
+
     /**
      * <p>persist</p>
      *
@@ -173,36 +173,36 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 		if (m_collector != null) {
             m_collector.run();
         }
-		
+
 		updateSnmpDataForNode();
-		
+
 		updateSnmpDataForSnmpInterfaces();
-		
+
 		for (OnmsIpInterface ipIf : m_node.getIpInterfaces()) {
             resolveIpHostname(ipIf);
             updateSnmpDataForInterface(ipIf);
 		}
 	}
-	
+
 	private void updateSnmpDataForSnmpInterfaces() {
 	    if (m_collector != null && m_collector.hasIfTable()) {
 
             for(IfTableEntry entry : m_collector.getIfTable()) {
-	            
+
 	            Integer ifIndex = entry.getIfIndex();
-	            
+
 	            if (ifIndex == null) continue;
-	            
+
                 LOG.debug("Updating SNMP Interface with ifIndex {}", ifIndex);
-                
+
 	            // first look to see if an snmpIf was created already
 	            OnmsSnmpInterface snmpIf = m_node.getSnmpInterfaceWithIfIndex(ifIndex);
-	            
+
 	            if (snmpIf == null) {
 	                // if not then create one
                     snmpIf = new OnmsSnmpInterface(m_node, ifIndex);
 	            }
-	            
+
 	            snmpIf.setIfAlias(m_collector.getIfAlias(ifIndex));
 	            snmpIf.setIfName(m_collector.getIfName(ifIndex));
 	            snmpIf.setIfType(getIfType(ifIndex));
@@ -211,7 +211,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 	            snmpIf.setIfDescr(m_collector.getIfDescr(ifIndex));
 	            snmpIf.setIfSpeed(m_collector.getInterfaceSpeed(ifIndex));
 	            snmpIf.setPhysAddr(m_collector.getPhysAddr(ifIndex));
-	            
+
 	        }
 	    }
 	}
@@ -224,7 +224,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
             m_node.setSysObjectId(m_collector.getSystemGroup().getSysObjectID());
         }
 	}
-	
+
 	/**
 	 * <p>isSnmpDataForNodeUpToDate</p>
 	 *
@@ -233,7 +233,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 	protected boolean isSnmpDataForNodeUpToDate() {
 		return m_collector != null && m_collector.hasSystemGroup();
 	}
-	
+
 	/**
 	 * <p>isSnmpDataForInterfacesUpToDate</p>
 	 *
@@ -260,7 +260,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
         // first look to see if an snmpIf was created already
         OnmsSnmpInterface snmpIf = m_node.getSnmpInterfaceWithIfIndex(ifIndex);
-        
+
         if (snmpIf == null) {
             // if not then create one
             snmpIf = new OnmsSnmpInterface(m_node, ifIndex);
@@ -273,7 +273,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
             snmpIf.setIfSpeed(m_collector.getInterfaceSpeed(ifIndex));
             snmpIf.setPhysAddr(m_collector.getPhysAddr(ifIndex));
         }
-        
+
         snmpIf.setCollectionEnabled(true);
 
         ipIf.setSnmpInterface(snmpIf);
@@ -324,7 +324,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
         OnmsMonitoredService service = new OnmsMonitoredService(m_currentInterface, svcType);
         service.setStatus("A");
         m_currentInterface.getMonitoredServices().add(service);
-    
+
     }
 
     /** {@inheritDoc} */
@@ -344,25 +344,25 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
             LOG.warn("Could not set property on asset: {}", name, e);
         }
     }
-    
+
     private OnmsServiceType getServiceType(String serviceName) {
         preloadExistingTypes();
         OnmsServiceType type = getTypes().get(serviceName);
         if (type == null) {
             type = m_svcTypeDao.findByName(serviceName);
-            
+
             if (type == null) {
                 type = new OnmsServiceType(serviceName);
                 m_svcTypeDao.save(type);
             }
-            
+
             getTypes().put(serviceName, type);
         }
         return type;
     }
-    
+
     private void preloadExistingTypes() {
-        
+
         if (getTypes() == null) {
             setTypes(new HashMap<String, OnmsServiceType>());
             for (OnmsServiceType svcType : m_svcTypeDao.findAll()) {
@@ -370,7 +370,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
             }
         }
     }
-    
+
     private void preloadExistingCategories() {
         if (getCategories() == null) {
             setCategories(new HashMap<String, OnmsCategory>());
@@ -388,7 +388,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     protected OnmsNode getNode() {
         return m_node;
     }
-    
+
     /**
      * <p>getNodeDao</p>
      *
@@ -397,7 +397,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     protected NodeDao getNodeDao() {
         return m_nodeDao;
     }
-    
+
     /**
      * <p>getDistPollerDao</p>
      *
@@ -409,9 +409,9 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
 
     private OnmsCategory getCategory(String name) {
         preloadExistingCategories();
-        
+
         OnmsCategory category = getCategories().get(name);
-        if (category == null) {    
+        if (category == null) {
             category = m_categoryDao.findByName(name);
             if (category == null) {
                 category = new OnmsCategory(name);
@@ -498,7 +498,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     public void setDistPollerDao(DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
-    
+
     /**
      * <p>setTypeCache</p>
      *
@@ -507,7 +507,7 @@ public abstract class AbstractSaveOrUpdateOperation extends AbstractImportOperat
     public void setTypeCache(ThreadLocal<HashMap<String, OnmsServiceType>> typeCache) {
         m_types = typeCache;
     }
-    
+
     /**
      * <p>setCategoryCache</p>
      *

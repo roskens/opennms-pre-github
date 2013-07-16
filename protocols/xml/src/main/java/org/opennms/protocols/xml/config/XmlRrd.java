@@ -43,7 +43,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlRrd.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="rrd")

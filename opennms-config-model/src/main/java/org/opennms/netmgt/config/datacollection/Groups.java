@@ -74,8 +74,8 @@ public class Groups implements Serializable {
 
 
     /**
-     * 
-     * 
+     *
+     *
      * @param group
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -85,8 +85,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param group
      * @throws IndexOutOfBoundsException if the index
@@ -98,7 +98,7 @@ public class Groups implements Serializable {
 
     /**
      * Method enumerateGroup.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -108,7 +108,7 @@ public class Groups implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -116,13 +116,13 @@ public class Groups implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Groups) {
-        
+
             final Groups temp = (Groups)obj;
             if (m_groups != null) {
                 if (temp.m_groups == null) return false;
-                else if (!(m_groups.equals(temp.m_groups))) 
+                else if (!(m_groups.equals(temp.m_groups)))
                     return false;
             }
             else if (temp.m_groups != null)
@@ -134,7 +134,7 @@ public class Groups implements Serializable {
 
     /**
      * Method getGroup.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -155,7 +155,7 @@ public class Groups implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="group")
@@ -167,7 +167,7 @@ public class Groups implements Serializable {
      * Method getGroupCollection.Returns a reference to
      * '_groupList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Group> getGroupCollection() {
@@ -176,7 +176,7 @@ public class Groups implements Serializable {
 
     /**
      * Method getGroupCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getGroupCount() {
@@ -188,23 +188,23 @@ public class Groups implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_groups != null) {
            result = 37 * result + m_groups.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -219,7 +219,7 @@ public class Groups implements Serializable {
 
     /**
      * Method iterateGroup.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -228,8 +228,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -242,8 +242,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -263,7 +263,7 @@ public class Groups implements Serializable {
 
     /**
      * Method removeGroup.
-     * 
+     *
      * @param group
      * @return true if the object was removed from the collection.
      */
@@ -273,7 +273,7 @@ public class Groups implements Serializable {
 
     /**
      * Method removeGroupAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -282,8 +282,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param group
      * @throws IndexOutOfBoundsException if the index
@@ -297,8 +297,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param groups
      */
     public void setGroup(final Group[] groups) {
@@ -311,7 +311,7 @@ public class Groups implements Serializable {
     /**
      * Sets the value of '_groupList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param groups the Vector to copy.
      */
     public void setGroup(final List<Group> groups) {
@@ -324,7 +324,7 @@ public class Groups implements Serializable {
      * Sets the value of '_groupList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param groups the Vector to set.
      */
     public void setGroupCollection(final List<Group> groups) {
@@ -333,7 +333,7 @@ public class Groups implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -348,8 +348,8 @@ public class Groups implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

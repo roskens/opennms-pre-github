@@ -121,7 +121,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
         assertState();
         m_delegate.removeEventListener(listener, ueis);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void send(Event event) throws EventProxyException {
@@ -158,7 +158,7 @@ public class EventIpcManagerProxy implements EventIpcManager {
         assertState();
         m_delegate.sendNow(eventLog);
     }
-    
+
     private void assertState() {
         Assert.state(m_delegate != null, "property delegate not set; has the event daemon successfully started?");
     }

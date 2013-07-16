@@ -47,7 +47,7 @@ public class PolicyWrapper extends PluginConfig {
     public PolicyWrapper() {
         super();
     }
-    
+
     /**
      * <p>Constructor for PolicyWrapper.</p>
      *

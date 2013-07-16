@@ -61,13 +61,13 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 1.8.1
  */
 public class DaoWebOutageRepository implements WebOutageRepository, InitializingBean {
-    
+
     @Autowired
     private OutageDao m_outageDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -75,21 +75,21 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
 
     /*
      * NOTE: Criteria building for Outages must included the following aliases"
-     * 
+     *
      * monitoredService as monitoredService
      * monitoredService.ipInterface as ipInterface
      * monitoredService.ipInterface.node as node
      * monitoredService.serviceType as serviceType
-     * 
+     *
      */
-    
+
     private OnmsCriteria getOnmsCriteria(final OutageCriteria outageCriteria) {
         final OnmsCriteria criteria = new OnmsCriteria(OnmsOutage.class);
         criteria.createAlias("monitoredService", "monitoredService");
         criteria.createAlias("monitoredService.ipInterface", "ipInterface");
         criteria.createAlias("monitoredService.ipInterface.node", "node");
         criteria.createAlias("monitoredService.serviceType", "serviceType");
-        
+
         outageCriteria.visit(new OutageCriteriaVisitor<RuntimeException>(){
 
             @Override
@@ -108,9 +108,9 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
 
             @Override
             public void visitGroupBy() throws RuntimeException {
-                
+
             }
-            
+
             @Override
             public void visitLimit(int limit, int offset) throws RuntimeException {
                 criteria.setMaxResults(limit);
@@ -162,20 +162,20 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
             }
 
         });
-        
+
         return criteria;
     }
-    
+
     private Outage mapOnmsOutageToOutage(OnmsOutage onmsOutage) {
         if(onmsOutage != null){
-            Outage outage = new Outage();    
+            Outage outage = new Outage();
             final String outageAddress = str(onmsOutage.getIpAddress());
 
             outage.outageId = onmsOutage.getId();
             outage.ipAddress = outageAddress;
             outage.hostname = outageAddress;
             outage.lostServiceEventId = onmsOutage.getServiceLostEvent() != null ? onmsOutage.getServiceLostEvent().getId() : 0;
-            //outage.lostServiceNotificationAcknowledgedBy = 
+            //outage.lostServiceNotificationAcknowledgedBy =
             outage.lostServiceTime = onmsOutage.getIfLostService();
             outage.nodeId = onmsOutage.getNodeId();
             outage.nodeLabel = m_nodeDao.get(onmsOutage.getNodeId()).getLabel();
@@ -185,13 +185,13 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
             outage.serviceName = onmsOutage.getMonitoredService() != null ? onmsOutage.getMonitoredService().getServiceName() : "";
             outage.suppressedBy = onmsOutage.getSuppressedBy();
             outage.suppressTime = onmsOutage.getSuppressTime();
-            
+
             return outage;
         }else{
             return null;
         }
     }
-    
+
     private OutageSummary mapOnmsOutageToOutageSummary(final OnmsOutage onmsOutage) {
         return new OutageSummary(
             onmsOutage.getNodeId(),
@@ -229,16 +229,16 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     @Transactional
     @Override
     public OutageSummary[] getMatchingOutageSummaries(final OutageCriteria criteria) {
-        
-        
+
+
         List<OnmsOutage> onmsOutages = m_outageDao.findMatching(getOnmsCriteria(criteria));
-        
+
         return getOutageSummary(onmsOutages).toArray(new OutageSummary[0]);
     }
 
     private List<OutageSummary> getOutageSummary(List<OnmsOutage> onmsOutages) {
         List<OutageSummary> outages = new ArrayList<OutageSummary>();
-        
+
         if(onmsOutages.size() > 0){
             Iterator<OnmsOutage> outageIt = onmsOutages.iterator();
             while(outageIt.hasNext()){
@@ -247,7 +247,7 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
                     outages.add(mapOnmsOutageToOutageSummary(outage));
                 }
             }
-            
+
             return elimenateDuplicates(outages);
         }else {
             return outages;
@@ -277,11 +277,11 @@ public class DaoWebOutageRepository implements WebOutageRepository, Initializing
     public Outage[] getMatchingOutages(final OutageCriteria criteria) {
         final List<Outage> outages = new ArrayList<Outage>();
         final List<OnmsOutage> onmsOutages = m_outageDao.findMatching(getOnmsCriteria(criteria));
-        
+
         for (final OnmsOutage outage : onmsOutages) {
             outages.add(mapOnmsOutageToOutage(outage));
         }
-        
+
         return outages.toArray(new Outage[0]);
 
     }

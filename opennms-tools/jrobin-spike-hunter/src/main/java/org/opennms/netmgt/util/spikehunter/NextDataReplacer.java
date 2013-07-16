@@ -39,7 +39,7 @@ public class NextDataReplacer implements DataReplacer {
 		for (int i : indices) {
 			indexSet.add(i);
 		}
-		
+
 		for (int i : indices) {
 			int newIndex = walkForwards(i, indexSet, values.length - 1);
 			if (newIndex >= 0) {
@@ -50,7 +50,7 @@ public class NextDataReplacer implements DataReplacer {
 		}
 		return null;
 	}
-	
+
 	private int walkForwards(int badIndex, Set<Integer> invalidIndices, int maxIndex) {
 		for (int i = badIndex + 1; i <= maxIndex; i++) {
 			if (! invalidIndices.contains(i)) {

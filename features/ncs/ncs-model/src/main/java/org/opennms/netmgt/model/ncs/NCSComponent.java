@@ -67,22 +67,22 @@ import org.hibernate.annotations.MapKey;
 @XmlRootElement(name="component")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class NCSComponent {
-	
+
 	public enum DependencyRequirements { ANY, ALL };
-	
+
 	@XmlRootElement(name="node")
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@Embeddable
 	public static class NodeIdentification {
 		@XmlAttribute(name="foreignSource", required=true)
 		private String m_foreignSource;
-		
+
 	    @XmlAttribute(name="foreignId", required=true)
 	    private String m_foreignId;
-	    
+
 	    public NodeIdentification() {
 		}
-	    
+
 	    /**
 	     * @param nodeForeignSource
 	     * @param nodeForeignId
@@ -91,7 +91,7 @@ public class NCSComponent {
 	    	m_foreignSource = nodeForeignSource;
 	    	m_foreignId = nodeForeignId;
 	    }
-	    
+
 		@Column(name = "nodeForeignSource")
 		public String getForeignSource() {
 			return m_foreignSource;
@@ -145,41 +145,41 @@ public class NCSComponent {
             return true;
         }
 
-		
 
-	    	    
+
+
 	}
-	
+
     @XmlElement(name="id")
     private Long m_id;
 
     @XmlTransient
     private Integer m_version;
-    
+
     @XmlAttribute(name="foreignSource", required=true)
     private String m_foreignSource;
-    
+
     @XmlAttribute(name="foreignId", required=true)
     private String m_foreignId;
-    
+
     @XmlAttribute(name="type", required=true)
     private String m_type;
-    
+
     @XmlElement(name="name")
     private String m_name;
-    
+
     @XmlElement(name="node")
     private NodeIdentification m_nodeIdentification;
 
     @XmlElement(name="upEventUei")
     private String m_upEventUei;
-    
+
     @XmlElement(name="downEventUei")
     private String m_downEventUei;
-    
+
     @XmlElement(name="dependenciesRequired", required=false, defaultValue="ALL")
     private DependencyRequirements m_dependenciesRequired;
-    
+
     @XmlElement(name = "attributes", required = false)
     @XmlJavaTypeAdapter(JAXBMapAdapter.class)
     private Map<String, String> m_attributes = new LinkedHashMap<String, String>();
@@ -189,7 +189,7 @@ public class NCSComponent {
 
     @XmlTransient
 	private Set<NCSComponent> m_parents = new LinkedHashSet<NCSComponent>();
-    
+
     /**
      * @param type
      * @param foreignSource
@@ -201,7 +201,7 @@ public class NCSComponent {
     	m_foreignSource = foreignSource;
     	m_foreignId = foreignId;
     }
-    
+
     public NCSComponent() {
     }
 
@@ -249,11 +249,11 @@ public class NCSComponent {
 	public void setType(String type) {
 		m_type = type;
 	}
-	
+
 	public NodeIdentification getNodeIdentification() {
 		return m_nodeIdentification;
 	}
-	
+
 	public void setNodeIdentification(NodeIdentification nodeIdentification) {
 		m_nodeIdentification = nodeIdentification;
 	}
@@ -265,23 +265,23 @@ public class NCSComponent {
 	public void setName(String name) {
 		m_name = name;
 	}
-	
+
 	public String getUpEventUei() {
 		return m_upEventUei;
 	}
-	
+
 	public void setUpEventUei(String upEventUei) {
 		m_upEventUei = upEventUei;
 	}
-	
+
 	public String getDownEventUei() {
 		return m_downEventUei;
 	}
-	
+
 	public void setDownEventUei(String downEventUei) {
 		m_downEventUei = downEventUei;
 	}
-	
+
     @Enumerated(EnumType.STRING)
     @Column(name = "depsRequired")
 	public DependencyRequirements getDependenciesRequired() {
@@ -311,15 +311,15 @@ public class NCSComponent {
 	public void setSubcomponents(Set<NCSComponent> subComponents) {
 		m_subcomponents = subComponents;
 	}
-	
+
 	public void addSubcomponent(NCSComponent subComponent) {
 		getSubcomponents().add(subComponent);
 	}
-	
+
 	public void removeSubcomponent(NCSComponent subComponent) {
 		getSubcomponents().remove(subComponent);
 	}
-	
+
 	/**
 	 * @param foreignSource
 	 * @param foreignId
@@ -332,7 +332,7 @@ public class NCSComponent {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * @param foreignSource
 	 * @param foreignId
@@ -348,28 +348,28 @@ public class NCSComponent {
 	public Map<String, String> getAttributes() {
 		return m_attributes;
 	}
-    
+
     public void setAttributes(Map<String, String> attributes) {
     	m_attributes = attributes;
     }
-	
+
 	public void setAttribute(String key, String value) {
 		m_attributes.put(key, value);
 	}
-	
+
 	public String removeAttribute(String key) {
 		return m_attributes.remove(key);
 	}
-	
+
 	public void visit(NCSComponentVisitor visitor) {
 	    // visit this component
 	    visitor.visitComponent(this);
-	    
+
 	    // visit subcomponents
 	    for(NCSComponent subcomponent : getSubcomponents()) {
 	        subcomponent.visit(visitor);
 	    }
-	    
+
 	    // complete visiting this component
 	    visitor.completeComponent(this);
 	}

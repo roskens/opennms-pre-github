@@ -47,7 +47,7 @@ public abstract class TestPdu {
         return new GetPdu();
     }
 
-    
+
     public static NextPdu getNext() {
         return new NextPdu();
     }
@@ -55,7 +55,7 @@ public abstract class TestPdu {
     public static BulkPdu getBulk() {
         return new BulkPdu();
     }
-    
+
     public TestVarBindList getVarBinds() {
         return m_varBindList;
     }

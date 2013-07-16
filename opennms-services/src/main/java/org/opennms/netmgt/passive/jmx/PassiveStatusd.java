@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStatusdMBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PassiveStatusd.class);
     /**
      * <p>Constructor for PassiveStatusd.</p>
@@ -82,7 +82,7 @@ public class PassiveStatusd extends AbstractServiceDaemon implements PassiveStat
             LOG.error("PropertyVetoException: {}", e.getMessage(), e);
         }
         // XXX We don't throw an exception?
-        
+
         EventIpcManagerFactory.init();
         EventIpcManager mgr = EventIpcManagerFactory.getIpcManager();
 

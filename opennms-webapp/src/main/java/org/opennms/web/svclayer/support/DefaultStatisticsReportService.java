@@ -53,7 +53,7 @@ import org.springframework.validation.BindException;
  * @since 1.8.1
  */
 public class DefaultStatisticsReportService implements StatisticsReportService, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultStatisticsReportService.class);
 
     private StatisticsReportDao m_statisticsReportDao;
@@ -74,20 +74,20 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
     public StatisticsReportModel getReport(StatisticsReportCommand command, BindException errors) {
         StatisticsReportModel model = new StatisticsReportModel();
         model.setErrors(errors);
-        
+
         if (errors.hasErrors()) {
             return model;
         }
-        
+
         Assert.notNull(command.getId(), "id property on command object cannot be null");
-        
+
         StatisticsReport report = m_statisticsReportDao.load(command.getId());
         model.setReport(report);
-        
+
         m_statisticsReportDao.initialize(report);
         final Set<StatisticsReportData> data = report.getData();
         m_statisticsReportDao.initialize(data);
-        
+
         for (StatisticsReportData reportDatum : data) {
             Datum d = new Datum();
             d.setValue(reportDatum.getValue());
@@ -99,7 +99,7 @@ public class DefaultStatisticsReportService implements StatisticsReportService, 
             }
             model.addData(d);
         }
-        
+
         return model;
     }
 

@@ -50,9 +50,9 @@ import org.slf4j.LoggerFactory;
  * @author <a mailto:seth@opennms.org>Seth Leger</a>
  */
 public final class EmptyKeyRelaxedTrustSSLContext extends SSLContextSpi {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EmptyKeyRelaxedTrustSSLContext.class);
-	
+
     public static final String ALGORITHM = "EmptyKeyRelaxedTrust";
 
     private final SSLContext m_delegate;

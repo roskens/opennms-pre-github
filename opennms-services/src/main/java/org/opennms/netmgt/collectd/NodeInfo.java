@@ -62,7 +62,7 @@ public final class NodeInfo extends SnmpCollectionResource {
         m_agent = agent;
         m_nodeId = agent.getNodeId();
     }
-    
+
      /**
       * <p>getType</p>
       *
@@ -98,7 +98,7 @@ public final class NodeInfo extends SnmpCollectionResource {
     public void setEntry(SNMPCollectorEntry nodeEntry) {
         m_entry = nodeEntry;
     }
-    
+
     /**
      * <p>getEntry</p>
      *
@@ -113,7 +113,7 @@ public final class NodeInfo extends SnmpCollectionResource {
     public boolean shouldPersist(ServiceParameters params) {
         return true;
     }
-    
+
     /**
      * <p>getResourceTypeName</p>
      *
@@ -123,8 +123,8 @@ public final class NodeInfo extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return "node"; //This is a nodeInfo; must be a node type resource
     }
-    
-    
+
+
     /**
      * <p>getInstance</p>
      *

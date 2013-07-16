@@ -45,21 +45,21 @@ public class CreateIndexWithWhereChange extends liquibase.change.core.CreateInde
 	public String getWhere() {
 		return m_where;
 	}
-	
+
 	public void setWhere(final String where) {
 		m_where = where;
 	}
-	
+
 	@Override
 	public SqlStatement[] generateStatements(final Database database) {
 		final SqlStatement[] superStatements = super.generateStatements(database);
 		if (m_where == null) return superStatements;
-		
+
 		if (superStatements.length != 1) {
 			LogFactory.getLogger().warning("expected 1 create index statement, but got " + superStatements.length);
 			return superStatements;
 		}
-		
+
 	    return new SqlStatement[]{
 	    		new CreateIndexWithWhereStatement((CreateIndexStatement)superStatements[0], m_where)
 	    };

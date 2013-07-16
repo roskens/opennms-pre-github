@@ -71,10 +71,10 @@ public class ViewsDisplayFactory {
     /**
      * Empty private constructor so this class cannot be instantiated outside
      * itself.
-     * @throws IOException 
-     * @throws FileNotFoundException 
-     * @throws ValidationException 
-     * @throws MarshalException 
+     * @throws IOException
+     * @throws FileNotFoundException
+     * @throws ValidationException
+     * @throws MarshalException
      */
     private ViewsDisplayFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         reload();
@@ -143,22 +143,22 @@ public class ViewsDisplayFactory {
             }
         }
     }
-    
+
     private void unmarshal(InputStream stream) throws MarshalException, ValidationException {
         m_viewInfo = CastorUtils.unmarshal(Viewinfo.class, stream);
         updateViewsMap();
     }
-    
+
     private void updateViewsMap() {
         Map<String, View> viewsMap = new HashMap<String,View>();
 
         for (View view : m_viewInfo.getViewCollection()) {
             viewsMap.put(view.getViewName(), view);
         }
-        
+
         m_viewsMap = viewsMap;
     }
-    
+
     private InputStream getStream() throws IOException {
         File viewsDisplayFile = getViewsDisplayFile();
         m_lastModified = viewsDisplayFile.lastModified();
@@ -208,7 +208,7 @@ public class ViewsDisplayFactory {
 
         return view;
     }
-    
+
     /**
      * <p>getDefaultView</p>
      *

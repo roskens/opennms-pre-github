@@ -53,10 +53,10 @@ public class EndPointType {
     private static final Logger LOG = LoggerFactory.getLogger(EndPointType.class);
     @XmlAttribute(name="name")
     private String m_name;
-    
+
     @XmlElement(name="sysoid-mask")
     private String m_sysOid;
-    
+
     @XmlElementRef
     private EndPointValidationExpressionImpl m_validator;
 
@@ -85,7 +85,7 @@ public class EndPointType {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>setName</p>
      *

@@ -195,7 +195,7 @@ public class AvailabilityReport extends Object {
         m_report.setCategories(categories);
         try {
             AvailabilityData reportSource = new AvailabilityData();
-            
+
             reportSource.fillReport(categoryName, m_report, reportFormat,
                                  monthFormat, startMonth,
                                  startDate, startYear);
@@ -259,7 +259,7 @@ public class AvailabilityReport extends Object {
                 }
                 LOG.info("leaving generatePDF");
             }
-            
+
         });
 
     }
@@ -270,7 +270,7 @@ public class AvailabilityReport extends Object {
      * @param args an array of {@link java.lang.String} objects.
      */
     public static void main(String args[]) {
-        
+
 
         Logging.putPrefix(LOG4J_CATEGORY);
         LOG.debug("main() called with args: {}", StringUtils.arrayToDelimitedString(args, ", "));
@@ -297,7 +297,7 @@ public class AvailabilityReport extends Object {
         if (startMonth == null || startDate == null || startYear == null) {
             throw new NumberFormatException("missing date properties");
         }
-        
+
         try {
             generateReport(logourl, categoryName, format, monthFormat, startMonth, startDate, startYear);
         } catch (final Exception e) {
@@ -324,7 +324,7 @@ public class AvailabilityReport extends Object {
 
         // This report will be invoked by the mailer script.
         // Only SVG formatted reports are needed.
-        // 
+        //
         SimpleDateFormat fmt = new SimpleDateFormat("yyyyMMdd");
         String catFileName = categoryName.replace(' ', '-');
 

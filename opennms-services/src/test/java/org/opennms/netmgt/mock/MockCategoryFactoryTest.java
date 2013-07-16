@@ -41,12 +41,12 @@ public class MockCategoryFactoryTest extends TestCase {
 
 	protected MockCategoryFactory m_mockCatFactory;
 	protected CatFactory m_catFactory;
-	
+
 	private static final String CATLABEL = "Network Interfaces";
 	private static final String CATRULE = "(isICMP | isSNMP) & (ipaddr != \"0.0.0.0\")";
 	private static final String EFFECTIVE_RULE = "(ipaddr IPLIKE *.*.*.*) & ((isICMP | isSNMP) & (ipaddr != \"0.0.0.0\"))";
 	private static final String CATCOMMENT = "This is a very simple category";
-	private static final String MOCK_CATEGORY_CONFIG = 
+	private static final String MOCK_CATEGORY_CONFIG =
 		"<catinfo>" +
 	    " <header>" +
 	    "  <rev>1.3</rev>" +
@@ -72,7 +72,7 @@ public class MockCategoryFactoryTest extends TestCase {
 		"  </categories>" +
 		" </categorygroup>" +
 		"</catinfo>";
-	
+
         @Override
 	protected void setUp() throws Exception {
 		super.setUp();
@@ -86,10 +86,10 @@ public class MockCategoryFactoryTest extends TestCase {
 		super.tearDown();
 	}
 
-	
+
 
 	public void testGetCategory() {
-		
+
 		Category category = m_catFactory.getCategory(CATLABEL);
 		assertEquals(99,category.getNormal(),0);
 		assertEquals(97,category.getWarning(),0);
@@ -97,14 +97,14 @@ public class MockCategoryFactoryTest extends TestCase {
 		assertEquals(CATRULE,category.getRule());
 		assertEquals("ICMP",category.getService(0));
 		assertEquals("SNMP",category.getService(1));
-		
-		
+
+
 	}
 
 	public void testGetEffectiveRule() {
 		assertEquals(EFFECTIVE_RULE,m_catFactory.getEffectiveRule(CATLABEL));
 	}
 
-	
+
 
 }

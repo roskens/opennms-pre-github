@@ -39,8 +39,8 @@ import com.vaadin.ui.VerticalLayout;
 // TODO: I'm not sure if this is the best way to do that but it works
 /**
  * The Proxy Field Class.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class ProxyField<T> extends VerticalLayout implements Field<T> {
@@ -248,7 +248,7 @@ public class ProxyField<T> extends VerticalLayout implements Field<T> {
      */
     @Override
     // Because of {@link com.vaadin.data.Property.Viewer#setPropertyDataSource(com.vaadin.data.Property)} API
-    @SuppressWarnings("unchecked") 
+    @SuppressWarnings("unchecked")
     public void setPropertyDataSource(Property newDataSource) {
         getField().setPropertyDataSource(newDataSource);
     }

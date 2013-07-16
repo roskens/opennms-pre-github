@@ -73,15 +73,15 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("groups")
 @Transactional
 public class GroupRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(GroupRestService.class);
 
     @Autowired
     private GroupManager m_groupManager;
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
-    
+
     @Context
     ResourceContext m_context;
 
@@ -89,7 +89,7 @@ public class GroupRestService extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
     public OnmsGroupList getGroups() {
         readLock();
-        
+
         try {
             final OnmsGroupList list;
             list = m_groupManager.getOnmsGroupList();
@@ -112,7 +112,7 @@ public class GroupRestService extends OnmsRestService {
     @Path("{groupName}")
     public OnmsGroup getGroup(@PathParam("groupName") final String groupName) {
         readLock();
-        
+
         try {
             final OnmsGroup group = m_groupManager.getOnmsGroup(groupName);
             if (group != null) return group;
@@ -129,7 +129,7 @@ public class GroupRestService extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_XML)
     public Response addGroup(final OnmsGroup group) {
         writeLock();
-        
+
         try {
             LOG.debug("addGroup: Adding group {}", group);
             m_groupManager.save(group);
@@ -140,13 +140,13 @@ public class GroupRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{groupName}")
     public Response updateGroup(@PathParam("groupName") final String groupName, final MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             OnmsGroup group = null;
             try {
@@ -176,7 +176,7 @@ public class GroupRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     @DELETE
     @Path("{groupName}")
     public Response deleteGroup(@PathParam("groupName") final String groupName) {
@@ -229,7 +229,7 @@ public class GroupRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     protected OnmsGroup getOnmsGroup(final String groupName) {
         OnmsGroup group = null;
         try {

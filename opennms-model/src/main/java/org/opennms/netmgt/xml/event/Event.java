@@ -142,7 +142,7 @@ public class Event implements Serializable {
 	private InetAddress _interfaceAddress;
 
 	private transient String _interfaceString;
-	
+
 	/**
 	 * The snmp host of the trap
 	 */
@@ -289,8 +289,8 @@ public class Event implements Serializable {
 	// -----------/
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vAutoaction
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -301,8 +301,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vAutoaction
 	 * @throws IndexOutOfBoundsException
@@ -313,8 +313,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vForward
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -324,8 +324,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vForward
 	 * @throws IndexOutOfBoundsException
@@ -336,8 +336,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vLoggroup
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -347,8 +347,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vLoggroup
 	 * @throws IndexOutOfBoundsException
@@ -359,8 +359,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vOperaction
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -375,10 +375,10 @@ public class Event implements Serializable {
 	    }
 	    _parms.add(parm);
 	}
-	
+
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vOperaction
 	 * @throws IndexOutOfBoundsException
@@ -389,8 +389,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vScript
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -400,8 +400,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vScript
 	 * @throws IndexOutOfBoundsException
@@ -431,7 +431,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method enumerateAutoaction.
-	 * 
+	 *
 	 * @return an Enumeration over all possible elements of this collection
 	 */
 	public Enumeration<Autoaction> enumerateAutoaction() {
@@ -440,7 +440,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method enumerateForward.
-	 * 
+	 *
 	 * @return an Enumeration over all possible elements of this collection
 	 */
 	public Enumeration<Forward> enumerateForward() {
@@ -449,7 +449,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method enumerateLoggroup.
-	 * 
+	 *
 	 * @return an Enumeration over all possible elements of this collection
 	 */
 	public Enumeration<String> enumerateLoggroup() {
@@ -458,7 +458,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method enumerateOperaction.
-	 * 
+	 *
 	 * @return an Enumeration over all possible elements of this collection
 	 */
 	public Enumeration<Operaction> enumerateOperaction() {
@@ -467,7 +467,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method enumerateScript.
-	 * 
+	 *
 	 * @return an Enumeration over all possible elements of this collection
 	 */
 	public Enumeration<Script> enumerateScript() {
@@ -477,7 +477,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'alarmData'. The field 'alarmData' has the
 	 * following description: Data used to create an event.
-	 * 
+	 *
 	 * @return the value of field 'AlarmData'.
 	 */
 	public AlarmData getAlarmData() {
@@ -488,7 +488,7 @@ public class Event implements Serializable {
 	 * Returns the value of field 'autoacknowledge'. The field 'autoacknowledge'
 	 * has the following description: The autoacknowledge information for the
 	 * user
-	 * 
+	 *
 	 * @return the value of field 'Autoacknowledge'.
 	 */
 	public Autoacknowledge getAutoacknowledge() {
@@ -497,7 +497,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getAutoaction.
-	 * 
+	 *
 	 * @param index
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -520,7 +520,7 @@ public class Event implements Serializable {
 	 * thread, we pass a 0-length Array of the correct type into the API call.
 	 * This way we <i>know</i> that the Array returned is of exactly the correct
 	 * length.
-	 * 
+	 *
 	 * @return this collection as an Array
 	 */
 	public Autoaction[] getAutoaction() {
@@ -530,7 +530,7 @@ public class Event implements Serializable {
 	/**
 	 * Method getAutoactionCollection.Returns a reference to '_autoactionList'.
 	 * No type checking is performed on any modifications to the Vector.
-	 * 
+	 *
 	 * @return a reference to the Vector backing this class
 	 */
 	public List<Autoaction> getAutoactionCollection() {
@@ -539,7 +539,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getAutoactionCount.
-	 * 
+	 *
 	 * @return the size of this collection
 	 */
 	public int getAutoactionCount() {
@@ -549,7 +549,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'correlation'. The field 'correlation' has the
 	 * following description: The event correlation information
-	 * 
+	 *
 	 * @return the value of field 'Correlation'.
 	 */
 	public Correlation getCorrelation() {
@@ -559,7 +559,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'creationTime'. The field 'creationTime' has
 	 * the following description: from header
-	 * 
+	 *
 	 * @return the value of field 'CreationTime'.
 	 */
 	public String getCreationTime() {
@@ -569,7 +569,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'dbid'. The field 'dbid' has the following
 	 * description: The event database id
-	 * 
+	 *
 	 * @return the value of field 'Dbid'.
 	 */
 	public Integer getDbid() {
@@ -579,7 +579,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'descr'. The field 'descr' has the following
 	 * description: The event description
-	 * 
+	 *
 	 * @return the value of field 'Descr'.
 	 */
 	public String getDescr() {
@@ -588,7 +588,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Returns the value of field 'distPoller'.
-	 * 
+	 *
 	 * @return the value of field 'DistPoller'.
 	 */
 	public String getDistPoller() {
@@ -597,7 +597,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getForward.
-	 * 
+	 *
 	 * @param index
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -620,7 +620,7 @@ public class Event implements Serializable {
 	 * thread, we pass a 0-length Array of the correct type into the API call.
 	 * This way we <i>know</i> that the Array returned is of exactly the correct
 	 * length.
-	 * 
+	 *
 	 * @return this collection as an Array
 	 */
 	public Forward[] getForward() {
@@ -630,7 +630,7 @@ public class Event implements Serializable {
 	/**
 	 * Method getForwardCollection.Returns a reference to '_forwardList'. No
 	 * type checking is performed on any modifications to the Vector.
-	 * 
+	 *
 	 * @return a reference to the Vector backing this class
 	 */
 	public List<Forward> getForwardCollection() {
@@ -639,7 +639,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getForwardCount.
-	 * 
+	 *
 	 * @return the size of this collection
 	 */
 	public int getForwardCount() {
@@ -649,7 +649,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'host'. The field 'host' has the following
 	 * description: The host at which the event is generated
-	 * 
+	 *
 	 * @return the value of field 'Host'.
 	 */
 	public String getHost() {
@@ -659,7 +659,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'ifAlias'. The field 'ifAlias' has the
 	 * following description: The ifAlias to which this event is pertinent
-	 * 
+	 *
 	 * @return the value of field 'IfAlias'.
 	 */
 	public String getIfAlias() {
@@ -669,7 +669,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'ifIndex'. The field 'ifIndex' has the
 	 * following description: The ifIndex to which this event is pertinent
-	 * 
+	 *
 	 * @return the value of field 'IfIndex'.
 	 */
 	public Integer getIfIndex() {
@@ -679,7 +679,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'interface'. The field 'interface' has the
 	 * following description: The interface to which this event is pertinent
-	 * 
+	 *
 	 * @return the value of field 'Interface'.
 	 */
 	public String getInterface() {
@@ -697,7 +697,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getLoggroup.
-	 * 
+	 *
 	 * @param index
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -719,7 +719,7 @@ public class Event implements Serializable {
 	 * thread, we pass a 0-length Array of the correct type into the API call.
 	 * This way we <i>know</i> that the Array returned is of exactly the correct
 	 * length.
-	 * 
+	 *
 	 * @return this collection as an Array
 	 */
 	public String[] getLoggroup() {
@@ -729,7 +729,7 @@ public class Event implements Serializable {
 	/**
 	 * Method getLoggroupCollection.Returns a reference to '_loggroupList'. No
 	 * type checking is performed on any modifications to the Vector.
-	 * 
+	 *
 	 * @return a reference to the Vector backing this class
 	 */
 	public List<String> getLoggroupCollection() {
@@ -738,7 +738,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getLoggroupCount.
-	 * 
+	 *
 	 * @return the size of this collection
 	 */
 	public int getLoggroupCount() {
@@ -748,7 +748,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'logmsg'. The field 'logmsg' has the following
 	 * description: The event logmsg
-	 * 
+	 *
 	 * @return the value of field 'Logmsg'.
 	 */
 	public Logmsg getLogmsg() {
@@ -758,7 +758,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'mask'. The field 'mask' has the following
 	 * description: The event mask which helps to uniquely identify an event
-	 * 
+	 *
 	 * @return the value of field 'Mask'.
 	 */
 	public Mask getMask() {
@@ -768,7 +768,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'masterStation'. The field 'masterStation' has
 	 * the following description: from header
-	 * 
+	 *
 	 * @return the value of field 'MasterStation'.
 	 */
 	public String getMasterStation() {
@@ -779,7 +779,7 @@ public class Event implements Serializable {
 	 * Returns the value of field 'mouseovertext'. The field 'mouseovertext' has
 	 * the following description: The text to be displayed on a 'mouseOver'
 	 * event when this event is displayed in the event browser
-	 * 
+	 *
 	 * @return the value of field 'Mouseovertext'.
 	 */
 	public String getMouseovertext() {
@@ -789,7 +789,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'nodeid'. The field 'nodeid' has the following
 	 * description: The nodeid to which this event pertains
-	 * 
+	 *
 	 * @return the value of field 'Nodeid'.
 	 */
 	public Long getNodeid() {
@@ -798,7 +798,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getOperaction.
-	 * 
+	 *
 	 * @param index
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -821,7 +821,7 @@ public class Event implements Serializable {
 	 * thread, we pass a 0-length Array of the correct type into the API call.
 	 * This way we <i>know</i> that the Array returned is of exactly the correct
 	 * length.
-	 * 
+	 *
 	 * @return this collection as an Array
 	 */
 	public Operaction[] getOperaction() {
@@ -831,7 +831,7 @@ public class Event implements Serializable {
 	/**
 	 * Method getOperactionCollection.Returns a reference to '_operactionList'.
 	 * No type checking is performed on any modifications to the Vector.
-	 * 
+	 *
 	 * @return a reference to the Vector backing this class
 	 */
 	public List<Operaction> getOperactionCollection() {
@@ -840,7 +840,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getOperactionCount.
-	 * 
+	 *
 	 * @return the size of this collection
 	 */
 	public int getOperactionCount() {
@@ -850,7 +850,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'operinstruct'. The field 'operinstruct' has
 	 * the following description: The operator instruction for this event
-	 * 
+	 *
 	 * @return the value of field 'Operinstruct'.
 	 */
 	public String getOperinstruct() {
@@ -868,7 +868,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'pathoutage'. The field 'pathoutage' has the
 	 * following description: The path outage information
-	 * 
+	 *
 	 * @return the value of field 'Pathoutage'.
 	 */
 	public String getPathoutage() {
@@ -877,7 +877,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getScript.
-	 * 
+	 *
 	 * @param index
 	 * @throws IndexOutOfBoundsException
 	 *             if the index given is outside the bounds of the collection
@@ -899,7 +899,7 @@ public class Event implements Serializable {
 	 * thread, we pass a 0-length Array of the correct type into the API call.
 	 * This way we <i>know</i> that the Array returned is of exactly the correct
 	 * length.
-	 * 
+	 *
 	 * @return this collection as an Array
 	 */
 	public Script[] getScript() {
@@ -909,7 +909,7 @@ public class Event implements Serializable {
 	/**
 	 * Method getScriptCollection.Returns a reference to '_scriptList'. No type
 	 * checking is performed on any modifications to the Vector.
-	 * 
+	 *
 	 * @return a reference to the Vector backing this class
 	 */
 	public List<Script> getScriptCollection() {
@@ -918,7 +918,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method getScriptCount.
-	 * 
+	 *
 	 * @return the size of this collection
 	 */
 	public int getScriptCount() {
@@ -928,7 +928,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'service'. The field 'service' has the
 	 * following description: The service to which this event is pertinent
-	 * 
+	 *
 	 * @return the value of field 'Service'.
 	 */
 	public String getService() {
@@ -938,7 +938,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'severity'. The field 'severity' has the
 	 * following description: The event severity
-	 * 
+	 *
 	 * @return the value of field 'Severity'.
 	 */
 	public String getSeverity() {
@@ -948,7 +948,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'snmp'. The field 'snmp' has the following
 	 * description: The snmp information from the trap
-	 * 
+	 *
 	 * @return the value of field 'Snmp'.
 	 */
 	public Snmp getSnmp() {
@@ -958,7 +958,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'snmphost'. The field 'snmphost' has the
 	 * following description: The snmp host of the trap
-	 * 
+	 *
 	 * @return the value of field 'Snmphost'.
 	 */
 	public String getSnmphost() {
@@ -967,7 +967,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Returns the value of field 'source'.
-	 * 
+	 *
 	 * @return the value of field 'Source'.
 	 */
 	public String getSource() {
@@ -980,7 +980,7 @@ public class Event implements Serializable {
 	 * the format generated by the java.text.DateFormat using the
 	 * DateFormat.FULL style for the default locale. For example:
 	 * "Monday, February 18, 2002 3:01:58 PM EST"
-	 * 
+	 *
 	 * @return the value of field 'Time'.
 	 */
 	public String getTime() {
@@ -990,7 +990,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'tticket'. The field 'tticket' has the
 	 * following description: The trouble ticket info
-	 * 
+	 *
 	 * @return the value of field 'Tticket'.
 	 */
 	public Tticket getTticket() {
@@ -1000,7 +1000,7 @@ public class Event implements Serializable {
 	/**
 	 * Returns the value of field 'uei'. The field 'uei' has the following
 	 * description: The Universal Event Identifier
-	 * 
+	 *
 	 * @return the value of field 'Uei'.
 	 */
 	public String getUei() {
@@ -1009,7 +1009,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Returns the value of field 'uuid'.
-	 * 
+	 *
 	 * @return the value of field 'Uuid'.
 	 */
 	public String getUuid() {
@@ -1018,7 +1018,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method hasDbid.
-	 * 
+	 *
 	 * @return true if at least one Dbid has been added
 	 */
 	public boolean hasDbid() {
@@ -1027,7 +1027,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method hasIfIndex.
-	 * 
+	 *
 	 * @return true if at least one IfIndex has been added
 	 */
 	public boolean hasIfIndex() {
@@ -1036,7 +1036,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method hasNodeid.
-	 * 
+	 *
 	 * @return true if at least one Nodeid has been added
 	 */
 	public boolean hasNodeid() {
@@ -1045,7 +1045,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method iterateAutoaction.
-	 * 
+	 *
 	 * @return an Iterator over all possible elements in this collection
 	 */
 	public Iterator<Autoaction> iterateAutoaction() {
@@ -1054,7 +1054,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method iterateForward.
-	 * 
+	 *
 	 * @return an Iterator over all possible elements in this collection
 	 */
 	public Iterator<Forward> iterateForward() {
@@ -1063,7 +1063,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method iterateLoggroup.
-	 * 
+	 *
 	 * @return an Iterator over all possible elements in this collection
 	 */
 	public Iterator<String> iterateLoggroup() {
@@ -1072,7 +1072,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method iterateOperaction.
-	 * 
+	 *
 	 * @return an Iterator over all possible elements in this collection
 	 */
 	public Iterator<Operaction> iterateOperaction() {
@@ -1081,7 +1081,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method iterateScript.
-	 * 
+	 *
 	 * @return an Iterator over all possible elements in this collection
 	 */
 	public Iterator<Script> iterateScript() {
@@ -1120,7 +1120,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeAutoaction.
-	 * 
+	 *
 	 * @param vAutoaction
 	 * @return true if the object was removed from the collection.
 	 */
@@ -1130,7 +1130,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeAutoactionAt.
-	 * 
+	 *
 	 * @param index
 	 * @return the element removed from the collection
 	 */
@@ -1140,7 +1140,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeForward.
-	 * 
+	 *
 	 * @param vForward
 	 * @return true if the object was removed from the collection.
 	 */
@@ -1150,7 +1150,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeForwardAt.
-	 * 
+	 *
 	 * @param index
 	 * @return the element removed from the collection
 	 */
@@ -1160,7 +1160,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeLoggroup.
-	 * 
+	 *
 	 * @param vLoggroup
 	 * @return true if the object was removed from the collection.
 	 */
@@ -1170,7 +1170,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeLoggroupAt.
-	 * 
+	 *
 	 * @param index
 	 * @return the element removed from the collection
 	 */
@@ -1180,7 +1180,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeOperaction.
-	 * 
+	 *
 	 * @param vOperaction
 	 * @return true if the object was removed from the collection.
 	 */
@@ -1190,7 +1190,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeOperactionAt.
-	 * 
+	 *
 	 * @param index
 	 * @return the element removed from the collection
 	 */
@@ -1200,7 +1200,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeScript.
-	 * 
+	 *
 	 * @param vScript
 	 * @return true if the object was removed from the collection.
 	 */
@@ -1210,7 +1210,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Method removeScriptAt.
-	 * 
+	 *
 	 * @param index
 	 * @return the element removed from the collection
 	 */
@@ -1221,7 +1221,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'alarmData'. The field 'alarmData' has the
 	 * following description: Data used to create an event.
-	 * 
+	 *
 	 * @param alarmData
 	 *            the value of field 'alarmData'.
 	 */
@@ -1233,7 +1233,7 @@ public class Event implements Serializable {
 	 * Sets the value of field 'autoacknowledge'. The field 'autoacknowledge'
 	 * has the following description: The autoacknowledge information for the
 	 * user
-	 * 
+	 *
 	 * @param autoacknowledge
 	 *            the value of field 'autoacknowledge'.
 	 */
@@ -1242,8 +1242,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vAutoaction
 	 * @throws IndexOutOfBoundsException
@@ -1259,8 +1259,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vAutoactionArray
 	 */
 	public void setAutoaction(final Autoaction[] vAutoactionArray) {
@@ -1275,7 +1275,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_autoactionList' by copying the given Vector. All
 	 * elements will be checked for type safety.
-	 * 
+	 *
 	 * @param vAutoactionList
 	 *            the Vector to copy.
 	 */
@@ -1289,9 +1289,9 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_autoactionList' by setting it to the given Vector. No
 	 * type checking is performed.
-	 * 
+	 *
 	 * @deprecated
-	 * 
+	 *
 	 * @param autoactionList
 	 *            the Vector to set.
 	 */
@@ -1302,7 +1302,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'correlation'. The field 'correlation' has the
 	 * following description: The event correlation information
-	 * 
+	 *
 	 * @param correlation
 	 *            the value of field 'correlation'.
 	 */
@@ -1313,7 +1313,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'creationTime'. The field 'creationTime' has the
 	 * following description: from header
-	 * 
+	 *
 	 * @param creationTime
 	 *            the value of field 'creationTime'.
 	 */
@@ -1324,7 +1324,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'dbid'. The field 'dbid' has the following
 	 * description: The event database id
-	 * 
+	 *
 	 * @param dbid
 	 *            the value of field 'dbid'.
 	 */
@@ -1335,7 +1335,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'descr'. The field 'descr' has the following
 	 * description: The event description
-	 * 
+	 *
 	 * @param descr
 	 *            the value of field 'descr'.
 	 */
@@ -1345,7 +1345,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Sets the value of field 'distPoller'.
-	 * 
+	 *
 	 * @param distPoller
 	 *            the value of field 'distPoller'.
 	 */
@@ -1354,8 +1354,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vForward
 	 * @throws IndexOutOfBoundsException
@@ -1371,8 +1371,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vForwardArray
 	 */
 	public void setForward(final Forward[] vForwardArray) {
@@ -1387,7 +1387,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_forwardList' by copying the given Vector. All
 	 * elements will be checked for type safety.
-	 * 
+	 *
 	 * @param vForwardList
 	 *            the Vector to copy.
 	 */
@@ -1401,9 +1401,9 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_forwardList' by setting it to the given Vector. No
 	 * type checking is performed.
-	 * 
+	 *
 	 * @deprecated
-	 * 
+	 *
 	 * @param forwardList
 	 *            the Vector to set.
 	 */
@@ -1414,7 +1414,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'host'. The field 'host' has the following
 	 * description: The host at which the event is generated
-	 * 
+	 *
 	 * @param host
 	 *            the value of field 'host'.
 	 */
@@ -1425,7 +1425,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'ifAlias'. The field 'ifAlias' has the following
 	 * description: The ifAlias to which this event is pertinent
-	 * 
+	 *
 	 * @param ifAlias
 	 *            the value of field 'ifAlias'.
 	 */
@@ -1436,7 +1436,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'ifIndex'. The field 'ifIndex' has the following
 	 * description: The ifIndex to which this event is pertinent
-	 * 
+	 *
 	 * @param ifIndex
 	 *            the value of field 'ifIndex'.
 	 */
@@ -1447,7 +1447,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'interface'. The field 'interface' has the
 	 * following description: The interface to which this event is pertinent
-	 * 
+	 *
 	 * @param _interface
 	 * @param interface the value of field 'interface'.
 	 */
@@ -1462,8 +1462,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vLoggroup
 	 * @throws IndexOutOfBoundsException
@@ -1479,8 +1479,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vLoggroupArray
 	 */
 	public void setLoggroup(final String[] vLoggroupArray) {
@@ -1495,7 +1495,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_loggroupList' by copying the given Vector. All
 	 * elements will be checked for type safety.
-	 * 
+	 *
 	 * @param vLoggroupList
 	 *            the Vector to copy.
 	 */
@@ -1509,9 +1509,9 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_loggroupList' by setting it to the given Vector. No
 	 * type checking is performed.
-	 * 
+	 *
 	 * @deprecated
-	 * 
+	 *
 	 * @param loggroupList
 	 *            the Vector to set.
 	 */
@@ -1522,7 +1522,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'logmsg'. The field 'logmsg' has the following
 	 * description: The event logmsg
-	 * 
+	 *
 	 * @param logmsg
 	 *            the value of field 'logmsg'.
 	 */
@@ -1533,7 +1533,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'mask'. The field 'mask' has the following
 	 * description: The event mask which helps to uniquely identify an event
-	 * 
+	 *
 	 * @param mask
 	 *            the value of field 'mask'.
 	 */
@@ -1544,7 +1544,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'masterStation'. The field 'masterStation' has
 	 * the following description: from header
-	 * 
+	 *
 	 * @param masterStation
 	 *            the value of field 'masterStation'.
 	 */
@@ -1556,7 +1556,7 @@ public class Event implements Serializable {
 	 * Sets the value of field 'mouseovertext'. The field 'mouseovertext' has
 	 * the following description: The text to be displayed on a 'mouseOver'
 	 * event when this event is displayed in the event browser
-	 * 
+	 *
 	 * @param mouseovertext
 	 *            the value of field 'mouseovertext'.
 	 */
@@ -1567,7 +1567,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'nodeid'. The field 'nodeid' has the following
 	 * description: The nodeid to which this event pertains
-	 * 
+	 *
 	 * @param nodeid
 	 *            the value of field 'nodeid'.
 	 */
@@ -1576,8 +1576,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vOperaction
 	 * @throws IndexOutOfBoundsException
@@ -1593,8 +1593,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vOperactionArray
 	 */
 	public void setOperaction(final Operaction[] vOperactionArray) {
@@ -1609,7 +1609,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_operactionList' by copying the given Vector. All
 	 * elements will be checked for type safety.
-	 * 
+	 *
 	 * @param vOperactionList
 	 *            the Vector to copy.
 	 */
@@ -1623,9 +1623,9 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_operactionList' by setting it to the given Vector. No
 	 * type checking is performed.
-	 * 
+	 *
 	 * @deprecated
-	 * 
+	 *
 	 * @param operactionList
 	 *            the Vector to set.
 	 */
@@ -1636,7 +1636,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'operinstruct'. The field 'operinstruct' has the
 	 * following description: The operator instruction for this event
-	 * 
+	 *
 	 * @param operinstruct
 	 *            the value of field 'operinstruct'.
 	 */
@@ -1651,7 +1651,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'pathoutage'. The field 'pathoutage' has the
 	 * following description: The path outage information
-	 * 
+	 *
 	 * @param pathoutage
 	 *            the value of field 'pathoutage'.
 	 */
@@ -1660,8 +1660,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param index
 	 * @param vScript
 	 * @throws IndexOutOfBoundsException
@@ -1677,8 +1677,8 @@ public class Event implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param vScriptArray
 	 */
 	public void setScript(final Script[] vScriptArray) {
@@ -1693,7 +1693,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_scriptList' by copying the given Vector. All elements
 	 * will be checked for type safety.
-	 * 
+	 *
 	 * @param vScriptList
 	 *            the Vector to copy.
 	 */
@@ -1707,9 +1707,9 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of '_scriptList' by setting it to the given Vector. No
 	 * type checking is performed.
-	 * 
+	 *
 	 * @deprecated
-	 * 
+	 *
 	 * @param scriptList
 	 *            the Vector to set.
 	 */
@@ -1720,7 +1720,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'service'. The field 'service' has the following
 	 * description: The service to which this event is pertinent
-	 * 
+	 *
 	 * @param service
 	 *            the value of field 'service'.
 	 */
@@ -1731,7 +1731,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'severity'. The field 'severity' has the
 	 * following description: The event severity
-	 * 
+	 *
 	 * @param severity
 	 *            the value of field 'severity'.
 	 */
@@ -1742,7 +1742,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'snmp'. The field 'snmp' has the following
 	 * description: The snmp information from the trap
-	 * 
+	 *
 	 * @param snmp
 	 *            the value of field 'snmp'.
 	 */
@@ -1753,7 +1753,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'snmphost'. The field 'snmphost' has the
 	 * following description: The snmp host of the trap
-	 * 
+	 *
 	 * @param snmphost
 	 *            the value of field 'snmphost'.
 	 */
@@ -1763,7 +1763,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Sets the value of field 'source'.
-	 * 
+	 *
 	 * @param source
 	 *            the value of field 'source'.
 	 */
@@ -1777,7 +1777,7 @@ public class Event implements Serializable {
 	 * the format generated by the java.text.DateFormat using the
 	 * DateFormat.FULL style for the default locale. For example:
 	 * "Monday, February 18, 2002 3:01:58 PM EST"
-	 * 
+	 *
 	 * @param time
 	 *            the value of field 'time'.
 	 */
@@ -1788,7 +1788,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'tticket'. The field 'tticket' has the following
 	 * description: The trouble ticket info
-	 * 
+	 *
 	 * @param tticket
 	 *            the value of field 'tticket'.
 	 */
@@ -1799,7 +1799,7 @@ public class Event implements Serializable {
 	/**
 	 * Sets the value of field 'uei'. The field 'uei' has the following
 	 * description: The Universal Event Identifier
-	 * 
+	 *
 	 * @param uei
 	 *            the value of field 'uei'.
 	 */
@@ -1809,7 +1809,7 @@ public class Event implements Serializable {
 
 	/**
 	 * Sets the value of field 'uuid'.
-	 * 
+	 *
 	 * @param uuid
 	 *            the value of field 'uuid'.
 	 */

@@ -46,13 +46,13 @@ public class PerfDataReceiver {
 		Runtime.getRuntime().addShutdownHook(createShutdownHook());
 
 		int port = 8999;
-		
+
 		if (args.length < 1) {
 			System.err.println("Defaulting to port: 8999.  To change, pass valid port value as first argument.");
 		} else {
 			port = Integer.valueOf(args[0]);
 		}
-		
+
 		System.err.println("Ready to receive OpenNMS QOS Data on TCP Port:"+String.valueOf(port)+"...");
 		try {
 			listener = createListenerThread(port);
@@ -61,9 +61,9 @@ public class PerfDataReceiver {
 		} catch (Throwable t) {
 			System.err.print(t.getLocalizedMessage() + "\n\n" + t);
 		}
-		
+
 	}
-	
+
 	public static Thread createShutdownHook() {
 		Thread t = new Thread() {
 			@Override
@@ -120,8 +120,8 @@ public class PerfDataReceiver {
 							System.err.println(e.getLocalizedMessage());
 						}
 					}
-					
-					
+
+
 				} catch (IOException e) {
 					System.err.println(e.getLocalizedMessage());
 				} catch (Throwable e) {
@@ -129,7 +129,7 @@ public class PerfDataReceiver {
 				}
 			}
 		};
-		
+
 		return m_listenerThread;
 
 	}

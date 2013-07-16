@@ -47,7 +47,7 @@ import org.opennms.netmgt.model.RrdRepository;
 
 /**
  * The Class XmlDataCollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-datacollection-config")

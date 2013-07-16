@@ -42,27 +42,27 @@ import com.vaadin.ui.ListSelect;
 import com.vaadin.ui.Notification;
 
 public class SimpleViewContribution implements IViewContribution {
-    
+
     private static final List<String> cities = Arrays.asList(new String[] {
             "Berlin", "Brussels", "Helsinki", "Madrid", "Oslo", "Paris",
             "Stockholm" });
-    
+
     @SuppressWarnings("serial")
     @Override
     public Component getView(final WidgetContext widgetContext) {
-        
+
         ListSelect listSelect = new ListSelect("Select a city", cities);
         listSelect.setHeight("100%");
         listSelect.setWidth("100%");
         listSelect.setImmediate(true);
         listSelect.addValueChangeListener(new ValueChangeListener() {
-            
+
             @Override
             public void valueChange(ValueChangeEvent event) {
                 Notification.show("" + event.getProperty());
             }
         });
-        
+
         return listSelect;
     }
 

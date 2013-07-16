@@ -94,11 +94,11 @@ public class SmsLibTest {
     public void myFirstTest(){
         assertNotNull(m_bundleContext);
     }
-    
+
     @Test
     public void testCommPortEnumerator() {
          Enumeration<CommPortIdentifier> commPorts = CommPortIdentifier.getPortIdentifiers();
-         
+
          while(commPorts.hasMoreElements()) {
              CommPortIdentifier commPort = commPorts.nextElement();
              System.err.println(commPort.getName());

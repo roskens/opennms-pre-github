@@ -60,7 +60,7 @@ import org.springframework.webflow.execution.RequestContext;
  * @since 1.8.1
  */
 public class DefaultSchedulerService implements InitializingBean, SchedulerService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSchedulerService.class);
 
 
@@ -70,7 +70,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
     private static final String SCHEDULER_ERROR = "An exception occurred when scheduling the report";
     private static final String TRIGGER_PARSE_ERROR = "An error occurred parsing the cron expression. It was not possible to schedule the report";
     private static final String REPORTID_ERROR = "An error occurred locating the report service bean";
-    
+
     private Scheduler m_scheduler;
     private JobDetail m_jobDetail;
     private String m_triggerGroup;
@@ -182,8 +182,8 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             String cronExpression, RequestContext context) {
 
         CronTrigger cronTrigger = null;
-        
-        try {            
+
+        try {
             if (m_reportWrapperService.validate(criteria,id) == false ) {
                 LOG.error(PARAMETER_ERROR);
                 context.getMessageContext().addMessage(
@@ -233,7 +233,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
             return ERROR;
         }
 
-        
+
     }
 
     /*
@@ -278,7 +278,7 @@ public class DefaultSchedulerService implements InitializingBean, SchedulerServi
 
     }
 
-    
+
 
     /**
      * <p>setScheduler</p>

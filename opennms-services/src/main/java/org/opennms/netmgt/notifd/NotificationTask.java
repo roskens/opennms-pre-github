@@ -61,9 +61,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:david@opennms.org">David Hustace </A>
  */
 public class NotificationTask extends Thread {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NotificationTask.class);
-    
+
     /**
      * The User object the notification needs to go out to
      */
@@ -169,7 +169,7 @@ public class NotificationTask extends Thread {
     public void setUser(User aUser) {
         m_user = aUser;
     }
-    
+
     /**
      * <p>getUser</p>
      *
@@ -186,7 +186,7 @@ public class NotificationTask extends Thread {
      */
     public void setAutoNotify(String autoNotify) {
         m_autoNotify = autoNotify;
-    } 
+    }
 
     /**
      * Sets the group id that will be inserted into the row in notifications
@@ -198,7 +198,7 @@ public class NotificationTask extends Thread {
     public void setNoticeId(int anId) {
         m_notifyId = anId;
     }
-    
+
 
     /**
      * This method will construct the command that will be issued to send the
@@ -210,7 +210,7 @@ public class NotificationTask extends Thread {
     public void setCommands(Command[] commands) {
         m_commands = commands;
     }
-    
+
     /**
      * <p>getCommands</p>
      *
@@ -322,7 +322,7 @@ public class NotificationTask extends Thread {
     }
 
     /**
-     * 
+     *
      */
     private String getArgumentValue(String aSwitch) {
         String value = "";
@@ -371,7 +371,7 @@ public class NotificationTask extends Thread {
     public String getEmail() throws IOException, MarshalException, ValidationException {
         return getContactInfo("email");
     }
-    
+
     /**
      * <p>getTuiPin</p>
      *

@@ -71,9 +71,9 @@ import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public final class DataSourceFactory implements DataSource {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactory.class);
-	
+
 	private static final Class<?> DEFAULT_FACTORY_CLASS = C3P0ConnectionFactory.class;
 
 	/**
@@ -82,7 +82,7 @@ public final class DataSourceFactory implements DataSource {
     private static DataSource m_singleton = null;
 
     private static final Map<String, DataSource> m_dataSources = new ConcurrentHashMap<String, DataSource>();
-    
+
     private static final List<Runnable> m_closers = new LinkedList<Runnable>();
 
     /**
@@ -171,7 +171,7 @@ public final class DataSourceFactory implements DataSource {
                 }
             }
         });
-        
+
     	if (connectionPool != null) {
     		dataSource.setIdleTimeout(connectionPool.getIdleTimeout());
     		dataSource.setLoginTimeout(connectionPool.getLoginTimeout());
@@ -182,12 +182,12 @@ public final class DataSourceFactory implements DataSource {
 
     	// Springframework provided proxies that make working with transactions much easier
         final LazyConnectionDataSourceProxy lazyProxy = new LazyConnectionDataSourceProxy(dataSource);
-        
+
         setInstance(dsName, lazyProxy);
     }
 
     private static synchronized boolean isLoaded(final String dsName) {
-        return m_dataSources.containsKey(dsName);			
+        return m_dataSources.containsKey(dsName);
     }
 
     /**
@@ -384,11 +384,11 @@ public final class DataSourceFactory implements DataSource {
      * @throws java.sql.SQLException if any.
      */
     public static synchronized void close() throws SQLException {
-        
+
         for(Runnable closer : m_closers) {
             closer.run();
         }
-        
+
         m_closers.clear();
         m_dataSources.clear();
 

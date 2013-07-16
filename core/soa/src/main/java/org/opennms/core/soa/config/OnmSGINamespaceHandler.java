@@ -37,7 +37,7 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  * @version $Id: $
  */
 public class OnmSGINamespaceHandler extends NamespaceHandlerSupport {
-    
+
     /**
      * <p>init</p>
      */

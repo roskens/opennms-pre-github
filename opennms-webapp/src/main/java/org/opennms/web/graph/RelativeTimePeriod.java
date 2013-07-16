@@ -40,12 +40,12 @@ import java.util.GregorianCalendar;
  */
 public class RelativeTimePeriod {
     private static final RelativeTimePeriod[] s_defaultPeriods;
-    
+
     private String m_id = null;
     private String m_name = null;
     private int m_offsetField = Calendar.DATE;
     private int m_offsetAmount = -1;
-    
+
     static {
         s_defaultPeriods = new RelativeTimePeriod[] {
                 new RelativeTimePeriod("lastday", "Last Day", Calendar.DATE,
@@ -160,7 +160,7 @@ public class RelativeTimePeriod {
     public static RelativeTimePeriod[] getDefaultPeriods() {
         return s_defaultPeriods;
     }
-    
+
     /**
      * <p>getPeriodByIdOrDefault</p>
      *
@@ -184,17 +184,17 @@ public class RelativeTimePeriod {
                 RelativeTimePeriod defaultPeriod) {
         // default to the first time period
         RelativeTimePeriod chosenPeriod = defaultPeriod;
-        
+
         for (RelativeTimePeriod period : periods) {
             if (period.getId().equals(id)) {
                 chosenPeriod = period;
                 break;
             }
         }
-        
+
         return chosenPeriod;
     }
-    
+
     /**
      * <p>getStartAndEndTimes</p>
      *
@@ -204,7 +204,7 @@ public class RelativeTimePeriod {
         Calendar cal = new GregorianCalendar();
         long end = cal.getTime().getTime();
         cal.add(getOffsetField(), getOffsetAmount());
-        long start = cal.getTime().getTime();        
+        long start = cal.getTime().getTime();
 
         return new long[] { start, end };
     }

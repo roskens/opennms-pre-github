@@ -43,12 +43,12 @@ public class NodeListPageTest extends OpenNMSSeleniumTestCase {
     public void testAllTextIsPresent() throws Exception {
         assertTrue("Could not find header '<h3>Nodes</h3>'", selenium.getHtmlSource().contains("<h3>Nodes</h3>"));
     }
-    
+
     @Test
     public void testAllLinksArePresent() {
         assertTrue("Could not find nodeList.htm link", selenium.isElementPresent("//a[@href='element/nodeList.htm?listInterfaces=true']"));
     }
-    
+
     @Test
     public void testAllLinks() {
         selenium.click("link=Show interfaces");

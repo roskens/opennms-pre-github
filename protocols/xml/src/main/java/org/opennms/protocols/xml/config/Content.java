@@ -36,7 +36,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * The Class Content.
- * 
+ *
  * <p>Post a Form:</p>
  * <pre>
  *   &lt;content type='application/x-www-form-urlencoded'&gt;&lt;![CDATA[
@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlValue;
  *     &lt;/form-fields&gt;
  *   ]]&gt;&lt;/content&gt;
  * </pre>
- * 
+ *
  * <p>Post a JSON Object:</p>
  * <pre>
  *   &lt;content type='application/json'&gt;&lt;![CDATA[
@@ -58,7 +58,7 @@ import javax.xml.bind.annotation.XmlValue;
  *     }
  *   ]]&gt;&lt;/content&gt;
  * </pre>
- * 
+ *
  * <p>Post a XML:</p>
  * <pre>
  *   &lt;content type='application/xml'&gt;&lt;![CDATA[
@@ -68,7 +68,7 @@ import javax.xml.bind.annotation.XmlValue;
  *     &lt;/person&gt;
  *   ]]&gt;&lt;/content&gt;
  * </pre>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="content")

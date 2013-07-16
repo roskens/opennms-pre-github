@@ -31,27 +31,27 @@ package org.opennms.netmgt.vmmgr;
 import java.util.Map;
 
 public interface DaemonManager {
-	
+
 	/**
 	 * <p>start</p>
 	 */
 	public void start();
-	
+
 	/**
 	 * <p>stop</p>
 	 */
 	public void stop();
-	
+
 	/**
 	 * <p>pause</p>
 	 */
 	public void pause();
-	
+
 	/**
 	 * <p>resume</p>
 	 */
 	public void resume();
-	
+
 	/**
 	 * <p>status</p>
 	 *

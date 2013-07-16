@@ -61,13 +61,13 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
 
     @Autowired
     ReportStoreService m_reportStoreService;
-    
+
     @Autowired
     ReportCatalogDao m_reportCatalogDao;
-    
+
     @Autowired
     ReportServiceLocator m_reportServiceLocator;
-    
+
     @Autowired
     DatabaseReportConfigDao m_databaseReportConfigDao;
 
@@ -75,7 +75,7 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
     public static void setup() {
         System.setProperty("opennms.home", "src/test/resources");
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -83,20 +83,20 @@ public class DefaultReportStoreServiceTest implements InitializingBean {
 
     @Test
     public void testSave(){
-        
+
         ReportCatalogEntry reportCatalogEntry = new ReportCatalogEntry();
         m_reportCatalogDao.save(reportCatalogEntry);
         m_reportCatalogDao.flush();
         replay(m_reportCatalogDao);
-        
+
         m_reportStoreService.save(reportCatalogEntry);
         verify(m_reportCatalogDao);
-        
+
     }
-    
+
     @Test
     public void testReder(){
         // TODO something useful here
     }
-    
+
 }

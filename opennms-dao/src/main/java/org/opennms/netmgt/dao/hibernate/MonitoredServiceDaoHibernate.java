@@ -69,7 +69,7 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
                    nodeId, ipAddress, svcName);
     }
 
-    
+
 
     @Override
     public OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer serviceId) {
@@ -77,7 +77,7 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
 			    "where svc.ipInterface.node.id = ? and svc.ipInterface.ipAddress = ? and svc.serviceType.id = ?",
 			   nodeId, ipAddr, serviceId);
     }
-    
+
 	/** {@inheritDoc} */
     @Override
 	public OnmsMonitoredService getPrimaryService(Integer nodeId, String svcName) {
@@ -107,19 +107,19 @@ public class MonitoredServiceDaoHibernate extends AbstractDaoHibernate<OnmsMonit
     public List<OnmsMonitoredService> findMatchingServices(ServiceSelector selector) {
         Set<InetAddress> matchingAddrs = new HashSet<InetAddress>(FilterDaoFactory.getInstance().getActiveIPAddressList(selector.getFilterRule()));
         Set<String> matchingSvcs = new HashSet<String>(selector.getServiceNames());
-        
+
         List<OnmsMonitoredService> matchingServices = new LinkedList<OnmsMonitoredService>();
         Collection<OnmsMonitoredService> services = findActive();
         for (OnmsMonitoredService svc : services) {
             if ((matchingSvcs.contains(svc.getServiceName()) || matchingSvcs.isEmpty()) &&
                 matchingAddrs.contains(svc.getIpAddress())) {
-                
+
                 matchingServices.add(svc);
             }
-            
+
         }
-        
-        
+
+
         return matchingServices;
     }
 

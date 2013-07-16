@@ -3,10 +3,10 @@
  *
  * OpenNMS(R) is Copyright (C) 1999-2012 The OpenNMS Group, Inc.  All rights reserved.
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
- * 
+ *
  * This file is a derivative work, containing both original code, included code,
  * and modified code that was published under the GNU General Public License.
- * 
+ *
  * Original code for this file Copyright (C) 2002 Scott McCrory.
  * All rights reserved.
  *
@@ -23,7 +23,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -47,17 +47,17 @@ import org.slf4j.LoggerFactory;
  * <P>
  * Captures the output of an InputStream.
  * </P>
- * 
+ *
  * With acknowledgements to Michael C. Daconta, author of "Java Pitfalls, Time
  * Saving Solutions, and Workarounds to Improve Programs." and his article in
  * JavaWorld "When Runtime.exec() Won't".
- * 
+ *
  * See the ExecRunner class for a reference implementation.
- * 
+ *
  * @author <a href="mailto:smccrory@users.sourceforge.net">Scott McCrory </a>.
  */
 public class StreamGobbler extends Thread {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(StreamGobbler.class);
 
     /** The {@link InputStream} we're gobbling */
@@ -146,7 +146,7 @@ public class StreamGobbler extends Thread {
     /**
      * We override the <code>readObject</code> method here to prevent
      * deserialization of our class for security reasons.
-     * 
+     *
      * @param in
      *            java.io.ObjectInputStream
      * @throws IOException
@@ -195,7 +195,7 @@ public class StreamGobbler extends Thread {
     /**
      * We override the <code>writeObject</code> method here to prevent
      * serialization of our class for security reasons.
-     * 
+     *
      * @param out
      *            java.io.ObjectOutputStream
      * @throws IOException

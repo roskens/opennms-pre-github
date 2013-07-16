@@ -51,9 +51,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml"})
 public class Jsr160DetectorWiringTest implements ApplicationContextAware {
-    
+
     private ApplicationContext m_applicationContext;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -64,12 +64,12 @@ public class Jsr160DetectorWiringTest implements ApplicationContextAware {
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
-    
+
     @Test
     public void testJsr160DetectorWiring() {
         testWiredDetector(Jsr160Detector.class);
     }
-    
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

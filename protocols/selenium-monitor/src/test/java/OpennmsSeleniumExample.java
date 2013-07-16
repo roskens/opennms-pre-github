@@ -49,7 +49,7 @@ public class OpennmsSeleniumExample {
          baseUrl = url;
          timeout = timeoutInSeconds;
     }
-    
+
     @Before
     public void setUp() throws Exception {
         System.err.println("Before is being called in Groovy Script: " + this.hashCode());
@@ -76,8 +76,8 @@ public class OpennmsSeleniumExample {
         System.err.println("After is being called in Groovy Script: " + this.hashCode());
         assertNotNull("Driver is null, it should not be null", driver);
         driver.quit();
-        
-        
+
+
         String verificationErrorString = verificationErrors.toString();
         if (!"".equals(verificationErrorString)) {
             fail(verificationErrorString);

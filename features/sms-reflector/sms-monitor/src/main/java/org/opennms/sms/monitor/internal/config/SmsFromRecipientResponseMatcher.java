@@ -62,12 +62,12 @@ public class SmsFromRecipientResponseMatcher extends SequenceResponseMatcher {
     private boolean equals(String orig, String recip) {
         return orig.replaceFirst("^\\+", "").equals(recip.replaceFirst("^\\+", ""));
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
         return "smsFromRecipient()";
     }
-    
+
 
 }

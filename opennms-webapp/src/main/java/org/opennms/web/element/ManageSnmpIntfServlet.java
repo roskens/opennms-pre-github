@@ -71,7 +71,7 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
 	private static final Logger LOG = LoggerFactory.getLogger(ManageSnmpIntfServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 996461881276250543L;
 
@@ -153,7 +153,7 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
 
             InetAddress[] inetAddress = InetAddress.getAllByName(snmpIp);
             SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(inetAddress[0]);
-            
+
             LOG.debug("ManageSnmpIntfServlet.doPost: agent SNMP version/write community {}/{}", agent.getVersion(), agent.getWriteCommunity());
             SnmpIfAdmin snmpIfAdmin = new SnmpIfAdmin(nodeId, agent);
             if (snmpIfAdmin.setIfAdmin(intfId, status)) {
@@ -162,7 +162,7 @@ public final class ManageSnmpIntfServlet extends HttpServlet {
             	LOG.debug("ManageSnmpIntfServlet.doPost: snmpIAdmin return error ");
             }
             redirect(request, response);
-            
+
         } catch (SQLException e) {
             throw new ServletException(e);
         } catch (UnknownHostException e) {

@@ -46,7 +46,7 @@ import javax.sql.DataSource;
 
 /**
  * Basic test cases for the TicketNotificationStrategy.
- * 
+ *
  * @author <a href="mailto:jwhite@datavlaet.com">Jesse White</a>
  * @version $Id: $
  */
@@ -57,7 +57,7 @@ public class TicketNotificationStrategyTest extends TestCase {
     private EventAnticipator m_anticipator;
     private MockTicketNotificationStrategy m_ticketNotificationStrategy;
     private DataSource m_dataSource;
-    
+
     private class MockTicketNotificationStrategy extends TicketNotificationStrategy {
     	AlarmState m_alarmState;
     	AlarmType m_alarmType;
@@ -66,30 +66,30 @@ public class TicketNotificationStrategyTest extends TestCase {
     		m_alarmState = new AlarmState(0,"",0);
     		m_alarmType = AlarmType.NOT_AN_ALARM;
     	}
-    	
+
     	public void setAlarmState(AlarmState alarmState) {
     		m_alarmState = alarmState;
     	}
-    	
+
     	@SuppressWarnings("unused")
 		public AlarmState getAlarmState() {
     		return m_alarmState;
     	}
-    	
+
     	public void setAlarmType(AlarmType alarmType) {
     		m_alarmType = alarmType;
     	}
-    	
+
     	@SuppressWarnings("unused")
     	public AlarmType getAlarmType(AlarmType alarmType) {
     		return m_alarmType;
     	}
-    	
+
     	@Override
     	protected AlarmState getAlarmStateFromEvent(int eventID) {
     		return m_alarmState;
     	}
-    	
+
     	@Override
     	protected AlarmType getAlarmTypeFromUEI(String eventUEI) {
     		return m_alarmType;
@@ -117,11 +117,11 @@ public class TicketNotificationStrategyTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-        
+
     public void testNoticeWithNoEventID() {
     	assertEquals("Strategy should fail if no event id is given.", 1, m_ticketNotificationStrategy.send(new ArrayList<Argument>()));
     }
-    
+
     public void testNoticeWithNoAlarmID() {
     	m_ticketNotificationStrategy.setAlarmState(new TicketNotificationStrategy.AlarmState(0));
     	m_ticketNotificationStrategy.setAlarmType(AlarmType.NOT_AN_ALARM);
@@ -129,7 +129,7 @@ public class TicketNotificationStrategyTest extends TestCase {
     	assertEquals("Strategy should fail silently if the event has no alarm id.", 0, m_ticketNotificationStrategy.send(arguments));
     	assertTrue("Strategy should log a warning if the event has no alarm id.", !MockLogAppender.noWarningsOrHigherLogged());
     }
-    
+
     public void testCreateTicket() {
         // Setup the event anticipator
     	EventBuilder newSuspectBuilder = new EventBuilder(EventConstants.TROUBLETICKET_CREATE_UEI, m_ticketNotificationStrategy.getName());
@@ -137,17 +137,17 @@ public class TicketNotificationStrategyTest extends TestCase {
         newSuspectBuilder.setParam(EventConstants.PARM_ALARM_UEI, EventConstants.NODE_DOWN_EVENT_UEI);
         newSuspectBuilder.setParam(EventConstants.PARM_USER, "admin");
         m_anticipator.anticipateEvent(newSuspectBuilder.getEvent());
-        
+
         m_ticketNotificationStrategy.setAlarmState(new TicketNotificationStrategy.AlarmState(1));
         m_ticketNotificationStrategy.setAlarmType(AlarmType.PROBLEM);
         List<Argument> arguments = buildArguments("1", EventConstants.NODE_DOWN_EVENT_UEI);
-        
+
         assertEquals(0, m_ticketNotificationStrategy.send(arguments));
 	    assertTrue("Expected events not forthcoming", m_anticipator.waitForAnticipated(0).isEmpty());
 	    assertEquals("Received unexpected events", 0, m_anticipator.unanticipatedEvents().size());
     }
-    
-    protected List<Argument> buildArguments(String eventID, String eventUEI) 
+
+    protected List<Argument> buildArguments(String eventID, String eventUEI)
     {
 		List<Argument> arguments = new ArrayList<Argument>();
 		arguments.add(new Argument("eventID", null, eventID, false));

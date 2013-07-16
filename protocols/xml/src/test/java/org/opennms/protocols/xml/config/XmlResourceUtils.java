@@ -38,7 +38,7 @@ import org.opennms.protocols.xml.collector.XmlStorageStrategy;
 
 /**
  * The XML Resource Utilities.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlResourceUtils {

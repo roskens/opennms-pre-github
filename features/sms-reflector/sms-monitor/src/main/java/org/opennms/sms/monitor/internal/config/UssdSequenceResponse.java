@@ -50,7 +50,7 @@ public class UssdSequenceResponse extends MobileSequenceResponse {
     public UssdSequenceResponse() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for UssdSequenceResponse.</p>
 	 *
@@ -59,7 +59,7 @@ public class UssdSequenceResponse extends MobileSequenceResponse {
 	public UssdSequenceResponse(String label) {
 		super(label);
 	}
-	
+
 	/**
 	 * <p>Constructor for UssdSequenceResponse.</p>
 	 *
@@ -80,7 +80,7 @@ public class UssdSequenceResponse extends MobileSequenceResponse {
     @Override
     public void processResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         if (response instanceof UssdResponse) {
-            
+
         }
     }
 

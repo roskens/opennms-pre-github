@@ -35,9 +35,9 @@ package org.opennms.netmgt.provision.detector.generic.response;
  * @version $Id: $
  */
 public class GpResponse {
-    
+
     private String m_response;
-    
+
     /**
      * <p>setExitStatus</p>
      *

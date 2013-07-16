@@ -37,7 +37,7 @@ public class AlarmParmParserTest {
     @Test
     public void testParseParms() {
         String parms = "url=http://localhost:8980/opennms/rtc/post/Network+Interfaces(string,text);user=rtc(string,text);passwd=rtc(string,text);catlabel=Network Interfaces(string,text)";
-        
+
         assertEquals("http://localhost:8980/opennms/rtc/post/Network+Interfaces", getParm(parms, "url"));
     }
 
@@ -55,7 +55,7 @@ public class AlarmParmParserTest {
         }else {
             return null;
         }
-        
+
     }
 
 }

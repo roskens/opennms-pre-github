@@ -103,13 +103,13 @@ public class VMTaskFiber implements Fiber, Runnable {
      * static void main(String[])</EM> if it is part of the passed class. The
      * first matching method is returned to the caller.
      * </P>
-     * 
+     *
      * @param c
      *            The class to search for the main method.
-     * 
+     *
      * @return The matching method if one is found. If one is not found then a
      *         null is returned.
-     * 
+     *
      */
     private static Method findMain(Class<?> c) {
 

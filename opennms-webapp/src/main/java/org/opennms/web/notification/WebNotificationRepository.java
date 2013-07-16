@@ -40,7 +40,7 @@ import org.opennms.web.notification.filter.NotificationCriteria;
  * @since 1.8.1
  */
 public interface WebNotificationRepository {
-    
+
     /**
      * <p>countMatchingNotifications</p>
      *
@@ -48,7 +48,7 @@ public interface WebNotificationRepository {
      * @return a int.
      */
     public abstract int countMatchingNotifications(NotificationCriteria criteria);
-    
+
     /**
      * <p>getNotification</p>
      *
@@ -56,7 +56,7 @@ public interface WebNotificationRepository {
      * @return a {@link org.opennms.web.notification.Notification} object.
      */
     public abstract Notification getNotification(int noticeId);
-    
+
     /**
      * <p>getMatchingNotifications</p>
      *
@@ -64,7 +64,7 @@ public interface WebNotificationRepository {
      * @return an array of {@link org.opennms.web.notification.Notification} objects.
      */
     public abstract Notification[] getMatchingNotifications(NotificationCriteria criteria);
-    
+
     /**
      * <p>acknowledgeMatchingNotification</p>
      *

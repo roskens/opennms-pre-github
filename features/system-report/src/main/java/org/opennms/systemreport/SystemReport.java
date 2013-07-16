@@ -100,10 +100,10 @@ public class SystemReport extends Bootstrap {
         options.addOption("l", "list-formats",   false, "list the available output formats");
         options.addOption("f", "format",         true,  "the format to output");
         options.addOption("o", "output",         true,  "the file to write output to");
-        
+
         final CommandLine line = parser.parse(options, args, false);
         final Set<String> plugins = new LinkedHashSet<String>();
-        
+
         final SystemReport report = new SystemReport();
 
         // help

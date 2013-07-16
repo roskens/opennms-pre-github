@@ -45,9 +45,9 @@ public class SpringResourceAccessor implements ResourceAccessor {
     private ResourceLoader m_resourceLoader = new DefaultResourceLoader();
 
     public SpringResourceAccessor() {
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public InputStream getResourceAsStream(final String file) throws IOException {

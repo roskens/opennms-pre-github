@@ -107,9 +107,9 @@ public final class CdpCacheTableEntry extends SnmpStore {
 
 	private final static String CDP_IFINDEX_OID = ".1.3.6.1.4.1.9.9.23.1.2.1.1.1";
         private final static String CDP_DEVICEINDEX_OID = ".1.3.6.1.4.1.9.9.23.1.2.1.1.2";
-                                                           
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -207,14 +207,14 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		// new NamedSnmpVar(NamedSnmpVar.SNMPINT32, CDP_NATIVEVLAN, ".1.3.6.1.4.1.9.9.23.1.2.1.1.11", 11),
 
 		/**
-		 * <P>The remote device's interface's duplex mode, as reported in the 
+		 * <P>The remote device's interface's duplex mode, as reported in the
 		 * most recent CDP message. The value unknown(1) indicates
 		 * no duplex mode field (TLV) was reported in the most
 		 *  recent CDP message.</P>
 		 * <P>
 		 * unknown    (1)
 		 * halfduplex (2)
-		 * fullduplex (3) </P> 
+		 * fullduplex (3) </P>
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPINT32, CDP_DUPLEX, ".1.3.6.1.4.1.9.9.23.1.2.1.1.12", 12),
 
@@ -223,7 +223,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  most recent CDP message. This object is not instantiated if
 		 *  no Appliance VLAN-ID field (TLV) was reported in the most
 		 *  recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, CDP_APPLIANCEID, ".1.3.6.1.4.1.9.9.23.1.2.1.1.13", 13),
 
@@ -232,7 +232,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  most recent CDP message. This object is not instantiated if
 		 *  no Appliance VLAN-ID field (TLV) was reported in the most
 		 *  recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, CDP_VLANID, ".1.3.6.1.4.1.9.9.23.1.2.1.1.14", 14),
 
@@ -241,7 +241,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  in the most recent CDP message. This object is not instantiated
 		 *  if no Power Consumption field (TLV) was reported in the most
 		 *  recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, CDP_POWERCONS, ".1.3.6.1.4.1.9.9.23.1.2.1.1.15", 15),
 
@@ -250,7 +250,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  sent/received by remote device, as reported in the most recent
 		 *  CDP message. This object is not instantiated if no MTU field
 		 *  (TLV) was reported in the most recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPGAUGE32, CDP_POWERCONS, ".1.3.6.1.4.1.9.9.23.1.2.1.1.16", 16),
 
@@ -259,7 +259,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  By convention, it is the device's fully qualified domain name.
 		 *  This object is not instantiated if no sysName field (TLV) was
 		 *  reported in the most recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, CDP_SYSNAME, ".1.3.6.1.4.1.9.9.23.1.2.1.1.17", 17),
 
@@ -267,14 +267,14 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 * <P>Indicates the value of the remote device's sysObjectID MIB
 		 *  object. This object is not instantiated if no sysObjectID field
 		 *  (TLV) was reported in the most recently received CDP message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, CDP_SYSOBJID, ".1.3.6.1.4.1.9.9.23.1.2.1.1.18", 18),
 
 		/**
 		 * <P>An indication of the type of address contained in the
 		 *  corresponding instance of cdpCachePrimaryMgmtAddress.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPINT32, CDP_PRIMARYMGMTADDR_TYPE, ".1.3.6.1.4.1.9.9.23.1.2.1.1.19", 19),
 
@@ -289,14 +289,14 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  If the most recently received CDP message did not contain any
 		 *  primary address at which the device prefers to receive
 		 *  SNMP messages, then this object is not instanstiated.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, CDP_PRIMARYMGMTADDR, ".1.3.6.1.4.1.9.9.23.1.2.1.1.20", 20),
 
 		/**
 		 * <P>An indication of the type of address contained in the
 		 *  corresponding instance of cdpCacheSecondryMgmtAddress.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPINT32, CDP_SECONDARYMGMTADDR_TYPE, ".1.3.6.1.4.1.9.9.23.1.2.1.1.21", 21),
 
@@ -309,7 +309,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  then this object would be an IP-address. If the most recently
 		 *  received CDP message did not contain such an alternate network
 		 *  layer address, then this object is not instanstiated.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, CDP_SECONDARYMGMTADDR, ".1.3.6.1.4.1.9.9.23.1.2.1.1.22", 22),
 
@@ -320,7 +320,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  sent. This object is not instantiated if no Physical Location
 		 *  field (TLV) was reported by the most recently received CDP
 		 *  message.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, CDP_PHYSLOC, ".1.3.6.1.4.1.9.9.23.1.2.1.1.23", 23),
 
@@ -330,7 +330,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 		 *  gets created and updated to the current time whenever the value
 		 *  of any (other) object instance in the corresponding row is
 		 *  modified.</P>
-		 *  
+		 *
 		 */
 		// new NamedSnmpVar(NamedSnmpVar.SNMPTIMETICKS, CDP_LASTCHANGE, ".1.3.6.1.4.1.9.9.23.1.2.1.1.24", 24)
 	};
@@ -354,16 +354,16 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	public void storeResult(SnmpResult res) {
 		if (!hasIfIndex) {
 			int ifindex = res.getInstance().getSubIdAt(res.getInstance().length()-2);
-			super.storeResult(new SnmpResult(SnmpObjId.get(CDP_IFINDEX_OID), res.getInstance(), 
+			super.storeResult(new SnmpResult(SnmpObjId.get(CDP_IFINDEX_OID), res.getInstance(),
 						SnmpUtils.getValueFactory().getInt32(ifindex)));
 			int deviceIndex = res.getInstance().getLastSubId();
-                        super.storeResult(new SnmpResult(SnmpObjId.get(CDP_DEVICEINDEX_OID), res.getInstance(), 
+                        super.storeResult(new SnmpResult(SnmpObjId.get(CDP_DEVICEINDEX_OID), res.getInstance(),
                                                          SnmpUtils.getValueFactory().getInt32(deviceIndex)));
 			hasIfIndex = true;
 		}
 		super.storeResult(res);
 	}
-	
+
 	/**
 	 * <p>getCdpCacheIfIndex</p>
 	 *
@@ -372,7 +372,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	public int getCdpCacheIfIndex() {
 	    return getInt32(CdpCacheTableEntry.CDP_IFINDEX);
 	}
-	
+
 	/**
 	 * <p>getCdpCacheDeviceIndex</p>
 	 *
@@ -390,7 +390,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	public int getCdpCacheAddressType() {
 	    return getInt32(CdpCacheTableEntry.CDP_ADDRESS_TYPE);
 	}
-	
+
 	/**
 	 * <p>getCdpCacheAddress</p>
 	 *
@@ -401,9 +401,9 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	}
 
 	public InetAddress getCdpCacheIpv4Address() {
-            return getIpAddressByHexString(getCdpCacheAddress());	    
+            return getIpAddressByHexString(getCdpCacheAddress());
 	}
-	
+
 	/**
 	 * <p>getCdpCacheVersion</p>
 	 *
@@ -412,7 +412,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	public String getCdpCacheVersion() {
 		return getDisplayString(CdpCacheTableEntry.CDP_VERSION);
 	}
-	
+
 	/**
 	 * <p>getCdpCacheDeviceId</p>
 	 *
@@ -421,7 +421,7 @@ public final class CdpCacheTableEntry extends SnmpStore {
 	public String getCdpCacheDeviceId() {
 		return getDisplayString(CdpCacheTableEntry.CDP_DEVICEID);
 	}
-	
+
 	/**
 	 * <p>getCdpCacheDevicePort</p>
 	 *

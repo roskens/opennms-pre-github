@@ -58,9 +58,9 @@ import java.util.Calendar;
  */
 public class GraphResultsController extends AbstractController implements InitializingBean {
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + GraphResultsController.class);
-    
+
     private GraphResultsService m_graphResultsService;
-    
+
     private static RelativeTimePeriod[] s_periods = RelativeTimePeriod.getDefaultPeriods();
 
     /** {@inheritDoc} */
@@ -70,7 +70,7 @@ public class GraphResultsController extends AbstractController implements Initia
                 "resourceId",
                 "reports"
         };
-        
+
         for (String requiredParameter : requiredParameters) {
             if (request.getParameter(requiredParameter) == null) {
                 throw new MissingParameterException(requiredParameter,
@@ -80,13 +80,13 @@ public class GraphResultsController extends AbstractController implements Initia
 
         String[] resourceIds = request.getParameterValues("resourceId");
         String[] reports = request.getParameterValues("reports");
-        
+
         // see if the start and end time were explicitly set as params
         String start = request.getParameter("start");
         String end = request.getParameter("end");
 
         String relativeTime = request.getParameter("relativetime");
-        
+
         final String startMonth = request.getParameter("startMonth");
         final String startDate = request.getParameter("startDate");
         final String startYear = request.getParameter("startYear");
@@ -96,7 +96,7 @@ public class GraphResultsController extends AbstractController implements Initia
         final String endDate = request.getParameter("endDate");
         final String endYear = request.getParameter("endYear");
         final String endHour = request.getParameter("endHour");
-        
+
         long startLong = 0;
         long endLong = 0;
 
@@ -105,12 +105,12 @@ public class GraphResultsController extends AbstractController implements Initia
                     "start",
                     "end"
             };
-        
+
             if (start == null) {
                 throw new MissingParameterException("start",
                                                     ourRequiredParameters);
             }
-            
+
             if (end == null) {
                 throw new MissingParameterException("end",
                                                     ourRequiredParameters);
@@ -118,16 +118,16 @@ public class GraphResultsController extends AbstractController implements Initia
             //The following is very similar to RrdGraphController.parseTimes, but modified for the local context a bit
             // There's merging possibilities, but I don't know how (common parent class seems wrong; service bean for a single
             // method isn't much better.  Ideas?
-            
+
     		//Try a simple 'long' parsing.  If either fails, do a full parse.  If one is a straight 'long' but the other isn't
     		// that's fine, the TimeParser code will handle it fine (as long as we convert milliseconds to seconds)
-            // Indeed, we *have* to use TimeParse for both to ensure any relative references (using "start" or "end") work correctly. 
-    		// NB: can't do a "safe" parsing using the WebSecurityUtils; if we did, it would filter out all the possible rrdfetch 
+            // Indeed, we *have* to use TimeParse for both to ensure any relative references (using "start" or "end") work correctly.
+		// NB: can't do a "safe" parsing using the WebSecurityUtils; if we did, it would filter out all the possible rrdfetch
     		// format text and always work :)
-    		
+
         	boolean startIsInteger = false;
         	boolean endIsInteger = false;
-        	
+
         	//If either of start/end *is* a long, convert from the incoming milliseconds to seconds that
         	// is expected for epoch times by TimeParser
         	try {
@@ -136,24 +136,24 @@ public class GraphResultsController extends AbstractController implements Initia
         		start = ""+(startLong/1000);
         	} catch (NumberFormatException e) {
         	}
-        	
+
         	try {
         		endLong = Long.valueOf(end);
         		endIsInteger = true;
         		end = "" +(endLong/1000);
         	} catch (NumberFormatException e) {
         	}
-        	
-        	if(!endIsInteger || !startIsInteger) {        	
+
+		if(!endIsInteger || !startIsInteger) {
         		//One or both of start/end aren't integers, so we need to do full parsing using TimeParser
         		TimeParser startParser = new TimeParser(start);
         		TimeParser endParser = new TimeParser(end);
 	            try {
-	
+
 	            	TimeSpec specStart = startParser.parse();
 	            	TimeSpec specEnd = endParser.parse();
 	            	long results[] = TimeSpec.getTimestamps(specStart, specEnd);
-	            	//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.  
+			//Multiply by 1000.  TimeSpec returns timestamps in Seconds, not Milliseconds.
 	            	startLong = results[0]*1000;
 	            	endLong = results[1]*1000;
 	            } catch (RrdException e1) {
@@ -161,11 +161,11 @@ public class GraphResultsController extends AbstractController implements Initia
 	    		}
         	}
 
-        } else if (startMonth != null || startDate != null 
+        } else if (startMonth != null || startDate != null
                    || startYear != null || startHour != null
                    || endMonth != null || endDate != null || endYear != null
                    || endHour != null) {
-            
+
             String[] ourRequiredParameters = new String[] {
                     "startMonth",
                     "startDate",
@@ -176,7 +176,7 @@ public class GraphResultsController extends AbstractController implements Initia
                     "endYear",
                     "endHour"
             };
-            
+
             for (String requiredParameter : ourRequiredParameters) {
                 if (request.getParameter(requiredParameter) == null) {
                     throw new MissingParameterException(requiredParameter,
@@ -215,9 +215,9 @@ public class GraphResultsController extends AbstractController implements Initia
             startLong = times[0];
             endLong = times[1];
         }
-        
+
         GraphResults model = m_graphResultsService.findResults(resourceIds, reports, startLong, endLong, relativeTime);
-        
+
         ModelAndView modelAndView = new ModelAndView("/graph/results", "results", model);
 
         modelAndView.addObject("loggedIn", request.getRemoteUser() != null);

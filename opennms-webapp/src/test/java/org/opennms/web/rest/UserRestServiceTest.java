@@ -60,11 +60,11 @@ public class UserRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
         sendRequest(GET, url + "/idontexist", 404);
     }
-    
+
     @Test
     public void testWriteUser() throws Exception {
         createUser("test");
-        
+
         String xml = sendRequest(GET, "/users/test", 200);
         assertTrue(xml.contains("<user><user-id>test</user-id>"));
 
@@ -118,12 +118,12 @@ public class UserRestServiceTest extends AbstractSpringJerseyRestTestCase {
     @Test
     public void testDeleteUser() throws Exception {
         createUser("deleteMe");
-        
+
         String xml = sendRequest(GET, "/users", 200);
         assertTrue(xml.contains("deleteMe"));
 
         sendRequest(DELETE, "/users/idontexist", 400);
-        
+
         sendRequest(DELETE, "/users/deleteMe", 200);
 
         sendRequest(GET, "/users/deleteMe", 404);
@@ -138,6 +138,6 @@ public class UserRestServiceTest extends AbstractSpringJerseyRestTestCase {
                 "</user>";
         sendPost("/users", user, 303, "/users/" + username);
     }
-    
+
 
 }

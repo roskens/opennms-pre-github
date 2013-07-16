@@ -53,9 +53,9 @@ import org.springframework.util.MethodInvoker;
  * @version $Id: $
  */
 public class XmlRpcServiceExporter extends RemoteExporter implements InitializingBean, DisposableBean, XmlRpcHandler {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmlRpcServiceExporter.class);
-    
+
     private WebServer webServer;
     private Object proxy;
     private String serviceName;
@@ -68,7 +68,7 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     public WebServer getWebServer() {
         return this.webServer;
     }
-    
+
     /**
      * <p>Setter for the field <code>webServer</code>.</p>
      *
@@ -77,7 +77,7 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     public void setWebServer(WebServer webServer) {
         this.webServer = webServer;
     }
-    
+
     /**
      * <p>Getter for the field <code>serviceName</code>.</p>
      *
@@ -86,7 +86,7 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     public String getServiceName() {
         return this.serviceName;
     }
-    
+
     /**
      * <p>Setter for the field <code>serviceName</code>.</p>
      *
@@ -95,7 +95,7 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -108,13 +108,13 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
         checkService();
         checkServiceInterface();
         this.proxy = getProxyForService();
-     
+
         if (serviceName == null || "".equals(serviceName)) {
             this.webServer.addHandler("$default", this);
         } else {
             this.webServer.addHandler(serviceName, this);
         }
-        
+
     }
 
     /**
@@ -130,55 +130,55 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
             this.webServer.removeHandler(serviceName);
         }
     }
-    
+
     public static class MsgPreservingXmlRpcException extends XmlRpcException {
 
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = -4693127622262382452L;
 
         public MsgPreservingXmlRpcException(int code, String message) {
             super(code, message);
         }
-        
+
         @Override
         public String toString() {
             return getMessage();
         }
-        
+
     }
 
     /** {@inheritDoc} */
     @Override
     public Object execute(String method, @SuppressWarnings("unchecked") Vector params) throws Exception {
-        
+
         LOG.debug("calling: {}({})", method, toArgList(params));
-        
+
         MethodInvoker invoker = new ArgumentConvertingMethodInvoker();
         invoker.setTargetObject(this.proxy);
         invoker.setTargetMethod(getMethodName(method));
         invoker.setArguments(params.toArray());
         invoker.prepare();
-        
+
         try {
         Object returnValue =  invoker.invoke();
-        
+
         if (returnValue == null && invoker.getPreparedMethod().getReturnType() == Void.TYPE) {
             returnValue = "void";
         }
-        
+
         else if (returnValue instanceof Map<?,?> && !(returnValue instanceof Hashtable<?,?>)) {
             returnValue = new Hashtable<Object, Object>((Map<?, ?>)returnValue);
         }
-        
+
         else if (returnValue instanceof Collection<?> && !(returnValue instanceof Vector<?>)) {
             returnValue = new Vector<Object>((Collection<?>)returnValue);
         }
-        
+
         LOG.debug("returning from: {}({}) result = {}", method, toArgList(params), returnValue);
         return returnValue;
-        
+
         } catch (InvocationTargetException e) {
             Throwable targetException = e.getTargetException();
             if (targetException instanceof IllegalArgumentException) {
@@ -186,14 +186,14 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
             } else if (targetException instanceof MalformedURLException) {
                 throw new MsgPreservingXmlRpcException(XmlRpcConstants.FAULT_INVALID_URL, targetException.getMessage());
             }
-            else if (targetException instanceof Exception && targetException.toString() != null) { 
+            else if (targetException instanceof Exception && targetException.toString() != null) {
                 throw (Exception)targetException;
             }
-            
+
             String msg = targetException.toString();
             if (msg == null)
                 msg = targetException.getClass().getName();
-            
+
             Exception ex = new Exception(msg, targetException);
             ex.setStackTrace(targetException.getStackTrace());
             throw ex;
@@ -218,6 +218,6 @@ public class XmlRpcServiceExporter extends RemoteExporter implements Initializin
     }
 
 
-    
-    
+
+
 }

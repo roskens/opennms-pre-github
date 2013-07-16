@@ -63,7 +63,7 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 	}
 
 	/**
-	 * The addKeyUpHandler method allows other classes to assign KeyUpHandlers 
+	 * The addKeyUpHandler method allows other classes to assign KeyUpHandlers
 	 * to the FocusPanel within this widget
 	 */
         @Override
@@ -72,7 +72,7 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 	}
 
 	/**
-	 * The addKeyDownHandler method allows other classes to assign KeyDownHandlers 
+	 * The addKeyDownHandler method allows other classes to assign KeyDownHandlers
 	 * to the FocusPanel within this widget
 	 */
         @Override
@@ -81,14 +81,14 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
 	}
 
 	/**
-	 * The addKeyPressHandler method allows other classes to assign KeyPressHandlers 
+	 * The addKeyPressHandler method allows other classes to assign KeyPressHandlers
 	 * to the FocusPanel within this widget
 	 */
         @Override
 	public HandlerRegistration addKeyPressHandler(KeyPressHandler handler) {
 		return fPanel.addKeyPressHandler(handler);
 	}
-    
+
 	/**
 	 * The dump method sets the inner HTML of the main Div element.
 	 * This method is called whenever the server sends the client the current
@@ -98,9 +98,9 @@ public class GwtTerminal extends Composite implements HasAllKeyHandlers {
     public void dump(String receivedBytes) {
     	div.setInnerHTML(receivedBytes);
     }
-    
+
     public void focus() {
     	fPanel.getElement().focus();
     }
-    
+
 }

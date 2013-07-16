@@ -37,9 +37,9 @@ import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 
 public class SyslogConfigDaoTest {
-	
+
 	String xml = "" +
-			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
+			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
 			"<syslog-northbounder-config>" +
 			"  <enabled>true</enabled>" +
 			"  <nagles-delay>10000</nagles-delay>" +
@@ -63,9 +63,9 @@ public class SyslogConfigDaoTest {
 			"	<uei>uei.opennms.org/nodes/nodeUp</uei>\n" +
 			"</syslog-northbounder-config>\n" +
 			"";
-	
+
 	String xmlNoUeis = "" +
-			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
+			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
 			"<syslog-northbounder-config>" +
 			"  <enabled>true</enabled>" +
 			"  <nagles-delay>10000</nagles-delay>" +
@@ -91,23 +91,23 @@ public class SyslogConfigDaoTest {
 
 	@Test
 	public void testLoad() throws InterruptedException {
-		
+
 		Resource resource = new ByteArrayResource(xml.getBytes());
-				
+
 		SyslogNorthbounderConfigDao dao = new SyslogNorthbounderConfigDao();
 		dao.setConfigResource(resource);
 		dao.afterPropertiesSet();
-		
+
 		SyslogNorthbounderConfig config = dao.getConfig();
-		
+
 		assertNotNull(config);
-		
+
 		assertEquals(true, config.isEnabled());
 		assertEquals(new Integer("10000"), config.getNaglesDelay());
 		assertEquals(new Integer(10), config.getBatchSize());
 		assertEquals(new Integer(100), config.getQueueSize());
 		assertEquals("ALARM ID:${alarmId} NODE:${nodeLabel}", config.getMessageFormat());
-		
+
 		SyslogDestination syslogDestination = config.getDestinations().get(0);
 		assertNotNull(syslogDestination);
 		assertEquals("test-host", syslogDestination.getName());
@@ -119,29 +119,29 @@ public class SyslogConfigDaoTest {
 		assertEquals(false, syslogDestination.isSendLocalName());
 		assertEquals(false, syslogDestination.isSendLocalTime());
 		assertEquals(true, syslogDestination.isTruncateMessage());
-		
+
 		assertEquals(false, syslogDestination.isFirstOccurrenceOnly());
-		
+
 		assertEquals("uei.opennms.org/nodes/nodeDown", config.getUeis().get(0));
 		assertEquals("uei.opennms.org/nodes/nodeUp", config.getUeis().get(1));
-		
+
 	}
 
 	@Test
 	public void testLoadNoUeis() {
 		Resource resource = new ByteArrayResource(xmlNoUeis.getBytes());
-		
+
 		SyslogNorthbounderConfigDao dao = new SyslogNorthbounderConfigDao();
 		dao.setConfigResource(resource);
-		
+
 		dao.afterPropertiesSet();
-		
+
 		SyslogNorthbounderConfig config = dao.getConfig();
-		
+
 		assertNotNull(config);
 		assertEquals(null, config.getUeis());
 		assertTrue(config.getDestinations().get(0).isFirstOccurrenceOnly());
-		
+
 	}
-	
+
 }

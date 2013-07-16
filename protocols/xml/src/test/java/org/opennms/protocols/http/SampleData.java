@@ -40,7 +40,7 @@ import org.opennms.protocols.xml.config.Parameter;
 
 /**
  * The Class SampleData.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="sample-data")

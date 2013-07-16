@@ -40,7 +40,7 @@ package org.opennms.web.notification;
  */
 public class NotificationFactoryException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2374905955140803820L;
     private Throwable rootCause;

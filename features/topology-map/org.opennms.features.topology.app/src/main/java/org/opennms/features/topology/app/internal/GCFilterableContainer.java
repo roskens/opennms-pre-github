@@ -41,7 +41,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	private boolean includeParentsWhenFiltering = true;
 
 	private Set<Vertex> filterOverride = null;
-	 
+
 	private final GraphContainer m_graphContainer;
 
 	public GCFilterableContainer(GraphContainer graphContainer) {
@@ -110,7 +110,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 		if (filteredChildren != null) {
 			return filteredChildren.get(itemId);
 		} else {
-			Collection<Vertex> emptyList = Collections.emptyList(); 
+			Collection<Vertex> emptyList = Collections.emptyList();
 			return !containsId(itemId) ? emptyList : m_graphContainer.getBaseTopology().getChildren(itemId);
 		}
 	}
@@ -131,11 +131,11 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 		if (filteredParent != null) {
 			return filteredParent.get(itemId);
 		}
-		
+
 		if (containsId(itemId)) {
 			return m_graphContainer.getBaseTopology().getParent(itemId);
 		}
-		
+
 		return null;
 	}
 
@@ -154,7 +154,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	private boolean internalHasChildren(VertexRef itemId) {
 		if (filteredChildren != null) {
 			return filteredChildren.containsKey(itemId);
-		} else { 
+		} else {
 			return containsId(itemId) && m_graphContainer.getBaseTopology().hasChildren(itemId);
 		}
 	}
@@ -206,7 +206,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	 * {@link #setParent(Object itemId, Object newParentId)} or
 	 * {@link com.vaadin.data.Container#removeItem(Object itemId)}.
 	 * </p>
-	 * 
+	 *
 	 * @param itemId
 	 *            the ID of the Item in the container whose child capability is
 	 *            to be set.
@@ -228,7 +228,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	 * also possible to detach a node from the hierarchy (and thus make it root)
 	 * by setting the parent <code>null</code>.
 	 * </p>
-	 * 
+	 *
 	 * @param itemId
 	 *            the ID of the item to be set as the child of the Item
 	 *            identified with newParentId.
@@ -246,7 +246,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	 /**
 	  * Removes the Item identified by given itemId and all its children from the
 	  * given Container.
-	  * 
+	  *
 	  * @param container
 	  *            the container where the item is to be removed
 	  * @param itemId
@@ -281,7 +281,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	  * items themselves. Setting this to false causes the filtering to only
 	  * include the matching items and make items with excluded parents into root
 	  * items.
-	  * 
+	  *
 	  * @param includeParentsWhenFiltering
 	  *            true to include all parents for items that match the filter,
 	  *            false to only include the matching items
@@ -296,9 +296,9 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 
 	 /*
 	  * Overridden to provide filtering for root & children items.
-	  * 
+	  *
 	  * (non-Javadoc)
-	  * 
+	  *
 	  * @see com.vaadin.data.util.IndexedContainer#updateContainerFiltering()
 	  */
 	 @Override
@@ -364,7 +364,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	 /**
 	  * Adds the given childItemId as a filteredChildren for the parentItemId and
 	  * sets it filteredParent.
-	  * 
+	  *
 	  * @param parentItemId
 	  * @param childItemId
 	  */
@@ -385,7 +385,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	  * filteredChildren map in the same order as they are in the children map.
 	  * Starts from parentItemId and recurses down as long as child items that
 	  * should be included are found.
-	  * 
+	  *
 	  * @param parentItemId
 	  *            The item id to start recurse from. Not added to a
 	  *            filteredChildren list
@@ -412,7 +412,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 	  * when filtering. All items which passes the filters are included.
 	  * Additionally all items that have a child node that should be included are
 	  * also themselves included.
-	  * 
+	  *
 	  * @param itemId
 	  * @param includedItems
 	  * @return true if the itemId should be included in the filtered container.
@@ -436,7 +436,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 
 	 /*
 	  * (non-Javadoc)
-	  * 
+	  *
 	  * @see
 	  * com.vaadin.data.util.IndexedContainer#passesFilters(java.lang.Object)
 	  */
@@ -448,7 +448,7 @@ public class GCFilterableContainer extends AbstractBeanContainer<VertexRef, Vert
 			 return super.passesFilters(itemId);
 		 }
 	 }
-	 
+
 	 @Override
 	 public void fireItemSetChange() {
 		 super.fireItemSetChange();

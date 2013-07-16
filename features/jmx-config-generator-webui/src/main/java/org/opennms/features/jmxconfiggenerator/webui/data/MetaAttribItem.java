@@ -34,7 +34,7 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.CompAttrib;
 /**
  * Meta interface to address all properties of an Attrib bean in vaadin
  * framework. In this way we do not need use strings!
- * 
+ *
  * @author Markus von Rüden
  * @see org.opennms.xmlns.xsd.config.jmx_datacollection.Attrib
  */

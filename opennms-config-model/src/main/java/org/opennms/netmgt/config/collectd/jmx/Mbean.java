@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -51,7 +51,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class Mbean.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -130,8 +130,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -143,8 +143,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -158,8 +158,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCompAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -171,8 +171,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCompAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -186,8 +186,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIncludeMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -199,8 +199,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIncludeMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -215,7 +215,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateAttrib.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -226,7 +226,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateCompAttrib.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -237,7 +237,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateIncludeMbean.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -248,7 +248,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -257,62 +257,62 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Mbean) {
-        
+
             Mbean temp = (Mbean)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._objectname != null) {
                 if (temp._objectname == null) return false;
-                else if (!(this._objectname.equals(temp._objectname))) 
+                else if (!(this._objectname.equals(temp._objectname)))
                     return false;
             }
             else if (temp._objectname != null)
                 return false;
             if (this._keyfield != null) {
                 if (temp._keyfield == null) return false;
-                else if (!(this._keyfield.equals(temp._keyfield))) 
+                else if (!(this._keyfield.equals(temp._keyfield)))
                     return false;
             }
             else if (temp._keyfield != null)
                 return false;
             if (this._exclude != null) {
                 if (temp._exclude == null) return false;
-                else if (!(this._exclude.equals(temp._exclude))) 
+                else if (!(this._exclude.equals(temp._exclude)))
                     return false;
             }
             else if (temp._exclude != null)
                 return false;
             if (this._keyAlias != null) {
                 if (temp._keyAlias == null) return false;
-                else if (!(this._keyAlias.equals(temp._keyAlias))) 
+                else if (!(this._keyAlias.equals(temp._keyAlias)))
                     return false;
             }
             else if (temp._keyAlias != null)
                 return false;
             if (this._attribList != null) {
                 if (temp._attribList == null) return false;
-                else if (!(this._attribList.equals(temp._attribList))) 
+                else if (!(this._attribList.equals(temp._attribList)))
                     return false;
             }
             else if (temp._attribList != null)
                 return false;
             if (this._includeMbeanList != null) {
                 if (temp._includeMbeanList == null) return false;
-                else if (!(this._includeMbeanList.equals(temp._includeMbeanList))) 
+                else if (!(this._includeMbeanList.equals(temp._includeMbeanList)))
                     return false;
             }
             else if (temp._includeMbeanList != null)
                 return false;
             if (this._compAttribList != null) {
                 if (temp._compAttribList == null) return false;
-                else if (!(this._compAttribList.equals(temp._compAttribList))) 
+                else if (!(this._compAttribList.equals(temp._compAttribList)))
                     return false;
             }
             else if (temp._compAttribList != null)
@@ -324,7 +324,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getAttrib.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -338,7 +338,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._attribList.size()) {
             throw new IndexOutOfBoundsException("getAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
         }
-        
+
         return (Attrib) _attribList.get(index);
     }
 
@@ -348,7 +348,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Attrib[] getAttrib(
@@ -361,7 +361,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getAttribCollection.Returns a reference to
      * '_attribList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<Attrib> getAttribCollection(
@@ -371,7 +371,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getAttribCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getAttribCount(
@@ -381,7 +381,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getCompAttrib.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -396,7 +396,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._compAttribList.size()) {
             throw new IndexOutOfBoundsException("getCompAttrib: Index value '" + index + "' not in range [0.." + (this._compAttribList.size() - 1) + "]");
         }
-        
+
         return (CompAttrib) _compAttribList.get(index);
     }
 
@@ -406,7 +406,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public CompAttrib[] getCompAttrib(
@@ -419,7 +419,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getCompAttribCollection.Returns a reference to
      * '_compAttribList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<CompAttrib> getCompAttribCollection(
@@ -429,7 +429,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getCompAttribCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getCompAttribCount(
@@ -439,7 +439,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'exclude'.
-     * 
+     *
      * @return the value of field 'Exclude'.
      */
     public java.lang.String getExclude(
@@ -449,7 +449,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIncludeMbean.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -462,7 +462,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._includeMbeanList.size()) {
             throw new IndexOutOfBoundsException("getIncludeMbean: Index value '" + index + "' not in range [0.." + (this._includeMbeanList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _includeMbeanList.get(index);
     }
 
@@ -470,10 +470,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getIncludeMbean.Returns the contents of the
      * collection in an Array.  <p>Note:  Just in case the
      * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call. 
+     * a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of
      * exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getIncludeMbean(
@@ -486,7 +486,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getIncludeMbeanCollection.Returns a reference to
      * '_includeMbeanList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getIncludeMbeanCollection(
@@ -496,7 +496,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIncludeMbeanCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIncludeMbeanCount(
@@ -506,7 +506,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'keyAlias'.
-     * 
+     *
      * @return the value of field 'KeyAlias'.
      */
     public java.lang.String getKeyAlias(
@@ -516,7 +516,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'keyfield'.
-     * 
+     *
      * @return the value of field 'Keyfield'.
      */
     public java.lang.String getKeyfield(
@@ -526,7 +526,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -536,7 +536,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'objectname'.
-     * 
+     *
      * @return the value of field 'Objectname'.
      */
     public java.lang.String getObjectname(
@@ -549,14 +549,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -582,13 +582,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_compAttribList != null) {
            result = 37 * result + _compAttribList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -604,7 +604,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateAttrib.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -615,7 +615,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateCompAttrib.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -626,7 +626,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateIncludeMbean.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -636,8 +636,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -652,8 +652,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -692,7 +692,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeAttrib.
-     * 
+     *
      * @param vAttrib
      * @return true if the object was removed from the collection.
      */
@@ -704,7 +704,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeAttribAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -716,7 +716,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeCompAttrib.
-     * 
+     *
      * @param vCompAttrib
      * @return true if the object was removed from the collection.
      */
@@ -728,7 +728,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeCompAttribAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -740,7 +740,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIncludeMbean.
-     * 
+     *
      * @param vIncludeMbean
      * @return true if the object was removed from the collection.
      */
@@ -752,7 +752,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIncludeMbeanAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -763,8 +763,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -778,20 +778,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._attribList.size()) {
             throw new IndexOutOfBoundsException("setAttrib: Index value '" + index + "' not in range [0.." + (this._attribList.size() - 1) + "]");
         }
-        
+
         this._attribList.set(index, vAttrib);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttribArray
      */
     public void setAttrib(
             final Attrib[] vAttribArray) {
         //-- copy array
         _attribList.clear();
-        
+
         for (int i = 0; i < vAttribArray.length; i++) {
                 this._attribList.add(vAttribArray[i]);
         }
@@ -800,14 +800,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_attribList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vAttribList the Vector to copy.
      */
     public void setAttrib(
             final java.util.List<Attrib> vAttribList) {
         // copy vector
         this._attribList.clear();
-        
+
         this._attribList.addAll(vAttribList);
     }
 
@@ -815,7 +815,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_attribList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param attribList the Vector to set.
      */
     public void setAttribCollection(
@@ -824,8 +824,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCompAttrib
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -839,20 +839,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._compAttribList.size()) {
             throw new IndexOutOfBoundsException("setCompAttrib: Index value '" + index + "' not in range [0.." + (this._compAttribList.size() - 1) + "]");
         }
-        
+
         this._compAttribList.set(index, vCompAttrib);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCompAttribArray
      */
     public void setCompAttrib(
             final CompAttrib[] vCompAttribArray) {
         //-- copy array
         _compAttribList.clear();
-        
+
         for (int i = 0; i < vCompAttribArray.length; i++) {
                 this._compAttribList.add(vCompAttribArray[i]);
         }
@@ -861,14 +861,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_compAttribList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vCompAttribList the Vector to copy.
      */
     public void setCompAttrib(
             final java.util.List<CompAttrib> vCompAttribList) {
         // copy vector
         this._compAttribList.clear();
-        
+
         this._compAttribList.addAll(vCompAttribList);
     }
 
@@ -876,7 +876,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_compAttribList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param compAttribList the Vector to set.
      */
     public void setCompAttribCollection(
@@ -886,7 +886,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'exclude'.
-     * 
+     *
      * @param exclude the value of field 'exclude'.
      */
     public void setExclude(
@@ -895,8 +895,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIncludeMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -910,20 +910,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._includeMbeanList.size()) {
             throw new IndexOutOfBoundsException("setIncludeMbean: Index value '" + index + "' not in range [0.." + (this._includeMbeanList.size() - 1) + "]");
         }
-        
+
         this._includeMbeanList.set(index, vIncludeMbean);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIncludeMbeanArray
      */
     public void setIncludeMbean(
             final java.lang.String[] vIncludeMbeanArray) {
         //-- copy array
         _includeMbeanList.clear();
-        
+
         for (int i = 0; i < vIncludeMbeanArray.length; i++) {
                 this._includeMbeanList.add(vIncludeMbeanArray[i]);
         }
@@ -932,14 +932,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_includeMbeanList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vIncludeMbeanList the Vector to copy.
      */
     public void setIncludeMbean(
             final java.util.List<java.lang.String> vIncludeMbeanList) {
         // copy vector
         this._includeMbeanList.clear();
-        
+
         this._includeMbeanList.addAll(vIncludeMbeanList);
     }
 
@@ -947,7 +947,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_includeMbeanList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param includeMbeanList the Vector to set.
      */
     public void setIncludeMbeanCollection(
@@ -957,7 +957,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'keyAlias'.
-     * 
+     *
      * @param keyAlias the value of field 'keyAlias'.
      */
     public void setKeyAlias(
@@ -967,7 +967,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'keyfield'.
-     * 
+     *
      * @param keyfield the value of field 'keyfield'.
      */
     public void setKeyfield(
@@ -977,7 +977,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -987,7 +987,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'objectname'.
-     * 
+     *
      * @param objectname the value of field 'objectname'.
      */
     public void setObjectname(
@@ -997,7 +997,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -1014,8 +1014,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

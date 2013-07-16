@@ -41,7 +41,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @since 1.8.1
  */
 public class AlarmDashlet extends Dashlet {
-    
+
     /*
     - Transient
     - Don't need to be able to acknowledge them
@@ -58,19 +58,19 @@ public class AlarmDashlet extends Dashlet {
     - Ideally be able to sort by any column
 
      */
-    
+
     private AlarmView m_view = new AlarmView(this);
     private AlarmLoader m_loader = new AlarmLoader();
-    
+
     class AlarmLoader extends DashletLoader implements AsyncCallback<Alarm[]> {
-        
+
         private SurveillanceServiceAsync m_suveillanceService;
-        
+
         public void load(final SurveillanceSet surveillanceSet) {
             loading();
             m_suveillanceService.getAlarmsForSet(surveillanceSet, this);
         }
-        
+
         public void onDataLoaded(Alarm[] alarms) {
             try {
                 m_view.setAlarms(alarms);
@@ -93,22 +93,22 @@ public class AlarmDashlet extends Dashlet {
         public void onSuccess(Alarm[] result) {
             onDataLoaded(result);
         }
-        
+
     }
-    
+
     AlarmDashlet(Dashboard dashboard) {
         super(dashboard, "Alarms");
         setLoader(m_loader);
         setView(m_view);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setSurveillanceSet(SurveillanceSet set) {
         m_loader.load(set);
     }
 
-    
+
     /**
      * <p>setSurveillanceService</p>
      *

@@ -47,7 +47,7 @@ import com.google.gwt.user.client.ui.UIObject;
 import com.google.gwt.user.client.ui.Widget;
 
 public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
-    
+
     private Label m_label;
     private TextBox m_tf;
     private Button m_okBtn;
@@ -56,10 +56,10 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
     private UIObject m_target;
     private LayoutPanel m_layoutPanel;
     private int m_heightOffset = 274;
-    
+
     public SearchPopup() {
         super(true);
-        
+
         m_label = new Label("Search for Node:");
         m_label.getElement().getStyle().setFontSize(70, Unit.PCT);
         m_label.getElement().getStyle().setPaddingTop(4, Unit.PX);
@@ -69,24 +69,24 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
         m_okBtn = new Button("OK");
         m_okBtn.setSize("100%", "100%");
         m_okBtn.addClickHandler(new ClickHandler() {
-            
+
             @Override
             public void onClick(ClickEvent event) {
                 m_eventBus.fireEvent(new SearchClickEvent(m_tf.getText()));
                 hide();
             }
         });
-        
+
         m_cancelBtn = new Button("Cancel");
         m_cancelBtn.setSize("100%", "100%");
         m_cancelBtn.addClickHandler(new ClickHandler() {
-            
+
             @Override
             public void onClick(ClickEvent event) {
                 hide();
             }
         });
-        
+
         m_layoutPanel = new LayoutPanel();
         m_layoutPanel.setSize("100%", "25px");
         m_layoutPanel.add(m_label);
@@ -96,12 +96,12 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
         m_layoutPanel.setWidgetRightWidth(m_cancelBtn, 0, Unit.PX, 60, Unit.PX);
         m_layoutPanel.setWidgetRightWidth(m_okBtn, 64, Unit.PX, 70, Unit.PX);
         m_layoutPanel.setWidgetLeftRight(m_tf, 100, Unit.PX, 135, Unit.PX);
-        
+
         setAnimationEnabled(true);
-        
+
         setWidget(m_layoutPanel);
     }
-    
+
     public void addSearchClickEventHandler(SearchClickEventHandler handler) {
         m_eventBus.addHandler(SearchClickEvent.getType(), handler);
     }
@@ -123,19 +123,19 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
 
     @Override
     public void showSearchPopup() {
-        
+
         setPopupPositionAndShow(new PositionCallback() {
-            
+
             @Override
             public void setPosition(int offsetWidth, int offsetHeight) {
                 int left = m_target.getAbsoluteLeft();
                 int top = m_target.getAbsoluteTop() + getHeightOffset();
                 m_layoutPanel.setWidth((m_target.getOffsetWidth() - 12) + "px");
                 setPopupPosition(left, top);
-                
+
             }
         });
-        
+
     }
 
     @Override
@@ -156,13 +156,13 @@ public class SearchPopup extends PopupPanel implements SearchPopupDisplay {
     @Override
     public void setHeightOffset(int offset) {
         m_heightOffset = offset;
-        
+
     }
-    
+
     private int getHeightOffset() {
         return m_heightOffset;
     }
-    
-    
+
+
 
 }

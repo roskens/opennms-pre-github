@@ -56,8 +56,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class SystemGroup extends AggregateTracker {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(SystemGroup.class);
 
     //
@@ -86,7 +86,7 @@ public final class SystemGroup extends AggregateTracker {
     /** Constant <code>SYS_CONTACT_ALIAS="sysContact"</code> */
     public final static String SYS_CONTACT_ALIAS = "sysContact";
     private static final String SYS_CONTACT = ".1.3.6.1.2.1.1.4";
-    
+
     /**
      * <P>
      * The keys that will be supported by default from the TreeMap base class.
@@ -175,7 +175,7 @@ public final class SystemGroup extends AggregateTracker {
          * This is a bit encode integer that allows the management entity to
          * determ if the agent supports the following standards
          * </P>
-         * 
+         *
          * <UL>
          * <LI>physical (e.g. repeaters)</LI>
          * <LI>datalink/subnetwork (e.g. bridges)</LI>
@@ -183,7 +183,7 @@ public final class SystemGroup extends AggregateTracker {
          * <LI>end-to-end (e.g. IP hosts)</LI>
          * <LI>applications (e.g. mail relays)</LI>
          * </UL>
-         * 
+         *
          * <P>
          * To get more information about the encoding see Page 123 of "SNMP,
          * SNMPv2, SNMPv3 and RMON 1 and 2 3rd Ed." by William Stallings [ISBN
@@ -206,7 +206,7 @@ public final class SystemGroup extends AggregateTracker {
 
     private SnmpStore m_store;
     private InetAddress m_address;
-    
+
     /**
      * <P>
      * The class constructor is used to initialize the collector and send out
@@ -220,9 +220,9 @@ public final class SystemGroup extends AggregateTracker {
     public SystemGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
-        m_store = new SnmpStore(ms_elemList); 
+        m_store = new SnmpStore(ms_elemList);
     }
-    
+
     /**
      * <p>getSysName</p>
      *

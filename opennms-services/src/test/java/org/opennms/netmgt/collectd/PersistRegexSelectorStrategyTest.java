@@ -68,7 +68,7 @@ import org.springframework.transaction.PlatformTransactionManager;
 
 /**
  * Test class for PersistRegexSelectorStrategy
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class PersistRegexSelectorStrategyTest {
@@ -128,7 +128,7 @@ public class PersistRegexSelectorStrategyTest {
         GenericIndexResourceType resourceType = new GenericIndexResourceType(agent, snmpCollection, rt);
 
         resourceA = new GenericIndexResource(resourceType, rt.getName(), new SnmpInstId("1.2.3.4.5.6.7.8.9.1.1"));
-        
+
         AttributeGroupType groupType = new AttributeGroupType("mib2-interfaces", "all");
         MibObject mibObject = new MibObject();
         mibObject.setOid(".1.2.3.4.5.6.7.8.9.2.1");
@@ -138,7 +138,7 @@ public class PersistRegexSelectorStrategyTest {
         StringAttributeType attributeType = new StringAttributeType(resourceType, snmpCollection.getName(), mibObject, groupType);
         SnmpValue snmpValue = new Snmp4JValueFactory().getOctetString("agalue rules!".getBytes());
         resourceA.setAttributeValue(attributeType, snmpValue);
-        
+
         resourceB = new GenericIndexResource(resourceType, rt.getName(), new SnmpInstId("1.2.3.4.5.6.7.8.9.1.2"));
     }
 

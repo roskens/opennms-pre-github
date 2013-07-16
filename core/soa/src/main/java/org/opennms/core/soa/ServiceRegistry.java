@@ -39,7 +39,7 @@ import java.util.Map;
  * @version $Id: $
  */
 public interface ServiceRegistry {
-    
+
     /**
      * <p>register</p>
      *
@@ -48,7 +48,7 @@ public interface ServiceRegistry {
      * @return a {@link org.opennms.core.soa.Registration} object.
      */
     public Registration register(Object serviceProvider, Class<?>... services);
-    
+
     /**
      * <p>register</p>
      *
@@ -58,7 +58,7 @@ public interface ServiceRegistry {
      * @return a {@link org.opennms.core.soa.Registration} object.
      */
     public Registration register(Object serviceProvider, Map<String, String> properties, Class<?>... services);
-    
+
     /**
      * <p>findProvider</p>
      *
@@ -67,7 +67,7 @@ public interface ServiceRegistry {
      * @return a T object.
      */
     public <T> T findProvider(Class<T> seviceInterface);
-    
+
     /**
      * <p>findProvider</p>
      *
@@ -77,7 +77,7 @@ public interface ServiceRegistry {
      * @return a T object.
      */
     public <T> T findProvider(Class<T> serviceInterface, String filter);
-    
+
     /**
      * <p>findProviders</p>
      *
@@ -96,7 +96,7 @@ public interface ServiceRegistry {
      * @return a {@link java.util.Collection} object.
      */
     public <T> Collection<T> findProviders(Class<T> service, String filter);
-    
+
     /**
      * <p>addListener</p>
      *
@@ -105,7 +105,7 @@ public interface ServiceRegistry {
      * @param <T> a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener);
-    
+
     /**
      * <p>addListener</p>
      *
@@ -115,7 +115,7 @@ public interface ServiceRegistry {
      * @param <T> a T object.
      */
     public <T> void addListener(Class<T> service, RegistrationListener<T> listener, boolean notifyForExistingProviders);
-    
+
     /**
      * <p>removeListener</p>
      *
@@ -124,7 +124,7 @@ public interface ServiceRegistry {
      * @param <T> a T object.
      */
     public <T> void removeListener(Class<T> service, RegistrationListener<T> listener);
-    
+
 
     /**
      * <p>addRegistrationHook</p>
@@ -133,12 +133,12 @@ public interface ServiceRegistry {
      * @param notifyForExistingProviders a boolean.
      */
     public void addRegistrationHook(RegistrationHook hook, boolean notifyForExistingProviders);
-    
+
     /**
      * <p>removeRegistrationHook</p>
      *
      * @param hook a {@link org.opennms.core.soa.RegistrationHook} object.
      */
     public void removeRegistrationHook(RegistrationHook hook);
-    
+
 }

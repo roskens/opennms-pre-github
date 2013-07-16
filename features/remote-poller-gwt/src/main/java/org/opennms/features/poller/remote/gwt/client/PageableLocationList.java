@@ -49,16 +49,16 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public class PageableLocationList extends PageableList {
-    
+
     private ArrayList<? extends LocationInfo> m_locations;
 
     private class LocationInfoDisplay extends Widget{
-        
+
         Image m_icon = new Image();
         Label m_nameLabel = new Label();
         Label m_areaLabel = new Label();
         Label m_statusLabel = new Label();
-        
+
         @Override
         protected void doAttachChildren() {
             super.doAttachChildren();
@@ -67,12 +67,12 @@ public class PageableLocationList extends PageableList {
             DOM.appendChild(this.getElement(), m_areaLabel.getElement());
             DOM.appendChild(this.getElement(), m_statusLabel.getElement());
         }
-        
+
         @Override
         protected void onLoad() {
             resizeToFit();
         }
-        
+
         protected void resizeToFit() {
             int calculatedHeight = m_nameLabel.getOffsetHeight() + m_statusLabel.getOffsetHeight();
             int newHeight = calculatedHeight > 60 ? calculatedHeight : 60;
@@ -96,9 +96,9 @@ public class PageableLocationList extends PageableList {
             m_nameLabel.addStyleName(locationDetailStyle.nameStyle());
             m_areaLabel.addStyleName(locationDetailStyle.areaStyle());
             m_statusLabel.addStyleName(locationDetailStyle.statusStyle());
-            
+
         }
-        
+
     }
 
     /** {@inheritDoc} */

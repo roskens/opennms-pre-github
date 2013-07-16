@@ -50,7 +50,7 @@ public interface JavaMailConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig} object.
      */
     SendmailConfig getDefaultSendmailConfig();
-    
+
     /**
      * <p>getSendMailConfig</p>
      *
@@ -58,21 +58,21 @@ public interface JavaMailConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.javamail.SendmailConfig} object.
      */
     SendmailConfig getSendMailConfig(String name);
-    
+
     /**
      * <p>getSendmailConfigs</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<SendmailConfig> getSendmailConfigs();
-    
+
     /**
      * <p>getDefaultReadmailConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
      */
     ReadmailConfig getDefaultReadmailConfig();
-    
+
     /**
      * <p>getReadMailConfig</p>
      *
@@ -80,14 +80,14 @@ public interface JavaMailConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.javamail.ReadmailConfig} object.
      */
     ReadmailConfig getReadMailConfig(String name);
-    
+
     /**
      * <p>getReadmailConfigs</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<ReadmailConfig> getReadmailConfigs();
-    
+
     /**
      * <p>getEnd2EndConfig</p>
      *
@@ -95,26 +95,26 @@ public interface JavaMailConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.javamail.End2endMailConfig} object.
      */
     End2endMailConfig getEnd2EndConfig(String name);
-    
+
     /**
      * <p>getEnd2EndConfigs</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<End2endMailConfig> getEnd2EndConfigs();
-    
+
     /**
      * <p>verifyMarshaledConfiguration</p>
      *
      * @throws java.lang.IllegalStateException if any.
      */
     void verifyMarshaledConfiguration() throws IllegalStateException;
-    
+
     /**
      * <p>reloadConfiguration</p>
      *
      * @throws org.springframework.dao.DataAccessResourceFailureException if any.
      */
     void reloadConfiguration() throws DataAccessResourceFailureException;
-    
+
 }

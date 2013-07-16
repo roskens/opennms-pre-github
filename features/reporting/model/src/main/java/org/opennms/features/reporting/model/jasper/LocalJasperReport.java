@@ -58,11 +58,11 @@ public class LocalJasperReport {
     public void setId(String id) {
         m_id = id;
     }
-    
+
     public void setTemplate(String template) {
         m_template = template;
     }
-    
+
     public void setEngine(String engine) {
         m_engine = engine;
     }

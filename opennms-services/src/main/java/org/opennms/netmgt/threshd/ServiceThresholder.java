@@ -64,7 +64,7 @@ public interface ServiceThresholder {
      * @param parameters a {@link java.util.Map} object.
      */
     public void initialize(Map<?,?> parameters);
-    
+
     /**
      * Called when configurations have changed and need to be refreshed at the ServiceThresolder level.
      * Should not do a "full" initialization, but just reload any config objects that might have

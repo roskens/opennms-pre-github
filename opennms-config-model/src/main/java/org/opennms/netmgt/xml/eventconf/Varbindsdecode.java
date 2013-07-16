@@ -50,7 +50,7 @@ import org.opennms.core.xml.ValidateUsing;
 import org.xml.sax.ContentHandler;
 
 /**
- * This element is used for converting event 
+ * This element is used for converting event
  *  varbind value in static decoded string.
  */
 @XmlRootElement(name="varbindsdecode")

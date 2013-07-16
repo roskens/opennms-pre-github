@@ -69,7 +69,7 @@ import org.opennms.web.servlet.MissingParameterException;
  */
 public class EventQueryServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1226547298266948865L;
 

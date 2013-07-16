@@ -54,9 +54,9 @@ import org.springframework.remoting.RemoteAccessException;
  */
 public class ExceptionProtectedPollerBackEnd implements PollerBackEnd {
     private static final Logger LOG = LoggerFactory.getLogger(ExceptionProtectedPollerBackEnd.class);
-    
+
     private PollerBackEnd m_delegate;
-    
+
     /**
      * <p>setDelegate</p>
      *

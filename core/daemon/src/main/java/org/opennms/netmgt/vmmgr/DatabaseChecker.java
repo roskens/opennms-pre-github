@@ -62,9 +62,9 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class DatabaseChecker {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DatabaseChecker.class);
-	
+
     private static List<String> m_required = new ArrayList<String>();
     private static List<String> m_optional = new ArrayList<String>();
     private Map<String,JdbcDataSource> m_dataSources = new HashMap<String,JdbcDataSource>();
@@ -73,7 +73,7 @@ public class DatabaseChecker {
         m_required.add("opennms");
         m_optional.add("opennms-admin");
     }
-    
+
     /**
      * Protected constructor
      *
@@ -142,7 +142,7 @@ public class DatabaseChecker {
             	LOG.info("Data source '{}' is missing from opennms-datasources.xml", dataSource);
             }
         }
-        
+
         // Finally, try connecting to all data sources, and warn or error as appropriate.
         for (final JdbcDataSource dataSource : m_dataSources.values()) {
             final String name = dataSource.getName();

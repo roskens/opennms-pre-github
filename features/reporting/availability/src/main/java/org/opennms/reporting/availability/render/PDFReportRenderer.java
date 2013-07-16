@@ -182,7 +182,7 @@ public class PDFReportRenderer implements ReportRenderer {
             Reader xml = new InputStreamReader(in, "UTF-8");
 
             out = new FileOutputStream(new File(m_baseDir + "/" + outputFileName));
-            
+
             this.render(xml, out, xsl);
 
         } catch (IOException ioe) {

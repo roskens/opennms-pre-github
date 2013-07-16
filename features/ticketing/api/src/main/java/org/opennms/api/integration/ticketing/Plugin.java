@@ -35,7 +35,7 @@ package org.opennms.api.integration.ticketing;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public interface Plugin {
-    
+
     /**
      * DAO like get method to be implemented by HelpDesk specific
      * plugin.
@@ -45,7 +45,7 @@ public interface Plugin {
      * @throws org.opennms.api.integration.ticketing.PluginException if any.
      */
     public Ticket get(String ticketId) throws PluginException;
-    
+
     /**
      * DAO like saveOrUpdate method to be implemented by HelpDesk specific
      * plugin.

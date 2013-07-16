@@ -78,7 +78,7 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	 * Returns internal value, if possible as "yyyy-MM-dd" like sting
 	 * representation of date. But returned string can be any string if the
 	 * users is not following the warnings.
-	 * 
+	 *
 	 * @return String value
 	 */
 	@Override
@@ -141,7 +141,7 @@ public class FieldSetDateBox extends AbstractFieldSet implements FieldSet, Value
 	/**
 	 * To get a valid input without warnings use "yyyy-MM-dd" formated string
 	 * representation of date. But any string can be set to the value.
-	 * 
+	 *
 	 * @param String
 	 *            value
 	 */

@@ -51,7 +51,7 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class DefaultRrdDao implements RrdDao, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdDao.class);
     private RrdStrategy<?, ?> m_rrdStrategy;
     private File m_rrdBaseDirectory;
@@ -84,9 +84,9 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         if (printFunctions.length < 1) {
             printFunctions = new String[] { rraConsolidationFunction };
         }
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
-        
+
         String[] command = new String[] {
                 m_rrdBinaryPath,
                 "graph",
@@ -95,12 +95,12 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 "--end=" + (endTimeInMillis / 1000),
                 "DEF:ds=" + RrdFileConstants.escapeForGraphing(rrdAttribute.getRrdRelativePath()) + ":" + attribute.getName() + ":" + rraConsolidationFunction,
         };
-        
+
         String[] printDefs = new String[printFunctions.length];
         for (int i = 0; i < printFunctions.length; i++) {
-            printDefs[i] = "PRINT:ds:" + printFunctions[i] + ":\"%le\""; 
+            printDefs[i] = "PRINT:ds:" + printFunctions[i] + ":\"%le\"";
         }
-        
+
         String commandString = StringUtils.arrayToDelimitedString(command, " ") + ' ' + StringUtils.arrayToDelimitedString(printDefs, " ");
 
         LOG.debug("commandString: {}", commandString);
@@ -110,20 +110,20 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure when generating graph to get data with command '" + commandString + "'", e);
         }
-        
+
         String[] printLines;
         try {
             printLines = graphDetails.getPrintLines();
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Failure to get print lines from graph after graphing with command '" + commandString + "'", e);
         }
-      
+
         if (printLines.length != printFunctions.length) {
             throw new DataAccessResourceFailureException("Returned number of print lines should be "+printFunctions.length+", but was " + printLines.length + " from command: " + commandString);
         }
 
         double[] values = new double[printLines.length];
-        
+
         for (int i = 0; i < printLines.length; i++) {
             if (printLines[i].endsWith("nan")) {
                 values[i] = Double.NaN;
@@ -135,7 +135,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
                 }
             }
         }
-        
+
         return values;
     }
 
@@ -259,7 +259,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         Assert.notNull(attribute, "attribute argument must not be null");
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
         Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
         File rrdFile = new File(m_rrdBaseDirectory, rrdAttribute.getRrdRelativePath());
@@ -277,7 +277,7 @@ public class DefaultRrdDao implements RrdDao, InitializingBean {
         Assert.isTrue(interval > 0, "interval argument must be greater than zero");
         Assert.isTrue(range > 0, "range argument must be greater than zero");
         Assert.isAssignable(attribute.getClass(), RrdGraphAttribute.class, "attribute argument must be assignable to RrdGraphAttribute");
-        
+
         RrdGraphAttribute rrdAttribute = (RrdGraphAttribute) attribute;
 
         File rrdFile = new File(m_rrdBaseDirectory, rrdAttribute.getRrdRelativePath());

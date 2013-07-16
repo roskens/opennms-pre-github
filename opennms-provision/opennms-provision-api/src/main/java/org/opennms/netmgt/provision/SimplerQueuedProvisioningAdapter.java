@@ -44,9 +44,9 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @version $Id: $
  */
 public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SimplerQueuedProvisioningAdapter.class);
-    
+
     private String m_name;
     protected long m_delay = 1;
     protected TimeUnit m_timeUnit = TimeUnit.SECONDS;
@@ -79,7 +79,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
     public SimplerQueuedProvisioningAdapter(String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>setTimeUnit</p>
      *
@@ -88,7 +88,7 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
     public void setTimeUnit(TimeUnit timeUnit) {
         m_timeUnit = timeUnit;
     }
-    
+
     /**
      * <p>setDelay</p>
      *
@@ -97,13 +97,13 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
     public void setDelay(long delay) {
         m_delay = delay;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getName() {
         return m_name;
     }
-    
+
     @Override
     AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType adapterOperationType) {
         return new AdapterOperationSchedule(m_delay, 0, 1, m_timeUnit);
@@ -164,17 +164,17 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
             LOG.warn("unknown operation: {}", op.getType());
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void init() {
         assertNotNull(m_timeUnit, "timeUnit must be set");
     }
-    
+
     private void assertNotNull(Object o, String msg) {
         assertTrue(o != null, msg);
     }
-    
+
     private void assertTrue(boolean b, String m) {
         if (!b) throw new IllegalStateException(m);
     }
@@ -185,21 +185,21 @@ public abstract class SimplerQueuedProvisioningAdapter extends SimpleQueuedProvi
      * @param nodeid a int.
      */
     public void doAddNode(int nodeid) {}
-    
+
     /**
      * <p>doUpdateNode</p>
      *
      * @param nodeid a int.
      */
     public void doUpdateNode(int nodeid) {}
-    
+
     /**
      * <p>doDeleteNode</p>
      *
      * @param nodeid a int.
      */
     public void doDeleteNode(int nodeid) {}
-    
+
     /**
      * <p>doNotifyConfigChange</p>
      *

@@ -57,7 +57,7 @@ public class DiskUsageDetectorTest implements InitializingBean {
 
 	@Autowired
     private DiskUsageDetector m_detector;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -71,12 +71,12 @@ public class DiskUsageDetectorTest implements InitializingBean {
         m_detector.setTimeout(500);
         m_detector.setDisk("/Volumes/iDisk");
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccessful() throws UnknownHostException{
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFail() throws UnknownHostException{
         m_detector.setDisk("No disk by this name");

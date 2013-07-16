@@ -75,7 +75,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @version $Id: $
  */
 public class BaseImporter implements ImportOperationFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(BaseImporter.class);
 
 
@@ -239,7 +239,7 @@ public class BaseImporter implements ImportOperationFactory {
         insertOperation.setTypeCache(m_typeCache);
         insertOperation.setCategoryCache(m_categoryCache);
         return insertOperation;
-        
+
     }
 
     /** {@inheritDoc} */
@@ -260,7 +260,7 @@ public class BaseImporter implements ImportOperationFactory {
     public DeleteOperation createDeleteOperation(Integer nodeId, String foreignSource, String foreignId) {
         return new DeleteOperation(nodeId, foreignSource, foreignId, m_nodeDao);
     }
-    
+
     /**
      * <p>importModelFromResource</p>
      *
@@ -282,42 +282,42 @@ public class BaseImporter implements ImportOperationFactory {
      * @throws org.opennms.netmgt.importer.ModelImportException if any.
      */
     protected void importModelFromResource(Resource resource, ImportStatistics stats, Event event) throws IOException, ModelImportException {
-        
+
     	stats.beginImporting();
     	stats.beginLoadingResource(resource);
-    	
+
         SpecFile specFile = new SpecFile();
         specFile.loadResource(resource);
-        
+
         stats.finishLoadingResource(resource);
-        
-        
+
+
         if (event != null && getEventForeignSource(event) != null) {
             specFile.setForeignSource(getEventForeignSource(event));
         }
-        
+
         stats.beginAuditNodes();
         createDistPollerIfNecessary();
-        
+
         Map<String, Integer> foreignIdsToNodes = getForeignIdToNodeMap(specFile.getForeignSource());
-        
+
         ImportOperationsManager opsMgr = createImportOperationsManager(foreignIdsToNodes, stats);
         opsMgr.setForeignSource(specFile.getForeignSource());
         opsMgr.setScanThreads(m_scanThreads);
         opsMgr.setWriteThreads(m_writeThreads);
-        
+
         auditNodes(opsMgr, specFile);
-        
+
         stats.finishAuditNodes();
-        
+
         opsMgr.persistOperations(m_transTemplate, getNodeDao());
-        
+
         stats.beginRelateNodes();
-        
+
         relateNodes(specFile);
-        
+
         stats.finishRelateNodes();
-    
+
         stats.finishImporting();
     }
 
@@ -340,19 +340,19 @@ public class BaseImporter implements ImportOperationFactory {
 
     private void auditNodes(final ImportOperationsManager opsMgr, final SpecFile specFile) {
     	m_transTemplate.execute(new TransactionCallbackWithoutResult() {
-    
+
             @Override
             public void doInTransactionWithoutResult(TransactionStatus status) {
                 ImportAccountant accountant = new ImportAccountant(opsMgr);
                 specFile.visitImport(accountant);
             }
-            
+
         });
     }
 
 	class NodeRelator extends AbstractImportVisitor {
 		String m_foreignSource;
-		
+
 		public NodeRelator(String foreignSource) {
 			m_foreignSource = foreignSource;
 		}
@@ -362,19 +362,19 @@ public class BaseImporter implements ImportOperationFactory {
 			m_transTemplate.execute(new TransactionCallbackWithoutResult() {
                                 @Override
 				protected void doInTransactionWithoutResult(TransactionStatus status) {
-					
+
 					OnmsNode dbNode = findNodeByForeignId(m_foreignSource, node.getForeignId());
 					if (dbNode == null) {
 					    LOG.error("Error setting parent on node: {} node not in database", node.getForeignId());
 					    return;
 					}
 					OnmsNode parent = findParent(node);
-					
+
 					OnmsIpInterface critIface = null;
 					if (parent != null) {
 						critIface = getCriticalInterface(parent);
 					}
-					
+
 					LOG.info("Setting parent of node: {} to: {}", dbNode, parent);
 					dbNode.setParent(parent);
 					LOG.info("Setting criticalInterface of node: {} to: {}", dbNode, critIface);
@@ -388,26 +388,26 @@ public class BaseImporter implements ImportOperationFactory {
 				}
 
 				private OnmsIpInterface getCriticalInterface(OnmsNode parent) {
-					
+
 					OnmsIpInterface critIface = parent.getPrimaryInterface();
 					if (critIface != null) {
 						return critIface;
 					}
-					
+
 					return parent.getInterfaceWithService("ICMP");
-					
+
 				}
 
 			});
 		}
-		
+
 		private OnmsNode findParent(Node node) {
 			if (node.getParentForeignId() != null) {
                 return findNodeByForeignId(m_foreignSource, node.getParentForeignId());
             } else if (node.getParentNodeLabel() != null) {
                 return findNodeByNodeLabel(node.getParentNodeLabel());
             }
-			
+
 			return null;
 		}
 
@@ -416,7 +416,7 @@ public class BaseImporter implements ImportOperationFactory {
 			if (nodes.size() == 1) {
                 return nodes.iterator().next();
             }
-			
+
 			LOG.error("Unable to locate a unique node using label {}{} nodes found.  Ignoring relationship.", label, nodes.size());
 			return null;
 		}
@@ -439,12 +439,12 @@ public class BaseImporter implements ImportOperationFactory {
                 return Collections.unmodifiableMap(getNodeDao().getForeignIdToNodeIdMap(foreignSource));
             }
         });
-        
+
     }
 
     private OnmsDistPoller createDistPollerIfNecessary() {
         return m_transTemplate.execute(new TransactionCallback<OnmsDistPoller>() {
-    
+
             @Override
             public OnmsDistPoller doInTransaction(TransactionStatus status) {
                 OnmsDistPoller distPoller = m_distPollerDao.get("localhost");
@@ -454,9 +454,9 @@ public class BaseImporter implements ImportOperationFactory {
                 }
                 return distPoller;
             }
-            
+
         });
-    
+
     }
 
     /**

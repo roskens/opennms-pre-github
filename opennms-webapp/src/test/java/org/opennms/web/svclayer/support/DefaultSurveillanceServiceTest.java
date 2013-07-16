@@ -48,47 +48,47 @@ import org.opennms.netmgt.model.OnmsNode;
 import org.opennms.test.mock.EasyMockUtils;
 
 public class DefaultSurveillanceServiceTest {
-    
+
     private EasyMockUtils m_mockUtils;
-    
+
     private NodeDao m_nodeDao;
     private CategoryDao m_categoryDao;
     private SurveillanceViewConfigDao m_surveillanceViewConfigDao;
-    
+
     @Before
     public void setUp() throws Exception {
         m_mockUtils = new EasyMockUtils();
-        
+
         m_nodeDao = m_mockUtils.createMock(NodeDao.class);
         m_categoryDao = m_mockUtils.createMock(CategoryDao.class);
         m_surveillanceViewConfigDao = m_mockUtils.createMock(SurveillanceViewConfigDao.class);
     }
-    
+
     @Test
     public void testCreateSurveillanceTable() {
-        
+
         View view = new View();
         Rows rows = new Rows();
-        
+
         view.setRows(rows);
-        
+
         Columns columns = new Columns();
-        
+
         view.setColumns(columns);
-        
+
         expect(m_surveillanceViewConfigDao.getView(eq("default"))).andReturn(view).atLeastOnce();
-        
+
         m_mockUtils.replayAll();
-        
+
         DefaultSurveillanceService surveillanceSvc = new DefaultSurveillanceService();
         surveillanceSvc.setNodeDao(m_nodeDao);
         surveillanceSvc.setCategoryDao(m_categoryDao);
         surveillanceSvc.setSurveillanceConfigDao(m_surveillanceViewConfigDao);
 
         surveillanceSvc.createSurveillanceTable();
-        
+
         m_mockUtils.verifyAll();
-        
+
     }
 
     public Collection<OnmsCategory> createCategories(List<String> catNames) {
@@ -97,20 +97,20 @@ public class DefaultSurveillanceServiceTest {
     }
 
     private Collection<OnmsCategory> createCategoryNameCollection(List<String> categoryNames) {
-        
+
         Collection<OnmsCategory> categories = new ArrayList<OnmsCategory>();
         for (String catName : categoryNames) {
             categories.add(m_categoryDao.findByName(catName));
         }
         return categories;
     }
-    
+
     @Test
     public void testUrlMaker() {
         System.err.println(createNodePageUrl("1 of 10"));
-        
+
     }
-    
+
     private String createNodePageUrl(String label) {
         OnmsNode m_foundDownNode = new OnmsNode();
         m_foundDownNode.setId(1);

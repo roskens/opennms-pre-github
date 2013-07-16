@@ -56,5 +56,5 @@ public interface SnmpInterfaceDao extends OnmsDao<OnmsSnmpInterface, Integer> {
      * @return a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     OnmsSnmpInterface findByForeignKeyAndIfIndex(String foreignSource, String foreignId, Integer ifIndex);
-    
+
 }

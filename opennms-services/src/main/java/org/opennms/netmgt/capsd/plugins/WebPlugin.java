@@ -67,8 +67,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class WebPlugin extends AbstractPlugin {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(WebPlugin.class);
 
     static Integer DEFAULT_TIMEOUT = 3000;
@@ -176,8 +176,8 @@ public class WebPlugin extends AbstractPlugin {
                 if(expectedText.charAt(0)=='~'){
                     if(!responseText.matches(expectedText.substring(1)))
                         retval=false;
-                    else 
-                        retval=true;                
+                    else
+                        retval=true;
                 }
                 else {
 

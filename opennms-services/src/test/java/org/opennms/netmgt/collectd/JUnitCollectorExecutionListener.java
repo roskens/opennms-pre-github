@@ -74,7 +74,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
                             + testContext.getTestMethod().getName());
             ((TestContextAware) testContext.getTestInstance()).setTestContext(testContext);
         }
-        
+
         RrdUtils.setStrategy(new JRobinRrdStrategy());
 
         // make a fake database schema with hibernate
@@ -113,7 +113,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         if (config == null) {
             return;
         }
-        
+
         boolean shouldIgnoreNonExistent = testContext.getTestException() != null;
 
         if (config.anticipateFiles().length > 0 ||
@@ -125,7 +125,7 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
         if (config.anticipateRrds().length > 0) {
             for (String rrdFile : config.anticipateRrds()) {
                 m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + RrdUtils.getExtension());
-                
+
                 //the nrtg feature requires .meta files in parallel to the rrd/jrb files.
                 //this .meta files are expected
                 m_fileAnticipator.expecting(m_snmpRrdDirectory, rrdFile + ".meta");
@@ -149,21 +149,21 @@ public class JUnitCollectorExecutionListener extends AbstractTestExecutionListen
 
         deleteResursively(m_snmpRrdDirectory);
         m_fileAnticipator.tearDown();
-        
+
         if (e != null) {
         	throw e;
         }
     }
-    
+
     private static void deleteResursively(File directory) {
     	if (!directory.exists()) return;
-    	
+
     	if (directory.isDirectory()) {
     		for (File f : directory.listFiles()) {
                 deleteResursively(f);
             }
         }
-    	
+
     	directory.delete();
     }
 

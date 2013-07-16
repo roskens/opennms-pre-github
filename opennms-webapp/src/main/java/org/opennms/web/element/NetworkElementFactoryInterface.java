@@ -45,7 +45,7 @@ public interface NetworkElementFactoryInterface {
 	 *
 	 * @return An IPv4 or IPv6 address in string format or null if the node has no primary
 	 * SNMP interface
-	 * 
+	 *
 	 * @param nodeId an int.
 	 */
 	String getIpPrimaryAddress(int nodeId);
@@ -505,8 +505,8 @@ public interface NetworkElementFactoryInterface {
     StpInterface[] getStpInterface(int nodeId, int ifIndex) throws SQLException;
 
     Vlan[] getVlansOnNode(int nodeID) throws SQLException;
-    
+
     Integer getIfIndex(int ipinterfaceid);
-    
+
     Integer getIfIndex(int nodeID, String ipaddr);
 }

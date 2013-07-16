@@ -38,18 +38,18 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class LocationsUpdatedEvent extends GwtEvent<LocationsUpdatedEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<LocationsUpdatedEventHandler> TYPE = new Type<LocationsUpdatedEventHandler>();
 
     private String m_eventString = "You have got the event String";
-    
+
     /**
      * <p>Constructor for LocationsUpdatedEvent.</p>
      */
     public LocationsUpdatedEvent() {
     }
-    
+
 	/** {@inheritDoc} */
 	@Override
 	protected void dispatch(LocationsUpdatedEventHandler handler) {

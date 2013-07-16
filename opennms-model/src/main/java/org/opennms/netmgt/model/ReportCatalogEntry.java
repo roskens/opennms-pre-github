@@ -52,15 +52,15 @@ import javax.persistence.TemporalType;
 public class ReportCatalogEntry implements Serializable {
 
     private static final long serialVersionUID = -5351014623584691820L;
-    
+
     private Integer m_id;
-    
+
     private String m_reportId;
-    
+
     private String m_title;
-    
+
     private Date m_date;
-    
+
     private String m_location;
 
     /**

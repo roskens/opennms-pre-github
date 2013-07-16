@@ -50,7 +50,7 @@ public interface ForeignSourceRepository {
      * @return a {@link java.util.Set} object.
      */
     public Set<String> getActiveForeignSourceNames();
-    
+
     /**
      * <p>getForeignSourceCount</p>
      *
@@ -169,7 +169,7 @@ public interface ForeignSourceRepository {
      * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
      */
     public void delete(Requisition requisition) throws ForeignSourceRepositoryException;
-    
+
     /**
      * <p>getNodeRequisition</p>
      *
@@ -179,15 +179,15 @@ public interface ForeignSourceRepository {
      * @throws org.opennms.netmgt.provision.persist.ForeignSourceRepositoryException if any.
      */
     public OnmsNodeRequisition getNodeRequisition(String foreignSource, String foreignId) throws ForeignSourceRepositoryException;
-    
+
     public void validate(ForeignSource foreignSource) throws ForeignSourceRepositoryException;
-    
+
     public void validate(Requisition requisition) throws ForeignSourceRepositoryException;
-    
+
     /**
      * For performance reasons, a get after a save on a ForeignSourceRepository is not guaranteed to
      * return the latest saved data unless you flush first.
-     * 
+     *
      * @throws ForeignSourceRepositoryException
      */
     public void flush() throws ForeignSourceRepositoryException;

@@ -76,7 +76,7 @@ public class CategoryController extends AbstractController {
         // delete a category
         if (removeCategoryIdString != null) {
             m_adminCategoryService.removeCategory(removeCategoryIdString);
-            
+
             return new ModelAndView(redirect);
         }
 
@@ -86,7 +86,7 @@ public class CategoryController extends AbstractController {
             if (cat == null) {
                 m_adminCategoryService.addNewCategory(newCategoryName);
             }
-            
+
             /*
              * We could be smart and take the user straight to the edit page
              * for this new category, which would be great, however it's
@@ -125,7 +125,7 @@ public class CategoryController extends AbstractController {
         // if we have a nodeId and we're in edit mode, edit the categories for a specific node
         if (nodeIdString != null && editString != null) {
             String editAction = request.getParameter("action");
-            
+
             // if we've specified an action, perform that action
             if (editAction != null) {
                 String[] toAdd = request.getParameterValues("toAdd");
@@ -152,29 +152,29 @@ public class CategoryController extends AbstractController {
         ModelAndView modelAndView = new ModelAndView("/admin/categories");
         modelAndView.addObject("categories", sortedCategories);
         modelAndView.addObject("surveillanceCategories",surveillanceCategories);
-        
+
         return modelAndView; //new ModelAndView("/admin/categories", "categories", sortedCategories);
     }
 
     private List<String> getAllSurveillanceViewCategories() {
         List<String> categoryNames = new ArrayList<String>();
         Views views = getSurveillanceViewConfigDao().getViews();
-        
+
         for(View view : views.getViewCollection()) {
             Rows rows = view.getRows();
             for(RowDef row : rows.getRowDefCollection()) {
                 List<Category> categoryCollection = row.getCategoryCollection();
                 addCategoryNames(categoryNames, categoryCollection);
             }
-            
+
             Columns columns = view.getColumns();
             for(ColumnDef column : columns.getColumnDefCollection()) {
                 List<Category> categoryCollection = column.getCategoryCollection();
                 addCategoryNames(categoryNames, categoryCollection);
             }
-            
+
         }
-        
+
         return categoryNames;
     }
 

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -63,7 +63,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Class Global.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -71,12 +71,12 @@ import org.xml.sax.ContentHandler;
 @XmlRootElement(name="global")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Global implements Serializable {
-	
+
 	private static class SimplePropertyEditorRegistry extends PropertyEditorRegistrySupport {
 		public SimplePropertyEditorRegistry() {
 			registerDefaultEditors();
 		}
-		
+
 	}
 
 	@XmlTransient
@@ -93,8 +93,8 @@ public class Global implements Serializable {
     private String _name;
 
     /**
-     * This is the type that is defined in the rules file. 
-     *  If a value is given then a propertyEditor for this type 
+     * This is the type that is defined in the rules file.
+     *  If a value is given then a propertyEditor for this type
      *  is used to convert the string value to a value of the type
      *  defined here and the result is set a the global in the
      * rules
@@ -104,7 +104,7 @@ public class Global implements Serializable {
      *  look up the bean using the ref attribute and it must be of
      * the
      *  type specified in type.
-     *  
+     *
      */
 	@XmlAttribute(name="type")
     private String _type;
@@ -139,7 +139,7 @@ public class Global implements Serializable {
      * Returns the value of field 'name'. The field 'name' has the
      * following description: This is the name as it is defined in
      * the rules file
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public String getName(
@@ -149,7 +149,7 @@ public class Global implements Serializable {
 
     /**
      * Returns the value of field 'ref'.
-     * 
+     *
      * @return the value of field 'Ref'.
      */
     public String getRef(
@@ -160,8 +160,8 @@ public class Global implements Serializable {
     /**
      * Returns the value of field 'type'. The field 'type' has the
      * following description: This is the type that is defined in
-     * the rules file. 
-     *  If a value is given then a propertyEditor for this type 
+     * the rules file.
+     *  If a value is given then a propertyEditor for this type
      *  is used to convert the string value to a value of the type
      *  defined here and the result is set a the global in the
      * rules
@@ -171,8 +171,8 @@ public class Global implements Serializable {
      *  look up the bean using the ref attribute and it must be of
      * the
      *  type specified in type.
-     *  
-     * 
+     *
+     *
      * @return the value of field 'Type'.
      */
     public String getType(
@@ -182,7 +182,7 @@ public class Global implements Serializable {
 
     /**
      * Returns the value of field 'value'.
-     * 
+     *
      * @return the value of field 'Value'.
      */
     public String getValue(
@@ -192,7 +192,7 @@ public class Global implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -206,8 +206,8 @@ public class Global implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -221,8 +221,8 @@ public class Global implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -241,7 +241,7 @@ public class Global implements Serializable {
      * Sets the value of field 'name'. The field 'name' has the
      * following description: This is the name as it is defined in
      * the rules file
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -251,7 +251,7 @@ public class Global implements Serializable {
 
     /**
      * Sets the value of field 'ref'.
-     * 
+     *
      * @param ref the value of field 'ref'.
      */
     public void setRef(
@@ -262,8 +262,8 @@ public class Global implements Serializable {
     /**
      * Sets the value of field 'type'. The field 'type' has the
      * following description: This is the type that is defined in
-     * the rules file. 
-     *  If a value is given then a propertyEditor for this type 
+     * the rules file.
+     *  If a value is given then a propertyEditor for this type
      *  is used to convert the string value to a value of the type
      *  defined here and the result is set a the global in the
      * rules
@@ -273,8 +273,8 @@ public class Global implements Serializable {
      *  look up the bean using the ref attribute and it must be of
      * the
      *  type specified in type.
-     *  
-     * 
+     *
+     *
      * @param type the value of field 'type'.
      */
     public void setType(
@@ -284,7 +284,7 @@ public class Global implements Serializable {
 
     /**
      * Sets the value of field 'value'.
-     * 
+     *
      * @param value the value of field 'value'.
      */
     public void setValue(
@@ -294,7 +294,7 @@ public class Global implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -310,8 +310,8 @@ public class Global implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */
@@ -395,19 +395,19 @@ public class Global implements Serializable {
 
 	public Object constructValue(final ApplicationContext context) {
 		Class<?> typeClass = getTypeClass();
-	
+
 		if (getRef() != null) {
 			return context.getBean(getRef(), typeClass);
 		}
-	
+
 		if (getValue() != null){
 			return getValueAsType(typeClass);
 		}
-	
+
 		throw new IllegalArgumentException("One of either the value or the ref must be specified");
 	}
-    
-    
+
+
 	private PropertyEditor getDefaultEditor(Class<?> clazz) {
 		return m_editorRegistry.getDefaultEditor(clazz);
 	}

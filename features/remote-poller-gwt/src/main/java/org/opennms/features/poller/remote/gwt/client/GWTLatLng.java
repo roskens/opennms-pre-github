@@ -60,7 +60,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
 	public GWTLatLng() {
 	    this(0.0, 0.0);
 	}
-	
+
 	/**
 	 * <p>Constructor for GWTLatLng.</p>
 	 *
@@ -131,7 +131,7 @@ public class GWTLatLng implements IsSerializable, Serializable {
 			(this.getLatitude().equals(that.getLatitude()))
 		);
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
 	public int hashCode() {

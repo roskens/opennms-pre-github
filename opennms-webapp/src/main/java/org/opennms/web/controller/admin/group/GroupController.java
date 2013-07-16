@@ -69,19 +69,19 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class GroupController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(GroupController.class);
 
 
     @Autowired
     private OnmsMapDao m_onmsMapDao;
-    
+
     @Autowired
     private CategoryDao m_categoryDao;
-    
+
     @Autowired
     private UserManager m_userManager;
-    
+
     @Autowired
     private WebGroupRepository m_groupRepository;
 
@@ -94,14 +94,14 @@ public class GroupController extends AbstractController implements InitializingB
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,  HttpServletResponse response) throws Exception {
         String operation = request.getParameter("operation");
-        
+
         if (!StringUtils.hasText(operation) && StringUtils.hasText(request.getParameter("groupName"))) {
             operation = "show";
         }
-        
-        
+
+
         LOG.debug("!!!! Calling operation {} in GroupController", operation);
-        
+
         if ("create".equalsIgnoreCase(operation)){
             return createGroup(request, response);
         } else if ("addGroup".equalsIgnoreCase(operation)){
@@ -126,44 +126,44 @@ public class GroupController extends AbstractController implements InitializingB
             return listGroups(request, response);
         }
     }
-    
+
     private ModelAndView listGroups(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("redirect:/admin/userGroupView/groups/list.htm");
     }
 
     private ModelAndView showGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         String groupName = request.getParameter("groupName");
         if (!StringUtils.hasText(groupName)) {
             throw new ServletException("The groupName parameter is required");
         }
-        
+
         WebGroup group = m_groupRepository.getGroup(groupName);
 
-        
+
         return new ModelAndView("/admin/userGroupView/groups/groupDetail", "group", group);
     }
 
     private ModelAndView deleteGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         String groupName = request.getParameter("groupName");
-        
+
         if (StringUtils.hasText(groupName)) {
             m_groupRepository.deleteGroup(groupName);
-        } 
-        
+        }
+
         return listGroups(request, response);
     }
 
     private ModelAndView renameGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         String oldName = request.getParameter("groupName");
         String newName = request.getParameter("newName");
-        
+
         if (StringUtils.hasText(oldName) && StringUtils.hasText(newName)) {
             m_groupRepository.renameGroup(oldName, newName);
         }
-        
+
         return listGroups(request, response);
     }
 
@@ -175,7 +175,7 @@ public class GroupController extends AbstractController implements InitializingB
             WebGroup group = (WebGroup) userSession.getAttribute("group.modifyGroup.jsp");
 
             updateGroup(request, group);
-            
+
             Vector<Object> newSchedule = new Vector<Object>();
 
             int dutyAddCount = WebSecurityUtils.safeParseInt(request.getParameter("numSchedules"));
@@ -233,12 +233,12 @@ public class GroupController extends AbstractController implements InitializingB
         userSession.setAttribute("allCategories.modifyGroup.jsp", m_categoryDao.getAllCategoryNames().toArray(new String[0]));
         userSession.setAttribute("allUsers.modifyGroup.jsp", m_userManager.getUserNames().toArray(new String[0]));
         userSession.setAttribute("allVisibleMaps.modifyGroup.jsp", getVisibleMapsName(group).toArray(new String[0]));
-            
+
         return new ModelAndView("admin/userGroupView/groups/modifyGroup");
     }
-    
+
     private Collection<String> getVisibleMapsName(WebGroup group) {
-      
+
         Collection<OnmsMap> maps = m_onmsMapDao.findVisibleMapsByGroup(group.getName());
         Collection<String> mapnames = new ArrayList<String>(maps.size());
         for (OnmsMap map: maps) {
@@ -248,7 +248,7 @@ public class GroupController extends AbstractController implements InitializingB
     }
 
     private ModelAndView saveGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         HttpSession session = request.getSession(false);
 
         if (session != null) {
@@ -257,12 +257,12 @@ public class GroupController extends AbstractController implements InitializingB
             m_groupRepository.saveGroup(newGroup);
 
         }
-        
+
         return cancel(request, response);
     }
 
     private ModelAndView cancel(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         HttpSession session = request.getSession(false);
 
         if (session != null) {
@@ -281,19 +281,19 @@ public class GroupController extends AbstractController implements InitializingB
         String defaultMap = request.getParameter("groupDefaultMap");
         if (!defaultMap.equals(""))
             newGroup.setDefaultMap(defaultMap);
-        
+
         String users[] = request.getParameterValues("selectedUsers");
-        
+
         List<String> userList = users == null ? Collections.<String>emptyList() : Arrays.asList(users);
-        
+
         newGroup.setUsers(new ArrayList<String>(userList));
 
         String[] selectedCategories = request.getParameterValues("selectedCategories");
-        
+
         List<String> categoryList = selectedCategories == null ? Collections.<String>emptyList() : Arrays.asList(selectedCategories);
-        
+
         newGroup.setAuthorizedCategories(new ArrayList<String>(categoryList));
-        
+
         Vector<Object> newSchedule = new Vector<Object>();
         ChoiceFormat days = new ChoiceFormat("0#Mo|1#Tu|2#We|3#Th|4#Fr|5#Sa|6#Su");
 
@@ -323,13 +323,13 @@ public class GroupController extends AbstractController implements InitializingB
             }
         }
     }
-    
+
     private ModelAndView createGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
         return new ModelAndView("admin/userGroupView/groups/newGroup");
     }
-    
-    private ModelAndView addGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {    
-                
+
+    private ModelAndView addGroup(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
         String groupName = request.getParameter("groupName");
         String groupComment = request.getParameter("groupComment");
         if (groupComment == null) {
@@ -342,14 +342,14 @@ public class GroupController extends AbstractController implements InitializingB
         } catch (Throwable e) {
             throw new ServletException("Can't determine if group " + groupName + " already exists in groups.xml.", e);
         }
-        
+
         if (hasGroup) {
-            return new ModelAndView("admin/userGroupView/groups/newGroup", "action", "redo");            
+            return new ModelAndView("admin/userGroupView/groups/newGroup", "action", "redo");
         } else {
             WebGroup newGroup = new WebGroup();
             newGroup.setName(groupName);
             newGroup.setComments(groupComment);
-            
+
             return editGroup(request, newGroup);
         }
     }

@@ -36,7 +36,7 @@ package org.opennms.sms.monitor.internal;
  */
 public class SequenceException extends Exception {
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -6580922516386346610L;
 

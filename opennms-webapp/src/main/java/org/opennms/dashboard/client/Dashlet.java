@@ -43,15 +43,15 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
  * @since 1.8.1
  */
 public abstract class Dashlet extends Composite {
-    
+
     class DashletTitle extends Composite {
         private DockPanel m_panel = new DockPanel();
         private Label m_label = new Label();
-        
+
         DashletTitle(String title, DashletLoader loader) {
-            
+
             m_label.setText(title);
-            
+
 
             m_label.addStyleName("dashletTitle");
             m_panel.addStyleName("dashletTitlePanel");
@@ -63,18 +63,18 @@ public abstract class Dashlet extends Composite {
 
             initWidget(m_panel);
         }
-        
+
         @Override
         public void setTitle(String title) {
             m_label.setText(title);
         }
-        
+
         public void add(Widget widget, DockLayoutConstant constraint) {
             m_panel.add(widget, constraint);
         }
-        
+
     }
-    
+
     private VerticalPanel m_panel = new VerticalPanel();
     private String m_title;
     private DashletTitle m_titleWidget;
@@ -102,7 +102,7 @@ public abstract class Dashlet extends Composite {
     protected void setView(DashletView view) {
         m_view = view;
     }
-    
+
     /**
      * <p>setView</p>
      *
@@ -111,7 +111,7 @@ public abstract class Dashlet extends Composite {
     protected void setView(Widget view) {
         setView(new DashletView(this, view));
     }
-    
+
     /**
      * <p>getTitle</p>
      *
@@ -121,14 +121,14 @@ public abstract class Dashlet extends Composite {
     public String getTitle() {
         return m_title;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setTitle(String title) {
         m_title = title;
         m_titleWidget.setTitle(m_title);
     }
-    
+
     /**
      * <p>addToTitleBar</p>
      *
@@ -138,7 +138,7 @@ public abstract class Dashlet extends Composite {
     public void addToTitleBar(Widget widget, DockLayoutConstant constraint) {
         m_titleWidget.add(widget, constraint);
     }
-    
+
     /**
      * <p>setLoader</p>
      *
@@ -157,16 +157,16 @@ public abstract class Dashlet extends Composite {
             m_loader = new DashletLoader();
         }
         m_titleWidget = new DashletTitle(m_title, m_loader);
-        
+
         m_panel.setStyleName("dashletPanel");
-        
+
         m_panel.add(m_titleWidget);
         m_panel.add(m_view);
-        
+
         m_view.onDashLoad();
-        
+
     }
-    
+
     /**
      * <p>error</p>
      *
@@ -184,7 +184,7 @@ public abstract class Dashlet extends Composite {
     public void error(String err) {
         m_dashboard.error(err);
     }
-    
+
 
 	/**
 	 * <p>setSurveillanceSet</p>
@@ -193,11 +193,11 @@ public abstract class Dashlet extends Composite {
 	 */
 	public void setSurveillanceSet(SurveillanceSet set) {
 		// TODO Auto-generated method stub
-		
+
 	}
-    
-    
-    
-    
+
+
+
+
 
 }

@@ -37,7 +37,7 @@ package org.opennms.web.event;
  */
 public class EventIdNotFoundException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -179716255624903400L;
 

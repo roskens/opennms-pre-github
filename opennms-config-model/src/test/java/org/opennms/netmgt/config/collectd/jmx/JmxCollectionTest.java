@@ -37,7 +37,7 @@ import org.opennms.core.test.xml.XmlTest;
 
 /**
  * The Test Class for JmxCollection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class JmxCollectionTest extends XmlTest<JmxCollection> {
@@ -80,7 +80,7 @@ public class JmxCollectionTest extends XmlTest<JmxCollection> {
         m2.setAlias("EdenPeakUsgCmmttd");
         m2.setType("gauge");
         comp.addCompMember(m2);
-        
+
         final Mbean bean = new Mbean();
         bean.setName("JVM MemoryPool:Eden Space");
         bean.setObjectname("java.lang:type=MemoryPool,name=Eden Space");
@@ -98,7 +98,7 @@ public class JmxCollectionTest extends XmlTest<JmxCollection> {
         collection.setName("default");
         collection.setRrd(rrd);
         collection.setMbeans(mbeans);
-        
+
         return Arrays.asList(new Object[][] { {
             collection,
             "<jmx-collection name=\"default\">"

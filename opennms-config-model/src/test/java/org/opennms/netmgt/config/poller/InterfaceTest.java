@@ -40,7 +40,7 @@ public class InterfaceTest extends XmlTest<Interface> {
     public InterfaceTest(final Interface sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Interface intf1 = new Interface();
@@ -49,7 +49,7 @@ public class InterfaceTest extends XmlTest<Interface> {
         intf2.setAddress("2001:100::1");
         final Interface intf3 = new Interface();
         intf3.setAddress("match-any");
-        
+
         return Arrays.asList(new Object[][] {
             {
                 intf1,

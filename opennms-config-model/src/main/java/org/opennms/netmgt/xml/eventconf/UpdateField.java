@@ -44,7 +44,7 @@ import org.opennms.core.xml.ValidateUsing;
 
 /**
  * Object used to identify which alarm fields should be updated during Alarm reduction.
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 @XmlRootElement(name="update-field")
@@ -56,14 +56,14 @@ public class UpdateField implements Serializable {
 	// @NotNull
 	@XmlAttribute(name="field-name", required=true)
     private String m_fieldName;
-    
+
     @XmlAttribute(name="update-on-reduction", required=false)
     private Boolean m_updateOnReduction = Boolean.TRUE;
 
     public boolean hasFieldName() {
         return m_fieldName != null ? true : false;
     }
-    
+
     public String getFieldName() {
         return m_fieldName;
     }
@@ -71,19 +71,19 @@ public class UpdateField implements Serializable {
     public void setFieldName(final String fieldName) {
         m_fieldName = fieldName;
     }
-    
+
     public boolean hasUpdateOnReduction() {
-        return m_updateOnReduction != null ? true : false; 
+        return m_updateOnReduction != null ? true : false;
     }
-    
+
     public Boolean isUpdateOnReduction() {
         return m_updateOnReduction;
     }
-    
+
     public void setUpdateOnReduction(final Boolean update) {
         m_updateOnReduction = update;
     }
-    
+
     public static UpdateField unmarshal(final Reader reader) throws MarshalException, ValidationException {
         return (UpdateField) Unmarshaller.unmarshal(UpdateField.class, reader);
     }

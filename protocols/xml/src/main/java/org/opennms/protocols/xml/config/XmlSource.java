@@ -44,7 +44,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlSource.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-source")

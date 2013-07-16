@@ -56,13 +56,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class DeleteMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteMapController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -84,12 +84,12 @@ public class DeleteMapController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		LOG.info("Deleting map");
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 		try {
-			manager.deleteMap(); 
+			manager.deleteMap();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.DELETEMAP_ACTION));
 		} catch (Throwable e) {
 			LOG.error("Error deleting map",e);

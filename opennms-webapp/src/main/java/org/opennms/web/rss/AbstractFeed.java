@@ -48,20 +48,20 @@ import com.sun.syndication.io.SyndFeedOutput;
  * @since 1.8.1
  */
 public class AbstractFeed implements Feed {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractFeed.class);
 
     protected int m_maxEntries = 20;
     protected String m_feedType = "rss_2.0";
     protected String m_urlBase = "";
     protected ServletRequest m_servletRequest;
-    
+
     /**
      * <p>Constructor for AbstractFeed.</p>
      */
     public AbstractFeed() {
     }
-    
+
     /**
      * <p>Constructor for AbstractFeed.</p>
      *
@@ -80,13 +80,13 @@ public class AbstractFeed implements Feed {
     public String getUrlBase() {
         return m_urlBase;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setUrlBase(String urlBase) {
         m_urlBase = urlBase;
     }
-    
+
     /**
      * <p>getFeedType</p>
      *
@@ -96,13 +96,13 @@ public class AbstractFeed implements Feed {
     public String getFeedType() {
         return m_feedType;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setFeedType(String feedType) {
         m_feedType = feedType;
     }
-    
+
     /**
      * <p>getMaxEntries</p>
      *
@@ -112,13 +112,13 @@ public class AbstractFeed implements Feed {
     public int getMaxEntries() {
         return m_maxEntries;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setMaxEntries(int maxEntries) {
         m_maxEntries = maxEntries;
     }
-    
+
     /**
      * <p>getRequest</p>
      *
@@ -128,13 +128,13 @@ public class AbstractFeed implements Feed {
     public ServletRequest getRequest() {
         return m_servletRequest;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setRequest(ServletRequest request) {
         m_servletRequest = request;
     }
-    
+
     /**
      * <p>getFeed</p>
      *
@@ -153,7 +153,7 @@ public class AbstractFeed implements Feed {
     public String render() {
         SyndFeed feed = this.getFeed();
         feed.setFeedType(this.getFeedType());
-        
+
         SyndFeedOutput output = new SyndFeedOutput();
         try {
             StringWriter writer = new StringWriter();

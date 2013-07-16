@@ -35,7 +35,7 @@ package org.opennms.report.configuration.svclayer;
  * @version $Id: $
  */
 public interface ConfigurationReportService {
-        
+
     /**
      * <p>runReport</p>
      *

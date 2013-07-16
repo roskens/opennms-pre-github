@@ -62,10 +62,10 @@ import org.slf4j.LoggerFactory;
 public class OnmsAlarmOssjMapper {
     private static final Logger LOG = LoggerFactory.getLogger(OnmsAlarmOssjMapper.class);
 
-	// pattern for recognising simple <HTML> tags ; 
+	// pattern for recognising simple <HTML> tags ;
 	// used to strip HTML characters from log messages etc
-	private static Pattern p= Pattern.compile("<[^>]*>"); 
-	// p= Pattern.compile("\\Q&lt;\\E[^\\Q&gt;\\E]*\\Q&gt;\\E");  
+	private static Pattern p= Pattern.compile("<[^>]*>");
+	// p= Pattern.compile("\\Q&lt;\\E[^\\Q&gt;\\E]*\\Q&gt;\\E");
 	// NOT USED Alternative pattern for matching
 	// <HTML> tags in openNMS logs and eui data
 
@@ -106,7 +106,7 @@ public class OnmsAlarmOssjMapper {
 
 	/**
 	 * Used to obtain opennms node information for inclusion in alarms
-	 * @see org.opennms.netmgt.dao.api.NodeDao 
+	 * @see org.opennms.netmgt.dao.api.NodeDao
 	 */
 	@SuppressWarnings("unused")
 	private NodeDao _nodeDao;
@@ -135,14 +135,14 @@ public class OnmsAlarmOssjMapper {
 	 * if <code>alarmUpdateBehaviour</code> is set to SPECIFY_OUTSTATION
 	 * the receiver name will be used as the node name which will be updated with
 	 * alarms from this receiver. Usually this is set to the name of the node
-	 * associated with the outstation but it can be set to a node which is a 
+	 * associated with the outstation but it can be set to a node which is a
 	 * catch all for received alarms ( i.e. the local host perhaps )
 	 */
 	public static int SPECIFY_OUTSTATION=1;
 
 	/**
 	 * if <code>alarmUpdateBehaviour</code> is set to USE_TYPE_INSTANCE
-	 * the alarm will be created with the node name corrsponding to a concatenation 
+	 * the alarm will be created with the node name corrsponding to a concatenation
 	 * of the ManagedObjectID and ManagedObjectType. If these cannot be found
 	 * then the alarm will default to  the outstation node
 	 */
@@ -190,7 +190,7 @@ public class OnmsAlarmOssjMapper {
 			String ossPrimaryKey=alarmValue.getAlarmKey().getAlarmPrimaryKey();
 			String applicationDN=alarmValue.getAlarmKey().getApplicationDN();
 			LOG.debug("{} AlarmPrimaryKey: {} ApplictionDN: {} alarmRaisedTime: {}", logheader, ossPrimaryKey, applicationDN, alarmValue.getAlarmRaisedTime());
-			if ((applicationDN==null)||(applicationDN.equals("")) 
+			if ((applicationDN==null)||(applicationDN.equals(""))
 					|| (ossPrimaryKey==null)||(ossPrimaryKey.equals(""))) {
 				LOG.error("{} ApplicatioDN or PrimaryKey not set", logheader);
 			} else {
@@ -220,7 +220,7 @@ public class OnmsAlarmOssjMapper {
 						LOG.error("{} problem setting severity used default:'WARNING'.", logheader, iae);
 						onmsseverity=OnmsSeverity.WARNING;
 					}
-					onmsAlarm.setSeverity(onmsseverity); 
+					onmsAlarm.setSeverity(onmsseverity);
 
 					OnmsServiceType service= new OnmsServiceType();
 					service.setId(new Integer(-1));
@@ -233,12 +233,12 @@ public class OnmsAlarmOssjMapper {
 							":applicationDN:-"+applicationDN); // must be unique because of alarm_reductionkey_idx
 
 					onmsAlarm.setOssPrimaryKey(ossPrimaryKey);
-					onmsAlarm.setOperInstruct(alarmValue.getProposedRepairActions()); 
+					onmsAlarm.setOperInstruct(alarmValue.getProposedRepairActions());
 
 					// defaultvalue if search fails - will update node with ID 1
-					OnmsNode node = new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode(); 
+					OnmsNode node = new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 					node.setId(new Integer(1));  // node id cannot be null
-					onmsAlarm.setNode(node); // 
+					onmsAlarm.setNode(node); //
 
 					if (almUpdateBehaviour==null) {
 						LOG.error("{} This receiver's alarmUpdateBehaviour is not set: defaulting to update nodeID:1", logheader);
@@ -264,18 +264,18 @@ public class OnmsAlarmOssjMapper {
 									onmsAlarm.setNode(node); // maps into FIRST instance of node with the same managedObjectInstance and managedObjectType
 								} else {
 									LOG.error("{} alarmUpdateBehaviour.equals(SPECIFY_OUTSTATION): NODE NOT FOUND for this name:{} setting node id to default NodeID: 1", logheader, defaultUpdateNodeLabel);
-									node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode(); 
+									node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 									node.setId(new Integer(1));  // node id cannot be null
-									onmsAlarm.setNode(node); // 
+									onmsAlarm.setNode(node); //
 								}
 							} catch (Throwable ex){
 								LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE) Problem looking up Node for alarm Set to default nodeID:1", logheader, ex);
 							}
 
-						} 
+						}
 						else if (almUpdateBehaviour.equals(USE_TYPE_INSTANCE)){
 							// this will look for first match of node Managed object Instance and Managed Object type
-							// and set node id to this value. 
+							// and set node id to this value.
 							String managedObjectType=alarmValue.getManagedObjectClass();
 							String managedObjectInstance=alarmValue.getManagedObjectInstance();
 
@@ -290,12 +290,12 @@ public class OnmsAlarmOssjMapper {
 									LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE): NODE NOT FOUND for this managedObjectType:{} managedObjectInstance:{} setting node id to default NodeID: 1", logheader, managedObjectType, managedObjectInstance);
 									node=new OnmsNode() ; // TODO remove ossDao.makeExtendedOnmsNode();
 									node.setId(new Integer(1));  // node id cannot be null
-									onmsAlarm.setNode(node); // 
+									onmsAlarm.setNode(node); //
 								}
 							} catch (Throwable ex){
 								LOG.error("{} alarmUpdateBehaviour.equals(USE_TYPE_INSTANCE) Problem looking up Node for alarm Set to default nodeID:1", logheader, ex);
 							}
-						}		
+						}
 						else {
 							LOG.error("{} Invalid value for alarmUpdateBehaviour:{} {} defaulting to update nodeID:1", logheader, almUpdateBehaviour, getAlarmUpdateBehaviourForInt(almUpdateBehaviour));
 						}
@@ -313,14 +313,14 @@ public class OnmsAlarmOssjMapper {
 //					TODO REMOVED - DO NOT CREATE EVENT WITH HIBERNATE AlarmDAo
 //					OnmsEvent event= new OnmsEvent();
 //					//event.setId(new Integer(1));  // This is NOT set since unique constraint in alarms table on Events table
-//					onmsAlarm.setLastEvent(event); 
+//					onmsAlarm.setLastEvent(event);
 
 					onmsAlarm.setIpAddr(InetAddressUtils.getLocalHostAddress()); // needed?
 					onmsAlarm.setId(null); // set null as updating alarm
 					onmsAlarm.setFirstEventTime(alarmValue.getAlarmRaisedTime());
 					onmsAlarm.setLastEventTime(alarmValue.getAlarmChangedTime());
 
-//					TODO removed - do create distpoller with hibernate dao	
+//					TODO removed - do create distpoller with hibernate dao
 //					onmsAlarm.setDistPoller(new OnmsDistPoller("undefined","localhost")); //simple constructor
 					onmsAlarm.setDistPoller(distPollerDao.get("localhost"));
 
@@ -368,10 +368,10 @@ public class OnmsAlarmOssjMapper {
 		LOG.debug("{} Populating alarm", logheader);
 
 		// test to see if opennms alarm already has type and instance information set. If yes then it has most likely
-		// come from Qosdrx. 
+		// come from Qosdrx.
 		if ((_openNMSalarm.getManagedObjectInstance()!=null) && (_openNMSalarm.getManagedObjectType()!=null)
 				&& (!_openNMSalarm.getManagedObjectInstance().equals("")) && (!_openNMSalarm.getManagedObjectType().equals(""))){
-			isQoSDrxAlarm=true;			
+			isQoSDrxAlarm=true;
 			LOG.debug("{} isQoSDrxAlarm TRUE - because OpenNMS alarm has ManagedObjectInstance and ManagedObjectType", logheader);
 		} else {
 			isQoSDrxAlarm=false;
@@ -444,9 +444,9 @@ public class OnmsAlarmOssjMapper {
 //		String nodelabel = "NOT_SET"; // FIXME: Not read
 //		String alarmIP = "NOT_SET"; // FIXME: Not read
 		String managedObjectType = "NOT_SET";
-		String managedObjectInstance =  "NOT_SET"; 
+		String managedObjectInstance =  "NOT_SET";
 		String assetManagedObjectType = "NOT_SET";
-		String assetManagedObjectInstance =  "NOT_SET"; 
+		String assetManagedObjectInstance =  "NOT_SET";
 
 		String assetDescription =  "NOT_SET";
 		String assetAddress2 =  "NOT_SET";
@@ -490,7 +490,7 @@ public class OnmsAlarmOssjMapper {
 				managedObjectType =_openNMSalarm.getManagedObjectType();
 
 				LOG.debug("{} isQoSDrxAlarm=FALSE  OpenNMS type and instance not set. Using from Node Asset record: ManagedObjectInstance: {} ManagedObjectType:{}", logheader, managedObjectInstance, managedObjectType);
-			} 
+			}
 			catch(Throwable ex)	{
 				LOG.error("{} Problem managedObjectInstance or managedObjectType", logheader, ex);
 			}
@@ -504,7 +504,7 @@ public class OnmsAlarmOssjMapper {
 		LOG.debug("{} _av.setManagedObjectInstance set to: ", logheader, managedObjectInstance);
 
 		// set severity and probable cause
-		try {			
+		try {
 			alarmValueSpecification.setPerceivedSeverity(onmsSeverityToOssjSeverity(_openNMSalarm.getSeverity()));
 
 //			alarmValueSpecification.setProbableCause((short)-1); // OSS/J set to -1  then text contains description
@@ -517,7 +517,7 @@ public class OnmsAlarmOssjMapper {
 
 		if (!isQoSDrxAlarm ) { // if is a locally generated alarm
 
-			try {		
+			try {
 				String _opinstr = _openNMSalarm.getOperInstruct();
 				if (null != _opinstr) {
 					matcher = p.matcher(_opinstr);
@@ -545,7 +545,7 @@ public class OnmsAlarmOssjMapper {
 				Integer alarmid= _openNMSalarm.getId();
 				Integer counter= _openNMSalarm.getCounter();
 				String reductionkey= _openNMSalarm.getReductionKey();
-				
+
 				// note some OnmsAlarms can have null nodes - we use a default value of 0 for ID
 				Integer nodeid=0;
 				String onmsnodelabel="";
@@ -576,7 +576,7 @@ public class OnmsAlarmOssjMapper {
 						"<description>"+ _description +"</description>" +  "\n            " +
 						"<opinstr>" + _opinstr + "</opinstr>" + "\n            " +
 						"<asset.managedobjectinstance>" + assetManagedObjectInstance + "</asset.managedobjectinstance>" + "\n            "+              //TODO - was used for object instance
-						"<asset.managedobjecttype>" + assetManagedObjectType + "</asset.managedobjecttype>" + "\n            "+ 
+						"<asset.managedobjecttype>" + assetManagedObjectType + "</asset.managedobjecttype>" + "\n            "+
 						"<asset.address2>" + assetAddress2 + "</asset.address2>" + "\n            "+  //TODO - was used for object instance
 						"<asset.description>" + assetDescription + "</asset.description>" + "\n");    //TODO - was used for object instancetype
 
@@ -584,8 +584,8 @@ public class OnmsAlarmOssjMapper {
 				LOG.error("{} Problem setting description, logmessage or operator instrctions: ", logheader, e);
 			}
 
-		} else { // is a received alarm 
-			try {		
+		} else { // is a received alarm
+			try {
 				String _opinstr = _openNMSalarm.getOperInstruct();
 				if (null == _opinstr) _opinstr = "NOT_SET";
 				alarmValueSpecification.setProposedRepairActions(_opinstr);
@@ -674,7 +674,7 @@ public class OnmsAlarmOssjMapper {
 	}
 
 	/**
-	 * convenience method to map OpenNMS to OSS/J  severities			 
+	 * convenience method to map OpenNMS to OSS/J  severities
 	 * From OpenNMS code;
 	 * public static final int INDETERMINATE_SEVERITY = 1;
 	 * public static final int CLEARED_SEVERITY = 2;
@@ -683,12 +683,12 @@ public class OnmsAlarmOssjMapper {
 	 * public static final int MINOR_SEVERITY = 5;
 	 * public static final int MAJOR_SEVERITY = 6;
 	 * public static final int CRITICAL_SEVERITY = 7;
-	 * 
+	 *
 	 * NOTE  org.opennms.web.alarm.Alarm.NORMAL_SEVERITY has no equivilent in OSS/J X733
-	 * 
+	 *
 	 * @param onmsSeverity the severity value according to opennms
 	 * @return  the severity value according to ossj / X733
-	 * 
+	 *
 	 */
 	private static short onmsSeverityToOssjSeverity(OnmsSeverity onmsSeverity ) throws IllegalArgumentException{
 
@@ -699,7 +699,7 @@ public class OnmsAlarmOssjMapper {
 		switch(onmsSeverity)
 		{
 		case INDETERMINATE:
-			ossjseverity=javax.oss.fm.monitor.PerceivedSeverity.INDETERMINATE; 
+			ossjseverity=javax.oss.fm.monitor.PerceivedSeverity.INDETERMINATE;
 			break;
 		case CLEARED:
 			ossjseverity=javax.oss.fm.monitor.PerceivedSeverity.CLEARED;

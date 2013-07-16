@@ -39,7 +39,7 @@ public class Avail implements Comparable<Avail> {
 	private int min;
 	private String color;
 	private boolean flash = false;
-	
+
 	/**
 	 * <p>Constructor for Avail.</p>
 	 *
@@ -52,7 +52,7 @@ public class Avail implements Comparable<Avail> {
 		this.min = min;
 		this.color = color;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -63,8 +63,8 @@ public class Avail implements Comparable<Avail> {
 		if(this.min==otherAvail.getMin()) return 0;
 		else if(this.min<otherAvail.getMin()) return -1;
 		else  return 1;
-	}	
-	
+	}
+
 	/**
 	 * <p>Getter for the field <code>color</code>.</p>
 	 *

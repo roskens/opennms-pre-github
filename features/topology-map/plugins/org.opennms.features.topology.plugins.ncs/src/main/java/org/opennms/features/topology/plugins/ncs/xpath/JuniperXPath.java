@@ -16,12 +16,12 @@ import org.apache.camel.language.NamespacePrefix;
 @LanguageAnnotation(language = "xpath", factory = XPathAnnotationExpressionFactory.class)
 public @interface JuniperXPath {
     String value();
-    
+
     NamespacePrefix[] namespaces() default{
         @NamespacePrefix(prefix = "soap", uri = "http://www.w3.org/2003/05/soap-envelope"),
         @NamespacePrefix(prefix = "xsd", uri = "http://www.w3.org/2001/XMLSchema"),
         @NamespacePrefix(prefix = "juniper", uri = "services.schema.networkapi.jmp.juniper.net")
     };
-    
+
     Class<?> resultType() default Object.class;
 }

@@ -67,19 +67,19 @@ public interface ThresholdEvaluatorState {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource);
-    
+
     /**
      * Return true if current state is TRIGGERED
      *
      * @return a boolean.
      */
     public boolean isTriggered();
-    
+
     /**
      * <p>clearState</p>
      */
     public void clearState();
-    
+
     /**
      * <p>getThresholdConfig</p>
      *

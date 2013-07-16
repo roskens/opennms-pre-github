@@ -192,7 +192,7 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
         }
         return m_snmpInterfaceDao;
     }
-    
+
     protected AssetRecordDao getAssetRecordDao() {
         if (m_assetRecordDao == null) {
             m_assetRecordDao = getServiceRegistry().findProvider(AssetRecordDao.class);
@@ -200,7 +200,7 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
         }
         return m_assetRecordDao;
     }
-    
+
     protected CategoryDao getCategoryDao() {
         if (m_categoryDao == null) {
             m_categoryDao = getServiceRegistry().findProvider(CategoryDao.class);
@@ -208,7 +208,7 @@ public abstract class AbstractMockDao<T, K extends Serializable> implements Onms
         }
         return m_categoryDao;
     }
-    
+
     protected DistPollerDao getDistPollerDao() {
         if (m_distPollerDao == null) {
             m_distPollerDao = getServiceRegistry().findProvider(DistPollerDao.class);

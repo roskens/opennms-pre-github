@@ -127,9 +127,9 @@ public class DataLinkInterfaceDaoHibernateTest implements InitializingBean {
         OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.or(
-                                     Restrictions.eq("node.id", m_databasePopulator.getNode1().getId()),
-                                     Restrictions.eq("nodeParentId", m_databasePopulator.getNode1().getId())
-                ));
+            Restrictions.eq("node.id", m_databasePopulator.getNode1().getId()),
+            Restrictions.eq("nodeParentId", m_databasePopulator.getNode1().getId())
+        ));
 
         final List<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findMatching(criteria);
         for (final DataLinkInterface iface : dlis) {

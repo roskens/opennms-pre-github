@@ -51,7 +51,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class RadiusAuthDetectorTest implements ApplicationContextAware, InitializingBean {
-    
+
     @Autowired
     public RadiusAuthDetector m_detector;
 
@@ -64,7 +64,7 @@ public class RadiusAuthDetectorTest implements ApplicationContextAware, Initiali
     public void setUp(){
          MockLogAppender.setupLogging();
     }
-    
+
 	@Test(timeout=90000)
 	public void testDetectorFail() throws UnknownHostException{
 	    m_detector.setTimeout(1);
@@ -113,7 +113,7 @@ public class RadiusAuthDetectorTest implements ApplicationContextAware, Initiali
 
 	@Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        
+
     }
-	
+
 }

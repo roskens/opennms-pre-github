@@ -55,17 +55,17 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= { "classpath:/pluginRegistryTest-context.xml" } )
 public class PluginRegistryTest implements InitializingBean {
-    
+
     @Autowired
     ApplicationContext m_appContext;
-    
+
     @Autowired
     PluginRegistry m_pluginRegistry;
-    
+
     interface BeanMatcher<T> {
         boolean matches(T t);
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -78,19 +78,19 @@ public class PluginRegistryTest implements InitializingBean {
 
     @Test
     public void testGo() {
-        
+
         Collection<NodePolicy> nodePolicies = m_pluginRegistry.getAllPlugins(NodePolicy.class);
-        
+
         Collection<IpInterfacePolicy> ifPolicies = m_pluginRegistry.getAllPlugins(IpInterfacePolicy.class);
-        
+
 
         assertEquals(3, nodePolicies.size());
         assertEquals(1, ifPolicies.size());
-        
+
     }
-    
+
     public <T> Map<String, T> getBeansOfType(Class<T> clazz) {
         return m_appContext.getBeansOfType(clazz, true, true);
     }
-    
+
 }

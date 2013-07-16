@@ -60,7 +60,7 @@ public interface GroupDao {
      * @return a {@link java.util.Map} object.
      */
     Map<String, Group> getGroups();
-    
+
     /**
      * Returns a boolean indicating if the group name appears in the xml file
      *
@@ -89,7 +89,7 @@ public interface GroupDao {
      * <p>saveGroups</p>
      */
     void saveGroups();
-    
+
     /**
      * Determines if a group is on duty at a given time. If a group has no duty schedules
      * listed in the config file, that group is assumed to always be on duty.
@@ -99,7 +99,7 @@ public interface GroupDao {
      * @return boolean, true if the group is on duty, false otherwise.
      */
     boolean isGroupOnDuty(String group, Calendar time);
-    
+
     /**
      * Determines when a group is next on duty. If a group has no duty schedules
      * listed in the config file, that group is assumed to always be on duty.
@@ -109,7 +109,7 @@ public interface GroupDao {
      * @return long, the time in millisec until the group is next on duty
      */
     long groupNextOnDuty(String group, Calendar time);
-    
+
     /**
      * Adds a new user and overwrites the "groups.xml"
      *
@@ -117,14 +117,14 @@ public interface GroupDao {
      * @param details a {@link org.opennms.netmgt.config.groups.Group} object.
      */
     void saveGroup(String name, Group details);
-    
+
     /**
      * <p>saveRole</p>
      *
      * @param role a {@link org.opennms.netmgt.config.groups.Role} object.
      */
     void saveRole(Role role);
-    
+
     /**
      * Removes the user from the list of groups. Then overwrites to the
      * "groups.xml"
@@ -132,7 +132,7 @@ public interface GroupDao {
      * @param name a {@link java.lang.String} object.
      */
     void deleteUser(String name);
-    
+
     /**
      * Removes the group from the list of groups. Then overwrites to the
      * "groups.xml"
@@ -140,14 +140,14 @@ public interface GroupDao {
      * @param name a {@link java.lang.String} object.
      */
     void deleteGroup(String name);
-    
+
     /**
      * <p>deleteRole</p>
      *
      * @param name a {@link java.lang.String} object.
      */
     void deleteRole(String name);
-    
+
     /**
      * Renames the group from the list of groups. Then overwrites to the
      * "groups.xml"
@@ -156,7 +156,7 @@ public interface GroupDao {
      * @param newName a {@link java.lang.String} object.
      */
     void renameGroup(String oldName, String newName);
-    
+
     /**
      * When this method is called group name is changed, so also is the
      * groupname belonging to the view. Also overwrites the "groups.xml" file
@@ -165,21 +165,21 @@ public interface GroupDao {
      * @param newName a {@link java.lang.String} object.
      */
     void renameUser(String oldName, String newName);
-    
+
     /**
      * <p>getRoleNames</p>
      *
      * @return an array of {@link java.lang.String} objects.
      */
     String[] getRoleNames();
-    
+
     /**
      * <p>getRoles</p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<Role> getRoles();
-    
+
     /**
      * <p>getRole</p>
      *
@@ -196,7 +196,7 @@ public interface GroupDao {
      * @return a boolean.
      */
     boolean userHasRole(String userId, String roleid);
-       
+
     /**
      * <p>getSchedulesForRoleAt</p>
      *
@@ -205,7 +205,7 @@ public interface GroupDao {
      * @return a {@link java.util.List} object.
      */
     List<Schedule> getSchedulesForRoleAt(String roleId, Date time);
-    
+
     /**
      * <p>getUserSchedulesForRole</p>
      *
@@ -214,7 +214,7 @@ public interface GroupDao {
      * @return a {@link java.util.List} object.
      */
     List<Schedule> getUserSchedulesForRole(String userId, String roleid);
-    
+
     /**
      * <p>isUserScheduledForRole</p>
      *
@@ -224,7 +224,7 @@ public interface GroupDao {
      * @return a boolean.
      */
     boolean isUserScheduledForRole(String userId, String roleid, Date time);
-    
+
     /**
      * <p>getRoleScheduleEntries</p>
      *
@@ -234,7 +234,7 @@ public interface GroupDao {
      * @return a {@link org.opennms.core.utils.OwnedIntervalSequence} object.
      */
     OwnedIntervalSequence getRoleScheduleEntries(String roleid, Date start, Date end);
-    
+
     /**
      * <p>findGroupsForUser</p>
      *
@@ -242,7 +242,7 @@ public interface GroupDao {
      * @return a {@link java.util.List} object.
      */
     List<Group> findGroupsForUser(String user);
-    
+
     /**
      * <p>getDefaultMapForUser</p>
      *

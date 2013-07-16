@@ -68,7 +68,7 @@ public class AlarmRepositoryHibernate implements AlarmRepository, InitializingBe
 
     @Autowired
     MemoDao m_memoDao;
-    
+
     @Autowired
     AcknowledgmentDao m_ackDao;
 

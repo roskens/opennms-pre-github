@@ -217,7 +217,7 @@ public class GatewayGroupListener implements InitializingBean {
     public SmsServiceRegistrar getSmsServiceRegistrar() {
         return m_smsServiceRegistrar;
     }
-    
+
     /**
      * <p>setUssdListeners</p>
      *
@@ -226,7 +226,7 @@ public class GatewayGroupListener implements InitializingBean {
     public void setUssdListeners(List<IUSSDNotification> listeners) {
         m_ussdListeners = listeners;
     }
-    
+
     /**
      * <p>getUssdListeners</p>
      *

@@ -44,9 +44,9 @@ import org.opennms.netmgt.provision.detector.simple.response.LineOrientedRespons
  * @version $Id: $
  */
 public class LineOrientedDecoder extends CumulativeProtocolDecoder {
-    
+
     private Charset m_charset;
-    
+
     /**
      * <p>Constructor for LineOrientedDecoder.</p>
      *
@@ -55,19 +55,19 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
     public LineOrientedDecoder(final Charset charset) {
         setCharset(charset);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
         // Remember the initial position.
         final int start = in.position();
-        
+
         // Now find the first CRLF in the buffer.
         byte previous = 0;
         while (in.hasRemaining()) {
-            
+
             final byte current = in.get();
-            
+
             if (previous == '\r' && current == '\n') {
                 // Remember the current position and limit.
                 final int position = in.position();
@@ -85,15 +85,15 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
                     in.position(position);
                     in.limit(limit);
                 }
-                
+
                 // Decoded one line; CumulativeProtocolDecoder will
                 // call me again until I return false. So just
                 // return true until there are no more lines in the
                 // buffer.
                 return true;
-                
+
                 }
-            
+
             previous = current;
         }
         // Could not find CRLF in the buffer. Reset the initial
@@ -101,9 +101,9 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
         in.position(start);
 
         return false;
-        
+
     }
-    
+
     /**
      * <p>parseCommand</p>
      *
@@ -133,5 +133,5 @@ public class LineOrientedDecoder extends CumulativeProtocolDecoder {
         return m_charset;
     }
 
-    
+
 }

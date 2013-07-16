@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class HttpStatusResponse extends LineOrientedResponse {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HttpStatusResponse.class);
-    
+
     private static final Pattern DEFAULT_REGEX = Pattern.compile("([H][T][T][P+]/[1].[0-1]) ([0-6]+) ([a-zA-Z ]+)");
 
     /**
@@ -54,7 +54,7 @@ public class HttpStatusResponse extends LineOrientedResponse {
      */
     public HttpStatusResponse(final String response) {
         super(response);
-        
+
     }
 
     /**
@@ -72,9 +72,9 @@ public class HttpStatusResponse extends LineOrientedResponse {
         if(codeArray.length < 3) {
             throw new IllegalArgumentException("Maximum HTTP return code is too short, must be at least 3 digits");
         }
-        
+
         final Pattern p;
-        
+
         if (isCheckCode) {
             p = Pattern.compile(String.format("([H][T][T][P+]/[1].[0-1]) ([0-%s][0-2][0-%s]) ([a-zA-Z ]+)", codeArray[1], codeArray[3]));
         } else {

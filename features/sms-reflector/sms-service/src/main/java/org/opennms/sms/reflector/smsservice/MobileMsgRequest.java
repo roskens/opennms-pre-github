@@ -41,15 +41,15 @@ import org.opennms.protocols.rt.Request;
  * @version $Id: $
  */
 public abstract class MobileMsgRequest implements Request<String, MobileMsgRequest, MobileMsgResponse> {
-    
+
     private long m_timeout;
     private int m_retries;
     private MobileMsgResponseCallback m_cb;
     private MobileMsgResponseMatcher m_responseMatcher;
-    
+
     private long m_expiration;
 	private long m_sentTime;
-	
+
 	private volatile boolean m_processed = false;
 
     /**
@@ -66,7 +66,7 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
         m_cb = cb;
         m_responseMatcher = responseMatcher;
     }
-    
+
     /**
      * <p>getSentTime</p>
      *
@@ -75,7 +75,7 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
     public long getSentTime() {
     	return m_sentTime;
     }
-    
+
     /**
      * <p>getTimeout</p>
      *
@@ -215,7 +215,7 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
             m_processed = true;
         }
     }
-    
+
     /**
      * <p>createNextRetry</p>
      *
@@ -268,5 +268,5 @@ public abstract class MobileMsgRequest implements Request<String, MobileMsgReque
             .append("processed", m_processed)
             .toString();
     }
-    
+
 }

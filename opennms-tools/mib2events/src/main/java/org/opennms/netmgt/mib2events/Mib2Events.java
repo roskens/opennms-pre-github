@@ -232,7 +232,7 @@ public class Mib2Events {
         if (getUeiBase() != null) {
             return getUeiBase();
         }
-        
+
         if (m_compat) {
             return MIB2OPENNMS_UEIBASE;
         } else {
@@ -290,7 +290,7 @@ public class Mib2Events {
         buf.append(url);
         printError(buf.toString());
     }
-    
+
     public static void printError(String msg, Throwable e) {
         StringBuffer buf = new StringBuffer();
         buf.append("Error: ");
@@ -305,7 +305,7 @@ public class Mib2Events {
     public static String getTrapSpecificType(MibValueSymbol trapValueSymbol) {
         return getMatcherForOid(getTrapOid(trapValueSymbol)).group(2);
     }
-    
+
     public static Matcher getMatcherForOid(String trapOid) {
         Matcher m = TRAP_OID_PATTERN.matcher(trapOid);
         if (!m.matches()) {
@@ -313,7 +313,7 @@ public class Mib2Events {
         }
         return m;
     }
-    
+
     private static String getTrapOid(MibValueSymbol trapValueSymbol) {
         if (trapValueSymbol.getType() instanceof SnmpNotificationType) {
             return "." + trapValueSymbol.getValue().toString();
@@ -350,7 +350,7 @@ public class Mib2Events {
             SnmpTrapType v1trap = (SnmpTrapType) trapValueSymbol.getType();
             return getV1TrapVariables(v1trap);
         } else {
-            throw new IllegalStateException("trap type is not an SNMP v1 Trap or v2 Notification");      
+            throw new IllegalStateException("trap type is not an SNMP v1 Trap or v2 Notification");
         }
     }
 
@@ -497,7 +497,7 @@ public class Mib2Events {
         if (event.getMask() == null) {
             throw new IllegalStateException("Event mask is null, must have been set before this method was called");
         }
-        
+
         Maskelement me = new Maskelement();
         me.setMename(name);
         me.addMevalue(value);

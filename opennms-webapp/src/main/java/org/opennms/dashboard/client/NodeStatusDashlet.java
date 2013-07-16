@@ -41,22 +41,22 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @since 1.8.1
  */
 public class NodeStatusDashlet extends Dashlet {
-    
+
 
     private NodeStatusView m_view = new NodeStatusView(this);
     private NodeStatusLoader m_loader = new NodeStatusLoader();
-    
-    
+
+
 
     class NodeStatusLoader extends DashletLoader implements AsyncCallback<NodeRtc[]> {
-        
+
         private SurveillanceServiceAsync m_suveillanceService;
-        
+
         public void load(final SurveillanceSet surveillanceSet) {
             loading();
             m_suveillanceService.getRtcForSet(surveillanceSet, this);
         }
-        
+
         public void onDataLoaded(NodeRtc[] rtcs) {
             try {
                 m_view.setNodeRtc(rtcs);
@@ -79,9 +79,9 @@ public class NodeStatusDashlet extends Dashlet {
         public void onSuccess(NodeRtc[] result) {
             onDataLoaded(result);
         }
-        
+
     }
-    
+
     /**
      * <p>Constructor for NodeStatusDashlet.</p>
      *
@@ -99,7 +99,7 @@ public class NodeStatusDashlet extends Dashlet {
         m_loader.load(set);
     }
 
-    
+
     /**
      * <p>setSurveillanceService</p>
      *

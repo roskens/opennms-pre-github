@@ -38,14 +38,14 @@ import java.io.OutputStream;
  * @version $Id: $
  */
 public class LineOrientedRequest {
-    
+
     /** Constant <code>Null</code> */
     public static final LineOrientedRequest Null = new LineOrientedRequest(null) {
-        
+
     };
-    
+
     private String m_command;
-    
+
     /**
      * <p>Constructor for LineOrientedRequest.</p>
      *
@@ -64,7 +64,7 @@ public class LineOrientedRequest {
     public void send(final OutputStream out) throws IOException {
         out.write(String.format("%s\r\n", m_command).getBytes("UTF-8"));
     }
-    
+
     /**
      * <p>getRequest</p>
      *
@@ -73,7 +73,7 @@ public class LineOrientedRequest {
     public String getRequest() {
         return String.format("%s\r\n", m_command);
     }
-    
+
     /**
      * <p>toString</p>
      *

@@ -42,7 +42,7 @@ import org.opennms.netmgt.icmp.PingResponseCallback;
 import org.opennms.netmgt.icmp.Pinger;
 
 /**
- * 
+ *
  * @author <a href="mailto:ranger@opennms.org>Ben Reed</a>
  */
 public class JniPingTest extends TestCase {
@@ -62,7 +62,7 @@ public class JniPingTest extends TestCase {
             System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
             return;
         }
-            
+
         try {
             System.err.println("------------------- begin "+getName()+" ---------------------");
             super.runTest();
@@ -100,14 +100,14 @@ public class JniPingTest extends TestCase {
         assertNotNull("No RTT value returned from ping, looks like the ping failed", rtt);
         assertTrue("Negative RTT value returned from ping", rtt.doubleValue() > 0);
     }
-    
+
     private static class TestPingResponseCallback implements PingResponseCallback {
         private final CountDownLatch m_latch = new CountDownLatch(1);
         private InetAddress m_address;
         private EchoPacket m_packet;
         private Throwable m_throwable;
         private boolean m_timeout = false;
-        
+
         @Override
         public void handleResponse(InetAddress address, EchoPacket response) {
             m_address = address;
@@ -115,7 +115,7 @@ public class JniPingTest extends TestCase {
             m_latch.countDown();
             System.err.println("RESPONSE COUNTED DOWN");
         }
-        
+
         @Override
         public void handleTimeout(InetAddress address, EchoPacket request) {
             m_timeout = true;
@@ -124,7 +124,7 @@ public class JniPingTest extends TestCase {
             m_latch.countDown();
             System.err.println("TIMEOUT COUNTED DOWN");
         }
-        
+
         @Override
         public void handleError(InetAddress address, EchoPacket request, Throwable t) {
             m_address = address;
@@ -134,55 +134,55 @@ public class JniPingTest extends TestCase {
             System.err.println("ERROR COUNTED DOWN");
             t.printStackTrace();
         }
-        
+
         public void await() throws InterruptedException {
             m_latch.await();
         }
-        
+
         /**
          * @return the address
          */
         public InetAddress getAddress() {
             return m_address;
         }
-        
+
         /**
          * @return the packet
          */
         public EchoPacket getPacket() {
             return m_packet;
         }
-        
+
         /**
          * @return the throwable
          */
         public Throwable getThrowable() {
             return m_throwable;
         }
-        
+
         /**
          * @return the timeout
          */
         public boolean isTimeout() {
             return m_timeout;
         }
-        
+
     };
 
     protected void pingCallbackTimeout(Pinger pinger) throws Exception {
 
         TestPingResponseCallback cb = new TestPingResponseCallback();
-        
+
         pinger.ping(m_badHost, PingConstants.DEFAULT_TIMEOUT, PingConstants.DEFAULT_RETRIES, PingConstants.DEFAULT_PACKET_SIZE, 1, cb);
-        
+
         cb.await();
 
-        assertTrue("Unexpected Error sending ping to " + m_badHost + ": " + cb.getThrowable(), 
+        assertTrue("Unexpected Error sending ping to " + m_badHost + ": " + cb.getThrowable(),
                 cb.getThrowable() == null || cb.getThrowable() instanceof NoRouteToHostException);
         assertTrue(cb.isTimeout());
         assertNotNull(cb.getPacket());
         assertNotNull(cb.getAddress());
-        
+
     }
 
     public void testPingCallbackTimeoutJni() throws Exception {
@@ -226,7 +226,7 @@ public class JniPingTest extends TestCase {
         printResponse(items);
         assertTrue("Collection contained some numeric values when all parallel pings should have failed", CollectionMath.countNotNull(items) == 0);
     }
-    
+
     private void printResponse(List<Number> items) {
         Long passed = CollectionMath.countNotNull(items);
         Long failed = CollectionMath.countNull(items);
@@ -234,7 +234,7 @@ public class JniPingTest extends TestCase {
         Number failedPercent = CollectionMath.percentNull(items);
         Number average = CollectionMath.average(items);
         Number median = CollectionMath.median(items);
-        
+
         if (passedPercent == null) passedPercent = Long.valueOf(0);
         if (failedPercent == null) failedPercent = Long.valueOf(100);
         if (median        == null) median        = Double.valueOf(0);
@@ -248,7 +248,7 @@ public class JniPingTest extends TestCase {
         StringBuffer sb = new StringBuffer();
         sb.append("response times = ").append(items);
         sb.append("\n");
-        
+
         sb.append("pings = ").append(items.size());
         sb.append(", passed = ").append(passed).append(" (").append(passedPercent).append("%)");
         sb.append(", failed = ").append(failed).append(" (").append(failedPercent).append("%)");
@@ -258,4 +258,3 @@ public class JniPingTest extends TestCase {
         System.out.print(sb);
     }
 }
-    

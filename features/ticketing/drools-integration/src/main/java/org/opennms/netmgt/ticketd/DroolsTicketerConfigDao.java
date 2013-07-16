@@ -47,22 +47,22 @@ public class DroolsTicketerConfigDao {
 
 	/**
 	 * Retrieves the properties defined in the drools-ticketer.properties file.
-	 * 
+	 *
 	 */
 	private Configuration getProperties() {
 		String propsFile = new String(System.getProperty("opennms.home") + "/etc/drools-ticketer.properties");
 		LOG.debug("loading properties from: {}", propsFile);
 		Configuration config = null;
-		
+
 		try {
 			config = new PropertiesConfiguration(propsFile);
 		} catch (final ConfigurationException e) {
 		    LOG.debug("Unable to load properties from {}", propsFile, e);
 		}
-	
+
 		return config;
 	}
-	
+
 	public File getRulesFile() {
 		return new File(getProperties().getString("drools-ticketer.rules-file"));
 	}

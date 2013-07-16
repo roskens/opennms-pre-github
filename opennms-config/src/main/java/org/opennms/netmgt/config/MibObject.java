@@ -50,7 +50,7 @@ public class MibObject implements Collectable {
      * Object's identifier in dotted-decimal notation (e.g, ".1.3.6.1.2.1.1.1").
      */
     private String m_oid;
-    
+
     private SnmpObjId m_snmpObjId = null;
 
     /**
@@ -76,11 +76,11 @@ public class MibObject implements Collectable {
     /**
      * Object's instance to be retrieved. Indicates a value to be appended to
      * the objects' oid string prior to issuing an SNMP GET request.
-     * 
+     *
      * decimal value: instance of object to retrieve (value is appended to the
      * objects oid string) keyword value: currently supported keywords are
      * "ifIndex" and "ifAddress".
-     * 
+     *
      * @see #INSTANCE_IFINDEX
      * @see #INSTANCE_IFADDRESS
      */
@@ -189,7 +189,7 @@ public class MibObject implements Collectable {
     public void setInstance(String instance) {
         m_instance = instance;
     }
-    
+
     /**
      * <p>setGroupName</p>
      *
@@ -254,7 +254,7 @@ public class MibObject implements Collectable {
     public String getInstance() {
         return m_instance;
     }
-    
+
     /**
      * <p>getGroupName</p>
      *
@@ -302,8 +302,8 @@ public class MibObject implements Collectable {
         return false;
 
     }
-    
-    
+
+
 
     /**
      * <p>hashCode</p>
@@ -334,7 +334,7 @@ public class MibObject implements Collectable {
 
         return buffer.toString();
     }
-    
+
     /**
      * <p>getCollectionTracker</p>
      *
@@ -346,7 +346,7 @@ public class MibObject implements Collectable {
             return (CollectionTracker) new ColumnTracker(SnmpObjId.get(getOid()));
         } else {
             return (CollectionTracker) new InstanceListTracker(SnmpObjId.get(getOid()), getInstance());
-            
+
         }
     }
 
@@ -361,7 +361,7 @@ public class MibObject implements Collectable {
             return (CollectionTracker) new InstanceListTracker(SnmpObjId.get(getOid()), instances);
         } else {
             return (CollectionTracker) new InstanceListTracker(SnmpObjId.get(getOid()), getInstance());
-            
+
         }
     }
 
@@ -406,10 +406,10 @@ public class MibObject implements Collectable {
     public SnmpObjId getSnmpObjId() {
         if (getOid() == null)
             return null;
-        
+
         if (m_snmpObjId == null)
             m_snmpObjId = SnmpObjId.get(getOid());
-        
+
         return m_snmpObjId;
     }
 
@@ -421,7 +421,7 @@ public class MibObject implements Collectable {
     public void setGroupIfType(String groupIfType) {
         m_groupIfType = groupIfType;
     }
-    
+
     /**
      * <p>getGroupIfType</p>
      *
@@ -439,7 +439,7 @@ public class MibObject implements Collectable {
 	public void setResourceType(ResourceType resourceType) {
 		m_resourceType = resourceType;
 	}
-	
+
 	/**
 	 * <p>getResourceType</p>
 	 *

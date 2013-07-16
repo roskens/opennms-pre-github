@@ -43,9 +43,9 @@ public interface AttributeStatisticVisitorWithResults extends AttributeStatistic
      * @return a {@link java.util.SortedSet} object.
      */
     public SortedSet<AttributeStatistic> getResults();
-    
+
     // FIXME: Hack, hack, hack
-    
+
     /**
      * <p>setCount</p>
      *

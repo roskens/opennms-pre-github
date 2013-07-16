@@ -52,7 +52,7 @@ public class XMPPNotificationTest {
     public void testNotification() {
         m_xmppManager.sendMessage("test@jabber.example.com", "This is a single-user test.");
     }
-    
+
     @Test
     @Ignore("requires a working test jabber server")
     public void testGroupNotification() {

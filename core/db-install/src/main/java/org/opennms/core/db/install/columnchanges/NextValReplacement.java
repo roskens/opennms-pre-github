@@ -47,10 +47,10 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class NextValReplacement implements ColumnChangeReplacement {
         private final String m_sequence;
-        
+
         private final Connection m_connection;
         private final PreparedStatement m_statement;
-        
+
         /**
          * <p>Constructor for NextValReplacement.</p>
          *
@@ -66,7 +66,7 @@ public class NextValReplacement implements ColumnChangeReplacement {
                                                         + m_sequence
                                                         + "')");
         }
-        
+
         private PreparedStatement getStatement() {
             /*
             if (m_statement == null) {
@@ -80,15 +80,15 @@ public class NextValReplacement implements ColumnChangeReplacement {
         private void createStatement() throws SQLException {
             m_statement = getConnection().prepareStatement("SELECT nextval('" + m_sequence + "')");
         }
-        
+
         private Connection getConnection() throws SQLException {
             if (m_connection == null) {
                 createConnection();
             }
-            
+
             return m_connection;
         }
-        
+
         private void createConnection() throws SQLException {
             m_connection = m_dataSource.getConnection();
         }
@@ -98,17 +98,17 @@ public class NextValReplacement implements ColumnChangeReplacement {
         @Override
         public Integer getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
             ResultSet r = getStatement().executeQuery();
-            
+
             if (!r.next()) {
                 r.close();
                 throw new SQLException("Query for next value of sequence did not return any rows.");
             }
-            
+
             int i = r.getInt(1);
             r.close();
             return i;
         }
-        
+
         /**
          * <p>addColumnIfColumnIsNew</p>
          *
@@ -118,7 +118,7 @@ public class NextValReplacement implements ColumnChangeReplacement {
         public boolean addColumnIfColumnIsNew() {
             return true;
         }
-        
+
         /**
          * <p>close</p>
          *
@@ -128,7 +128,7 @@ public class NextValReplacement implements ColumnChangeReplacement {
         public void close() throws SQLException {
             finalize();
         }
-        
+
         /**
          * <p>finalize</p>
          *

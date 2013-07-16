@@ -34,9 +34,9 @@ import java.sql.ResultSet;
  * @author brozow
  */
 public interface OutageChecker {
-    
+
     public void processRow(ResultSet rs);
-        
-    
+
+
 
 }

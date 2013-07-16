@@ -45,7 +45,7 @@ public class TcpCodecFactory implements ProtocolCodecFactory {
 
     private final LineOrientedEncoder m_encoder;
     private final TcpLineDecoder m_decoder;
-    
+
     /**
      * <p>Constructor for TcpCodecFactory.</p>
      *
@@ -54,7 +54,7 @@ public class TcpCodecFactory implements ProtocolCodecFactory {
     public TcpCodecFactory(final Charset charset) {
         this(charset, null);
     }
-    
+
     /**
      * <p>Constructor for TcpCodecFactory.</p>
      * FIXME: Why does this exist?  It drops the second argument.
@@ -66,7 +66,7 @@ public class TcpCodecFactory implements ProtocolCodecFactory {
         m_encoder = new LineOrientedEncoder(charset);
         m_decoder = new TcpLineDecoder(charset);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ProtocolDecoder getDecoder(final IoSession session) throws Exception {

@@ -40,7 +40,7 @@ import com.google.gwt.user.client.Event;
 
 public class PanObject extends DragObject{
 	/**
-     * 
+     *
      */
     private SVGMatrix m_stateTf;
 	private SVGPoint m_stateOrigin;
@@ -52,7 +52,7 @@ public class PanObject extends DragObject{
 		m_stateTf = g.getCTM().inverse();
 
 		SVGPoint eventPoint = getEventPoint(D3.getEvent());
-        m_stateOrigin = topologyView.getPoint((int)eventPoint.getX(), (int)eventPoint.getY()); 
+        m_stateOrigin = topologyView.getPoint((int)eventPoint.getX(), (int)eventPoint.getY());
 	}
 
 	@Override
@@ -65,11 +65,11 @@ public class PanObject extends DragObject{
 
 		String matrixTransform = "matrix(" + m.getA() +
 				", " + m.getB() +
-				", " + m.getC() + 
+				", " + m.getC() +
 				", " + m.getD() +
-				", " + m.getE() + 
+				", " + m.getE() +
 				", " + m.getF() + ")";
 		getDraggableElement().setAttribute("transform", matrixTransform);
 	}
-	
+
 }

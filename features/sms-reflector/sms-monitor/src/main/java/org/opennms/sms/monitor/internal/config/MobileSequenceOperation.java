@@ -56,7 +56,7 @@ public abstract class MobileSequenceOperation {
 	public MobileSequenceOperation(String label) {
 		setLabel(label);
 	}
-	
+
 	/**
 	 * <p>Constructor for MobileSequenceOperation.</p>
 	 *
@@ -70,7 +70,7 @@ public abstract class MobileSequenceOperation {
 
 	private String m_gatewayId;
 	private String m_label;
-	
+
 	/**
 	 * <p>getGatewayId</p>
 	 *
@@ -80,7 +80,7 @@ public abstract class MobileSequenceOperation {
 	public String getGatewayId() {
 		return m_gatewayId;
 	}
-	
+
 	/**
 	 * <p>setGatewayId</p>
 	 *
@@ -89,7 +89,7 @@ public abstract class MobileSequenceOperation {
 	public void setGatewayId(String gatewayId) {
 		m_gatewayId = gatewayId;
 	}
-	
+
 	/**
 	 * <p>getLabel</p>
 	 *

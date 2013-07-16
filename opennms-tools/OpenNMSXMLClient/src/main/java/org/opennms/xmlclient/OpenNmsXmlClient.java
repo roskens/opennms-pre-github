@@ -1,13 +1,13 @@
-/* 
+/*
  * Licensed to the OpenNMS Group Inc. under one or more
  * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
- * The OpenNMS Group Inc. licences this file to You under the Apache License, 
+ * The OpenNMS Group Inc. licences this file to You under the Apache License,
  * Version 2.0 (the "License"); you may not use this file except in compliance with
  * the License.  You may obtain a copy of the License at
- * 
+ *
  *  http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.net.URL;
 
 import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory; 
+import org.apache.commons.logging.LogFactory;
 
 import org.opennms.xmlclient.BasicHttpMethods;
 
@@ -38,7 +38,7 @@ public class OpenNmsXmlClient  {
 	private String username      = "admin";   // default user ID for accessing REST interface
 	private String password      = "admin";   // default user password for accessing REST interface
 
-	private static String requisitionCmd="/opennms/rest/requisitions"; // default OpenNMS REST command base for requisition commands 
+	private static String requisitionCmd="/opennms/rest/requisitions"; // default OpenNMS REST command base for requisition commands
 
 
 	// RAW REQUISITION COMMANDS
@@ -77,7 +77,7 @@ public class OpenNmsXmlClient  {
 			java.io.Reader data = new java.io.StringReader(marshalledStr.toString());
 			java.io.Writer output= new java.io.StringWriter();
 			URL url = new URL(opennmsUrl+requisitionCmd);
-			
+
 			BasicHttpMethods basicHttpMethods= new BasicHttpMethods();
 			basicHttpMethods.setLog(log);
 			basicHttpMethods.postData(data, url, output, username,password);
@@ -120,13 +120,13 @@ public class OpenNmsXmlClient  {
 
 	/**
 	 * requisition import <foreign-source Import the requisition with the given foreign source.
-	 */ 
+	 */
 	public boolean requisitionImport(String foreign_source){
 		try {
 			java.io.Reader data = new java.io.StringReader("");
 			java.io.Writer output= new java.io.StringWriter();
 			URL url = new URL(opennmsUrl+requisitionCmd+"/"+foreign_source+"/import");
-			
+
 			BasicHttpMethods basicHttpMethods= new BasicHttpMethods();
 			basicHttpMethods.setLog(log);
 			basicHttpMethods.putData(data, url, output, username, password);
@@ -160,7 +160,7 @@ public class OpenNmsXmlClient  {
 			java.io.Reader data = new java.io.StringReader(marshalledStr.toString());
 			java.io.Writer output= new java.io.StringWriter();
 			URL url = new URL(opennmsUrl+requisitionCmd+"/"+foreign_source+"/nodes");
-			
+
 			BasicHttpMethods basicHttpMethods= new BasicHttpMethods();
 			basicHttpMethods.setLog(log);
 			basicHttpMethods.postData(data, url, output, username, password);
@@ -204,14 +204,14 @@ public class OpenNmsXmlClient  {
 	 *    node-label
 	 *    parent-foreign-id
 	 *    parent-node-label
-	 *    
+	 *
 	 * @param foreign_source foreign source identifier
 	 * @param foreign_id     node id used in foreign source
 	 * @param properties
 	 * @return
 	 */
 	public boolean nodeSet(String foreign_source, String foreign_id, HashMap<String,String> properties){
-		//TODO write 
+		//TODO write
 		return false;
 	}
 
@@ -235,7 +235,7 @@ public class OpenNmsXmlClient  {
 			java.io.Reader data = new java.io.StringReader(marshalledStr.toString());
 			java.io.Writer output= new java.io.StringWriter();
 			URL url = new URL(opennmsUrl+requisitionCmd+"/"+foreign_source+"/nodes/"+foreign_id+"/interfaces");
-			
+
 			BasicHttpMethods basicHttpMethods= new BasicHttpMethods();
 			basicHttpMethods.setLog(log);
 			basicHttpMethods.postData(data, url, output, username, password);
@@ -274,7 +274,7 @@ public class OpenNmsXmlClient  {
 	}
 
 	/**
-	 *  Set a property on an interface, given the foreign source, foreign id, and IP address. 
+	 *  Set a property on an interface, given the foreign source, foreign id, and IP address.
 	 *  Valid properties are:
 	 *      descr - the interface description
 	 *      snmp-primary - P (primary), S (secondary), N (not eligible)
@@ -286,7 +286,7 @@ public class OpenNmsXmlClient  {
 	 * @return
 	 */
 	public boolean interfaceSet(String foreign_source, String foreign_id, String ip_address, HashMap<String,String> properties){
-		//TODO write 
+		//TODO write
 		return false;
 	}
 
@@ -314,7 +314,7 @@ public class OpenNmsXmlClient  {
 	}
 
 	/**
-	 * @param opennmsUrl URL to address opennms. Defaults to "http://localhost:8980" if not set. 
+	 * @param opennmsUrl URL to address opennms. Defaults to "http://localhost:8980" if not set.
 	 */
 	public void setOpennmsUrl(String opennmsUrl) {
 		this.opennmsUrl = opennmsUrl;
@@ -328,7 +328,7 @@ public class OpenNmsXmlClient  {
 	}
 
 	/**
-	 * @param username user ID for accessing REST interface. Defaults to "admin" if not set. 
+	 * @param username user ID for accessing REST interface. Defaults to "admin" if not set.
 	 */
 	public void setUsername(String username) {
 		this.username = username;
@@ -342,7 +342,7 @@ public class OpenNmsXmlClient  {
 	}
 
 	/**
-	 * @param password user password for accessing REST interface. Defaults to "admin" if not set. 
+	 * @param password user password for accessing REST interface. Defaults to "admin" if not set.
 	 */
 	public void setPassword(String password) {
 		this.password = password;

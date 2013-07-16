@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable(DistributionContext.DAEMON)
 final public class DhcpMonitor extends AbstractServiceMonitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DhcpMonitor.class);
 
     /**
@@ -108,7 +108,7 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
             // Dhcpd.isServer() returns the response time in milliseconds
             // if the remote box is a DHCP server or -1 if the remote
             // box is NOT a DHCP server.
-            // 
+            //
             responseTime = Dhcpd.isServer(ipv4Addr, (long) timeout, retry);
             if (responseTime >= 0) {
                 serviceStatus = PollStatus.available((double)responseTime);
@@ -128,5 +128,5 @@ final public class DhcpMonitor extends AbstractServiceMonitor {
         //
         return serviceStatus;
     }
-    
+
 }

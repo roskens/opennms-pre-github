@@ -54,7 +54,7 @@ public class Dot1dBasePortTable extends SnmpTable<Dot1dBasePortTableEntry>
 	public Dot1dBasePortTable(InetAddress address) {
         super(address, "dot1dBasePortTable", Dot1dBasePortTableEntry.bridgePort_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected Dot1dBasePortTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

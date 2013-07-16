@@ -69,16 +69,16 @@ import org.springframework.util.StringUtils;
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
 public class DefaultRrdGraphService implements RrdGraphService, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultRrdGraphService.class);
 
 //    private static final String s_missingParamsPath = "/images/rrd/missingparams.png";
     private static final String s_rrdError = "/images/rrd/error.png";
-    
+
     private GraphDao m_graphDao;
 
     private ResourceDao m_resourceDao;
-    
+
     private RrdDao m_rrdDao;
 
     /** {@inheritDoc} */
@@ -95,12 +95,12 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         Assert.notNull(dataSourceTitles, "dataSourceTitles argument cannot be null");
         Assert.notNull(styles, "styles argument cannot be null");
         Assert.isTrue(end > start, "end time must be after start time");
-        
+
         AdhocGraphType t = m_graphDao.findAdhocGraphTypeByName("performance");
 
         OnmsResource r = m_resourceDao.getResourceById(resourceId);
         Assert.notNull(r, "resource \"" + resourceId + "\" could not be located");
-        
+
         String command = createAdHocCommand(t,
                                   r,
                                   start, end,
@@ -110,7 +110,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                                   colors,
                                   dataSourceTitles,
                                   styles);
-        
+
         return getInputStreamForCommand(command);
     }
 
@@ -133,7 +133,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
         return tempIn;
     }
-    
+
     /**
      * <p>returnErrorImage</p>
      *
@@ -160,12 +160,12 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
             throw new IllegalArgumentException("graph type \"" + "performance"
                                                + "\" is not valid");
         }
-        
+
         OnmsResource r = m_resourceDao.getResourceById(resourceId);
         Assert.notNull(r, "resource could not be located");
 
         PrefabGraph prefabGraph = m_graphDao.getPrefabGraph(report);
-        
+
         Graph graph = new Graph(prefabGraph, r, new Date(start), new Date(end));
 
         String command = createPrefabCommand(graph,
@@ -174,10 +174,10 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                                              report,
                                              width,
                                              height);
-        
+
         return getInputStreamForCommand(command);
     }
-    
+
     /**
      * <p>createAdHocCommand</p>
      *
@@ -218,7 +218,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         buf.append(commandPrefix);
         buf.append(" ");
         buf.append(title);
-        
+
         String[] rrdFiles = getRrdNames(resource, dsNames);
 
         List<String> defs = new ArrayList<String>(dsNames.length);
@@ -238,13 +238,13 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                                             dsAbbrev, dsName,
                                             dsAggregFxn, dsStyle,
                                             color, dsTitle));
-            
+
             lines.add(MessageFormat.format(graphline, rrd,
                                             starttime, endtime, graphtitle,
                                             dsAbbrev, dsName, dsAggregFxn,
                                             dsStyle, color, dsTitle));
         }
-        
+
         for (String def : defs) {
             buf.append(" ");
             buf.append(def);
@@ -260,7 +260,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
     private static String[] getRrdNames(OnmsResource resource, String[] dsNames) {
         String[] rrds = new String[dsNames.length];
-        
+
         Map<String, RrdGraphAttribute> attributes = resource.getRrdGraphAttributes();
 
         for (int i=0; i < dsNames.length; i++) {
@@ -274,15 +274,15 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
 
         return rrds;
     }
-    
+
     private static Map<String, String> getTranslationsForAttributes(Map<String, String> attributes, String[] requiredAttributes, String type) {
         if (requiredAttributes == null) {
             // XXX Nothing to do; not sure if we need this check
             return new HashMap<String, String>(0);
         }
-        
+
         Map<String, String> translations = new HashMap<String, String>(requiredAttributes.length);
-        
+
         for (String requiredAttribute : requiredAttributes) {
             String attributeValue = attributes.get(requiredAttribute);
             if (attributeValue == null) {
@@ -314,17 +314,17 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         PrefabGraph prefabGraph = graph.getPrefabGraph();
 
         String[] rrds = getRrdNames(graph.getResource(), graph.getPrefabGraph().getColumns());
-        
+
         StringBuffer buf = new StringBuffer();
         buf.append(commandPrefix);
         buf.append(" ");
         buf.append(prefabGraph.getCommand());
         String command = buf.toString();
-        
+
         long startTime = graph.getStart().getTime();
         long endTime = graph.getEnd().getTime();
         long diffTime = endTime - startTime;
-        
+
         /*
          * remember rrdtool wants the time in seconds, not milliseconds;
          * java.util.Date.getTime() returns milliseconds, so divide by 1000
@@ -332,14 +332,14 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
         String startTimeString = Long.toString(startTime / 1000);
         String endTimeString = Long.toString(endTime / 1000);
         String diffTimeString = Long.toString(diffTime / 1000);
-        
+
         HashMap<String, String> translationMap = new HashMap<String, String>();
-        
+
         for (int i = 0; i < rrds.length; i++) {
             String key = "{rrd" + (i + 1) + "}";
             translationMap.put(RE.simplePatternToFullRegularExpression(key), rrds[i]);
         }
-        
+
         translationMap.put(RE.simplePatternToFullRegularExpression("{startTime}"), startTimeString);
         translationMap.put(RE.simplePatternToFullRegularExpression("{endTime}"), endTimeString);
         translationMap.put(RE.simplePatternToFullRegularExpression("{diffTime}"), diffTimeString);
@@ -393,8 +393,8 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
             LOG.error("Invalid attributes were found on resource '{}'", graph.getResource().getId());
             throw e;
         }
-        
-        
+
+
         try {
             for (Map.Entry<String, String> translation : translationMap.entrySet()) {
                 // replace s1 with s2
@@ -406,11 +406,11 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                                                + "syntax, check "
                                                + "rrd-properties file", e);
         }
-        
-        
+
+
         if (width != null) {
             final Pattern re = Pattern.compile("(--width|-w)(\\w+|=)(\\d+)");
-        
+
             final Matcher matcher = re.matcher(command);
             if (matcher.matches()) {
                 matcher.replaceFirst("--width " + width);
@@ -418,10 +418,10 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                 command = command + " --width " + width;
             }
         }
-        
+
         if (height != null) {
             final Pattern re = Pattern.compile("(--height|-h)(\\w+|=)(\\d+)");
-            
+
             final Matcher matcher = re.matcher(command);
             if (matcher.matches()) {
                 matcher.replaceFirst("--height " + height);
@@ -429,7 +429,7 @@ public class DefaultRrdGraphService implements RrdGraphService, InitializingBean
                 command = command + " --height " + height;
             }
         }
-        
+
         return command;
     }
 

@@ -36,18 +36,18 @@ package org.opennms.web.map.view;
  * @since 1.8.1
  */
 public class VElementInfo implements Cloneable {
-    
+
 	private final int id;
 
     private String uei;
-    
+
     private int severity;
-    
+
     private String label;
-    
+
     private String ipaddr;
-    
-    
+
+
 	/**
 	 * <p>Getter for the field <code>ipaddr</code>.</p>
 	 *
@@ -89,8 +89,8 @@ public class VElementInfo implements Cloneable {
 		return uei;
 	}
 
-    
-    
+
+
 	/**
 	 * <p>Constructor for VElementInfo.</p>
 	 *
@@ -104,7 +104,7 @@ public class VElementInfo implements Cloneable {
 		this.ipaddr = ipaddr;
 		this.label=label;
 	}
-	
+
 	/**
 	 * <p>Constructor for VElementInfo.</p>
 	 *

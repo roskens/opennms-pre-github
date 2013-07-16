@@ -53,13 +53,13 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @DirtiesContext
 public class AspectJTest implements InitializingBean {
-    
+
     @Autowired
     private MockEventIpcManager m_eventIpcManager;
-    
+
     @Autowired
     private AspectJTestEventHandler m_handler;
-    
+
     @Autowired
     private AspectJTestEventHandlerInteceptor m_interceptor;
 
@@ -76,72 +76,72 @@ public class AspectJTest implements InitializingBean {
 
     @Test
     public void testAOPProxying() throws Throwable {
-        
+
         assertEquals(0, m_handler.getHandlerCallCount());
         assertEquals(0, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
-        
+
         m_handler.handleAnEvent(createEvent(EventConstants.ADD_INTERFACE_EVENT_UEI));
-        
+
         assertEquals(1, m_handler.getHandlerCallCount());
         assertEquals(1, m_interceptor.getPreEventCount());
         assertEquals(1, m_interceptor.getPostEventCount());
-        
+
     }
-    
+
     @Test
     public void testEventAdapterOnProxy() {
-        
+
         assertEquals(0, m_handler.getHandlerCallCount());
         assertEquals(0, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
-        
+
         sendEvent(EventConstants.ADD_INTERFACE_EVENT_UEI);
-        
+
         assertEquals(1, m_handler.getHandlerCallCount());
         assertEquals(1, m_interceptor.getPreEventCount());
         assertEquals(1, m_interceptor.getPostEventCount());
-        
+
     }
-    
+
     @Test
     public void testHandledException() {
-        
+
         assertEquals(0, m_handler.getHandlerCallCount());
         assertEquals(0, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
         assertEquals(0, m_interceptor.getHandledExceptionCount());
-        
+
         m_handler.setThrownException(new RuntimeException("test exception"));
-        
+
         sendEvent(EventConstants.ADD_INTERFACE_EVENT_UEI);
-        
+
         assertEquals(1, m_handler.getHandlerCallCount());
         assertEquals(1, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
         assertEquals(1, m_interceptor.getHandledExceptionCount());
-        
+
     }
-    
+
     @Test
     public void testUnhandledException() {
-        
+
         assertEquals(0, m_handler.getHandlerCallCount());
         assertEquals(0, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
         assertEquals(0, m_interceptor.getHandledExceptionCount());
-        
+
         m_handler.setThrownException(new Exception("test exception"));
-        
+
         sendEvent(EventConstants.ADD_INTERFACE_EVENT_UEI);
-        
+
         assertEquals(1, m_handler.getHandlerCallCount());
         assertEquals(1, m_interceptor.getPreEventCount());
         assertEquals(0, m_interceptor.getPostEventCount());
         assertEquals(0, m_interceptor.getHandledExceptionCount());
-        
+
     }
-    
+
     private void sendEvent(String uei) {
         m_eventIpcManager.sendNow(createEvent(uei));
     }

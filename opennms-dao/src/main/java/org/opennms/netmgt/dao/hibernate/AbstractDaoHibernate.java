@@ -58,12 +58,12 @@ import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
  * @version $Id: $
  */
 public abstract class AbstractDaoHibernate<T, K extends Serializable> extends HibernateDaoSupport implements OnmsDao<T, K> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDaoHibernate.class);
     Class<T> m_entityClass;
     private String m_lockName;
     private final HibernateCriteriaConverter m_criteriaConverter = new HibernateCriteriaConverter();
-    
+
     /**
      * <p>Constructor for AbstractDaoHibernate.</p>
      *
@@ -76,12 +76,12 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         m_entityClass = entityClass;
         Table table = m_entityClass.getAnnotation(Table.class);
         m_lockName = (table == null || "".equals(table.name()) ? m_entityClass.getSimpleName() : table.name()).toUpperCase() + "_ACCESS";
-        
-        
+
+
     }
-    
-    
-    
+
+
+
     @Override
     protected void initDao() throws Exception {
         getHibernateTemplate().saveOrUpdate(new AccessLock(m_lockName));
@@ -160,7 +160,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     public List<T> find(final String query, final Object... values) {
         return getHibernateTemplate().find(query, values);
     }
-    
+
     /**
      * <p>findObjects</p>
      *
@@ -237,7 +237,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     protected T findUnique(final String queryString, final Object... args) {
         return findUnique(m_entityClass, queryString, args);
     }
-    
+
     /**
      * <p>findUnique</p>
      *
@@ -286,7 +286,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     public void delete(final T entity) throws DataAccessException {
         getHibernateTemplate().delete(entity);
     }
-    
+
     /**
      * <p>delete</p>
      *
@@ -297,7 +297,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     public void delete(final K key) throws DataAccessException {
         delete(get(key));
     }
-    
+
     /**
      * <p>deleteAll</p>
      *
@@ -318,7 +318,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     public List<T> findAll() throws DataAccessException {
         return getHibernateTemplate().loadAll(m_entityClass);
     }
-    
+
     /**
      * <p>findMatchingObjects</p>
      *
@@ -330,7 +330,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     @SuppressWarnings("unchecked")
     public <S> List<S> findMatchingObjects(final Class<S> type, final OnmsCriteria onmsCrit ) {
         onmsCrit.resultsOfType(type);
-        
+
         final HibernateCallback<S> callback = new HibernateCallback<S>() {
             @Override
             public S doInHibernate(final Session session) throws HibernateException, SQLException {
@@ -339,11 +339,11 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
                 if (onmsCrit.getMaxResults() != null) attachedCrit.setMaxResults(onmsCrit.getMaxResults());
                 return (S)attachedCrit.list();
             }
-            
+
         };
         return getHibernateTemplate().executeFind(callback);
     }
-    
+
     @SuppressWarnings("unchecked")
     @Override
 	public List<T> findMatching(final org.opennms.core.criteria.Criteria criteria) {
@@ -357,14 +357,14 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         };
         return getHibernateTemplate().executeFind(callback);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int countMatching(final org.opennms.core.criteria.Criteria criteria) throws DataAccessException {
     	final HibernateCallback<Integer> callback = new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(final Session session) throws HibernateException, SQLException {
-                
+
             	final Criteria hibernateCriteria = m_criteriaConverter.convertForCount(criteria, session);
             	hibernateCriteria.setProjection(Projections.rowCount());
                 Long retval = (Long)hibernateCriteria.uniqueResult();
@@ -382,7 +382,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     @Override
     public List<T> findMatching(final OnmsCriteria onmsCrit) throws DataAccessException {
         onmsCrit.resultsOfType(m_entityClass); //FIXME: why is this here?
-        
+
         final HibernateCallback<List<T>> callback = new HibernateCallback<List<T>>() {
             @Override
             public List<T> doInHibernate(final Session session) throws HibernateException, SQLException {
@@ -394,7 +394,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         };
         return getHibernateTemplate().executeFind(callback);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int countMatching(final OnmsCriteria onmsCrit) throws DataAccessException {
@@ -411,7 +411,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
         Integer retval = getHibernateTemplate().execute(callback);
         return retval == null ? 0 : retval.intValue();
     }
-    
+
     /**
      * <p>bulkDelete</p>
      *
@@ -423,7 +423,7 @@ public abstract class AbstractDaoHibernate<T, K extends Serializable> extends Hi
     public int bulkDelete(final String hql, final Object[] values ) throws DataAccessException {
         return getHibernateTemplate().bulkUpdate(hql, values);
     }
-    
+
     /**
      * <p>get</p>
      *

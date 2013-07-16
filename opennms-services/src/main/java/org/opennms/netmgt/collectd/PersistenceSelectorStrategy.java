@@ -35,7 +35,7 @@ import org.opennms.netmgt.config.datacollection.Parameter;
 
 /**
  * PersistenceSelectorStrategy
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface PersistenceSelectorStrategy {

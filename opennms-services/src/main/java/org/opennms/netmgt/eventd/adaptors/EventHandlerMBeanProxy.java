@@ -57,7 +57,7 @@ public class EventHandlerMBeanProxy implements EventHandler {
     private ObjectName m_listener;
 
     private void findServer() throws InstanceNotFoundException {
-        
+
         for (final MBeanServer sx : findMBeanServers()) {
             try {
                 if (sx.getObjectInstance(m_listener) != null) {
@@ -71,7 +71,7 @@ public class EventHandlerMBeanProxy implements EventHandler {
         if (m_mbserver == null) {
             throw new InstanceNotFoundException("could not locate mbean server instance");
         }
-        
+
     }
 
     private List<MBeanServer> findMBeanServers() {

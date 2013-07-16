@@ -39,15 +39,15 @@ package org.opennms.netmgt.alarmd.api;
 public class NorthbounderException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-    
+
     public NorthbounderException(Throwable t) {
         super(t);
     }
-    
+
     public NorthbounderException(String message) {
         super(message);
     }
-    
+
     public NorthbounderException(String message, Throwable t) {
         super(message, t);
     }

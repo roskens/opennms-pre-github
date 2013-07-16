@@ -68,13 +68,13 @@ import org.springframework.test.context.TestExecutionListeners;
 public class DnsProvisioningAdapterTest implements InitializingBean {
     @Autowired
     private DnsProvisioningAdapter m_adapter;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
 
     private AdapterOperation m_addOperation;
     private AdapterOperation m_deleteOperation;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -88,7 +88,7 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
         m_nodeDao.save(nb.getCurrentNode());
         m_nodeDao.flush();
 
-        // Call afterPropertiesSet() again so that the adapter is 
+        // Call afterPropertiesSet() again so that the adapter is
         // aware of the node that we just added.
         m_adapter.afterPropertiesSet();
 
@@ -97,7 +97,7 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
             AdapterOperationType.ADD,
             new SimpleQueuedProvisioningAdapter.AdapterOperationSchedule(0, 1, 1, TimeUnit.SECONDS)
         );
-        
+
         m_deleteOperation = m_adapter.new AdapterOperation(
             m_nodeDao.findByForeignId("dns", "1").getId(),
             AdapterOperationType.DELETE,
@@ -116,7 +116,7 @@ public class DnsProvisioningAdapterTest implements InitializingBean {
         m_adapter.addNode(n.getId());
         m_adapter.processPendingOperationForNode(m_addOperation);
     }
-    
+
     @Test
     @JUnitDNSServer(port=9153, zones={
             @DNSZone(name="example.com", entries={

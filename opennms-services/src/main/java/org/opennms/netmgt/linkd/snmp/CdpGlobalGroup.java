@@ -47,7 +47,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
  * @version $Id: $
  */
 public final class CdpGlobalGroup extends AggregateTracker {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(CdpGlobalGroup.class);
     /**
      * the bridge type
@@ -56,7 +56,7 @@ public final class CdpGlobalGroup extends AggregateTracker {
 	// Lookup strings for specific table entries
 	//
 	public final static	String	CDP_GLOBAL_DEVICEID	= "cdpGlobalDeviceId";
-	
+
 	public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
 		/**
 		 * <P>The MAC address used by this bridge when it must
@@ -76,12 +76,12 @@ public final class CdpGlobalGroup extends AggregateTracker {
 	 * <P>The SYSTEM_OID is the object identifier that represents the
 	 * root of the system information in the MIB forest. Each of the
 	 * system elements can be retrieved by adding their specific index
-	 * to the string, and an additional Zero(0) to signify the single 
+	 * to the string, and an additional Zero(0) to signify the single
 	 * instance item.</P>
 	 */
     private SnmpStore m_store;
     private InetAddress m_address;
-	
+
 	/**
 	 * <P>The class constructor is used to initialize the collector
 	 * and send out the initial SNMP packet requesting data. The
@@ -94,7 +94,7 @@ public final class CdpGlobalGroup extends AggregateTracker {
 	public CdpGlobalGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
-        m_store = new SnmpStore(ms_elemList); 
+        m_store = new SnmpStore(ms_elemList);
 	}
 
     /** {@inheritDoc} */
@@ -123,5 +123,5 @@ public final class CdpGlobalGroup extends AggregateTracker {
     public String getCdpDeviceId() {
         return m_store.getDisplayString(CDP_GLOBAL_DEVICEID);
     }
-        
+
 }

@@ -50,7 +50,7 @@ package org.opennms.netmgt.linkd.snmp;
  * </ul>
  *
  * <p>This object is used by the {@link InetCidrRouteTable} to hold information
- * single entries in the table. See {@link InetCidrRouteTable} 
+ * single entries in the table. See {@link InetCidrRouteTable}
  * for more information.</p>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio</A>
@@ -67,10 +67,10 @@ public final class IpCidrRouteTableEntry extends IpRouteCollectorEntry
      * the root of the IP ROUTE table in the MIB forest.</P>
      */
     public static final String  TABLE_OID   = ".1.3.6.1.2.1.4.24.4.1";  // start of table (GETNEXT)
- 
-  
+
+
     /**
-     * <P>The keys that will be supported by default from the 
+     * <P>The keys that will be supported by default from the
      * TreeMap base class. Each of the elements in the list
      * are an instance of the IpCidrRoutetable. Objects
      * in this list should be used by multiple instances of
@@ -122,9 +122,9 @@ public final class IpCidrRouteTableEntry extends IpRouteCollectorEntry
          * ipRouteProto value. If this metric is not used,
          * its value should be set to -1.
          */
-     
+
         new NamedSnmpVar(NamedSnmpVar.SNMPINT32,       IP_ROUTE_METRIC3,   TABLE_OID + ".13",  5),
-     
+
         /**
          * An alternate routing metric for this route. The
          * semantics of this metric are determined by the
@@ -142,7 +142,7 @@ public final class IpCidrRouteTableEntry extends IpRouteCollectorEntry
          * interface.)
          */
         new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS,   IP_ROUTE_NXTHOP,    TABLE_OID + ".4",  7),
-            
+
         /**
          * The type of route. Note that the values
          * direct(3) and indirect(4) refer to the notion of
@@ -223,7 +223,7 @@ public final class IpCidrRouteTableEntry extends IpRouteCollectorEntry
          */
         new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID,        IP_ROUTE_INFO,      TABLE_OID + ".9",  13),
     };
-      
+
     /**
      * <P>Creates a default instance of the ipROUTE
      * table entry map. The map represents a singular

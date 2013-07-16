@@ -45,7 +45,7 @@ import org.opennms.netmgt.model.ncs.NCSComponent;
 import org.opennms.netmgt.model.ncs.NCSComponent.DependencyRequirements;
 
 public class NCSListFormattingTest {
-    
+
     @Test
     public void testMarshallComponent() throws JAXBException, UnsupportedEncodingException, TransformerConfigurationException {
         NCSComponent svc = new NCSBuilder("Service", "NA-Service", "123")
@@ -125,13 +125,13 @@ public class NCSListFormattingTest {
             .popComponent()
         .popComponent()
         .get();
-        
-        
-        
+
+
+
         String result = "<ul>\n" + getComponentHTML(svc) + "</ul>";
         assertEquals(getExpectedList(), result);
     }
-    
+
     private String getExpectedList() {
         return "<ul>\n" +
         		"<li>CokeP2P<ul>\n" +
@@ -169,7 +169,7 @@ public class NCSListFormattingTest {
             .setName("PE2:SE2")
         .popComponent()
         .get();
-        
+
         String expected = "<ul>\n" +
         		"<li>CokeP2P<ul>\n" +
         		"<li>PE1:SE1</li>\n" +
@@ -177,18 +177,18 @@ public class NCSListFormattingTest {
         		"</ul>" +
         		"</li>\n" +
         		"</ul>";
-        
+
         String result = "<ul>\n" + getComponentHTML(svc) + "</ul>";
         assertEquals(expected, result);
         System.err.println("recursive: " + result);
     }
-    
-    
+
+
     private String getComponentHTML(NCSComponent component) {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<li>");
         buffer.append(component.getName());
-        
+
         Set<NCSComponent> subcomponents = component.getSubcomponents();
         if(subcomponents.size() > 0) {
             buffer.append("<ul>\n");
@@ -197,17 +197,17 @@ public class NCSListFormattingTest {
             }
             buffer.append("</ul>");
         }
-        
+
         buffer.append("</li>\n");
         return buffer.toString();
-        
+
     }
-    
+
     private void printJaxbXML(NCSComponent svc) throws JAXBException, UnsupportedEncodingException {
         JAXBContext context = JAXBContext.newInstance(NCSComponent.class);
         Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        
+
         // save the output in a byte array
         ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -218,7 +218,7 @@ public class NCSListFormattingTest {
         byte[] utf8 = out.toByteArray();
 
         String result = new String(utf8, "UTF-8");
-        
+
         System.err.println(result);
     }
 

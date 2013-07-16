@@ -43,10 +43,10 @@ import org.springframework.util.Assert;
  */
 public enum AcknowledgeType {
     ACKNOWLEDGED("ack"), UNACKNOWLEDGED("unack"), BOTH("both");
-    
+
     /** Constant <code>s_ackTypesString</code> */
     private static final Map<String, AcknowledgeType> s_ackTypesString;
-    
+
     private String m_shortName;
 
     static {
@@ -88,7 +88,7 @@ public enum AcknowledgeType {
     public String getShortName() {
         return m_shortName;
     }
-    
+
     /**
      * Convenience method for getting the SQL <em>ORDER BY</em> clause related
      * this sort style.
@@ -99,13 +99,13 @@ public enum AcknowledgeType {
         switch (this) {
         case ACKNOWLEDGED:
             return " RESPONDTIME IS NOT NULL";
-    
+
         case UNACKNOWLEDGED:
             return " RESPONDTIME IS NULL";
-    
+
         case BOTH:
             return " (RESPONDTIME IS NULL OR RESPONDTIME IS NOT NULL)";
-            
+
         default:
             throw new IllegalArgumentException("Cannot get clause for AcknowledgeType " + this);
         }

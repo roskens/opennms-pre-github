@@ -54,7 +54,7 @@ import org.opennms.netmgt.snmp.SnmpWalker;
 
 public class ScanManager {
     private static final Logger LOG = LoggerFactory.getLogger(ScanManager.class);
-    
+
     private final InetAddress m_address;
     private SystemGroup m_systemGroup;
     private IfTable m_ifTable;
@@ -65,7 +65,7 @@ public class ScanManager {
     ScanManager(InetAddress address) {
         m_address = address;
     }
-    
+
     /**
      * <p>getSystemGroup</p>
      *
@@ -124,7 +124,7 @@ public class ScanManager {
     }
 
     void updateSnmpData(final OnmsNode node) {
-        
+
         try {
 
             m_systemGroup = new SystemGroup(m_address);
@@ -166,7 +166,7 @@ public class ScanManager {
             walker.waitFor();
 
             m_systemGroup.updateSnmpDataForNode(node);
-        
+
             for(final SnmpInstId ifIndex : ifIndices) {
                 m_ifTable.updateSnmpInterfaceData(node, ifIndex.toInt());
             }
@@ -175,7 +175,7 @@ public class ScanManager {
                 m_ifXTable.updateSnmpInterfaceData(node, ifIndex.toInt());
             }
 
-            for(final SnmpInstId ipAddr : ipAddrs) {   
+            for(final SnmpInstId ipAddr : ipAddrs) {
                 m_ipAddrTable.updateIpInterfaceData(node, ipAddr.toString());
             }
 
@@ -187,7 +187,7 @@ public class ScanManager {
             Thread.currentThread().interrupt();
 
         }
-        
+
 
     }
 

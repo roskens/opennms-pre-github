@@ -102,10 +102,10 @@ public class Vault extends Object {
         if (s_dataSource == null) {
             throw new IllegalStateException("You must set a DataSource before requesting a data source.");
         }
-        
+
         return s_dataSource;
     }
-    
+
     /**
      * Retrieve a database connection from the datasource.
      *

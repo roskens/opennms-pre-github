@@ -52,7 +52,7 @@ import org.opennms.netmgt.config.javamail.SendmailProtocol;
 import org.opennms.netmgt.config.javamail.UserAuth;
 
 public class JavaReadMailerTest {
-    
+
     /**
      * Un-ignore this test with a proper gmail account
      * @throws JavaMailerException
@@ -62,23 +62,23 @@ public class JavaReadMailerTest {
     @Test
     @Ignore
     public void testReadMessagesWithSearchTerm() throws JavaMailerException, MessagingException, InterruptedException {
-        
+
         String gmailAccount = getUser();
         String gmailPassword = getPassword();
-        
+
         JavaSendMailer sendMailer = createSendMailer(gmailAccount, gmailPassword);
-        
+
         String term1 = String.valueOf(Calendar.getInstance().getTimeInMillis());
         Thread.sleep(2);
         String term2 = String.valueOf(Calendar.getInstance().getTimeInMillis());
         Thread.sleep(2);
         String term3 = String.valueOf(Calendar.getInstance().getTimeInMillis());
         Thread.sleep(2);
-        
+
         SendmailMessage sendMsg = createAckMessage(gmailAccount, "1", term1, "ack");
         sendMailer.setMessage(sendMailer.buildMimeMessage(sendMsg));
         sendMailer.send();
-        
+
         sendMsg = createAckMessage(gmailAccount, "2", term2, "ack");
         sendMailer.setMessage(sendMailer.buildMimeMessage(sendMsg));
         sendMailer.send();
@@ -86,9 +86,9 @@ public class JavaReadMailerTest {
         sendMsg = createAckMessage(gmailAccount, "3", term3, "ack");
         sendMailer.setMessage(sendMailer.buildMimeMessage(sendMsg));
         sendMailer.send();
-        
+
         JavaReadMailer readMailer = createGoogleReadMailer(gmailAccount, gmailPassword);
-        
+
         //See if search finds all 3 messages
         SearchTerm st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
         st = new OrTerm(st, new SubjectTerm("*."+term3+" #.*"));
@@ -99,17 +99,17 @@ public class JavaReadMailerTest {
         } catch (JavaMailerException e) {
             e.printStackTrace();
         }
-        
+
         Assert.assertEquals(3, msgs.size());
-        
+
         st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
-        
+
         try {
             msgs = readMailer.retrieveMessages(st);
         } catch (JavaMailerException e) {
             e.printStackTrace();
         }
-        
+
         //Should find only term1 and term2 messages
         Assert.assertNotNull(msgs);
         Assert.assertEquals(2, msgs.size());
@@ -119,7 +119,7 @@ public class JavaReadMailerTest {
         for (Message msg : msgs) {
             msg.setFlag(Flag.DELETED, true);
         }
-        
+
         //Find and delete the term3 messages
         st = new SubjectTerm("*."+term3+" #.*");
         try {
@@ -127,13 +127,13 @@ public class JavaReadMailerTest {
         } catch (JavaMailerException e) {
             e.printStackTrace();
         }
-        
+
         Assert.assertNotNull(msgs);
         Assert.assertTrue(msgs.size() >= 1);
         for (Message eventMsg : msgs) {
             eventMsg.setFlag(Flag.DELETED, true);
         }
-        
+
         //Make sure they're all gone
         st = new OrTerm(new SubjectTerm(".*"+term1+" #.*"), new SubjectTerm(".*"+term2+" #.*"));
         st = new OrTerm(st, new SubjectTerm("*."+term3+" #.*"));
@@ -144,7 +144,7 @@ public class JavaReadMailerTest {
             e.printStackTrace();
         }
         Assert.assertTrue(msgs.isEmpty());
-        
+
     }
 
     private String getPassword() {
@@ -154,7 +154,7 @@ public class JavaReadMailerTest {
     private String getUser() {
         return "foo";
     }
-    
+
     private SendmailMessage createAckMessage(String gmailAccount, String noticeId, String regards, String body) {
         SendmailMessage sendMsg = new SendmailMessage();
         sendMsg.setTo(gmailAccount+"@gmail.com");
@@ -165,40 +165,40 @@ public class JavaReadMailerTest {
     }
 
     private JavaSendMailer createSendMailer(String gmailAccount, String gmailPassword) throws JavaMailerException {
-        
+
         SendmailConfig config = new SendmailConfig();
-        
+
         config.setAttemptInterval(1000);
         config.setDebug(true);
         config.setName("test");
-        
+
         SendmailMessage sendmailMessage = new SendmailMessage();
         sendmailMessage.setBody("service is down");
         sendmailMessage.setFrom("bamboo.opennms@gmail.com");
         sendmailMessage.setSubject("Notice #1234: service down");
         sendmailMessage.setTo("bamboo.opennms@gmail.com");
         config.setSendmailMessage(sendmailMessage);
-        
+
         SendmailHost host = new SendmailHost();
         host.setHost("smtp.gmail.com");
         host.setPort(465);
         config.setSendmailHost(host);
-        
+
         SendmailProtocol protocol = new SendmailProtocol();
         protocol.setSslEnable(true);
         protocol.setTransport("smtps");
         config.setSendmailProtocol(protocol);
-        
+
         config.setUseAuthentication(true);
         config.setUseJmta(false);
         UserAuth auth = new UserAuth();
         auth.setUserName(gmailAccount);
         auth.setPassword(gmailPassword);
         config.setUserAuth(auth);
-        
+
         return new JavaSendMailer(config);
     }
-    
+
     @Test
     @Ignore
     public void testGetText() throws JavaMailerException, MessagingException, IOException {
@@ -228,7 +228,7 @@ public class JavaReadMailerTest {
         userAuth.setPassword(gmailPassword);
         userAuth.setUserName(gmailAccount);
         config.setUserAuth(userAuth);
-        
+
         JavaReadMailer mailer = new JavaReadMailer(config, true);
         return mailer;
     }

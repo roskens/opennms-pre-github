@@ -68,22 +68,22 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DaoWebEventRepositoryTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     WebEventRepository m_daoEventRepo;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp(){
         m_dbPopulator.populateDatabase();
-        
+
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(getDistPoller("localhost", "127.0.0.1"));
         event.setEventUei("uei.opennms.org/test2");
@@ -95,7 +95,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         event.setEventDisplay("Y");
         m_dbPopulator.getEventDao().save(event);
         m_dbPopulator.getEventDao().flush();
-        
+
         OnmsEvent event2 = new OnmsEvent();
         event2.setDistPoller(getDistPoller("localhost", "127.0.0.1"));
         event2.setEventUei("uei.opennms.org/test3");
@@ -108,7 +108,7 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         m_dbPopulator.getEventDao().save(event2);
         m_dbPopulator.getEventDao().flush();
     }
-    
+
     private OnmsDistPoller getDistPoller(String localhost, String localhostIp) {
         OnmsDistPoller distPoller = m_dbPopulator.getDistPollerDao().get(localhost);
         if (distPoller == null) {
@@ -121,22 +121,22 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
 
     @Test
     @Transactional
-    public void testCountMatchingEvents(){ 
+    public void testCountMatchingEvents(){
         EventCriteria criteria = new EventCriteria();
         int event = m_daoEventRepo.countMatchingEvents(criteria);
-        
+
         assertEquals(2, event);
     }
-    
+
     @Test
     @Transactional
     public void testCountMatchingEventsBySeverity(){
         EventCriteria criteria = new EventCriteria();
         int[] matchingEvents = m_daoEventRepo.countMatchingEventsBySeverity(criteria);
-        
+
         assertNotNull(matchingEvents);
         assertEquals(8, matchingEvents.length);
-        
+
         assertEquals(1, matchingEvents[OnmsSeverity.CLEARED.getId()]);
         assertEquals(0, matchingEvents[OnmsSeverity.CRITICAL.getId()]);
         assertEquals(1, matchingEvents[OnmsSeverity.INDETERMINATE.getId()]);
@@ -145,69 +145,69 @@ public class DaoWebEventRepositoryTest implements InitializingBean {
         assertEquals(0, matchingEvents[OnmsSeverity.NORMAL.getId()]);
         assertEquals(0, matchingEvents[OnmsSeverity.WARNING.getId()]);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testGetEvent(){
 
         Event event = m_daoEventRepo.getEvent(1);
         assertNotNull(event);
-        
+
         assertEquals("uei.opennms.org/test", event.uei);
         assertNotNull(event.getEventDisplay());
         assertTrue(event.getEventDisplay());
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testAcknowledgeUnacknowledgeMatchingAlarms(){
         m_daoEventRepo.acknowledgeMatchingEvents("TestUser", new Date(), new EventCriteria(new EventIdFilter(1)));
-        
+
         int matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(1, matchingEventCount);
-        
+
         m_daoEventRepo.unacknowledgeMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
-        
+
         matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(0, matchingEventCount);
     }
-    
+
     @Test
     @Transactional
     public void testAcknowledgeUnacknowledgeAllAlarms(){
         m_daoEventRepo.acknowledgeAll("TestUser", new Date());
-        
+
         int matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(2, matchingEventCount);
-        
+
         m_daoEventRepo.unacknowledgeAll();
-        
+
         matchingEventCount = m_daoEventRepo.countMatchingEvents(new EventCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(0, matchingEventCount);
     }
-    
+
     @Test
     @Transactional
     public void testCountMatchingBySeverity(){
-        
+
         int[] matchingEventCount = m_daoEventRepo.countMatchingEventsBySeverity(new EventCriteria(new SeverityFilter(3)));
         assertNotNull(matchingEventCount);
         assertEquals(8, matchingEventCount.length);
     }
-    
+
     @Test
     @Transactional
     public void testFilterBySeverity() {
         NegativeSeverityFilter filter = new NegativeSeverityFilter(OnmsSeverity.NORMAL.getId());
-        
+
         EventCriteria criteria = new EventCriteria(filter);
         Event[] events = m_daoEventRepo.getMatchingEvents(criteria);
         assertTrue(events.length > 0);
-        
+
         EventCriteria sortedCriteria = new EventCriteria(new Filter[] { filter }, SortStyle.ID, AcknowledgeType.UNACKNOWLEDGED, 100, 0);
         Event[] sortedEvents = m_daoEventRepo.getMatchingEvents(sortedCriteria);
-        assertTrue(sortedEvents.length > 0);        
-        
+        assertTrue(sortedEvents.length > 0);
+
     }
-    
+
 }

@@ -65,13 +65,13 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcStoredProcedureDetectorTest implements InitializingBean {
-    
+
     @Autowired
     public JdbcStoredProcedureDetector m_detector;
-    
+
     @Autowired
     public DataSource m_dataSource;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -83,7 +83,7 @@ public class JdbcStoredProcedureDetectorTest implements InitializingBean {
 
         String createSchema = "CREATE SCHEMA test";
         String createProcedure = "CREATE FUNCTION test.isRunning () RETURNS bit AS 'BEGIN RETURN 1; END;' LANGUAGE 'plpgsql';";
-                            		
+
         String url = null;
         String username = null;
         Connection conn = null;
@@ -92,62 +92,62 @@ public class JdbcStoredProcedureDetectorTest implements InitializingBean {
             DatabaseMetaData metaData = conn.getMetaData();
             url = metaData.getURL();
             username = metaData.getUserName();
-            
+
             Statement createStmt = conn.createStatement();
             createStmt.executeUpdate(createSchema);
             createStmt.close();
-            
+
             Statement stmt = conn.createStatement();
             stmt.executeUpdate(createProcedure);
             stmt.close();
-            
+
             conn.close();
         } catch (SQLException e) {
             e.printStackTrace();
             conn.close();
         }
-        
+
         m_detector.setDbDriver("org.postgresql.Driver");
         m_detector.setPort(5432);
         m_detector.setUrl(url);
         m_detector.setUser(username);
         m_detector.setPassword("");
         m_detector.setStoredProcedure("isRunning");
-        
+
     }
-    
+
     @After
     public void tearDown(){
-        
+
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws UnknownHostException{
         m_detector.init();
         assertTrue("JDBCStoredProcedureDetector should work", m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
-    
+
     @Test(timeout=90000)
     public void testStoredProcedureFail() throws UnknownHostException{
         m_detector.setStoredProcedure("bogus");
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
-    
+
     @Test(timeout=90000)
     public void testWrongUserName() throws UnknownHostException{
         m_detector.setUser("wrongUserName");
         m_detector.init();
-        
+
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")) );
     }
-    
+
 
     @Test(timeout=90000)
     public void testWrongSchema() throws UnknownHostException{
         m_detector.setSchema("defaultSchema");
         m_detector.init();
-        
+
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")) );
     }
 }

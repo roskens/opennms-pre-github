@@ -50,7 +50,7 @@ public class JmxConfigReader {
     public Collection<Report> generateReportsByJmxDatacollectionConfig(String inputConfigFileName) {
         return generateReportsByJmxDatacollectionConfig(
                 JAXB.unmarshal(
-                    new File(inputConfigFileName), 
+                    new File(inputConfigFileName),
                     JmxDatacollectionConfig.class));
     }
 

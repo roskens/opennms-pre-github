@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
  */
 public class EventTranslator extends AbstractServiceDaemon implements EventTranslatorMBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventTranslator.class);
 
     /**
@@ -92,7 +92,7 @@ public class EventTranslator extends AbstractServiceDaemon implements EventTrans
         	LOG.error("PropertyVetoException: ", e);
             throw new UndeclaredThrowableException(e);
         }
-        
+
         EventIpcManagerFactory.init();
         EventIpcManager mgr = EventIpcManagerFactory.getIpcManager();
 

@@ -45,16 +45,16 @@ import javax.xml.bind.annotation.XmlValue;
 public class SequenceOperationMatch {
 	@XmlAttribute(name="type")
 	private String m_type = "success";
-	
+
 	@XmlValue
 	private String m_value;
-	
+
 	/**
 	 * <p>Constructor for SequenceOperationMatch.</p>
 	 */
 	public SequenceOperationMatch() {
 	}
-	
+
 	/**
 	 * <p>Constructor for SequenceOperationMatch.</p>
 	 *
@@ -63,7 +63,7 @@ public class SequenceOperationMatch {
 	public SequenceOperationMatch(String type) {
 		setType(type);
 	}
-	
+
 	/**
 	 * <p>Constructor for SequenceOperationMatch.</p>
 	 *
@@ -83,7 +83,7 @@ public class SequenceOperationMatch {
 	public String getType() {
 		return m_type;
 	}
-	
+
 	/**
 	 * <p>setType</p>
 	 *
@@ -101,7 +101,7 @@ public class SequenceOperationMatch {
 	public String getValue() {
 		return m_value;
 	}
-	
+
 	/**
 	 * <p>setValue</p>
 	 *

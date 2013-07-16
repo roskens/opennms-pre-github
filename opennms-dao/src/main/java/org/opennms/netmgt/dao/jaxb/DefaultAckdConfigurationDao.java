@@ -56,7 +56,7 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
     public DefaultAckdConfigurationDao() {
         super(AckdConfiguration.class, "Ackd Configuration");
     }
-    
+
     /**
      * <p>getConfig</p>
      *
@@ -104,9 +104,9 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
     private Boolean matcher(List<String> messageText, String expression) {
         Boolean matches = Boolean.FALSE;
         Pattern p;
-        
+
         if (expression.startsWith("~")) {
-            expression = (expression.startsWith("~") ? expression.substring(1) : expression); 
+            expression = (expression.startsWith("~") ? expression.substring(1) : expression);
             p = Pattern.compile(expression);
 
             for (String text : messageText) {
@@ -136,7 +136,7 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
         }
         return readerByName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ReaderSchedule getReaderSchedule(String readerName) {
@@ -147,7 +147,7 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
         }
         return schedule;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isReaderEnabled(String readerName) {
@@ -194,5 +194,5 @@ public class DefaultAckdConfigurationDao extends AbstractJaxbConfigDao<AckdConfi
     public List<Parameter> getParametersForReader(String name) {
         return getReader(name).getParameterCollection();
     }
-    
+
 }

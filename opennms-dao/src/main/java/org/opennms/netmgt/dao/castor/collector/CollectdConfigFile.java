@@ -43,11 +43,11 @@ import org.opennms.netmgt.config.collectd.Collector;
 import org.springframework.core.io.FileSystemResource;
 
 public class CollectdConfigFile {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectdConfigFile.class);
-	
+
 	File m_file;
-	
+
 	/**
 	 * <p>Constructor for CollectdConfigFile.</p>
 	 *
@@ -56,7 +56,7 @@ public class CollectdConfigFile {
 	public CollectdConfigFile(File file) {
 		m_file = file;
 	}
-	
+
 	/**
 	 * <p>visit</p>
 	 *
@@ -65,14 +65,14 @@ public class CollectdConfigFile {
 	public void visit(CollectdConfigVisitor visitor) {
         CollectdConfiguration collectdConfiguration = getCollectdConfiguration();
         visitor.visitCollectdConfiguration(collectdConfiguration);
-        
+
         for (Iterator<Collector> it = collectdConfiguration.getCollectorCollection().iterator(); it.hasNext();) {
             Collector collector = it.next();
             doVisit(collector, visitor);
         }
         visitor.completeCollectdConfiguration(collectdConfiguration);
     }
-	
+
 	private void doVisit(Collector collector, CollectdConfigVisitor visitor) {
         visitor.visitCollectorCollection(collector);
         visitor.completeCollectorCollection(collector);

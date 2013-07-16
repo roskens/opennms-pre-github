@@ -48,7 +48,7 @@
 * http://www.krupczak.org/
 */
 
-/** 
+/**
    XmpCollectionAttributeType - Encapsulate a data type used in
    collection via management protocol.  E.g. counter, gauge, string, etc.
    @author <a href="mailto:rdk@krupczak.org">Bobby Krupczak</a>
@@ -80,13 +80,13 @@ class XmpCollectionAttributeType implements CollectionAttributeType {
 
     /* constructors  ************************************* */
     XmpCollectionAttributeType(XmpVar aVar, AttributeGroupType groupType)
-    { 
+    {
         this.aVar = aVar;
         this.groupType = groupType;
     }
 
     /* private methods *********************************** */
-   
+
 
     /* public methods ************************************ */
     /**

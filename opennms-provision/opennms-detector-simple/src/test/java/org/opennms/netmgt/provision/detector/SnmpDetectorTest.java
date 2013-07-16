@@ -55,12 +55,12 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitSnmpAgent(host=SnmpDetectorTest.TEST_IP_ADDRESS, resource="classpath:org/opennms/netmgt/provision/detector/snmpTestData1.properties")
 public class SnmpDetectorTest implements ApplicationContextAware {
-    
+
     static final String TEST_IP_ADDRESS = "172.20.1.205";
 	private SnmpDetector m_detector;
     private ApplicationContext m_applicationContext;
     private InetAddress m_testIpAddress;
-    
+
     @Before
     public void setUp() throws InterruptedException, UnknownHostException {
         MockLogAppender.setupLogging();
@@ -73,36 +73,36 @@ public class SnmpDetectorTest implements ApplicationContextAware {
             m_detector.setTimeout(500);
         }
     }
-    
+
     @Test(timeout=90000)
     public void testIsForcedV1ProtocolSupported() throws UnknownHostException {
         m_detector.setVbvalue("\\.1\\.3\\.6\\.1\\.4\\.1.*");
         m_detector.setForceVersion("snmpv1");
         assertTrue(m_detector.isServiceDetected(m_testIpAddress));
     }
-    
+
     @Test(timeout=90000)
     public void testIsExpectedValue() throws UnknownHostException {
         m_detector.setVbvalue("\\.1\\.3\\.6\\.1\\.4\\.1.*");
         assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
     }
-    
+
     @Test(timeout=90000)
     public void testIsExpectedValueNoVbValue() throws UnknownHostException {
         assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
     }
-    
+
     @Test(timeout=90000)
      public void testIsProtocolSupportedInetAddress() throws UnknownHostException {
          assertTrue("protocol is not supported", m_detector.isServiceDetected(m_testIpAddress));
-         
+
      }
 
     @Override
     public void setApplicationContext(final ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
     }
-    
+
     private SnmpDetector getDetector(final Class<? extends ServiceDetector> detectorClass) {
         final Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

@@ -35,7 +35,7 @@ import junit.framework.TestSuite;
 /**
  * Unit test for Performance data receiver.
  */
-public class PerfDataReceiverTest 
+public class PerfDataReceiverTest
     extends TestCase
 {
     /**

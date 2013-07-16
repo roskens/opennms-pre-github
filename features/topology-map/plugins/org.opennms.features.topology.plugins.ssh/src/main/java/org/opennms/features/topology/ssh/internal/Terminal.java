@@ -282,7 +282,7 @@ public class Terminal {
 
 	private int[] peek(int y0, int x0, int y1, int x1) {
 		int from = width * y0 + x0;
-		int to = width * (y1 - 1) + x1; 
+		int to = width * (y1 - 1) + x1;
 		int newLength = to - from;
 		if (newLength < 0)
 			throw new IllegalArgumentException(from + " > " + to);
@@ -1287,7 +1287,7 @@ public class Terminal {
 			} else if (c == 15) {
 				ctrl_SI();
 			}
-		} 
+		}
 		if (vt100_parse_state != State.None) {
 			if (vt100_parse_state == State.Str) {
 				if (c >= 32) {

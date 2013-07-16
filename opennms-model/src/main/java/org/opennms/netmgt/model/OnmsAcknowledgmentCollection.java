@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment> {
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = -8540172282769996576L;
     private int m_totalCount;
@@ -87,7 +87,7 @@ public class OnmsAcknowledgmentCollection extends LinkedList<OnmsAcknowledgment>
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *

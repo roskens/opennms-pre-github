@@ -79,7 +79,7 @@ public class NodeInfoOperation extends AbstractOperation {
         }
         return null;
     }
-    
+
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
     	if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -90,14 +90,14 @@ public class NodeInfoOperation extends AbstractOperation {
         }else {
             return false;
         }
-        
+
     }
 
     @Override
     public String getId() {
         return "contextNodeInfo";
     }
-    
+
     public String getNodePageURL() {
         return m_nodePageURL;
     }

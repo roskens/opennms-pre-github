@@ -240,7 +240,7 @@ public class HttpPlugin extends AbstractTcpPlugin {
                     if ( (DEFAULT_URL.equals(config.getKeyedString(PROPERTY_NAME_URL, DEFAULT_URL))) || (config.getKeyedBoolean(PROPERTY_NAME_RETURN_CODE, true) == false) )
                     {
                         maxRetCode = 600;
-                    }	
+                    }
                     StringTokenizer t = new StringTokenizer(response.toString());
                     t.nextToken();
                     int rVal = Integer.parseInt(t.nextToken());
@@ -266,7 +266,7 @@ public class HttpPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#getConnectionConfigList(java.util.Map,
      *      java.net.InetAddress)
      */
@@ -281,7 +281,7 @@ public class HttpPlugin extends AbstractTcpPlugin {
         }
         return list;
     }
-    
+
     /**
      * Checks the response body as a substring or regular expression match
      * according to the leading-tilde convention

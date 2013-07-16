@@ -39,7 +39,7 @@ public abstract class LocaleUtilsTest {
 
     @Before
     public void setUp() {
-        
+
     }
 
     @Test(expected=IllegalArgumentException.class)
@@ -75,48 +75,48 @@ public abstract class LocaleUtilsTest {
     @Test
     public void testParseLocale() {
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("en-us")
         );
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("EN-us")
         );
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("en-US")
         );
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("EN-US")
         );
-        
+
 
         // Test underscore
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("en_us")
         );
         // This is a strange example... should we throw an exception on cases like this?
         assertEquals(
-            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()), 
+            new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry()),
             LocaleUtils.parseLocale("en  -  US_")
         );
 
         // Variant test
         assertEquals(
-            new Locale(Locale.FRENCH.getLanguage(), Locale.CANADA.getCountry(), "Quebec"), 
+            new Locale(Locale.FRENCH.getLanguage(), Locale.CANADA.getCountry(), "Quebec"),
             LocaleUtils.parseLocale("fr_ca_Quebec")
         );
 
         // Make sure that the language-only locale doesn't match the full locale
         assertFalse(
-            new Locale(Locale.ENGLISH.getLanguage()).equals( 
+            new Locale(Locale.ENGLISH.getLanguage()).equals(
                 LocaleUtils.parseLocale("en_us")
             )
         );
         assertFalse(
-            new Locale(Locale.GERMAN.getLanguage(), Locale.US.getCountry()).equals( 
+            new Locale(Locale.GERMAN.getLanguage(), Locale.US.getCountry()).equals(
                 LocaleUtils.parseLocale("en_us")
             )
         );
@@ -231,18 +231,18 @@ public abstract class LocaleUtilsTest {
             )
         );
     }
-    
+
     @Test
     public void testAcceptableVariant() {
         assertEquals(
             LocaleUtils.parseLocale("fr-ca"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca"), 
-                    LocaleUtils.parseLocale("fr-ca"), 
-                    LocaleUtils.parseLocale("fr") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca"),
+                    LocaleUtils.parseLocale("fr-ca"),
+                    LocaleUtils.parseLocale("fr")
                 }
             )
         );
@@ -250,11 +250,11 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr-ca"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("fr-ca"), 
-                    LocaleUtils.parseLocale("fr"), 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("fr-ca"),
+                    LocaleUtils.parseLocale("fr"),
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca")
                 }
             )
         );
@@ -262,11 +262,11 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr-ca"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("fr"), 
-                    LocaleUtils.parseLocale("fr-ca"), 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("fr"),
+                    LocaleUtils.parseLocale("fr-ca"),
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca")
                 }
             )
         );
@@ -274,11 +274,11 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr-ca"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca"), 
-                    LocaleUtils.parseLocale("fr"), 
-                    LocaleUtils.parseLocale("fr-ca") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca"),
+                    LocaleUtils.parseLocale("fr"),
+                    LocaleUtils.parseLocale("fr-ca")
                 }
             )
         );
@@ -287,10 +287,10 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca"), 
-                    LocaleUtils.parseLocale("fr") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca"),
+                    LocaleUtils.parseLocale("fr")
                 }
             )
         );
@@ -298,10 +298,10 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("fr"), 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("fr"),
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca")
                 }
             )
         );
@@ -309,10 +309,10 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("fr"), 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("fr"),
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca")
                 }
             )
         );
@@ -320,10 +320,10 @@ public abstract class LocaleUtilsTest {
             LocaleUtils.parseLocale("fr"),
             LocaleUtils.bestLocale(
                 new Locale[] { LocaleUtils.parseLocale("fr-ca-Quebec") },
-                new Locale[] { 
-                    LocaleUtils.parseLocale("en-us"), 
-                    LocaleUtils.parseLocale("en-ca"), 
-                    LocaleUtils.parseLocale("fr") 
+                new Locale[] {
+                    LocaleUtils.parseLocale("en-us"),
+                    LocaleUtils.parseLocale("en-ca"),
+                    LocaleUtils.parseLocale("fr")
                 }
             )
         );

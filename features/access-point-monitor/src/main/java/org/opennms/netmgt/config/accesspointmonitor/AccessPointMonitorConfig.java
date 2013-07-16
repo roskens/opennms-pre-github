@@ -48,7 +48,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * <p>
  * AccessPointMonitorConfig class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @XmlRootElement(name = "access-point-monitor-configuration")

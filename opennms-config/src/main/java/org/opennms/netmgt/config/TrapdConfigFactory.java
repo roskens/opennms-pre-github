@@ -73,7 +73,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -84,7 +84,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
     private TrapdConfigFactory(String configFile) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(TrapdConfiguration.class, new FileSystemResource(configFile));
     }
-    
+
     /**
      * <p>Constructor for TrapdConfigFactory.</p>
      *
@@ -156,7 +156,7 @@ public final class TrapdConfigFactory implements TrapdConfig {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

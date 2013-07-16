@@ -52,9 +52,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SSLServer extends SimpleServer{
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SSLServer.class);
-    
+
     /** Constant <code>DEFAULT_TESTING_PORT=7070</code> */
     public static final int DEFAULT_TESTING_PORT = 7070;
     /** Constant <code>DEFAULT_PASSWORD="123456"</code> */
@@ -67,14 +67,14 @@ public class SSLServer extends SimpleServer{
     public static final String DEFAULT_KEY_MANAGER_PROVIDER = "SunJSSE";
     /** Constant <code>DEFAULT_SSL_CONTEXT_PROTOCOL="SSL"</code> */
     public static final String DEFAULT_SSL_CONTEXT_PROTOCOL = "SSL";
-    
+
     private int m_port = DEFAULT_TESTING_PORT;
     private String m_password = DEFAULT_PASSWORD;
     private String m_pathToKeyStore = DEFAULT_PATH_TO_KEY_STORE;
     private String m_keyManagerAlgorithm = DEFAULT_KEY_MANAGER_ALGORITHM;
     private String m_keyManagerProvider = DEFAULT_KEY_MANAGER_PROVIDER;
-    private String m_sslContextProtocol = DEFAULT_SSL_CONTEXT_PROTOCOL;    
-    
+    private String m_sslContextProtocol = DEFAULT_SSL_CONTEXT_PROTOCOL;
+
     /**
      * <p>init</p>
      *
@@ -86,7 +86,7 @@ public class SSLServer extends SimpleServer{
         KeyManagerFactory kmf = KeyManagerFactory.getInstance(getKeyManagerAlgorithm(), getKeyManagerProvider());
         KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         char[] password = getPassword().toCharArray();
-        
+
         java.io.FileInputStream fis = null;
         try {
         fis = new java.io.FileInputStream(getPathToKeyStore());
@@ -96,17 +96,17 @@ public class SSLServer extends SimpleServer{
             fis.close();
             }
         }
-        
+
         kmf.init(ks, password );
         KeyManager[] km = kmf.getKeyManagers();
-        
+
         SSLContext sslContext = SSLContext.getInstance(getSslContextProtocol());
         sslContext.init(km, null, new SecureRandom());
         SSLServerSocketFactory serverFactory = sslContext.getServerSocketFactory();
         setServerSocket(serverFactory.createServerSocket(getPort()));
         onInit();
     }
-    
+
     /**
      * <p>getRunnable</p>
      *
@@ -116,7 +116,7 @@ public class SSLServer extends SimpleServer{
     @Override
     protected Runnable getRunnable() throws Exception {
         return new Runnable(){
-            
+
             @Override
             public void run(){
                 try{
@@ -125,14 +125,14 @@ public class SSLServer extends SimpleServer{
                     try {
                         getServerSocket().setSoTimeout(getTimeout());
                         setSocket(getServerSocket().accept());
-                        
+
                         if(getThreadSleepLength() > 0) { Thread.sleep(getThreadSleepLength()); }
                         getSocket().setSoTimeout(getTimeout());
-                        
+
                         out = getSocket().getOutputStream();
                         if(getBanner() != null){sendBanner(out);};
-                        
-                        
+
+
                         in = new BufferedReader(new InputStreamReader(getSocket().getInputStream()));
                         attemptConversation(in, out);
                     } finally {
@@ -150,7 +150,7 @@ public class SSLServer extends SimpleServer{
                     }
                 }
             }
-            
+
         };
     }
 

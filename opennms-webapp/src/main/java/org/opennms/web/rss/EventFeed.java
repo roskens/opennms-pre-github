@@ -59,7 +59,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  * @since 1.8.1
  */
 public class EventFeed extends AbstractFeed {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventFeed.class);
 
 
@@ -99,11 +99,11 @@ public class EventFeed extends AbstractFeed {
                     }
                 }
             }
-            
+
             events = EventFactory.getEvents(SortStyle.TIME, AcknowledgeType.BOTH, filters.toArray(new Filter[] {}), this.getMaxEntries(), -1);
 
             SyndEntry entry;
-            
+
             for (Event event : events) {
                 entry = new SyndEntryImpl();
                 entry.setPublishedDate(event.getTime());
@@ -115,13 +115,13 @@ public class EventFeed extends AbstractFeed {
                     entry.setUpdatedDate(event.getTime());
                 }
                 entry.setLink(getUrlBase() + "event/detail.jsp?id=" + event.getId());
-                
+
                 entries.add(entry);
             }
         } catch (SQLException e) {
             LOG.warn("unable to get event(s)", e);
         }
-        
+
         feed.setEntries(entries);
         return feed;
     }

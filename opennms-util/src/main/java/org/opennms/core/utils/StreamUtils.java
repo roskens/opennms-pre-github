@@ -71,14 +71,14 @@ public abstract class StreamUtils {
         if (in == null || out == null) {
             throw new IllegalArgumentException("Cannot take null parameters.");
         }
-    
+
         if (bufferSize < 1) {
             throw new IllegalArgumentException("Cannot take negative buffer size.");
         }
-    
+
         char[] b = new char[bufferSize];
         int length;
-    
+
         while ((length = in.read(b)) != -1) {
             out.write(b, 0, length);
         }
@@ -115,7 +115,7 @@ public abstract class StreamUtils {
     public static void streamToStream(InputStream in, OutputStream out, int bufferSize) throws IOException {
         byte[] b = new byte[bufferSize];
         int length;
-    
+
         while ((length = in.read(b)) != -1) {
             out.write(b, 0, length);
         }

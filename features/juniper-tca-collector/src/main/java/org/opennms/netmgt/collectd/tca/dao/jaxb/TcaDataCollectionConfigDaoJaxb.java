@@ -34,7 +34,7 @@ import org.opennms.netmgt.collectd.tca.dao.TcaDataCollectionConfigDao;
 
 /**
  * The Class TcaDataCollectionConfigDaoJaxb.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class TcaDataCollectionConfigDaoJaxb  extends AbstractJaxbConfigDao<TcaDataCollectionConfig,TcaDataCollectionConfig> implements TcaDataCollectionConfigDao {

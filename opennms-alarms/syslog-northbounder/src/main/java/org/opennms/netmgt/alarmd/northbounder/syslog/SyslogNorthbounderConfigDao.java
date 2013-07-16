@@ -40,7 +40,7 @@ public class SyslogNorthbounderConfigDao extends AbstractJaxbConfigDao<SyslogNor
 	protected SyslogNorthbounderConfig translateConfig(SyslogNorthbounderConfig config) {
 		return config;
 	}
-	
+
 	public SyslogNorthbounderConfig getConfig() {
 		return getContainer().getObject();
 	}

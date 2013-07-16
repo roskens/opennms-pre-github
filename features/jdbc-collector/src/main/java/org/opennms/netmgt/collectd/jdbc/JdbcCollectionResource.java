@@ -35,7 +35,7 @@ import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.ServiceParameters;
 
 public abstract class JdbcCollectionResource extends AbstractCollectionResource {
-    
+
     public JdbcCollectionResource(CollectionAgent agent) {
         super(agent);
     }
@@ -50,7 +50,7 @@ public abstract class JdbcCollectionResource extends AbstractCollectionResource 
         // A rescan is never needed for the JdbcCollector, at least on resources
         return false;
     }
-    
+
     public void setAttributeValue(CollectionAttributeType type, String value) {
         JdbcCollectionAttribute attr = new JdbcCollectionAttribute(this, type, type.getName(), value);
         addAttribute(attr);
@@ -66,7 +66,7 @@ public abstract class JdbcCollectionResource extends AbstractCollectionResource 
 
     @Override
     public abstract String getInstance();
-    
+
     @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();

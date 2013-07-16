@@ -203,7 +203,7 @@ public class DNSInputStream extends ByteArrayInputStream {
         // encoding that points us to somewhere else in the record!
         // We have to read that part of the record and to get the
         // next element in the stream.
-        // 
+        //
         // Throw an I/O exception if the compression offset is
         // malformed.
         //

@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @author Christian Pape
  */
 public class NrtBrokerJms implements NrtBroker {
-    
+
     private static Logger logger = LoggerFactory.getLogger("OpenNMS.WEB." + NrtBrokerJms.class);
 
     private JmsTemplate m_jmsTemplate;
@@ -67,7 +67,7 @@ public class NrtBrokerJms implements NrtBroker {
         logger.debug("JmsTemplate '{}'", m_jmsTemplate);
         m_jmsTemplate.convertAndSend("NrtCollectMe", collectionJob);
     }
-    
+
 
     @Override
     public List<MeasurementSet> receiveMeasurementSets(String nrtCollectionTaskId) {
@@ -81,7 +81,7 @@ public class NrtBrokerJms implements NrtBroker {
             MeasurementSet measurementSet;
             try {
                 measurementSet = (MeasurementSet) simpleMessageConverter.fromMessage(message);
-    
+
                 result.add(measurementSet);
             } catch (JMSException ex) {
                 logger.error("Error receiving messages", ex);
@@ -89,10 +89,10 @@ public class NrtBrokerJms implements NrtBroker {
                 return result;
             } catch (MessageConversionException ex) {
                 logger.error("Error converting messages", ex);
-                
+
                 return result;
             }
-            
+
             message = m_jmsTemplate.receive(nrtCollectionTaskId);
         }
 

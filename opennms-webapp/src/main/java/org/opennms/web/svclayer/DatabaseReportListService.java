@@ -41,7 +41,7 @@ import org.opennms.web.svclayer.support.ReportRepositoryDescription;
  * @since 1.8.1
  */
 public interface DatabaseReportListService {
-    
+
     /**
      * <p>getAll</p>
      *
@@ -49,7 +49,7 @@ public interface DatabaseReportListService {
      */
     @Deprecated
     List<DatabaseReportDescription> getAll();
-    
+
     /**
      * <p>getAllOnline</p>
      *

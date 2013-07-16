@@ -74,7 +74,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
     public List<OnmsSnmpInterface> getInterfaces() {
         return this;
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -84,7 +84,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
     public Integer getCount() {
         return this.size();
     }
-    
+
     /**
      * <p>getTotalCount</p>
      *
@@ -94,7 +94,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *
@@ -103,7 +103,7 @@ public class OnmsSnmpInterfaceList extends LinkedList<OnmsSnmpInterface> {
     public void setTotalCount(int count) {
         m_totalCount = count;
     }
-    
+
     /**
      * <p>setInterfaces</p>
      *

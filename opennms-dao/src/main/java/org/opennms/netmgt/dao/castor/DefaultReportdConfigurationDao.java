@@ -49,7 +49,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     public DefaultReportdConfigurationDao() {
         super(ReportdConfiguration.class, "Reportd Configuration");
     }
-    
+
     /**
      * <p>getConfig</p>
      *
@@ -59,7 +59,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     public ReportdConfiguration getConfig() {
         return getContainer().getObject();
     }
-    
+
     //@Override
     /**
      * <p>translateConfig</p>
@@ -71,8 +71,8 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     public ReportdConfiguration translateConfig(ReportdConfiguration castorConfig) {
         return castorConfig;
     }
-    
-    
+
+
     /**
      * <p>reloadConfiguration</p>
      *
@@ -82,7 +82,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     public void reloadConfiguration() throws DataAccessResourceFailureException {
         getContainer().reload();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Report getReport(String reportName) {
@@ -93,7 +93,7 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
         }
         return null;
     }
-    
+
     /**
      * <p>getReports</p>
      *
@@ -111,18 +111,18 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
      */
     @Override
     public boolean getPersistFlag() {
-        
+
         //return  getConfig().getPersistReports();
         String strval = getConfig().getPersistReports();
         boolean retval=false;
         if(strval.equals("yes") || strval.equals("on") ){
             retval = true;
         }
-        
+
         else if(strval.equals("off") ||strval.equals("no")){
-          retval = false; 
+          retval = false;
         }
-        
+
         return retval;
     }
 
@@ -135,12 +135,12 @@ public class DefaultReportdConfigurationDao extends AbstractCastorConfigDao<Repo
     public String getStorageDirectory() {
         return getConfig().getStorageLocation();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean deleteReport(String report){
         return getConfig().removeReport(getReport(report));
     }
-    
-        
+
+
 }

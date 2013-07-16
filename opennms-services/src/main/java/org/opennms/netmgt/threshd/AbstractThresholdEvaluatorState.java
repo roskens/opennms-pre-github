@@ -47,8 +47,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class AbstractThresholdEvaluatorState implements ThresholdEvaluatorState {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractThresholdEvaluatorState.class);
 
     private static final String UNKNOWN = "Unknown";
@@ -77,7 +77,7 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
         bldr.setService(resource.getServiceName());
 
         // As a suggestion from Bug2711. Host Address will contain Interface IP Address for Interface Resource
-        bldr.setInterface(addr(resource.getHostAddress()));            
+        bldr.setInterface(addr(resource.getHostAddress()));
 
         if (resource.isAnInterfaceResource()) {
             // Update threshold label if it is unknown. This is useful because usually reduction-key is associated to label parameter
@@ -100,7 +100,7 @@ public abstract class AbstractThresholdEvaluatorState implements ThresholdEvalua
 
         // Add datasource name
         bldr.addParam("ds", getThresholdConfig().getDatasourceExpression());
-        
+
         // Add last known value of the datasource fetched from its RRD file
         bldr.addParam("value", formatValue(dsValue));
 

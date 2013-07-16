@@ -46,7 +46,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 }
 )
 public class SmsServiceTest implements InitializingBean {
-	
+
 	@Autowired
 	SmsService m_service;
 

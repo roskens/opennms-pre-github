@@ -66,29 +66,29 @@ import org.springframework.util.FileCopyUtils;
  */
 public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand ,StringBuffer> {
     private static final Logger LOG = LoggerFactory.getLogger(JniRrdStrategy.class);
-	
+
 	private final static String IGNORABLE_LIBART_WARNING_STRING = "*** attempt to put segment in horiz list twice";
 	private final static String IGNORABLE_LIBART_WARNING_REGEX = "\\*\\*\\* attempt to put segment in horiz list twice\r?\n?";
 
     private Properties m_configurationProperties;
-    
+
     public static class CreateCommand {
-    	
+
     	String filename;
     	final String operation = "create";
     	String parameter;
-    	
+
 		public CreateCommand(String filename, String parameter) {
 			super();
 			this.filename = filename;
 			this.parameter = parameter;
 		}
-		
+
             @Override
 		public String toString() {
 			return operation + " " + filename + " " + parameter;
 		}
-		
+
     }
 
     /**
@@ -130,7 +130,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         f.mkdirs();
 
         String fileName = directory + File.separator + rrdName + RrdUtils.getExtension();
-        
+
         if (new File(fileName).exists()) {
             LOG.debug("createDefinition: filename [{}] already exists returning null as definition", fileName);
             return null;
@@ -141,7 +141,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         parameter.append(" --start=" + (System.currentTimeMillis() / 1000L - 10L));
 
         parameter.append(" --step=" + step);
-        
+
         for (RrdDataSource dataSource : dataSources) {
         	parameter.append(" DS:");
         	parameter.append(dataSource.getName()).append(':');
@@ -176,10 +176,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         }
         LOG.debug("Executing: rrdtool {}", createCommand.toString());
         Interface.launch(createCommand.toString());
-        
+
         String filenameWithoutExtension = createCommand.filename.replace(RrdUtils.getExtension(), "");
         int lastIndexOfSeparator = filenameWithoutExtension.lastIndexOf(File.separator);
-        
+
 		RrdUtils.createMetaDataFile(
 				filenameWithoutExtension.substring(0, lastIndexOfSeparator),
 				filenameWithoutExtension.substring(lastIndexOfSeparator),
@@ -257,10 +257,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
          * guarantee that we don't get a 'NaN' value from the fetch command.
          * This is necessary because the collection is being done by collectd at
          * effectively random times and there is nothing keeping us in sync.
-         * 
+         *
          * interval argument is in milliseconds so must convert to seconds
          */
-        
+
         // TODO: Combine fetchLastValueInRange and fetchLastValue
         String fetchCmd = "fetch " + rrdFile + " "+consolidationFunction+" -s now-" + interval / 1000 + " -e now-" + interval / 1000;
 
@@ -338,18 +338,18 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         // we don't get a 'NaN' value from the fetch command. This
         // is necessary because the collection is being done by collectd
         // and there is nothing keeping us in sync.
-        // 
+        //
         // interval argument is in milliseconds so must convert to seconds
         //
-        
+
         // TODO: Combine fetchLastValueInRange and fetchLastValue
-        
+
     	long now = System.currentTimeMillis();
         long latestUpdateTime = (now - (now % interval)) / 1000L;
         long earliestUpdateTime = ((now - (now % interval)) - range) / 1000L;
-        
+
         LOG.debug("fetchInRange: fetching data from {} to {}", earliestUpdateTime, latestUpdateTime);
-        
+
         String fetchCmd = "fetch " + rrdFile + " AVERAGE -s " + earliestUpdateTime + " -e " + latestUpdateTime;
 
         String[] fetchStrings = Interface.launch(fetchCmd);
@@ -371,9 +371,9 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
             LOG.error("fetchInRange: RRD database 'fetch' failed, no data retrieved.");
             return null;
         }
-        
+
         int numFetched = fetchStrings.length;
-        
+
         LOG.debug("fetchInRange: got {} strings from RRD", numFetched);
 
         // String at index 1 contains the RRDs datasource names
@@ -388,7 +388,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         Double dsValue;
 
         // Back through the RRD output until I get something interesting
-        
+
         for(int i = fetchStrings.length - 2; i > 1; i--) {
             String[] dsValues = fetchStrings[i].split("\\s");
         	if ( dsValues[dsIndex].trim().equalsIgnoreCase("nan") ) {
@@ -404,10 +404,10 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
                 }
           	}
         }
-        
+
         return null;
     }
-    
+
     /**
      * {@inheritDoc}
      *
@@ -431,13 +431,13 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
             newE.initCause(e);
             throw newE;
         }
-        
+
         // this closes the stream when its finished
         byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());
-        
+
         // this close the stream when its finished
         String errors = FileCopyUtils.copyToString(new InputStreamReader(process.getErrorStream()));
-        
+
         // one particular warning message that originates in libart should be ignored
         if (errors.length() > 0 && errors.contains(IGNORABLE_LIBART_WARNING_STRING)) {
         	LOG.debug("Ignoring libart warning message in rrdtool stderr stream: {}", IGNORABLE_LIBART_WARNING_STRING);
@@ -458,7 +458,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
     public String getStats() {
         return "";
     }
-    
+
     // These offsets work perfectly for ranger@ with rrdtool 1.2.23 and Firefox
     /**
      * <p>getGraphLeftOffset</p>
@@ -469,7 +469,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
     public int getGraphLeftOffset() {
         return 65;
     }
-    
+
     /**
      * <p>getGraphRightOffset</p>
      *
@@ -499,7 +499,7 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
     public String getDefaultFileExtension() {
         return ".rrd";
     }
-    
+
     /** {@inheritDoc} */
         @Override
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, org.opennms.netmgt.rrd.RrdException {
@@ -515,22 +515,22 @@ public class JniRrdStrategy implements RrdStrategy<JniRrdStrategy.CreateCommand 
         try {
             // Executing RRD Command
             InputStream is = createGraph(command, workDir);
-            
+
             // Processing Command Output
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-            
+
             try {
                 String s[] = reader.readLine().split("x");
                 width = Integer.parseInt(s[0]);
                 height = Integer.parseInt(s[1]);
-                
+
                 List<String> printLinesList = new ArrayList<String>();
-                
+
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     printLinesList.add(line);
                 }
-                
+
                 printLines = printLinesList.toArray(new String[printLinesList.size()]);
 
             } finally {

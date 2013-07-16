@@ -45,7 +45,7 @@ public class ChooseResourceModel {
     private OnmsResource m_resource;
     private Map<OnmsResourceType, List<OnmsResource>> m_resourceTypes;
     private String m_endUrl;
-    
+
     /**
      * <p>setResource</p>
      *
@@ -54,7 +54,7 @@ public class ChooseResourceModel {
     public void setResource(OnmsResource resource) {
         m_resource = resource;
     }
-    
+
     /**
      * <p>getResource</p>
      *
@@ -63,7 +63,7 @@ public class ChooseResourceModel {
     public OnmsResource getResource() {
         return m_resource;
     }
-    
+
     /**
      * <p>getResourceTypes</p>
      *

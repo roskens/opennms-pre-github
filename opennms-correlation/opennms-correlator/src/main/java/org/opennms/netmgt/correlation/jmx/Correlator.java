@@ -39,7 +39,7 @@ public class Correlator implements CorrelatorMBean {
 
     /**
      * Initialization.
-     * 
+     *
      * Retrieves the Spring context for the correlator.
      */
     @Override
@@ -71,7 +71,7 @@ public class Correlator implements CorrelatorMBean {
 
     /**
      * Get the current status of the correlator daemon.
-     * 
+     *
      * @return The integer constant from {@link Fiber} that represents the daemon's status.
      */
     @Override
@@ -81,7 +81,7 @@ public class Correlator implements CorrelatorMBean {
 
     /**
      * Get the current status of the correlator.
-     * 
+     *
      * @return The status, as text.
      */
     @Override
@@ -91,7 +91,7 @@ public class Correlator implements CorrelatorMBean {
 
     /**
      * Get the current status of the correlator.
-     * 
+     *
      * @return The status, as text.
      */
     @Override

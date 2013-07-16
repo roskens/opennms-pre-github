@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ClientConversation<Request, Response> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ClientConversation.class);
-    
+
     private ResponseValidator<Response> m_bannerValidator;
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
 
@@ -89,7 +89,7 @@ public class ClientConversation<Request, Response> {
      * @param exchange a {@link org.opennms.netmgt.provision.support.ClientConversation.ConversationExchange} object.
      */
     public void addExchange(ConversationExchange<Request, Response> exchange) {
-        m_conversation.add(exchange); 
+        m_conversation.add(exchange);
     }
 
     /**
@@ -100,7 +100,7 @@ public class ClientConversation<Request, Response> {
      * @throws java.io.IOException if any.
      * @throws java.lang.Exception if any.
      */
-    public boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception { 
+    public boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
 
         if (m_bannerValidator != null) {
             Response banner = client.receiveBanner();

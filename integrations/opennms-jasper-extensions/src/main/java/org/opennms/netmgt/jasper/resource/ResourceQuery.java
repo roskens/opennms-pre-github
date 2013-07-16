@@ -39,7 +39,7 @@ public class ResourceQuery {
 
     public ResourceQuery() {
     }
-    
+
     public String getRrdDir() {
         return m_rrdDir;
     }
@@ -64,7 +64,7 @@ public class ResourceQuery {
     public void setFilters(String[] filters) {
         m_filters = filters;
     }
-    
+
     public String constructBasePath() {
         return getRrdDir() + File.separator + getNodeId() + File.separator + getResourceName();
     }
@@ -72,7 +72,7 @@ public class ResourceQuery {
     public String[] getStringProperties() {
         return m_strProperties;
     }
-    
+
     public void setStringProperties(String[] strProperties) {
         m_strProperties = strProperties;
     }

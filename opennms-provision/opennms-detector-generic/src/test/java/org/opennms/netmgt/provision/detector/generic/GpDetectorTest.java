@@ -48,25 +48,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class GpDetectorTest implements InitializingBean {
-    
+
     @Autowired
     public GpDetector m_detector;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorWired(){
         assertNotNull(m_detector);
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws UnknownHostException{
         m_detector.setScript(System.getProperty("user.dir") + "/src/test/resources/TestBashScript.sh");
@@ -74,8 +74,8 @@ public class GpDetectorTest implements InitializingBean {
         m_detector.onInit();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
-    
-    @Test(timeout=90000) 
+
+    @Test(timeout=90000)
     public void testDetectorWrongBanner() throws UnknownHostException{
         m_detector.setScript(System.getProperty("user.dir") + "/src/test/resources/TestBashScript.sh");
         m_detector.setBanner("world");

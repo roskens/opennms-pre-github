@@ -55,11 +55,11 @@ import com.jcraft.jsch.SftpException;
 
 /**
  * The class for managing SFTP.3GPP URL Connection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppUrlConnection extends SftpUrlConnection {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppUrlConnection.class);
 
 

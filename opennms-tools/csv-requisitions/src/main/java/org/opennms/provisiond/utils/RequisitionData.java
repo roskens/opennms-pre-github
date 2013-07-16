@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.provisiond.utils;
 
@@ -53,20 +53,20 @@ class RequisitionData {
 		m_primaryIp = StringUtils.isBlank(fields[1]) ? "169.254.1.1" : fields[1];
 		m_foreignSource = StringUtils.isBlank(fields[2]) ? "TS" : StringUtils.deleteWhitespace(fields[2]);
 		m_foreignId = StringUtils.isBlank(fields[4]) ? null : fields[4];
-		
+
 		if (m_foreignId == null) {
 			throw new Exception("ForeignId is blank in fields: \n"+fields+"\n");
 		}
-		
+
 	}
-	
+
 	public RequisitionData(String label, String ipaddr, String fs, String fid) {
 		m_nodeLabel = StringUtils.isBlank(label) ? "nolabel" : label;
 		m_primaryIp = StringUtils.isBlank(ipaddr) ? "169.254.1.1" : ipaddr;
 		m_foreignSource = StringUtils.isBlank(fs) ? "default" : StringUtils.deleteWhitespace(fs);
 		m_foreignId = StringUtils.isBlank(fid) ? String.valueOf(System.currentTimeMillis()) : fid;
 	}
-	
+
 	@Override
 	public String toString() {
 		StringBuffer sb = new StringBuffer("Node Label: ");
@@ -115,9 +115,9 @@ class RequisitionData {
 	public Set<String> getCategories() {
 		return m_categories;
 	}
-	
+
 	public void setCategories(Set<String> categories) {
 		m_categories = categories;
 	}
-	
+
 }

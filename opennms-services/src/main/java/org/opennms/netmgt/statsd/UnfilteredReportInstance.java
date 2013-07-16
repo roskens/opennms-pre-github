@@ -57,7 +57,7 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     private String m_resourceAttributeKey;
     private String m_resourceAttributeValueMatch;
     private ResourceAttributeFilteringResourceVisitor m_resourceAttributeVisitor;
-    
+
     /**
      * <p>Constructor for UnfilteredReportInstance.</p>
      *
@@ -66,7 +66,7 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     public UnfilteredReportInstance(AttributeStatisticVisitorWithResults visitor) {
         m_attributeStatisticVisitor = visitor;
     }
-    
+
     /**
      * <p>setResourceDao</p>
      *
@@ -214,7 +214,7 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     public void setConsolidationFunction(String cf) {
         m_rrdVisitor.setConsolidationFunction(cf);
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#getCount()
      */
@@ -246,22 +246,22 @@ public class UnfilteredReportInstance extends AbstractReportInstance implements 
     @Override
     public void afterPropertiesSet() {
         super.afterPropertiesSet();
-        
+
         m_rrdVisitor.setStatisticVisitor(m_attributeStatisticVisitor);
         m_attributeVisitor.setAttributeVisitor(m_rrdVisitor);
-        
+
         if (m_resourceAttributeKey != null && m_resourceAttributeValueMatch != null) {
             m_resourceAttributeVisitor = new ResourceAttributeFilteringResourceVisitor();
             m_resourceAttributeVisitor.setDelegatedVisitor(m_attributeVisitor);
             m_resourceAttributeVisitor.setResourceAttributeKey(m_resourceAttributeKey);
             m_resourceAttributeVisitor.setResourceAttributeValueMatch(m_resourceAttributeValueMatch);
             m_resourceAttributeVisitor.afterPropertiesSet();
-            
+
             m_resourceTypeVisitor.setDelegatedVisitor(m_resourceAttributeVisitor);
         } else {
             m_resourceTypeVisitor.setDelegatedVisitor(m_attributeVisitor);
         }
-        
+
         m_walker.setVisitor(m_resourceTypeVisitor);
 
         m_attributeStatisticVisitor.afterPropertiesSet();

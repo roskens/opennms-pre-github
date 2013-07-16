@@ -41,34 +41,34 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Schedule {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(Schedule.class);
 
 	/** Constant <code>random</code> */
 	public static final Random random = new Random();
-	
+
     private final ReadyRunnable m_schedulable;
     private final ScheduleInterval m_interval;
     private final ScheduleTimer m_timer;
     private volatile int m_currentExpirationCode;
     private volatile boolean m_scheduled = false;
-	
-    
+
+
     class ScheduleEntry implements ReadyRunnable {
         private final int m_expirationCode;
 
         public ScheduleEntry(int expirationCode) {
             m_expirationCode = expirationCode;
         }
-        
+
         /**
          * @return
          */
         private boolean isExpired() {
             return m_expirationCode < m_currentExpirationCode;
         }
-        
+
         @Override
         public boolean isReady() {
             return isExpired() || m_schedulable.isReady();
@@ -80,7 +80,7 @@ public class Schedule {
                 LOG.debug("Schedule {} expired.  No need to run.", this);
                 return;
             }
-            
+
             if (!m_interval.scheduledSuspension()) {
                 try {
                     Schedule.this.run();
@@ -90,20 +90,20 @@ public class Schedule {
                     return;
                 }
             }
-                
+
 
             // if it is expired by the current run then don't reschedule
             if (isExpired()) {
                 LOG.debug("Schedule {} expired.  No need to reschedule.", this);
                 return;
             }
-            
+
             long interval = m_interval.getInterval();
             if (interval >= 0 && m_scheduled)
                 m_timer.schedule(interval, this);
 
         }
-        
+
         @Override
         public String toString() { return "ScheduleEntry[expCode="+m_expirationCode+"] for "+m_schedulable; }
     }

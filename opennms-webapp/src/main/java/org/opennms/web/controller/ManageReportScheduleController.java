@@ -49,10 +49,10 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @since 1.8.1
  */
 public class ManageReportScheduleController extends SimpleFormController {
-    
+
     private SchedulerService m_reportSchedulerService;
     private int m_pageSize;
-    
+
     /**
      * <p>Constructor for ManageReportScheduleController.</p>
      */
@@ -76,7 +76,7 @@ public class ManageReportScheduleController extends SimpleFormController {
     public void setPageSize(int pageSize) {
         m_pageSize = pageSize;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Map<String, Object> referenceData(HttpServletRequest req) throws Exception {
@@ -84,12 +84,12 @@ public class ManageReportScheduleController extends SimpleFormController {
         PagedListHolder<TriggerDescription> pagedListHolder = new PagedListHolder<TriggerDescription>(m_reportSchedulerService.getTriggerDescriptions());
         pagedListHolder.setPageSize(m_pageSize);
         int page = ServletRequestUtils.getIntParameter(req, "p", 0);
-        pagedListHolder.setPage(page); 
+        pagedListHolder.setPage(page);
         data.put("pagedListHolder", pagedListHolder);
         return data;
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(Object command) throws Exception {

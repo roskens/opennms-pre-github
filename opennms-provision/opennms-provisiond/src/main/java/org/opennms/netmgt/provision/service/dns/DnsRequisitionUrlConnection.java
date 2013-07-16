@@ -77,31 +77,31 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     private static final Logger LOG = LoggerFactory.getLogger(DnsRequisitionUrlConnection.class);
 
     private static final String EXPRESSION_ARG = "expression";
-    
+
     private static final String SERVICES_ARG = "services";
-    
+
     private static final String FID_HASH_SRC_ARG = "foreignidhashsource";
-    
+
     private static final String[] HASH_IP_KEYWORDS = { "ip", "addr" };
-    
+
     private static final String[] HASH_LABEL_KEYWORDS = { "name", "label" };
 
     private static final String QUERY_ARG_SEPARATOR = "&";
 
     /** Constant <code>URL_SCHEME="dns://"</code> */
     public static final String URL_SCHEME = "dns://";
-    
+
     /** Constant <code>PROTOCOL="dns"</code> */
     public static final String PROTOCOL = "dns";
 
     private String m_zone;
-    
+
     //TODO implement this
     private Long m_serial;
-    
+
     //TODO implement this
     private Boolean m_fallback;
-    
+
     //TODO implement this
     private TSIG m_key;
 
@@ -110,14 +110,14 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     private int m_port;
 
     private String m_foreignSource;
-    
+
     private int m_foreignIdHashSource;
-    
+
     private String[] m_services;
-    
+
     private static Map<String, String> m_args;
-    
-    
+
+
     /**
      * <p>Constructor for DnsRequisitionUrlConnection.</p>
      *
@@ -126,32 +126,32 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      */
     public DnsRequisitionUrlConnection(URL url) throws MalformedURLException {
         super(url);
-        
+
         m_args = getUrlArgs(url);
-        
+
         validateDnsUrl(url);
-        
+
         m_url = url;
         m_port = url.getPort() == -1 ? 53 : url.getPort();
         m_zone = parseZone(url);
         m_foreignSource = parseForeignSource(url);
         m_foreignIdHashSource = getForeignIdHashSource();
         m_services = getServices();
-        
+
         if (m_zone == null) {
             throw new IllegalArgumentException("Specified Zone is null");
         }
-        
+
         m_serial = Long.valueOf(0L);
         m_fallback = Boolean.FALSE;
 
         m_key = null;
-        
+
     }
 
     /**
      * Determine services to be provisioned from URL
-     * 
+     *
      * @return a String[] of opennms service names
      */
     private String[] getServices() {
@@ -165,7 +165,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
 
     /**
      * Determine source for computing hash for foreignId from URL
-     * 
+     *
      * @return a String of "ipAddress" or "nodeLabel"
      */
     private int getForeignIdHashSource() {
@@ -188,7 +188,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         return result;
     }
 
-    
+
     /**
      * {@inheritDoc}
      *
@@ -206,9 +206,9 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      */
     @Override
     public InputStream getInputStream() throws IOException {
-        
+
         InputStream stream = null;
-        
+
         try {
             Requisition r = buildRequisitionFromZoneTransfer();
             stream = new ByteArrayInputStream(jaxBMarshal(r).getBytes());
@@ -220,31 +220,31 @@ public class DnsRequisitionUrlConnection extends URLConnection {
             LOG.warn(message, e);
             throw new IOExceptionWithCause(message,e );
         }
-        
+
         return stream;
     }
 
     /**
      * Builds a Requisition based on the A records returned in a zone transfer from the
      * specified zone.
-     * 
+     *
      * @return an instance of the JaxB annotated Requisition class than can be marshaled
      *   into the XML and streamed to the Provisioner
-     *   
+     *
      * @throws IOException
      * @throws ZoneTransferException
      */
     private Requisition buildRequisitionFromZoneTransfer() throws IOException, ZoneTransferException {
-        
+
 	ZoneTransferIn xfer = null;
         List<Record> records = null;
-        
+
         LOG.debug("connecting to host {}:{}", m_url.getHost(), m_port);
-        try { 
-            xfer = ZoneTransferIn.newIXFR(new Name(m_zone), 
-                                        m_serial.longValue(), 
-                                        m_fallback.booleanValue(), 
-                                        m_url.getHost(), 
+        try {
+            xfer = ZoneTransferIn.newIXFR(new Name(m_zone),
+                                        m_serial.longValue(),
+                                        m_fallback.booleanValue(),
+                                        m_url.getHost(),
                                         m_port,
                                         m_key);
                records = getRecords(xfer);
@@ -256,21 +256,21 @@ public class DnsRequisitionUrlConnection extends URLConnection {
              records = getRecords(xfer);
        }
 
-  
+
         Requisition r = null;
-        
+
         if (records.size() > 0) {
-            
+
             //for now, set the foreign source to the specified dns zone
             r = new Requisition(getForeignSource());
-            
+
             for (Record rec : records) {
                 if (matchingRecord(rec)) {
                     r.insertNode(createRequisitionNode(rec));
                 }
             }
         }
-        
+
         return r;
     }
 
@@ -282,7 +282,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
 
     /**
      * Creates an instance of the JaxB annotated RequisionNode class.
-     * 
+     *
      * @param rec
      * @return a populated RequisitionNode based on defaults and data from the
      *   A record returned from a DNS zone transfer query.
@@ -300,12 +300,12 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         }
 
         RequisitionNode n = new RequisitionNode();
-        
+
         String host = rec.getName().toString();
         String nodeLabel = StringUtils.stripEnd(StringUtils.stripStart(host, "."), ".");
 
         n.setBuilding(getForeignSource());
-        
+
         switch(m_foreignIdHashSource) {
             case 1:
                 n.setForeignId(computeHashCode(nodeLabel));
@@ -325,42 +325,42 @@ public class DnsRequisitionUrlConnection extends URLConnection {
                 break;
         }
         n.setNodeLabel(nodeLabel);
-        
+
         RequisitionInterface i = new RequisitionInterface();
         i.setDescr("DNS-" + Type.string(rec.getType()));
         i.setIpAddr(addr);
         i.setSnmpPrimary(PrimaryType.PRIMARY);
         i.setManaged(Boolean.TRUE);
         i.setStatus(Integer.valueOf(1));
-        
+
         for (String service : m_services) {
             service = service.trim();
             i.insertMonitoredService(new RequisitionMonitoredService(service));
             LOG.debug("Adding provisioned service {}", service);
             }
-        
+
         n.putInterface(i);
-        
+
         return n;
     }
 
     /**
-     * Determines if the record is an A record and if the canonical name 
+     * Determines if the record is an A record and if the canonical name
      * matches the expression supplied in the URL, if one was supplied.
-     * 
+     *
      * @param rec
      * @return boolean if rec should be included in the import requisition
      */
     private boolean matchingRecord(Record rec) {
-        
+
         LOG.info("matchingRecord: checking rec: {} to see if it should be imported...", rec);
 
         boolean matches = false;
         if ("A".equals(Type.string(rec.getType())) || "AAAA".equals(Type.string(rec.getType()))) {
             LOG.debug("matchingRecord: record is an {} record, continuing...", Type.string(rec.getType()));
-            
+
             String expression = determineExpressionFromUrl(getUrl());
-            
+
             if (expression != null) {
 
                 Pattern p = Pattern.compile(expression);
@@ -378,23 +378,23 @@ public class DnsRequisitionUrlConnection extends URLConnection {
                         matches = true;
                     }
                 }
-                
+
                 LOG.debug("matchingRecord: record matches expression: {}", matches);
-                
+
             } else {
-                
+
                 LOG.debug("matchingRecord: no expression for this zone, returning valid match for this {} record...", Type.string(rec.getType()));
-                
+
                 matches = true;
             }
 
         }
-        
+
         LOG.info("matchingRecord: record: {} matches: {}", matches, rec);
-        
+
         return matches;
     }
-    
+
 
     /**
      * Created this in the case that we decide to every do something different with the hashing
@@ -409,16 +409,16 @@ public class DnsRequisitionUrlConnection extends URLConnection {
 
     /**
      * Utility to marshal the Requisition class into XML.
-     * 
+     *
      * @param r
      * @return a String of XML encoding the Requisition class
-     * 
+     *
      * @throws JAXBException
      */
     private String jaxBMarshal(Requisition r) throws JAXBException {
     	return JaxbUtils.marshal(r);
     }
-    
+
     /**
      * <p>getZone</p>
      *
@@ -427,7 +427,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public String getZone() {
         return m_zone;
     }
-    
+
     /**
      * <p>getSerial</p>
      *
@@ -436,7 +436,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public Long getSerial() {
         return m_serial;
     }
-    
+
     /**
      * <p>setSerial</p>
      *
@@ -445,7 +445,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public void setSerial(Long serial) {
         m_serial = serial;
     }
-    
+
     /**
      * <p>getFallback</p>
      *
@@ -454,7 +454,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public Boolean getFallback() {
         return m_fallback;
     }
-    
+
     /**
      * <p>setFallback</p>
      *
@@ -463,7 +463,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public void setFallback(Boolean fallback) {
         m_fallback = fallback;
     }
-    
+
     /**
      * <p>getKey</p>
      *
@@ -472,7 +472,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public TSIG getKey() {
         return m_key;
     }
-    
+
     /**
      * <p>setKey</p>
      *
@@ -481,7 +481,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public void setKey(TSIG key) {
         m_key = key;
     }
-    
+
     /**
      * <p>getDescription</p>
      *
@@ -490,7 +490,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public String getDescription() {
         return m_url.toString();
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -500,7 +500,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public String toString() {
         return getDescription();
     }
-    
+
     /**
      * <p>getUrl</p>
      *
@@ -509,7 +509,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     public URL getUrl() {
         return m_url;
     }
-    
+
     public static Map<String, String> getArgs() {
         return m_args;
     }
@@ -530,7 +530,7 @@ public class DnsRequisitionUrlConnection extends URLConnection {
     }
 
     private static List<String> tokenizeQueryArgs(String query) throws IllegalArgumentException {
-        
+
         if (query == null) {
             throw new IllegalArgumentException("The URL query is null");
         }
@@ -550,14 +550,14 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         if (url == null || url.getQuery() == null) {
             throw new IllegalArgumentException("The URL or the URL query is null: "+url);
         }
-        
+
         String query = null;
         try {
             query = URLDecoder.decode(url.getQuery(), "UTF-8");
         } catch (UnsupportedEncodingException e) {
             LOG.error("decodeQueryString", e);
         }
-        
+
         return query;
     }
 
@@ -572,24 +572,24 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      * @throws java.net.MalformedURLException if any.
      */
     protected static void validateDnsUrl(URL url) throws MalformedURLException {
-        
+
         String path = url.getPath();
         path = StringUtils.removeStart(path, "/");
         path = StringUtils.removeEnd(path, "/");
-        
+
         if (path == null || StringUtils.countMatches(path, "/") > 1) {
             throw new MalformedURLException("The specified DNS URL contains invalid path: "+url);
         }
-        
+
         String query = url.getQuery();
-        
+
         if ((query != null) && (determineExpressionFromUrl(url) == null) && (getArgs().get(SERVICES_ARG) == null) && (getArgs().get(FID_HASH_SRC_ARG) == null)) {
             throw new MalformedURLException("The specified DNS URL contains an invalid query string: "+url);
         }
-        
+
     }
 
-    
+
     /**
      * Zone should be the first path entity
      *
@@ -599,23 +599,23 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      * @return a {@link java.lang.String} object.
      */
     protected static String parseZone(URL url) {
-        
+
         String path = url.getPath();
-        
+
         path = StringUtils.removeStart(path, "/");
         path = StringUtils.removeEnd(path, "/");
 
         String zone = path;
-        
+
         if (path != null && StringUtils.countMatches(path, "/") == 1) {
             String[] paths = path.split("/");
             zone = paths[0];
         }
-        
+
         return zone;
     }
-    
-    
+
+
     /**
      * Foreign Source should be the second path entity, if it exists, otherwise it is
      * set to the value of the zone.
@@ -626,36 +626,36 @@ public class DnsRequisitionUrlConnection extends URLConnection {
      * @return a {@link java.lang.String} object.
      */
     protected static String parseForeignSource(URL url) {
-        
+
         String path = url.getPath();
-        
+
         path = StringUtils.removeStart(path, "/");
         path = StringUtils.removeEnd(path, "/");
 
         String foreignSource = path;
-        
+
         if (path != null && StringUtils.countMatches(path, "/") == 1) {
             String[] paths = path.split("/");
             foreignSource = paths[1];
         }
-        
+
         return foreignSource;
     }
-    
+
     protected static Map<String, String> getUrlArgs(URL url) {
-        
+
         if (url.getQuery() == null) {
             return null;
         }
 
         //TODO: need to throw exception if query is null
         String query = decodeQueryString(url);
-        
+
         //TODO: need to handle exception
         List<String> queryArgs = tokenizeQueryArgs(query);
         Map<String, String> args = new HashMap<String, String>();
         for (String queryArg : queryArgs) {
-            String[] argTokens = StringUtils.split(queryArg, '='); 
+            String[] argTokens = StringUtils.split(queryArg, '=');
 
             if (argTokens.length < 2) {
                 LOG.warn("getUrlArgs: syntax error in URL query string, missing '=' in query argument: {}", queryArg);
@@ -666,8 +666,8 @@ public class DnsRequisitionUrlConnection extends URLConnection {
         }
 
         return args;
-    }  
-    
+    }
+
     /**
      * <p>setForeignSource</p>
      *

@@ -38,11 +38,11 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<LocationPanelSelectEventHandler> TYPE = new Type<LocationPanelSelectEventHandler>();
     private String m_locationName;
-    
+
     /**
      * <p>Constructor for LocationPanelSelectEvent.</p>
      *
@@ -51,12 +51,12 @@ public class LocationPanelSelectEvent extends GwtEvent<LocationPanelSelectEventH
     public LocationPanelSelectEvent(String locationName) {
         m_locationName = locationName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(LocationPanelSelectEventHandler handler) {
         handler.onLocationSelected(this);
-        
+
     }
 
     /** {@inheritDoc} */

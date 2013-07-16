@@ -50,7 +50,7 @@ import org.smslib.USSDSessionStatus;
  * @author brozow
  */
 public class MobileMsgSequenceBuilderTest {
-    
+
 	private static final String PHONE_NUMBER = "+19195551212";
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
@@ -59,17 +59,17 @@ public class MobileMsgSequenceBuilderTest {
     MobileMsgTrackerImpl m_tracker;
 	DefaultTaskCoordinator m_coordinator;
 	MobileSequenceSession m_session;
-    
+
     @Before
     public void setUp() throws Exception {
-        
+
         m_messenger = new TestMessenger();
-        
+
         m_tracker = new MobileMsgTrackerImpl("test", m_messenger);
         m_tracker.start();
-        
+
         m_session = new MobileSequenceSession(m_tracker);
-        
+
         m_coordinator = new DefaultTaskCoordinator("MobileMsgSequenceBuilderTest", Executors.newSingleThreadExecutor(
             new LogPreservingThreadFactory("MobileMsgSequenceBuilderTest", 1, false)
         ));
@@ -80,11 +80,11 @@ public class MobileMsgSequenceBuilderTest {
 	@Test(expected=java.net.SocketTimeoutException.class)
     public void testPingTimeoutWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
-        
+
         ping(bldr);
 
         MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
-        
+
         bldr.getSequence().waitFor(m_session, execution);
 
     }
@@ -92,16 +92,16 @@ public class MobileMsgSequenceBuilderTest {
     @Test
     public void testPingWithBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
-        
+
         ping(bldr);
 
         MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
-        
+
         Thread.sleep(500);
-        
+
         sendPong();
         bldr.getSequence().waitFor(m_session, execution);
-        
+
         Map<String,Number> timing = execution.getResponseTimes();
 
         assertNotNull(timing);
@@ -113,15 +113,15 @@ public class MobileMsgSequenceBuilderTest {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
 
         balanceInquiry(bldr);
-		
+
 		MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
 
 		Thread.sleep(500);
-		
+
         sendBalance();
-        
+
         bldr.getSequence().waitFor(m_session, execution);
-        
+
         Map<String,Number> timing = execution.getResponseTimes();
 
         assertNotNull(timing);
@@ -131,28 +131,28 @@ public class MobileMsgSequenceBuilderTest {
     @Test
     public void testMultipleStepSequenceBuilder() throws Throwable {
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
-        
+
         ping(bldr);
         balanceInquiry(bldr);
 
 		MobileSequenceExecution execution = bldr.getSequence().start(m_session, m_coordinator);
-		
+
 		Thread.sleep(100);
-		
+
 		sendPong();
-		
+
         Thread.sleep(100);
 
         sendBalance();
-        
+
         bldr.getSequence().waitFor(m_session, execution);
 
         Map<String,Number> timing = execution.getResponseTimes();
-        
-        
+
+
         assertNotNull(m_session);
         assertEquals(PHONE_NUMBER, m_session.substitute("${SMS Pong.smsOriginator}"));
-        
+
         assertNotNull(timing);
         assertTrue(latency(timing, "response-time") > 150);
         assertTrue(latency(timing, "SMS Ping") > 50);
@@ -173,7 +173,7 @@ public class MobileMsgSequenceBuilderTest {
     private void sendPong() {
         m_messenger.sendTestResponse(PHONE_NUMBER, "pong");
     }
-    
+
     private void balanceInquiry(MobileSequenceConfigBuilder bldr) {
         bldr.ussdRequest("USSD request","G", "#225#").expectUssdResponse("USSD response")
             .matching(TMOBILE_USSD_MATCH)

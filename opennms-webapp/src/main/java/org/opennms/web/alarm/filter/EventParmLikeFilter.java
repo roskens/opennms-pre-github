@@ -34,7 +34,7 @@ public class EventParmLikeFilter extends SubstringFilter {
 
     /** Constant <code>TYPE="parmmatchany"</code> */
     public static final String TYPE = "parmmatchany";
-    
+
     public EventParmLikeFilter(String parm) {
         super(TYPE, "eventParms", "eventParms", parm + "(string,text)");
     }
@@ -49,17 +49,17 @@ public class EventParmLikeFilter extends SubstringFilter {
 
         return buffer.toString();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         return this.toString().equals(obj.toString());
     }
-    
+
     @Override
     public String getDescription() {
         return TYPE + "=" + getValueString().replace("(string,text)", "");
-        
+
     }
 
 }

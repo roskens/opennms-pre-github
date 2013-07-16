@@ -68,7 +68,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("links")
 @Transactional
 public class DataLinkInterfaceRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DataLinkInterfaceRestService.class);
 
     @Autowired
@@ -88,7 +88,7 @@ public class DataLinkInterfaceRestService extends OnmsRestService {
     @Transactional(readOnly=true)
     public DataLinkInterfaceList getLinks() {
         readLock();
-        
+
         try {
             final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);

@@ -63,7 +63,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
     public static final String FAILURE_UEI = "uei.opennms.org/internal/authentication/failure";
 
     private EventProxy m_eventProxy;
-    
+
     /** {@inheritDoc} */
     @Override
     public void onApplicationEvent(ApplicationEvent event) {
@@ -76,17 +76,17 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
                 sendEvent(builder.getEvent());
             }
         }
-        
+
         if (event instanceof AbstractAuthenticationFailureEvent) {
             AbstractAuthenticationFailureEvent authEvent = (AbstractAuthenticationFailureEvent) event;
-            
+
             LOG.debug("AbstractAuthenticationFailureEvent was received, exception message - {}", authEvent.getException().getMessage());
             EventBuilder builder = createEvent(FAILURE_UEI, authEvent);
             builder.addParam("exceptionName", authEvent.getException().getClass().getSimpleName());
             builder.addParam("exceptionMessage", authEvent.getException().getMessage());
             sendEvent(builder.getEvent());
         }
-        
+
         if (event instanceof AuthorizedEvent) {
             AuthorizedEvent authEvent = (AuthorizedEvent) event;
             LOG.debug("AuthorizedEvent received - \n  Details - {}\n  Principal - {}", authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
@@ -98,14 +98,14 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
         if (event instanceof InteractiveAuthenticationSuccessEvent) {
             InteractiveAuthenticationSuccessEvent authEvent = (InteractiveAuthenticationSuccessEvent) event;
             LOG.debug("InteractiveAuthenticationSuccessEvent received - \n  Details - {}\n  Principal - {}", authEvent.getAuthentication().getDetails(), authEvent.getAuthentication().getPrincipal());
-            
+
         }
         if (event instanceof ServletRequestHandledEvent) {
             ServletRequestHandledEvent authEvent = (ServletRequestHandledEvent) event;
             LOG.debug("ServletRequestHandledEvent received - {}\n  Servlet - {}\n  URL - {}", authEvent.getDescription(), authEvent.getServletName(), authEvent.getRequestUrl());
             LOG.info("{} requested from {} by user {}", authEvent.getRequestUrl(), authEvent.getClientAddress(), authEvent.getUserName());
         }
-        
+
     }
 
     private EventBuilder createEvent(String uei, AbstractAuthenticationEvent authEvent) {
@@ -123,7 +123,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
         }
         return builder;
     }
-    
+
     private void sendEvent(Event onmsEvent) {
         try {
             m_eventProxy.send(onmsEvent);
@@ -135,7 +135,7 @@ public class SecurityAuthenticationEventOnmsEventBuilder implements ApplicationL
             }
         }
     }
-    
+
     /**
      * <p>setEventProxy</p>
      *

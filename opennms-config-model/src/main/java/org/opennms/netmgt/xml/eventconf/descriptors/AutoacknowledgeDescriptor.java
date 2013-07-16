@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Autoacknowledge;
 
 /**
  * Class AutoacknowledgeDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -96,14 +96,14 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Autoacknowledge target = (Autoacknowledge) object;
                 return target.getContent();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -121,7 +121,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
         desc.setSchemaType("string");
         desc.setHandler(handler);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _content
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -132,20 +132,20 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
         }
         desc.setValidator(fieldValidator);
         //-- initialize attribute descriptors
-        
+
         //-- _state
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_state", "state", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Autoacknowledge target = (Autoacknowledge) object;
                 return target.getState();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -164,7 +164,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _state
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -176,7 +176,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -186,7 +186,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -197,7 +197,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -209,7 +209,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -220,7 +220,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -231,7 +231,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -243,7 +243,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -255,7 +255,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -266,7 +266,7 @@ public class AutoacknowledgeDescriptor extends org.exolab.castor.xml.util.XMLCla
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

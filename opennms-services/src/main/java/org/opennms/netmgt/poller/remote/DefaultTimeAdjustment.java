@@ -36,7 +36,7 @@ import java.util.Date;
  * @author brozow
  */
 public class DefaultTimeAdjustment implements TimeAdjustment {
-    
+
     private long m_offset = 0;
 
     @Override

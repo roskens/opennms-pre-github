@@ -35,8 +35,8 @@ public class EventPolicyRuleDefaultImpl extends AbstractEventPolicyRule implemen
 
 	@Override
 	/**
-	 * This method do nothing 
-	 * 
+	 * This method do nothing
+	 *
 	 */
 	protected Event expand(Event event) {
 		return event;

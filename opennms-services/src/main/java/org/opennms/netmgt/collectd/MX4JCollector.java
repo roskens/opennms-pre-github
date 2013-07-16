@@ -35,10 +35,10 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.MX4JConnectionFactory;
 
 /*
-* The MX4JCollector class manages the querying and storage of data into RRD files.  The list of 
+* The MX4JCollector class manages the querying and storage of data into RRD files.  The list of
 * MBeans to be queried is read from the jmx-datacollection-config.xml file using the "mx4j" service name.
-* The super class, JMXCollector, performs all the work. 
-* 
+* The super class, JMXCollector, performs all the work.
+*
 * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
 * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
 */
@@ -60,7 +60,7 @@ public class MX4JCollector extends JMXCollector {
   }
 
   /* Return a ConnectionWrapper object using the factory.
-   * 
+   *
    * @see org.opennms.netmgt.collectd.JMXCollector#getMBeanServerConnection(java.util.Map, java.net.InetAddress)
    */
   /** {@inheritDoc} */

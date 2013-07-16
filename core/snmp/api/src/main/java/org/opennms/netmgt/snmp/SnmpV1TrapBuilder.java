@@ -31,7 +31,7 @@ package org.opennms.netmgt.snmp;
 import java.net.InetAddress;
 
 public interface SnmpV1TrapBuilder extends SnmpTrapBuilder {
-    
+
     void setEnterprise(SnmpObjId enterpriseId);
 
     void setAgentAddress(InetAddress agentAddress);
@@ -41,7 +41,7 @@ public interface SnmpV1TrapBuilder extends SnmpTrapBuilder {
     void setSpecific(int specific);
 
     /**
-     *  
+     *
      * @param timeStamp
      * A timestamp value, in TimeTicks (centiseconds), not to exceed 2^32-1
      */

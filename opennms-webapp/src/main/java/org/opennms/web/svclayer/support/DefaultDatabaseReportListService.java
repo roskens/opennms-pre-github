@@ -40,7 +40,7 @@ import java.util.List;
  * <p>
  * DefaultDatabaseReportListService class.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -54,7 +54,7 @@ public class DefaultDatabaseReportListService implements
      * <p>
      * getAll Reports from all Repositories
      * </p>
-     * 
+     *
      * @return a {@link java.util.List} object.
      */
     @Deprecated
@@ -135,7 +135,7 @@ public class DefaultDatabaseReportListService implements
      * <p>
      * getAll Reports from all Repositories
      * </p>
-     * 
+     *
      * @return a {@link java.util.List} object.
      */
     @Deprecated

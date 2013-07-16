@@ -49,10 +49,10 @@ import org.opennms.netmgt.provision.adapters.link.EndPointStatusException;
 public class EndPointTypeValidator {
     @XmlAttribute(name="endpoint-service-name")
     String m_endPointServiceName = "EndPoint";
-    
+
     @XmlElement(name="endpoint-type")
     List<EndPointType> m_endPointConfigs = Collections.synchronizedList(new ArrayList<EndPointType>());
-    
+
     /**
      * <p>Constructor for EndPointTypeValidator.</p>
      */
@@ -85,7 +85,7 @@ public class EndPointTypeValidator {
     public List<EndPointType> getConfigs() {
         return m_endPointConfigs;
     }
-    
+
     /**
      * <p>setConfigs</p>
      *

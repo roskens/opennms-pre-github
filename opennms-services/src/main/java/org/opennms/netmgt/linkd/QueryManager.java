@@ -121,7 +121,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     LinkableNode storeSnmpCollection(LinkableNode node, SnmpCollection snmpColl);
-    
+
     /**
      * <p>storeDiscoveryLink</p>
      *
@@ -129,7 +129,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     void storeDiscoveryLink(DiscoveryLink discoveryLink);
-    
+
     /**
      * <p>update</p>
      *
@@ -138,7 +138,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     void update(int nodeid, StatusType action);
-    
+
     /**
      * <p>updateForInterface</p>
      *
@@ -149,7 +149,7 @@ public interface QueryManager {
      * @throws java.sql.SQLException if any.
      */
     void updateForInterface(int nodeid, String ipAddr, int ifIndex, StatusType action);
-    
+
     Linkd getLinkd();
 	void setLinkd(final Linkd linkd);
 

@@ -38,8 +38,8 @@ public class Component {
     String m_type;
     String m_name;
     DependencyRequirements m_dependenciesRequired;
-    
-    
+
+
     public Component( NCSComponent ncsComponent) {
         m_id = ncsComponent.getId();
         m_foreignId = ncsComponent.getForeignId();
@@ -51,11 +51,11 @@ public class Component {
         }
         else {
             m_dependenciesRequired = ncsComponent.getDependenciesRequired();
-        } 
+        }
     }
-    
-    
-    
+
+
+
     public Component(long id, String type, String name, String foreignSource,
 			String foreignId, DependencyRequirements dependenciesRequired) {
 		m_id = id;
@@ -106,7 +106,7 @@ public class Component {
     public void setDependenciesRequired(DependencyRequirements dependenciesRequired) {
         m_dependenciesRequired = dependenciesRequired;
     }
-    
+
     @Override
     public int hashCode(){
         return Long.valueOf(m_id).hashCode();
@@ -126,7 +126,7 @@ public class Component {
 	public String toString() {
 		return "Component [name=" + m_name + "]";
 	}
-    
-    
+
+
 
 }

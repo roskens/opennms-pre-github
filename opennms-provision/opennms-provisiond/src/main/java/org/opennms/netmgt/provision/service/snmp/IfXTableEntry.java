@@ -92,7 +92,7 @@ public final class IfXTableEntry extends SnmpTableEntry {
     /** Constant <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code> */
     public final static String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
 
-    // 
+    //
     // Special case: Lookup string for ifIndex
     //
     // The interface extension table does not include an ifIndex
@@ -106,12 +106,12 @@ public final class IfXTableEntry extends SnmpTableEntry {
 
     /**
      * Number of object identifiers making up the interface extensions table
-     * 
+     *
      * WARNING: This value must be incremented by one for each new object added
      * to the ms_elemList variable
      */
     static int NUM_OIDS = 10;
-    
+
     /** Constant <code>ms_elemList</code> */
     public static NamedSnmpVar[] ms_elemList = null;
 
@@ -160,8 +160,8 @@ public final class IfXTableEntry extends SnmpTableEntry {
      */
     public IfXTableEntry(final int ifIndex) {
         super(ms_elemList);
-        putIfIndex(ifIndex); 
-        
+        putIfIndex(ifIndex);
+
     }
 
     /**
@@ -172,7 +172,7 @@ public final class IfXTableEntry extends SnmpTableEntry {
     public String getIfName() {
         return getDisplayString(IfXTableEntry.IF_NAME);
     }
-    
+
     /**
      * <p>getIfAlias</p>
      *
@@ -181,5 +181,5 @@ public final class IfXTableEntry extends SnmpTableEntry {
     public String getIfAlias() {
         return getDisplayString(IfXTableEntry.IF_ALIAS);
     }
-    
+
 }

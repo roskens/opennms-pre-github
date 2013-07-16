@@ -35,7 +35,7 @@ import org.junit.Test;
 
 /**
  * The Test Class for MockSftp3gppStrictCollectionHandler.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockSftp3gppStrictCollectionHandlerTest {

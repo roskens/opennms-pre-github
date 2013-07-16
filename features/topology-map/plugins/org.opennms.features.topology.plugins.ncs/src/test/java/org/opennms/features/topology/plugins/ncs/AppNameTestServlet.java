@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class AppNameTestServlet extends HttpServlet {
-    
+
     private String m_responseString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\" ?>" +
     		"<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\" >" +
     		"<ServiceResource>\n" +
@@ -37,7 +37,7 @@ public class AppNameTestServlet extends HttpServlet {
     		"</Service>" +
     		"</ServiceResource>" +
     		"</Data>";
-    
+
     private String m_responseString2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
     		"<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" +
     		"<ServiceResource>" +
@@ -64,7 +64,7 @@ public class AppNameTestServlet extends HttpServlet {
     		"</Service>" +
     		"</ServiceResource>" +
     		"</Data>";
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/xml");

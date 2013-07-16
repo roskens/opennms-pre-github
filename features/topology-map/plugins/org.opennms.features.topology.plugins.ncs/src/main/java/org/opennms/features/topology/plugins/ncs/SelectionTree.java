@@ -16,11 +16,11 @@ import com.vaadin.ui.Tree;
 public abstract class SelectionTree extends Tree {
 
     private static class TreeItemClickTracker {
-        
+
         private Object m_clickedItemId;
         private boolean m_remove;
         public TreeItemClickTracker() {}
-        
+
         public void setClickedItemId(Object itemId) {
             m_clickedItemId = itemId;
             m_remove = false;
@@ -28,11 +28,11 @@ public abstract class SelectionTree extends Tree {
         public Object getClickedItemId() {
             return m_clickedItemId;
         }
-        
+
         public void setRemove(boolean remove) {
             m_remove = remove;
         }
-        
+
         public boolean isRemoved() {
             return m_remove;
         }
@@ -40,51 +40,51 @@ public abstract class SelectionTree extends Tree {
 
     private final TreeItemClickTracker m_treeItemClickTracker = new TreeItemClickTracker();
     private boolean m_itemClicked = false;
-    
+
     protected GraphContainer m_graphContainer;
-    
+
     public SelectionTree(FilterableHierarchicalContainer container) {
         super(null, container);
-        
+
         this.addValueChangeListener(new ValueChangeListener() {
-            
+
             @Override
             public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
-                
+
                 //if(m_itemClicked) {
                     Set<Object> selectedIds = (Set<Object>) event.getProperty().getValue();
-                    
+
                     Collection<Object> allIds = (Collection<Object>) getContainerDataSource().getItemIds();
-                    
+
                     Set<Object> itemsToSelect = getSelectedItemIds(selectedIds);
-                    
+
                     Set<Object> itemsToDeselected = getItemsToDeselect(allIds, itemsToSelect);
-                    
+
                     deselectContainerItems(itemsToDeselected);
-                    
+
                     selectContainerItemAndChildren(itemsToSelect);
-                //} 
-                
+                //}
+
             }
         });
 
         /**
-         * This listener responds to clicks on items within the list and then 
+         * This listener responds to clicks on items within the list and then
          */
         this.addItemClickListener(new ItemClickListener() {
-            
+
             @Override
             public void itemClick(ItemClickEvent event) {
                 m_itemClicked = true;
                 Set<Object> selectedIds = (Set<Object>) ((SelectionTree) event.getSource()).getValue();
-                
+
                 Object itemId = event.getItemId();
                 m_treeItemClickTracker.setClickedItemId(itemId);
-                
+
                 if((event.isCtrlKey() || event.isMetaKey()) && selectedIds.contains(itemId)) {
                     m_treeItemClickTracker.setRemove(true);
-                } 
-                
+                }
+
             }
         });
     }

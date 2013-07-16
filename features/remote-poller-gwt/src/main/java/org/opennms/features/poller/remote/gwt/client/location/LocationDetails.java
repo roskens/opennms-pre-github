@@ -71,7 +71,7 @@ public class LocationDetails implements Serializable, IsSerializable {
 	public void setLocationMonitorState(final LocationMonitorState lms) {
 		m_locationMonitorState = lms;
 	}
-	
+
 	/**
 	 * <p>getApplicationState</p>
 	 *

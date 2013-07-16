@@ -54,7 +54,7 @@ public class NotificationCommandFactory extends NotificationCommandManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
     private NotificationCommandFactory() {
     }
@@ -86,7 +86,7 @@ public class NotificationCommandFactory extends NotificationCommandManager {
 
         return instance;
     }
-    
+
     /**
      * <p>update</p>
      *

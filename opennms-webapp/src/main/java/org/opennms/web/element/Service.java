@@ -33,7 +33,7 @@ import org.opennms.netmgt.model.OnmsMonitoredService;
 
 public class Service {
     private int m_id;
-    
+
     private int m_nodeId;
 
     private String m_ipAddr;
@@ -53,7 +53,7 @@ public class Service {
     Service(OnmsMonitoredService monSvc) {
         setId(monSvc.getId());
         setNodeId(monSvc.getNodeId());
-        
+
         setIpAddress(InetAddressUtils.str(monSvc.getIpAddress()));
         setServiceId(monSvc.getServiceId());
         setServiceName(monSvc.getServiceName());

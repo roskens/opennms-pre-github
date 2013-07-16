@@ -32,9 +32,9 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public interface TimeKeeper {
-    
+
     long getCurrentTime();
-    
+
     Date getCurrentDate();
 
     TimeZone getTimeZone();

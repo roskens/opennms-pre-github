@@ -39,29 +39,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsLocationAvailDefinitionList extends LinkedList<OnmsLocationAvailDataPoint> {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1L;
-    
+
     public OnmsLocationAvailDefinitionList() {
         super();
     }
-    
+
     public OnmsLocationAvailDefinitionList(Collection<? extends OnmsLocationAvailDataPoint> c) {
         super(c);
     }
-    
+
     @XmlElement(name="data")
     public List<OnmsLocationAvailDataPoint> getDefinitions(){
         return this;
     }
-    
+
     public void setDefinitions(List<OnmsLocationAvailDataPoint> defs) {
         if (defs == this) return;
         clear();
         addAll(defs);
     }
-    
+
     public void addDefinition(OnmsLocationAvailDataPoint def) {
         add(def);
     }

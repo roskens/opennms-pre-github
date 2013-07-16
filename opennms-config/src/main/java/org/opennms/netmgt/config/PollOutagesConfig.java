@@ -39,7 +39,7 @@ package org.opennms.netmgt.config;
  * @version $Id: $
  */
 public interface PollOutagesConfig {
-    
+
     /**
      * Return if the node represented by the nodeid is part of specified outage.
      *
@@ -70,7 +70,7 @@ public interface PollOutagesConfig {
      * @return true if current time is in outage
      */
     public abstract boolean isCurTimeInOutage(String outName);
-    
+
     /**
      * Return if time is part of specified outage.
      *
@@ -88,6 +88,6 @@ public interface PollOutagesConfig {
      * @throws java.lang.Exception if any.
      */
     public abstract void update() throws Exception;
-    
+
 
 }

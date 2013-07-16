@@ -45,7 +45,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	selenium.click("link=Configure SNMP Community Names by IP");
     	waitForPageToLoad();
     }
-    
+
     /**
      * Tests if getting the current snmp configuration for a specific ip address works.
      */
@@ -55,7 +55,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	selenium.type("name=ipAddress",  "1.1.1.1");
     	selenium.click("name=getConfig");
     	waitForPageToLoad();
-    	
+
     	assertEquals("", selenium.getValue("name=ipAddress"));
     	assertEquals("v2c", selenium.getValue("name=version"));
     	assertEquals("1.1.1.1", selenium.getValue("name=firstIPAddress"));
@@ -78,8 +78,8 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	assertEquals("", selenium.getValue("name=contextEngineId"));
     	assertEquals("", selenium.getValue("name=contextName"));
     	assertEquals("", selenium.getValue("name=enterpriseId"));
-    	
-    	
+
+
     	//v3
     	gotoPage();
     	selenium.type("name=firstIPAddress",  "1.2.3.4");
@@ -89,7 +89,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	selenium.type("name=ipAddress",  "1.2.3.4");
     	selenium.click("name=getConfig");
     	waitForPageToLoad();
-    	
+
     	assertEquals("", selenium.getValue("name=ipAddress"));
     	assertEquals("v3", selenium.getValue("name=version"));
     	assertEquals("1.2.3.4", selenium.getValue("name=firstIPAddress"));
@@ -112,67 +112,67 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	assertEquals("", selenium.getValue("name=contextEngineId"));
     	assertEquals("", selenium.getValue("name=contextName"));
     	assertEquals("", selenium.getValue("name=enterpriseId"));
-    	
+
     }
-    
+
     /**
-     * Tests that only one "version specifics" area is visible at the time. 
+     * Tests that only one "version specifics" area is visible at the time.
      */
     @Test
     public void testVersionHandling() {
     	assertEquals("v2c", selenium.getValue("name=version"));
     	assertTrue(selenium.isTextPresent("v1/v2c specific parameters"));
     	assertFalse(selenium.isTextPresent("v3 specific parameters"));
-    	
+
     	// change to v3
     	selenium.select("name=version", "v3");
     	assertFalse(selenium.isTextPresent("v1/v2c specific parameters"));
     	assertTrue(selenium.isTextPresent("v3 specific parameters"));
-    	
+
     	// change to v1
     	selenium.select("name=version", "v1");
     	assertTrue(selenium.isTextPresent("v1/v2c specific parameters"));
     	assertFalse(selenium.isTextPresent("v3 specific parameters"));
     }
-    
+
     /**
      * Tests if the validation of the integer fields in the "saveConfig" form works fine.
-     * 
+     *
      */
     @Test
     public void testIntegerValidation() {
     	final String defaultValidationErrorTemplate = "%s is not a valid %s. Please enter a number greater than 0 or leave it empty.";
     	final String maxRequestSizeErrorTemplate = "%s is not a valid %s. Please enter a number greater or equal than 484 or leave it empty.";
     	final String[] integerFields = new String[]{
-    			"timeout", 
-    			"retryCount", 
-    			"port", 
-    			"maxVarsPerPdu", 
+			"timeout",
+			"retryCount",
+			"port",
+			"maxVarsPerPdu",
     			"maxRepetitions",
     			"maxRequestSize"};
     	final String[] fieldLabels = new String[]{
-    			"timeout", 
-    			"Retry Count", 
+			"timeout",
+			"Retry Count",
     			"Port",
     			"Max Vars Per Pdu",
     			"Max Repetitions",
     			"Max Request Size"};
     	final String[] errorMessages = new String[]{
-    			defaultValidationErrorTemplate, 
-    			defaultValidationErrorTemplate, 
-    			defaultValidationErrorTemplate, 
-    			defaultValidationErrorTemplate, 
+			defaultValidationErrorTemplate,
+			defaultValidationErrorTemplate,
+			defaultValidationErrorTemplate,
+			defaultValidationErrorTemplate,
     			defaultValidationErrorTemplate,
     			maxRequestSizeErrorTemplate};
     	assertTrue("integerFields and fieldDescriptions must have the same length", integerFields.length == fieldLabels.length);
     	assertTrue("integerFields and errorMessages must have the same length", integerFields.length == errorMessages.length);
-    	
+
     	for (int i=0; i<integerFields.length; i++) {
     		if (i>0) gotoPage(); // reset page
     		final String fieldName = integerFields[i];
     		final String fieldLabel = fieldLabels[i];
     		final String errorMessageTemplate = errorMessages[i];
-    		
+
     		// we must set first ip to a valid value, otherwise we get an "ip not set" error
     		selenium.type("name=firstIPAddress", "1.2.3.4");
     		// now do the validation
@@ -187,7 +187,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     		// reset to default
     		selenium.type("name=" + fieldName,  "");
     	}
-    	
+
     	// now test max request size individually
     	final String[] input = new String[]{"483", "484", "65535", "65536"};
     	final boolean[] success = new boolean[]{false, true, true, true};
@@ -198,16 +198,16 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     		validate(maxRequestSizeErrorTemplate, "maxRequestSize", "Max Request Size", input[i], success[i]);
     	}
     }
-    
+
     private void validate (String errorMessageTemplate, String fieldName, String fieldLabel, String fieldValue, Boolean success) {
     	selenium.click("name=saveConfig");
     	waitForPageToLoad();
-    	assertTrue(fieldName+": On success, there should not be any alert", success == !selenium.isAlertPresent()); 
+	assertTrue(fieldName+": On success, there should not be any alert", success == !selenium.isAlertPresent());
     	// if no success, validate the error message
     	if (!success) assertEquals(String.format(errorMessageTemplate, fieldValue, fieldLabel), selenium.getAlert());
     	assertTrue(fieldName + ": On Success, there should be a 'success message'", success == selenium.isTextPresent("Finished configuring SNMP"));
     }
-    
+
     /**
      * Tests if the ip address validation in the "saveConfig" form works fine.
      * @throws Exception
@@ -222,7 +222,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isAlertPresent());
         assertEquals("Please enter a valid first IP address!", selenium.getAlert());
         assertFalse(selenium.isTextPresent("Finished configuring SNMP"));
-        
+
         //invalid first and empty last ip
         gotoPage();
         selenium.type("name=firstIPAddress", "1234");
@@ -232,7 +232,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isAlertPresent());
         assertEquals("1234 is not a valid IP address!", selenium.getAlert());
         assertFalse(selenium.isTextPresent("Finished configuring SNMP"));
-        
+
         // valid first and invalid last ip
         gotoPage();
         selenium.type("name=firstIPAddress", "1.1.1.1");
@@ -251,7 +251,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         waitForPageToLoad();
         assertFalse(selenium.isAlertPresent());
         assertTrue(selenium.isTextPresent("Finished configuring SNMP"));
-        
+
         // valid first ip and valid last ip
         gotoPage();
         selenium.type("name=firstIPAddress", "1.1.1.1");
@@ -261,7 +261,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         assertFalse(selenium.isAlertPresent());
         assertTrue(selenium.isTextPresent("Finished configuring SNMP"));
     }
-    
+
     /**
      * Tests that the cancel button works as expected.
      */
@@ -276,17 +276,17 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("Descriptions"));
         assertTrue(selenium.isTextPresent("Scheduled Outages: Add"));
         assertTrue(selenium.isTextPresent("Notification Status:"));
-        
+
     	// go anywhere, but admin page
-    	selenium.click("link=Configure SNMP Community Names by IP"); 
+	selenium.click("link=Configure SNMP Community Names by IP");
     }
-    
+
     /**
      * Tests that one or both save options can be selected, but that there must be at least one selection.
      */
     @Test
     public void testSaveOptions() {
-    	// OK 
+	// OK
     	selenium.type("name=firstIPAddress", "1.1.1.1");
     	selenium.check("id=sendEventOption");
     	selenium.uncheck("id=saveLocallyOption");
@@ -294,8 +294,8 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	waitForPageToLoad();
         assertFalse(selenium.isAlertPresent());
         assertTrue(selenium.isTextPresent("Finished configuring SNMP"));
-        
-        // OK 
+
+        // OK
         gotoPage();
         selenium.type("name=firstIPAddress", "1.1.1.1");
         selenium.uncheck("id=sendEventOption");
@@ -304,8 +304,8 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	waitForPageToLoad();
         assertFalse(selenium.isAlertPresent());
         assertTrue(selenium.isTextPresent("Finished configuring SNMP"));
-        
-        // OK 
+
+        // OK
         gotoPage();
         selenium.type("name=firstIPAddress", "1.1.1.1");
         selenium.check("id=sendEventOption");
@@ -314,7 +314,7 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
     	waitForPageToLoad();
         assertFalse(selenium.isAlertPresent());
         assertTrue(selenium.isTextPresent("Finished configuring SNMP"));
-        
+
         // Error
         gotoPage();
         selenium.type("name=firstIPAddress", "1.1.1.1");
@@ -325,5 +325,5 @@ public class AdminSnmpConfigForIpPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isAlertPresent());
         assertEquals("You must select either 'send Event' or 'save locally'. It is possible to select both options.", selenium.getAlert());
     }
-    
+
 }

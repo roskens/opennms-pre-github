@@ -60,13 +60,13 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
     private long m_currentVersion = -1L;
 
-    
+
     /**
      * constructor constructor
      *
@@ -123,7 +123,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         setInstance(config);
 
     }
-    
+
     /**
      * Reload the config from the default config file
      *
@@ -141,7 +141,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         init();
         getInstance().update();
     }
-        
+
     /**
      * Return the singleton instance of this factory.
      *
@@ -155,7 +155,7 @@ public class MapsAdapterConfigFactory extends MapsAdapterConfigManager {
         }
         return m_singleton;
     }
-    
+
     private static void setInstance(final MapsAdapterConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;

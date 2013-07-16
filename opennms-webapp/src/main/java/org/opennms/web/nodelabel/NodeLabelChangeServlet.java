@@ -65,7 +65,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 public class NodeLabelChangeServlet extends HttpServlet {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7766362068448931124L;
     protected EventProxy proxy;
@@ -159,7 +159,7 @@ public class NodeLabelChangeServlet extends HttpServlet {
      * @throws org.opennms.netmgt.model.events.EventProxyException if any.
      */
     protected void sendLabelChangeEvent(int nodeId, NodeLabel oldNodeLabel, NodeLabel newNodeLabel) throws EventProxyException {
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_LABEL_CHANGED_EVENT_UEI, "NodeLabelChangeServlet");
 
         bldr.setNodeid(nodeId);

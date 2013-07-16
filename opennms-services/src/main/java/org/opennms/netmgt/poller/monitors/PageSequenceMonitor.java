@@ -112,12 +112,12 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 public class PageSequenceMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(PageSequenceMonitor.class);
-    
+
     protected class SequenceTracker{
-        
+
         TimeoutTracker m_tracker;
         public SequenceTracker(Map<String, Object> parameterMap, int defaultSequenceRetry, int defaultTimeout) {
             Map<String, Object> parameters = new HashMap<String, Object>();
@@ -142,7 +142,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
             return m_tracker.elapsedTimeInMillis();
         }
     }
-    
+
     private static final int DEFAULT_SEQUENCE_RETRY = 0;
 
     //FIXME: This should be wired with Spring
@@ -219,7 +219,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                     responseTimes.put(page.getDsName(), page.getResponseTime());
                 }
             }
-            
+
         }
 
         protected Properties getSequenceProperties() {
@@ -366,7 +366,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                     String[] streetCred = userInfo.split(":", 2);
                     if (streetCred.length == 2) {
                         client.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(streetCred[0], streetCred[1]));
-                    } else { 
+                    } else {
                         LOG.warn("Illegal value found for username/password HTTP credentials: {}", userInfo);
                     }
                 }
@@ -679,23 +679,23 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
         PollStatus serviceStatus = PollStatus.unavailable("Poll not completed yet");
 
         Map<String,Number> responseTimes = new LinkedHashMap<String,Number>();
-        
+
         SequenceTracker tracker = new SequenceTracker(parameterMap, DEFAULT_SEQUENCE_RETRY, DEFAULT_TIMEOUT);
         for(tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt() ) {
             try {
                 PageSequenceMonitorParameters parms = PageSequenceMonitorParameters.get(parameterMap);
-    
+
                 client = parms.createHttpClient();
-                
+
                 tracker.startAttempt();
                 responseTimes.put("response-time", Double.NaN);
                 parms.getPageSequence().execute(client, svc, responseTimes);
-    
+
                 double responseTime = tracker.elapsedTimeInMillis();
                 serviceStatus = PollStatus.available();
                 responseTimes.put("response-time", responseTime);
                 serviceStatus.setProperties(responseTimes);
-    
+
             } catch (PageSequenceMonitorException e) {
                 serviceStatus = PollStatus.unavailable(e.getMessage());
                 serviceStatus.setProperties(responseTimes);
@@ -709,7 +709,7 @@ public class PageSequenceMonitor extends AbstractServiceMonitor {
                 }
             }
         }
-        
+
         return serviceStatus;
     }
 }

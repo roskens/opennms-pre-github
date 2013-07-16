@@ -36,15 +36,15 @@ public class Impacted {
 
 	private Component m_target;
 	private Event m_cause;
-	
+
 	public Impacted() {}
-	
+
 	public Impacted(Component target, Event cause)
 	{
 		m_target = target;
 		m_cause = cause;
 	}
-	
+
 	public Component getTarget() {
 		return m_target;
 	}
@@ -60,7 +60,7 @@ public class Impacted {
 
 	@Override
 	public String toString() {
-		return "Impacted[ target=" + m_target + 
+		return "Impacted[ target=" + m_target +
 				", cause=" + m_cause.getUei() + "(" + m_cause.getDbid() + ")" +
 				" ]";
 	}
@@ -78,11 +78,11 @@ public class Impacted {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
-		
+
 		if (obj instanceof Impacted) {
 			Impacted o = (Impacted)obj;
 			return nullSafeEquals(m_target, o.m_target)
-				&& m_cause == null 
+				&& m_cause == null
 				? o.m_cause == null
 				: o.m_cause == null
 				? false
@@ -94,9 +94,9 @@ public class Impacted {
 		}
 		return false;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

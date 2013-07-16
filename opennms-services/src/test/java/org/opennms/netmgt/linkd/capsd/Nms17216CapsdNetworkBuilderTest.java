@@ -78,13 +78,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder implements InitializingBean {
 
-    
+
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
     @Autowired
     private Capsd m_capsd;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -97,7 +97,7 @@ public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder impl
 
         super.setIpInterfaceDao(m_interfaceDao);
         MockLogAppender.setupLogging(p);
-        assertTrue("Capsd must not be null", m_capsd != null);        
+        assertTrue("Capsd must not be null", m_capsd != null);
     }
 
 
@@ -136,7 +136,7 @@ public class Nms17216CapsdNetworkBuilderTest extends Nms17216NetworkBuilder impl
         printNode(SWITCH3_IP,"SWITCH3");
         printNode(SWITCH4_IP,"SWITCH4");
         printNode(SWITCH5_IP,"SWITCH5");
-        
+
         m_capsd.stop();
     }
 }

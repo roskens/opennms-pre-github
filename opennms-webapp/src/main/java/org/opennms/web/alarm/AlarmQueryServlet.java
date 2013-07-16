@@ -70,7 +70,7 @@ import org.opennms.web.servlet.MissingParameterException;
  */
 public class AlarmQueryServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 9140535159580534211L;
 

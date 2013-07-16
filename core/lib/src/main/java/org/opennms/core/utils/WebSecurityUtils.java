@@ -46,15 +46,15 @@ import org.springframework.beans.BeanWrapperImpl;
  * @version $Id: $
  */
 public abstract class WebSecurityUtils {
-	
+
 	private final static Logger LOG = LoggerFactory.getLogger(WebSecurityUtils.class);
-	
+
 	private final static Pattern ILLEGAL_IN_INTEGER = Pattern.compile("[^0-9+-]");
-	
+
 	private final static Pattern ILLEGAL_IN_FLOAT = Pattern.compile("[^0-9.Ee+-]");
-	
+
 	private final static Pattern ILLEGAL_IN_COLUMN_NAME_PATTERN = Pattern.compile("[^A-Za-z0-9_]");
-	
+
     private final static Pattern scriptPattern = Pattern.compile("script", Pattern.CASE_INSENSITIVE);
 
     /**
@@ -69,7 +69,7 @@ public abstract class WebSecurityUtils {
         }
         return raw;
     }
-    
+
     /**
      * <p>sanitizeString</p>
      *
@@ -79,7 +79,7 @@ public abstract class WebSecurityUtils {
     public static String sanitizeString(String raw) {
         return sanitizeString(raw, false);
     }
-    
+
     /**
      * <p>sanitizeString</p>
      *
@@ -129,7 +129,7 @@ public abstract class WebSecurityUtils {
 		String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
 		return Integer.parseInt(clean);
 	}
-	
+
 	/**
 	 * <p>safeParseLong</p>
 	 *
@@ -141,7 +141,7 @@ public abstract class WebSecurityUtils {
 		String clean = ILLEGAL_IN_INTEGER.matcher(dirty).replaceAll("");
 		return Long.parseLong(clean);
 	}
-	
+
 	/**
 	 * <p>safeParseFloat</p>
 	 *
@@ -153,7 +153,7 @@ public abstract class WebSecurityUtils {
 		String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
 		return Float.parseFloat(clean);
 	}
-	
+
 	/**
 	 * <p>safeParseDouble</p>
 	 *
@@ -165,7 +165,7 @@ public abstract class WebSecurityUtils {
 		String clean = ILLEGAL_IN_FLOAT.matcher(dirty).replaceAll("");
 		return Double.parseDouble(clean);
 	}
-	
+
     /**
      * <p>sanitizeDbColumnName</p>
      *
@@ -178,21 +178,21 @@ public abstract class WebSecurityUtils {
 
     /**
      * <p>sanitizeBeanStringProperties</p>
-     * This is a simple method is used to sanitize all bean string properties. 
-     * 
-     * @param bean a {@link java.lang.Object} object. 
+     * This is a simple method is used to sanitize all bean string properties.
+     *
+     * @param bean a {@link java.lang.Object} object.
      * @param Set of fieldnames as Strings that are allowed for html content. All fieldnames in lowercase. null -> no html
      * @return a {@link java.lang.Object} object.
      */
     public static <T> T sanitizeBeanStringProperties(T bean, Set<String> allowHtmlFields) {
     	BeanWrapper beanWrapper = new BeanWrapperImpl(bean.getClass());
-    	
+
     	// get all bean property descriptors
     	PropertyDescriptor[] descriptions = beanWrapper.getPropertyDescriptors();
-    	
+
     	// Iterate over all properties
     	for (PropertyDescriptor description : descriptions) {
-    		
+
     		// If we have a property with type of java.lang.String, then sanitize string and write back
     		if (description.getReadMethod().getReturnType().equals(java.lang.String.class)) {
     			try {

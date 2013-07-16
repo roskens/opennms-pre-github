@@ -66,8 +66,8 @@ import com.novell.ldap.LDAPSocketFactory;
 
 @Distributable
 public class LdapMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(LdapMonitor.class);
 
     /**
@@ -164,7 +164,7 @@ public class LdapMonitor extends AbstractServiceMonitor {
 
             // We're connected, so upgrade status to unresponsive
             serviceStatus = PollStatus.SERVICE_UNRESPONSIVE;
-        
+
 
             if (socket != null)
                 socket.close();
@@ -172,7 +172,7 @@ public class LdapMonitor extends AbstractServiceMonitor {
             // lets detect the service
             LDAPConnection lc = new LDAPConnection(new TimeoutLDAPSocket(tracker.getSoTimeout()));
 
-            
+
             for (tracker.reset(); tracker.shouldRetry() && !(serviceStatus == PollStatus.SERVICE_AVAILABLE); tracker.nextAttempt()) {
                 LOG.debug("polling LDAP on {}, {}", address, tracker);
 
@@ -258,7 +258,7 @@ public class LdapMonitor extends AbstractServiceMonitor {
 		LOG.debug("An undeclared throwable exception caught contacting host {}", address, t);
         	reason = "An undeclared throwable exception caught contacting host " + address;
         }
-        
+
         return PollStatus.get(serviceStatus, reason, responseTime);
     }
 

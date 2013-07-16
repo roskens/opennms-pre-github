@@ -39,25 +39,25 @@ import org.junit.runners.Suite;
 import org.junit.runners.model.InitializationError;
 
 public class SeleniumJUnitRunner extends Suite{
-    
+
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface BaseUrl{
         String url();
     }
-    
+
     @Retention(RetentionPolicy.RUNTIME)
     public static @interface TimeoutInSeconds{
         int timeout();
     }
-    
+
     private final List<Runner> m_runners = new ArrayList<Runner>();
-    
-    public SeleniumJUnitRunner(Class<?> testClass) throws InitializationError 
+
+    public SeleniumJUnitRunner(Class<?> testClass) throws InitializationError
     {
         super(testClass, Collections.<Runner>emptyList());
         m_runners.add(new TestClassRunnerForSelenium( getTestClass().getJavaClass(), getBaseUrlAnnotation( testClass ), getTimeoutAnnotation(testClass) ) );
     }
-    
+
 
     private int getTimeoutAnnotation(Class<?> testClass) {
         SeleniumJUnitRunner.TimeoutInSeconds timeout = testClass.getAnnotation(SeleniumJUnitRunner.TimeoutInSeconds.class);

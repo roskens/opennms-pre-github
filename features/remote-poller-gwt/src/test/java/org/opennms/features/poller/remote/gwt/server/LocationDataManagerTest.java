@@ -93,23 +93,23 @@ import de.novanic.eventservice.service.EventExecutorService;
 @Transactional
 @Ignore("requires custom database")
 public class LocationDataManagerTest implements InitializingBean {
-    
+
     private static final DateFormat s_format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss,SSS");
-    
+
     @Autowired
     private LocationMonitorDao m_locationMonitorDao;
-    
+
     @Autowired
     private LocationDataManager m_locationDataManager;
-    
+
     @Autowired
     private LocationDataService m_locationDataService;
-    
+
     @Autowired
     private ApplicationDao m_applicationDao;
 
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -122,7 +122,7 @@ public class LocationDataManagerTest implements InitializingBean {
         p.setProperty("log4j.logger.org.hibernate.SQL", "DEBUG");
         MockLogAppender.setupLogging(p);
     }
-    
+
     @Test
     public void testHandleAllMonitoringLocationDefinitions() {
         LocationDefHandler handler = m_easyMockUtils.createMock(LocationDefHandler.class);
@@ -130,11 +130,11 @@ public class LocationDataManagerTest implements InitializingBean {
         handler.handle(isA(OnmsMonitoringLocationDefinition.class));
         expectLastCall().times(2880);
         handler.finish();
-        
+
         m_easyMockUtils.replayAll();
-        
+
         m_locationDataService.handleAllMonitoringLocationDefinitions(Collections.singleton(handler));
-        
+
         m_easyMockUtils.verifyAll();
     }
 
@@ -143,15 +143,15 @@ public class LocationDataManagerTest implements InitializingBean {
     public void testGetInfoForAllLocations() {
         long count = 10;
         long start = System.currentTimeMillis();
-        
+
         for(int i = 0; i < count; i++ ) {
             List<LocationInfo> locations = m_locationDataService.getInfoForAllLocations();
             assertEquals(2880, locations.size());
         }
-        
+
         System.err.printf("Avg getInfoForAllLocations: %d\n", (System.currentTimeMillis() - start)/count);
     }
-    
+
     @Test
     public void testGetStatusDetailsForAllLocations() {
         Map<String, StatusDetails> statusDetails = m_locationDataService.getStatusDetailsForAllLocations();
@@ -164,7 +164,7 @@ public class LocationDataManagerTest implements InitializingBean {
 
         assertEquals(12, countStatus(Status.DOWN, statusDetails));
         assertEquals(357, countStatus(Status.UP, statusDetails));
-        
+
     }
 
     private int countStatus(Status status, Map<String, StatusDetails> statusDetails) {
@@ -176,12 +176,12 @@ public class LocationDataManagerTest implements InitializingBean {
         }
         return count;
     }
-    
+
     @Test
     public void testGetInfoForAllApplications() {
         long count = 10;
         long start = System.currentTimeMillis();
-        
+
         for(int i = 0; i < count; i++ ) {
             List<ApplicationInfo> applications = m_locationDataService.getInfoForAllApplications();
             assertEquals(12, applications.size());
@@ -189,15 +189,15 @@ public class LocationDataManagerTest implements InitializingBean {
 
         System.err.printf("Avg getInfoForAllApplications: %d\n", (System.currentTimeMillis() - start)/count);
     }
-    
+
     @Test
     public void testGetSatusDetailsForLocation() {
-        
+
         OnmsMonitoringLocationDefinition def = m_locationMonitorDao.findMonitoringLocationDefinition("00002");
-        
+
         m_locationDataService.getStatusDetailsForLocation(def);
     }
-    
+
     @Test
     public void testGetSatusDetailsForApplication() {
         String appName = "Domain Controllers";
@@ -218,36 +218,36 @@ public class LocationDataManagerTest implements InitializingBean {
 
         System.err.println(String.format("Avg getStatusDetailsForApplication: %d\n", (System.currentTimeMillis() - start)/count));
     }
-    
+
     @Test
     public void testGetApplicationInfo() {
         String appName = "Domain Controllers";
-        
-        
-        
-        OnmsApplication app = m_applicationDao.findByName(appName);  
-        
+
+
+
+        OnmsApplication app = m_applicationDao.findByName(appName);
+
         System.err.println("TEST testGetApplicationInfo: calling getApplicationInfo");
-        
+
         m_locationDataService.getApplicationInfo(app, new StatusDetails());
     }
-    
+
     @Test
     public void testLocationMonitorDaoFindByApplication() {
-        
+
         OnmsApplication app = m_applicationDao.findByName("Domain Controllers");
-        
+
         Collection<OnmsLocationMonitor> monitors = m_locationMonitorDao.findByApplication(app);
-        
+
         assertEquals(376, monitors.size());
 
     }
 
     @Test
     public void testGetAllStatusChangesAt() {
-        
+
         Collection<OnmsLocationSpecificStatus> changes = m_locationMonitorDao.getAllStatusChangesAt(new Date());
-        
+
 
         assertEquals(4888, changes.size());
 
@@ -256,7 +256,7 @@ public class LocationDataManagerTest implements InitializingBean {
     @Test
     @Ignore
     public void testGetStatusChangesForApplicationBetween() throws ParseException {
-        
+
         Collection<OnmsLocationSpecificStatus> changes = m_locationMonitorDao.getStatusChangesForApplicationBetween(june(7, 2010), june(8, 2010), "Domain Controllers");
        assertEquals(54, changes.size());
 
@@ -265,7 +265,7 @@ public class LocationDataManagerTest implements InitializingBean {
     @Test
     public void testStart() {
         EventExecutorService service = m_easyMockUtils.createMock(EventExecutorService.class);
-        
+
         service.addEventUserSpecific(hasStatus(Status.DOWN));
         expectLastCall().times(12);
         service.addEventUserSpecific(hasStatus(Status.UP));
@@ -277,32 +277,32 @@ public class LocationDataManagerTest implements InitializingBean {
 
         service.addEventUserSpecific(hasStatus(Status.STOPPED));
         expectLastCall().times(4);
-        
+
         service.addEventUserSpecific(hasStatus(Status.UNKNOWN));
         expectLastCall().times(2880-376);
-        
+
         service.addEventUserSpecific(isA(ApplicationUpdatedRemoteEvent.class));
         expectLastCall().times(12);
         service.addEventUserSpecific(isA(UpdateCompleteRemoteEvent.class));
         m_easyMockUtils.replayAll();
         m_locationDataManager.doInitialize(service);
         m_easyMockUtils.verifyAll();
-        
+
     }
 
     @Test
     public void testJune() throws ParseException {
         Date d= june(1, 2009);
-        
+
         assertEquals("2009-06-01 00:00:00,000", s_format.format(d));
-        
+
     }
-    
+
     Date june(int day, int year) {
         Calendar cal = new GregorianCalendar(year, Calendar.JUNE, day);
         return cal.getTime();
     }
-    
+
 
     public static LocationUpdatedRemoteEvent hasStatus(final Status status) {
         reportMatcher(new IArgumentMatcher() {
@@ -321,9 +321,9 @@ public class LocationDataManagerTest implements InitializingBean {
                     return false;
                 }
             }
-            
+
         });
         return null;
     }
-    
+
 }

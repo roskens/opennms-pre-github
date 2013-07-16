@@ -84,7 +84,7 @@ public class OnmsMemo implements Serializable {
     @Column(name = "created")
     @Temporal(TemporalType.TIMESTAMP)
     private Date m_created;
-    
+
     @PreUpdate
     private void preUpdate() {
         m_updated = new Date();
@@ -126,7 +126,7 @@ public class OnmsMemo implements Serializable {
     public void setUpdated(Date updated) {
         this.m_updated = updated;
     }
-    
+
     public String getAuthor() {
         return m_author;
     }

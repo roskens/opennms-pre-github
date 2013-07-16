@@ -62,7 +62,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     /**
 	 * Create a round robin database definition from the supplied parameters.
 	 * This definition is used in the createFile call to create the actual file.
-	 * 
+	 *
 	 * @param creator
 	 *            - A string representing who is creating this file for use in
 	 *            log msgs
@@ -87,7 +87,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
     /**
 	 * Creates the round robin database defined by the supplied definition.
 	 * Should be able to handle rrdDef being null.
-	 * 
+	 *
 	 * @param rrdDef
 	 *            an round robin database definition created using the
 	 *            createDefinition call.
@@ -158,7 +158,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      */
     public Double fetchLastValue(String rrdFile, String ds, int interval) throws NumberFormatException, RrdException;
 
-    
+
     /**
      * Fetches the last value from the round robin database with the given name.
      * The interval passed in should be the interval associated with the round
@@ -199,7 +199,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @throws org.opennms.netmgt.rrd.RrdException if any.
      */
     public Double fetchLastValueInRange(String rrdFile, String ds, int interval, int range) throws NumberFormatException, RrdException;
-    
+
     /**
      * Creates an InputStream representing the bytes of a graph created from
      * round robin data. It accepts an rrdtool graph command. The underlying
@@ -217,7 +217,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *             if an RRD error occurs
      */
     public InputStream createGraph(String command, File workDir) throws IOException, RrdException;
-    
+
     /**
      * Creates an RrdGraphDetails object representing the graph created from
      * round robin data. It accepts an rrdtool graph command. The underlying
@@ -235,8 +235,8 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      *             if an RRD error occurs
      */
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir) throws IOException, RrdException;
-    
-    
+
+
     /**
      * Returns the number of pixels that the leftt-hand side of the graph is
      * offset from the left side of the created image.  The offset should
@@ -245,7 +245,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @return offset in pixels.  Should always be positive.
      */
     public int getGraphLeftOffset();
-    
+
     /**
      * Returns the number of pixels that the right-hand side of the graph is
      * offset from the right side of the created image.  The offset should
@@ -254,7 +254,7 @@ public interface RrdStrategy<D extends Object,F extends Object> {
      * @return offset in pixels.  Should always be negative.
      */
     public int getGraphRightOffset();
-    
+
     /**
      * Returns the number of pixels that the top of the graph is offset from
      * the top of the created image if there is single line of header text.

@@ -42,9 +42,9 @@ import org.opennms.netmgt.config.poller.Service;
  * Window - Preferences - Java - Code Style - Code Templates
  */
 public class MockPollerConfigTest extends TestCase {
-    
+
     MockPollerConfig m_pollerConfig;
-    
+
     @Override
     public void setUp() {
         MockNetwork network = new MockNetwork();
@@ -69,15 +69,15 @@ public class MockPollerConfigTest extends TestCase {
         m_pollerConfig.populatePackage(network);
         m_pollerConfig.setPollInterval("ICMP", 500L);
 
-        
+
     }
-    
+
     public void testPollerConfig() {
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
         m_pollerConfig.setPollInterval("HTTP", 750L);
         m_pollerConfig.setPollerThreads(5);
         m_pollerConfig.setCriticalService("YAHOO");
-        
+
         // test the nodeOutageProcessing setting works
         assertTrue(m_pollerConfig.isNodeOutageProcessingEnabled());
 
@@ -99,7 +99,7 @@ public class MockPollerConfigTest extends TestCase {
 
         Enumeration<Service> svcs = pkg.enumerateService();
         assertNotNull(svcs);
-        
+
         int svcCount = 0;
         boolean icmpFound = false;
         boolean httpFound = false;
@@ -118,7 +118,7 @@ public class MockPollerConfigTest extends TestCase {
                 assertEquals(1000L, svc.getInterval());
             }
         }
-        
+
         assertTrue(icmpFound);
         assertTrue(httpFound);
         assertEquals(3, svcCount);

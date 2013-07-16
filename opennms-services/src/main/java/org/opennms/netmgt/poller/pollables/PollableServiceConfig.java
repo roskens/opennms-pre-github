@@ -78,7 +78,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         m_pkg = pkg;
         m_timer = timer;
         m_configService = findService(pkg);
-        
+
         ServiceMonitor monitor = getServiceMonitor();
         monitor.initialize(m_service);
     }
@@ -95,7 +95,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         }
 
         throw new RuntimeException("Service name not part of package!");
-        
+
     }
 
     /**
@@ -125,11 +125,11 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
 		if (m_serviceMonitor == null) {
 			ServiceMonitor monitor = m_pollerConfig.getServiceMonitor(m_service.getSvcName());
 			m_serviceMonitor = new LatencyStoringServiceMonitorAdaptor(monitor, m_pollerConfig, m_pkg);
-			
+
 		}
 		return m_serviceMonitor;
 	}
-    
+
     /**
      * Uses the existing package name to try and re-obtain the package from the poller config factory.
      * Should be called when the poller config has been reloaded.
@@ -143,9 +143,9 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         m_pkg = newPkg;
         m_configService = findService(m_pkg);
         m_parameters = null;
-        
+
     }
-    
+
     /**
      * Should be called when thresholds configuration has been reloaded
      */
@@ -160,7 +160,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      */
     private synchronized Map<String,Object> getParameters() {
         if (m_parameters == null) {
-            
+
             m_parameters = createPropertyMap(m_configService);
         }
         return m_parameters;
@@ -178,7 +178,7 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
         }
         return m;
     }
-    
+
 
     /**
      * <p>getCurrentTime</p>
@@ -197,10 +197,10 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
      */
     @Override
     public synchronized long getInterval() {
-        
+
         if (m_service.isDeleted())
             return -1;
-        
+
         long when = m_configService.getInterval();
 
         if (m_service.getStatus().isDown()) {
@@ -229,14 +229,14 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
                 throw new RuntimeException("Downtime model is invalid, cannot schedule service " + m_service);
             }
         }
-        
+
         if (when < 0) {
             m_service.sendDeleteEvent();
         }
-        
+
         return when;
     }
-    
+
 
 
     /**
@@ -251,16 +251,16 @@ public class PollableServiceConfig implements PollConfig, ScheduleInterval {
             // Does the outage apply to the current time?
             if (m_pollOutagesConfig.isTimeInOutage(m_timer.getCurrentTime(), outageName)) {
                 // Does the outage apply to this interface?
-    
-                if (m_pollOutagesConfig.isNodeIdInOutage(nodeId, outageName) || 
-                    (m_pollOutagesConfig.isInterfaceInOutage(m_service.getIpAddr(), outageName)) || 
+
+                if (m_pollOutagesConfig.isNodeIdInOutage(nodeId, outageName) ||
+                    (m_pollOutagesConfig.isInterfaceInOutage(m_service.getIpAddr(), outageName)) ||
                         (m_pollOutagesConfig.isInterfaceInOutage("match-any", outageName))) {
                     LOG.debug("scheduledOutage: configured outage '{}' applies, {} will not be polled.", outageName, m_configService);
                     return true;
                 }
             }
         }
-    
+
         //return outageFound;
         return false;
     }

@@ -41,7 +41,7 @@ public class PollableSnmpInterfaceConfig implements ScheduleInterval {
 
     private Timer m_timer;
     private long interval;
-    
+
     /**
      * <p>Getter for the field <code>interval</code>.</p>
      *

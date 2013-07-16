@@ -48,25 +48,25 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DominoIIOPClient extends LineOrientedClient {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DominoIIOPClient.class);
     private int m_iorPort = 1000;
-    
+
     /** {@inheritDoc} */
     @Override
-    public void connect(final InetAddress host, final int port, final int timeout) throws IOException, Exception {        
+    public void connect(final InetAddress host, final int port, final int timeout) throws IOException, Exception {
         if(!preconnect(host, getIorPort(), timeout)) {
             throw new Exception("Failed to preconnect");
         }
     }
 
     /**
-     * @param timeout 
-     * @param port 
-     * @param host 
-     * @param timeout 
+     * @param timeout
+     * @param port
+     * @param host
+     * @param timeout
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private boolean preconnect(final InetAddress host, final int port, final int timeout) throws IOException {
         return retrieveIORText(InetAddressUtils.str(host), port, timeout);
@@ -111,7 +111,7 @@ public class DominoIIOPClient extends LineOrientedClient {
 			LOG.warn("Unable to connect to {}", u, e);
 		}
         if (!IOR.startsWith("IOR:")) return false;
-        
+
         return true;
     }
 
@@ -132,6 +132,6 @@ public class DominoIIOPClient extends LineOrientedClient {
     public int getIorPort() {
         return m_iorPort;
     }
-    
+
 
 }

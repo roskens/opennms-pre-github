@@ -44,7 +44,7 @@ import org.opennms.netmgt.provision.support.Client;
  * @version $Id: $
  */
 public class GpClient implements Client<GpRequest, GpResponse> {
-    
+
     private String m_script;
     private String m_args;
     private String m_banner;
@@ -55,20 +55,20 @@ public class GpClient implements Client<GpRequest, GpResponse> {
     private int m_exitStatus = 100;
     private String m_response = "";
     private String m_error = "";
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
-        
+
     }
 
     /** {@inheritDoc} */
     @Override
     public void connect(final InetAddress address, final int port, final int timeout) throws IOException, Exception {
         setExitStatus(100);
-        
+
         m_execRunner = new ExecRunner();
         m_execRunner.setMaxRunTimeSecs(convertToSeconds(timeout));
         final String hostAddress = InetAddressUtils.str(address);
@@ -77,9 +77,9 @@ public class GpClient implements Client<GpRequest, GpResponse> {
             setExitStatus(m_execRunner.exec(script));
         else
             setExitStatus(m_execRunner.exec(getScript() + " " + getHoption() + " " + hostAddress + " " + getToption() + " " + convertToSeconds(timeout) + " " + getArgs()));
-        
+
         if (m_execRunner.isMaxRunTimeExceeded()) {
-            
+
         } else {
             if (getExitStatus() == 0) {
                 setResponse(m_execRunner.getOutString());
@@ -106,7 +106,7 @@ public class GpClient implements Client<GpRequest, GpResponse> {
      */
     @Override
     public GpResponse receiveBanner() throws IOException, Exception {
-        
+
         return receiveResponse();
     }
 

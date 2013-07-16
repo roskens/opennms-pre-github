@@ -41,7 +41,7 @@ import org.opennms.netmgt.provision.DetectFutureListener;
  * @version $Id: $
  */
 public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFuture {
-    
+
     private final AsyncServiceDetector m_detector;
 
     /**
@@ -73,7 +73,7 @@ public class DetectFutureMinaImpl extends DefaultIoFuture implements DetectFutur
     public boolean isServiceDetected() {
         return Boolean.TRUE.equals(getValue());
     }
-    
+
     /**
      * <p>getException</p>
      *

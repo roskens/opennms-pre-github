@@ -57,7 +57,7 @@ public class HostResourceSWRunDetectorTest implements InitializingBean {
 
     @Autowired
     private HostResourceSWRunDetector m_detector;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -70,12 +70,12 @@ public class HostResourceSWRunDetectorTest implements InitializingBean {
         m_detector.setRetries(2);
         m_detector.setTimeout(500);
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFail() throws UnknownHostException{
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws UnknownHostException{
         m_detector.setServiceToDetect("WindowServer");
@@ -93,7 +93,7 @@ public class HostResourceSWRunDetectorTest implements InitializingBean {
         m_detector.setServiceToDetect("cron");
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectRegexSuccess() throws UnknownHostException{
         m_detector.setServiceToDetect("~snmp.*");

@@ -142,7 +142,7 @@ public final class SnmpCollection implements ReadyRunnable {
     public LldpLocalGroup m_lldpLocalGroup;
     public LldpLocTable m_lldpLocTable;
     public LldpRemTable m_lldpRemTable;
-    
+
     public OspfGeneralGroup m_ospfGeneralGroup;
     public OspfNbrTable m_osNbrTable;
     /**
@@ -198,7 +198,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * Constructs a new SNMP collector for a node using the passed interface
      * as the collection point. The collection does not occur until the
      * <code>run</code> method is invoked.
-     * 
+     *
      * @param nodeid
      * @param config
      *            The SnmpPeer object to collect from.
@@ -212,21 +212,21 @@ public final class SnmpCollection implements ReadyRunnable {
     }
 
     boolean hasOspfGeneralGroup() {
-        return (m_ospfGeneralGroup != null && !m_ospfGeneralGroup.failed() && m_ospfGeneralGroup.getOspfRouterId() != null);        
+        return (m_ospfGeneralGroup != null && !m_ospfGeneralGroup.failed() && m_ospfGeneralGroup.getOspfRouterId() != null);
     }
-    
+
     OspfGeneralGroup getOspfGeneralGroup() {
-        return m_ospfGeneralGroup; 
+        return m_ospfGeneralGroup;
     }
-    
+
     public boolean hasOspfNbrTable() {
         return (m_osNbrTable != null && !m_osNbrTable.failed() && !m_osNbrTable.isEmpty());
     }
 
     OspfNbrTable getOspfNbrTable() {
-        return m_osNbrTable;    
+        return m_osNbrTable;
     }
-    
+
     boolean hasLldpLocalGroup() {
         return (m_lldpLocalGroup != null && !m_lldpLocalGroup.failed() && m_lldpLocalGroup.getLldpLocChassisid() != null);
     }
@@ -289,7 +289,7 @@ public final class SnmpCollection implements ReadyRunnable {
     CdpGlobalGroup getCdpGlobalGroup() {
     	return m_cdpGlobalGroup;
     }
-    
+
     /**
      * Returns true if the CDP Cache table was collected.
      */
@@ -351,22 +351,22 @@ public final class SnmpCollection implements ReadyRunnable {
         runned = true;
         reschedule();
     }
-    
+
     private class TrackerBuilder {
     	private final CollectionTracker[] OF_TRACKERS = new CollectionTracker[0];
     	private String m_msg = null;
     	private List<CollectionTracker> m_trackerList = new ArrayList<CollectionTracker>();
-    	
+
     	public void add(String label, CollectionTracker... trackers) {
     		if (m_msg == null) {
     			m_msg = label;
     		} else {
     			m_msg += "/" + label;
     		}
-    		
+
     		m_trackerList.addAll(Arrays.asList(trackers));
     	}
-    	
+
     	public String getMessage() { return m_msg; }
     	public CollectionTracker[] getTrackers() { return m_trackerList.toArray(OF_TRACKERS); }
     	public boolean isEmpty() { return m_trackerList.isEmpty(); }
@@ -395,9 +395,9 @@ public final class SnmpCollection implements ReadyRunnable {
         m_lldpRemTable = new LldpRemTable(m_address);
 
         m_lldpLocTable = new LldpLocTable(m_address);
-        
+
         m_ospfGeneralGroup = new OspfGeneralGroup(m_address);
-        
+
         m_osNbrTable = new OspfNbrTable(m_address);
 
         if (m_collectIpRoute) {
@@ -407,7 +407,7 @@ public final class SnmpCollection implements ReadyRunnable {
 		if (m_collectVlan) {
 			m_vlanTable = createClass(m_vlanClass, m_address);
 		}
-		
+
 
 		LOG.debug("run: collecting : {}", m_agentConfig);
 		LOG.debug("run: collectVlan/collectIpRoute/collectStp/m_collectBridge/m_collectCdp/m_collectLldp/m_collectOspf: {}/{}/{}/{}/{}/{}/{}", m_collectVlan, m_collectIpRoute, m_collectStp, m_collectBridge, m_collectCdp,m_collectLldp,m_collectOspf);
@@ -433,8 +433,8 @@ public final class SnmpCollection implements ReadyRunnable {
         if (m_collectVlan && m_vlanTable != null) {
         	bldr.add("vlanTable", m_vlanTable);
         }
-        
-        
+
+
         LOG.debug("run: Collecting {} from {}", bldr.getMessage(), str(m_agentConfig.getEffectiveAddress()));
 
         if (!bldr.isEmpty()) {
@@ -475,8 +475,8 @@ public final class SnmpCollection implements ReadyRunnable {
         // If it has not VLAN collection no data download is done.
 
         // OnmsVlan vlan = null;
-        
-        
+
+
 
         if (this.hasVlanTable()) {
         	VlanTableBasic basicvlans = (VlanTableBasic) m_vlanTable;
@@ -570,7 +570,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getScheduler
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
      */
     public Scheduler getScheduler() {
@@ -581,7 +581,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * setScheduler
      * </p>
-     * 
+     *
      * @param scheduler
      *            a {@link org.opennms.netmgt.linkd.scheduler.Scheduler}
      *            object.
@@ -594,7 +594,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getInitialSleepTime
      * </p>
-     * 
+     *
      * @return Returns the initial_sleep_time.
      */
     public long getInitialSleepTime() {
@@ -605,7 +605,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * setInitialSleepTime
      * </p>
-     * 
+     *
      * @param initial_sleep_time
      *            The initial_sleep_timeto set.
      */
@@ -617,7 +617,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getPollInterval
      * </p>
-     * 
+     *
      * @return Returns the initial_sleep_time.
      */
     public long getPollInterval() {
@@ -628,7 +628,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * setPollInterval
      * </p>
-     * 
+     *
      * @param interval
      *            a long.
      */
@@ -650,7 +650,7 @@ public final class SnmpCollection implements ReadyRunnable {
     }
 
     /**
-	 * 
+	 *
 	 */
     private void reschedule() {
         if (m_scheduler == null)
@@ -663,7 +663,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     @Override
@@ -675,7 +675,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * isSuspended
      * </p>
-     * 
+     *
      * @return Returns the suspendCollection.
      */
     @Override
@@ -736,7 +736,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getVlanClass
      * </p>
-     * 
+     *
      * @return Returns the m_vlanClass.
      */
     public String getVlanClass() {
@@ -747,7 +747,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * setVlanClass
      * </p>
-     * 
+     *
      * @param className
      *            a {@link java.lang.String} object.
      */
@@ -760,7 +760,7 @@ public final class SnmpCollection implements ReadyRunnable {
 
     /**
      * Returns the target address that the collection occurred for.
-     * 
+     *
      * @return a {@link java.net.InetAddress} object.
      */
     public InetAddress getTarget() {
@@ -771,7 +771,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * collectVlanTable
      * </p>
-     * 
+     *
      * @return Returns the m_collectVlanTable.
      */
     public boolean collectVlanTable() {
@@ -782,7 +782,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getReadCommunity
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public String getReadCommunity() {
@@ -793,7 +793,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getPeer
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     public SnmpAgentConfig getPeer() {
@@ -804,7 +804,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getPort
      * </p>
-     * 
+     *
      * @return a int.
      */
     public int getPort() {
@@ -827,7 +827,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getInfo
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -855,7 +855,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getCollectBridgeForwardingTable
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean getCollectBridge() {
@@ -866,7 +866,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * collectBridgeForwardingTable
      * </p>
-     * 
+     *
      * @param bridgeForwardingTable
      *            a boolean.
      */
@@ -878,7 +878,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getCollectCdpTable
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean getCollectCdp() {
@@ -889,7 +889,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * collectCdpTable
      * </p>
-     * 
+     *
      * @param cdpTable
      *            a boolean.
      */
@@ -901,7 +901,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getCollectIpRouteTable
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean getCollectIpRoute() {
@@ -912,7 +912,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * collectIpRouteTable
      * </p>
-     * 
+     *
      * @param ipRouteTable
      *            a boolean.
      */
@@ -924,7 +924,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * getCollectStpNode
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean getCollectStp() {
@@ -935,7 +935,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * collectStpNode
      * </p>
-     * 
+     *
      * @param stpNode
      *            a boolean.
      */
@@ -947,7 +947,7 @@ public final class SnmpCollection implements ReadyRunnable {
      * <p>
      * Getter for the field <code>packageName</code>.
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -961,7 +961,7 @@ public final class SnmpCollection implements ReadyRunnable {
         this.packageName = packageName;
     }
 
-    public void collectOspf(boolean collectOspfTable) {        
+    public void collectOspf(boolean collectOspfTable) {
         m_collectOspf = collectOspfTable;
     }
 

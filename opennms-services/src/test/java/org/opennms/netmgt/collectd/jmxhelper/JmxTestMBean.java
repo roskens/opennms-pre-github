@@ -37,18 +37,18 @@ import javax.management.openmbean.CompositeData;
 public interface JmxTestMBean {
 
     public String getName();
-    
+
     public int getA();
-    
+
     public int getB();
-    
+
     public int getC();
-    
+
     public int getD();
-    
+
     public Integer getIntegerNull();
-    
+
     public String getStringNull();
-    
+
     public CompositeData getCompositeData();
 }

@@ -36,21 +36,21 @@ import org.opennms.netmgt.config.databaseReports.Report;
  * <p>DatabaseReportConfigDao interface.</p>
  */
 public interface DatabaseReportConfigDao {
-    
+
     /**
      * <p>getReports</p>
      *
      * @return a {@link java.util.List} object.
      */
     List <Report> getReports();
-    
+
     /**
      * <p>getOnlineReports</p>
      *
      * @return a {@link java.util.List} object.
      */
     List <Report> getOnlineReports();
-    
+
     /**
      * <p>getReportService</p>
      *
@@ -58,7 +58,7 @@ public interface DatabaseReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getReportService(String id);
-    
+
     /**
      * <p>getDisplayName</p>
      *
@@ -66,5 +66,5 @@ public interface DatabaseReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getDisplayName(String id);
-    
+
 }

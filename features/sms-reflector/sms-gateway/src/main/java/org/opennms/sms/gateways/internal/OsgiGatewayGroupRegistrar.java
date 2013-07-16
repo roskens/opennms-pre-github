@@ -44,7 +44,7 @@ import org.springframework.osgi.context.BundleContextAware;
  * @version $Id: $
  */
 public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleContextAware, DisposableBean {
-	
+
 	private BundleContext m_context;
 	private final List<ServiceRegistration<GatewayGroup>> m_registrations = new ArrayList<ServiceRegistration<GatewayGroup>>();
 
@@ -58,7 +58,7 @@ public class OsgiGatewayGroupRegistrar implements GatewayGroupRegistrar, BundleC
         @Override
 	public void setBundleContext( BundleContext bundleContext ) {
 		m_context = bundleContext;
-		
+
 	}
 
 	/**

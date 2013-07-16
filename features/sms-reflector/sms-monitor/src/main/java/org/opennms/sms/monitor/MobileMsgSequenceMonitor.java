@@ -74,7 +74,7 @@ public class MobileMsgSequenceMonitor extends AbstractServiceMonitor {
 	public void initialize(Map<String,Object> params) {
 		super.initialize(params);
 
-		String contextName = ParameterMap.getKeyedString(params, CONTEXT_KEY, DEFAULT_CONTEXT_NAME); 
+		String contextName = ParameterMap.getKeyedString(params, CONTEXT_KEY, DEFAULT_CONTEXT_NAME);
 
 		m_phonebook = BeanUtils.getBean(contextName, "phonebook", Phonebook.class);
 		m_tracker = BeanUtils.getBean(contextName, "mobileMsgTracker", MobileMsgTracker.class);
@@ -129,6 +129,6 @@ public class MobileMsgSequenceMonitor extends AbstractServiceMonitor {
 	    } catch (Throwable e) {
 	        log.debug("Sequence failed", e);
 	        return PollStatus.unavailable("Sequence failed: " + e.getLocalizedMessage());
-	    } 
+	    }
 	}
 }

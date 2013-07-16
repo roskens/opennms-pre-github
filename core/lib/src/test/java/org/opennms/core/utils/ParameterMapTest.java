@@ -43,16 +43,16 @@ import org.junit.Test;
  * @author brozow
  */
 public class ParameterMapTest {
-    
+
     private static final int[] INT_ARRAY_VAL = new int[] { 1, 2, 3};
     private static final int[] DEFAULT_INT_ARRAY = new int[] { 4, 5, 6 };
-    
+
     private Map<String, Object> m_map;
-    
+
     @Before
     public void setUp() {
         m_map = new HashMap<String, Object>();
-        
+
         m_map.put("keyedBoolean", true);
         m_map.put("keyedBooleanString", "true");
         m_map.put("keyedInteger", 7);
@@ -66,7 +66,7 @@ public class ParameterMapTest {
         m_map.put("keyedLongString", "7");
         m_map.put("keyedString", "keyedString");
     }
-    
+
     @Test
     public void testGetKeyedString() {
         assertEquals("keyedString", ParameterMap.getKeyedString(m_map, "keyedString", "defaultValue"));
@@ -99,7 +99,7 @@ public class ParameterMapTest {
         assertArrayEquals(INT_ARRAY_VAL, ParameterMap.getKeyedIntegerArray(m_map, "keyedIntegerArrayStringWithCommas", DEFAULT_INT_ARRAY));
         assertArrayEquals(DEFAULT_INT_ARRAY, ParameterMap.getKeyedIntegerArray(m_map, "noSuchKey", DEFAULT_INT_ARRAY));
         assertArrayEquals(DEFAULT_INT_ARRAY, ParameterMap.getKeyedIntegerArray(null, "keyedIntegerArray", DEFAULT_INT_ARRAY));
-        
+
     }
 
     @Test

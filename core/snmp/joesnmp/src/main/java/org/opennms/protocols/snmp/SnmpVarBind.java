@@ -39,21 +39,21 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * This class defined the SNMP variables that are transmitted to and from an
  * agent. A variable is defined by its name (a SnmpObjectId) and its value
  * (SnmpSyntax).
- * 
+ *
  * The SnmpVarBind is used by the SnmpPduPacket class and uses SnmpObjectId
  * along with any class that implements the SnmpSyntax interface.
- * 
+ *
  * @see SnmpSyntax
  * @see SnmpPduPacket
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @version 1.1.1.1
- * 
+ *
  */
 public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serializable {
     /**
      * Allows for evolution of serialization format.
-     * 
+     *
      */
     static final long serialVersionUID = 2328987288282447623L;
 
@@ -75,7 +75,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     /**
      * The default class constructor. Constructs an SnmpVarBind with a default
      * object identifier and a null value
-     * 
+     *
      * @see SnmpObjectId#SnmpObjectId
      * @see SnmpNull#SnmpNull
      */
@@ -87,7 +87,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     /**
      * Constructs a specific variable with the "name" equal to the passed object
      * identifier. The variable portion is set to an instance of SnmpNull.
-     * 
+     *
      * @param name
      *            The object identifer name for this variable.
      */
@@ -100,12 +100,12 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * Constructs a variable with the passed name and value. The name and value
      * are duplicated so that any further changes to the passed data will not
      * affect the SNMP variable.
-     * 
+     *
      * @param name
      *            The object identifier name
      * @param value
      *            The syntax object.
-     * 
+     *
      */
     public SnmpVarBind(SnmpObjectId name, SnmpSyntax value) {
         m_name = (SnmpObjectId) name.duplicate();
@@ -115,12 +115,12 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
     /**
      * Constructs a new variable with the give name. The name must be a dotted
      * decimal object identifier string.
-     * 
+     *
      * @param name
      *            Dotted decimal object identifier.
-     * 
+     *
      * @see SnmpObjectId
-     * 
+     *
      */
     public SnmpVarBind(String name) {
         m_name = new SnmpObjectId(name);
@@ -131,12 +131,12 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * Constructs a new variable with the passed name and value. The name must
      * be in a dotted decimal format. The value must not be null, but must be a
      * valid SnmpSyntax object.
-     * 
+     *
      * @param name
      *            The dotted decimal object identifer name
      * @param value
      *            The SnmpSyntax value for the variable
-     * 
+     *
      */
     public SnmpVarBind(String name, SnmpSyntax value) {
         m_name = new SnmpObjectId(name);
@@ -147,10 +147,10 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * Class copy constructor. Makes a duplicate copy of the passed variable and
      * stores the new references in self. If the passed variable is modified
      * after the construction, it will not affect the object.
-     * 
+     *
      * @param second
      *            The variable to copy
-     * 
+     *
      */
     public SnmpVarBind(SnmpVarBind second) {
         m_name = (SnmpObjectId) second.m_name.duplicate();
@@ -159,7 +159,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Returns the object identifier that names the variable.
-     * 
+     *
      * @return The variable's object identifier
      */
     public SnmpObjectId getName() {
@@ -168,10 +168,10 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Sets the variable's object identifier name.
-     * 
+     *
      * @param name
      *            The new object id for the variable.
-     * 
+     *
      */
     public void setName(SnmpObjectId name) {
         m_name = (SnmpObjectId) name.duplicate();
@@ -179,10 +179,10 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Sets the variable's name to passed value.
-     * 
+     *
      * @param name
      *            The dotted decimal object identifier.
-     * 
+     *
      */
     public void setName(String name) {
         m_name = new SnmpObjectId(name);
@@ -190,7 +190,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Retreives the variable's value.
-     * 
+     *
      * @return The SnmpSyntax object for the variable.
      */
     public SnmpSyntax getValue() {
@@ -199,10 +199,10 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Sets the value for the variable
-     * 
+     *
      * @param value
      *            The new value for the object
-     * 
+     *
      */
     public void setValue(SnmpSyntax value) {
         m_value = value.duplicate();
@@ -210,9 +210,9 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Returns the ASN.1 type id for the object.
-     * 
+     *
      * @return The ASN.1 type identifier.
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -224,21 +224,21 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * data is encoded using the passed AsnEncoder object. The offset for the
      * next object to be encoded is returned by the method. This method is
      * defined to fulfill the contract with the SnmpSytnax interface.
-     * 
+     *
      * @param buf
      *            Storeage for the encoded data
      * @param offset
      *            Offset to start encoding data
      * @param encoder
      *            The encoder used to convert the data
-     * 
+     *
      * @exception AnsEncodingException
      *                Thrown if the encoder encounters an error while building
      *                the buffer.
-     * 
+     *
      * @return The offset of the next byte immediantly after the last encoded
      *         byte by this routine.
-     * 
+     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -265,21 +265,21 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
      * The encoder object provides a way for the data to be decoded. The offset
      * marks the start location for the decoding operation. Once the data is
      * decoded it is set in the current object.
-     * 
+     *
      * @param buf
      *            Encoded ASN.1 data
      * @param offset
      *            Offset to first byte of encoded data
      * @param encoder
      *            The encoder used to convert the data
-     * 
+     *
      * @return The byte offset immediantly after the last decoded byte of
      *         information.
-     * 
+     *
      * @exception AnsDecodingException
      *                Thrown if an error occurs while attempting to decode the
      *                data. This exception will be thrown byte encoder object.
-     * 
+     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -320,7 +320,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Returns a newly created duplicate object to the caller
-     * 
+     *
      * @return A newly created variable
      */
     @Override
@@ -330,7 +330,7 @@ public class SnmpVarBind extends Object implements SnmpSyntax, Cloneable, Serial
 
     /**
      * Returns a newly created duplicate object to the caller
-     * 
+     *
      * @return A newly created variable
      */
     @Override

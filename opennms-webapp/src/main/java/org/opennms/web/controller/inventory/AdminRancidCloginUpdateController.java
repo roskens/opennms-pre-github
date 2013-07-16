@@ -52,19 +52,19 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminRancidCloginUpdateController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidCloginUpdateController.class);
 
-    
+
     InventoryService m_inventoryService;
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
             Object command, BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("AdminRancidCloginUpdateController ModelAndView onSubmit");
-        
+
         AdminRancidCloginCommClass bean = (AdminRancidCloginCommClass) command;
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
 
@@ -83,7 +83,7 @@ public class AdminRancidCloginUpdateController extends SimpleFormController {
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
         LOG.debug("AdminRancidCloginIpdateController initBinder");
     }
-    
+
     /**
      * <p>getInventoryService</p>
      *

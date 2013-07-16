@@ -49,7 +49,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class EndPointMonitor extends AbstractServiceMonitor {
-    
+
     /** Constant <code>SNMP_AGENTCONFIG_KEY="org.opennms.netmgt.snmp.SnmpAgentConfig"</code> */
     public static final String SNMP_AGENTCONFIG_KEY = "org.opennms.netmgt.snmp.SnmpAgentConfig";
     private EndPointConfigurationDao m_configDao;
@@ -60,7 +60,7 @@ public class EndPointMonitor extends AbstractServiceMonitor {
      * <p>Constructor for EndPointMonitor.</p>
      */
     public EndPointMonitor() {}
-    
+
     /** {@inheritDoc} */
     @Override
     public void initialize(Map<String, Object> parameters) {
@@ -68,9 +68,9 @@ public class EndPointMonitor extends AbstractServiceMonitor {
         m_configDao = (EndPointConfigurationDao) appContext.getBean("endPointConfigDao");
         m_nodeDao = (NodeDao) appContext.getBean("nodeDao");
         m_agentConfigFactory = (SnmpAgentConfigFactory) appContext.getBean("snmpPeerFactory", SnmpAgentConfigFactory.class);
-               
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
@@ -87,5 +87,5 @@ public class EndPointMonitor extends AbstractServiceMonitor {
         } catch (EndPointStatusException e) {
             return PollStatus.unavailable(e.getMessage());
         }
-    } 
+    }
 }

@@ -25,13 +25,13 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 		super(NCSServiceItem.class);
 		m_dao = dao;
 		setBeanIdProperty("id");
-		
+
 		List<NCSComponent> services = m_dao.findByType("Service");
 		createRootItems(services);
 		addAll(m_rootItems);
         addAll(createListFromComponents(services));
 	}
-	
+
 
     private void createRootItems(List<NCSComponent> components) {
         Set<String> foreignSources = new HashSet<String>();
@@ -58,7 +58,7 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 		BeanItem<NCSServiceItem> component = getItem(itemId);
 		return (Boolean) component.getItemProperty("childrenAllowed").getValue();
 	}
-	
+
 
 	@Override
 	public Collection<Long> getChildren(Object itemId) {
@@ -86,10 +86,10 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 		//Assert.isInstanceOf(Long.class, itemId);
 		BeanItem<NCSServiceItem> component = getItem(itemId);
 		Object itemForeignSource = component.getItemProperty( FOREIGN_SOURCE_PROPERTY ).getValue();
-		
+
 		for(Long rootId : rootItemIds()) {
 		    BeanItem<NCSServiceItem> rootItem = getItem(rootId);
-		    
+
             String rootForeignSource = (String)rootItem.getItemProperty( FOREIGN_SOURCE_PROPERTY ).getValue();
             if(rootForeignSource.equals(itemForeignSource)) {
                 return rootId;
@@ -109,7 +109,7 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 	}
 
 	@Override
-	public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed) 
+	public boolean setChildrenAllowed(Object itemId, boolean areChildrenAllowed)
 		throws UnsupportedOperationException {
 		throw new UnsupportedOperationException("Cannot setChildredAllowed() on NCSComponent type");
 	}
@@ -128,5 +128,5 @@ public class NCSServiceContainer extends HierarchicalBeanContainer<Long, NCSServ
 		return true;
 	}
 
-	
+
 }

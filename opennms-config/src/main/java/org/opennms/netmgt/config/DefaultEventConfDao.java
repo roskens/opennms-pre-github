@@ -91,7 +91,7 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 				return accum;
 			}
 		});
-		
+
 		return events.isEmpty() ? null : events;
 	}
 
@@ -105,7 +105,7 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 				return ueis;
 			}
 		});
-		
+
 	}
 
 	@Override
@@ -132,9 +132,9 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 	public void saveCurrent() {
 		m_events.save(m_configResource);
 	}
-	
-	
-	
+
+
+
 	public List<Event> getAllEvents() {
 		return m_events.forEachEvent(new ArrayList<Event>(), new EventCallback<List<Event>>() {
 
@@ -149,7 +149,7 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 	@Override
 	public List<Event> getEventsByLabel() {
 		SortedSet<Event> events = m_events.forEachEvent(new TreeSet<Event>(new EventLabelComparator()), new EventCallback<SortedSet<Event>>() {
-		
+
 			@Override
 			public SortedSet<Event> process(SortedSet<Event> accum, Event event) {
 				accum.add(event);
@@ -222,7 +222,7 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 	public void setConfigResource(Resource configResource) throws IOException {
 		m_configResource = configResource;
 	}
-	
+
 	@Override
 	public void afterPropertiesSet() throws DataAccessException {
 		loadConfig();
@@ -232,7 +232,7 @@ public class DefaultEventConfDao implements EventConfDao, InitializingBean {
 		try {
 			Events events = JaxbUtils.unmarshal(Events.class, m_configResource);
 			events.loadEventFiles(m_configResource);
-			
+
 			m_partition = new EnterpriseIdPartition();
 			events.initialize(m_partition);
 

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Class Log.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -92,7 +92,7 @@ public class Log implements Serializable {
 
     /**
      * Returns the value of field 'events'.
-     * 
+     *
      * @return the value of field 'Events'.
      */
     public org.opennms.netmgt.xml.event.Events getEvents(
@@ -102,7 +102,7 @@ public class Log implements Serializable {
 
     /**
      * Returns the value of field 'header'.
-     * 
+     *
      * @return the value of field 'Header'.
      */
     public org.opennms.netmgt.xml.event.Header getHeader(
@@ -112,7 +112,7 @@ public class Log implements Serializable {
 
     /**
      * Sets the value of field 'events'.
-     * 
+     *
      * @param events the value of field 'events'.
      */
     public void setEvents(
@@ -122,7 +122,7 @@ public class Log implements Serializable {
 
     /**
      * Sets the value of field 'header'.
-     * 
+     *
      * @param header the value of field 'header'.
      */
     public void setHeader(

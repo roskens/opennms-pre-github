@@ -49,13 +49,13 @@ import java.util.Map;
  * This class creates an {@link HttpServletRequest} object that delegates all calls to
  * a {@link VaadinRequest} instance. This is used so that we can fetch the header HTML
  * from an {@link OnmsHeaderProvider} in {@link TopologyWidgetTestApplication}.
- * 
+ *
  * TODO: Refactor into a common class.
  */
 public class HttpServletRequestVaadinImpl implements HttpServletRequest {
 
 	private final VaadinRequest m_request;
-	
+
 	public HttpServletRequestVaadinImpl(VaadinRequest request) {
 		m_request = request;
 	}

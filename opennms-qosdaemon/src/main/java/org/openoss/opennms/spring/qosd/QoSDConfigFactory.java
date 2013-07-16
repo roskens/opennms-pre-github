@@ -42,12 +42,12 @@ import org.springframework.core.io.FileSystemResource;
  * @version $Id: $
  */
 public class QoSDConfigFactory {
-	
+
 	private static QoSDConfiguration config;
-    
+
     /** Constant <code>is_loaded=false</code> */
     public static boolean is_loaded = false;
-    
+
     // XXX Don't use opennms.home directly and don't use "/"
     /**
      * <p>reload</p>
@@ -57,7 +57,7 @@ public class QoSDConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public static void reload() throws IOException,MarshalException,ValidationException{
-    	
+
     	String configFile = System.getProperty("opennms.home");
     	if(configFile.endsWith(java.io.File.separator)){
     		configFile = configFile.substring(0, configFile.length() - 1);
@@ -65,10 +65,10 @@ public class QoSDConfigFactory {
     	configFile += "/etc/QoSD-configuration.xml";
 
 		config = CastorUtils.unmarshal(QoSDConfiguration.class, new FileSystemResource(configFile));
-		
+
 		is_loaded = true;
     }
-    
+
     /**
      * <p>Getter for the field <code>config</code>.</p>
      *

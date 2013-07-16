@@ -48,7 +48,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Node to which the outage applies.
- * 
+ *
  */
 
 @XmlRootElement(name="node", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
@@ -75,7 +75,7 @@ public class Node implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -83,9 +83,9 @@ public class Node implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Node) {
-        
+
             Node temp = (Node)obj;
             if (this._id != temp._id)
                 return false;
@@ -96,7 +96,7 @@ public class Node implements Serializable {
 
     /**
      * Returns the value of field 'id'.
-     * 
+     *
      * @return the value of field 'Id'.
      */
     public Integer getId() {
@@ -105,7 +105,7 @@ public class Node implements Serializable {
 
     /**
      * Method hasId.
-     * 
+     *
      * @return true if at least one Id has been added
      */
     public boolean hasId() {
@@ -117,21 +117,21 @@ public class Node implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         result = 37 * result + _id;
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -145,8 +145,8 @@ public class Node implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -159,8 +159,8 @@ public class Node implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -176,7 +176,7 @@ public class Node implements Serializable {
 
     /**
      * Sets the value of field 'id'.
-     * 
+     *
      * @param id the value of field 'id'.
      */
     public void setId(final Integer id) {
@@ -185,7 +185,7 @@ public class Node implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -199,8 +199,8 @@ public class Node implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

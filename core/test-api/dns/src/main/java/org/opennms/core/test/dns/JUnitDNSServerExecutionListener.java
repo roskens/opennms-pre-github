@@ -51,9 +51,9 @@ import org.xbill.DNS.Zone;
  * and uses attributes on it to launch a temporary HTTP server for use during unit tests.
  */
 public class JUnitDNSServerExecutionListener extends OpenNMSAbstractTestExecutionListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JUnitDNSServerExecutionListener.class);
-	
+
     private static final int DEFAULT_TTL = 3600;
     private DNSServer m_server;
 

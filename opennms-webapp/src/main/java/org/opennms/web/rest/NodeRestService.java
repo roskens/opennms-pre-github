@@ -84,19 +84,19 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("nodes")
 @Transactional
 public class NodeRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NodeRestService.class);
 
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private EventProxy m_eventProxy;
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
-    
+
     @Context
     ResourceContext m_context;
 
@@ -109,35 +109,35 @@ public class NodeRestService extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
     public OnmsNodeList getNodes() {
         readLock();
-        
+
         try {
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);
             builder.alias("snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
             builder.alias("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
             builder.alias("categories", "category", JoinType.LEFT_JOIN);
-    
+
             final MultivaluedMap<String, String> params = m_uriInfo.getQueryParameters();
             final String type = params.getFirst("type");
-    
+
             applyQueryFilters(params, builder);
             builder.orderBy("label").asc();
-            
+
             final Criteria crit = builder.toCriteria();
-    
+
             if (type == null) {
                 final List<Restriction> restrictions = new ArrayList<Restriction>(crit.getRestrictions());
                 restrictions.add(Restrictions.ne("type", "D"));
                 crit.setRestrictions(restrictions);
             }
-            
+
             final OnmsNodeList coll = new OnmsNodeList(m_nodeDao.findMatching(crit));
-            
+
             crit.setLimit(null);
             crit.setOffset(null);
             crit.setOrders(new ArrayList<Order>());
-    
+
             coll.setTotalCount(m_nodeDao.countMatching(crit));
-    
+
             return coll;
         } finally {
             readUnlock();
@@ -172,7 +172,7 @@ public class NodeRestService extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_XML)
     public Response addNode(final OnmsNode node) {
         writeLock();
-        
+
         try {
             LOG.debug("addNode: Adding node {}", node);
             m_nodeDao.save(node);
@@ -186,7 +186,7 @@ public class NodeRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>updateNode</p>
      *
@@ -199,13 +199,13 @@ public class NodeRestService extends OnmsRestService {
     @Path("{nodeCriteria}")
     public Response updateNode(@PathParam("nodeCriteria") final String nodeCriteria, final MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) throw getException(Status.BAD_REQUEST, "updateNode: Can't find node " + nodeCriteria);
-    
+
             LOG.debug("updateNode: updating node {}", node);
-    
+
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(node);
             for(final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
@@ -214,7 +214,7 @@ public class NodeRestService extends OnmsRestService {
                     wrapper.setPropertyValue(key, value);
                 }
             }
-    
+
             LOG.debug("updateNode: node {} updated", node);
             m_nodeDao.saveOrUpdate(node);
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
@@ -223,7 +223,7 @@ public class NodeRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>deleteNode</p>
      *
@@ -234,11 +234,11 @@ public class NodeRestService extends OnmsRestService {
     @Path("{nodeCriteria}")
     public Response deleteNode(@PathParam("nodeCriteria") final String nodeCriteria) {
         writeLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) throw getException(Status.BAD_REQUEST, "deleteNode: Can't find node " + nodeCriteria);
-    
+
             LOG.debug("deleteNode: deleting node {}", nodeCriteria);
             m_nodeDao.delete(node);
             try {
@@ -291,12 +291,12 @@ public class NodeRestService extends OnmsRestService {
     public AssetRecordResource getAssetRecordResource() {
         return m_context.getResource(AssetRecordResource.class);
     }
-    
+
     private void sendEvent(final String uei, final int nodeId, String nodeLabel) throws EventProxyException {
         final EventBuilder bldr = new EventBuilder(uei, getClass().getName());
         bldr.setNodeid(nodeId);
         bldr.addParam("nodelabel", nodeLabel);
         m_eventProxy.send(bldr.getEvent());
     }
-    
+
 }

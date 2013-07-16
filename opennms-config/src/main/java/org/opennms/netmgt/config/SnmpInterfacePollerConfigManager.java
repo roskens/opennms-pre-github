@@ -110,7 +110,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * The config class loaded from the config file
      */
     private SnmpInterfacePollerConfiguration m_config;
- 
+
     /**
      * A mapping of the configured URLs to a list of the specific IPs configured
      * in each - so as to avoid file reads
@@ -143,11 +143,11 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
-    
+
         for(Package pkg : packages()) {
-    
+
             for(String url : includeURLs(pkg)) {
-    
+
                 List<String> iplist = IpListFromUrl.parse(url);
                 if (iplist.size() > 0) {
                     m_urlIPMap.put(url, iplist);
@@ -179,14 +179,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public synchronized void save() throws MarshalException, IOException, ValidationException {
-    
+
         // Marshal to a string first, then write the string to the file. This
         // way the original config
         // isn't lost if the XML from the marshal is hosed.
         StringWriter stringWriter = new StringWriter();
         Marshaller.marshal(m_config, stringWriter);
         saveXml(stringWriter.toString());
-    
+
         update();
     }
 
@@ -206,7 +206,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * @return a {@link org.opennms.netmgt.config.snmpinterfacepoller.Package} object.
      */
     public synchronized Package getPackage(final String name) {
-        
+
         for(Package pkg : packages()) {
 
             if (pkg.getName().equals(name)) {
@@ -215,7 +215,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         }
         return null;
     }
-    
+
     /**
      * <p>addPackage</p>
      *
@@ -224,15 +224,15 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     public synchronized void addPackage(Package pkg) {
         m_config.addPackage(pkg);
     }
-    
+
     /**
      * This method is used to determine if the named interface is included in
      * the passed package's URL includes. If the interface is found in any of
      * the URL files, then a value of true is returned, else a false value is
      * returned.
-     * 
+     *
      * <pre>
-     * 
+     *
      *  The file URL is read and each entry in this file checked. Each line
      *   in the URL file can be one of -
      *   &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
@@ -240,28 +240,28 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      *   &lt;IP&gt;
      *   or
      *   #&lt;comments&gt;
-     *  
+     *
      *   Lines starting with a '#' are ignored and so are characters after
      *   a '&lt;space&gt;#' in a line.
-     *  
+     *
      * </pre>
-     * 
+     *
      * @param addr
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     * 
+     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean interfaceInUrl(String addr, String url) {
         boolean bRet = false;
-    
+
         // get list of IPs in this URL
         List<String> iplist = m_urlIPMap.get(url);
         if (iplist != null && iplist.size() > 0) {
             bRet = iplist.contains(addr);
         }
-    
+
         return bRet;
     }
 
@@ -289,9 +289,9 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     private void createPackageIpListMap() {
         m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
         m_pkgIntMap = new HashMap<String, Map<String, Interface>>();
-        
+
         for(Package pkg : packages()) {
-    
+
             Map<String, Interface> interfaceMap = new HashMap<String, Interface>();
             for (Interface interf: pkg.getInterfaceCollection()) {
                 interfaceMap.put(interf.getName(),interf);
@@ -303,7 +303,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
             try {
                 List<InetAddress> ipList = getIpList(pkg);
                 LOG.debug("createPackageIpMap: package {}: ipList size = {}", ipList.size(), pkg.getName());
-    
+
                 if (ipList.size() > 0) {
                     LOG.debug("createPackageIpMap: package {}. IpList size is {}", ipList.size(), pkg.getName());
                     m_pkgIpMap.put(pkg, ipList);
@@ -365,21 +365,21 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     public synchronized boolean interfaceInPackage(String iface, Package pkg) {
         final InetAddress ifaceAddr = addr(iface);
-    
+
         boolean filterPassed = false;
-    
+
         // get list of IPs in this package
         List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
 			filterPassed = ipList.contains(ifaceAddr);
         }
-    
+
 
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface, pkg.getName());
-    
+
         if (!filterPassed)
             return false;
-    
+
         //
         // Ensure that the interface is in the specific list or
         // that it is in the include range and is not excluded
@@ -387,11 +387,11 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         boolean has_specific = false;
         boolean has_range_include = false;
         boolean has_range_exclude = false;
- 
+
         // if there are NO include ranges then treat act as if the user include
         // the range 0.0.0.0 - 255.255.255.255
         has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
-        
+
         for (IncludeRange rng : pkg.getIncludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_include = true;
@@ -413,14 +413,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
         while (!has_specific && eurl.hasMoreElements()) {
             has_specific = interfaceInUrl(iface, eurl.nextElement());
         }
-    
+
         for (ExcludeRange rng : pkg.getExcludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_exclude = true;
                 break;
             }
         }
-    
+
         return has_specific || (has_range_include && !has_range_exclude);
     }
 
@@ -435,14 +435,14 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      * @return the first package that the IP belongs to, null if none
      */
     public synchronized Package getPackageForAddress(String ipaddr) {
-        
+
         for(Package pkg : packages()) {
-    
+
             if (interfaceInPackage(ipaddr, pkg)) {
                 return pkg;
             }
         }
-    
+
         return null;
     }
 
@@ -456,7 +456,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
      */
     @Override
     public synchronized List<String> getAllPackageMatches(String ipaddr) {
-    
+
         List<String> matchingPkgs = new ArrayList<String>();
 
         for(Package pkg : packages()) {
@@ -467,7 +467,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
             }
 
         }
-    
+
         return matchingPkgs;
     }
 
@@ -475,11 +475,11 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     @Override
     public synchronized String getPackageName(String ipaddr) {
         for(Package pkg : packages()) {
-            
+
             if (interfaceInPackage(ipaddr, pkg)) {
                 return pkg.getName();
             }
-        }    
+        }
         return null;
     }
 
@@ -497,12 +497,12 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     public synchronized boolean getStatus(String pkgName,String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getStatus().equals("on");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public synchronized long getInterval(String pkgName,String pkgInterfaceName) {
         return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getInterval();
-        
+
     }
     /** {@inheritDoc} */
     @Override
@@ -547,7 +547,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     /** {@inheritDoc} */
     @Override
     public synchronized int getMaxVarsPerPdu(String pkgName,String pkgInterfaceName) {
-        return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getMaxVarsPerPdu();        
+        return m_pkgIntMap.get(pkgName).get(pkgInterfaceName).getMaxVarsPerPdu();
     }
 
     /**
@@ -558,8 +558,8 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     public Enumeration<Package> enumeratePackage() {
         return getConfiguration().enumeratePackage();
     }
-    
-     
+
+
      /**
       * <p>packages</p>
       *
@@ -578,7 +578,7 @@ abstract public class SnmpInterfacePollerConfigManager implements SnmpInterfaceP
     public Iterable<String> includeURLs(Package pkg) {
         return pkg.getIncludeUrlCollection();
     }
-     
+
     /**
      * <p>getThreads</p>
      *

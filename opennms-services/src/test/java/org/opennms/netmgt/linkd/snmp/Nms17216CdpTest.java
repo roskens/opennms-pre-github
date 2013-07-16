@@ -53,7 +53,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class Nms17216CdpTest extends Nms17216NetworkBuilder implements InitializingBean {
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -78,12 +78,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(5, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -104,12 +104,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(6, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -130,12 +130,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -156,12 +156,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(1, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -182,12 +182,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(2, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -208,12 +208,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(2, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -234,12 +234,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(2, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -260,12 +260,12 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(3, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
     @Test
     @JUnitSnmpAgents(value={
@@ -286,11 +286,11 @@ public class Nms17216CdpTest extends Nms17216NetworkBuilder implements Initializ
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(1, m_cdpCacheTable.size());
         for (CdpCacheTableEntry cdpCacheTableEntry: m_cdpCacheTable) {
             printCdpRow(cdpCacheTableEntry);
         }
-    }        
+    }
 
 }

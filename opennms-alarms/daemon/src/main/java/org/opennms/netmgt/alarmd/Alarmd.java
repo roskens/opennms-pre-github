@@ -46,11 +46,11 @@ import org.springframework.beans.factory.DisposableBean;
 
 /**
  * Alarm management Daemon
- * 
+ *
  * TODO: Create configuration for Alarm to enable forwarding.
  * TODO: Application Context for wiring in forwarders???
  * TODO: Change this class to use AbstractServiceDaemon instead of SpringServiceDaemon
- * 
+ *
  *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
@@ -63,14 +63,14 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     public static final String NAME = "Alarmd";
 
     private EventForwarder m_eventForwarder;
-    
+
     private List<Northbounder> m_northboundInterfaces;
 
     private AlarmPersister m_persister;
-    
-    
-    
-    
+
+
+
+
     //Get all events
     /**
      * <p>onEvent</p>
@@ -79,13 +79,13 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
      */
     @EventHandler(uei = EventHandler.ALL_UEIS)
     public void onEvent(Event e) {
-    	
+
     	if (e.getUei().equals("uei.opennms.org/internal/reloadDaemonConfig")) {
     		return;
     	}
-    	
+
         OnmsAlarm alarm = m_persister.persist(e);
-        
+
         if (alarm != null) {
         	NorthboundAlarm a = new NorthboundAlarm(alarm);
 
@@ -93,7 +93,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
                 nbi.onAlarm(a);
             }
         }
-        
+
     }
 
     @EventHandler(uei = "uei.opennms.org/internal/reloadDaemonConfig")
@@ -164,7 +164,7 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     }
 
     /**
-     * 
+     *
      * TODO: use onInit() instead
      * <p>afterPropertiesSet</p>
      *
@@ -209,11 +209,11 @@ public class Alarmd implements SpringServiceDaemon, DisposableBean {
     public void onNorthbounderRegistered(final Northbounder northbounder, final Map<String,String> properties) {
         northbounder.start();
     }
-    
+
     public void onNorthbounderUnregistered(final Northbounder northbounder, final Map<String,String> properties) {
         northbounder.stop();
     }
-    
+
     public List<Northbounder> getNorthboundInterfaces() {
         return m_northboundInterfaces;
     }

@@ -57,10 +57,10 @@ import org.springframework.test.context.ContextConfiguration;
 @ContextConfiguration(locations="classpath:META-INF/opennms/emptyContext.xml")
 @JUnitHttpServer(port=10342)
 public class SeleniumMonitorTest {
-	
-	
+
+
 	public static class MockMonService implements MonitoredService{
-	    
+
 	    private int m_nodeId;
         private String m_nodeLabel;
         private InetAddress m_inetAddr;
@@ -74,7 +74,7 @@ public class SeleniumMonitorTest {
 	        m_svcName = svcName;
 	        m_ipAddr = InetAddressUtils.str(m_inetAddr);
 	    }
-	    
+
         @Override
         public String getSvcUrl() {
             return null;
@@ -109,53 +109,53 @@ public class SeleniumMonitorTest {
         public InetAddress getAddress() {
             return m_inetAddr;
         }
-	    
+
 	}
-	
+
 	@Before
 	public void setup() throws Exception{
 	    MockLogAppender.setupLogging(true, "DEBUG");
 		System.setProperty("opennms.home", "src/test/resources");
 	}
-	
+
 	//Requires Firefox to be installed to run
 	@Test
 	@JUnitHttpServer(port=10342, webapps=@Webapp(context="/opennms", path = "src/test/resources/testWar"))
 	public void testPollStatusNotNull() throws UnknownHostException{
 	    MonitoredService monSvc = new MockMonService(1, "papajohns", InetAddressUtils.addr("213.187.33.164"), "PapaJohnsSite");
-	    
+
 	    Map<String, Object> params = new HashMap<String, Object>();
 	    params.put("selenium-test", "SeleniumGroovyTest.groovy");
 	    params.put("base-url", "localhost");
 	    params.put("port", "10342");
-	    
+
 		SeleniumMonitor ajaxPSM = new SeleniumMonitor();
 		PollStatus pollStatus = ajaxPSM.poll(monSvc, params);
-		
+
 		assertNotNull("PollStatus must not be null", pollStatus);
-		
+
 		System.err.println("PollStatus message: " + pollStatus.getReason());
 		assertEquals(PollStatus.available(), pollStatus);
-		
+
 	}
-	
+
 	@Test
-	public void testBaseUrlUtils() 
+	public void testBaseUrlUtils()
 	{
-	    
+
 	    String baseUrl = "http://${ipAddr}:8080";
 	    String monSvcIpAddr = "192.168.1.1";
 	    String finalUrl = "";
-	    
+
 	    finalUrl = BaseUrlUtils.replaceIpAddr(baseUrl, monSvcIpAddr);
-	    
+
 	    assertEquals("http://192.168.1.1:8080", finalUrl);
 	}
-	
-	
-	
+
+
+
 	@After
 	public void tearDown(){
-		
+
 	}
 }

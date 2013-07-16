@@ -65,10 +65,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class EventUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventUtils.class);
 
-    
+
     /**
      * <p>createNodeAddedEvent</p>
      *
@@ -79,14 +79,14 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeAddedEvent(String source, int nodeId, String nodeLabel, String labelSource) {
-        
+
         debug("CreateNodeAddedEvent: nodedId: %d", nodeId);
-        
+
         EventBuilder bldr = new EventBuilder(NODE_ADDED_EVENT_UEI, source);
         bldr.setNodeid(nodeId);
         bldr.addParam(PARM_NODE_LABEL, nodeLabel);
         bldr.addParam(PARM_NODE_LABEL_SOURCE, labelSource);
-        
+
         return bldr.getEvent();
 
     }
@@ -101,9 +101,9 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeGainedInterfaceEvent(String source, int nodeId, InetAddress ifaddr) {
-        
+
         debug("createNodeGainedInterfaceEvent:  %d / %s", nodeId, str(ifaddr));
-        
+
         EventBuilder bldr = new EventBuilder(NODE_GAINED_INTERFACE_EVENT_UEI, source);
         bldr.setNodeid(nodeId);
         bldr.setInterface(ifaddr);
@@ -111,7 +111,7 @@ public abstract class EventUtils {
 
         return bldr.getEvent();
     }
-    
+
     /**
      * <p>createNodeGainedServiceEvent</p>
      *
@@ -126,7 +126,7 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeGainedServiceEvent(String source, int nodeId, InetAddress ifaddr, String service, String nodeLabel, String labelSource, String sysName, String sysDescr) {
-        
+
         debug("createAndSendNodeGainedServiceEvent:  nodeId/interface/service  %d/%s/%s", nodeId, str(ifaddr), service);
 
         EventBuilder bldr = new EventBuilder(NODE_GAINED_SERVICE_EVENT_UEI, source);
@@ -165,7 +165,7 @@ public abstract class EventUtils {
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     public static Event createNodeDeletedEvent(String source, int nodeId, String hostName, String nodeLabel) {
-        
+
         debug("createNodeDeletedEvent for nodeid:  %d", nodeId);
 
         EventBuilder bldr = new EventBuilder(NODE_DELETED_EVENT_UEI, source);
@@ -197,7 +197,7 @@ public abstract class EventUtils {
         EventBuilder bldr = new EventBuilder(INTERFACE_DELETED_EVENT_UEI, source);
         bldr.setNodeid(nodeId);
         bldr.setInterface(addr);
-        
+
         return bldr.getEvent();
     }
 
@@ -243,10 +243,10 @@ public abstract class EventUtils {
      */
     public static long getLongParm(Event e, String parmName, long defaultValue) {
         String longVal = EventUtils.getParm(e, parmName);
-    
+
         if (longVal == null)
             return defaultValue;
-    
+
         try {
             return Long.parseLong(longVal);
         } catch (NumberFormatException ex) {
@@ -269,10 +269,10 @@ public abstract class EventUtils {
      */
     public static int getIntParm(Event e, String parmName, int defaultValue) {
         String intVal = EventUtils.getParm(e, parmName);
-    
+
         if (intVal == null)
             return defaultValue;
-    
+
         try {
             return Integer.parseInt(intVal);
         } catch (NumberFormatException ex) {
@@ -296,7 +296,7 @@ public abstract class EventUtils {
     public static String getParm(Event e, String parmName, String defaultValue) {
         if (e.getParmCollection().size() < 1)
             return defaultValue;
-    
+
         for (Parm parm : e.getParmCollection()) {
             if (parmName.equals(parm.getParmName())) {
                 if (parm.getValue() != null && parm.getValue().getContent() != null) {
@@ -306,9 +306,9 @@ public abstract class EventUtils {
                 }
             }
         }
-    
+
         return defaultValue;
-    
+
     }
 
     /**
@@ -323,7 +323,7 @@ public abstract class EventUtils {
     public static String getParm(Event e, String parmName) {
         return EventUtils.getParm(e, parmName, null);
     }
-    
+
     private static void debug(String format, Object... args) {
             LOG.debug(String.format(format, args));
     }
@@ -455,7 +455,7 @@ public abstract class EventUtils {
         if (event.getUuid() != null) {
             b.append(" Uuid: " + event.getUuid() + "\n");
         }
-        
+
         b.append("End Event\n");
         return b.toString();
     }
@@ -464,7 +464,7 @@ public abstract class EventUtils {
         if (parms.size() == 0) {
             return "Parms: (none)\n";
         }
-        
+
         StringBuffer b = new StringBuffer();
         b.append("Parms:\n");
         for (Parm p : parms) {
@@ -477,7 +477,7 @@ public abstract class EventUtils {
         b.append("End Parms\n");
         return b.toString();
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -496,27 +496,27 @@ public abstract class EventUtils {
      */
     public static String toString(Snmp snmp) {
         StringBuffer b = new StringBuffer("Snmp: ");
-    
+
         if (snmp.getVersion() != null) {
             b.append("Version: " + snmp.getVersion() + "\n");
         }
-        
+
         b.append("TimeStamp: " + new Date(snmp.getTimeStamp()) + "\n");
-        
+
         if (snmp.getCommunity() != null) {
             b.append("Community: " + snmp.getCommunity() + "\n");
         }
-    
+
         b.append("Generic: " + snmp.getGeneric() + "\n");
         b.append("Specific: " + snmp.getSpecific() + "\n");
-        
+
         if (snmp.getId() != null) {
             b.append("Id: " + snmp.getId() + "\n");
         }
         if (snmp.getIdtext() != null) {
             b.append("Idtext: " + snmp.getIdtext() + "\n");
         }
-        
+
         b.append("End Snmp\n");
         return b.toString();
     }
@@ -539,7 +539,7 @@ public abstract class EventUtils {
         if (e1.getUei() != e2.getUei() && (e1.getUei() == null || e2.getUei() == null || !e1.getUei().equals(e2.getUei()))) {
         		return false;
         }
-    
+
         if (e1.getNodeid() != e2.getNodeid()) {
             return false;
         }
@@ -549,7 +549,7 @@ public abstract class EventUtils {
         if (e1.getService() != e2.getService() && (e1.getService() == null || e2.getService() == null || !e1.getService().equals(e2.getService()))) {
             return false;
         }
-    
+
         return true;
     }
 

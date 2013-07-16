@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -45,7 +45,7 @@ import org.exolab.castor.xml.Unmarshaller;
 /**
  * a grouping of XMP related RRD parms, MIB object groups
  *  and sysoid based system definitions.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -64,7 +64,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * indicates if collected XMP data is to be stored for
      *  "all" interfaces or only for the "primary" interface.
-     *  Currently ignored. 
+     *  Currently ignored.
      */
     private java.lang.String _xmpStorageFlag;
 
@@ -94,7 +94,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -103,34 +103,34 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof XmpCollection) {
-        
+
             XmpCollection temp = (XmpCollection)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._xmpStorageFlag != null) {
                 if (temp._xmpStorageFlag == null) return false;
-                else if (!(this._xmpStorageFlag.equals(temp._xmpStorageFlag))) 
+                else if (!(this._xmpStorageFlag.equals(temp._xmpStorageFlag)))
                     return false;
             }
             else if (temp._xmpStorageFlag != null)
                 return false;
             if (this._rrd != null) {
                 if (temp._rrd == null) return false;
-                else if (!(this._rrd.equals(temp._rrd))) 
+                else if (!(this._rrd.equals(temp._rrd)))
                     return false;
             }
             else if (temp._rrd != null)
                 return false;
             if (this._groups != null) {
                 if (temp._groups == null) return false;
-                else if (!(this._groups.equals(temp._groups))) 
+                else if (!(this._groups.equals(temp._groups)))
                     return false;
             }
             else if (temp._groups != null)
@@ -143,7 +143,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'groups'. The field 'groups' has
      * the following description: MIB object groups
-     * 
+     *
      * @return the value of field 'Groups'.
      */
     public org.opennms.netmgt.config.xmpDataCollection.Groups getGroups(
@@ -154,7 +154,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'name'. The field 'name' has the
      * following description: collectoion name
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -165,7 +165,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
-     * 
+     *
      * @return the value of field 'Rrd'.
      */
     public org.opennms.netmgt.config.xmpDataCollection.Rrd getRrd(
@@ -178,8 +178,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'xmpStorageFlag' has the following description: indicates if
      * collected XMP data is to be stored for
      *  "all" interfaces or only for the "primary" interface.
-     *  Currently ignored. 
-     * 
+     *  Currently ignored.
+     *
      * @return the value of field 'XmpStorageFlag'.
      */
     public java.lang.String getXmpStorageFlag(
@@ -192,14 +192,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -213,13 +213,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_groups != null) {
            result = 37 * result + _groups.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -233,8 +233,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -248,8 +248,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -267,7 +267,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'groups'. The field 'groups' has the
      * following description: MIB object groups
-     * 
+     *
      * @param groups the value of field 'groups'.
      */
     public void setGroups(
@@ -278,7 +278,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'name'. The field 'name' has the
      * following description: collectoion name
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -289,7 +289,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
-     * 
+     *
      * @param rrd the value of field 'rrd'.
      */
     public void setRrd(
@@ -302,8 +302,8 @@ import org.exolab.castor.xml.Unmarshaller;
      * 'xmpStorageFlag' has the following description: indicates if
      * collected XMP data is to be stored for
      *  "all" interfaces or only for the "primary" interface.
-     *  Currently ignored. 
-     * 
+     *  Currently ignored.
+     *
      * @param xmpStorageFlag the value of field 'xmpStorageFlag'.
      */
     public void setXmpStorageFlag(
@@ -313,7 +313,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -329,8 +329,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

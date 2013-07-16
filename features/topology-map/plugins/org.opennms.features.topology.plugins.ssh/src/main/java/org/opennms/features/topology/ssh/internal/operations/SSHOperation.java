@@ -70,7 +70,7 @@ public class SSHOperation implements Operation {
 	    } else {
 	        return false;
 	    }
-	    
+
 	}
 
         @Override

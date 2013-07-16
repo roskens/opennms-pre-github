@@ -51,8 +51,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CollectionSpecification {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectionSpecification.class);
 
     private CollectdPackage m_package;
@@ -71,7 +71,7 @@ public class CollectionSpecification {
         m_package = wpkg;
         m_svcName = svcName;
         m_collector = collector;
-        
+
         initializeParameters();
     }
 
@@ -285,7 +285,7 @@ public class CollectionSpecification {
          * applies to the current time and the outage applies to this
          * interface then break and return true. Otherwise process the
          * next outage.
-         */ 
+         */
         for (String outageName : m_package.getPackage().getOutageCalendarCollection()) {
             // Does the outage apply to the current time?
             if (outageFactory.isCurTimeInOutage(outageName)) {

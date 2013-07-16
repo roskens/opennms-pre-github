@@ -66,7 +66,7 @@ public class DiscoveryConfigFactoryTest {
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccd", InetAddressUtils.str(specifics.get(6).getAddress()));
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccc", InetAddressUtils.str(specifics.get(7).getAddress()));
     }
-    
+
     @Test
     public void testAddToSpecificsFromURLViaStream() throws Exception {
         final List<IPPollAddress> specifics = new ArrayList<IPPollAddress>();
@@ -84,7 +84,7 @@ public class DiscoveryConfigFactoryTest {
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccd", InetAddressUtils.str(specifics.get(6).getAddress()));
         assertEquals("fe80:0000:0000:0000:ffff:eeee:dddd:cccc", InetAddressUtils.str(specifics.get(7).getAddress()));
     }
-    
+
     @Test
     public void testMultipleExcludes() throws Exception {
         final DiscoveryConfigFactory factory = new DiscoveryConfigFactory() {

@@ -44,7 +44,7 @@ public class AdminRancidCloginCommClass {
     private String autoE;
     private String groupName;
     private String deviceName;
-    
+
     /**
      * <p>Getter for the field <code>userID</code>.</p>
      *
@@ -170,5 +170,5 @@ public class AdminRancidCloginCommClass {
     public void setDeviceName(String deviceName) {
         this.deviceName = deviceName;
     }
-    
+
 }

@@ -96,7 +96,7 @@ public class OnmsMonitoredServiceList extends LinkedList<OnmsMonitoredService> {
 
     /**
      * <p>getTotalCount</p>
-     * 
+     *
      * Note that this list is different than others: count always equals totalCount
      * because we don't perform any limit/offset queries inside {$link OnmsMonitoredServiceResource}
      *

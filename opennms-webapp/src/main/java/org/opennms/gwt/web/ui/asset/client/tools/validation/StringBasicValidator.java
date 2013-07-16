@@ -43,7 +43,7 @@ public class StringBasicValidator implements Validator {
 	/**
 	 * Validator just allows A-Z a-z 0-9 and - and _. Validation will run
 	 * against <code>(String) object</code> so make sure to use a proper object.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

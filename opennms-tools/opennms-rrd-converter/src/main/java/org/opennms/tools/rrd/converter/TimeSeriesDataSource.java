@@ -39,28 +39,28 @@ public interface TimeSeriesDataSource {
      * @throws IOException
      */
     long getStartTime() throws IOException;
-    
+
     /**
      * The end of the time span for this data source.
      * @return The end time, in seconds.
      * @throws IOException
      */
     long getEndTime() throws IOException;
-    
+
     /**
      * The resolution of this data source.
      * @return The number of seconds per sample.
      * @throws IOException
      */
     long getNativeStep() throws IOException;
-    
+
     /**
      * The number of samples in this data source.
      * @return The number of samples.
      * @throws IOException
      */
     int getRows() throws IOException;
-    
+
     /**
      * The names of the keys in this data source.
      * @return The data source names.

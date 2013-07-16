@@ -51,7 +51,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public DefaultJavamailConfigurationDao() {
         super(JavamailConfiguration.class, "Javamail configuration");
     }
-    
+
     /**
      * <p>Constructor for DefaultJavamailConfigurationDao.</p>
      *
@@ -67,7 +67,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public JavamailConfiguration translateConfig(JavamailConfiguration castorConfig) {
         return castorConfig;
     }
-    
+
     /**
      * <p>getDefaultReadmailConfig</p>
      *
@@ -78,13 +78,13 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
         String name = getContainer().getObject().getDefaultReadConfigName();
         return getReadMailConfig(name);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ReadmailConfig getReadMailConfig(String name) {
         ReadmailConfig config = null;
         List<ReadmailConfig> configs = getReadmailConfigs();
-        
+
         for (ReadmailConfig readmailConfig : configs) {
             if (readmailConfig.getName().equals(name)) {
                 config = readmailConfig;
@@ -119,7 +119,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public SendmailConfig getSendMailConfig(String name) {
         SendmailConfig config = null;
         List<SendmailConfig> configs = getSendmailConfigs();
-        
+
         for (SendmailConfig sendmailConfig : configs) {
             if (sendmailConfig.getName().equals(name)) {
                 config = sendmailConfig;
@@ -143,7 +143,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public End2endMailConfig getEnd2EndConfig(String name) {
         End2endMailConfig config = null;
         List<End2endMailConfig> configs = getEnd2EndConfigs();
-        
+
         for (End2endMailConfig end2endMailConfig : configs) {
             if (end2endMailConfig.getName().equals(name)) {
                 config = end2endMailConfig;
@@ -151,7 +151,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
         }
         return config;
     }
-    
+
     /**
      * <p>getEnd2EndConfigs</p>
      *
@@ -161,7 +161,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public List<End2endMailConfig> getEnd2EndConfigs() {
         return getContainer().getObject().getEnd2endMailConfigCollection();
     }
-    
+
     /**
      * <p>verifyMarshaledConfiguration</p>
      *
@@ -171,7 +171,7 @@ public class DefaultJavamailConfigurationDao extends AbstractCastorConfigDao<Jav
     public void verifyMarshaledConfiguration() throws IllegalStateException {
         // TODO verify that the default config names match as specified in javamail configuration element
         // TODO verify that the config names match as specified in all the end2end configuration elements
-        
+
     }
 
     /**

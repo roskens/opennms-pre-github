@@ -48,7 +48,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
 
     private static final long serialVersionUID = 8031737923157780179L;
     private int m_totalCount;
-    
+
     /**
      * <p>Constructor for OnmsNodeList.</p>
      */
@@ -74,7 +74,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
     public List<OnmsNode> getNodes() {
         return this;
     }
-    
+
     /**
      * <p>setNodes</p>
      *
@@ -85,7 +85,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
         clear();
         addAll(nodes);
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -109,7 +109,7 @@ public class OnmsNodeList extends LinkedList<OnmsNode> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *

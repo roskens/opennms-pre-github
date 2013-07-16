@@ -64,18 +64,18 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("assetRecord")
 @Transactional
 public class AssetRecordResource extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AssetRecordResource.class);
 
-    @Context 
+    @Context
     UriInfo m_uriInfo;
 
     @Autowired
-    private NodeDao m_nodeDao;    
-    
+    private NodeDao m_nodeDao;
+
     @Autowired
     private EventProxy m_eventProxy;
-    
+
     /**
      * <p>getAssetRecord</p>
      *
@@ -96,7 +96,7 @@ public class AssetRecordResource extends OnmsRestService {
             readUnlock();
         }
     }
-    
+
     /**
      * <p>updateAssetRecord</p>
      *
@@ -108,13 +108,13 @@ public class AssetRecordResource extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public Response updateAssetRecord(@PathParam("nodeCriteria") String nodeCriteria,  MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
                 throw getException(Status.BAD_REQUEST, "updateAssetRecord: Can't find node " + nodeCriteria);
             }
-            
+
             OnmsAssetRecord assetRecord = getAssetRecord(node);
             if (assetRecord == null) {
                 throw getException(Status.BAD_REQUEST, "updateAssetRecord: Node " + node  + " could not update ");
@@ -128,16 +128,16 @@ public class AssetRecordResource extends OnmsRestService {
                     wrapper.setPropertyValue(key, value);
                 }
             }
-       
+
             LOG.debug("updateAssetRecord: assetRecord {} updated", assetRecord);
             m_nodeDao.saveOrUpdate(node);
-            
+
             try {
                 sendEvent(EventConstants.ASSET_INFO_CHANGED_EVENT_UEI, node.getId());
             } catch (EventProxyException e) {
                 throw getException(Status.BAD_REQUEST, e.getMessage());
             }
-            
+
             return Response.seeOther(getRedirectUri(m_uriInfo)).build();
         } finally {
             writeUnlock();
@@ -147,8 +147,8 @@ public class AssetRecordResource extends OnmsRestService {
     private OnmsAssetRecord getAssetRecord(OnmsNode node) {
         return node.getAssetRecord();
     }
-    
-    
+
+
     private void sendEvent(String uei, int nodeId) throws EventProxyException {
         EventBuilder bldr = new EventBuilder(uei, getClass().getName());
         bldr.setNodeid(nodeId);

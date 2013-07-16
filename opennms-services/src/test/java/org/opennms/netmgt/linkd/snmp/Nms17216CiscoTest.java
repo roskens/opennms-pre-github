@@ -53,18 +53,18 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment
 public class Nms17216CiscoTest extends Nms17216NetworkBuilder implements InitializingBean {
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=SWITCH1_IP, port=161, resource="classpath:linkd/nms17216/switch1-walk.txt")
     })
     public void testNetwork17216CiscoVlanTable() throws Exception {
-    	
+
         String name = "vlanTable";
         CiscoVlanTable m_vlan = new CiscoVlanTable(InetAddressUtils.addr(SWITCH1_IP));
         CollectionTracker[] tracker = new CollectionTracker[0];
@@ -85,14 +85,14 @@ public class Nms17216CiscoTest extends Nms17216NetworkBuilder implements Initial
         	System.out.println("vlan index: " + ent.getVlanIndex());
             System.out.println("vlan name: " + ent.getVlanName());
             System.out.println("vlan type: " + ent.getVlanType());
-            System.out.println("vlan status: " + ent.getVlanStatus()); 
+            System.out.println("vlan status: " + ent.getVlanStatus());
             System.out.println("VLAN-----End");
-            
+
         }
 
-        
+
         assertEquals(10, m_vlan.size());
         assertEquals(6, m_vlan.getVlansForSnmpCollection().size());
-    }        
+    }
 
 }

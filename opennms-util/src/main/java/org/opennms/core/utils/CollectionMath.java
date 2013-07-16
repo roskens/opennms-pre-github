@@ -89,7 +89,7 @@ public class CollectionMath {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * Get the percentage of not-null entries in a {@link List} of {@link Number} values
 	 *
@@ -99,7 +99,7 @@ public class CollectionMath {
 	public static Number percentNotNull(List<? extends Number> list) {
 		return percentNotNullBigDecimal(convertNumberToBigDecimal(list));
 	}
-	
+
 	/**
 	 * Get the percentage of not-null entries in a {@link List} of {@link BigDecimal} values
 	 * @param list the {@link List} of {@link BigDecimal} values
@@ -122,7 +122,7 @@ public class CollectionMath {
 	public static Number average(List<? extends Number> list) {
 		return averageBigDecimal(convertNumberToBigDecimal(list));
 	}
-	
+
 	/**
 	 * Get the average of the contents of a {@link List} of {@link BigDecimal} values, excluding null entries
 	 * @param list the {@link List} of {@link BigDecimal} values
@@ -134,14 +134,14 @@ public class CollectionMath {
 		if (notNullEntries.size() == 0) {
 			return null;
 		}
-		
+
 		for (BigDecimal entry : notNullEntries) {
 			total = total.add(entry);
 		}
-		
+
 		return total.divide(new BigDecimal(notNullEntries.size()), 16, BigDecimal.ROUND_HALF_EVEN);
 	}
-	
+
 	/**
 	 * Get the median of the contents of a {@link List} of {@link Number} values, excluding null entries
 	 *
@@ -151,7 +151,7 @@ public class CollectionMath {
 	public static Number median(List<? extends Number> list) {
 		return medianBigDecimal(convertNumberToBigDecimal(list));
 	}
-	
+
 	/**
 	 * Get the median of the contents of a {@link List} of {@link BigDecimal} values, excluding null entries
 	 * @param list the {@link List} of {@link BigDecimal} values
@@ -160,11 +160,11 @@ public class CollectionMath {
     private static BigDecimal medianBigDecimal(List<BigDecimal> list) {
 		List<BigDecimal> notNullEntries = getNotNullEntries(list);
 		Collections.sort(notNullEntries);
-		
+
 		if (notNullEntries.size() == 0) {
 		    return null;
 		}
-		
+
 		if (notNullEntries.size() % 2 == 0) {
 			// even number of entries, take the mean of the 2 center ones
 			BigDecimal value1, value2;
@@ -175,7 +175,7 @@ public class CollectionMath {
 			return notNullEntries.get(notNullEntries.size() / 2);
 		}
 	}
-	
+
 	/**
 	 * Utility method, converts a {@link Number} {@link List} into a {@link BigDecimal} {@link List}
 	 * @param list a {@link List} of {@link Number} values
@@ -187,12 +187,12 @@ public class CollectionMath {
 		    if (entry != null) {
 		        bd.add(new BigDecimal(entry.doubleValue()));
 		    } else {
-		        bd.add(null);      
+		        bd.add(null);
             }
 		}
 		return bd;
 	}
-	
+
 	/**
 	 * Utility method, gets not-null-entries from a {@link List}
 	 * @param list the {@link List} to search
@@ -207,5 +207,5 @@ public class CollectionMath {
 		}
 		return s;
 	}
-	
+
 }

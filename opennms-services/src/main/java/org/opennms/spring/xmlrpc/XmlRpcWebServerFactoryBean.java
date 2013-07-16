@@ -41,7 +41,7 @@ import org.springframework.beans.factory.InitializingBean;
  * <p>
  * XmlRpcWebServerFactoryBean class.
  * </p>
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  */
@@ -58,7 +58,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Getter for the field <code>port</code>.
 	 * </p>
-	 * 
+	 *
 	 * @return a int.
 	 */
 	public int getPort() {
@@ -69,7 +69,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Setter for the field <code>port</code>.
 	 * </p>
-	 * 
+	 *
 	 * @param port
 	 *            a int.
 	 */
@@ -81,7 +81,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Getter for the field <code>address</code>.
 	 * </p>
-	 * 
+	 *
 	 * @return a {@link java.net.InetAddress} object.
 	 */
 	public InetAddress getAddress() {
@@ -92,7 +92,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Setter for the field <code>address</code>.
 	 * </p>
-	 * 
+	 *
 	 * @param addrress
 	 *            a {@link java.net.InetAddress} object.
 	 */
@@ -104,7 +104,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Getter for the field <code>secure</code>.
 	 * </p>
-	 * 
+	 *
 	 * @return a boolean.
 	 */
 	public boolean getSecure() {
@@ -115,7 +115,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Setter for the field <code>secure</code>.
 	 * </p>
-	 * 
+	 *
 	 * @param secure
 	 *            a boolean.
 	 */
@@ -127,7 +127,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Getter for the field <code>xmlRpcServer</code>.
 	 * </p>
-	 * 
+	 *
 	 * @return a {@link org.apache.xmlrpc.XmlRpcServer} object.
 	 */
 	public XmlRpcServer getXmlRpcServer() {
@@ -138,7 +138,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * Setter for the field <code>xmlRpcServer</code>.
 	 * </p>
-	 * 
+	 *
 	 * @param xmlRpcServer
 	 *            a {@link org.apache.xmlrpc.XmlRpcServer} object.
 	 */
@@ -150,7 +150,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * getObject
 	 * </p>
-	 * 
+	 *
 	 * @return a {@link java.lang.Object} object.
 	 * @throws java.lang.Exception
 	 *             if any.
@@ -164,7 +164,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * getObjectType
 	 * </p>
-	 * 
+	 *
 	 * @return a {@link java.lang.Class} object.
 	 */
         @Override
@@ -176,7 +176,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * isSingleton
 	 * </p>
-	 * 
+	 *
 	 * @return a boolean.
 	 */
         @Override
@@ -188,7 +188,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * afterPropertiesSet
 	 * </p>
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 *             if any.
 	 */
@@ -212,7 +212,7 @@ public class XmlRpcWebServerFactoryBean implements FactoryBean<WebServer>,
 	 * <p>
 	 * destroy
 	 * </p>
-	 * 
+	 *
 	 * @throws java.lang.Exception
 	 *             if any.
 	 */

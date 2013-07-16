@@ -45,7 +45,7 @@ import org.opennms.api.reporting.ReportFormat;
 public class JasperReportServiceGetJprintTest {
 
     private JasperReportService service;
-    
+
     @BeforeClass
     public static void setUp() {
         System.setProperty("opennms.home", "src/test/resources");

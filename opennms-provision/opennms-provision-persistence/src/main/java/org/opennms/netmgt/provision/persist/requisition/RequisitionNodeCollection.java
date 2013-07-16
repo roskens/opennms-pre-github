@@ -84,7 +84,7 @@ public class RequisitionNodeCollection extends LinkedList<RequisitionNode> {
         clear();
         addAll(requisitions);
     }
-    
+
     /**
      * <p>getCount</p>
      *

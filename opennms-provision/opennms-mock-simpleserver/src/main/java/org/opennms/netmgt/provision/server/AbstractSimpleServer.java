@@ -49,25 +49,25 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 abstract public class AbstractSimpleServer {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractSimpleServer.class);
-    
+
     public static interface RequestMatcher{
         public boolean matches(String input);
     }
-    
+
     public static interface Exchange {
         public boolean sendReply(OutputStream out) throws IOException;
         public boolean processRequest(BufferedReader in) throws IOException;
     }
-    
+
     public static class BannerExchange implements Exchange{
         private String m_banner;
-        
+
         public BannerExchange(String banner){
             m_banner = banner;
         }
-        
+
         @Override
         public boolean processRequest(BufferedReader in) throws IOException { return true; }
 
@@ -76,25 +76,25 @@ abstract public class AbstractSimpleServer {
             out.write(String.format("%s\r\n", m_banner).getBytes());
             return true;
         }
-        
+
     }
-    
+
     public static class SimpleServerExchange implements Exchange{
         private String m_response;
         private RequestMatcher m_requestMatcher;
-        
+
         public SimpleServerExchange(RequestMatcher requestMatcher, String response){
             m_response = response;
             m_requestMatcher = requestMatcher;
         }
-        
+
         @Override
         public boolean processRequest(BufferedReader in) throws IOException {
             String line = in.readLine();
             LOG.info("processing request: {}", line);
-            
+
             if(line == null)return false;
-            
+
             return m_requestMatcher.matches(line);
         }
 
@@ -104,15 +104,15 @@ abstract public class AbstractSimpleServer {
             out.write(String.format("%s\r\n", m_response).getBytes());
             return false;
         }
-        
+
     }
-    
+
     private ServerSocket m_serverSocket = null;
     private Thread m_serverThread = null;
     private Socket m_socket;
     private int m_timeout;
     private List<Exchange> m_conversation = new ArrayList<Exchange>();
-    
+
     /**
      * <p>getTimeout</p>
      *
@@ -121,7 +121,7 @@ abstract public class AbstractSimpleServer {
     public int getTimeout() {
         return m_timeout;
     }
-    
+
     /**
      * <p>setTimeout</p>
      *
@@ -130,7 +130,7 @@ abstract public class AbstractSimpleServer {
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
-    
+
     /**
      * <p>getInetAddress</p>
      *
@@ -139,7 +139,7 @@ abstract public class AbstractSimpleServer {
     public InetAddress getInetAddress(){
         return m_serverSocket.getInetAddress();
     }
-    
+
     /**
      * <p>getLocalPort</p>
      *
@@ -148,7 +148,7 @@ abstract public class AbstractSimpleServer {
     public int getLocalPort(){
         return m_serverSocket.getLocalPort();
     }
-    
+
     /**
      * <p>init</p>
      *
@@ -166,8 +166,8 @@ abstract public class AbstractSimpleServer {
      */
     protected void onInit() {
         // Do nothing by default
-    } 
-    
+    }
+
     /**
      * <p>startServer</p>
      *
@@ -177,7 +177,7 @@ abstract public class AbstractSimpleServer {
         m_serverThread = new Thread(getRunnable(), this.getClass().getSimpleName());
         m_serverThread.start();
     }
-    
+
     /**
      * <p>getRunnable</p>
      *
@@ -186,27 +186,27 @@ abstract public class AbstractSimpleServer {
      */
     public Runnable getRunnable() throws Exception{
         return new Runnable(){
-            
+
             @Override
             public void run(){
                 try{
                     m_serverSocket.setSoTimeout(getTimeout());
                     m_socket = m_serverSocket.accept();
-                    
+
                     OutputStream out = m_socket.getOutputStream();
                     BufferedReader in = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
-                    
+
                     attemptConversation(in, out);
-                    
+
                     m_socket.close();
                 }catch(Throwable e){
                     throw new UndeclaredThrowableException(e);
                 }
             }
-            
+
         };
     }
-    
+
     /**
      * <p>attemptConversation</p>
      *
@@ -220,15 +220,15 @@ abstract public class AbstractSimpleServer {
             if(!ex.processRequest(in)){
                 return false;
             }
-            
+
             if(!ex.sendReply(out)){
                 return false;
             }
         }
-        
+
         return true;
     }
-    
+
     /**
      * <p>setExpectedBanner</p>
      *
@@ -237,7 +237,7 @@ abstract public class AbstractSimpleServer {
     protected void setExpectedBanner(String banner){
         m_conversation.add(new BannerExchange(banner));
     }
-    
+
     /**
      * <p>addRequestResponse</p>
      *
@@ -247,7 +247,7 @@ abstract public class AbstractSimpleServer {
     protected void addRequestResponse(String request, String response){
         m_conversation.add(new SimpleServerExchange(regexpMatches(request), response));
     }
-    
+
     /**
      * <p>regexpMatches</p>
      *
@@ -261,7 +261,7 @@ abstract public class AbstractSimpleServer {
             public boolean matches(String input) {
                 return input.matches(regex);
             }
-            
+
         };
-    }   
+    }
 }

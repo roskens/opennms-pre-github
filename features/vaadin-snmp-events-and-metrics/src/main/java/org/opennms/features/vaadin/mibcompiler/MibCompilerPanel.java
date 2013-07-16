@@ -60,8 +60,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class MIB Compiler Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class MibCompilerPanel extends Panel {
@@ -121,7 +121,7 @@ public class MibCompilerPanel extends Panel {
     /**
      * Instantiates a new MIB tree panel.
      *
-     * @param dataCollectionDao the OpenNMS Data Collection Configuration DAO 
+     * @param dataCollectionDao the OpenNMS Data Collection Configuration DAO
      * @param eventsDao the OpenNMS Events Configuration DAO
      * @param eventsProxy the OpenNMS Events Proxy
      * @param mibParser the MIB parser
@@ -358,7 +358,7 @@ public class MibCompilerPanel extends Panel {
     private void showEventsWindow(final Logger logger, final String fileName, final String ueiBase) {
         final Events events =  mibParser.getEvents(ueiBase);
         if (events == null) {
-            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);                
+            Notification.show("The MIB couldn't be processed for events because: " + mibParser.getFormattedErrors(), Notification.Type.ERROR_MESSAGE);
         } else {
             if (events.getEventCount() > 0) {
                 try {

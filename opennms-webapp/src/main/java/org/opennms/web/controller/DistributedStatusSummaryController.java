@@ -50,7 +50,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class DistributedStatusSummaryController extends AbstractController {
-    
+
     private DistributedStatusService m_distributedStatusService;
 
     /**
@@ -74,21 +74,21 @@ public class DistributedStatusSummaryController extends AbstractController {
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         // Calculate a date that equals midnight of the current day (00:00:00 AM)
         GregorianCalendar calendar = new GregorianCalendar();
         Date endDate = new Date(calendar.getTimeInMillis());
-        
-        calendar.set(Calendar.HOUR_OF_DAY, 0); 
-        calendar.set(Calendar.MINUTE, 0); 
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0); 
+        calendar.set(Calendar.MILLISECOND, 0);
         Date startDate = new Date(calendar.getTimeInMillis());
-        
+
         if (m_distributedStatusService.getApplicationCount() <= 0) {
             return new ModelAndView("distributedStatusSummaryError", "error", createError("No Applications Defined", "No applications have been defined for this system so a summary of application status is impossible to display."));
         }
-        
+
         SimpleWebTable table = m_distributedStatusService.createFacilityStatusTable(startDate, endDate);
         return new ModelAndView("distributedStatusSummary", "webTable", table);
     }

@@ -72,11 +72,11 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class PollerConfigServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PollerConfigServlet.class);
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4273370522387271772L;
 
@@ -112,9 +112,9 @@ public class PollerConfigServlet extends HttpServlet {
         getInitParameters();
 
         loadPollerConfProperties();
-        
+
         initPollerConfigFactory();
-        
+
         initCapsdConfigFactory();
 
         initPollerServices();
@@ -161,7 +161,7 @@ public class PollerConfigServlet extends HttpServlet {
         } catch (Throwable e) {
             throw new ServletException(e);
         }
-        
+
         //String[] protocols = BundleLists.parseBundleList(m_props.getProperty("services"));
     }
 
@@ -385,5 +385,5 @@ public class PollerConfigServlet extends HttpServlet {
     /**
      * @return logger for this servlet
      */
-    
+
 }

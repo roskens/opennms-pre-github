@@ -66,11 +66,11 @@ public class TracerouteOperation extends AbstractOperation {
 
         if (targets != null) {
             for (final VertexRef target : targets) {
-                
+
                 final String addrValue = getIpAddrValue(operationContext, target);
                 final String labelValue = getLabelValue(operationContext, target);
                 final Integer nodeValue = getNodeIdValue(operationContext, target);
-                
+
                 if (addrValue != null && nodeValue != null && nodeValue > 0) {
                     ipAddr = addrValue;
                     label = labelValue == null ? "" : labelValue;

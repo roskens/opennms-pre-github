@@ -41,7 +41,7 @@ public class LocationBasedNavBarEntry implements NavBarEntry {
     private String m_locationMatch;
     private String m_url;
     private String m_name;
- 
+
     /**
      * <p>getLocationMatch</p>
      *

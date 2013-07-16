@@ -79,14 +79,14 @@ import com.mchange.v2.log.LogUtils;
  *
  */
 public class SpectrumTrapImporter {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(SpectrumTrapImporter.class);
 
     private List<AlertMapping> m_alertMappings;
     private List<EventDisposition> m_eventDispositions;
     private Map<String,EventFormat> m_eventFormats;
     private String m_modelTypeAssetField;
-    
+
     /**
      * Something like uei.opennms.org/import/Spectrum/
      */
@@ -94,15 +94,15 @@ public class SpectrumTrapImporter {
     private Resource m_customEventsDir = null;
     private PrintWriter m_outputWriter = null;
     private String m_reductionKeyBody = null;
-    
+
     private SpectrumUtils m_utils;
     private Map<String,String> m_alarmCreators;
-    
+
     private static final String COMMAND_HELP =
         "Reads a set of Spectrum event definitions, as described by a directory tree\n" +
         "with the following general layout:\n\n" +
         " ./AlertMap\n" +
-        " ./EventDisp\n" + 
+        " ./EventDisp\n" +
         " ./CsEvFormat/EventNNNNNNNN...\n" +
         " ./CsEvFormat/EventTables/enumFoo...\n\n" +
         "Produces XML describing a corresponding set of OpenNMS event definitions.\n\n" +
@@ -111,25 +111,25 @@ public class SpectrumTrapImporter {
         "                  --base-uei                  Directory containing Spectrum event definitions\n" +
         "                  --output-file               Filename for output (defaults to stdout)\n" +
         "                  --key                       Body of clear- / reduction-key (advanced)\n";
-    
+
     public static void main(String[] argv) {
         SpectrumTrapImporter importer = new SpectrumTrapImporter();
         importer.configureArgs(argv);
-        
+
         try {
             importer.afterPropertiesSet();
         } catch (Throwable e) {
             importer.printHelp("Fatal exception caught at startup: " + e.getMessage());
             System.exit(1);
         }
-        
+
         Events events = new Events();
         try {
             events = importer.makeEvents();
         } catch (IOException e) {
             importer.printHelp("Fatal exception caught at runtime: " + e.getMessage());
         }
-        
+
         try {
             //events.marshal(importer.getOutputWriter());
             StringWriter sw = new StringWriter();
@@ -147,20 +147,20 @@ public class SpectrumTrapImporter {
             importer.printHelp("Fatal parser configuration exception: " + e.getMessage());
         }
     }
-    
+
     private void initialize() throws Exception {
         Resource alertMapResource = new FileSystemResource(m_customEventsDir.getFile().getPath() + File.separator + "AlertMap");
         Resource eventDispResource = new FileSystemResource(m_customEventsDir.getFile().getPath() + File.separator + "EventDisp");
-        
+
         m_alertMappings = new AlertMapReader(alertMapResource).getAlertMappings();
         m_eventDispositions = new EventDispositionReader(eventDispResource).getEventDispositions();
         loadEventFormats();
-        
+
         m_utils = new SpectrumUtils();
         m_utils.setModelTypeAssetField(m_modelTypeAssetField);
         m_alarmCreators = new HashMap<String,String>();
     }
-    
+
     private void loadEventFormats() throws Exception {
         String csEvFormatDirName = m_customEventsDir.getFile().getPath() + File.separator + "CsEvFormat";
         Map<String,EventFormat> formats = new HashMap<String,EventFormat>();
@@ -192,7 +192,7 @@ public class SpectrumTrapImporter {
         }
         m_eventFormats = formats;
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         if (m_baseUei == null) {
@@ -210,10 +210,10 @@ public class SpectrumTrapImporter {
         if (m_outputWriter == null) {
             throw new IllegalStateException("The outputStream property must be set");
         }
-        
+
         initialize();
     }
-    
+
     private void configureArgs(String[] argv) {
         Options opts = new Options();
         opts.addOption("d", "dir", true, "Directory where Spectrum custom events are located");
@@ -221,32 +221,32 @@ public class SpectrumTrapImporter {
         opts.addOption("u", "base-uei", true, "Base value for UEI of generated OpenNMS events.  Defaults to 'uei.opennms.org/import/Spectrum'.");
         opts.addOption("f", "output-file", true, "File to which OpenNMS events will be written.  Defaults to standard output.");
         opts.addOption("k", "key", true, "Middle part of reduction- and clear-key, after UEI and before discriminators.  Defaults to '%dpname%:%nodeid%:%interface%'.");
-        
+
         CommandLineParser parser = new GnuParser();
         try {
             CommandLine cmd = parser.parse(opts, argv);
             if (cmd.hasOption('d')) {
                 m_customEventsDir = new FileSystemResource(cmd.getOptionValue('d'));
             }
-            
+
             if (cmd.hasOption('t')) {
                 m_modelTypeAssetField = cmd.getOptionValue('t');
             } else {
                 m_modelTypeAssetField = "manufacturer";
             }
-            
+
             if (cmd.hasOption('u')) {
                 m_baseUei = cmd.getOptionValue('u');
             } else {
                 m_baseUei = "uei.opennms.org/import/Spectrum";
             }
-            
+
             if (cmd.hasOption('f')) {
                 m_outputWriter = new PrintWriter(new FileSystemResource(cmd.getOptionValue('f')).getFile());
             } else {
                 m_outputWriter = new PrintWriter(System.out);
             }
-            
+
             if (cmd.hasOption('k')) {
                 m_reductionKeyBody = cmd.getOptionValue('k');
             } else {
@@ -259,7 +259,7 @@ public class SpectrumTrapImporter {
             printHelp("Custom events input directory does not seem to exist");
         }
     }
-    
+
     public Events makeEvents() throws IOException {
         Events events = new Events();
         for (AlertMapping mapping : m_alertMappings) {
@@ -276,7 +276,7 @@ public class SpectrumTrapImporter {
         LOG.debug("Made {} events", events.getEventCollection().size());
         return events;
     }
-    
+
     public Event makeEventConf(AlertMapping mapping, EventDisposition dispo) throws IOException {
         Event evt = new Event();
         evt.setMask(makeEventMask(mapping));
@@ -289,44 +289,44 @@ public class SpectrumTrapImporter {
             evt.setAlarmData(makeAlarmData(mapping, dispo));
         }
         evt.setVarbindsdecode(makeVarbindsDecodes(mapping));
-        
+
         if (shouldDiscardEvent(dispo)) {
             LOG.warn("Not creating an OpenNMS event definition corresponding to the following Spectrum event-disposition, because doing so would cause a conflict with an existing alarm-creating event for the same event-code and discriminators: {}. Hand-tweaking the output may be needed to compensate for this omission.", dispo);
             return null;
         }
         return evt;
     }
-    
+
     public Mask makeEventMask(AlertMapping mapping) {
         Mask mask = new Mask();
-        
+
         // Trap-OID
         Maskelement me = new Maskelement();
         me.setMename("id");
         me.setMevalue(new String[] { mapping.getTrapOid() });
         mask.addMaskelement(me);
-        
+
         // Generic-type
         me = new Maskelement();
         me.setMename("generic");
         me.setMevalue(new String[] { mapping.getTrapGenericType() });
         mask.addMaskelement(me);
-        
+
         // Specific-type
         me = new Maskelement();
         me.setMename("specific");
         me.setMevalue(new String[] { mapping.getTrapSpecificType() });
         mask.addMaskelement(me);
-        
+
         return mask;
     }
-    
+
     public String makeUei(String eventCode) {
         StringBuilder ueiBuilder = new StringBuilder(m_baseUei);
         ueiBuilder.append("/").append(eventCode);
         return ueiBuilder.toString();
     }
-    
+
     public String makeEventLabel(AlertMapping mapping) {
         StringBuilder labelBuilder = new StringBuilder("Spectrum imported event: ");
         String shortName = mapping.getEventCode();
@@ -339,7 +339,7 @@ public class SpectrumTrapImporter {
         labelBuilder.append(shortName);
         return labelBuilder.toString();
     }
-    
+
     public String makeDescr(AlertMapping mapping) {
         StringBuilder descrBuilder = new StringBuilder("<p>");
         if (m_eventFormats.containsKey(mapping.getEventCode())) {
@@ -350,7 +350,7 @@ public class SpectrumTrapImporter {
         descrBuilder.append("</p>\n");
         return descrBuilder.toString();
     }
-    
+
     public Logmsg makeLogMsg(AlertMapping mapping, EventDisposition dispo) {
         Logmsg msg = new Logmsg();
         if (! dispo.isPersistent()) {
@@ -363,7 +363,7 @@ public class SpectrumTrapImporter {
         msg.setContent("<p>" + makeEventLabel(mapping) + "</p>");
         return msg;
     }
-    
+
     public String makeSeverity(AlertMapping mapping, EventDisposition dispo) {
         if (dispo.isClearAlarm()) {
             // A clear-alarm always needs to have Normal severity for our automations to work
@@ -371,20 +371,20 @@ public class SpectrumTrapImporter {
         }
         return m_utils.translateSeverity(dispo.getAlarmSeverity());
     }
-    
+
     public AlarmData makeAlarmData(AlertMapping mapping, EventDisposition dispo) {
         if (!dispo.isCreateAlarm() && !dispo.isClearAlarm()) {
             return null;
         }
         AlarmData alarmData = new AlarmData();
-        
+
         // Set the alarm-type according to clues in the disposition
         if (dispo.isClearAlarm()) {
             alarmData.setAlarmType(2);
         } else {
             alarmData.setAlarmType(1);
         }
-        
+
         // Set the reduction key to include standard node stuff plus any discriminators
         StringBuilder rkBuilder = new StringBuilder("%uei%:");
         rkBuilder.append(m_reductionKeyBody);
@@ -393,10 +393,10 @@ public class SpectrumTrapImporter {
         }
         // If it's marked as a unique alarm, add the event ID to the reduction-key
         if (dispo.isUniqueAlarm()) {
-            rkBuilder.append("%eventid%"); 
+            rkBuilder.append("%eventid%");
         }
         alarmData.setReductionKey(rkBuilder.toString());
-        
+
         // If it's a clear-alarm, set the clear-key appropriately
         if (dispo.isClearAlarm()) {
             StringBuilder ckBuilder = new StringBuilder(makeUei(dispo.getClearAlarmCause()));
@@ -406,10 +406,10 @@ public class SpectrumTrapImporter {
             }
             alarmData.setClearKey(ckBuilder.toString());
         }
-        
+
         return alarmData;
     }
-    
+
     public List<Varbindsdecode> makeVarbindsDecodes(AlertMapping mapping) throws IOException {
         if (m_eventFormats.containsKey(mapping.getEventCode())) {
             EventFormat fmt = m_eventFormats.get(mapping.getEventCode());
@@ -418,7 +418,7 @@ public class SpectrumTrapImporter {
             return new ArrayList<Varbindsdecode>();
         }
     }
-    
+
     public boolean shouldDiscardEvent(EventDisposition dispo) {
         boolean discard = false;
         StringBuilder eventKeyBldr = new StringBuilder(dispo.getEventCode());
@@ -426,12 +426,12 @@ public class SpectrumTrapImporter {
             eventKeyBldr.append(",").append(d);
         }
         String eventKey = eventKeyBldr.toString();
-        
+
         // If not yet recorded, note this one
         if (dispo.isCreateAlarm()) {
             m_alarmCreators.put(eventKey, eventKey);
         }
-        
+
         // If this is a clear-alarm, but a create-alarm already exists with
         // the same event-code and discriminators, then we should discard
         // this one
@@ -440,12 +440,12 @@ public class SpectrumTrapImporter {
         }
         return discard;
     }
-    
+
     private void prettyPrintXML(String inDoc) throws IOException, SAXException, ParserConfigurationException {
         DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
         InputSource inSrc = new InputSource(new StringReader(inDoc));
         Document outDoc = builder.parse(inSrc);
-        
+
         OutputFormat fmt = new OutputFormat(outDoc);
         fmt.setLineWidth(72);
         fmt.setIndenting(true);
@@ -453,65 +453,65 @@ public class SpectrumTrapImporter {
         XMLSerializer ser = new XMLSerializer(m_outputWriter, fmt);
         ser.serialize(outDoc);
     }
-    
+
     public void setBaseUei(String baseUei) {
         if (baseUei == null) {
             throw new IllegalArgumentException("The base-UEI must be non-null");
         }
         m_baseUei = baseUei;
     }
-    
+
     public String getBaseUei() {
         return m_baseUei;
     }
-    
+
     public void setCustomEventsDir(FileSystemResource customEventsDir) throws IOException {
         if (! customEventsDir.getFile().isDirectory()) {
             throw new IllegalArgumentException("The customEventsDir property must refer to a directory");
         }
         m_customEventsDir = customEventsDir;
     }
-    
+
     public Resource getCustomEventsDir() {
         return m_customEventsDir;
     }
-    
+
     public List<AlertMapping> getAlertMappings() {
         return Collections.unmodifiableList(m_alertMappings);
     }
-    
+
     public List<EventDisposition> getEventDispositions() {
         return Collections.unmodifiableList(m_eventDispositions);
     }
-    
+
     public Map<String,EventFormat> getEventFormats() {
         return Collections.unmodifiableMap(m_eventFormats);
     }
-    
+
     public void setOutputWriter(PrintWriter out) {
         m_outputWriter = out;
     }
-    
+
     public PrintWriter getOutputWriter() {
         return m_outputWriter;
     }
-    
+
     public void setModelTypeAssetField(String fieldName) {
         m_modelTypeAssetField = fieldName;
     }
-    
+
     public String getModelTypeAssetField() {
         return m_modelTypeAssetField;
     }
-    
+
     public void setReductionKeyBody(String body) {
         m_reductionKeyBody = body;
     }
-    
+
     public String getReductionKeyBody() {
         return m_reductionKeyBody;
     }
-    
+
     private void printHelp(String msg) {
         System.err.println("Error: " + msg + "\n\n");
         System.err.println(COMMAND_HELP);

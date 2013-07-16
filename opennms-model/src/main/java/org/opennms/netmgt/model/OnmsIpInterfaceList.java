@@ -74,7 +74,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
     public List<OnmsIpInterface> getInterfaces() {
         return this;
     }
-    
+
     /**
      * <p>setInterfaces</p>
      *
@@ -85,7 +85,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
         clear();
         addAll(interfaces);
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -95,7 +95,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
     public Integer getCount() {
         return this.size();
     }
-    
+
     /**
      * <p>getTotalCount</p>
      *
@@ -105,7 +105,7 @@ public class OnmsIpInterfaceList extends LinkedList<OnmsIpInterface> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *

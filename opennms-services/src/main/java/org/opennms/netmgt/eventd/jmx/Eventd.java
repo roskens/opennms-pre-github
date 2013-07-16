@@ -46,6 +46,6 @@ public class Eventd extends AbstractSpringContextJmxServiceDaemon<org.opennms.ne
     /** {@inheritDoc} */
     @Override
     protected String getSpringContext() {
-        return "eventDaemonContext";       
+        return "eventDaemonContext";
     }
 }

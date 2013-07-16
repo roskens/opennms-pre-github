@@ -58,7 +58,7 @@ public abstract class PageableList extends Composite {
     private static PageableListUiBinder uiBinder = GWT.create(PageableListUiBinder.class);
 
     interface PageableListUiBinder extends UiBinder<Widget, PageableList> {}
-    
+
     interface LocationDetailStyle extends CssResource{
         String detailContainerStyle();
         String iconStyle();
@@ -67,16 +67,16 @@ public abstract class PageableList extends Composite {
         String statusStyle();
         String alternateRowStyle();
     }
-    
+
     private static final int TOTAL_LOCATIONS = 10;
-    
+
     @UiField FlexTable dataList;
     @UiField Panel pagingControls;
     @UiField Hyperlink nextBtn;
     @UiField Label pageStatsLabel;
     @UiField Hyperlink prevBtn;
     @UiField LocationDetailStyle locationDetailStyle;
-    
+
     private volatile boolean m_needsRefresh = true;
     private int m_currentPageIndex = 0;
     private int m_totalPages = 0;
@@ -86,7 +86,7 @@ public abstract class PageableList extends Composite {
      */
     public PageableList() {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         pagingControls.getElement().setId("pagingControls");
     }
 
@@ -131,18 +131,18 @@ public abstract class PageableList extends Composite {
         int rowCount = 0;
         final int size = getListSize();
         final int showableLocations = ((currentPageIndex + 1) * getTotalListItemsPerPage()) > size ? size : ((currentPageIndex + 1) * getTotalListItemsPerPage());
-        final int startIndex = currentPageIndex * getTotalListItemsPerPage(); 
+        final int startIndex = currentPageIndex * getTotalListItemsPerPage();
 
         for(int i = startIndex; i < showableLocations; i++) {
             getDataList().setWidget(rowCount, 0, getListItemWidget(i));
-            
+
             if(rowCount % 2 == 0) {
                 getDataList().getRowFormatter().addStyleName(rowCount, getAlternateRowStyle());
             }
-            
+
             rowCount++;
         }
-        
+
         calculateAndSetTotalPages(size);
         updatePageStatsDisplay(startIndex + 1, showableLocations, getListSize());
     }
@@ -154,7 +154,7 @@ public abstract class PageableList extends Composite {
                 totalPages = 1;
             }
             setTotalPages( totalPages );
-            
+
         }else {
             setTotalPages(0);
         }
@@ -168,14 +168,14 @@ public abstract class PageableList extends Composite {
     protected String getAlternateRowStyle() {
         return locationDetailStyle.alternateRowStyle();
     }
-    
+
     /**
      * <p>getListSize</p>
      *
      * @return a int.
      */
     protected abstract int getListSize();
-    
+
     /**
      * <p>getListItemWidget</p>
      *
@@ -224,7 +224,7 @@ public abstract class PageableList extends Composite {
     public void addLocationPanelSelectEventHandler(final LocationPanelSelectEventHandler handler) {
         addHandler(handler, LocationPanelSelectEvent.TYPE);
     }
-    
+
     protected void setCurrentPageIndex(final int currentPageIndex) {
         calculateAndSetTotalPages(getListSize());
         if (currentPageIndex == 0) {

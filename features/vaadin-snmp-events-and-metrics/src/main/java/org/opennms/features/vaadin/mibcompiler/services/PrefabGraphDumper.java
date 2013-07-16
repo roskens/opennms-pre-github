@@ -37,8 +37,8 @@ import org.opennms.netmgt.model.PrefabGraph;
 
 /**
  * The Class PrefabGraphDumper.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class PrefabGraphDumper {
 

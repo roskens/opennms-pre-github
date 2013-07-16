@@ -48,20 +48,20 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@TestExecutionListeners({}) 
+@TestExecutionListeners({})
 public class IcmpDetectorTest {
-    
+
     private IcmpDetector m_icmpDetector;
-    
-    
+
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
-    
+
     @After
     public void tearDown() {
-        
+
     }
 
     @Test(timeout=90000)

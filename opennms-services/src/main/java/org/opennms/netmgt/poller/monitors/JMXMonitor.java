@@ -43,10 +43,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /*
- * This class computes the response time of making a connection to 
- * the remote server.  If the connection is successful the reponse time 
+ * This class computes the response time of making a connection to
+ * the remote server.  If the connection is successful the reponse time
  * RRD is updated.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
  */
 public abstract class JMXMonitor extends AbstractServiceMonitor {
 
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(JMXMonitor.class);
-    
+
     /**
      * <p>getMBeanServerConnection</p>
      *
@@ -71,7 +71,7 @@ public abstract class JMXMonitor extends AbstractServiceMonitor {
      * @return a {@link org.opennms.protocols.jmx.connectors.ConnectionWrapper} object.
      */
     public abstract ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address);
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.poller.monitors.ServiceMonitor#poll(org.opennms.netmgt.poller.monitors.NetworkInterface, java.util.Map, org.opennms.netmgt.config.poller.Package)
      */
@@ -84,12 +84,12 @@ public abstract class JMXMonitor extends AbstractServiceMonitor {
         PollStatus     serviceStatus = PollStatus.unavailable();
         String         dsName        = null;
         InetAddress    ipv4Addr      = (InetAddress)iface.getAddress();
-        
+
         ConnectionWrapper connection = null;
 
 
         try {
-            
+
             int retry = ParameterMap.getKeyedInteger(map, "retry", 3);
 
             long t0 = 0;
@@ -120,7 +120,7 @@ public abstract class JMXMonitor extends AbstractServiceMonitor {
                 connection.close();
             }
         }
-        
+
         return serviceStatus;
     }
 }

@@ -101,7 +101,7 @@ public class WebMonitor extends AbstractServiceMonitor {
             // Set the virtual host to the 'virtual-host' parameter or the host address if 'virtual-host' is not present
             getMethod.getParams().setParameter(ClientPNames.VIRTUAL_HOST,
                 new HttpHost(
-                    ParameterMap.getKeyedString(map,"virtual-host", hostAddress), 
+                    ParameterMap.getKeyedString(map,"virtual-host", hostAddress),
                     ParameterMap.getKeyedInteger(map, "port", DEFAULT_PORT)
                 )
             );
@@ -169,12 +169,12 @@ public class WebMonitor extends AbstractServiceMonitor {
             }
 
             if (expectedText!=null){
-                String responseText = EntityUtils.toString(response.getEntity()); 
+                String responseText = EntityUtils.toString(response.getEntity());
                 if(expectedText.charAt(0)=='~'){
                     if(!responseText.matches(expectedText.substring(1))){
                         pollStatus = PollStatus.unavailable("Regex Failed");
                     }
-                    else 
+                    else
                         pollStatus = PollStatus.available();
                 }
                 else {

@@ -35,7 +35,7 @@ import org.opennms.features.reporting.model.basicreport.BasicReportDefinition;
 import org.opennms.features.reporting.repository.ReportRepository;
 
 public interface GlobalReportRepository {
-    
+
     public List<BasicReportDefinition> getAllReports();
     public List<BasicReportDefinition> getAllOnlineReports();
     public List<BasicReportDefinition> getReports(String repoId);

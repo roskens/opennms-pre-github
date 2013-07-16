@@ -38,7 +38,7 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsStpNode;
 
 public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integer>  implements StpNodeDao {
-    
+
     public StpNodeDaoHibernate() {
         super(OnmsStpNode.class);
     }
@@ -48,7 +48,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
-        
+
         for (final OnmsStpNode stpNode : findMatching(criteria)) {
         	stpNode.setStatus(StatusType.DELETED);
         	saveOrUpdate(stpNode);
@@ -62,7 +62,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-        
+
         for (final OnmsStpNode item : findMatching(criteria)) {
             item.setStatus(StatusType.INACTIVE);
             saveOrUpdate(item);
@@ -76,7 +76,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
-        
+
         for (final OnmsStpNode item : findMatching(criteria)) {
             delete(item);
         }
@@ -90,7 +90,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         final OnmsCriteria criteria = new OnmsCriteria(OnmsStpNode.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeid));
-        
+
         for (final OnmsStpNode item : findMatching(criteria)) {
             item.setStatus(action);
             saveOrUpdate(item);
@@ -103,7 +103,7 @@ public class StpNodeDaoHibernate extends AbstractDaoHibernate<OnmsStpNode, Integ
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.eq("baseVlan", baseVlan));
-        
+
         final List<OnmsStpNode> stpNodes = findMatching(criteria);
         if (stpNodes != null && stpNodes.size() > 0) {
             return stpNodes.get(0);

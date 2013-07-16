@@ -57,24 +57,24 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class CitrixDetectorTest implements ApplicationContextAware {
-    
+
     private ApplicationContext m_applicationContext;
     private CitrixDetector m_detector;
     private SimpleServer m_server;
-    
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
         m_detector = getDetector(CitrixDetector.class);
-        
+
         m_server = getServer();
         m_server.init();
         m_server.startServer();
-        
-        
+
+
     }
-    
+
     @After
     public void tearDown() throws IOException {
         if (m_server != null) {
@@ -82,63 +82,63 @@ public class CitrixDetectorTest implements ApplicationContextAware {
             m_server = null;
         }
     }
-    
+
     @Test(timeout=90000)
     public void testMyDetector() throws Exception {
         m_detector.setPort(20000);
         m_detector.setIdleTime(10000);
         m_detector.init();
-        
+
         //assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse(future.isServiceDetected());
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailWrongPort() throws Exception {
         m_detector.setPort(20000);
         m_detector.setIdleTime(10000);
         m_detector.init();
-        
+
         //assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertFalse(future.isServiceDetected());
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws Exception {
         m_detector.setPort(m_server.getLocalPort());
         m_detector.setIdleTime(10000);
         m_detector.init();
-        
+
         //assertTrue(m_detector.isServiceDetected(m_server.getInetAddress()));
         DetectFuture future = m_detector.isServiceDetected(m_server.getInetAddress());
         assertNotNull(future);
         future.awaitForUninterruptibly();
         assertTrue(future.isServiceDetected());
     }
-    
+
     private SimpleServer getServer() {
         return new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                 setBanner("ICAICAICAICA");
             }
         };
     }
-    
+
     private CitrixDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
         return (CitrixDetector)bean;
     }
-    
+
     /* (non-Javadoc)
      * @see org.springframework.context.ApplicationContextAware#setApplicationContext(org.springframework.context.ApplicationContext)
      */

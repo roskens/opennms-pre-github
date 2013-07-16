@@ -42,13 +42,13 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SimpleConversationEndPoint {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SimpleConversationEndPoint.class);
-    
+
     public static class SimpleExchange implements Exchange{
         private ResponseHandler m_responseHandler;
         private RequestHandler m_requestHandler;
-        
+
         public SimpleExchange(ResponseHandler responseHandler, RequestHandler requestHandler) {
             setResponseHandler(responseHandler);
             setRequestHandler(requestHandler);
@@ -62,10 +62,10 @@ public class SimpleConversationEndPoint {
         @Override
         public boolean processResponse(BufferedReader in) throws IOException {
             String input = in.readLine();
-            
+
             LOG.info("SimpleExchange response: {}", input);
             if(input == null) { return false;}
-            
+
             return matchResponseByString(input);
         }
 
@@ -92,11 +92,11 @@ public class SimpleConversationEndPoint {
         public RequestHandler getRequestHandler() {
             return m_requestHandler;
         }
-        
+
     }
     protected Conversation m_conversation;
     private int m_timeout;
-    
+
     /**
      * <p>init</p>
      *
@@ -105,7 +105,7 @@ public class SimpleConversationEndPoint {
     public void init() throws Exception {
         m_conversation = new Conversation();
     };
-    
+
     /**
      * <p>setTimeout</p>
      *
@@ -123,7 +123,7 @@ public class SimpleConversationEndPoint {
     public int getTimeout() {
         return m_timeout;
     }
-    
+
     /**
      * <p>startsWith</p>
      *
@@ -137,10 +137,10 @@ public class SimpleConversationEndPoint {
             public boolean matches(String input) {
                 return input.startsWith(prefix);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -154,10 +154,10 @@ public class SimpleConversationEndPoint {
             public boolean matches(String input) {
                 return input.contains(phrase);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>matches</p>
      *
@@ -166,15 +166,15 @@ public class SimpleConversationEndPoint {
      */
     protected static ResponseHandler matches(final String regex) {
         return new ResponseHandler() {
-            
+
             @Override
             public boolean matches(String input) {
                 return input.matches(regex);
             }
-            
+
         };
     }
-    
+
     /**
      * Add a ResponseHandler by calling one of the three utility methods:
      *
@@ -190,7 +190,7 @@ public class SimpleConversationEndPoint {
     protected void addResponseHandler(ResponseHandler responseHandler, RequestHandler requestHandler) {
         m_conversation.addExchange(new SimpleExchange(responseHandler, requestHandler));
     }
-    
+
     /**
      * <p>singleLineRequest</p>
      *
@@ -204,10 +204,10 @@ public class SimpleConversationEndPoint {
           public void doRequest(OutputStream out) throws IOException {
               out.write(String.format("%s\r\n", request).getBytes());
           }
-          
+
       };
     }
-    
+
     /**
      * <p>multilineLineRequest</p>
      *
@@ -223,8 +223,8 @@ public class SimpleConversationEndPoint {
                     out.write(String.format("%s\r\n", request[i]).getBytes());
                 }
             }
-          
-            
+
+
         };
     }
 }

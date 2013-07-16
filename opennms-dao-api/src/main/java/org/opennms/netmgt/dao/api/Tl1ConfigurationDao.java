@@ -40,14 +40,14 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public interface Tl1ConfigurationDao {
-    
+
     /**
      * <p>getElements</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<Tl1Element> getElements();
-    
+
     /**
      * <p>update</p>
      *

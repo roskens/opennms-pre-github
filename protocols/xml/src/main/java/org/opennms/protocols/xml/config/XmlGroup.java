@@ -45,7 +45,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class XmlGroup.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="xml-group")
@@ -86,7 +86,7 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     /** The XML objects list. */
     @XmlElement(name="xml-object", required=true)
     private List<XmlObject> m_xmlObjects = new ArrayList<XmlObject>();
-    
+
     /** The m_xml resource key. */
     @XmlElement(name="resource-key", required=false)
     private XmlResourceKey m_xmlResourceKey;
@@ -198,7 +198,7 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
 
     /**
      * Gets the key XPath (for resource instance).
-     * 
+     *
      * @return the key XPath
      */
     public String getKeyXpath() {
@@ -276,7 +276,7 @@ public class XmlGroup implements Serializable, Comparable<XmlGroup> {
     public void setXmlResourceKey(XmlResourceKey xmlResourceKey) {
         this.m_xmlResourceKey = xmlResourceKey;
     }
-    
+
     /**
      * Checks for multiple resource key.
      *

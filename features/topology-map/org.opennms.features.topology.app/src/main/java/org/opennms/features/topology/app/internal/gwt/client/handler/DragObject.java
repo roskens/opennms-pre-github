@@ -46,9 +46,9 @@ import com.google.gwt.dom.client.NativeEvent;
 import com.google.gwt.touch.client.Point;
 
 public class DragObject{
-    
+
 	/**
-     * 
+     *
      */
     private final TopologyView<TopologyViewRenderer> m_svgTopologyMap;
     private Element m_containerElement;
@@ -60,12 +60,12 @@ public class DragObject{
 	private Map<String, Point> m_startPosition = new HashMap<String, Point>();
 
 	public DragObject(TopologyView<TopologyViewRenderer> svgTopologyMap, Element draggableElement, Element containerElement, D3 selection) {
-	    
+
 		m_svgTopologyMap = svgTopologyMap;
         m_draggableElement = draggableElement;
 		m_containerElement = containerElement;
 		m_selection = selection;
-		
+
 		m_selection.each(new Handler<GWTVertex>() {
 
             @Override
@@ -74,15 +74,15 @@ public class DragObject{
                 m_startPosition.put(vertex.getId(), p);
             }
         });
-		
+
 		//User m_vertexgroup because this is what we scale instead of every vertex element
 		m_transform = D3.getTransform(D3.d3().select(getTopologyView().getVertexGroup()).attr("transform"));
-		
+
 		JsArrayInteger position = D3.getMouse(containerElement);
 		m_startX = (int) (position.get(0) / m_transform.getScale().get(0));
 		m_startY = (int) (position.get(1) / m_transform.getScale().get(1));
 	}
-	
+
 	public Element getContainerElement() {
 		return m_containerElement;
 	}
@@ -110,7 +110,7 @@ public class DragObject{
 	}
 
 	public void move() {
-	    
+
 	    final int deltaX = getCurrentX() - getStartX();
 	    final int deltaY = getCurrentY() - getStartY();
 
@@ -120,15 +120,15 @@ public class DragObject{
             public void call(GWTVertex vertex, int index) {
                 if(m_startPosition.containsKey(vertex.getId())) {
                     Point p = m_startPosition.get(vertex.getId());
-                    
+
                     vertex.setX( (int) (p.getX() + deltaX) );
                     vertex.setY( (int) (p.getY() + deltaY));
                 }
             }
         });
-	    
+
 	}
-	
+
 	public final native void consoleLog(Object object) /*-{
 	    $wnd.console.log(object);
 	}-*/;

@@ -52,13 +52,13 @@ public final class ByNameComparator implements Comparator<AttributeDefinition>, 
     public int compare(final AttributeDefinition type0, final AttributeDefinition type1) {
         return type0.getName().compareTo(type1.getName());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(final Object o) {
         return o instanceof ByNameComparator;
     }
-    
+
     /**
      * <p>hashCode</p>
      *

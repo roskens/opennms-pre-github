@@ -44,8 +44,8 @@ import org.opennms.web.svclayer.daemonstatus.DaemonStatusService;
  * @since 1.8.1
  */
 public class DefaultDaemonStatusService implements DaemonStatusService {
-	
-	private DaemonStatusDao daemonStatusDao; 
+
+	private DaemonStatusDao daemonStatusDao;
 
 	/**
 	 * <p>Setter for the field <code>daemonStatusDao</code>.</p>
@@ -55,7 +55,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
 	public void setDaemonStatusDao(DaemonStatusDao daemonStatusDao) {
 		this.daemonStatusDao = daemonStatusDao;
 	}
-	
+
 	/**
 	 * <p>getCurrentDaemonStatus</p>
 	 *
@@ -67,7 +67,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
 		Map<String, ServiceInfo> info = daemonStatusDao.getCurrentDaemonStatus();
         return info;
 	}
-	
+
 	/**
 	 * <p>getCurrentDaemonStatusColl</p>
 	 *
@@ -77,7 +77,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
 	public Collection<ServiceInfo> getCurrentDaemonStatusColl() {
 		// TODO Auto-generated method stub
 		return daemonStatusDao.getCurrentDaemonStatus().values();
-        
+
 	}
 
 	/**
@@ -94,7 +94,7 @@ public class DefaultDaemonStatusService implements DaemonStatusService {
 			if(operation.equalsIgnoreCase("start")) {
 				startDaemon(daemons[i]);
 			} else if(operation.equalsIgnoreCase("stop")) {
-				stopDaemon(daemons[i]);				
+				stopDaemon(daemons[i]);
 			} else if(operation.equalsIgnoreCase("restart")) {
 				restartDaemon(daemons[i]);
 			} else if(operation.equalsIgnoreCase("refresh")) {

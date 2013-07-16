@@ -54,9 +54,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class BasePersister extends AbstractCollectionSetVisitor implements Persister {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BasePersister.class);
-    
+
     private boolean m_ignorePersist = false;
     private ServiceParameters m_params;
     private RrdRepository m_repository;
@@ -81,7 +81,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
         m_params = params;
         m_repository = repository;
     }
-    
+
     /**
      * <p>commitBuilder</p>
      */
@@ -94,7 +94,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             m_builder = null;
         } catch (RrdException e) {
             LOG.error("Unable to persist data for {}", name, e);
-    
+
         }
     }
 
@@ -121,7 +121,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     public void completeResource(CollectionResource resource) {
         popShouldPersist();
     }
-    
+
     /**
      * <p>createBuilder</p>
      *
@@ -185,9 +185,9 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Persisting {}", attribute);
             CollectionResource resource = attribute.getResource();
             String value = attribute.getStringValue();
-    
+
             File resourceDir = resource.getResourceDir(getRepository());
-    
+
             //String attrVal = (value == null ? null : value.toString());
             //if (attrVal == null) {
             if (value == null) {
@@ -216,7 +216,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
     protected boolean popShouldPersist() {
         return pop();
     }
-    
+
     private void push(boolean b) {
         m_stack.addLast(Boolean.valueOf(b));
     }
@@ -272,7 +272,7 @@ public class BasePersister extends AbstractCollectionSetVisitor implements Persi
             LOG.debug("Not persisting attribute {} because shouldPersist is false", attribute);
         }
     }
-    
+
     private boolean top() {
         return m_stack.getLast();
     }

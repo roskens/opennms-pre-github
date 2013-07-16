@@ -41,14 +41,14 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public interface ProvisiondConfigurationDao {
-    
+
     /**
      * <p>getConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.provisiond.ProvisiondConfiguration} object.
      */
     ProvisiondConfiguration getConfig();
-    
+
     /**
      * <p>getDef</p>
      *
@@ -56,56 +56,56 @@ public interface ProvisiondConfigurationDao {
      * @return a {@link org.opennms.netmgt.config.provisiond.RequisitionDef} object.
      */
     RequisitionDef getDef(String defName);
-    
+
     /**
      * <p>getDefs</p>
      *
      * @return a {@link java.util.List} object.
      */
     List<RequisitionDef> getDefs();
-    
+
     /**
      * <p>getImportThreads</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getImportThreads();
-    
+
     /**
      * <p>getScanThreads</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getScanThreads();
-    
+
     /**
      * <p>getRescanThreads</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getRescanThreads();
-    
+
     /**
      * <p>getWriteThreads</p>
      *
      * @return a {@link java.lang.Integer} object.
      */
     public Integer getWriteThreads();
-    
+
     /**
      * <p>getRequisitionDir</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getRequisitionDir();
-    
+
     /**
      * <p>getForeignSourceDir</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getForeignSourceDir();
-        
+
     /**
      * The underlying Castor based DAO abstraction in the default implementation doesn't provide access to the container so
      * this method is defined so that access to the container doesn't have to be exposed and a reload can still be controlled

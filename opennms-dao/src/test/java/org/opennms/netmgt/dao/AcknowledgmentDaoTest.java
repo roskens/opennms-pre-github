@@ -76,7 +76,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AcknowledgmentDaoTest implements InitializingBean {
 	@Autowired
     private AcknowledgmentDao m_acknowledgmentDao;
-	
+
 	@Autowired
 	private DistPollerDao m_distPollerDao;
 
@@ -91,9 +91,9 @@ public class AcknowledgmentDaoTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     private static boolean m_populated = false;
-    
+
 
     @Override
     public void afterPropertiesSet() throws Exception {
@@ -125,13 +125,13 @@ public class AcknowledgmentDaoTest implements InitializingBean {
         getAcknowledgmentDao().flush();
         Integer id = new Integer(ack.getId());
         ack = null;
-        
+
         OnmsAcknowledgment ack2 = getAcknowledgmentDao().get(id);
         assertNotNull(ack2);
         assertEquals(id, ack2.getId());
         assertFalse("admin".equals(ack2.getAckUser()));
         assertEquals("not-admin", ack2.getAckUser());
-        
+
     }
 
     private AcknowledgmentDao getAcknowledgmentDao() {
@@ -151,11 +151,11 @@ public class AcknowledgmentDaoTest implements InitializingBean {
         event.setEventUei("uei://org/opennms/test/EventDaoTest");
         event.setEventSource("test");
         m_eventDao.save(event);
-        
+
         OnmsNode node = m_nodeDao.findAll().iterator().next();
 
         OnmsAlarm alarm = new OnmsAlarm();
-        
+
         alarm.setNode(node);
         alarm.setUei(event.getEventUei());
         alarm.setSeverityId(event.getEventSeverity());
@@ -165,18 +165,18 @@ public class AcknowledgmentDaoTest implements InitializingBean {
         alarm.setDistPoller(m_distPollerDao.load("localhost"));
         alarm.setAlarmAckTime(new Date());
         alarm.setAlarmAckUser("not-admin");
-        
+
         m_alarmDao.save(alarm);
         m_alarmDao.flush();
-        
+
         OnmsAcknowledgment ack = new OnmsAcknowledgment(alarm);
         getAcknowledgmentDao().save(ack);
         Integer ackId = new Integer(ack.getId());
         ack = null;
-        
+
         OnmsAcknowledgment ack2 = getAcknowledgmentDao().get(ackId);
         OnmsAlarm alarm2 = m_alarmDao.get(ack2.getRefId());
-        
+
         assertEquals(ack2.getAckUser(), alarm2.getAlarmAckUser());
         assertEquals(ack2.getAckTime(), alarm2.getAlarmAckTime());
     }

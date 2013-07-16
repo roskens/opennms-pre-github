@@ -51,9 +51,9 @@ public class NullReportRenderer implements ReportRenderer {
     private static final String LOG4J_CATEGORY = "reports";
 
     private String m_outputFileName;
-    
+
     private String m_inputFileName;
-    
+
     private String m_baseDir;
 
     @SuppressWarnings("unused")
@@ -82,7 +82,7 @@ public class NullReportRenderer implements ReportRenderer {
     public void setOutputFileName(String outputFileName) {
         this.m_outputFileName = outputFileName;
     }
-    
+
     /**
      * <p>getOutputFileName</p>
      *
@@ -98,13 +98,13 @@ public class NullReportRenderer implements ReportRenderer {
     public void setInputFileName(String intputFileName) {
         this.m_inputFileName = intputFileName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setBaseDir(String baseDir){
         this.m_baseDir = baseDir;
     }
-    
+
     /**
      * <p>getBaseDir</p>
      *

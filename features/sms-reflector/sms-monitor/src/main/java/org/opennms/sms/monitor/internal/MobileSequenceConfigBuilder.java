@@ -51,16 +51,16 @@ import org.smslib.USSDSessionStatus;
  * @version $Id: $
  */
 public class MobileSequenceConfigBuilder {
-    
+
     private MobileSequenceConfig m_sequence;
-    
+
     /**
      * <p>Constructor for MobileSequenceConfigBuilder.</p>
      */
     public MobileSequenceConfigBuilder() {
         this(new MobileSequenceConfig());
     }
-    
+
     /**
      * <p>Constructor for MobileSequenceConfigBuilder.</p>
      *
@@ -69,7 +69,7 @@ public class MobileSequenceConfigBuilder {
     public MobileSequenceConfigBuilder(MobileSequenceConfig sequence) {
         m_sequence = sequence;
     }
-    
+
     /**
      * <p>getSequence</p>
      *
@@ -78,7 +78,7 @@ public class MobileSequenceConfigBuilder {
     public MobileSequenceConfig getSequence() {
         return m_sequence;
     }
-    
+
     /**
      * <p>addTransaction</p>
      *
@@ -89,7 +89,7 @@ public class MobileSequenceConfigBuilder {
         getSequence().addTransaction(t);
         return new MobileSequenceTransactionBuilder(t);
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -99,8 +99,8 @@ public class MobileSequenceConfigBuilder {
     public MobileSequenceTransactionBuilder request(MobileSequenceRequest request) {
         return addTransaction().setRequest(request);
     }
-    
-    
+
+
     /**
      * <p>smsRequest</p>
      *
@@ -111,13 +111,13 @@ public class MobileSequenceConfigBuilder {
      * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
      */
     public MobileSequenceTransactionBuilder smsRequest(String label, String gatewayId, String recipient, String text) {
-        
+
         SmsSequenceRequest smsRequest = new SmsSequenceRequest();
         smsRequest.setLabel(label);
         smsRequest.setGatewayId(gatewayId);
         smsRequest.setRecipient(recipient);
         smsRequest.setText(text);
-        
+
         return request(smsRequest);
     }
 
@@ -130,23 +130,23 @@ public class MobileSequenceConfigBuilder {
      * @return a {@link org.opennms.sms.monitor.internal.MobileSequenceConfigBuilder.MobileSequenceTransactionBuilder} object.
      */
     public MobileSequenceTransactionBuilder ussdRequest(String label, String gatewayId, String text) {
-        
+
         MobileSequenceRequest ussdRequest = new UssdSequenceRequest();
         ussdRequest.setLabel(label);
         ussdRequest.setGatewayId(gatewayId);
         ussdRequest.setText(text);
-        
+
         return request(ussdRequest);
 
     }
 
     public static class MobileSequenceTransactionBuilder {
         private MobileSequenceTransaction m_transaction;
-        
+
         public MobileSequenceTransactionBuilder(MobileSequenceTransaction transaction) {
             m_transaction = transaction;
         }
-        
+
         public MobileSequenceTransactionBuilder setRequest(MobileSequenceRequest sequenceRequest) {
             m_transaction.setRequest(sequenceRequest);
             return this;
@@ -166,7 +166,7 @@ public class MobileSequenceConfigBuilder {
 
         public SmsResponseBuilder expectSmsResponse(String label) {
             MobileSequenceResponse response = new SmsSequenceResponse(label);
-        
+
             addResponse(response);
             return new SmsResponseBuilder(response);
         }
@@ -185,7 +185,7 @@ public class MobileSequenceConfigBuilder {
             m_transaction.setLabel(transactionLabel);
             return this;
         }
-        
+
         public MobileSequenceTransactionBuilder withGatewayId(String gatewayId) {
             m_transaction.setGatewayId(gatewayId);
             return this;
@@ -193,7 +193,7 @@ public class MobileSequenceConfigBuilder {
 
 
     }
-    
+
 
     /**
      * SmsResponseBuilder
@@ -215,7 +215,7 @@ public class MobileSequenceConfigBuilder {
         public SmsResponseBuilder matching(String regex) {
             return addMatcher(new TextResponseMatcher(regex));
         }
-        
+
         public SmsResponseBuilder srcMatches(String originator) {
             addMatcher(new SmsSourceMatcher(originator));
             return this;
@@ -228,7 +228,7 @@ public class MobileSequenceConfigBuilder {
 
     }
 
-    
+
 
     /**
      * SmsResponseBuilder
@@ -275,9 +275,9 @@ public class MobileSequenceConfigBuilder {
         SequenceSessionVariable var = new SequenceSessionVariable(name, variableClass.getName());
         m_sequence.addSessionVariable(var);
         return new SessionVariableBuilder(var);
-        
+
     }
-    
+
     public static class SessionVariableBuilder {
         private SequenceSessionVariable m_var;
 
@@ -289,9 +289,9 @@ public class MobileSequenceConfigBuilder {
             m_var.addParameter(key, val == null ? null : val.toString());
             return this;
         }
-        
+
     }
 
-    
+
 
 }

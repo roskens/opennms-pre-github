@@ -38,7 +38,7 @@ import org.opennms.core.soa.Filter;
  * @author brozow
  */
 public class NotFilter extends AbstractFilter {
-    
+
     Filter m_filter;
 
     public NotFilter(Filter filter) {

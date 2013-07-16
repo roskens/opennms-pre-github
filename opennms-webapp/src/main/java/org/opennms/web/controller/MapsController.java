@@ -39,7 +39,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
 
 public class MapsController extends AbstractController implements InitializingBean {
     private MenuDropdownNavBarEntry m_mapMenuEntries;
-    
+
     @Override
     public void afterPropertiesSet() {
         Assert.state(m_mapMenuEntries != null, "mapMenuEntries property has not been set");
@@ -48,7 +48,7 @@ public class MapsController extends AbstractController implements InitializingBe
     public MenuDropdownNavBarEntry getMapMenuEntries() {
         return m_mapMenuEntries;
     }
-    
+
     public void setMapMenuEntries(final MenuDropdownNavBarEntry entries) {
         m_mapMenuEntries = entries;
     }

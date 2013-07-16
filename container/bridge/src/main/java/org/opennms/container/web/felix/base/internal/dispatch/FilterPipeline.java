@@ -63,6 +63,6 @@ public final class FilterPipeline
         {
             final RequestDispatcher dispatcher = servletPipeline.getRequestDispatcher(path);
             return (null != dispatcher) ? dispatcher : super.getRequestDispatcher(path);
-        }        
+        }
     }
 }

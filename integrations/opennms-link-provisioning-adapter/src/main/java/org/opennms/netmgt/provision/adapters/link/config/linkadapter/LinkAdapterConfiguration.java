@@ -58,7 +58,7 @@ public class LinkAdapterConfiguration {
     public Set<LinkPattern> getPatterns() {
         return m_patterns;
     }
-    
+
     /**
      * <p>setPatterns</p>
      *
@@ -71,7 +71,7 @@ public class LinkAdapterConfiguration {
             m_patterns.addAll(patterns);
         }
     }
-    
+
     /**
      * <p>toString</p>
      *

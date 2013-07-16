@@ -40,7 +40,7 @@ public interface Scanner {
      * <p>init</p>
      */
     public void init();
-    
+
     /**
      * <p>scan</p>
      *

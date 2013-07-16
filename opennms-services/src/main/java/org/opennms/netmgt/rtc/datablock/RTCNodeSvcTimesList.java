@@ -81,7 +81,7 @@ public class RTCNodeSvcTimesList extends LinkedList<RTCNodeSvcTime> {
     /**
      * Remove expired outages. Remove closed outages that are not in the the
      * last 'rollingWindow' starting from curTime.
-     * 
+     *
      * @param curTime
      *            the current time to start from.
      * @param rollingWindow

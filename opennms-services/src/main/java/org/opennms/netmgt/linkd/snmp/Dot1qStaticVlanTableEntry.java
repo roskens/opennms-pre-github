@@ -57,9 +57,9 @@ public final class Dot1qStaticVlanTableEntry extends Vlan {
 	public final static String VLAN_STATICUNTAGGEDPORTS = "dot1qVlanStaticUntaggedPorts";
 
 	private static String VLAN_NAME_OID=".1.3.6.1.2.1.17.7.1.4.3.1.1";
-	
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of

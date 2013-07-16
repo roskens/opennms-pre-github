@@ -98,14 +98,14 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
             <alarm-data reduction-key="%uei%!%nodeid%!%parm[label]%" alarm-type="1" auto-clean="false" />
         </event>
          */
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.HIGH_THRESHOLD_EVENT_UEI, "testExpandNotifParms");
 
         bldr.setDescription("High threshold exceeded for %service% datasource %parm[ds]% on interface %interface%, parms: %parm[all]%");
         bldr.setLogMessage("High threshold exceeded for %service% datasource %parm[ds]% on interface %interface%, parms: %parm[all]%");
         bldr.setNodeid(0);
         bldr.setInterface(addr("0.0.0.0"));
-        
+
         bldr.addParam("ds", "dsk-usr-pcent");
         bldr.addParam("value", "Crap! There's only 15% free on the SAN and we need 20%! RUN AWAY!");
         bldr.addParam("threshold", "");
@@ -141,7 +141,7 @@ public class BroadcastEventProcessorTest extends NotificationsTestCase {
     /**
      * Trip a notification and see if the %noticeid% token gets expanded to a numeric
      * value in the subject and text message
-     * 
+     *
      * @author Jeff Gehlbach <jeffg@jeffg.org>
      */
     @Test

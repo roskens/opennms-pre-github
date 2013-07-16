@@ -38,15 +38,15 @@ import org.opennms.netmgt.dao.castor.InvocationAnticipator;
 import org.springframework.core.io.ClassPathResource;
 
 public class DataCollectionConfigFileTest extends TestCase {
-    
+
     private InvocationAnticipator m_invocationAnticipator;
     private DataCollectionVisitor m_visitor;
-    
+
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         InvocationHandler noNullsAllowed = new InvocationHandler() {
 
             @Override
@@ -56,11 +56,11 @@ public class DataCollectionConfigFileTest extends TestCase {
                 assertNotNull(args[0]);
                 return null;
             }
-            
+
         };
         m_invocationAnticipator = new InvocationAnticipator(DataCollectionVisitor.class);
         m_invocationAnticipator.setInvocationHandler(noNullsAllowed);
-        
+
         m_visitor = (DataCollectionVisitor)m_invocationAnticipator.getProxy();
     }
 
@@ -68,12 +68,12 @@ public class DataCollectionConfigFileTest extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-    
+
     public void testVisit() throws IOException {
-        
+
         ClassPathResource resource = new ClassPathResource("/datacollectionconfigfile-testdata.xml");
         DataCollectionConfigFile configFile = new DataCollectionConfigFile(resource.getFile());
-        
+
         anticipateVisits(1, "DataCollectionConfig");
         anticipateVisits(1, "SnmpCollection");
         anticipateVisits(1, "Rrd");
@@ -87,11 +87,11 @@ public class DataCollectionConfigFileTest extends TestCase {
         anticipateVisits(57, "Group");
         anticipateVisits(0, "SubGroup");
         anticipateVisits(809, "MibObj");
-        
+
         configFile.visit(m_visitor);
-        
+
         m_invocationAnticipator.verify();
-        
+
     }
 
     private void anticipateVisits(int count, String visited) {

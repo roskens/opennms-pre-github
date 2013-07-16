@@ -34,11 +34,11 @@ import java.util.ArrayList;
 /**
  * This class provides a set of utilities that may be used by other package
  * members. This class is not accessable to non-package classes.
- * 
+ *
  * The util class maintains a dynamically created list of SnmpSyntax object that
  * is uses to lookup received messages. The typeId() method of each SnmpSyntax
  * object provides the comparision data for the received ASN.1 type.
- * 
+ *
  * @see SnmpInt32
  * @see SnmpCounter32
  * @see SnmpGauge32
@@ -46,13 +46,13 @@ import java.util.ArrayList;
  * @see SnmpOctetString
  * @see SnmpIPAddress
  * @see SnmpObjectId
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 class SnmpUtil extends Object {
     /**
      * The array of dynamically registred SnmpSyntax objects
-     * 
+     *
      */
     static ArrayList<SnmpSyntax> m_syntaxArray = null;
 
@@ -68,12 +68,12 @@ class SnmpUtil extends Object {
     /**
      * Used to register a SnmpSyntax object with the SnmpUtil class. Once
      * registered it can be dynamically found based on it's typeId().
-     * 
+     *
      * @param obj
      *            The SnmpSyntax object to add
-     * 
+     *
      * @return True if the object is successfully added
-     * 
+     *
      */
     static boolean registerSyntax(SnmpSyntax obj) {
         boolean rc = false;
@@ -98,15 +98,15 @@ class SnmpUtil extends Object {
 
     /**
      * Used to dynamically lookup registered SnmpSyntax objects.
-     * 
+     *
      * Deprecation warnings are suppressed because the SnmpV2PartyClock
      * is supported for backward compatability and is deprecated.
-     * 
+     *
      * @param asnType
      *            The ASN.1 type to search for
-     * 
+     *
      * @return A new SnmpSyntax object of the appropiate type
-     * 
+     *
      */
     @SuppressWarnings("deprecation")
     static SnmpSyntax getSyntaxObject(byte asnType) {
@@ -194,7 +194,7 @@ class SnmpUtil extends Object {
      * marks the point where the array between [pivot..end) are moved to the
      * position marked by begin. The bytes between [begin..pivot) are shifted
      * such that begin is at [begin+(end-pivot)].
-     * 
+     *
      * @param arrayBuf
      *            The buffer containing the data to rotate
      * @param begin
@@ -203,7 +203,7 @@ class SnmpUtil extends Object {
      *            The pivot point for the rotation
      * @param end
      *            The end of the rotational buffer
-     * 
+     *
      */
     static void rotate(byte[] arrayBuf, int begin, int pivot, int end) {
         // The amount of data to move between the pivot point
@@ -243,7 +243,7 @@ class SnmpUtil extends Object {
     /**
      * Dumps an array of byte to the output string as a sequence of hexadecimal
      * digits.
-     * 
+     *
      * @param out
      *            The output stream
      * @param data
@@ -252,7 +252,7 @@ class SnmpUtil extends Object {
      *            The start location within the data
      * @param length
      *            The length of data to dump
-     * 
+     *
      */
     static void dumpHex(PrintStream out, byte[] data, int offset, int length) {
         if ((offset + length) > data.length)

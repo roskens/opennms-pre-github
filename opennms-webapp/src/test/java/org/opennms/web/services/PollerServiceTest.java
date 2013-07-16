@@ -50,25 +50,25 @@ import org.opennms.netmgt.model.events.EventProxyException;
 import org.opennms.netmgt.xml.event.Event;
 
 public class PollerServiceTest extends TestCase {
-	
+
 	DefaultPollerService m_pollerService;
 	EventProxy m_eventProxy;
-	
-	
-	
-	
+
+
+
+
 	@Override
 	protected void setUp() throws Exception {
 		m_eventProxy = createMock(EventProxy.class);
-		
+
 		m_pollerService = new DefaultPollerService();
 		m_pollerService.setEventProxy(m_eventProxy);
 	}
 
 	public void testPoll() throws EventProxyException {
-		
+
 		final int expectedPolldId = 7;
-		
+
 		OnmsServiceType svcType = new OnmsServiceType();
 		svcType.setId(3);
 		svcType.setName("HTTP");
@@ -94,13 +94,13 @@ public class PollerServiceTest extends TestCase {
 				assertEquals(expectedPolldId, EventUtils.getIntParm(event, EventConstants.PARM_DEMAND_POLL_ID, -1));
 				return null;
 			}
-			
+
 		});
-		
+
 		replay(m_eventProxy);
-		
+
 		m_pollerService.poll(monSvc, expectedPolldId);
-		
+
 		verify(m_eventProxy);
 	}
 

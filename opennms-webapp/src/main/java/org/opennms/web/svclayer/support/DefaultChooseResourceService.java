@@ -51,7 +51,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @since 1.8.1
  */
 public class DefaultChooseResourceService implements ChooseResourceService, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultChooseResourceService.class);
 
 
@@ -63,14 +63,14 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
         if (resourceId == null) {
             throw new IllegalArgumentException("resourceId parameter may not be null");
         }
-        
+
         if (endUrl == null) {
             throw new IllegalArgumentException("endUrl parameter may not be null");
         }
 
         ChooseResourceModel model = new ChooseResourceModel();
         model.setEndUrl(endUrl);
-        
+
         OnmsResource resource = m_resourceDao.getResourceById(resourceId);
         if (resource == null) {
             throw new IllegalArgumentException("resource \"" + resourceId + "\" could not be found");
@@ -78,13 +78,13 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
 
         model.setResource(resource);
         Map<OnmsResourceType, List<OnmsResource>> resourceTypeMap = new LinkedHashMap<OnmsResourceType, List<OnmsResource>>();
-        
-       
+
+
         for (OnmsResource childResource : resource.getChildResources()) {
             if (!resourceTypeMap.containsKey(childResource.getResourceType())) {
                 resourceTypeMap.put(childResource.getResourceType(), new LinkedList<OnmsResource>());
             }
-            // See bug 3760: These values have been known to contain a % sign so they are 
+            // See bug 3760: These values have been known to contain a % sign so they are
             // not safe to pass to LogUtils.infof()
             // http://bugzilla.opennms.org/show_bug.cgi?id=3760
                 LOG.info("getId(): {}", childResource.getId());
@@ -92,16 +92,16 @@ public class DefaultChooseResourceService implements ChooseResourceService, Init
             //checkLabelForQuotes(
             resourceTypeMap.get(childResource.getResourceType()).add(checkLabelForQuotes(childResource));
         }
-        
+
         model.setResourceTypes(resourceTypeMap);
 
         return model;
     }
-    
+
     private OnmsResource checkLabelForQuotes(OnmsResource childResource) {
-        
+
         String lbl  = Util.convertToJsSafeString(childResource.getLabel());
-        
+
         OnmsResource resource = new OnmsResource(childResource.getName(), lbl, childResource.getResourceType(), childResource.getAttributes());
         resource.setParent(childResource.getParent());
         resource.setEntity(childResource.getEntity());

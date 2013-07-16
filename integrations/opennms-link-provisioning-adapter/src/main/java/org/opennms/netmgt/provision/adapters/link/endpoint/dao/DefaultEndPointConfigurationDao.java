@@ -71,7 +71,7 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
 
     private static final class StringResolver extends SchemaOutputResolver {
         private StringWriter m_writer = new StringWriter();
-        
+
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             StreamResult sr = new StreamResult(m_writer);
@@ -83,14 +83,14 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
             return m_writer.toString();
         }
     }
-    
+
     /**
      * <p>Constructor for DefaultEndPointConfigurationDao.</p>
      */
     public DefaultEndPointConfigurationDao() {
         super(EndPointTypeValidator.class, "End Point Type Configuration");
     }
-    
+
     /**
      * <p>Constructor for DefaultEndPointConfigurationDao.</p>
      *
@@ -169,7 +169,7 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
             InputStream is = resource.getInputStream();
             EndPointTypeValidator config = (EndPointTypeValidator)m_unmarshaller.unmarshal(is);
             is.close();
-            
+
             long endTime = System.currentTimeMillis();
             LOG.info(createLoadedLogMessage(config, (endTime - startTime)));
 
@@ -192,14 +192,14 @@ public class DefaultEndPointConfigurationDao extends AbstractCastorConfigDao<End
                 MatchingSnmpEndPointValidationExpression.class,
                 PingEndPointValidationExpression.class
             );
-    
+
             m_marshaller = m_context.createMarshaller();
             m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new DefaultNamespacePrefixMapper("http://xmlns.opennms.org/xsd/config/endpoint-types"));
-            
+
             m_unmarshaller = m_context.createUnmarshaller();
             m_unmarshaller.setSchema(null);
-            
+
             ValidationEventHandler handler = new DefaultValidationEventHandler();
             m_unmarshaller.setEventHandler(handler);
         } catch (Throwable e) {

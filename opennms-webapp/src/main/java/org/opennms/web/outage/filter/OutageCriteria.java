@@ -42,7 +42,7 @@ import org.opennms.web.outage.SortStyle;
 public class OutageCriteria {
 
     public static interface OutageCriteriaVisitor<E extends Exception> {
-        public void visitOutageType(OutageType ackType) throws E; 
+        public void visitOutageType(OutageType ackType) throws E;
         public void visitFilter(Filter filter) throws E;
         public void visitSortStyle(SortStyle sortStyle) throws E;
         public void visitGroupBy() throws E;
@@ -61,14 +61,14 @@ public class OutageCriteria {
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E { }
     }
-    
+
     Filter[] m_filters = null;
     SortStyle m_sortStyle = SortStyle.DEFAULT_SORT_STYLE;
     OutageType m_outageType = OutageType.CURRENT;
     String m_groupBy = null;
     int m_limit = -1;
     int m_offset = -1;
-    
+
     /**
      * <p>Constructor for OutageCriteria.</p>
      *
@@ -77,7 +77,7 @@ public class OutageCriteria {
     public OutageCriteria(Filter... filters) {
         this(filters, null, null, -1, -1);
     }
-    
+
     /**
      * <p>Constructor for OutageCriteria.</p>
      *
@@ -104,8 +104,8 @@ public class OutageCriteria {
         m_limit = limit;
         m_offset = offset;
     }
-    
-    
+
+
     /**
      * <p>visit</p>
      *
@@ -123,7 +123,7 @@ public class OutageCriteria {
         }
 
         visitor.visitGroupBy();
-        
+
         if (m_sortStyle != null) {
             visitor.visitSortStyle(m_sortStyle);
         }

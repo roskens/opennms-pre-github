@@ -42,14 +42,14 @@ public class KeyMapper implements Serializable {
     private final Hashtable<String, Object> keyObjectMap = new Hashtable<String, Object>();
 
     private String m_prefix;
-    
+
     public KeyMapper(String prefix) {
         m_prefix = prefix;
     }
-    
+
     /**
      * Gets key for an object.
-     * 
+     *
      * @param o
      *            the object.
      */
@@ -79,7 +79,7 @@ public class KeyMapper implements Serializable {
 
     /**
      * Retrieves object with the key.
-     * 
+     *
      * @param key
      *            the name with the desired value.
      * @return the object with the key.
@@ -91,7 +91,7 @@ public class KeyMapper implements Serializable {
 
     /**
      * Removes object from the mapper.
-     * 
+     *
      * @param removeobj
      *            the object to be removed.
      */

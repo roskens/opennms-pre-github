@@ -52,15 +52,15 @@ import org.opennms.netmgt.snmp.SnmpWalker;
  * initially constructed no information is collected. The SNMP Session creating
  * and collection occurs in the main run method of the instance. This allows the
  * collection to occur in a thread if necessary.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
- *  
+ *
  */
 public final class SnmpVlanCollection implements ReadyRunnable {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpVlanCollection.class);
 	private String m_packageName;
-	
+
 	/**
 	 * The SnmpPeer object used to communicate via SNMP with the remote host.
 	 */
@@ -103,17 +103,17 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 
 
 	private boolean m_collectStp = true;
-		
+
 	private boolean m_collectBridge = true;
 
 	/**
 	 * Constructs a new SNMP collector for a node using the passed interface as
 	 * the collection point. The collection does not occur until the
 	 * <code>run</code> method is invoked.
-	 * 
+	 *
 	 * @param agentConfig
 	 *            The SnmpPeer object to collect from.
-	 *  
+	 *
 	 */
 	SnmpVlanCollection(final SnmpAgentConfig agentConfig) {
 		m_agentConfig = agentConfig;
@@ -130,10 +130,10 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 	 * Constructs a new SNMP collector for a node using the passed interface as
 	 * the collection point. The collection does not occur until the
 	 * <code>run</code> method is invoked.
-	 * 
+	 *
 	 * @param agentConfig
 	 *            The SnmpPeer object to collect from.
-	 *  
+	 *
 	 */
 	SnmpVlanCollection(final SnmpAgentConfig agentConfig, final boolean collectStp, final boolean collectBridge) {
 		m_agentConfig = agentConfig;
@@ -273,26 +273,26 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 			m_dot1dStp = new Dot1dStpGroup(m_address);
 			m_dot1dStpTable = new Dot1dStpPortTable(m_address);
 			m_dot1dTpFdbTable = new Dot1dTpFdbTable(m_address);
-			
+
 			SnmpWalker walker = null;
-			
+
 			if (m_collectBridge && m_collectStp) {
-		        walker = SnmpUtils.createWalker(m_agentConfig, "dot1dBase/dot1dBaseTable/dot1dStp/dot1dStpTable/dot1dTpFdbTable ", 
+		        walker = SnmpUtils.createWalker(m_agentConfig, "dot1dBase/dot1dBaseTable/dot1dStp/dot1dStpTable/dot1dTpFdbTable ",
 		        			new CollectionTracker[] { m_dot1dBase, m_dot1dBaseTable, m_dot1dStp, m_dot1dStpTable, m_dot1dTpFdbTable});
 			} else if(m_collectBridge) {
-		        walker = 
-		        	SnmpUtils.createWalker(m_agentConfig, "dot1dTpFdbTable ", 
+		        walker =
+				SnmpUtils.createWalker(m_agentConfig, "dot1dTpFdbTable ",
 		        			new CollectionTracker[] {m_dot1dTpFdbTable});
 			} else if(m_collectStp) {
-		        walker = 
-		        	SnmpUtils.createWalker(m_agentConfig, "dot1dBase/dot1dStp/dot1dBaseTable/dot1dStpTable ", 
+		        walker =
+				SnmpUtils.createWalker(m_agentConfig, "dot1dBase/dot1dStp/dot1dBaseTable/dot1dStpTable ",
 		        			new CollectionTracker[] { m_dot1dBase, m_dot1dStp, m_dot1dBaseTable, m_dot1dStpTable});
 			} else {
 			    LOG.info("run: no info to collect return");
 				return;
 			}
 
-			
+
 	        walker.start();
 
 	        try {
@@ -307,7 +307,7 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 				LOG.warn("SnmpVlanCollection.run: collection interrupted, exiting", e);
 	            return;
 	        }
-	        
+
 
 
 			// Log any failures
@@ -323,10 +323,10 @@ public final class SnmpVlanCollection implements ReadyRunnable {
                 LOG.info("run: failed to collect Dot1dStpPortTable for {} Community: {}", hostAddress, m_agentConfig.getReadCommunity());
 			if (!hasDot1dTpFdbTable())
                 LOG.info("run: failed to collect Dot1dTpFdbTable for {} Community: {}", hostAddress, m_agentConfig.getReadCommunity());
-			
+
 			//if not found macaddresses forwarding table find it in Qbridge
 			//ExtremeNetwork works.....
-			
+
 			if (m_dot1dTpFdbTable.isEmpty() && m_collectBridge) {
 			    LOG.info("run: Trying to collect QbridgeDot1dTpFdbTable for {} Community: {}", hostAddress, m_agentConfig.getReadCommunity());
 				m_dot1qTpFdbTable = new QBridgeDot1dTpFdbTable(m_address);
@@ -338,7 +338,7 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 		        } catch (final InterruptedException e) {
 					m_dot1qTpFdbTable = null;
 					LOG.warn("SnmpVlanCollection.run: collection interrupted", e);
-		            
+
 		        }
 
 		        if (!hasQBridgeDot1dTpFdbTable()) {
@@ -374,7 +374,7 @@ public final class SnmpVlanCollection implements ReadyRunnable {
 	public void setPackageName(String packageName) {
 		m_packageName = packageName;
 	}
-	
+
 	public String getPackageName() {
 		return m_packageName;
 	}

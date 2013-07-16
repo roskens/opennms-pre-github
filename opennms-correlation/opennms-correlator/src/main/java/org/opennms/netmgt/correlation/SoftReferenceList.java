@@ -46,7 +46,7 @@ import java.util.Set;
  * @version $Id: $
  */
 public class SoftReferenceList<T> extends AbstractSequentialList<T> {
-	
+
 	private final List<SoftReference<T>> m_contents = new LinkedList<SoftReference<T>>();
 	private final ReferenceQueue<T> queue = new ReferenceQueue<T>();
 
@@ -56,7 +56,7 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 		processQueue();
 		return new SoftReferenceListIterator<T>(m_contents.listIterator(index), queue);
 	}
-	
+
 	/**
 	 * <p>removeCollected</p>
 	 */
@@ -69,7 +69,7 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 			}
 		}
 	}
-	
+
 	private void processQueue() {
 		final Set<Reference<? extends T>> removed = new HashSet<Reference<? extends T>>();
 		Reference<? extends T> ref;
@@ -85,11 +85,11 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 		processQueue();
 		return m_contents.size();
 	}
-	
+
 	private static class SoftReferenceListIterator<E> implements ListIterator<E> {
 		final ListIterator<SoftReference<E>> m_it;
 		final ReferenceQueue<E> m_queue;
-		
+
 		public SoftReferenceListIterator(final ListIterator<SoftReference<E>> it, final ReferenceQueue<E> queue) {
 			m_it = it;
 			m_queue = queue;
@@ -147,14 +147,14 @@ public class SoftReferenceList<T> extends AbstractSequentialList<T> {
 		private SoftReference<E> createRef(final E element) {
 			return new SoftReference<E>(element, m_queue);
 		}
-		
+
 		private void assertNotNull(final E o) {
 			if (o == null) {
 				throw new NullPointerException("null cannot be added to SoftReferenceLists");
 			}
 		}
-		
-		
+
+
 	}
 
 

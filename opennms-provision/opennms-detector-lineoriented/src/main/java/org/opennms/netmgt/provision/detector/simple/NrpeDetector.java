@@ -46,16 +46,16 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
-    
+
     private static final String DEFAULT_SERVICE_NAME = "NRPE";
 
     private final static int DEFAULT_PORT = 5666;
-    
+
     /**
      * Default whether to use SSL
      */
     private final static boolean DEFAULT_USE_SSL = true;
-    
+
     private boolean m_useSsl = DEFAULT_USE_SSL;
     private int m_padding = 2;
     private String m_command = NrpePacket.HELLO_COMMAND;
@@ -82,7 +82,7 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
     protected void onInit() {
         send(request(m_command), resultCodeEquals(0));
     }
-    
+
     private static ResponseValidator<NrpePacket> resultCodeEquals(final int desiredResultCode){
         return new ResponseValidator<NrpePacket>() {
 
@@ -93,10 +93,10 @@ public class NrpeDetector extends BasicDetector<NrpeRequest, NrpePacket> {
                 }
                 return false;
             }
-            
+
         };
     }
-    
+
     /**
      * @return
      */

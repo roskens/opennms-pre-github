@@ -30,9 +30,9 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
     interface TopologyViewImplUiBinder extends
             UiBinder<Widget, TopologyViewImpl> {
     }
-    
+
     private Presenter<TopologyViewRenderer> m_presenter;
-    
+
     @UiField
     Element m_svg;
 
@@ -53,16 +53,16 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
 
     @UiField
     Element m_referenceMapBorder;
-    
+
     @UiField
     Element m_marquee;
-    
+
     @UiField
     Element m_marginContainer;
-    
+
     @UiField
     HTMLPanel m_widgetContainer;
-    
+
     TopologyViewRenderer m_topologyViewRenderer;
 
     private boolean m_isRefresh;
@@ -75,14 +75,14 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
     public TopologyViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
     }
-    
+
     @Override
     protected void onLoad() {
         super.onLoad();
         m_widgetContainer.setSize("100%", "100%");
         sinkEvents(Event.ONCONTEXTMENU | VTooltip.TOOLTIP_EVENTS | Event.ONMOUSEWHEEL);
         m_topologyViewRenderer = m_presenter.getViewRenderer();
-        
+
     }
 
 
@@ -96,11 +96,11 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
     public SVGElement getSVGElement() {
         return m_svg.cast();
     }
-    
+
     private SVGGElement getMarginContainer() {
         return m_marginContainer.cast();
     }
-    
+
     @Override
     public SVGGElement getSVGViewPort() {
         return m_svgViewPort.cast();
@@ -138,15 +138,15 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
             case Event.ONCONTEXTMENU:
 
                 EventTarget target = event.getEventTarget();
-                
+
                 if (target.equals( getSVGElement() )) {
                     m_presenter.onContextMenu(null, event.getClientX(), event.getClientY(), "map");
                 }
                 event.preventDefault();
                 event.stopPropagation();
                 break;
-                
-    
+
+
             case Event.ONCLICK:
                 if(event.getEventTarget().equals(getSVGElement())) {
                     m_presenter.onBackgroundClick();
@@ -154,7 +154,7 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
                 event.preventDefault();
                 event.stopPropagation();
                 break;
-                
+
         }
 
 
@@ -175,22 +175,22 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
             m_presenter.getViewRenderer().draw(graph, this, oldBBox);
         }
     }
-    
+
     @Override
     public SVGMatrix calculateNewTransform(GWTBoundingBox bounds) {
         int iconMargin = 50;
         int iconLeftMargin = iconMargin + 50;
         int topMargin = iconMargin + 50;
-        
+
         SVGElement svg = getSVGElement().cast();
-        final int svgWidth = getPhysicalWidth(); 
+        final int svgWidth = getPhysicalWidth();
         final int svgHeight = getPhysicalHeight();
-        
+
         double scale = Math.min(svgWidth/((double)bounds.getWidth() + iconLeftMargin), svgHeight/((double)bounds.getHeight() + topMargin));
         scale = scale > 2 ? 2 : scale;
         double translateX =  -bounds.getX();
         double translateY =  -bounds.getY();
-        
+
         double calcY = (svgHeight - (bounds.getHeight()* scale))/2;
         double calcX = (svgWidth - ((bounds.getWidth()) * scale))/2 + getLeftMargin();
         SVGMatrix transform = svg.createSVGMatrix()
@@ -200,28 +200,28 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
                     ;
         return transform;
     }
-    
+
     private Tween<String, GWTEdge> edgeStrokeWidthTween(final double scale) {
         return new Tween<String, GWTEdge>() {
 
             @Override
             public String call(GWTEdge edge, int index, String a) {
-                
+
                 final double strokeWidth = 5/scale;
                 consoleLog("scale: " + scale + " strokeWidth: " + strokeWidth);
                 consoleLog("a: " + a);
                 return scale + "px";
             }
-            
+
         };
-    }       
-    
+    }
+
     String matrixTransform(SVGMatrix matrix) {
         String m = "matrix(" + matrix.getA() +
                 ", " + matrix.getB() +
-                ", " + matrix.getC() + 
+                ", " + matrix.getC() +
                 ", " + matrix.getD() +
-                ", " + matrix.getE() + 
+                ", " + matrix.getE() +
                 ", " + matrix.getF() + ")";
         return D3.getTransform( m ).toString();
     }
@@ -230,28 +230,28 @@ public class TopologyViewImpl extends Composite implements TopologyView<Topology
     public SVGPoint getCenterPos(GWTBoundingBox box) {
         SVGGElement g = getSVGViewPort().cast();
         SVGMatrix stateTF = g.getCTM().inverse();
-        
+
         SVGPoint p = getSVGElement().createSVGPoint();
         p.setX(getPhysicalWidth()/2 + getLeftMargin());
         p.setY(getPhysicalHeight()/2);
-        
+
         SVGPoint center = p.matrixTransform(stateTF);
-        
+
         return center;
     }
-    
+
     @Override
     public SVGPoint getPoint(int clientX, int clientY) {
         SVGGElement g = getSVGViewPort().cast();
         SVGMatrix stateTF = g.getCTM().inverse();
-        
+
         SVGPoint p = getSVGElement().createSVGPoint();
-        
+
         p.setX(clientX + getLeftMargin());
         p.setY(clientY);
-        
+
         SVGPoint center = p.matrixTransform(stateTF);
-        
+
         return center;
     }
 

@@ -40,13 +40,13 @@ import junit.framework.TestCase;
 
 public class XmlrpcAnticipatorTest extends TestCase {
     private static final int PORT = 9000;
-    
+
     private XmlrpcAnticipator m_anticipator;
 
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         m_anticipator = new XmlrpcAnticipator(PORT);
     }
 
@@ -55,23 +55,23 @@ public class XmlrpcAnticipatorTest extends TestCase {
         if (m_anticipator != null) {
             m_anticipator.shutdown();
         }
-        
+
         super.tearDown();
     }
 
     /**
      * See if we have any bugs with starting and stopping an anticipator.
-     *   
+     *
      * @throws IOException
      */
     public void testSetupAndTearDown() {
         // do nothing, let setUp and tearDown do th work
     }
 
-    
+
     /**
      * See if we have any bugs with starting and stopping two anticipators back to back.
-     *   
+     *
      * @throws IOException
      */
     public void testSetupTwice() throws IOException {
@@ -81,24 +81,24 @@ public class XmlrpcAnticipatorTest extends TestCase {
         m_anticipator = new XmlrpcAnticipator(PORT);
         // Let tearDown() do the shutdown
     }
-    
+
     public void testGoodAnticipation() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();
         v.add(t);
         t.put("foo", "bar");
-        
-        
+
+
         Hashtable<String, String> t2 = new Hashtable<String, String>();
         t2.put("foo", "bar");
-        
+
         m_anticipator.anticipateCall("howCheesyIsIt", t2);
-        
+
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
         Vector<Object> v2 = new Vector<Object>();
         v2.add(t2);
         client.execute("howCheesyIsIt", v2);
-        
+
         try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {
@@ -107,21 +107,21 @@ public class XmlrpcAnticipatorTest extends TestCase {
 
         m_anticipator.verifyAnticipated();
     }
-    
+
     public void testAnticipatedNotSeen() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();
         v.add(t);
         t.put("foo", "bar");
-        
-        
+
+
         Vector<Object> v2 = new Vector<Object>();
         Hashtable<String, String> t2 = new Hashtable<String, String>();
         v2.add(t2);
         t2.put("foo", "baz");
-        
+
         m_anticipator.anticipateCall("howCheesyIsIt", t);
-        
+
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
         client.execute("howCheesyIsIt", v2);
 
@@ -138,31 +138,31 @@ public class XmlrpcAnticipatorTest extends TestCase {
             // good, we were expecting this
             sawException = true;
         }
-        
+
         if (!sawException) {
             fail("Did not receive an expected AssertionFailedError when calling verifyAnticipated() on the anticipator");
         }
     }
-    
+
     public void testIgnoreDescriptionInsideHashtable() throws IOException, XmlRpcException {
         Vector<Object> v = new Vector<Object>();
         Hashtable<String, String> t = new Hashtable<String, String>();
         v.add(t);
         t.put("description", "cheesy");
         t.put("something other than description", "hello");
-        
-        
+
+
         Vector<Object> v2 = new Vector<Object>();
         Hashtable<String, String> t2 = new Hashtable<String, String>();
         v2.add(t2);
         t2.put("description", "cheesiest");
         t2.put("something other than description", "hello");
-        
+
         m_anticipator.anticipateCall("howCheesyIsIt", t);
-        
+
         XmlRpcClient client = new XmlRpcClient("http://localhost:" + PORT);
         client.execute("howCheesyIsIt", v2);
-        
+
         try {
 			Thread.sleep(500);
 		} catch (InterruptedException e) {

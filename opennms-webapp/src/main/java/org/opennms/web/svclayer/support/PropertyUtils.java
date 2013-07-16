@@ -65,7 +65,7 @@ public abstract class PropertyUtils {
         }
         return props;
     }
-    
+
     /**
      * <p>getPathValue</p>
      *

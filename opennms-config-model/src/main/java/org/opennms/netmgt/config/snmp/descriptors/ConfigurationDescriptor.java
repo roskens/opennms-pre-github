@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
 /**
  * Class ConfigurationDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class ConfigurationDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -92,12 +92,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _port
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_port", "port", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -105,12 +105,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getPort());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deletePort();
                         return;
@@ -130,7 +130,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _port
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -145,7 +145,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_retry", "retry", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -153,12 +153,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getRetry());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteRetry();
                         return;
@@ -178,7 +178,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _retry
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -193,7 +193,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_timeout", "timeout", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -201,12 +201,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getTimeout());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteTimeout();
                         return;
@@ -226,7 +226,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _timeout
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -242,14 +242,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getReadCommunity();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -269,7 +269,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _readCommunity
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -284,14 +284,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getWriteCommunity();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -311,7 +311,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _writeCommunity
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -326,14 +326,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getProxyHost();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -353,7 +353,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _proxyHost
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -368,14 +368,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getVersion();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -395,7 +395,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _version
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -410,7 +410,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_maxVarsPerPdu", "max-vars-per-pdu", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -418,12 +418,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getMaxVarsPerPdu());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteMaxVarsPerPdu();
                         return;
@@ -443,7 +443,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _maxVarsPerPdu
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -458,7 +458,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_maxRepetitions", "max-repetitions", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -466,12 +466,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getMaxRepetitions());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteMaxRepetitions();
                         return;
@@ -491,7 +491,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _maxRepetitions
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -506,7 +506,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_maxRequestSize", "max-request-size", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -514,12 +514,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getMaxRequestSize());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteMaxRequestSize();
                         return;
@@ -539,7 +539,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _maxRequestSize
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -555,14 +555,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getSecurityName();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -582,7 +582,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _securityName
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -596,7 +596,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_securityLevel", "security-level", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
@@ -604,12 +604,12 @@ import org.opennms.netmgt.config.snmp.Configuration;
                 return new java.lang.Integer(target.getSecurityLevel());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     Configuration target = (Configuration) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteSecurityLevel();
                         return;
@@ -629,7 +629,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _securityLevel
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -645,14 +645,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getAuthPassphrase();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -672,7 +672,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _authPassphrase
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -687,14 +687,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getAuthProtocol();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -714,7 +714,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _authProtocol
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -730,14 +730,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getEngineId();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -757,7 +757,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _engineId
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -772,14 +772,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getContextEngineId();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -799,7 +799,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _contextEngineId
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -814,14 +814,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getContextName();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -841,7 +841,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _contextName
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -856,14 +856,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getPrivacyPassphrase();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -883,7 +883,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _privacyPassphrase
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -898,14 +898,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getPrivacyProtocol();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -925,7 +925,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _privacyProtocol
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -941,14 +941,14 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Configuration target = (Configuration) object;
                 return target.getEnterpriseId();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -968,7 +968,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _enterpriseId
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -979,7 +979,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -989,7 +989,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -1000,7 +1000,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -1012,7 +1012,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -1023,7 +1023,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -1034,7 +1034,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -1046,7 +1046,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -1058,7 +1058,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -1069,7 +1069,7 @@ import org.opennms.netmgt.config.snmp.Configuration;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

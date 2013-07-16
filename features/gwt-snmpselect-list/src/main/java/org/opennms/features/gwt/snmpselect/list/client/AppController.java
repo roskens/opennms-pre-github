@@ -38,7 +38,7 @@ import com.google.gwt.user.client.ui.HasWidgets;
 public class AppController implements Presenter{
 
     private SnmpSelectListPresenter m_presenter;
-    
+
     public AppController(SnmpInterfaceRestService service) {
         m_presenter = new SnmpSelectListPresenter(new SnmpSelectListViewImpl(), service);
     }

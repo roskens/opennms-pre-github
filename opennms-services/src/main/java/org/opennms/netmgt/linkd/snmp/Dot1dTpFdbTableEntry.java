@@ -58,7 +58,7 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
 
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the Dot1dTpFbTable. Objects
 	 * in this list should be used by multiple instances of
@@ -143,7 +143,7 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
 	public Dot1dTpFdbTableEntry() {
 		super(ms_elemList);
 	}
-	
+
 	/**
 	 * <p>getDot1dTpFdbAddress</p>
 	 *
@@ -174,5 +174,5 @@ public final class Dot1dTpFdbTableEntry extends SnmpStore {
 		if (val == null) return -1;
 		return val;
 	}
-	
+
 }

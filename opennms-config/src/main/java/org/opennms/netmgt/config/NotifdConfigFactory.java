@@ -59,17 +59,17 @@ public class NotifdConfigFactory extends NotifdConfigManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
     private File m_notifdConfFile;
 
     /**
-     * 
+     *
      */
     private long m_lastModified;
 
     /**
-     * 
+     *
      */
     private NotifdConfigFactory() {
     }

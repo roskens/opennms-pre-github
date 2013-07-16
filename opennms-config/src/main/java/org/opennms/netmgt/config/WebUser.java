@@ -36,9 +36,9 @@ package org.opennms.netmgt.config;
  * @since 1.8.1
  */
 public class WebUser {
-    
+
     private String m_name;
-    
+
     /**
      * <p>Constructor for WebUser.</p>
      *
@@ -47,7 +47,7 @@ public class WebUser {
     public WebUser(String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -56,7 +56,7 @@ public class WebUser {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -66,7 +66,7 @@ public class WebUser {
     public String toString() {
         return m_name;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
@@ -86,7 +86,7 @@ public class WebUser {
     public int hashCode() {
         return m_name.hashCode();
     }
-    
-    
+
+
 
 }

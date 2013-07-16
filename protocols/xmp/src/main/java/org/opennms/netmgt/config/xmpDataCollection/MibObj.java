@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * a MIB object
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -104,7 +104,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -113,41 +113,41 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof MibObj) {
-        
+
             MibObj temp = (MibObj)obj;
             if (this._mib != null) {
                 if (temp._mib == null) return false;
-                else if (!(this._mib.equals(temp._mib))) 
+                else if (!(this._mib.equals(temp._mib)))
                     return false;
             }
             else if (temp._mib != null)
                 return false;
             if (this._table != null) {
                 if (temp._table == null) return false;
-                else if (!(this._table.equals(temp._table))) 
+                else if (!(this._table.equals(temp._table)))
                     return false;
             }
             else if (temp._table != null)
                 return false;
             if (this._var != null) {
                 if (temp._var == null) return false;
-                else if (!(this._var.equals(temp._var))) 
+                else if (!(this._var.equals(temp._var)))
                     return false;
             }
             else if (temp._var != null)
                 return false;
             if (this._instance != null) {
                 if (temp._instance == null) return false;
-                else if (!(this._instance.equals(temp._instance))) 
+                else if (!(this._instance.equals(temp._instance)))
                     return false;
             }
             else if (temp._instance != null)
                 return false;
             if (this._alias != null) {
                 if (temp._alias == null) return false;
-                else if (!(this._alias.equals(temp._alias))) 
+                else if (!(this._alias.equals(temp._alias)))
                     return false;
             }
             else if (temp._alias != null)
@@ -168,7 +168,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *  in length. If the XMP data collector encounters an alias
      * which
      *  exceeds 19 characters it will be truncated.
-     * 
+     *
      * @return the value of field 'Alias'.
      */
     public java.lang.String getAlias(
@@ -181,7 +181,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * has the following description: Instance identifier or empty
      * string. If not
      *  empty, this string will be used for table queries.
-     * 
+     *
      * @return the value of field 'Instance'.
      */
     public java.lang.String getInstance(
@@ -192,7 +192,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'mib'. The field 'mib' has the
      * following description: MIB name
-     * 
+     *
      * @return the value of field 'Mib'.
      */
     public java.lang.String getMib(
@@ -204,7 +204,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'table'. The field 'table' has
      * the following description: MIB table name or empty string if
      * scalar
-     * 
+     *
      * @return the value of field 'Table'.
      */
     public java.lang.String getTable(
@@ -215,7 +215,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'var'. The field 'var' has the
      * following description: Variable name
-     * 
+     *
      * @return the value of field 'Var'.
      */
     public java.lang.String getVar(
@@ -228,14 +228,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_mib != null) {
            result = 37 * result + _mib.hashCode();
@@ -252,13 +252,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_alias != null) {
            result = 37 * result + _alias.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -272,8 +272,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -287,8 +287,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -314,7 +314,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *  in length. If the XMP data collector encounters an alias
      * which
      *  exceeds 19 characters it will be truncated.
-     * 
+     *
      * @param alias the value of field 'alias'.
      */
     public void setAlias(
@@ -327,7 +327,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * the following description: Instance identifier or empty
      * string. If not
      *  empty, this string will be used for table queries.
-     * 
+     *
      * @param instance the value of field 'instance'.
      */
     public void setInstance(
@@ -338,7 +338,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'mib'. The field 'mib' has the
      * following description: MIB name
-     * 
+     *
      * @param mib the value of field 'mib'.
      */
     public void setMib(
@@ -350,7 +350,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of field 'table'. The field 'table' has the
      * following description: MIB table name or empty string if
      * scalar
-     * 
+     *
      * @param table the value of field 'table'.
      */
     public void setTable(
@@ -361,7 +361,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'var'. The field 'var' has the
      * following description: Variable name
-     * 
+     *
      * @param var the value of field 'var'.
      */
     public void setVar(
@@ -371,7 +371,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -387,8 +387,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

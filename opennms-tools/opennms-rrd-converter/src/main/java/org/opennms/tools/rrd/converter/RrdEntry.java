@@ -43,7 +43,7 @@ class RrdEntry implements Cloneable {
         m_timestamp = timestamp;
         m_dsNames = dsNames;
     }
-    
+
     public Double getValue(final String dsName) {
         return m_entryMap.get(dsName);
     }
@@ -78,7 +78,7 @@ class RrdEntry implements Cloneable {
             }
         }
     }
-    
+
     private boolean isNumber(final Double number) {
         return number != null && !Double.isNaN(number);
     }
@@ -87,7 +87,7 @@ class RrdEntry implements Cloneable {
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

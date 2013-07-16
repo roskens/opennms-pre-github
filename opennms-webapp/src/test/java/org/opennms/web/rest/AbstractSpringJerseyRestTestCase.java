@@ -76,7 +76,7 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  *
  */
@@ -87,9 +87,9 @@ public abstract class AbstractSpringJerseyRestTestCase {
     public static String POST = "POST";
     public static String DELETE = "DELETE";
     public static String PUT = "PUT";
-    
+
     String contextPath = "/opennms/rest";
-    
+
     private ServletContainer dispatcher;
     private MockServletConfig servletConfig;
     private MockServletContext servletContext;
@@ -106,10 +106,10 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
         MockDatabase db = new MockDatabase(true);
         DataSourceFactory.setInstance(db);
-                
+
         setServletContext(new MockServletContext("file:src/main/webapp"));
 
-        getServletContext().addInitParameter("contextConfigLocation", 
+        getServletContext().addInitParameter("contextConfigLocation",
                 "classpath:/org/opennms/web/rest/applicationContext-test.xml " +
                 "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml " +
                 "classpath:/META-INF/opennms/applicationContext-soa.xml " +
@@ -125,22 +125,22 @@ public abstract class AbstractSpringJerseyRestTestCase {
                 "classpath:/META-INF/opennms/applicationContext-minimal-conf.xml " +
                 "/WEB-INF/applicationContext-spring-security.xml " +
                 "/WEB-INF/applicationContext-jersey.xml");
-        
+
         getServletContext().addInitParameter("parentContextKey", "daoContext");
-                
+
         ServletContextEvent e = new ServletContextEvent(getServletContext());
         setContextListener(new ContextLoaderListener());
         getContextListener().contextInitialized(e);
 
         getServletContext().setContextPath(contextPath);
-        setServletConfig(new MockServletConfig(getServletContext(), "dispatcher"));    
+        setServletConfig(new MockServletConfig(getServletContext(), "dispatcher"));
         getServletConfig().addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
         getServletConfig().addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
-        
+
         try {
 
             MockFilterConfig filterConfig = new MockFilterConfig(getServletContext(), "openSessionInViewFilter");
-            setFilter(new OpenSessionInViewFilter());        
+            setFilter(new OpenSessionInViewFilter());
             getFilter().init(filterConfig);
 
             setDispatcher(new SpringServlet());
@@ -149,7 +149,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
         } catch (ServletException se) {
             throw se.getRootCause();
         }
-        
+
         setWebAppContext(WebApplicationContextUtils.getWebApplicationContext(getServletContext()));
         afterServletStart();
         System.err.println("------------------------------------------------------------------------------");
@@ -203,7 +203,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
         };
         if (getFilter() != null) getFilter().doFilter(request, response, filterChain);
     }
-    
+
     protected MockHttpServletResponse createResponse() {
         return new MockHttpServletResponse();
     }
@@ -278,7 +278,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     protected MockHttpServletResponse sendPut(String url, String formData, int statusCode) throws Exception {
         return sendData(PUT, MediaType.APPLICATION_FORM_URLENCODED, url, formData, statusCode);
     }
-    
+
     /**
      * @param url
      * @param formData
@@ -294,7 +294,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
         }
         return response;
     }
-    
+
     /**
      * @param requestType
      * @param contentType
@@ -304,7 +304,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     protected MockHttpServletResponse sendData(String requestType, String contentType, String url, String data) throws Exception {
     	return sendData(requestType, contentType, url, data, 200);
     }
-    
+
     /**
      * @param requestType
      * @param contentType
@@ -328,7 +328,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
 
         LOG.debug("Received response: {}", stringifyResponse(response));
         assertEquals(response.getErrorMessage(), statusCode, response.getStatus());
-        
+
         return response;
     }
 
@@ -375,7 +375,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
         request.setQueryString(getQueryString(parameters));
         return sendRequest(request, expectedStatus, expectedUrlSuffix);
     }
-    
+
     protected String getQueryString(final Map<?,?> parameters) {
     	final StringBuffer sb = new StringBuffer();
 
@@ -403,7 +403,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
 		} catch (final UnsupportedEncodingException e) {
 			LOG.warn("unsupported encoding UTF-8?!?  WTF??!", e);
 		}
-    	
+
     	return sb.toString();
     }
 
@@ -434,31 +434,31 @@ public abstract class AbstractSpringJerseyRestTestCase {
         }
         return xml;
     }
-    
+
     protected <T> T getXmlObject(JAXBContext context, String url, int expectedStatus, Class<T> expectedClass) throws Exception {
         MockHttpServletRequest request = createRequest(GET, url);
         MockHttpServletResponse response = createResponse();
         dispatch(request, response);
         assertEquals(expectedStatus, response.getStatus());
-        
+
         System.err.printf("xml: %s\n", response.getContentAsString());
-        
+
         InputStream in = new ByteArrayInputStream(response.getContentAsByteArray());
-        
+
         Unmarshaller unmarshaller = context.createUnmarshaller();
-        
+
         T result = expectedClass.cast(unmarshaller.unmarshal(in));
-        
+
         return result;
 
     }
-    
+
     protected void putXmlObject(final JAXBContext context, final String url, final int expectedStatus, final Object object, final String expectedUrlSuffix) throws Exception {
-    	final ByteArrayOutputStream out = new ByteArrayOutputStream(); 
+	final ByteArrayOutputStream out = new ByteArrayOutputStream();
         final Marshaller marshaller = context.createMarshaller();
         marshaller.marshal(object, out);
         final byte[] content = out.toByteArray();
-        
+
         final MockHttpServletRequest request = createRequest(PUT, url);
         request.setContentType(MediaType.APPLICATION_XML);
         request.setContent(content);
@@ -536,7 +536,7 @@ public abstract class AbstractSpringJerseyRestTestCase {
     public WebApplicationContext getWebAppContext() {
         return m_webAppContext;
     }
-    
+
     public <T> T getBean(String name, Class<T> beanClass) {
         return m_webAppContext.getBean(name, beanClass);
     }

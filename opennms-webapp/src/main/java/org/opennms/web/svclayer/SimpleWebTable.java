@@ -100,19 +100,19 @@ public class SimpleWebTable {
 
 			if ((m_content != null || c.m_content != null)
 					&& (m_content == null
-							|| !m_content.equals(c.m_content))) { 
+							|| !m_content.equals(c.m_content))) {
 				return false;
 			}
 
 			if ((m_styleClass != null || c.m_styleClass != null)
 					&& (m_styleClass == null
-							|| !m_styleClass.equals(c.m_styleClass))) { 
+							|| !m_styleClass.equals(c.m_styleClass))) {
 				return false;
 			}
 
 			if ((m_link != null || c.m_link != null)
 					&& (m_link == null
-							|| !m_link.equals(c.m_link))) { 
+							|| !m_link.equals(c.m_link))) {
 				return false;
 			}
 
@@ -181,7 +181,7 @@ public class SimpleWebTable {
 		m_columnHeaders.add(headerCell);
 		return headerCell;
 	}
-	
+
 
 	/**
 	 * <p>addColumn</p>

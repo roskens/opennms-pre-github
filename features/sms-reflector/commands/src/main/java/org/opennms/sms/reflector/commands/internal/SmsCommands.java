@@ -182,11 +182,11 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
         } catch (Throwable e) {
             intp.println("Exception Sending Message: ");
             intp.printStackTrace(e);
-        } 
+        }
 
         return null;
     }
-    
+
     /**
      * <p>unused_ussdSend</p>
      *
@@ -195,13 +195,13 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
     public void unused_ussdSend(CommandInterpreter intp) {
         String data = intp.nextArgument();
         String gwId = intp.nextArgument();
-        
+
         if (data == null || gwId == null) {
             intp.println("usage: ussdSend <data> <gatewayID>");
         }
         intp.println("Data is : " + data);
         intp.println("Gateway ID is : " + gwId);
-        
+
         USSDRequest req = new USSDRequest(data);
         intp.println("USSD request to send: " + req.toString());
 
@@ -251,7 +251,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
      * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
      * @return a {@link java.lang.Object} object.
      */
-    public Object _listPorts(CommandInterpreter intp) { 
+    public Object _listPorts(CommandInterpreter intp) {
         Enumeration<CommPortIdentifier> commPorts = CommPortIdentifier.getPortIdentifiers();
 
         while(commPorts.hasMoreElements()) {
@@ -259,7 +259,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             LOG.debug(commPort.getName());
         }
 
-        return null; 
+        return null;
     }
 
     /**
@@ -409,7 +409,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             String prefix = intp.nextArgument();
 
             Configuration config = m_configAdmin.getConfiguration("org.ops4j.pax.logging", null);
-            
+
             Dictionary<String,Object> properties = config.getProperties();
             if (level == null) {
                 if (properties == null) {
@@ -445,7 +445,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
             intp.printDictionary(properties, "New");
             config.update(properties);
 
-        } 
+        }
         catch (Throwable e) {
             intp.printStackTrace(e);
         }
@@ -459,19 +459,19 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getHelp() { 
-        StringBuffer buffer = new StringBuffer(); 
+    public String getHelp() {
+        StringBuffer buffer = new StringBuffer();
         buffer.append("---Sms Commands---");
         buffer.append("\n\t").append("debug");
         buffer.append("\n\t").append("checkMessages");
         buffer.append("\n\t").append("configureSmsService <modemId> <port> <baudRate> <manufacturer> <model> <usage>");
         buffer.append("\n\t").append("initializePort <modemPort>");
-        buffer.append("\n\t").append("listPorts"); 
-        buffer.append("\n\t").append("paxLog ERROR|WARN|INFO|DEBUG [prefix]"); 
-        buffer.append("\n\t").append("smsSend <phonenumber> <text>"); 
+        buffer.append("\n\t").append("listPorts");
+        buffer.append("\n\t").append("paxLog ERROR|WARN|INFO|DEBUG [prefix]");
+        buffer.append("\n\t").append("smsSend <phonenumber> <text>");
         buffer.append("\n");
-        return buffer.toString(); 
-    } 
+        return buffer.toString();
+    }
 
     public class OutboundNotification implements IOutboundMessageNotification {
         @Override
@@ -512,7 +512,7 @@ public class SmsCommands implements CommandProvider, BundleContextAware {
         }
 
     }
-    
+
 
     private void printGatewayInfo(AGateway gw, CommandInterpreter intp) throws Exception {
         intp.println();

@@ -294,15 +294,15 @@ public class AvailabilityCalculatorTest extends TestCase {
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,0);
         assertNotNull("day 0,0 object", day);
         assertFalse("day 0,0 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,1);
         assertNotNull("day 0,1 object", day);
         assertFalse("day 0,1 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,2);
         assertNotNull("day 0,2 object", day);
         assertFalse("day 0,2 visibility", day.getVisible());
-        
+
         day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,4);
         assertNotNull("day 0,4 object", day);
         assertFalse("day 0,4 visibility", day.getVisible());
@@ -336,7 +336,7 @@ public class AvailabilityCalculatorTest extends TestCase {
         assertEquals("day 1,2 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
         assertTrue("day 1,2 visibility", day.getVisible());
         assertEquals("day 1,2 date", 5,day.getDate());
-        
+
     }
 
     @Override

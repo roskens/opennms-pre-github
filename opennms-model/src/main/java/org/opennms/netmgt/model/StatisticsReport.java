@@ -69,8 +69,8 @@ public class StatisticsReport implements Serializable {
     private Date m_purgeDate;
     private Set<StatisticsReportData> m_data = new HashSet<StatisticsReportData>();
 
-    
-    
+
+
     /**
      * Unique identifier for report.
      *
@@ -79,7 +79,7 @@ public class StatisticsReport implements Serializable {
     @Id
     @Column(name="id")
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
@@ -91,7 +91,7 @@ public class StatisticsReport implements Serializable {
     public void setId(Integer id) {
         m_id = id;
     }
-    
+
     /**
      * The beginning date for the report (data starting at this time stamp is included).
      *
@@ -132,7 +132,7 @@ public class StatisticsReport implements Serializable {
         m_endDate = endDate;
     }
 
-    
+
     /**
      * Report name this references a report definition
      * in statsd-configuration.xml.
@@ -169,7 +169,7 @@ public class StatisticsReport implements Serializable {
     public void setDescription(String description) {
         m_description = description;
     }
-    
+
     /**
      * The date when this report run started.
      *
@@ -226,7 +226,7 @@ public class StatisticsReport implements Serializable {
     public void setPurgeDate(Date purgeDate) {
         m_purgeDate = purgeDate;
     }
-    
+
     /**
      * <p>getData</p>
      *
@@ -265,7 +265,7 @@ public class StatisticsReport implements Serializable {
     public long getDuration() {
         return m_endDate.getTime() - m_startDate.getTime();
     }
-    
+
     /**
      * <p>getDurationString</p>
      *
@@ -285,7 +285,7 @@ public class StatisticsReport implements Serializable {
     public long getJobDuration() {
         return m_jobCompletedDate.getTime() - m_jobStartedDate.getTime();
     }
-    
+
     /**
      * <p>getJobDurationString</p>
      *
@@ -295,7 +295,7 @@ public class StatisticsReport implements Serializable {
     public String getJobDurationString() {
         return getStringForInterval(getJobDuration());
     }
-    
+
     /**
      * <p>getMaxDatumValue</p>
      *
@@ -315,7 +315,7 @@ public class StatisticsReport implements Serializable {
         }
         return mv;
     }
-    
+
     /**
      * <p>getMinDatumValue</p>
      *
@@ -335,17 +335,17 @@ public class StatisticsReport implements Serializable {
         }
         return mv;
     }
-    
+
     private String getStringForInterval(long interval) {
         double value = interval;
-        
+
         value = value / 1000;
         String unit = "seconds";
 
         if (value < 60) {
             return value + " " + unit;
         }
-        
+
         value = value / 60;
         unit = "minutes";
 

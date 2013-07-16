@@ -47,7 +47,7 @@ public class LocationMonitorDetailsModel {
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_mainDetails;
     private MessageSourceResolvable m_additionalDetailsTitle;
     private Map<MessageSourceResolvable, MessageSourceResolvable> m_additionalDetails;
-    
+
     /**
      * <p>Constructor for LocationMonitorDetailsModel.</p>
      */
@@ -71,7 +71,7 @@ public class LocationMonitorDetailsModel {
     public void setAdditionalDetails(Map<MessageSourceResolvable, MessageSourceResolvable> additionalDetails) {
         m_additionalDetails = additionalDetails;
     }
-    
+
     /**
      * <p>addAdditionalDetail</p>
      *
@@ -120,7 +120,7 @@ public class LocationMonitorDetailsModel {
     public void setMainDetails(Map<MessageSourceResolvable, MessageSourceResolvable> mainDetails) {
         m_mainDetails = mainDetails;
     }
-    
+
     /**
      * <p>addMainDetail</p>
      *

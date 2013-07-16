@@ -58,9 +58,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  */
 public class Xmlrpcd extends AbstractServiceDaemon {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(Xmlrpcd.class);
-    
+
     /**
      * The singleton instance.
      */
@@ -116,7 +116,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
                 localServer = getServerConfig().getServerName();
             }
 
-            // create a BroadcastEventProcessor per server 
+            // create a BroadcastEventProcessor per server
             final Enumeration<ExternalServers> servers = getConfig().getExternalServerEnumeration();
             int i = 0;
             while (servers.hasMoreElements()) {
@@ -126,7 +126,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
                 m_eventlogQs.add(q);
                 m_eventReceivers.add(new BroadcastEventProcessor(Integer.toString(i), q, getConfig().getMaxQueueSize(), getConfig().getEventList(server)));
 
-                // create an EventQueueProcessor per server 
+                // create an EventQueueProcessor per server
                 m_processors.add( new EventQueueProcessor(q, xServers, server.getRetries(), server.getElapseTime(), verifyServer, localServer, getConfig().getMaxQueueSize()) );
                 i++;
             }
@@ -172,7 +172,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     public void setConfig(final XmlrpcdConfigFactory config) {
         m_config = config;
     }
-    
+
     /**
      * <p>getServerConfig</p>
      *
@@ -183,7 +183,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
      */
     public OpennmsServerConfigFactory getServerConfig() throws MarshalException, ValidationException, IOException {
         if (m_serverConfig == null) {
-            createServerConfig(); 
+            createServerConfig();
         }
         return m_serverConfig;
     }
@@ -215,7 +215,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
     @Override
     protected void onStart() {
         LOG.debug("start: Initializing the xmlrpcd config factory");
-        
+
         for (final EventQueueProcessor proc : m_processors) {
         	proc.start();
         }
@@ -236,7 +236,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
 
         LOG.debug("pause: Processor paused");
     }
-    
+
     /**
      * <p>onResume</p>
      */
@@ -265,7 +265,7 @@ public class Xmlrpcd extends AbstractServiceDaemon {
         for (final EventQueueProcessor proc : m_processors) {
             proc.stop();
         }
-        
+
         LOG.debug("stop: Processor stopped");
     }
 

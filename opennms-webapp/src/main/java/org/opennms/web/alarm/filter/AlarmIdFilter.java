@@ -42,7 +42,7 @@ import org.opennms.web.filter.SQLType;
 public class AlarmIdFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="alarmId"</code> */
     public static final String TYPE = "alarmId";
-    
+
     /**
      * <p>Constructor for AlarmIdFilter.</p>
      *

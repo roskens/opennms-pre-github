@@ -47,7 +47,7 @@ public interface RrdGraphDetails {
      *      the graph, such as if no graph image was created
      */
     public InputStream getInputStream() throws RrdException;
-    
+
     /**
      * Gets the PRINT lines associated with the graph command.
      *
@@ -56,7 +56,7 @@ public interface RrdGraphDetails {
      * @throws org.opennms.netmgt.rrd.RrdException if there is an error getting the PRINT lines
      */
     public String[] getPrintLines() throws RrdException;
-    
+
     /**
      * Gets the height of the PNG image.
      *

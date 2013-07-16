@@ -68,7 +68,7 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsOutage implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 3846398168228820151L;
 
@@ -89,13 +89,13 @@ public class OnmsOutage implements Serializable {
 
     /** persistent field */
     private OnmsMonitoredService m_monitoredService;
-    
+
     /** persistent field */
     private Date m_suppressTime;
-    
+
     /** persistent field */
     private String m_suppressedBy;
-    
+
     /**
      * full constructor
      *
@@ -115,7 +115,7 @@ public class OnmsOutage implements Serializable {
         m_monitoredService = monitoredService;
         m_suppressTime = suppressTime;
         m_suppressedBy = suppressedBy;
-        
+
     }
 
     /**
@@ -181,7 +181,7 @@ public class OnmsOutage implements Serializable {
         m_monitoredService = monitoredService;
     }
 
-    
+
     /**
      * <p>getIfLostService</p>
      *
@@ -234,7 +234,7 @@ public class OnmsOutage implements Serializable {
     public Date getIfRegainedService() {
         return m_ifRegainedService;
     }
-    
+
     /**
      * <p>setIfRegainedService</p>
      *
@@ -275,7 +275,7 @@ public class OnmsOutage implements Serializable {
     public Date getSuppressTime(){
     	return m_suppressTime;
     }
-    
+
     /**
      * <p>setSuppressTime</p>
      *
@@ -284,8 +284,8 @@ public class OnmsOutage implements Serializable {
     public void setSuppressTime(Date timeToSuppress){
     	m_suppressTime = timeToSuppress;
     }
-    
-    
+
+
     /**
      * <p>getSuppressedBy</p>
      *
@@ -295,7 +295,7 @@ public class OnmsOutage implements Serializable {
     public String getSuppressedBy(){
     	return m_suppressedBy;
     }
-    
+
     /**
      * <p>setSuppressedBy</p>
      *
@@ -304,8 +304,8 @@ public class OnmsOutage implements Serializable {
     public void setSuppressedBy(String suppressorMan){
     	m_suppressedBy = suppressorMan;
     }
-    
-    
+
+
     /**
      * <p>getNodeId</p>
      *
@@ -350,7 +350,7 @@ public class OnmsOutage implements Serializable {
     public Integer getServiceId() {
     	return getMonitoredService().getServiceId();
     }
-    
+
     /**
      * <p>toString</p>
      *

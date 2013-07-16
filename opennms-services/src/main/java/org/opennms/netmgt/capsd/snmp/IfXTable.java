@@ -77,7 +77,7 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
     protected IfXTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IfXTableEntry(inst.toInt());
     }
-    
+
     /**
      * <p>getEntry</p>
      *
@@ -91,10 +91,10 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
                 return entry;
             }
         }
-        
+
         return null;
     }
-    
+
     /**
      * <p>getIfName</p>
      *
@@ -102,22 +102,22 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      * @return a {@link java.lang.String} object.
      */
     public String getIfName(int ifIndex) {
-    
+
         // Find ifXTable entry with matching ifIndex
 
         for(IfXTableEntry ifXEntry : this) {
-    
+
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
             if (snmpIfIndex != null)
                 ifXIndex = snmpIfIndex.intValue();
-    
+
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {
                 // Found match! Get the ifName
                 return ifXEntry.getIfName();
             }
-    
+
         }
         return null;
     }
@@ -132,18 +132,18 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
         // Find ifXTable entry with matching ifIndex
 
         for(IfXTableEntry ifXEntry : this) {
-            
+
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
             if (snmpIfIndex != null)
                 ifXIndex = snmpIfIndex.intValue();
-    
+
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {
                 // Found match! Get the ifAlias
                 return ifXEntry.getIfAlias();
             }
-    
+
         }
         return null;
     }
@@ -156,18 +156,18 @@ public final class IfXTable extends SnmpTable<IfXTableEntry> {
      */
     public Long getIfHighSpeed(int ifIndex) {
         for(IfXTableEntry ifXEntry : this) {
-            
+
             int ifXIndex = -1;
             Integer snmpIfIndex = ifXEntry.getIfIndex();
             if (snmpIfIndex != null)
                 ifXIndex = snmpIfIndex.intValue();
-    
+
             // compare with passed ifIndex
             if (ifXIndex == ifIndex) {
                 // Found match! Get the ifAlias
                 return ifXEntry.getIfHighSpeed();
             }
-    
+
         }
         return null;
     }

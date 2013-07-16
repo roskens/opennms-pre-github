@@ -40,17 +40,17 @@ package org.opennms.web.admin.nodeManagement;
  */
 public class ManagedService {
     /**
-     * 
+     *
      */
     protected String name;
 
     /**
-     * 
+     *
      */
     protected String status;
 
     /**
-     * 
+     *
      */
     protected int serviceId;
 

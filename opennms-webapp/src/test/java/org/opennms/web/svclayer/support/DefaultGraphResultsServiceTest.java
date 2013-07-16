@@ -41,7 +41,7 @@ import org.junit.Test;
 public class DefaultGraphResultsServiceTest {
 
     /**
-     * Test the parseResourceId() function, mainly to make sure that the 
+     * Test the parseResourceId() function, mainly to make sure that the
      * issue in bug 3366 can be tested some.
      */
     @Test
@@ -72,7 +72,7 @@ public class DefaultGraphResultsServiceTest {
         assertEquals("nodeSnmp", values[1]);
         assertEquals("", values[2]);
     }
-    
+
     /**
      * Check if the lookup of metrics to columns for prefabGraphs is working.
      * This lookup is performed by file handling of meta files.

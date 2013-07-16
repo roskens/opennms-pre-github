@@ -50,7 +50,7 @@ public class NegativeAcknowledgedByFilter extends NotEqualOrNullFilter<String> {
     public NegativeAcknowledgedByFilter(String user) {
         super(TYPE, SQLType.STRING, "ALARMACKUSER", "alarmAckUser", user);
     }
- 
+
     /**
      * <p>getTextDescription</p>
      *

@@ -64,4 +64,4 @@ public class GroupColumnInterceptor implements ColumnInterceptor {
             column.setStyle("border-bottom-style: none;");
         }
     }
-} 
+}

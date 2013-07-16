@@ -140,7 +140,7 @@ public abstract class AbstractReportInstance implements ReportInstance, Initiali
     public void setJobStartedDate(Date jobStartedDate) {
         m_jobStartedDate = jobStartedDate;
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.topn.Report#afterPropertiesSet()
      */

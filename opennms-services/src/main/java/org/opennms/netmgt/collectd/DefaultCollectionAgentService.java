@@ -56,9 +56,9 @@ import org.springframework.transaction.interceptor.TransactionProxyFactoryBean;
  * @version $Id: $
  */
 public class DefaultCollectionAgentService implements CollectionAgentService {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultCollectionAgentService.class);
-    
+
     /**
      * <p>create</p>
      *
@@ -69,35 +69,35 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      */
     public static CollectionAgentService create(Integer ifaceId, final IpInterfaceDao ifaceDao, final PlatformTransactionManager transMgr) {
         CollectionAgentService agent = new DefaultCollectionAgentService(ifaceId, ifaceDao);
-        
+
         TransactionProxyFactoryBean bean = new TransactionProxyFactoryBean();
         bean.setTransactionManager(transMgr);
         bean.setTarget(agent);
-        
+
         Properties props = new Properties();
         props.put("*", "PROPAGATION_REQUIRED,readOnly");
-        
+
         bean.setTransactionAttributes(props);
-        
+
         bean.afterPropertiesSet();
-        
+
         return (CollectionAgentService) bean.getObject();
     }
 
     // the interface of the Agent
     private Integer m_ifaceId;
     private IpInterfaceDao m_ifaceDao;
-    
+
     //Unused; delete
     //private int m_maxVarsPerPdu;
     //private int m_ifCount;
-    
+
     private DefaultCollectionAgentService(Integer ifaceId, IpInterfaceDao ifaceDao) {
         // we pass in null since we override calls to getAddress and getInetAddress
         m_ifaceId = ifaceId;
         m_ifaceDao = ifaceDao;
     }
-    
+
 
     OnmsIpInterface getIpInterface() {
         return m_ifaceDao.load(m_ifaceId);
@@ -132,7 +132,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
     public Boolean isStoreByForeignSource() {
         return Boolean.getBoolean("org.opennms.rrd.storeByForeignSource");
     }
-    
+
      /* (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getNodeId()
      */
@@ -171,7 +171,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
     public String getForeignId() {
        return getIpInterface().getNode().getForeignId() == null ? null : getIpInterface().getNode().getForeignId();
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.collectd.CollectionAgent#getStorageDir()
      */
@@ -189,7 +189,7 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
         }
         return dir;
     }
-    
+
     /**
      * <p>getIfIndex</p>
      *
@@ -259,11 +259,11 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
      */
     @Override
     public Set<SnmpIfData> getSnmpInterfaceData() {
-        
+
         Set<OnmsSnmpInterface> snmpIfs = getSnmpInterfaces();
-    	
+
         Set<SnmpIfData> ifData = new LinkedHashSet<SnmpIfData>(snmpIfs.size());
-        
+
         for(OnmsSnmpInterface snmpIface : snmpIfs) {
     		logInitializeSnmpIf(snmpIface);
     		SnmpIfData snmpIfData = new SnmpIfData(snmpIface);
@@ -276,9 +276,9 @@ public class DefaultCollectionAgentService implements CollectionAgentService {
 
     private Set<OnmsSnmpInterface> getSnmpInterfaces() {
         OnmsNode node = getNode();
-    
+
     	Set<OnmsSnmpInterface> snmpIfs = node.getSnmpInterfaces();
-    	
+
     	if (snmpIfs.size() == 0) {
             LOG.debug("no known SNMP interfaces for node {}", node);
     	}

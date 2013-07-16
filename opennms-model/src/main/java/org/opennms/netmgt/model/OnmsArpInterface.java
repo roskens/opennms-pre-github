@@ -62,7 +62,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
         private char m_statusType;
 
         private static final Map<Character, String> statusMap = new HashMap<Character, String>();
-        
+
         static {
             statusMap.put( 'A', "Active" );
             statusMap.put( 'U', "Unknown" );
@@ -145,7 +145,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
                     return statusMap.get( code);
             return null;
         }
-        
+
         public static StatusType get(String code) {
             if (code == null)
                 return UNKNOWN;
@@ -173,7 +173,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     private Integer m_id;
 
     private OnmsNode m_node;
-    
+
     private String m_ipAddress;
 
     private String m_physAddr;
@@ -254,7 +254,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     public void setNode(OnmsNode node) {
         m_node = node;
     }
-    
+
     /**
      * <p>getIpAddress</p>
      *
@@ -273,7 +273,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     public void setIpAddress(String ipaddr) {
         m_ipAddress = ipaddr;
     }
-    
+
     /**
      * <p>getPhysAddr</p>
      *
@@ -292,7 +292,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     public void setPhysAddr(String physAddr) {
         m_physAddr = physAddr;
     }
-    
+
     /**
      * <p>getStatus</p>
      *
@@ -342,7 +342,7 @@ public class OnmsArpInterface extends OnmsEntity implements Serializable {
     public Integer getIfIndex() {
         return m_ifIndex;
     }
-    
+
     /**
      * <p>setIfIndex</p>
      *

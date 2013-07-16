@@ -63,7 +63,7 @@ import org.xbill.DNS.Update;
  */
 public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DnsProvisioningAdapter.class);
-    
+
     /**
      * A read-only DAO will be set by the Provisioning Daemon.
      */
@@ -71,12 +71,12 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     private EventForwarder m_eventForwarder;
     private Resolver m_resolver = null;
     private String m_signature;
-    
+
     private TransactionTemplate m_template;
-    
+
     private static final String MESSAGE_PREFIX = "Dynamic DNS provisioning failed: ";
     private static final String ADAPTER_NAME="DNS Provisioning Adapter";
-    
+
     private volatile static ConcurrentMap<Integer, DnsRecord> m_nodeDnsRecordMap;
 
     /**
@@ -87,7 +87,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_nodeDao, "DnsProvisioner requires a NodeDao which is not null.");
-        
+
         //load current nodes into the map
         m_template.execute(new TransactionCallbackWithoutResult() {
             @Override
@@ -106,7 +106,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
             } else {
                 m_resolver = new SimpleResolver(dnsServer);
             }
-    
+
             // Doesn't work for some reason, haven't figured out why yet
             String key = System.getProperty("importer.adapter.dns.privatekey");
             if (key != null && key.length() > 0) {
@@ -117,16 +117,16 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
             LOG.warn("no DNS server configured, DnsProvisioningAdapter will not do anything!");
         }
     }
-    
+
     private void createDnsRecordMap() {
         List<OnmsNode> nodes = m_nodeDao.findAllProvisionedNodes();
-        
+
         m_nodeDnsRecordMap = new ConcurrentHashMap<Integer, DnsRecord>(nodes.size());
-        
+
         for (OnmsNode onmsNode : nodes) {
             m_nodeDnsRecordMap.putIfAbsent(onmsNode.getId(), new DnsRecord(onmsNode));
         }
-        
+
     }
 
     /**
@@ -145,7 +145,7 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;
     }
-    
+
     /**
      * <p>setEventForwarder</p>
      *
@@ -248,14 +248,14 @@ public class DnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter impl
             sendAndThrow(op.getNodeId(), e);
         }
     }
-    
+
     private void sendAndThrow(int nodeId, Throwable e) {
         String message = e.getLocalizedMessage() == null ? "" : ": " + e.getLocalizedMessage();
         Event event = buildEvent(
                 EventConstants.PROVISIONING_ADAPTER_FAILED,
                 nodeId
             ).addParam(
-                "reason", 
+                "reason",
                 MESSAGE_PREFIX + e.getClass().getName() + message
             ).getEvent();
         m_eventForwarder.sendNow(event);

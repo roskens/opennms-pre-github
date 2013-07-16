@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class OnmsNodeRequisition {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(OnmsNodeRequisition.class);
-    
+
     private String m_foreignSource;
     private RequisitionNode m_node;
     private List<OnmsAssetRequisition> m_assetReqs;
@@ -71,7 +71,7 @@ public class OnmsNodeRequisition {
         m_ifaceReqs = constructIpInterfaceRequistions();
         m_categoryReqs = constructCategoryRequistions();
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#getForeignSource()
      */
@@ -83,7 +83,7 @@ public class OnmsNodeRequisition {
     public String getForeignSource() {
         return m_foreignSource;
     }
-    
+
     private List<OnmsAssetRequisition> constructAssetRequistions() {
     	final List<OnmsAssetRequisition> reqs = new ArrayList<OnmsAssetRequisition>(m_node.getAssets().size());
         for(final RequisitionAsset asset : m_node.getAssets()) {
@@ -129,10 +129,10 @@ public class OnmsNodeRequisition {
         }
         visitor.completeNode(this);
     }
-    
+
     private static class OnmsNodeBuilder extends AbstractRequisitionVisitor {
         private NetworkBuilder bldr = new NetworkBuilder();
-        
+
         public OnmsNode getNode() {
             return bldr.getCurrentNode();
         }
@@ -159,7 +159,7 @@ public class OnmsNodeRequisition {
             final InterfaceBuilder ifBldr = bldr.addInterface(ipAddr);
             ifBldr.setIsManaged(ifaceReq.getStatus() == 3 ? "U" : "M");
             ifBldr.setIsSnmpPrimary(ifaceReq.getSnmpPrimary().getCode());
-            
+
         }
 
         @Override
@@ -177,9 +177,9 @@ public class OnmsNodeRequisition {
             nodeBldr.getAssetRecord().setBuilding(nodeReq.getBuilding());
             nodeBldr.getAssetRecord().setCity(nodeReq.getCity());
         }
-        
+
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.provision.persist.NodeRequisition#constructOnmsNodeFromRequisition()
      */

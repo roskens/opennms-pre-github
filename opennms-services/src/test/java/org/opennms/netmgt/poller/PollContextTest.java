@@ -55,7 +55,7 @@ import org.opennms.netmgt.poller.pollables.PollableService;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * Represents a PollContextTest 
+ * Represents a PollContextTest
  *
  * @author brozow
  */
@@ -74,9 +74,9 @@ public class PollContextTest {
 
     @Before
     public void setUp() throws Exception {
-        
+
         MockLogAppender.setupLogging();
-        
+
         m_mNetwork = new MockNetwork();
         m_mNetwork.addNode(1, "Router");
         m_mNetwork.addInterface("192.168.1.1");
@@ -96,15 +96,15 @@ public class PollContextTest {
         m_mNetwork.addInterface("192.168.1.5");
         m_mNetwork.addService("SMTP");
         m_mNetwork.addService("HTTP");
-        
+
         m_mSvc = m_mNetwork.getService(1, "192.168.1.1", "ICMP");
 
         m_db = new MockDatabase();
         m_db.populate(m_mNetwork);
-        
+
         DefaultQueryManager qm = new DefaultQueryManager();
         qm.setDataSource(m_db);
-        
+
         m_pollerConfig = new MockPollerConfig(m_mNetwork);
         m_pollerConfig.setNodeOutageProcessingEnabled(true);
         m_pollerConfig.setCriticalService("ICMP");
@@ -117,22 +117,22 @@ public class PollContextTest {
         m_pollerConfig.setDefaultPollInterval(2000L);
         m_pollerConfig.addService(m_mNetwork.getService(2, "192.168.1.3", "HTTP"));
         m_pollerConfig.setNextOutageIdSql(m_db.getNextOutageIdStatement());
-        
+
         m_anticipator = new EventAnticipator();
         m_outageAnticipator = new OutageAnticipator(m_db);
-        
+
         m_eventMgr = new MockEventIpcManager();
         m_eventMgr.setEventWriter(m_db);
         m_eventMgr.setEventAnticipator(m_anticipator);
         m_eventMgr.addEventListener(m_outageAnticipator);
-        
+
         m_pollContext = new DefaultPollContext();
         m_pollContext.setEventManager(m_eventMgr);
         m_pollContext.setLocalHostName("localhost");
         m_pollContext.setName("PollContextTest.DefaultPollContext");
         m_pollContext.setPollerConfig(m_pollerConfig);
         m_pollContext.setQueryManager(qm);
-        
+
        m_pNetwork = new PollableNetwork(m_pollContext);
        m_pSvc = m_pNetwork.createService(1, "Router", InetAddressUtils.addr("192.168.1.1"), "ICMP");
 
@@ -141,46 +141,46 @@ public class PollContextTest {
     @Test
     public void testGetCriticalServiceName() {
         assertEquals("ICMP", m_pollContext.getCriticalServiceName());
-        
+
         m_pollerConfig.setCriticalService("HTTP");
-        
+
         assertEquals("HTTP", m_pollContext.getCriticalServiceName());
     }
 
     @Test
     public void testIsNodeProcessingEnabled() {
         assertTrue(m_pollContext.isNodeProcessingEnabled());
-        
+
         m_pollerConfig.setNodeOutageProcessingEnabled(false);
-        
+
         assertFalse(m_pollContext.isNodeProcessingEnabled());
-        
+
     }
 
     @Test
     public void testIsPollingAllIfCritServiceUndefined() {
         assertTrue(m_pollContext.isPollingAllIfCritServiceUndefined());
-        
+
         m_pollerConfig.setPollAllIfNoCriticalServiceDefined(false);
-        
+
         assertFalse(m_pollContext.isPollingAllIfCritServiceUndefined());
     }
 
     @Test
     public void testSendEvent() {
-       
+
         m_anticipator.anticipateEvent(m_mSvc.createDownEvent());
-        
+
         PollEvent e = m_pollContext.sendEvent(m_mSvc.createDownEvent());
-        
+
         m_eventMgr.finishProcessingEvents();
         assertNotNull(e);
         assertTrue("Invalid Event Id", e.getEventId() > 0);
-        
+
         assertEquals(0, m_anticipator.waitForAnticipated(0).size());
         assertEquals(0, m_anticipator.unanticipatedEvents().size());
-        
-        
+
+
     }
 
     @Test
@@ -192,21 +192,21 @@ public class PollContextTest {
         assertNull(nodeEvent.getInterface());
         assertNull(nodeEvent.getService());
         assertEquals("Unexpected time for event",date.toString(), EventConstants.parseToDate(nodeEvent.getTime()).toString());
-        
+
         Event ifEvent = m_pollContext.createEvent(EventConstants.INTERFACE_UP_EVENT_UEI, 1, InetAddressUtils.addr("192.168.1.1"), null, date, null);
         assertEquals(EventConstants.INTERFACE_UP_EVENT_UEI, ifEvent.getUei());
         assertEquals(Long.valueOf(1), ifEvent.getNodeid());
         assertEquals("192.168.1.1", ifEvent.getInterface());
         assertNull(ifEvent.getService());
         assertEquals("Unexpected time for event", date.toString(), EventConstants.parseToDate(ifEvent.getTime()).toString());
-        
+
         Event svcEvent = m_pollContext.createEvent(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, 1, InetAddressUtils.addr("192.168.1.1"), "ICMP", date, null);
         assertEquals(EventConstants.NODE_GAINED_SERVICE_EVENT_UEI, svcEvent.getUei());
         assertEquals(Long.valueOf(1), svcEvent.getNodeid());
         assertEquals("192.168.1.1", svcEvent.getInterface());
         assertEquals("ICMP", svcEvent.getService());
         assertEquals("Unexpected time for event", date.toString(), EventConstants.parseToDate(svcEvent.getTime()).toString());
-        
+
     }
 
     @Test
@@ -215,40 +215,40 @@ public class PollContextTest {
         m_outageAnticipator.anticipateOutageOpened(m_mSvc, downEvent);
         PollEvent pollDownEvent = m_pollContext.sendEvent(downEvent);
         m_pollContext.openOutage(m_pSvc, pollDownEvent);
-                                                  
+
         verifyOutages();
-        
+
         m_outageAnticipator.reset();
         Event upEvent = m_mSvc.createUpEvent();
         m_outageAnticipator.anticipateOutageClosed(m_mSvc, upEvent);
         PollEvent pollUpEvent = m_pollContext.sendEvent(upEvent);
         m_pollContext.resolveOutage(m_pSvc, pollUpEvent);
-                                   
+
         verifyOutages();
 
         // doing this a second time to ensure the database doesn't hose the outages
         // this was added to detect an actual bug
-        
+
         Event downEvent2 = m_mSvc.createDownEvent();
         m_outageAnticipator.anticipateOutageOpened(m_mSvc, downEvent2);
         PollEvent pollDownEvent2 = m_pollContext.sendEvent(downEvent2);
         m_pollContext.openOutage(m_pSvc, pollDownEvent2);
-                                                  
+
         verifyOutages();
-        
+
         m_outageAnticipator.reset();
         Event upEvent2 = m_mSvc.createUpEvent();
         m_outageAnticipator.anticipateOutageClosed(m_mSvc, upEvent2);
         PollEvent pollUpEvent2 = m_pollContext.sendEvent(upEvent2);
         m_pollContext.resolveOutage(m_pSvc, pollUpEvent2);
-                                   
+
         verifyOutages();
-        
-        
+
+
     }
 
     /**
-     * 
+     *
      */
     private void verifyOutages() {
         m_eventMgr.finishProcessingEvents();
@@ -260,9 +260,9 @@ public class PollContextTest {
     @Test
     public void testIsServiceUnresponsiveEnabled() {
         assertFalse(m_pollContext.isServiceUnresponsiveEnabled());
-        
+
         m_pollerConfig.setServiceUnresponsiveEnabled(true);
-        
+
         assertTrue(m_pollContext.isServiceUnresponsiveEnabled());
     }
 

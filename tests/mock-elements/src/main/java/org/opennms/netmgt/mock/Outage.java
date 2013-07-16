@@ -46,7 +46,7 @@ public class Outage {
         m_ipAddr = ipAddr;
         m_serviceId = serviceId;
     }
-    
+
     public Outage(MockService svc) {
         this(svc.getNodeId(), svc.getIpAddr(), svc.getId());
     }
@@ -55,35 +55,35 @@ public class Outage {
         m_lostEventId = eventId;
         m_lostEventTime = eventTime;
     }
-    
+
     public void setRegainedEvent(int eventId, Timestamp eventTime) {
         m_regainedEventId = eventId;
         m_regainedEventTime = eventTime;
     }
-    
+
     public boolean isForService(MockService svc) {
         return m_nodeId == svc.getNodeId() &&
             m_ipAddr.equals(svc.getIpAddr()) &&
             m_serviceId == svc.getId();
     }
-    
+
     @Override
     public int hashCode() {
         return 0;
     }
-    
+
     @Override
     public String toString() {
         return "Outage["+m_nodeId+"/"+m_ipAddr+"/"+(m_serviceName == null ? ""+m_serviceId : m_serviceName)+" cause: "+m_lostEventId+" resolution: "+m_regainedEventId+" ]";
     }
-    
+
     @Override
     public boolean equals(Object o) {
         if (! (o instanceof Outage)) return false;
         Outage outage = (Outage)o;
         return (
-                (m_nodeId == outage.m_nodeId) && 
-                (m_ipAddr.equals(outage.m_ipAddr)) && 
+                (m_nodeId == outage.m_nodeId) &&
+                (m_ipAddr.equals(outage.m_ipAddr)) &&
                 (m_serviceId == outage.m_serviceId) &&
                 (m_lostEventId == outage.m_lostEventId) &&
                 (m_lostEventTime == null ? outage.m_lostEventTime == null : m_lostEventTime.equals(outage.m_lostEventTime)) &&
@@ -103,17 +103,17 @@ public class Outage {
                 m_lostEventId + ":" +
                 m_lostEventTime + ":" +
                 m_regainedEventId + ":" +
-                m_regainedEventTime + 
+                m_regainedEventTime +
                 "]";
     }
 
     public int getServiceId() {
         return m_serviceId;
     }
-    
+
     public void setServiceName(String svcName) {
         m_serviceName = svcName;
     }
-    
-    
+
+
 }

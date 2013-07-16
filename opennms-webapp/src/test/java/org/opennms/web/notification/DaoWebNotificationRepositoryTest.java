@@ -66,20 +66,20 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
 
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     WebNotificationRepository m_daoNotificationRepo;
-    
+
     @Before
     public void setUp(){
         m_dbPopulator.populateDatabase();
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Test
     @Transactional
     public void testNotificationCount(){
@@ -110,15 +110,15 @@ public class DaoWebNotificationRepositoryTest implements InitializingBean {
         Notification notice = m_daoNotificationRepo.getNotification(1);
         assertNotNull(notice);
     }
-    
+
     @Test
     @Transactional
     public void testAcknowledgeNotification(){
         m_daoNotificationRepo.acknowledgeMatchingNotification("TestUser", new Date(), new NotificationCriteria());
-        
+
         int notifCount = m_daoNotificationRepo.countMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(1, notifCount);
-        
+
         Notification[] notif = m_daoNotificationRepo.getMatchingNotifications(new NotificationCriteria(new AcknowledgedByFilter("TestUser")));
         assertEquals(1, notif.length);
         assertEquals("TestUser", notif[0].m_responder);

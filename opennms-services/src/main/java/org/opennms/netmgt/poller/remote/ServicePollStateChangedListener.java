@@ -37,7 +37,7 @@ import java.util.EventListener;
  * @version $Id: $
  */
 public interface ServicePollStateChangedListener extends EventListener{
-	
+
 	/**
 	 * <p>pollStateChange</p>
 	 *

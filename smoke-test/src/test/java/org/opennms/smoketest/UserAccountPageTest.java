@@ -35,11 +35,11 @@ public class UserAccountPageTest extends OpenNMSSeleniumTestCase {
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        
+
         selenium.open("/opennms/account/selfService/index.jsp");
         waitForPageToLoad();
     }
-    
+
     @Test
     public void testAllTextIsPresent() throws Exception {
         assertTrue(selenium.isTextPresent("User Account Self-Service"));
@@ -47,7 +47,7 @@ public class UserAccountPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("require further"));
     }
 
-    @Test 
+    @Test
     public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("link=Change Password"));
     }

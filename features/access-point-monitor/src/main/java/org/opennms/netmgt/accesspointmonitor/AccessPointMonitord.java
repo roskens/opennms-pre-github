@@ -36,7 +36,7 @@ import org.slf4j.LoggerFactory;
  * Access Point Monitor daemon class: Initializes and schedules the defined
  * services Filters are compiled when the service is scheduled, interfaces are
  * to poll are matched at runtime
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @EventListener(name = "AccessPointMonitor", logPrefix="access-point-monitor")
@@ -61,7 +61,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * isInitialized
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean isInitialized() {
@@ -72,7 +72,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getAccessPointDao
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.dao.AccessPointDao} object.
      */
     public AccessPointDao getAccessPointDao() {
@@ -83,7 +83,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getAccessPointDao
      * </p>
-     * 
+     *
      * @param accessPointDao
      *            a {@link org.opennms.netmgt.dao.AccessPointDao} object.
      */
@@ -95,7 +95,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getNodeDao
      * </p>
-     * 
+     *
      * @param a
      *            {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -107,7 +107,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getNodeDao
      * </p>
-     * 
+     *
      * @param nodeDao
      *            a {@link org.opennms.netmgt.dao.api.NodeDao} object.
      */
@@ -119,7 +119,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getIpInterfaceDao
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
     public IpInterfaceDao getIpInterfaceDao() {
@@ -130,7 +130,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setIpInterfaceDao
      * </p>
-     * 
+     *
      * @param ipInterfaceDao
      *            a {@link org.opennms.netmgt.dao.api.IpInterfaceDao} object.
      */
@@ -142,7 +142,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getScheduler
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.scheduler.Scheduler} object.
      */
     public Scheduler getScheduler() {
@@ -153,7 +153,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setScheduler
      * </p>
-     * 
+     *
      * @param scheduler
      *            a {@link org.opennms.netmgt.scheduler.LegacyScheduler}
      *            object.
@@ -166,7 +166,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getEventManager
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.eventd.EventIpcManager} object.
      */
     public EventIpcManager getEventManager() {
@@ -177,7 +177,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setEventManager
      * </p>
-     * 
+     *
      * @param eventMgr
      *            a {@link org.opennms.netmgt.eventd.EventIpcManager} object.
      */
@@ -189,7 +189,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getPollerConfig
      * </p>
-     * 
+     *
      * @return a
      *         {@link org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig}
      *         object.
@@ -202,7 +202,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setPollerConfig
      * </p>
-     * 
+     *
      * @param accesspointmonitorConfig
      *            a
      *            {@link org.opennms.netmgt.config.accesspointmonitor.AccessPointMonitorConfig}
@@ -281,7 +281,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * setInstance
      * </p>
-     * 
+     *
      * @param apm
      *            a
      *            {@link org.opennms.netmgt.accesspointmonitor.AccessPointMonitord}
@@ -295,7 +295,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * getInstance
      * </p>
-     * 
+     *
      * @return a
      *         {@link org.opennms.netmgt.accesspointmonitor.AccessPointMonitord}
      *         object.
@@ -498,7 +498,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * reloadDaemonConfig
      * </p>
-     * 
+     *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
      */
@@ -515,7 +515,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * <p>
      * isReloadConfigEventTarget
      * </p>
-     * 
+     *
      * @param e
      *            a {@link org.opennms.netmgt.xml.event.Event} object.
      * @return a boolean
@@ -556,7 +556,7 @@ public class AccessPointMonitord extends AbstractServiceDaemon implements ReadyR
      * getActivePackageNames
      * </p>
      * Returns the set of package names that are currently scheduled.
-     * 
+     *
      * @return a Set<String> object.
      */
     public Set<String> getActivePackageNames() {

@@ -38,7 +38,7 @@ import org.opennms.netmgt.provision.SyncServiceDetector;
  * @author ranger
  */
 public abstract class SyncAbstractDetector extends AbstractDetector implements SyncServiceDetector {
-    
+
     /**
      * <p>Constructor for SyncAbstractDetector.</p>
      *

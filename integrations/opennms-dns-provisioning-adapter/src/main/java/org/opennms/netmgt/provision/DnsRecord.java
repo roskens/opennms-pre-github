@@ -41,12 +41,12 @@ class DnsRecord {
     private InetAddress m_ip;
     private String m_hostname;
     private String m_zone;
-    
+
     DnsRecord(OnmsNode node) {
-        
+
         OnmsIpInterface primaryInterface = node.getPrimaryInterface();
-        
-        
+
+
         if (primaryInterface == null) {
             LOG.debug("Constructor: no primary interface found for nodeid: {}", node.getNodeId());
             Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();

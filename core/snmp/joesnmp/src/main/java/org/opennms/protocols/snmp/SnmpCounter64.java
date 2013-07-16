@@ -38,7 +38,7 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
 /**
  * This class defines the 64-bit SNMP counter object used to transmit 64-bit
  * unsigned number.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Serializable {
@@ -50,7 +50,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     /**
      * The internal 64-bit unsigned quantity implemented as a 64-bit signed
      * quantity
-     * 
+     *
      */
     private BigInteger m_value;
 
@@ -58,13 +58,13 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * The ASN.1 value for an unsigned integer value. BEWARE this value will
      * conflict with the SnmpSMI.SMI_COUNTER32 value. This object should not be
      * dynamically registered with the SNMP library
-     * 
+     *
      */
     public static final byte ASNTYPE = SnmpSMI.SMI_COUNTER64;
 
     /**
      * Default class constructor. Constructs the object with a value of zero(0).
-     * 
+     *
      */
     public SnmpCounter64() {
         m_value = BigInteger.valueOf(0L);
@@ -74,10 +74,10 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Constructs a SnmpCounter64 object with the specified value.
-     * 
+     *
      * @param value
      *            The new 64-bit value.
-     * 
+     *
      */
     public SnmpCounter64(long value) {
         m_value = BigInteger.valueOf(value & Long.MAX_VALUE);
@@ -87,10 +87,10 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Constructs a SnmpCounter64 object with the specified value.
-     * 
+     *
      * @param value
      *            The new 64-bit value.
-     * 
+     *
      */
     public SnmpCounter64(BigInteger value) {
         m_value = new BigInteger(value.toByteArray());
@@ -101,10 +101,10 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     /**
      * Class copy constructor. Constructs a new object with the same value as
      * the passed object.
-     * 
+     *
      * @param second
      *            The object to copy the value from.
-     * 
+     *
      */
     public SnmpCounter64(SnmpCounter64 second) {
         m_value = new BigInteger(second.m_value.toByteArray());
@@ -119,10 +119,10 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * If the decoded argument is malformed, null, or evaluates to a negative
      * value then an exception is generated.
      * </p>
-     * 
+     *
      * @param value
      *            The string encoded value.
-     * 
+     *
      * @throws java.lang.NumberFormatException
      *             Thrown if the passed value is malformed and cannot be parsed.
      * @throws java.lang.IllegalArgumentException
@@ -141,9 +141,9 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Used to retreive the 64-bit unsigned value.
-     * 
+     *
      * @return The internal 64-bit value.
-     * 
+     *
      */
     public BigInteger getValue() {
         return m_value;
@@ -152,7 +152,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     /**
      * Used to set the 64-bit unsigned quantity. If the value exceeds 64-bit
      * then the upper 64-bits will be silently truncated from the value.
-     * 
+     *
      * @param value
      *            The new value for the object
      */
@@ -163,9 +163,9 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Used to retreive the ASN.1 type for this object.
-     * 
+     *
      * @return The ASN.1 value for the SnmpCounter64
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -175,16 +175,16 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
     /**
      * Used to encode the integer value into an ASN.1 buffer. The passed encoder
      * defines the method for encoding the data.
-     * 
+     *
      * @param buf
      *            The location to write the encoded data
      * @param offset
      *            The start of the encoded buffer.
      * @param encoder
      *            The ASN.1 encoder object
-     * 
+     *
      * @return The byte immediantly after the last encoded byte.
-     * 
+     *
      */
     @Override
     public int encodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnEncodingException {
@@ -195,16 +195,16 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
      * Used to decode the integer value from the ASN.1 buffer. The passed
      * encoder is used to decode the ASN.1 information and the integer value is
      * stored in the internal object.
-     * 
+     *
      * @param buf
      *            The encoded ASN.1 data
      * @param offset
      *            The offset of the first byte of data
      * @param encoder
      *            The ASN.1 decoder object.
-     * 
+     *
      * @return The byte immediantly after the last decoded byte of information.
-     * 
+     *
      */
     @Override
     public int decodeASN(byte[] buf, int offset, AsnEncoder encoder) throws AsnDecodingException {
@@ -220,7 +220,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Returns a duplicte of the current object
-     * 
+     *
      * @return A duplciate copy of the current object
      */
     @Override
@@ -230,7 +230,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Returns a duplicte of the current object
-     * 
+     *
      * @return A duplciate copy of the current object
      */
     @Override
@@ -240,7 +240,7 @@ public class SnmpCounter64 extends Object implements SnmpSyntax, Cloneable, Seri
 
     /**
      * Returns the string representation of the object.
-     * 
+     *
      */
     @Override
     public String toString() {

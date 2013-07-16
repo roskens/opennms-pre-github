@@ -36,7 +36,7 @@ import org.opennms.reporting.datablock.Node;
  * <p>AvailabilityDataService interface.</p>
  */
 public interface AvailabilityDataService {
-    
+
     /**
      * <p>getNodes</p>
      *

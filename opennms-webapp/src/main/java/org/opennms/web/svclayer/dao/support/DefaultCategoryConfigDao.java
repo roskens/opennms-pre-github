@@ -56,7 +56,7 @@ import org.springframework.dao.DataRetrievalFailureException;
  * @since 1.8.1
  */
 public class DefaultCategoryConfigDao implements CategoryConfigDao {
-	
+
 	/**
 	 * <p>Constructor for DefaultCategoryConfigDao.</p>
 	 */
@@ -79,7 +79,7 @@ public class DefaultCategoryConfigDao implements CategoryConfigDao {
 	public Category getCategoryByLabel(String label) {
 		return CategoryFactory.getInstance().getCategory(label);
 	}
-	
+
 	/**
 	 * <p>findAll</p>
 	 *
@@ -87,7 +87,7 @@ public class DefaultCategoryConfigDao implements CategoryConfigDao {
 	 */
         @Override
 	public Collection<Category> findAll() {
-		
+
 		List<Category> catList = new ArrayList<Category>();
 		Catinfo catInfo = CategoryFactory.getInstance().getConfig();
 		List<Categorygroup> catGroupList = catInfo.getCategorygroupCollection();
@@ -99,16 +99,12 @@ public class DefaultCategoryConfigDao implements CategoryConfigDao {
 				Category[] categories = cats.getCategory();
 				int i = 0;
 				for (i = 0; i < categories.length; i++) {
-					catList.add(categories[i]);					
+					catList.add(categories[i]);
 				}
 			}
 		}
-		return catList;				
+		return catList;
 	}
 
 }
-	
-	
-	
-	
 

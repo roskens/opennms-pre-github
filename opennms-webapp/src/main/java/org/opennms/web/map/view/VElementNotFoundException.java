@@ -39,7 +39,7 @@ import org.opennms.web.map.MapsException;
  */
 public class VElementNotFoundException extends MapsException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6537412729900201824L;
 

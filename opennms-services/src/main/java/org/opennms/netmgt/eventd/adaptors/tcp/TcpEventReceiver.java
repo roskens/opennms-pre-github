@@ -61,9 +61,9 @@ import org.springframework.util.Assert;
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
  */
 public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpEventReceiver.class);
-    
+
     /**
      * The value that defines unlimited events per connection.
      */
@@ -333,7 +333,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
      */
     public void setIpAddress(String ipAddress) {
         assertNotRunning();
-        
+
         m_ipAddress = ipAddress;
     }
 
@@ -351,7 +351,7 @@ public final class TcpEventReceiver implements EventReceiver, TcpEventReceiverMB
     @Override
     public void setPort(final Integer port) {
         assertNotRunning();
-        
+
         m_tcpPort = port;
     }
 

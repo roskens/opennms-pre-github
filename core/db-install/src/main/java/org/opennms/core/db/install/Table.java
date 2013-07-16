@@ -37,7 +37,7 @@ public class Table {
 	private String m_name;
 	private List<Column> m_columns;
 	private List<Constraint> m_constraints;
-	
+
 	/**
 	 * <p>getColumns</p>
 	 *
@@ -54,7 +54,7 @@ public class Table {
 	public void setColumns(final List<Column> columns) {
 		m_columns = columns;
 	}
-	
+
 	/**
 	 * <p>getConstraints</p>
 	 *
@@ -71,7 +71,7 @@ public class Table {
 	public void setConstraints(final List<Constraint> constraints) {
 		m_constraints = constraints;
 	}
-	
+
 	/**
 	 * <p>getName</p>
 	 *
@@ -88,7 +88,7 @@ public class Table {
 	public void setName(final String name) {
 		m_name = name.toLowerCase();
 	}
-	
+
 	/**
 	 * <p>setNotNullOnPrimaryKeyColumns</p>
 	 *
@@ -113,13 +113,13 @@ public class Table {
 			}
 		}
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public boolean equals(final Object o) {
 		if (o == null || !(o instanceof Table)) {
 			return false;
-			
+
 		}
 		final Table other = (Table) o;
 
@@ -129,7 +129,7 @@ public class Table {
 			.append(getName(), other.getName())
 			.isEquals();
 	}
-	
+
         @Override
 	public int hashCode() {
 		return new HashCodeBuilder(3, 73)

@@ -48,15 +48,15 @@ import org.slf4j.LoggerFactory;
 /**
  * This class implement the server features necessary to receive events from
  * incoming connections.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- * 
+ *
  */
 final class TcpServer implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpServer.class);
-    
+
     /**
      * The default TCP/IP port where the server listens for connections. Each
      * connection to the server will be processed by its own thread.
@@ -93,7 +93,7 @@ final class TcpServer implements Runnable {
      * in this list is of type {@link java.lang.Thread Thread}and will remain
      * in the list so long as it's alive.
      * </p>
-     * 
+     *
      * <p>
      * This list is periodically cleaned by the main server thread.
      * </p>
@@ -246,7 +246,7 @@ final class TcpServer implements Runnable {
 
         // get the log information
         Logging.putPrefix(m_logPrefix);
-        
+
         // check to see if the thread has already been stopped.
         if (m_stop) {
             LOG.debug("Stop flag set on thread startup");
@@ -285,7 +285,7 @@ final class TcpServer implements Runnable {
 
             return;
         }
-        
+
         // used to avoid seeing the trace message repeatedly
         boolean ioInterrupted = false;
 

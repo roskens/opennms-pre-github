@@ -60,13 +60,13 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
     private long m_currentVersion = -1L;
 
-    
+
     /**
      * constructor constructor
      *
@@ -124,7 +124,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         setInstance(config);
 
     }
-    
+
     /**
      * Reload the config from the default config file
      *
@@ -142,7 +142,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         init();
         getInstance().update();
     }
-        
+
     /**
      * Return the singleton instance of this factory.
      *
@@ -156,7 +156,7 @@ public class RancidAdapterConfigFactory extends RancidAdapterConfigManager {
         }
         return m_singleton;
     }
-    
+
     private static synchronized void setInstance(final RancidAdapterConfigFactory instance) {
         m_singleton = instance;
         m_loaded = true;

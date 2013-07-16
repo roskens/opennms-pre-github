@@ -38,11 +38,11 @@ import java.util.Set;
  * @version $Id: $
  */
 public class ThresholdResourceType {
-    
+
     private final String m_dsType;
 
     private Map<String, Set<ThresholdEntity>> m_thresholdMap;
-    
+
     /**
      * <p>Constructor for ThresholdResourceType.</p>
      *
@@ -60,7 +60,7 @@ public class ThresholdResourceType {
     public String getDsType() {
         return m_dsType;
     }
-    
+
     /**
      * <p>getThresholdMap</p>
      *
@@ -69,7 +69,7 @@ public class ThresholdResourceType {
     public Map<String, Set<ThresholdEntity>> getThresholdMap() {
         return m_thresholdMap;
     }
-    
+
     /**
      * <p>setThresholdMap</p>
      *

@@ -39,14 +39,14 @@ package org.opennms.dashboard.client;
  * @since 1.8.1
  */
 public interface SurveillanceListener {
-    
+
     /**
      * <p>onAllClicked</p>
      *
      * @param viewer a {@link org.opennms.dashboard.client.Dashlet} object.
      */
     public void onAllClicked(Dashlet viewer);
-    
+
     /**
      * <p>onSurveillanceGroupClicked</p>
      *
@@ -54,7 +54,7 @@ public interface SurveillanceListener {
      * @param group a {@link org.opennms.dashboard.client.SurveillanceGroup} object.
      */
     public void onSurveillanceGroupClicked(Dashlet viewer, SurveillanceGroup group);
-    
+
     /**
      * <p>onIntersectionClicked</p>
      *

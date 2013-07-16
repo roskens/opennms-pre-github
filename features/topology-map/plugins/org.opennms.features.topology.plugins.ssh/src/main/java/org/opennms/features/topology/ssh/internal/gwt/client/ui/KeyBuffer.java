@@ -76,7 +76,7 @@ public class KeyBuffer {
 	public int size() {
 		return this.size;
 	}
-	
+
 	/**
 	 * The toString method appends all of the Keys into one String
 	 */
@@ -86,11 +86,11 @@ public class KeyBuffer {
 		Key current = head;
 		while (current != null) {
 			s += current.getValue();
-			current = current.getNext(); 
+			current = current.getNext();
 		}
 		return s;
 	}
-	
+
 	/**
 	 * The drain method returns the toString representation of the List
 	 * and then empties the list of all keys
@@ -101,7 +101,7 @@ public class KeyBuffer {
 		free();
 		return keybufContents;
 	}
-	
+
 	/**
 	 * The free method releases all objects and resources used in
 	 * the List so that any unused memory can be garbage collected.

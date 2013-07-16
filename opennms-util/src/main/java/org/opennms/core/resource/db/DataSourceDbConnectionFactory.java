@@ -50,7 +50,7 @@ public class DataSourceDbConnectionFactory implements DbConnectionFactory {
     public DataSourceDbConnectionFactory(DataSource dataSource) {
         m_dataSource = dataSource;
     }
-    
+
     /**
      * <p>destroy</p>
      *

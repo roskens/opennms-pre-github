@@ -68,25 +68,25 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class UpsertTest implements InitializingBean {
-    
+
     @Autowired
     UpsertService m_upsertService;
 
     @Autowired
     NodeDao m_nodeDao;
-    
+
     @Autowired
     SnmpInterfaceDao m_snmpIfaceDao;
-    
+
     @Autowired
     JdbcTemplate m_jdbcTemplate;
-    
+
     @Autowired
     DatabasePopulator m_populator;
-    
+
     @Autowired
     TransactionTemplate m_transTemplate;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -96,7 +96,7 @@ public class UpsertTest implements InitializingBean {
     public void setUp() {
         m_populator.populateDatabase();
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
     public void testInsert() {
@@ -108,16 +108,16 @@ public class UpsertTest implements InitializingBean {
         snmpIface.setNode(m_populator.getNode1());
         snmpIface.setIfIndex(1001);
         snmpIface.setIfName(newIfName);
-        
+
         m_upsertService.upsert(m_populator.getNode1().getId() /* nodeid */, snmpIface, 0);
-        
+
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 1001, newIfName));
     }
-    
+
     private int countIfs(int nodeId, int ifIndex, String ifName) {
         return m_jdbcTemplate.queryForInt("select count(*) from snmpInterface where nodeid=? and snmpifindex=? and snmpifname=?", nodeId, ifIndex, ifName);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
     public void testUpdate() {
@@ -125,30 +125,30 @@ public class UpsertTest implements InitializingBean {
         String newIfName = "newIf0";
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, oldIfName));
         assertEquals(0, countIfs(m_populator.getNode1().getId(), 2, newIfName));
-        
+
         // add non existent snmpiface
         OnmsSnmpInterface snmpIface = new OnmsSnmpInterface();
         snmpIface.setIfIndex(2);
         snmpIface.setIfName(newIfName);
-        
+
         m_upsertService.upsert(m_populator.getNode1().getId(), snmpIface, 0);
 
         assertEquals(0, countIfs(m_populator.getNode1().getId(), 2, oldIfName));
         assertEquals(1, countIfs(m_populator.getNode1().getId(), 2, newIfName));
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
     public void testConcurrentInsert() throws InterruptedException {
         Inserter one = new Inserter(m_upsertService, m_populator.getNode1().getId(), 1001, "ifName1");
         Inserter two = new Inserter(m_upsertService, m_populator.getNode1().getId(), 1001, "ifName2");
-        
+
         one.start();
         two.start();
-        
+
         one.join();
         two.join();
-        
+
         assertNull("Exception on upsert two "+two.getThrowable(), two.getThrowable());
         assertNull("Exception on upsert one "+one.getThrowable(), one.getThrowable());
     }
@@ -159,14 +159,14 @@ public class UpsertTest implements InitializingBean {
         private final int m_ifIndex;
         private final String m_ifName;
         private AtomicReference<Throwable> m_throwable = new AtomicReference<Throwable>();
-        
+
         public Inserter(UpsertService upsertService, int nodeId, int ifIndex, String ifName) {
             m_upsertService = upsertService;
             m_nodeId = nodeId;
             m_ifIndex = ifIndex;
             m_ifName = ifName;
         }
-        
+
         @Override
         public void run() {
             try {
@@ -179,7 +179,7 @@ public class UpsertTest implements InitializingBean {
                 m_throwable.set(t);
             }
         }
-        
+
         public Throwable getThrowable() {
             return m_throwable.get();
         }

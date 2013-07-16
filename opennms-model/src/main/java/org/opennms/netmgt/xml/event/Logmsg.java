@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -56,11 +56,11 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  *  destination attribute of 'donotpersist' indicates that Eventd
  * is not to
  *  persist the event to the database. The optional notify
- * attributed can be 
+ * attributed can be
  *  used to suppress notices on a particular event (by default it
- * is true - 
+ * is true -
  *  i.e. a notice will be sent.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -119,7 +119,7 @@ public class Logmsg implements Serializable {
     /**
      * Returns the value of field 'content'. The field 'content'
      * has the following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public java.lang.String getContent(
@@ -129,7 +129,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Returns the value of field 'dest'.
-     * 
+     *
      * @return the value of field 'Dest'.
      */
     public java.lang.String getDest(
@@ -139,7 +139,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Returns the value of field 'notify'.
-     * 
+     *
      * @return the value of field 'Notify'.
      */
     public Boolean getNotify(
@@ -149,7 +149,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Method hasNotify.
-     * 
+     *
      * @return true if at least one Notify has been added
      */
     public boolean hasNotify(
@@ -159,7 +159,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Returns the value of field 'notify'.
-     * 
+     *
      * @return the value of field 'Notify'.
      */
     public Boolean isNotify() {
@@ -169,7 +169,7 @@ public class Logmsg implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has
      * the following description: internal content storage
-     * 
+     *
      * @param content the value of field 'content'.
      */
     public void setContent(
@@ -179,7 +179,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Sets the value of field 'dest'.
-     * 
+     *
      * @param dest the value of field 'dest'.
      */
     public void setDest(
@@ -189,7 +189,7 @@ public class Logmsg implements Serializable {
 
     /**
      * Sets the value of field 'notify'.
-     * 
+     *
      * @param notify the value of field 'notify'.
      */
     public void setNotify(

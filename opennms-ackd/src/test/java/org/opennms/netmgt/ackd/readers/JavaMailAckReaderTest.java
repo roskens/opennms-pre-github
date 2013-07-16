@@ -104,10 +104,10 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     @Autowired
     private Ackd m_daemon;
-    
+
     @Autowired
     private JavaMailConfigurationDao m_jmDao;
-    
+
     @Autowired
     private MailAckProcessor m_processor;
 
@@ -128,7 +128,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
     /**
      * tests the ability to create acknowledgments from an email for plain text.  This test
-     * creates a message from scratch rather than reading from an inbox. 
+     * creates a message from scratch rather than reading from an inbox.
      */
     @Test
     public void workingWithSimpleTextMessages() {
@@ -149,14 +149,14 @@ public class JavaMailAckReaderTest implements InitializingBean {
         List<Message> msgs = new ArrayList<Message>(1);
         msgs.add(msg);
         List<OnmsAcknowledgment> acks = m_processor.createAcks(msgs);
-        
+
         Assert.assertEquals(1, acks.size());
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(0).getAckType());
         Assert.assertEquals("david@opennms.org", acks.get(0).getAckUser());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(0).getAckAction());
         Assert.assertEquals(new Integer(1234), acks.get(0).getRefId());
     }
-    
+
     /**
      * tests the ability to create acknowledgments from an email for a multi-part text.  This test
      * creates a message from scratch rather than reading from an inbox.  This message creation
@@ -176,25 +176,25 @@ public class JavaMailAckReaderTest implements InitializingBean {
         BodyPart textBp = new MimeBodyPart();
         BodyPart htmlBp = new MimeBodyPart();
         textBp.setText("ack");
-        htmlBp.setContent("<html>\n" + 
-        		" <head>\n" + 
-        		"  <title>\n" + 
-        		"   Acknowledge\n" + 
-        		"  </title>\n" + 
-        		" </head>\n" + 
-        		" <body>\n" + 
-        		"  <h1>\n" + 
-        		"   ack\n" + 
-        		"  </h1>\n" + 
-        		" </body>\n" + 
+        htmlBp.setContent("<html>\n" +
+			" <head>\n" +
+			"  <title>\n" +
+			"   Acknowledge\n" +
+			"  </title>\n" +
+			" </head>\n" +
+			" <body>\n" +
+			"  <h1>\n" +
+			"   ack\n" +
+			"  </h1>\n" +
+			" </body>\n" +
         		"</html>", "text/html");
-        
+
         mpContent.addBodyPart(textBp);
         mpContent.addBodyPart(htmlBp);
         msg.setContent(mpContent);
-        
+
         msgs.add(msg);
-        
+
         List<OnmsAcknowledgment> acks = m_processor.createAcks(msgs);
         Assert.assertEquals(1, acks.size());
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(0).getAckType());
@@ -210,7 +210,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
         ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(1);
         reader.setAckProcessor(m_processor);
         Future<?> f = executor.schedule(m_processor, 5, TimeUnit.SECONDS);
-        
+
         m_processor.setJmConfigDao(m_jmDao);
         m_processor.setAckdConfigDao(createAckdConfigDao());
         //m_processor.setAcknowledgmentDao(ackDao);
@@ -223,7 +223,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
 
 
     private AckdConfigurationDao createAckdConfigDao() {
-        
+
         class AckdConfigDao extends DefaultAckdConfigurationDao {
 
             @Override
@@ -240,18 +240,18 @@ public class JavaMailAckReaderTest implements InitializingBean {
             }
 
         }
-        
+
         return new AckdConfigDao();
-        
+
     }
 
 
     protected class JmCnfDao implements JavaMailConfigurationDao {
-        
+
         ReadmailConfig m_readConfig = createReadMailConfig();
         SendmailConfig m_sendConfig = createSendMailConfig();
         End2endMailConfig m_e2eConfig = createE2Ec();
-        
+
 
         @Override
         public ReadmailConfig getDefaultReadmailConfig() {
@@ -321,11 +321,11 @@ public class JavaMailAckReaderTest implements InitializingBean {
         @Override
         public void reloadConfiguration()
                 throws DataAccessResourceFailureException {
-            
+
         }
-        
+
     }
-    
+
     @Ignore
     public void createAcknowledgment() {
         fail("Not yet implemented");
@@ -356,7 +356,7 @@ public class JavaMailAckReaderTest implements InitializingBean {
         fail("Not yet implemented");
     }
 
-    
+
     /**
      * This test requires that 4 emails can be read from a Google account.  The mails should be
      * in this order:
@@ -364,22 +364,22 @@ public class JavaMailAckReaderTest implements InitializingBean {
      * Subject matching ackd-configuration expression of action type ack
      * Subject matching ackd-configuration expression of action type ack
      * Subject matching ackd-configuration expression of action type clear
-     * 
+     *
      * The test has been updated to now include sending an email message to a gmail account.  Just correct
      * the account details for your own local testing.
-     * 
-     * @throws JavaMailerException 
-     * 
+     *
+     * @throws JavaMailerException
+     *
      */
     @Ignore
     @Test
     public void testIntegration() throws JavaMailerException {
-        
+
         String gmailAccount = getUser();
         String gmailPassword = getPassword();
-        
+
         JavaSendMailer sendMailer = createSendMailer(gmailAccount, gmailPassword);
-        
+
         SendmailMessage sendMsg = createAckMessage(gmailAccount, "1", "ack");
         sendMailer.setMessage(sendMailer.buildMimeMessage(sendMsg));
         sendMailer.send();
@@ -394,32 +394,32 @@ public class JavaMailAckReaderTest implements InitializingBean {
         sendMailer.send();
 
         ReadmailConfig config = m_processor.determineMailReaderConfig();
-        
+
         Assert.assertNotNull(config);
         updateConfigWithGoogleReadConfiguration(config, gmailAccount, gmailPassword);
-        
+
         List<Message> msgs = m_processor.retrieveAckMessages();
-        
+
         List<OnmsAcknowledgment> acks = m_processor.createAcks(msgs);
-        
+
         Assert.assertNotNull(acks);
         Assert.assertEquals(4, acks.size());
-        
+
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(0).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(0).getAckAction());
         Assert.assertEquals(Integer.valueOf(1), acks.get(0).getRefId());
         Assert.assertEquals(getUser()+"@gmail.com", acks.get(0).getAckUser());
-        
+
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(1).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(1).getAckAction());
         Assert.assertEquals(Integer.valueOf(2), acks.get(1).getRefId());
         Assert.assertEquals(getUser()+"@gmail.com", acks.get(1).getAckUser());
-        
+
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(2).getAckType());
         Assert.assertEquals(AckAction.ACKNOWLEDGE, acks.get(2).getAckAction());
         Assert.assertEquals(Integer.valueOf(3), acks.get(2).getRefId());
         Assert.assertEquals(getUser()+"@gmail.com", acks.get(2).getAckUser());
-        
+
         Assert.assertEquals(AckType.NOTIFICATION, acks.get(3).getAckType());
         Assert.assertEquals(AckAction.CLEAR, acks.get(3).getAckAction());
         Assert.assertEquals(Integer.valueOf(4), acks.get(3).getRefId());
@@ -444,40 +444,40 @@ public class JavaMailAckReaderTest implements InitializingBean {
     }
 
     private JavaSendMailer createSendMailer(String gmailAccount, String gmailPassword) throws JavaMailerException {
-        
+
         SendmailConfig config = new SendmailConfig();
-        
+
         config.setAttemptInterval(1000);
         config.setDebug(true);
         config.setName("test");
-        
+
         SendmailMessage sendmailMessage = new SendmailMessage();
         sendmailMessage.setBody("service is down");
         sendmailMessage.setFrom("bamboo.opennms@gmail.com");
         sendmailMessage.setSubject("Notice #1234: service down");
         sendmailMessage.setTo("bamboo.opennms@gmail.com");
         config.setSendmailMessage(sendmailMessage);
-        
+
         SendmailHost host = new SendmailHost();
         host.setHost("smtp.gmail.com");
         host.setPort(465);
         config.setSendmailHost(host);
-        
+
         SendmailProtocol protocol = new SendmailProtocol();
         protocol.setSslEnable(true);
         protocol.setTransport("smtps");
         config.setSendmailProtocol(protocol);
-        
+
         config.setUseAuthentication(true);
         config.setUseJmta(false);
         UserAuth auth = new UserAuth();
         auth.setUserName(gmailAccount);
         auth.setPassword(gmailPassword);
         config.setUserAuth(auth);
-        
+
         return new JavaSendMailer(config);
     }
-    
+
     private void updateConfigWithGoogleReadConfiguration(ReadmailConfig config, String gmailAccount, String gmailPassword) {
         config.setDebug(true);
         config.setDeleteAllMail(false);

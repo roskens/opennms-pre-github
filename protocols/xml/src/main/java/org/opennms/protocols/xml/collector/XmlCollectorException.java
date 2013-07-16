@@ -30,11 +30,11 @@ package org.opennms.protocols.xml.collector;
 
 /**
  * The Class XmlCollectorException.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorException extends RuntimeException {
-    
+
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 1315895761910431343L;
 

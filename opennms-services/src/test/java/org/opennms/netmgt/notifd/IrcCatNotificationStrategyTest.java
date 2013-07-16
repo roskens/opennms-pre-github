@@ -48,7 +48,7 @@ public class IrcCatNotificationStrategyTest {
     public void testInstantiate() {
         new IrcCatNotificationStrategy();
     }
-    
+
     //@Test
     public void testSend() throws UnknownHostException {
         IrcCatNotificationStrategy strategy = new IrcCatNotificationStrategy();
@@ -58,4 +58,3 @@ public class IrcCatNotificationStrategyTest {
         strategy.send(arguments);
     }
 }
- 

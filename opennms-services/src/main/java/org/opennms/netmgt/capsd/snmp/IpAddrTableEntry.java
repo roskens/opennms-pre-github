@@ -72,7 +72,7 @@ public final class IpAddrTableEntry extends SnmpStore {
         new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_IF_INDEX, ".1.3.6.1.2.1.4.20.1.2", 2),
         new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, IP_ADDR_ENT_NETMASK, ".1.3.6.1.2.1.4.20.1.3", 3),
         new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IP_ADDR_ENT_BCASTADDR, ".1.3.6.1.2.1.4.20.1.4", 4)
-        
+
         // Array size has changed from 5 to 4...no longer going after
         // ipAdEntReasmMaxSize variable because we aren't currently using
         // it and not all agents implement it which causes the collection
@@ -134,7 +134,7 @@ public final class IpAddrTableEntry extends SnmpStore {
     public InetAddress getIpAdEntNetMask() {
         return getIPAddress(IpAddrTableEntry.IP_ADDR_ENT_NETMASK);
     }
-    
+
     /**
      * <p>getIpAdEntBcastAddr</p>
      *
@@ -144,5 +144,5 @@ public final class IpAddrTableEntry extends SnmpStore {
         return getIPAddress(IpAddrTableEntry.IP_ADDR_ENT_BCASTADDR);
     }
 
-    
+
 }

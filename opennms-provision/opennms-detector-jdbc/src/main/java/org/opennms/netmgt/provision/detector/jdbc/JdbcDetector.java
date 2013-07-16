@@ -40,9 +40,9 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class JdbcDetector extends AbstractJdbcDetector{
-    
+
     private static final String DEFAULT_SERVICE_NAME = "JDBC";
-    
+
     /**
      * Default constructor
      */
@@ -55,5 +55,5 @@ public class JdbcDetector extends AbstractJdbcDetector{
     protected void onInit() {
         expectBanner(resultSetNotNull());
     }
-    
+
 }

@@ -35,20 +35,20 @@ import org.junit.runners.model.RunnerBuilder;
 public class SeleniumComputer extends Computer{
     private String m_baseUrl = "";
     private int m_timeout = 3;
-    
+
     public SeleniumComputer() {
-        
+
     }
-    
+
     public SeleniumComputer(String baseUrl) {
         this(baseUrl, 3);
     }
-    
+
     public SeleniumComputer(String baseUrl, int timeoutInSeconds) {
         setBaseUrl(baseUrl);
         setTimeout(timeoutInSeconds);
     }
-    
+
     @Override
     protected Runner getRunner(RunnerBuilder builder, Class<?> testClass) throws Throwable {
         TestClassRunnerForSelenium runner = new TestClassRunnerForSelenium(testClass, getBaseUrl(), getTimeout());
@@ -70,5 +70,5 @@ public class SeleniumComputer extends Computer{
     public void setTimeout(int timeout) {
         m_timeout = timeout;
     }
-    
+
 }

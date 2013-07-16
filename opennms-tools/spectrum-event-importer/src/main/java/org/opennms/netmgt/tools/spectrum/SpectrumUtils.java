@@ -45,16 +45,16 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 
 public class SpectrumUtils {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(SpectrumUtils.class);
 
     private String m_modelTypeAssetField = "manufacturer";
     private Map<String,EventTable> m_eventTableCache;
-    
+
     public SpectrumUtils() {
         m_eventTableCache = new HashMap<String,EventTable>();
     }
-    
+
     public String translateAllSubstTokens(EventFormat format) {
         String untranslated = format.getContents();
         String translated = untranslated;
@@ -66,9 +66,9 @@ public class SpectrumUtils {
         }
         return translated;
     }
-    
+
     /**
-     * 
+     *
      * @param inToken the substitution token from the Spectrum event format
      * @return the OpenNMS event XML equivalent for the inToken
      */
@@ -77,7 +77,7 @@ public class SpectrumUtils {
             throw new IllegalArgumentException("The input token must be non-null");
         }
         String outToken = inToken;
-        
+
         if (inToken.startsWith("{d")) {
             outToken = "%time%";
         } else if (inToken.equals("{t}")) {
@@ -92,10 +92,10 @@ public class SpectrumUtils {
                 outToken = "%parm[#" + m.group(2) + "]%";
             }
         }
-        
+
         return outToken;
     }
-    
+
     public List<Varbindsdecode> translateAllEventTables(EventFormat ef, String eventTablePath) throws IOException {
         List<Varbindsdecode> vbds = new ArrayList<Varbindsdecode>();
         Pattern pat = Pattern.compile("^\\{\\s*T\\s+(\\w+)\\s+(\\d+)\\s*\\}");
@@ -115,7 +115,7 @@ public class SpectrumUtils {
         LOG.debug("Translated %d event-tables for event-code [{}]", vbds.size(), ef.getEventCode());
         return vbds;
     }
-    
+
     public Varbindsdecode translateEventTable(EventTable et, String parmId) {
         Varbindsdecode vbd = new Varbindsdecode();
         vbd.setParmid(parmId);
@@ -127,7 +127,7 @@ public class SpectrumUtils {
         }
         return vbd;
     }
-    
+
     public String translateSeverity(int spectrumSeverity) {
         if (spectrumSeverity == 0)
             return "Normal";
@@ -142,13 +142,13 @@ public class SpectrumUtils {
         else
             return "Indeterminate";
     }
-    
+
     private EventTable loadEventTable(String eventTablePath, String tableName) throws IOException {
         if (m_eventTableCache.containsKey(tableName)) {
             LOG.debug("Retrieving event-table [{}] from cache", tableName);
             return m_eventTableCache.get(tableName);
         }
-        
+
         Resource tableFile = new FileSystemResource(eventTablePath + File.separator + tableName);
         EventTableReader etr = new EventTableReader(tableFile);
         LOG.debug("Attempting to load event-table [{}] from [{}]", tableName, tableFile);
@@ -156,11 +156,11 @@ public class SpectrumUtils {
         LOG.debug("Storing event-table [{}] in cache", tableName);
         return et;
     }
-    
+
     public void setModelTypeAssetField(String fieldName) {
         m_modelTypeAssetField = fieldName;
     }
-    
+
     public String getModelTypeAssetField() {
         return m_modelTypeAssetField;
     }

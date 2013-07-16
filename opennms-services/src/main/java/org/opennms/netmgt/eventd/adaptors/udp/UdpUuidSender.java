@@ -53,15 +53,15 @@ import org.springframework.dao.DataAccessException;
  * the an agent sends an event via UDP/IP the receiver will process the event
  * and then add the UUIDs to the internal list. If the event is successfully
  * processed then an event-receipt is returned to the caller.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- * 
+ *
  */
 final class UdpUuidSender implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(UdpUuidSender.class);
-    
+
     /**
      * The list of outgoing event-receipts by UUID.
      */
@@ -209,7 +209,7 @@ final class UdpUuidSender implements Runnable {
                     LOG.debug("Transmitting receipt to destination {}:{}", InetAddressUtils.str(re.getSender()), re.getPort());
 
                     m_dgSock.send(pkt);
-                    
+
                     synchronized (m_handlers) {
                         for (EventHandler handler : m_handlers) {
                             try {
@@ -231,7 +231,7 @@ final class UdpUuidSender implements Runnable {
                     LOG.warn("Failed to send packet to host {}:{}", InetAddressUtils.str(re.getSender()), re.getPort(), e);
                 }
             }
-            
+
             receipts.clear();
         }
 

@@ -126,7 +126,7 @@ public class OutageDaoHibernate extends AbstractDaoHibernate<OnmsOutage, Integer
             "SELECT DISTINCT new org.opennms.netmgt.model.outage.OutageSummary(node.id, node.label, max(outage.ifLostService)) " +
             "FROM OnmsOutage AS outage " +
             "LEFT JOIN outage.monitoredService AS monitoredService " +
-            "LEFT JOIN monitoredService.ipInterface AS ipInterface " + 
+            "LEFT JOIN monitoredService.ipInterface AS ipInterface " +
             "LEFT JOIN ipInterface.node AS node " +
             "WHERE outage.ifRegainedService IS NULL " +
             "GROUP BY node.id, node.label " +

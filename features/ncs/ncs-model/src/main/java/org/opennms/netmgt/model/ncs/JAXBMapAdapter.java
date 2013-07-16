@@ -42,7 +42,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 
 @XmlTransient
 public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<String,String>> {
-	
+
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlRootElement(name = "attributes")
 	public static class JAXBMap {
@@ -52,7 +52,7 @@ public class JAXBMapAdapter extends XmlAdapter<JAXBMapAdapter.JAXBMap, Map<Strin
 	        return this.a;
 	    }
 	}
-	
+
 	@XmlAccessorType(XmlAccessType.FIELD)
 	@XmlRootElement(name = "attribute")
 	public static class JAXBMapEntry {

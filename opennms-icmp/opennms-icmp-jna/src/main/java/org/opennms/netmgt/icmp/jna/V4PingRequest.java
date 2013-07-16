@@ -36,7 +36,7 @@ import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
 class V4PingRequest extends ICMPEchoPacket {
-    
+
     // The below long is equivalent to the next line and is more efficient than
     // manipulation as a string
     // Charset.forName("US-ASCII").encode("OpenNMS!").getLong(0);
@@ -55,13 +55,13 @@ class V4PingRequest extends ICMPEchoPacket {
 
     public V4PingRequest(int id, int seqNum, long threadId, int packetSize) {
         super(packetSize);
-        
+
         // header fields
         setType(Type.EchoRequest);
         setCode(0);
         setIdentifier(id);
         setSequenceNumber(seqNum);
-        
+
         // data fields
         setThreadId(threadId);
         setCookie();
@@ -76,13 +76,13 @@ class V4PingRequest extends ICMPEchoPacket {
 
     public V4PingRequest(int id, int seqNum, long threadId) {
         super(PACKET_LENGTH);
-        
+
         // header fields
         setType(Type.EchoRequest);
         setCode(0);
         setIdentifier(id);
         setSequenceNumber(seqNum);
-        
+
         // data fields
         setThreadId(threadId);
         setCookie();
@@ -94,15 +94,15 @@ class V4PingRequest extends ICMPEchoPacket {
             buf.put(b, (byte)b);
         }
     }
-    
+
     public long getThreadId() {
         return getContentBuffer().getLong(OFFSET_THREAD_ID);
     }
-    
+
     public void setThreadId(long threadId) {
         getContentBuffer().putLong(OFFSET_THREAD_ID, threadId);
     }
-    
+
     public void setCookie() {
         getContentBuffer().putLong(OFFSET_COOKIE, COOKIE);
     }

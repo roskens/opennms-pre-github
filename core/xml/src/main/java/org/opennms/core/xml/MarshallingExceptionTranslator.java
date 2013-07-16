@@ -54,7 +54,7 @@ public class MarshallingExceptionTranslator {
     public DataAccessException translate(final String task, final IOException e) {
         return new MarshallingResourceFailureException("Failed to perform IO while " + task + ": " + e, e);
     }
-    
+
     /**
      * <p>translate</p>
      *
@@ -65,7 +65,7 @@ public class MarshallingExceptionTranslator {
     public DataAccessException translate(final String task, final ValidationException e) {
         return new MarshallingResourceFailureException("Failed to validate XML file while " + task + ": " + e, e);
     }
-    
+
     /**
      * <p>translate</p>
      *

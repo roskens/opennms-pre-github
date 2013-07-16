@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class ServiceApplicationBoxController extends AbstractController {
-    private AdminApplicationService m_adminApplicationService; 
+    private AdminApplicationService m_adminApplicationService;
 
     /** {@inheritDoc} */
     @Override
@@ -57,7 +57,7 @@ public class ServiceApplicationBoxController extends AbstractController {
         Service service = ElementUtil.getServiceByParams(request, getServletContext());
 
         List<OnmsApplication> applications = m_adminApplicationService.findByMonitoredService(service.getId());
-        
+
         ModelAndView modelAndView =
             new ModelAndView("/includes/serviceApplication-box", "applications",
                              applications);

@@ -34,7 +34,7 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 
 /**
  * The Class TcaDataEntry.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public final class TcaDataEntry extends SnmpStore {
@@ -50,7 +50,7 @@ public final class TcaDataEntry extends SnmpStore {
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_PEER_ADDRESS, ".1.3.6.1.4.1.27091.3.1.6.1.1", 1),
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, TCA_RAW_DATA, ".1.3.6.1.4.1.27091.3.1.6.1.2", 2),
 	};
-	
+
 	private final SnmpInstId m_instance;
 
 	/**
@@ -60,8 +60,8 @@ public final class TcaDataEntry extends SnmpStore {
 		super(tca_elemList);
 		m_instance = instance;
 	}
-	
-	
+
+
 	public SnmpInstId getInstance() {
 		return m_instance;
 	}

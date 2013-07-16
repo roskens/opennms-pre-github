@@ -38,7 +38,7 @@ public interface ModelChangeNotifier {
 	/**
 	 * Registers a ModelChangeListener.
 	 *
-	 * @param clazz The type of the Model. 
+	 * @param clazz The type of the Model.
 	 * @param listener The listener to get invoked if the model of type <code>clazz</code> changed.
 	 */
 	void registerListener(Class<?> clazz, ModelChangeListener<?> listener);

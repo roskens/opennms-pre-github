@@ -52,10 +52,10 @@ public class Correlator extends AbstractServiceDaemon implements CorrelationEngi
 	private List<CorrelationEngine> m_engines;
 	private final List<EngineAdapter> m_adapters = new LinkedList<EngineAdapter>();
     private boolean m_initialized = false;
-	
-	
+
+
 	private class EngineAdapter implements EventListener {
-		
+
 		private final String m_name;
 		private final CorrelationEngine m_engine;
 
@@ -74,7 +74,7 @@ public class Correlator extends AbstractServiceDaemon implements CorrelationEngi
 		public void onEvent(final Event e) {
 			m_engine.correlate(e);
 		}
-		
+
 	}
 
 	/**
@@ -89,14 +89,14 @@ public class Correlator extends AbstractServiceDaemon implements CorrelationEngi
 	protected void onInit() {
 		Assert.notNull(m_eventIpcManager, "property eventIpcManager must be set");
 		Assert.notNull(m_engines, "property engines must be set");
-        
+
 		for(final CorrelationEngine engine : m_engines) {
 			LOG.info("Registering correlation engine: {}", engine);
 			m_adapters.add(new EngineAdapter(engine));
 		}
-        
+
         m_initialized = true;
-		
+
 	}
 
 	/**
@@ -116,7 +116,7 @@ public class Correlator extends AbstractServiceDaemon implements CorrelationEngi
 	public void setEventIpcManager(final EventIpcManager eventIpcManager) {
 		m_eventIpcManager = eventIpcManager;
 	}
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.correlation.CorrelationEngineRegistrar#addCorrelationEngine(org.opennms.netmgt.correlation.CorrelationEngine)
      */
@@ -128,8 +128,8 @@ public class Correlator extends AbstractServiceDaemon implements CorrelationEngi
             m_adapters.add(new EngineAdapter(engine));
         }
     }
-    
-    
+
+
 
     @Override
 	public void addCorrelationEngines(CorrelationEngine... engines) {

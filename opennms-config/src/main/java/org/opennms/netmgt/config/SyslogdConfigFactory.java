@@ -187,7 +187,7 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     public synchronized String getListenAddress() {
         return m_config.getConfiguration().getListenAddress();
     }
-    
+
     /**
      * Return whether or not a newSuspect event should be sent when a trap is
      * received from an unknown IP address.
@@ -260,7 +260,7 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
     public synchronized HideMessage getHideMessages() {
         return m_config.getHideMessage();
     }
-    
+
     /**
      * <p>getDiscardUei</p>
      *
@@ -273,7 +273,7 @@ public final class SyslogdConfigFactory implements SyslogdConfig {
 
     /**
      * Parse import-file tags and add all uei-matchs and hide-messages.
-     * 
+     *
      * @throws IOException
      * @throws MarshalException
      * @throws ValidationException

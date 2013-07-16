@@ -146,7 +146,7 @@ public final class ReparentViaSmb {
          * <P>
          * Constructs a new LightWeightIfEntry object.
          * </P>
-         * 
+         *
          * @param address
          *            Interface's ip address
          * @param hostname
@@ -217,7 +217,7 @@ public final class ReparentViaSmb {
          * <P>
          * Constructs a new LightWeightNodeEntry object.
          * </P>
-         * 
+         *
          * @param nodeID
          *            Node's identifier
          * @param netbiosName
@@ -255,7 +255,7 @@ public final class ReparentViaSmb {
          * <P>
          * Sets the duplicate flag for the node..
          * </P>
-         * 
+         *
          * @param dupFlag
          *            the state for the duplicate flag
          */
@@ -274,21 +274,21 @@ public final class ReparentViaSmb {
         }
 
         /**
-         * 
+         *
          */
         void setHeavyWeightNodeEntry(DbNodeEntry hwNodeEntry) {
             m_hwNodeEntry = hwNodeEntry;
         }
 
         /**
-         * 
+         *
          */
         DbNodeEntry getHeavyWeightNodeEntry() {
             return m_hwNodeEntry;
         }
 
         /**
-         * 
+         *
          */
         boolean hasHeavyWeightNodeEntry() {
             if (m_hwNodeEntry == null)
@@ -302,7 +302,7 @@ public final class ReparentViaSmb {
          * Node equality test...currently returns true if the
          * LightWeightNodeEntry objects have the same NetBIOS name.
          * </P>
-         * 
+         *
          * @return true if this and the passed object are equivalent.
          */
         @Override
@@ -318,7 +318,7 @@ public final class ReparentViaSmb {
             else
                 return false;
         }
-        
+
         @Override
         public int hashCode() {
             return new HashCodeBuilder(7, 23)
@@ -351,7 +351,7 @@ public final class ReparentViaSmb {
      * same NetBIOS name with another node. During this processing the reparent
      * node map is built which contains a mapping of reparent nodes to their
      * duplicate node lists.
-     * 
+     *
      * @throws SQLException
      *             if an error occurs querying the database.
      */
@@ -375,7 +375,7 @@ public final class ReparentViaSmb {
             d.cleanUp();
         }
 
-        // 
+        //
         // Loop through node list and verify that all of the nodes
         // have unique NetBIOS names. If any two nodes have the same
         // NetBIOS name then an entry will be added to the reparenting
@@ -478,11 +478,11 @@ public final class ReparentViaSmb {
      * list of reparented interfaces associated with each reparent node. This
      * list will make it possible to generate 'interfaceReparented' events for
      * each reparented interface.
-     * 
+     *
      * During reparenting the 'ipInterface', 'snmpInterface', and 'ifServices'
      * tables are all updated to reflect the new parent node id for the
      * reparented interface.
-     * 
+     *
      * @throws SQLException
      *             if error occurs updating the database
      */
@@ -591,7 +591,7 @@ public final class ReparentViaSmb {
                         throw sqlE;
                     }
 
-                    // 
+                    //
                     // Now that all the interfaces have been reparented...lets
                     // delete this duplicate node from the 'node' table
                     //
@@ -672,7 +672,7 @@ public final class ReparentViaSmb {
     /**
      * This method is responsible for generating a interfaceReparented event and
      * sending it to Eventd.
-     * 
+     *
      * @param ipAddr
      *            IP address of interface which was reparented
      * @param ipHostName
@@ -699,13 +699,13 @@ public final class ReparentViaSmb {
         bldr.setNodeid(newNodeId);
         bldr.setHost(Capsd.getLocalHostAddress());
         bldr.setInterface(addr(ipAddr));
-        
+
         bldr.addParam(EventConstants.PARM_IP_HOSTNAME, ipHostName);
         bldr.addParam(EventConstants.PARM_OLD_NODEID, oldNodeId);
         bldr.addParam(EventConstants.PARM_NEW_NODEID, newNodeId);
         bldr.addParam(EventConstants.PARM_NODE_LABEL, reparentNodeEntry.getLabel());
         bldr.addParam(EventConstants.PARM_NODE_LABEL_SOURCE, reparentNodeEntry.getLabelSource());
-        
+
         if (reparentNodeEntry.getSystemName() != null) {
             bldr.addParam(EventConstants.PARM_NODE_SYSNAME, reparentNodeEntry.getSystemName());
         }

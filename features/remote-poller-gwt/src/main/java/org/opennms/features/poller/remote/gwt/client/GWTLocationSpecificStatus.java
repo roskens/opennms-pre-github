@@ -47,7 +47,7 @@ public class GWTLocationSpecificStatus implements Serializable, IsSerializable {
 	private GWTLocationMonitor m_locationMonitor;
 	private GWTPollResult m_pollResult;
 	private GWTMonitoredService m_monitoredService;
-	
+
 	/**
 	 * <p>Constructor for GWTLocationSpecificStatus.</p>
 	 */

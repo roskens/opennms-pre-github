@@ -59,13 +59,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class MX4JDetectorTest implements InitializingBean {
-       
+
     @Autowired
     public MX4JDetector m_detector;
-    
+
     public static MBeanServer m_beanServer;
     private JMXConnectorServer m_connectorServer;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -76,43 +76,43 @@ public class MX4JDetectorTest implements InitializingBean {
         LocateRegistry.createRegistry(9999);
         m_beanServer = ManagementFactory.getPlatformMBeanServer();
     }
-    
+
     @Before
     public void setUp() throws IOException {
         assertNotNull(m_detector);
-        
+
         JMXServiceURL url = new JMXServiceURL("service:jmx:rmi:///jndi/rmi://localhost:9999/server");
-        
+
         m_connectorServer = JMXConnectorServerFactory.newJMXConnectorServer(url, null, m_beanServer);
         m_connectorServer.start();
-        
+
         m_detector.setPort(9999);
         m_detector.setUrlPath("/server");
     }
-    
+
     @After
     public void tearDown() throws IOException{
         m_connectorServer.stop();
     }
-    
+
     @Test(timeout=90000)
     public void testDetectoredWired(){
         assertNotNull(m_detector);
     }
-   
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws IOException{
         m_detector.init();
         assertTrue(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorWrongPort() throws UnknownHostException{
         m_detector.setPort(9000);
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(InetAddress.getLocalHost()));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorWrongUrlPath() throws UnknownHostException{
         m_detector.setUrlPath("wrongpath");

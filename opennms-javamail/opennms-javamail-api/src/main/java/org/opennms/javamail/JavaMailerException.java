@@ -37,7 +37,7 @@ package org.opennms.javamail;
 public class JavaMailerException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5889585419229061711L;
 

@@ -49,12 +49,12 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class NtpClient implements Client<NtpMessage, DatagramPacket> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NtpClient.class);
     private DatagramSocket m_socket;
     private int m_port;
     private InetAddress m_address;
-    
+
     /**
      * <p>close</p>
      */
@@ -95,7 +95,7 @@ public class NtpClient implements Client<NtpMessage, DatagramPacket> {
      */
     @Override
     public DatagramPacket sendRequest(final NtpMessage request) throws IOException, Exception {
-        
+
         final byte[] buf = new NtpMessage().toByteArray();
         m_socket.send(new DatagramPacket(buf, buf.length, getAddress(), getPort()));
 

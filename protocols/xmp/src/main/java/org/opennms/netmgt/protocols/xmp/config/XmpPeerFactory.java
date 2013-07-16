@@ -51,7 +51,7 @@ public class XmpPeerFactory {
      * The singleton instance of this factory
      */
     private static XmpPeerFactory m_singleton;
-    
+
     /**
      * Currently we're not backed up by a complex config file, we'll just
      * go to the XmpConfigFactory and always return the same peer config
@@ -60,17 +60,17 @@ public class XmpPeerFactory {
      * exists at all.
      */
     private static XmpConfig m_config;
-    
+
     /**
-     * Set to true if our configuration has been loaded 
+     * Set to true if our configuration has been loaded
      */
     private static boolean m_loaded = false;
-    
+
     private XmpPeerFactory() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         super();
     }
-    
-    
+
+
     /**
      * Initialize this factory
      *
@@ -83,14 +83,14 @@ public class XmpPeerFactory {
         if (m_loaded) {
             return;
         }
-        
+
         // Someday we might do something substantial here
         XmpConfigFactory.init();
         m_config = XmpConfigFactory.getInstance().getXmpConfig();
         m_singleton = new XmpPeerFactory();
         m_loaded = true;
     }
-    
+
     /**
      * <p>reload</p>
      *
@@ -102,11 +102,11 @@ public class XmpPeerFactory {
     public static synchronized void reload() throws MarshalException, ValidationException, FileNotFoundException, IOException {
         m_singleton = null;
         m_loaded = false;
-        
+
         XmpConfigFactory.init();
         init();
     }
-    
+
     /**
      * <p>getInstance</p>
      *
@@ -116,10 +116,10 @@ public class XmpPeerFactory {
         if (! m_loaded) {
             throw new IllegalStateException("The factory has not been initialized");
         }
-        
+
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -129,7 +129,7 @@ public class XmpPeerFactory {
         m_singleton = instance;
         m_loaded = true;
     }
-    
+
     /**
      * <p>getAgentConfig</p>
      *
@@ -137,12 +137,12 @@ public class XmpPeerFactory {
      * @return a {@link org.opennms.netmgt.protocols.xmp.config.XmpAgentConfig} object.
      */
     public synchronized XmpAgentConfig getAgentConfig(InetAddress agentInetAddress) {
-        
+
         XmpAgentConfig config = new XmpAgentConfig();
         config.setAuthenUser(m_config.getAuthenUser());
         config.setPort(m_config.getPort());
         config.setRetry(m_config.getRetry());
-        config.setTimeout(m_config.getTimeout());        
+        config.setTimeout(m_config.getTimeout());
         return config;
     }
 }

@@ -97,7 +97,7 @@ public class CategoryUtil extends Object {
 
         return getCategoryColor(category.getNormalThreshold(), category.getWarningThreshold(), category.getValue());
     }
-    
+
     /**
      * Determine the CSS class to use for a given category value and thresholds.
      *

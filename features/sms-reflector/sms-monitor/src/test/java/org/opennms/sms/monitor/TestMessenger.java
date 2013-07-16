@@ -46,7 +46,7 @@ import org.smslib.USSDSessionStatus;
  *
  */
 public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse> {
-    
+
     protected Queue<MobileMsgResponse> m_q;
 
     /* (non-Javadoc)
@@ -65,7 +65,7 @@ public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgRespo
     public void start(Queue<MobileMsgResponse> q) {
         m_q = q;
     }
-    
+
     public void sendTestResponse(MobileMsgResponse response) {
         m_q.offer(response);
     }
@@ -89,9 +89,9 @@ public class TestMessenger implements Messenger<MobileMsgRequest, MobileMsgRespo
         r.setContent(content);
         r.setUSSDSessionStatus(status);
         r.setDcs(USSDDcs.UNSPECIFIED_7BIT);
-        
+
         sendTestResponse(gatewayId, r);
-        
+
         return r;
     }
 

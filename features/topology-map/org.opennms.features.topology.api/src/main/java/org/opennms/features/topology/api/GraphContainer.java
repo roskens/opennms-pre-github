@@ -62,7 +62,7 @@ public interface GraphContainer extends DisplayState {
 	Graph getGraph();
 
 	Collection<VertexRef> getVertexRefForest(Collection<VertexRef> vertexRefs);
-    
+
 	MapViewManager getMapViewManager();
 
 	Property<Double> getScaleProperty();
@@ -74,8 +74,8 @@ public interface GraphContainer extends DisplayState {
     String getUserName();
 
     void setUserName(String userName);
-    
+
     String getSessionId();
-    
+
     void setSessionId(String sessionId);
 }

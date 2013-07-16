@@ -50,12 +50,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class NotesDetectorTest implements InitializingBean {
-    
+
     @Autowired
     private NotesHttpDetector m_detector;
-    
+
     private SimpleServer m_server;
-    
+
     private String headers = "HTTP/1.1 200 OK\r\n"
                             + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
                             + "Server: Apache/2.0.54\r\n"
@@ -64,14 +64,14 @@ public class NotesDetectorTest implements InitializingBean {
                             + "Accept-Ranges: bytes\r\n"
                             + "Vary: Accept-Encoding,User-Agent\r\n"
                             + "Connection: close\r\n"
-                            + "Content-Type: text/html\r\n" 
+                            + "Content-Type: text/html\r\n"
                             + "Lotus\r\n";
-    
+
     private String serverContent = "";
-    
+
     private String serverOKResponse = headers + String.format("Content-Length: %s\r\n", serverContent.length()) + "\r\n" + serverContent;
-                    
-    
+
+
     private String notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
                                     + "Date: Tue, 28 Oct 2008 20:47:55 GMT\r\n"
                                     + "Server: Apache/2.0.54\r\n"
@@ -88,7 +88,7 @@ public class NotesDetectorTest implements InitializingBean {
                                     + "<!-- default -->\r\n"
                                     + "</body>\r\n"
                                     + "</html>";
-    
+
     private String notAServerResponse = "NOT A SERVER";
 
     @Override
@@ -100,76 +100,76 @@ public class NotesDetectorTest implements InitializingBean {
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
     }
-    
+
     @After
     public void tearDown() throws IOException {
        if(m_server != null) {
-           m_server.stopServer();   
+           m_server.stopServer();
            m_server = null;
-       } 
+       }
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailNotAServerResponse() throws Exception {
         m_detector.init();
         m_server = createServer(notAServerResponse);
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
         m_detector.setMaxRetCode(301);
         m_detector.init();
-        
+
         m_server = createServer(notFoundResponse);
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSucessMaxRetCode399() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
         m_detector.setMaxRetCode(399);
         m_detector.init();
-        
+
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailMaxRetCodeBelow200() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setUrl("/blog");
         m_detector.setMaxRetCode(199);
         m_detector.init();
-        
+
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertFalse(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorMaxRetCode600() throws Exception {
         m_detector.setCheckRetCode(true);
         m_detector.setMaxRetCode(600);
         m_detector.init();
-        
+
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
-    
+
+
     @Test(timeout=90000)
     public void testDetectorSucessCheckCodeTrue() throws Exception {
         m_detector.setCheckRetCode(true);
@@ -177,21 +177,21 @@ public class NotesDetectorTest implements InitializingBean {
         m_detector.init();
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccessCheckCodeFalse() throws Exception {
         m_detector.setCheckRetCode(false);
         m_detector.init();
-        
+
         m_server = createServer(getServerOKResponse());
         m_detector.setPort(m_server.getLocalPort());
-        
+
        assertTrue(doCheck(m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
+
     public void setServerOKResponse(String serverOKResponse) {
         this.serverOKResponse = serverOKResponse;
     }
@@ -199,11 +199,11 @@ public class NotesDetectorTest implements InitializingBean {
     public String getServerOKResponse() {
         return serverOKResponse;
     }
-    
-    
+
+
     private SimpleServer createServer(final String httpResponse) throws Exception {
         SimpleServer server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                 //addResponseHandler(contains("GET"), shutdownServer(httpResponse));
@@ -212,7 +212,7 @@ public class NotesDetectorTest implements InitializingBean {
         };
         server.init();
         server.startServer();
-        
+
         return server;
     }
     private boolean doCheck(DetectFuture future) throws InterruptedException {

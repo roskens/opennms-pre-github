@@ -39,7 +39,7 @@ public interface NNMEvent {
     public String getName();
 
     public String getSourceAddress();
-    
+
     public Date getTimeStamp();
 
 }

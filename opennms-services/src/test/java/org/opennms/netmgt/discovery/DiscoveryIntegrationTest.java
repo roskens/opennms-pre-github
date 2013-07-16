@@ -41,7 +41,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * A simple Spring context unit test for Discovery.
- * 
+ *
  * @author Seth
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

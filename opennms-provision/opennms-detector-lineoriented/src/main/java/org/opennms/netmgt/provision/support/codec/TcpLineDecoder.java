@@ -46,12 +46,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class TcpLineDecoder extends CumulativeProtocolDecoder {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TcpLineDecoder.class);
     public final static String NO_MESSAGES_RECEIVED = "___OPENNMS_NO_TCP_BANNER_RECEIVED___";
 
     private Charset m_charset;
-    
+
     /**
      * <p>Constructor for TcpLineDecoder.</p>
      *
@@ -59,8 +59,8 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
      */
     public TcpLineDecoder(final Charset charset) {
         setCharset(charset);
-    }   
-    
+    }
+
     private void setCharset(final Charset charset) {
         m_charset = charset;
     }
@@ -74,9 +74,9 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
         // Now find the first CRLF in the buffer.
         byte previous = 0;
         while (in.hasRemaining()) {
-            
+
             final byte current = in.get();
-            
+
             if (previous == '\r' && current == '\n') {
                 // Remember the current position and limit.
                 final int position = in.position();
@@ -95,27 +95,27 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
                     in.position(position);
                     in.limit(limit);
                 }
-                
+
                 // Decoded one line; CumulativeProtocolDecoder will
                 // call me again until I return false. So just
                 // return true until there are no more lines in the
                 // buffer.
                 return true;
-                
+
                 }
-            
+
             previous = current;
         }
-        
+
         // Could not find CRLF in the buffer. Reset the initial
         // position to the one we recorded above.
         in.position(start);
-        
+
         out.write(parseCommand(in.slice()));
-        
+
         return false;
     }
-    
+
     /**
      * <p>parseCommand</p>
      *
@@ -129,10 +129,10 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
         } catch(final CharacterCodingException e) {
             outputStr = convertToString(in);
         }
-        
+
         return new LineOrientedResponse(outputStr);
     }
-    
+
     private String convertToString(final IoBuffer in) {
         final StringBuffer sb = new StringBuffer();
         while(in.hasRemaining()){
@@ -150,13 +150,13 @@ public class TcpLineDecoder extends CumulativeProtocolDecoder {
     public Charset getCharset() {
         return m_charset;
     }
-    
+
     @Override
     public void finishDecode(final IoSession session, final ProtocolDecoderOutput out) {
         if(session.getReadMessages() == 0) {
             out.write(new LineOrientedResponse(NO_MESSAGES_RECEIVED));
         }
-        
+
     }
 
 }

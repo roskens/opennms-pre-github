@@ -52,7 +52,7 @@ public class SnmpManagedNode {
     protected String nodeLabel;
 
     /**
-     * 
+     *
      */
     protected List<SnmpManagedInterface> interfaces;
 

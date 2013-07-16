@@ -29,10 +29,10 @@
 package org.opennms.netmgt.correlation.ncs;
 
 public class DependenciesNeeded {
-	
+
 	private Component m_component;
 	private Object m_requestor;
-	
+
 	public DependenciesNeeded(Component component, Object requestor) {
 		m_component = component;
 		m_requestor = requestor;
@@ -92,9 +92,9 @@ public class DependenciesNeeded {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

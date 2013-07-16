@@ -112,7 +112,7 @@ public class HttpCollectionConfigFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        
+
         if (m_instance == null) {
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.HTTP_COLLECTION_CONFIG_FILE_NAME);
             m_instance = new HttpCollectionConfigFactory(cfgFile.getPath());
@@ -129,13 +129,13 @@ public class HttpCollectionConfigFactory {
      *             if init has not been called
      */
     public static synchronized HttpCollectionConfigFactory getInstance() {
-        
+
         if (m_instance == null) {
             throw new IllegalStateException("You must call HttpCollectionConfigFactory.init() before calling getInstance().");
         }
         return m_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -231,7 +231,7 @@ public class HttpCollectionConfigFactory {
         repo.setHeartBeat((2 * getStep(collectionName)));
         return repo;
     }
-    
+
     /**
      * <p>getStep</p>
      *
@@ -245,7 +245,7 @@ public class HttpCollectionConfigFactory {
         else
             return -1;
     }
-    
+
     /**
      * <p>getRRAList</p>
      *
@@ -260,7 +260,7 @@ public class HttpCollectionConfigFactory {
             return null;
 
     }
-    
+
     /**
      * <p>getRrdPath</p>
      *
@@ -272,7 +272,7 @@ public class HttpCollectionConfigFactory {
             throw new RuntimeException("Configuration error, failed to "
                     + "retrieve path to RRD repository.");
         }
-    
+
         /*
          * TODO: make a path utils class that has the below in it strip the
          * File.separator char off of the end of the path.
@@ -280,7 +280,7 @@ public class HttpCollectionConfigFactory {
         if (rrdPath.endsWith(File.separator)) {
             rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
         }
-        
+
         return rrdPath;
     }
 

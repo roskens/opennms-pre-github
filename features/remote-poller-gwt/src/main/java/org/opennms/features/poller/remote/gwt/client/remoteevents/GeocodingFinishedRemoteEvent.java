@@ -61,7 +61,7 @@ public class GeocodingFinishedRemoteEvent implements MapRemoteEvent {
 	public void dispatch(final MapRemoteEventHandler presenter) {
 //		Window.alert("Updated geocoding on " + m_size + " location definitions.");
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *

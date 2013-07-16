@@ -60,7 +60,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Transactional
 public class OnmsMapElementResource extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsMapElementResource.class);
 
     @Autowired

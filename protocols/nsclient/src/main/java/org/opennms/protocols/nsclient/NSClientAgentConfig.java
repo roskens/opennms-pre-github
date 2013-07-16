@@ -45,21 +45,21 @@ public class NSClientAgentConfig {
     public static final int DEFAULT_RETRIES = 1;
     /** Constant <code>DEFAULT_PASSWORD="None"</code> */
     public static final String DEFAULT_PASSWORD = "None";
-    
+
     private InetAddress m_address;
     private int m_timeout;
     private int m_retries;
     private int m_port;
     private String m_password;
 
-    
+
     /**
      * <p>Constructor for NSClientAgentConfig.</p>
      */
     public NSClientAgentConfig() {
         setDefaults();
     }
-    
+
     /**
      * <p>Constructor for NSClientAgentConfig.</p>
      *
@@ -76,7 +76,7 @@ public class NSClientAgentConfig {
         m_port = DEFAULT_PORT;
         m_password = DEFAULT_PASSWORD;
     }
-    
+
     /**
      * <p>toString</p>
      *

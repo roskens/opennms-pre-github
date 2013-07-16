@@ -37,12 +37,12 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
 public final class GWTGraph extends JavaScriptObject {
-    
+
     protected GWTGraph() {}
-    
+
     public static final native GWTGraph create() /*-{
-    	return { "vertices":[], "edges":[], "idToVMap":{}, 
-    	         "clientX":0, "clientY":0, 
+	return { "vertices":[], "edges":[], "idToVMap":{},
+	         "clientX":0, "clientY":0,
     	         "viewTransformation":{}, "panToSelection":false,
     	         "fitToView":false, "bounds":{"x":0, "y":0, "width":100, "height":100}};
 	}-*/;
@@ -50,36 +50,36 @@ public final class GWTGraph extends JavaScriptObject {
     public final native JsArray<GWTVertex> getVertices()/*-{
         return this.vertices;
     }-*/;
-    
+
     public final native JsArray<GWTEdge> getEdges()/*-{
         return this.edges;
     }-*/;
-    
+
     private final native void put(String id, GWTVertex vertex) /*-{
         this.idToVMap[id] = vertex;
     }-*/;
-    
+
     private final native GWTVertex get(String id) /*-{
         return this.idToVMap[id];
     }-*/;
-    
+
     public void addVertex(GWTVertex vertex) {
         getVertices().push(vertex);
         put(vertex.getId(), vertex);
     }
-    
+
 	public void removeVertex(GWTVertex vertex) {
         int index = findIndex(vertex);
         if(index >= 0) {
             splice(getVertices(), index);
         }
-        
+
         Integer[] edgeIndices = findEdgeIndices(vertex);
         for(Integer edgeIndex : edgeIndices) {
             splice(getEdges(), edgeIndex);
         }
     }
-    
+
     public GWTVertex findVertexById(String id) {
         for(int i = 0; i < getVertices().length(); i++) {
             GWTVertex v = getVertices().get(i);
@@ -92,7 +92,7 @@ public final class GWTGraph extends JavaScriptObject {
 
     private Integer[] findEdgeIndices(GWTVertex vertex) {
         List<Integer> indexArray = new ArrayList<Integer>();
-        
+
         for(int i = 0; i < getEdges().length(); i++) {
             GWTEdge edge = getEdges().get(i);
             if(edge.getSource().getId().equals(vertex.getId()) || edge.getTarget().getId().equals(vertex.getId())) {
@@ -101,7 +101,7 @@ public final class GWTGraph extends JavaScriptObject {
         }
         return indexArray.toArray(new Integer[0]);
     }
-    
+
 
     private final native void splice(JsArray<?> vertices, int index) /*-{
         vertices.splice(index, 1);
@@ -116,11 +116,11 @@ public final class GWTGraph extends JavaScriptObject {
         }
         return -1;
     }
-    
+
     public void addEdge(GWTEdge edge) {
         getEdges().push(edge);
     }
-    
+
 	public GWTVertex getVertex(String vertexKey) {
 		return get(vertexKey);
 	}
@@ -144,7 +144,7 @@ public final class GWTGraph extends JavaScriptObject {
     public native void setBoundingBox(GWTBoundingBox bounds) /*-{
         this.bounds = bounds;
     }-*/;
-    
+
     public native GWTBoundingBox getBoundingBox() /*-{
         return this.bounds;
     }-*/;

@@ -35,30 +35,30 @@ public class SudoKeyDownEvent extends KeyDownEvent {
     private boolean isCtrlDown;
     private boolean isAltDown;
     private boolean isShiftDown;
-    
+
     public SudoKeyDownEvent(int k, boolean isCtrlDown, boolean isAltDown, boolean isShiftDown) {
             keyCode = k;
             this.isCtrlDown = isCtrlDown;
             this.isAltDown = isAltDown;
             this.isShiftDown = isShiftDown;
     }
-    
+
     @Override
     public int getNativeKeyCode() {
             return keyCode;
     }
-    
+
     @Override
     public boolean isControlKeyDown(){
             return isCtrlDown;
     }
-    
+
     @Override
     public boolean isAltKeyDown(){
             return isAltDown;
     }
-    
-    @Override 
+
+    @Override
     public boolean isShiftKeyDown(){
             return isShiftDown;
     }

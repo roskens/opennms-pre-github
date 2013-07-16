@@ -213,7 +213,7 @@ public abstract class HttpUtils extends Object {
             String authString = new String(Base64.encodeBase64(authBytes));
             conn.setRequestProperty("Authorization", "Basic " + authString);
         }
-        
+
         // set the mime type
         conn.setRequestProperty("Content-type", "text/xml; charset=\"utf-8\"");
 

@@ -45,7 +45,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class MockSnmpWalker extends SnmpWalker {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MockSnmpWalker.class);
 
 	private static class MockPduBuilder extends WalkerPduBuilder {
@@ -78,11 +78,11 @@ public class MockSnmpWalker extends SnmpWalker {
         public void setMaxRepetitions(final int maxRepetitions) {
         }
     }
-	
+
 	private static class MockVarBind {
 		SnmpObjId m_oid;
 		SnmpValue m_value;
-		
+
 		public MockVarBind(SnmpObjId oid, SnmpValue value) {
 			m_oid = oid;
 			m_value = value;
@@ -95,8 +95,8 @@ public class MockSnmpWalker extends SnmpWalker {
 		public SnmpValue getValue() {
 			return m_value;
 		}
-		
-		
+
+
 	}
 
 	private final SnmpAgentAddress m_agentAddress;
@@ -139,19 +139,19 @@ public class MockSnmpWalker extends SnmpWalker {
     	LOG.debug("handleAuthError({})", msg);
     	super.handleAuthError(msg);
     }
-    
+
     @Override
     protected void handleError(final String msg) {
     	LOG.debug("handleError({})", msg);
     	super.handleError(msg);
     }
-    
+
     @Override
     protected void handleError(final String msg, final Throwable t) {
     	LOG.debug("handleError({}, {})", msg, t.getLocalizedMessage(), t);
     	super.handleError(msg, t);
     }
-    
+
     @Override
     protected void handleFatalError(final Throwable e) {
     	LOG.debug("handleFatalError({})", e.getLocalizedMessage(), e);
@@ -198,7 +198,7 @@ public class MockSnmpWalker extends SnmpWalker {
 	            }
 
 	            List<MockVarBind> responses = new ArrayList<MockVarBind>(m_oids.size());
-	            		
+
 	            int errorStatus = 0;
 	            int errorIndex = 0;
 	            int index = 1; // snmp index start at 1
@@ -224,7 +224,7 @@ public class MockSnmpWalker extends SnmpWalker {
 	            	for(MockVarBind vb : responses) {
 	                	processResponse(vb.getOid(), vb.getValue());
 	                }
-	            } 
+	            }
 				buildAndSendNextPdu();
 
 	        } catch (final Throwable t) {

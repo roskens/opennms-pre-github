@@ -37,10 +37,10 @@ import org.opennms.netmgt.model.PollStatus;
  * @version $Id: $
  */
 public class PassiveStatusValue {
-    
+
     private PassiveStatusKey m_key;
     private PollStatus m_status;
-    
+
     /**
      * <p>Constructor for PassiveStatusValue.</p>
      *
@@ -52,7 +52,7 @@ public class PassiveStatusValue {
     public PassiveStatusValue(String nodeLabel, String ipAddr, String serviceName, PollStatus status) {
         this(new PassiveStatusKey(nodeLabel, ipAddr, serviceName), status);
     }
-    
+
     /**
      * <p>Constructor for PassiveStatusValue.</p>
      *
@@ -63,7 +63,7 @@ public class PassiveStatusValue {
         m_key = key;
         m_status = status;
     }
-    
+
     /**
      * <p>getStatus</p>
      *
@@ -81,7 +81,7 @@ public class PassiveStatusValue {
     public void setStatus(PollStatus status) {
         m_status = status;
     }
-    
+
     /**
      * <p>getKey</p>
      *
@@ -90,7 +90,7 @@ public class PassiveStatusValue {
     public PassiveStatusKey getKey() {
         return m_key;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -101,5 +101,5 @@ public class PassiveStatusValue {
         return getKey().toString()+" -> "+m_status;
     }
 
-    
+
 }

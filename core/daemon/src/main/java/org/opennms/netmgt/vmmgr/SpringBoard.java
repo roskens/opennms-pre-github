@@ -35,10 +35,10 @@ import java.util.List;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class SpringBoard implements SpringBoardMBean {
-    
+
     private File contextDir;
     private FileSystemXmlApplicationContext m_context;
-    
+
     /**
      * <p>Getter for the field <code>contextDir</code>.</p>
      *
@@ -53,7 +53,7 @@ public class SpringBoard implements SpringBoardMBean {
     @Override
     public void setContextDir(String contextDir) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /**

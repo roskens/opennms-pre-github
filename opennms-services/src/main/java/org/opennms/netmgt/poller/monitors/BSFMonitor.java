@@ -59,12 +59,12 @@ import org.opennms.netmgt.poller.MonitoredService;
  * This <code>ServiceMonitor</code> is designed to enable the evaluation
  * or execution of user-supplied scripts via the Bean Scripting Framework
  * (BSF).  Scripts should indicate a status whose string value is one of:
- * 
+ *
  * "OK" (service is available),
  * "UNK" (service status unknown),
  * "UNR" (service is unresponsive), or
  * "NOK" (service is unavailable).
- * 
+ *
  * These strings map into the status values defined in @PollStatus and are
  * indicated differently depending on the run-type of the script in question
  * (see below for details).
@@ -76,17 +76,17 @@ import org.opennms.netmgt.poller.MonitoredService;
  *    for backward compatibility, a status code outside the set described above
  *    will be taken to convey that the service is unavailable, and the status code
  *    itself will be set as the reason code.
- *    
+ *
  *    If the scripting engine in use supports bean manipulation during an
  *    evaluation, then any entries put into the "times" bean will be returned
  *    for optional thresholding and/or persisting.  If no entries exist in this
  *    bean upon the evaluation's return, then a single value describing the time
  *    window (in milliseconds) from just before the evaluation began until just
  *    after it returned will be substituted.
- *    
+ *
  *    This mode is the default if no "run-type" parameter is
  *    specified in the service definition or if this parameter's value is "eval".
- *    
+ *
  * b) Execute a self-contained script from a file in the filesystem.  The script
  *    must put an entry into the "results" HashMap bean with key "status" and a
  *    value from the above list of service status indications.  If the script puts
@@ -95,12 +95,12 @@ import org.opennms.netmgt.poller.MonitoredService;
  *    in this bean with a key of "response-time", the overall response time will
  *    be substituted as the time from just before the script's execution to just
  *    after its completion.
- *    
+ *
  *    This mode is used if the service's definition contains a "run-type" parameter
  *    with a value of "exec".
- *    
+ *
  * The following beans are declared in the script's execution context:
- * 
+ *
  * map: A @Map<String,Object> allowing direct access to the list of parameters
  *      configured for the service at hand
  * ip_addr: A @String representing the IPv4 or IPv6 address of the interface
@@ -136,7 +136,7 @@ public class BSFMonitor extends AbstractServiceMonitor {
     private static final String STATUS_UNRESPONSIVE = "UNR";
     private static final String STATUS_AVAILABLE = "OK";
     private static final String STATUS_UNAVAILABLE = "NOK";
-    
+
     /** {@inheritDoc} */
     @Override
     public PollStatus poll(MonitoredService svc, Map<String,Object> map) {
@@ -150,19 +150,19 @@ public class BSFMonitor extends AbstractServiceMonitor {
         File file = new File(fileName);
 
         try {
-           
+
             if(lang==null)
                 lang = BSFManager.getLangFromFilename(fileName);
-                
+
             if(langEngine!=null && lang!=null && langExtensions.length > 0 ){
                 BSFManager.registerScriptingEngine(lang,langEngine,langExtensions);
             }
-            
-            if(file.exists() && file.canRead()){   
+
+            if(file.exists() && file.canRead()){
                     String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
                     HashMap<String,String> results = new HashMap<String,String>();
                     LinkedHashMap<String,Number> times = new LinkedHashMap<String,Number>();
-                    
+
                     // Declare some beans that can be used inside the script
                     bsfManager.declareBean("map", map, Map.class);
                     bsfManager.declareBean("ip_addr",svc.getIpAddr(),String.class);
@@ -176,9 +176,9 @@ public class BSFMonitor extends AbstractServiceMonitor {
                     for (final Entry<String, Object> entry : map.entrySet()) {
                         bsfManager.declareBean(entry.getKey(),entry.getValue(),String.class);
                     }
-                    
+
                     pollStatus = PollStatus.unknown("The script did not update the service status");
-                    
+
                     long startTime = System.currentTimeMillis();
                     if ("eval".equals(runType)) {
                         results.put("status", bsfManager.eval(lang, "BSFMonitor", 0, 0, code).toString());
@@ -192,7 +192,7 @@ public class BSFMonitor extends AbstractServiceMonitor {
                     if (!times.containsKey("response-time")) {
                         times.put("response-time", endTime - startTime);
                     }
-                    
+
                     if (STATUS_UNKNOWN.equals(results.get("status"))) {
                         pollStatus = PollStatus.unknown(results.get("reason"));
                     } else if (STATUS_UNRESPONSIVE.equals(results.get("status"))) {
@@ -206,17 +206,17 @@ public class BSFMonitor extends AbstractServiceMonitor {
                         // code as meaning unavailable and also carrying the reason code
                         pollStatus = PollStatus.unavailable(results.get("status"));
                     }
-                    
+
                     LOG.debug("Setting {} times for service '{}'", times.size(), svc.getSvcName());
                     pollStatus.setProperties(times);
-                    
+
                     if ("exec".equals(runType) && !results.containsKey("status")) {
                         LOG.warn("The exec script '{}' for service '{}' never put a 'status' entry in the 'results' bean. Exec scripts should put this entry with a value of 'OK' for up.", fileName, svc.getSvcName());
                     }
             } else {
                 LOG.warn("Cannot locate or read BSF script file '{}'. Marking service '{}' down.", fileName, svc.getSvcName());
                 pollStatus = PollStatus.unavailable("Cannot locate or read BSF script file: " + fileName);
-            }            
+            }
 
         } catch (BSFException e) {
             LOG.warn("BSFMonitor poll for service '{}' failed with BSFException: {}", svc.getSvcName(), e.getMessage(), e);
@@ -231,13 +231,13 @@ public class BSFMonitor extends AbstractServiceMonitor {
             // Catch any RuntimeException throws
             pollStatus = PollStatus.unavailable(e.getMessage());
             LOG.warn("BSFMonitor poll for service '{}' failed with unexpected throwable: {}", svc.getSvcName(), e.getMessage(), e);
-        } finally { 
+        } finally {
             bsfManager.terminate();
         }
 
         return pollStatus;
     }
-    
+
     public void log(String level, String format, Object... args) {
         if ("TRACE".equals(level)) LOG.trace(format, args);
         if ("DEBUG".equals(level)) LOG.debug(format, args);

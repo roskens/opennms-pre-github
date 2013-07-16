@@ -37,8 +37,8 @@ import java.util.Locale;
 
 /**
  * The Varbind's Decode List Converter.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class DecodeListConverter implements Converter<String, DecodeListConverter.DecodeList> {
@@ -58,7 +58,7 @@ public class DecodeListConverter implements Converter<String, DecodeListConverte
             d.setVarbinddecodedstring(parts[1].trim());
             list.add(d);
         }
-        
+
         return list;
     }
 

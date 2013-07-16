@@ -49,18 +49,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * The JBossConnectionFactory class handles the creation of a connection to the 
+ * The JBossConnectionFactory class handles the creation of a connection to the
  * remote JBoss server.  The connections can be either RMI or HTTP based.  RMI is
- * more efficient but doesn't work with firewalls.  The HTTP connection is suited 
+ * more efficient but doesn't work with firewalls.  The HTTP connection is suited
  * for that.  Before attempting to use the HTTP connector, you need to make sure that
- * the invoker-suffix is properly set.  It must match the InvokerURLSuffix value in 
- * the jboss-service.xml found in the 
+ * the invoker-suffix is properly set.  It must match the InvokerURLSuffix value in
+ * the jboss-service.xml found in the
  * <jboss-home>/server/default/deploy/http-invoker/META-INF directory
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  */
 public class JBossConnectionFactory {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JBossConnectionFactory.class);
     static String[] packages = {"org.jboss.naming.*", "org.jboss.interfaces.*"};
 
@@ -75,18 +75,18 @@ public class JBossConnectionFactory {
      * @return a {@link org.opennms.netmgt.provision.support.jmx.connectors.JBossConnectionWrapper} object.
      */
     public static JBossConnectionWrapper getMBeanServerConnection(Map<String,Object> propertiesMap, InetAddress address) {
-        
+
         JBossConnectionWrapper wrapper = null;
         //IsolatingClassLoader   icl     = null;
         ClassLoader icl = null;
         final ClassLoader originalLoader = Thread.currentThread().getContextClassLoader();
-                
+
         String connectionType = ParameterMap.getKeyedString(propertiesMap, "factory", "RMI");
         String timeout        = ParameterMap.getKeyedString(propertiesMap, "timeout", "3000");
         String jbossVersion   = ParameterMap.getKeyedString(propertiesMap, "version", "4");
         String port           = ParameterMap.getKeyedString(propertiesMap, "port",    "1099");
 
-        
+
         if (connectionType == null) {
             return null;
         }
@@ -100,9 +100,9 @@ public class JBossConnectionFactory {
         if (icl == null) {
             return null;
         }
-        
+
         Thread.currentThread().setContextClassLoader(icl);
-        
+
         try {
             if (connectionType.equals("RMI")) {
                 InitialContext ctx = null;

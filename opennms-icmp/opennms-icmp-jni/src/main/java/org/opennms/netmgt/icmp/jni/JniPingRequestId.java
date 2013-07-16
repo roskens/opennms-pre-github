@@ -57,7 +57,7 @@ public class JniPingRequestId {
         m_sequenceNumber = sequenceNumber;
         m_threadId = threadId;
     }
-    
+
     /**
      * <p>Constructor for JniPingRequestId.</p>
      *
@@ -75,7 +75,7 @@ public class JniPingRequestId {
     public InetAddress getAddress() {
         return m_addr;
     }
-    
+
     public int getIdentifier() {
         return m_identifier;
     }
@@ -106,7 +106,7 @@ public class JniPingRequestId {
             return (new InetAddressComparator().compare(getAddress(), id.getAddress()) == 0)
                 && getIdentifier() == id.getIdentifier()
                 && getSequenceNumber() == id.getSequenceNumber()
-                && getThreadId() == id.getThreadId(); 
+                && getThreadId() == id.getThreadId();
         }
         return false;
     }
@@ -144,6 +144,6 @@ public class JniPingRequestId {
         buf.append(']');
         return buf.toString();
     }
-    
+
 
 }

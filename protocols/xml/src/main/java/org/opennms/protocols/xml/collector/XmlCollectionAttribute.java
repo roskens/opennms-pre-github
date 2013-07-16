@@ -39,7 +39,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Class XmlCollectionAttribute.
  * <p>This is related with the configuration class XmlObject (the attribute to be stored on a RRD file).</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
@@ -149,7 +149,7 @@ public class XmlCollectionAttribute extends AbstractCollectionAttribute implemen
      *
      * @return the thread category
      */
-   
+
 
     @Override
     public String getMetricIdentifier() {

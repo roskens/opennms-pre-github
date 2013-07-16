@@ -42,7 +42,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class AutoIntegerReplacement implements ColumnChangeReplacement {
     private int m_value;
-    
+
     /**
      * <p>Constructor for AutoIntegerReplacement.</p>
      *
@@ -51,7 +51,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     public AutoIntegerReplacement(int initialValue) {
         m_value = initialValue;
     }
-    
+
     /**
      * <p>getInt</p>
      *
@@ -60,7 +60,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     public int getInt() {
         return m_value++;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Integer getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) {
@@ -76,7 +76,7 @@ public class AutoIntegerReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

@@ -46,16 +46,16 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class JRobinQueryExecuterTest {
-    
+
     private JasperReport m_jasperReport;
     private JasperPrint m_jasperPrint;
-    
+
     @Before
     public void setUp() {
         File reportDir = new File("target/reports");
         reportDir.mkdirs();
     }
-    
+
     /**
      *
      */
@@ -66,25 +66,25 @@ public class JRobinQueryExecuterTest {
         pdf();
         xhtml();
     }
-    
+
     @Test
     public void testNoDataReport() throws JRException{
     	compileNoDataReport();
     	fill();
     	pdf();
     }
-    
+
 
     public void compile() throws JRException {
         // jrxml compiling process
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/RrdGraph.jrxml");
-        
+
     }
-    
+
     public void compileNoDataReport() throws JRException {
         // jrxml compiling process
         m_jasperReport = JasperCompileManager.compileReport("src/test/resources/NoDataReport.jrxml");
-        
+
     }
 
     /**
@@ -109,7 +109,7 @@ public class JRobinQueryExecuterTest {
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/RrdGraph.pdf");
         System.err.println("PDF creation time : " + (System.currentTimeMillis() - start));
     }
-    
+
     /**
      *
      */
@@ -118,12 +118,12 @@ public class JRobinQueryExecuterTest {
         long start = System.currentTimeMillis();
 
         File destFile = new File("target/reports/RrdGraph.x.html");
-        
+
         JRXhtmlExporter exporter = new JRXhtmlExporter();
-        
+
         exporter.setParameter(JRExporterParameter.JASPER_PRINT, m_jasperPrint);
         exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME, destFile.toString());
-        
+
         exporter.exportReport();
 
         System.err.println("XHTML creation time : " + (System.currentTimeMillis() - start));

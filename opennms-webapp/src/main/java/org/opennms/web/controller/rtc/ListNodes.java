@@ -54,7 +54,7 @@ public class ListNodes extends AbstractController implements InitializingBean {
         RtcNodeModel model = m_rtcService.getNodeList();
         return new ModelAndView("rtc/category", "model", model);
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */

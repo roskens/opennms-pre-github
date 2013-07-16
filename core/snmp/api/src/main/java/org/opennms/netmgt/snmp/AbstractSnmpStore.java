@@ -86,11 +86,11 @@ public abstract class AbstractSnmpStore {
     protected void putIfIndex(int ifIndex) {
         putValue(IFINDEX, SnmpUtils.getValueFactory().getInt32(ifIndex));
     }
-    
+
     public int size() {
         return m_responseMap.size();
     }
-    
+
     public boolean isEmpty() {
         return m_responseMap.isEmpty();
     }

@@ -47,7 +47,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class LatencyThresholdingSet extends ThresholdingSet {
-    
+
     /**
      * <p>Constructor for LatencyThresholdingSet.</p>
      *
@@ -60,7 +60,7 @@ public class LatencyThresholdingSet extends ThresholdingSet {
     public LatencyThresholdingSet(int nodeId, String hostAddress, String serviceName, RrdRepository repository) {
         super(nodeId, hostAddress, serviceName, repository);
     }
-    
+
     /*
      * Latency thresholds use ds-type="if"
      * Returns true if any attribute of the service is involved in any of defined thresholds.
@@ -91,13 +91,13 @@ public class LatencyThresholdingSet extends ThresholdingSet {
         for (String ds : attributes.keySet()) {
             attributesMap.put(ds, new LatencyCollectionAttribute(latencyResource, ds, attributes.get(ds)));
         }
-        //The timestamp is irrelevant; latency is never a COUNTER (which is the only reason the date is used).  
+        //The timestamp is irrelevant; latency is never a COUNTER (which is the only reason the date is used).
         //Yes, we have to know a little too much about the implementation details of CollectionResourceWrapper to say that, but
         // we have little choice
         CollectionResourceWrapper resourceWrapper = new CollectionResourceWrapper(new Date(), m_nodeId, m_hostAddress, m_serviceName, m_repository, latencyResource, attributesMap);
         return Collections.unmodifiableList(applyThresholds(resourceWrapper, attributesMap));
     }
-    
+
     /*
      * Resource Filters don't make sense for Latency Thresholder.
      */

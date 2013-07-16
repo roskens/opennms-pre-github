@@ -100,7 +100,7 @@ public interface Tl1Client {
 	 * @param queue a {@link java.util.concurrent.BlockingQueue} object.
 	 */
 	void setTl1Queue(BlockingQueue<Tl1AutonomousMessage> queue);
-	
+
     /**
      * <p>getMessageProcessor</p>
      *

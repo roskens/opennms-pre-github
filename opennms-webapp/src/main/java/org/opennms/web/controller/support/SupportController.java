@@ -61,7 +61,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.6
  */
 public class SupportController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SupportController.class);
 
     private SystemReport m_systemReport = null;
@@ -142,7 +142,7 @@ public class SupportController extends AbstractController implements Initializin
             formatter.begin();
             for (final SystemReportPlugin plugin : m_systemReport.getPlugins()) {
                 if (plugin.getName().equals("Logs")) continue;
-                
+
                 formatter.write(plugin);
             }
             formatter.end();
@@ -150,7 +150,7 @@ public class SupportController extends AbstractController implements Initializin
             body = body.concat("\n\nSystem report is available at: " + url + "\n");
         }
 
-        
+
         final SupportResults results = new SupportResults();
         results.setNeedsLogin(false);
         results.setUsername(rt.getUsername());
@@ -159,7 +159,7 @@ public class SupportController extends AbstractController implements Initializin
         List<CustomField> customFields = new ArrayList<CustomField>();
         customFields.add(new CustomField(m_configDao.getVersionFieldName(), "Version " + Vault.getProperty("version.display"), false));
         customFields.add(new CustomField(m_configDao.getOSFieldName(), System.getProperty("os.name")+" "+System.getProperty("os.version")+" ("+System.getProperty("os.arch")+")", false));
-        
+
         final RTTicket ticket = new RTTicket(queue.getName(), email, subject, body, customFields);
         try {
             final long id = rt.createTicket(ticket);
@@ -186,7 +186,7 @@ public class SupportController extends AbstractController implements Initializin
         RTQueue queue = null;
 
         try {
-            
+
             // First, check if the currently configured queue exists
             Long queueId = m_configDao.getQueueId();
             if (queueId != null) {
@@ -206,7 +206,7 @@ public class SupportController extends AbstractController implements Initializin
             m_configDao.setUsername(username);
             m_configDao.setPassword(password);
             m_configDao.save();
-            
+
             final HttpSession session = request.getSession(true);
             session.setAttribute("username", username);
             session.setAttribute("password", password);
@@ -225,7 +225,7 @@ public class SupportController extends AbstractController implements Initializin
             return results;
         }
     }
-    
+
     private SupportResults logout(final HttpServletRequest request) {
         final HttpSession session = request.getSession(true);
         final RequestTracker rt = (RequestTracker)session.getAttribute("requestTracker");
@@ -233,7 +233,7 @@ public class SupportController extends AbstractController implements Initializin
 
         m_configDao.setUsername(null);
         m_configDao.setPassword(null);
-        
+
         final SupportResults results = new SupportResults();
         try {
             m_configDao.save();
@@ -251,7 +251,7 @@ public class SupportController extends AbstractController implements Initializin
     public void setRtConfigDao(final SupportRtConfigDao dao) {
         m_configDao = dao;
     }
-    
+
     public void setSystemReport(final SystemReport systemReport) {
         m_systemReport = systemReport;
     }

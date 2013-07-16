@@ -40,7 +40,7 @@ public class NCSNorthbounderConfigDao extends AbstractJaxbConfigDao<NCSNorthboun
 	protected NCSNorthbounderConfig translateConfig(NCSNorthbounderConfig config) {
 		return config;
 	}
-	
+
 	public NCSNorthbounderConfig getConfig() {
 		return getContainer().getObject();
 	}

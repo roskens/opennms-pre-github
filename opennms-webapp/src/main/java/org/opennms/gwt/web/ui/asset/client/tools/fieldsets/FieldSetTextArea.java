@@ -80,7 +80,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.event.dom.client.KeyUpHandler#onKeyUp(com.google.gwt.event
 	 * .dom.client.KeyUpEvent)
@@ -92,7 +92,7 @@ public class FieldSetTextArea extends AbstractFieldSet implements FieldSet, KeyU
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see
 	 * com.google.gwt.event.dom.client.MouseUpHandler#onMouseUp(com.google.gwt
 	 * .event.dom.client.MouseUpEvent)

@@ -32,7 +32,7 @@ import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.AbstractFieldSet;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  *         Validators are simple classes to check if a given parameter is valid
  *         following an defined rule. Validators are used in
  *         {@link AbstractFieldSet} instances to check if input is valid.
@@ -43,7 +43,7 @@ import org.opennms.gwt.web.ui.asset.client.tools.fieldsets.AbstractFieldSet;
 public interface Validator {
 	/**
 	 * Validates the given object by a implemented rule.
-	 * 
+	 *
 	 * @param object
 	 *            to validate.
 	 * @return "" means it is valid. "Message" means not valid, with the

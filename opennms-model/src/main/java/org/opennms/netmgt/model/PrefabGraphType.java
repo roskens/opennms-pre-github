@@ -54,7 +54,7 @@ public class PrefabGraphType {
      */
     public PrefabGraphType() {
     }
-    
+
     /**
      * <p>setName</p>
      *
@@ -90,8 +90,8 @@ public class PrefabGraphType {
     public String getDefaultReport() {
         return m_defaultReport;
     }
-    
-    
+
+
     /**
      * <p>setGraphWidth</p>
      *
@@ -109,7 +109,7 @@ public class PrefabGraphType {
     public String getGraphWidth() {
         return m_graphWidth;
     }
-    
+
     /**
      * <p>setGraphHeight</p>
      *
@@ -136,7 +136,7 @@ public class PrefabGraphType {
     public void setCommandPrefix(String commandPrefix) {
         m_commandPrefix = commandPrefix;
     }
-    
+
     /**
      * <p>getCommandPrefix</p>
      *
@@ -154,7 +154,7 @@ public class PrefabGraphType {
     public void setOutputMimeType(String outputMimeType) {
         m_outputMimeType = outputMimeType;
     }
-    
+
     /**
      * <p>getOutputMimeType</p>
      *
@@ -166,14 +166,14 @@ public class PrefabGraphType {
 
     /**
      * Set the directory from which individual graph files should be included
-     * @param includeDirectory - the new path for the include directory 
+     * @param includeDirectory - the new path for the include directory
      * If not absolute, is a path relative to the directory containing the main configuration file
      */
     public void setIncludeDirectory(String includeDirectory) {
         m_includeDirectory = includeDirectory;
     }
-    
-    /** 
+
+    /**
      * @return the include directory in which to look for any individual graph files
      */
     public String getIncludeDirectory() {
@@ -181,8 +181,8 @@ public class PrefabGraphType {
     }
 
     /**
-     * Set the interval between rescans of the include directory, in milliseconds.  
-     * The includeDirectory will only be rescanned for new files if it's been at least 
+     * Set the interval between rescans of the include directory, in milliseconds.
+     * The includeDirectory will only be rescanned for new files if it's been at least
      * this long since the last scan, or the initial load.
      * @param timeout - the new timeout, in milliseconds
      */

@@ -49,17 +49,17 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 public class PollableInterface {
 
     private int m_nodeid;
-    
+
     private String m_ipaddress;
-    
+
     private PollableNetwork m_parent;
-    
+
     private HashMap<String, PollableSnmpInterface> m_pollablesnmpinterface;
 
     private String m_packageName;
-    
+
     private boolean polling = true;
-    
+
     /**
      * <P>
      * Initialize the service monitor.
@@ -80,7 +80,7 @@ public class PollableInterface {
             throw new UndeclaredThrowableException(ex);
         }
     }
-    
+
     /**
      * <p>getNodeid</p>
      *
@@ -142,8 +142,8 @@ public class PollableInterface {
    * @param maxVarsPerPdu a int.
    * @return a {@link org.opennms.netmgt.snmpinterfacepoller.pollable.PollableSnmpInterface} object.
    */
-  public PollableSnmpInterface createPollableSnmpInterface(String name, String criteria, boolean hasPort, 
-          int port, boolean hasTimeout, int timeout, boolean hasRetries, int retries, 
+  public PollableSnmpInterface createPollableSnmpInterface(String name, String criteria, boolean hasPort,
+          int port, boolean hasTimeout, int timeout, boolean hasRetries, int retries,
           boolean hasMaxVarsPerPdu,int maxVarsPerPdu) {
 
         PollableSnmpInterface iface = new PollableSnmpInterface(this);
@@ -158,11 +158,11 @@ public class PollableInterface {
         if (hasMaxVarsPerPdu) agentConfig.setMaxVarsPerPdu(maxVarsPerPdu);
 
         iface.setAgentConfig(agentConfig);
-               
+
         m_pollablesnmpinterface.put(name,iface);
         return iface;
     }
-    
+
     /**
      * <p>refresh</p>
      */
@@ -171,12 +171,12 @@ public class PollableInterface {
             pi.setSnmpinterfaces(getContext().get(getNodeid(), pi.getCriteria()));
         }
     }
-    
+
     /**
      * <p>suspend</p>
      */
     protected void suspend() {
-          polling = false;  
+          polling = false;
     }
 
     /**
@@ -204,7 +204,7 @@ public class PollableInterface {
     public boolean polling() {
         return polling;
     }
-    
+
 
     /**
      * <p>delete</p>
@@ -232,7 +232,7 @@ public class PollableInterface {
     public void setParent(PollableNetwork parent) {
         m_parent = parent;
     }
-    
+
     /**
      * <p>getContext</p>
      *

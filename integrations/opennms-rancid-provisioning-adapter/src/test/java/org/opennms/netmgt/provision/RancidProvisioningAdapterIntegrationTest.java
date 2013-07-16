@@ -70,7 +70,7 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 /**
  * Test class for Rancid Provisioning
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo</a>
  */
@@ -78,16 +78,16 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
 
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private MockEventIpcManager m_mockEventIpcManager;
-    
+
     @Autowired
     private DatabasePopulator m_populator;
 
     @Autowired
-    private RancidProvisioningAdapter m_adapter; 
-    
+    private RancidProvisioningAdapter m_adapter;
+
     private static final int NODE_ID = 1;
 
     @Override
@@ -102,10 +102,10 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
         props.setProperty("log4j.logger.org.springframework", "INFO");
         props.setProperty("log4j.logger.org.hibernate.SQL", "DEBUG");
         MockLogAppender.setupLogging(props);
-        
+
         m_populator.populateDatabase();
     }
-    
+
     /**
      * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
      * for simulated RANCID REST operations.
@@ -115,12 +115,12 @@ public class RancidProvisioningAdapterIntegrationTest implements InitializingBea
     @JUnitHttpServer(port=7081,basicAuth=true)
     public void testAddNode() {
         List<OnmsNode> nodes = m_nodeDao.findAll();
-        
+
         assertTrue(nodes.size() > 0);
-        
+
         m_adapter.addNode(nodes.get(0).getId());
     }
-    
+
     /**
      * TODO: This test needs to be updated so that it properly connects to the JUnitHttpServer
      * for simulated RANCID REST operations.

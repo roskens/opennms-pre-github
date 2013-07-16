@@ -80,5 +80,5 @@ public class DefaultJasperReportConfigDao extends
     public List<Report> translateConfig(JasperReports castorConfig) {
         return Collections.unmodifiableList(castorConfig.getReportCollection());
     }
-    
+
 }

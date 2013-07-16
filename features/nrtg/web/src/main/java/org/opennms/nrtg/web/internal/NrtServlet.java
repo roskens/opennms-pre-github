@@ -69,7 +69,7 @@ public class NrtServlet extends HttpServlet {
             for (Entry<String, Object> entry : modelAndView.getModel().entrySet()) {
                 template = template.replaceAll("\\$\\{" + entry.getKey() + "\\}", (entry.getValue() != null ? entry.getValue().toString() : "null"));
             }
-            
+
             resp.getOutputStream().write(template.getBytes());
         } else {
             throw new ServletException("unrecognized servlet parameters");
@@ -90,8 +90,8 @@ public class NrtServlet extends HttpServlet {
 
             return results.toString();
         } finally {
-            if (r != null) { 
-                r.close(); 
+            if (r != null) {
+                r.close();
             }
         }
     }

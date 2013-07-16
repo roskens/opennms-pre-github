@@ -32,7 +32,7 @@ package org.opennms.netmgt.model;
  * <p>Abstract OnmsEntity class.</p>
  */
 public abstract class OnmsEntity {
-	
+
 	/**
 	 * <p>hasNewValue</p>
 	 *

@@ -45,7 +45,7 @@ import org.springframework.beans.PropertyAccessorFactory;
  * <p>NetworkBuilder class.</p>
  */
 public class NetworkBuilder {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NetworkBuilder.class);
 
 

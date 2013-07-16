@@ -49,7 +49,7 @@ import static org.opennms.util.ilr.Filter.*;
 
 public class Collector {
 
-    
+
     public static final String SERVICE_TITLE_FORMAT = "%-40s%20s%15s%25s%15s%25s%15s%20s%25s%15s%15s\n";
     public static final String SERVICE_DATA_FORMAT = "%-40s%20s%15s%25s%15.1f%25s%15.1f%20s%25s%15s%15s\n";
     private String m_searchString = null;
@@ -59,7 +59,7 @@ public class Collector {
     public enum SortColumn {
         TOTALCOLLECTS,
         TOTALCOLLECTTIME,
-        AVGCOLLECTTIME, 
+        AVGCOLLECTTIME,
         AVGTIMEBETWEENCOLLECTS,
         TOTALSUCCESSCOLLECTS,
         SUCCESSPERCENTAGE,
@@ -72,7 +72,7 @@ public class Collector {
     }
 
     public enum SortOrder {
-        ASCENDING, 
+        ASCENDING,
         DESCENDING
     }
     public void setSearchString(String searchString) {
@@ -85,7 +85,7 @@ public class Collector {
         this.m_sortColumn = sortFlag;
     }
     public void setSortOrder(SortOrder sortOrder) {
-        this.m_sortOrder = sortOrder;   
+        this.m_sortOrder = sortOrder;
     }
     public Collector.SortColumn getSortColumn() {
         return m_sortColumn;
@@ -94,10 +94,10 @@ public class Collector {
        return m_searchString;
     }
     public static void setDurationsMs(boolean durationsMs) {
-        s_durationsMs = durationsMs;   
+        s_durationsMs = durationsMs;
     }
     public static boolean getDurationsMs() {
-        return s_durationsMs;   
+        return s_durationsMs;
     }
     private Set<String> m_threads = new HashSet<String>();
 
@@ -122,7 +122,7 @@ public class Collector {
     }
     public Date getStartTime() {
         LogMessage firstValidLine = getFirstValidLogMessage();
-        return firstValidLine == null ? null : firstValidLine.getDate();	
+        return firstValidLine == null ? null : firstValidLine.getDate();
 
     }
     public LogMessage getFirstValidLogMessage (){
@@ -152,7 +152,7 @@ public class Collector {
         Long a = Long.valueOf(l1);
         Long b = Long.valueOf(l2);
         return b.compareTo(a);
-    }       
+    }
     public Set<String> getServices() {
         return m_serviceCollectors.keySet();
     }
@@ -163,7 +163,7 @@ public class Collector {
 
         c = m_sortOrder == SortOrder.DESCENDING ? c: Collections.reverseOrder(c);
         Collections.sort(collectors, c);
-        if(m_searchString != null) { 
+        if(m_searchString != null) {
             collectors = (ArrayList<ServiceCollector>) filter(collectors, byPartialServiceID(m_searchString));
         }
         return collectors;
@@ -199,95 +199,95 @@ public class Collector {
         Comparator<ServiceCollector> c = null;
         switch(m_sortColumn) {
         case TOTALCOLLECTS:
-        {    
+        {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getCollectionCount();
-                }                
+                }
             };
-        }   
-        case TOTALCOLLECTTIME: 
-        { 
+        }
+        case TOTALCOLLECTTIME:
+        {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getTotalCollectionTime();
-                }               
+                }
 
 
             };
-        }   
-        case AVGCOLLECTTIME: 
-        { 
+        }
+        case AVGCOLLECTTIME:
+        {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getAverageCollectionTime();
-                }                      
+                }
             };
 
-        }   
-        case AVGTIMEBETWEENCOLLECTS: 
+        }
+        case AVGTIMEBETWEENCOLLECTS:
         {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getAverageTimeBetweenCollections();
-                }                  
+                }
             };
 
-        }    
-        case TOTALSUCCESSCOLLECTS: 
+        }
+        case TOTALSUCCESSCOLLECTS:
         {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getSuccessfulCollectionCount();
-                }               
+                }
             };
 
-        }   
+        }
         case SUCCESSPERCENTAGE:
         {
             return new DoubleComparator() {
                 @Override
                 protected double getDouble(ServiceCollector sc) {
                     return sc.getSuccessPercentage();
-                }         
+                }
             };
 
         }
 
-        case AVGSUCCESSCOLLECTTIME: 
+        case AVGSUCCESSCOLLECTTIME:
         {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getAverageCollectionTime();
-                }                
+                }
             };
 
         }
 
-        case TOTALUNSUCCESSCOLLECTS: 
-        {    
+        case TOTALUNSUCCESSCOLLECTS:
+        {
             return new LongComparator() {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getErrorCollectionCount();
-                }                
+                }
             };
 
         }
 
         case UNSUCCESSPERCENTAGE:
-        {    
+        {
             return new DoubleComparator() {
                 @Override
                 protected double getDouble(ServiceCollector sc) {
                     return sc.getErrorPercentage();
-                }      
+                }
             };
 
         }
@@ -298,8 +298,8 @@ public class Collector {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getAverageErrorCollectionTime();
-                }                
-            };      
+                }
+            };
 
         }
         case TOTALPERSISTTIME:
@@ -308,7 +308,7 @@ public class Collector {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getTotalPersistTime();
-                }               
+                }
             };
         }
         case AVERAGEPERSISTTIME:
@@ -317,9 +317,9 @@ public class Collector {
                 @Override
                 protected long getLong(ServiceCollector sc) {
                     return sc.getAveragePersistTime();
-                }               
+                }
             };
-        }   
+        }
         }
         return c;
     }
@@ -348,7 +348,7 @@ public class Collector {
 
     public void readLogMessagesFromFile(String fileName) throws IOException {
         File logFile = new File(fileName);
-        BufferedReader r = new BufferedReader(new FileReader(logFile));	
+        BufferedReader r = new BufferedReader(new FileReader(logFile));
         String logMessage = r.readLine();
         while(logMessage != null){
             this.addLog(logMessage);
@@ -407,9 +407,9 @@ public class Collector {
 
     }
     private void printServiceStats(ServiceCollector serviceCollector, PrintWriter out) {
-        out.printf(SERVICE_DATA_FORMAT, serviceCollector.getServiceID(), 
-                   Collector.formatDuration(serviceCollector.getAverageCollectionTime()), serviceCollector.getCollectionCount(), 
-                   Collector.formatDuration(serviceCollector.getAverageSuccessfulCollectionTime()), serviceCollector.getSuccessPercentage(), 
+        out.printf(SERVICE_DATA_FORMAT, serviceCollector.getServiceID(),
+                   Collector.formatDuration(serviceCollector.getAverageCollectionTime()), serviceCollector.getCollectionCount(),
+                   Collector.formatDuration(serviceCollector.getAverageSuccessfulCollectionTime()), serviceCollector.getSuccessPercentage(),
                    Collector.formatDuration(serviceCollector.getAverageErrorCollectionTime()), serviceCollector.getErrorPercentage(),
                    Collector.formatDuration(serviceCollector.getAverageTimeBetweenCollections()),
                    Collector.formatDuration(serviceCollector.getTotalCollectionTime()),

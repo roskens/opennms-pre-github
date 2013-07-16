@@ -40,12 +40,12 @@ public class NodeTest extends XmlTest<Node> {
     public NodeTest(final Node sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Node node = new Node();
         node.setId(10);
-        
+
         return Arrays.asList(new Object[][] {
             {
                 node,

@@ -52,11 +52,11 @@ import org.opennms.protocols.snmp.SnmpUInt32;
 
 class JoeSnmpValue extends AbstractSnmpValue {
     SnmpSyntax m_value;
-    
+
     JoeSnmpValue(final SnmpSyntax value) {
         m_value = value;
     }
-    
+
     JoeSnmpValue(final int typeId, final byte[] bytes) {
         switch(typeId) {
         case SnmpSMI.SMI_COUNTER64: {
@@ -113,9 +113,9 @@ class JoeSnmpValue extends AbstractSnmpValue {
         }
         default:
             throw new IllegalArgumentException("invaldi type id "+typeId);
-        }    
+        }
     }
-    
+
     @Override
     public byte[] getBytes() {
         switch (m_value.typeId()) {
@@ -140,13 +140,13 @@ class JoeSnmpValue extends AbstractSnmpValue {
         default:
             throw new IllegalArgumentException("cannot convert "+m_value+" to a byte array");
         }
-    }        
+    }
 
     @Override
     public boolean isEndOfMib() {
         return m_value instanceof SnmpEndOfMibView;
     }
-    
+
     @Override
     public boolean isError() {
         switch (getType()) {
@@ -156,7 +156,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
         default:
             return false;
         }
-        
+
     }
 
     @Override
@@ -172,7 +172,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
             return false;
         }
     }
-    
+
     @Override
     public int toInt() {
         switch (m_value.typeId()) {
@@ -188,7 +188,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
             return Integer.parseInt(m_value.toString());
         }
     }
-    
+
     @Override
     public long toLong() {
         switch (m_value.typeId()) {
@@ -213,7 +213,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
     }
 
 
-    
+
     @Override
     public int getType() {
         return m_value.typeId();
@@ -221,7 +221,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
 
     @Override
     public String toDisplayString() {
-        
+
         switch (m_value.typeId()) {
         case SnmpSMI.SMI_TIMETICKS :
             return Long.toString(toLong());
@@ -238,7 +238,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
             case SnmpSMI.SMI_IPADDRESS:
                 return SnmpIPAddress.toInetAddress((SnmpIPAddress)m_value);
             default:
-                throw new IllegalArgumentException("cannot convert "+m_value+" to an InetAddress"); 
+                throw new IllegalArgumentException("cannot convert "+m_value+" to an InetAddress");
         }
     }
 
@@ -251,7 +251,7 @@ class JoeSnmpValue extends AbstractSnmpValue {
             throw new IllegalArgumentException("cannt convert "+m_value+" to a HexString");
         }
     }
-    
+
     @Override
     public String toString() {
         return toDisplayString();
@@ -287,14 +287,14 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public boolean isDisplayable() {
         if (isNumeric())
             return true;
-        
+
         if (getType() == SnmpValue.SNMP_OBJECT_IDENTIFIER || getType() == SnmpValue.SNMP_IPADDRESS)
             return true;
-        
+
         if (getType() == SnmpValue.SNMP_OCTET_STRING) {
             return allBytesDisplayable(getBytes());
         }
-        
+
         return false;
     }
 
@@ -306,13 +306,13 @@ class JoeSnmpValue extends AbstractSnmpValue {
     public SnmpSyntax getSnmpSyntax() {
         return m_value;
     }
-    
+
     @Override
     public int hashCode() {
         if (m_value == null) return 2677;
         return m_value.hashCode();
     }
-    
+
     @Override
     public boolean equals(final Object obj) {
            if (obj == null) return false;
@@ -323,5 +323,5 @@ class JoeSnmpValue extends AbstractSnmpValue {
            return m_value == null ? that.m_value == null : m_value.equals(that.m_value);
 
     }
-    
+
 }

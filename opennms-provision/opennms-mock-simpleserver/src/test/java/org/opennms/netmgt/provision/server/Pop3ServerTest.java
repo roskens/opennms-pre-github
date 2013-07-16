@@ -47,7 +47,7 @@ public class Pop3ServerTest {
     private Pop3Server m_pop3Server;
     private Socket m_socket;
     private BufferedReader m_in;
-    
+
     @Before
     public void setUp() throws Exception{
         MockLogAppender.setupLogging();
@@ -58,37 +58,37 @@ public class Pop3ServerTest {
             m_socket = createSocketConnection(m_pop3Server.getInetAddress(), m_pop3Server.getLocalPort(), 1000);
             m_in = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
         }catch(Throwable e){
-           throw new Exception(e); 
+           throw new Exception(e);
         }
     }
-    
+
     @After
     public void tearDown() throws IOException{
         m_socket.close();
         m_pop3Server.stopServer();
     }
-    
+
     @Test
     public void testServerBanner() throws Exception{
        String line = m_in.readLine();
        assertEquals("+OK", line);
     }
-    
+
     @Test
     public void testServerBannerAndResponse() throws Exception{
-       
-        
+
+
         String line = m_in.readLine();
         System.out.println("banner: " + line);
         assertEquals("+OK", line);
-        
+
         m_socket.getOutputStream().write("QUIT\r\n".getBytes());
         System.out.println("writing output QUIT");
-        
+
         line = m_in.readLine();
         System.out.println("request response: " + line);
         assertEquals("+OK", line);
-        
+
     }
 
     protected Socket createSocketConnection(InetAddress host, int port, int timeout) throws IOException {
@@ -97,5 +97,5 @@ public class Pop3ServerTest {
         socket.setSoTimeout(timeout);
         return socket;
     }
-    
+
 }

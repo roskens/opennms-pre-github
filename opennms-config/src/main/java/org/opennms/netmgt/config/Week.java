@@ -41,7 +41,7 @@ import org.opennms.netmgt.config.groups.Role;
  * @since 1.8.1
  */
 public class Week {
-    
+
     private Calendar m_calendar;
     private Role m_role;
     private GroupManager m_groupManager;
@@ -54,7 +54,7 @@ public class Week {
     public Week(Calendar weekBegin) {
         m_calendar = weekBegin;
     }
-    
+
     /**
      * <p>Constructor for Week.</p>
      *
@@ -76,7 +76,7 @@ public class Week {
      * @return a int.
      */
     public int getWeekOfYear() { return m_calendar.get(Calendar.WEEK_OF_YEAR); }
-    
+
     /**
      * <p>getDays</p>
      *

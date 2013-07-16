@@ -61,13 +61,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class AddMapsController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AddMapsController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *

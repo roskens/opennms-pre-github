@@ -128,7 +128,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
      */
     @Override
     public Collection<OnmsMap> findSaveMaps() {
-        return findMapsByType(OnmsMap.AUTOMATIC_SAVED_MAP);    
+        return findMapsByType(OnmsMap.AUTOMATIC_SAVED_MAP);
     }
 
     /** {@inheritDoc} */
@@ -161,7 +161,7 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
         Object[] values = {OnmsMap.AUTOMATIC_SAVED_MAP, OnmsMap.AUTOMATICALLY_GENERATED_MAP};
         return find("from OnmsMap as map where map.type = ? or map.type = ? ", values);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int updateAllAutomatedMap(final Date time) {
@@ -169,13 +169,13 @@ public class OnmsMapDaoHibernate extends AbstractDaoHibernate<OnmsMap, Integer> 
                                        new HibernateCallback<Integer>() {
             @Override
             public Integer doInHibernate(Session session) throws HibernateException, SQLException {
-                
+
              String hql = "update OnmsMap as map set map.lastModifiedTime = :time where map.type = :type";
              Query query = session.createQuery(hql);
              query.setTimestamp("time", time);
              query.setString("type", OnmsMap.AUTOMATICALLY_GENERATED_MAP);
              return query.executeUpdate();
-            } 
+            }
         });
 
     }

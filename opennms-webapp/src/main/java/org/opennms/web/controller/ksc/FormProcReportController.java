@@ -78,8 +78,8 @@ public class FormProcReportController extends AbstractController implements Init
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), true);
-        
-        // Get The Customizable Report 
+
+        // Get The Customizable Report
         Report report = editor.getWorkingReport();
 
         // Get Form Variables
@@ -90,7 +90,7 @@ public class FormProcReportController extends AbstractController implements Init
         String g_index = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.graph_index.toString()));
         int graph_index = WebSecurityUtils.safeParseInt(g_index);
         int graphs_per_line = WebSecurityUtils.safeParseInt(request.getParameter(Parameters.graphs_per_line.toString()));
-     
+
         // Save the global variables into the working report
         report.setTitle(report_title);
         if (show_graphtype == null) {
@@ -98,21 +98,21 @@ public class FormProcReportController extends AbstractController implements Init
         } else {
             report.setShow_graphtype_button(true);
         }
-        
+
         if (show_timespan == null) {
             report.setShow_timespan_button(false);
         } else {
             report.setShow_timespan_button(true);
-        } 
-        
+        }
+
         if (graphs_per_line > 0) {
             report.setGraphs_per_line(graphs_per_line);
         } else {
             report.setGraphs_per_line(0);
-        } 
+        }
 
         if (Actions.Save.toString().equals(action)) {
-            // The working model is complete now... lets save working model to configuration file 
+            // The working model is complete now... lets save working model to configuration file
             try {
                 // First copy working report into report arrays
                 editor.unloadWorkingReport(getKscReportFactory());
@@ -128,14 +128,14 @@ public class FormProcReportController extends AbstractController implements Init
                 // Making a graph change... load it into the working area (the graph_index of -1 indicates a new graph)
                 editor.loadWorkingGraph(graph_index);
             } else {
-                if (Actions.DelGraph.toString().equals(action)) { 
+                if (Actions.DelGraph.toString().equals(action)) {
                     report.removeGraph(report.getGraph(graph_index));
                 } else {
                     throw new ServletException("Invalid Argument for Customize Form Action.");
                 }
             }
         }
-        
+
         if (Actions.Save.toString().equals(action)) {
             return new ModelAndView("redirect:/KSC/index.htm");
         } else if (Actions.DelGraph.toString().equals(action)) {
@@ -146,7 +146,7 @@ public class FormProcReportController extends AbstractController implements Init
             Graph graph = editor.getWorkingGraph();
             OnmsResource resource = getKscReportService().getResourceFromGraph(graph);
             String graphType = graph.getGraphtype();
-            
+
             Map<String,String> modelData = new HashMap<String,String>();
             modelData.put(CustomGraphEditDetailsController.Parameters.resourceId.toString(), resource.getId());
             modelData.put(CustomGraphEditDetailsController.Parameters.graphtype.toString(), graphType);
@@ -155,7 +155,7 @@ public class FormProcReportController extends AbstractController implements Init
             throw new IllegalArgumentException("Parameter action of '" + action + "' is not supported.  Must be one of: Save, Cancel, Update, AddGraph, or DelGraph");
         }
     }
-    
+
     /**
      * <p>getKscReportFactory</p>
      *

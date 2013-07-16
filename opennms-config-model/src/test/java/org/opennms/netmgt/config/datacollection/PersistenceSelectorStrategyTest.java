@@ -42,7 +42,7 @@ public class PersistenceSelectorStrategyTest extends XmlTest<PersistenceSelector
     public PersistenceSelectorStrategyTest(final PersistenceSelectorStrategy sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final PersistenceSelectorStrategy strategy = new PersistenceSelectorStrategy();

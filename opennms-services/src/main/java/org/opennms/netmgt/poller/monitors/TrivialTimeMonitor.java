@@ -88,12 +88,12 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
      * for data from the monitored interface.
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout
-    
+
     /**
      * Default permissible skew between the remote and local clocks
      */
     private static final int DEFAULT_ALLOWED_SKEW = 30; // 30 second skew
-    
+
     /**
      * Seconds to subtract from a 1970-01-01 00:00:00-based UNIX timestamp
      * to make it comparable to a 1900-01-01 00:00:00-based timestamp from
@@ -105,7 +105,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
      * Whether to persist the skew value in addition to the response latency
      */
     private static final boolean DEFAULT_PERSIST_SKEW = false;
-    
+
     /**
      * {@inheritDoc}
      *
@@ -142,7 +142,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         InetAddress ipv4Addr = (InetAddress) iface.getAddress();
 
         LOG.debug("poll: address = {}, port = {}, tracker = {}", InetAddressUtils.str(ipv4Addr), port, tracker);
-        
+
         // Get the permissible amount of skew.
         //
         int allowedSkew = ParameterMap.getKeyedInteger(parameters, "allowed-skew", DEFAULT_ALLOWED_SKEW);
@@ -161,7 +161,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
             // TODO test UDP support
             LOG.warn("UDP support is largely untested");
         }
-        
+
         if (protocol.equalsIgnoreCase("tcp")) {
             serviceStatus = pollTimeTcp(svc, parameters, serviceStatus, tracker, ipv4Addr, port, allowedSkew, persistSkew);
         } else if (protocol.equalsIgnoreCase("udp")) {
@@ -231,7 +231,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                 if (bytesRead != 4)
                     continue;
                 LOG.debug("pollTimeTcp: bytes read = {}", bytesRead);
-                
+
                 try {
                     remoteTime = timeByteBuffer.getInt();
                 } catch (BufferUnderflowException bue) {
@@ -240,7 +240,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                     serviceStatus = PollStatus.unavailable("Failed to read a valid time from remote host.");
                     continue; // to next iteration of for() loop
                 }
-                
+
                 localTime  = (int)(System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
                 gotTime = true;
                 serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus, tracker.elapsedTimeInMillis(), persistSkew);
@@ -296,18 +296,18 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
             DatagramSocket socket = null;
             final String hostAddress = InetAddressUtils.str(ipv4Addr);
 			try {
-    
+
                 tracker.startAttempt();
-    
+
                 socket = new DatagramSocket();
                 socket.setSoTimeout(tracker.getSoTimeout());
                 LOG.debug("Requesting time from host: {} on UDP port: {}", ipv4Addr, port);
-    
+
                 //
                 // Send an empty datagram per RFC868
                 //
                 socket.send(new DatagramPacket(new byte[]{}, 0, ipv4Addr, port));
-                
+
                 //
                 // Try to receive a response from the remote socket
                 //
@@ -316,11 +316,11 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                 DatagramPacket timePacket = new DatagramPacket(timeBytes, timeBytes.length, ipv4Addr, port);
                 socket.receive(timePacket);
                 int bytesRead = timePacket.getLength();
-    
+
                 if (bytesRead != 4)
                     continue;
                 LOG.debug("pollTimeUdp: bytes read = {}", bytesRead);
-                
+
                 try {
                     remoteTime = timeByteBuffer.getInt();
                 } catch (BufferUnderflowException bue) {
@@ -329,7 +329,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
                     serviceStatus = PollStatus.unavailable("Failed to read a valid time from remote host.");
                     continue; // to next iteration of for() loop
                 }
-                
+
                 localTime  = (int)(System.currentTimeMillis() / 1000) - EPOCH_ADJ_FACTOR;
                 gotTime = true;
                 serviceStatus = qualifyTime(remoteTime, localTime, allowedSkew, serviceStatus, tracker.elapsedTimeInMillis(), persistSkew);
@@ -356,7 +356,7 @@ final public class TrivialTimeMonitor extends AbstractServiceMonitor {
         }
         return serviceStatus;
     }
-    
+
     private PollStatus qualifyTime(int remoteTime, int localTime, int allowedSkew, PollStatus serviceStatus, double responseTime, boolean persistSkew) {
         LOG.debug("qualifyTime: checking remote time {} against local time {} with max skew of {}", remoteTime, localTime, allowedSkew);
         if ((localTime - remoteTime > allowedSkew) || (remoteTime - localTime > allowedSkew)) {

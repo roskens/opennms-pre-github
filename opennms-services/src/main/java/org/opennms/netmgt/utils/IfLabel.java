@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
 public class IfLabel extends Object {
 
 	private static final Logger LOG = LoggerFactory.getLogger(IfLabel.class);
-	
+
 
     /**
      * Return a map of useful SNMP information for the interface specified by
@@ -87,10 +87,10 @@ public class IfLabel extends Object {
             desc = ifLabel.substring(0, dashIndex);
             mac = ifLabel.substring(dashIndex + 1, ifLabel.length());
         }
-        
+
        final String desc2 = desc;
        final String mac2 = mac;
- 
+
         LOG.debug("getInterfaceInfoFromIfLabel: desc={} mac={}", desc, mac);
 
         String queryDesc = desc.replace('_', '%');
@@ -102,7 +102,7 @@ public class IfLabel extends Object {
                 "   AND (snmpifdescr ILIKE '"+queryDesc+"'" +
                 "    OR snmpifname ilike '"+queryDesc+"')";
         LOG.debug("getInterfaceInfoFromLabel: query is: {}", query);
-        
+
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
 
             @Override
@@ -112,7 +112,7 @@ public class IfLabel extends Object {
 
                 /*
                  * When Cisco Express Forwarding (CEF) or some ATM encapsulations
-                 * (AAL5) are used on Cisco routers, an additional entry might be 
+                 * (AAL5) are used on Cisco routers, an additional entry might be
                  * in the ifTable for these sub-interfaces, but there is no
                  * performance data available for collection.  This check excludes
                  * ifTable entries where ifDescr contains "-cef".  See bug #803.
@@ -135,11 +135,11 @@ public class IfLabel extends Object {
                     }
                 }
             }
-            
+
         });
         q.execute();
         LOG.debug("getInterfaceInfoFromLabel: Querier result count is: {}", q.getCount());
-        
+
         // The map will remain empty if the information was not located in the
         // DB.
         return Collections.unmodifiableMap(info);
@@ -153,7 +153,7 @@ public class IfLabel extends Object {
      * @throws java.sql.SQLException if any.
      */
     public static String[] getIfLabels(int nodeId) throws SQLException {
-        
+
         String query = "" +
         		"SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
         		"  FROM snmpinterface, ipinterface " +
@@ -161,9 +161,9 @@ public class IfLabel extends Object {
         		"   AND ipinterface.nodeid=snmpinterface.nodeid " +
         		"   AND ifindex = snmpifindex " +
         		"   AND ipinterface.nodeid="+nodeId;
-        
+
         final ArrayList<String> list = new ArrayList<String>();
-        
+
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -173,7 +173,7 @@ public class IfLabel extends Object {
 
                 list.add(getIfLabel(name, descr, physAddr));
             }
-            
+
         });
         q.execute();
         String[] labels = list.toArray(new String[list.size()]);
@@ -193,7 +193,7 @@ public class IfLabel extends Object {
         }
 
         String inetAddr = org.opennms.core.utils.InetAddressUtils.normalize(ipAddr);
-        
+
         class LabelHolder {
             private String m_label;
 
@@ -205,7 +205,7 @@ public class IfLabel extends Object {
                 return m_label;
             }
         }
-        
+
         final LabelHolder holder = new LabelHolder();
 
         String query = "" +
@@ -216,7 +216,7 @@ public class IfLabel extends Object {
         		"   AND ifindex=snmpifindex " +
         		"   AND ipinterface.nodeid = "+nodeId+
         		"   AND ipinterface.ipaddr = '"+inetAddr+"'";
-        
+
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
@@ -233,7 +233,7 @@ public class IfLabel extends Object {
             }
         });
         q.execute();
-        
+
         return holder.getLabel();
     }
 
@@ -255,7 +255,7 @@ public class IfLabel extends Object {
         if (ifIndex == -1) {
         	return getIfLabel(nodeId, inetAddr);
         }
-        
+
         class LabelHolder {
             private String m_label;
 
@@ -267,9 +267,9 @@ public class IfLabel extends Object {
                 return m_label;
             }
         }
-        
+
         final LabelHolder holder = new LabelHolder();
-        
+
         String query = "" +
         		"SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
         		"  FROM snmpinterface, ipinterface " +
@@ -279,8 +279,8 @@ public class IfLabel extends Object {
         		"   AND ipinterface.nodeid= "+nodeId+
         		"   AND ipinterface.ipaddr= '"+inetAddr+"'"+
         		"   AND ipinterface.ifindex= "+ifIndex;
-        
-        
+
+
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
 
             @Override
@@ -296,13 +296,13 @@ public class IfLabel extends Object {
                     holder.setLabel("no_ifLabel");
                 }
             }
-            
+
         });
         q.execute();
-        
+
         return holder.getLabel();
     }
- 
+
     /**
      * Return the ifLabel as a string for the given node and ifIndex. Intended for
      * use with non-ip interfaces.
@@ -312,7 +312,7 @@ public class IfLabel extends Object {
      * @param ifIndex a int.
      */
     public static String getIfLabelfromSnmpIfIndex(final int nodeId, final int ifIndex) {
-        
+
         class LabelHolder {
             private String m_label;
 
@@ -324,16 +324,16 @@ public class IfLabel extends Object {
                 return m_label;
             }
         }
-        
+
         final LabelHolder holder = new LabelHolder();
-        
+
         String query = "" +
                 "SELECT DISTINCT snmpifname, snmpifdescr,snmpphysaddr " +
                 "  FROM snmpinterface " +
                 "   WHERE nodeid= "+nodeId+
                 "   AND snmpifindex= "+ifIndex;
-        
-        
+
+
         Querier q = new Querier(Vault.getDataSource(), query, new RowProcessor() {
 
             @Override
@@ -349,12 +349,12 @@ public class IfLabel extends Object {
                     holder.setLabel("no_ifLabel");
                 }
             }
-            
+
         });
         q.execute();
-        
+
         return holder.getLabel();
-    }    
+    }
 
     /**
      * <p>getIfLabel</p>
@@ -386,7 +386,7 @@ public class IfLabel extends Object {
         // In order to assure the uniqueness of the
         // RRD file names we now append the MAC/physical
         // address to the end of label if it is available.
-        // 
+        //
         if (physAddr != null) {
             physAddr = AlphaNumeric.parseAndTrim(physAddr);
             if (physAddr.length() == 12) {

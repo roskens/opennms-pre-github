@@ -39,22 +39,22 @@ import org.springframework.core.io.InputStreamResource;
 
 /**
  * Unit tests for DefaultStatisticsDaemonConfigDao.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @see DefaultStatisticsDaemonConfigDao
  */
 public class DefaultStatisticsDaemonConfigDaoTest extends TestCase {
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         DefaultStatisticsDaemonConfigDao dao = new DefaultStatisticsDaemonConfigDao();
-        
+
         InputStream in = ConfigurationTestUtils.getInputStreamForConfigFile("statsd-configuration.xml");
         dao.setConfigResource(new InputStreamResource(in));
         dao.afterPropertiesSet();
     }
-    
+
     public void testGetReports() throws Exception {
         DefaultStatisticsDaemonConfigDao dao = new DefaultStatisticsDaemonConfigDao();
-        
+
         InputStream in = ConfigurationTestUtils.getInputStreamForConfigFile("statsd-configuration.xml");
         dao.setConfigResource(new InputStreamResource(in));
         dao.afterPropertiesSet();
@@ -62,10 +62,10 @@ public class DefaultStatisticsDaemonConfigDaoTest extends TestCase {
         List<Report> reports = dao.getReports();
         assertNotNull("reports list should not be null", reports);
         assertEquals("reports list size", 5, reports.size());
-        
+
         Report report = reports.get(0);
         assertNotNull("first report should not be zero", report);
     }
-    
+
 
 }

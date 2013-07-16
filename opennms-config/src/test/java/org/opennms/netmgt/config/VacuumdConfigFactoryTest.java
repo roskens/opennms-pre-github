@@ -36,14 +36,14 @@ import org.opennms.core.test.ConfigurationTestUtils;
 
 /**
  * Tests for VacuumdConfigFactory.
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class VacuumdConfigFactoryTest extends TestCase {
     /**
      * Check the default vacuumd-configuration.xml file.
-     * 
+     *
      * @throws Exception
      */
     public void testLoadDefaultConfig() throws Exception {

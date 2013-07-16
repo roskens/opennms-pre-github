@@ -48,7 +48,7 @@ import org.opennms.netmgt.config.kscReports.Report;
 public class KscReportEditor implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8825116321880022485L;
 
@@ -197,7 +197,7 @@ public class KscReportEditor implements Serializable {
 
         m_workingReport = CastorUtils.duplicateObject(report, Report.class);
     }
-    
+
     /**
      * Loads the indexed report into the working report object as a duplicate
      * report.  The ID in the loaded report will be removed so a new ID will
@@ -213,7 +213,7 @@ public class KscReportEditor implements Serializable {
 
         m_workingReport.deleteId();
     }
-    
+
     /**
      * Loads a newly created report into the working report object.
      */
@@ -237,7 +237,7 @@ public class KscReportEditor implements Serializable {
         } else {
             factory.addReport(getWorkingReport());
         }
-        
+
         // Create a new and unique instance of a report for screwing around with
         // as the working report
         loadNewWorkingReport();
@@ -252,7 +252,7 @@ public class KscReportEditor implements Serializable {
      */
     public static KscReportEditor getFromSession(HttpSession session, boolean required) {
         String attributeName = KscReportEditor.class.getName();
-        
+
         if (session.getAttribute(attributeName) == null) {
             if (required) {
                 throw new IllegalStateException("The KSC report editing session is not open--please restart your edits.  This could be due to your session expiring on the server due to inactivity or the server being restarted.");
@@ -260,7 +260,7 @@ public class KscReportEditor implements Serializable {
                 session.setAttribute(attributeName, new KscReportEditor());
             }
         }
-        
+
         return (KscReportEditor) session.getAttribute(attributeName);
     }
 

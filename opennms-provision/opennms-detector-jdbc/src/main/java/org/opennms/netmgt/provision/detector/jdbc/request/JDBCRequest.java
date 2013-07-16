@@ -43,7 +43,7 @@ import org.opennms.netmgt.provision.detector.jdbc.response.JDBCResponse;
  * @version $Id: $
  */
 public class JDBCRequest {
-    
+
     /** Constant <code>Null</code> */
     public static final JDBCRequest Null = new JDBCRequest() {
         @Override
@@ -51,11 +51,11 @@ public class JDBCRequest {
             return null;
         }
     };
-    
+
     private String m_sqyQuery;
     private String m_storedProcedure;
     private String m_schema = "test";
-    
+
     /**
      * <p>Constructor for JDBCRequest.</p>
      */
@@ -70,7 +70,7 @@ public class JDBCRequest {
      */
     public JDBCResponse send(Connection conn) throws SQLException {
         if(getStoredProcedure() != null){
-            
+
             String procedureCall = "{ ? = call " + getStoredProcedure() + "()}";
             CallableStatement cs = conn.prepareCall(procedureCall);
             cs.registerOutParameter(1, java.sql.Types.BIT);

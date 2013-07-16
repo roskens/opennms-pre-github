@@ -89,12 +89,12 @@ public class OpenNMSEventHandlerThread extends Thread {
 			throw new IllegalStateException("OpenNMSEventHandlerThread.run() - You must call init() before calling run()");
 
 		while (runThread){
-			synchronized(this) { 
+			synchronized(this) {
 				try{
 					// test to see if there have been more requests to update the list while updating the list
 					if ((sendList==false)&&(updateNCache==false)){
 						LOG.debug("OpenNMSEventHandlerThread.run() thread waiting for interrupt");
-						wait(); 
+						wait();
 					}
 				} catch ( InterruptedException e){
 					LOG.debug("OpenNMSEventHandlerThread.run() thread woken up");
@@ -128,7 +128,7 @@ public class OpenNMSEventHandlerThread extends Thread {
 	 */
 	synchronized public void init()	{
 		LOG.debug("OpenNMSEventHandlerThread.init() initialised");
-		init = true;	//inform the thread that it has been initialised 
+		init = true;	//inform the thread that it has been initialised
 		//and can execute the run() method.
 		runThread=true;
 	}

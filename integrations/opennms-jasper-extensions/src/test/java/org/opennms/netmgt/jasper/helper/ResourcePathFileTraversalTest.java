@@ -42,7 +42,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class ResourcePathFileTraversalTest {
-    
+
     private static final String STORE_BY_GROUP = "org.opennms.rrd.storeByGroup";
     private String m_sourceDir = "target/test-classes/share/rrd/snmp";
     private String m_baseDir = "target/file-traversal-test";
@@ -70,7 +70,7 @@ public class ResourcePathFileTraversalTest {
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_1"));
         assertTrue(paths.get(1).matches(".*/10/nsVpnMonitor/tun_id_2"));
     }
-    
+
     @Test
     public void testFindTopLevelOnlyIfPassesFilenameCheck() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/opennms-jvm"));
@@ -79,57 +79,57 @@ public class ResourcePathFileTraversalTest {
         final List<String> paths = traverser.traverseDirectory();
         assertEquals(0, paths.size());
     }
-    
+
     @Test
     public void testFindPathsWithFilterOneFile() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
         traverser.addDatasourceFilter("http-8980");
         final List<String> paths = traverser.traverseDirectory();
-        
+
         Collections.sort(paths);
         assertEquals(2, paths.size());
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_2"));
     }
-    
+
     @Test
     public void testFindPathsWithAndFilter() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
         traverser.addDatasourceFilter("http");
         traverser.addDatasourceFilter("icmp");
         final List<String> paths = traverser.traverseDirectory();
-        
+
         Collections.sort(paths);
         assertEquals(1, paths.size());
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_3"));
     }
-    
+
     @Test
     public void testFindPathsWithFilterNoExtensions() {
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/" + m_resourceName));
         traverser.addDatasourceFilter("http");
         traverser.addDatasourceFilter("icmp");
         final List<String> paths = traverser.traverseDirectory();
-        
+
         Collections.sort(paths);
         assertEquals(1, paths.size());
         assertTrue(paths.get(0).matches(".*/10/nsVpnMonitor/tun_id_3"));
     }
-    
+
     @Test
     public void testFindPathsWithStoreByGroup() {
         System.setProperty(STORE_BY_GROUP, "true");
         final ResourcePathFileTraversal traverser = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/storeby-group-jvm"));
         traverser.addDatasourceFilter("TotalMemory");
         List<String> paths = traverser.traverseDirectory();
-        
+
         Collections.sort(paths);
         assertEquals(1, paths.size());
         assertTrue(paths.get(0).matches(".*/10/storeby-group-jvm"));
-        
+
         ResourcePathFileTraversal traverser2 = new ResourcePathFileTraversal(new File(m_baseDir + "/" + m_nodeId + "/storeby-group-jvm"));
         traverser2.addDatasourceFilter("Bogus");
         paths = traverser2.traverseDirectory();
-        
+
         assertEquals(0, paths.size());
     }
 

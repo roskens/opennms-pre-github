@@ -72,7 +72,7 @@ public class SequenceSessionVariable {
 
 	@XmlTransient
     private SessionVariableGenerator m_generator;
-	
+
 	/**
 	 * <p>Constructor for SequenceSessionVariable.</p>
 	 */
@@ -89,7 +89,7 @@ public class SequenceSessionVariable {
 		setName(name);
 		setClassName(className);
 	}
-	
+
 	/**
 	 * <p>getName</p>
 	 *
@@ -106,7 +106,7 @@ public class SequenceSessionVariable {
 	public void setName(String name) {
 		m_name = name;
 	}
-	
+
 	/**
 	 * <p>getClassName</p>
 	 *
@@ -136,7 +136,7 @@ public class SequenceSessionVariable {
 		}
 		m_parameters.add(new SequenceParameter(key, value));
 	}
-	
+
 	/**
 	 * <p>getParameters</p>
 	 *
@@ -160,7 +160,7 @@ public class SequenceSessionVariable {
 		}
 		return m;
 	}
-	
+
 	/**
 	 * <p>setParameters</p>
 	 *
@@ -169,7 +169,7 @@ public class SequenceSessionVariable {
 	public void setParameters(List<SequenceParameter> parameters) {
 		m_parameters = parameters;
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -193,14 +193,14 @@ public class SequenceSessionVariable {
      * @throws java.lang.IllegalAccessException if any.
      */
     public SessionVariableGenerator getGenerator() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        
+
         if (m_generator == null) {
             Class<?> c = Class.forName(getClassName());
             if (SessionVariableGenerator.class.isAssignableFrom(c)) {
                 SessionVariableGenerator generator = (SessionVariableGenerator)c.newInstance();
                 generator.setParameters(getParametersAsMap());
                 m_generator = generator;
-    
+
             } else {
                 LOG.warn("unable to get instance of session class: {}", c);
             }
@@ -217,11 +217,11 @@ public class SequenceSessionVariable {
      * @throws java.lang.IllegalAccessException if any.
      */
     public void checkOut(Properties properties) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-        
+
         SessionVariableGenerator generator = getGenerator();
-        
+
         if (generator != null) {
-            
+
             String value = generator.checkOut();
             if (value == null) {
                 value = "";

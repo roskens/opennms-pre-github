@@ -97,7 +97,7 @@ public class FtpResponse {
     public void setResponse(String[] response) {
         m_response = response;
     }
-    
+
     /**
      * Search for a text string in each line of the response result.
      * Note that each line is tested individually.
@@ -111,7 +111,7 @@ public class FtpResponse {
                 return true;
             }
         }
-        
+
         return false;
     }
 
@@ -136,7 +136,7 @@ public class FtpResponse {
 
         for (i = 1; i < m_response.length; i++) {
             sb.append("\n");
-            
+
             if (i == (m_response.length - 1)) {
                 sb.append(m_code);
                 sb.append(" ");
@@ -151,7 +151,7 @@ public class FtpResponse {
 
         return sb.toString();
     }
-    
+
     /**
      * Does this response have a valid code?
      *
@@ -207,9 +207,9 @@ public class FtpResponse {
         String firstResponseLine = in.readLine();
         if (firstResponseLine == null) {
             throw new IOException("End of stream was reached before a response could be read");
-            
+
         }
-        
+
         // XXX this could use better error checking!
         String codeString = firstResponseLine.substring(0, 3);
         response.add(firstResponseLine.substring(4));
@@ -232,12 +232,12 @@ public class FtpResponse {
                 if (subsequentResponse == null) {
                     throw new IOException("End of stream was reached before the complete multi-line response could be read.  What was read: " + StringUtils.collectionToDelimitedString(response, "\n"));
                 }
-                
+
                 if (subsequentResponse.startsWith(endMultiLine)) {
                     response.add(subsequentResponse.substring(4));
                     break;
                 }
-                
+
                 response.add(subsequentResponse);
             }
         }

@@ -80,7 +80,7 @@ public class JRobinDataSource implements JRDataSource {
         return null;
     }
 
-    
+
     @Override
     public boolean next() throws JRException {
         m_currentRow++;

@@ -43,13 +43,13 @@ import org.opennms.netmgt.xml.event.Value;
 /**
  * The EventQueueProcessor processes the events received by xmlrpcd and sends
  * notifications to the external XMLRPC server via XMLRPC protocol.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:tarus@opennms.org">Tarus Balog</a>
  * @author <A HREF="mailto:jamesz@opennms.com">James Zuo </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
- * 
+ *
  */
 class EventQueueProcessor implements Runnable, PausableFiber {
     private static final Logger LOG = LoggerFactory.getLogger(EventQueueProcessor.class);
@@ -142,7 +142,7 @@ class EventQueueProcessor implements Runnable, PausableFiber {
                 if (!m_notifier.sendServiceUpEvent(event)) {
                     pushBackEvent(event);
                 }
-            } 
+            }
         }
 
         if (uei.equals(EventConstants.XMLRPC_NOTIFICATION_EVENT_UEI)) {
@@ -250,12 +250,12 @@ class EventQueueProcessor implements Runnable, PausableFiber {
     /**
      * Returns true if the status is ok and the thread should continue running.
      * If the status returend is false then the thread should exit.
-     * 
+     *
      */
     private synchronized boolean statusOK() {
         boolean exitThread = false;
         boolean exitCheck = false;
-        
+
         // Loop until there is a new client or we are shutdown
         while (!exitCheck) {
             // check the child thread!

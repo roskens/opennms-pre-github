@@ -45,7 +45,7 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     private final AutoIntegerIdMapStoreReplacement m_storeFoo;
     private final String[] m_indexColumns;
     private final boolean m_noMatchOkay;
-    
+
     /**
      * <p>Constructor for MapStoreIdGetterReplacement.</p>
      *
@@ -65,7 +65,7 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return m_storeFoo.getIntegerForColumns(rs, columnChanges, m_indexColumns, m_noMatchOkay);
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -75,7 +75,7 @@ public class MapStoreIdGetterReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

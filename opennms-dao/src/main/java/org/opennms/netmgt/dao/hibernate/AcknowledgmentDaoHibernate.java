@@ -70,7 +70,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     @Override
     public List<Acknowledgeable> findAcknowledgables(final OnmsAcknowledgment ack) {
         List<Acknowledgeable> ackables = new ArrayList<Acknowledgeable>();
-        
+
         if (ack == null || ack.getAckType() == null) {
             return ackables;
         }
@@ -82,7 +82,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
                 if (alarm != null && alarm.getAckId() != null) {
                     ackables.add(alarm);
                     List<OnmsNotification> notifs = findRelatedNotifications(alarm);
-                    
+
                     if (notifs != null) {
                         for (OnmsNotification notif : notifs) {
                             try {
@@ -121,17 +121,17 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
                 LOG.warn("unable to find notification with ID {}", ack.getRefId(), e);
             }
         }
-        
+
         return ackables;
     }
-    
+
     private List<OnmsNotification> findRelatedNotifications(final OnmsAlarm alarm) {
         final String hql = "from OnmsNotification as n where n.event.alarm = ?";
         return findObjects(OnmsNotification.class, hql, alarm);
     }
 
     private OnmsAlarm findAlarm(final OnmsAcknowledgment ack) {
-//      hql = "from OnmsAlarm as alarms where alarms.id = ?";        
+//      hql = "from OnmsAlarm as alarms where alarms.id = ?";
 //      return findUnique(OnmsAlarm.class, hql, ack.getRefId());
         try {
             if (ack != null) {
@@ -144,7 +144,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     }
 
     private OnmsNotification findNotification(final OnmsAcknowledgment ack) {
-//      hql = "from OnmsAlarm as alarms where alarms.id = ?";        
+//      hql = "from OnmsAlarm as alarms where alarms.id = ?";
 //      return findUnique(OnmsAlarm.class, hql, ack.getRefId());
         try {
             if (ack != null) {
@@ -172,14 +172,14 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
     public void processAck(OnmsAcknowledgment ack) {
         LOG.info("processAck: Searching DB for acknowledgables for ack: {}", ack);
         List<Acknowledgeable> ackables = findAcknowledgables(ack);
-        
+
         if (ackables == null || ackables.size() < 1) {
             LOG.debug("processAck: No acknowledgables found.");
             throw new IllegalStateException("No acknowlegables in the database for ack: "+ack);
         }
 
         LOG.debug("processAck: Found {}. Acknowledging...", ackables.size());
-        
+
         Iterator<Acknowledgeable> it = ackables.iterator();
         while (it.hasNext()) {
             try {
@@ -216,7 +216,7 @@ public class AcknowledgmentDaoHibernate extends AbstractDaoHibernate<OnmsAcknowl
             } catch (Throwable t) {
                 LOG.error("processAck: exception while processing: {}; {}", ack, t);
             }
-            
+
         }
         LOG.info("processAck: Found and processed acknowledgables for the acknowledgement: {}", ack);
     }

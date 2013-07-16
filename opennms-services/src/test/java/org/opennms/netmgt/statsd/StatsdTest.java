@@ -53,7 +53,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class StatsdTest implements InitializingBean {
     @Autowired
     Statsd m_statsd;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -63,7 +63,7 @@ public class StatsdTest implements InitializingBean {
     public void setUp() {
         MockLogAppender.setupLogging();
     }
-    
+
     @Test
     public void testStartup() throws Exception {
         m_statsd.start();

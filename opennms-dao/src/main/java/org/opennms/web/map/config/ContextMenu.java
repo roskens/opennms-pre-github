@@ -53,7 +53,7 @@ public class ContextMenu {
 		CMEntry entry = new CMEntry(command,link,params);
 		entries.add(entry);
 	}
-	
+
 	public class CMEntry{
 		public String command;
 		public String link;
@@ -82,9 +82,9 @@ public class ContextMenu {
 		public void setParams(String params) {
 			this.params = params;
 		}
-		
+
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>entries</code>.</p>
 	 *

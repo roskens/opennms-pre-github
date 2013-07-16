@@ -36,17 +36,17 @@ package org.opennms.web.map.config;
  * @since 1.8.1
  */
 public class Link {
-	String speed; 
-	String text; 
+	String speed;
+	String text;
 	String width;
 	int dasharray=-1;
 	int snmptype;
 	int id;
 	String multilinkwidth;
 	int multilinkdasharray;
-	
-	
-	
+
+
+
 	/**
 	 * <p>Constructor for Link.</p>
 	 *
@@ -70,9 +70,9 @@ public class Link {
 		this.multilinkwidth = multilinkwidth;
 		this.multilinkdasharray = multilinkdasharray;
 	}
-	
-	
-	
+
+
+
 	/**
 	 * <p>Getter for the field <code>multilinkwidth</code>.</p>
 	 *
@@ -215,5 +215,5 @@ public class Link {
 	public void setSnmptype(int snmptype) {
 		this.snmptype = snmptype;
 	}
-	
+
 }

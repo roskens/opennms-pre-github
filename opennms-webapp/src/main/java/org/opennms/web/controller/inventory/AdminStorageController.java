@@ -49,7 +49,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class AdminStorageController implements Controller {
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *

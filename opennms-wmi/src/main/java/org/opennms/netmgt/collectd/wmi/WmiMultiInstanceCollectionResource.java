@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class WmiMultiInstanceCollectionResource extends WmiCollectionResource {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiMultiInstanceCollectionResource.class);
 
     private String m_inst;

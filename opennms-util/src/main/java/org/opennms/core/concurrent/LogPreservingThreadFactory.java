@@ -62,11 +62,11 @@ public class LogPreservingThreadFactory implements ThreadFactory {
             return getSingleThread(r);
         }
     }
-    
+
     private Map getCopyOfContextMap() {
         return MDC.getCopyOfContextMap();
     }
-    
+
     private void setContextMap(Map map) {
         if (map == null) {
             MDC.clear();

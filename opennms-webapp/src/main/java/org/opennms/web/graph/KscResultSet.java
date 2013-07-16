@@ -45,7 +45,7 @@ public class KscResultSet {
     private final Date m_end;
     private final OnmsResource m_resource;
     private final PrefabGraph m_prefabGraph;
-    
+
     /**
      * <p>Constructor for KscResultSet.</p>
      *
@@ -62,7 +62,7 @@ public class KscResultSet {
         m_resource = resource;
         m_prefabGraph = prefabGraph;
     }
-    
+
     /**
      * <p>getTitle</p>
      *
@@ -71,7 +71,7 @@ public class KscResultSet {
     public String getTitle() {
         return m_title;
     }
-    
+
     /**
      * <p>getStart</p>
      *
@@ -80,7 +80,7 @@ public class KscResultSet {
     public Date getStart() {
         return m_start;
     }
-    
+
     /**
      * <p>getEnd</p>
      *
@@ -89,7 +89,7 @@ public class KscResultSet {
     public Date getEnd() {
         return m_end;
     }
-    
+
     /**
      * <p>getResource</p>
      *
@@ -98,7 +98,7 @@ public class KscResultSet {
     public OnmsResource getResource() {
         return m_resource;
     }
-    
+
     /**
      * <p>getPrefabGraph</p>
      *

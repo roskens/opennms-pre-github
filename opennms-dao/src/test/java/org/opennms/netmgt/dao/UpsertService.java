@@ -36,7 +36,7 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
  * @author brozow
  */
 public interface UpsertService {
-    
+
     public OnmsSnmpInterface upsert(int nodeId, OnmsSnmpInterface snmpIface, int sleep);
 
 }

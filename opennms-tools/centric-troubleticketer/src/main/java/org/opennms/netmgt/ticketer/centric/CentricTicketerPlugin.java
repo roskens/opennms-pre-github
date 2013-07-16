@@ -52,18 +52,18 @@ import org.opennms.api.integration.ticketing.Ticket.State;
 
 /**
  * OpenNMS Trouble Ticket Plugin API implementation for CentricCRM (c) Darkhorse Ventures.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
 public class CentricTicketerPlugin implements Plugin {
     private static final Logger LOG = LoggerFactory.getLogger(CentricTicketerPlugin.class);
-    
+
     /**
      * This class extends Centric Class that is responsible for transferring data
      * to/from the Centric server via their HTTP-XML API.
-     * 
+     *
      * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      *
@@ -73,7 +73,7 @@ public class CentricTicketerPlugin implements Plugin {
     	/**
     	 * Convenience method added to retrieve error message embedded in the XML
     	 * packet returned by the CentricCRM API.
-    	 * 
+	 *
     	 * @return <code>java.lang.String</code> if an error message exists in the server response.
     	 */
         public String getErrorText() throws CentricPluginException {
@@ -91,10 +91,10 @@ public class CentricTicketerPlugin implements Plugin {
             	throw new CentricPluginException(e);
             }
         }
-        
+
         /**
          * Wrapper class used to nicely handle Centric API exceptions
-         * 
+         *
          * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
          * @author <a href="mailto:david@opennms.org">David Hustace</a>
          *
@@ -102,22 +102,22 @@ public class CentricTicketerPlugin implements Plugin {
         class CentricPluginException extends RuntimeException {
 
 			private static final long serialVersionUID = -2279922257910422937L;
-			
+
 			public CentricPluginException(Throwable e) {
 				super(e);
 			}
-        	
+
         }
     }
-    
-    
+
+
     /**
      * Implementation of TicketerPlugin API call to retrieve a CentricCRM trouble ticket.
-     * @return an OpenNMS 
+     * @return an OpenNMS
      */
     public Ticket get(String ticketId) {
         CentricConnection crm = createConnection();
-        
+
         ArrayList<String> returnFields = new ArrayList<String>();
         returnFields.add("id");
         returnFields.add("modified");
@@ -125,7 +125,7 @@ public class CentricTicketerPlugin implements Plugin {
         returnFields.add("comment");
         returnFields.add("stateId");
         crm.setTransactionMeta(returnFields);
-        
+
         DataRecord query = new DataRecord();
         query.setName("ticketList");
         query.setAction(DataRecord.SELECT);
@@ -135,18 +135,18 @@ public class CentricTicketerPlugin implements Plugin {
         if (!success) {
             throw new DataRetrievalFailureException(crm.getLastResponse());
         }
-        
+
         Ticket ticket = new Ticket();
         ticket.setId(crm.getResponseValue("id"));
         ticket.setModificationTimestamp(crm.getResponseValue("modified"));
         ticket.setSummary(crm.getResponseValue("problem"));
         ticket.setDetails(crm.getResponseValue("comment"));
         ticket.setState(getStateFromId(crm.getResponseValue("stateId")));
-                
+
         return ticket;
-        
+
     }
-    
+
     /**
      * Convenience method of determining a "close" state of a ticket.
      * @param newState
@@ -158,19 +158,19 @@ public class CentricTicketerPlugin implements Plugin {
         case CLOSED:
             return true;
         case OPEN:
-        default:    
+        default:
             return false;
         }
-        
+
     }
 
 
     /**
      * Convenience method for converting a string representation of
      * the OpenNMS enumerated ticket states.
-     * 
+     *
      * @param stateIdString
-     * @return the converted <code>org.opennms.api.integration.ticketing.Ticket.State</code> 
+     * @return the converted <code>org.opennms.api.integration.ticketing.Ticket.State</code>
      */
     private State getStateFromId(String stateIdString) {
     	if (stateIdString == null) {
@@ -194,22 +194,22 @@ public class CentricTicketerPlugin implements Plugin {
             return State.CANCELLED;
         default:
             return State.OPEN;
-                
+
         }
     }
 
     /**
      * Helper method for creating a CentricCRM DataRecord from properties
      * defined in the centric.properties file.
-     * 
+     *
      * @return a populated <code>org.aspcfs.apps.transfer.DataRecord</code>
      */
     private DataRecord createDataRecord() {
         DataRecord record = new DataRecord();
-        
+
         Properties props = getProperties();
-        
-        
+
+
         for(Map.Entry<Object, Object> entry : props.entrySet()) {
             String key = (String)entry.getKey();
             String val = (String)entry.getValue();
@@ -217,15 +217,15 @@ public class CentricTicketerPlugin implements Plugin {
             if (!key.startsWith("connection.")) {
                 record.addField(key, val);
             }
-                
+
         }
-                
+
         return record;
-    }   
+    }
 
     /**
      * Retrieves the properties defined in the centric.properties file.
-     * 
+     *
      * @return a <code>java.util.Properties object containing centric plugin defined properties
      */
     private Properties getProperties() {
@@ -246,7 +246,7 @@ public class CentricTicketerPlugin implements Plugin {
             IOUtils.closeQuietly(in);
         }
 
-        return props; 
+        return props;
 
     }
 
@@ -256,11 +256,11 @@ public class CentricTicketerPlugin implements Plugin {
      */
     public void saveOrUpdate(Ticket ticket) {
         CentricConnection crm = createConnection();
-        
+
         ArrayList<String> returnFields = new ArrayList<String>();
         returnFields.add("id");
         crm.setTransactionMeta(returnFields);
-        
+
         DataRecord record = createDataRecord();
         record.setName("ticket");
         if (ticket.getId() == null) {
@@ -274,20 +274,20 @@ public class CentricTicketerPlugin implements Plugin {
         record.addField("comment", ticket.getDetails());
         record.addField("stateId", getStateId(ticket.getState()));
         record.addField("closeNow", isClosingState(ticket.getState()));
-        
+
         crm.save(record);
-        
+
         boolean success = crm.commit();
-        
+
         if (!success) {
             throw new DataRetrievalFailureException("Failed to commit Centric transaction: "+crm.getErrorText());
         }
-           
-        
+
+
         Assert.isTrue(1 == crm.getRecordCount(), "Unexpected record count from CRM");
-        
+
         String id = crm.getResponseValue("id");
-      
+
         ticket.setId(id);
 /*
         <map class="org.aspcfs.modules.troubletickets.base.Ticket" id="ticket">
@@ -314,7 +314,7 @@ public class CentricTicketerPlugin implements Plugin {
         <property lookup="ticketSeverity">severityCode</property>
         <!-- REMOVE: critical -->
         <!-- REMOVE: notified -->
-        <!-- REMOVE: custom_data -->    
+        <!-- REMOVE: custom_data -->
         <property>location</property>
         <property>assignedDate</property>
         <property>estimatedResolutionDate</property>
@@ -342,15 +342,15 @@ public class CentricTicketerPlugin implements Plugin {
         <property>stateId</property>
         <property>siteId</property>
       </map>
-      
+
 */
 
     }
 
-/*    
+/*
     private String getModifiedTimestamp(String id) {
         CentricConnection crm = createConnection();
-        
+
         ArrayList<String> returnFields = new ArrayList<String>();
         returnFields.add("id");
         returnFields.add("modified");
@@ -360,20 +360,20 @@ public class CentricTicketerPlugin implements Plugin {
         query.setAction(DataRecord.SELECT);
         query.setName("ticketList");
         query.addField("id", 91);
-        
+
         crm.load(query);
-        
+
         return crm.getResponseValue("modified");
 
     }
-    
+
 */
 
-    
+
     /**
      * Convenience method for converting OpenNMS Ticket.State enum
      * to an int representation compatible with CentricCRM.
-     * 
+     *
      * TODO: This needs to be configurable with the ability of the user
      * to define.
      */
@@ -392,12 +392,12 @@ public class CentricTicketerPlugin implements Plugin {
 
     /**
      * Creates connection to CentricCRM server using CentricCRM HTTP-XML API
-     * @return a connection to the configured CentricCRM server. 
+     * @return a connection to the configured CentricCRM server.
      */
     private CentricConnection createConnection() {
         // Client ID must already exist in target CRM system and is created
         // under Admin -> Configure System -> HTTP-XML API Client Manager
-        
+
         Properties props = getProperties();
 
         // Establish connectivity as a client

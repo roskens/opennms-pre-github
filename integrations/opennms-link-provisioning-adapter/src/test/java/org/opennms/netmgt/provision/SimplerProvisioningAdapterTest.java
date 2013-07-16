@@ -48,7 +48,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Test the user stories/use cases associated with the Link Adapter.
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
@@ -61,9 +61,9 @@ import org.springframework.transaction.support.TransactionTemplate;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class SimplerProvisioningAdapterTest implements InitializingBean {
-    
+
     public static String NAME = "MyProvisioningAdapter";
-    
+
     CountDownLatch addLatch = new CountDownLatch(1);
     CountDownLatch deleteLatch = new CountDownLatch(1);
     CountDownLatch updateLatch = new CountDownLatch(1);
@@ -79,7 +79,7 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
     }
 
     class MyProvisioningAdapter extends SimplerQueuedProvisioningAdapter {
-        
+
         public MyProvisioningAdapter() {
             super(NAME);
             setTemplate(m_txTemplate);
@@ -104,7 +104,7 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
         public void doUpdateNode(int nodeid) {
             updateLatch.countDown();
         }
-        
+
     }
 
     private MyProvisioningAdapter m_adapter;
@@ -114,7 +114,7 @@ public class SimplerProvisioningAdapterTest implements InitializingBean {
         m_adapter = new MyProvisioningAdapter();
         m_adapter.init();
     }
-    
+
     @Test
     public void dwoGetName() {
         assertEquals(NAME, m_adapter.getName());

@@ -97,9 +97,9 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
     // URL for logo
 
     private String m_logoURL;
-    
+
     // output base dir
-    
+
     private String m_baseDir;
 
     // output file name
@@ -122,7 +122,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
     private Report m_report = null;
 
     private ReportStoreService m_reportStoreService;
-    
+
     private AvailabilityData m_availabilityData;
 
     /**
@@ -130,7 +130,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
      */
     public AvailabilityCalculatorImpl() {
         Logging.putPrefix(LOG4J_CATEGORY);
-        
+
         m_report = new Report();
         m_report.setAuthor(m_author);
 
@@ -180,7 +180,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
             /* We just initialize this to make sure there are no exceptions, I guess?
              * AvailabilityData availData =
              */
-            
+
             m_availabilityData.fillReport(m_categoryName,
                                                               m_report,
                                                               m_reportFormat,
@@ -224,16 +224,16 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
             File reportFile = new File(m_outputFileName);
             // marshal the XML into the file.
             marshal(reportFile);
-            
+
         } catch (AvailabilityCalculationException e) {
             LOG.error("Unable to marshal report as XML");
             throw new AvailabilityCalculationException(e);
         }
-        
+
         return m_outputFileName;
-        
+
     }
-   
+
    /* (non-Javadoc)
  * @see org.opennms.reporting.availability.AvailabilityCalculator#writeXML(java.lang.String)
  */
@@ -253,10 +253,10 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
            throw new AvailabilityCalculationException(e);
        }
    }
-    
-   
-   
-   
+
+
+
+
     /* (non-Javadoc)
      * @see org.opennms.reporting.availability.AvailabilityCalculator#writeLocateableXML(java.lang.String)
      */
@@ -286,11 +286,11 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
             LOG.error("Unable to marshal report as XML");
             throw new AvailabilityCalculationException(e);
         }
-        
+
         return m_outputFileName;
-        
+
     }
-    
+
     /**
      * <p>writeXML</p>
      *
@@ -307,7 +307,7 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
             throw new AvailabilityCalculationException(e);
         }
     }
-    
+
 
     /* (non-Javadoc)
      * @see org.opennms.reporting.availability.AvailabilityCalculator#marshal(java.io.File)
@@ -334,8 +334,8 @@ public class AvailabilityCalculatorImpl implements AvailabilityCalculator {
             throw new AvailabilityCalculationException(ioe);
         }
     }
-    
-    private void marshal(OutputStream outputStream) 
+
+    private void marshal(OutputStream outputStream)
             throws AvailabilityCalculationException {
         try {
             OutputStreamWriter writer = new OutputStreamWriter(outputStream, "UTF-8");

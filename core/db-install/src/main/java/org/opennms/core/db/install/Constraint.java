@@ -42,14 +42,14 @@ public class Constraint {
 
     /** Constant <code>FOREIGN_KEY=2</code> */
     public static final int FOREIGN_KEY = 2;
-    
+
     /** Constant <code>CHECK=3</code> */
     public static final int CHECK = 3;
 
     private String m_name;
 
     private int m_type;
-    
+
     private String m_table;
 
     private List<String> m_columns;
@@ -61,7 +61,7 @@ public class Constraint {
     private String m_fdeltype;
 
     private String m_fupdtype;
-    
+
     private String m_checkExpression;
 
     /**
@@ -89,7 +89,7 @@ public class Constraint {
         setType(PRIMARY_KEY);
         setColumns(columns);
     }
-    
+
     /**
      * Construct a foreign key constraint from it's required elements
      *
@@ -112,7 +112,7 @@ public class Constraint {
         setForeignUpdType(fupdtype);
         setForeignDelType(fdeltype);
     }
-    
+
     /**
      * Construct a check type constraint from it's required elements
      *
@@ -135,7 +135,7 @@ public class Constraint {
     public final void setForeignUpdType(String fupdtype) {
         m_fupdtype = fupdtype;
     }
-    
+
     /**
      * <p>getForeignUpdType</p>
      *
@@ -180,7 +180,7 @@ public class Constraint {
     public final void setType(int type) {
         m_type = type;
     }
-    
+
     /**
      * <p>isPrimaryKeyConstraint</p>
      *
@@ -189,7 +189,7 @@ public class Constraint {
     public boolean isPrimaryKeyConstraint() {
     	return m_type == PRIMARY_KEY;
     }
-    
+
     /**
      * <p>isForeignKeyConstraint</p>
      *
@@ -198,7 +198,7 @@ public class Constraint {
     public boolean isForeignKeyConstraint() {
     	return m_type == FOREIGN_KEY;
     }
-    
+
     /**
      * <p>isCheckConstraint</p>
      *
@@ -207,7 +207,7 @@ public class Constraint {
     public boolean isCheckConstraint() {
     	return m_type == CHECK;
     }
-    
+
 	/**
 	 * <p>getTable</p>
 	 *
@@ -225,7 +225,7 @@ public class Constraint {
 	public final void setTable(String table) {
 		m_table = table;
 	}
-    
+
     /**
      * <p>setColumns</p>
      *
@@ -349,7 +349,7 @@ public class Constraint {
 	public final void setCheckExpression(String expression) {
 		m_checkExpression = expression;
 	}
-	
+
     /**
      * <p>toString</p>
      *
@@ -386,7 +386,7 @@ public class Constraint {
         	b.append(m_checkExpression);
         	break;
         }
-        
+
         b.append(")");
 
         if (m_type == FOREIGN_KEY) {
@@ -417,7 +417,7 @@ public class Constraint {
     private void parse(String constraintSQL) throws Exception {
         Matcher m;
 
-        	
+
         //Check if the constraint is a primary key constraint
         m = Pattern.compile("(?i)constraint (\\S+) "
         		+ "primary key \\((.*)\\)").matcher(constraintSQL);
@@ -428,7 +428,7 @@ public class Constraint {
             setColumns(Arrays.asList(columns));
             return;
         }
-        
+
         //Check if the constraint is a check constraint
         m = Pattern.compile("(?i)constraint (\\S+) "
         		+ "check \\((.*)\\)").matcher(constraintSQL);
@@ -449,7 +449,7 @@ public class Constraint {
         if (!m.matches()) {
             throw new Exception("Cannot parse constraint: " + constraintSQL);
         }
-        	
+
         setName(m.group(1));
         setType(FOREIGN_KEY);
         String[] columns = m.group(2).split("\\s*,\\s*");
@@ -509,7 +509,7 @@ public class Constraint {
         if (m_type != other.getType()) {
             return false;
         }
-        
+
         if ((m_table == null && other.getTable() != null) || (m_table != null && other.getTable() == null)) {
             return false;
         }
@@ -552,7 +552,7 @@ public class Constraint {
                 return false;
             }
         }
-        
+
         if(m_checkExpression != null && other.getCheckExpression()!=null && !m_checkExpression.equals(other.getCheckExpression())) {
         	return false;
         }

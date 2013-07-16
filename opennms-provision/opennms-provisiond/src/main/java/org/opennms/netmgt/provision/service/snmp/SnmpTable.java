@@ -72,7 +72,7 @@ abstract public class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
         m_address = address;
         m_tableName = tableName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void storeResult(SnmpResult res) {
@@ -102,7 +102,7 @@ abstract public class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
     public Set<SnmpInstId> getInstances() {
         return m_results.keySet();
     }
-    
+
     /**
      * <p>getEntries</p>
      *
@@ -116,7 +116,7 @@ abstract public class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
     protected void reportGenErr(String msg) {
         LOG.warn("Error retrieving {} from {}. {}", msg, m_tableName, m_address);
     }
-    
+
     /**
      * <p>getEntry</p>
      *
@@ -129,7 +129,7 @@ abstract public class SnmpTable<T extends SnmpTableEntry> extends AggregateTrack
         }
         return m_results.get(inst);
     }
-    
+
     /**
      * <p>getEntry</p>
      *

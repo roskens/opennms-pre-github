@@ -68,7 +68,7 @@ public class SetSequenceStatement implements SqlStatement {
 	public Map<String,String> getSchemas() {
 		return m_schemas;
 	}
-	
+
 	public Integer getValue() {
 		return m_value;
 	}
@@ -77,7 +77,7 @@ public class SetSequenceStatement implements SqlStatement {
 		m_value = value;
 		return this;
 	}
-	
+
 	SetSequenceStatement addTable(final String name, final String column) {
 		getTables().add(name);
 		getColumns().put(name, column);
@@ -90,7 +90,7 @@ public class SetSequenceStatement implements SqlStatement {
 		getSchemas().put(name, schemaName);
 		return this;
 	}
-	
+
         @Override
 	public String toString() {
 		return new ToStringBuilder(this)

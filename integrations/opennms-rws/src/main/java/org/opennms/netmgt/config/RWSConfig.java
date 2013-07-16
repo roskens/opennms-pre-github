@@ -50,42 +50,42 @@ public interface RWSConfig {
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
     public ConnectionProperties getBase();
-    
+
     /**
      * <p>getStandBy</p>
      *
      * @return an array of {@link org.opennms.rancid.ConnectionProperties} objects.
      */
     public ConnectionProperties[] getStandBy();
-    
+
     /**
      * <p>getNextStandBy</p>
      *
      * @return a {@link org.opennms.rancid.ConnectionProperties} object.
      */
     public ConnectionProperties getNextStandBy();
-    
+
     /**
      * <p>getBaseUrl</p>
      *
      * @return a {@link org.opennms.netmgt.config.rws.BaseUrl} object.
      */
     public BaseUrl getBaseUrl();
-    
+
     /**
      * <p>getStanbyUrls</p>
      *
      * @return an array of {@link org.opennms.netmgt.config.rws.StandbyUrl} objects.
      */
     public StandbyUrl[] getStanbyUrls();
-    
+
     /**
      * <p>getNextStandbyUrl</p>
      *
      * @return a {@link org.opennms.netmgt.config.rws.StandbyUrl} object.
      */
     public StandbyUrl getNextStandbyUrl();
-    
+
     /**
      * <p>hasStandbyUrl</p>
      *

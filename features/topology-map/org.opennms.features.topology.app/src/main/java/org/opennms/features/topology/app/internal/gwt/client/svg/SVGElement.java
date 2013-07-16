@@ -33,7 +33,7 @@ import com.google.gwt.dom.client.Element;
 public class SVGElement extends Element{
 
     protected SVGElement() {}
-    
+
     public final static native SVGElement wrapElement(Element svg) /*-{
         return elem;
     }-*/;
@@ -53,7 +53,7 @@ public class SVGElement extends Element{
     public final native void setX(int x) /*-{
         this.x = x;
     }-*/;
-    
+
     public final native void setY(int y) /*-{
         this.y = y;
     }-*/;
@@ -61,7 +61,7 @@ public class SVGElement extends Element{
     public final native SVGRect getBBox() /*-{
         return this.getBBox();
     }-*/;
-    
+
     public final native ClientRect getBoundingClientRect() /*-{
         return this.getBoundingClientRect();
     }-*/;

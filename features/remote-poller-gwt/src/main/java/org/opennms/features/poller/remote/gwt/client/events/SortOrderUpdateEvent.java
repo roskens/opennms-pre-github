@@ -38,11 +38,11 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<SortOrderUpdateHandler> TYPE = new Type<SortOrderUpdateHandler>();
     private String m_sortOrder;
-    
+
     /**
      * <p>Constructor for SortOrderUpdateEvent.</p>
      *
@@ -51,12 +51,12 @@ public class SortOrderUpdateEvent extends GwtEvent<SortOrderUpdateHandler> {
     public SortOrderUpdateEvent(String sortOrder) {
         setSortOrder(sortOrder);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(SortOrderUpdateHandler handler) {
         handler.onSortOrderUpdated(this);
-        
+
     }
 
     /** {@inheritDoc} */

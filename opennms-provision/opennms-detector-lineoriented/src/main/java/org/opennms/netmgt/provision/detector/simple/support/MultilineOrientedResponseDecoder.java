@@ -80,7 +80,7 @@ public class MultilineOrientedResponseDecoder extends OneToOneDecoder {
         String response = (String)msg;
         m_response.addLine(response);
         if(checkIndicator(response)) {
-            // Do nothing; if the multi-line indicator is present then 
+            // Do nothing; if the multi-line indicator is present then
             // continue to accumulate lines into the m_response instance
             return null;
         } else {

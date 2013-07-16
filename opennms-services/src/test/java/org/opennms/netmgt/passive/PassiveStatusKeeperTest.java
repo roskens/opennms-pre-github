@@ -63,20 +63,20 @@ import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
 public class PassiveStatusKeeperTest {
-    
+
     /* TODO for PassiveSTatusKeeper
      add reason mapper for status reason
-     
+
      be able to create an event with translated values
      - determine new event values based on config
      - assign computed values to new event
      - copy over (or not) untranslated attributes
-     
+
      make sure we can translate uei if desired
-     
+
      modify passive status config to handle specific event with specific parms
-     
-     
+
+
      */
 
 
@@ -105,12 +105,12 @@ public class PassiveStatusKeeperTest {
         m_psk = new PassiveStatusKeeper();
         m_psk.setEventManager(m_eventMgr);
         m_psk.setDataSource(m_db);
-        
+
         PassiveStatusKeeper.setInstance(m_psk);
-        
+
         m_psk.init();
         m_psk.start();
-        
+
     }
 
     @After
@@ -122,7 +122,7 @@ public class PassiveStatusKeeperTest {
         m_db.drop();
 //        MockUtil.println("------------ End Test "+getName()+" --------------------------");
     }
-    
+
 
     private void createAnticipators() {
         m_anticipator = new EventAnticipator();
@@ -168,7 +168,7 @@ public class PassiveStatusKeeperTest {
         } catch (InterruptedException e) {
         }
     }
-    
+
     /**
      * This is a test for the passive status keeper where all the required parms are included
      * in the event.
@@ -178,84 +178,84 @@ public class PassiveStatusKeeperTest {
         Event e = createPassiveStatusEvent("Router", "192.168.1.1", "ICMP", "Down");
 
         assertTrue(m_psk.isPassiveStatusEvent(e));
-        
+
     }
-    
+
     /**
      * This is a test for the method that verifies valid passive status events
      * for the passive status keeper.
-     * @throws ValidationException 
-     * @throws MarshalException 
+     * @throws ValidationException
+     * @throws MarshalException
      *
      */
     @Test
     public void testIsPassiveStatusEvent() throws MarshalException, ValidationException {
-        
+
         Event e = createPassiveStatusEvent("Router", "192.168.1.1", "ICMP", "Down");
         assertTrue(m_psk.isPassiveStatusEvent(e));
-        
+
         //test for missing required parms
         e = createPassiveStatusEvent("Router", "192.168.1.1", null, "Down");
         assertFalse(m_psk.isPassiveStatusEvent(e));
-        
+
         //this will test the event simply doesn't match a registered uei.
         e.setUei("bogusUei");
         assertFalse(m_psk.isPassiveStatusEvent(e));
-                
+
     }
-    
+
     @Test
     public void testSetStatus() {
         testSetStatus("localhost", "127.0.0.1", "PSV", PollStatus.up());
-        
+
     }
 
     private void testSetStatus(String nodeLabel, String ipAddr, String svcName, PollStatus pollStatus) {
         PassiveStatusKeeper.getInstance().setStatus(nodeLabel, ipAddr, svcName, pollStatus);
         assertEquals(pollStatus, PassiveStatusKeeper.getInstance().getStatus(nodeLabel, ipAddr, svcName));
     }
-    
+
     @Test
     public void testRestart() {
         testSetStatus("localhost", "127.0.0.1", "PSV", PollStatus.up());
 
         testSetStatus("localhost", "127.0.0.1", "PSV2", PollStatus.down());
-        
+
         MockService svc = m_network.getService(100, "127.0.0.1", "PSV2");
         Event downEvent = svc.createDownEvent();
         m_db.writeEvent(downEvent);
         m_db.createOutage(svc, downEvent);
 
         m_psk.stop();
-        
+
         m_psk.setEventManager(m_eventMgr);
         m_psk.setDataSource(m_db);
         m_psk.init();
         m_psk.start();
-        
+
         assertEquals(PollStatus.up(), PassiveStatusKeeper.getInstance().getStatus("localhost", "127.0.0.1", "PSV"));
         assertEquals(PollStatus.down(), PassiveStatusKeeper.getInstance().getStatus("localhost", "127.0.0.1", "PSV2"));
     }
-    
+
     @Test
     public void testDownPassiveStatus() throws InterruptedException, UnknownHostException {
 
         Event e = createPassiveStatusEvent("Router", "192.168.1.1", "ICMP", "Down");
         m_eventMgr.sendNow(e);
-        
+
         PollStatus ps = m_psk.getStatus("Router", "192.168.1.1", "ICMP");
-        
+
         assertTrue(ps.isDown());
-        
+
         MockMonitoredService svc = new MockMonitoredService(1, "Router", InetAddressUtils.addr("192.168.1.1"), "ICMP" );
-        
+
         ServiceMonitor m = new PassiveServiceMonitor();
         m.initialize((Map<String,Object>)null);
         m.initialize(svc);
         PollStatus ps2 = m.poll(svc, null);
         m.release(svc);
         m.release();
-        
+
         assertEquals(ps, ps2);
     }
 
@@ -273,16 +273,16 @@ public class PassiveStatusKeeperTest {
     private Event createEventWithParms(String uei, List<Parm> parms) {
 		Event e = MockEventUtil.createEventBuilder("Test", uei).getEvent();
 		e.setHost("localhost");
-        
+
         e.setParmCollection(parms);
         Logmsg logmsg = new Logmsg();
         logmsg.setContent("Testing Passive Status Keeper with down status");
         e.setLogmsg(logmsg);
         return e;
 	}
-    
-    
-    
+
+
+
     private Parm buildParm(String parmName, String parmValue) {
         Value v = new Value();
         v.setContent(parmValue);
@@ -291,213 +291,213 @@ public class PassiveStatusKeeperTest {
         p.setValue(v);
         return p;
     }
-    
+
     @SuppressWarnings("unused")
     private String getTranslationTestConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<passive-status-configuration \n" + 
-        "xmlns=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<passive-status-configuration \n" +
+        "xmlns=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
         "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
         "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" + 
-        "      <mappings>\n" + 
+        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" +
+        "      <mappings>\n" +
         "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"nodeid\">\n" +  
+        "          <assignment type=\"field\" name=\"nodeid\">\n" +
         "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D'\" >\n" +
         "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n" +
         "				<value type=\"constant\" result=\"192.168.1.4\" />\n" +
         "			</value>\n" +
-        "          </assignment>\n" + 
-        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +  
+        "          </assignment>\n" +
+        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +
         "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n" +
-        "          </assignment>\n" + 
-        "          <assignment type=\"field\" name=\"interface\">\n" + 
+        "          </assignment>\n" +
+        "          <assignment type=\"field\" name=\"interface\">\n" +
         "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n" +
         "          </assignment>\n" +
         "		  <assignment type=\"field\" name=\"host\">\n" +
         "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n" +
-        "		  </assignment>\n" + 
+        "		  </assignment>\n" +
         "		  <assignment type=\"field\" name=\"descr\">\n" +
         "			<value type=\"constant\" result=\"a generated event\" />\n" +
-        "		  </assignment>\n" + 
-        "          <assignment type=\"field\" name=\"service\">\n" + 
-        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" + 
-        "          </assignment>\n" + 
-        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" + 
-        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" + 
-        "          </assignment>\n" + 
-        "        </mapping>\n" + 
-        "      </mappings>\n" + 
-        "    </event-translation-spec>\n" + 
+        "		  </assignment>\n" +
+        "          <assignment type=\"field\" name=\"service\">\n" +
+        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" +
+        "          </assignment>\n" +
+        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" +
+        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" +
+        "          </assignment>\n" +
+        "        </mapping>\n" +
+        "      </mappings>\n" +
+        "    </event-translation-spec>\n" +
         "  </translation>\n" +
-        "</passive-status-configuration>\n" + 
+        "</passive-status-configuration>\n" +
         "";
     }
-    
 
-    
+
+
     @SuppressWarnings("unused")
     private String getStandardConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<passive-status-configuration \n" + 
-        "xmlns=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<passive-status-configuration \n" +
+        "xmlns=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
         "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
         "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" + 
-        "      <mappings>\n" + 
+        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" +
+        "      <mappings>\n" +
         "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"nodeid\">\n" +  
+        "          <assignment type=\"field\" name=\"nodeid\">\n" +
         "            <value type=\"sql\" result=\"select node.nodeid from node, ipInterface where node.nodeLabel=? and ipinterface.ipaddr=? and node.nodeId=ipinterface.nodeid and ipInterface.isManaged != 'D' and node.nodeType != 'D'\" >\n" +
         "				<value type=\"parameter\" name=\"passiveNodeLabel\" matches=\"Router\" result=\"Firewall\" />\n" +
         "				<value type=\"constant\" result=\"192.168.1.4\" />\n" +
         "			</value>\n" +
-        "          </assignment>\n" + 
-        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +  
+        "          </assignment>\n" +
+        "          <assignment type=\"parameter\" name=\"nodeLabel\">\n" +
         "            <value type=\"field\" name=\"host\" result=\"Switch\" />\n" +
-        "          </assignment>\n" + 
-        "          <assignment type=\"field\" name=\"interface\">\n" + 
+        "          </assignment>\n" +
+        "          <assignment type=\"field\" name=\"interface\">\n" +
         "            <value type=\"parameter\" name=\"passiveIpAddr\" matches=\".*(192\\.168\\.1\\.1).*\" result=\"192.168.1.1\" />\n" +
         "          </assignment>\n" +
         "		  <assignment type=\"field\" name=\"host\">\n" +
         "			<value type=\"field\" name=\"host\" result=\"www.opennms.org\" />\n" +
-        "		  </assignment>\n" + 
+        "		  </assignment>\n" +
         "		  <assignment type=\"field\" name=\"descr\">\n" +
         "			<value type=\"constant\" result=\"a generated event\" />\n" +
-        "		  </assignment>\n" + 
-        "          <assignment type=\"field\" name=\"service\">\n" + 
-        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" + 
-        "          </assignment>\n" + 
-        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" + 
-        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" + 
-        "          </assignment>\n" + 
-        "        </mapping>\n" + 
-        "      </mappings>\n" + 
-        "    </event-translation-spec>\n" + 
+        "		  </assignment>\n" +
+        "          <assignment type=\"field\" name=\"service\">\n" +
+        "            <value type=\"parameter\" name=\"passiveServiceName\" result=\"PSV\" />\n" +
+        "          </assignment>\n" +
+        "          <assignment type=\"parameter\" name=\"passiveStatus\">\n" +
+        "            <value type=\"parameter\" name=\"passiveStatus\" matches=\".*(Up|Down).*\" result=\"${1}\" />\n" +
+        "          </assignment>\n" +
+        "        </mapping>\n" +
+        "      </mappings>\n" +
+        "    </event-translation-spec>\n" +
         "  </translation>\n" +
-        "  <passive-events>\n" + 
-        "    <passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" + 
-        "      <status-key>\n" + 
-        "        <node-label>\n" + 
-        "          <event-token is-parm=\"true\" name=\"passiveNodeLabel\" value=\"Router\"/>\n" + 
-        "        </node-label>\n" + 
-        "        <ipaddr>\n" + 
-        "          <event-token is-parm=\"true\" name=\"passiveIpAddr\" value=\"192.168.1.1\"/>\n" + 
-        "        </ipaddr>\n" + 
-        "        <service-name>\n" + 
-        "          <event-token is-parm=\"true\" name=\"passiveServiceName\" value=\"ICMP\"/>\n" + 
-        "        </service-name>\n" + 
-        "        <status>\n" + 
-        "          <event-token is-parm=\"true\" name=\"passiveStatus\" value=\"Down\"/>\n" + 
-        "        </status>\n" + 
-        "      </status-key>\n" + 
-        "    </passive-event>\n" + 
-        "  </passive-events>\n" + 
-        "</passive-status-configuration>\n" + 
+        "  <passive-events>\n" +
+        "    <passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" +
+        "      <status-key>\n" +
+        "        <node-label>\n" +
+        "          <event-token is-parm=\"true\" name=\"passiveNodeLabel\" value=\"Router\"/>\n" +
+        "        </node-label>\n" +
+        "        <ipaddr>\n" +
+        "          <event-token is-parm=\"true\" name=\"passiveIpAddr\" value=\"192.168.1.1\"/>\n" +
+        "        </ipaddr>\n" +
+        "        <service-name>\n" +
+        "          <event-token is-parm=\"true\" name=\"passiveServiceName\" value=\"ICMP\"/>\n" +
+        "        </service-name>\n" +
+        "        <status>\n" +
+        "          <event-token is-parm=\"true\" name=\"passiveStatus\" value=\"Down\"/>\n" +
+        "        </status>\n" +
+        "      </status-key>\n" +
+        "    </passive-event>\n" +
+        "  </passive-events>\n" +
+        "</passive-status-configuration>\n" +
         "";
     }
-    
+
     @SuppressWarnings("unused")
     private String getLiteralFieldConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<this:passive-status-configuration \n" + 
-        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" + 
-        "  <this:passive-events>\n" + 
-        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" + 
-        "      <this:status-key>\n" + 
-        "        <this:node-label>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"host\" value=\"Router\"/>\n" + 
-        "        </this:node-label>\n" + 
-        "        <this:ipaddr>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"source\" value=\"192.168.1.1\"/>\n" + 
-        "        </this:ipaddr>\n" + 
-        "        <this:service-name>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"service\" value=\"ICMP\"/>\n" + 
-        "        </this:service-name>\n" + 
-        "        <this:status>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"descr\" value=\"Down\"/>\n" + 
-        "        </this:status>\n" + 
-        "      </this:status-key>\n" + 
-        "    </this:passive-event>\n" + 
-        "  </this:passive-events>\n" + 
-        "</this:passive-status-configuration>\n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<this:passive-status-configuration \n" +
+        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
+        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
+        "  <this:passive-events>\n" +
+        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" +
+        "      <this:status-key>\n" +
+        "        <this:node-label>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"host\" value=\"Router\"/>\n" +
+        "        </this:node-label>\n" +
+        "        <this:ipaddr>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"source\" value=\"192.168.1.1\"/>\n" +
+        "        </this:ipaddr>\n" +
+        "        <this:service-name>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"service\" value=\"ICMP\"/>\n" +
+        "        </this:service-name>\n" +
+        "        <this:status>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"descr\" value=\"Down\"/>\n" +
+        "        </this:status>\n" +
+        "      </this:status-key>\n" +
+        "    </this:passive-event>\n" +
+        "  </this:passive-events>\n" +
+        "</this:passive-status-configuration>\n" +
         "";
     }
-    
+
     @SuppressWarnings("unused")
     private String getLiteralParmConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<this:passive-status-configuration \n" + 
-        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" + 
-        "  <this:passive-events>\n" + 
-        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" + 
-        "      <this:status-key>\n" + 
-        "        <this:node-label>\n" + 
-        "          <this:event-token is-parm=\"true\" name=\"passiveNodeLabel\" value=\"Router\"/>\n" + 
-        "        </this:node-label>\n" + 
-        "        <this:ipaddr>\n" + 
-        "          <this:event-token is-parm=\"true\" name=\"passiveIpAddr\" value=\"192.168.1.1\"/>\n" + 
-        "        </this:ipaddr>\n" + 
-        "        <this:service-name>\n" + 
-        "          <this:event-token is-parm=\"true\" name=\"passiveServiceName\" value=\"ICMP\"/>\n" + 
-        "        </this:service-name>\n" + 
-        "        <this:status>\n" + 
-        "          <this:event-token is-parm=\"true\" name=\"passiveStatus\" value=\"Down\"/>\n" + 
-        "        </this:status>\n" + 
-        "      </this:status-key>\n" + 
-        "    </this:passive-event>\n" + 
-        "  </this:passive-events>\n" + 
-        "</this:passive-status-configuration>\n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<this:passive-status-configuration \n" +
+        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
+        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
+        "  <this:passive-events>\n" +
+        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" +
+        "      <this:status-key>\n" +
+        "        <this:node-label>\n" +
+        "          <this:event-token is-parm=\"true\" name=\"passiveNodeLabel\" value=\"Router\"/>\n" +
+        "        </this:node-label>\n" +
+        "        <this:ipaddr>\n" +
+        "          <this:event-token is-parm=\"true\" name=\"passiveIpAddr\" value=\"192.168.1.1\"/>\n" +
+        "        </this:ipaddr>\n" +
+        "        <this:service-name>\n" +
+        "          <this:event-token is-parm=\"true\" name=\"passiveServiceName\" value=\"ICMP\"/>\n" +
+        "        </this:service-name>\n" +
+        "        <this:status>\n" +
+        "          <this:event-token is-parm=\"true\" name=\"passiveStatus\" value=\"Down\"/>\n" +
+        "        </this:status>\n" +
+        "      </this:status-key>\n" +
+        "    </this:passive-event>\n" +
+        "  </this:passive-events>\n" +
+        "</this:passive-status-configuration>\n" +
         "";
     }
-    
+
     @SuppressWarnings("unused")
     private String getRegExFieldConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<this:passive-status-configuration \n" + 
-        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" + 
-        "  <this:passive-events>\n" + 
-        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" + 
-        "      <this:status-key>\n" + 
-        "        <this:node-label>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"host\" value=\"~.*\"/>\n" + 
-        "        </this:node-label>\n" + 
-        "        <this:ipaddr>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"source\" value=\"~.*(192\\.168\\.1\\.1).*\"/>\n" + 
-        "        </this:ipaddr>\n" + 
-        "        <this:service-name>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"service\" value=\"~.*(ICMP).*\" format=\"$1\"/>\n" + 
-        "        </this:service-name>\n" + 
-        "        <this:status>\n" + 
-        "          <this:event-token is-parm=\"false\" name=\"descr\" value=\"~.*is(Down).*\" format=\"$1\"/>\n" + 
-        "        </this:status>\n" + 
-        "      </this:status-key>\n" + 
-        "    </this:passive-event>\n" + 
-        "  </this:passive-events>\n" + 
-        "</this:passive-status-configuration>\n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<this:passive-status-configuration \n" +
+        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
+        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
+        "  <this:passive-events>\n" +
+        "    <this:passive-event uei=\"uei.opennms.org/services/passiveServiceStatus\">\n" +
+        "      <this:status-key>\n" +
+        "        <this:node-label>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"host\" value=\"~.*\"/>\n" +
+        "        </this:node-label>\n" +
+        "        <this:ipaddr>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"source\" value=\"~.*(192\\.168\\.1\\.1).*\"/>\n" +
+        "        </this:ipaddr>\n" +
+        "        <this:service-name>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"service\" value=\"~.*(ICMP).*\" format=\"$1\"/>\n" +
+        "        </this:service-name>\n" +
+        "        <this:status>\n" +
+        "          <this:event-token is-parm=\"false\" name=\"descr\" value=\"~.*is(Down).*\" format=\"$1\"/>\n" +
+        "        </this:status>\n" +
+        "      </this:status-key>\n" +
+        "    </this:passive-event>\n" +
+        "  </this:passive-events>\n" +
+        "</this:passive-status-configuration>\n" +
         "";
     }
-    
+
     @SuppressWarnings("unused")
     private String getRegExParmConfig() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + 
-        "<this:passive-status-configuration \n" + 
-        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" + 
-        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" + 
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+        "<this:passive-status-configuration \n" +
+        "xmlns:this=\"http://xmlns.opennms.org/xsd/passive-status-configuration\" \n" +
+        "xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" >\n" +
         "  <translation>\n" +
-        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" + 
-        "      <mappings>\n" + 
+        "   <event-translation-spec uei=\"uei.opennms.org/services/translationEvent\">\n" +
+        "      <mappings>\n" +
         "        <mapping>\n" +
-        "          <assignment type=\"field\" name=\"uei\">\n" + 
+        "          <assignment type=\"field\" name=\"uei\">\n" +
         "            <value type=\"constant\" result=\"uei.opennms.org/services/passiveServiceStatus\" />\n" +
         "          </assignment>\n" +
-        "        </mapping>\n" + 
-        "      </mappings>\n" + 
-        "    </event-translation-spec>\n" + 
+        "        </mapping>\n" +
+        "      </mappings>\n" +
+        "    </event-translation-spec>\n" +
         "  </translation>\n" +
-        "</this:passive-status-configuration>\n" + 
+        "</this:passive-status-configuration>\n" +
         "";
     }
 

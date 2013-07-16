@@ -74,7 +74,7 @@ import java.util.List;
  */
 @Transactional(readOnly = true)
 public class DefaultSurveillanceService implements SurveillanceService, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultSurveillanceService.class);
 
 
@@ -89,7 +89,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     private RtcService m_rtcService;
     private GroupDao m_groupDao;
     private OutageDao m_outageDao;
-    
+
     /**
      * <p>getSurveillanceData</p>
      *
@@ -100,9 +100,9 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         SurveillanceData data = new SurveillanceData();
 
         SimpleWebTable table = m_webSurveillanceService.createSurveillanceTable(getView().getName(), new ProgressMonitor());
-        
+
         data.setName(getView().getName());
-        
+
         List<SurveillanceGroup> columnGroups = new ArrayList<SurveillanceGroup>();
         for (Cell columnHeader : table.getColumnHeaders().subList(1, table.getColumnHeaders().size())) {
             SurveillanceGroup columnGroup = new SurveillanceGroup();
@@ -112,11 +112,11 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
             columnGroups.add(columnGroup);
         }
         data.setColumnGroups(columnGroups.toArray(new SurveillanceGroup[columnGroups.size()]));
-        
+
         List<SurveillanceGroup> rowGroups = new ArrayList<SurveillanceGroup>();
         for (List<Cell> row : table.getRows()) {
             Cell rowHeader = row.get(0);
-            
+
             SurveillanceGroup rowGroup = new SurveillanceGroup();
             rowGroup.setId(rowHeader.getContent().toString());
             rowGroup.setLabel(rowHeader.getContent().toString());
@@ -129,18 +129,18 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
             int columnIndex = 0;
             for (Cell cell : row.subList(1, row.size())) {
                 data.setCell(rowIndex, columnIndex, cell.getContent().toString(), cell.getStyleClass());
-                
+
                 columnIndex++;
             }
             rowIndex++;
         }
-        
+
         data.setComplete(true);
 
         return data;
     }
-    
-    
+
+
     /*
     private int m_count = 0;
     private Timer m_timer = new Timer();
@@ -151,32 +151,32 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         if (m_data == null) {
             final SurveillanceData data = new SurveillanceData();
             m_data = data;
-            
+
             SurveillanceGroup[] columnGroups = new SurveillanceGroup[] {
-                    new SurveillanceGroup("prod", "Production"), 
-                    new SurveillanceGroup("test", "Test"), 
+                    new SurveillanceGroup("prod", "Production"),
+                    new SurveillanceGroup("test", "Test"),
                     new SurveillanceGroup("dev", "Developement")
             };
-            
+
             SurveillanceGroup[] rowGroups = new SurveillanceGroup[] {
                     new SurveillanceGroup("ibm", "IBM"),
                     new SurveillanceGroup("hp", "HP"),
                     new SurveillanceGroup("duke", "Duke Hospital"),
                     new SurveillanceGroup("unc", "UNC Hospitals")
             };
-            
+
             data.setColumnGroups(columnGroups);
             data.setRowGroups(rowGroups);
-            
+
             m_timer.schedule(new TimerTask() {
 
                 @Override
                 public void run() {
-                    
+
                     data.setCell(m_count / data.getColumnCount(), m_count % data.getColumnCount(), ""+m_count);
-                    
+
                     m_count++;
-                    
+
                     if (m_count < data.getColumnCount()*data.getRowCount()) {
                         data.setComplete(false);
                     } else {
@@ -186,17 +186,17 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
                     }
 
                 }
-                
+
             }, 3000, 2000);
         } else if (m_data.isComplete()) {
             SurveillanceData data = m_data;
             m_data = null;
             return data;
         }
-        
+
         return m_data;
 
-        
+
     }
 
 */
@@ -210,18 +210,18 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         nodeCriteria.add(Restrictions.ne("type", "D"));
         criteria.addOrder(Order.desc("alarm.severity"));
         criteria.setMaxResults(100);
-        
+
         List<OnmsAlarm> alarms = m_alarmDao.findMatching(criteria);
 
         Alarm[] alarmArray = new Alarm[alarms.size()];
-        
+
         int index = 0;
         boolean isDashboardRole = isDashboardRole();
         for (OnmsAlarm alarm : alarms) {
             alarmArray[index] = new Alarm(alarm.getSeverity().getLabel(), alarm.getNode().getLabel(), alarm.getNode().getId(), isDashboardRole, alarm.getLogMsg(), alarm.getDescription(), alarm.getCounter(), new Date(alarm.getFirstEventTime().getTime()), new Date(alarm.getLastEventTime().getTime()));
             index++;
         }
-        
+
         return alarmArray;
     }
 
@@ -247,9 +247,9 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         addCriteriaForSurveillanceSet(criteria, set);
         criteria.add(Restrictions.ne("node.type", "D"));
         criteria.addOrder(Order.asc("node.label"));
-        
+
         List<OnmsNode> nodes = m_nodeDao.findMatching(criteria);
-        
+
         List<OnmsResource> resources = new ArrayList<OnmsResource>();
         for (OnmsNode node : nodes) {
             OnmsResource resource = m_resourceDao.getResourceForNode(node);
@@ -257,15 +257,15 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
                 resources.add(resource);
             }
         }
-        
+
         List<String[]> labels = new ArrayList<String[]>(resources.size());
         for (OnmsResource resource : resources) {
             labels.add(new String[] { resource.getId(), resource.getResourceType().getLabel() + ": " + resource.getLabel() });
         }
-        
+
         return labels.toArray(new String[labels.size()][]);
     }
-    
+
 
     private void addCriteriaForSurveillanceSet(OnmsCriteria criteria, SurveillanceSet set) {
         CriteriaAddingVisitor visitor = new CriteriaAddingVisitor(criteria);
@@ -279,13 +279,13 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     private View getView() {
         String user = getUsername();
         LOG.debug("Looking for surveillance view that matches user '{}'", user);
-        
+
         View userView = m_surveillanceViewConfigDao.getView(user);
         if (userView != null) {
             LOG.debug("Found surveillance view '{}' matching user name '{}'", userView.getName(), user);
             return userView;
         }
-        
+
         List<Group> groups = m_groupDao.findGroupsForUser(user);
         for (Group group : groups) {
             View groupView = m_surveillanceViewConfigDao.getView(group.getName());
@@ -294,14 +294,14 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
                 return groupView;
             }
         }
-        
+
         View defaultView = m_surveillanceViewConfigDao.getDefaultView();
         if (defaultView == null) {
             String message = "There is no default surveillance view and we could not find a surviellance view for the user's username ('" + user + "') or any of their groups";
             LOG.warn(message);
             throw new ObjectRetrievalFailureException(View.class, message);
         }
-        
+
         LOG.debug("Did not find a surveillance view matching the user's user name or one of their group names.  Using the default view for user '{}'", user);
         return defaultView;
     }
@@ -319,17 +319,17 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
          */
         SecurityContext context = SecurityContextHolder.getContext();
         Assert.state(context != null, "No security context found when calling SecurityContextHolder.getContext()");
-        
+
         org.springframework.security.core.Authentication auth = context.getAuthentication();
         Assert.state(auth != null, "No Authentication object found when calling getAuthentication on our SecurityContext object");
-        
+
         Object obj = auth.getPrincipal();
         Assert.state(obj != null, "No principal object found when calling getPrincipal on our Authentication object");
-        
-        
-        if (obj instanceof UserDetails) { 
-            return ((UserDetails)obj).getUsername(); 
-        } else { 
+
+
+        if (obj instanceof UserDetails) {
+            return ((UserDetails)obj).getUsername();
+        } else {
             throw new IllegalStateException("principal should always be instanceof UserDetails");
         }
     }
@@ -356,14 +356,14 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         if (parentResource == null) {
             return null;
         }
-        
+
         List<OnmsResource> resources = parentResource.getChildResources();
-        
+
         List<String[]> labels = new ArrayList<String[]>(resources.size());
         for (OnmsResource resource : resources) {
             labels.add(new String[] { resource.getId(), resource.getResourceType().getLabel() + ": " + resource.getLabel() });
         }
-        
+
         return labels.toArray(new String[labels.size()][]);
     }
 
@@ -374,9 +374,9 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         if (resource == null) {
             return null;
         }
-        
+
         PrefabGraph[] graphs = m_graphDao.getPrefabGraphsForResource(resource);
-        
+
         List<String[]> labels = new ArrayList<String[]>(graphs.length);
         for (PrefabGraph graph : graphs) {
             labels.add(new String[] { graph.getName(), graph.getName() });
@@ -384,38 +384,38 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
 
         return labels.toArray(new String[labels.size()][]);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Notification[] getNotificationsForSet(SurveillanceSet set) {
         List<Notification> notifications = new ArrayList<Notification>();
-        
+
         Date fifteenMinutesAgo = new Date(System.currentTimeMillis() - (15 * 60 * 1000));
         Date oneWeekAgo = new Date(System.currentTimeMillis() - (7 * 24 * 60 * 60 * 1000));
-        
+
         notifications.addAll(getNotificationsWithCriterion(set, "Critical", Restrictions.isNull("notification.respondTime"), Restrictions.le("notification.pageTime", fifteenMinutesAgo)));
         notifications.addAll(getNotificationsWithCriterion(set, "Minor", Restrictions.isNull("notification.respondTime"), Restrictions.gt("notification.pageTime", fifteenMinutesAgo)));
         notifications.addAll(getNotificationsWithCriterion(set, "Normal", Restrictions.isNotNull("notification.respondTime"), Restrictions.gt("notification.pageTime", oneWeekAgo)));
 
-        
+
         return notifications.toArray(new Notification[notifications.size()]);
     }
-    
+
     private List<Notification> getNotificationsWithCriterion(SurveillanceSet set, String severity, Criterion... criterions) {
         OnmsCriteria criteria = new OnmsCriteria(OnmsNotification.class, "notification");
-        
+
         OnmsCriteria nodeCriteria = criteria.createCriteria("node");
         addCriteriaForSurveillanceSet(nodeCriteria, set);
-        
+
         nodeCriteria.add(Restrictions.ne("type", "D"));
         for (Criterion criterion : criterions) {
             criteria.add(criterion);
         }
-        
+
         criteria.addOrder(Order.desc("notification.pageTime"));
-        
+
         List<OnmsNotification> notifications = m_notificationDao.findMatching(criteria);
-        
+
         return convertOnmsNotificationsToNotifications(notifications, severity);
     }
 
@@ -439,10 +439,10 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         notif.setServiceName(onmsNotif.getServiceType() == null ? "" : onmsNotif.getServiceType().getName());
         notif.setTextMessage(onmsNotif.getTextMsg() == null ? "" : onmsNotif.getTextMsg());
         notif.setSeverity(severity);
-        
+
         return notif;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public NodeRtc[] getRtcForSet(SurveillanceSet set) {
@@ -450,16 +450,16 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
         OnmsCriteria outageCriteria = m_rtcService.createOutageCriteria();
         addCriteriaForSurveillanceSet(serviceCriteria, set);
         addCriteriaForSurveillanceSet(outageCriteria, set);
-        
+
         RtcNodeModel model = m_rtcService.getNodeListForCriteria(serviceCriteria, outageCriteria);
-        
+
         NodeRtc[] nodeRtc = new NodeRtc[model.getNodeList().size()];
-        
+
         int index = 0;
         boolean isDashboardRole = isDashboardRole();
         for (RtcNode node : model.getNodeList()) {
             NodeRtc n = new NodeRtc();
-            
+
             n.setNodeLabel(node.getNode().getLabel());
             n.setNodeId(node.getNode().getNodeId());
             n.setIsDashboardRole(isDashboardRole);
@@ -470,17 +470,17 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
             } else {
                 n.setServiceStyle("Critical");
             }
-            
+
             n.setAvailability(node.getAvailabilityAsString());
             if (node.getAvailability() == 1.0) {
                 n.setAvailabilityStyle("Normal");
             } else {
                 n.setAvailabilityStyle("Critical");
             }
-            
+
             nodeRtc[index++] = n;
         }
-        
+
         return nodeRtc;
     }
 
@@ -512,7 +512,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>setNotificationDao</p>
      *
@@ -521,7 +521,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     public void setNotificationDao(NotificationDao notifDao) {
         m_notificationDao = notifDao;
     }
-    
+
     /**
      * <p>setResourceDao</p>
      *
@@ -611,7 +611,7 @@ public class DefaultSurveillanceService implements SurveillanceService, Initiali
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
-    
+
     /**
      * <p>getRtcService</p>
      *

@@ -57,7 +57,7 @@ import org.springframework.webflow.test.MockRequestContext;
 
 /**
  * Unit tests for DefaultSchedulerService
- * 
+ *
  * @author <a href="mailto:jonathand@opennms.org">Jonathan Sartin</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -65,23 +65,23 @@ import org.springframework.webflow.test.MockRequestContext;
         "classpath:org/opennms/web/svclayer/schedulerServiceTest.xml"
 })
 public class DefaultSchedulerServiceTest implements InitializingBean {
-    
-    @Autowired 
+
+    @Autowired
     private DefaultSchedulerService m_schedulerService;
-    
+
     @Autowired
     private SchedulerFactoryBean m_schedulerFactory;
-    
+
     @Autowired
     private ReportWrapperService m_reportWrapperService;
-    
+
     Scheduler m_scheduler;
-    
+
     private static ReportParameters m_criteria;
     private static String REPORT_ID = "test";
     private static String CRON_EXPRESSION = "0 * * * * ?";
     private static final String TRIGGER_GROUP = "reporting";
-    
+
     @BeforeClass
     public static void setUp() {
         MockLogAppender.setupLogging();
@@ -92,14 +92,14 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
     public void resetReportService() {
         reset(m_reportWrapperService);
         m_scheduler = (Scheduler) m_schedulerFactory.getScheduler();
-        
+
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Test
     public void testExecuteSuccess() throws InterruptedException {
         //
@@ -114,7 +114,7 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         Thread.sleep(1000);
         verify(m_reportWrapperService);
     }
-    
+
     @Test
     public void testExecuteFailure() throws InterruptedException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(false);
@@ -138,7 +138,7 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         assertEquals("error", m_schedulerService.addCronTrigger(REPORT_ID, m_criteria, deliveryOptions, "bad expression", context));
         verify(m_reportWrapperService);
     }
-    
+
     @Test
     public void testScheduleAndRemove() throws SchedulerException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);
@@ -154,7 +154,7 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         m_schedulerService.removeTrigger("testScheduleAndRemoveTrigger");
         assertEquals(0,m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
-    
+
     @Test
     public void testMultipleTriggers() throws SchedulerException {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true).times(2);
@@ -177,7 +177,7 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         m_schedulerService.removeTrigger("trigger2");
         assertEquals(0,m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
-    
+
     @Test
     public void testScheduleAndRun() throws SchedulerException, InterruptedException {
         DeliveryOptions deliveryOptions = new DeliveryOptions();
@@ -192,9 +192,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         m_schedulerService.removeTrigger("testScheduleAndRunTrigger");
         verify(m_reportWrapperService);
         m_schedulerService.removeTrigger("testScheduleAndRunTrigger");
-        assertEquals(0,m_scheduler.getTriggerNames(TRIGGER_GROUP).length);  
+        assertEquals(0,m_scheduler.getTriggerNames(TRIGGER_GROUP).length);
     }
-    
+
     @Test
     public void testExists() {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);
@@ -207,9 +207,9 @@ public class DefaultSchedulerServiceTest implements InitializingBean {
         assertTrue(m_schedulerService.exists("testExistsTrigger"));
         assertFalse(m_schedulerService.exists("bogusTrigger"));
         m_schedulerService.removeTrigger("testExistsTrigger");
-        
+
     }
-    
+
     @Test
     public void testGetTriggerDescriptions() {
         expect(m_reportWrapperService.validate(m_criteria, REPORT_ID)).andReturn(true);

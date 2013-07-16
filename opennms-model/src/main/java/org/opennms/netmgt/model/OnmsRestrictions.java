@@ -40,7 +40,7 @@ import org.hibernate.type.StringType;
  */
 public class OnmsRestrictions {
     private static final StringType STRING_TYPE = new StringType();
-    
+
     /**
      * Performs an iplike match on the ipAddr column of the current table.
      *

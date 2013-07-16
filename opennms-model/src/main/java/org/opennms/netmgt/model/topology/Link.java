@@ -6,16 +6,16 @@ package org.opennms.netmgt.model.topology;
  * such as an Ethernet connection or a virtual link between 2 end points
  * such as an IP address connection to a subnetwork.  Can also be used
  * represent a network service between to service end points.
- *  
+ *
  * @author antonio
  *
  */
 public abstract class Link {
 
 	private EndPoint m_a;
-	
+
 	private EndPoint m_b;
-	
+
 	public EndPoint getA() {
 		return m_a;
 	}

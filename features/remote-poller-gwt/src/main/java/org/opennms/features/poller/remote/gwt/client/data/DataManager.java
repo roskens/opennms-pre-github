@@ -46,7 +46,7 @@ public class DataManager implements MapRemoteEventHandler {
 
     private final Map<String, LocationInfo> m_locations = new HashMap<String, LocationInfo>();
     private final Map<String,ApplicationInfo> m_applications = new HashMap<String,ApplicationInfo>();
-    
+
     public Map<String, LocationInfo> getLocationsMap() {
         return m_locations;
     }
@@ -86,24 +86,24 @@ public class DataManager implements MapRemoteEventHandler {
 
     public List<String> getAllTags() {
         final List<String> retval = new ArrayList<String>();
-        
+
         for (final LocationInfo location : getLocationsMap().values()) {
             retval.addAll(location.getTags());
         }
         return retval;
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @param name TODO*/
     public ApplicationInfo getApplicationInfo(final String name) {
         if (name == null) {
             return null;
         }
-    
+
         return getApplicationsMap().get(name);
     }
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @param locationName TODO*/
     public LocationInfo getLocation(String locationName) {
         return getLocationsMap().get(locationName);
@@ -111,7 +111,7 @@ public class DataManager implements MapRemoteEventHandler {
 
     public GWTBounds getLocationBounds() {
         BoundsBuilder bldr = new BoundsBuilder();
-        
+
         for (final LocationInfo l : getLocationsMap().values()) {
             bldr.extend(l.getLatLng());
         }
@@ -124,7 +124,7 @@ public class DataManager implements MapRemoteEventHandler {
 
     public ArrayList<ApplicationInfo> getApplications() {
         ArrayList<ApplicationInfo> applicationList = new ArrayList<ApplicationInfo>();
-        
+
         applicationList.addAll(getApplicationsMap().values());
         Collections.sort(applicationList);
         return applicationList;
@@ -137,9 +137,9 @@ public class DataManager implements MapRemoteEventHandler {
 
     public List<LocationInfo> getMatchingLocations(LocationFilter filter) {
         final ArrayList<LocationInfo> locations = new ArrayList<LocationInfo>();
-        
+
         for (final LocationInfo location : getLocations()) {
-            
+
             if (filter.matches(location)) {
                 locations.add(location);
             }
@@ -158,7 +158,7 @@ public class DataManager implements MapRemoteEventHandler {
     @Override
     public void updateComplete() {
         // TODO Auto-generated method stub
-        
+
     }
 
     public int getLocationCount() {

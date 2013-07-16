@@ -39,11 +39,11 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private String m_title;
 
     private String[] m_columns;
-    
+
     private String m_command;
 
     private String[] m_externalValues;
-    
+
     private String[] m_propertiesValues;
 
     private int m_order;
@@ -55,7 +55,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     private Integer m_graphWidth;
 
     private Integer m_graphHeight;
-    
+
     private String[] m_suppress;
 
     /**
@@ -174,7 +174,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     public String[] getTypes() {
         return m_types;
     }
-    
+
     /**
      * <p>hasMatchingType</p>
      *
@@ -218,7 +218,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     public Integer getGraphHeight() {
         return m_graphHeight;
     }
-    
+
     /**
      * <p>getSuppress</p>
      *
@@ -227,7 +227,7 @@ public class PrefabGraph extends Object implements Comparable<PrefabGraph> {
     public String[] getSuppress() {
         return m_suppress;
     }
-    
+
     /**
      * <p>compareTo</p>
      *

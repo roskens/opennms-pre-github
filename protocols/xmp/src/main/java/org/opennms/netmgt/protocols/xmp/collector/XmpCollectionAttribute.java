@@ -66,8 +66,8 @@ import org.opennms.netmgt.config.collector.CollectionAttribute;
 import org.opennms.netmgt.config.collector.CollectionAttributeType;
 import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.collector.ServiceParameters;
-public class XmpCollectionAttribute extends AbstractCollectionAttribute 
-implements CollectionAttribute 
+public class XmpCollectionAttribute extends AbstractCollectionAttribute
+implements CollectionAttribute
 {
     /* class variables and methods *********************** */
 
@@ -87,9 +87,9 @@ implements CollectionAttribute
         this.resource = res;
     }
 
-    XmpCollectionAttribute(XmpCollectionResource res, 
-                           CollectionAttributeType attribType, 
-                           String alias, XmpVar aVar) 
+    XmpCollectionAttribute(XmpCollectionResource res,
+                           CollectionAttributeType attribType,
+                           String alias, XmpVar aVar)
                            {
         this(aVar,alias,res);
         this.attribType = attribType;
@@ -123,8 +123,8 @@ implements CollectionAttribute
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getName() 
-    { 
+    public String getName()
+    {
         return new String(alias);
     }
 
@@ -164,9 +164,9 @@ implements CollectionAttribute
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String toString() 
-    { 
-        return "XmpCollectionAttribute "+alias+"="+aVar.getValue()+" attribType="+attribType; 
+    public String toString()
+    {
+        return "XmpCollectionAttribute "+alias+"="+aVar.getValue()+" attribType="+attribType;
     }
 
     /**

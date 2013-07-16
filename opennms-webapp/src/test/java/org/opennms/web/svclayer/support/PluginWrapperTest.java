@@ -38,7 +38,7 @@ import org.opennms.netmgt.provision.support.PluginWrapper;
 
 
 public class PluginWrapperTest {
-    
+
     @Test
     public void testChoices() throws Exception {
         PluginWrapper wrapper = new PluginWrapper(MatchingSnmpInterfacePolicy.class);

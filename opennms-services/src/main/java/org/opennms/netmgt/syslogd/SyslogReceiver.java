@@ -52,7 +52,7 @@ import org.opennms.netmgt.config.syslogd.UeiList;
 
 /**
  * @deprecated This class should be combined with {@link SyslogHandler}
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  * @author <a href="http://www.oculan.com">Oculan Corporation</a>
  * @fiddler joed
@@ -82,7 +82,7 @@ class SyslogReceiver implements Runnable {
     private final int m_hostGroup;
 
     private final int m_messageGroup;
-    
+
     private final String m_discardUei;
 
     private final UeiList m_UeiList;
@@ -132,7 +132,7 @@ class SyslogReceiver implements Runnable {
     /*
      * stop the current receiver
      * @throws InterruptedException
-     * 
+     *
      */
     void stop() throws InterruptedException {
         m_stop = true;

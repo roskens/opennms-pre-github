@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultPollContext implements PollContext, EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollContext.class);
-    
+
     private volatile PollerConfig m_pollerConfig;
     private volatile QueryManager m_queryManager;
     private volatile EventIpcManager m_eventManager;
@@ -79,7 +79,7 @@ public class DefaultPollContext implements PollContext, EventListener {
     public EventIpcManager getEventManager() {
         return m_eventManager;
     }
-    
+
     /**
      * <p>setEventManager</p>
      *
@@ -88,7 +88,7 @@ public class DefaultPollContext implements PollContext, EventListener {
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;
     }
-    
+
     /**
      * <p>setLocalHostName</p>
      *
@@ -97,7 +97,7 @@ public class DefaultPollContext implements PollContext, EventListener {
     public void setLocalHostName(String localHostName) {
         m_localHostName = localHostName;
     }
-    
+
     /**
      * <p>getLocalHostName</p>
      *
@@ -227,7 +227,7 @@ public class DefaultPollContext implements PollContext, EventListener {
     @Override
     public Event createEvent(String uei, int nodeId, InetAddress address, String svcName, Date date, String reason) {
         LOG.debug("createEvent: uei = {} nodeid = {}", uei, nodeId);
-        
+
         EventBuilder bldr = new EventBuilder(uei, this.getName(), date);
         bldr.setNodeid(nodeId);
         if (address != null) {
@@ -237,22 +237,22 @@ public class DefaultPollContext implements PollContext, EventListener {
             bldr.setService(svcName);
         }
         bldr.setHost(this.getLocalHostName());
-        
+
         if (uei.equals(EventConstants.NODE_DOWN_EVENT_UEI)
                 && this.getPollerConfig().isPathOutageEnabled()) {
             String[] criticalPath = this.getQueryManager().getCriticalPath(nodeId);
-            
+
             if (criticalPath[0] != null && !criticalPath[0].equals("")) {
                 if (!this.testCriticalPath(criticalPath)) {
                     LOG.debug("Critical path test failed for node {}", nodeId);
-                    
+
                     // add eventReason, criticalPathIp, criticalPathService
                     // parms
-                    
+
                     bldr.addParam(EventConstants.PARM_LOSTSERVICE_REASON, EventConstants.PARM_VALUE_PATHOUTAGE);
                     bldr.addParam(EventConstants.PARM_CRITICAL_PATH_IP, criticalPath[0]);
                     bldr.addParam(EventConstants.PARM_CRITICAL_PATH_SVC, criticalPath[1]);
-                    
+
                 } else {
                     LOG.debug("Critical path test passed for node {}", nodeId);
                 }
@@ -260,21 +260,21 @@ public class DefaultPollContext implements PollContext, EventListener {
                 LOG.debug("No Critical path to test for node {}", nodeId);
             }
         }
-        
+
         else if (uei.equals(EventConstants.NODE_LOST_SERVICE_EVENT_UEI)) {
             bldr.addParam(EventConstants.PARM_LOSTSERVICE_REASON, (reason == null ? "Unknown" : reason));
         }
-        
+
         // For node level events (nodeUp/nodeDown) retrieve the
         // node's nodeLabel value and add it as a parm
         if (uei.equals(EventConstants.NODE_UP_EVENT_UEI)
                 || uei.equals(EventConstants.NODE_DOWN_EVENT_UEI)) {
-        
+
             String nodeLabel = this.getNodeLabel(nodeId);
             bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel);
-            
+
         }
-        
+
         return bldr.getEvent();
     }
 
@@ -305,7 +305,7 @@ public class DefaultPollContext implements PollContext, EventListener {
         else {
             r.run();
         }
-        
+
     }
 
     /* (non-Javadoc)
@@ -335,7 +335,7 @@ public class DefaultPollContext implements PollContext, EventListener {
             r.run();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
@@ -371,26 +371,26 @@ public class DefaultPollContext implements PollContext, EventListener {
                     pollEvent.complete(e);
                 }
             }
-            
+
             for (Iterator<PendingPollEvent> it = m_pendingPollEvents.iterator(); it.hasNext(); ) {
                 PendingPollEvent pollEvent = it.next();
                 LOG.debug("onEvent: determining if pollEvent is pending: {}", pollEvent);
                 if (pollEvent.isPending()) continue;
-                
+
                 LOG.debug("onEvent: processing pending pollEvent...: {}", pollEvent);
                 pollEvent.processPending();
                 it.remove();
                 LOG.debug("onEvent: processing of pollEvent completed.: {}", pollEvent);
             }
         }
-        
+
     }
 
     boolean testCriticalPath(String[] criticalPath) {
         // TODO: Generalize the service
         InetAddress addr = null;
         boolean result = true;
-    
+
         LOG.debug("Test critical path IP {}", criticalPath[0]);
         addr = InetAddressUtils.addr(criticalPath[0]);
         if (addr == null) {
@@ -420,7 +420,7 @@ public class DefaultPollContext implements PollContext, EventListener {
             // Log a warning
             LOG.warn("Failed to retrieve node label for nodeid {}", nodeId, sqlE);
         }
-    
+
         if (nodeLabel == null) {
             // This should never happen but if it does just
             // use nodeId for the nodeLabel so that the

@@ -112,7 +112,7 @@ public class GetInterfacesServlet extends HttpServlet {
      * <p>
      * Retrieve all the interfaces and services from the database, and keep them
      * in the user session.
-     * 
+     *
      * @param userSession
      *            Current user working session
      * @param nodeId

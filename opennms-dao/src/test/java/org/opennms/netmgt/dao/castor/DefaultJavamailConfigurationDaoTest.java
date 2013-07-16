@@ -48,7 +48,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Acknowledgment Daemon tests
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -90,5 +90,5 @@ public class DefaultJavamailConfigurationDaoTest implements InitializingBean {
         Assert.assertEquals("localhost", m_jmcDao.getEnd2EndConfig("default").getReadmailConfigName());
         Assert.assertEquals("localhost", m_jmcDao.getEnd2EndConfig("default").getSendmailConfigName());
     }
-    
+
 }

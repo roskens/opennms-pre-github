@@ -29,7 +29,7 @@
 package org.opennms.netmgt.provision.service.snmp;
 
 public abstract class SnmpTableEntry extends SnmpStore {
-    
+
     /**
      * <p>Constructor for SnmpTableEntry.</p>
      *

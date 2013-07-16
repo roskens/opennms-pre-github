@@ -39,7 +39,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
  * @version $Id: $
  */
 public class SnmpNodeScanner extends AbstractSnmpScanner {
-    
+
     /**
      * <p>Constructor for SnmpNodeScanner.</p>
      */

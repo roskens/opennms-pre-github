@@ -31,7 +31,7 @@ public class EdgeProviderMapImpl implements EdgeProvider {
 	private Edge getEdge(String id) {
 		return m_edges.get(id);
 	}
-	
+
 	@Override
 	public Edge getEdge(String namespace, String id) {
 		return getEdge(id);
@@ -63,7 +63,7 @@ public class EdgeProviderMapImpl implements EdgeProvider {
 	public String getEdgeNamespace() {
 		return "ncs";
 	}
-	
+
 	@Override
 	public boolean contributesTo(String namespace) {
 		return "nodes".equals(namespace);
@@ -87,7 +87,7 @@ public class EdgeProviderMapImpl implements EdgeProvider {
 
 	@Override
 	public void clearEdges() {
-		List<Edge> all = new ArrayList<Edge>(m_edges.size()); 
+		List<Edge> all = new ArrayList<Edge>(m_edges.size());
 		all.addAll(getEdges());
 		m_edges.clear();
 		fireEdgesRemoved(all);

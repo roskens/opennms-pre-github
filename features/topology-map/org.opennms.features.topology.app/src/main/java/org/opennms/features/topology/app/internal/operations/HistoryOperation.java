@@ -42,28 +42,28 @@ import com.vaadin.ui.VerticalLayout;
 import com.vaadin.ui.Window;
 
 public class HistoryOperation implements Operation {
-    
+
     private CommandManager m_commandManager;
 
     public HistoryOperation(CommandManager commandManager) {
         m_commandManager = commandManager;
     }
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets,
             OperationContext operationContext) {
         UI mainWindow = operationContext.getMainWindow();
         CommandManager commandManager = m_commandManager;
-        
+
         Window window = new Window();
         window.setModal(true);
-        
+
         VerticalLayout layout = new VerticalLayout();
         for(Command command : commandManager.getHistoryList()) {
             layout.addComponent(new Label(command.toString()));
         }
         window.setContent(layout);
-        
+
         mainWindow.addWindow(window);
         return null;
     }

@@ -346,7 +346,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     }
     /**
      * We have to ignore this test until there is a DNS service available in the test harness
-     * 
+     *
      * @throws ForeignSourceRepositoryException
      * @throws MalformedURLException
      */
@@ -1035,7 +1035,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     /**
      * This test first bulk imports 10 nodes then runs update with 1 node missing
      * from the import file.
-     * 
+     *
      * @throws ModelImportException
      */
     @Test(timeout=300000)
@@ -1045,7 +1045,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
         m_provisioner.importModelFromResource(new ClassPathResource("/utf-8.xml"), true);
 
         assertEquals(1, getNodeDao().countAll());
-        // \u00f1 is unicode for n~ 
+        // \u00f1 is unicode for n~
         final OnmsNode onmsNode = getNodeDao().get(nextNodeId);
         LOG.debug("node = {}", onmsNode);
         assertEquals("\u00f1ode2", onmsNode.getLabel());
@@ -1055,7 +1055,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     /**
      * This test first bulk imports 10 nodes then runs update with 1 node missing
      * from the import file.
-     * 
+     *
      * @throws ModelImportException
      */
     @Test(timeout=300000)
@@ -1309,7 +1309,7 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     /**
      * Test that the parent-foreign-source attribute in a requisition can add a parent to a
      * node that resides in a different provisioning group.
-     * 
+     *
      * @see http://issues.opennms.org/browse/NMS-4109
      */
     @Test(timeout=300000)
@@ -1328,13 +1328,13 @@ public class ProvisionerTest extends ProvisioningTestCase implements Initializin
     private static Event nodeDeleted(int nodeid) {
         EventBuilder bldr = new EventBuilder(EventConstants.NODE_DELETED_EVENT_UEI, "Test");
         bldr.setNodeid(nodeid);
-        return bldr.getEvent();        
+        return bldr.getEvent();
     }
 
     private static Event deleteNode(int nodeid) {
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_NODE_EVENT_UEI, "Test");
         bldr.setNodeid(nodeid);
-        return bldr.getEvent();        
+        return bldr.getEvent();
     }
 
     private static Event interfaceDeleted(int nodeid, String ipaddr) {

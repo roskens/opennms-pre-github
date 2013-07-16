@@ -69,7 +69,7 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsEvent extends OnmsEntity implements Serializable {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -7412025003474162992L;
 
@@ -120,7 +120,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
 
 	/** persistent field */
 	private Integer m_eventSeverity;
-	
+
 	/** nullable persistent field */
     private Integer m_ifIndex;
 
@@ -336,7 +336,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     @XmlAttribute(name="id")
     @Column(name="eventId", nullable=false)
     @SequenceGenerator(name="eventSequence", sequenceName="eventsNxtId")
-    @GeneratedValue(generator="eventSequence")    
+    @GeneratedValue(generator="eventSequence")
 	public Integer getId() {
 		return m_eventId;
 	}
@@ -674,7 +674,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
     public void setSeverityLabel(String label) {
         m_eventSeverity = OnmsSeverity.get(label).getId();
     }
-    
+
 
 	/**
 	 * <p>getEventPathOutage</p>
@@ -975,7 +975,7 @@ public class OnmsEvent extends OnmsEntity implements Serializable {
 	public void setEventAckUser(String eventackuser) {
 		m_eventAckUser = eventackuser;
 	}
-	
+
 	/**
 	 * <p>getEventAckTime</p>
 	 *

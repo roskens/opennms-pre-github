@@ -36,13 +36,13 @@ import org.opennms.jicmp.jna.NativeDatagramPacket;
 import org.opennms.jicmp.jna.NativeDatagramSocket;
 
 class V4PingRequest extends ICMPEchoPacket {
-    
+
     public V4PingRequest() {
         super(64);
         setType(Type.EchoRequest);
         setCode(0);
     }
-    
+
     public V4PingRequest(int id, int seqNum) {
         super(64);
         setType(Type.EchoRequest);

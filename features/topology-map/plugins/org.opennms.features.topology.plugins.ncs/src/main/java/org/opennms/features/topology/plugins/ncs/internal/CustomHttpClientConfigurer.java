@@ -15,9 +15,9 @@ import org.apache.commons.httpclient.UsernamePasswordCredentials;
 import org.apache.commons.httpclient.auth.AuthScope;
 
 public class CustomHttpClientConfigurer implements HttpClientConfigurer {
-    
+
     private static class DefaultTrustManager implements X509TrustManager {
-        
+
         @Override
         public void checkClientTrusted(X509Certificate[] arg0, String arg1) throws CertificateException {}
 
@@ -29,20 +29,20 @@ public class CustomHttpClientConfigurer implements HttpClientConfigurer {
                 return null;
         }
     }
-    
+
     private String m_username = "admin";
     private String m_password = "admin";
-    
+
     @Override
 	public void configureHttpClient(HttpClient client) {
         try {
-                      
+
             SSLContext ctx = SSLContext.getInstance("SSL");
             ctx.init(new KeyManager[0], new TrustManager[] { new DefaultTrustManager() }, new SecureRandom());
             SSLContext.setDefault(ctx);
 
             UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(getUsername(), getPassword());
-            
+
             client.getState().setCredentials(AuthScope.ANY, credentials);
             client.getParams().setAuthenticationPreemptive(true);
 

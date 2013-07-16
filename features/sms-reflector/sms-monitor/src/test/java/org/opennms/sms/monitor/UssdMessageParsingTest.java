@@ -48,39 +48,39 @@ public class UssdMessageParsingTest {
     public void testUssdSingleLine() {
         parseMessage("+CUSD: 2,\"a message\"\r", 2, "2", "a message", null);
     }
-    
+
     @Test
     public void testUssdSingleLineSpaceAfterStatus() {
         parseMessage("+CUSD: 2, \"a message\"\r", 2, "2", "a message", null);
     }
-    
+
     @Test
     public void testUssdSingleLineWithEncoding() {
         parseMessage("+CUSD: 2,\"a message with an encoding\",15\r", 2, "2", "a message with an encoding", "15");
     }
-    
+
     @Test
     public void testUssdSingleLineWithEncodingSpaceBeforeEncoding() {
         parseMessage("+CUSD: 2,\"a message with an encoding\", 15\r", 2, "2", "a message with an encoding", "15");
     }
-    
+
     @Test
     public void testOperationNotSupprted() {
         parseMessage("+CUSD: 4\r", 2, "4", null, null);
     }
-    
-    
+
+
     public void parseMessage(String msg, int expectedCount, String status, String content, String encoding) {
         //Pattern MSG_PATTERN = Pattern.compile("(?s)^\\+CUSD:\\s+(\\d),\"(.*)(\"(,(\\d+))?\r)?$");
         Pattern MSG_PATTERN = Pattern.compile("(?s)^\\+CUSD:\\s+(\\d)(?:,\\s*\"([^\"]*))?(?:\",\\s*(\\d+))?(?:\"\r|\r)$");
         int STATUS_INDEX = 1;
         int CONTENT_INDEX = 2;
         int ENCODING_INDEX = 3;
-        
+
         Matcher matcher = MSG_PATTERN.matcher(msg);
         assertTrue(matcher.matches());
         //assertEquals(expectedCount, matcher.groupCount());
-        
+
         assertEquals(status, group(matcher, STATUS_INDEX));
         assertEquals(content, group(matcher, CONTENT_INDEX));
         assertEquals(encoding, group(matcher, ENCODING_INDEX));
@@ -90,5 +90,5 @@ public class UssdMessageParsingTest {
     private String group(Matcher matcher, int index) {
         return matcher.groupCount() >= index ? matcher.group(index) : null;
     }
-    
+
 }

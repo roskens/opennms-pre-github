@@ -160,7 +160,7 @@ public class HttpMonitorTest {
     }
 
     /**
-     * This throws a java.net.NoRouteToHostException because the {@link InetAddressUtils#UNPINGABLE_ADDRESS} 
+     * This throws a java.net.NoRouteToHostException because the {@link InetAddressUtils#UNPINGABLE_ADDRESS}
      * address is in an unroutable test range. :-/  Dear reader, if you can find an address that works with
      * this test, then please replace {@link InetAddressUtils#UNPINGABLE_ADDRESS} inside {@link #callTestTimeout(boolean)}.
      */
@@ -176,11 +176,11 @@ public class HttpMonitorTest {
      * you can use it for testing, local communications, etc. so it is always routable.
      * Yay!
      * </p>
-     * 
+     *
      * <p>
      * This test was created to test the issue documented in NMS-5028.
-     * </p> 
-     * 
+     * </p>
+     *
      * {@see http://issues.opennms.org/browse/NMS-5028}
      */
     @Test
@@ -356,7 +356,7 @@ public class HttpMonitorTest {
         MockUtil.println("Reason: "+status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
         assertEquals("HTTP response value: 401. Expecting: 100-302./Ports: 10342", status.getReason());
-        
+
         m.put("basic-authentication", "admin:istrator");
 
         status = monitor.poll(svc, m);

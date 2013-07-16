@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The snmp information from the trap
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -145,7 +145,7 @@ public class Snmp implements Serializable {
      * Returns the value of field 'community'. The field
      * 'community' has the following description: The community
      * name
-     * 
+     *
      * @return the value of field 'Community'.
      */
     public java.lang.String getCommunity(
@@ -156,7 +156,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'generic'. The field 'generic'
      * has the following description: The generic trap number
-     * 
+     *
      * @return the value of field 'Generic'.
      */
     public Integer getGeneric(
@@ -167,7 +167,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'id'. The field 'id' has the
      * following description: The snmp enterprise id
-     * 
+     *
      * @return the value of field 'Id'.
      */
     public java.lang.String getId(
@@ -178,7 +178,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'idtext'. The field 'idtext' has
      * the following description: The snmp enterprise id text
-     * 
+     *
      * @return the value of field 'Idtext'.
      */
     public java.lang.String getIdtext(
@@ -189,7 +189,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'specific'. The field 'specific'
      * has the following description: The specific trap number
-     * 
+     *
      * @return the value of field 'Specific'.
      */
     public Integer getSpecific(
@@ -200,7 +200,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'timeStamp'. The field
      * 'timeStamp' has the following description: The time stamp
-     * 
+     *
      * @return the value of field 'TimeStamp'.
      */
     public Long getTimeStamp(
@@ -211,7 +211,7 @@ public class Snmp implements Serializable {
     /**
      * Returns the value of field 'version'. The field 'version'
      * has the following description: The snmp version
-     * 
+     *
      * @return the value of field 'Version'.
      */
     public java.lang.String getVersion(
@@ -221,7 +221,7 @@ public class Snmp implements Serializable {
 
     /**
      * Method hasGeneric.
-     * 
+     *
      * @return true if at least one Generic has been added
      */
     public boolean hasGeneric(
@@ -231,7 +231,7 @@ public class Snmp implements Serializable {
 
     /**
      * Method hasSpecific.
-     * 
+     *
      * @return true if at least one Specific has been added
      */
     public boolean hasSpecific(
@@ -241,7 +241,7 @@ public class Snmp implements Serializable {
 
     /**
      * Method hasTimeStamp.
-     * 
+     *
      * @return true if at least one TimeStamp has been added
      */
     public boolean hasTimeStamp(
@@ -252,7 +252,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'community'. The field 'community'
      * has the following description: The community name
-     * 
+     *
      * @param community the value of field 'community'.
      */
     public void setCommunity(
@@ -263,7 +263,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'generic'. The field 'generic' has
      * the following description: The generic trap number
-     * 
+     *
      * @param generic the value of field 'generic'.
      */
     public void setGeneric(
@@ -274,7 +274,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'id'. The field 'id' has the
      * following description: The snmp enterprise id
-     * 
+     *
      * @param id the value of field 'id'.
      */
     public void setId(
@@ -285,7 +285,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'idtext'. The field 'idtext' has the
      * following description: The snmp enterprise id text
-     * 
+     *
      * @param idtext the value of field 'idtext'.
      */
     public void setIdtext(
@@ -296,7 +296,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'specific'. The field 'specific' has
      * the following description: The specific trap number
-     * 
+     *
      * @param specific the value of field 'specific'.
      */
     public void setSpecific(
@@ -307,7 +307,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'timeStamp'. The field 'timeStamp'
      * has the following description: The time stamp
-     * 
+     *
      * @param timeStamp the value of field 'timeStamp'.
      */
     public void setTimeStamp(
@@ -318,7 +318,7 @@ public class Snmp implements Serializable {
     /**
      * Sets the value of field 'version'. The field 'version' has
      * the following description: The snmp version
-     * 
+     *
      * @param version the value of field 'version'.
      */
     public void setVersion(

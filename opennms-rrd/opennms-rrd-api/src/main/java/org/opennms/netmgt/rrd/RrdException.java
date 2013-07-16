@@ -35,7 +35,7 @@ package org.opennms.netmgt.rrd;
 public class RrdException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5251168945484451493L;
 

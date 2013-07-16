@@ -41,9 +41,9 @@ public class SimpleTransition extends D3Behavior {
         m_property = property;
         m_value = value;
     }
-    
+
     public SimpleTransition(String property, double d, int duration, int delay) {
-        
+
     }
 
     @Override

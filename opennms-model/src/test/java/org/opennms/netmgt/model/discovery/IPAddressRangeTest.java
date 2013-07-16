@@ -243,7 +243,7 @@ public class IPAddressRangeTest extends TestCase {
         );
         assertEquals("8000:0000:0000:0000:0000:0000:0000:0001", InetAddressUtils.toIpAddrString(InetAddressUtils.getLowestInetAddress(ips)));
 
-        // TODO: These tests produce strange results because it is unclear how this function should 
+        // TODO: These tests produce strange results because it is unclear how this function should
         // compare IPv6 addresses that include scope IDs
 
         ips = Arrays.asList(

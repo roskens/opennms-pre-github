@@ -121,7 +121,7 @@ public class EventConstantsTest {
         m_defaultTimeZone = TimeZone.getDefault();
         Locale.setDefault(m_testLocale);
         TimeZone.setDefault(m_testTimeZone);
-        
+
         // since formatters are thread-local, we need to reset them so they will re-initialize based on the current locale
         EventConstants.FORMATTER_FULL.remove();
         EventConstants.FORMATTER_LONG.remove();

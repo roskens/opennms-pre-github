@@ -7,9 +7,9 @@ import org.opennms.features.topology.api.support.AbstractHistoryManager;
 import org.opennms.features.topology.api.support.SavedHistory;
 
 public class MemoryHistoryManager extends AbstractHistoryManager {
-    
-    private Map<String, SavedHistory> m_historyMap = new HashMap<String, SavedHistory>(); 
-    
+
+    private Map<String, SavedHistory> m_historyMap = new HashMap<String, SavedHistory>();
+
     @Override
     protected void saveHistory(String userId, SavedHistory hist) {
         m_historyMap.put(hist.getFragment(), hist);

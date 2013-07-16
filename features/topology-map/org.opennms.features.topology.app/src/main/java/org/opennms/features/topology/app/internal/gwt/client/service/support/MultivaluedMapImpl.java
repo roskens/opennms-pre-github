@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.Set;
 
 public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implements MultivaluedMap<K, V> {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4898439337217431661L;
 
@@ -19,10 +19,10 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
      * @author brozow
      */
     public static class SynchronizedMultivaluedMap<Key, Value> implements MultivaluedMap<Key, Value> {
-        
+
         MultivaluedMap<Key, Value> m_data;
         Object m_lock;
-        
+
 
         public SynchronizedMultivaluedMap(MultivaluedMap<Key, Value> m) {
             m_data = m;
@@ -42,14 +42,14 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
                 return m_data.remove(key, value);
             }
         }
-        
+
         @Override
         public Set<Value> getCopy(Key key) {
             synchronized (m_lock) {
                 return m_data.getCopy(key);
             }
         }
-        
+
         @Override
         public void clear() {
             synchronized (m_lock) {
@@ -171,18 +171,18 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
     @Override
     public boolean remove(K key, V value) {
         if (!containsKey(key)) return false;
-        
+
         Set<V> valueList = get(key);
-        
+
         boolean found = valueList.remove(value);
-        
+
         if (valueList.isEmpty()) {
             remove(key);
         }
-        
+
         return found;
      }
-    
+
     /**
      * <p>getCopy</p>
      *
@@ -194,8 +194,8 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
         Set<V> values = get(key);
         return values == null ? null : new LinkedHashSet<V>(values);
     }
-    
-    
+
+
     /**
      * <p>synchronizedMultivaluedMap</p>
      *
@@ -208,7 +208,7 @@ public class MultivaluedMapImpl<K, V> extends LinkedHashMap<K, Set<V>>  implemen
 
         return new SynchronizedMultivaluedMap<Key, Value>(m);
     }
-    
+
     /**
      * <p>synchronizedMultivaluedMap</p>
      *

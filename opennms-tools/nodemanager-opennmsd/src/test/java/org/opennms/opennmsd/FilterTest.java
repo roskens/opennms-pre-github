@@ -31,26 +31,26 @@ package org.opennms.opennmsd;
 import junit.framework.TestCase;
 
 public class FilterTest extends TestCase {
-    
+
     Filter m_filter;
     NNMEvent m_event;
-    
+
     public void setUp() {
         m_filter = new Filter();
         m_event = MockNNMEvent.createEvent("Category", "Severity", "name", "1.1.1.1");
-        
+
     }
-    
+
     public void testMatchCategory() {
         m_filter.setCategoryMatcher("^.*Category$");
         assertFilterMatches();
     }
-    
+
     public void testMatchCategoryPartial() {
         m_filter.setCategoryMatcher("gor");
         assertFilterMatches();
     }
-    
+
     public void testMismatchCategory() {
         m_filter.setCategoryMatcher("nomatch");
         assertFilterDoesntMatch();
@@ -85,18 +85,18 @@ public class FilterTest extends TestCase {
         m_filter.setAddressMatchSpec("192.168.*.*");
         assertFilterDoesntMatch();
     }
-    
+
     public void testCategoryAndAddress() {
         m_filter.setCategoryMatcher("ategory");
         m_filter.setAddressMatchSpec("1.*.*.*");
-        
+
         assertFilterMatches();
     }
 
     public void testCategoryButNotAddress() {
         m_filter.setCategoryMatcher("ategory");
         m_filter.setAddressMatchSpec("192.*.*.*");
-        
+
         assertFilterDoesntMatch();
     }
 

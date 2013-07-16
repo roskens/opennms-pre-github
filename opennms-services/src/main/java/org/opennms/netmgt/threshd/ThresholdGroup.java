@@ -40,7 +40,7 @@ import java.util.Set;
  * @version $Id: $
  */
 public class ThresholdGroup {
-    
+
 	private String m_name;
 	private File m_rrdRepository;
 	private ThresholdResourceType m_nodeResourceType;
@@ -91,8 +91,8 @@ public class ThresholdGroup {
 	public String getName() {
 		return m_name;
 	}
-	
-	
+
+
 	/**
 	 * <p>setRrdRepository</p>
 	 *
@@ -118,7 +118,7 @@ public class ThresholdGroup {
 	 */
 	public void setNodeResourceType(ThresholdResourceType nodeResourceType) {
 		m_nodeResourceType = nodeResourceType;
-		
+
 	}
 
 	/**
@@ -150,7 +150,7 @@ public class ThresholdGroup {
 	public void setGenericResourceTypeMap(Map<String,ThresholdResourceType> genericResourceTypeMap) {
 	    m_genericResourceTypeMap = genericResourceTypeMap;
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -178,7 +178,7 @@ public class ThresholdGroup {
 	    String toString = buf.toString();
 	    return toString;
 	}
-	
+
 	/**
 	 * <p>delete</p>
 	 */
@@ -191,9 +191,9 @@ public class ThresholdGroup {
 
 	private void delete(ThresholdResourceType type) {
 	    Map<String,Set<ThresholdEntity>> entityMap = type.getThresholdMap();
-	    for (String key : entityMap.keySet()) 
+	    for (String key : entityMap.keySet())
 	        for (ThresholdEntity e : entityMap.get(key))
 	            e.delete();
 	}
-	
+
 }

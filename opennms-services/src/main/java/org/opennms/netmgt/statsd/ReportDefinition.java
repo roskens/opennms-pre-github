@@ -55,7 +55,7 @@ public class ReportDefinition implements InitializingBean {
     private String m_attributeMatch;
     private String m_resourceAttributeKey;
     private String m_resourceAttributeValueMatch;
-    
+
     /**
      * <p>getAttributeMatch</p>
      *
@@ -206,8 +206,8 @@ public class ReportDefinition implements InitializingBean {
     public String getResourceAttributeValueMatch() {
         return m_resourceAttributeKey;
     }
-    
-    
+
+
     /**
      * <p>getCronExpression</p>
      *
@@ -241,7 +241,7 @@ public class ReportDefinition implements InitializingBean {
         return getReport().getRetainInterval();
     }
 
-    
+
     /**
      * <p>createReport</p>
      *
@@ -255,7 +255,7 @@ public class ReportDefinition implements InitializingBean {
         Assert.notNull(resourceDao, "resourceDao argument must not be null");
         Assert.notNull(rrdDao, "rrdDao argument must not be null");
         Assert.notNull(filterDao, "filterDao argument must not be null");
-        
+
         AttributeStatisticVisitorWithResults visitor;
         try {
             visitor = getReportClass().newInstance();
@@ -271,21 +271,21 @@ public class ReportDefinition implements InitializingBean {
             thisReport.setRrdDao(rrdDao);
             thisReport.setFilterDao(filterDao);
             thisReport.setFilter(getReport().getPackage().getFilter());
-            
+
             report = thisReport;
         } else {
-            UnfilteredReportInstance thisReport = new UnfilteredReportInstance(visitor); 
+            UnfilteredReportInstance thisReport = new UnfilteredReportInstance(visitor);
             thisReport.setResourceDao(resourceDao);
             thisReport.setRrdDao(rrdDao);
-            
+
             report = thisReport;
         }
-        
+
         report.setReportDefinition(this);
-        
+
         report.setStartTime(getRelativeTime().getStart().getTime());
         report.setEndTime(getRelativeTime().getEnd().getTime());
-        
+
         report.setCount(getCount());
         report.setConsolidationFunction(getConsolidationFunction());
         report.setResourceTypeMatch(getResourceTypeMatch());
@@ -293,20 +293,20 @@ public class ReportDefinition implements InitializingBean {
 
         report.setResourceAttributeKey(m_resourceAttributeKey);
         report.setResourceAttributeValueMatch(m_resourceAttributeValueMatch);
-        
+
         if (report instanceof InitializingBean) {
             ((InitializingBean) report).afterPropertiesSet();
         }
-        
+
         return report;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
         return m_report.getDescription();
     }
-    
+
     /* (non-Javadoc)
      * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet()
      */

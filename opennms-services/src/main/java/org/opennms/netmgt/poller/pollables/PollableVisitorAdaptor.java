@@ -61,7 +61,7 @@ public class PollableVisitorAdaptor implements PollableVisitor {
     @Override
     public void visitNetwork(PollableNetwork network) {
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visitContainer(PollableContainer container) {

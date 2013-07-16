@@ -78,7 +78,7 @@ public class StatusTypeUserType implements UserType {
 
         if (! (x instanceof StatusType) || ! (y instanceof StatusType))
         	return false;
-        
+
     	return ((StatusType)x).getCharCode() == ((StatusType)y).getCharCode();
     }
 

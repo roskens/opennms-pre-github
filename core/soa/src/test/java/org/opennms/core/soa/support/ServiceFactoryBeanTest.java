@@ -51,33 +51,33 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration
 public class ServiceFactoryBeanTest {
-    
+
     @Autowired
     MyProvider m_provider;
-    
+
     @Autowired
     Registration m_registration;
-    
+
     @Autowired
     ServiceRegistry m_registry;
-    
+
     @Test
     @DirtiesContext
     public void testRegistration() {
-        
+
         assertNotNull(m_provider);
         assertNotNull(m_registration);
         assertNotNull(m_registry);
-        
+
         assertSame(m_provider, m_registration.getProvider(Hello.class));
         assertSame(m_provider, m_registration.getProvider(Goodbye.class));
-        
+
         assertEquals(1, m_registry.findProviders(Hello.class).size());
         assertEquals(1, m_registry.findProviders(Goodbye.class).size());
-        
+
         assertSame(m_provider, m_registry.findProvider(Hello.class));
         assertSame(m_provider, m_registry.findProvider(Goodbye.class));
-        
+
     }
 
 }

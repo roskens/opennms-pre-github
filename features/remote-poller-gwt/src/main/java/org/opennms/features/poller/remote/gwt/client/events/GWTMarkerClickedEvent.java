@@ -41,12 +41,12 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public final static Type<GWTMarkerClickedEventHandler> TYPE = new Type<GWTMarkerClickedEventHandler>();
-    
+
     private GWTMarkerState m_marker;
-    
+
     /**
      * <p>Constructor for GWTMarkerClickedEvent.</p>
      *
@@ -60,7 +60,7 @@ public class GWTMarkerClickedEvent extends GwtEvent<GWTMarkerClickedEventHandler
     @Override
     protected void dispatch(GWTMarkerClickedEventHandler handler) {
         handler.onGWTMarkerClicked(this);
-        
+
     }
 
     /** {@inheritDoc} */

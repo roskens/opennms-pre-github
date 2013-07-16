@@ -34,13 +34,13 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 import org.opennms.core.utils.InetAddressUtils;
 
 public class RouterInterface {
-	
+
     private int m_ifIndex;
     private final int m_nextHopNodeId;
     private final int m_nextHopIfIndex;
     private final InetAddress m_nextHopNetmask;
     private InetAddress m_nextHop;
-    
+
 
 	RouterInterface(final int nextHopNodeId, final int nextHopIfIndex, final InetAddress nextHopNetmask) {
 		m_nextHopNodeId = nextHopNodeId;
@@ -62,7 +62,7 @@ public class RouterInterface {
 	public int getIfindex() {
 		return m_ifIndex;
 	}
-		
+
 	/**
 	 * <p>getNetmask</p>
 	 *
@@ -95,7 +95,7 @@ public class RouterInterface {
 	public void setIfindex(final int ifindex) {
 		m_ifIndex = ifindex;
 	}
-	
+
 	public InetAddress getNextHop() {
 		return m_nextHop;
 	}
@@ -115,7 +115,7 @@ public class RouterInterface {
 	    .append("nextHopNetmask", m_nextHopNetmask)
 	    .toString();
 	}
-	
+
 	public void setNextHop(InetAddress nexthop) {
 		m_nextHop = nexthop;
 	}

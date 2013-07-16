@@ -41,11 +41,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean {
-    
+
     private ServiceRegistry m_serviceRegistry;
     private Class<T> m_serviceInterface;
     private String m_filter;
-    
+
     private T m_provider;
 
     /**
@@ -56,7 +56,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
-    
+
     /**
      * <p>setServiceInterface</p>
      *
@@ -65,7 +65,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
     public void setServiceInterface(Class<T> serviceInterface) {
         m_serviceInterface = serviceInterface;
     }
-    
+
     /**
      * <p>setServiceInterface</p>
      *
@@ -74,7 +74,7 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
     public void setFilter(String filter) {
         m_filter = filter;
     }
-    
+
     /**
      * <p>getObject</p>
      *
@@ -83,13 +83,13 @@ public class ReferenceFactoryBean<T> implements FactoryBean<T>, InitializingBean
      */
     @Override
     public T getObject() throws Exception {
-        
+
         if (m_provider == null) {
             m_provider = ProxyFactory.getProxy(m_serviceInterface, new ServiceRegistryTargetSource(m_serviceRegistry, m_filter, m_serviceInterface));
         }
         return m_provider;
     }
-    
+
     /**
      * <p>getObjectType</p>
      *

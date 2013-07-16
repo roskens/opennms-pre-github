@@ -45,7 +45,7 @@ import org.springframework.validation.Validator;
  * @since 1.8.1
  */
 public class DistributedStatusDetailsValidator implements Validator, InitializingBean {
-    
+
     private LocationMonitorDao m_locationMonitorDao;
     private ApplicationDao m_applicationDao;
 
@@ -59,10 +59,10 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
     @Override
     public void validate(Object obj, Errors errors) {
         DistributedStatusDetailsCommand cmd = (DistributedStatusDetailsCommand) obj;
-        
+
         if (cmd.getLocation() == null) {
             errors.rejectValue("location", "location.not-specified",
-                               new Object[] { "location" }, 
+                               new Object[] { "location" },
                                "Value required.");
         } else {
             OnmsMonitoringLocationDefinition locationDef =
@@ -73,10 +73,10 @@ public class DistributedStatusDetailsValidator implements Validator, Initializin
                 "Valid location definition required.");
             }
         }
-          
+
         if (cmd.getApplication() == null) {
             errors.rejectValue("application", "application.not-specified",
-                               new Object[] { "application" }, 
+                               new Object[] { "application" },
                                "Value required.");
         } else {
             OnmsApplication app =

@@ -43,14 +43,14 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public interface AckdConfigurationDao {
-    
+
     /**
      * <p>getConfig</p>
      *
      * @return a {@link org.opennms.netmgt.config.ackd.AckdConfiguration} object.
      */
     AckdConfiguration getConfig();
-    
+
     /**
      * Utility method for determining if a reply email should acknowledge an acknowledgable
      *
@@ -58,7 +58,7 @@ public interface AckdConfigurationDao {
      * @return Boolean
      */
     Boolean acknowledgmentMatch(List<String> messageText);
-    
+
     /**
      * Utility method for determining if a reply email should clear an acknowledgable
      *
@@ -66,7 +66,7 @@ public interface AckdConfigurationDao {
      * @return Boolean
      */
     Boolean clearMatch(List<String> messageText);
-    
+
     /**
      * Utility method for determining if a reply email should escalate an acknowledgable
      *
@@ -109,7 +109,7 @@ public interface AckdConfigurationDao {
      * @return a boolean.
      */
     boolean isReaderEnabled(String readerName);
-    
+
     /**
      * The underlying Castor based DAO abstraction in the default implementation doesn't provide access to the container so
      * this method is defined so that access to the container doesn't have to be exposed and a reload can still be controlled

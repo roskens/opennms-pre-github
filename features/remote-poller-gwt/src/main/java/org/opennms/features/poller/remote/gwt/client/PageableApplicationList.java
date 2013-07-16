@@ -129,14 +129,14 @@ public class PageableApplicationList extends PageableList implements Application
         }
     }
 
-    
+
     /**
      * <p>Constructor for PageableApplicationList.</p>
      */
     public PageableApplicationList() {
         super();
     }
-    
+
     /**
      * <p>getSelectedApplicationDetailsAsString</p>
      *
@@ -151,7 +151,7 @@ public class PageableApplicationList extends PageableList implements Application
             return null;
         }
     }
-    
+
     /**
      * <p>checkIfApplicationIsSelected</p>
      *
@@ -161,7 +161,7 @@ public class PageableApplicationList extends PageableList implements Application
     public boolean checkIfApplicationIsSelected(String name) {
         return findSelectedApplication(name) != null ? true : false;
     }
-    
+
     private ApplicationInfo findSelectedApplication(String name) {
         for(ApplicationInfo appInfo : m_selected) {
             if(appInfo.getName().equals(name)) {

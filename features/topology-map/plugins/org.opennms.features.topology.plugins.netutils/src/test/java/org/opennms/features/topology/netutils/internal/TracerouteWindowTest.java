@@ -89,54 +89,54 @@ public class TracerouteWindowTest {
 		app.addWindow(traceWindow2);
 		UI.setCurrent(app);
 	}
-	
+
 	@Test
 	public void testBuildURL_correctInput() {
 		traceWindow.numericalDataCheckBox.setValue(true);
 		traceWindow.forcedHopField.setValue("127.0.0.1");
 		assertNotNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testBuildURL_upperBounds() {
 		traceWindow.numericalDataCheckBox.setValue(true);
 		traceWindow.forcedHopField.setValue("256.256.256.256");
 		assertNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testBuildURL_lowerBounds() {
 		traceWindow.forcedHopField.setValue("-1.-1.-1.-1");
 		assertNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testBuildURL_nonIntegerInput() {
 		traceWindow.forcedHopField.setValue("abc.def.ghi.jkl");
 		assertNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testBuildURL_notIPAddress() {
 		traceWindow.forcedHopField.setValue("not an IP");
 		assertNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testBuildURL_negativeIntegers() {
 		traceWindow.forcedHopField.setValue("-255.-255.-255.-255");
 		assertNull(traceWindow.buildURL());
 	}
-	
+
 	@Test
 	public void testButtonClick() {
 		traceWindow.tracerouteButton.click();
-		
+
 		traceWindow.numericalDataCheckBox.setValue(true);
 		traceWindow.forcedHopField.setValue("127.0.0.1");
 		traceWindow.tracerouteButton.click();
 	}
-	
+
 	@Test
 	public void testAttach() {
 //		assertTrue(app.getChildWindows().contains(traceWindow));

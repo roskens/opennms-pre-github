@@ -52,9 +52,9 @@ public final class RapidCityVlanTableEntry extends Vlan {
 
 	private static String VLAN_INDEX_OID=".1.3.6.1.4.1.2272.1.3.2.1.1";
 	private static String VLAN_NAME_OID=".1.3.6.1.4.1.2272.1.3.2.1.2";
-	
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -101,5 +101,5 @@ public final class RapidCityVlanTableEntry extends Vlan {
 	public VlanType getVlanType() {
 		return VlanType.CISCO_VTP_ETHERNET;
 	}
-	
+
 }

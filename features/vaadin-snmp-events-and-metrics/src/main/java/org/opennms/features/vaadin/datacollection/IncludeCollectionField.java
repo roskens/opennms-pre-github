@@ -53,8 +53,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Include Collection Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class IncludeCollectionField extends CustomField<IncludeCollectionField.IncludeCollectionArrayList> {
@@ -83,7 +83,7 @@ public class IncludeCollectionField extends CustomField<IncludeCollectionField.I
 
     /**
      * Instantiates a new include collection field.
-     * 
+     *
      * @param dataCollectionConfigDao the data collection configuration DAO
      */
     public IncludeCollectionField(final DataCollectionConfigDao dataCollectionConfigDao) {

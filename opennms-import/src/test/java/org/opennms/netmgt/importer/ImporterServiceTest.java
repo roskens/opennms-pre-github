@@ -75,7 +75,7 @@ public class ImporterServiceTest implements InitializingBean {
     @Before
     public void onSetUpInTransactionIfEnabled() throws Exception {
         Properties logConfig = new Properties();
-        
+
         logConfig.put("log4j.logger.org.exolab.castor", "INFO");
         logConfig.put("log4j.logger.org.hibernate", "INFO");
         logConfig.put("log4j.logger.org.hibernate.SQL", "DEBUG");
@@ -87,7 +87,7 @@ public class ImporterServiceTest implements InitializingBean {
     @Test
     public void testSchedule() throws Exception {
         expectImportStarted();
-        
+
         m_daemon.start();
 
         // we wait a while here because the start up time could be long
@@ -97,7 +97,7 @@ public class ImporterServiceTest implements InitializingBean {
         expectImportSuccessful();
 
         m_daemon.destroy();
-        
+
         // this will end as soon as the event is received so no harm in waiting
         waitForImportSuccessful(300000);
     }
@@ -109,7 +109,7 @@ public class ImporterServiceTest implements InitializingBean {
     private void expectImportStarted() {
         anticipateEvent(createEvent(EventConstants.IMPORT_STARTED_UEI));
     }
-    
+
     private void waitForImportStarted(long timeout) {
         assertTrue("Failed to receive importStarted event after waiting "+timeout+" millis", m_eventIpcMgr.getEventAnticipator().waitForAnticipated(timeout).size() == 0);
     }

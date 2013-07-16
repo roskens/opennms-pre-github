@@ -72,7 +72,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Path("ksc")
 public class KscRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(KscRestService.class);
 
     @Autowired

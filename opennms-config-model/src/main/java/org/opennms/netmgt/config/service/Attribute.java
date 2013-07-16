@@ -44,7 +44,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Class Attribute.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "attribute")
@@ -89,7 +89,7 @@ public class Attribute implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -122,7 +122,7 @@ public class Attribute implements Serializable {
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public String getName() {
@@ -131,7 +131,7 @@ public class Attribute implements Serializable {
 
     /**
      * Returns the value of field 'value'.
-     * 
+     *
      * @return the value of field 'Value'.
      */
     public Value getValue() {
@@ -143,7 +143,7 @@ public class Attribute implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -161,7 +161,7 @@ public class Attribute implements Serializable {
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name
      *            the value of field 'name'.
      */
@@ -171,7 +171,7 @@ public class Attribute implements Serializable {
 
     /**
      * Sets the value of field 'value'.
-     * 
+     *
      * @param value
      *            the value of field 'value'.
      */

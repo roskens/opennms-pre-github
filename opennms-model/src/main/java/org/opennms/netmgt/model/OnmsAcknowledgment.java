@@ -58,14 +58,14 @@ import org.opennms.netmgt.xml.event.Parm;
  */
 public class OnmsAcknowledgment {
 
-    private Integer m_id; 
+    private Integer m_id;
     private Date m_ackTime;
     private String m_ackUser;
     private AckType m_ackType;
     private AckAction m_ackAction;
     private String m_log;
     private Integer m_refId;
-    
+
     //main constructor
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
@@ -79,14 +79,14 @@ public class OnmsAcknowledgment {
         m_ackType = AckType.UNSPECIFIED;
         m_ackAction = AckAction.ACKNOWLEDGE;  //probably should be the default, set as appropriate after instantiation
     }
-    
+
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
      */
     public OnmsAcknowledgment() {
         this(new Date(), "admin");
     }
-    
+
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
      *
@@ -95,7 +95,7 @@ public class OnmsAcknowledgment {
     public OnmsAcknowledgment(String user) {
         this(new Date(), user);
     }
-    
+
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
      *
@@ -114,18 +114,18 @@ public class OnmsAcknowledgment {
     public OnmsAcknowledgment(final Event e) throws ParseException {
         this(DateFormat.getDateInstance(DateFormat.FULL).parse(e.getTime()), "admin");
         Collection<Parm> parms = e.getParmCollection();
-        
+
         if (parms.size() <= 2) {
             throw new IllegalArgumentException("Event:"+e.getUei()+" has invalid paramenter list, requires ackType and refId.");
         }
-        
+
         for (Parm parm : parms) {
             final String parmValue = parm.getValue().getContent();
-            
+
             if (!"ackType".equals(parm.getParmName()) && !"refId".equals(parm.getParmName()) && !"user".equals(parm.getParmName()) ) {
                 throw new IllegalArgumentException("Event parm: "+parm.getParmName()+", is an invalid paramter");
             } else {
-            
+
                 if ("ackType".equals(parm.getParmName())) {
 
                     if ("ALARM".equalsIgnoreCase(parmValue) || "NOTIFICATION".equalsIgnoreCase(parmValue)) {
@@ -133,13 +133,13 @@ public class OnmsAcknowledgment {
                     } else {
                         throw new IllegalArgumentException("Event parm: "+parm.getParmName()+", has invalid value, requires: \"Alarm\" or \"Notification\"." );
                     }
-                    
+
                 } else if ("refId".equals(parm.getParmName())){
                     m_refId = Integer.valueOf(parm.getValue().getContent());
                 } else {
                     m_ackUser = parm.getValue().getContent();
                 }
-            }                
+            }
         }
     }
 
@@ -150,7 +150,7 @@ public class OnmsAcknowledgment {
      */
     public OnmsAcknowledgment(final Acknowledgeable a) {
         this(a, "admin", new Date());
-        
+
         //not sure this is a valid use case but doing it for now
         if (a.getType() == AckType.ALARM) {
             if (a.getAckUser() != null) {
@@ -158,10 +158,10 @@ public class OnmsAcknowledgment {
                 m_ackTime = a.getAckTime();
             }
         }
-        
-        
+
+
     }
-    
+
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
      *
@@ -171,7 +171,7 @@ public class OnmsAcknowledgment {
     public OnmsAcknowledgment(final Acknowledgeable a, String user) {
         this(a, user, new Date());
     }
-    
+
     /**
      * <p>Constructor for OnmsAcknowledgment.</p>
      *
@@ -184,14 +184,14 @@ public class OnmsAcknowledgment {
         if (a == null) {
             throw new IllegalArgumentException("Acknowledgable is null.");
         }
-        
+
         m_ackUser = user;
         m_ackTime = ackTime;
         m_ackType = a.getType();
         m_refId = a.getAckId();
     }
-    
-    
+
+
     /**
      * <p>getId</p>
      *
@@ -200,11 +200,11 @@ public class OnmsAcknowledgment {
     @Id
     @Column(nullable=false)
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -224,7 +224,7 @@ public class OnmsAcknowledgment {
     public Date getAckTime() {
         return m_ackTime;
     }
-    
+
     /**
      * <p>setAckTime</p>
      *
@@ -244,7 +244,7 @@ public class OnmsAcknowledgment {
     public String getAckUser() {
         return m_ackUser;
     }
-    
+
     /**
      * <p>setAckUser</p>
      *
@@ -310,7 +310,7 @@ public class OnmsAcknowledgment {
     public void setAckAction(AckAction ackAction) {
         m_ackAction = ackAction;
     }
-    
+
     /**
      * <p>getLog</p>
      *
@@ -320,7 +320,7 @@ public class OnmsAcknowledgment {
     public String getLog() {
         return m_log;
     }
-    
+
     /**
      * <p>setLog</p>
      *

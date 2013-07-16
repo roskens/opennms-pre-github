@@ -61,7 +61,7 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     @Override
     public void visit(OnmsAttribute attribute, double statistic) {
         Assert.notNull(attribute, "attribute argument must not be null");
-        
+
         m_results.add(new AttributeStatistic(attribute, statistic));
     }
 
@@ -99,15 +99,15 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
     @Override
     public SortedSet<AttributeStatistic> getResults() {
         SortedSet<AttributeStatistic> top = new TreeSet<AttributeStatistic>(new AttributeStatisticComparator());
-        
+
         for (AttributeStatistic stat : m_results) {
             top.add(stat);
-            
+
             if (top.size() >= m_count) {
                 break;
             }
         }
-        
+
         return top;
     }
 
@@ -136,21 +136,21 @@ public class BottomNAttributeStatisticVisitor implements AttributeStatisticVisit
         @Override
         public int compare(AttributeStatistic o1, AttributeStatistic o2) {
             int diff;
-            
-            diff = getComparator().compare(o1.getStatistic(), o2.getStatistic()); 
+
+            diff = getComparator().compare(o1.getStatistic(), o2.getStatistic());
             if (diff != 0) {
                 return diff;
             }
-            
+
             diff = o1.getAttribute().getResource().getId().compareToIgnoreCase(o2.getAttribute().getResource().getId());
             if (diff != 0) {
                 return diff;
             }
-            
+
             return Integer.valueOf(o1.getAttribute().hashCode()).compareTo(o2.getAttribute().hashCode());
         }
     }
-    
+
     public class DoubleComparator implements Comparator<Double> {
         /**
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)

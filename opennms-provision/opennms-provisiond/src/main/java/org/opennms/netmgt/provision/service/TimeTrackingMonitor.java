@@ -111,7 +111,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
         @Override
 	public void beginPersisting(ImportOperation oper) {
 		m_processingEffort.begin();
-		
+
 	}
 
 	/** {@inheritDoc} */
@@ -177,7 +177,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
 	public void finishAuditNodes() {
 		m_auditDuration.end();
 	}
-	
+
 	/**
 	 * <p>beginRelateNodes</p>
 	 */
@@ -193,7 +193,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
 	public void finishRelateNodes() {
 		m_relateDuration.end();
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -217,7 +217,7 @@ public class TimeTrackingMonitor implements ProvisionMonitor {
 		if (m_eventCount > 0) {
 			stats.append(", Avg ").append((double)m_eventEffort.getTotalTime()/(double)m_eventCount).append(" ms per event");
 		}
-		
+
 		return stats.toString();
 	}
 

@@ -44,15 +44,15 @@ public enum AckType {
     UNSPECIFIED(1, "Unspecified"),
     ALARM(2, "Alarm"),
     NOTIFICATION(3, "Notification");
-    
+
     /** Constant <code>m_idMap</code> */
-    private static final Map<Integer, AckType> m_idMap; 
+    private static final Map<Integer, AckType> m_idMap;
     private static final List<Integer> m_ids;
 
 
     private int m_id;
     private String m_label;
-    
+
     static {
         m_ids = new ArrayList<Integer>(values().length);
         m_idMap = new HashMap<Integer, AckType>(values().length);
@@ -67,11 +67,11 @@ public enum AckType {
         m_id = id;
         m_label = label;
     }
-    
+
     private Integer getId() {
         return m_id;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

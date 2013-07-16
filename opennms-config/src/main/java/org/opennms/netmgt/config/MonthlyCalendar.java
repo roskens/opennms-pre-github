@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.groups.Role;
  * @since 1.8.1
  */
 public class MonthlyCalendar extends AbstractWebCalendar {
-    
+
     private GregorianCalendar m_calendar;
     private Role m_role;
     private GroupManager m_groupManager;
@@ -63,7 +63,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
         m_calendar = new GregorianCalendar();
         m_calendar.setTime(date);
     }
-    
+
     /**
      * <p>getMonth</p>
      *
@@ -72,11 +72,11 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     public int getMonth() {
         return m_calendar.get(Calendar.MONTH);
     }
-    
+
     private int getYear() {
         return m_calendar.get(Calendar.YEAR);
     }
-    
+
     /**
      * <p>getMonthAndYear</p>
      *
@@ -86,11 +86,11 @@ public class MonthlyCalendar extends AbstractWebCalendar {
     public String getMonthAndYear() {
         return new SimpleDateFormat("MMMM yyyy").format(m_calendar.getTime());
     }
-    
+
     private boolean isFirstOfWeek(Calendar cal) {
         return (cal.get(Calendar.DAY_OF_WEEK) == cal.getFirstDayOfWeek());
     }
-    
+
     private Calendar getDateOfFirstWeek() {
         Calendar first = getFirstOfMonth();
         if (!isFirstOfWeek(first)) {
@@ -98,7 +98,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
             first.set(Calendar.DAY_OF_WEEK_IN_MONTH, 0);
         }
         return first;
-        
+
     }
 
     private Calendar getFirstOfMonth() {
@@ -118,7 +118,7 @@ public class MonthlyCalendar extends AbstractWebCalendar {
             weeks.add(new Week(weekBegin.getTime(), m_role, m_groupManager));
             weekBegin.add(Calendar.DAY_OF_YEAR, 7);
         } while (isThisMonth(weekBegin));
-        
+
         return weeks.toArray(new Week[weeks.size()]);
     }
 

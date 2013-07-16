@@ -66,13 +66,13 @@ import com.google.gwt.user.client.ui.Widget;
  * @since 1.8.1
  */
 public class LocationPanel extends Composite implements LocationPanelSelectEventHandler, TagResizeEventHandler, RequiresResize, ResizeHandler {
-    
+
 	interface Binder extends UiBinder<Widget, LocationPanel> { }
 
 	private static final Binder BINDER = GWT.create(Binder.class);
 	private transient HandlerManager m_eventBus;
 	private transient List<HandlerRegistration> eventRegistrations = new ArrayList<HandlerRegistration>();
-	
+
 	@UiField FlowPanel locationPanel;
 	@UiField PageableLocationList locationList;
 	@UiField PageableApplicationList applicationList;
@@ -80,7 +80,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
 	@UiField TagPanel tagPanel;
 	@UiField HTMLPanel filterOptionsPanel;
 	@UiField FlowPanel listsPanel;
-	
+
 	/**
 	 * <p>Constructor for LocationPanel.</p>
 	 */
@@ -91,7 +91,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
 
 		// Blank out the selected applications list
 		this.updateSelectedApplications(new TreeSet<ApplicationInfo>());
-		
+
 		Window.addResizeHandler(this);
 		listsPanel.getElement().setId("listsPanel");
 		locationList.getElement().setId("locationList");
@@ -110,7 +110,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
 	    }
 	    m_eventBus = eventBus;
 	    m_eventBus.addHandler(TagResizeEvent.TYPE, this);
-	    
+
 	    filterPanel.setEventBus(eventBus);
 	    tagPanel.setEventBus(eventBus);
 	    applicationList.setEventBus(eventBus);
@@ -122,7 +122,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
         @Override
     public void onLocationSelected(final LocationPanelSelectEvent event) {
         m_eventBus.fireEvent(event);
-      
+
     }
     /**
      * Switches view to Pageable Location List
@@ -132,7 +132,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
         setVisible(applicationList.getElement(), false);
         locationList.refreshLocationListResize();
     }
-    
+
     /**
      * Switches view to the Pageable Application List
      */
@@ -153,7 +153,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
         //Trigger the resize of the panel
         resizeDockPanel();
     }
-    
+
     /**
      * <p>updateApplicationNames</p>
      *
@@ -175,9 +175,9 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
             public int compare(ApplicationInfo o1, ApplicationInfo o2) {
                 return -1 * o1.compareTo(o2);
             }
-            
+
         });
-        
+
         applicationList.updateList(appList);
     }
 
@@ -192,7 +192,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
             public int compare(LocationInfo o1, LocationInfo o2) {
                 return -1 * o1.compareTo(o2);
             }
-            
+
         });
         locationList.updateList(visibleLocations);
         resizeDockPanel();
@@ -239,20 +239,20 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     public void resizeDockPanel() {
         int verticalSpacer = 3;
         Element element = listsPanel.getElement();
-        
+
         if(getUserAgent().contains("msie")) {
             int newHeight = 100;
-            
+
             if(locationPanel.getOffsetHeight() > 1) {
                 newHeight = locationPanel.getOffsetHeight() - (tagPanel.getOffsetHeight() + filterPanel.getOffsetHeight() + verticalSpacer);
             }
-            
+
             element.getStyle().setHeight(newHeight, Unit.PX);
         }else {
             int newTop = tagPanel.getOffsetHeight() + filterPanel.getOffsetHeight() + verticalSpacer;
             element.getStyle().setTop(newTop, Unit.PX);
         }
-        
+
     }
 
     /**
@@ -279,7 +279,7 @@ public class LocationPanel extends Composite implements LocationPanelSelectEvent
     public void onResize(ResizeEvent event) {
         resizeDockPanel();
     }
-    
+
     public static native String getUserAgent() /*-{
         return navigator.userAgent.toLowerCase();
     }-*/;

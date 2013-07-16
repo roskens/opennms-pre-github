@@ -49,19 +49,19 @@ import org.springframework.util.Assert;
 /**
  * The TrapQueueProcessor handles the conversion of V1 and V2 traps to events
  * and sending them out the JSDT channel that eventd is listening on
- * 
+ *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="mailto:sowmya@opennms.org">Sowmya Nataraj </A>
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  * @author <A HREF="mailto:mike@opennms.org">Mike Davidson </A>
  * @author <A HREF="mailto:tarus@opennms.org">Tarus Balog </A>
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
- *  
+ *
  */
 class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(TrapQueueProcessor.class);
-	
+
     /**
      * The name of the local host.
      */
@@ -87,12 +87,12 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
     /**
      * Process a V2 trap and convert it to an event for transmission.
-     * 
+     *
      * <p>
      * From RFC2089 ('Mapping SNMPv2 onto SNMPv1'), section 3.3 ('Processing an
      * outgoing SNMPv2 TRAP')
      * </p>
-     * 
+     *
      * <p>
      * <strong>2b </strong>
      * <p>
@@ -100,14 +100,14 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * field is set to zero and the generic trap field is set according to this
      * mapping:
      * <p>
-     * 
+     *
      * <pre>
-     * 
-     *  
-     *   
-     *    
-     *     
-     *      
+     *
+     *
+     *
+     *
+     *
+     *
      *            value of snmpTrapOID.0                generic-trap
      *            ===============================       ============
      *            1.3.6.1.6.3.1.1.5.1 (coldStart)                  0
@@ -116,20 +116,20 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      *            1.3.6.1.6.3.1.1.5.4 (linkUp)                     3
      *            1.3.6.1.6.3.1.1.5.5 (authenticationFailure)      4
      *            1.3.6.1.6.3.1.1.5.6 (egpNeighborLoss)            5
-     *       
-     *      
-     *     
-     *    
-     *   
-     *  
+     *
+     *
+     *
+     *
+     *
+     *
      * </pre>
-     * 
+     *
      * <p>
      * The enterprise field is set to the value of snmpTrapEnterprise.0 if this
      * varBind is present, otherwise it is set to the value snmpTraps as defined
      * in RFC1907 [4].
      * </p>
-     * 
+     *
      * <p>
      * <strong>2c. </strong>
      * </p>
@@ -138,7 +138,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * generic-trap field is set to 6 and the specific-trap field is set to the
      * last subid of the snmpTrapOID.0 value.
      * </p>
-     * 
+     *
      * <p>
      * If the next to last subid of snmpTrapOID.0 is zero, then the enterprise
      * field is set to snmpTrapOID.0 value and the last 2 subids are truncated
@@ -146,7 +146,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
      * then the enterprise field is set to snmpTrapOID.0 value and the last 1
      * subid is truncated from that value.
      * </p>
-     * 
+     *
      * <p>
      * In any event, the snmpTrapEnterprise.0 varBind (if present) is ignored in
      * this case.
@@ -205,7 +205,7 @@ class TrapQueueProcessor implements WaterfallCallable, InitializingBean {
 
     /**
      * Send a newSuspect event for the interface
-     * 
+     *
      * @param trapInterface
      *            The interface for which the newSuspect event is to be
      *            generated

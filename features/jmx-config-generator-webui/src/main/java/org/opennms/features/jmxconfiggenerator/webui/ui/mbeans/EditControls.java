@@ -51,7 +51,7 @@ import com.vaadin.ui.Table;
  * cancel, save. At the beginning only edit button is visible. After clicking
  * edit-Button, cancel and save are visible. Pressing save indicates a commit(),
  * cancel a discard() on the outer component (e.g. a table).
- * 
+ *
  * @param <T>
  *            any Component. It usually is the "outer" component, which needs a
  *            "EditControls" to toggle between readOnly and edit mode.
@@ -63,9 +63,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	/**
 	 * This callback is implemented by any instance which uses the EditControls,
 	 * so on a button click this callback is invoked.
-	 * 
+	 *
 	 * @author Markus von Rüden
-	 * 
+	 *
 	 * @param <T>
 	 *            The type of the component which uses the EditControl.
 	 */
@@ -76,7 +76,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	/**
 	 * Abstraction of how the outer component toggles between read and write
 	 * mode and vice versa.
-	 * 
+	 *
 	 * @param <T>
 	 *            Type of the outer component.
 	 * @author Markus von Rüden
@@ -100,7 +100,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 
 		/**
 		 * The outer component, which has the {@link EditControls} a component.
-		 * 
+		 *
 		 * @return The component which has the {@link EditControls} as a
 		 *         component.
 		 */
@@ -109,9 +109,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 
 	/**
 	 * The supported Button types.
-	 * 
+	 *
 	 * @author Markus von Rüden
-	 * 
+	 *
 	 */
 	public static enum ButtonType {
 		edit, cancel, save;
@@ -120,9 +120,9 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	/**
 	 * Simple implementation of a ButtonHandler for Components. It allows
 	 * setting the outer component.
-	 * 
+	 *
 	 * @author Markus von Rüden
-	 * 
+	 *
 	 * @param <T>
 	 *            Type of the outer component.
 	 */
@@ -147,7 +147,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	 * <li>form.setReadOnly(true)</li> -> read mode
 	 * <li>form.setReadOnly(false)</li> -> write mode
 	 * </ul>
-	 * 
+	 *
 	 * @author Markus von Rüden
 	 */
 	public static class FormButtonHandler<T extends AbstractField> extends AbstractButtonHandler<T> {
@@ -175,7 +175,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 		}
 
 		/**
-		 * 
+		 *
 		 * @param component
 		 *            the outer component, which toggles from read to write mode
 		 *            (or vice versa).
@@ -192,7 +192,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	 * An <code>EditHandler</codE> for a vaadin Table. Switching from read to
 	 * write mode is handled by setting the editable flag. Setting read only
 	 * flag does not change from non-editable to editable.
-	 * 
+	 *
 	 * @author Markus von Rüden
 	 */
 	public static class TableButtonHandler<T extends Table> extends FormButtonHandler<T> {
@@ -231,7 +231,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	private final Map<Button, List<Callback<?>>> hooks = new HashMap<Button, List<Callback<?>>>();
 	/**
 	 * Default edit handler. It encapsulates what happens on a button click.
-	 * 
+	 *
 	 * @see ButtonHandler
 	 * @see #FORM_BUTTON_HANDLER
 	 * @see #TABLE_EDITING
@@ -284,7 +284,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	 * true. It just means, that the outer component is in read only mode or in
 	 * editing mode. The handling of the editing and readOnly mode depends on
 	 * the outer component.
-	 * 
+	 *
 	 * @param readOnly
 	 *            if true => edit is visible, if false cancel and save are
 	 *            visible.
@@ -298,7 +298,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	/**
 	 * If any button is clicked, we toggle from read to write mode and vice
 	 * versa. In edition we execute any registerd hooks afterwards.
-	 * 
+	 *
 	 * @param event
 	 */
 	@Override
@@ -316,7 +316,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 	 * <br/>
 	 * <b>Be aware that <code>button</code> should be one of:</b> {@link #save},
 	 * {@link #edit}, {@link #cancel}.
-	 * 
+	 *
 	 * @param button
 	 *            {@link #save}, {@link #edit}, {@link #cancel}
 	 * @param listener
@@ -373,7 +373,7 @@ class EditControls<T extends Component> extends HorizontalLayout implements Read
 
 	/**
 	 * Sets a new <code>editHandler</code>.
-	 * 
+	 *
 	 * @param editHandler
 	 * @return
 	 * @see ButtonHandler

@@ -44,7 +44,7 @@ public class SnmpSelectListEntry implements EntryPoint {
 
     @Override
     public void onModuleLoad() {
-        
+
         if(Navigator.getUserAgent().contains("MSIE")) {
             NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
             for(int j = 0; j < divs.getLength(); j++) {
@@ -54,14 +54,14 @@ public class SnmpSelectListEntry implements EntryPoint {
                 }
             }
         }else {
-        
+
             NodeList<Element> nodes = RootPanel.getBodyElement().getElementsByTagName("opennms:snmpSelectList");
             if(nodes.getLength() > 0) {
                 for(int i = 0; i < nodes.getLength(); i++) {
                     Element elem = nodes.getItem(i);
                     createView(elem);
                 }
-                
+
             }
         }
     }
@@ -70,7 +70,7 @@ public class SnmpSelectListEntry implements EntryPoint {
         AppController appController = new AppController(new DefaultSnmpInterfaceRestService(getNodeId()));
         appController.go(RootPanel.get(elem.getId()));
     }
-    
+
     private int getNodeId() {
         if(Location.getParameter("node") != null) {
             return Integer.valueOf(Location.getParameter("node"));

@@ -56,7 +56,7 @@ import com.vaadin.ui.Notification.Type;
 /**
  * This class provides several helper methods for ui stuff, e.g. creating a
  * button. So the amount of code is reduced generally.
- * 
+ *
  * @author Markus von Rüden
  */
 public class UIHelper {
@@ -67,9 +67,9 @@ public class UIHelper {
 	 * Helper to create a layout (Horizontal, Vertical, Form, ...) with none, one or
 	 * multiple components and allow basic configuration of the layout using
 	 * fluent API.
-	 * 
+	 *
 	 * @author Markus von Rüden
-	 * 
+	 *
 	 */
 	public static class LayoutCreator {
 
@@ -169,7 +169,7 @@ public class UIHelper {
 	 * the method returns the last selected tab position. If the new view state
 	 * is not Edit the " <code>oldSelectedTabPosition</code>" is selected in the
 	 * given <code>tabSheet</code>.
-	 * 
+	 *
 	 * @param tabSheet
 	 *            the tabsheet to enable or disable all tabs in
 	 * @param event
@@ -218,7 +218,7 @@ public class UIHelper {
 	 * Loads the <code>resourceName</code> from the classpath using the given
 	 * <code>clazz</code>. If the resource couldn't be loaded an empty string is
 	 * returned.
-	 * 
+	 *
 	 * @param clazz
 	 *            The class to use for loading the resource.
 	 * @param resourceName
@@ -261,7 +261,7 @@ public class UIHelper {
 
 	/**
 	 * Shows a validation error to the user.
-	 * 
+	 *
 	 * @param errorMessage
 	 *            the error message.
 	 */

@@ -54,16 +54,16 @@ public final class XmlEncoder {
 	public static String encode(String str)
 	{
 		char[] specialChar = {'&', '<', '>', '"', '\''};
-		
+
 		int n = specialChar.length;
 		for (int i = 0; i < n; i++)
 		{
 			char a = specialChar[i];
 			String aa = Integer.toHexString((int)a);
-			String substitute = "&#x" + aa + ";"; 
+			String substitute = "&#x" + aa + ";";
 			str = str.replaceAll(String.valueOf(a), substitute);
 		}
-		
+
 		return str;
 	}
 }

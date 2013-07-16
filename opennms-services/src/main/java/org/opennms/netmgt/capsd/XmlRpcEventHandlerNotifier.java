@@ -50,8 +50,8 @@ import org.slf4j.LoggerFactory;
 
 @Aspect
 public class XmlRpcEventHandlerNotifier {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(XmlRpcEventHandlerNotifier.class);
 
     /**
@@ -59,19 +59,19 @@ public class XmlRpcEventHandlerNotifier {
      */
     @Pointcut("execution(* org.opennms.netmgt.capsd.BroadcastEventProcessor.*(..))")
     public void capsdMethod() {}
-    
+
     /**
      * <p>eventHandler</p>
      */
     @Pointcut("@annotation(org.opennms.netmgt.model.events.annotations.EventHandler)")
     public void eventHandler() {}
-    
+
     /**
      * <p>capsdEventHandler</p>
      */
     @Pointcut("capsdMethod() && eventHandler()")
     public void capsdEventHandler() {}
-    
+
     /**
      * <p>onEvent</p>
      *
@@ -84,29 +84,29 @@ public class XmlRpcEventHandlerNotifier {
         LOG.debug("onEvent({})", event);
 
         notifyEventReceived(event);
-        
+
         try {
             pjp.proceed();
-            
+
             notifyEventSuccess(event);
         } catch (InsufficientInformationException ex) {
             handleInsufficientInformationException(event, ex);
         } catch (FailedOperationException ex) {
             handleFailedOperationException(event, ex);
-        } 
+        }
     }
-    
+
     private Set<String> m_notifySet;
     private boolean m_xmlRpcEnabled;
-    
+
     /**
      * <p>Constructor for XmlRpcEventHandlerNotifier.</p>
      */
     public XmlRpcEventHandlerNotifier() {
         LOG.debug("initialized XML-RPC event handler notifier");
-    	
+
         m_notifySet = new HashSet<String>();
-        
+
         m_notifySet.add(EventConstants.ADD_NODE_EVENT_UEI);
         m_notifySet.add(EventConstants.DELETE_NODE_EVENT_UEI);
         m_notifySet.add(EventConstants.ADD_INTERFACE_EVENT_UEI);
@@ -116,7 +116,7 @@ public class XmlRpcEventHandlerNotifier {
         m_notifySet.add(EventConstants.UPDATE_SERVICE_EVENT_UEI);
 
     }
-    
+
     /**
      * <p>isXmlRpcEnabled</p>
      *
@@ -125,7 +125,7 @@ public class XmlRpcEventHandlerNotifier {
     public boolean isXmlRpcEnabled() {
         return m_xmlRpcEnabled;
     }
-    
+
     /**
      * <p>setXmlRpcEnabled</p>
      *
@@ -134,8 +134,8 @@ public class XmlRpcEventHandlerNotifier {
     public void setXmlRpcEnabled(boolean xmlRpcEnabled) {
         m_xmlRpcEnabled = xmlRpcEnabled;
     }
-    
-    
+
+
     private void handleFailedOperationException(Event event, FailedOperationException ex) {
         LOG.error("BroadcastEventProcessor: operation failed for event: {}, exception: {}", event.getUei(), ex.getMessage());
         notifyEventError(event, "processing failed: ", ex);
@@ -190,9 +190,9 @@ public class XmlRpcEventHandlerNotifier {
     }
 
 
-    
-    
-    
-    
+
+
+
+
 
 }

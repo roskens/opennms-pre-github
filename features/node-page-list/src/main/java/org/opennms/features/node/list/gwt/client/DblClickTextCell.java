@@ -46,6 +46,6 @@ public class DblClickTextCell extends AbstractSafeHtmlCell<String> {
         }
     }
 
-    
+
 
 }

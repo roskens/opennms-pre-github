@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 import edu.bucknell.net.JDHCP.DHCPMessage;
 
 final class Receiver implements Runnable, Fiber {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Receiver.class);
 
     private final static short DHCP_TARGET_PORT = 68;

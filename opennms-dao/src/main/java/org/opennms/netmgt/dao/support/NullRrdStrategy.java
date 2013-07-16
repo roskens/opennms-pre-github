@@ -42,7 +42,7 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
 import org.opennms.netmgt.rrd.RrdStrategy;
 
 public class NullRrdStrategy implements RrdStrategy<Object,Object> {
-	
+
 	// THIS IS USED FOR TESTS SO RrdUtils can be initialized
 	// but doesn't need to do anything
 
@@ -71,13 +71,13 @@ public class NullRrdStrategy implements RrdStrategy<Object,Object> {
             throws IOException, RrdException {
         return null;
     }
-    
+
     @Override
     public RrdGraphDetails createGraphReturnDetails(String command, File workDir)
             throws IOException, RrdException {
         return null;
     }
-    
+
     @Override
 	public Double fetchLastValue(String rrdFile, String ds, int interval)
 			throws NumberFormatException, RrdException {

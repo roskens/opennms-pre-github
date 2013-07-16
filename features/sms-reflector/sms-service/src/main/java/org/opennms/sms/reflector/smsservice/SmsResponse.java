@@ -37,9 +37,9 @@ import org.smslib.InboundMessage;
  * @version $Id: $
  */
 public class SmsResponse extends MobileMsgResponse {
-    
+
     private InboundMessage m_msg;
-    
+
     /**
      * <p>Constructor for SmsResponse.</p>
      *
@@ -77,9 +77,9 @@ public class SmsResponse extends MobileMsgResponse {
      */
     public InboundMessage getMessage() {
         return m_msg;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

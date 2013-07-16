@@ -46,18 +46,18 @@ import com.vaadin.event.Action;
 public class TestContextMenuBuilder {
 
 	TopoContextMenu m_cMenu;
-	
+
 	@Before
 	public void setUp() throws Exception {
 		m_cMenu = null;
 	}
-    
+
     @Test
     public void createContextMenuTest() {
         ContextMenuBuilder builder = new ContextMenuBuilder();
         builder.addMenuCommand(createEmpyCommand(), "Layout|Test");
-       
-        
+
+
         m_cMenu = builder.get();
         List<TopoContextMenuItem> contextMenuItems = m_cMenu.getItems();
         assertEquals(1, contextMenuItems.size());
@@ -77,13 +77,13 @@ public class TestContextMenuBuilder {
 			public void doCommand(List<VertexRef> targets,
 					OperationContext operationContext) {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
 			public void undoCommand() {
 				// TODO Auto-generated method stub
-				
+
 			}
 
 			@Override
@@ -141,7 +141,7 @@ public class TestContextMenuBuilder {
                         return null;
                     }};
 			}
-			
+
 		};
 	}
 

@@ -33,7 +33,7 @@ import org.opennms.protocols.xml.config.XmlDataCollectionConfig;
 
 /**
  * The Interface XmlDataCollectionConfigDao.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface XmlDataCollectionConfigDao {

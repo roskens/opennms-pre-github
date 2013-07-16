@@ -66,11 +66,11 @@ import org.w3c.dom.Document;
  * timestamp between files won't be taken in consideration.</p>
  * <p>The state will be persisted on disk by saving the name of the last successfully
  * processed file.</p>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppXmlCollectionHandler extends AbstractXmlCollectionHandler {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Sftp3gppXmlCollectionHandler.class);
 
 

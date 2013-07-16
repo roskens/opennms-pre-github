@@ -48,9 +48,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS.org </a>
  */
 public final class Actiond extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Actiond.class);
-    
+
     /**
      * The singleton instance.
      */
@@ -210,6 +210,6 @@ public final class Actiond extends AbstractServiceDaemon {
     public void setActiondConfig(ActiondConfigFactory actiondConfig) {
         m_actiondConfig = actiondConfig;
     }
-    
+
 
 }

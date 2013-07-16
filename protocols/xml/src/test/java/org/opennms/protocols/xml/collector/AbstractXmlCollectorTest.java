@@ -58,7 +58,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * The Abstract Class for Testing the XML Collector.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public abstract class AbstractXmlCollectorTest {
@@ -156,14 +156,14 @@ public abstract class AbstractXmlCollectorTest {
         ServiceParameters serviceParams = new ServiceParameters(new HashMap<String,Object>());
         BasePersister persister =  new GroupPersister(serviceParams, createRrdRepository((String)parameters.get("collection"))); // storeByGroup=true;
         collectionSet.visit(persister);
-        
+
         Assert.assertEquals(expectedFiles, FileUtils.listFiles(new File(TEST_SNMP_DIRECTORY), new String[] { "jrb" }, true).size());
     }
-    
+
     /**
      * Validates a JRB.
      * <p>It assumes storeByGroup=true</p>
-     * 
+     *
      * @param file the JRB file instance
      * @param dsnames the array of data source names
      * @param dsvalues the array of data source values

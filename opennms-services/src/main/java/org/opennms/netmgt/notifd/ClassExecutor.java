@@ -46,9 +46,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ClassExecutor implements ExecutorStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ClassExecutor.class);
-    
+
     /**
      * {@inheritDoc}
      *

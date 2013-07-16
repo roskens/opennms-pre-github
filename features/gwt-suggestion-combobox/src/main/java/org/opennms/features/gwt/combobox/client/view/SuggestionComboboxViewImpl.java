@@ -59,7 +59,7 @@ import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 public class SuggestionComboboxViewImpl extends Composite implements SuggestionComboboxView<NodeDetail> {
-    
+
     public class NodeDetailCell extends AbstractSafeHtmlCell<NodeDetail> {
 
         public NodeDetailCell() {
@@ -67,7 +67,7 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
 
                 @Override
                 public SafeHtml render(final NodeDetail nodeDetail) {
-                    
+
                     return new SafeHtml() {
 
                         private static final long serialVersionUID = 4989123499072122653L;
@@ -96,17 +96,17 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
 
     @UiTemplate("SuggestionComboboxView.ui.xml")
     interface SuggestionComboboxViewUiBinder extends UiBinder<Widget, SuggestionComboboxViewImpl> {}
-    
+
     @UiField
     LayoutPanel m_layoutPanel;
-    
+
     @UiField
     TextBox m_textBox;
-    
+
     @UiField
     Button m_goButton;
-    
-    
+
+
     CellList<NodeDetail> m_nodeList;
     SimplePager m_pager;
     ListDataProvider<NodeDetail> m_dataList;
@@ -115,7 +115,7 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
     private Presenter<NodeDetail> m_presenter;
 
     private SingleSelectionModel<NodeDetail> m_selectionModel;
-    
+
     public SuggestionComboboxViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
         m_layoutPanel.setSize("100%", "23px");
@@ -130,16 +130,16 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
                 }
             }
         });
-        
+
         m_selectionModel = new SingleSelectionModel<NodeDetail>();
         m_selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-            
+
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 m_presenter.onNodeSelected();
             }
         });
-        
+
         m_nodeList = new CellList<NodeDetail>(new NodeDetailCell());
         m_nodeList.setPageSize(10);
         m_nodeList.getElement().getStyle().setFontSize(12, Unit.PX);
@@ -147,12 +147,12 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
 
         m_dataList = new ListDataProvider<NodeDetail>();
         m_dataList.addDataDisplay(m_nodeList);
-        
+
         m_pager = new SimplePager();
         m_pager.setStyleName("onms-table-no-borders-margin");
         m_pager.getElement().getStyle().setWidth(100, Unit.PCT);
         m_pager.setDisplay(m_nodeList);
-        
+
         FlowPanel flowPanel = new FlowPanel();
         flowPanel.add(m_nodeList);
         flowPanel.add(m_pager);
@@ -165,7 +165,7 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
         m_popupPanel.getElement().getStyle().setBorderColor("#B5B8C8");
         m_popupPanel.getElement().getStyle().setPadding(1, Unit.PX);
     }
-    
+
     @Override
     public void setPresenter(Presenter<NodeDetail> presenter) {
         m_presenter = presenter;
@@ -174,9 +174,9 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
     @Override
     public void setData(List<NodeDetail> dataList) {
         m_dataList.setList(dataList);
-        
+
         m_popupPanel.setPopupPositionAndShow(new PositionCallback() {
-            
+
             @Override
             public void setPosition(int offsetWidth, int offsetHeight) {
                 m_popupPanel.setWidth((getOffsetWidth() - 5) + "px");
@@ -184,7 +184,7 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
             }
         });
     }
-    
+
     @UiHandler("m_goButton")
     void onGoButtonClickHandler(ClickEvent event) {
         if(m_presenter != null) {
@@ -201,5 +201,5 @@ public class SuggestionComboboxViewImpl extends Composite implements SuggestionC
     public NodeDetail getSelectedNode() {
         return m_selectionModel.getSelectedObject();
     }
-    
+
 }

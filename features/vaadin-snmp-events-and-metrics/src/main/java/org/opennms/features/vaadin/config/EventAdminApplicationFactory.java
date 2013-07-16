@@ -35,8 +35,8 @@ import com.vaadin.ui.UI;
 
 /**
  * The Class Event Administration Application Factory.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class EventAdminApplicationFactory extends AbstractApplicationFactory {
 

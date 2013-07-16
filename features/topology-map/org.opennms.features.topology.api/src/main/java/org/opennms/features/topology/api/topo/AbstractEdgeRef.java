@@ -55,5 +55,5 @@ public class AbstractEdgeRef extends AbstractRef implements EdgeRef {
 	}
 
 	@Override
-	public String toString() { return "EdgeRef:"+getNamespace()+":"+getId(); } 
+	public String toString() { return "EdgeRef:"+getNamespace()+":"+getId(); }
 }

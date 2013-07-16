@@ -43,7 +43,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
  * @version $Id: $
  */
 public class DefaultMicroblogConfigurationDao extends AbstractCastorConfigDao<MicroblogConfiguration, MicroblogConfiguration> implements MicroblogConfigurationDao {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultMicroblogConfigurationDao.class);
 
     /**
@@ -52,7 +52,7 @@ public class DefaultMicroblogConfigurationDao extends AbstractCastorConfigDao<Mi
     public DefaultMicroblogConfigurationDao() {
         super(MicroblogConfiguration.class, "Microblog Configuration");
     }
-    
+
     /**
      * <p>getConfig</p>
      *

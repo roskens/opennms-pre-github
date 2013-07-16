@@ -33,14 +33,14 @@ package org.opennms.protocols.snmp;
  * The SNMP handler used to receive responses from individual sessions. When a
  * response is received that matches a system object identifier request the
  * session is notified.
- * 
+ *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class SnmpResponseHandler implements SnmpHandler {
-    
+
     boolean m_error = true;
-    
+
     /**
      * The returned object identifier
      */
@@ -48,7 +48,7 @@ public final class SnmpResponseHandler implements SnmpHandler {
 
     /**
      * The method that handles a returned packet from the remote agent.
-     * 
+     *
      * @param sess
      *            The SNMP session that received the result.
      * @param command
@@ -71,7 +71,7 @@ public final class SnmpResponseHandler implements SnmpHandler {
 
     /**
      * This method is invoked when an internal error occurs on the SNMP session.
-     * 
+     *
      * @param sess
      *            The SNMP session that received the result.
      * @param err
@@ -89,7 +89,7 @@ public final class SnmpResponseHandler implements SnmpHandler {
     /**
      * This method is invoked when the session fails to receive a response to a
      * particular packet.
-     * 
+     *
      * @param sess
      *            The SNMP session that received the result.
      * @param pkt
@@ -101,7 +101,7 @@ public final class SnmpResponseHandler implements SnmpHandler {
             notifyAll();
         }
     }
-    
+
     public SnmpPduPacket getResponse() {
         return m_response;
     }
@@ -109,33 +109,33 @@ public final class SnmpResponseHandler implements SnmpHandler {
     /**
      * Returns the recovered SNMP system object identifier, if any. If one was
      * not returned then a null value is returned to the caller.
-     * 
+     *
      */
     public SnmpVarBind getFirstResponseVarBind() {
         return getResponseVarBind(0);
     }
-    
+
     public SnmpSyntax getFirstResponseValue() {
         return getResponseValue(0);
     }
-    
+
     public String getFirstResponseString() {
         return getResponseString(0);
     }
-    
+
     public SnmpSyntax getResponseValue(int index) {
         return getResponseVarBind(index).getValue();
     }
-    
+
     public String getResponseString(int index) {
         SnmpSyntax val = getResponseValue(index);
         return (val == null ? null : val.toString());
     }
-    
+
     public SnmpVarBind getResponseVarBind(int index) {
         return (getResponse() == null ? null : getResponse().getVarBindAt(index));
     }
-    
+
     public int getResponseVarBindCount() {
         return (getResponse() == null ? 0 : getResponse().getLength());
     }

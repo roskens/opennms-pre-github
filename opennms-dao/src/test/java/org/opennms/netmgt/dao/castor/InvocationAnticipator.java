@@ -67,7 +67,7 @@ public class InvocationAnticipator implements InvocationHandler {
 
         return m_handler.invoke(proxy, method, args);
     }
-    
+
     public void setInvocationHandler(InvocationHandler handler) {
         m_handler  = handler;
     }
@@ -78,7 +78,7 @@ public class InvocationAnticipator implements InvocationHandler {
         }
         return m_counts.get(methodName).intValue();
     }
-    
+
     public int getAnticipatedCount(String methodName) {
         if (m_anticipatedCounts.get(methodName) == null) {
             return 0;
@@ -89,7 +89,7 @@ public class InvocationAnticipator implements InvocationHandler {
     public void anticipateCalls(int count, String methodName) {
        m_anticipatedCounts.put(methodName, Integer.valueOf(count));
     }
-    
+
     public void verify() {
         ensureAnticipatedWereReceived();
         ensureNoUnanticipated();

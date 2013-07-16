@@ -196,9 +196,9 @@ public class JMXDataSource implements Cloneable {
         * @param collectionName a {@link java.lang.String} object.
         */
        public JMXDataSource(MibObject obj, String collectionName) {
-                
+
                 m_collectionName = collectionName;
-                
+
 
                 // Assign heartbeat using formula (2 * step) and hard code
                 // min & max values to "U" ("unknown").
@@ -281,7 +281,7 @@ public class JMXDataSource implements Cloneable {
     public String getName() {
         return m_name;
     }
-       
+
 
     /**
      * Class copy constructor. Constructs a new object that is an identical to
@@ -406,7 +406,7 @@ public class JMXDataSource implements Cloneable {
 
         return buffer.toString();
     }
-       
+
 	/**
 	 * <p>performUpdate</p>
 	 *
@@ -419,16 +419,16 @@ public class JMXDataSource implements Cloneable {
 		String owner,
 		File repository,
                 SnmpValue value) {
-        
+
             String val = getStorableValue(value);
-        
+
             String collectionName = m_collectionName;
 	        int step = DataCollectionConfigFactory.getInstance().getStep(collectionName);
 	        List<String> rraList = DataCollectionConfigFactory.getInstance().getRRAList(collectionName);
 		boolean result=false;
 		try {
 		        RrdUtils.createRRD(owner, repository.getAbsolutePath(), getName(), step, getType(), getHeartbeat(), getMin(), getMax(), rraList);
-	
+
 			RrdUtils.updateRRD(owner, repository.getAbsolutePath(), getName(), val);
 		} catch (RrdException e) {
 			result=true;

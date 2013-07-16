@@ -49,12 +49,12 @@ import org.opennms.core.utils.ConfigFileConstants;
  */
 public class DestinationPathFactory extends DestinationPathManager {
     /**
-     * 
+     *
      */
     private static DestinationPathFactory instance;
 
     /**
-     * 
+     *
      */
     @SuppressWarnings("unused")
     private static File m_notifConfFile;
@@ -65,12 +65,12 @@ public class DestinationPathFactory extends DestinationPathManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
     private static File m_pathsConfFile;
 
     /**
-     * 
+     *
      */
     private static long m_lastModified;
 

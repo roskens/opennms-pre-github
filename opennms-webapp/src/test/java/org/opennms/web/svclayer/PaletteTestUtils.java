@@ -73,7 +73,7 @@ public abstract class PaletteTestUtils extends Assert {
 			PaletteItem actualItem = iter.next();
 			assertPaletteItemEquals(expectedItem, actualItem);
 		}
-		
+
 		if (iter.hasNext()) {
 			fail("More actual items than expected, Found: "+iter.next());
 		}

@@ -64,7 +64,7 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
     public void setAlarmDao(AlarmDao alarmDao) {
         m_alarmDao = alarmDao;
     }
-    
+
     /**
      * <p>setEventProxy</p>
      *
@@ -73,7 +73,7 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
     public void setEventProxy(EventProxy eventProxy) {
         m_eventProxy = eventProxy;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void closeTicket(Integer alarmId) {
@@ -97,7 +97,7 @@ public class DefaultTroubleTicketProxy implements TroubleTicketProxy {
         OnmsAlarm alarm = m_alarmDao.get(alarmId);
         alarm.setTTicketState(newState);
         m_alarmDao.saveOrUpdate(alarm);
-        
+
         EventBuilder bldr = new EventBuilder(uei, "AlarmUI");
         bldr.setNode(alarm.getNode());
         bldr.setInterface(alarm.getIpAddr());

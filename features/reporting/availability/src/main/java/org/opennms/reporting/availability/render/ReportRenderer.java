@@ -47,7 +47,7 @@ public interface ReportRenderer {
      * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
      */
     void render() throws ReportRenderException;
-    
+
     /**
      * <p>render</p>
      *
@@ -57,7 +57,7 @@ public interface ReportRenderer {
      * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
      */
     void render(String inputFileName, String outputFileName, Resource xlstResource) throws ReportRenderException;
-    
+
     /**
      * <p>render</p>
      *
@@ -67,7 +67,7 @@ public interface ReportRenderer {
      * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
      */
     void render(String inputFileName, OutputStream outputStream, Resource xsltResource) throws ReportRenderException;
-    
+
     /**
      * <p>render</p>
      *
@@ -77,7 +77,7 @@ public interface ReportRenderer {
      * @throws org.opennms.reporting.availability.render.ReportRenderException if any.
      */
     void render(InputStream inputStream, OutputStream outputStream, Resource xsltResource) throws ReportRenderException;
-    
+
     /**
      * <p>render</p>
      *
@@ -94,14 +94,14 @@ public interface ReportRenderer {
      * @param outputFileName a {@link java.lang.String} object.
      */
     void setOutputFileName(String outputFileName);
-    
+
     /**
      * <p>getOutputFileName</p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getOutputFileName();
-    
+
     /**
      * <p>setInputFileName</p>
      *
@@ -115,14 +115,14 @@ public interface ReportRenderer {
      * @param xsltResource a {@link org.springframework.core.io.Resource} object.
      */
     void setXsltResource(Resource xsltResource);
-    
+
     /**
      * <p>setBaseDir</p>
      *
      * @param baseDir a {@link java.lang.String} object.
      */
     void setBaseDir(String baseDir);
-    
+
     /**
      * <p>getBaseDir</p>
      *

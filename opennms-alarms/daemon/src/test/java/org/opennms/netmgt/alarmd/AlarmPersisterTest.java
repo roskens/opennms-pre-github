@@ -43,7 +43,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * AlarmPersting tests
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -62,11 +62,11 @@ public class AlarmPersisterTest implements InitializingBean {
     @Autowired
     @SuppressWarnings("unused")
     private MockEventIpcManager m_mockEventIpcManager;
-    
+
     @Autowired
     @SuppressWarnings("unused")
     private AlarmDao m_alarmDao;
-    
+
     @Autowired
     @SuppressWarnings("unused")
     private EventDao m_eventDao;

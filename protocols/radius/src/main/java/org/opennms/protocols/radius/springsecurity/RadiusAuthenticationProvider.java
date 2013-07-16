@@ -70,7 +70,7 @@ import org.springframework.util.StringUtils;
  * @author Paul Donohue
  */
 public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RadiusAuthenticationProvider.class);
 
 
@@ -78,11 +78,11 @@ public class RadiusAuthenticationProvider extends AbstractUserDetailsAuthenticat
     private int port = 1812, timeout = 5, retries = 3;
 
     /**
-     * There is a bug in {@link net.jradius.client.auth.PAPAuthenticator#processRequest(RadiusPacket)} that prevents 
-     * instances of the class from being reused. Set the authenticator class to null to work 
+     * There is a bug in {@link net.jradius.client.auth.PAPAuthenticator#processRequest(RadiusPacket)} that prevents
+     * instances of the class from being reused. Set the authenticator class to null to work
      * around this problem (while still using the {@link net.jradius.client.auth.PAPAuthenticator}
      * class).
-     * 
+     *
      * @see net.jradius.client.RadiusClient#authenticate(AccessRequest, RadiusAuthenticator, int)
      */
     private RadiusAuthenticator authTypeClass = null;

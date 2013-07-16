@@ -56,7 +56,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
         streamFile("silence/1");
         sayIpAddr();
     }
-    
+
     /**
      * <p>authenticateUser</p>
      *
@@ -70,7 +70,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
         }
         String inputPin = null;
         int attempts = 0;
-        while (! String.valueOf(inputPin).equals(String.valueOf(actualPin)) && attempts < 3) { 
+        while (! String.valueOf(inputPin).equals(String.valueOf(actualPin)) && attempts < 3) {
             if (attempts > 0) {
                 streamFile("auth-incorrect");
             }
@@ -86,7 +86,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
             hangup();
         }
     }
-    
+
     /**
      * <p>sayNode</p>
      *
@@ -97,8 +97,8 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
         String nodeLabel = null;
         nodeID = getVariable(VAR_OPENNMS_NODEID);
         nodeLabel = getVariable(VAR_OPENNMS_NODELABEL);
-        
-        
+
+
         if (! "".equals(nodeLabel)) {
             LOG.debug("Reading node label to user: {}", nodeLabel);
             streamFileInterruptible("node");
@@ -116,7 +116,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
             LOG.debug("No node label or node ID available");
         }
     }
-    
+
     /**
      * <p>sayIpAddr</p>
      *
@@ -125,7 +125,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     public void sayIpAddr() throws AgiException {
         String ipAddr = null;
         ipAddr = getVariable(VAR_OPENNMS_INTERFACE);
-        
+
         if ((ipAddr != null) && (!"".equals(ipAddr))) {
             LOG.debug("Reading IP address to user: {}", ipAddr);
             streamFileInterruptible("letters/i");
@@ -134,7 +134,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
             sayIpAddressInterruptible(ipAddr);
         }
     }
-    
+
     /**
      * <p>sayServiceName</p>
      *
@@ -143,7 +143,7 @@ public class ReadNoticeDetailsAgiScript extends BaseOnmsAgiScript {
     public void sayServiceName() throws AgiException {
         String svcName = null;
         svcName = getVariable("OPENNMS_SERVICE");
-        
+
         if ((svcName != null) && (!"".equals(svcName))) {
             LOG.debug("Reading service name to user: {}", svcName);
             streamFileInterruptible("service");

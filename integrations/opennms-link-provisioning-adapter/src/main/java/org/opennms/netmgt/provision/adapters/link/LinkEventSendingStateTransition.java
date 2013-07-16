@@ -58,7 +58,7 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
         m_eventForwarder = eventForwarder;
         m_nodeLinkService = nodeLinkService;
     }
-    
+
     /**
      * <p>onLinkDown</p>
      */
@@ -70,8 +70,8 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
     private void sendDataLinkEvent(String uei) {
         String endPoint1 = m_dataLinkInterface.getNode().getLabel();
         String endPoint2 = m_nodeLinkService.getNodeLabel(m_dataLinkInterface.getNodeParentId());
-        
-        
+
+
         Event e = new EventBuilder(uei, "EventCorrelator")
             .addParam(EventConstants.PARM_ENDPOINT1, LinkProvisioningAdapter.min(endPoint1, endPoint2))
             .addParam(EventConstants.PARM_ENDPOINT2, LinkProvisioningAdapter.max(endPoint1, endPoint2))
@@ -94,6 +94,6 @@ public class LinkEventSendingStateTransition implements LinkStateTransition {
     public void onLinkUnknown() {
         sendDataLinkEvent(EventConstants.DATA_LINK_UNMANAGED_EVENT_UEI);
     }
-    
-    
+
+
 }

@@ -46,20 +46,20 @@ public class EventTableReaderTest {
     public void setUp() {
         MockLogAppender.setupLogging();
     }
-    
+
     @Test
     public void oneArgConstructor() throws IOException {
         @SuppressWarnings("unused")
         EventTableReader reader = new EventTableReader(new FileSystemResource("src/test/resources/sonus-traps/CsEvFormat/EventTables/ipUnityTrapSeverity"));
     }
-    
+
     @Test
     public void readIpUnityTrapSeverityTable() throws IOException {
         EventTableReader reader = new EventTableReader(new FileSystemResource("src/test/resources/sonus-traps/CsEvFormat/EventTables/ipUnityTrapSeverity"));
         EventTable et = reader.getEventTable();
-        
+
         Assert.assertEquals("There should exist 6 event-map entries in this EventTable file", 6, et.size());
-        
+
         Assert.assertEquals("clear(1)", "clear", et.get(1));
         Assert.assertEquals("informational(2)", "informational", et.get(2));
         Assert.assertEquals("warning(3)", "warning", et.get(3));

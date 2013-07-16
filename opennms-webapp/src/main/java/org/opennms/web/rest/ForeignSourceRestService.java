@@ -132,14 +132,14 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Path("foreignSources")
 public class ForeignSourceRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ForeignSourceRestService.class);
 
-    
+
     @Autowired
     @Qualifier("pending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
-    
+
     @Autowired
     @Qualifier("deployed")
     private ForeignSourceRepository m_deployedForeignSourceRepository;
@@ -218,7 +218,7 @@ public class ForeignSourceRestService extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON, MediaType.APPLICATION_ATOM_XML})
     public ForeignSourceCollection getForeignSources() throws ParseException {
         readLock();
-        
+
         try {
             final Set<ForeignSource> foreignSources = new TreeSet<ForeignSource>();
             for (final String fsName : getActiveForeignSourceNames()) {
@@ -229,7 +229,7 @@ public class ForeignSourceRestService extends OnmsRestService {
             readUnlock();
         }
     }
-    
+
     /**
      * returns a plaintext string being the number of pending foreign sources
      *
@@ -576,5 +576,5 @@ public class ForeignSourceRestService extends OnmsRestService {
         return fs;
     }
 
-    
+
 }

@@ -46,38 +46,38 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("ncs/ncs-type.htm")
 public class NCSTypeListController {
-    
+
     @Autowired
     NCSComponentRepository m_componentDao;
-    
+
     @RequestMapping(method=RequestMethod.GET)
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String type = request.getParameter("type");
         String foreignSource = request.getParameter("foreignSource");
         String foreignId = request.getParameter("foreignId");
-        
+
         NCSComponent component = null;
         String treeView = "<br/><p>No Components To View, Please check the type, foreign source and foreign id are correct</p>";
         if(!type.equals("null") && !foreignSource.equals("null") && !foreignId.equals("null")) {
             component = m_componentDao.findByTypeAndForeignIdentity(type, foreignSource, foreignId);
             treeView = "<ul class=\"TreeView\" id=\"TreeView\">\n" + getComponentHTML(component) + "</ul>";
         }
-        
-        
+
+
         ModelAndView modelAndView = new ModelAndView("ncs/ncs-type");
         modelAndView.addObject("treeView", treeView);
         return modelAndView;
     }
-    
+
     private String getComponentHTML(NCSComponent component) {
         StringBuffer buffer = new StringBuffer();
-        
+
         if(component != null) {
             Set<NCSComponent> subcomponents = component.getSubcomponents();
             if(subcomponents.size() > 0) {
                 buffer.append("<li class=\"Expanded\">");
                 buffer.append(component.getName());
-                
+
                 buffer.append("<ul>\n");
                 for(NCSComponent c : subcomponents) {
                     buffer.append(getComponentHTML(c));
@@ -87,13 +87,13 @@ public class NCSTypeListController {
                 buffer.append("<li>");
                 buffer.append(component.getName());
             }
-            
+
             buffer.append("</li>\n");
         }
         return buffer.toString();
-        
+
     }
-    
+
     //Used for testing the controller view
     private NCSComponent getTestComponent() {
         return new NCSBuilder("Service", "NA-Service", "123")

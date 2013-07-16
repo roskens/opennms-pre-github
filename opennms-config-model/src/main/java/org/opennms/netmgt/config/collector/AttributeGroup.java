@@ -44,11 +44,11 @@ import org.slf4j.LoggerFactory;
  */
 public class AttributeGroup {
     private static final Logger LOG = LoggerFactory.getLogger(AttributeGroup.class);
-    
+
     private CollectionResource m_resource;
     private AttributeGroupType m_groupType;
     private Set<CollectionAttribute> m_attributes = new HashSet<CollectionAttribute>();
-    
+
     /**
      * <p>Constructor for AttributeGroup.</p>
      *
@@ -68,7 +68,7 @@ public class AttributeGroup {
     public String getName() {
         return m_groupType.getName();
     }
-    
+
     /**
      * <p>getResource</p>
      *
@@ -77,7 +77,7 @@ public class AttributeGroup {
     public CollectionResource getResource() {
         return m_resource;
     }
-    
+
     /**
      * <p>getAttributes</p>
      *
@@ -86,7 +86,7 @@ public class AttributeGroup {
     public Collection<CollectionAttribute> getAttributes() {
         return m_attributes;
     }
-    
+
     /**
      * <p>addAttribute</p>
      *
@@ -104,14 +104,14 @@ public class AttributeGroup {
     public void visit(CollectionSetVisitor visitor) {
         LOG.debug("Visiting Group {}", this);
         visitor.visitGroup(this);
-        
+
         for(CollectionAttribute attr : getAttributes()) {
             attr.visit(visitor);
         }
-        
+
         visitor.completeGroup(this);
     }
-    
+
     /**
      * <p>shouldPersist</p>
      *
@@ -121,19 +121,19 @@ public class AttributeGroup {
     public boolean shouldPersist(ServiceParameters params) {
         boolean shouldPersist = doShouldPersist();
         LOG.debug("{}.shouldPersist = {}", this, shouldPersist);
-        return shouldPersist;   
- 
-        
+        return shouldPersist;
+
+
     }
 
     private boolean doShouldPersist() {
         if ("ignore".equals(getIfType())) return true;
         if ("all".equals(getIfType())) return true;
-        
+
         String type = String.valueOf(m_resource.getType());
-        
+
         if (type.equals(getIfType())) return true;
-        
+
         StringTokenizer tokenizer = new StringTokenizer(getIfType(), ",");
         while(tokenizer.hasMoreTokens()) {
             if (type.equals(tokenizer.nextToken()))
@@ -164,5 +164,5 @@ public class AttributeGroup {
     public String toString() {
         return m_groupType + " for " + m_resource.getInstance() + "@" + m_resource.getParent();
     }
-    
+
 }

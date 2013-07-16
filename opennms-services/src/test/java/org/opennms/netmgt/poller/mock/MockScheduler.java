@@ -39,7 +39,7 @@ import org.opennms.netmgt.scheduler.Scheduler;
 
 
 public class MockScheduler implements Scheduler {
-    
+
     private MockTimer m_timer;
     /*
      * TODO: Use it or loose it.
@@ -51,12 +51,12 @@ public class MockScheduler implements Scheduler {
     public MockScheduler() {
         this(new MockTimer());
     }
-    
+
     public MockScheduler(MockTimer timer) {
         m_timer = timer;
     }
 
-    
+
     @Override
     public void schedule(long interval, ReadyRunnable schedule) {
         Long nextTime = Long.valueOf(getCurrentTime()+interval);
@@ -66,18 +66,18 @@ public class MockScheduler implements Scheduler {
             entries = new LinkedList<ReadyRunnable>();
             m_scheduleEntries.put(nextTime, entries);
         }
-            
+
         entries.add(schedule);
     }
-    
+
     public int getEntryCount() {
         return m_scheduleEntries.size();
     }
-    
+
     public Map<Long, List<ReadyRunnable>> getEntries() {
         return m_scheduleEntries;
     }
-    
+
     public long getNextTime() {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
@@ -86,12 +86,12 @@ public class MockScheduler implements Scheduler {
         Long nextTime = m_scheduleEntries.firstKey();
         return nextTime.longValue();
     }
-    
+
     public long next() {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
         }
-        
+
         Long nextTime = m_scheduleEntries.firstKey();
         List<ReadyRunnable> entries = m_scheduleEntries.get(nextTime);
         Runnable runnable = entries.get(0);
@@ -103,17 +103,17 @@ public class MockScheduler implements Scheduler {
         runnable.run();
         return getCurrentTime();
     }
-    
+
     public long tick(int step) {
         if (m_scheduleEntries.isEmpty()) {
             throw new IllegalStateException("Nothing scheduled");
         }
-        
+
         long endTime = getCurrentTime()+step;
         while (getNextTime() <= endTime) {
             next();
         }
-        
+
         m_timer.setCurrentTime(endTime);
         return getCurrentTime();
     }
@@ -125,7 +125,7 @@ public class MockScheduler implements Scheduler {
 
     @Override
 	public void start() {
-		
+
 	}
 
     @Override
@@ -144,5 +144,5 @@ public class MockScheduler implements Scheduler {
 	public int getStatus() {
 		return 0;
 	}
-    
+
 }

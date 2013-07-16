@@ -44,7 +44,7 @@ public class NodeScanSchedule {
     private String m_foreignId;
     private Duration m_initialDelay;
     private Duration m_scanInterval;
-    
+
     /**
      * <p>Constructor for NodeScanSchedule.</p>
      *

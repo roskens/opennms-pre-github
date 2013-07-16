@@ -92,7 +92,7 @@ public final class IfXTableEntry extends SnmpStore {
     /** Constant <code>IF_COUNTER_DISCONTINUITY_TIME="ifCounterDiscontinuityTime"</code> */
     public final static String IF_COUNTER_DISCONTINUITY_TIME = "ifCounterDiscontinuityTime";
 
-    // 
+    //
     // Special case: Lookup string for ifIndex
     //
     // The interface extension table does not include an ifIndex
@@ -141,8 +141,8 @@ public final class IfXTableEntry extends SnmpStore {
      */
     public IfXTableEntry(final int ifIndex) {
         super(ms_elemList);
-        putIfIndex(ifIndex); 
-        
+        putIfIndex(ifIndex);
+
     }
 
     /**
@@ -153,7 +153,7 @@ public final class IfXTableEntry extends SnmpStore {
     public String getIfName() {
         return getDisplayString(IfXTableEntry.IF_NAME);
     }
-    
+
     /**
      * <p>getIfAlias</p>
      *
@@ -162,7 +162,7 @@ public final class IfXTableEntry extends SnmpStore {
     public String getIfAlias() {
         return getDisplayString(IfXTableEntry.IF_ALIAS);
     }
-    
+
     /**
      * <p>getIfHighSpeed</p>
      *

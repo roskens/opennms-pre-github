@@ -49,8 +49,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class System Definition Form.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 // TODO when a new group is added, the group list passed to SystemDefFieldFactory must be updated.
 @SuppressWarnings("serial")

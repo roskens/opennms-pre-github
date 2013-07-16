@@ -51,7 +51,7 @@ public class DetectorCollection implements List<PluginConfig> {
     public DetectorCollection() {
         m_list = new LinkedList<PluginConfig>();
     }
-    
+
     public DetectorCollection(Collection<? extends PluginConfig> collection) {
         m_list = new LinkedList<PluginConfig>(collection);
     }

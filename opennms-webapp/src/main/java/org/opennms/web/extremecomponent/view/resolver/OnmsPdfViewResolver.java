@@ -53,20 +53,20 @@ public class OnmsPdfViewResolver implements ViewResolver {
     @Override
     public void resolveView(ServletRequest request, ServletResponse response, Preferences preferences, Object viewData) throws Exception {
         InputStream is = new ByteArrayInputStream(((String) viewData).getBytes("UTF-8"));
-        
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
-        
+
         FopFactory fopFactory = FopFactory.newInstance();
         fopFactory.setStrictValidation(false);
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
         Fop fop = fopFactory.newFop(MimeConstants.MIME_PDF, foUserAgent, out);
-        
+
         TransformerFactory tfact = TransformerFactory.newInstance();
         Transformer transformer = tfact.newTransformer();
         Source src = new StreamSource(is);
         Result res = new SAXResult(fop.getDefaultHandler());
         transformer.transform(src, res);
-        
+
         byte[] contents = out.toByteArray();
         response.setContentLength(contents.length);
         response.getOutputStream().write(contents);

@@ -80,7 +80,7 @@ public class LinkPattern {
     public String getPattern() {
         return m_pattern;
     }
-    
+
     /**
      * <p>setPattern</p>
      *
@@ -102,7 +102,7 @@ public class LinkPattern {
     public String getTemplate() {
         return m_template;
     }
-    
+
     /**
      * <p>setTemplate</p>
      *
@@ -111,7 +111,7 @@ public class LinkPattern {
     public void setTemplate(final String template) {
         m_template = template;
     }
-    
+
     /**
      * <p>resolveTemplate</p>
      *

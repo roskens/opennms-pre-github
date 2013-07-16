@@ -46,12 +46,12 @@ public enum SnmpValueType {
     NO_SUCH_OBJECT(0x80, "NoSuchObject"),
     NO_SUCH_INSTANCE(0x81, "NoSuchInstance"),
     END_OF_MIB(0x82, "EndOfMib");
-    
+
     private static final Map<Integer, SnmpValueType> s_intMap = new HashMap<Integer, SnmpValueType>();
-    
+
     private int m_int;
     private String m_displayString;
-    
+
     static {
         for (SnmpValueType type : SnmpValueType.values()) {
             s_intMap.put(Integer.valueOf(type.getInt()), type);
@@ -62,15 +62,15 @@ public enum SnmpValueType {
         m_int = i;
         m_displayString = displayString;
     }
-    
+
     public int getInt() {
         return m_int;
     }
-    
+
     public String getDisplayString() {
         return m_displayString;
     }
-    
+
     public static SnmpValueType valueOf(int i) {
         return s_intMap.get(Integer.valueOf(i));
     }

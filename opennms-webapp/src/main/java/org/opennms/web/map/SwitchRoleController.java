@@ -56,13 +56,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class SwitchRoleController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SwitchRoleController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -89,7 +89,7 @@ public class SwitchRoleController extends MapsLoggingController {
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 		try {
-			
+
 			if(adminModeStr!=null ){
 				adminMode=Boolean.parseBoolean(adminModeStr);
 				LOG.info("Swithing to mode admin: {}", !adminMode);
@@ -103,7 +103,7 @@ public class SwitchRoleController extends MapsLoggingController {
 		} finally {
 			bw.close();
 		}
-		
+
 
 		return null;
 	}

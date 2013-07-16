@@ -41,7 +41,7 @@ import org.opennms.netmgt.model.alarm.AlarmSummary;
  * @version $Id: $
  */
 public class AlarmDaoHibernate extends AbstractDaoHibernate<OnmsAlarm, Integer> implements AlarmDao {
-	
+
 	/**
 	 * <p>Constructor for AlarmDaoHibernate.</p>
 	 */

@@ -38,7 +38,7 @@ import org.opennms.netmgt.model.OnmsCriteria;
 import org.opennms.netmgt.model.OnmsVlan;
 
 public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  implements VlanDao {
-    
+
     public VlanDaoHibernate() {
         super(OnmsVlan.class);
     }
@@ -48,7 +48,7 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
 		final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
-        
+
         for (final OnmsVlan vlan : findMatching(criteria)) {
         	vlan.setStatus(StatusType.DELETED);
         	saveOrUpdate(vlan);
@@ -62,7 +62,7 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-        
+
         for (final OnmsVlan item : findMatching(criteria)) {
             item.setStatus(StatusType.INACTIVE);
             saveOrUpdate(item);
@@ -76,7 +76,7 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
-        
+
         for (final OnmsVlan item : findMatching(criteria)) {
             delete(item);
         }
@@ -88,7 +88,7 @@ public class VlanDaoHibernate extends AbstractDaoHibernate<OnmsVlan, Integer>  i
         final OnmsCriteria criteria = new OnmsCriteria(OnmsVlan.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
-        
+
         for (final OnmsVlan item : findMatching(criteria)) {
             item.setStatus(action);
             saveOrUpdate(item);

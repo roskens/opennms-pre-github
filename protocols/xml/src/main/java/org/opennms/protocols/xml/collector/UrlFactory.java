@@ -43,7 +43,7 @@ import org.opennms.protocols.xml.config.Request;
 
 /**
  * A factory for creating URL objects.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class UrlFactory {

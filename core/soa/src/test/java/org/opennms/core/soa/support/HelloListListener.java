@@ -31,17 +31,17 @@ package org.opennms.core.soa.support;
 import java.util.Map;
 
 public class HelloListListener {
-    
+
     private int m_totalProviders;
-	
+
 	public void bind(Hello hello, Map<String, String> proeprties) throws Exception {
 	    m_totalProviders++;
 	}
-	
+
 	public void unbind(Hello hello, Map<String, String> properties) throws Exception {
 	    m_totalProviders--;
 	}
-	
+
 	public int getTotalProviders() {
 	    return m_totalProviders;
 	}

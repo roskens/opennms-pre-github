@@ -24,7 +24,7 @@ import org.slf4j.LoggerFactory;
  * Table strategy for polling access-points: 1) Walks the table at the
  * configured OID, uses the values as the AP MACs 2) If the AP MAC is in the
  * table, the AP is ONLINE.
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class TableStrategy implements AccessPointPoller {
@@ -36,7 +36,7 @@ public class TableStrategy implements AccessPointPoller {
     private AccessPointDao m_accessPointDao;
 
     public TableStrategy() {
- 
+
     }
 
     @Override

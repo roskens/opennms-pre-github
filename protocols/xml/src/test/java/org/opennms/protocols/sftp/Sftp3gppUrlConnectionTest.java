@@ -41,7 +41,7 @@ import org.opennms.protocols.xml.collector.UrlFactory;
 
 /**
  * The Class Sftp3gppUrlConnectionTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppUrlConnectionTest {
@@ -96,7 +96,7 @@ public class Sftp3gppUrlConnectionTest {
 
     /**
      * Test the string to timestamp conversion for 3GPP file names.
-     * 
+     *
      * @throws Exception the exception
      */
     @Test

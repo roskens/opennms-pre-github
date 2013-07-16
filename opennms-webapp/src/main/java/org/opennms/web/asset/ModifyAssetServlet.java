@@ -55,7 +55,7 @@ import org.opennms.web.servlet.MissingParameterException;
 public class ModifyAssetServlet extends HttpServlet {
     private static final long serialVersionUID = 1476437673416953289L;
     private static Set<String> s_allowHtmlFields;
-    
+
     protected AssetModel model;
 
     /**
@@ -68,7 +68,7 @@ public class ModifyAssetServlet extends HttpServlet {
         this.model = new AssetModel();
         initAllowHtmlFields();
     }
-    
+
     private void initAllowHtmlFields() {
         s_allowHtmlFields = new HashSet<String>();
         String allowHtmlFieldNames = System.getProperty("opennms.assets.allowHtmlFields");
@@ -77,7 +77,7 @@ public class ModifyAssetServlet extends HttpServlet {
         for (String fieldName : allowHtmlFieldNames.split("\\s*,\\s*")) {
             s_allowHtmlFields.add(fieldName.toLowerCase());
         }
-        
+
     }
 
     /** {@inheritDoc} */
@@ -129,7 +129,7 @@ public class ModifyAssetServlet extends HttpServlet {
         }
         return WebSecurityUtils.sanitizeString(request.getParameter(name), allowHTML);
     }
-    
+
     /**
      * <p>parms2Asset</p>
      *

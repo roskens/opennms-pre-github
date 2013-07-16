@@ -44,9 +44,9 @@ import org.exolab.castor.xml.ValidationException;
  */
 public interface SnmpInterfacePollerConfig {
 	/**
-	 * 
+	 *
 	 * @return the Default interval
-	 * 
+	 *
 	 */
 	public long getInterval();
     /**

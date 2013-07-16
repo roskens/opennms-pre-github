@@ -284,7 +284,7 @@ public class Event implements Serializable {
         if (index < 0 || index >= m_autoactions.size()) {
             throw new IndexOutOfBoundsException("getAutoaction: Index value '" + index + "' not in range [0.." + (m_autoactions.size() - 1) + "]");
         }
-        
+
         return m_autoactions.get(index);
     }
 
@@ -876,7 +876,7 @@ public class Event implements Serializable {
 		}
 		return true;
 	}
-	
+
 	private EventMatcher constructMatcher() {
 		if (m_mask == null || m_mask.getMaskelementCount() <= 0) {
 			return m_uei == null ? EventMatchers.falseMatcher() : EventMatchers.ueiMatcher(m_uei);
@@ -893,7 +893,7 @@ public class Event implements Serializable {
 	public void initialize() {
 		m_matcher = constructMatcher();
 	}
-	
+
 	public List<String> getMaskElementValues(String mename) {
 		return m_mask == null ? null : m_mask.getMaskElementValues(mename);
 	}

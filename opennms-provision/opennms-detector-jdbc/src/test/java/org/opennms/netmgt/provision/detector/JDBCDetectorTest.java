@@ -54,7 +54,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 @RunWith(OpenNMSJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {
-        "classpath:/META-INF/opennms/detectors.xml", 
+        "classpath:/META-INF/opennms/detectors.xml",
         "classpath:/META-INF/opennms/applicationContext-soa.xml",
         "classpath:/META-INF/opennms/applicationContext-dao.xml",
         "classpath*:/META-INF/opennms/component-dao.xml",
@@ -63,13 +63,13 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JDBCDetectorTest implements InitializingBean {
-    
+
     @Autowired
     public JdbcDetector m_detector;
-    
+
     @Autowired
     DataSource m_dataSource;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -87,44 +87,44 @@ public class JDBCDetectorTest implements InitializingBean {
             url = metaData.getURL();
             username = metaData.getUserName();
             conn.close();
-            
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        
+
+
         m_detector.setDbDriver("org.postgresql.Driver");
         m_detector.setPort(5432);
         m_detector.setUrl(url);
         m_detector.setUser(username);
         m_detector.setPassword("");
-        
-        
-        
+
+
+
     }
-    
+
 	@Test(timeout=90000)
 	public void testDetectorSuccess() throws UnknownHostException{
-		
+
 		m_detector.init();
-		
+
 		assertTrue("Service wasn't detected", m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
 	}
-	
+
 	@Test(timeout=90000)
     public void testDetectorFailWrongUser() throws UnknownHostException{
 	    m_detector.setUser("wrongUser");
         m_detector.init();
-        
+
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
-	
+
 	@Test(timeout=90000)
     public void testDetectorFailWrongUrl() throws UnknownHostException{
         m_detector.setUrl("jdbc:postgres://bogus:5432/blank");
         m_detector.init();
-        
+
         assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("127.0.0.1")));
     }
-	
+
 }

@@ -55,9 +55,9 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class PluginManager implements InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PluginManager.class);
-    
+
     private CapsdConfig m_capsdConfig;
 
     /**
@@ -92,15 +92,15 @@ public class PluginManager implements InitializingBean {
                     if (!(oplugin instanceof Plugin)) {
                         throw new ValidationException("CapsdConfigFactory: successfully loaded plugin class for protocol " + plugin.getProtocol() + ", class-name = " + plugin.getClassName() + ", however the class is not an instance of " + Plugin.class.getName());
                     }
-                    
+
                     Plugin p = (Plugin) oplugin;
-    
+
                     // map them
                     m_pluginsByClass.put(plugin.getClassName(), p);
                     m_pluginsByProtocol.put(plugin.getProtocol(), p);
                 }
             } catch (Throwable t) {
-                String message = "CapsdConfigFactory: failed to load plugin for protocol " + plugin.getProtocol() + ", class-name = " + plugin.getClassName() + ", exception = " + t; 
+                String message = "CapsdConfigFactory: failed to load plugin for protocol " + plugin.getProtocol() + ", class-name = " + plugin.getClassName() + ", exception = " + t;
                 LOG.error(message, t);
                 throw new ValidationException(message, t);
             }
@@ -124,14 +124,14 @@ public class PluginManager implements InitializingBean {
          * of type ProtocolInfo
          */
         List<CapsdProtocolInfo> lprotos = new ArrayList<CapsdProtocolInfo>(getCapsdConfig().getConfiguration().getProtocolPluginCount());
-    
+
         // go through all the defined plugins
         List<ProtocolPlugin> plugins = getCapsdConfig().getProtocolPlugins();
         Iterator<ProtocolPlugin> pluginIter = plugins.iterator();
         PLUGINLOOP: while (pluginIter.hasNext()) {
             ProtocolPlugin plugin = pluginIter.next();
             boolean found = false;
-    
+
             /*
              * Loop through the specific and ranges to find out
              * if there is a particular protocol specification
@@ -147,32 +147,32 @@ public class PluginManager implements InitializingBean {
                         found = true;
                     }
                 }
-    
+
                 // check the ranges
                 List<Range> ranges = getCapsdConfig().getRanges(pluginConf);
                 Iterator<Range> rangeIter = ranges.iterator();
                 while (rangeIter.hasNext() && !found) {
                     Range rng = rangeIter.next();
-    
+
                     InetAddress start = null;
                     start = InetAddressUtils.addr(rng.getBegin());
                     if (start == null) {
                         LOG.warn("CapsdConfigFactory: failed to convert address {} to InetAddress", rng.getBegin());
                         continue;
                     }
-    
+
                     InetAddress stop = null;
                     stop = InetAddressUtils.addr(rng.getEnd());
                     if (stop == null) {
                         LOG.warn("CapsdConfigFactory: failed to convert address {} to InetAddress", rng.getEnd());
                         continue;
                     }
-    
+
                     if (InetAddressUtils.isInetAddressInRange(address.getAddress(), start.getAddress(), stop.getAddress())) {
                         found = true;
                     }
                 }
-    
+
                 /*
                  * if it has not be found yet then it's not
                  * in this particular plugin conf, check the
@@ -181,8 +181,8 @@ public class PluginManager implements InitializingBean {
                 if (!found) {
                     continue;
                 }
-    
-                /* 
+
+                /*
                  * if found then build protocol
                  * specification if on, else next protocol.
                  */
@@ -199,18 +199,18 @@ public class PluginManager implements InitializingBean {
                         continue PLUGINLOOP;
                     }
                 }
-    
+
                 // it's either on specifically, or by default
                 // so map it parameters
                 Map<String, Object> params = new TreeMap<String, Object>();
-    
+
                 // add the plugin defaults first, then specifics
                 addProperties(getCapsdConfig().getPluginProperties(plugin), params);
                 addProperties(getCapsdConfig().getProtocolConfigurationProperties(pluginConf), params);
-    
+
                 lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()), params, Action.SCAN));
             } // end ProtocolConfiguration loop
-    
+
             // use default config if not found
             if (!found) {
                 // if found then build protocol
@@ -218,24 +218,24 @@ public class PluginManager implements InitializingBean {
                 if ("off".equals(plugin.getScan())) {
                     continue PLUGINLOOP;
                 }
-    
+
                 // it's either on specifically, or by default
                 // so map it parameters
                 Map<String, Object> params = new TreeMap<String, Object>();
                 addProperties(getCapsdConfig().getPluginProperties(plugin), params);
-    
+
                 lprotos.add(new CapsdProtocolInfo(plugin.getProtocol(), m_pluginsByProtocol.get(plugin.getProtocol()), params, Action.SCAN));
             }
-    
+
         } // end ProtocolPlugin
-    
+
         /*
          * copy the protocol information to
          * the approriate array and return that
          * result
          */
         CapsdProtocolInfo[] result = new CapsdProtocolInfo[lprotos.size()];
-    
+
         return lprotos.toArray(result);
     }
 
@@ -262,7 +262,7 @@ public class PluginManager implements InitializingBean {
     public void setCapsdConfig(CapsdConfig capsdConfig) {
         m_capsdConfig = capsdConfig;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -271,7 +271,7 @@ public class PluginManager implements InitializingBean {
     @Override
     public void afterPropertiesSet() throws ValidationException {
         Assert.state(m_capsdConfig != null, "property capsdConfig must be set to a non-null value");
-        
+
         instantiatePlugins();
     }
 

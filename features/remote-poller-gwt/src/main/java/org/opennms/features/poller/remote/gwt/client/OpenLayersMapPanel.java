@@ -82,9 +82,9 @@ import com.google.gwt.user.client.ui.Widget;
 public class OpenLayersMapPanel extends Composite implements MapPanel {
 
     private class DefaultMarkerClickHandler implements MarkerBrowserEventListener {
-        
+
         private GWTMarkerState m_markerState;
-        
+
         public DefaultMarkerClickHandler(GWTMarkerState markerState) {
             setMarkerState(markerState);
         }
@@ -106,7 +106,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
 
     interface OpenLayersMapPanelUiBinder extends UiBinder<Widget, OpenLayersMapPanel> {}
     private static OpenLayersMapPanelUiBinder uiBinder = GWT.create(OpenLayersMapPanelUiBinder.class);
-    
+
     @UiField
     SimplePanel m_mapHolder;
 
@@ -120,7 +120,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
     private static final Projection PROJECTION_SPHERICAL_MERCATOR = new Projection("EPSG:900913");
 
     private static final Projection PROJECTION_LAT_LON = new Projection("EPSG:4326");
-    
+
     /**
      * <p>Constructor for OpenLayersMapPanel.</p>
      *
@@ -137,7 +137,7 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
             public void onMapMove(final MapMoveEvent eventObject) {
                 m_eventBus.fireEvent(new MapPanelBoundsChangedEvent(getBounds()));
             }
-            
+
         });
         m_map.addMapZoomListener(new MapZoomListener() {
             @Override
@@ -146,8 +146,8 @@ public class OpenLayersMapPanel extends Composite implements MapPanel {
             }
         });
     }
-    
-    
+
+
 
     /** {@inheritDoc} */
     @Override

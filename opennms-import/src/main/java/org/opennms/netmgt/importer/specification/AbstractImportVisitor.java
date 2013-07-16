@@ -97,7 +97,7 @@ public class AbstractImportVisitor implements ImportVisitor {
     @Override
     public void visitAsset(Asset asset) {
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void completeAsset(Asset asset) {

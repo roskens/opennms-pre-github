@@ -127,11 +127,11 @@ public class DefaultReportWrapperService implements ReportWrapperService {
         }
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Boolean hasParameters(String reportId) {
-       
+
         Map<String, Object> reportParms = getParameters(reportId).getReportParms();
         if ((reportParms == null)||(reportParms.isEmpty())) {
             return false;
@@ -152,14 +152,14 @@ public class DefaultReportWrapperService implements ReportWrapperService {
         }
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void run(ReportParameters parameters,
             ReportMode mode,
             DeliveryOptions deliveryOptions,
             String reportId) {
-        
+
         if (!deliveryOptions.getPersist()) {
             ByteArrayOutputStream out = new ByteArrayOutputStream();
             BufferedOutputStream bout = new BufferedOutputStream(out);
@@ -272,7 +272,7 @@ public class DefaultReportWrapperService implements ReportWrapperService {
     }
 
     /** {@inheritDoc} */
-   
+
     @Override
     public void runAndRender(ReportParameters parameters, ReportMode mode,
             OutputStream outputStream) {

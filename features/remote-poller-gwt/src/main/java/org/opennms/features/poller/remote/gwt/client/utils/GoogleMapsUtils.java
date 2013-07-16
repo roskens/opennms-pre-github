@@ -52,7 +52,7 @@ public abstract class GoogleMapsUtils {
 	public static GWTBounds toGWTBounds(LatLngBounds bounds) {
         return new GWTBounds(GoogleMapsUtils.toGWTLatLng(bounds.getSouthWest()), GoogleMapsUtils.toGWTLatLng(bounds.getNorthEast()));
     }
-    
+
     /**
      * <p>toLatLngBounds</p>
      *

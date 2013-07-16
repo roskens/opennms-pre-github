@@ -42,17 +42,17 @@ import org.springframework.expression.spel.support.StandardEvaluationContext;
 
 /**
  * PersistRegexSelectorStrategy
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
-/* 
+/*
  * TODO Implement "match-strategy" (allow/deny)
  * TODO Implement "match-behavior" (any/all)
  */
 public class PersistRegexSelectorStrategy implements PersistenceSelectorStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PersistRegexSelectorStrategy.class);
-    
+
     public static final String MATCH_EXPRESSION = "match-expression";
     public static final String MATCH_STRATEGY = "match-strategy";
     public static final String MATCH_BEHAVIOR = "match-behavior";

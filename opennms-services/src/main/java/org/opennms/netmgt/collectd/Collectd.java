@@ -89,11 +89,11 @@ import org.springframework.util.ClassUtils;
  */
 public class Collectd extends AbstractServiceDaemon implements
         EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Collectd.class);
-    
+
     private static CollectdInstrumentation s_instrumentation = null;
-    
+
     /**
      * <p>instrumentation</p>
      *
@@ -102,7 +102,7 @@ public class Collectd extends AbstractServiceDaemon implements
     public static CollectdInstrumentation instrumentation() {
         if (s_instrumentation == null) {
             String className = System.getProperty("org.opennms.collectd.instrumentationClass", DefaultCollectdInstrumentation.class.getName());
-            try { 
+            try {
                 s_instrumentation = (CollectdInstrumentation) ClassUtils.forName(className, Thread.currentThread().getContextClassLoader()).newInstance();
             } catch (Throwable e) {
                 s_instrumentation = new DefaultCollectdInstrumentation();
@@ -111,12 +111,12 @@ public class Collectd extends AbstractServiceDaemon implements
 
         return s_instrumentation;
     }
-    
+
     /**
      * Log4j category
      */
     final static String LOG4J_CATEGORY = "collectd";
-    
+
     /**
      * Instantiated service collectors specified in config file
      */
@@ -180,13 +180,13 @@ public class Collectd extends AbstractServiceDaemon implements
         Assert.notNull(m_transTemplate, "transTemplate must not be null");
         Assert.notNull(m_ifaceDao, "ifaceDao must not be null");
         Assert.notNull(m_nodeDao, "nodeDao must not be null");
-        
-        
+
+
         LOG.debug("init: Initializing collection daemon");
-        
+
         // make sure the instrumentation gets initialized
         instrumentation();
-        
+
         instantiateCollectors();
 
         getScheduler().schedule(0, ifScheduler());
@@ -207,7 +207,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
         // reinitializePrimarySnmpInterface
         ueiList.add(EventConstants.REINITIALIZE_PRIMARY_SNMP_INTERFACE_EVENT_UEI);
-        
+
         // interfaceReparented
         ueiList.add(EventConstants.INTERFACE_REPARENTED_EVENT_UEI);
 
@@ -228,16 +228,16 @@ public class Collectd extends AbstractServiceDaemon implements
 
         // configureSNMP
         ueiList.add(EventConstants.CONFIGURE_SNMP_EVENT_UEI);
-        
+
         // thresholds configuration change
         ueiList.add(EventConstants.THRESHOLDCONFIG_CHANGED_EVENT_UEI);
 
         // daemon configuration change
         ueiList.add(EventConstants.RELOAD_DAEMON_CONFIG_UEI);
-        
+
         // node category membership changes
         ueiList.add(EventConstants.NODE_CATEGORY_MEMBERSHIP_CHANGED_EVENT_UEI);
-        
+
         getEventIpcManager().addEventListener(this, ueiList);
     }
 
@@ -282,7 +282,7 @@ public class Collectd extends AbstractServiceDaemon implements
                             setSchedulingCompleted(true);
                         }
                     }
-                    
+
                 });
             }
         };
@@ -342,12 +342,12 @@ public class Collectd extends AbstractServiceDaemon implements
 
     /**
      * Schedule existing interfaces for data collection.
-     * 
+     *
      * @throws SQLException
      *             if database errors encountered.
      */
     private void scheduleExistingInterfaces() throws SQLException {
-        
+
         instrumentation().beginScheduleExistingInterfaces();
         try {
 
@@ -355,7 +355,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
                 @Override
                 public void doInTransactionWithoutResult(TransactionStatus status) {
-                    
+
                     // Loop through collectors and schedule for each one present
                     for(String name : getCollectorNames()) {
                         scheduleInterfacesWithService(name);
@@ -363,7 +363,7 @@ public class Collectd extends AbstractServiceDaemon implements
                 }
 
             });
-        
+
         } finally {
             instrumentation().endScheduleExistingInterfaces();
         }
@@ -393,13 +393,13 @@ public class Collectd extends AbstractServiceDaemon implements
         } finally {
             instrumentation().endFindInterfacesWithService(svcName, count);
         }
-        	
+
     }
 
     /**
      * This method is responsible for scheduling the specified
      * node/address/svcname tuple for data collection.
-     * 
+     *
      * @param nodeId
      *            Node id
      * @param ipAddress
@@ -412,27 +412,27 @@ public class Collectd extends AbstractServiceDaemon implements
      */
     private void scheduleInterface(int nodeId, String ipAddress,
             String svcName, boolean existing) {
-        
+
         OnmsIpInterface iface = getIpInterface(nodeId, ipAddress);
         if (iface == null) {
             LOG.error("Unable to find interface with address {} on node {}", ipAddress, nodeId);
             return;
         }
-        
+
         OnmsMonitoredService svc = iface.getMonitoredServiceByServiceType(svcName);
         if (svc == null) {
             LOG.error("Unable to find service {} on interface with address {} on node {}", svcName, ipAddress, nodeId);
             return;
         }
-        
+
         scheduleInterface(iface, svc.getServiceType().getName(),
                           existing);
     }
-    
+
 	private void scheduleNode(final int nodeId, final boolean existing) {
-		
+
         getCollectorConfigDao().rebuildPackageIpListMap();
-		
+
 		OnmsNode node = m_nodeDao.getHierarchy(nodeId);
 		node.visit(new AbstractEntityVisitor() {
 
@@ -440,7 +440,7 @@ public class Collectd extends AbstractServiceDaemon implements
 			public void visitMonitoredService(OnmsMonitoredService monSvc) {
 				scheduleInterface(monSvc.getIpInterface(), monSvc.getServiceName(), existing);
 			}
-			
+
 		});
 	}
 
@@ -451,7 +451,7 @@ public class Collectd extends AbstractServiceDaemon implements
 	}
 
     private void scheduleInterface(OnmsIpInterface iface, String svcName, boolean existing) {
-        
+
         final String ipAddress = str(iface.getIpAddress());
         if (ipAddress == null) {
         	LOG.warn("Unable to schedule interface {}, could not determine IP address.", iface);
@@ -460,10 +460,10 @@ public class Collectd extends AbstractServiceDaemon implements
 
 		instrumentation().beginScheduleInterface(iface.getNode().getId(), ipAddress, svcName);
         try {
-        
+
         Collection<CollectionSpecification> matchingSpecs = getSpecificationsForInterface(iface, svcName);
         StringBuffer sb;
-        
+
         LOG.debug("scheduleInterface: found {} matching specs for interface: {}", matchingSpecs.size(), iface);
 
         for (CollectionSpecification spec : matchingSpecs) {
@@ -527,7 +527,7 @@ public class Collectd extends AbstractServiceDaemon implements
                 LOG.error("scheduleInterface: Uncaught exception, failed to schedule interface {}/{}.", iface, svcName, t);
             }
         } // end while more specifications exist
-        
+
         } finally {
             instrumentation().endScheduleInterface(iface.getNode().getId(), ipAddress, svcName);
         }
@@ -567,7 +567,7 @@ public class Collectd extends AbstractServiceDaemon implements
             }
 
             LOG.debug("getSpecificationsForInterface: address/service: {}/{} scheduled, interface does belong to package: {}", iface, svcName, wpkg.getName());
-            
+
             matchingPkgs.add(new CollectionSpecification(wpkg, svcName, getServiceCollector(svcName)));
         }
         return matchingPkgs;
@@ -576,7 +576,7 @@ public class Collectd extends AbstractServiceDaemon implements
     /**
      * Returns true if specified address/pkg pair is already represented in
      * the collectable services list. False otherwise.
-     * 
+     *
      * @param iface
      *            TODO
      * @param spec
@@ -586,7 +586,7 @@ public class Collectd extends AbstractServiceDaemon implements
      */
     private boolean alreadyScheduled(OnmsIpInterface iface, CollectionSpecification spec) {
         String ipAddress = str(iface.getIpAddress());
-        
+
         if (ipAddress == null) {
             LOG.warn("Cannot determine if interface {} is already scheduled.  Unable to look up IP address.", iface);
             return false;
@@ -596,14 +596,14 @@ public class Collectd extends AbstractServiceDaemon implements
         String pkgName = spec.getPackageName();
         StringBuffer sb;
         boolean isScheduled = false;
-        
+
         if (LOG.isDebugEnabled()) {
             sb = new StringBuffer();
             sb.append("alreadyScheduled: determining if interface: ");
             sb.append(iface);
             sb.append(" is already scheduled.");
         }
-        
+
         synchronized (m_collectableServices) {
         	for (CollectableService cSvc : m_collectableServices) {
                 InetAddress addr = (InetAddress) cSvc.getAddress();
@@ -747,27 +747,27 @@ public class Collectd extends AbstractServiceDaemon implements
 
     /**
      * This method is responsible for handling configureSNMP events.
-     * 
+     *
      * @param event
      *            The event to process.
      */
     private void handleConfigureSNMP(final Event event) {
         LOG.debug("configureSNMPHandler: processing configure SNMP event...", event);
-        
+
         SnmpEventInfo info = null;
         try {
             info = new SnmpEventInfo(event);
-            
-            if (StringUtils.isBlank(info.getFirstIPAddress())) {				
+
+            if (StringUtils.isBlank(info.getFirstIPAddress())) {
                 LOG.error("configureSNMPHandler: event contained invalid firstIpAddress. {}", event);
                 return;
             }
-            
+
             LOG.debug("configureSNMPHandler: processing configure SNMP event: {}", info);
             SnmpPeerFactory.getInstance().define(info);
             SnmpPeerFactory.saveCurrent();
             LOG.debug("configureSNMPHandler: process complete. {}", info);
-            
+
         } catch (Throwable e) {
             LOG.error("configureSNMPHandler: ",e);
         }
@@ -775,7 +775,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
     /**
      * This method is responsible for handling interfaceDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -839,7 +839,7 @@ public class Collectd extends AbstractServiceDaemon implements
      * collection all of the RRDs associated with the old nodeId are moved
      * under the new nodeId and the nodeId of the collectable service is
      * updated to reflect the interface's new parent nodeId.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -933,7 +933,7 @@ public class Collectd extends AbstractServiceDaemon implements
 
     /**
      * This method is responsible for handling nodeDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -952,24 +952,24 @@ public class Collectd extends AbstractServiceDaemon implements
 
     /**
      * This method is responsible for handling nodeDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
      */
     private void handleNodeCategoryMembershipChanged(Event event) throws InsufficientInformationException {
         EventUtils.checkNodeId(event);
-        
+
         Long nodeId = event.getNodeid();
 
         unscheduleNodeAndMarkForDeletion(nodeId);
 
         LOG.debug("nodeCategoryMembershipChanged: unscheduling nodeid {} completed.", nodeId);
-        
+
         scheduleNode(nodeId.intValue(), true);
-        
+
     }
-    
+
 	private void unscheduleNodeAndMarkForDeletion(Long nodeId) {
 		// Iterate over the collectable service list and mark any entries
         // which match the deleted nodeId for deletion.
@@ -1008,7 +1008,7 @@ public class Collectd extends AbstractServiceDaemon implements
      * representing the node/interface combination, and schedule the interface
      * for collection. If any errors occur scheduling the interface no error
      * is returned.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -1022,7 +1022,7 @@ public class Collectd extends AbstractServiceDaemon implements
         //
         scheduleForCollection(event);
     }
-    
+
     private void handleReloadDaemonConfig(Event event) {
         final String daemonName = "Threshd";
         boolean isTarget = false;
@@ -1080,11 +1080,11 @@ public class Collectd extends AbstractServiceDaemon implements
             }
         }
     }
-    
+
     private void scheduleForCollection(Event event) {
         // This moved to here from the scheduleInterface() for better behavior
         // during initialization
-        
+
         getCollectorConfigDao().rebuildPackageIpListMap();
 
         scheduleInterface(event.getNodeid().intValue(), event.getInterface(),
@@ -1101,7 +1101,7 @@ public class Collectd extends AbstractServiceDaemon implements
      * new primary SNMP interface is scheduled. The packages are examined and
      * new CollectableService objects are created, initialized and scheduled
      * for collection.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -1202,7 +1202,7 @@ public class Collectd extends AbstractServiceDaemon implements
      * time the CollectableService is popped from an interval queue for
      * collection. If any errors occur scheduling the service no error is
      * returned.
-     * 
+     *
      * @param event
      *            The event to process.
      * @throws InsufficientInformationException
@@ -1228,7 +1228,7 @@ public class Collectd extends AbstractServiceDaemon implements
             Iterator<CollectableService> iter = getCollectableServices().iterator();
             while (iter.hasNext()) {
                 CollectableService cSvc = iter.next();
-        
+
                 final InetAddress addr = (InetAddress) cSvc.getAddress();
                 final String addrString = str(addr);
                 LOG.debug("Comparing CollectableService ip address = {} and event ip interface = {}", addrString, ipAddress);
@@ -1241,7 +1241,7 @@ public class Collectd extends AbstractServiceDaemon implements
                         // associated
                         // with this CollectableService.
                         CollectorUpdates updates = cSvc.getCollectorUpdates();
-        
+
                         // Now set the reinitialization flag
                         updates.markForReinitialization(iface);
                         LOG.debug("reinitializePrimarySnmpInterfaceHandler: marking {} for reinitialization for service SNMP.", ipAddress);
@@ -1250,14 +1250,14 @@ public class Collectd extends AbstractServiceDaemon implements
             }
         }
     }
-    
+
     /**
      * This method is responsible for handling serviceDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
-     * @throws InsufficientInformationException 
-     * 
+     * @throws InsufficientInformationException
+     *
      */
     private void handleServiceDeleted(Event event)
             throws InsufficientInformationException {
@@ -1265,7 +1265,7 @@ public class Collectd extends AbstractServiceDaemon implements
         EventUtils.checkInterface(event);
         EventUtils.checkService(event);
 
-        
+
 
         //INCORRECT; we now support all *sorts* of data collection.  This is *way* out of date
         // Currently only support SNMP data collection.
@@ -1289,11 +1289,11 @@ public class Collectd extends AbstractServiceDaemon implements
                 // Only interested in entries with matching nodeId, IP address
                 // and service
                 InetAddress addr = (InetAddress) cSvc.getAddress();
-                
+
                 //WATCH the brackets; there used to be an extra close bracket after the ipAddr comparison which borked this whole expression
-                if (!(cSvc.getNodeId() == nodeId && 
-                        addr.getHostName().equals(ipAddr) && 
-                        cSvc.getServiceName().equals(svcName))) 
+                if (!(cSvc.getNodeId() == nodeId &&
+                        addr.getHostName().equals(ipAddr) &&
+                        cSvc.getServiceName().equals(svcName)))
                     continue;
 
                 synchronized (cSvc) {
@@ -1377,7 +1377,7 @@ public class Collectd extends AbstractServiceDaemon implements
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
 
     /**
      * <p>setServiceCollector</p>

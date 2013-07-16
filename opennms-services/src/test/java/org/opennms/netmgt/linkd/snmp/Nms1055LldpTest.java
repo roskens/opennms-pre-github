@@ -55,7 +55,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class Nms1055LldpTest extends Nms1055NetworkBuilder implements InitializingBean {
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -80,12 +80,12 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(PENROSE_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(PENROSE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
-    
+
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=DELAWARE_IP, port=161, resource="classpath:linkd/nms1055/"+DELAWARE_NAME+"_"+DELAWARE_IP+".txt")
@@ -105,7 +105,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(DELAWARE_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(DELAWARE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
@@ -130,7 +130,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(PHOENIX_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(PHOENIX_NAME, m_lLldpLocalGroup.getLldpLocSysname());
@@ -155,7 +155,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(AUSTIN_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(AUSTIN_NAME, m_lLldpLocalGroup.getLldpLocSysname());
@@ -180,7 +180,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(SANJOSE_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(SANJOSE_NAME, m_lLldpLocalGroup.getLldpLocSysname());
@@ -205,14 +205,14 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
 
         }
-        
+
         assertEquals(4, m_lLldpLocalGroup.getLldpLocChassisidSubType().intValue());
         assertEquals(RIOVISTA_LLDP_CHASSISID,m_lLldpLocalGroup.getLldpLocChassisid());
         assertEquals(RIOVISTA_NAME, m_lLldpLocalGroup.getLldpLocSysname());
     }
 
 
-    
+
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=PENROSE_IP, port=161, resource="classpath:linkd/nms1055/"+PENROSE_NAME+"_"+PENROSE_IP+".txt")
@@ -232,7 +232,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
             assertEquals(false, true);
         }
-        
+
         assertEquals("80711f8fafd0",m_lLldpLocalGroup.getBridgeAddress());
     }
 
@@ -255,10 +255,10 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
             assertEquals(false, true);
         }
-        
+
         final Collection<LldpLocTableEntry> lldpTableEntryCollection = m_lldpRemTable.getEntries();
         assertEquals(5, lldpTableEntryCollection.size());
-        
+
         for (final LldpLocTableEntry lldpLocTableEntry: lldpTableEntryCollection) {
             checkRow(lldpLocTableEntry);
         }
@@ -284,15 +284,15 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
         } catch (final InterruptedException e) {
             assertEquals(false, true);
         }
-        
+
         final Collection<LldpRemTableEntry> lldpTableEntryCollection = m_lldpRemTable.getEntries();
         assertEquals(4, lldpTableEntryCollection.size());
-        
+
         for (final LldpRemTableEntry lldpRemTableEntry: lldpTableEntryCollection) {
             checkRow(lldpRemTableEntry);
         }
     }
-    
+
     private void checkRow(LldpRemTableEntry lldpRemTableEntry) {
         final Integer lldpRemLocalPortNum = lldpRemTableEntry.getLldpRemLocalPortNum();
         final String lldpRemSysname = lldpRemTableEntry.getLldpRemSysname();
@@ -323,7 +323,7 @@ public class Nms1055LldpTest extends Nms1055NetworkBuilder implements Initializi
             assertEquals(false, true);
         }
     }
-    
+
     private void checkRow(LldpLocTableEntry lldpLocTableEntry) {
         final Integer lldpLocPortNum = lldpLocTableEntry.getLldpLocPortNum();
         String lldpLocPortid = lldpLocTableEntry.getLldpLocPortid();

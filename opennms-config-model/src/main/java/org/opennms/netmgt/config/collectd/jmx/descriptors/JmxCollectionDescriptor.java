@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
 /**
  * Class JmxCollectionDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class JmxCollectionDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -90,27 +90,27 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         _nsURI = "http://xmlns.opennms.org/xsd/config/jmx-datacollection";
         _xmlName = "jmx-collection";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _name
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_name", "name", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 JmxCollection target = (JmxCollection) object;
                 return target.getName();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -131,7 +131,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _name
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -146,7 +146,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_maxVarsPerPdu", "maxVarsPerPdu", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 JmxCollection target = (JmxCollection) object;
@@ -154,12 +154,12 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
                 return new java.lang.Integer(target.getMaxVarsPerPdu());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     JmxCollection target = (JmxCollection) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         return;
                     }
@@ -178,7 +178,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _maxVarsPerPdu
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -190,19 +190,19 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
         //-- _rrd
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(Rrd.class, "_rrd", "rrd", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 JmxCollection target = (JmxCollection) object;
                 return target.getRrd();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -225,7 +225,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _rrd
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -236,14 +236,14 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(Mbeans.class, "_mbeans", "mbeans", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 JmxCollection target = (JmxCollection) object;
                 return target.getMbeans();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -266,7 +266,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _mbeans
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -282,7 +282,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -293,7 +293,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -305,7 +305,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -316,7 +316,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -327,7 +327,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -339,7 +339,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -351,7 +351,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -362,7 +362,7 @@ import org.opennms.netmgt.config.collectd.jmx.Rrd;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

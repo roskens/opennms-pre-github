@@ -71,7 +71,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
 	public static final String DEFAULT_IP_ROUTE_CLASS_NAME = "org.opennms.netmgt.linkd.snmp.IpCidrRouteTable";
 
     /**
@@ -101,7 +101,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
 	 * The HashMap that associates the OIDS masks to class name for IpRoutes
 	 */
 	 private static Map<String,String> m_oidMask2IpRouteclassName = new HashMap<String,String>();
-	 
+
     /**
      * <p>Constructor for LinkdConfigManager.</p>
      *
@@ -117,7 +117,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -170,26 +170,26 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     @Override
     public boolean isInterfaceInPackage(final InetAddress iface, final org.opennms.netmgt.config.linkd.Package pkg) {
         boolean filterPassed = false;
-    
+
         getReadLock().lock();
-        
+
         try {
             // get list of IPs in this package
             final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
             if (ipList != null && ipList.size() > 0) {
 				filterPassed = ipList.contains(iface);
             }
-        
+
             LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", str(iface), pkg.getName(), (filterPassed? "True":"False"));
-        
+
             if (!filterPassed) return false;
-    
+
             return isInterfaceInPackageRange(iface, pkg);
         } finally {
             getReadLock().unlock();
         }
     }
-    
+
     @Override
     public boolean isInterfaceInPackageRange(final InetAddress iface, final org.opennms.netmgt.config.linkd.Package pkg) {
         if (pkg == null) return false;
@@ -201,15 +201,15 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         boolean has_specific = false;
         boolean has_range_include = false;
         boolean has_range_exclude = false;
- 
+
         getReadLock().lock();
         try {
             byte[] addr = iface.getAddress();
-    
+
             // if there are NO include ranges then treat act as if the user include
             // the range 0.0.0.0 - 255.255.255.255
             has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
-    
+
             // Specific wins; if we find one, return immediately.
             for (final String spec : pkg.getSpecificCollection()) {
                 final byte[] speca = toIpAddrBytes(spec);
@@ -219,13 +219,13 @@ abstract public class LinkdConfigManager implements LinkdConfig {
                 }
             }
             if (has_specific) return true;
-    
+
             for (final String url : pkg.getIncludeUrlCollection()) {
                 has_specific = isInterfaceInUrl(iface, url);
                 if (has_specific) break;
             }
             if (has_specific) return true;
-    
+
             if (!has_range_include) {
                 for (final IncludeRange rng : pkg.getIncludeRangeCollection()) {
                     if (isInetAddressInRange(iface.getAddress(), rng.getBegin(), rng.getEnd())) {
@@ -234,14 +234,14 @@ abstract public class LinkdConfigManager implements LinkdConfig {
                     }
                 }
             }
-    
+
             for (final ExcludeRange rng : pkg.getExcludeRangeCollection()) {
                 if (isInetAddressInRange(iface.getAddress(), rng.getBegin(), rng.getEnd())) {
                     has_range_exclude = true;
                     break;
                 }
             }
-    
+
             return has_range_include && !has_range_exclude;
         } finally {
             getReadLock().unlock();
@@ -294,20 +294,20 @@ abstract public class LinkdConfigManager implements LinkdConfig {
 	    }
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<InetAddress> getIpList(final Package pkg) {
         getReadLock().lock();
-        
+
         try {
             if (pkg == null) return null;
-    
+
             final Filter filter = pkg.getFilter();
             if (filter == null) return null;
-    
+
             final StringBuffer filterRules = new StringBuffer(filter.getContent());
-    
+
             LOG.debug("getIpList: package is {}. filter rules are: {}", pkg.getName(), filterRules);
             return FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
         } finally {
@@ -381,7 +381,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     @Override
     public List<String> getAllPackageMatches(final InetAddress ipaddr) {
         final List<String> matchingPkgs = new ArrayList<String>();
-        
+
         getReadLock().lock();
         try {
             for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
@@ -450,7 +450,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         if (m_config.hasUseCdpDiscovery()) return m_config.getUseCdpDiscovery();
         return true;
     }
-    
+
     /**
      * <p>useBridgeDiscovery</p>
      *
@@ -494,7 +494,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         if (m_config.hasSaveStpNodeTable()) return m_config.getSaveStpNodeTable();
         return true;
     }
-    
+
     /**
      * <p>enableDiscoveryDownload</p>
      *
@@ -504,8 +504,8 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     public boolean enableDiscoveryDownload() {
         if (m_config.hasEnableDiscoveryDownload()) return m_config.getEnableDiscoveryDownload();
         return false;
-    }   
-    
+    }
+
     /**
      * <p>saveStpInterfaceTable</p>
      *
@@ -562,7 +562,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      *
      */
     @Override
-    public abstract void update(); 
+    public abstract void update();
 
     /**
      * This method is used to establish package against IP list mapping, with
@@ -581,7 +581,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
                 try {
                     final List<InetAddress> ipList = getIpList(pkg);
                     LOG.trace("createPackageIpMap: package {}: ipList size = {}", pkg.getName(), ipList.size());
-    
+
                     if (ipList != null && ipList.size() > 0) {
                         m_pkgIpMap.put(pkg, ipList);
                     }
@@ -594,7 +594,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
         }
     }
 
-    
+
    protected void updateUrlIpMap() {
        m_urlIPMap.clear();
         for (final org.opennms.netmgt.config.linkd.Package pkg : m_config.getPackageCollection()) {
@@ -642,19 +642,19 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     		if (vlans == null) {
     		    LOG.info("initializeVlanClassNames: no vlans found in config");
     		}
-    
+
             final List<String> excludedOids = new ArrayList<String>();
     		for (final Vendor vendor : vlans.getVendorCollection()) {
     		    final SnmpObjectId curRootSysOid = new SnmpObjectId(vendor.getSysoidRootMask());
     		    final String curClassName = vendor.getClassName();
-    
+
     			for (final String specific : vendor.getSpecific()) {
     			    final SnmpObjectId oidMask = new SnmpObjectId(specific);
     				oidMask.prepend(curRootSysOid);
     				m_oidMask2VlanclassName.put(oidMask.toString(), curClassName);
     				LOG.debug("initializeVlanClassNames:  adding class {} for oid {}", curClassName, oidMask);
     			}
-    
+
     			for (final ExcludeRange excludeRange : vendor.getExcludeRangeCollection()) {
     			    final SnmpObjectId snmpBeginOid = new SnmpObjectId(excludeRange.getBegin());
     			    final SnmpObjectId snmpEndOid = new SnmpObjectId(excludeRange.getEnd());
@@ -672,7 +672,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
     					}
     				}
     			}
-    
+
     			for (final IncludeRange includeRange : vendor.getIncludeRangeCollection()) {
     			    final SnmpObjectId snmpBeginOid = new SnmpObjectId(includeRange.getBegin());
     				final SnmpObjectId snmpEndOid = new SnmpObjectId(includeRange.getEnd());
@@ -700,7 +700,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
 	    }
 	}
 
-    
+
 	private SnmpObjectId getRootOid(final SnmpObjectId snmpObj) {
         getReadLock().lock();
         try {
@@ -720,9 +720,9 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      * the passed package's URL includes. If the interface is found in any of
      * the URL files, then a value of true is returned, else a false value is
      * returned.
-     * 
+     *
      * <pre>
-     * 
+     *
      *  The file URL is read and each entry in this file checked. Each line
      *   in the URL file can be one of -
      *   &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
@@ -730,17 +730,17 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      *   &lt;IP&gt;
      *   or
      *   #&lt;comments&gt;
-     *  
+     *
      *   Lines starting with a '#' are ignored and so are characters after
      *   a '&lt;space&gt;#' in a line.
-     *  
+     *
      * </pre>
-     * 
+     *
      * @param addr
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     * 
+     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean isInterfaceInUrl(final InetAddress addr, final String url) {
@@ -765,7 +765,7 @@ abstract public class LinkdConfigManager implements LinkdConfig {
      * @throws java.io.IOException if any.
      */
     protected abstract void saveXml(final String xml) throws IOException;
-    
+
     @Override
 	public boolean forceIpRouteDiscoveryOnEthernet() {
 		if (m_config.hasForceIpRouteDiscoveryOnEthernet()) return m_config.getForceIpRouteDiscoveryOnEthernet();

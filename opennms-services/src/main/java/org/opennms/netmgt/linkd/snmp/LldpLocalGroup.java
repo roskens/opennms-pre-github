@@ -43,15 +43,15 @@ public final class LldpLocalGroup extends AggregateTracker {
 
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_ALIAS = "lldpLocChassisIdSubtype";
     public final static String LLDP_LOC_CHASSISID_SUBTYPE_OID = ".1.0.8802.1.1.2.1.3.1";
-    
+
     public final static String LLDP_LOC_CHASSISID_ALIAS    = "lldpLocChassisId";
     public final static String LLDP_LOC_CHASSISID_OID    = ".1.0.8802.1.1.2.1.3.2";
-    
+
     public final static String LLDP_LOC_SYSNAME_ALIAS = "lldpLocSysName";
     public final static String LLDP_LOC_SYSNAME_OID = ".1.0.8802.1.1.2.1.3.3";
-    
+
     public static NamedSnmpVar[] ms_elemList = null;
-    
+
     static {
         ms_elemList = new NamedSnmpVar[3];
         int ndx = 0;
@@ -71,7 +71,7 @@ public final class LldpLocalGroup extends AggregateTracker {
          *   </P>
          */
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING,LLDP_LOC_CHASSISID_ALIAS,LLDP_LOC_CHASSISID_OID);
-        
+
         /**
          * <P>
          * "The string value used to identify the system name of the
@@ -82,35 +82,35 @@ public final class LldpLocalGroup extends AggregateTracker {
          */
         ms_elemList[ndx++] = new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING,LLDP_LOC_SYSNAME_ALIAS,LLDP_LOC_SYSNAME_OID);
     }
-    
+
     public static final String LLDP_LOC_OID = ".1.0.8802.1.1.2.1.3";
 
     private SnmpStore m_store;
     private InetAddress m_address;
-    
+
     public LldpLocalGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
         m_store = new SnmpStore(ms_elemList);
     }
-    
+
     public Integer getLldpLocChassisidSubType() {
         Integer type = m_store.getInt32(LLDP_LOC_CHASSISID_SUBTYPE_ALIAS);
         if (type == null) {
             return LldpMibConstants.LLDP_CHASSISID_SUBTYPE_LOCAL;
         }
         return type;
-        
+
     }
-    
+
     public String getLldpLocChassisid() {
         return m_store.getHexString(LLDP_LOC_CHASSISID_ALIAS);
     }
-    
+
     public String getLldpLocSysname() {
         return m_store.getDisplayString(LLDP_LOC_SYSNAME_ALIAS);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void storeResult(SnmpResult res) {

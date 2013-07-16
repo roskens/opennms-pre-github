@@ -65,9 +65,9 @@ public class Outage {
     protected Integer lostServiceNotificationId;
 
     protected String lostServiceNotificationAcknowledgedBy;
-    
+
     protected Date suppressTime;
-        
+
     protected String suppressedBy;
 
     protected String building;
@@ -265,7 +265,7 @@ public class Outage {
     public Date getSuppressTime() {
         return suppressTime;
     }
-    
+
     /**
      * <p>Getter for the field <code>suppressedBy</code>.</p>
      *

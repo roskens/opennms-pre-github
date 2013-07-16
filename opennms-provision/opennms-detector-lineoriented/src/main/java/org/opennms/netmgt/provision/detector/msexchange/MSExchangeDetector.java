@@ -46,16 +46,16 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExchangeResponse> {
-    
+
     private static String SERVICE_NAME = "MSExchange";
     private static String DEFAULT_BANNER = "Microsoft Exchange";
-    
+
     private static int DEFAULT_POP3_PORT = 110;
     private static int DEFAULT_IMAP_PORT = 143;
-    
+
     private int m_pop3Port;
     private int m_imapPort;
-    
+
     /**
      * <p>Constructor for MSExchangeDetector.</p>
      */
@@ -79,7 +79,7 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
     protected void onInit() {
         expectBanner(find(DEFAULT_BANNER));
     }
-    
+
     /**
      * <p>find</p>
      *
@@ -93,8 +93,8 @@ public class MSExchangeDetector extends BasicDetector<LineOrientedRequest, MSExc
             public boolean validate(final MSExchangeResponse response) {
                 return response.contains(regex);
             }
-          
-            
+
+
         };
     }
 

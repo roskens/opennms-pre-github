@@ -29,13 +29,13 @@
 package org.opennms.features.reporting.model.basicreport;
 
 public interface BasicReportDefinition {
-    
+
     public abstract String getDescription();
 
     public abstract String getDisplayName();
 
     public abstract String getId();
-    
+
     public abstract String getRepositoryId();
 
     public abstract boolean getOnline();

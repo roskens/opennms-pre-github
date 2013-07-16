@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
 /**
  * Class NsclientConfigDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class NsclientConfigDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,19 +88,19 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient";
         _xmlName = "nsclient-config";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _port
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_port", "port", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientConfig target = (NsclientConfig) object;
@@ -108,12 +108,12 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
                 return new java.lang.Integer(target.getPort());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     NsclientConfig target = (NsclientConfig) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deletePort();
                         return;
@@ -133,7 +133,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _port
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -148,7 +148,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_retry", "retry", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientConfig target = (NsclientConfig) object;
@@ -156,12 +156,12 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
                 return new java.lang.Integer(target.getRetry());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     NsclientConfig target = (NsclientConfig) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteRetry();
                         return;
@@ -181,7 +181,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _retry
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -196,7 +196,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.Integer.TYPE, "_timeout", "timeout", org.exolab.castor.xml.NodeType.Attribute);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientConfig target = (NsclientConfig) object;
@@ -204,12 +204,12 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
                 return new java.lang.Integer(target.getTimeout());
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
                     NsclientConfig target = (NsclientConfig) object;
-                    // if null, use delete method for optional primitives 
+                    // if null, use delete method for optional primitives
                     if (value == null) {
                         target.deleteTimeout();
                         return;
@@ -229,7 +229,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _timeout
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -245,14 +245,14 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientConfig target = (NsclientConfig) object;
                 return target.getPassword();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -272,7 +272,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _password
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -283,19 +283,19 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
         //-- _definitionList
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.nsclient.Definition.class, "_definitionList", "definition", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientConfig target = (NsclientConfig) object;
                 return target.getDefinition();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -326,7 +326,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _definitionList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(0);
@@ -342,7 +342,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -353,7 +353,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -365,7 +365,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -376,7 +376,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -387,7 +387,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -399,7 +399,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -411,7 +411,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -422,7 +422,7 @@ import org.opennms.netmgt.config.nsclient.NsclientConfig;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

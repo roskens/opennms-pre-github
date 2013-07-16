@@ -239,7 +239,7 @@ public class UserInfo extends Object implements Cloneable {
      * Converts a byte array into a hexadecimal String representation. The byte
      * array must have an even number of elements (otherwise it would not be
      * convertable to a valid String).
-     * 
+     *
      * @param data
      *            Array containing the bytes to convert
      * @return the converted string, or null if encoding failed

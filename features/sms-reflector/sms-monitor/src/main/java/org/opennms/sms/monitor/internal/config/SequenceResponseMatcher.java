@@ -47,7 +47,7 @@ public abstract class SequenceResponseMatcher {
 	@SuppressWarnings("unused")
 	@XmlAttribute(name="dummy", required=false)
 	private String m_dummy;
-	
+
 	private String m_text;
 
 	/**
@@ -55,7 +55,7 @@ public abstract class SequenceResponseMatcher {
 	 */
 	public SequenceResponseMatcher() {
 	}
-	
+
 	/**
 	 * <p>Constructor for SequenceResponseMatcher.</p>
 	 *
@@ -74,7 +74,7 @@ public abstract class SequenceResponseMatcher {
 	public String getText() {
 		return m_text;
 	}
-	
+
 	/**
 	 * <p>setText</p>
 	 *

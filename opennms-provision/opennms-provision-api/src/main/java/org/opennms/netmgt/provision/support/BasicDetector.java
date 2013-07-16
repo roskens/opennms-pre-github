@@ -46,11 +46,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class BasicDetector<Request, Response> extends SyncAbstractDetector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BasicDetector.class);
-    
+
     private ClientConversation<Request, Response> m_conversation = new ClientConversation<Request, Response>();
-    
+
     /**
      * <p>Constructor for BasicDetector.</p>
      *
@@ -64,7 +64,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     protected BasicDetector(String serviceName, int port, int timeout, int retries) {
         super(serviceName, port, timeout, retries);
     }
-    
+
     /**
      * <p>Constructor for BasicDetector.</p>
      *
@@ -90,11 +90,11 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
             try {
                 client.connect(address, port, timeout);
                 LOG.info("isServiceDetected: Attempting to connect to address: {}, port: {}, attempt: #{}", ipAddr, port, attempts);
-                
+
                 if (attemptConversation(client)) {
                     return true;
                 }
-                
+
             } catch (ConnectException e) {
                 // Connection refused!! Continue to retry.
                 LOG.info("isServiceDetected: {}: Unable to connect to address: {} port {}, attempt #{}",getServiceName(), ipAddr, port, attempts, e);
@@ -117,7 +117,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
         }
         return false;
     }
-    
+
     /**
      * <p>dispose</p>
      */
@@ -136,7 +136,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     private boolean attemptConversation(Client<Request, Response> client) throws IOException, Exception {
         return getConversation().attemptConversation(client);
     }
-    
+
     /**
      * <p>expectBanner</p>
      *
@@ -145,7 +145,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     protected final void expectBanner(ResponseValidator<Response> bannerValidator) {
         getConversation().expectBanner(bannerValidator);
     }
-    
+
     /**
      * <p>send</p>
      *
@@ -164,7 +164,7 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     protected void send(Request request, ResponseValidator<Response> responseValidator) {
         getConversation().addExchange(request, responseValidator);
     }
-    
+
     /**
      * <p>getConversation</p>
      *
@@ -173,5 +173,5 @@ public abstract class BasicDetector<Request, Response> extends SyncAbstractDetec
     protected final ClientConversation<Request, Response> getConversation() {
         return m_conversation;
     }
-    
+
 }

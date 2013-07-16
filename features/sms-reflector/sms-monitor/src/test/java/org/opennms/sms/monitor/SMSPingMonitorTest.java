@@ -63,12 +63,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SMSPingMonitorTest implements InitializingBean {
 	@Autowired
 	ApplicationContext m_context;
-	
+
 	@Resource(name="smsService")
 	SmsService m_smsService;
 
 	MonitoredService m_service;
-	
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 	    BeanUtils.assertAutowiring(this);
@@ -76,7 +76,7 @@ public class SMSPingMonitorTest implements InitializingBean {
 
 	@Before
 	public void setUp() {
-		
+
 		m_service = new MonitoredService() {
                         @Override
 			public InetAddress getAddress() {
@@ -119,9 +119,9 @@ public class SMSPingMonitorTest implements InitializingBean {
 	@DirtiesContext
 	public void testPing() {
 		assertNotNull(m_smsService);
-		
+
 		assertEquals("ACM0", m_smsService.getGateways().iterator().next().getGatewayId());
-		
+
 		SMSPingMonitor p = new SMSPingMonitor();
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("retry", "0");

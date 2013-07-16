@@ -80,7 +80,7 @@ public class PendingPollEvent extends PollEvent {
     public Date getDate() {
         return m_date;
     }
-    
+
     /**
      * <p>getEventId</p>
      *
@@ -90,7 +90,7 @@ public class PendingPollEvent extends PollEvent {
     public int getEventId() {
         return m_event.getDbid();
     }
-    
+
     /**
      * <p>addPending</p>
      *
@@ -102,7 +102,7 @@ public class PendingPollEvent extends PollEvent {
         else
             r.run();
     }
-    
+
     /**
      * <p>getEvent</p>
      *
@@ -111,7 +111,7 @@ public class PendingPollEvent extends PollEvent {
     public Event getEvent() {
         return m_event;
     }
-    
+
     /**
      * <p>isPending</p>
      *
@@ -139,7 +139,7 @@ public class PendingPollEvent extends PollEvent {
     public void complete(Event e) {
         m_pending = false;
     }
-    
+
     /**
      * <p>processPending</p>
      */
@@ -148,9 +148,9 @@ public class PendingPollEvent extends PollEvent {
             r.run();
         }
         m_pendingOutages.clear();
-        
+
     }
-    
+
     public String toString() {
         return m_event+", uei: "+m_event.getUei()+", id: "+m_event.getDbid()+", isPending: "+m_pending+", list size: "+m_pendingOutages.size();
     }

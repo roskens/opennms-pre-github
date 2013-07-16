@@ -51,12 +51,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminStorageCreateBucketController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminStorageCreateBucketController.class);
 
 
     InventoryService m_inventoryService;
-        
+
     /**
      * <p>getInventoryService</p>
      *
@@ -83,7 +83,7 @@ public class AdminStorageCreateBucketController extends SimpleFormController {
         LOG.debug("AdminStorageCreateBucketController ModelAndView onSubmit");
 
         AdminStorageCommClass bean = (AdminStorageCommClass) command;
-                       
+
         LOG.debug("AdminStorageCreateBucketController ModelAndView onSubmit Create bucket[{}]", bean.getBucket());
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
 
@@ -103,6 +103,6 @@ public class AdminStorageCreateBucketController extends SimpleFormController {
         throws ServletException {
         LOG.debug("AdminStorageCreateBucketController initBinder");
     }
-    
-    
+
+
 }

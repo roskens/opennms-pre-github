@@ -63,21 +63,21 @@ import org.opennms.reporting.datablock.OutageSvcTimesList;
  */
 public class LegacyAvailabilityDataService implements AvailabilityDataService {
     private static final Logger LOG = LoggerFactory.getLogger(LegacyAvailabilityDataService.class);
-    
+
     CatFactory m_catFactory;
-    
+
     /**
      * Common Rule for the category group.
      */
-    
+
     private String m_commonRule;
 
     private Connection m_availConn;
-    
+
     private List<Node> m_nodes;
 
     private static final String LOG4J_CATEGORY = "reports";
-    
+
     /**
      * <p>Constructor for LegacyAvailabilityDataService.</p>
      */
@@ -89,13 +89,13 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
     /** {@inheritDoc} */
     @Override
     public List<Node> getNodes(org.opennms.netmgt.config.categories.Category category, long startTime, long endTime) throws AvailabilityDataServiceException {
-        
+
         m_nodes = new ArrayList<Node>();
-        
+
         PreparedStatement ipInfoGetStmt = null;
         PreparedStatement servicesGetStmt = null;
         PreparedStatement outagesGetStmt = null;
-        
+
         String categoryName = category.getLabel();
         try {
             CategoryFactory.init();
@@ -110,21 +110,21 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             LOG.error("Initializing CategoryFactory", e);
             throw new AvailabilityDataServiceException("faild to init catFactory");
         }
-        
+
         m_catFactory.getReadLock().lock();
-        
+
         try {
             m_commonRule = m_catFactory.getEffectiveRule(categoryName);
-            
+
             List<InetAddress> nodeIPs = FilterDaoFactory.getInstance().getActiveIPAddressList(m_commonRule);
-    
+
             LOG.debug("Number of IPs satisfying rule: {}", nodeIPs.size());
-            
-    
+
+
             List<String> monitoredServices = new ArrayList<String>(category.getServiceCollection());
-            
+
             LOG.debug("categories in monitoredServices = {}", monitoredServices);
-            
+
             initialiseConnection();
             // Prepare the statement to get service entries for each IP
             try {
@@ -138,7 +138,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 LOG.error("failed to setup prepared statement", e);
                 throw new AvailabilityDataServiceException("failed to setup prepared statement");
             }
-            
+
             /*
              * For each of these IP addresses, get the details from the
              * ifServices and services tables.
@@ -152,18 +152,18 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                 while (ipIter.hasNext()) {
                     ip = str(ipIter.next());
                     LOG.debug("ecexuting {} for {}", ip, AvailabilityConstants.DB_GET_INFO_FOR_IP);
-        
+
                     // get node info for this ip
                     ipInfoGetStmt.setString(1, ip);
-        
+
                     ipRS = ipInfoGetStmt.executeQuery();
-                    
+
                     // now handle all the results from this
                     while (ipRS.next()) {
-    
+
                         int nodeid = ipRS.getInt(1);
                         String nodeName = ipRS.getString(2);
-    
+
                         // get the services for this IP address
                         ResultSet svcRS = null;
                         servicesGetStmt.setLong(1, nodeid);
@@ -176,25 +176,25 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                             // read data from the resultSet
                             int svcid = svcRS.getInt(1);
                             String svcname = svcRS.getString(2);
-    
+
                             /*
                              * If the list is empty, we assume all services are
                              * monitored. If it has any, we use it as a filter
                              */
                             if (monitoredServices.isEmpty() || monitoredServices.contains(svcname)) {
-    
+
                                 OutageSvcTimesList outageSvcTimesList = new OutageSvcTimesList();
                                 getOutagesNodeIpSvc(nodeid, nodeName, ip, svcid,
                                                     svcname, outageSvcTimesList,
                                                     outagesGetStmt,
                                                     startTime, endTime);
-    
-                               
+
+
                             }
                         }
-    
+
                     }
-                   
+
                 }
             } catch (SQLException e) {
                 LOG.error("failed to execute prepared statement", e);
@@ -207,30 +207,30 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
                     if (servicesGetStmt != null) {
                         servicesGetStmt.close();
                     }
-    
+
                     if (ipInfoGetStmt != null) {
                         ipInfoGetStmt.close();
                     }
-    
+
                     if (outagesGetStmt != null) {
                         outagesGetStmt.close();
                     }
-    
+
                     if (m_availConn != null) {
                         closeConnection();
                     }
                 } catch (SQLException e) {
                     LOG.error("failed to close ipInfo prepared statement", e);
                     throw new AvailabilityDataServiceException("failed to close ipInfo prepared statement");
-                } 
+                }
             }
         } finally {
             m_catFactory.getReadLock().unlock();
         }
-        
+
         return m_nodes;
     }
-    
+
     /**
      * Get all outages for this nodeid/ipaddr/service combination and add it
      * to m_nodes.
@@ -238,9 +238,9 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
     private void getOutagesNodeIpSvc(int nodeid, String nodeName,
             String ipaddr, int serviceid, String serviceName,
             OutageSvcTimesList outageSvcTimesList,
-            PreparedStatement outagesGetStmt, 
+            PreparedStatement outagesGetStmt,
             long startTime,long endTime) throws SQLException {
-        
+
 
         // Get outages for this node/ip/svc pair
         try {
@@ -250,7 +250,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             outagesGetStmt.setInt(3, serviceid);
 
             ResultSet rs = outagesGetStmt.executeQuery();
-            
+
 
             if (m_nodes != null && m_nodes.size() > 0) {
                 ListIterator<Node> lstIter = m_nodes.listIterator();
@@ -392,7 +392,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
      * Initializes the database connection.
      */
     private void initialiseConnection() throws AvailabilityDataServiceException {
-        
+
         //
         // Initialize the DataCollectionConfigFactory
         //
@@ -433,7 +433,7 @@ public class LegacyAvailabilityDataService implements AvailabilityDataService {
             }
         }
     }
-    
-    
+
+
 
 }

@@ -36,13 +36,13 @@ public abstract class InsServerAbstractListener extends InsAbstractSession {
 	 * the port on which server listens
 	 */
 	public int listeningPort = DEFAULT_LISTENING_PORT;
-	
+
 	public int getListeningPort() {
 		return listeningPort;
 	}
 
 	public void setListeningPort(int listeningPort) {
 		this.listeningPort = listeningPort;
-	}	
+	}
 
 }

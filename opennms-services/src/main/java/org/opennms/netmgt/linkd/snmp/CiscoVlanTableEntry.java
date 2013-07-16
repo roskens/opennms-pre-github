@@ -76,7 +76,7 @@ public final class CiscoVlanTableEntry extends Vlan {
 	public final static String CISCOVTP_VLAN_TYPEEXT = "vtpVlanTypeExt";
 	/** Constant <code>CISCOVTP_VLAN_IFINDEX="vtpVlanIfIndex"</code> */
 	public final static String CISCOVTP_VLAN_IFINDEX = "vtpVlanIfIndex";
-	
+
     /**
      * <P>The TABLE_OID is the object identifier that represents
      * the root of the table vtpVlanTable in the MIB forest.</P>
@@ -84,9 +84,9 @@ public final class CiscoVlanTableEntry extends Vlan {
     public static final String TABLE_OID = ".1.3.6.1.4.1.9.9.46.1.3.1.1"; // start of table (GETNEXT)
 
 	private static String CISCOVTP_VLAN_NAME_OID   = TABLE_OID + ".4";
-	
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -133,5 +133,5 @@ public final class CiscoVlanTableEntry extends Vlan {
 	public VlanType getVlanType() {
 		return VlanType.get(getInt32(VLAN_TYPE));
 	}
-	
+
 }

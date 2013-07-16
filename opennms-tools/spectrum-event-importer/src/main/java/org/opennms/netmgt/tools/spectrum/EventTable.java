@@ -33,10 +33,10 @@ import java.util.HashMap;
 public class EventTable extends HashMap<Integer,String> {
     private static final long serialVersionUID = 7016759899154786992L;
     private String m_tableName;
-    
+
     public EventTable(String name) {
         super();
-        
+
         if (name == null) {
             throw new IllegalArgumentException("The name must not be null");
         }
@@ -53,7 +53,7 @@ public class EventTable extends HashMap<Integer,String> {
         }
         m_tableName = name;
     }
-    
+
     public void put(String keyString, String valueString) {
         int keyInt;
         if (keyString.matches("^0x[0-9A-Fa-f]+$")) {
@@ -63,7 +63,7 @@ public class EventTable extends HashMap<Integer,String> {
         } else {
             keyInt = Integer.parseInt(keyString);
         }
-        
+
         put(keyInt, valueString);
     }
 

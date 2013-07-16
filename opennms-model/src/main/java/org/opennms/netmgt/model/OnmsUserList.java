@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsUserList extends LinkedList<OnmsUser> {
     private static final long serialVersionUID = 870025150817734414L;
     private int m_totalCount;
-    
+
     public OnmsUserList() {
         super();
     }
@@ -53,13 +53,13 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
     public List<OnmsUser> getUsers() {
         return this;
     }
-    
+
     public void setUsers(final List<OnmsUser> users) {
         if (users == this) return;
         clear();
         addAll(users);
     }
-    
+
     @XmlAttribute(name="count")
     public int getCount() {
         return this.size();
@@ -73,7 +73,7 @@ public class OnmsUserList extends LinkedList<OnmsUser> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *

@@ -62,14 +62,14 @@ public class IPPollAddress {
      * <P>
      * Constructs an IPPollAddress object with the specified parameters.
      * </P>
-     * 
+     *
      * @param ipAddress
      *            The Dotted Decimal IPv4 Address.
      * @param timeout
      *            The timeout between retries in 1/1000th of a second.
      * @param retries
      *            The number of times to attempt to contact the address.
-     * 
+     *
      */
     public IPPollAddress(final InetAddress ipAddress, final long timeout, final int retries) {
         m_address = ipAddress;
@@ -131,7 +131,7 @@ public class IPPollAddress {
         }
         return false;
     }
-    
+
     @Override
     public String toString() {
     	return new ToStringBuilder(this)

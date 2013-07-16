@@ -149,14 +149,14 @@ public class ConfigurationReportCriteria {
         reportEmail = _reportemail;
         user=_user;
         reportRequestDate=_reportRequestDate;
-        
+
     }
-    
+
     /**
      * <p>Constructor for ConfigurationReportCriteria.</p>
      */
     public ConfigurationReportCriteria() {
-        
+
     }
 
 }

@@ -56,14 +56,14 @@ public class LoopMonitorTest extends TestCase {
      * Test method for 'org.opennms.netmgt.poller.monitors.LoopMonitor.poll(MonitoredService, Map, Package)'
      */
     public void testPoll() throws UnknownHostException {
-        
+
         ServiceMonitor sm = new LoopMonitor();
         MonitoredService svc = new MockMonitoredService(1, "Router", InetAddressUtils.addr("127.0.0.1"), "LOOP");
         Map<String, Object> parms = new HashMap<String, Object>();
 
         parms.put("ip-match", "127.0.0.1-2");
         parms.put("is-supported", "true");
-        
+
         PollStatus ps = sm.poll(svc, parms);
         assertTrue(ps.isUp());
         assertFalse(ps.isDown());

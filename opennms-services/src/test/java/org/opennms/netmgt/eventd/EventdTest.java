@@ -63,7 +63,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
- * Crank up a real eventd instance, send it some events, and verify that the records 
+ * Crank up a real eventd instance, send it some events, and verify that the records
  * are created in the database correctly.
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -170,7 +170,7 @@ public class EventdTest implements InitializingBean {
     /**
      * @param reductionKey
      * @param node
-     * @return 
+     * @return
      */
     private Event sendNodeDownEvent(String reductionKey, OnmsNode node) {
         EventBuilder e = MockEventUtil.createNodeDownEventBuilder("Test", node);

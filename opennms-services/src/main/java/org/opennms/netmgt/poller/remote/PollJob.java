@@ -39,10 +39,10 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * @version $Id: $
  */
 public class PollJob extends QuartzJobBean {
-	
+
 	private PolledService m_polledService;
 	private PollerFrontEnd m_pollerFrontEnd;
-	
+
 
 	/** {@inheritDoc} */
         @Override

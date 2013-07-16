@@ -34,7 +34,7 @@ import org.opennms.netmgt.model.OnmsServiceType;
  * <p>ServiceTypeDao interface.</p>
  */
 public interface ServiceTypeDao extends OnmsDao<OnmsServiceType, Integer> {
-    
+
     /**
      * <p>findByName</p>
      *

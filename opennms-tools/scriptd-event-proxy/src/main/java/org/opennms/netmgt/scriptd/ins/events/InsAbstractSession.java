@@ -46,22 +46,22 @@ public abstract class InsAbstractSession extends Thread {
     private static final Logger LOG = LoggerFactory.getLogger(InsAbstractSession.class);
 
     private String m_criteria;
-    
+
 	/**
 	 * the shared string for client authentication
-	 * If the shared string is not set, then server doesn't require authentication 
+	 * If the shared string is not set, then server doesn't require authentication
 	 */
 	private String m_sharedAuthAsciiString = null;
-	
+
 	/**
 	 * the criteria for getting active alarms
 	 */
 	public String criteriaRestriction = "";
-	
+
 	public void setSharedASCIIString(final String sharedASCIIString) {
 		this.m_sharedAuthAsciiString = sharedASCIIString;
 	}
-	
+
 	public String getSharedASCIIString() {
 		return m_sharedAuthAsciiString;
 	}
@@ -87,7 +87,7 @@ public abstract class InsAbstractSession extends Thread {
     private void setCriteria(final String criteria) {
         m_criteria = criteria;
     }
-    
+
     protected String getIfAlias(final int nodeid, final int ifindex) {
 
         LOG.debug("getting ifalias for nodeid: {} and ifindex: {}", nodeid, ifindex);
@@ -110,7 +110,7 @@ public abstract class InsAbstractSession extends Thread {
         if (iface.size() == 0) return "-1";
         final String ifAlias = iface.get(0).getIfAlias();
         LOG.debug("ifalias found: {}", ifAlias);
-        
+
         return ifAlias;
     }
 

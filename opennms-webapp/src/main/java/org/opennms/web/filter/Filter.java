@@ -41,7 +41,7 @@ import org.hibernate.criterion.Criterion;
  * @since 1.8.1
  */
 public interface Filter {
-    
+
     /**
      * Returns an expression for a SQL where clause. Remember to include a
      * trailing space, but no leading AND or OR.
@@ -49,7 +49,7 @@ public interface Filter {
      * @return a {@link java.lang.String} object.
      */
     public String getSql();
-    
+
     /**
      * Returns a parameterized SQL where clause.  Remember to include a
      * trailing space, but no leading AND or OR.
@@ -57,7 +57,7 @@ public interface Filter {
      * @return a {@link java.lang.String} object.
      */
     public String getParamSql();
-    
+
     /**
      * Binds the parameter values corresponding to the ? tokens in the string
      * returned from getParamSql() to a prepared statement.  Returns the number
@@ -106,7 +106,7 @@ public interface Filter {
      * @return a {@link java.lang.String} object.
      */
     public String getTextDescription();
-    
+
     /**
      * Criterion used to construction an OnmsCritieria
      *
@@ -114,5 +114,5 @@ public interface Filter {
      * imposed by this filter
      */
     public Criterion getCriterion();
-        
+
 }

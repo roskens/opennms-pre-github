@@ -50,9 +50,9 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
     }
 
     private void initialize() {
-        
+
         setRowStyles(new RowStyles<IpInterface>() {
-            
+
             @Override
             public String getStyleNames(IpInterface row, int rowIndex) {
                 String bgStyle;
@@ -64,12 +64,12 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
                         bgStyle = "onms-ipinterface-status-down";
                     }
                 }
-                
+
                 return bgStyle;
             }
         });
-        
-        
+
+
         DblClickTextColumn<IpInterface> ipAddressColumn = new DblClickTextColumn<IpInterface>() {
 
             @Override
@@ -78,26 +78,26 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
             }
         };
         addColumn(ipAddressColumn, "IP Address");
-        
+
         DblClickTextColumn<IpInterface> ipHostNameColumn = new DblClickTextColumn<IpInterface>() {
 
             @Override
             public String getValue(IpInterface ipIface) {
                 return ipIface.getIpHostName();
             }
-            
+
         };
         addColumn(ipHostNameColumn, "IP Host Name");
-        
+
         DblClickTextColumn<IpInterface> ifIndexColumn = new DblClickTextColumn<IpInterface>() {
-            
+
             @Override
             public String getValue(IpInterface ipIface) {
                 return ipIface.getIfIndex();
             }
         };
         addColumn(ifIndexColumn, "ifIndex");
-        
+
         DblClickTextColumn<IpInterface> managedColumn = new DblClickTextColumn<IpInterface>() {
 
             @Override
@@ -106,12 +106,12 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
             }
         };
         addColumn(managedColumn, "Managed");
-        
-        
+
+
         final SingleSelectionModel<IpInterface> selectionModel = new SingleSelectionModel<IpInterface>();
         setSelectionModel(selectionModel);
         selectionModel.addSelectionChangeHandler(new SelectionChangeEvent.Handler() {
-            
+
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 IpInterface selected = selectionModel.getSelectedObject();
@@ -119,13 +119,13 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
                 }
             }
         });
-        
+
         addCellPreviewHandler(new CellPreviewEvent.Handler<IpInterface>(){
 
             @Override
             public void onCellPreview(CellPreviewEvent<IpInterface> event) {
                 Event evt = Event.as(event.getNativeEvent());
-                
+
                 switch(evt.getTypeInt()) {
                     case Event.ONDBLCLICK:
                         IpInterface selected = selectionModel.getSelectedObject();
@@ -133,9 +133,9 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
                         break;
                 }
             }
-            
+
         });
-        
+
     }
 
     public void setEventBus(SimpleEventBus eventBus) {
@@ -149,5 +149,5 @@ public class IpInterfaceTable extends CellTable<IpInterface> {
     public void addSelectEventHandler(IpInterfaceSelectionHandler handler) {
         getEventBus().addHandler(IpInterfaceSelectionEvent.TYPE, handler);
     }
-    
+
 }

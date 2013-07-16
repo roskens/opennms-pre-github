@@ -30,14 +30,14 @@ package org.opennms.features.jmxconfiggenerator.webui.data;
 
 /**
  * Allows to determine if a object is selected or not.
- * 
+ *
  * @author Markus von Rüden
  */
 public interface Selectable {
 
 	/**
 	 * Returns if selected or not.
-	 * 
+	 *
 	 * @return true if selected, false otherwise.
 	 */
 	boolean isSelected();

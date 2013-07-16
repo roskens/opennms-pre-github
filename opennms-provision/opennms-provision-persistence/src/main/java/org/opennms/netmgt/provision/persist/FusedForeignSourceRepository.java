@@ -65,7 +65,7 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
     public ForeignSourceRepository getPendingForeignSourceRepository() {
         return m_pendingForeignSourceRepository;
     }
-    
+
     public void setPendingForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_pendingForeignSourceRepository = fsr;
     }
@@ -73,7 +73,7 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
     public ForeignSourceRepository getDeployedForeignSourceRepository() {
         return m_deployedForeignSourceRepository;
     }
-    
+
     public void setDeployedForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_deployedForeignSourceRepository = fsr;
     }
@@ -101,7 +101,7 @@ public class FusedForeignSourceRepository extends AbstractForeignSourceRepositor
 
         return requisition;
     }
-    
+
     private synchronized void cleanUpDeployedForeignSources(String foreignSourceName) {
         ForeignSource deployed = m_deployedForeignSourceRepository.getForeignSource(foreignSourceName);
         ForeignSource pending = m_pendingForeignSourceRepository.getForeignSource(foreignSourceName);

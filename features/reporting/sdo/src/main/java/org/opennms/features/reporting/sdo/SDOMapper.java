@@ -36,9 +36,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SDOMapper {
-	
+
 	private static Logger logger = LoggerFactory.getLogger("OpenNMS.Report." + SDOMapper.class.getName());
-	
+
 	public static RemoteReportSDO getSDO(Object bean) {
 		RemoteReportSDO reportResult = new RemoteReportSDO();
 		try {

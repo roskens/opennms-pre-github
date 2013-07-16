@@ -53,11 +53,11 @@ public class LocationMonitorListController extends AbstractController implements
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         LocationMonitorListModel model = m_distributedPollerService.getLocationMonitorList();
         ModelAndView modelAndView = new ModelAndView("distributed/locationMonitorList", "model", model);
-        
+
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
             modelAndView.addObject("isAdmin", "true");
         }
-        
+
         return modelAndView;
     }
 

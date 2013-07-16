@@ -59,70 +59,70 @@ import org.springframework.security.web.authentication.WebAuthenticationDetails;
 public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private EventProxy m_eventProxy = m_mocks.createMock(EventProxy.class);
-    
+
     public void testAuthenticationSuccessEventWithEverything() throws Exception {
         String userName = "bar";
         String ip = "1.2.3.4";
         String sessionId = "it tastes just like our regular coffee";
-        
+
         HttpServletRequest request = createMock(HttpServletRequest.class);
         HttpSession session = createMock(HttpSession.class);
         expect(request.getRemoteAddr()).andReturn(ip);
         expect(request.getSession(false)).andReturn(session);
         expect(session.getId()).andReturn(sessionId);
-        
+
         replay(request, session);
         WebAuthenticationDetails details = new WebAuthenticationDetails(request);
         verify(request, session);
-        
+
         org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(userName, "cheesiness", new GrantedAuthority[0], details);
         AuthenticationSuccessEvent authEvent = new AuthenticationSuccessEvent(authentication);
-        
+
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
         builder.setEventProxy(m_eventProxy);
         builder.afterPropertiesSet();
-        
+
         EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.SUCCESS_UEI, "OpenNMS.WebUI");
         eventBuilder.addParam("user", userName);
         eventBuilder.addParam("ip", ip);
-        
+
         m_eventProxy.send(EventEquals.eqEvent(eventBuilder.getEvent()));
-        
+
         m_mocks.replayAll();
         builder.onApplicationEvent(authEvent);
         m_mocks.verifyAll();
     }
-    
+
     public void testAuthenticationFailureEvent() throws Exception {
         String userName = "bar";
         String ip = "1.2.3.4";
         String sessionId = "it tastes just like our regular coffee";
-        
+
         HttpServletRequest request = createMock(HttpServletRequest.class);
         HttpSession session = createMock(HttpSession.class);
         expect(request.getRemoteAddr()).andReturn(ip);
         expect(request.getSession(false)).andReturn(session);
         expect(session.getId()).andReturn(sessionId);
-        
+
         replay(request, session);
         WebAuthenticationDetails details = new WebAuthenticationDetails(request);
         verify(request, session);
-        
+
         org.springframework.security.core.Authentication authentication = new TestingDetailsAuthenticationToken(userName, "cheesiness", new GrantedAuthority[0], details);
         AuthenticationFailureBadCredentialsEvent authEvent = new AuthenticationFailureBadCredentialsEvent(authentication, new BadCredentialsException("you are bad!"));
-        
+
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
         builder.setEventProxy(m_eventProxy);
         builder.afterPropertiesSet();
-        
+
         EventBuilder eventBuilder = new EventBuilder(SecurityAuthenticationEventOnmsEventBuilder.FAILURE_UEI, "OpenNMS.WebUI");
         eventBuilder.addParam("user", userName);
         eventBuilder.addParam("ip", ip);
         eventBuilder.addParam("exceptionName", authEvent.getException().getClass().getSimpleName());
         eventBuilder.addParam("exceptionMessage", authEvent.getException().getMessage());
-        
+
         m_eventProxy.send(EventEquals.eqEvent(eventBuilder.getEvent()));
-        
+
         m_mocks.replayAll();
         builder.onApplicationEvent(authEvent);
         m_mocks.verifyAll();
@@ -135,12 +135,12 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
         SecurityAuthenticationEventOnmsEventBuilder builder = new SecurityAuthenticationEventOnmsEventBuilder();
         builder.setEventProxy(m_eventProxy);
         builder.afterPropertiesSet();
-        
+
         m_mocks.replayAll();
         builder.onApplicationEvent(new TestApplicationEvent("Hello!"));
         m_mocks.verifyAll();
     }
-    
+
     public static class EventEquals implements IArgumentMatcher {
         private Event m_expected;
 
@@ -153,7 +153,7 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             if (!(actual instanceof Event)) {
                 return false;
             }
-            
+
             Event actualEvent = (Event) actual;
             return MockEventUtil.eventsMatchDeep(m_expected, actualEvent);
         }
@@ -164,16 +164,16 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             buffer.append(new EventWrapper(m_expected));
             buffer.append(")");
         }
-        
+
         public static Event eqEvent(Event in) {
             EasyMock.reportMatcher(new EventEquals(in));
             return null;
         }
     }
-    
+
     public static class TestingDetailsAuthenticationToken extends AbstractAuthenticationToken {
         /**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = -6197934198093164407L;
 		private Object m_principal;
@@ -186,7 +186,7 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             m_credentials = credentials;
             m_details = details;
         }
-        
+
         @Override
         public Object getDetails() {
             return m_details;
@@ -202,11 +202,11 @@ public class SecurityAuthenticationEventOnmsEventBuilderTest extends TestCase {
             return m_principal;
         }
     }
-    
+
     public static class TestApplicationEvent extends ApplicationEvent {
 
         /**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 7573808524408766331L;
 

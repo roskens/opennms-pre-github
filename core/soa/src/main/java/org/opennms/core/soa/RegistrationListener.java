@@ -35,7 +35,7 @@ package org.opennms.core.soa;
  * @version $Id: $
  */
 public interface RegistrationListener<T> {
-    
+
     /**
      * <p>providerRegistered</p>
      *
@@ -44,7 +44,7 @@ public interface RegistrationListener<T> {
      * @param <T> a T object.
      */
     public void providerRegistered(Registration registration, T provider);
-    
+
     /**
      * <p>providerUnregistered</p>
      *

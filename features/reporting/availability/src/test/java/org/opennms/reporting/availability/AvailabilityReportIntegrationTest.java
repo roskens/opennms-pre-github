@@ -65,13 +65,13 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class AvailabilityReportIntegrationTest implements InitializingBean {
-    
+
     @Resource
     AvailabilityCalculator calendarAvailabilityCalculator;
-    
+
     @Resource
     AvailabilityCalculator classicAvailabilityCalculator;
-    
+
     @Autowired
     AvailabilityDatabasePopulator m_dbPopulator;
 
@@ -95,7 +95,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
         m_calendar.set(2005, Calendar.MAY, 18);
         MockLogAppender.setupLogging();
         m_categories = new Categories();
-        
+
         m_dbPopulator.populateDatabase();
 
         m_catFactory = new MockCategoryFactory();
@@ -136,11 +136,11 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
         return (Math.round(number * 10000.0)) / 10000.0;
     }
 
-    
+
     @Test
     @Ignore("Don't run this test (which has less coverage than the next) until I figure out why we're holding onto the previous test's dataSource.")
     public void testBuiltClassicReport() {
-        
+
         try {
             classicAvailabilityCalculator.setPeriodEndDate(m_calendar.getTime());
             classicAvailabilityCalculator.setLogoURL("wahtever");
@@ -151,7 +151,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
             classicAvailabilityCalculator.calculate();
             Report report = classicAvailabilityCalculator.getReport();
-            
+
             Assert.assertNotNull("report", report);
 
             Assert.assertNotNull("report categories", report.getCategories());
@@ -171,7 +171,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
             Assert.assertNull("section calendar table", section.getCalendarTable());
             Created created = report.getCreated();
             Assert.assertNotNull("report created period", created.getPeriod());
-            
+
         } catch (Throwable e) {
             throw new UndeclaredThrowableException(e);
         }
@@ -185,7 +185,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
         long oneHundred = 100;
         Day day;
-        
+
         try {
             calendarAvailabilityCalculator.setPeriodEndDate(m_calendar.getTime());
             calendarAvailabilityCalculator.setLogoURL("wahtever");
@@ -196,7 +196,7 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
 
 			calendarAvailabilityCalculator.calculate();
             Report report = calendarAvailabilityCalculator.getReport();
-            
+
             Assert.assertNotNull("report", report);
 
             Assert.assertNotNull("report categories", report.getCategories());
@@ -217,15 +217,15 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
             day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,0);
             Assert.assertNotNull("day 0,0 object", day);
             Assert.assertFalse("day 0,0 visibility", day.getVisible());
-            
+
             day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,1);
             Assert.assertNotNull("day 0,1 object", day);
             Assert.assertFalse("day 0,1 visibility", day.getVisible());
-            
+
             day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,2);
             Assert.assertNotNull("day 0,2 object", day);
             Assert.assertFalse("day 0,2 visibility", day.getVisible());
-            
+
             day = getCalSectionDay(category,"LastMonthsDailyAvailability",0,4);
             Assert.assertNotNull("day 0,4 object", day);
             Assert.assertFalse("day 0,4 visibility", day.getVisible());
@@ -259,11 +259,11 @@ public class AvailabilityReportIntegrationTest implements InitializingBean {
             Assert.assertEquals("day 1,2 percentage value", 99.3056, fourDec(day.getPctValue()), 0);
             Assert.assertTrue("day 1,2 visibility", day.getVisible());
             Assert.assertEquals("day 1,2 date", 5,day.getDate());
-            
+
         } catch (Throwable e) {
             throw new UndeclaredThrowableException(e);
         }
-  
+
     }
 
 }

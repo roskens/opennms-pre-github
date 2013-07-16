@@ -58,14 +58,14 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class ReportScheduler implements InitializingBean, DisposableBean {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory
 			.getLogger(ReportScheduler.class);
 
     /** Constant <code>JOB_GROUP="Reportd"</code> */
     protected static final String JOB_GROUP = "Reportd";
-    
+
     @Autowired
     private ReportdConfigurationDao m_configDao;
 
@@ -75,7 +75,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
     private JobFactory m_reportJobFactory;
 
     private Object m_lock = new Object();
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -100,7 +100,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
      * <p>rebuildReportSchedule</p>
      */
     public void rebuildReportSchedule() {
-        
+
         LOG.info("rebuildReportSchedule: obtaining lock...");
 
 
@@ -115,25 +115,25 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
 
                 LOG.debug("rebuildReportSchedule: recreating report schedule based on configuration...");
                 buildReportSchedule();
-                
+
                 printCurrentSchedule();
 
             } catch (DataAccessResourceFailureException e) {
                 LOG.error("rebuildReportSchedule: {}", e.getMessage(), e);
                 throw new IllegalStateException(e);
 
-            } 
+            }
 
         }
 
         LOG.info("rebuildReportSchedule: schedule rebuilt and lock released.");
-   
+
     }
-    
+
     private void printCurrentSchedule() {
         try {
-            
-            
+
+
             LOG.info("calendarNames: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCalendarNames()));
             LOG.info("current executing jobs: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getCurrentlyExecutingJobs().toArray()));
             LOG.info("current job names: {}", StringUtils.arrayToCommaDelimitedString(getScheduler().getJobNames(JOB_GROUP)));
@@ -167,7 +167,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
             LOG.error("printCurrentSchedule: {}", e.getMessage(), e);
         }
 
-        
+
     }
 
     private void buildReportSchedule() {
@@ -194,7 +194,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
         }
     }
 
-    
+
     private void removeCurrentJobsFromSchedule()  {
         synchronized (m_lock) {
             try {
@@ -202,14 +202,14 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
             Iterator<String> it = Arrays.asList(m_scheduler.getJobNames(JOB_GROUP)).iterator();
             while (it.hasNext()) {
                 String jobName = it.next();
-               
+
                     getScheduler().deleteJob(jobName, JOB_GROUP);
             }
-        
+
             } catch (SchedulerException e) {
                     LOG.error("removeCurrentJobsFromSchedule: {}", e.getMessage(), e);
                 }
-            }        
+            }
     }
 
     /**
@@ -231,7 +231,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
         m_configDao = configDao;
     }
 
-    
+
     /**
      * <p>getScheduler</p>
      *
@@ -241,7 +241,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
         return m_scheduler;
     }
 
-    
+
     /**
      * <p>setScheduler</p>
      *
@@ -270,7 +270,7 @@ public class ReportScheduler implements InitializingBean, DisposableBean {
     public JobFactory getReportJobFactory() {
         return m_reportJobFactory;
     }
-    
+
 
     /**
      * <p>start</p>

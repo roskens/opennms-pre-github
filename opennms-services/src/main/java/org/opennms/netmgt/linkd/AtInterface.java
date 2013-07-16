@@ -57,14 +57,14 @@ public class AtInterface {
     public void setMacAddress(String macAddress) {
         m_macAddress = macAddress;
     }
-    
+
     public InetAddress getIpAddress() {
         return m_ipAddress;
     }
     public void setIpAddress(InetAddress ipAddress) {
         m_ipAddress = ipAddress;
     }
-    
+
     public boolean equals(AtInterface a) {
     	if (a.getNodeid() != m_nodeid) return false;
     	if (!a.getIpAddress().equals(m_ipAddress)) return false;
@@ -72,13 +72,13 @@ public class AtInterface {
     	if (!a.getIfIndex().equals(m_ifIndex)) return false;
     	return true;
     }
-    
+
     public AtInterface(Integer nodeid, String macAddress, InetAddress ipAddress) {
         super();
         m_nodeid = nodeid;
         m_macAddress = macAddress;
         m_ipAddress = ipAddress;
     }
-    
-    
+
+
 }

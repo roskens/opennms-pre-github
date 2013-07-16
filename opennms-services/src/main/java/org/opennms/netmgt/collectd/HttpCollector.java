@@ -116,7 +116,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class HttpCollector implements ServiceCollector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(HttpCollector.class);
 
     private static final int DEFAULT_RETRY_COUNT = 2;
@@ -242,7 +242,7 @@ public class HttpCollector implements ServiceCollector {
         @Override
 		public boolean ignorePersist() {
 			return false;
-		}       
+		}
 
 		@Override
 		public Date getCollectionTimestamp() {
@@ -270,13 +270,13 @@ public class HttpCollector implements ServiceCollector {
 
     /**
      * Performs HTTP collection.
-     * 
+     *
      * Couple of notes to make the implementation of this client library
      * less obtuse:
-     * 
+     *
      *   - HostConfiguration class is not created here because the library
      *     builds it when a URI is defined.
-     *     
+     *
      * @param collectionSet
      * @throws HttpCollectorException
      */
@@ -348,7 +348,7 @@ public class HttpCollector implements ServiceCollector {
             m_value = value;
         }
 
-        HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String alias, String type, String value) { 
+        HttpCollectionAttribute(HttpCollectionResource resource, HttpCollectionAttributeType attribType, String alias, String type, String value) {
             super();
             m_resource=resource;
             m_attribType=attribType;
@@ -521,12 +521,12 @@ public class HttpCollector implements ServiceCollector {
                         LOG.error("processResponse: gave up attempting to parse numeric value, skipping group {}", attribDef.getMatchGroup());
                         continue;
                     }
-                    
+
                     final HttpCollectionAttribute bute = new HttpCollectionAttribute(
                          collectionResource,
-                         new HttpCollectionAttributeType(attribDef, groupType), 
+                         new HttpCollectionAttributeType(attribDef, groupType),
                          attribDef.getAlias(),
-                         type, 
+                         type,
                          num
                      );
                      LOG.debug("processResponse: adding found numeric attribute: {}", bute);
@@ -618,7 +618,7 @@ public class HttpCollector implements ServiceCollector {
             String[] streetCred = userInfo.split(":", 2);
             if (streetCred.length == 2) {
                 client.getCredentialsProvider().setCredentials(AuthScope.ANY, new UsernamePasswordCredentials(streetCred[0], streetCred[1]));
-            } else { 
+            } else {
                 LOG.warn("Illegal value found for username/password HTTP credentials: {}", userInfo);
             }
         }
@@ -636,7 +636,7 @@ public class HttpCollector implements ServiceCollector {
         String virtualHost = collectionSet.getUriDef().getUrl().getVirtualHost();
         if (virtualHost != null) {
             params.setParameter(
-                                ClientPNames.VIRTUAL_HOST, 
+                                ClientPNames.VIRTUAL_HOST,
                                 new HttpHost(virtualHost, collectionSet.getPort())
             );
         }
@@ -744,7 +744,7 @@ public class HttpCollector implements ServiceCollector {
     }
 
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws CollectionInitializationException */
     @Override
     public void initialize(Map<String, String> parameters) throws CollectionInitializationException {

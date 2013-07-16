@@ -41,23 +41,23 @@ import org.slf4j.LoggerFactory;
 public class RemoveVertexOperation implements Operation {
 
     OnmsTopologyProvider m_topologyProvider;
-    
+
     public RemoveVertexOperation(OnmsTopologyProvider topologyProvider) {
         m_topologyProvider = topologyProvider;
     }
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         DisplayState graphContainer = operationContext.getGraphContainer();
-        
+
         if (targets == null) {
             LoggerFactory.getLogger(getClass()).debug("need to handle selection!!!");
         } else {
             for(VertexRef target : targets) {
                 m_topologyProvider.removeVertex(target);
             }
-            
-            
+
+
         	graphContainer.redoLayout();
         }
         return null;

@@ -32,7 +32,7 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.VariableBinding;
 
 /**
- * Represents a SubAgent 
+ * Represents a SubAgent
  *
  * @author brozow
  */

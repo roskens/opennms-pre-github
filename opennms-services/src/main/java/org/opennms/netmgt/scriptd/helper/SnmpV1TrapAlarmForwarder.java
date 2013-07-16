@@ -49,7 +49,7 @@ public class SnmpV1TrapAlarmForwarder extends SnmpTrapForwarderHelper implements
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		}
-		}		
+		}
 	}
 
         @Override
@@ -71,8 +71,8 @@ public class SnmpV1TrapAlarmForwarder extends SnmpTrapForwarderHelper implements
 
         @Override
 	public void sendEndSync() {
-		super.sendV1EndSyncTrap();		
+		super.sendV1EndSyncTrap();
 	}
 
-	
+
 }

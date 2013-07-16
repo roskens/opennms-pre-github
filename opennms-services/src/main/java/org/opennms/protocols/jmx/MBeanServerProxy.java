@@ -34,7 +34,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 /*
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */

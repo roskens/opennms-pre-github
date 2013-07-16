@@ -51,9 +51,9 @@ public class ReportJobFactory implements JobFactory {
 
         JobDetail jobDetail = bundle.getJobDetail();
         Class<ReportJob> jobClass = getJobClass(jobDetail);
-        
+
         ReportJob job = null;
-        
+
         try {
             job = jobClass.newInstance();
             job.setReportd(getReportd());
@@ -78,7 +78,7 @@ public class ReportJobFactory implements JobFactory {
     public void setReportd(Reportd reportd) {
         m_reportd = reportd;
     }
-    
+
     private Reportd getReportd() {
         return m_reportd;
     }

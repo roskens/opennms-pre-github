@@ -54,7 +54,7 @@ import java.util.Locale;
  */
 public class DateFilterPredicate implements Predicate
 {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DateFilterPredicate.class);
 
     /** less than or equal. usage: <= 18-12-1997 */
@@ -71,7 +71,7 @@ public class DateFilterPredicate implements Predicate
 
     /** delimiters */
     public static final String DELIM = "\\s";
-    
+
     private static final String asterisk = "*";
     private static final String emptyString = "";
     private TableModel model;

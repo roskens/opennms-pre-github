@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * MIB object groups
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -76,8 +76,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -89,8 +89,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -105,7 +105,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateGroup.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -116,7 +116,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -125,13 +125,13 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Groups) {
-        
+
             Groups temp = (Groups)obj;
             if (this._groupList != null) {
                 if (temp._groupList == null) return false;
-                else if (!(this._groupList.equals(temp._groupList))) 
+                else if (!(this._groupList.equals(temp._groupList)))
                     return false;
             }
             else if (temp._groupList != null)
@@ -143,7 +143,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getGroup.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -158,7 +158,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._groupList.size()) {
             throw new IndexOutOfBoundsException("getGroup: Index value '" + index + "' not in range [0.." + (this._groupList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.xmpDataCollection.Group) _groupList.get(index);
     }
 
@@ -168,7 +168,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.xmpDataCollection.Group[] getGroup(
@@ -181,7 +181,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getGroupCollection.Returns a reference to
      * '_groupList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.xmpDataCollection.Group> getGroupCollection(
@@ -191,7 +191,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getGroupCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getGroupCount(
@@ -204,25 +204,25 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_groupList != null) {
            result = 37 * result + _groupList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -237,7 +237,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateGroup.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -247,8 +247,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -262,8 +262,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -287,7 +287,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeGroup.
-     * 
+     *
      * @param vGroup
      * @return true if the object was removed from the collection.
      */
@@ -299,7 +299,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeGroupAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -310,8 +310,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -325,20 +325,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._groupList.size()) {
             throw new IndexOutOfBoundsException("setGroup: Index value '" + index + "' not in range [0.." + (this._groupList.size() - 1) + "]");
         }
-        
+
         this._groupList.set(index, vGroup);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vGroupArray
      */
     public void setGroup(
             final org.opennms.netmgt.config.xmpDataCollection.Group[] vGroupArray) {
         //-- copy array
         _groupList.clear();
-        
+
         for (int i = 0; i < vGroupArray.length; i++) {
                 this._groupList.add(vGroupArray[i]);
         }
@@ -347,14 +347,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_groupList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vGroupList the Vector to copy.
      */
     public void setGroup(
             final java.util.List<org.opennms.netmgt.config.xmpDataCollection.Group> vGroupList) {
         // copy vector
         this._groupList.clear();
-        
+
         this._groupList.addAll(vGroupList);
     }
 
@@ -362,7 +362,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_groupList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param groupList the Vector to set.
      */
     public void setGroupCollection(
@@ -372,7 +372,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -388,8 +388,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

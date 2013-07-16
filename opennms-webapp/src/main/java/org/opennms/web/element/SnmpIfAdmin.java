@@ -228,7 +228,7 @@ public class SnmpIfAdmin {
         SnmpValue val = SnmpUtils.getValueFactory().getInt32(value);
         SnmpValue result = SnmpUtils.set(m_agent, oid,val);
 
-   	 	
+
 
         if (result != null && result.isNumeric()) {
         	int retvalue = result.toInt();

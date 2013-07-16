@@ -37,11 +37,11 @@ import com.google.gwt.dom.client.Element;
 public class DragHandlerManager{
     Map<String, DragBehaviorHandler> m_dragHandlers = new HashMap<String, DragBehaviorHandler>();
     DragBehaviorHandler m_currentHandler;
-    
+
     public void addDragBehaviorHandler(String key, DragBehaviorHandler handler) {
         m_dragHandlers.put(key, handler);
     }
-    
+
     public boolean setCurrentDragHandler(String key) {
         if(m_dragHandlers.containsKey(key)) {
             m_currentHandler = m_dragHandlers.get(key);
@@ -49,17 +49,17 @@ public class DragHandlerManager{
         }
         return false;
     }
-    
+
     public void onDragStart(Element elem) {
         m_currentHandler.onDragStart(elem);
     }
-    
+
     public void onDrag(Element elem) {
         m_currentHandler.onDrag(elem);
     }
-    
+
     public void onDragEnd(Element elem) {
         m_currentHandler.onDragEnd(elem);
     }
-    
+
 }

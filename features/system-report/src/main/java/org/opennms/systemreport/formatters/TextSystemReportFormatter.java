@@ -48,7 +48,7 @@ public class TextSystemReportFormatter extends AbstractSystemReportFormatter imp
     public String getDescription() {
         return "Simple human-readable indented text";
     }
-    
+
     @Override
     public String getContentType() {
         return "text/plain";
@@ -74,7 +74,7 @@ public class TextSystemReportFormatter extends AbstractSystemReportFormatter imp
             for (final Map.Entry<String,Resource> entry : plugin.getEntries().entrySet()) {
                 final Resource value = entry.getValue();
                 final boolean displayable = isDisplayable(value);
-    
+
                 final String text;
                 if (displayable) {
                     text = "\t" + entry.getKey() + ": " + getResourceText(value) + "\n";

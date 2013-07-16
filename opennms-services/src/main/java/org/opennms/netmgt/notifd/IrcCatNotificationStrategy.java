@@ -48,9 +48,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class IrcCatNotificationStrategy implements NotificationStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IrcCatNotificationStrategy.class);
-    
+
     /**
      * <p>Constructor for IrcCatNotificationStrategy.</p>
      */
@@ -84,7 +84,7 @@ public class IrcCatNotificationStrategy implements NotificationStrategy {
     private String buildMessage(List<Argument> arguments) {
         String recipient = null;
         String message = null;
-        
+
         for (Argument arg : arguments) {
             if (NotificationManager.PARAM_EMAIL.equals(arg.getSwitch())) {
                 recipient = arg.getValue();
@@ -96,7 +96,7 @@ public class IrcCatNotificationStrategy implements NotificationStrategy {
                 throw new IllegalArgumentException("Unsupported notification argument switch '" + arg.getSwitch() + "'");
             }
         }
-        
+
         if (recipient == null) {
             // FIXME We should have a better Exception to use here for configuration problems
             throw new IllegalArgumentException("no recipient specified, but is required");

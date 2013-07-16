@@ -61,7 +61,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 	// Spring DAO setters
 	// ************************
 
-	
+
 	/**
 	 * Used to obtain opennms asset information for inclusion in alarms
 	 * @see org.opennms.netmgt.dao.api.AssetRecordDao
@@ -81,7 +81,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 
 	/**
 	 * Used to obtain opennms node information for inclusion in alarms
-	 * @see org.opennms.netmgt.dao.api.NodeDao 
+	 * @see org.opennms.netmgt.dao.api.NodeDao
 	 */
 	@SuppressWarnings("unused")
 	private static NodeDao _nodeDao;
@@ -110,7 +110,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 	public  void setAlarmDao( AlarmDao alarmDao){
 		_alarmDao = alarmDao;
 	}
-	
+
 	/**
 	 * called to initialise the AlarmEventReceiverEventHandler
 	 * must be called before all other classes
@@ -120,11 +120,11 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 		initialised=true;
 		// TODO add initialisation code if needed
 	}
-	
+
 	// ************************
 	// On Event Methods
 	// ************************
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void onNotifyNewAlarmEvent(NotifyNewAlarmEvent nnae, OssBeanAlarmEventReceiver callingAer) {
@@ -138,7 +138,7 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 		}
 		//TODO ADD IN BUSINESS LOGIC
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void onNotifyClearedAlarmEvent(NotifyClearedAlarmEvent nclae, OssBeanAlarmEventReceiver callingAer) {
@@ -238,6 +238,6 @@ public class QoSDrxAlarmEventReceiverEventHandlerImplShell implements AlarmEvent
 		}
 		//TODO ADD IN BUSINESS LOGIC
 	}
-	
+
 }
 

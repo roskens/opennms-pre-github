@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public class WmiMonitor extends AbstractServiceMonitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiMonitor.class);
 
 
@@ -99,7 +99,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
 		final NetworkInterface<InetAddress> iface = svc.getNetInterface();
 		// Get the address we're going to poll.
 		final InetAddress ipv4Addr = iface.getAddress();
-		
+
 		// Validate the interface type.
 		if (iface.getType() != NetworkInterface.TYPE_INET) {
 			throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
@@ -118,7 +118,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
             	int timeout = ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout());
                 agentConfig.setTimeout(timeout);
             }
-            
+
             if (parameters.get("retry") != null) {
             	int retries = ParameterMap.getKeyedInteger(parameters, "retry", agentConfig.getRetries());
                 agentConfig.setRetries(retries);
@@ -128,17 +128,17 @@ public class WmiMonitor extends AbstractServiceMonitor {
                 String user = ParameterMap.getKeyedString(parameters, "username", agentConfig.getUsername());
                 agentConfig.setUsername(user);
             }
-            
+
             if (parameters.get("password") != null) {
                 String pass = ParameterMap.getKeyedString(parameters, "password", agentConfig.getPassword());
                 agentConfig.setUsername(pass);
             }
-            
+
             if (parameters.get("domain") != null) {
                 String domain = ParameterMap.getKeyedString(parameters, "domain", agentConfig.getDomain());
                 agentConfig.setUsername(domain);
             }
-            
+
             matchType = ParameterMap.getKeyedString(parameters, "matchType", DEFAULT_WMI_MATCH_TYPE);
 			compVal = ParameterMap.getKeyedString(parameters, "compareValue", DEFAULT_WMI_COMP_VAL);
 			compOp = ParameterMap.getKeyedString(parameters, "compareOp", DEFAULT_WMI_COMP_OP);
@@ -151,9 +151,9 @@ public class WmiMonitor extends AbstractServiceMonitor {
 
         final String hostAddress = InetAddressUtils.str(ipv4Addr);
 		LOG.debug("poll: address = {}, user = {}, {}", hostAddress, agentConfig.getUsername(), tracker);
-        
+
         WmiManager mgr = null;
-        
+
         for (tracker.reset(); tracker.shouldRetry() && serviceStatus != PollStatus.SERVICE_AVAILABLE; tracker.nextAttempt()) {
 			try {
 
@@ -168,7 +168,7 @@ public class WmiMonitor extends AbstractServiceMonitor {
 				mgr.init();
 
 				LOG.debug("Completed initializing WmiManager object.");
-                
+
                 // We are connected, so upgrade status to unresponsive
                 serviceStatus = PollStatus.SERVICE_UNRESPONSIVE;
 
@@ -182,13 +182,13 @@ public class WmiMonitor extends AbstractServiceMonitor {
                     // Create parameters to run a WQL query.
                     clientParams = new WmiParams(WmiParams.WMI_OPERATION_WQL, compVal, compOp, wmiWqlStr, wmiObject);
                     LOG.debug("Attempting to perform operation: {}", wmiWqlStr);
-                }                
-                
+                }
+
                 // Send the request to the server and receive the response..
 				response = mgr.performOp(clientParams);
 
 				LOG.debug("Received result: {}", response);
-                
+
                 // Now save the time it took to process the check command.
 				responseTime = tracker.elapsedTimeInMillis();
 

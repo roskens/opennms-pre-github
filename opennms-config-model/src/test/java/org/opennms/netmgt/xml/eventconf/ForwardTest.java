@@ -53,7 +53,7 @@ public class ForwardTest extends XmlTestNoCastor<Forward> {
 				"target/classes/xsds/eventconf.xsd" },
 				{forward1,
 				"<forward state=\"on\" mechanism=\"snmpudp\"/>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

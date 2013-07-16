@@ -68,7 +68,7 @@ public class SpecFile {
             throw new ModelImportException("Exception while validating import "+e);
         }
     }
-    
+
     /**
      * <p>visitImport</p>
      *

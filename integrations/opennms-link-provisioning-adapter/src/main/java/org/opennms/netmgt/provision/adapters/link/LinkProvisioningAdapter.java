@@ -56,25 +56,25 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     private static final Logger LOG = LoggerFactory.getLogger(LinkProvisioningAdapter.class);
 
     private static final String ADAPTER_NAME = "LinkAdapter";
-    
+
     @Autowired
     private LinkMatchResolver m_linkMatchResolver;
-    
+
     @Autowired
     private NodeLinkService m_nodeLinkService;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     /**
      * <p>Constructor for LinkProvisioningAdapter.</p>
      */
     public LinkProvisioningAdapter() {
         super(ADAPTER_NAME);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void init() {
@@ -88,28 +88,28 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     public void doAddNode(final int endPointId) {
         final String endPoint1 = m_nodeLinkService.getNodeLabel(endPointId);
         final String endPoint2 = m_linkMatchResolver.getAssociatedEndPoint(endPoint1);
-        
+
         final String nodeLabel = max(endPoint1, endPoint2);
         final String parentNodeLabel = min(endPoint1, endPoint2);
-        
+
         final Integer nodeId = m_nodeLinkService.getNodeId(nodeLabel);
         final Integer parentNodeId = m_nodeLinkService.getNodeId(parentNodeLabel);
-        
+
         LOG.info("running doAddNode on node {} nodeId: {}", nodeLabel, nodeId);
-        
+
         if(nodeId != null && parentNodeId != null){
             LOG.info("Found link between parentNode {} and node {}", parentNodeLabel, nodeLabel);
             m_nodeLinkService.createLink(parentNodeId, nodeId);
         }
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void doUpdateNode(final int nodeid) {
         createLinkForNodeIfNecessary(nodeid);
     }
-    
+
     private void createLinkForNodeIfNecessary(final int nodeid) {
         doAddNode(nodeid);
     }
@@ -119,12 +119,12 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     public void doDeleteNode(final int nodeid) {
         //This is handle using cascading deletes from the node table to the datalink table
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void doNotifyConfigChange(final int nodeid) {
     }
-    
+
     /**
      * <p>dataLinkFailed</p>
      *
@@ -145,15 +145,15 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
         LOG.info("{}: received event {}", method, event.getUei());
         final String endPoint1 = EventUtils.getParm(event, EventConstants.PARM_ENDPOINT1);
         final String endPoint2 = EventUtils.getParm(event, EventConstants.PARM_ENDPOINT2);
-        
+
         Assert.notNull(endPoint1, "Param endPoint1 cannot be null");
         Assert.notNull(endPoint2, "Param endPoint2 cannot be null");
-        
+
         final String nodeLabel = max(endPoint1, endPoint2);
         final String parentNodeLabel = min(endPoint1, endPoint2);
         final Integer nodeId = m_nodeLinkService.getNodeId(nodeLabel);
         final Integer parentNodeId = m_nodeLinkService.getNodeId(parentNodeLabel);
-        
+
         if(nodeId != null && parentNodeId != null) {
             LOG.info("{}: updated link nodeLabel: {}, nodeId: {}, parentLabel: {}, parentId: {} ", method, nodeLabel, nodeId, parentNodeLabel, parentNodeId);
             m_nodeLinkService.updateLinkStatus(parentNodeId, nodeId, newStatus);
@@ -161,7 +161,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
             LOG.info("{}: found no link with parent: {} and node {}", method, parentNodeLabel, nodeLabel);
         }
     }
-    
+
     /**
      * <p>dataLinkRestored</p>
      *
@@ -177,7 +177,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
             LOG.debug("Bailing out of dataLinkRestored handler");
         }
     }
-    
+
     /**
      * <p>dataLinkUnmanaged</p>
      *
@@ -193,7 +193,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
             LOG.debug("Bailing out of dataLinkUnmanaged handler");
         }
     }
-    
+
     /**
      * <p>max</p>
      *
@@ -208,7 +208,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
             return string1;
         }
     }
-    
+
     /**
      * <p>min</p>
      *
@@ -223,7 +223,7 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
             return string2;
         }
     }
-    
+
     /**
      * <p>setLinkMatchResolver</p>
      *
@@ -250,5 +250,5 @@ public class LinkProvisioningAdapter extends SimplerQueuedProvisioningAdapter im
     public void setNodeLinkService(final NodeLinkService nodeLinkService) {
         m_nodeLinkService = nodeLinkService;
     }
-    
+
 }

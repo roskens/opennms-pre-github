@@ -66,7 +66,7 @@ public class CiscoVlanTable extends VlanTableBasic {
 	public CiscoVlanTable(InetAddress address) {
         super(address, "ciscoVlanTable", CiscoVlanTableEntry.cisco_vlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected CiscoVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
@@ -78,7 +78,7 @@ public class CiscoVlanTable extends VlanTableBasic {
 		List<OnmsVlan> vlans = new ArrayList<OnmsVlan>();
 		for (SnmpStore elm: getEntries()) {
 			OnmsVlan vlan = ((CiscoVlanTableEntry) elm).getOnmsVlan();
-			if (vlan.getVlanType().equals(VlanType.CISCO_VTP_ETHERNET) 
+			if (vlan.getVlanType().equals(VlanType.CISCO_VTP_ETHERNET)
 					&& vlan.getVlanStatus().equals(VlanStatus.CISCOVTP_OPERATIONAL))
 				vlans.add(vlan);
 		}

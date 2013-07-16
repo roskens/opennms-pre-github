@@ -48,23 +48,23 @@ import org.opennms.netmgt.provision.server.exchange.RequestHandler;
  *
  */
 public class LineDecoderTest {
-    
+
     public static class TestServer extends SimpleServer{
-        
+
         @Override
         protected void sendBanner(OutputStream out) throws IOException {
             String[] tokens = getBanner().split("");
-            
+
             for(int i = 0; i < tokens.length; i++) {
                 String str = tokens[i];
                 out.write(str.getBytes());
                 out.flush();
-                
+
             }
             out.write("\r\n".getBytes());
-            
+
         }
-        
+
         @Override
         protected RequestHandler errorString(final String error) {
             return new RequestHandler() {
@@ -72,31 +72,31 @@ public class LineDecoderTest {
                 @Override
                 public void doRequest(OutputStream out) throws IOException {
                     out.write(String.format("%s", error).getBytes());
-                    
+
                 }
-                
+
             };
         }
-        
+
         @Override
         protected RequestHandler shutdownServer(final String response) {
             return new RequestHandler() {
-                
+
                 @Override
                 public void doRequest(OutputStream out) throws IOException {
                     out.write(String.format("%s\r\n", response).getBytes());
                     stopServer();
                 }
-                
+
             };
         }
     }
-    
+
     public static class TestDetector extends AsyncLineOrientedDetectorMinaImpl {
 
         public TestDetector() {
             super("POP3", 110, 5000, 1);
-           
+
         }
 
         @Override
@@ -104,18 +104,18 @@ public class LineDecoderTest {
             expectBanner(startsWith("+OK"));
             send(request("QUIT"), startsWith("+OK"));
         }
-        
+
     }
-    
+
     private TestServer m_server;
     private TestDetector m_detector;
-    
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
 
         m_server = new TestServer() {
-            
+
             @Override
             public void onInit() {
                 setBanner("+OK");
@@ -133,43 +133,43 @@ public class LineDecoderTest {
             m_server = null;
         }
     }
-    
+
     @Test
     public void testSuccess() throws Exception {
-        
+
         m_detector = createDetector(m_server.getLocalPort());
         m_detector.setIdleTime(1000);
         assertTrue( doCheck( m_detector.isServiceDetected(m_server.getInetAddress())));
     }
-    
-    
+
+
     @Test
     public void testFailureWithBogusResponse() throws Exception {
         m_server.setBanner("Oh Henry");
-        
+
         m_detector = createDetector(m_server.getLocalPort());
-        
+
         assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
-        
+
     }
-    
+
     @Test
     public void testMonitorFailureWithNoResponse() throws Exception {
         m_server.setBanner(null);
         m_detector = createDetector(m_server.getLocalPort());
-        
+
         assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
-        
+
     }
-    
+
     @Test
     public void testDetectorFailWrongPort() throws Exception{
-        
+
         m_detector = createDetector(9000);
-        
+
         assertFalse( doCheck( m_detector.isServiceDetected( m_server.getInetAddress())));
     }
-    
+
     private static TestDetector createDetector(int port) {
         TestDetector detector = new TestDetector();
         detector.setServiceName("TEST");
@@ -178,11 +178,11 @@ public class LineDecoderTest {
         detector.init();
         return detector;
     }
-    
+
     private static boolean doCheck(DetectFuture future) throws Exception {
-        
+
         future.awaitFor();
-        
+
         return future.isServiceDetected();
     }
 }

@@ -81,7 +81,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	public final static String STP_PORT_FORW_TRANS = "dot1dStpPortForwardTransitions";
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the StpPortTable. Objects
 	 * in this list should be used by multiple instances of
@@ -94,7 +94,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * information.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT, ".1.3.6.1.2.1.17.2.15.1.1", 1),
-		
+
 		/**
 		 * The value of the priority field which is
 		 * contained in the first (in network byte order)
@@ -103,7 +103,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * dot1dStpPort.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT_PRIORITY, ".1.3.6.1.2.1.17.2.15.1.2", 2),
-		
+
 		/**
 		 * The port's current state as defined by
 		 * application of the Spanning Tree Protocol. This
@@ -115,12 +115,12 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * will have a value of disabled(1).
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT_STATE, ".1.3.6.1.2.1.17.2.15.1.3", 3),
-		
+
 		/**
 		 * The enabled/disabled status of the port.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT_ENABLE, ".1.3.6.1.2.1.17.2.15.1.4", 4),
-		
+
 		/**
 		 * The contribution of this port to the path cost of
 		 * paths towards the spanning tree root which include
@@ -129,7 +129,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * proportion to the speed of the attached LAN.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT_PATH_COST, ".1.3.6.1.2.1.17.2.15.1.5", 5),
-		
+
 		/**
 		 * The unique Bridge Identifier of the Bridge
 		 * recorded as the Root in the Configuration BPDUs
@@ -137,7 +137,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * segment to which the port is attached.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, STP_PORT_DESIGNATED_ROOT, ".1.3.6.1.2.1.17.2.15.1.6", 6),
-		
+
 		/**
 		 * The path cost of the Designated Port of the
 		 * segment connected to this port. This value is
@@ -145,20 +145,20 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 		 * bridge PDUs.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PORT_DESIGNATED_COST, ".1.3.6.1.2.1.17.2.15.1.7", 7),
-		
+
 		/**
 		 * The Bridge Identifier of the bridge which this
 		 * port considers to be the Designated Bridge for
 		 * this port's segment.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, STP_PORT_DESIGNATED_BRIDGE, ".1.3.6.1.2.1.17.2.15.1.8", 8),
-		
+
 		/**
 		 * The Port Identifier of the port on the Designated
 		 * Bridge for this port's segment.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, STP_PORT_DESIGNATED_PORT, ".1.3.6.1.2.1.17.2.15.1.9", 9),
-		
+
 		/**
 		 * The number of times this port has transitioned
 		 * from the Learning state to the Forwarding state.
@@ -187,7 +187,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	public Dot1dStpPortTableEntry() {
 		super(stpport_elemList);
 	}
-	
+
 	/**
 	 * <p>getDot1dStpPort</p>
 	 *
@@ -205,7 +205,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	public Integer getDot1dStpPortPriority() {
 		return getInt32(Dot1dStpPortTableEntry.STP_PORT_PRIORITY);
 	}
-	
+
 	/**
 	 * <p>getDot1dStpPortState</p>
 	 *
@@ -214,7 +214,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	public Integer getDot1dStpPortState() {
 		return getInt32(Dot1dStpPortTableEntry.STP_PORT_STATE);
 	}
-	
+
 	/**
 	 * <p>getDot1dStpPortEnable</p>
 	 *
@@ -267,7 +267,7 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	 */
 	public String getDot1dStpPortDesignatedPort() {
 		return getHexString(Dot1dStpPortTableEntry.STP_PORT_DESIGNATED_PORT);
-		
+
 	}
 
 	/**
@@ -280,12 +280,12 @@ public final class Dot1dStpPortTableEntry extends SnmpStore {
 	}
 
 	public OnmsStpInterface getOnmsStpInterface(OnmsStpInterface stpInterface) {
-        
-        if (getDot1dStpPortDesignatedBridge() != null) 
+
+        if (getDot1dStpPortDesignatedBridge() != null)
             stpInterface.setStpPortDesignatedBridge(getDot1dStpPortDesignatedBridge());
         if (getDot1dStpPortDesignatedRoot() != null)
         	stpInterface.setStpPortDesignatedRoot(getDot1dStpPortDesignatedRoot());
-        if (getDot1dStpPortDesignatedPort() != null) 
+        if (getDot1dStpPortDesignatedPort() != null)
             stpInterface.setStpPortDesignatedPort(getDot1dStpPortDesignatedPort());
         if (getDot1dStpPortState() != null)
         	stpInterface.setStpPortState(StpPortStatus.get(getDot1dStpPortState()));

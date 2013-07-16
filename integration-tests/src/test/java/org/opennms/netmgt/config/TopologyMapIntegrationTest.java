@@ -124,7 +124,7 @@ public class TopologyMapIntegrationTest extends KarafTestSupport {
 
     /**
      * Override this function to specify a different port for the RMI service.
-     * 
+     *
      * Note: The next time we upgrade Karaf, this should be unnecessary because the configs in
      * KarafTestSupport have been changed in an identical manner.
      */

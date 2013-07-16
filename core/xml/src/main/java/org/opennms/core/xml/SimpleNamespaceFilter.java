@@ -36,9 +36,9 @@ import org.xml.sax.helpers.AttributesImpl;
 import org.xml.sax.helpers.XMLFilterImpl;
 
 public class SimpleNamespaceFilter extends XMLFilterImpl {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SimpleNamespaceFilter.class);
-	
+
     private String m_namespaceUri;
     private boolean m_addNamespace = false;
     private boolean m_addedNamespace = false;
@@ -49,12 +49,12 @@ public class SimpleNamespaceFilter extends XMLFilterImpl {
         LOG.debug("SimpleNamespaceFilter initalized with namespace {} ({})", namespaceUri, Boolean.valueOf(addNamespace));
         if (addNamespace) {
             this.m_namespaceUri = namespaceUri.intern();
-        } else { 
+        } else {
             this.m_namespaceUri = "".intern();
         }
         this.m_addNamespace = addNamespace;
     }
-	
+
     @Override
     public void startDocument() throws SAXException {
         super.startDocument();

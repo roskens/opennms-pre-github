@@ -72,7 +72,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
@@ -180,7 +180,7 @@ public final class PollerConfigFactory extends PollerConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

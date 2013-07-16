@@ -38,8 +38,8 @@ import com.vaadin.ui.Upload;
 
 /**
  * The Class MIB Upload Button.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class MibUploadButton extends Upload {

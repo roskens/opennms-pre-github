@@ -41,13 +41,13 @@ public class PanHandler implements DragBehaviorHandler{
     TopologyView<TopologyViewRenderer> m_topologyView;
     ServiceRegistry m_serviceRegistry;
     VTopologyComponent m_topologyComponent;
-    
+
     public PanHandler(VTopologyComponent vtopologyComp, ServiceRegistry serviceRegistry) {
         m_topologyComponent = vtopologyComp;
         m_topologyView = vtopologyComp.getTopologyView();
         m_serviceRegistry = serviceRegistry;
     }
-    
+
     @Override
     public void onDragStart(Element elem) {
         m_panObject = new PanObject(m_topologyView);
@@ -64,5 +64,5 @@ public class PanHandler implements DragBehaviorHandler{
         m_topologyComponent.updateMapPosition();
     }
 
-    
+
 }

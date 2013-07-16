@@ -38,15 +38,15 @@ package org.opennms.web.controller.inventory;
 public class RancidReportExecCommClass {
 
     private String date;
-    
+
     private String fieldhas;
-    
+
     private String reporttype;
-    
+
     private String reportfiletype;
-    
+
     private String reportemail;
-    
+
     /**
      * <p>Getter for the field <code>date</code>.</p>
      *
@@ -126,5 +126,5 @@ public class RancidReportExecCommClass {
      */
     public void setReportemail(String reportemail) {
         this.reportemail = reportemail;
-    }    
+    }
 }

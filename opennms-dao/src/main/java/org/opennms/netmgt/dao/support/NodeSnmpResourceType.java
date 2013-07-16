@@ -63,7 +63,7 @@ public class NodeSnmpResourceType implements OnmsResourceType {
     public String getName() {
         return "nodeSnmp";
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -73,13 +73,13 @@ public class NodeSnmpResourceType implements OnmsResourceType {
     public String getLabel() {
         return "SNMP Node Data";
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNode(int nodeId) {
         return getResourceDirectory(nodeId, false).isDirectory();
     }
-    
+
     /**
      * <p>getResourceDirectory</p>
      *
@@ -89,27 +89,27 @@ public class NodeSnmpResourceType implements OnmsResourceType {
      */
     public File getResourceDirectory(int nodeId, boolean verify) {
         File snmp = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.SNMP_DIRECTORY);
-        
+
         File node = new File(snmp, Integer.toString(nodeId));
         if (verify && !node.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No node directory exists for node " + nodeId + ": " + node);
         }
-        
+
         return node;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         ArrayList<OnmsResource> resources = new ArrayList<OnmsResource>();
 
         Set<OnmsAttribute> attributes = ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativePathForResource(nodeId));
-        
+
         OnmsResource resource = new OnmsResource("", "Node-level Performance Data", this, attributes);
         resources.add(resource);
         return resources;
     }
-    
+
     private String getRelativePathForResource(int nodeId) {
         return DefaultResourceDao.SNMP_DIRECTORY + File.separator + Integer.toString(nodeId);
     }
@@ -137,7 +137,7 @@ public class NodeSnmpResourceType implements OnmsResourceType {
     public String getLinkForResource(OnmsResource resource) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
@@ -146,9 +146,9 @@ public class NodeSnmpResourceType implements OnmsResourceType {
         if (!nodeSnmpDir.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No directory exists for nodeSource " + nodeSource);
         }
-        return nodeSnmpDir.listFiles(RrdFileConstants.RRD_FILENAME_FILTER).length > 0; 
+        return nodeSnmpDir.listFiles(RrdFileConstants.RRD_FILENAME_FILTER).length > 0;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {

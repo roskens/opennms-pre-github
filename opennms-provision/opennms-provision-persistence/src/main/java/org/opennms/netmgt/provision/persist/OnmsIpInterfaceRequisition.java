@@ -42,7 +42,7 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionMonitoredServ
  * @version $Id: $
  */
 public class OnmsIpInterfaceRequisition {
-    
+
     private RequisitionInterface m_iface;
     private final List<OnmsMonitoredServiceRequisition> m_svcReqs;
 
@@ -55,11 +55,11 @@ public class OnmsIpInterfaceRequisition {
         m_iface = iface;
         m_svcReqs = constructSvcReqs();
     }
-    
+
     RequisitionInterface getInterface() {
         return m_iface;
     }
-    
+
     private List<OnmsMonitoredServiceRequisition> constructSvcReqs() {
         List<OnmsMonitoredServiceRequisition> reqs = new ArrayList<OnmsMonitoredServiceRequisition>(m_iface.getMonitoredServices().size());
         for (RequisitionMonitoredService svc : m_iface.getMonitoredServices()) {
@@ -125,8 +125,8 @@ public class OnmsIpInterfaceRequisition {
     public int getStatus() {
         return m_iface.getStatus();
     }
-    
-    
-    
+
+
+
 
 }

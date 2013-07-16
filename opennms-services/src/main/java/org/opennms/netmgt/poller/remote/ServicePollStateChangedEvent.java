@@ -37,7 +37,7 @@ import java.util.EventObject;
  * @version $Id: $
  */
 public class ServicePollStateChangedEvent extends EventObject {
-	
+
 	private static final long serialVersionUID = 5224040562319082465L;
 
 	private int m_index;
@@ -52,7 +52,7 @@ public class ServicePollStateChangedEvent extends EventObject {
 		super(polledService);
 		m_index = index;
 	}
-	
+
 	/**
 	 * <p>getPolledService</p>
 	 *
@@ -61,8 +61,8 @@ public class ServicePollStateChangedEvent extends EventObject {
 	public PolledService getPolledService() {
 		return (PolledService)getSource();
 	}
-    
-	
+
+
 	/**
 	 * <p>getIndex</p>
 	 *
@@ -75,13 +75,13 @@ public class ServicePollStateChangedEvent extends EventObject {
     /** {@inheritDoc} */
     @Override
     public String toString() {
-        return getClass().getName() + 
+        return getClass().getName() +
         "[" +
         "source=" + getSource() +
         ", index=" + m_index +
         "]";
     }
-    
-    
+
+
 
 }

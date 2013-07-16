@@ -36,69 +36,69 @@ import junit.framework.TestCase;
  * @author brozow
  */
 public class FilterChainTest extends TestCase {
-    
+
     NNMEvent m_event;
     FilterChainBuilder m_chainBldr;
-    
+
     public void setUp() {
         m_chainBldr = new FilterChainBuilder();
-        
+
         m_event = MockNNMEvent.createEvent("Category", "Severity", "name", "1.1.1.1");
     }
-    
+
     public void testNoMatchingFilter() {
-        
+
         m_chainBldr.newFilter();
         m_chainBldr.setCategoryMatchPattern("nomatch");
         m_chainBldr.setAction(Filter.ACCEPT);
-        
+
         assertEquals(Filter.DISCARD, m_chainBldr.getChain().filterEvent(m_event));
     }
-    
+
     public void testOneFilterThatMatches() {
         m_chainBldr.newFilter();
         m_chainBldr.setCategoryMatchPattern("Category");
         m_chainBldr.setAction(Filter.ACCEPT);
-        
+
         assertEquals(Filter.ACCEPT, m_chainBldr.getChain().filterEvent(m_event));
-        
+
     }
-    
+
     public void testTwoFiltersFirstMatches() {
         m_chainBldr.newFilter();
         m_chainBldr.setCategoryMatchPattern("Category");
         m_chainBldr.setAction(Filter.ACCEPT);
-        
+
         m_chainBldr.newFilter();
         m_chainBldr.setAddressMatchPattern("1.1.1.2");
         m_chainBldr.setAction(Filter.PRESERVE);
-        
-        assertEquals(Filter.ACCEPT, m_chainBldr.getChain().filterEvent(m_event));        
+
+        assertEquals(Filter.ACCEPT, m_chainBldr.getChain().filterEvent(m_event));
     }
 
     public void testTwoFiltersSecondMatches() {
         m_chainBldr.newFilter();
         m_chainBldr.setCategoryMatchPattern("Categorx");
         m_chainBldr.setAction(Filter.ACCEPT);
-        
+
         m_chainBldr.newFilter();
         m_chainBldr.setAddressMatchPattern("1.1.1.1");
         m_chainBldr.setAction(Filter.PRESERVE);
-        
-        assertEquals(Filter.PRESERVE, m_chainBldr.getChain().filterEvent(m_event));        
+
+        assertEquals(Filter.PRESERVE, m_chainBldr.getChain().filterEvent(m_event));
     }
- 
+
     public void testTwoFiltersBothMatches() {
         m_chainBldr.newFilter();
         m_chainBldr.setCategoryMatchPattern("Category");
         m_chainBldr.setAction(Filter.ACCEPT);
-        
+
         m_chainBldr.newFilter();
         m_chainBldr.setAddressMatchPattern("1.1.1.1");
         m_chainBldr.setAction(Filter.PRESERVE);
-        
+
         // action belongs to first matcher
-        assertEquals(Filter.ACCEPT, m_chainBldr.getChain().filterEvent(m_event));        
+        assertEquals(Filter.ACCEPT, m_chainBldr.getChain().filterEvent(m_event));
     }
 
 }

@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class TrivialTimeResponse {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(TrivialTimeResponse.class);
     boolean available;
 

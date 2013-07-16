@@ -36,7 +36,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * The Class TcaCollectionAttributeType.
- * 
+ *
  * <p>It is assumed that all metrics are not counters.</p>
  * <p>The metrics are fixed:</p>
  * <ul>
@@ -46,15 +46,15 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  * <li>jitter remote-local ~ current outbound-jitter-</li>
  * <li>timesync status (1 = good, time is synced, 0 = bad, out-of sync)</li>
  * </ul>
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class TcaCollectionAttributeType implements CollectionAttributeType {
 
 	/** The Attribute Group Type. */
 	private final AttributeGroupType m_groupType;
-	
-	private final SnmpObjId m_attributeObjectId; 
+
+	private final SnmpObjId m_attributeObjectId;
 
 	/** The m_name. */
 	private final String m_name;

@@ -69,23 +69,23 @@ public class ChooseResourceController extends AbstractController implements Init
             if (request.getParameter("parentResource") == null) {
                 throw new MissingParameterException("parentResource", requiredParameters);
             }
-            
+
             resourceId = OnmsResource.createResourceId(resourceType, resource);
         }
-        
+
         if (endUrl == null || "".equals(endUrl)) {
             endUrl = m_defaultEndUrl;
         }
 
-        ChooseResourceModel model = 
+        ChooseResourceModel model =
             m_chooseResourceService.findChildResources(resourceId,
                                                        endUrl);
-        
+
         return new ModelAndView("/graph/chooseresource",
                                 "model",
                                 model);
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */
@@ -94,7 +94,7 @@ public class ChooseResourceController extends AbstractController implements Init
         if (m_chooseResourceService == null) {
             throw new IllegalStateException("chooseResourceService property not set");
         }
-        
+
         if (m_defaultEndUrl == null) {
             throw new IllegalStateException("defaultEndUrl property not set");
         }

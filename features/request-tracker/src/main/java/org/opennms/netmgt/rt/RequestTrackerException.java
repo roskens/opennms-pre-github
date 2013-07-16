@@ -30,7 +30,7 @@ package org.opennms.netmgt.rt;
 
 public class RequestTrackerException extends Exception {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 7053842982537938474L;
 

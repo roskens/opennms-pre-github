@@ -49,19 +49,19 @@ import org.junit.Test;
 public class MspTemplateTest {
     private JasperReport m_jasperReport;
     private JasperPrint m_jasperPrint;
-    
+
     interface Function {
         double evaluate(long timestamp);
     }
-    
+
     class Sin implements Function {
-        
+
         long m_startTime;
         double m_offset;
         double m_amplitude;
         double m_period;
         double m_factor;
-        
+
         Sin(long startTime, double offset, double amplitude, double period) {
             m_startTime = startTime;
             m_offset = offset;
@@ -69,7 +69,7 @@ public class MspTemplateTest {
             m_period = period;
             m_factor = 2 * Math.PI / period;
         }
-        
+
         @Override
         public double evaluate(long timestamp) {
             long x = timestamp - m_startTime;
@@ -78,25 +78,25 @@ public class MspTemplateTest {
             return ret;
         }
     }
-    
+
     class Cos implements Function {
-        
+
         long m_startTime;
         double m_offset;
         double m_amplitude;
         double m_period;
-        
+
         double m_factor;
-        
+
         Cos(long startTime, double offset, double amplitude, double period) {
             m_startTime = startTime;
             m_offset = offset;
             m_amplitude = amplitude;
             m_period = period;
-            
+
             m_factor = 2 * Math.PI / period;
         }
-        
+
         @Override
         public double evaluate(long timestamp) {
             long x = timestamp - m_startTime;
@@ -105,11 +105,11 @@ public class MspTemplateTest {
             return ret;
         }
     }
-    
+
     class Times implements Function {
         Function m_a;
         Function m_b;
-        
+
         Times(Function a, Function b) {
             m_a = a;
             m_b = b;
@@ -120,11 +120,11 @@ public class MspTemplateTest {
             return m_a.evaluate(timestamp)*m_b.evaluate(timestamp);
         }
     }
-    
+
     class Counter implements Function {
         double m_prevValue;
         Function m_function;
-        
+
         Counter(double initialValue, Function function) {
             m_prevValue = initialValue;
             m_function = function;
@@ -136,40 +136,40 @@ public class MspTemplateTest {
             m_prevValue += m_diff;
             return m_prevValue;
         }
-        
+
     }
 
     @Before
     public void setUp() throws RrdException, IOException {
     	new File("target/reports").mkdirs();
     }
-    
+
     @After
     public void tearDown() {
-        
+
     }
-    
-    
+
+
     @Test
     public void testReportCompile() throws JRException {
         compile("src/test/resources/NodeAvailabilityMonthly.jrxml");
         fill();
         pdf("TestReport");
     }
-    
+
     public void compile(String reportPath) throws JRException {
         // jrxml compiling process
         m_jasperReport = JasperCompileManager.compileReport(reportPath);
-        
+
     }
-    
+
     public void fill() throws JRException{
         long start = System.currentTimeMillis();
         Map<String, Object> params = new HashMap<String, Object>();
         m_jasperPrint = JasperFillManager.fillReport(m_jasperReport, params);
         System.err.println("Filling time : " + (System.currentTimeMillis() - start));
     }
-    
+
     public void pdf(String reportName) throws JRException{
         long start = System.currentTimeMillis();
         JasperExportManager.exportReportToPdfFile(m_jasperPrint, "target/reports/" + reportName + ".pdf");

@@ -48,5 +48,5 @@ public interface Poll {
      * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
      */
     public PollStatus poll() throws InsufficientParametersException;
-    
+
 }

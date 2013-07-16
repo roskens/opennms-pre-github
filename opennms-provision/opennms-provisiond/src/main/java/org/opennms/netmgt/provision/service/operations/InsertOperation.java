@@ -31,7 +31,7 @@ package org.opennms.netmgt.provision.service.operations;
 import org.opennms.netmgt.provision.service.ProvisionService;
 
 public class InsertOperation extends SaveOrUpdateOperation {
-    
+
     /**
      * <p>Constructor for InsertOperation.</p>
      *

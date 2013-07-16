@@ -41,7 +41,7 @@ public class MibObjTest extends XmlTest<MibObj> {
     public MibObjTest(final MibObj sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final MibObj obj = new MibObj();

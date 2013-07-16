@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Parameter class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class Package implements Serializable, Comparable<Package> {

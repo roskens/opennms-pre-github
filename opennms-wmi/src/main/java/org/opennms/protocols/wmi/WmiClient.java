@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class WmiClient implements IWmiClient {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(WmiClient.class);
 
 
@@ -112,7 +112,7 @@ public class WmiClient implements IWmiClient {
     public OnmsWbemObjectSet performExecQuery(final String strQuery) throws WmiException {
         return performExecQuery(strQuery, "WQL", OnmsWbemFlagReturnEnum.wbemFlagReturnImmediately.getReturnFlagValue());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public OnmsWbemObjectSet performExecQuery (final String strQuery, final String strQueryLanguage, final Integer flags) throws WmiException {
@@ -155,7 +155,7 @@ public class WmiClient implements IWmiClient {
         try {
             final JIVariant results[] = m_WbemServices.callMethodA("SubclassesOf", new Object[]{new JIString(strSuperClass), JIVariant.OPTIONAL_PARAM(), JIVariant.OPTIONAL_PARAM()});
             final IJIDispatch objset_dsp = (IJIDispatch) JIObjectFactory.narrowObject((results[0]).getObjectAsComObject());
-            
+
             return new OnmsWbemObjectSetImpl(objset_dsp);
         } catch (final JIException e) {
             throw new WmiException("Failed to perform SubclassesOf '" + strSuperClass + "': " + e.getMessage(), e);
@@ -195,7 +195,7 @@ public class WmiClient implements IWmiClient {
                 for (final Object element : array) {
                     objs.add(convertToNativeType((JIVariant)element));
                 }
-                
+
                 return objs;
             }
 

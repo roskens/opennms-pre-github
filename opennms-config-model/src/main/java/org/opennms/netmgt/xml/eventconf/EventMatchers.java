@@ -10,7 +10,7 @@ import org.opennms.netmgt.xml.event.Event;
 import org.opennms.netmgt.xml.event.Parm;
 
 public abstract class EventMatchers  {
-	
+
 	public static EventMatcher falseMatcher() {
 		return new EventMatcher() {
 
@@ -18,15 +18,15 @@ public abstract class EventMatchers  {
 			public boolean matches(Event matchingEvent) {
 				return false;
 			}
-			
+
 			@Override
 			public String toString() {
 				return "false";
 			}
-			
+
 		};
 	}
-	
+
 	public static EventMatcher trueMatcher() {
 		return new EventMatcher() {
 
@@ -34,15 +34,15 @@ public abstract class EventMatchers  {
 			public boolean matches(Event matchingEvent) {
 				return true;
 			}
-			
+
 			@Override
 			public String toString() {
 				return "true";
 			}
-			
+
 		};
 	}
-	
+
 	public static EventMatcher ueiMatcher(final String uei) {
 		return new EventMatcher() {
 			public boolean matches(org.opennms.netmgt.xml.event.Event matchingEvent) {
@@ -56,7 +56,7 @@ public abstract class EventMatchers  {
 		};
 
 	}
-	
+
 
 	public static EventMatcher and(final EventMatcher... matchers) {
 		return new EventMatcher() {
@@ -70,7 +70,7 @@ public abstract class EventMatchers  {
 				}
 				return true;
 			}
-			
+
 			@Override
 			public String toString() {
 				StringBuilder buf = new StringBuilder();
@@ -83,7 +83,7 @@ public abstract class EventMatchers  {
 					}
 					buf.append("(").append(matcher).append(")");
 				}
-				
+
 				return buf.toString();
 			}
 		};
@@ -101,7 +101,7 @@ public abstract class EventMatchers  {
 				}
 				return false;
 			}
-			
+
 			@Override
 			public String toString() {
 				StringBuilder buf = new StringBuilder();
@@ -114,13 +114,13 @@ public abstract class EventMatchers  {
 					}
 					buf.append("(").append(matcher).append(")");
 				}
-				
+
 				return buf.toString();
 			}
-			
+
 		};
 	}
-	
+
 	public static Field varbind(final int vbnumber) {
 		if (vbnumber <= 0) {
 			throw new IllegalArgumentException("Invalid varbind index " + vbnumber + " must be 1 or greater.");
@@ -128,7 +128,7 @@ public abstract class EventMatchers  {
 		return new Field() {
 			public String get(Event event) {
 				List<Parm> parms = event.getParmCollection();
-				return vbnumber > parms.size() ? null : EventUtil.getValueAsString(parms.get(vbnumber-1).getValue());  
+				return vbnumber > parms.size() ? null : EventUtil.getValueAsString(parms.get(vbnumber-1).getValue());
 			}
 			@Override
 			public String toString() {
@@ -136,22 +136,22 @@ public abstract class EventMatchers  {
 			}
 		};
 	}
-	
+
 	private static abstract class EventField implements Field {
 		private String m_name;
-		
+
 		public EventField(String name) {
 			m_name = name;
 		}
-		
+
 		@Override
 		public String toString() {
 			return "event."+m_name;
 		}
-		
+
 		public abstract String get(org.opennms.netmgt.xml.event.Event matchingEvent);
 	}
-	
+
 	public static Field field(String name) {
 		if (name.equals(TAG_UEI)) {
 			return new EventField(name) { public String get(Event event) { return event.getUei(); } };
@@ -172,18 +172,18 @@ public abstract class EventMatchers  {
 		} else if (name.equals(TAG_SNMP_COMMUNITY)) {
 			return new EventField(name) { public String get(Event event) { return event.getSnmp() == null ? null : event.getSnmp().getCommunity(); } };
 		} else if (name.equals(TAG_SNMP_SPECIFIC)) {
-			return new EventField(name) { 
+			return new EventField(name) {
 				public String get(Event event) {
-					return event.getSnmp() == null || !event.getSnmp().hasSpecific() 
-							? null 
+					return event.getSnmp() == null || !event.getSnmp().hasSpecific()
+							? null
 							: Integer.toString(event.getSnmp().getSpecific());
 				}
 			};
 		} else if (name.equals(TAG_SNMP_GENERIC)) {
-			return new EventField(name) { 
+			return new EventField(name) {
 				public String get(Event event) {
-					return event.getSnmp() == null || !event.getSnmp().hasGeneric() 
-							? null 
+					return event.getSnmp() == null || !event.getSnmp().hasGeneric()
+							? null
 							: Integer.toString(event.getSnmp().getGeneric());
 				}
 			};
@@ -195,16 +195,16 @@ public abstract class EventMatchers  {
 
 	public static EventMatcher valueStartsWithMatcher(final Field field, final String value) {
 		final String prefix = value.substring(0, value.length()-1);
-	
+
 		return new EventMatcher() {
-			
+
 			@Override
 			public boolean matches(Event matchingEvent) {
 				String eventValue = field.get(matchingEvent);
 				// we have to do equals check for compatibility with the old code
 				return eventValue != null && (eventValue.startsWith(prefix) || eventValue.equals(value));
 			}
-			
+
 			@Override
 			public String toString() {
 				return field + ".startsWith(" + prefix + ")";
@@ -214,16 +214,16 @@ public abstract class EventMatchers  {
 
 	public static EventMatcher valueMatchesRegexMatcher(final Field field,	final String value) {
 		final Pattern regex = Pattern.compile(value.startsWith("~") ? value.substring(1) : value);
-	
+
 		return new EventMatcher() {
-			
+
 			@Override
 			public boolean matches(Event matchingEvent) {
 				String eventValue = field.get(matchingEvent);
 				// we have to do equals check for compatibility with the old code
 				return eventValue != null && (regex.matcher(eventValue).matches() || eventValue.equals(value));
 			}
-			
+
 			@Override
 			public String toString() {
 				return field + "~" + regex;
@@ -233,13 +233,13 @@ public abstract class EventMatchers  {
 
 	public static EventMatcher valueEqualsMatcher(final Field field, final String value) {
 		return new EventMatcher() {
-			
+
 			@Override
 			public boolean matches(Event matchingEvent) {
 				String eventValue = field.get(matchingEvent);
 				return eventValue != null && eventValue.equals(value);
 			}
-			
+
 			@Override
 			public String toString() {
 				return field + "==" + value;

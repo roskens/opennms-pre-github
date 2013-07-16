@@ -72,7 +72,7 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
     public int hashCode() {
     	return super.hashCode();
     }
-    
+
     @Override
     public boolean equals(final Object o) {
         if (o instanceof PrimaryType) {
@@ -146,7 +146,7 @@ public class PrimaryType implements Comparable<PrimaryType>, Serializable {
         }
         return types;
     }
-    
+
     public static final PrimaryType PRIMARY = new PrimaryType('P');
     public static final PrimaryType SECONDARY = new PrimaryType('S');
     public static final PrimaryType NOT_ELIGIBLE = new PrimaryType('N');

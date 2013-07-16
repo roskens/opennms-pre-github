@@ -70,7 +70,7 @@ public class CorrelationExample {
 
         final WorkingMemoryFileLogger logger = new WorkingMemoryFileLogger( workingMemory );
         logger.setFileName( "log/correlation" );
-        
+
         final InputStream in = CorrelationExample.class.getResourceAsStream("simulation");
         try {
         	final Simulation simulation = new Simulation();
@@ -78,22 +78,22 @@ public class CorrelationExample {
         	simulation.load(in);
         	System.out.println("Executing Simulation");
         	simulation.simulate(workingMemory);
-        	
+
         } finally {
         	if (in != null) in.close();
         }
-        
-        	
+
+
         logger.writeToDisk();
     }
-    
+
     private static void sleep(final int delay) {
     	try { Thread.sleep(delay); } catch (InterruptedException e) {}
-		
+
 	}
-    
+
     public static class Simulation {
-    	
+
     	public static class SimItem {
     		final int m_delay;
     		final EventBean m_event;
@@ -110,14 +110,14 @@ public class CorrelationExample {
 				memory.fireAllRules();
     			System.out.println("End simulation of "+this);
 			}
-    		
+
     	}
-    	
+
     	final Map<Integer, Node> m_nodes = new HashMap<Integer, Node>();
     	final List<SimItem> m_eventSequence = new LinkedList<SimItem>();
-    	
+
     	public void load(final InputStream in) {
-    		
+
     		final Scanner scanner = new Scanner(in);
             while(scanner.hasNext()) {
             	final String lineType = scanner.next();
@@ -126,8 +126,8 @@ public class CorrelationExample {
             	}
             	else if ("node".equals(lineType)) {
             		/* expect line to be
-            		 * node <nodeLabel> <nodeid> (<parentnodeid>?) 
-            		 * 
+			 * node <nodeLabel> <nodeid> (<parentnodeid>?)
+			 *
             		 * Note: parent nodes need to be defined before their children
             		 * If the parentnodeid is missing then we assume that it has no parent
             		 */
@@ -139,34 +139,34 @@ public class CorrelationExample {
             		if (scanner.hasNextInt()) {
             			parentId = scanner.nextInt();
             		}
-            		
+
             		assert (parentId == null || m_nodes.containsKey(parentId)) : "Reference to parentId "+parentId+" that is not yet defined";
-            		
+
             		final Node parent = (parentId == null ? null : m_nodes.get(parentId));
             		final Node node = new Node(nodeId, nodeLabel, parent);
             		m_nodes.put(nodeId, node);
-            		
+
             	} else if ("event".equals(lineType)) {
             		/*
             		 * expect line to be
-            		 * event delay uei nodeid 
+			 * event delay uei nodeid
             		 */
             		final int delay = scanner.nextInt();
             		final String uei = scanner.next();
             		final Integer nodeId = scanner.nextInt();
 
             		assert m_nodes.containsKey(nodeId) : "Invalid nodeId "+nodeId;
-            		
+
             		final EventBean e = new EventBean(uei, m_nodes.get(nodeId));
             		final SimItem item = new SimItem(delay, e);
             		m_eventSequence.add(item);
-            		
+
             	}
-            	
+
             }
     	}
-    	
-    	
+
+
     	public  void simulate(final WorkingMemory memory) {
     		for (final SimItem item : m_eventSequence) {
     			item.simulate(memory);
@@ -180,36 +180,36 @@ public class CorrelationExample {
     	private EventBean m_resolution;
 		private Node m_cause;
 		private Node m_node;
-    	
+
 		public Outage(final Node node, final EventBean problem) {
 			m_node = node;
     		m_problem = problem;
     	}
-		
+
 		public Node getNode() {
 			return m_node;
 		}
-		
+
 		public EventBean getProblem() {
 			return m_problem;
 		}
-		
+
 		public EventBean getResolution() {
 			return m_resolution;
 		}
-		
+
 		public void setResolution(final EventBean resolution) {
 			m_resolution = resolution;
 		}
-		
+
 		public Node getCause() {
 			return m_cause;
 		}
-		
+
 		public void setCause(final Node cause) {
 			m_cause = cause;
 		}
-		
+
             @Override
 		public String toString() {
 			return new ToStringBuilder(this)
@@ -218,7 +218,7 @@ public class CorrelationExample {
 				.append("resolution", m_resolution)
 				.toString();
 		}
-		
+
     }
 
     public static class Node {
@@ -231,19 +231,19 @@ public class CorrelationExample {
             m_label = label;
             m_parent = parent;
         }
-        
+
         public Integer getId() {
             return m_id;
         }
-        
+
         public Node getParent() {
             return m_parent;
         }
-        
+
         public String getLabel() {
             return m_label;
         }
-        
+
         @Override
         public String toString() {
         	return new ToStringBuilder(this)
@@ -279,12 +279,12 @@ public class CorrelationExample {
 	}
 
 
-    
+
     public static class PossibleCause {
     	private Node m_node;
 		private Outage m_outage;
 		private boolean m_verified;
-		
+
 		public PossibleCause(final Node node, final Outage outage) {
 			this(node, outage, false);
 		}
@@ -294,23 +294,23 @@ public class CorrelationExample {
     		m_outage = outage;
     		m_verified = verified;
     	}
-		
+
 		public Node getNode() {
 			return m_node;
 		}
-		
+
 		public Outage getOutage() {
 			return m_outage;
 		}
-		
+
 		public boolean isVerified() {
 			return m_verified;
 		}
-		
+
 		public void setVerified(final boolean verified) {
 			m_verified = verified;
 		}
-		
+
             @Override
 		public String toString() {
 			return new ToStringBuilder(this)

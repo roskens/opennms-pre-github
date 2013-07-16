@@ -43,11 +43,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, InitializingBean {
-	
+
 	private ServiceMonitor m_serviceMonitor;
 	private Class<? extends ServiceMonitor> m_monitorClass;
 	private Map<String,Object> m_monitorParameters;
-	
+
 	/**
 	 * <p>setMonitorClass</p>
 	 *
@@ -56,7 +56,7 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
 	public void setMonitorClass(Class<? extends ServiceMonitor> serviceClass) {
 		m_monitorClass = serviceClass;
 	}
-	
+
 	/**
 	 * <p>setMonitorParameters</p>
 	 *
@@ -105,17 +105,17 @@ public class ServiceMonitorFactoryBean implements FactoryBean<ServiceMonitor>, I
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		assertNotNull(m_monitorClass, "monitorClass");
-		
+
 		Assert.state(ServiceMonitor.class.isAssignableFrom(m_monitorClass), "monitorClass must implement the ServiceMonitor interface");
-		
+
 		if (m_monitorParameters == null)
 			m_monitorParameters = new HashMap<String,Object>();
-		
+
 		m_serviceMonitor = (ServiceMonitor)m_monitorClass.newInstance();
 		m_serviceMonitor.initialize(m_monitorParameters);
-		
+
 	}
-	
+
 	private void assertNotNull(Object propertyValue, String propertyName) {
 		Assert.state(propertyValue != null, propertyName+" must be set for instances of "+Poller.class);
 	}

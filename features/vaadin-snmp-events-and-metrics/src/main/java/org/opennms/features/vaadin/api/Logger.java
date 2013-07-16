@@ -29,8 +29,8 @@ package org.opennms.features.vaadin.api;
 
 /**
  * The Interface Logger.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface Logger {
 

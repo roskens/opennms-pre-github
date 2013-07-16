@@ -53,7 +53,7 @@ public interface IpInterfaceDao extends OnmsDao<OnmsIpInterface, Integer> {
      * @return a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     OnmsIpInterface get(OnmsNode node, String ipAddress);
-    
+
     /**
      * <p>findByNodeIdAndIpAddress</p>
      *

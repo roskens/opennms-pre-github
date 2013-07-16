@@ -49,7 +49,7 @@ public class NegativePartialUEIFilter extends NoSubstringFilter {
     public NegativePartialUEIFilter(String uei) {
         super(TYPE, "EVENTUEI", "uei", uei);
     }
-    
+
     /**
      * <p>getTextDescription</p>
      *

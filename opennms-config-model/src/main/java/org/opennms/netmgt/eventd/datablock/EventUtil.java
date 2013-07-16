@@ -99,7 +99,7 @@ public final class EventUtil {
 	 * The event time xml tag
 	 */
 	static final String TAG_TIME = "time";
-	
+
 	/**
 	 * The event time xml tag, short format
 	 */
@@ -146,7 +146,7 @@ public final class EventUtil {
 	 * The reverse DNS lookup of the interface
 	 */
 	static final String TAG_IFALIAS = "ifalias";
-	
+
 	/**
 	 * The event snmp id xml tag
 	 */
@@ -266,12 +266,12 @@ public final class EventUtil {
 	 * The length of PARM_NUM_PREFIX
 	 */
 	final static int PARM_NUM_PREFIX_LENGTH = 6;
-	
+
 	/**
 	 * The string that starts a request for the name of a numbered parm
 	 */
 	final static String PARM_NAME_NUMBERED_PREFIX = "parm[name-#";
-	
+
 	/**
 	 * The length of PARM_NAME_NUMBERED_PREFIX
 	 */
@@ -312,7 +312,7 @@ public final class EventUtil {
 	public static String getValueAsString(Value pvalue) {
 		if (pvalue == null)
 			return null;
-		
+
 		if (pvalue.getContent() == null)
 			return null;
 
@@ -328,10 +328,10 @@ public final class EventUtil {
 		} else {
 			throw new IllegalStateException("Unknown encoding for parm value: " + encoding);
 		}
-		
+
 		return result.trim();
 	}
-	
+
 	public static String toHexString(byte[] data) {
 		final StringBuffer b = new StringBuffer();
 		for (int i = 0; i < data.length; ++i) {
@@ -390,10 +390,10 @@ public final class EventUtil {
 	 * @return value of the event parm/element
 	 */
 	public static String getValueOfParm(String parm, Event event) {
-        
+
 		String retParmVal = null;
 		final String ifString = event.getInterface();
-		
+
 		if (parm.equals(TAG_UEI)) {
 			retParmVal = event.getUei();
 		}
@@ -439,8 +439,8 @@ public final class EventUtil {
 
 				//Give up and just use the original string - don't bother with
 				// messing around
-				retParmVal = eventTime;	
-			} 
+				retParmVal = eventTime;
+			}
 		} else if (parm.equals(TAG_SHORT_TIME)) {
 			String eventTime = event.getTime(); //This will be in GMT
 			try {
@@ -450,7 +450,7 @@ public final class EventUtil {
 				retParmVal = df.format(actualDate);
 			} catch (java.text.ParseException e) {
 				LOG.error("could not parse event date '{}'", eventTime, e);
-				
+
 				//Give up and just use the original string - don't bother with
 				// messing around
 				retParmVal = eventTime;
@@ -595,7 +595,7 @@ public final class EventUtil {
 
     /**
      * Helper method.
-     * 
+     *
      * @param event
      * @return All event parameter values as a String.
      */
@@ -655,7 +655,7 @@ public final class EventUtil {
 
     /**
      * Helper method.
-     * 
+     *
      * @param event
      * @return All event parameter values as a String
      */
@@ -686,7 +686,7 @@ public final class EventUtil {
 
     /**
      * Helper method.
-     * 
+     *
      * @param parm
      * @param event
      * @return The name of a parameter based on its ordinal position in the event's list of parameters
@@ -722,13 +722,13 @@ public final class EventUtil {
         		parmNum = -1;
         		retParmVal = null;
         	}
-    
+
         	if (parmNum > 0 && parmNum <= parms.size()) {
         	    final Parm evParm = parms.get(parmNum - 1);
-    
+
         		// get parm name
         		String eparmname = evParm.getParmName();
-        		
+
         		// If separator and offset specified, split and extract accordingly
         		if ((eparmsep != null) && (eparmoffset != null)) {
         		    int parmOffset = Integer.parseInt(eparmoffset);
@@ -744,15 +744,15 @@ public final class EventUtil {
         }
         return retParmVal;
     }
-    
+
     private static String splitAndExtract(String src, String sep, int offset, boolean doRange, int rangeLen) {
         String sepLiteral = Pattern.quote(sep);
-        
+
         // If the src string starts with the separator, lose the first separator
         if (src.startsWith(sep)) {
             src = src.replaceFirst(sepLiteral, "");
         }
-        
+
         String components[] = src.split(sepLiteral);
         int startIndex, endIndex;
         if ((Math.abs(offset) > components.length) || (offset == 0)) {
@@ -763,9 +763,9 @@ public final class EventUtil {
             // offset is, by definition, > 0
             startIndex = offset - 1;
         }
-        
+
         endIndex = startIndex;
-        
+
         if (! doRange) {
             return components[startIndex];
         } else if (rangeLen == 0) {
@@ -776,7 +776,7 @@ public final class EventUtil {
             // rangeLen is, by definition, > 0
             endIndex = startIndex - 1 + rangeLen;
         }
-        
+
         StringBuffer retVal = new StringBuffer();
         for (int i = startIndex; i <= endIndex; i++) {
             retVal.append(components[i]);
@@ -789,7 +789,7 @@ public final class EventUtil {
 
     /**
      * Helper method.
-     * 
+     *
      * @param parm
      * @param event
      * @return The value of a parameter based on its ordinal position in the event's list of parameters
@@ -921,7 +921,7 @@ public final class EventUtil {
                 String parm = tempInp.substring(1, index2);
                 // m_logger.debug("parm: " + parm + " found in value");
 
-                // If there's any whitespace in between the % signs, then do not try to 
+                // If there's any whitespace in between the % signs, then do not try to
                 // expand it with a parameter value
                 if (parm.matches(".*\\s.*")) {
                     ret.append(PERCENT);
@@ -970,12 +970,12 @@ public final class EventUtil {
 	/**
 	 * Retrieve nodeLabel from the node table of the database given a particular
 	 * nodeId.
-	 * 
+	 *
 	 * @param nodeId
 	 *            Node identifier
-	 * 
+	 *
 	 * @return nodeLabel Retreived nodeLabel
-	 * 
+	 *
 	 * @throws SQLException
 	 *             if database error encountered
 	 */
@@ -1037,7 +1037,7 @@ public final class EventUtil {
 	 *             if database error encountered
 	 */
 	private static String getIfAlias(long nodeId, String ipaddr) throws SQLException {
-		
+
 		String ifAlias = null;
 		java.sql.Connection dbConn = null;
 		try {
@@ -1061,7 +1061,7 @@ public final class EventUtil {
 	            }
 	        }
 		} finally {
-			
+
 			// Close the database connection
 			if (dbConn != null) {
 				try {
@@ -1071,7 +1071,7 @@ public final class EventUtil {
 				}
 			}
 		}
-		
+
 		return ifAlias;
 	}
 
@@ -1090,7 +1090,7 @@ public final class EventUtil {
 	            out.writeObject(orig);
 	            out.flush();
 	            out.close();
-	
+
 	            // Make an input stream from the byte array and read
 	            // a copy of the object back in.
 	            ObjectInputStream in = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
@@ -1103,14 +1103,14 @@ public final class EventUtil {
 	            LOG.error("Exception cloning event", cnfe);
 	        }
 	        return copy;
-	}	
+	}
 
     /**
      * Helper method.
-     * 
+     *
      * @param parm
      * @param event
-     * @return The value of an asset field based on the nodeid of the event 
+     * @return The value of an asset field based on the nodeid of the event
      */
     private static String getAssetFieldValue(String parm, long nodeId) {
         String retParmVal = null;

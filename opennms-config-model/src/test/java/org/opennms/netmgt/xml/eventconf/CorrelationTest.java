@@ -62,7 +62,7 @@ public class CorrelationTest extends XmlTestNoCastor<Correlation> {
 				"<cmax>cmax</cmax>" +
 				"<ctime>ctime</ctime>" +
 				"</correlation>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

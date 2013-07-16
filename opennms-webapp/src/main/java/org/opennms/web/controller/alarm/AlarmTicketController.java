@@ -51,11 +51,11 @@ import org.springframework.web.servlet.mvc.multiaction.MultiActionController;
  * @since 1.8.1
  */
 public class AlarmTicketController extends MultiActionController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AlarmTicketController.class);
 
     private TroubleTicketProxy m_troubleTicketProxy;
-    
+
     /**
      * <p>Constructor for AlarmTicketController.</p>
      */
@@ -70,7 +70,7 @@ public class AlarmTicketController extends MultiActionController {
         LOG.debug("AlarmTicketController handleRequestInternal called");
         return super.handleRequestInternal(request, response);
     }
-    
+
     static class CommandBean {
         Integer alarm;
         String redirect;
@@ -86,10 +86,10 @@ public class AlarmTicketController extends MultiActionController {
         public void setRedirect(String redirect) {
             this.redirect = redirect;
         }
-        
-        
+
+
     }
-    
+
     /**
      * <p>create</p>
      *
@@ -104,7 +104,7 @@ public class AlarmTicketController extends MultiActionController {
     	parameters.put(EventConstants.PARM_USER, request.getRemoteUser());
     	@SuppressWarnings("unchecked")
 		Enumeration<String> paramNames = request.getParameterNames();
-        while(paramNames.hasMoreElements()) {        
+        while(paramNames.hasMoreElements()) {
         	String paramName = paramNames.nextElement();
         	if (!paramName.equals("alarm") || !paramName.equals("redirect"))
         		parameters.put(paramName, request.getParameter(paramName));

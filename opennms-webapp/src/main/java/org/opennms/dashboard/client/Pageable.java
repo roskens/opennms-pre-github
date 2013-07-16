@@ -43,7 +43,7 @@ public interface Pageable {
      * @return a int.
      */
     int getCurrentElement();
-    
+
     /**
      * <p>setCurrentElement</p>
      *

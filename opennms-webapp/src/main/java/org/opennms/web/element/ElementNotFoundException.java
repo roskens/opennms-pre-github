@@ -38,18 +38,18 @@ package org.opennms.web.element;
  */
 public class ElementNotFoundException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1707780508592264918L;
 
     protected String message;
-    
+
     protected String elemType;
-    
+
     protected String detailUri;
-    
+
     protected String detailParam;
-    
+
     protected String browseUri;
 
     /**
@@ -67,7 +67,7 @@ public class ElementNotFoundException extends RuntimeException {
         this.detailUri = detailUri;
         this.detailParam = detailParam;
     }
-    
+
     /**
      * <p>Constructor for ElementNotFoundException.</p>
      *
@@ -96,7 +96,7 @@ public class ElementNotFoundException extends RuntimeException {
     	this.detailUri = null;
     	this.detailParam = null;
     }
-    
+
     /**
      * <p>Getter for the field <code>message</code>.</p>
      *
@@ -115,7 +115,7 @@ public class ElementNotFoundException extends RuntimeException {
 	public String getElemType() {
 		return getElemType(false);
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>elemType</code>.</p>
 	 *
@@ -149,7 +149,7 @@ public class ElementNotFoundException extends RuntimeException {
 	public String getDetailParam() {
 		return detailParam;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>browseUri</code>.</p>
 	 *
@@ -158,5 +158,5 @@ public class ElementNotFoundException extends RuntimeException {
 	public String getBrowseUri() {
 		return browseUri;
 	}
-    
+
 }

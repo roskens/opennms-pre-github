@@ -61,7 +61,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	private String m_gatewayId;
 	private MobileSequenceRequest m_request;
 	private List<MobileSequenceResponse> m_responses;
-	
+
     /* other data */
 	private String m_defaultGatewayId;
 
@@ -79,7 +79,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	public MobileSequenceTransaction(String label) {
 		setLabel(label);
 	}
-	
+
 	/**
 	 * <p>Constructor for MobileSequenceTransaction.</p>
 	 *
@@ -90,7 +90,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 		this(label);
 		setGatewayId(gatewayId);
 	}
-	
+
 	/**
 	 * <p>getLabel</p>
 	 *
@@ -100,7 +100,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	public String getLabel() {
 		return m_label;
 	}
-	
+
 	/**
 	 * <p>setLabel</p>
 	 *
@@ -138,7 +138,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	public MobileSequenceRequest getRequest() {
 		return m_request;
 	}
-	
+
 	/**
 	 * <p>setRequest</p>
 	 *
@@ -157,7 +157,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 		}
 
 	}
-	
+
 	/**
 	 * <p>getResponses</p>
 	 *
@@ -183,7 +183,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
             protected void onRemove(int index, MobileSequenceResponse element) {
                 element.setTransaction(null);
             }
-	        
+
 	    };
     }
 
@@ -197,7 +197,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 		m_responses.clear();
 		m_responses.addAll(responses);
 	}
-	
+
 	/**
 	 * <p>addResponse</p>
 	 *
@@ -205,7 +205,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	 */
 	public void addResponse(MobileSequenceResponse response) {
 		getResponses().add(response);
-		
+
 	}
 
 	/**
@@ -226,7 +226,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
 	public void setSequenceConfig(MobileSequenceConfig sequenceConfig) {
 	    m_sequenceConfig = sequenceConfig;
 	}
-	
+
     /**
      * <p>getDefaultGatewayId</p>
      *
@@ -236,7 +236,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
     public String getDefaultGatewayId() {
         return m_defaultGatewayId;
     }
-    
+
     /**
      * <p>setDefaultGatewayId</p>
      *
@@ -245,7 +245,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
     public void setDefaultGatewayId(String gatewayId) {
         m_defaultGatewayId = gatewayId;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -269,7 +269,7 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
             .append(this.getResponses(), o.getResponses())
             .toComparison();
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -304,13 +304,13 @@ public class MobileSequenceTransaction implements Comparable<MobileSequenceTrans
      * @return a boolean.
      */
     public boolean matchesResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
-        
+
         boolean match = false;
-        
+
         for ( MobileSequenceResponse r : getResponses() ) {
             match = r.matches(session, request, response);
         }
-        
+
         return match;
     }
 

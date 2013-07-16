@@ -66,7 +66,7 @@ public class ConfigTester implements ApplicationContextAware {
 
 	public void testConfig(String name, boolean ignoreUnknown) {
 		checkConfigNameValid(name, ignoreUnknown);
-		
+
 		m_context.getBean(m_configs.get(name));
 	}
 
@@ -81,7 +81,7 @@ public class ConfigTester implements ApplicationContextAware {
 	}
 
 	public static void main(String[] argv) {
-		
+
 		ApplicationContext context = BeanUtils.getFactory("configTesterContext", ClassPathXmlApplicationContext.class);
 		ConfigTester tester = context.getBean("configTester", ConfigTester.class);
 
@@ -101,7 +101,7 @@ public class ConfigTester implements ApplicationContextAware {
 			System.err.println("Invalid usage: " + e.getMessage());
 			System.err.println("Run 'config-tester -h' for help.");
 			System.exit(1);
-			
+
 			return; // not reached; here to eliminate warning on line being uninitialized
 		}
 
@@ -119,11 +119,11 @@ public class ConfigTester implements ApplicationContextAware {
 				System.exit(1);
 			}
 		}
-		
+
 		boolean verbose = line.hasOption('v');
 
 		DataSourceFactory.setInstance(new ConfigTesterDataSource());
-		
+
 		if (line.hasOption('l')) {
 			System.out.println("Supported configuration files: ");
 			for (String configFile : tester.getConfigs().keySet()) {
@@ -148,11 +148,11 @@ public class ConfigTester implements ApplicationContextAware {
 		if (verbose) {
 			System.out.print("Testing " + configFile + " ... ");
 		}
-		
+
 		long start = System.currentTimeMillis();
 		testConfig(configFile, ignoreUnknown);
 		long end = System.currentTimeMillis();
-		
+
 		if (verbose) {
 			System.out.println("OK (" + (((float) (end - start)) / 1000) + "s)");
 		}

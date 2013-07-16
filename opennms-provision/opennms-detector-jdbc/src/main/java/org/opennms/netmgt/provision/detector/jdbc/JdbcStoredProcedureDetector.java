@@ -44,13 +44,13 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
-    
+
     private final static String DEFAULT_STORED_PROCEDURE = "isRunning";
     private final static String DEFAULT_SCHEMA = "test";
-    
+
     private String m_storedProcedure;
     private String m_schema = "test";
-    
+
     /**
      * <p>Constructor for JdbcStoredProcedureDetector.</p>
      */
@@ -59,14 +59,14 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
         setSchema(DEFAULT_SCHEMA);
         setStoredProcedure(DEFAULT_STORED_PROCEDURE);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit(){
         expectBanner(resultSetNotNull());
         send(storedProcedure(createProcedureCall(getSchema(), getStoredProcedure())), isValidProcedureCall());
     }
-    
+
     private static ResponseValidator<JDBCResponse> isValidProcedureCall() {
         return new ResponseValidator<JDBCResponse>(){
 
@@ -74,7 +74,7 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
             public boolean validate(JDBCResponse response) {
                 return response.isValidProcedureCall();
             }
-            
+
         };
     }
 
@@ -87,10 +87,10 @@ public class JdbcStoredProcedureDetector extends AbstractJdbcDetector {
                 request.setStoredProcedure(storedProcedure);
                 return request;
             }
-            
+
         };
     }
-    
+
     private String createProcedureCall(String schema, String procedure) {
         if(schema != null){
             return String.format("%s.%s", schema, procedure);

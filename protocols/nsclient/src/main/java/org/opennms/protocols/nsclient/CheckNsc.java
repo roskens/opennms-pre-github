@@ -55,7 +55,7 @@ public class CheckNsc {
      * @throws org.apache.commons.cli.ParseException if any.
      */
     public static void main(String[] args) throws ParseException {
-    	
+
     	Options options = new Options();
     	options.addOption("port", true, "the port to connect to");
     	options.addOption("password", true, "the password to use when connecting");
@@ -71,17 +71,17 @@ public class CheckNsc {
     		usage(options, cmd);
     		System.exit(1);
     	}
-    	
+
         NsclientManager client = null;
         NsclientPacket response = null;
         NsclientCheckParams params = null;
-        
+
     	String host       = arguments.remove(0);
     	String command    = arguments.remove(0);
         int warningLevel  = 0;
         int criticalLevel = 0;
         int port          = 1248;
-        
+
         if (cmd.hasOption("warning")) {
         	warningLevel = Integer.parseInt(cmd.getOptionValue("warning"));
         }
@@ -102,15 +102,15 @@ public class CheckNsc {
         		}
         	}
         }
-        
-        
+
+
         try {
         	client = new NsclientManager(host, port);
         }
         catch (Throwable e) {
         	usage(options, cmd, "An error occurred creating a new NsclientManager.", e);
         }
-        
+
         if (cmd.hasOption("password")) {
         	client.setPassword(cmd.getOptionValue("password"));
         }
@@ -138,7 +138,7 @@ public class CheckNsc {
         catch(Throwable e) {
         	usage(options, cmd, "An error occurred processing the command.", e);
         }
-        
+
         if (response == null) {
         	usage(options, cmd, "No response was returned.", null);
         } else {
@@ -157,17 +157,17 @@ public class CheckNsc {
     		pw.println("An error occurred: " + error + "\n");
     	}
     	formatter.printHelp("usage: CheckNsc [options] host command [arguments]", options);
-    	
+
     	if (e != null) {
     		pw.println(e.getMessage());
     		e.printStackTrace(pw);
     	}
-    	
+
     	pw.close();
 	}
-	
+
 	private static void usage(Options options, CommandLine cmd) {
 		usage(options, cmd, null, null);
 	}
-    
+
 }

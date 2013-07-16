@@ -46,7 +46,7 @@ public class SimpleJasperReportDefinition implements BasicReportDefinition,
     private String m_reportService;
     private boolean m_online;
     private boolean m_allowAccess;
-    
+
     @XmlElement(name = "description")
     @Override
     public String getDescription() {

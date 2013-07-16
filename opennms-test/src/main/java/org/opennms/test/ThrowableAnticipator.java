@@ -46,7 +46,7 @@ public class ThrowableAnticipator extends Assert {
     /** Constant <code>IGNORE_MESSAGE="*** ThrowableAnticipator ignore Throwab"{trunked}</code> */
     public final static String IGNORE_MESSAGE =
         "*** ThrowableAnticipator ignore Throwable.getMessage() ***";
-    
+
     private List<Throwable> m_anticipated;
     private List<Throwable> m_unanticipated;
     private boolean m_failFast;
@@ -57,7 +57,7 @@ public class ThrowableAnticipator extends Assert {
     public ThrowableAnticipator() {
         this(true);
     }
-    
+
     /**
      * Create a new anticipator with the specified failFast setting.
      *
@@ -69,13 +69,13 @@ public class ThrowableAnticipator extends Assert {
         init();
         m_failFast = failFast;
     }
-    
+
     private void init() {
         m_anticipated = new ArrayList<Throwable>();
         m_unanticipated = new ArrayList<Throwable>();
         m_failFast = true;
     }
-   
+
     /**
      * Anticipate a specific java.lang.Throwable.
      *
@@ -85,7 +85,7 @@ public class ThrowableAnticipator extends Assert {
     public void anticipate(Throwable t) {
         m_anticipated.add(t);
     }
-    
+
     /**
      * Process a received throwable.  See #setFailFast(boolean) for the effects
      * of the failFast setting on when errors are signaled.
@@ -98,7 +98,7 @@ public class ThrowableAnticipator extends Assert {
         if (t == null) {
             throw new IllegalArgumentException("Throwable must not be null");
         }
-        
+
         boolean foundMatch = false;
 
         for (Throwable our : m_anticipated) {
@@ -113,12 +113,12 @@ public class ThrowableAnticipator extends Assert {
                 }
             }
         }
-        
+
         if (!foundMatch) {
             throwableFailedMatch(t);
         }
     }
-    
+
     private void throwableFailedMatch(Throwable t) {
         if (m_failFast) {
             fail("Received an unexpected Exception: " + t.toString(), t);
@@ -155,7 +155,7 @@ public class ThrowableAnticipator extends Assert {
     public boolean isFailFast() {
         return m_failFast;
     }
-    
+
     /**
      * Reset the class back to its initial state as if it had just been
      * instantiated.
@@ -163,7 +163,7 @@ public class ThrowableAnticipator extends Assert {
     public void reset() {
         init();
     }
-    
+
     /**
      * Perform after-test verification that all anticipated java.lang.Throwable's
      * have been seen and that no unanticipated java.lang.Throwable's have been
@@ -174,36 +174,36 @@ public class ThrowableAnticipator extends Assert {
      */
     public void verifyAnticipated() throws AssertionFailedError {
         StringBuffer error = new StringBuffer();
-        
+
         if (m_anticipated.size() != 0) {
             error.append("Anticipated list is non-zero (has "
                          + m_anticipated.size() + " entries):\n");
             error.append(listAnticipated());
         }
-        
+
         if (m_unanticipated.size() != 0) {
             error.append("Unanticipated list is non-zero (has "
                          + m_unanticipated.size() + " entries):\n");
             error.append(listUnanticipated());
         }
-        
+
         if (error.length() > 0) {
             fail(error.toString());
         }
     }
-    
+
     private StringBuffer listAnticipated() {
         return makeList(m_anticipated,
                         "Anticipated but unreceived Throwable: ", "\n");
     }
-    
+
     private StringBuffer listUnanticipated() {
         return makeList(m_unanticipated, "Unanticipated Throwable: ", "\n");
     }
-    
+
     private StringBuffer makeList(List<Throwable> list, String before, String after) {
         StringBuffer output = new StringBuffer();
-        
+
         for (Throwable t : list) {
             output.append(before + t.toString() + after);
             StringWriter w = new StringWriter();
@@ -212,10 +212,10 @@ public class ThrowableAnticipator extends Assert {
             output.append(w.getBuffer());
             output.append("\n");
         }
-        
+
         return output;
     }
-    
+
     /**
      * Generate an AssertionFailedError with the specified cause.
      *

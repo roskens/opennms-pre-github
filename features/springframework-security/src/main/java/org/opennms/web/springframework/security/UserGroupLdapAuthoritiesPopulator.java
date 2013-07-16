@@ -83,7 +83,7 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
 	 *
 	 * This function returns a list of roles from the given set of groups
 	 * based on the value of the <code>groupToRoleMap</code> property.
-	 * 
+	 *
 	 * @return a {@link java.util.Set} object.
 	 */
 	@Override
@@ -98,9 +98,9 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
                 LOG.debug("Searching for roles for user '{}', DN = '{}', with filter '{}' in search base '{}'", username, userDn, this.groupSearchFilter, super.getGroupSearchBase());
 
 		final Set<String> userRoles = ldapTemplate.searchForSingleAttributeValues(
-				super.getGroupSearchBase(), 
+				super.getGroupSearchBase(),
 				this.groupSearchFilter,
-				new String[]{userDn, username}, 
+				new String[]{userDn, username},
 				this.groupRoleAttribute
 		);
 
@@ -133,9 +133,9 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
 	/**
 	 * <p>This property contains a set of group to role mappings. Both values are specified
 	 * as string values.</p>
-	 * 
+	 *
 	 * <p>An example Spring context that sets this property could be:</p>
-	 * 
+	 *
 	 * <pre>
 	 * <code>
 	 * &lt;property xmlns="http://www.springframework.org/schema/beans" name="groupToRoleMap"&gt;
@@ -146,7 +146,7 @@ public class UserGroupLdapAuthoritiesPopulator extends DefaultLdapAuthoritiesPop
 	 *         &lt;value&gt;ROLE_USER&lt;/value&gt;
 	 *       &lt;/list&gt;
 	 *     &lt;/entry&gt;
-	 *   &lt;/map&gt; 
+	 *   &lt;/map&gt;
 	 * &lt;/property&gt;
 	 * </code>
 	 * </pre>

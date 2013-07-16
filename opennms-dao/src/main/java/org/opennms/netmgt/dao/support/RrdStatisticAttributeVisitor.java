@@ -48,7 +48,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
     private Long m_startTime;
     private Long m_endTime;
     private AttributeStatisticVisitor m_statisticVisitor;
-    
+
     /** {@inheritDoc} */
     @Override
     public void visit(OnmsAttribute attribute) {
@@ -56,9 +56,9 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
             // Nothing to do if we can't cast to an RrdGraphAttribute
             return;
         }
-        
+
         double statistic = m_rrdDao.getPrintValue(attribute, m_consolidationFunction, m_startTime, m_endTime);
-        
+
         /*
          * We don't want to do anything with NaN data, since
          * it means there is no data. We especially want to
@@ -70,7 +70,7 @@ public class RrdStatisticAttributeVisitor implements AttributeVisitor, Initializ
         if (Double.isNaN(statistic)) {
             return;
         }
-        
+
         m_statisticVisitor.visit(attribute, statistic);
     }
 

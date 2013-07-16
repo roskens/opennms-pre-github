@@ -65,7 +65,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 		compositesLayout = new CompositesLayout();
 		attributesLayout.setSizeFull();
 		compositesLayout.setSizeFull();
-		
+
 		addTab(attributesLayout, "Attributes");
 		addTab(compositesLayout, "Composites");
 	}
@@ -100,7 +100,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 
 		private final TabSheet tabSheet = new TabSheet();
 		private int selectedCompositesTabPosition;
-		
+
 		public CompositesLayout() {
 			setSizeFull();
 			setSpacing(false);
@@ -191,7 +191,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 					@Override
 					public AbstractField getOuter() {
 						return null;
-					}					
+					}
 				});
 				setSizeFull();
 				setSpacing(false);
@@ -245,7 +245,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 					controller.fireViewStateChanged(ViewState.LeafSelected, CompositeTabLayout.this);
 				}
 			}
-			
+
 			private void addFooterHooks(final EditControls footer) {
 				footer.addSaveHook(this);
 				footer.addCancelHook(this);
@@ -300,7 +300,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 			}
 			if (type == ButtonType.edit) {
 				controller.fireViewStateChanged(ViewState.Edit, outer);
-			} 
+			}
 			if (type == ButtonType.save) {
 				if (outer.isValid()) {
 					outer.commit();
@@ -311,7 +311,7 @@ public class MBeansContentTabSheet extends TabSheet implements ModelChangeListen
 				}
 			}
 		}
-		
+
 		private void addFooterHooks() {
 			footer.addSaveHook(this);
 			footer.addCancelHook(this);

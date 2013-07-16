@@ -56,12 +56,12 @@ public interface CategoryConfigDao {
 	 * @return a {@link org.opennms.netmgt.config.categories.Category} object.
 	 */
 	public Category getCategoryByLabel(String label);
-	
+
 	/**
 	 * <p>findAll</p>
 	 *
 	 * @return a {@link java.util.Collection} object.
 	 */
 	public Collection<Category> findAll();
-	
+
 }

@@ -40,14 +40,14 @@ import org.opennms.web.notification.SortStyle;
  * @since 1.8.1
  */
 public class NotificationCriteria {
-    
+
     public static interface NotificationCriteriaVisitor<E extends Exception>{
         public void visitAckType(AcknowledgeType ackType) throws E;
         public void visitFilter(Filter filter) throws E;
         public void visitSortStyle(SortStyle sortStyle) throws E;
         public void visitLimit(int limit, int offset) throws E;
     }
-    
+
     public static class BaseNotificationCriteriaVisitor<E extends Exception> implements NotificationCriteriaVisitor<E>{
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E { }
@@ -58,13 +58,13 @@ public class NotificationCriteria {
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E { }
     }
-    
+
     Filter[] m_filters = null;
     SortStyle m_sortStyle = SortStyle.ID;
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
     int m_limit = -1;
     int m_offset = -1;
-    
+
     /**
      * <p>Constructor for NotificationCriteria.</p>
      *
@@ -73,7 +73,7 @@ public class NotificationCriteria {
     public NotificationCriteria(Filter...filters){
         this(filters, null, null, -1, -1);
     }
-    
+
     /**
      * <p>Constructor for NotificationCriteria.</p>
      *
@@ -90,7 +90,7 @@ public class NotificationCriteria {
         m_limit = limit;
         m_offset = offset;
     }
-    
+
     /**
      * <p>Constructor for NotificationCriteria.</p>
      *
@@ -122,5 +122,5 @@ public class NotificationCriteria {
             visitor.visitLimit(m_limit, m_offset);
         }
     }
-                                                  
+
 }

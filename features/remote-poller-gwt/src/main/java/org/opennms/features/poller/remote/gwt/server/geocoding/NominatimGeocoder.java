@@ -65,7 +65,7 @@ public class NominatimGeocoder implements Geocoder {
 	public NominatimGeocoder() throws GeocoderException {
 		this(System.getProperty("gwt.geocoder.email"));
 	}
-	
+
 	/**
 	 * <p>Constructor for NominatimGeocoder.</p>
 	 *
@@ -96,7 +96,7 @@ public class NominatimGeocoder implements Geocoder {
 			if (tree == null) {
 				throw new GeocoderException("an error occurred connecting to the Nominatim geocoding service (no XML tree was found)");
 			}
-			
+
 			final List<ElementTree> places = tree.findAll("//place");
 			if (places.size() > 1) {
 				LOG.warn("more than one location returned for query: {}", geolocation);

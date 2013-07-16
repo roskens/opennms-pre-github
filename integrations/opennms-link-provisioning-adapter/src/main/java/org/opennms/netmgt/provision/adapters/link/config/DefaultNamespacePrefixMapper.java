@@ -44,7 +44,7 @@ public class DefaultNamespacePrefixMapper extends NamespacePrefixMapper {
      */
     public DefaultNamespacePrefixMapper() {
     }
-    
+
     /**
      * <p>Constructor for DefaultNamespacePrefixMapper.</p>
      *

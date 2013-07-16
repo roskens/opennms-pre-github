@@ -64,17 +64,17 @@ public class UserFactory extends UserManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
     private File m_usersConfFile;
 
     /**
-     * 
+     *
      */
     private long m_lastModified;
 
     /**
-     * 
+     *
      */
     private long m_fileSize;
 
@@ -100,7 +100,7 @@ public class UserFactory extends UserManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public static synchronized void init() throws IOException, FileNotFoundException, MarshalException, ValidationException {
-        
+
         if (instance == null || !initialized) {
             GroupFactory.init();
             instance = new UserFactory();
@@ -118,7 +118,7 @@ public class UserFactory extends UserManager {
     static synchronized public UserManager getInstance() {
         return instance;
     }
-    
+
     /**
      * <p>Setter for the field <code>instance</code>.</p>
      *
@@ -147,7 +147,7 @@ public class UserFactory extends UserManager {
         m_fileSize = m_usersConfFile.length();
 
         parseXML(configIn);
-        
+
         initialized = true;
 
     }

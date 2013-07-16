@@ -40,7 +40,7 @@ public interface OnmsResourceType {
      * @return unique name
      */
     public String getName();
-    
+
     /**
      * Provides a human-friendly label for this resource type.  It is
      * particularly used in the webUI to describe this resource type.
@@ -48,7 +48,7 @@ public interface OnmsResourceType {
      * @return human-friendly label
      */
     public String getLabel();
-    
+
     /**
      * Checks whether this resource type is on a specific node.  If possible,
      * this should have less overhead than calling #getResourcesForNode(int).
@@ -57,7 +57,7 @@ public interface OnmsResourceType {
      * @return true if this resource type is on this node, false otherwise
      */
     public boolean isResourceTypeOnNode(int nodeId);
-    
+
     /**
      * Gets a list of resources on a specific node.
      *
@@ -65,7 +65,7 @@ public interface OnmsResourceType {
      * @return list of resources
      */
     public List<OnmsResource> getResourcesForNode(int nodeId);
-    
+
     /**
      * Checks whether this resource type is on a specific domain.  If possible,
      * this should have less overhead than calling #getResourcesForDomain(String).
@@ -90,8 +90,8 @@ public interface OnmsResourceType {
      * @return a {@link java.lang.String} object.
      */
     public String getLinkForResource(OnmsResource resource);
-    
+
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId);
-    
+
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId);
 }

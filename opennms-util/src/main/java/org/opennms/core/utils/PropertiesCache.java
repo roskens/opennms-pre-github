@@ -64,7 +64,7 @@ public class PropertiesCache {
             m_file = file;
             m_properties = null;
         }
-        
+
         private Properties read() throws IOException {
             if (!m_file.canRead()) {
                 return null;
@@ -83,7 +83,7 @@ public class PropertiesCache {
                 IOUtils.closeQuietly(in);
             }
         }
-        
+
         private void write() throws IOException {
             m_file.getParentFile().mkdirs();
             OutputStream out = null;
@@ -118,15 +118,15 @@ public class PropertiesCache {
                 // just return to avoid getting the write lock
                 return;
             }
-            
+
             if (m_properties == null) {
                 m_properties = read();
                 if (m_properties == null) {
                     m_properties = deflt;
                 }
-            }   
+            }
         }
-        
+
         public void put(Properties properties) throws IOException {
             lock.lock();
             try {
@@ -155,7 +155,7 @@ public class PropertiesCache {
                 lock.unlock();
             }
         }
-        
+
         public void setProperty(String key, String value) throws IOException {
             lock.lock();
             try {
@@ -189,14 +189,14 @@ public class PropertiesCache {
             } finally {
                 lock.unlock();
             }
-            
+
         }
 
     }
-    
-    
+
+
     Map<String, PropertiesHolder> m_cache = new TreeMap<String, PropertiesHolder>();
-    
+
     private PropertiesHolder getHolder(File propFile) throws IOException {
         String key = propFile.getCanonicalPath();
         synchronized (m_cache) {
@@ -208,7 +208,7 @@ public class PropertiesCache {
             return holder;
         }
     }
-    
+
     /**
      * <p>clear</p>
      */
@@ -228,7 +228,7 @@ public class PropertiesCache {
     public Properties getProperties(File propFile) throws IOException {
         return getHolder(propFile).get();
     }
-    
+
     /**
      * <p>findProperties</p>
      *
@@ -249,7 +249,7 @@ public class PropertiesCache {
     public void saveProperties(File propFile, Properties properties) throws IOException {
         getHolder(propFile).put(properties);
     }
-    
+
     /**
      * <p>updateProperties</p>
      *
@@ -260,7 +260,7 @@ public class PropertiesCache {
     public void updateProperties(File propFile, Map<String, String> props) throws IOException {
         getHolder(propFile).update(props);
     }
-    
+
     /**
      * <p>setProperty</p>
      *
@@ -272,7 +272,7 @@ public class PropertiesCache {
     public void setProperty(File propFile, String key, String value) throws IOException {
         getHolder(propFile).setProperty(key, value);
     }
-    
+
     /**
      * <p>getProperty</p>
      *
@@ -284,6 +284,6 @@ public class PropertiesCache {
     public String getProperty(File propFile, String key) throws IOException {
         return getHolder(propFile).getProperty(key);
     }
-    
+
 
 }

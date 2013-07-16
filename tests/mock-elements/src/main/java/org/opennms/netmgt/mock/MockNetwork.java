@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(MockNetwork.class);
 
 
@@ -96,9 +96,9 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
     private int m_invalidPollCount;
 
     private Map<String, Integer> m_nameToIdMap = new HashMap<String, Integer>();
-    
+
     private String m_criticalService;
-	
+
     private String m_ifAlias;
 
     private int m_nextServiceId = 1;
@@ -110,7 +110,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
         super(null);
         m_criticalService = "ICMP";
     }
-    
+
     /**
      * <p>getCriticalService</p>
      *
@@ -119,7 +119,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
     public String getCriticalService() {
         return m_criticalService;
     }
-    
+
     /**
      * <p>setCriticalService</p>
      *
@@ -128,7 +128,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
     public void setCriticalService(String svcName) {
         m_criticalService = svcName;
     }
-    
+
     /**
      * <p>getIfAlias</p>
      *
@@ -137,7 +137,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
     public String getIfAlias() {
         return m_ifAlias;
     }
-    
+
     /**
      * <p>setIfAlias</p>
      *
@@ -184,7 +184,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
         return m_currentNode;
     }
 
-    // model 
+    // model
     /**
      * <p>addService</p>
      *
@@ -407,7 +407,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
         v.visitNetwork(this);
         visitMembers(v);
     }
-    
+
     /**
      * <p>getNodeCount</p>
      *
@@ -478,7 +478,7 @@ public class MockNetwork extends MockContainer<MockContainer<?,?>,MockElement> {
     		.append("members", getMembers())
     		.toString();
     }
-    
+
     /**
      * <p>createStandardNetwork</p>
      */

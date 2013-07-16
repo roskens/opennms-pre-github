@@ -42,7 +42,7 @@ public class RemoveVertexOperation implements Operation {
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         GraphContainer graphContainer = operationContext.getGraphContainer();
-        
+
         if (targets == null) {
             LoggerFactory.getLogger(getClass()).debug("need to handle selection!!!");
         } else {
@@ -51,8 +51,8 @@ public class RemoveVertexOperation implements Operation {
             		operationContext.getGraphContainer().getBaseTopology().removeVertex(target);
             	}
             }
-            
-            
+
+
         	graphContainer.redoLayout();
         }
         return null;

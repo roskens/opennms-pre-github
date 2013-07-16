@@ -42,10 +42,10 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  * @version $Id: $
  */
 public class LineOrientedCodecFactory implements ProtocolCodecFactory {
-    
+
     private final LineOrientedEncoder m_encoder;
     private final LineOrientedDecoder m_decoder;
-    
+
     /**
      * <p>Constructor for LineOrientedCodecFactory.</p>
      *
@@ -54,7 +54,7 @@ public class LineOrientedCodecFactory implements ProtocolCodecFactory {
     public LineOrientedCodecFactory(final Charset charset) {
         this(charset, null);
     }
-    
+
     /**
      * <p>Constructor for LineOrientedCodecFactory.</p>
      *
@@ -65,7 +65,7 @@ public class LineOrientedCodecFactory implements ProtocolCodecFactory {
         m_encoder = new LineOrientedEncoder(charset);
         m_decoder = new LineOrientedDecoder(charset);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ProtocolDecoder getDecoder(final IoSession session) throws Exception {

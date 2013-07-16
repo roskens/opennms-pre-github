@@ -58,7 +58,7 @@ public final class MergeableSpecific implements Comparable<String> {
         }
 		m_value = addr.getAddress();
     }
-    
+
     /**
      * Uses a comparable comparing to Specifics from the config package.
      *
@@ -69,7 +69,7 @@ public final class MergeableSpecific implements Comparable<String> {
     public int compareTo(String specific) {
         return m_comparator.compare(m_specific, specific);
     }
-    
+
     @Override
     public boolean equals(final Object o) {
     	if (!(o instanceof MergeableSpecific)) return false;
@@ -112,7 +112,7 @@ public final class MergeableSpecific implements Comparable<String> {
     public String toString() {
         return m_specific;
     }
-    
+
     /**
      * <p>getValue</p>
      *

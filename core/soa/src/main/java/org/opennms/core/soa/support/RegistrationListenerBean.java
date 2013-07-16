@@ -50,7 +50,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     private Object m_target;
     private String m_bindMethod;
     private String m_unbindMethod;
-    
+
 
 
     /**
@@ -124,8 +124,8 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
     public void setUnbindMethod(String unbindMethod) {
         m_unbindMethod = unbindMethod;
     }
-    
-    
+
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -141,14 +141,14 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
             // verify this method exists
             getMethod(m_bindMethod);
         }
-        
+
         if (StringUtils.hasText(m_unbindMethod)) {
             // verify this method exists
             getMethod(m_unbindMethod);
         }
-        
+
     }
-    
+
     private Method getMethod(String name) throws SecurityException, NoSuchMethodException {
         Method method = m_target.getClass().getMethod(name, m_serviceInterface, Map.class);
         Assert.notNull(name, "Unable to find method named " + name);
@@ -162,7 +162,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
         } catch (Throwable e) {
             throw new UndeclaredThrowableException(e, "Unexexpected exception invoking method " + methodName);
         } finally {
-            
+
         }
     }
 
@@ -173,7 +173,7 @@ public class RegistrationListenerBean<T> implements RegistrationListener<T>, Ini
             invokeMethod(m_bindMethod, registration);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void providerUnregistered(Registration registration, Object provider) {

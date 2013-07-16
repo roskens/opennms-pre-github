@@ -38,10 +38,10 @@ import org.opennms.netmgt.provision.detector.simple.response.LineOrientedRespons
  * @version $Id: $
  */
 public class LoopResponse extends LineOrientedResponse {
-    
+
     private String m_address;
     private boolean m_isSupported;
-    
+
     /**
      * <p>Constructor for LoopResponse.</p>
      */
@@ -59,7 +59,7 @@ public class LoopResponse extends LineOrientedResponse {
         m_address = address;
         m_isSupported = isSupported;
     }
-    
+
     /**
      * <p>validateIPMatch</p>
      *
@@ -70,9 +70,9 @@ public class LoopResponse extends LineOrientedResponse {
       if(IPLike.matches(m_address, ip)){
           return m_isSupported;
       }else{
-        return false;  
+        return false;
       }
-        
+
     }
 
 }

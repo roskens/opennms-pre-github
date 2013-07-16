@@ -50,10 +50,10 @@ public class TopologySelector {
 	private BundleContext m_bundleContext;
 	private final Map<GraphProvider, TopologySelectorOperation> m_operations = new HashMap<GraphProvider, TopologySelector.TopologySelectorOperation>();
 	private final Map<GraphProvider, ServiceRegistration<CheckedOperation>> m_registrations = new HashMap<GraphProvider, ServiceRegistration<CheckedOperation>>();
-	
-    
+
+
     private class TopologySelectorOperation extends AbstractCheckedOperation {
-    	
+
     	private GraphProvider m_topologyProvider;
     	private Map<?,?> m_metaData;
 
@@ -61,18 +61,18 @@ public class TopologySelector {
     		m_topologyProvider = topologyProvider;
     		m_metaData = metaData;
 		}
-    	
+
     	public String getLabel() {
     		return m_metaData.get("label") == null ? "No Label for Topology Provider" : (String)m_metaData.get("label");
     	}
-    	
+
 
     	@Override
     	public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
     		execute(operationContext.getGraphContainer());
     		return null;
     	}
-    	
+
     	private void execute(GraphContainer container) {
     		LoggerFactory.getLogger(getClass()).debug("Active provider is: {}", m_topologyProvider);
     		boolean redoLayout = true;
@@ -80,7 +80,7 @@ public class TopologySelector {
     		    redoLayout = false;
     		}
     		container.setBaseTopology(m_topologyProvider);
-    		
+
     		if(redoLayout) { container.redoLayout(); }
     	}
 
@@ -118,31 +118,31 @@ public class TopologySelector {
 	public void setBundleContext(BundleContext bundleContext) {
 		m_bundleContext = bundleContext;
 	}
-	
+
 	public synchronized void addGraphProvider(GraphProvider topologyProvider, Map<?,?> metaData) {
 		try {
         	LoggerFactory.getLogger(getClass()).debug("Adding graph provider: " + topologyProvider);
-        	
+
         	TopologySelectorOperation operation = new TopologySelectorOperation(topologyProvider, metaData);
-        	
+
         	m_operations.put(topologyProvider, operation);
-        	
+
         	Dictionary<String,String> properties = new Hashtable<String,String>();
             properties.put("operation.menuLocation", "View");
             properties.put("operation.label", operation.getLabel()+"?group=topology");
-        	
+
         	ServiceRegistration<CheckedOperation> reg = m_bundleContext.registerService(CheckedOperation.class, operation, properties);
-        	
+
         	m_registrations.put(topologyProvider, reg);
 		} catch (Throwable e) {
             LoggerFactory.getLogger(this.getClass()).warn("Exception during addGraphProvider()", e);
 		}
     }
-    
+
 	public synchronized void removeGraphProvider(GraphProvider topologyProvider, Map<?,?> metaData) {
     	try {
         	LoggerFactory.getLogger(getClass()).debug("Removing graph provider: {}", topologyProvider);
-        	
+
         	m_operations.remove(topologyProvider);
         	ServiceRegistration<CheckedOperation> reg = m_registrations.remove(topologyProvider);
         	if (reg != null) {

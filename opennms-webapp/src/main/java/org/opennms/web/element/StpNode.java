@@ -68,9 +68,9 @@ public class StpNode
         m_nodeId = node.getNode().getId();
         m_basebridgeaddress = node.getBaseBridgeAddress();
 		m_basevlan = node.getBaseVlan();
-        m_lastPollTime = Util.formatDateToUIString(node.getLastPollTime()); 
+        m_lastPollTime = Util.formatDateToUIString(node.getLastPollTime());
         m_status = StatusType.getStatusString(node.getStatus().getCharCode());
-		
+
         if (node.getBaseNumPorts() != null)
 			m_basenumports = node.getBaseNumPorts().toString();
 		if (node.getBaseType() != null)
@@ -246,7 +246,7 @@ public class StpNode
 	public String getBaseVlanName() {
 		return m_basevlanname;
 	}
-	
+
     /**
      * <p>getStatusString</p>
      *

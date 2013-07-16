@@ -62,7 +62,7 @@ public class DefaultForeignSourceServiceTest {
         m_pending = new FilesystemForeignSourceRepository();
         m_pending.setForeignSourcePath("target/foreign-sources");
         m_pending.setRequisitionPath("target/imports");
-        
+
         m_service = new DefaultForeignSourceService();
         m_service.setDeployedForeignSourceRepository(m_deployed);
         m_service.setPendingForeignSourceRepository(m_pending);
@@ -84,7 +84,7 @@ public class DefaultForeignSourceServiceTest {
         // modify it and save
         fs.setDetectors(new ArrayList<PluginConfig>());
         m_service.saveForeignSource("test", fs);
-        
+
         // now it shouln't be marked as default, since we've saved a modified version
         fs = m_service.getForeignSource("test");
         assertFalse(fs.isDefault());

@@ -45,7 +45,7 @@ import org.opennms.core.soa.ServiceRegistry;
  * @author brozow
  */
 public class ReferenceListFactoryBeanTest {
-    
+
     /**
      * RegistrationListenerImplementation
      *
@@ -63,7 +63,7 @@ public class ReferenceListFactoryBeanTest {
         public void providerUnregistered(Registration registration, Hello provider) {
             m_totalProvided--;
         }
-        
+
         public int getTotalProvided() {
             return m_totalProvided;
         }
@@ -71,72 +71,72 @@ public class ReferenceListFactoryBeanTest {
 
     @Test
     public void testDynamicList() throws Exception {
-        
+
         ServiceRegistry registry = new DefaultServiceRegistry();
-        
-        
+
+
         Registration reg1 = registry.register(new MyProvider("prov1"), Hello.class, Goodbye.class);
         Registration reg2 = registry.register(new MyProvider("prov2"), Hello.class, Goodbye.class);
-        
+
         ReferenceListFactoryBean<Hello> bean = new ReferenceListFactoryBean<Hello>();
         bean.setServiceInterface(Hello.class);
         bean.setServiceRegistry(registry);
         bean.afterPropertiesSet();
-        
+
         List<Hello> helloList = getObject(bean);
-        
+
         assertEquals(2, helloList.size());
-        
+
         Registration reg3 = registry.register(new MyProvider("prov3"), Hello.class, Goodbye.class);
-        
+
         assertEquals(3, helloList.size());
-        
+
         reg2.unregister();
-        
+
         assertEquals(2, helloList.size());
-        
+
         reg1.unregister();
         reg3.unregister();
-        
+
         assertTrue(helloList.isEmpty());
-        
+
     }
 
     private List<Hello> getObject(ReferenceListFactoryBean<Hello> bean) throws Exception {
         return bean.getObject();
     }
-    
+
     @Test
     public void testListListeners() throws Exception {
-        
+
         ServiceRegistry registry = new DefaultServiceRegistry();
-        
+
         Registration reg1 = registry.register(new MyProvider("prov1"), Hello.class, Goodbye.class);
         Registration reg2 = registry.register(new MyProvider("prov2"), Hello.class, Goodbye.class);
-        
+
         ReferenceListFactoryBean<Hello> bean = new ReferenceListFactoryBean<Hello>();
         bean.setServiceInterface(Hello.class);
         bean.setServiceRegistry(registry);
-        
+
         CountingListener listener = new CountingListener();
 
         bean.addListener(listener);
 
         bean.afterPropertiesSet();
-        
+
         assertEquals(2, listener.getTotalProvided());
-        
+
         Registration reg3 = registry.register(new MyProvider("prov3"), Hello.class, Goodbye.class);
-        
+
         assertEquals(3, listener.getTotalProvided());
-        
+
         reg2.unregister();
-        
+
         assertEquals(2, listener.getTotalProvided());
-        
+
         reg1.unregister();
         reg3.unregister();
-        
+
         assertEquals(0, listener.getTotalProvided());
     }
 

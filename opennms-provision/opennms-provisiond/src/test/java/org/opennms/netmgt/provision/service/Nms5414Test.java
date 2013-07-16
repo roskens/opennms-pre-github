@@ -77,25 +77,25 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class Nms5414Test extends ProvisioningTestCase {
     private static final Logger LOG = LoggerFactory.getLogger(Nms5414Test.class);
-    
+
     @Autowired
     private Provisioner m_provisioner;
-    
+
     @Autowired
     private ResourceLoader m_resourceLoader;
-    
+
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     private MockNodeDao m_nodeDao;
 
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -123,12 +123,12 @@ public class Nms5414Test extends ProvisioningTestCase {
         waitForEverything();
 
         final OnmsNode node = getNodeDao().get(nextNodeId);
-        
+
         eventRecieved.await();
-        
+
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
-        
+
         for (final OnmsIpInterface iface : getInterfaceDao().findAll()) {
             LOG.debug("Interface: {}", iface);
         }
@@ -137,22 +137,22 @@ public class Nms5414Test extends ProvisioningTestCase {
         assertEquals(4, getInterfaceDao().countAll());
         //Verify snmpinterface count
         assertEquals(79,getSnmpInterfaceDao().countAll());
-        
+
         final OnmsSnmpInterface onmsinterface = getSnmpInterfaceDao().findByNodeIdAndIfIndex(nextNodeId, 160);
 
         assertEquals("Avaya Virtual Services Platform 7024XLS Module - Unit 2 Port 32  ", onmsinterface.getIfDescr());
         assertEquals("ifc160 (Slot: 2 Port: 32)", onmsinterface.getIfName());
         assertEquals("8dd69b5cafba",onmsinterface.getPhysAddr());
-        
+
     }
-    
+
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
     	final Task t = scan.createTask();
         t.schedule();
         t.waitFor();
         waitForEverything();
     }
-    
+
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }
@@ -160,7 +160,7 @@ public class Nms5414Test extends ProvisioningTestCase {
     private IpInterfaceDao getInterfaceDao() {
         return m_ipInterfaceDao;
     }
-    
+
     private SnmpInterfaceDao getSnmpInterfaceDao() {
         return m_snmpInterfaceDao;
     }

@@ -36,7 +36,7 @@ import org.opennms.jicmp.ipv6.ICMPv6Packet;
 import org.opennms.netmgt.icmp.EchoPacket;
 
 class V6PingReply extends ICMPv6EchoPacket implements EchoPacket {
-    
+
     private long m_receivedTimeNanos;
 
     public V6PingReply(ICMPv6Packet icmpPacket, long receivedTimeNanos) {
@@ -48,7 +48,7 @@ class V6PingReply extends ICMPv6EchoPacket implements EchoPacket {
         ByteBuffer content = getContentBuffer();
         return content.limit() >= V6PingRequest.DATA_LENGTH && V6PingRequest.COOKIE == content.getLong(V6PingRequest.OFFSET_COOKIE);
     }
-    
+
     @Override
     public boolean isEchoReply() {
         return Type.EchoReply.equals(getType());
@@ -59,7 +59,7 @@ class V6PingReply extends ICMPv6EchoPacket implements EchoPacket {
         // this is here just for EchoPacket interface completeness
         return super.getIdentifier();
     }
-    
+
     @Override
     public int getSequenceNumber() {
         // this is here just for EchoPacket interface completeness
@@ -75,12 +75,12 @@ class V6PingReply extends ICMPv6EchoPacket implements EchoPacket {
     public long getSentTimeNanos() {
         return getContentBuffer().getLong(V6PingRequest.OFFSET_TIMESTAMP);
     }
-    
+
     @Override
     public long getReceivedTimeNanos() {
         return m_receivedTimeNanos;
     }
-    
+
     @Override
     public double elapsedTime(TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);

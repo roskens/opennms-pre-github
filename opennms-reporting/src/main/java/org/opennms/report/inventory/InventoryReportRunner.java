@@ -44,10 +44,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class InventoryReportRunner implements Runnable {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(InventoryReportRunner.class);
 
-        
+
     String theDate;
     String theField;
     String reportFormat;
@@ -59,7 +59,7 @@ public class InventoryReportRunner implements Runnable {
 
     ReportRenderer m_htmlReportRenderer;
     ReportRenderer m_nullReportRenderer;
-    
+
     /**
      * <p>getNullReportRenderer</p>
      *
@@ -236,17 +236,17 @@ public class InventoryReportRunner implements Runnable {
         calculator.setTheDate(theDate);
         calculator.setUser(user);
         calculator.setTheField(theField);
-        
+
         if (reportFormat.compareTo("pdftype") == 0){
             LOG.debug("run: generating pdf is still not supported :( sending xml");
-            
+
             renderer = m_nullReportRenderer;
         } else {
             LOG.debug("runRancidListReport generating html");
             renderer =  m_htmlReportRenderer;
         }
 
-        try {            
+        try {
             calculator.calculate();
             calculator.writeXML();
 
@@ -267,7 +267,7 @@ public class InventoryReportRunner implements Runnable {
         } catch (IOException ioe) {
             LOG.error("Unable to render report ", ioe);
         }
-            
+
 
 /*
             log().debug("InventoryService runNodeBaseInventoryReport object filled");
@@ -315,7 +315,7 @@ public class InventoryReportRunner implements Runnable {
             */
 
     }
-    
-   
+
+
 
 }

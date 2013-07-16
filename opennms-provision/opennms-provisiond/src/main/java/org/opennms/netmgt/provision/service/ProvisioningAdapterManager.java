@@ -55,11 +55,11 @@ public class ProvisioningAdapterManager implements InitializingBean {
 
     private PluginRegistry m_pluginRegistry;
     private Collection<ProvisioningAdapter> m_adapters;
-    
+
     //may use this at some point
     private volatile EventForwarder m_eventForwarder;
-    
-    
+
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -126,7 +126,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
             }
         }
     }
-    
+
     /**
      * <p>handleNodeDeletedEvent</p>
      *
@@ -145,10 +145,10 @@ public class ProvisioningAdapterManager implements InitializingBean {
             }
         }
     }
-    
+
     /**
      * <p>handleNodeScanCompletedEvent</p>
-     * 
+     *
      * Note: If the operations are properly scheduled and handled using the SimpleQueuedProvisioningAdapter, even though
      * this event is sent following a nodeUpdated event, the update operation task should be reduced to 1 operation on the queue.
      *
@@ -167,7 +167,7 @@ public class ProvisioningAdapterManager implements InitializingBean {
             }
         }
     }
-    
+
     /**
      * <p>handleNodeChangedEvent</p>
      *

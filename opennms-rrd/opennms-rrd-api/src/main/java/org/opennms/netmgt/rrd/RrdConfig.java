@@ -67,8 +67,8 @@ public abstract class RrdConfig {
             } catch (FileNotFoundException e) {
                 LOG.info("{} not found, loading RRD configuration solely from system properties", configFileName);
             } finally {
-                if (in != null) { 
-                    in.close(); 
+                if (in != null) {
+                    in.close();
                 }
             }
         }

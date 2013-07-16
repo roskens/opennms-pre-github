@@ -61,7 +61,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultSurveillanceServiceTest {
@@ -69,84 +69,84 @@ public class DefaultSurveillanceServiceTest {
 
     @Before
     public void setUp() throws Exception {
-               
+
         m_service = new DefaultSurveillanceService();
-        
+
         /*
          * Since the SecurityContext is stored in a ThreadLocal we need to
          * be sure to clear it before every test.
          */
         SecurityContextHolder.clearContext();
     }
-    
+
     @Test
     public void testGetUsernameWithUserDetails() {
         UserDetails details = populateSecurityContext();
-        
+
         String user = m_service.getUsername();
         assertNotNull("user should not be null", user);
         assertEquals("user name", details.getUsername(), user);
     }
-    
+
     // String Principal is not longer used in opennms
     @Test(expected=IllegalStateException.class)
     public void testGetUsernameWithStringPrincipal() {
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken("user", null, new ArrayList<GrantedAuthority>());
         SecurityContextHolder.getContext().setAuthentication(auth);
-        
+
         String user = m_service.getUsername();
     }
-    
+
     @Test
     public void testGetUsernameNoAuthenticationObject() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("No Authentication object found when calling getAuthentication on our SecurityContext object"));
-        
+
         try {
             m_service.getUsername();
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testGetUsernameNoPrincipalObject() {
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(null, null, new ArrayList<GrantedAuthority>());
         SecurityContextHolder.getContext().setAuthentication(auth);
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("No principal object found when calling getPrincipal on our Authentication object"));
-        
+
         try {
             m_service.getUsername();
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testGetRtcForSet() {
         UserDetails details = populateSecurityContext();
-        
+
         EasyMockUtils mock = new EasyMockUtils();
-        
+
         MonitoredServiceDao monSvcDao = mock.createMock(MonitoredServiceDao.class);
         OutageDao outageDao = mock.createMock(OutageDao.class);
         SurveillanceViewConfigDao survViewConfigDao = mock.createMock(SurveillanceViewConfigDao.class);
         GroupDao groupDao = mock.createMock(GroupDao.class);
         CategoryDao categoryDao = mock.createMock(CategoryDao.class);
-        
+
         mock.replayAll();
-        
+
         DefaultRtcService rtcService = new DefaultRtcService();
         rtcService.setMonitoredServiceDao(monSvcDao);
         rtcService.setOutageDao(outageDao);
         rtcService.afterPropertiesSet();
-        
+
         m_service.setRtcService(rtcService);
         m_service.setSurveillanceViewConfigDao(survViewConfigDao);
         m_service.setGroupDao(groupDao);
@@ -155,22 +155,22 @@ public class DefaultSurveillanceServiceTest {
 
         expect(survViewConfigDao.getView(details.getUsername())).andReturn(null).atLeastOnce();
         expect(groupDao.findGroupsForUser(details.getUsername())).andReturn(new ArrayList<Group>()).atLeastOnce();
-        
+
         View defaultView = new View();
         defaultView.setColumns(new Columns());
         defaultView.setRows(new Rows());
         expect(survViewConfigDao.getDefaultView()).andReturn(defaultView).atLeastOnce();
-        
+
         expect(monSvcDao.findMatching(isA(OnmsCriteria.class))).andReturn(new ArrayList<OnmsMonitoredService>());
         expect(outageDao.findMatching(isA(OnmsCriteria.class))).andReturn(new ArrayList<OnmsOutage>());
 
         mock.replayAll();
         NodeRtc[] rtcs = m_service.getRtcForSet(SurveillanceSet.DEFAULT);
         mock.verifyAll();
-        
+
         assertNotNull("rtcs should not be null", rtcs);
     }
-    
+
     private UserDetails populateSecurityContext() {
         UserDetails details = new User("user", "password", true, true, true, true, new ArrayList<GrantedAuthority>());
         org.springframework.security.core.Authentication auth = new UsernamePasswordAuthenticationToken(details, null, details.getAuthorities());

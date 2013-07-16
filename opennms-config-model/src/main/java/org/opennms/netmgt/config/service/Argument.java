@@ -45,7 +45,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * Class Argument.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "argument")
@@ -90,7 +90,7 @@ public class Argument implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -124,7 +124,7 @@ public class Argument implements Serializable {
     /**
      * Returns the value of field 'content'. The field 'content' has the
      * following description: internal content storage
-     * 
+     *
      * @return the value of field 'Content'.
      */
     public String getContent() {
@@ -133,7 +133,7 @@ public class Argument implements Serializable {
 
     /**
      * Returns the value of field 'type'.
-     * 
+     *
      * @return the value of field 'Type'.
      */
     public String getType() {
@@ -145,7 +145,7 @@ public class Argument implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -164,7 +164,7 @@ public class Argument implements Serializable {
     /**
      * Sets the value of field 'content'. The field 'content' has the
      * following description: internal content storage
-     * 
+     *
      * @param content
      *            the value of field 'content'.
      */
@@ -174,7 +174,7 @@ public class Argument implements Serializable {
 
     /**
      * Sets the value of field 'type'.
-     * 
+     *
      * @param type
      *            the value of field 'type'.
      */

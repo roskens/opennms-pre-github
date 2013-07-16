@@ -64,8 +64,8 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 final public class TcpMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(TcpMonitor.class);
 
     /**
@@ -140,7 +140,7 @@ final public class TcpMonitor extends AbstractServiceMonitor {
         for (tracker.reset(); tracker.shouldRetry() && !serviceStatus.isAvailable(); tracker.nextAttempt()) {
             Socket socket = null;
             try {
-                
+
                 tracker.startAttempt();
 
                 socket = new Socket();

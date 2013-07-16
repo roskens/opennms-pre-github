@@ -44,8 +44,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The File Editor Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class FileEditorWindow extends Window implements Button.ClickListener {

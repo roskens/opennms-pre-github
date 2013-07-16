@@ -76,12 +76,12 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
      * The callback to use when this object is ready to do something
      */
     private final PingResponseCallback m_callback;
-    
+
     /**
      * How many retries
      */
     private final int m_retries;
-    
+
     /**
      * how long to wait for a response
      */
@@ -91,19 +91,19 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
      * The ICMP packet size
      */
     private final int m_packetsize;
-    
+
     /**
      * The expiration time of this request
      */
     private long m_expiration = -1L;
-    
+
     /**
      * The thread logger associated with this request.
      */
-    
-    
+
+
     private final AtomicBoolean m_processed = new AtomicBoolean(false);
-    
+
 
     public Jni6PingRequest(final Jni6PingRequestId id, final long timeout, final int retries, final int packetsize, final PingResponseCallback callback) {
         m_id = id;
@@ -112,11 +112,11 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
         m_packetsize = packetsize;
         m_callback = callback;
     }
-    
+
     public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId, final long timeout, final int retries, final int packetsize, final PingResponseCallback cb) {
         this(new Jni6PingRequestId(addr, identifier, sequenceNumber, threadId), timeout, retries, packetsize, cb);
     }
-    
+
 
     public Jni6PingRequest(final Inet6Address addr, final int identifier, final int sequenceNumber, final long timeout, final int retries, final int packetsize, final PingResponseCallback cb) {
         this(addr, identifier, sequenceNumber, getNextTID(), timeout, retries, packetsize, cb);
@@ -162,7 +162,7 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
             setProcessed(true);
         }
     }
-    
+
     /**
      * <p>isExpired</p>
      *
@@ -230,7 +230,7 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
             setProcessed(true);
         }
     }
-    
+
     private void setProcessed(final boolean processed) {
         m_processed.set(processed);
     }
@@ -253,7 +253,7 @@ public class Jni6PingRequest implements Request<Jni6PingRequestId, Jni6PingReque
     public void send(final ICMPv6Socket socket) {
         try {
             m_requestPacket = createRequestPacket();
-    
+
             LOG.debug("{}: Sending Ping Request: {}", System.currentTimeMillis(), this);
             final byte[] data = m_requestPacket.toBytes();
             m_expiration = System.currentTimeMillis() + m_timeout;

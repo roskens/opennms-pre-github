@@ -38,7 +38,7 @@ import org.opennms.test.ThrowableAnticipator;
 
 public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
         PopulatedTemporaryDatabaseTestCase {
-    
+
     public void testSetSnmpInterfaceIdInIpInterface() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
@@ -170,7 +170,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
             connection.close();
         }
     }
-    
+
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with nodeId
      * and ifIndex set
@@ -184,7 +184,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with nodeId
      * set but null ifIndex
-     * @throws Exception 
+     * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -210,7 +210,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with ifIndex
      * set but null nodeId
-     * @throws Exception 
+     * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeId() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -236,7 +236,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
     /**
      * Test adding an ipInterface entry with an snmpInterfaceId with null nodeId
      * and ifIndex
-     * @throws Exception 
+     * @throws Exception
      */
     public void testSetSnmpInterfaceIdInIpInterfaceWithSnmpInterfaceIdNullNodeIdAndIpAddr() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
@@ -253,7 +253,7 @@ public class TriggerSetSnmpInterfaceKeysOnInsertTest extends
             assertEquals("ipInterface.nodeId", 1, rs.getInt(1));
             assertFalse("ipInterface.nodeId should not be null",
                         rs.wasNull());
-            
+
             assertEquals("ipInterface.ifIndex", 1, rs.getInt(2));
             assertFalse("ipInterface.ifIndex should not be null",
                         rs.wasNull());

@@ -36,7 +36,7 @@ import org.junit.Test;
 
 /**
  * The Test class for XML Collector for Node Level Statistics
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
@@ -48,7 +48,7 @@ public class XmlCollectorNodeLevelTest extends AbstractXmlCollectorTest {
     public String getXmlConfigFileName() {
         return "src/test/resources/node-level-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */

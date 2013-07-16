@@ -76,7 +76,7 @@ public class ParameterList {
     public void setParameter(List<PluginParameter> list) {
         parameter = list;
     }
-    
+
     /**
      * <p>Getter for the field <code>parameter</code>.</p>
      *

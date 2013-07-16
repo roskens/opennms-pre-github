@@ -37,13 +37,13 @@ import org.springframework.util.Assert;
 /**
  * <p>RequestAttributePreAuthenticationProcessingFilter class. This filter should be used
  * PRE_AUTH_FILTER position in the filter chain.</p>
- * 
+ *
  * @see http://static.springsource.org/spring-security/site/docs/3.1.x/reference/springsecurity-single.html
  * @author Timothy Nowaczyk, tan7f@virginia.edu
  */
 public class RequestAttributePreAuthenticationProcessingFilter extends AbstractPreAuthenticatedProcessingFilter {
-    
-    private String m_principalRequestAttribute = "REMOTE_USER"; 
+
+    private String m_principalRequestAttribute = "REMOTE_USER";
     private String m_credentialsRequestAttribute;
 
 
@@ -51,9 +51,9 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
     @Override
     protected Object getPreAuthenticatedPrincipal(HttpServletRequest request) {
         Object principal = request.getAttribute(m_principalRequestAttribute);
-        
+
         if (principal == null) {
-            throw new PreAuthenticatedCredentialsNotFoundException(m_principalRequestAttribute 
+            throw new PreAuthenticatedCredentialsNotFoundException(m_principalRequestAttribute
                     + " attribute not found in request.");
         }
 
@@ -65,14 +65,14 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
     protected Object getPreAuthenticatedCredentials(HttpServletRequest request) {
         if (m_credentialsRequestAttribute != null) {
             Object credentials = request.getAttribute(m_credentialsRequestAttribute);
-            
+
             return credentials;
         }
 
         return "";
 
     }
-    
+
     /**
      * <p>setPrincipalRequestHeader</p>
      *
@@ -89,7 +89,7 @@ public class RequestAttributePreAuthenticationProcessingFilter extends AbstractP
      * @param credentialsRequestAttribute a {@link java.lang.String} object.
      */
     public void setCredentialsRequestHeader(String credentialsRequestAttribute) {
-        Assert.hasText(credentialsRequestAttribute, "credentialsRequestAttribute must not be empty or null");     
+        Assert.hasText(credentialsRequestAttribute, "credentialsRequestAttribute must not be empty or null");
         m_credentialsRequestAttribute = credentialsRequestAttribute;
     }
 }

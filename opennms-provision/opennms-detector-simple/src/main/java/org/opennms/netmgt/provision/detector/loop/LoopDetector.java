@@ -48,10 +48,10 @@ import org.springframework.stereotype.Component;
 public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopResponse> {
     private static final String DEFAULT_SERVICE_NAME = "LOOP";
     private static final int DEFAULT_PORT = 0;
-    
+
     private String m_ipMatch;
     private boolean m_isSupported = true;
-    
+
     /**
      * <p>Constructor for LoopDetector.</p>
      */
@@ -74,14 +74,14 @@ public class LoopDetector extends BasicDetector<LineOrientedRequest, LoopRespons
     }
 
     private static ResponseValidator<LoopResponse> ipMatches(final String ipAddr) {
-        
+
         return new ResponseValidator<LoopResponse>(){
 
             @Override
             public boolean validate(LoopResponse response) {
                 return response.validateIPMatch(ipAddr);
             }
-            
+
         };
     }
 

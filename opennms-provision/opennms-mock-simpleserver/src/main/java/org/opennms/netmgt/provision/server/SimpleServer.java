@@ -50,16 +50,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SimpleServer extends SimpleConversationEndPoint {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SimpleServer.class);
-    
+
     public static class ServerErrorExchange implements Exchange{
         protected RequestHandler m_errorRequest;
-        
+
         public ServerErrorExchange(final RequestHandler requestHandler) {
             m_errorRequest = requestHandler;
         }
-        
+
         @Override
         public boolean matchResponseByString(final String response) {
             return false;
@@ -75,9 +75,9 @@ public class SimpleServer extends SimpleConversationEndPoint {
             m_errorRequest.doRequest(out);
             return false;
         }
-        
+
     }
-    
+
     private ServerSocket m_serverSocket = null;
     private Thread m_serverThread = null;
     private int m_threadSleepLength = 0;
@@ -94,7 +94,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public void setBanner(final String banner){
         m_banner = banner;
     }
-    
+
     /**
      * <p>getBanner</p>
      *
@@ -103,14 +103,14 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public String getBanner() {
         return m_banner;
     }
-    
+
     /**
      * Slow down transmission of the banner by a specified number of milliseconds.
      */
     public void setBannerDelay(final int delay){
         m_bannerDelay = delay;
     }
-    
+
     /**
      * <p>getInetAddress</p>
      *
@@ -119,7 +119,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public InetAddress getInetAddress(){
         return getServerSocket().getInetAddress();
     }
-    
+
     /**
      * <p>getLocalPort</p>
      *
@@ -128,7 +128,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public int getLocalPort() {
         return getServerSocket().getLocalPort();
     }
-    
+
     /**
      * <p>setThreadSleepLength</p>
      *
@@ -137,7 +137,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public void setThreadSleepLength(final int timeout) {
         m_threadSleepLength = timeout;
     }
-    
+
     /**
      * <p>getThreadSleepLength</p>
      *
@@ -146,7 +146,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public int getThreadSleepLength() {
         return m_threadSleepLength;
     }
-    
+
     /**
      * <p>init</p>
      *
@@ -165,8 +165,8 @@ public class SimpleServer extends SimpleConversationEndPoint {
      */
     protected void onInit() {
         // Do nothing by default
-    } 
-    
+    }
+
     /**
      * <p>startServer</p>
      *
@@ -177,7 +177,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
         getServerThread().setDaemon(true);
         getServerThread().start();
     }
-    
+
     /**
      * <p>stopServer</p>
      *
@@ -187,7 +187,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
         if (!m_stopped) {
             m_stopped = true;
             Thread t = getServerThread();
-            if(t != null && t.isAlive()) { 
+            if(t != null && t.isAlive()) {
                 t.interrupt();
                 try {
                     Thread.sleep(20);
@@ -195,21 +195,21 @@ public class SimpleServer extends SimpleConversationEndPoint {
                     Thread.currentThread().interrupt();
                 }
                 if(getSocket() != null && !getSocket().isClosed()) {
-                   getSocket().close();  
+                   getSocket().close();
                 }
             }
             setServerThread(null);
             getServerSocket().close();
         }
     }
-    
+
     /**
      * <p>dispose</p>
      */
     public void dispose(){
         // Do nothing by default
     }
-    
+
     /**
      * <p>getRunnable</p>
      *
@@ -218,7 +218,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
      */
     protected Runnable getRunnable() throws Exception {
         return new Runnable(){
-            
+
             @Override
             public void run(){
                 OutputStream out = null;
@@ -252,7 +252,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
                             if (sleepMore > 0) {
                                 try { Thread.sleep(sleepMore); } catch (InterruptedException e) {}
                             }
-                            
+
                             IOUtils.closeQuietly(in);
                             IOUtils.closeQuietly(isr);
                             IOUtils.closeQuietly(out);
@@ -283,10 +283,10 @@ public class SimpleServer extends SimpleConversationEndPoint {
                     }
                 }
             }
-            
+
         };
     }
-    
+
     /**
      * <p>sendBanner</p>
      *
@@ -307,7 +307,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
         }
         out.write("\r\n".getBytes());
     }
-    
+
     /**
      * <p>attemptConversation</p>
      *
@@ -317,10 +317,10 @@ public class SimpleServer extends SimpleConversationEndPoint {
      * @return a boolean.
      */
     protected boolean attemptConversation(final BufferedReader in, final OutputStream out) throws Exception{
-        m_conversation.attemptServerConversation(in, out);      
+        m_conversation.attemptServerConversation(in, out);
         return true;
     }
-    
+
     /**
      * <p>addErrorHandler</p>
      *
@@ -329,7 +329,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     protected void addErrorHandler(final RequestHandler requestHandler) {
         m_conversation.addErrorExchange(new ServerErrorExchange(requestHandler));
     }
-    
+
     /**
      * <p>errorString</p>
      *
@@ -342,12 +342,12 @@ public class SimpleServer extends SimpleConversationEndPoint {
             @Override
             public void doRequest(final OutputStream out) throws IOException {
                 out.write(String.format("%s\r\n", error).getBytes());
-                
+
             }
-            
+
         };
     }
-    
+
     /**
      * <p>shutdownServer</p>
      *
@@ -356,16 +356,16 @@ public class SimpleServer extends SimpleConversationEndPoint {
      */
     protected RequestHandler shutdownServer(final String response) {
         return new RequestHandler() {
-            
+
             @Override
             public void doRequest(final OutputStream out) throws IOException {
                 out.write(String.format("%s\r\n", response).getBytes());
                 stopServer();
             }
-            
+
         };
     }
-    
+
     /**
      * <p>setServerSocket</p>
      *
@@ -374,7 +374,7 @@ public class SimpleServer extends SimpleConversationEndPoint {
     public void setServerSocket(final ServerSocket serverSocket) {
         m_serverSocket = serverSocket;
     }
-    
+
     /**
      * <p>getServerSocket</p>
      *

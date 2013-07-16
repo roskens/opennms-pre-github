@@ -49,7 +49,7 @@ public class NodeNameLikeFilter extends SubstringFilter {
     public NodeNameLikeFilter(String substring) {
         super(TYPE, "NODELABEL", "node.label", substring);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
@@ -90,5 +90,5 @@ public class NodeNameLikeFilter extends SubstringFilter {
     public boolean equals(Object obj) {
         return (this.toString().equals(obj.toString()));
     }
-    
+
 }

@@ -57,18 +57,18 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  * @since 1.8.1
  */
 public class OnlineReportController extends SimpleFormController {
-    
+
     private ReportWrapperService m_reportWrapperService;
     private CategoryConfigService m_catConfigService;
     private CategoryDao m_categoryDao;
-    
+
     /**
      * <p>Constructor for OnlineReportController.</p>
      */
     public OnlineReportController() {
         setFormView("report/database/onlineReport");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Object formBackingObject(HttpServletRequest req) throws Exception {
@@ -89,7 +89,7 @@ public class OnlineReportController extends SimpleFormController {
         return data;
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void initBinder(HttpServletRequest req,
@@ -101,7 +101,7 @@ public class OnlineReportController extends SimpleFormController {
                                                                               "yyyy-MM-dd"),
                                                          true));
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object command, BindException errors) throws Exception {
@@ -114,7 +114,7 @@ public class OnlineReportController extends SimpleFormController {
             response.setHeader("Cache-Control", "cache");
             response.setHeader("Cache-Control", "must-revalidate");
         }
-        
+
         if(parameters.getFormat() == ReportFormat.CSV) {
             response.setContentType("text/csv;charset=UTF-8");
             response.setHeader("Content-disposition", "inline; filename=report.csv");
@@ -122,10 +122,10 @@ public class OnlineReportController extends SimpleFormController {
             response.setHeader("Cache-Control", "cache");
             response.setHeader("Cache-Control", "must-revalidate");
         }
-        m_reportWrapperService.runAndRender(parameters, ReportMode.IMMEDIATE, response.getOutputStream());        
+        m_reportWrapperService.runAndRender(parameters, ReportMode.IMMEDIATE, response.getOutputStream());
         return null;
     }
-    
+
     /**
      * <p>setReportWrapperService</p>
      *
@@ -134,7 +134,7 @@ public class OnlineReportController extends SimpleFormController {
     public void setReportWrapperService(ReportWrapperService reportWrapperService) {
         m_reportWrapperService = reportWrapperService;
     }
-    
+
     /**
      * <p>setCategoryConfigService</p>
      *
@@ -143,7 +143,7 @@ public class OnlineReportController extends SimpleFormController {
     public void setCategoryConfigService(CategoryConfigService catConfigService) {
         m_catConfigService = catConfigService;
     }
-    
+
     /**
      * <p>setCategoryDao</p>
      *

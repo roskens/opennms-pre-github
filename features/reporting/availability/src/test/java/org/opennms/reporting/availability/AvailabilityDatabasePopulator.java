@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>Populates a test database with some entities (nodes, interfaces, services). Example usage:</p>
- * 
+ *
  * <pre>
  * private AvailabilityDatabasePopulator m_populator;
  *
@@ -77,17 +77,17 @@ import org.slf4j.LoggerFactory;
  *         "classpath:/META-INF/opennms/applicationContext-availabilityDatabasePopulator.xml"
  *     };
  * }
- * 
+ *
  * @Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
- * 
+ *
  * public void setPopulator(AvailabilityDatabasePopulator populator) {
  *     m_populator = populator;
  * }
  * </pre>
- * 
+ *
  * <p>Copied from {@link org.opennms.netmgt.dao.DatabasePopulator}</p>.
  *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -112,16 +112,16 @@ public class AvailabilityDatabasePopulator {
     private OnmsMapElementDao m_onmsMapElementDao;
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
     private AcknowledgmentDao m_acknowledgmentDao;
-    
+
     private OnmsNode m_node1;
 
     public void populateDatabase() {
         OnmsDistPoller distPoller = getDistPoller("localhost", "127.0.0.1");
-        
+
         OnmsCategory ac = getCategory("DEV_AC");
         OnmsCategory mid = getCategory("IMP_mid");
         OnmsCategory ops = getCategory("OPS_Online");
-        
+
         OnmsCategory catRouter = getCategory("Routers");
         @SuppressWarnings("unused")
         OnmsCategory catSwitches = getCategory("Switches");
@@ -129,11 +129,11 @@ public class AvailabilityDatabasePopulator {
         getCategory("Production");
         getCategory("Test");
         getCategory("Development");
-        
+
         getServiceType("ICMP");
         getServiceType("SNMP");
         getServiceType("HTTP");
-        
+
 //      m_db.update("insert into node (nodeID, nodelabel, nodeCreateTime, nodeType) values (1,'test1.availability.opennms.org','2004-03-01 09:00:00','A')");
 //      m_db.update("insert into node (nodeID, nodelabel, nodeCreateTime, nodeType) values (2,'test2.availability.opennms.org','2004-03-01 09:00:00','A')");
 //
@@ -161,9 +161,9 @@ public class AvailabilityDatabasePopulator {
 //       */
 //      m_db.update("insert into ifservices (nodeid, ipaddr, serviceid, status, ipInterfaceId) values "
 //              + "(2,'192.168.100.3',1,'A', 3);");
-        
+
         NetworkBuilder builder = new NetworkBuilder(distPoller);
-        
+
         setNode1(builder.addNode("test1.availability.opennms.org").
                  setId(1).
                  setType("A").
@@ -172,7 +172,7 @@ public class AvailabilityDatabasePopulator {
         builder.addCategory(ac);
         builder.addCategory(mid);
         builder.addCategory(ops);
-        builder.addCategory(catRouter); 
+        builder.addCategory(catRouter);
         builder.setBuilding("HQ");
         builder.addInterface("192.168.100.1").setIsManaged("M");
         //getNodeDao().save(builder.getCurrentNode());
@@ -180,11 +180,11 @@ public class AvailabilityDatabasePopulator {
         builder.addService(getServiceType("ICMP")).setStatus("A");
         getNodeDao().save(builder.getCurrentNode());
         getNodeDao().flush();
-        
+
         builder.addNode("test2.availability.opennms.org").
             setId(2).
             //setForeignSource("imported:").
-            
+
             //setForeignId("2").
             setType("A");
         builder.addCategory(mid);
@@ -198,8 +198,8 @@ public class AvailabilityDatabasePopulator {
         //builder.addService(getServiceType("HTTP")).setStatus("A");
         getNodeDao().save(builder.getCurrentNode());
         getNodeDao().flush();
-        
-        
+
+
         OnmsEvent event = new OnmsEvent();
         event.setDistPoller(distPoller);
         event.setEventUei("uei.opennms.org/test");
@@ -211,7 +211,7 @@ public class AvailabilityDatabasePopulator {
         event.setEventDisplay("Y");
         getEventDao().save(event);
         getEventDao().flush();
-        
+
 //      m_db.update("insert into outages (outageid, nodeid, ipaddr, serviceid, ifLostService, ifRegainedService) values "
 //      + "(1,1,'192.168.100.1',1,'2005-05-01 09:00:00','2005-05-01 09:30:00');");
 //m_db.update("insert into outages (outageid, nodeid, ipaddr, serviceid, ifLostService, ifRegainedService) values "
@@ -231,7 +231,7 @@ public class AvailabilityDatabasePopulator {
             OnmsOutage outage2 = new OnmsOutage(df.parse("2005-05-01 10:00:00"),df.parse("2005-05-02 10:00:00"), event, event, node2If1Svc1, null, null);
             getOutageDao().save(outage2);
             getOutageDao().flush();
-            
+
             // test data for LastMonthsDailyAvailability report
 //          // insert 30 minute outage on one node - 99.3056% availability
 //          m_db.update("insert into outages (outageid, nodeid, ipaddr, serviceid, ifLostService, ifRegainedService) values "
@@ -260,13 +260,13 @@ public class AvailabilityDatabasePopulator {
             OnmsOutage outage6 = new OnmsOutage(df.parse("2005-04-04 23:30:00"),df.parse("2005-04-05 00:30:00"), event, event, node2If2Svc1, null, null);
             getOutageDao().save(outage6);
             getOutageDao().flush();
-            
+
         } catch (final ParseException e) {
             LOG.warn("populating database failed", e);
         }
-        
-  
-        
+
+
+
     }
 
     private OnmsCategory getCategory(String categoryName) {
@@ -300,7 +300,7 @@ public class AvailabilityDatabasePopulator {
         return serviceType;
     }
 
-    
+
     public AlarmDao getAlarmDao() {
         return m_alarmDao;
     }
@@ -320,7 +320,7 @@ public class AvailabilityDatabasePopulator {
         m_assetRecordDao = assetRecordDao;
     }
 
-    
+
     public CategoryDao getCategoryDao() {
         return m_categoryDao;
     }
@@ -429,11 +429,11 @@ public class AvailabilityDatabasePopulator {
     public void setUserNotificationDao(UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
-    
+
     public OnmsNode getNode1() {
         return m_node1;
     }
-    
+
     private void setNode1(OnmsNode node1) {
         m_node1 = node1;
     }
@@ -469,7 +469,7 @@ public class AvailabilityDatabasePopulator {
     public void setDataLinkInterfaceDao(DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
-    
+
     public AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }

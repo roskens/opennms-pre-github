@@ -60,13 +60,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class DeleteElementsController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteElementsController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -88,16 +88,16 @@ public class DeleteElementsController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		String action = request.getParameter("action");
 		String elems = request.getParameter("elems");
 		LOG.debug("Adding elements action:{}, elems={}", action, elems );
-		
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 		try {
 			VMap map = manager.openMap();
 				LOG.debug("Got map from manager {}", map);
-			
+
 			Integer[] elemeids = null;
 			String type = MapsConstants.NODE_TYPE;
 
@@ -111,14 +111,14 @@ public class DeleteElementsController extends MapsLoggingController {
 			if (action.equals(MapsConstants.DELETENODES_ACTION)) {
 				actionfound = true;
 			}
-			
+
 			if (action.equals(MapsConstants.DELETEMAPS_ACTION)) {
 				actionfound = true;
 				type = MapsConstants.MAP_TYPE;
 			}
-			
+
 			List<String> velemsids = new ArrayList<String>();
-			if (actionfound) {				
+			if (actionfound) {
 				for (int i = 0; i < elemeids.length; i++) {
 					int elemId = elemeids[i].intValue();
 					if (map.containsElement(elemId, type)){
@@ -127,7 +127,7 @@ public class DeleteElementsController extends MapsLoggingController {
 						velemsids.add(ve.getId()+ve.getType());
 					}
 				}
-			} 
+			}
 			bw.write(ResponseAssembler.getDeleteElementsResponse(velemsids));
 		} catch (Throwable e) {
 			LOG.error("Error while adding nodes for action: {}", action,e);

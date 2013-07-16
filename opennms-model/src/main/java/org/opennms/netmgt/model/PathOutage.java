@@ -35,7 +35,7 @@ public class PathOutage {
 	private int nodeId;
 	private String criticalPathIp;
 	private String criticalPathServiceName;
-	
+
 	//Operations
 	/**
 	 * <p>toString</p>

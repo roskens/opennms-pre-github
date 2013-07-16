@@ -37,9 +37,9 @@ import java.util.concurrent.TimeUnit;
  * @author brozow
  */
 public class Duration implements Comparable<Duration>{
-    
+
     private long m_durationInMillis;
-    
+
     public Duration(Date start, Date end) {
         if (start == null) throw new IllegalArgumentException("startDate may not be null");
         if (end == null) throw new IllegalArgumentException("endDate may not be null");
@@ -53,7 +53,7 @@ public class Duration implements Comparable<Duration>{
         if (units == null) throw new IllegalArgumentException("timeUnit may not be null");
         m_durationInMillis = TimeUnit.MILLISECONDS.convert(duration, units);
     }
-    
+
     public Duration(long durationInMillis) {
         m_durationInMillis = durationInMillis;
     }
@@ -61,7 +61,7 @@ public class Duration implements Comparable<Duration>{
     public long millis() {
         return m_durationInMillis;
     }
-    
+
     private long appendUnit(StringBuilder buf, long millisRemaining, long millisPerUnit, String unit) {
         long units = millisRemaining / millisPerUnit;
         if (0 < millisRemaining && (0 < units || millisRemaining < millis())) {
@@ -69,13 +69,13 @@ public class Duration implements Comparable<Duration>{
             millisRemaining -= units * millisPerUnit;
         }
         return millisRemaining;
-        
+
     }
-    
+
     @Override
     public String toString() {
         if (0 == millis()) return "0ms";
-        
+
         StringBuilder buf = new StringBuilder();
 
         long millis = millis();
@@ -107,9 +107,9 @@ public class Duration implements Comparable<Duration>{
         }
         return false;
     }
-    
-    
-    
-    
+
+
+
+
 
 }

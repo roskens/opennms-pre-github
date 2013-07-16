@@ -51,7 +51,7 @@ public class TestMapquestGeocoder extends AbstractGeocoderTest {
 			assertEquals(local, remote);
 		}
 	}
-	
+
 	@Test
 	public void testSuccessfulLookupFailsMinimumQuality() throws Exception {
 		if (shouldRun()) {
@@ -63,7 +63,7 @@ public class TestMapquestGeocoder extends AbstractGeocoderTest {
 			}
 		}
 	}
-	
+
 	@Test
 	public void testBadApiKey() throws Exception {
 		if (shouldRun()) {

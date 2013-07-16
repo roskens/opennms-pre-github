@@ -44,10 +44,10 @@ import org.smslib.Service.ServiceStatus;
  */
 public class GatewayListener {
     private static final Logger LOG = LoggerFactory.getLogger(GatewayListener.class);
-	
+
 	private Service m_service;
-	
-	
+
+
 	/**
 	 * <p>setService</p>
 	 *
@@ -56,7 +56,7 @@ public class GatewayListener {
 	public void setService(Service service){
 		m_service = service;
 	}
-	
+
 	/**
 	 * <p>addGateway</p>
 	 *
@@ -69,17 +69,17 @@ public class GatewayListener {
 				if(m_service.getServiceStatus() == ServiceStatus.STARTED){
 					m_service.stopService();
 				}
-		        
+
 				m_service.addGateway(gateway);
 				m_service.startService();
-				
+
 			}catch(final Exception e){
 			    LOG.warn("Unable to add gateway ({}) to SMS service", gateway, e);
 			}
-			
+
 		}
 	}
-	
+
 	/**
 	 * <p>removeGateway</p>
 	 *
@@ -97,7 +97,7 @@ public class GatewayListener {
 			}catch(final Exception e){
 			    LOG.warn("Unable to remove gateway ({}) from SMS service", gateway, e);
 			}
-			
+
 		}
 	}
 
@@ -110,7 +110,7 @@ public class GatewayListener {
 	 */
     public void bind(Object arg0, Map<?,?> arg1) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	/**
@@ -122,6 +122,6 @@ public class GatewayListener {
 	 */
     public void unbind(Object arg0, Map<?,?> arg1) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

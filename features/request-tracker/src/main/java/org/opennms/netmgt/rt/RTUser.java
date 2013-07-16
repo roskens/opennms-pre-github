@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class RTUser implements Serializable {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4830811460415894277L;
 	private long m_id;
@@ -52,19 +52,19 @@ public class RTUser implements Serializable {
     public long getId() {
         return m_id;
     }
-    
+
     public String getUsername() {
         return m_username;
     }
-    
+
     public String getRealname() {
         return m_realname;
     }
-    
+
     public String getEmail() {
         return m_email;
     }
-    
+
         @Override
     public String toString() {
         return new ToStringBuilder(this)

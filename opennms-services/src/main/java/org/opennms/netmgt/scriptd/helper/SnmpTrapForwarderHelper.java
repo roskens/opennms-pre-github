@@ -42,7 +42,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrapForwarderHelper.class);
 
         String source_ip;
-	
+
 	String ip;
 	String community;
 	int port;
@@ -86,7 +86,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 		this.source_ip = source_ip;
 		this.ip = ip;
 		this.port=port;
-		this.community=community;		
+		this.community=community;
 		this.snmpTrapHelper = snmpTrapHelper;
 	}
 
@@ -105,7 +105,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 		this.timeout = timeout;
 		this.retries = retries;
 	}
-	
+
 	public SnmpTrapForwarderHelper(String ip, int port, int securityLevel,
 			String securityname, String authPassPhrase, String authProtocol,
 			String privPassPhrase, String privprotocol, SnmpTrapHelper snmpTrapHelper) {
@@ -145,7 +145,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getCommunity());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV1EndSyncTrap() {
@@ -154,7 +154,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getCommunity());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV2StartSyncTrap() {
@@ -164,7 +164,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getCommunity());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV2EndSyncTrap() {
@@ -174,7 +174,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getCommunity());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV2StartSyncInform() {
@@ -204,7 +204,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getSecurityLevel(), getSecurityname(), getAuthPassPhrase(), getAuthProtocol(), getPrivPassPhrase(), getPrivprotocol());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV3EndSyncTrap() {
@@ -214,7 +214,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 			trap.send(getIp(), getPort(), getSecurityLevel(), getSecurityname(), getAuthPassPhrase(), getAuthProtocol(), getPrivPassPhrase(), getPrivprotocol());
 		} catch (Exception e) {
 			e.printStackTrace();
-		}	
+		}
 	}
 
 	public void sendV3StartSyncInform() {
@@ -359,16 +359,16 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
             		 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", event.getAlarmData().getClearKey());
             	 } else {
         			 trap = buildEventTrap(event, trap, null);
-            		 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", event.getAlarmData().getReductionKey());     
+			 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", event.getAlarmData().getReductionKey());
             	 }
              } else {
     			 trap = buildEventTrap(event, trap, null);
-                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", "null");            	 
+                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.1.0", "OctetString", "text", "null");
              }
              if (sync)
             	 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.2.0", "OctetString", "text", "SYNC");
              else
-                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.2.0", "OctetString", "text", "null");            	 
+                 snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.3.2.0", "OctetString", "text", "null");
 		} catch (SnmpTrapHelperException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -429,7 +429,7 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
              if (event.getService() != null)
                      snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.13.0", "OctetString", "text", event.getService());
              else
-                     snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.13.0", "OctetString", "text", "null");    
+                     snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.13.0", "OctetString", "text", "null");
              if (event.getDescr() != null) {
                  String descrString = event.getDescr().replaceAll("&lt;.*&gt;", " ").replaceAll("\\s+", " ");
                  snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.16.0", "OctetString", "text", descrString);
@@ -471,14 +471,14 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
                      snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.22.0", "OctetString", "text", label);
              else
                      snmpTrapHelper.addVarBinding(trap, ".1.3.6.1.4.1.5813.20.1.22.0", "OctetString", "text", "null");
-             
+
 		} catch (final IllegalArgumentException e) {
 		    LOG.warn("Failed to look up host.", e);
 		} catch (final SnmpTrapHelperException e) {
 		    LOG.warn("An SNMP trap helpre error occurred while parsing traps.", e);
 		} catch (final Throwable t) {
 		    LOG.warn("An unknown error occurred while parsing traps.", t);
-		}		
+		}
         return trap;
 	}
 
@@ -561,5 +561,5 @@ public abstract class SnmpTrapForwarderHelper extends AbstractEventForwarder imp
 	public void setPrivprotocol(String privprotocol) {
 		this.privprotocol = privprotocol;
 	}
-	
+
 }

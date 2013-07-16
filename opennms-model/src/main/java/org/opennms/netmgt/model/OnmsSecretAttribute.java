@@ -34,17 +34,17 @@ package org.opennms.netmgt.model;
  * model classes.
  */
 public class OnmsSecretAttribute {
-	
+
 	private String m_label;
 	private String m_id;
-	
+
 	/**
 	 * <p>Constructor for OnmsSecretAttribute.</p>
 	 */
 	public OnmsSecretAttribute() {
-		
+
 	}
-	
+
 	/**
 	 * <p>Constructor for OnmsSecretAttribute.</p>
 	 *
@@ -72,7 +72,7 @@ public class OnmsSecretAttribute {
 	public void setId(String id) {
 		m_id = id;
 	}
-	
+
 	/**
 	 * <p>getLabel</p>
 	 *
@@ -89,6 +89,6 @@ public class OnmsSecretAttribute {
 	public void setLabel(String label) {
 		m_label = label;
 	}
-	
+
 
 }

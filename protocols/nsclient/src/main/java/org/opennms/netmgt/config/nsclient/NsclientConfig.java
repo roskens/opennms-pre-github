@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -45,7 +45,7 @@ import org.exolab.castor.xml.Unmarshaller;
 /**
  * Top-level element for the nsclient-config.xml configuration
  *  file.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -114,8 +114,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vDefinition
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -127,8 +127,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vDefinition
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -164,7 +164,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateDefinition.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -175,7 +175,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -184,9 +184,9 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof NsclientConfig) {
-        
+
             NsclientConfig temp = (NsclientConfig)obj;
             if (this._port != temp._port)
                 return false;
@@ -202,14 +202,14 @@ import org.exolab.castor.xml.Unmarshaller;
                 return false;
             if (this._password != null) {
                 if (temp._password == null) return false;
-                else if (!(this._password.equals(temp._password))) 
+                else if (!(this._password.equals(temp._password)))
                     return false;
             }
             else if (temp._password != null)
                 return false;
             if (this._definitionList != null) {
                 if (temp._definitionList == null) return false;
-                else if (!(this._definitionList.equals(temp._definitionList))) 
+                else if (!(this._definitionList.equals(temp._definitionList)))
                     return false;
             }
             else if (temp._definitionList != null)
@@ -221,7 +221,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getDefinition.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -236,7 +236,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._definitionList.size()) {
             throw new IndexOutOfBoundsException("getDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.nsclient.Definition) _definitionList.get(index);
     }
 
@@ -246,7 +246,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.nsclient.Definition[] getDefinition(
@@ -259,7 +259,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getDefinitionCollection.Returns a reference to
      * '_definitionList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.nsclient.Definition> getDefinitionCollection(
@@ -269,7 +269,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getDefinitionCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getDefinitionCount(
@@ -280,7 +280,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'password'. The field 'password'
      * has the following description: Default password
-     * 
+     *
      * @return the value of field 'Password'.
      */
     public java.lang.String getPassword(
@@ -293,7 +293,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
      *  requests are sent.
-     * 
+     *
      * @return the value of field 'Port'.
      */
     public int getPort(
@@ -304,7 +304,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'retry'. The field 'retry' has
      * the following description: Default number of retries
-     * 
+     *
      * @return the value of field 'Retry'.
      */
     public int getRetry(
@@ -316,7 +316,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Returns the value of field 'timeout'. The field 'timeout'
      * has the following description: Default timeout (in
      * milliseconds)
-     * 
+     *
      * @return the value of field 'Timeout'.
      */
     public int getTimeout(
@@ -326,7 +326,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasPort.
-     * 
+     *
      * @return true if at least one Port has been added
      */
     public boolean hasPort(
@@ -336,7 +336,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasRetry.
-     * 
+     *
      * @return true if at least one Retry has been added
      */
     public boolean hasRetry(
@@ -346,7 +346,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasTimeout.
-     * 
+     *
      * @return true if at least one Timeout has been added
      */
     public boolean hasTimeout(
@@ -359,14 +359,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         result = 37 * result + _port;
         result = 37 * result + _retry;
@@ -377,13 +377,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_definitionList != null) {
            result = 37 * result + _definitionList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -398,7 +398,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateDefinition.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -408,8 +408,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -423,8 +423,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -448,7 +448,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeDefinition.
-     * 
+     *
      * @param vDefinition
      * @return true if the object was removed from the collection.
      */
@@ -460,7 +460,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeDefinitionAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -471,8 +471,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vDefinition
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -486,20 +486,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._definitionList.size()) {
             throw new IndexOutOfBoundsException("setDefinition: Index value '" + index + "' not in range [0.." + (this._definitionList.size() - 1) + "]");
         }
-        
+
         this._definitionList.set(index, vDefinition);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vDefinitionArray
      */
     public void setDefinition(
             final org.opennms.netmgt.config.nsclient.Definition[] vDefinitionArray) {
         //-- copy array
         _definitionList.clear();
-        
+
         for (int i = 0; i < vDefinitionArray.length; i++) {
                 this._definitionList.add(vDefinitionArray[i]);
         }
@@ -508,14 +508,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_definitionList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vDefinitionList the Vector to copy.
      */
     public void setDefinition(
             final java.util.List<org.opennms.netmgt.config.nsclient.Definition> vDefinitionList) {
         // copy vector
         this._definitionList.clear();
-        
+
         this._definitionList.addAll(vDefinitionList);
     }
 
@@ -523,7 +523,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_definitionList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param definitionList the Vector to set.
      */
     public void setDefinitionCollection(
@@ -534,7 +534,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'password'. The field 'password' has
      * the following description: Default password
-     * 
+     *
      * @param password the value of field 'password'.
      */
     public void setPassword(
@@ -547,7 +547,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
      *  requests are sent.
-     * 
+     *
      * @param port the value of field 'port'.
      */
     public void setPort(
@@ -559,7 +559,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'retry'. The field 'retry' has the
      * following description: Default number of retries
-     * 
+     *
      * @param retry the value of field 'retry'.
      */
     public void setRetry(
@@ -571,7 +571,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'timeout'. The field 'timeout' has
      * the following description: Default timeout (in milliseconds)
-     * 
+     *
      * @param timeout the value of field 'timeout'.
      */
     public void setTimeout(
@@ -582,7 +582,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -598,8 +598,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

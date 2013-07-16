@@ -40,7 +40,7 @@ import org.opennms.netmgt.xml.event.Autoaction;
 import org.opennms.netmgt.xml.event.Event;
 
 /**
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
@@ -53,10 +53,10 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This constructor subscribes to eventd for all events
-     * 
+     *
      * @param execQ
      *            The queue where executable events are stored.
-     * 
+     *
      */
     BroadcastEventProcessor(FifoQueue<String> execQ) {
         // set up the exectuable queue first

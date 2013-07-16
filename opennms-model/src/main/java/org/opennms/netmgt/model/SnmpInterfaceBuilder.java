@@ -70,7 +70,7 @@ public class SnmpInterfaceBuilder {
         m_snmpIf.setIfDescr(ifDescr);
         return this;
     }
-    
+
     /**
      * <p>setIfAlias</p>
      *
@@ -81,7 +81,7 @@ public class SnmpInterfaceBuilder {
         m_snmpIf.setIfAlias(ifAlias);
         return this;
     }
-    
+
     /**
      * <p>setIfName</p>
      *
@@ -92,7 +92,7 @@ public class SnmpInterfaceBuilder {
         m_snmpIf.setIfName(ifName);
         return this;
     }
-    
+
     /**
      * <p>setIfType</p>
      *
@@ -112,7 +112,7 @@ public class SnmpInterfaceBuilder {
     public OnmsSnmpInterface getSnmpInterface() {
         return m_snmpIf;
     }
-    
+
     /**
      * <p>setIfOperStatus</p>
      *

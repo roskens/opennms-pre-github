@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.Controller;
 public class InvNodeController implements Controller {
 
     InventoryService m_inventoryService;
-    
+
     /**
      * <p>getInventoryService</p>
      *
@@ -71,12 +71,12 @@ public class InvNodeController implements Controller {
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse arg1) throws Exception {
-       
+
         String node = request.getParameter("node");
         int nodeid = WebSecurityUtils.safeParseInt(node);
         String group = request.getParameter("groupname");
         String version = request.getParameter("version");
-        Map<String, Object> model = m_inventoryService.getInventory(nodeid, 
+        Map<String, Object> model = m_inventoryService.getInventory(nodeid,
                                                                          WebSecurityUtils.sanitizeString(group),
                                                                          WebSecurityUtils.sanitizeString(version));
         ModelAndView modelAndView = new ModelAndView("inventory/invnode","model",model);

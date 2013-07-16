@@ -55,7 +55,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public class InitializerServletContextListener implements ServletContextListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(InitializerServletContextListener.class);
 
 
@@ -142,6 +142,6 @@ public class InitializerServletContextListener implements ServletContextListener
                 LOG.error("Error subscribing to RTC POSTs: {}", e, e);
             }
         }
-        
+
     }
 }

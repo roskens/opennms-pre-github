@@ -98,11 +98,11 @@ public class FakeTestGateway extends AGateway {
 			long anotherVal = o.getDelay(TimeUnit.NANOSECONDS);
 			return (thisVal<anotherVal ? -1 : (thisVal==anotherVal ? 0 : 1));
 		}
-		
+
 	}
-	
+
 	private DelayQueue<QueueRunner> m_delayQueue = new DelayQueue<QueueRunner>();
-	
+
 	Thread incomingMessagesThread;
 
 	public FakeTestGateway(String id)
@@ -179,7 +179,7 @@ public class FakeTestGateway extends AGateway {
 		msg.setRefNo(Integer.toString(++this.refCounter));
 		msg.setGatewayId(getGatewayId());
       LOG.info("Sent to: {} via: {}", msg.getGatewayId());
-		
+
 		String msgText = msg.getText();
 		if (msgText != null) {
 			if (msgText.startsWith("ping")) {

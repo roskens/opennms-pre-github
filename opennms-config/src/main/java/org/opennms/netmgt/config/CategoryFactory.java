@@ -63,7 +63,7 @@ public final class CategoryFactory implements CatFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     /**
      * The singleton instance of this factory
      */
@@ -81,19 +81,19 @@ public final class CategoryFactory implements CatFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
      *                Thrown if the file does not conform to the schema.
      * @exception org.exolab.castor.xml.ValidationException
      *                Thrown if the contents do not match the required schema.
-     * 
+     *
      */
     private CategoryFactory(final String configFile) throws IOException, MarshalException, ValidationException {
         this(new FileSystemResource(configFile));
     }
-    
+
     /**
      * <p>Constructor for CategoryFactory.</p>
      *
@@ -105,12 +105,12 @@ public final class CategoryFactory implements CatFactory {
     public CategoryFactory(final Resource resource) throws IOException, MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(Catinfo.class, resource);
     }
-    
+
     @Override
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -184,7 +184,7 @@ public final class CategoryFactory implements CatFactory {
 		m_singleton = singleton;
 		m_loaded = true;
 	}
-	
+
     /**
      * Return the categories configuration.
      *
@@ -224,10 +224,10 @@ public final class CategoryFactory implements CatFactory {
      */
     public boolean replaceCategoryGroup(final Categorygroup group) {
         getWriteLock().lock();
-        
+
         try {
             final String groupname = group.getName();
-    
+
             for (int i = 0; i < m_config.getCategorygroupCount(); i++) {
                 final Categorygroup oldCg = m_config.getCategorygroup(i);
                 if (oldCg.getName().equals(groupname)) {
@@ -266,10 +266,10 @@ public final class CategoryFactory implements CatFactory {
      */
     public boolean deleteCategoryGroup(final String groupname) {
         getWriteLock().lock();
-        
+
         try {
             boolean deleted = false;
-    
+
             final Enumeration<Categorygroup> enumCG = m_config.enumerateCategorygroup();
             while (enumCG.hasMoreElements()) {
                 final Categorygroup cg = enumCG.nextElement();
@@ -278,7 +278,7 @@ public final class CategoryFactory implements CatFactory {
                     break;
                 }
             }
-    
+
             return deleted;
         } finally {
             getWriteLock().unlock();
@@ -343,7 +343,7 @@ public final class CategoryFactory implements CatFactory {
                             return true;
                         }
                     }
-    
+
                 }
             }
         } finally {
@@ -400,7 +400,7 @@ public final class CategoryFactory implements CatFactory {
                 if (cg.getName().equals(groupname)) {
                     // get categories and delete
                     final Categories cats = cg.getCategories();
-    
+
                     final Enumeration<Category> enumCat = cats.enumerateCategory();
                     while (enumCat.hasMoreElements()) {
                         final Category cat = enumCat.nextElement();
@@ -409,7 +409,7 @@ public final class CategoryFactory implements CatFactory {
                             return true;
                         }
                     }
-    
+
                 }
             }
         } finally {
@@ -437,7 +437,7 @@ public final class CategoryFactory implements CatFactory {
         } finally {
             getReadLock().unlock();
         }
-        
+
         return null;
     }
 

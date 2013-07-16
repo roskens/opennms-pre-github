@@ -84,7 +84,7 @@ public abstract class NotificationCommandManager {
         }
         return config.getCommandCollection();
     }
-    
+
     /**
      * <p>update</p>
      *

@@ -39,7 +39,7 @@ package org.opennms.web.svclayer;
  * @since 1.8.1
  */
 public class ProgressMonitor {
-	
+
 	private int m_phaseCount = 1;
 	private int m_phase = 0;
 	private String m_phaseLabel = "Loading";
@@ -54,7 +54,7 @@ public class ProgressMonitor {
 	public int getPhaseCount() {
 		return m_phaseCount;
 	}
-	
+
 	/**
 	 * <p>setPhaseCount</p>
 	 *
@@ -63,7 +63,7 @@ public class ProgressMonitor {
 	public void setPhaseCount(int phaseCount) {
 		m_phaseCount = phaseCount;
 	}
-	
+
 	/**
 	 * <p>getPhaseLabel</p>
 	 *
@@ -72,7 +72,7 @@ public class ProgressMonitor {
 	public String getPhaseLabel() {
 		return m_phaseLabel;
 	}
-	
+
 	/**
 	 * <p>getPhase</p>
 	 *
@@ -102,7 +102,7 @@ public class ProgressMonitor {
 		m_phaseLabel = "Done";
 		m_phase = m_phaseCount;
 	}
-	
+
 	/**
 	 * <p>isFinished</p>
 	 *
@@ -129,7 +129,7 @@ public class ProgressMonitor {
 	public boolean isError() {
 		return m_throwable != null;
 	}
-	
+
 	/**
 	 * <p>getThrowable</p>
 	 *
@@ -148,5 +148,5 @@ public class ProgressMonitor {
 		m_throwable = t;
 	}
 
-	
+
 }

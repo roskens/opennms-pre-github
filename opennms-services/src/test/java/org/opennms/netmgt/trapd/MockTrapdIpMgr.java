@@ -31,7 +31,7 @@ package org.opennms.netmgt.trapd;
 /**
  * A TrapdIpMgr that doesn't talk to the database.  If we want something
  * there for our test, we'll populate it.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class MockTrapdIpMgr extends JdbcTrapdIpMgr {
@@ -43,5 +43,5 @@ public class MockTrapdIpMgr extends JdbcTrapdIpMgr {
     @Override
     public synchronized void dataSourceSync() {
         // Don't do anything... don't want to have to mess with the DB here
-    }  
+    }
 }

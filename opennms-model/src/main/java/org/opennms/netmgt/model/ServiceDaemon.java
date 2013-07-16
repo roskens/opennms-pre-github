@@ -34,7 +34,7 @@ import org.opennms.core.fiber.PausableFiber;
  * <p>ServiceDaemon interface.</p>
  */
 public interface ServiceDaemon extends PausableFiber {
-	
+
 	 /**
 	  * <p>status</p>
 	  *

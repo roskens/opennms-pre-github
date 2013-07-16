@@ -52,7 +52,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>SnmpCollectionSet class.</p>
- * 
+ *
  * After creation, be sure to call setCollectionTimestamp with the time the collection is taken
  * It is inappropriate to require it in the constructor, as instances may be created independently
  * and at a different time from when the data is collected.  (They're not currently, but it's better not to
@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpCollectionSet implements Collectable, CollectionSet {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollectionSet.class);
 
     public static class RescanNeeded {
@@ -231,7 +231,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
     boolean hasInterfaceDataToCollect() {
         return getIfResourceType().hasDataToCollect();
     }
-    
+
     boolean hasGenericIndexResourceDataToCollect() {
         return ! getGenericIndexResourceTypes().isEmpty();
     }
@@ -351,7 +351,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
 
     /**
      * Log error and return COLLECTION_FAILED is there is a failure.
-     * 
+     *
      * @param walker
      * @throws CollectionWarning
      */
@@ -365,7 +365,7 @@ public class SnmpCollectionSet implements Collectable, CollectionSet {
         }
 
         String message = "collection failed for "
-            + getCollectionAgent().getHostAddress() 
+            + getCollectionAgent().getHostAddress()
             + " due to: " + walker.getErrorMessage();
         // Note: getErrorThrowable() return value can be null
         throw new CollectionWarning(message, walker.getErrorThrowable());

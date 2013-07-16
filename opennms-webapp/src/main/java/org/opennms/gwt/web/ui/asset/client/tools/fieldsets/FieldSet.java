@@ -61,14 +61,14 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
 
 	/**
 	 * Get the complete error string for the {@link FieldSet}.
-	 * 
+	 *
 	 * @return String error
 	 */
 	public abstract String getError();
 
 	/**
 	 * Get the description/label text of the {@link FieldSet}.
-	 * 
+	 *
 	 * @return String label
 	 */
 	public abstract String getLabel();
@@ -80,14 +80,14 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
 
 	/**
 	 * Get the complete warning string for the {@link FieldSet}.
-	 * 
+	 *
 	 * @return String warning
 	 */
 	public abstract String getWarning();
 
 	/**
 	 * Set the {@link FieldSet} into write/write-protected mode.
-	 * 
+	 *
 	 * @param enabled
 	 *            to get write-mode disable to get write-protected mode
 	 */
@@ -95,28 +95,28 @@ public interface FieldSet extends FocusHandler, ChangeHandler {
 
 	/**
 	 * Set a error string to the {@link FieldSet}.
-	 * 
+	 *
 	 * @param error
 	 */
 	public abstract void setError(String error);
 
 	/**
 	 * Sets a text into the description/label of the {@link FieldSet}.
-	 * 
+	 *
 	 * @param label
 	 */
 	public abstract void setLabel(String label);
 
 	/**
 	 * Sets a value into the value/input of the {@link FieldSet}.
-	 * 
+	 *
 	 * @param value
 	 */
 	public abstract void setValue(String value);
 
 	/**
 	 * Set a warning string to the {@link FieldSet}.
-	 * 
+	 *
 	 * @param warning
 	 */
 	public abstract void setWarning(String warning);

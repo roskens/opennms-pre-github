@@ -51,13 +51,13 @@ public class OnmsUser implements UserDetails {
 
     @XmlElement(name="user-id", required=true)
     private String m_username;
-    
+
     @XmlElement(name="full-name", required=false)
 	private String m_fullName;
-    
+
     @XmlElement(name="user-comments", required=false)
 	private String m_comments;
-    
+
     @XmlElement(name="password", required=false)
 	private String m_password;
 
@@ -69,7 +69,7 @@ public class OnmsUser implements UserDetails {
 
     @XmlElement(name="duty-schedule", required=false)
     private List<String> m_dutySchedule = new ArrayList<String>();
-	
+
 	public OnmsUser() { }
 
 	public OnmsUser(final String username) {
@@ -84,7 +84,7 @@ public class OnmsUser implements UserDetails {
 	public String getComments() {
 		return m_comments;
 	}
-	
+
 	/**
 	 * <p>setComments</p>
 	 *
@@ -93,7 +93,7 @@ public class OnmsUser implements UserDetails {
 	public void setComments(String comments) {
 		m_comments = comments;
 	}
-	
+
 	/**
 	 * <p>getPassword</p>
 	 *
@@ -103,7 +103,7 @@ public class OnmsUser implements UserDetails {
 	public String getPassword() {
 		return m_password;
 	}
-	
+
 	/**
 	 * <p>setPassword</p>
 	 *
@@ -112,15 +112,15 @@ public class OnmsUser implements UserDetails {
 	public void setPassword(String password) {
 		m_password = password;
 	}
-	
+
 	public boolean getPasswordSalted() {
 	    return m_passwordSalted;
 	}
-	
+
 	public void setPasswordSalted(final boolean passwordSalted) {
 	    m_passwordSalted = passwordSalted;
 	}
-	
+
 	/**
 	 * <p>getFullName</p>
 	 *
@@ -129,7 +129,7 @@ public class OnmsUser implements UserDetails {
 	public String getFullName() {
 		return m_fullName;
 	}
-	
+
 	/**
 	 * <p>setFullName</p>
 	 *
@@ -138,7 +138,7 @@ public class OnmsUser implements UserDetails {
 	public void setFullName(String fullName) {
 		m_fullName = fullName;
 	}
-	
+
 	/**
 	 * <p>getUsername</p>
 	 *
@@ -148,7 +148,7 @@ public class OnmsUser implements UserDetails {
 	public String getUsername() {
 		return m_username;
 	}
-	
+
 	/**
 	 * <p>setUsername</p>
 	 *
@@ -165,7 +165,7 @@ public class OnmsUser implements UserDetails {
 	public void setDutySchedule(final List<String> dutySchedule) {
 	    m_dutySchedule = dutySchedule;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -189,7 +189,7 @@ public class OnmsUser implements UserDetails {
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return m_authorities;
 	}
-	
+
 	/**
 	 * <p>setAuthorities</p>
 	 *

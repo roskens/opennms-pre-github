@@ -66,7 +66,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1 )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '0.0.0.0', 1 )");
         executeSQL("INSERT INTO service (serviceID, serviceName) VALUES ( 1, 'COFFEE-READY' )");
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new AssertionFailedError("Could not execute statement: 'INSERT INTO ifServices (nodeID, ipAddr, ifIndex, serviceID) VALUES ( 1, '0.0.0.0', 1, 1)': ERROR: IfServices Trigger Exception, Condition 0: ipAddr of 0.0.0.0 is not allowed in ifServices table"));
         try {
@@ -76,7 +76,7 @@ public class TriggerSetIpInterfaceKeysOnInsertTest extends
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testSetIpInterfaceIdInIfServiceNullIfIndexBoth()
             throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");

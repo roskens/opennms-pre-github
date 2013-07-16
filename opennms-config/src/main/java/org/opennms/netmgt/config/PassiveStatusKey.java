@@ -35,7 +35,7 @@ package org.opennms.netmgt.config;
  * @version $Id: $
  */
 public class PassiveStatusKey {
-    
+
     private String m_nodeLabel;
     private String m_ipAddr;
     private String m_serviceName;

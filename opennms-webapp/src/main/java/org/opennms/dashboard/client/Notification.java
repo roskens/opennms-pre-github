@@ -43,7 +43,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class Notification implements IsSerializable {
-	
+
 	private String m_nodeLabel;
 	private String m_nodeId;
 	private String m_serviceName;
@@ -53,7 +53,7 @@ public class Notification implements IsSerializable {
 	private Date m_respondTime;
 	private String m_textMessage;
 	private boolean m_isDashboardRole;
-    
+
     /**
      * <p>getNodeLabel</p>
      *
@@ -166,7 +166,7 @@ public class Notification implements IsSerializable {
 	public void setTextMessage(String message) {
 		m_textMessage = message;
 	}
-    
+
 	/**
 	 * <p>setIsDashboardRole</p>
 	 *
@@ -184,7 +184,7 @@ public class Notification implements IsSerializable {
     public boolean getIsDashboardRole() {
         return m_isDashboardRole;
     }
-    
+
     /**
      * <p>getNodeId</p>
      *

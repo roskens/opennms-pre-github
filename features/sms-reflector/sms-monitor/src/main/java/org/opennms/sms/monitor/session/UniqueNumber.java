@@ -49,7 +49,7 @@ public class UniqueNumber extends BaseSessionVariableGenerator {
 	public UniqueNumber() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for UniqueNumber.</p>
 	 *
@@ -65,7 +65,7 @@ public class UniqueNumber extends BaseSessionVariableGenerator {
 			max = Integer.valueOf(parameters.get("max"));
 		}
 }
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void checkIn(String variable) {

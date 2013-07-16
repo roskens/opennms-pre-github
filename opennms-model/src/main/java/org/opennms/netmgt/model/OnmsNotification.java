@@ -88,7 +88,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     private Date m_pageTime;
 
     /** nullable persistent field */
-    private Date m_respondTime; 
+    private Date m_respondTime;
 
     /** nullable persistent field */
     private String m_answeredBy;
@@ -109,7 +109,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     private Set<OnmsUserNotification> m_usersNotified = new HashSet<OnmsUserNotification>();
 
 	private InetAddress m_ipAddress;
-    
+
     /**
      * persistent field representing the name of the configured notification from
      * notifications.xml
@@ -174,7 +174,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
         m_usersNotified = usersNotified;
     }
 
-    
+
     /**
      * <p>getNotifyId</p>
      *
@@ -218,7 +218,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public void setTextMsg(String textmsg) {
         m_textMsg = textmsg;
     }
-    
+
     /**
      * <p>getSubject</p>
      *
@@ -238,7 +238,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public void setSubject(String subject) {
         m_subject = subject;
     }
-    
+
     /**
      * <p>getNumericMsg</p>
      *
@@ -320,7 +320,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public void setAnsweredBy(String answeredby) {
         m_answeredBy = answeredby;
     }
-    
+
     /**
      * <p>getIpAddress</p>
      *
@@ -333,7 +333,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public InetAddress getIpAddress() {
     	return m_ipAddress;
     }
-    
+
     /**
      * <p>setIpAddress</p>
      *
@@ -402,7 +402,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public void setEvent(OnmsEvent event) {
         m_event = event;
     }
-    
+
     /*
      * FIXME: HACK for some reason we put the eventUEI in the notifications table along with the eventId
      * so we have to HACK this so we can properly write the table
@@ -417,7 +417,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public String getEventUei() {
         return m_event.getEventUei();
     }
-    
+
     /**
      * <p>setEventUei</p>
      *
@@ -535,7 +535,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
             m_respondTime = Calendar.getInstance().getTime();
         }
     }
-    
+
     /**
      * <p>getType</p>
      *
@@ -546,7 +546,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public AckType getType() {
         return AckType.NOTIFICATION;
     }
-    
+
     /**
      * <p>getAckId</p>
      *
@@ -557,7 +557,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public Integer getAckId() {
         return m_notifyId;
     }
-    
+
     /**
      * <p>getAckUser</p>
      *
@@ -568,7 +568,7 @@ public class OnmsNotification implements Acknowledgeable, Serializable {
     public String getAckUser() {
         return m_answeredBy;
     }
-    
+
     /**
      * <p>getAckTime</p>
      *

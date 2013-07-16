@@ -68,7 +68,7 @@ public class AlarmBoxController extends AbstractController implements Initializi
         int moreCount = summaries.size() - rows;
 
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
-        
+
         if (rows == 0 || summaries.size() < rows) {
             modelAndView.addObject("summaries", summaries);
         } else {

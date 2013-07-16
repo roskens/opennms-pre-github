@@ -39,7 +39,7 @@ public interface NCSComponentRepository {
      */
     void lock();
 
-    
+
     /**
      * <p>initialize</p>
      *
@@ -75,7 +75,7 @@ public interface NCSComponentRepository {
      * @return a {@link java.util.List} object.
      */
     List<NCSComponent> findAll();
-    
+
     /**
      * <p>findMatching</p>
      *
@@ -91,7 +91,7 @@ public interface NCSComponentRepository {
      * @return a int.
      */
     int countMatching(final OnmsCriteria onmsCrit);
-    
+
     /**
      * <p>get</p>
      */

@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Transaction {
-	
+
 	public static final Logger LOG = LoggerFactory.getLogger(Transaction.class);
-	
+
 	private static ThreadLocal<Transaction> s_threadTX = new ThreadLocal<Transaction>();
 
 	private static Transaction getTX() {
@@ -63,16 +63,16 @@ public class Transaction {
 		}
 		return tx;
 	}
-    
+
     private static void clearTX() {
         s_threadTX.set(null);
     }
-	
+
 	/**
 	 * <p>begin</p>
 	 */
 	public static void begin() {
-        
+
         LOG.debug("About to begin Transaction for {}", Thread.currentThread());
 		Transaction tx = s_threadTX.get();
 		if (tx != null) {
@@ -80,9 +80,9 @@ public class Transaction {
 		}
         LOG.debug("Began Transaction for {}", Thread.currentThread());
 		s_threadTX.set(new Transaction());
-		
+
 	}
-    
+
     /**
      * <p>getConnection</p>
      *
@@ -136,7 +136,7 @@ public class Transaction {
             clearTX();
         }
 	}
-    
+
     private Map<String, Connection> m_connections = new HashMap<String, Connection>();
     private List<Statement> m_statements = new LinkedList<Statement>();
     private List<ResultSet> m_resultSets = new LinkedList<ResultSet>();
@@ -185,8 +185,8 @@ public class Transaction {
             m_dbUtils.watch(conn);
             m_connections.put(dsName, conn);
             conn.setAutoCommit(false);
-        } 
-        
+        }
+
         return m_connections.get(dsName);
     }
 

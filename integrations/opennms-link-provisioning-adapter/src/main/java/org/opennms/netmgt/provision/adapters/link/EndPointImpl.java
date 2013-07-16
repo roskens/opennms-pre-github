@@ -92,7 +92,7 @@ public class EndPointImpl implements EndPoint {
     public void setAddress(InetAddress address) {
         m_address = address;
     }
-    
+
     /**
      * <p>getSysOid</p>
      *
@@ -111,7 +111,7 @@ public class EndPointImpl implements EndPoint {
     public void setSysOid(String sysOid) {
         m_sysOid = sysOid;
     }
-    
+
     /**
      * <p>ping</p>
      *
@@ -129,5 +129,5 @@ public class EndPointImpl implements EndPoint {
         }
         return false;
     }
-    
+
 }

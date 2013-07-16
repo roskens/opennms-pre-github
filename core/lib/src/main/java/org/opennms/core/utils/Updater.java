@@ -44,7 +44,7 @@ import javax.sql.DataSource;
  * @version $Id: $
  */
 public class Updater extends JDBCTemplate {
-    
+
     /**
      * <p>Constructor for Updater.</p>
      *

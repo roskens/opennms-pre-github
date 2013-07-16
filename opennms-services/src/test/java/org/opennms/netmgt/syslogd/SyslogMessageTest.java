@@ -64,7 +64,7 @@ public class SyslogMessageTest {
             }
         }
     }
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging(true, "TRACE");
@@ -124,7 +124,7 @@ public class SyslogMessageTest {
         assertEquals(8326, message.getProcessId().intValue());
         assertEquals("[mgmtd.NOTICE]: Configuration saved to database initial", message.getMessage());
     }
-    
+
     @Test
     public void testCustomParserNms5242() throws Exception {
         final Locale startLocale = Locale.getDefault();
@@ -178,7 +178,7 @@ public class SyslogMessageTest {
             Locale.setDefault(startLocale);
         }
     }
-    
+
     @Test
     public void testSyslogNGParserWithProcess() throws Exception {
         final SyslogParser parser = SyslogNGParser.getParser("<6>test: 2007-01-01 127.0.0.1 OpenNMS[1234]: A SyslogNG style message");
@@ -219,13 +219,13 @@ public class SyslogMessageTest {
         assertTrue(parser.find());
         final SyslogMessage message = parser.parse();
         final Date timestampIn2011 = new Date(1323259326000L);
-        
+
         final Calendar cal = Calendar.getInstance();
         final int currentYear = cal.get(Calendar.YEAR);
-        
+
         cal.setTime(timestampIn2011);
         cal.set(Calendar.YEAR, currentYear);
-        
+
         final Date timestampThisYear = cal.getTime();
 
         assertEquals(SyslogFacility.LOCAL5, message.getFacility());
@@ -254,7 +254,7 @@ public class SyslogMessageTest {
         assertEquals("ID47", message.getMessageID());
         assertEquals("'su root' failed for lonvick on /dev/pts/8", message.getMessage());
     }
-    
+
     @Test
     public void testRfc5424ParserExample2() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<165>1 2003-10-11T22:14:15.000003-00:00 192.0.2.1 myproc 8710 - - %% It's time to make the do-nuts.");
@@ -272,7 +272,7 @@ public class SyslogMessageTest {
         assertEquals(null, message.getMessageID());
         assertEquals("%% It's time to make the do-nuts.", message.getMessage());
     }
-    
+
     @Test
     public void testRfc5424ParserExample3() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<165>1 2003-10-11T22:14:15.003Z mymachine.example.com evntslog - ID47 [exampleSDID@32473 iut=\"3\" eventSource=\"Application\" eventID=\"1011\"] BOMAn application event log entry...");
@@ -301,7 +301,7 @@ public class SyslogMessageTest {
         assertEquals(null, message.getProcessId());
         assertEquals("ID47", message.getMessageID());
     }
-    
+
     @Test
     public void testRfc5424Nms5051() throws Exception {
         final SyslogParser parser = Rfc5424SyslogParser.getParser("<85>1 2011-11-15T14:42:18+01:00 hostname sudo - - - pam_unix(sudo:auth): authentication failure; logname=username uid=0 euid=0 tty=/dev/pts/0 ruser=username rhost= user=username");

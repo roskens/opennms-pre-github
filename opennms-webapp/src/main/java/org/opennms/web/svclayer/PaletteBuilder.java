@@ -36,10 +36,10 @@ package org.opennms.web.svclayer;
  * @since 1.8.1
  */
 public class PaletteBuilder {
-	
+
 	private Palette m_palette;
 	private PaletteCategory m_currentCategory;
-	
+
 	/**
 	 * <p>Constructor for PaletteBuilder.</p>
 	 *
@@ -48,7 +48,7 @@ public class PaletteBuilder {
 	public PaletteBuilder(String label) {
 		m_palette = new Palette(label);
 	}
-	
+
 	/**
 	 * <p>addCategory</p>
 	 *
@@ -60,7 +60,7 @@ public class PaletteBuilder {
 		m_palette.addCategory(m_currentCategory);
 		return this;
 	}
-	
+
 	/**
 	 * <p>addItem</p>
 	 *
@@ -73,7 +73,7 @@ public class PaletteBuilder {
 		m_currentCategory.addItem(item);
 		return this;
 	}
-	
+
 	/**
 	 * <p>addSpacer</p>
 	 *
@@ -83,7 +83,7 @@ public class PaletteBuilder {
 		m_currentCategory.addItem(PaletteItem.SPACER);
 		return this;
 	}
-	
+
 	/**
 	 * <p>getPalette</p>
 	 *
@@ -92,7 +92,7 @@ public class PaletteBuilder {
 	public Palette getPalette() {
 		return m_palette;
 	}
-	
-	
+
+
 
 }

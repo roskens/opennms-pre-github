@@ -44,30 +44,30 @@ import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
  * @author brozow
  */
 public class RestClientTest {
-    
+
     private Client m_client;
     private WebResource m_resource;
-    
+
     @Before
     public void setUp() {
         ClientConfig config = new DefaultClientConfig();
-        
+
         m_client = Client.create(config);
         m_client.addFilter(new HTTPBasicAuthFilter("demo", "demo"));
         m_resource = m_client.resource("http://demo.opennms.org/opennms/rest/alarms");
 
     }
-    
+
     @Test
     public void testGetAllAlarms() {
-        
+
         AlarmList alarms = m_resource.get(AlarmList.class);
-        
+
         for (Alarm alarm:alarms) {
             System.err.println(alarm);
         }
         //System.err.println(alarms);
-        
+
     }
 
 }

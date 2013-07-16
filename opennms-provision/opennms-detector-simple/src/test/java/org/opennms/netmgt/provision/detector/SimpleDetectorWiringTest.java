@@ -54,9 +54,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml",
         "classpath:/META-INF/opennms/test/snmpConfigFactoryContext.xml"})
 public class SimpleDetectorWiringTest implements ApplicationContextAware {
-    
+
     private ApplicationContext m_applicationContext;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -67,22 +67,22 @@ public class SimpleDetectorWiringTest implements ApplicationContextAware {
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
-    
+
     @Test
     public void testIcmpDetectorWiring(){
         testWiredDetector(IcmpDetector.class);
     }
-    
+
     @Test
     public void testSmbDetectorWiring() {
         testWiredDetector(SmbDetector.class);
     }
-    
+
     @Test
     public void testSnmpDetectorWiring() {
         testWiredDetector(SnmpDetector.class);
     }
-    
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;

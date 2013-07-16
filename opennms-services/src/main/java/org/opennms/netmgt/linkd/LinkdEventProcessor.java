@@ -57,7 +57,7 @@ public final class LinkdEventProcessor {
 
     /**
      * Handle a Node Deleted Event
-     * 
+     *
      * @param event
      */
     @EventHandler(uei=EventConstants.NODE_DELETED_EVENT_UEI)
@@ -73,7 +73,7 @@ public final class LinkdEventProcessor {
 
     /**
      * Handle Interface Deleted Event
-     * 
+     *
      * @param event
      */
     @EventHandler(uei=EventConstants.INTERFACE_DELETED_EVENT_UEI)
@@ -93,7 +93,7 @@ public final class LinkdEventProcessor {
 
     /**
      * Handle a Node Gained Service Event if service is SNMP
-     * 
+     *
      * @param event
      */
     @EventHandler(uei=EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
@@ -106,7 +106,7 @@ public final class LinkdEventProcessor {
 
     /**
      * Handle a Node Lost Service Event when service lost is SNMP
-     * 
+     *
      * @param event
      */
     @EventHandler(uei=EventConstants.NODE_LOST_SERVICE_EVENT_UEI)
@@ -122,7 +122,7 @@ public final class LinkdEventProcessor {
 
     /**
      * Handle a Node Regained Service Event where service is SNMP
-     * 
+     *
      * @param event
      */
     @EventHandler(uei=EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI)

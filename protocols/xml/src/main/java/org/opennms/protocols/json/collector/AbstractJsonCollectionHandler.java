@@ -68,7 +68,7 @@ import org.slf4j.LoggerFactory;
 /**
  * The Abstract Class JSON Collection Handler.
  * <p>All JsonCollectionHandler should extend this class.</p>
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
@@ -138,7 +138,7 @@ public abstract class AbstractJsonCollectionHandler extends AbstractXmlCollectio
 
     /**
      * Gets the time stamp.
-     * 
+     *
      * @param context the JXPath context
      * @param group the group
      * @return the time stamp

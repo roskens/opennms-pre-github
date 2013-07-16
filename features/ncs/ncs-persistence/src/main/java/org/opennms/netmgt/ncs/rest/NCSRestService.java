@@ -85,19 +85,19 @@ public class NCSRestService {
 
 	@Autowired
 	EventDao m_eventDao;
-	
+
 	@Autowired
 	AlarmDao m_alarmDao;
-	
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
-    
+
     public void afterPropertiesSet() throws RuntimeException {
     	Assert.notNull(m_componentService);
     	Assert.notNull(m_eventDao);
     	Assert.notNull(m_alarmDao);
     }
-    
+
     /**
      * <p>getNodes</p>
      *
@@ -111,7 +111,7 @@ public class NCSRestService {
     	readLock();
     	try {
 	    	LOG.debug("getComponent: type = {}, foreignSource = {}, foreignId = {}", type, foreignSource, foreignId);
-	
+
 	    	if (m_componentService == null) {
 	    		throw new IllegalStateException("component service is null");
 	    	}
@@ -123,7 +123,7 @@ public class NCSRestService {
     		readUnlock();
     	}
     }
-    
+
     @GET
     @Path("attributes")
     public ComponentList getComponentsByAttributes() {
@@ -138,7 +138,7 @@ public class NCSRestService {
     	} finally {
     		readUnlock();
     	}
-    	
+
     }
 
     @POST
@@ -177,15 +177,15 @@ public class NCSRestService {
     	writeLock();
     	try {
 		LOG.debug("addComponent: type = {}, foreignSource = {}, foreignId = {} (deleteOrphans={})", type, foreignSource, foreignId, Boolean.valueOf(deleteOrphans));
-	
+
 	    	if (m_componentService == null) {
 	    		throw new IllegalStateException("component service is null");
 	    	}
-	    	
+
 	    	if (subComponent == null) {
 	    		throw new WebApplicationException(Status.BAD_REQUEST);
 	    	}
-	
+
 	    	try {
 	    		return m_componentService.addSubcomponent(type, foreignSource, foreignId, subComponent, deleteOrphans);
 	    	} catch (final DataAccessException e) {
@@ -195,16 +195,16 @@ public class NCSRestService {
     		writeUnlock();
     	}
     }
-    
+
     @DELETE
     @Path("{type}/{foreignSource}:{foreignId}")
     public Response deleteComponent(@QueryParam("deleteOrphans") final boolean deleteOrphans, @PathParam("type") String type, @PathParam("foreignSource") String foreignSource, @PathParam("foreignId") String foreignId) {
     	afterPropertiesSet();
     	writeLock();
-    	
+
     	try {
 	        LOG.info("deleteComponent: Deleting component of type {} and foreignIdentity {}:{} (deleteOrphans={})", type, foreignSource, foreignId, Boolean.valueOf(deleteOrphans));
-	
+
 	    	if (m_componentService == null) {
 	    		throw new IllegalStateException("component service is null");
 	    	}
@@ -215,7 +215,7 @@ public class NCSRestService {
     		writeUnlock();
     	}
     }
-    
+
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
@@ -223,7 +223,7 @@ public class NCSRestService {
 	protected void readLock() {
 	    m_readLock.lock();
 	}
-	
+
 	protected void readUnlock() {
 	    if (m_globalLock.getReadHoldCount() > 0) {
 	        m_readLock.unlock();
@@ -311,7 +311,7 @@ public class NCSRestService {
 	    public int getTotalCount() {
 	        return m_totalCount;
 	    }
-	    
+
 	    /**
 	     * <p>setTotalCount</p>
 	     *
@@ -321,5 +321,5 @@ public class NCSRestService {
 	        m_totalCount = count;
 	    }
 	}
-	
+
 }

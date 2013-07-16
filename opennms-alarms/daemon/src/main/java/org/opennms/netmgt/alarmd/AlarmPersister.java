@@ -44,7 +44,7 @@ public interface AlarmPersister {
      * <p>persist</p>
      *
      * @param event a {@link org.opennms.netmgt.xml.event.Event} object.
-     * @return 
+     * @return
      */
     @Transactional
     public abstract OnmsAlarm persist(Event event);

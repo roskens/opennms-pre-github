@@ -58,7 +58,7 @@ public interface AtInterfaceDao extends OnmsDao<OnmsAtInterface, Integer> {
      * node. If it does not exist, but the IP interface does exist, then
      * create it. If an equivalent IP interface does *not* exist, returns
      * null.
-     * 
+     *
      * @param dbConn
      *            the database connection, if necessary
      * @param ipaddress

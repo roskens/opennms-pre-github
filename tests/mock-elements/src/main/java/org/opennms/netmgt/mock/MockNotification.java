@@ -40,7 +40,7 @@ public class MockNotification {
     private String m_pemail;
 	private String m_textMsg;
     private long m_expectedTime;
-    
+
     @Override
     public int hashCode() {
         return new HashCodeBuilder(3, 57)
@@ -54,7 +54,7 @@ public class MockNotification {
 
     @Override
     public boolean equals(final Object o) {
-        
+
         if(o instanceof MockNotification) {
             final MockNotification m = (MockNotification)o;
             return (m_subject == null ? m.m_subject == null : m_subject.equals(m.m_subject))
@@ -63,9 +63,9 @@ public class MockNotification {
                 && (m_pemail == null ? m.m_pemail == null : m_pemail.equals(m.m_pemail));
         }
         return false;
-        
+
     }
-    
+
     /**
      * @return Returns the email.
      */
@@ -102,7 +102,7 @@ public class MockNotification {
     public void setSubject(final String subject) {
         m_subject = subject;
     }
-    
+
     public long getExpectedTime() {
         return m_expectedTime;
     }
@@ -117,7 +117,7 @@ public class MockNotification {
 	public String getTextMsg() {
 		return m_textMsg;
 	}
-	
+
 
 	/**
 	 * @param textMsg The m_textMsg to set.
@@ -128,7 +128,7 @@ public class MockNotification {
 
 	@Override
     public String toString() {
-        return 
+        return
         "[" +
         " expectedTime = '" + m_expectedTime + "'" +
         " subject = '" + m_subject + "'" +
@@ -136,6 +136,6 @@ public class MockNotification {
         " textMsg = '" + m_textMsg + "'" +
         "]";
     }
-	
-	
+
+
 }

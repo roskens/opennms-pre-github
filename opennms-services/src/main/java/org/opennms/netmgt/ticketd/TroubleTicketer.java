@@ -53,13 +53,13 @@ import org.springframework.util.Assert;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class TroubleTicketer implements SpringServiceDaemon, EventListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(TroubleTicketer.class);
 
 	private static final String LOG4J_CATEGORY = "trouble-ticketer";
-	
+
     private volatile boolean m_initialized = false;
-    
+
     /**
      * Typically wired in by Spring (applicationContext-troubleTicketer.xml)
      * @param eventIpcManager
@@ -75,8 +75,8 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 	public void setEventIpcManager(EventIpcManager eventIpcManager) {
 		m_eventIpcManager = eventIpcManager;
 	}
-    
-	
+
+
     /**
      * <p>setTicketerServiceLayer</p>
      *
@@ -107,7 +107,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
                 EventConstants.RELOAD_DAEMON_CONFIG_UEI
     	};
     	m_eventIpcManager.addEventListener(this, Arrays.asList(ueis));
-        
+
         m_initialized = true;
     }
 
@@ -178,10 +178,10 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
         EventUtils.requireParm(e, EventConstants.PARM_ALARM_UEI);
         EventUtils.requireParm(e, EventConstants.PARM_USER);
         EventUtils.requireParm(e, EventConstants.PARM_TROUBLE_TICKET);
-        
+
         int alarmId = EventUtils.getIntParm(e, EventConstants.PARM_ALARM_ID);
         String ticketId = EventUtils.getParm(e, EventConstants.PARM_TROUBLE_TICKET);
-        
+
         m_ticketerServiceLayer.closeTicketForAlarm(alarmId, ticketId);
 	}
 
@@ -198,7 +198,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 
         int alarmId = EventUtils.getIntParm(e, EventConstants.PARM_ALARM_ID);
         String ticketId = EventUtils.getParm(e, EventConstants.PARM_TROUBLE_TICKET);
-        
+
         m_ticketerServiceLayer.updateTicketForAlarm(alarmId, ticketId);
     }
 
@@ -217,7 +217,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
         for (final Parm parm: e.getParmCollection()) {
         	attributes.put(parm.getParmName(), parm.getValue().getContent());
         }
-        
+
         m_ticketerServiceLayer.createTicketForAlarm(alarmId,attributes);
 	}
 
@@ -234,7 +234,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
 
         int alarmId = EventUtils.getIntParm(e, EventConstants.PARM_ALARM_ID);
         String ticketId = EventUtils.getParm(e, EventConstants.PARM_TROUBLE_TICKET);
-        
+
         m_ticketerServiceLayer.cancelTicketForAlarm(alarmId, ticketId);
 	}
 
@@ -251,7 +251,7 @@ public class TroubleTicketer implements SpringServiceDaemon, EventListener {
         }
         return isTarget;
     }
-    
+
     private void handleTicketerReload(Event e) {
         m_ticketerServiceLayer.reloadTicketer();
     }

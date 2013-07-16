@@ -55,12 +55,12 @@ public class RapidCityVlanTable extends VlanTableBasic {
 	public RapidCityVlanTable(InetAddress address) {
         super(address, "rapidCityVlanTable", RapidCityVlanTableEntry.rcVlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected RapidCityVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new RapidCityVlanTableEntry();
     }
-    
+
 }
 

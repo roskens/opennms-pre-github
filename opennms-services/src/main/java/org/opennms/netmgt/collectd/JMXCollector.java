@@ -298,18 +298,18 @@ public abstract class JMXCollector implements ServiceCollector {
         JMXNodeInfo nodeInfo = agent.getAttribute(NODE_INFO_KEY);
         Map<String, BeanInfo> mbeans = nodeInfo.getMBeans();
         String collDir = serviceName;
-        
+
 
         String port = ParameterMap.getKeyedString(map, "port", null);
         String friendlyName = ParameterMap.getKeyedString(map,"friendly-name", port);
         if (useFriendlyName) {
             collDir = friendlyName;
         }
-        
+
         JMXCollectionSet collectionSet=new JMXCollectionSet(agent,collDir);
         collectionSet.setCollectionTimestamp(new Date());
         JMXCollectionResource collectionResource=collectionSet.getResource();
-        
+
         ConnectionWrapper connection = null;
 
         LOG.debug("collecting {} on node ID {}", InetAddressUtils.str(ipaddr), nodeInfo.getNodeId());
@@ -337,26 +337,26 @@ public abstract class JMXCollector implements ServiceCollector {
                         String excludeList = beanInfo.getExcludes();
                         //All JMX collected values are per node
                         AttributeGroupType attribGroupType=new AttributeGroupType(fixGroupName(objectName),"all");
-                        
+
                         List<String> attribNames = beanInfo.getAttributeNames();
                         List<String> compAttribNames = beanInfo.getCompositeAttributeNames();
-                        
+
                         for (String compAttribName : compAttribNames) {
                             if (attribNames.contains(compAttribName) ) {
                                 attribNames.remove(compAttribName);
-                                String[] ac = compAttribName.split("\\|", -1);       
+                                String[] ac = compAttribName.split("\\|", -1);
                                 String attrName = ac[0];
                                 if (!attribNames.contains(attrName)) {
                                     attribNames.add(attrName);
                                 }
                             }
-                        }                        
+                        }
                         //LOG.debug(" JMXCollector: processed the following attributes: {}", attribNames);
                         //LOG.debug(" JMXCollector: processed the following Composite Attributes: {}", compAttribNames);
-                        
+
                         String[] attrNames = attribNames.toArray(new String[attribNames.size()]);
 
-                        if (objectName.indexOf("*") == -1) {      
+                        if (objectName.indexOf("*") == -1) {
                             LOG.debug("{} Collector - getAttributes: {}, # attributes: {}, # composite attribute members: {}", serviceName, objectName, attrNames.length, compAttribNames.size());
                             try {
                                 ObjectName oName = new ObjectName(objectName);
@@ -380,8 +380,8 @@ public abstract class JMXCollector implements ServiceCollector {
                                                  for (String key : compositeMemberKeys) {
                                                      /*
                                                      value = cd.get(key);
-                                                     
-                                                     log.debug(" JMXCollector - got CompositeData: " + 
+
+                                                     log.debug(" JMXCollector - got CompositeData: " +
                                                                objectName + "|" + attrib.getName() + "|" + key + " |-> " + cd.get(key).toString());
                                                      */
                                                      JMXDataSource ds = dsMap.get(objectName + "|" + attrib.getName() + "|" + key);
@@ -398,7 +398,7 @@ public abstract class JMXCollector implements ServiceCollector {
                                             JMXCollectionAttributeType attribType=new JMXCollectionAttributeType(ds, null, null, attribGroupType);
                                             collectionResource.setAttributeValue(attribType, attrib.getValue().toString());
                                         }
-                                    }  
+                                    }
                                 }
                             } catch (final InstanceNotFoundException e) {
                                 LOG.error("Unable to retrieve attributes from {}", objectName, e);
@@ -426,11 +426,11 @@ public abstract class JMXCollector implements ServiceCollector {
                                                 JMXDataSource ds = dsMap.get(objectName + "|"
                                                              + attrib.getName());
                                                 JMXCollectionAttributeType attribType=
-                                                    new JMXCollectionAttributeType(ds, 
-                                                                                   oName.getKeyProperty(beanInfo.getKeyField()),  
-                                                                                   beanInfo.getKeyAlias(), 
+                                                    new JMXCollectionAttributeType(ds,
+                                                                                   oName.getKeyProperty(beanInfo.getKeyField()),
+                                                                                   beanInfo.getKeyAlias(),
                                                                                    attribGroupType);
-                                                
+
                                                 collectionResource.setAttributeValue(attribType, attrib.getValue().toString());
                                             }
 
@@ -460,11 +460,11 @@ public abstract class JMXCollector implements ServiceCollector {
                                                 for(Object attribute : attrList) {
                                                     Attribute attrib=(Attribute)attribute;
                                                     JMXDataSource ds = dsMap.get(objectName + "|" + attrib.getName());
-                                                    JMXCollectionAttributeType attribType = new JMXCollectionAttributeType(ds, 
-                                                                                       oName.getKeyProperty(beanInfo.getKeyField()),  
-                                                                                       beanInfo.getKeyAlias(), 
+                                                    JMXCollectionAttributeType attribType = new JMXCollectionAttributeType(ds,
+                                                                                       oName.getKeyProperty(beanInfo.getKeyField()),
+                                                                                       beanInfo.getKeyAlias(),
                                                                                        attribGroupType);
-                                                    
+
                                                     collectionResource.setAttributeValue(attribType, attrib.getValue().toString());
                                                 }
                                             }
@@ -488,7 +488,7 @@ public abstract class JMXCollector implements ServiceCollector {
                 connection.close();
             }
         }
-        
+
         collectionSet.setStatus(ServiceCollector.COLLECTION_SUCCEEDED);
         return collectionSet;
     }
@@ -503,7 +503,7 @@ public abstract class JMXCollector implements ServiceCollector {
      * potentially illegal in a file or directory name, returning a
      * name that is appropriate for use with the storeByGroup persistence
      * method.
-     *  
+     *
      * @param objectName
      * @return
      */
@@ -513,7 +513,7 @@ public abstract class JMXCollector implements ServiceCollector {
         }
         return objectName.replaceAll("[.:=,]", "_");
     }
-    
+
     /*
      * This method strips out the illegal character '/' and attempts to keep
      * the length of the key plus ds name to 19 or less characters. The slash
@@ -677,7 +677,7 @@ public abstract class JMXCollector implements ServiceCollector {
     public void setUseFriendlyName(boolean useFriendlyName) {
         this.useFriendlyName = useFriendlyName;
     }
-    
+
     class JMXCollectionAttributeType implements CollectionAttributeType {
         JMXDataSource m_dataSource;
         AttributeGroupType m_groupType;
@@ -719,14 +719,14 @@ public abstract class JMXCollector implements ServiceCollector {
         }
 
     }
-    
+
     class JMXCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
 
         String m_alias;
         String m_value;
         JMXCollectionResource m_resource;
         CollectionAttributeType m_attribType;
-        
+
         JMXCollectionAttribute(JMXCollectionResource resource, CollectionAttributeType attribType, String alias, String value) {
             super();
             m_resource=resource;
@@ -786,25 +786,25 @@ public abstract class JMXCollector implements ServiceCollector {
             return "JMX_".concat(metricId);
 
         }
-        
+
     }
- 
-    
+
+
     class JMXCollectionResource extends AbstractCollectionResource {
         String m_resourceName;
         private int m_nodeId;
-        
-        JMXCollectionResource(CollectionAgent agent, String resourceName) { 
+
+        JMXCollectionResource(CollectionAgent agent, String resourceName) {
             super(agent);
             m_resourceName=resourceName;
             m_nodeId = agent.getNodeId();
         }
-        
+
         @Override
         public String toString() {
             return "node["+m_nodeId+']';
         }
-        
+
         @Override
         public int getType() {
             return -1; //Is this correct?
@@ -829,12 +829,12 @@ public abstract class JMXCollector implements ServiceCollector {
         public File getResourceDir(RrdRepository repository) {
             return new File(repository.getRrdBaseDir(), getParent() + File.separator + m_resourceName);
         }
-        
+
         @Override
         public String getResourceTypeName() {
             return "node"; //All node resources for JMX; nothing of interface or "indexed resource" type
         }
-        
+
         @Override
         public String getInstance() {
             return null; //For node type resources, use the default instance
@@ -845,17 +845,17 @@ public abstract class JMXCollector implements ServiceCollector {
             return m_agent.getStorageDir().toString();
         }
     }
-    
+
     class JMXCollectionSet implements CollectionSet {
         private int m_status;
         private Date m_timestamp;
         private JMXCollectionResource m_collectionResource;
-        
+
         JMXCollectionSet(CollectionAgent agent, String resourceName) {
             m_status=ServiceCollector.COLLECTION_FAILED;
             m_collectionResource=new JMXCollectionResource(agent, resourceName);
         }
-        
+
         public JMXCollectionResource getResource() {
             return m_collectionResource;
         }
@@ -863,7 +863,7 @@ public abstract class JMXCollector implements ServiceCollector {
         public void setStatus(int status) {
             m_status=status;
         }
-        
+
         @Override
         public int getStatus() {
             return m_status;
@@ -879,8 +879,8 @@ public abstract class JMXCollector implements ServiceCollector {
         @Override
 		public boolean ignorePersist() {
 			return false;
-		}        
-		
+		}
+
 		@Override
 		public Date getCollectionTimestamp() {
 			return m_timestamp;
@@ -890,7 +890,7 @@ public abstract class JMXCollector implements ServiceCollector {
 		}
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {

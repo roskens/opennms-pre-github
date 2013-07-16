@@ -74,9 +74,9 @@ import org.xml.sax.XMLFilter;
 
 @RunWith(Parameterized.class)
 abstract public class XmlTest<T> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmlTest.class);
-	
+
     private T m_sampleObject;
     private String m_sampleXml;
     private String m_schemaFile;
@@ -137,7 +137,7 @@ abstract public class XmlTest<T> {
         final String xml = marshalToXmlWithCastor();
 
         final T config = JaxbUtils.unmarshal(getSampleClass(), xml);
-        
+
         LOG.debug("Generated Object: {}", config);
 
         assertTrue("objects should match", config.equals(getSampleObject()));

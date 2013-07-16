@@ -128,7 +128,7 @@ public class PolicyTest {
             @JUnitSnmpAgent(host="10.211.140.149", port=161, resource="classpath:snmpwalk-NMS-5414.properties")
     })
     //@Repeat()
-    //@Transactional Do not use transactional because it freezes the database and makes it impossible to check for 
+    //@Transactional Do not use transactional because it freezes the database and makes it impossible to check for
     // values created in other transactions (unless you are lucky - which sometimes we are not)
     public void testSnmpPollPolicy() throws Exception {
         try {

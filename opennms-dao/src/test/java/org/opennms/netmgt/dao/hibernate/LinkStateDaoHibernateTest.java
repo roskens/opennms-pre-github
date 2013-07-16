@@ -66,7 +66,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class LinkStateDaoHibernateTest implements InitializingBean {
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
-    
+
     @Autowired
 	private LinkStateDao m_linkStateDao;
 
@@ -89,57 +89,57 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
         Collection<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
         assertNotNull(dlis);
         assertFalse(dlis.isEmpty());
-        
+
         DataLinkInterface dli = dlis.iterator().next();
         assertNotNull(dli);
         OnmsLinkState linkState1 = new OnmsLinkState();
         linkState1.setDataLinkInterface(dli);
-        
+
         m_linkStateDao.save(linkState1);
         m_linkStateDao.flush();
-        
+
         Integer id = linkState1.getId();
         assertNotNull(id);
-        
+
         OnmsLinkState linkState2 = m_linkStateDao.get(id);
-        
+
         assertNotNull(linkState2);
         assertEquals(LinkState.LINK_UP, linkState2.getLinkState());
-        
+
         linkState2.setLinkState(LinkState.LINK_NODE_DOWN);
         m_linkStateDao.save(linkState2);
         m_linkStateDao.flush();
-        
+
         OnmsLinkState linkState3 = m_linkStateDao.get(id);
         assertNotNull(linkState3);
         assertEquals(LinkState.LINK_NODE_DOWN, linkState3.getLinkState());
-        
+
     }
-    
+
     @Test
     @Transactional
 	public void testSaveThenRead() {
         Collection<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
         assertNotNull(dlis);
         assertFalse(dlis.isEmpty());
-        
+
         DataLinkInterface dli = dlis.iterator().next();
         assertNotNull(dli);
         OnmsLinkState linkState1 = new OnmsLinkState();
         linkState1.setDataLinkInterface(dli);
-        
+
         m_linkStateDao.save(linkState1);
         m_linkStateDao.flush();
 
         Integer id = linkState1.getId();
         assertNotNull(id);
-        
+
         OnmsLinkState linkState2 = m_linkStateDao.get(id);
-        
+
         assertNotNull(linkState2);
         assertEquals(LinkState.LINK_UP, linkState2.getLinkState());
     }
-    
+
     @Test
     @Transactional
     public void testFindByDataLinkInterfaceId() {
@@ -147,19 +147,19 @@ public class LinkStateDaoHibernateTest implements InitializingBean {
         Collection<DataLinkInterface> dlis = m_dataLinkInterfaceDao.findAll();
         assertNotNull(dlis);
         assertFalse(dlis.isEmpty());
-        
+
         DataLinkInterface dli = dlis.iterator().next();
         dataLinkId = dli.getId();
         assertNotNull(dli);
         OnmsLinkState linkState1 = new OnmsLinkState();
         linkState1.setDataLinkInterface(dli);
-        
+
         m_linkStateDao.save(linkState1);
         m_linkStateDao.flush();
-        
+
         OnmsLinkState linkState2 = m_linkStateDao.findByDataLinkInterfaceId(dataLinkId);
         assertNotNull(linkState2);
-        
+
     }
 
 }

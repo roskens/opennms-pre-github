@@ -143,7 +143,7 @@ public interface ReportInstance {
      * @return a {@link java.util.Date} object.
      */
     Date getJobStartedDate();
-    
+
     /**
      * <p>getJobCompletedDate</p>
      *
@@ -178,7 +178,7 @@ public interface ReportInstance {
      * @return a {@link org.opennms.netmgt.statsd.ReportDefinition} object.
      */
     ReportDefinition getReportDefinition();
-    
+
     /**
      * <p>setReportDefinition</p>
      *
@@ -192,7 +192,7 @@ public interface ReportInstance {
      * @param resourceAttributeKey a {@link java.lang.String} object.
      */
     void setResourceAttributeKey(String resourceAttributeKey);
-    
+
     /**
      * <p>getResourceAttributeKey</p>
      *

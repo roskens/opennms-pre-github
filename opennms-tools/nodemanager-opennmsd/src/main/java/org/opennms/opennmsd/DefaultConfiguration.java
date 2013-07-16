@@ -36,18 +36,18 @@ import java.io.IOException;
 public class DefaultConfiguration implements Configuration {
 
     private File m_configFile;
-    
+
     public void setConfigFile(File configFile) {
         m_configFile = configFile;
     }
-    
+
     public void load() throws IOException {
         Assert.notNull(m_configFile, "The configuration file must not be null");
-        
+
         if (!m_configFile.exists()) {
             throw new FileNotFoundException("file "+m_configFile+" does not exist.");
         }
-        
+
     }
 
     public FilterChain getFilterChain() {
@@ -56,7 +56,7 @@ public class DefaultConfiguration implements Configuration {
         bldr.setAction(Filter.ACCEPT);
         return bldr.getChain();
     }
-    
-	
+
+
 
 }

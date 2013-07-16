@@ -106,7 +106,7 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
             // to reload, reload() will need to be called
             return;
         }
-        
+
         OpennmsServerConfigFactory.init();
         boolean verifyServer = OpennmsServerConfigFactory.getInstance().verifyServer();
         String localServer = OpennmsServerConfigFactory.getInstance().getServerName();
@@ -171,7 +171,7 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
             fileWriter.flush();
             fileWriter.close();
         }
-         
+
 
 
     /**
@@ -187,7 +187,7 @@ public final class ThreshdConfigFactory extends ThreshdConfigManager {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

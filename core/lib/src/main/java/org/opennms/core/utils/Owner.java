@@ -35,7 +35,7 @@ package org.opennms.core.utils;
  * @version $Id: $
  */
 public class Owner implements Comparable<Owner> {
-    
+
     private String m_roleid;
     private String m_user;
     private int m_schedIndex;
@@ -50,8 +50,8 @@ public class Owner implements Comparable<Owner> {
      */
     public Owner(String roleid, String user, int schedIndex) {
         this(roleid, user, schedIndex, -1);
-    }        
-    
+    }
+
     /**
      * <p>Constructor for Owner.</p>
      *
@@ -71,7 +71,7 @@ public class Owner implements Comparable<Owner> {
     public Owner(Owner base, int timeIndex) {
         this(base.getRoleid(), base.getUser(), base.getSchedIndex(), timeIndex);
     }
-    
+
     /**
      * <p>Constructor for Owner.</p>
      *
@@ -86,7 +86,7 @@ public class Owner implements Comparable<Owner> {
         m_schedIndex = schedIndex;
         m_timeIndex = timeIndex;
     }
-    
+
     /**
      * <p>isSupervisor</p>
      *
@@ -131,11 +131,11 @@ public class Owner implements Comparable<Owner> {
     public String getUser() {
         return m_user;
     }
-    
+
     public Owner addTimeIndex(int timeIndex) {
         return new Owner(this, timeIndex);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
@@ -145,7 +145,7 @@ public class Owner implements Comparable<Owner> {
         }
         return false;
     }
-    
+
     /**
      * <p>hashCode</p>
      *
@@ -166,7 +166,7 @@ public class Owner implements Comparable<Owner> {
     public int compareTo(Owner o) {
         return m_user.compareTo(o.m_user);
     }
-    
+
     /**
      * <p>toString</p>
      *

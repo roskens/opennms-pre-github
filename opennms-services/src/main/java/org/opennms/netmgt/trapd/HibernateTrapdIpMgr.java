@@ -50,11 +50,11 @@ import org.springframework.util.Assert;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public class HibernateTrapdIpMgr implements TrapdIpMgr, InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(HibernateTrapdIpMgr.class);
-	
+
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     /**
      * A Map of IP addresses and node IDs
      */

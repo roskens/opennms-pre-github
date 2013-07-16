@@ -38,7 +38,7 @@ public class Main {
 
     /**
      * @param args
-     * @throws IOException  	
+     * @throws IOException
      */
     Collector c = new Collector();
     boolean processedFiles = false;
@@ -55,7 +55,7 @@ public class Main {
         if (!processedFiles) {
             reportErrAndExit(argParser, "At least one instrumentation log file must be passed in.");
         }
-        
+
         PrintWriter writer = new PrintWriter(out,true);
         c.printReport(writer);
 
@@ -138,6 +138,6 @@ public class Main {
             System.out.println("-tpt or --totalPersistTime : Sorts by total persist time");
         }
     }
-    
-    
+
+
 }

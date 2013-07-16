@@ -111,7 +111,7 @@ final public class DominoIIOPMonitor extends AbstractServiceMonitor {
         if (iface.getType() != NetworkInterface.TYPE_INET)
             throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
 
-        
+
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
         int IORport = ParameterMap.getKeyedInteger(parameters, "ior-port", DEFAULT_IORPORT);
 
@@ -141,16 +141,16 @@ final public class DominoIIOPMonitor extends AbstractServiceMonitor {
         }
 
         PollStatus status = null;
-        
+
         for(tracker.reset(); tracker.shouldRetry() && !status.isAvailable(); tracker.nextAttempt()) {
             Socket socket = null;
             try {
                 //
                 // create a connected socket
                 //
-                
+
                 tracker.startAttempt();
-                
+
                 socket = new Socket();
                 socket.connect(new InetSocketAddress(ipv4Addr, port), tracker.getConnectionTimeout());
                 socket.setSoTimeout(tracker.getSoTimeout());
@@ -158,9 +158,9 @@ final public class DominoIIOPMonitor extends AbstractServiceMonitor {
                 LOG.debug("DominoIIOPMonitor: connected to host: {} on port: {}", port, ipv4Addr);
 
                 // got here so its up...
-                
+
                 return PollStatus.up(tracker.elapsedTimeInMillis());
-                
+
             } catch (NoRouteToHostException e) {
                 String reason = " No route to host exception for address " + hostAddress;
                 LOG.debug(reason, e);
@@ -198,7 +198,7 @@ final public class DominoIIOPMonitor extends AbstractServiceMonitor {
 
     /**
      * Method used to retrieve the IOR string from the Domino server.
-     * 
+     *
      * @param host
      *            the host name which has the IOR
      * @param port
@@ -230,5 +230,5 @@ final public class DominoIIOPMonitor extends AbstractServiceMonitor {
 
         return IOR;
     }
-    
+
 }

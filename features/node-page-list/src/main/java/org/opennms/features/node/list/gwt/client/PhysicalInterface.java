@@ -32,13 +32,13 @@ import com.google.gwt.core.client.JavaScriptObject;
 
 
 public class PhysicalInterface extends JavaScriptObject {
-    
+
     protected PhysicalInterface() {};
-    
+
     public final native String getId() /*-{
         return this["@id"];
     }-*/;
-    
+
     public final native String getIfIndex() /*-{
         return this["@ifIndex"];
     }-*/;
@@ -62,11 +62,11 @@ public class PhysicalInterface extends JavaScriptObject {
     public final native String getIpAddress() /*-{
         return this.ipAddress;
     }-*/;
-    
+
     public final native int getIfAdminStatus()/*-{
         return parseInt(this.ifAdminStatus);
     }-*/;
-    
+
     public final native int getIfOperStatus() /*-{
         return parseInt(this.ifOperStatus);
     }-*/;

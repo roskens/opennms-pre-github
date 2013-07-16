@@ -44,10 +44,10 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
  * @version $Id: $
  */
 public class HibernateFilterManager implements FilterManager {
-    
+
     private HibernateTemplate m_template;
-    
-    
+
+
     /**
      * <p>setSessionFactory</p>
      *
@@ -72,9 +72,9 @@ public class HibernateFilterManager implements FilterManager {
                 session.disableFilter(AUTH_FILTER_NAME);
                 return null;
             }
-            
+
         };
-        
+
         m_template.execute(cb);
     }
 
@@ -95,9 +95,9 @@ public class HibernateFilterManager implements FilterManager {
                 session.enableFilter(AUTH_FILTER_NAME).setParameterList("userGroups", authorizationGroups);
                 return null;
             }
-            
+
         };
-        
+
         m_template.execute(cb);
     }
 

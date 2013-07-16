@@ -49,12 +49,12 @@ import org.springframework.util.StringUtils;
  * @version $Id: $
  */
 public class Queued extends AbstractServiceDaemon implements EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Queued.class);
 
     private static final String LOG4J_CATEGORY = "queued";
-    
-    private volatile EventIpcManager m_eventMgr; 
+
+    private volatile EventIpcManager m_eventMgr;
 
     /*
      * There are currently 2 possible strategies to be used here:
@@ -70,7 +70,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public Queued() {
         super(LOG4J_CATEGORY);
     }
-    
+
     /**
      * <p>setEventIpcManager</p>
      *
@@ -79,7 +79,7 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public void setEventIpcManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
-    
+
     /**
      * <p>getRrdStrategy</p>
      *
@@ -97,15 +97,15 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
     public void setRrdStrategy(RrdStrategy<?,?> rrdStrategy) {
         m_rrdStrategy = rrdStrategy;
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
         Assert.state(m_eventMgr != null, "setEventIpcManager must be set");
         Assert.state(m_rrdStrategy != null, "rrdStrategy must be set");
-        
-        
+
+
         m_eventMgr.addEventListener(this, EventConstants.PROMOTE_QUEUE_DATA_UEI);
     }
 
@@ -116,19 +116,19 @@ public class Queued extends AbstractServiceDaemon implements EventListener {
         Set<String> files = commaDelimitedListToSet(fileList);
 
         logFilePromotion(files);
-        
+
         m_rrdStrategy.promoteEnqueuedFiles(files);
     }
 
     private Set<String> commaDelimitedListToSet(String fileList) {
         return StringUtils.commaDelimitedListToSet(fileList);
     }
-    
+
     private void logFilePromotion(Set<String> files) {
         if (!LOG.isDebugEnabled()) {
             return;
         }
-        
+
         for(String file : files) {
             LOG.debug("Promoting file: {}", file);
         }

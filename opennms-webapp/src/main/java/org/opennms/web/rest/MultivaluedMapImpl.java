@@ -50,7 +50,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
         super();
     }
 
-    /** 
+    /**
 	 * This constructor can be used as a convenience method to create populated
 	 * {@link MultivaluedMapImpl} instances.
 	 */
@@ -104,7 +104,7 @@ public class MultivaluedMapImpl extends HashMap<String, List<String>> implements
 		list.add(value);
 		super.put(key, list);
 	}
-	
+
 	/**
 	 * <p>put</p>
 	 *

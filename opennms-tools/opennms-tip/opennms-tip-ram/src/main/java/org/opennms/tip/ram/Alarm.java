@@ -73,7 +73,7 @@ public class Alarm  {
      *     <x733ProbableCause>0</x733ProbableCause>
      * </alarm>
     */
-    
+
     private Integer m_id;
     private Integer m_alarmType;
     private Integer m_counter;
@@ -104,7 +104,7 @@ public class Alarm  {
     public Integer getId() {
         return m_id;
     }
-    
+
     @XmlAttribute(name="type")
     public Integer getAlarmType() {
         return m_alarmType;
@@ -114,12 +114,12 @@ public class Alarm  {
     public Integer getCounter() {
         return m_counter;
     }
-    
+
     @XmlAttribute(name="severity")
     public String getSeverity() {
         return m_severity;
     }
-    
+
     @XmlAttribute(name="ifIndex")
     public Integer getIfIndex() {
         return m_ifIndex;
@@ -199,12 +199,12 @@ public class Alarm  {
     public Event getLastEvent() {
         return m_lastEvent;
     }
-    
+
     @XmlElement(name="parms")
     public String getEventParms() {
         return m_eventParms;
     }
-    
+
     @XmlElement(name="lastEventTime")
     public Date getLastEventTime() {
         return m_lastEventTime;
@@ -214,12 +214,12 @@ public class Alarm  {
     public String getApplicationDN() {
         return m_applicationDN;
     }
-    
+
     @XmlElement(name="firstAutomationTime")
     public Date getFirstAutomationTime() {
         return m_firstAutomationTime;
     }
-    
+
     @XmlElement(name="lastAutomationTime")
     public Date getLastAutomationTime() {
         return m_lastAutomationTime;

@@ -40,7 +40,7 @@ import org.apache.mina.core.session.IdleStatus;
  * @version $Id: $
  */
 public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstractDetector {
-    
+
     protected static final Charset CHARSET_UTF8 = Charset.forName("UTF-8");
 
     /**
@@ -50,7 +50,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
 
     private AsyncClientConversation<Request, Response> m_conversation = new AsyncClientConversation<Request, Response>();
     private boolean useSSLFilter = false;
-    
+
     /**
      * <p>Constructor for AsyncBasicDetector.</p>
      *
@@ -62,7 +62,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
     public AsyncBasicDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>Constructor for AsyncBasicDetector.</p>
      *
@@ -74,7 +74,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
     public AsyncBasicDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
-    
+
     /**
      * <p>expectBanner</p>
      *
@@ -84,7 +84,7 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
         m_conversation.setHasBanner(true);
         m_conversation.addExchange(new ConversationExchangeDefaultImpl<Request, Response>(null, bannerValidator));
     }
-    
+
     /**
      * <p>send</p>
      *
@@ -99,11 +99,11 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
             }
         }, responseValidator));
     }
-    
-    
+
+
     /**
      * Set the time limit in milliseconds that the connection can wait before
-     * transitioning to the {@link IdleStatus#BOTH_IDLE}, {@link IdleStatus#READER_IDLE}, 
+     * transitioning to the {@link IdleStatus#BOTH_IDLE}, {@link IdleStatus#READER_IDLE},
      * or {@link IdleStatus#WRITER_IDLE} states.
      *
      * @param idleTime a int.
@@ -144,10 +144,10 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
                 final String str = message.toString().trim();
                 return str.startsWith(prefix);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>find</p>
      *
@@ -162,8 +162,8 @@ public abstract class AsyncBasicDetector<Request, Response> extends AsyncAbstrac
                 final String str = message.toString().trim();
                 return Pattern.compile(regex).matcher(str).find();
             }
-          
-            
+
+
         };
     }
 

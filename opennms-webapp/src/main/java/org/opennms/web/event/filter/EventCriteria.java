@@ -43,14 +43,14 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class EventCriteria {
-    
+
     public static interface EventCriteriaVisitor<E extends Exception>{
         public void visitAckType(AcknowledgeType ackType) throws E;
         public void visitFilter(Filter filter) throws E;
         public void visitSortStyle(SortStyle sortStyle) throws E;
         public void visitLimit(int limit, int offset) throws E;
     }
-    
+
     public static class BaseEventCriteriaVisitor<E extends Exception> implements EventCriteriaVisitor<E>{
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E { }
@@ -60,15 +60,15 @@ public class EventCriteria {
         public void visitLimit(int limit, int offset) throws E { }
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E { }
-        
+
     }
-    
+
     Filter[] m_filters = null;
     SortStyle m_sortStyle = SortStyle.TIME;
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
     int m_offset = -1;
     int m_limit = -1;
-    
+
     /**
      * <p>Constructor for EventCriteria.</p>
      *
@@ -77,7 +77,7 @@ public class EventCriteria {
     public EventCriteria(Filter... filters){
         this(filters, null, null, -1, -1);
     }
-    
+
     /**
      * <p>Constructor for EventCriteria.</p>
      *
@@ -104,7 +104,7 @@ public class EventCriteria {
         m_limit = limit;
         m_offset = offset;
     }
-    
+
     /**
      * <p>visit</p>
      *
@@ -126,7 +126,7 @@ public class EventCriteria {
             visitor.visitLimit(m_limit, m_offset);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {

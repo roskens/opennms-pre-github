@@ -68,13 +68,13 @@ public class OutageFilterController extends AbstractController implements Initia
     private Integer m_defaultShortLimit;
 
     private Integer m_defaultLongLimit;
-    
+
     private OutageType m_defaultOutageType = OutageType.CURRENT;
 
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
     private WebOutageRepository m_webOutageRepository;
-    
+
 
 
     /**
@@ -159,24 +159,24 @@ public class OutageFilterController extends AbstractController implements Initia
         }
 
         // put the parameters in a convenient struct
-        
+
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         OutageQueryParms parms = new OutageQueryParms();
         parms.outageType = outageType;
         parms.filters = filterList;
         parms.limit = limit;
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
-        
+
         OutageCriteria queryCriteria = new OutageCriteria(filters, sortStyle, outageType, limit, limit * multiple);
         OutageCriteria countCriteria = new OutageCriteria(outageType, filters);
 
         Outage[] outages = m_webOutageRepository.getMatchingOutages(queryCriteria);
-        
+
         // get the total outage count
         int outageCount = m_webOutageRepository.countMatchingOutages(countCriteria);
-        
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("outages", outages);
         modelAndView.addObject("outageCount", outageCount);
@@ -223,7 +223,7 @@ public class OutageFilterController extends AbstractController implements Initia
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

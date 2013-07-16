@@ -40,9 +40,9 @@ import org.opennms.web.map.db.DbElement;
  */
 public class VElement extends DbElement {
 
-	// boolean that represents if this is a childnode mandatory to avoid loops  
+	// boolean that represents if this is a childnode mandatory to avoid loops
 	protected boolean isChild = false;
-    
+
     // this is to define the status of the element
 	protected int status = -1;
 
@@ -51,8 +51,8 @@ public class VElement extends DbElement {
 
 	// this represents the global information elements
 	protected double avail = -1;
-	
-	
+
+
 
 	/**
 	 * <p>Constructor for VElement.</p>
@@ -88,7 +88,7 @@ public class VElement extends DbElement {
             int x, int y) throws MapsException {
         super(mapId, id, type, label, sysoid, iconName, x, y);
         isChild = true;
-    }    
+    }
 
     /**
      * <p>Constructor for VElement.</p>
@@ -104,7 +104,7 @@ public class VElement extends DbElement {
     public VElement(int mapId, int id, String type, String label, String sysoid, String iconName) throws MapsException {
         super(mapId, id, type, label, sysoid, iconName, 0, 0);
         isChild = true;
-    }    
+    }
 
 	/**
 	 * <p>Getter for the field <code>status</code>.</p>
@@ -121,10 +121,10 @@ public class VElement extends DbElement {
 	 * @param status a int.
 	 */
 	public void setStatus(int status) {
-		//if (status > LOWER_STATUS && status <= UPPER_STATUS) 
+		//if (status > LOWER_STATUS && status <= UPPER_STATUS)
 			this.status = status;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>severity</code>.</p>
 	 *
@@ -133,14 +133,14 @@ public class VElement extends DbElement {
 	public int getSeverity() {
 		return severity;
 	}
-	
+
 	/**
 	 * <p>Setter for the field <code>severity</code>.</p>
 	 *
 	 * @param severity a int.
 	 */
 	public void setSeverity(int severity) {
-		//if (severity > LOWER_SEVERITY && severity <= UPPER_SEVERITY) 
+		//if (severity > LOWER_SEVERITY && severity <= UPPER_SEVERITY)
 			this.severity = severity;
 	}
 
@@ -152,7 +152,7 @@ public class VElement extends DbElement {
 	public double getAvail() {
 		return avail;
 	}
-	
+
 	/**
 	 * <p>Setter for the field <code>avail</code>.</p>
 	 *
@@ -161,7 +161,7 @@ public class VElement extends DbElement {
 	public void setAvail(double rtc) {
 		this.avail = rtc;
 	}
-	
+
     /**
      * <p>isChild</p>
      *
@@ -170,13 +170,13 @@ public class VElement extends DbElement {
     public boolean isChild() {
         return isChild;
     }
-    
+
     /** {@inheritDoc} */
         @Override
     public boolean equals(Object other){
     	return equalsIgnorePosition((VElement)other);
     }
-    
+
     /**
      * <p>equalsIgnorePosition</p>
      *
@@ -203,7 +203,7 @@ public class VElement extends DbElement {
 			this.severity == elem.getSeverity() && this.getLabel().equals( elem.getLabel())) return true;
     	return false;
     }
-    
+
     /**
      * <p>hasSameIdentifier</p>
      *
@@ -221,7 +221,7 @@ public class VElement extends DbElement {
         super.setMapId(mapId);
         isChild = true;
     }
-    
+
     /**
      * <p>getContainerMap</p>
      *
@@ -233,7 +233,7 @@ public class VElement extends DbElement {
     		return getMapId();
     	throw new VElementNotChildException();
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -243,7 +243,7 @@ public class VElement extends DbElement {
     public String toString(){
     	return getId()+getType();
     }
-    
+
     /**
      * <p>clone</p>
      *

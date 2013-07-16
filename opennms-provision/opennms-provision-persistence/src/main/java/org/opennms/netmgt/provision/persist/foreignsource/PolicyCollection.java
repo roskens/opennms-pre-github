@@ -84,7 +84,7 @@ public class PolicyCollection implements List<PluginConfig> {
         clear();
         addAll(policies);
     }
-    
+
     @Override
     public boolean add(final PluginConfig config) {
         return m_list.add(config);

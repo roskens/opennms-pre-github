@@ -145,22 +145,22 @@ public class EventTest extends XmlTestNoCastor<Event> {
 				"<logmsg>log message</logmsg>" +
 				"<severity>normal</severity>" +
 				"</event>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 				{event1,
 					"<event xmlns=\"http://xmlns.opennms.org/xsd/eventconf\">" +
-					"  <mask>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>id</mename>\n" + 
-					"      <mevalue>.1.3.6.1.2.1.10.166.3</mevalue>\n" + 
-					"    </maskelement>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>generic</mename>\n" + 
-					"      <mevalue>6</mevalue>\n" + 
-					"    </maskelement>\n" + 
-					"    <maskelement>\n" + 
-					"      <mename>specific</mename>\n" + 
-					"      <mevalue>1</mevalue>\n" + 
-					"    </maskelement>\n" + 
+					"  <mask>\n" +
+					"    <maskelement>\n" +
+					"      <mename>id</mename>\n" +
+					"      <mevalue>.1.3.6.1.2.1.10.166.3</mevalue>\n" +
+					"    </maskelement>\n" +
+					"    <maskelement>\n" +
+					"      <mename>generic</mename>\n" +
+					"      <mevalue>6</mevalue>\n" +
+					"    </maskelement>\n" +
+					"    <maskelement>\n" +
+					"      <mename>specific</mename>\n" +
+					"      <mevalue>1</mevalue>\n" +
+					"    </maskelement>\n" +
 					"    <varbind>" +
 					"      <vbnumber>5</vbnumber>" +
 					"      <vbvalue>0</vbvalue>" +
@@ -200,7 +200,7 @@ public class EventTest extends XmlTestNoCastor<Event> {
 					"  <mouseovertext>mouseovertext</mouseovertext>" +
 					"  <alarm-data reduction-key=\"%uei%:%dpname%:%nodeid%\" alarm-type=\"3\" auto-clean=\"true\" clear-key=\"uei.opennms.org/internal/importer/importFailed:%parm[importResource]%\"/>" +
 					"</event>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 		});
 	}
 

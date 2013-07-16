@@ -37,7 +37,7 @@ package org.opennms.netmgt.collectd;
  */
 public class CollectionException extends Exception {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -9090428901522833535L;
 

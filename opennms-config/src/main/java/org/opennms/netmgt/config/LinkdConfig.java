@@ -117,7 +117,7 @@ public interface LinkdConfig {
      * @param ipAddr a {@link java.lang.String} object.
      */
     List<String> getAllPackageMatches(InetAddress ipAddr);
-    
+
     boolean isAutoDiscoveryEnabled();
 
     boolean isVlanDiscoveryEnabled();
@@ -128,7 +128,7 @@ public interface LinkdConfig {
      * @return a {@link java.util.Enumeration} object.
      */
     Enumeration<Package> enumeratePackage();
-    
+
     /**
      * <p>getPackage</p>
      *
@@ -238,7 +238,7 @@ public interface LinkdConfig {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     void reload() throws IOException, MarshalException, ValidationException;
-    
+
     /**
      * <p>save</p>
      *
@@ -256,7 +256,7 @@ public interface LinkdConfig {
      * <p>urlIpMap<p>
      * <p>IpRouteClassNameMap<p>
      * <p>VlanClassNameMap<p>
-     * 
+     *
      */
     void update();
 
@@ -265,8 +265,8 @@ public interface LinkdConfig {
      *
      * @return a {@link org.opennms.netmgt.config.linkd.LinkdConfiguration} object.
      */
-    LinkdConfiguration getConfiguration();    
-    
+    LinkdConfiguration getConfiguration();
+
     /**
      * <p>getVlanClassName</p>
      *
@@ -274,7 +274,7 @@ public interface LinkdConfig {
      * @return a {@link java.lang.String} object.
      */
     String getVlanClassName(String sysoid);
-    
+
 	/**
 	 * <p>hasClassName</p>
 	 *
@@ -282,7 +282,7 @@ public interface LinkdConfig {
 	 * @return a boolean.
 	 */
     boolean hasClassName(String sysoid);
-    
+
     Lock getReadLock();
 
     Lock getWriteLock();

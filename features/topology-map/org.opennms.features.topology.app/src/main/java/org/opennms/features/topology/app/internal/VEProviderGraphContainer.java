@@ -41,16 +41,16 @@ import com.vaadin.data.Property;
 import com.vaadin.data.util.BeanItem;
 
 public class VEProviderGraphContainer implements GraphContainer, VertexListener, EdgeListener, ServiceListener {
-    
+
     @SuppressWarnings("serial")
     public class ScaleProperty implements Property<Double>, Property.ValueChangeNotifier{
         private Double m_scale;
         private Set<ValueChangeListener> m_listeners = new CopyOnWriteArraySet<Property.ValueChangeListener>();
-        
+
         public ScaleProperty(double scale) {
             m_scale = scale;
         }
-        
+
         @Override
         public void addListener(ValueChangeListener listener) {
             m_listeners.add(listener);
@@ -110,11 +110,11 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
 
         @Override
         public void setReadOnly(boolean newStatus) {
-            
+
         }
-        
+
     }
-    
+
     public class PseudoEdge extends AbstractEdge {
 
         public PseudoEdge(String namespace, String id, String styleName, Vertex source, Vertex target) {
@@ -136,11 +136,11 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     }
 
     public class VEGraph implements Graph {
-    	
+
     	private final Collection<Vertex> m_displayVertices;
     	private final Collection<Edge> m_displayEdges;
     	private final Layout m_layout;
-    	
+
         public VEGraph(Layout layout, Collection<Vertex> displayVertices,
 				Collection<Edge> displayEdges) {
 			m_displayVertices = displayVertices;
@@ -185,22 +185,22 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
 
         @Override
         public void visit(GraphVisitor visitor) throws Exception {
-        	
+
         	visitor.visitGraph(this);
-        	
+
         	for(Vertex v : m_displayVertices) {
         		visitor.visitVertex(v);
         	}
-        	
+
         	for(Edge e : m_displayEdges) {
         		visitor.visitEdge(e);
         	}
-        	
+
         	visitor.completeGraph(this);
         }
 
     }
-    
+
     private static final Logger s_log = LoggerFactory.getLogger(VEProviderGraphContainer.class);
 
     private int m_semanticZoomLevel = 0;
@@ -213,10 +213,10 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     private String m_userName;
     private String m_sessionId;
     private BundleContext m_bundleContext;
-    
+
     private final Layout m_layout;
     private VEGraph m_graph;
-    
+
     public VEProviderGraphContainer(GraphProvider graphProvider, ProviderManager providerManager) {
     	m_mergedGraphProvider = new MergingGraphProvider(graphProvider, providerManager);
     	m_layout = new DefaultLayout(this);
@@ -234,23 +234,23 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     public void setSemanticZoomLevel(int level) {
         int oldLevel = m_semanticZoomLevel;
         m_semanticZoomLevel = level;
-        
+
         if(oldLevel != m_semanticZoomLevel) {
             rebuildGraph();
         }
-        
+
     }
 
     @Override
     public double getScale() {
         return m_scaleProperty.getValue();
     }
-    
+
     @Override
     public Property<Double> getScaleProperty() {
         return m_scaleProperty;
     }
-    
+
     @Override
     public void setScale(double scale) {
         m_scaleProperty.setValue(scale);
@@ -261,7 +261,7 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
             m_layoutAlgorithm = layoutAlgorithm;
             redoLayout();
         }
-        
+
     }
 
     @Override
@@ -290,7 +290,7 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
         m_mergedGraphProvider.setBaseGraphProvider(graphProvider);
         rebuildGraph();
     }
-    
+
     @Override
     public void setStatusProvider(StatusProvider statusProvider) {
         m_statusProvider = statusProvider;
@@ -328,18 +328,18 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     }
 
     private void rebuildGraph() {
-    	
+
     	List<Vertex> displayVertices = new ArrayList<Vertex>();
-    	
+
     	for(Vertex v : m_mergedGraphProvider.getVertices()) {
     		int vzl = m_mergedGraphProvider.getSemanticZoomLevel(v);
     		if (vzl == getSemanticZoomLevel() || (vzl < getSemanticZoomLevel() && !m_mergedGraphProvider.hasChildren(v))) {
     			displayVertices.add(v);
 			}
     	}
-    	
-    	Set<Edge> displayEdges = new HashSet<Edge>(); 
-    	
+
+	Set<Edge> displayEdges = new HashSet<Edge>();
+
     	for(Edge e : m_mergedGraphProvider.getEdges()) {
     		VertexRef source = e.getSource().getVertex();
     		VertexRef target = e.getTarget().getVertex();
@@ -358,27 +358,27 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
 				displayEdges.add(pEdge);
 			}
     	}
-    	
+
     	m_graph = new VEGraph(m_layout, displayVertices, displayEdges);
-    	
+
     	fireGraphChanged();
-    	
+
     }
 
 	private String pseudoId(VertexRef displaySource, VertexRef displayTarget) {
 		String sourceId = displaySource.getNamespace()+":"+displaySource.getId();
 		String targetId = displayTarget.getNamespace() + ":" + displayTarget.getId();
-		
+
 		String a = sourceId.compareTo(targetId) < 0 ? sourceId : targetId;
 		String b = sourceId.compareTo(targetId) < 0 ? targetId : sourceId;
 
 		return "<" + a + ">-<" + b + ">";
 	}
-    
+
     private boolean refEquals(VertexRef a, VertexRef b) {
         return new RefComparator().compare(a, b) == 0;
     }
-    
+
     private Vertex getDisplayVertex(VertexRef vertexRef) {
     	int szl = getSemanticZoomLevel();
     	int vzl = m_mergedGraphProvider.getSemanticZoomLevel(vertexRef);
@@ -399,16 +399,16 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     public Criteria getCriteria(String namespace) {
     	return m_mergedGraphProvider.getCriteria(namespace);
     }
-    
+
     public void setBundleContext(final BundleContext bundleContext) {
         m_bundleContext = bundleContext;
     }
-    
+
     public void removeCriteria(Criteria criteria) {
         m_mergedGraphProvider.removeCriteria(criteria);
         rebuildGraph();
     }
-    
+
     @Override
     public void setCriteria(Criteria criteria) {
     	m_mergedGraphProvider.setCriteria(criteria);
@@ -439,7 +439,7 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
 		}
 		return processed;
 	}
-	
+
 	public void addRefTreeToSet(VertexRef vertexId, Set<VertexRef> processed) {
 		processed.add(vertexId);
 
@@ -498,10 +498,10 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
     public String getSessionId() {
         return m_sessionId;
     }
-    
+
     public void setSessionId(String sessionId) {
         m_sessionId = sessionId;
-        
+
         try {
             m_bundleContext.removeServiceListener(this);
             m_bundleContext.addServiceListener(this, "(&(objectClass=org.opennms.features.topology.api.topo.Criteria)(sessionId=" + m_sessionId + "))");
@@ -521,12 +521,12 @@ public class VEProviderGraphContainer implements GraphContainer, VertexListener,
             criteria = m_bundleContext.getService(serviceReference);
             setCriteria(criteria);
             break;
-            
+
             case ServiceEvent.UNREGISTERING:
             serviceReference = (ServiceReference<Criteria>) event.getServiceReference();
             criteria = m_bundleContext.getService(serviceReference);
             removeCriteria(criteria);
-            break;                        
+            break;
         }
     }
 }

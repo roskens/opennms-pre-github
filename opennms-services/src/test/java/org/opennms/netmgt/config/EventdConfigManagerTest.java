@@ -48,5 +48,5 @@ public class EventdConfigManagerTest {
 		EventdConfigManager manager = new EventdConfigManager(ConfigurationTestUtils.getInputStreamForConfigFile("eventd-configuration.xml"));
 		assertEquals("Queue length should be Integer.MAX_VALUE", Integer.MAX_VALUE, manager.getQueueLength());
 	}
-	
+
 }

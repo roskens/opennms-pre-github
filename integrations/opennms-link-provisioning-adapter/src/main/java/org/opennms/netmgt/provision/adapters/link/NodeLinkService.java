@@ -40,7 +40,7 @@ import org.opennms.netmgt.model.OnmsLinkState;
  * @version $Id: $
  */
 public interface NodeLinkService {
-    
+
     /**
      * <p>getNodeLabel</p>
      *

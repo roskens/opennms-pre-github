@@ -39,7 +39,7 @@ public class ContextMenuBuilder extends MenuBuilder<Command, TopoContextMenuItem
 
 	public TopoContextMenu get() {
 		TopoContextMenu cMenu = new TopoContextMenu();
-        
+
         Set<Entry<String, Object>> sortedEntrySet = getSortedMenuItems();
         for(Entry<String, Object> entry : sortedEntrySet) {
             if(entry.getValue() instanceof Map<?,?>) {
@@ -49,11 +49,11 @@ public class ContextMenuBuilder extends MenuBuilder<Command, TopoContextMenuItem
                 OperationCommand command = (OperationCommand) entry.getValue();
                 cMenu.addItem(entry.getKey(), command.getOperation());
             }
-            
+
         }
         return cMenu;
 	}
-	
+
 	@Override
 	protected void addMenuItems(TopoContextMenuItem subMenu, Map<String, Object> value) {
 
@@ -71,10 +71,10 @@ public class ContextMenuBuilder extends MenuBuilder<Command, TopoContextMenuItem
 	                subMenu.addItem(removeLabelProperties(commandKey), cmd.getOperation());
 	            }
 	        }
-	        
+
 	    }
 	}
 
 
-	
+
 }

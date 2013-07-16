@@ -40,12 +40,12 @@ public class IconConfigManagerTest {
     public void testParseConfig() {
         Dictionary<String,Object> props = new Hashtable<String,Object>();
         props.put("type1", "file1.png");
-        
+
         IconRepositoryManager iconManager = new IconRepositoryManager();
         iconManager.updateIconConfig(props);
-        
+
         assertEquals("file1.png", iconManager.findIconUrlByKey("type1"));
     }
-    
+
 
 }

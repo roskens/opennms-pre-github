@@ -8,7 +8,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class OnmsGeolocation implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3859935145186027524L;
 

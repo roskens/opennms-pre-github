@@ -48,7 +48,7 @@ public class CreateIndexWithWhereStatement extends CreateIndexStatement
 	public String getWhere() {
 		return m_where;
 	}
-	
+
 	public CreateIndexWithWhereStatement setWhere(final String where) {
 		m_where = where;
 		return this;

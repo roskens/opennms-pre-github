@@ -38,9 +38,9 @@ import org.smslib.AGateway;
  * @version $Id: $
  */
 public class GatewayGroupImpl implements GatewayGroup {
-	
+
 	private AGateway[] m_gateways;
-	
+
 	/**
 	 * <p>setGateways</p>
 	 *
@@ -49,7 +49,7 @@ public class GatewayGroupImpl implements GatewayGroup {
 	public void setGateways(AGateway[] gateways){
 		m_gateways = gateways;
 	}
-	
+
 	/**
 	 * <p>getGateways</p>
 	 *

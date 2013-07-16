@@ -52,9 +52,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.PlatformTransactionManager;
 
 public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterface, Integer>  implements AtInterfaceDao {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AtInterfaceDaoHibernate.class);
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
 
@@ -70,7 +70,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 	    final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.type", "D"));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
         	iface.setStatus(StatusType.DELETED);
         	saveOrUpdate(iface);
@@ -83,7 +83,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         criteria.add(Restrictions.eq("sourceNodeId", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.eq("status", StatusType.ACTIVE));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
             iface.setStatus(StatusType.INACTIVE);
             saveOrUpdate(iface);
@@ -96,7 +96,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         criteria.add(Restrictions.eq("sourceNodeId", nodeid));
         criteria.add(Restrictions.lt("lastPollTime", scanTime));
         criteria.add(Restrictions.not(Restrictions.eq("status", StatusType.ACTIVE)));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
             delete(iface);
         }
@@ -120,7 +120,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
 
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.add(Restrictions.or(Restrictions.eq("node.id", nodeid), Restrictions.eq("sourceNodeId", nodeid)));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
             iface.setStatus(action);
             saveOrUpdate(iface);
@@ -130,12 +130,12 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
     @Override
     public void setStatusForNodeAndIp(final Integer nodeid, final String ipAddr, final StatusType action) {
         // ps = dbConn.prepareStatement("UPDATE atinterface set status = ?  WHERE nodeid = ? AND ipaddr = ?");
-        
+
         final OnmsCriteria criteria = new OnmsCriteria(OnmsAtInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.eq("ipAddress", ipAddr));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
             iface.setStatus(action);
             saveOrUpdate(iface);
@@ -150,7 +150,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeid));
         criteria.add(Restrictions.eq("ifIndex", ifIndex));
-        
+
         for (final OnmsAtInterface iface : findMatching(criteria)) {
             iface.setStatus(action);
             saveOrUpdate(iface);
@@ -165,7 +165,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.eq("ipAddress", ipAddress));
         criteria.add(Restrictions.eq("macAddress", macAddress));
-        
+
         final List<OnmsAtInterface> ifaces = findMatching(criteria);
         if (ifaces.size() == 0) {
             return null;
@@ -174,7 +174,7 @@ public class AtInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsAtInterfac
         }
         */
         final String addressString = str(ipAddress);
-        return 
+        return
         	findUnique("from OnmsAtInterface atInterface where atInterface.node.id = ? and atInterface.ipAddress = ? and atInterface.macAddress = ?", nodeId,addressString,macAddress);
     }
 

@@ -182,7 +182,7 @@ public class GWTMarkerState implements IsSerializable, Serializable {
 		sb.append(".png");
 		return sb.toString();
     }
-	
+
 	/**
 	 * <p>toString</p>
 	 *
@@ -207,7 +207,7 @@ public class GWTMarkerState implements IsSerializable, Serializable {
     public boolean isWithinBounds(GWTBounds bounds) {
         return bounds.contains(getLatLng());
     }
-    
+
         @Override
     public boolean equals(final Object o) {
         if (o != null && o instanceof GWTMarkerState) {
@@ -223,7 +223,7 @@ public class GWTMarkerState implements IsSerializable, Serializable {
             m_dirty = false;
         }
     }
-    
+
     private boolean isEquals(Object a, Object b) {
         return a == null ? b == null : a.equals(b);
     }

@@ -36,14 +36,14 @@ public class OspfNbrTableEntry extends SnmpStore {
     public final static String OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS = "ospfNbrAddressLessIndex";
     public final static String OSPF_NBR_ROUTERID_ALIAS = "ospfNbrRtrId";
     public final static String OSPF_NBR_STATE_ALIAS = "ospfNbrState";
-    
+
     public final static String OSPF_NBR_IPADDRESS_ALIAS_OID       = ".1.3.6.1.2.1.14.10.1.1";
     public final static String OSPF_NBR_ADDRESS_LESS_INDEX_OID    = ".1.3.6.1.2.1.14.10.1.2";
     public final static String OSPF_NBR_ROUTERID_OID              = ".1.3.6.1.2.1.14.10.1.3";
     public final static String OSPF_NBR_STATE_OID                 = ".1.3.6.1.2.1.14.10.1.6";
 
-    public final static Integer OSPF_NBR_STATE_DOWN = 1; 
-    public final static Integer OSPF_NBR_STATE_ATTEMPT = 2;    
+    public final static Integer OSPF_NBR_STATE_DOWN = 1;
+    public final static Integer OSPF_NBR_STATE_ATTEMPT = 2;
     public final static Integer OSPF_NBR_STATE_INIT = 3;
     public final static Integer OSPF_NBR_STATE_TWOWAY = 4;
     public final static Integer OSPF_NBR_STATE_EXCHANGESTART = 5;
@@ -52,7 +52,7 @@ public class OspfNbrTableEntry extends SnmpStore {
     public final static Integer OSPF_NBR_STATE_FULL = 8;
 
     public static final NamedSnmpVar[] ospfnbrtable_elemList = new NamedSnmpVar[] {
-        
+
         /**
          * <p>
          * "The IP address this neighbor is using  in  its
@@ -62,7 +62,7 @@ public class OspfNbrTableEntry extends SnmpStore {
          * </p>
         */
         new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS, OSPF_NBR_IPADDRESS_ALIAS, OSPF_NBR_IPADDRESS_ALIAS_OID, 1),
-        
+
         /**
          * <p>
          * "On an interface having an  IP  Address,  zero.
@@ -96,7 +96,7 @@ public class OspfNbrTableEntry extends SnmpStore {
          *      loading (7),
          *      full (8)
          *      }
-         *      
+         *
          *      "The State of the relationship with this Neigh-
          *      bor."
          *      </p>
@@ -104,9 +104,9 @@ public class OspfNbrTableEntry extends SnmpStore {
         new NamedSnmpVar(NamedSnmpVar.SNMPINT32, OSPF_NBR_STATE_ALIAS, OSPF_NBR_STATE_OID, 4),
 
     };
-    
+
     public static final String TABLE_OID = ".1.3.6.1.2.1.14.7.1"; // start of table (GETNEXT)
-    
+
     public OspfNbrTableEntry() {
         super(ospfnbrtable_elemList);
     }
@@ -122,7 +122,7 @@ public class OspfNbrTableEntry extends SnmpStore {
     public Integer getOspfNbrAddressLessIndex() {
         return getInt32(OSPF_NBR_ADDRESS_LESS_INDEX_ALIAS);
     }
-    
+
     public Integer getOspfNbrState() {
         return getInt32(OSPF_NBR_STATE_ALIAS);
     }

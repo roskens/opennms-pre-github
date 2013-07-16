@@ -44,7 +44,7 @@ import org.springframework.util.Assert;
 public class AttributeMatchingResourceVisitor implements ResourceVisitor, InitializingBean {
     private AttributeVisitor m_attributeVisitor;
     private String m_attributeMatch;
-    
+
     /** {@inheritDoc} */
     @Override
     public void visit(OnmsResource resource) {

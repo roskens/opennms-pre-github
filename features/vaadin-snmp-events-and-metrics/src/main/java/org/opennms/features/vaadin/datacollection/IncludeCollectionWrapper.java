@@ -31,8 +31,8 @@ import org.opennms.netmgt.config.datacollection.IncludeCollection;
 
 /**
  * The Class Include Collection Wrapper.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class IncludeCollectionWrapper {
 

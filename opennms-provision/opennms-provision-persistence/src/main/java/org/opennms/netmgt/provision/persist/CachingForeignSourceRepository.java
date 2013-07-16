@@ -97,7 +97,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 			m_readLock.unlock();
 		}
 	}
-	
+
 	protected void readLock() {
 		m_readLock.lock();
 	}
@@ -105,7 +105,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 	protected void cleanCache() {
 		getRefreshRunnable().run();
 	}
-	
+
 	protected Runnable getRefreshRunnable() {
 		return new Runnable() {
 			@Override
@@ -115,7 +115,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 
 					// clear foreign source name cache
 					m_foreignSourceNames = null;
-					
+
 					// clear the foreign source cache
 					if (m_dirtyForeignSources.size() > 0) {
 						for (final String dirtyForeignSource : m_dirtyForeignSources) {
@@ -154,7 +154,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 	public ForeignSourceRepository getForeignSourceRepository() {
 		return m_foreignSourceRepository;
 	}
-	
+
 	public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
 		m_foreignSourceRepository = fsr;
 	}
@@ -163,7 +163,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 	public void afterPropertiesSet() {
 		Assert.notNull(m_foreignSourceRepository);
 	}
-	
+
 	@Override
 	public Set<String> getActiveForeignSourceNames() {
 		readLock();
@@ -320,7 +320,7 @@ public class CachingForeignSourceRepository extends AbstractForeignSourceReposit
 			readUnlock();
 		}
 	}
-	
+
 	@Override
 	public Requisition importResourceRequisition(final Resource resource) throws ForeignSourceRepositoryException {
 		readLock();

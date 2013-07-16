@@ -39,15 +39,15 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author brozow
  */
 public abstract class AbstractEventForwarder implements EventForwarder, Runnable {
-    
+
     BlockingQueue<NNMEvent> m_queue = new LinkedBlockingQueue<NNMEvent>();
     Thread m_thread;
-    
+
     public AbstractEventForwarder() {
         m_thread = new Thread(this, "EventForwarderThread");
         m_thread.start();
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.opennmsd.EventForwarder#accept(org.opennms.opennmsd.NNMEvent)
      */
@@ -70,25 +70,25 @@ public abstract class AbstractEventForwarder implements EventForwarder, Runnable
     }
 
     public void run() {
-        
+
         try {
 
             while(true) {
                 NNMEvent event = (NNMEvent)m_queue.take();
-                
+
                 List<NNMEvent> events = new LinkedList<NNMEvent>();
                 events.add(event);
-            
+
                 m_queue.drainTo(events);
-            
+
                 forwardEvents(events);
-            
+
             }
-        
+
         } catch (InterruptedException e) {
             // thread interrupted so complete it
         }
-        
+
     }
 
     protected abstract void forwardEvents(List<NNMEvent> events);

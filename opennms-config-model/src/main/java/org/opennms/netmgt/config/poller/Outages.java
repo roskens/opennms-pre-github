@@ -54,7 +54,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Top-level element for the poll-outages.xml configuration file.
- * 
+ *
  */
 
 @XmlRootElement(name="outages", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
@@ -77,7 +77,7 @@ public class Outages implements Serializable {
 
     /**
      * Adds a new Scheduled Outage
-     * 
+     *
      * @param vOutage
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -88,7 +88,7 @@ public class Outages implements Serializable {
 
     /**
      * Adds a new Scheduled Outage
-     * 
+     *
      * @param index
      * @param vOutage
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -100,7 +100,7 @@ public class Outages implements Serializable {
 
     /**
      * Method enumerateOutage.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -110,7 +110,7 @@ public class Outages implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -124,7 +124,7 @@ public class Outages implements Serializable {
             Outages temp = (Outages)obj;
             if (this._outageList != null) {
                 if (temp._outageList == null) return false;
-                else if (!(this._outageList.equals(temp._outageList))) 
+                else if (!(this._outageList.equals(temp._outageList)))
                     return false;
             }
             else if (temp._outageList != null)
@@ -136,7 +136,7 @@ public class Outages implements Serializable {
 
     /**
      * Method getOutage.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -158,7 +158,7 @@ public class Outages implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Outage[] getOutage() {
@@ -170,7 +170,7 @@ public class Outages implements Serializable {
      * Method getOutageCollection.Returns a reference to
      * '_outageList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Outage> getOutageCollection() {
@@ -179,7 +179,7 @@ public class Outages implements Serializable {
 
     /**
      * Method getOutageCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getOutageCount() {
@@ -191,7 +191,7 @@ public class Outages implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
@@ -207,7 +207,7 @@ public class Outages implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -222,7 +222,7 @@ public class Outages implements Serializable {
 
     /**
      * Method iterateOutage.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -231,8 +231,8 @@ public class Outages implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -245,8 +245,8 @@ public class Outages implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -268,7 +268,7 @@ public class Outages implements Serializable {
 
     /**
      * Method removeOutage.
-     * 
+     *
      * @param vOutage
      * @return true if the object was removed from the collection.
      */
@@ -279,7 +279,7 @@ public class Outages implements Serializable {
 
     /**
      * Method removeOutageAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -288,8 +288,8 @@ public class Outages implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vOutage
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -305,8 +305,8 @@ public class Outages implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vOutageArray
      */
     public void setOutage(final Outage[] vOutageArray) {
@@ -321,7 +321,7 @@ public class Outages implements Serializable {
     /**
      * Sets the value of '_outageList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vOutageList the Vector to copy.
      */
     public void setOutage(final List<Outage> vOutageList) {
@@ -335,7 +335,7 @@ public class Outages implements Serializable {
      * Sets the value of '_outageList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param outageList the Vector to set.
      */
     public void setOutageCollection(final List<Outage> outageList) {
@@ -344,7 +344,7 @@ public class Outages implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -359,8 +359,8 @@ public class Outages implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

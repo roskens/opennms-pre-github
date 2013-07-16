@@ -50,7 +50,7 @@ public class LinkInfo {
     String status;
 
 
-	
+
 	LinkInfo(int id, int nodeid, int ifindex, int nodeparentid, int parentifindex, int snmpiftype, long snmpifspeed, int snmpifoperstatus, int snmpifadminstatus, String status, int linktypeid) {
 		super();
 		this.id = id;
@@ -65,18 +65,18 @@ public class LinkInfo {
         this.status = status;
         this.linktypeid = linktypeid;
 	}
-	
+
 	/** {@inheritDoc} */
     @Override
 	public boolean equals(Object obj) {
 		if (obj instanceof LinkInfo ) {
 			LinkInfo ol = (LinkInfo) obj;
-			return 
+			return
 			(ol.id == this.id);
-		} 
+		}
 		return false;
 	}
-	
+
 	/**
 	 * <p>hashCode</p>
 	 *

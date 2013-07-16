@@ -48,7 +48,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * DataCollectionConfigParserTest
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DataCollectionConfigParserTest {
@@ -75,7 +75,7 @@ public class DataCollectionConfigParserTest {
 
         // Validate default datacollection content
         Assert.assertEquals(0, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
 
@@ -85,7 +85,7 @@ public class DataCollectionConfigParserTest {
         parser.parseCollection(collection);
 
         // Validate SNMP Collection
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
     }
@@ -99,7 +99,7 @@ public class DataCollectionConfigParserTest {
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(49, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
 
@@ -121,7 +121,7 @@ public class DataCollectionConfigParserTest {
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(12, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertEquals(1, collection.getSystems().getSystemDefCount());
         Assert.assertEquals(1, collection.getGroups().getGroupCount());
 
@@ -143,7 +143,7 @@ public class DataCollectionConfigParserTest {
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(1, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
 
@@ -165,7 +165,7 @@ public class DataCollectionConfigParserTest {
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(1, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
 
@@ -187,7 +187,7 @@ public class DataCollectionConfigParserTest {
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(2, collection.getIncludeCollectionCount());
-        Assert.assertEquals(0, collection.getResourceTypeCount()); 
+        Assert.assertEquals(0, collection.getResourceTypeCount());
         Assert.assertNull(collection.getSystems());
         Assert.assertNull(collection.getGroups());
 
@@ -205,7 +205,7 @@ public class DataCollectionConfigParserTest {
         // Create DatacollectionConfig
         Resource resource = new InputStreamResource(this.getClass().getResourceAsStream("datacollection-config-hybrid-precedence.xml"));
         DatacollectionConfig config = CastorUtils.unmarshal(DatacollectionConfig.class, resource, false);
-        
+
         // Validate default datacollection content
         SnmpCollection collection = config.getSnmpCollection(0);
         Assert.assertEquals(1, collection.getIncludeCollectionCount());

@@ -62,11 +62,11 @@ public class CollectdConfigFactoryTest {
         db.populate(network);
 
         DataSourceFactory.setInstance(db);
-        
+
         FilterDaoFactory.getInstance();
 
         InputStream in = ConfigurationTestUtils.getInputStreamForResource(this, "collectd-testdata.xml");
-        
+
         try {
             m_factory = new CollectdConfigFactory(in, "localhost", false);
         } finally {

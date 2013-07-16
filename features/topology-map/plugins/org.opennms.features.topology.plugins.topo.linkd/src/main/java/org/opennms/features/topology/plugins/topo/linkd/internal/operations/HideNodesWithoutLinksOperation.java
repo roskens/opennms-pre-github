@@ -54,7 +54,7 @@ public class HideNodesWithoutLinksOperation extends AbstractCheckedOperation {
 		}
 		return null;
 	}
-	
+
 	private void execute(GraphContainer container) {
 		LoggerFactory.getLogger(this.getClass()).debug("switched addNodeWithoutLinks to: " + !m_topologyProvider.isAddNodeWithoutLink());
 		m_topologyProvider.setAddNodeWithoutLink(!m_topologyProvider.isAddNodeWithoutLink());

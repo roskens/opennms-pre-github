@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:mike@opennms.org">Mike Davidson </a>
  */
 public class AlphaNumeric extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AlphaNumeric.class);
 
     /**

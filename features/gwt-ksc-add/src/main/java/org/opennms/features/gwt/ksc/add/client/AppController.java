@@ -49,7 +49,7 @@ public class AppController implements Presenter {
         m_reports = kscReports;
         m_graphInfo = graphInfo;
     }
-    
+
     @Override
     public void go(final HasWidgets container) {
         m_container = container;

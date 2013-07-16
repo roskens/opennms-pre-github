@@ -46,42 +46,42 @@ import com.jaspersoft.ireport.designer.IReportConnection;
 import com.jaspersoft.ireport.designer.data.ReportQueryDialog;
 
 public class JRobinFieldsProvider implements FieldsProvider  {
-    
-    
+
+
     Pattern m_pattern = Pattern.compile("(?s)XPORT+.*?:+.*?:([a-z,A-Z]+.*?)");
-    
+
     public String designQuery(IReportConnection reportConnection, String arg1, ReportQueryDialog arg2) throws JRException, UnsupportedOperationException {
-        
+
         return null;
     }
 
     public FieldsProviderEditor getEditorComponent(ReportQueryDialog dialog) {
-        
+
         return null;
     }
 
     public JRField[] getFields(IReportConnection irConn, JRDataset reportDataset, Map parameters) throws JRException, UnsupportedOperationException {
         String query = "";
-        
+
         if(reportDataset.getQuery() == null || reportDataset.getQuery().getText() == null || reportDataset.getQuery().getText().length() == 0) {
             return new JRField[0];
         }
-        
+
         List<JRField> fields = new ArrayList<JRField>();
-        
+
         //Add timestamp field
         addTimestampField(fields);
-        
+
         query = reportDataset.getQuery().getText();
-        
+
         if(query.contains("--step")) {
             addStepField(fields);
         }
-        
-        
+
+
         Matcher matcher = m_pattern.matcher(query);
         boolean matchFound = matcher.find();
-        
+
         int i =0;
         while(matchFound) {
             JRDesignField field = new JRDesignField();
@@ -98,9 +98,9 @@ public class JRobinFieldsProvider implements FieldsProvider  {
             matchFound = matcher.find();
             i++;
         }
-        
+
         System.out.println("match count: " + matcher.groupCount());
-        
+
         return fields.toArray(new JRField[fields.size()]);
     }
 
@@ -110,7 +110,7 @@ public class JRobinFieldsProvider implements FieldsProvider  {
         field.setDescription("Step");
         field.setValueClass(Integer.class);
         fields.add(field);
-        
+
     }
 
   private void addTimestampField(List<JRField> fields) {

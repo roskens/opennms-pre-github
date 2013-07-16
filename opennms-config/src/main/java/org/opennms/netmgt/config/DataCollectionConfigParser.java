@@ -58,7 +58,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 
 /**
  * DataCollectionConfigParser
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 // FIXME How to deal with duplications outside snmp-collection boundaries? That make sense?; for example: check externalGroupsMap?
@@ -66,23 +66,23 @@ import org.springframework.dao.DataAccessResourceFailureException;
 // FIXME How to apply rules about duplicates? Just warn?, Override?, Override with priorities? Silent ignore?
 public class DataCollectionConfigParser {
     private static final Logger LOG = LoggerFactory.getLogger(DataCollectionConfigParser.class);
-    
+
     private String configDirectory;
-    
+
     private final Map<String,DatacollectionGroup> externalGroupsMap;
-    
+
     public DataCollectionConfigParser(String configDirectory) {
         this.configDirectory = configDirectory;
         this.externalGroupsMap = new ConcurrentHashMap<String, DatacollectionGroup>();
     }
-    
+
     protected Map<String,DatacollectionGroup> getExternalGroupMap() {
         return Collections.unmodifiableMap(externalGroupsMap);
     }
-    
+
     /**
      * Update/Validate SNMP collection.
-     * 
+     *
      * @param collection
      */
     public void parseCollection(SnmpCollection collection) {
@@ -107,10 +107,10 @@ public class DataCollectionConfigParser {
             LOG.info("parse: SNMP collection {} doesn't have any external reference.", collection.getName());
         }
     }
-    
+
     /**
      * Get all configured resource types.
-     * 
+     *
      * @return the resource type list
      */
     public Set<ResourceType> getAllResourceTypes() {
@@ -127,7 +127,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Verify the sub-groups of SNMP collection.
-     * 
+     *
      * @param collection
      */
     private void checkCollection(SnmpCollection collection) {
@@ -140,10 +140,10 @@ public class DataCollectionConfigParser {
     /**
      * Verify if the resourceTypes list contains a specific resourceType.
      * <p>One resource type will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param resourceType
-     * 
+     *
      * @return true, if the list contains the resourceType
      */
     private boolean contains(Collection<ResourceType> resourceTypes, ResourceType resourceType) {
@@ -153,11 +153,11 @@ public class DataCollectionConfigParser {
         }
         return false;
     }
-    
+
     /**
      * Verify if the groups list contains a specific group.
      * <p>One group will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param group
      * @return true, if the list contains the mib object group
@@ -169,14 +169,14 @@ public class DataCollectionConfigParser {
         }
         return false;
     }
-    
+
     /**
      * Verify if the systemDefs list contains a specific system definition.
      * <p>One system definition will be considered the same as another one, if they have the same name.</p>
-     * 
+     *
      * @param globalContainer
      * @param systemDef
-     * 
+     *
      * @return true, if the list contains the system definition
      */
     // TODO Include sysoid and sysoidMask on validation process
@@ -197,14 +197,14 @@ public class DataCollectionConfigParser {
             LOG.info("parseExternalResources: external data collection groups are already parsed");
             return;
         }
-        
+
         // Check configuration files repository
         File folder = new File(configDirectory);
         if (!folder.exists() || !folder.isDirectory()) {
             LOG.info("parseExternalResources: directory {} does not exist or is not a folder.", folder);
             return;
         }
-        
+
         // Get external configuration files
         File[] listOfFiles = folder.listFiles(new FilenameFilter() {
             @Override
@@ -212,7 +212,7 @@ public class DataCollectionConfigParser {
                 return name.endsWith(".xml");
             }
         });
-        
+
         // Parse configuration files (populate external groups map)
         final CountDownLatch latch = new CountDownLatch(listOfFiles.length);
         int i = 0;
@@ -246,7 +246,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Get a system definition from datacollection-group map.
-     * 
+     *
      * @param systemDefName the systemDef object name.
      * @return the systemDef object.
      */
@@ -263,7 +263,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Get a MIB object group from datacollection-group map.
-     * 
+     *
      * @param groupName the group name
      * @return the group object
      */
@@ -280,7 +280,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Add a specific system definition into a SNMP collection.
-     * 
+     *
      * @param collection the target SNMP collection object.
      * @param systemDefName the system definition name.
      */
@@ -316,7 +316,7 @@ public class DataCollectionConfigParser {
 
     /**
      * Add all system definitions defined on a specific data collection group, into a SNMP collection.
-     * 
+     *
      * @param collection the target SNMP collection object.
      * @param dataCollectionGroupName the data collection group name.
      * @param excludeList the list of regular expression to exclude certain system definitions.
@@ -359,7 +359,7 @@ public class DataCollectionConfigParser {
             throw new DataAccessResourceFailureException(msg);
         } else {
             LOG.error(msg, e);
-            throw new DataAccessResourceFailureException(msg, e);            
+            throw new DataAccessResourceFailureException(msg, e);
         }
     }
 }

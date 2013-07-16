@@ -48,7 +48,7 @@ public class TimeoutTracker {
     private final long m_timeoutInMillis;
     private final long m_timeoutInSeconds;
     private final boolean m_strictTimeouts;
-    
+
     private int m_attempt = 0;
     private long m_nextRetryTimeNanos = -1L;
     private long m_attemptStartTimeNanos = -1L;
@@ -70,7 +70,7 @@ public class TimeoutTracker {
 
 
         m_strictTimeouts = ParameterMap.getKeyedBoolean(parameters, "strict-timeout", false);
-        
+
         resetAttemptStartTime();
 
     }
@@ -83,7 +83,7 @@ public class TimeoutTracker {
     public boolean shouldRetry() {
         return m_attempt <= m_retry;
     }
-    
+
     /**
      * <p>getTimeoutInMillis</p>
      *
@@ -92,7 +92,7 @@ public class TimeoutTracker {
     public long getTimeoutInMillis() {
         return m_timeoutInMillis;
     }
-    
+
     /**
      * <p>getTimeoutInSeconds</p>
      *
@@ -101,7 +101,7 @@ public class TimeoutTracker {
     public long getTimeoutInSeconds() {
         return m_timeoutInSeconds;
     }
-    
+
 
     /**
      * <p>reset</p>
@@ -161,7 +161,7 @@ public class TimeoutTracker {
             throw new IllegalStateException("Failed to call startAttempt before requesting elapsedTime.. This is most likely a bug");
         }
     }
-    
+
     /**
      * <p>elapsedTimeInMillis</p>
      *
@@ -170,7 +170,7 @@ public class TimeoutTracker {
     public double elapsedTimeInMillis() {
         return convertFromNanos(elapsedTimeNanos(), TimeUnit.MILLISECONDS);
     }
-    
+
     /**
      * <p>elapsedTimeNanos</p>
      *
@@ -181,7 +181,7 @@ public class TimeoutTracker {
         assertStarted();
         return nanoTime - m_attemptStartTimeNanos;
     }
-    
+
     /**
      * <p>elapsedTime</p>
      *
@@ -196,7 +196,7 @@ public class TimeoutTracker {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
         return nanos/nanosPerUnit;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -215,7 +215,7 @@ public class TimeoutTracker {
     public int getSoTimeout() {
         return (int)getTimeoutInMillis();
     }
-    
+
     /**
      * <p>getConnectionTimeout</p>
      *
@@ -224,7 +224,7 @@ public class TimeoutTracker {
     public int getConnectionTimeout() {
         return (int)getTimeoutInMillis();
     }
-    
+
 
 
 }

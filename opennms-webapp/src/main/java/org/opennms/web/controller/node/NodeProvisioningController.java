@@ -51,7 +51,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class NodeProvisioningController extends AbstractController implements
         InitializingBean {
     private NodeProvisionService m_nodeProvisionService;
-    
+
     private String m_successView;
     private String m_redirectView;
 
@@ -64,7 +64,7 @@ public class NodeProvisioningController extends AbstractController implements
     @Transactional
     @Override
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
 
         String action        = request.getParameter("actionCode");

@@ -49,7 +49,7 @@ public class ReportsPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("Key SNMP Customized"));
         assertTrue(selenium.isTextPresent("Name contains"));
     }
-     
+
     @Test
     public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("link=Resource Graphs"));
@@ -57,7 +57,7 @@ public class ReportsPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isElementPresent("link=Database Reports"));
         assertTrue(selenium.isElementPresent("link=Statistics Reports"));
     }
-        
+
      @Test
      public void testAllFormsArePresent() {
         assertTrue(selenium.isElementPresent("css=input[type=submit]"));
@@ -76,7 +76,7 @@ public class ReportsPageTest extends OpenNMSSeleniumTestCase {
     	 selenium.waitForPageToLoad("300000");
     	 selenium.goBack();
      }
-     
+
       @Test
       public void testAllLinks() {
         selenium.click("link=Resource Graphs");
@@ -105,7 +105,7 @@ public class ReportsPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isElementPresent("link=View and manage pre-run reports"));
         assertTrue(selenium.isElementPresent("link=Manage the batch report schedule"));
         selenium.goBack();
-        
+
         waitForPageToLoad();
         selenium.click("link=Statistics Reports");
         waitForPageToLoad();

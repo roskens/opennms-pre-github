@@ -40,7 +40,7 @@ public class MarkerClusterGroup extends FeatureGroup {
 
     @Override
     public MarkerClusterGroup bindPopup(final String htmlContent, final Options options) {
-        MarkerClusterGroupImpl.bindPopup(getJSObject(), htmlContent, options.getJSObject());   
+        MarkerClusterGroupImpl.bindPopup(getJSObject(), htmlContent, options.getJSObject());
         return this;
     }
 

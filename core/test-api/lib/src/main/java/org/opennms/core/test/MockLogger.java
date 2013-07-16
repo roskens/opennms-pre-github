@@ -173,7 +173,7 @@ public class MockLogger extends MarkerIgnoringBase {
     /**
      * Package access allows only {@link MockLoggerFactory} to instantiate
      * MockLogger instances.
-     * @param appender 
+     * @param appender
      */
     MockLogger(String name) {
         if (!INITIALIZED) {

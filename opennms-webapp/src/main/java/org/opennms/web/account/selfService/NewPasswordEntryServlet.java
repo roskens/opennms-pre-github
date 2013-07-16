@@ -58,14 +58,14 @@ public class NewPasswordEntryServlet extends HttpServlet {
     @Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession userSession = request.getSession(false);
-		
+
 		try {
             UserFactory.init();
         } catch (Throwable e) {
             throw new ServletException("NewPasswordEntryServlet: Error initialising user factory." + e);
         }
         UserManager userFactory = UserFactory.getInstance();
-        
+
         if (userSession != null) {
             String userid = request.getRemoteUser();
             try {

@@ -48,12 +48,12 @@ import org.springframework.util.Assert;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class BroadcastEventProcessor implements EventListener, InitializingBean, DisposableBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
-	
+
     private final EventIpcManager m_eventMgr;
     private final TrapdIpMgr m_trapdIpMgr;
-    
+
     /**
      * <p>Constructor for BroadcastEventProcessor.</p>
      *
@@ -64,7 +64,7 @@ public final class BroadcastEventProcessor implements EventListener, Initializin
         m_eventMgr = eventMgr;
         m_trapdIpMgr = trapdIpMgr;
     }
-    
+
     /**
      * <p>getEventManager</p>
      *

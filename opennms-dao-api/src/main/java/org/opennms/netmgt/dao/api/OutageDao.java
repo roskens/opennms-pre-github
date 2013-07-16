@@ -54,7 +54,7 @@ public interface OutageDao extends OnmsDao<OnmsOutage, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsOutage> currentOutages();
-    
+
     /**
      * <p>matchingCurrentOutages</p>
      *
@@ -62,7 +62,7 @@ public interface OutageDao extends OnmsDao<OnmsOutage, Integer> {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsOutage> matchingCurrentOutages(ServiceSelector selector);
-    
+
     /**
      * <p>findAll</p>
      *

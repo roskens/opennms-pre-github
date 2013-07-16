@@ -63,7 +63,7 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
     public DefaultCapsdConfigManager() {
         super();
     }
-  
+
     /**
      * <p>Constructor for DefaultCapsdConfigManager.</p>
      *
@@ -86,12 +86,12 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
     @Override
     protected synchronized void update() throws IOException, FileNotFoundException, MarshalException, ValidationException {
         File configFile = ConfigFileConstants.getFile(ConfigFileConstants.CAPSD_CONFIG_FILE_NAME);
-        
+
         LOG.debug("Checking to see if capsd configuration should be reloaded from {}", configFile);
-        
+
         if (m_currentVersion < configFile.lastModified()) {
             LOG.debug("Reloading capsd configuration file");
-            
+
             long lastModified = configFile.lastModified();
 
             InputStream is = null;
@@ -103,9 +103,9 @@ public class DefaultCapsdConfigManager extends CapsdConfigManager {
                     IOUtils.closeQuietly(is);
                 }
             }
-            
+
             // Update currentVersion after we have successfully reloaded
-            m_currentVersion = lastModified; 
+            m_currentVersion = lastModified;
 
             LOG.info("Reloaded capsd configuration file");
         }

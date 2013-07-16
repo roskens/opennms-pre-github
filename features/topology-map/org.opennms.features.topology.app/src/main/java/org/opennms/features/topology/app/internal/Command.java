@@ -43,13 +43,13 @@ public interface Command {
     public abstract void undoCommand();
 
     public abstract String getMenuPosition();
-    
+
     public abstract String getContextMenuPosition();
 
     public abstract boolean isAction();
-    
+
     public abstract Action getAction();
-    
+
     public abstract Operation getOperation();
 
 }

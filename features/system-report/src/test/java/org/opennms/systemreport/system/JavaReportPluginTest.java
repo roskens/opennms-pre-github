@@ -103,7 +103,7 @@ public class JavaReportPluginTest {
         assertTrue(entries.containsKey("Name"));
         assertTrue(entries.containsKey("Distribution"));
     }
-    
+
     private boolean listContains(Class<? extends SystemReportPlugin> clazz) {
         for (final SystemReportPlugin p : m_plugins) {
             if (p.getClass().isAssignableFrom(clazz)) {
@@ -112,7 +112,7 @@ public class JavaReportPluginTest {
         }
         return false;
     }
-    
+
     private String getResourceText(final org.springframework.core.io.Resource r) {
         if (r instanceof ByteArrayResource) {
             return new String(((ByteArrayResource) r).getByteArray());

@@ -163,7 +163,7 @@ public class CapsdIntegrationTest implements TemporaryDatabaseAware<MockDatabase
 
     /**
      * Refactored from org.opennms.netmgt.capsd.ScanSuspectTest
-     * 
+     *
      * TODO: Add checks to this unit test to make sure that the suspect scan works correctly
      */
     @Test

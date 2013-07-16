@@ -65,7 +65,7 @@ public class BundleContextHistoryManager extends AbstractHistoryManager {
 	public synchronized String getHistoryForUser(String userId) {
 		return loadProperties(m_bundleContext).getProperty(userId);
 	}
-	
+
 	private static Properties loadProperties(BundleContext context) {
 		Properties props = new Properties();
 		try {

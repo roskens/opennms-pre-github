@@ -45,9 +45,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class NodeResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NodeResourceType.class);
-    
+
     /** Constant <code>s_emptyAttributeSet</code> */
     protected static final Set<OnmsAttribute> s_emptyAttributeSet = Collections.unmodifiableSet(new HashSet<OnmsAttribute>());
     protected ResourceDao m_resourceDao;
@@ -60,7 +60,7 @@ public class NodeResourceType implements OnmsResourceType {
     public NodeResourceType(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -92,7 +92,7 @@ public class NodeResourceType implements OnmsResourceType {
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
        public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
@@ -110,7 +110,7 @@ public class NodeResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnNode(int nodeId) {
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
        public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
@@ -122,7 +122,7 @@ public class NodeResourceType implements OnmsResourceType {
     public String getLinkForResource(OnmsResource resource) {
         return "element/node.jsp?node=" + resource.getName();
     }
-    
+
     /**
      * <p>createChildResource</p>
      *
@@ -137,16 +137,16 @@ public class NodeResourceType implements OnmsResourceType {
 
         return r;
     }
-    
-    
+
+
     private class NodeChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private int m_nodeId;
         private OnmsResource m_parent;
-        
+
         public NodeChildResourceLoader(int nodeId) {
             m_nodeId = nodeId;
         }
-        
+
         public void setParent(OnmsResource parent) {
             m_parent = parent;
         }
@@ -165,7 +165,7 @@ public class NodeResourceType implements OnmsResourceType {
 
             return children;
         }
-        
+
         private Collection<OnmsResourceType> getResourceTypesForNode(int nodeId) {
             Collection<OnmsResourceType> resourceTypes = new LinkedList<OnmsResourceType>();
             for (OnmsResourceType resourceType : m_resourceDao.getResourceTypes()) {
@@ -174,6 +174,6 @@ public class NodeResourceType implements OnmsResourceType {
                 }
             }
             return resourceTypes;
-        }   
+        }
     }
 }

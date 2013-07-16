@@ -53,7 +53,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class FormProcViewController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(FormProcViewController.class);
 
 
@@ -78,7 +78,7 @@ public class FormProcViewController extends AbstractController implements Initia
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         // Get Form Variables
-        int reportId = -1; 
+        int reportId = -1;
         String overrideTimespan = null;
         String overrideGraphType = null;
         String reportAction = WebSecurityUtils.sanitizeString(request.getParameter(Parameters.action.toString()));
@@ -92,7 +92,7 @@ public class FormProcViewController extends AbstractController implements Initia
         }
         if (reportIdString == null) {
             throw new MissingParameterException ("report", new String[] {"action", "report", "type"});
-            
+
         }
 
         if (Actions.Customize.toString().equals(reportAction) || Actions.Update.toString().equals(reportAction)) {
@@ -110,37 +110,37 @@ public class FormProcViewController extends AbstractController implements Initia
             if (Actions.Customize.toString().equals(reportAction)) {
              // Fetch the KscReportEditor or create one if there isn't one already
                 KscReportEditor editor = KscReportEditor.getFromSession(request.getSession(), false);
-                
+
                 LOG.debug("handleRequestInternal: build report for reportType {}", reportType);
                 if (reportType.equals("node")) {
                     editor.loadWorkingReport(m_kscReportService.buildNodeReport(reportId));
                 } else if (reportType.equals("nodeSource")) {
-  
+
                     editor.loadWorkingReport(m_kscReportService.buildNodeSourceReport(reportIdString));
                 } else if (reportType.equals("domain")) {
                     editor.loadWorkingReport(m_kscReportService.buildDomainReport(reportIdString));
-                } else { 
+                } else {
                     editor.loadWorkingReport(getKscReportFactory(), reportId);
                 }
-                
+
                 // Now inject any override characteristics into the working report model
                 Report working_report = editor.getWorkingReport();
                 for (int i=0; i<working_report.getGraphCount(); i++) {
                     Graph working_graph = working_report.getGraph(i);
-                    if (!overrideTimespan.equals("none")) { 
-                        working_graph.setTimespan(overrideTimespan); 
+                    if (!overrideTimespan.equals("none")) {
+                        working_graph.setTimespan(overrideTimespan);
                     }
-                    if (!overrideGraphType.equals("none")) { 
-                        working_graph.setGraphtype(overrideGraphType); 
+                    if (!overrideGraphType.equals("none")) {
+                        working_graph.setGraphtype(overrideGraphType);
                     }
                 }
             }
-        } else { 
+        } else {
             if (!Actions.Exit.toString().equals(reportAction)) {
                 throw new ServletException ("Invalid Parameter contents for report_action");
             }
         }
-        
+
         if (Actions.Update.toString().equals(reportAction)) {
             ModelAndView modelAndView = new ModelAndView("redirect:/KSC/customView.htm");
             modelAndView.addObject("type", reportType);
@@ -148,15 +148,15 @@ public class FormProcViewController extends AbstractController implements Initia
             if (reportIdString != null) {
                 modelAndView.addObject("report", reportIdString);
             }
-            if (overrideTimespan != null) { 
+            if (overrideTimespan != null) {
                 modelAndView.addObject("timespan", overrideTimespan);
             }
-            if (overrideGraphType != null) { 
+            if (overrideGraphType != null) {
                 modelAndView.addObject("graphtype", overrideGraphType);
             }
 
             return modelAndView;
-        } else if (Actions.Customize.toString().equals(reportAction)) { 
+        } else if (Actions.Customize.toString().equals(reportAction)) {
             return new ModelAndView("redirect:/KSC/customReport.htm");
         } else if (Actions.Exit.toString().equals(reportAction)) {
             return new ModelAndView("redirect:/KSC/index.htm");
@@ -212,6 +212,6 @@ public class FormProcViewController extends AbstractController implements Initia
         m_kscReportService = kscReportService;
     }
 
-    
+
 
 }

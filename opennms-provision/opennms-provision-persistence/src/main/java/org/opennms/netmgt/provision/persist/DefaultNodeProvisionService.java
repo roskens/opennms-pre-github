@@ -63,14 +63,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @version $Id: $
  */
 public class DefaultNodeProvisionService implements NodeProvisionService, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultNodeProvisionService.class);
-    
+
     private EventForwarder m_eventForwarder;
-    
+
     @Autowired
     private CategoryDao m_categoryDao;
-    
+
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
 
@@ -92,7 +92,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
         modelAndView.addObject("foreignSource", request.getParameter("foreignSource"));
         return modelAndView;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -128,7 +128,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
         if(noSNMP == null) {
             reqIface.putMonitoredService(new RequisitionMonitoredService("SNMP"));
         }
-        
+
         RequisitionNode reqNode = new RequisitionNode();
         reqNode.setNodeLabel(nodeLabel);
         reqNode.setForeignId(foreignId);
@@ -174,7 +174,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
         LOG.warn("about to return ({})", System.currentTimeMillis());
         return true;
     }
-    
+
     /**
      * <p>setForeignSourceRepository</p>
      *
@@ -209,7 +209,7 @@ public class DefaultNodeProvisionService implements NodeProvisionService, Initia
                     throw new NodeProvisionException("Unable to send eventLog "+eventLog, e);
                 }
             }
-            
+
         };
         m_eventForwarder = new TransactionAwareEventForwarder(proxyForwarder);
     }

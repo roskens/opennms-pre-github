@@ -40,20 +40,20 @@ import java.net.URLEncoder;
  */
 public class ElementIdNotFoundException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6002934081158722933L;
 
     protected String badId;
 
     protected String message;
-    
+
     protected String elemType;
-    
+
     protected String detailUri;
-    
+
     protected String detailParam;
-    
+
     protected String browseUri;
 
     /**
@@ -73,7 +73,7 @@ public class ElementIdNotFoundException extends RuntimeException {
         this.detailUri = detailUri;
         this.detailParam = detailParam;
     }
-    
+
     /**
      * <p>Constructor for ElementIdNotFoundException.</p>
      *
@@ -106,7 +106,7 @@ public class ElementIdNotFoundException extends RuntimeException {
     	this.detailUri = null;
     	this.detailParam = null;
     }
-    
+
     private void setBadId(String idIn) {
     	try {
 			this.badId = URLEncoder.encode(idIn, "UTF-8");
@@ -115,7 +115,7 @@ public class ElementIdNotFoundException extends RuntimeException {
 		}
     }
 
-    
+
     /**
      * <p>Getter for the field <code>message</code>.</p>
      *
@@ -143,7 +143,7 @@ public class ElementIdNotFoundException extends RuntimeException {
 	public String getElemType() {
 		return getElemType(false);
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>elemType</code>.</p>
 	 *
@@ -177,7 +177,7 @@ public class ElementIdNotFoundException extends RuntimeException {
 	public String getDetailParam() {
 		return detailParam;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>browseUri</code>.</p>
 	 *
@@ -186,5 +186,5 @@ public class ElementIdNotFoundException extends RuntimeException {
 	public String getBrowseUri() {
 		return browseUri;
 	}
-    
+
 }

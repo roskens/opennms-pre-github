@@ -52,7 +52,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
  * <p>C3P0ConnectionFactory class.</p>
  */
 public class C3P0ConnectionFactory extends BaseConnectionFactory {
-	
+
 	public static final Logger LOG = LoggerFactory.getLogger(C3P0ConnectionFactory.class);
 
     private ComboPooledDataSource m_pool;

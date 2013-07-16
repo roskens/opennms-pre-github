@@ -29,7 +29,7 @@
 package org.opennms.netmgt.reporting.service;
 
 import org.opennms.netmgt.config.reportd.Report;
-    
+
 /**
  * <p>ReportService interface.</p>
  *
@@ -44,7 +44,7 @@ public interface ReportService {
      * @param report a {@link org.opennms.netmgt.config.reportd.Report} object.
      * @param reportDirectory a {@link java.lang.String} object.
      * @return a {@link java.lang.String} object.
-     * @throws ReportRunException 
+     * @throws ReportRunException
      */
     public String runReport(Report report,String reportDirectory) throws ReportRunException;
 

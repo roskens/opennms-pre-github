@@ -35,7 +35,7 @@ import com.vaadin.data.Item;
 import com.vaadin.data.util.BeanItem;
 
 public class TestEdge extends AbstractEdge {
-	
+
 	public TestEdge(String id, SimpleConnector source, SimpleConnector target) {
 		super("test", id, source, target);
 	}

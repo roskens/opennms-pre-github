@@ -40,9 +40,9 @@ public class AutomationInterval implements ScheduleInterval {
     /* (non-Javadoc)
      * @see org.opennms.netmgt.scheduler.ScheduleInterval#getInterval()
      */
-    
+
     private long m_interval;
-    
+
     /**
      * <p>Constructor for AutomationInterval.</p>
      *
@@ -51,7 +51,7 @@ public class AutomationInterval implements ScheduleInterval {
     public AutomationInterval(long interval) {
         setInterval(interval);
     }
-    
+
     /**
      * <p>getInterval</p>
      *
@@ -61,7 +61,7 @@ public class AutomationInterval implements ScheduleInterval {
     public long getInterval() {
         return m_interval;
     }
-    
+
     /**
      * <p>setInterval</p>
      *

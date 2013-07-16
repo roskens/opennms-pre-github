@@ -71,7 +71,7 @@ public class DaemonStatusController implements InitializingBean {
 	public ModelAndView onSubmit() throws Exception {
         // FIXME: This isn't used
 	    /*
-		Map<String, ServiceInfo> daemons = 
+		Map<String, ServiceInfo> daemons =
 			daemonStatusService.performOperationOnDaemons(ServletRequestUtils.getStringParameter(request, "operation"),
 				ServletRequestUtils.getStringParameters(request, "values"));
 		*/

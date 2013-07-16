@@ -37,15 +37,15 @@ import org.snmp4j.smi.IpAddress;
 import org.snmp4j.smi.OID;
 
 public class Snmp4JV1TrapBuilder extends Snmp4JV2TrapBuilder implements SnmpV1TrapBuilder {
-    
+
     protected Snmp4JV1TrapBuilder(Snmp4JStrategy strategy) {
         super(strategy, new PDUv1(), PDUv1.V1TRAP);
     }
-    
+
     protected PDUv1 getPDUv1() {
         return (PDUv1)getPDU();
     }
-    
+
     @Override
     public void setEnterprise(SnmpObjId enterpriseId) {
         getPDUv1().setEnterprise(new OID(enterpriseId.getIds()));

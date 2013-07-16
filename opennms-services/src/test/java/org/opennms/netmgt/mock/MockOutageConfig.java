@@ -32,7 +32,7 @@ import org.opennms.netmgt.config.OutageManagerConfig;
 
 
 public class MockOutageConfig implements OutageManagerConfig {
-    
+
     private String m_getNextOutageID;
     @Override
     public boolean deletePropagation() {

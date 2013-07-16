@@ -37,7 +37,7 @@ import java.util.Set;
  * <p>LazySet class.</p>
  */
 public class LazySet<E> extends JdbcSet<E> {
-	
+
 	public static interface Loader<E> {
 		Set<E> load();
 	}
@@ -155,7 +155,7 @@ public class LazySet<E> extends JdbcSet<E> {
 			m_loaded = true;
 		}
 	}
-	
+
 	/**
 	 * <p>isLoaded</p>
 	 *
@@ -164,7 +164,7 @@ public class LazySet<E> extends JdbcSet<E> {
 	public boolean isLoaded() {
 		return m_loaded;
 	}
-	
-	
+
+
 
 }

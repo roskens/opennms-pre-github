@@ -67,10 +67,10 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
         modelAndView.addObject("nodeResources", getResourceService().findNodeResources());
         modelAndView.addObject("nodeSourceResources", getResourceService().findNodeSourceResources());
         modelAndView.addObject("domainResources", getResourceService().findDomainResources());
-        
+
         return modelAndView;
         */
-        
+
         ModelAndView modelAndView = new ModelAndView("KSC/customGraphChooseResource");
 
         String selectedResourceId = request.getParameter(Parameters.selectedResourceId.toString());
@@ -83,15 +83,15 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
                 selectedResourceAndParents.put(r.getId(), r);
                 r = r.getParent();
             }
-            
+
             modelAndView.addObject("selectedResourceAndParents", selectedResourceAndParents);
         }
 
-        
+
         /*
         OnmsResource resource = getResourceService().getResourceById(resourceId);
         modelAndView.addObject("parentResource", resource);
-        
+
         modelAndView.addObject("parentResourcePrefabGraphs", m_resourceService.findPrefabGraphsForResource(resource));
         */
 
@@ -99,14 +99,14 @@ public class CustomGraphChooseParentResourceController extends AbstractControlle
         List<OnmsResource> nodeResources = getResourceService().findNodeResources();
         List<OnmsResource> nodeSourceResources = getResourceService().findNodeSourceResources();
         List<OnmsResource> domainResources = getResourceService().findDomainResources();
-        
+
         List<OnmsResource> childResources = new ArrayList<OnmsResource>(nodeResources.size() + nodeSourceResources.size() + domainResources.size());
         childResources.addAll(nodeResources);
         childResources.addAll(nodeSourceResources);
         childResources.addAll(domainResources);
 
         modelAndView.addObject("resources", childResources);
-        
+
         return modelAndView;
     }
 

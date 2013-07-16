@@ -59,9 +59,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class SNMPCollectorEntry extends AbstractSnmpStore {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SNMPCollectorEntry.class);
-    
+
     /**
      * The list of MIBObjects that will used for associating the the data within
      * the map.
@@ -105,7 +105,7 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
         if (attrTypes.isEmpty()) {
         	throw new IllegalArgumentException("Received result for unexpected oid ["+res.getBase()+"].["+res.getInstance()+"]");
         }
-        
+
         for (SnmpAttributeType attrType : attrTypes) {
             if (attrType.getInstance().equals(MibObject.INSTANCE_IFINDEX)) {
                 putIfIndex(res.getInstance().toInt());
@@ -117,27 +117,27 @@ public final class SNMPCollectorEntry extends AbstractSnmpStore {
 
 
     String getValueForBase(String baseOid) {
-    
-        String instance = String.valueOf(getIfIndex()); 
+
+        String instance = String.valueOf(getIfIndex());
         if (instance == null || instance.equals("")) {
             return null;
         }
-        
-    
+
+
         String fullOid = baseOid + "." + instance;
-    
+
         String snmpVar = getDisplayString(fullOid);
         if (snmpVar == null) {
             return null;
         }
-    
+
         snmpVar = snmpVar.trim();
-    
+
         if (snmpVar.equals("")) {
             return null;
         }
-    
+
         return snmpVar;
-    
+
     }
 }

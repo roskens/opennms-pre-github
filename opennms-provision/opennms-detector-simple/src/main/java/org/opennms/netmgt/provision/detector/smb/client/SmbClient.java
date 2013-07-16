@@ -45,17 +45,17 @@ import org.opennms.netmgt.provision.support.Client;
  * @version $Id: $
  */
 public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse>{
-    
+
     private NbtAddress m_nbtAddress;
     private String m_address;
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
         // TODO Auto-generated method stub
-        
+
     }
 
     /** {@inheritDoc} */
@@ -88,7 +88,7 @@ public class SmbClient implements Client<LineOrientedRequest, NbtAddressResponse
     public NbtAddressResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return receiveResponse();
     }
-    
+
     private NbtAddressResponse receiveResponse() {
         NbtAddressResponse nbtAddrResponse = new NbtAddressResponse();
         nbtAddrResponse.receive(m_address, m_nbtAddress);

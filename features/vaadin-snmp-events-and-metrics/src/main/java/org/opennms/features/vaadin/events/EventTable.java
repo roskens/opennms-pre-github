@@ -41,8 +41,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class Event Table.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class EventTable extends Table {

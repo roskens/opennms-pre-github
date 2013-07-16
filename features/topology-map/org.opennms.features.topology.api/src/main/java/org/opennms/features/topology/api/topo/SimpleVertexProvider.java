@@ -103,7 +103,7 @@ public class SimpleVertexProvider implements VertexProvider {
 
 	@Override
 	public List<Vertex> getRootGroup() {
-		List<Vertex> rootGroup = new ArrayList<Vertex>(); 
+		List<Vertex> rootGroup = new ArrayList<Vertex>();
 		for(Vertex vertex : m_vertexMap.values()) {
 			if (getParent(vertex) == null) {
 				rootGroup.add(vertex);

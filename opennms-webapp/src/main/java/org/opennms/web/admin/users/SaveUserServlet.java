@@ -51,7 +51,7 @@ import org.opennms.web.springframework.security.Authentication;
  */
 public class SaveUserServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -2138716651602916013L;
 

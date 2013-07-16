@@ -51,13 +51,13 @@ import edu.bucknell.net.JDHCP.DHCPMessage;
  * Establishes a TCP socket connection with the DHCP daemon and formats and
  * sends request messages.
  * </P>
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  * @version CVS 1.1.1.1
  */
 final class Poller {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Poller.class);
 
     /**
@@ -127,7 +127,7 @@ final class Poller {
 
     /**
      * Returns a disconnection request message that can be sent to the server.
-     * 
+     *
      * @return A disconnection message.
      */
     private static Message getDisconnectRequest() throws UnknownHostException {
@@ -138,7 +138,7 @@ final class Poller {
      * Returns a DHCP DISCOVER, INFORM, or REQUEST message that can be sent to
      * the DHCP server. DHCP server should respond with a DHCP OFFER, ACK, or
      * NAK message in response..
-     * 
+     *
      * @param (InetAddress) addr The address to poll
      * @param (byte) mType The type of DHCP message to send (DISCOVER, INFORM,
      *        or REQUEST)
@@ -209,7 +209,7 @@ final class Poller {
     /**
      * Constructor. Establishes a TCP socket connection with the DHCP client
      * daemon on port 5818.
-     * 
+     *
      * @throws IOException
      *             if unable to establish the connection with the DHCP client
      *             daemon.
@@ -299,7 +299,7 @@ final class Poller {
      * Before returning, a client disconnect message (remote host field set to
      * zero) is sent to the DHCP daemon.
      * </p>
-     * 
+     *
      * @return response time in milliseconds if the specified host responded
      *         with a valid DHCP offer datagram within the context of the
      *         specified timeout and retry values or negative one (-1)
@@ -321,11 +321,11 @@ final class Poller {
                 extendedMode = Boolean.parseBoolean(s_extendedMode);
             }
                 LOG.debug("isServer: DHCP extended mode is {}", extendedMode);
-            
+
             String hwAddressStr = dcf.getMacAddress();
                 LOG.debug("isServer: DHCP query hardware/MAC address is {}", hwAddressStr);
             setHwAddress(hwAddressStr);
-            
+
             String myIpStr = dcf.getMyIpAddress();
                 LOG.debug("isServer: DHCP relay agent address is {}", myIpStr);
             if (myIpStr == null || myIpStr.equals("") || myIpStr.equalsIgnoreCase("broadcast")) {
@@ -334,7 +334,7 @@ final class Poller {
                 s_myIpAddress = setIpAddress(myIpStr);
                 relayMode = true;
             }
-            
+
             if (extendedMode == true) {
                 String requestStr = dcf.getRequestIpAddress();
                     LOG.debug("isServer: REQUEST query target is {}", requestStr);
@@ -371,7 +371,7 @@ final class Poller {
                 int rt = retries;
                 while (rt >= 0 && !isDhcpServer) {
                         LOG.debug("isServer: sending DHCP {} query to host {} with Xid: {}", typeName[i], InetAddressUtils.str(host), ping.getMessage().getXid());
-                    
+
                     long start = System.currentTimeMillis();
                     p.m_outs.writeObject(ping);
                     long end;
@@ -404,7 +404,7 @@ final class Poller {
                                 // accept offer or ACK or NAK
                                 if (type[0] == DHCPMessage.OFFER || (extendedMode == true && (type[0] == DHCPMessage.ACK || type[0] == DHCPMessage.NAK))) {
                                         LOG.debug("isServer: got a valid DHCP response. responseTime= {}ms", responseTime);
-                                    
+
                                     isDhcpServer = true;
                                     break pollit;
                                 }

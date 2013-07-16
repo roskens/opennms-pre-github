@@ -108,16 +108,16 @@ public class Event {
 
     /**
      * Severity the of event.
-     * 
+     *
      * <pre>
-     * 
+     *
      *   1  = Indeterminate
      *   2 = Cleared (unimplemented at this time)
      *   3 = Warning
      *   4 = Minor
      *   5 = Major
      *   6 = Critical
-     *  
+     *
      * </pre>
      */
     protected OnmsSeverity severity;
@@ -199,12 +199,12 @@ public class Event {
      * Can be null.
      */
     protected Integer alarmId;
-    
+
     /**
      * Whether the event is displayable.
      */
     protected Boolean eventDisplay;
-    
+
     /**
      * Empty constructor to create an empty <code>Event</code> instance. All
      * fields will hold the default values.

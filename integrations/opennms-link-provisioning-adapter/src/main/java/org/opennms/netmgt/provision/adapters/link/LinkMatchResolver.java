@@ -35,7 +35,7 @@ package org.opennms.netmgt.provision.adapters.link;
  * @version $Id: $
  */
 public interface LinkMatchResolver {
-    
+
     /**
      * <p>getAssociatedEndPoint</p>
      *

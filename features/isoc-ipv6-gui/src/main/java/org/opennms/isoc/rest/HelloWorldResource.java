@@ -41,22 +41,22 @@ public class HelloWorldResource {
     public String getLocations() {
         return "{\"locations\":{\"area\":\"raleigh\",\"coordinates\":\"35.7174,-79.1619\",\"geolocation\":\"35.7174,-79.1619\",\"name\":\"RDU\",\"pollingPackageName\":\"raleigh\",\"priority\":\"100\"}}";
     }
-    
+
     @GET
     @Produces("application/json")
     @Path("{location}")
     public String getAvailByLocation(@PathParam("{location}") String location) {
-        
+
         return m_availString;
     }
-    
+
     @GET
     @Produces("application/json")
     @Path("participants")
     public String getParticipants() {
         return "{\"participants\":[{\"name\":\"alternate-node1\"},{\"name\":\"alternate-node2\"},{\"name\":\"node1\"},{\"name\":\"node2\"},{\"name\":\"node3\"},{\"name\":\"node4\"}]}";
     }
-    
+
     @GET
     @Produces("application/json")
     @Path("availability")

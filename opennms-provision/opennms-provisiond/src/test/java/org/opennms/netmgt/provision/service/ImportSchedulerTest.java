@@ -73,16 +73,16 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class ImportSchedulerTest implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ImportSchedulerTest.class);
-    
+
     @Autowired
     ImportJobFactory m_factory;
-    
+
     @Autowired
     Provisioner m_provisioner;
-    
+
     @Autowired
     ImportScheduler m_importScheduler;
-    
+
     @Autowired
     ProvisiondConfigurationDao m_dao;
 
@@ -98,30 +98,30 @@ public class ImportSchedulerTest implements InitializingBean {
 
     @Test
     public void createJobAndVerifyImportJobFactoryIsRegistered() throws SchedulerException, InterruptedException {
-        
+
         RequisitionDef def = m_dao.getDefs().get(0);
-        
+
         JobDetail detail = new JobDetail("test", ImportScheduler.JOB_GROUP, ImportJob.class, false, false, false);
         detail.getJobDataMap().put(ImportJob.KEY, def.getImportUrlResource());
 
-        
+
         class MyBoolWrapper {
             volatile Boolean m_called = false;
-            
+
             public Boolean getCalled() {
                 return m_called;
             }
-            
+
             public void setCalled(Boolean called) {
                 m_called = called;
             }
         }
-        
+
         final MyBoolWrapper callTracker = new MyBoolWrapper();
-        
+
         m_importScheduler.getScheduler().addTriggerListener(new TriggerListener() {
-            
-            
+
+
             @Override
             public String getName() {
                 return "TestTriggerListener";
@@ -137,7 +137,7 @@ public class ImportSchedulerTest implements InitializingBean {
             public void triggerFired(Trigger trigger, JobExecutionContext context) {
                 LOG.info("triggerFired called on trigger listener");
                 Job jobInstance = context.getJobInstance();
-                
+
                 if (jobInstance instanceof ImportJob) {
                     Assert.assertNotNull( ((ImportJob)jobInstance).getProvisioner());
                     Assert.assertTrue(context.getJobDetail().getJobDataMap().containsKey(ImportJob.KEY));
@@ -158,26 +158,26 @@ public class ImportSchedulerTest implements InitializingBean {
                 callTracker.setCalled(true);
                 return false;
             }
-            
+
         });
-        
+
         Calendar testCal = Calendar.getInstance();
         testCal.add(Calendar.SECOND, 5);
-        
+
         Trigger trigger = new SimpleTrigger("test", ImportScheduler.JOB_GROUP, testCal.getTime());
         trigger.addTriggerListener("TestTriggerListener");
         m_importScheduler.getScheduler().scheduleJob(detail, trigger);
         m_importScheduler.start();
-        
+
         int callCheck = 0;
         while (!callTracker.getCalled() && callCheck++ < 2 ) {
             Thread.sleep(5000);
         }
-        
+
         //TODO: need to fix the interrupted exception that occurs in the provisioner
-        
+
     }
-    
+
     @Test
     @Ignore
     public void dwRemoveCurrentJobsFromSchedule() throws SchedulerException {

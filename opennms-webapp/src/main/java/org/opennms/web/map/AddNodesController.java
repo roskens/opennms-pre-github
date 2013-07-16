@@ -69,13 +69,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class AddNodesController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AddNodesController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -97,17 +97,17 @@ public class AddNodesController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		String action = request.getParameter("action");
 		String elems = request.getParameter("elems");
 		LOG.debug("Adding Nodes action:{}, elems={}", action, elems);
-		
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
 		try {
 			Integer[] nodeids = null;
 
 			boolean actionfound = false;
-			
+
 			if (action.equals(MapsConstants.ADDNODES_ACTION)) {
 				LOG.debug("Adding nodes by id: {}", elems);
 				actionfound = true;
@@ -117,7 +117,7 @@ public class AddNodesController extends MapsLoggingController {
 					nodeids[i] = new Integer(snodeids[i]);
 				}
 			}
-			
+
 			if (action.equals(MapsConstants.ADDNODES_BY_CATEGORY_ACTION)) {
 				LOG.debug("Adding nodes by category: {}", elems);
 				actionfound = true;
@@ -139,9 +139,9 @@ public class AddNodesController extends MapsLoggingController {
             } finally {
                 cf.getReadLock().unlock();
             }
-			}	
-			
-			
+			}
+
+
 			if (action.equals(MapsConstants.ADDNODES_BY_LABEL_ACTION)) {
 				LOG.debug("Adding nodes by label: {}", elems);
 				actionfound = true;
@@ -150,7 +150,7 @@ public class AddNodesController extends MapsLoggingController {
 				for (int i = 0; i<nodes.size();i++) {
 					nodeids[i] = nodes.get(i).getId();
 				}
-			}	
+			}
 
 			if (action.equals(MapsConstants.ADDRANGE_ACTION)) {
 				LOG.debug("Adding nodes by range: {}", elems);
@@ -170,23 +170,23 @@ public class AddNodesController extends MapsLoggingController {
 				Set<Integer> linkednodeids = NetworkElementFactory.getInstance(getServletContext()).getLinkedNodeIdOnNode(WebSecurityUtils.safeParseInt(elems));
 				linkednodeids.add(new Integer(elems));
 				nodeids = linkednodeids.toArray(new Integer[linkednodeids.size()]);
-			} 
-			
+			}
+
 	         VMap map = manager.openMap();
 	                LOG.debug("Got map from manager {}", map);
-	            
+
 
 			List<VElement> velems = new ArrayList<VElement>();
 			// response for addElement
 			if (actionfound) {
 				LOG.debug("Before Checking map contains elems");
-				
+
 				for (int i = 0; i < nodeids.length; i++) {
 					int elemId = nodeids[i].intValue();
 					if (map.containsElement(elemId, MapsConstants.NODE_TYPE)) {
 						LOG.debug("Action: {} . Map Contains Element: {}", action, elemId+MapsConstants.NODE_TYPE);
 						continue;
-						
+
 					}
 
 					velems.add(manager.newElement(map.getId(), elemId, MapsConstants.NODE_TYPE));
@@ -195,7 +195,7 @@ public class AddNodesController extends MapsLoggingController {
 				//get links and add elements to map
 				map = manager.addElements(map, velems);
 				LOG.debug("After getting/adding links");
-	
+
 				bw.write(ResponseAssembler.getAddElementResponse(null, velems, map.getLinks()));
 			}
 		} catch (Throwable e) {

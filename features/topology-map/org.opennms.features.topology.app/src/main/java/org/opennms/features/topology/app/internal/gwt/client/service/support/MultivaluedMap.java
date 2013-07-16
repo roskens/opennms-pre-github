@@ -14,7 +14,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * @param <V> a V object.
      */
     public void add(K key, V value);
-    
+
     /**
      * <p>remove</p>
      *
@@ -23,7 +23,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * @return a boolean.
      */
     public boolean remove(K key, V value);
-    
+
     /**
      * <p>getCopy</p>
      *

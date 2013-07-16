@@ -50,20 +50,20 @@ public class EventBuilderTest {
 		EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test");
 		builder.setSeverity("Warning");
 		assertEquals("Warning", builder.getEvent().getSeverity());
-		
+
 		builder.setSeverity("Waning");
 		assertEquals("Indeterminate", builder.getEvent().getSeverity());
 	}
-    
+
     @Test
     public final void testUsingPassedInDate() throws Exception {
         Date date = new Date(12345);
-        
+
         EventBuilder builder = new EventBuilder("uei.opennms.org/test", "test", date);
         Event ifEvent = builder.getEvent();
         assertEquals(date.toString(), EventConstants.parseToDate(ifEvent.getTime()).toString());
-        
-        
+
+
     }
 
 }

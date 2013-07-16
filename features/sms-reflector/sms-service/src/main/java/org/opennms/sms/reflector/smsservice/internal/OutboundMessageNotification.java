@@ -47,18 +47,18 @@ import org.springframework.context.ApplicationContextAware;
  * @version $Id: $
  */
 public class OutboundMessageNotification implements IOutboundMessageNotification, ApplicationContextAware {
-    
+
     private static Logger log = LoggerFactory.getLogger(OutboundMessageNotification.class);
-	
+
 	private Collection<IOutboundMessageNotification> m_listenerList;
 	private ApplicationContext m_applicationContext;
-	
+
 	/**
 	 * <p>Constructor for OutboundMessageNotification.</p>
 	 */
 	public OutboundMessageNotification() {
 	}
-	
+
 	/**
 	 * <p>Constructor for OutboundMessageNotification.</p>
 	 *
@@ -87,7 +87,7 @@ public class OutboundMessageNotification implements IOutboundMessageNotification
 		}
 		return m_listenerList;
 	}
-	
+
 	/**
 	 * <p>setListenerList</p>
 	 *

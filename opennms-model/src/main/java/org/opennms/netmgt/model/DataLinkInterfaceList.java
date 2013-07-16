@@ -45,7 +45,7 @@ public class DataLinkInterfaceList extends LinkedList<DataLinkInterface> {
 
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 1980683067851461914L;
 

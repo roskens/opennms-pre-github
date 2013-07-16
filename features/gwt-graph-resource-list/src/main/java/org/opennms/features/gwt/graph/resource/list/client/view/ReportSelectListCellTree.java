@@ -52,39 +52,39 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.TreeViewModel;
 
 public class ReportSelectListCellTree extends CellTree {
-    
+
     private static class ResourceType{
         private final String m_name;
         private final List<ResourceListItem> m_resourceList = new ArrayList<ResourceListItem>();
-        
+
         public ResourceType(String name) {
             m_name = name;
         }
-        
+
         public void addResourceListItem(ResourceListItem item) {
             m_resourceList.add(item);
         }
-        
+
         public String getName() {
             return m_name;
         }
-        
+
         public List<ResourceListItem> getResourceList(){
             return m_resourceList;
         }
-        
+
     }
-    
-    
+
+
     private static class CustomTreeModel implements TreeViewModel {
-        
+
         private final class ResourceListItemCell extends AbstractCell<ResourceListItem> {
             @Override
             public void render(Context context, ResourceListItem value, SafeHtmlBuilder sb) {
                 if(value != null) {
                     sb.appendEscaped(value.getValue());
                 }
-                
+
             }
         }
 
@@ -101,18 +101,18 @@ public class ReportSelectListCellTree extends CellTree {
         private final MultiSelectionModel<ResourceListItem> m_multipleSelectionModel;
         private final Cell<ResourceListItem> m_resourceListItemCell;
         private final DefaultSelectionEventManager<ResourceListItem> m_selectionManager = DefaultSelectionEventManager.createCheckboxManager();
-        
+
         public CustomTreeModel(List<ResourceListItem> resourceList, MultiSelectionModel<ResourceListItem> selectionModel) {
             m_resourceTypes = new ArrayList<ResourceType>();
             organizeList(resourceList);
-            
+
             m_multipleSelectionModel = selectionModel;
-            
+
             List<HasCell<ResourceListItem, ?>> hasCells = new ArrayList<HasCell<ResourceListItem, ?>>();
             hasCells.add(new HasCell<ResourceListItem, Boolean>(){
-                
+
                 private CheckboxCell m_cell = new CheckboxCell(true, false);
-                
+
                 @Override
                 public Cell<Boolean> getCell() {
                     return m_cell;
@@ -128,7 +128,7 @@ public class ReportSelectListCellTree extends CellTree {
                     return m_multipleSelectionModel.isSelected(object);
                 }
             });
-            
+
             hasCells.add(new HasCell<ResourceListItem, ResourceListItem>(){
                 private ResourceListItemCell m_cell = new ResourceListItemCell();
                 @Override
@@ -145,9 +145,9 @@ public class ReportSelectListCellTree extends CellTree {
                 public ResourceListItem getValue(ResourceListItem object) {
                     return object;
                 }
-                
+
             });
-            
+
             m_resourceListItemCell = new CompositeCell<ResourceListItem>(hasCells) {
 
                 @Override
@@ -161,34 +161,34 @@ public class ReportSelectListCellTree extends CellTree {
                 }
 
                 @Override
-                protected <X> void render(Context context, ResourceListItem value, SafeHtmlBuilder sb, 
+                protected <X> void render(Context context, ResourceListItem value, SafeHtmlBuilder sb,
                         HasCell<ResourceListItem, X> hasCell) {
                     super.render(context, value, sb, hasCell);
                 }
-                
-                
+
+
             };
-            
+
         }
 
         private void organizeList(List<ResourceListItem> resourceList) {
-            
+
             Map<String, String> types = new HashMap<String, String>();
-            
+
             for(ResourceListItem item : resourceList) {
                 if(!types.containsKey(item.getType())) {
                     types.put(item.getType(), item.getType());
                 }
             }
-            
+
             for(String typeName : types.keySet()) {
                 ResourceType rType = new ResourceType(typeName);
-                
+
                 for(ResourceListItem r : resourceList) {
                     if(r.getType().equals(typeName)) {
                         rType.addResourceListItem(r);
                     }
-                   
+
                 }
                 m_resourceTypes.add(rType);
             }
@@ -202,14 +202,14 @@ public class ReportSelectListCellTree extends CellTree {
         public <T> NodeInfo<?> getNodeInfo(T value) {
           if(value == null) {
               ListDataProvider<ResourceType> dataProvider = new ListDataProvider<ResourceType>(m_resourceTypes);
-              
+
               Cell<ResourceType> cell = new ResourceTypCell();
-              
+
               return new DefaultNodeInfo<ResourceType>(dataProvider, cell);
-              
+
           }else if(value instanceof ResourceType) {
               ListDataProvider<ResourceListItem> dataProvider = new ListDataProvider<ResourceListItem>(((ResourceType) value).getResourceList());
-              
+
               return new DefaultNodeInfo<ResourceListItem>(dataProvider, m_resourceListItemCell, m_multipleSelectionModel, m_selectionManager, null);
           }
           return null;
@@ -228,17 +228,17 @@ public class ReportSelectListCellTree extends CellTree {
             }
         }
       }
-    
-    
+
+
     public ReportSelectListCellTree(List<ResourceListItem> resourceList, MultiSelectionModel<ResourceListItem> selectionModel) {
         super(new CustomTreeModel(resourceList, selectionModel), null, (CellTree.Resources)GWT.create(CustomCellTreeResource.class));
         setDefaultNodeSize(10000);
-        
+
         TreeNode treeNode = getRootTreeNode();
         for(int i = 0; i < treeNode.getChildCount(); i++) {
             treeNode.setChildOpen(i, true);
         }
-        
+
     }
 
 

@@ -69,15 +69,15 @@ public class PacketTest {
         (byte)0x24, (byte)0x25, (byte)0x26, (byte)0x27,
         (byte)0x28, (byte)0x29, (byte)0x2a, (byte)0x2b,
         (byte)0x2c, (byte)0x2d, (byte)0x2e, (byte)0x2f,
-        (byte)0x30, (byte)0x31, (byte)0x32, (byte)0x33,   
+        (byte)0x30, (byte)0x31, (byte)0x32, (byte)0x33,
         (byte)0x34, (byte)0x35, (byte)0x36, (byte)0x37,
     };
-    
+
     @Test
     public void testIPHeaderGets() throws Exception {
-        
+
         IPPacket pkt = new IPPacket(ip, 0, ip.length);
-        
+
         // test header data
         assertThat(pkt.getVersion(), is(equalTo(4)));
         assertThat(pkt.getHeaderLength(), is(equalTo(20)));
@@ -85,8 +85,8 @@ public class PacketTest {
         assertThat(pkt.getProtocol(), is(equalTo(Protocol.ICMP)));
         assertThat(pkt.getSourceAddress(), is(equalTo(InetAddress.getByName("127.0.0.1"))));
         assertThat(pkt.getDestinationAddress(), is(equalTo(InetAddress.getByName("127.0.0.1"))));
-        
-        // payload 64 bytes: ICMP header (8 bytes) followed by byte values 1, 2, 3, ... 55, 56 
+
+        // payload 64 bytes: ICMP header (8 bytes) followed by byte values 1, 2, 3, ... 55, 56
         ByteBuffer payload = pkt.getPayload();
         assertThat(payload.remaining(), is(equalTo(64)));
         assertThat(payload.capacity(), is(equalTo(64)));
@@ -95,35 +95,35 @@ public class PacketTest {
         assertThat(payload.get(16), is(equalTo((byte)8)));
         assertThat(payload.get(24), is(equalTo((byte)16)));
     }
-    
+
     @Test
     public void testICMPPacketGets() throws Exception {
-        
+
         IPPacket pkt = new IPPacket(ip, 0, ip.length);
         assertThat(pkt.getProtocol(), is(equalTo(Protocol.ICMP)));
-        
-        // payload 64 bytes: ICMP header (8 bytes) followed by byte values 1, 2, 3, ... 55, 56 
+
+        // payload 64 bytes: ICMP header (8 bytes) followed by byte values 1, 2, 3, ... 55, 56
         ByteBuffer payload = pkt.getPayload();
         ICMPPacket icmpPacket = new ICMPPacket(payload);
         assertThat(icmpPacket.getType(), is(equalTo(Type.EchoReply)));
         assertThat(icmpPacket.getCode(), is(equalTo(0)));
         assertThat(icmpPacket.getChecksum(), is(equalTo(24310)));
         assertThat(icmpPacket.getChecksum(), is(equalTo(icmpPacket.computeChecksum())));
-        
+
         ICMPEchoPacket echoReply = new ICMPEchoPacket(icmpPacket);
         assertThat(echoReply.getIdentifier(), is(equalTo(43260)));
         assertThat(echoReply.getSequenceNumber(), is(equalTo(250)));
-        
+
         ByteBuffer content = echoReply.getContentBuffer();
         for(int i = 0; i < 56; i++) {
             assertThat(content.get(i), is(equalTo((byte)i)));
         }
-        
+
     }
-    
+
     @Test
     public void testICMPPacketSets() throws Exception {
-        
+
         // payload 64 bytes: ICMP header (8 bytes) followed by byte values 0, 1, 2, 3, ... 54, 55
         byte[] bytes = new byte[64];
         ByteBuffer buf = ByteBuffer.wrap(bytes, 0, 64);
@@ -133,14 +133,14 @@ public class PacketTest {
         echoRequest.setCode(0);
         echoRequest.setIdentifier(0x1234);
         echoRequest.setSequenceNumber(0x5678);
-        
+
         ByteBuffer content = echoRequest.getContentBuffer();
         for(int i = 0; i < 56; i++) {
             content.put((byte)i);
         }
-        
+
         echoRequest.setChecksum(); // check sum is 0x9840
-        
+
         assertThat(bytes[0], is(equalTo((byte)8))); // icmp type
         assertThat(bytes[1], is(equalTo((byte)0))); // icmp code (zero for echo pkts)
         assertThat(bytes[2], is(equalTo((byte)0x98))); // checksum hi
@@ -153,12 +153,12 @@ public class PacketTest {
         for(int i = 0; i < 56; i++) {
             assertThat(bytes[8+i], is(equalTo((byte)i)));
         }
-        
+
         NativeDatagramPacket pkt = echoRequest.toDatagramPacket(InetAddress.getByName("127.0.0.1"));
-        
+
         assertThat(pkt.getAddress(), is(equalTo(InetAddress.getByName("127.0.0.1"))));
         assertThat(pkt.getPort(), is(equalTo(0)));
-        
+
         ByteBuffer data = pkt.getContent();
         assertThat(data.position(), is(equalTo(0)));
         assertThat(data.limit(), is(equalTo(64)));
@@ -166,7 +166,7 @@ public class PacketTest {
         assertThat(data.hasArray(), is(true));
         assertThat(data.array(), is(sameInstance(bytes)));
         assertThat(data.arrayOffset(), is(equalTo(0)));
-        
+
     }
-    
+
 }

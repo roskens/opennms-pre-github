@@ -108,7 +108,7 @@ public class WmiCollectionSet implements CollectionSet {
     public boolean ignorePersist() {
         return false;
     }
-    
+
     @Override
 	public Date getCollectionTimestamp() {
 		return m_timestamp;

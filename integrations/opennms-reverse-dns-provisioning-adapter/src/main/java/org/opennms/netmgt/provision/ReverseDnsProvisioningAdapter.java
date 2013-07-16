@@ -9,7 +9,7 @@
  * OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
  *
  * Modifications:
- * 
+ *
  * Created: December 16, 2008
  *
  * Copyright (C) 2008 The OpenNMS Group, Inc.  All rights reserved.
@@ -65,26 +65,26 @@ import org.xbill.DNS.Update;
  */
 public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapter implements InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(ReverseDnsProvisioningAdapter.class);
-    
+
     /*
      * A read-only DAO will be set by the Provisioning Daemon.
      */
     private EventForwarder m_eventForwarder;
     private Resolver m_resolver = null;
-    private String m_signature;    
+    private String m_signature;
     private ReverseDnsProvisioningAdapterService m_reverseDnsProvisioningAdapterService;
-    
+
     private static final String MESSAGE_PREFIX = "Dynamic Reverse DNS provisioning failed: ";
     private static final String ADAPTER_NAME="Reverse DNS Provisioning Adapter";
-    
-    
+
+
     /**
      * <p>afterPropertiesSet</p>
      *
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {        
+    public void afterPropertiesSet() throws Exception {
         String dnsServer = System.getProperty("importer.adapter.dns.server");
         if (!StringUtils.isBlank(dnsServer)) {
             LOG.info("DNS property found: {}", dnsServer);
@@ -95,7 +95,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
             } else {
                 m_resolver = new SimpleResolver(dnsServer);
             }
-    
+
             // Doesn't work for some reason, haven't figured out why yet
             String key = System.getProperty("importer.adapter.dns.privatekey");
             if (key != null && key.length() > 0) {
@@ -106,7 +106,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
             LOG.warn("no DNS server configured, ReverseDnsProvisioningAdapter will not do anything!");
         }
     }
-    
+
     public ReverseDnsProvisioningAdapterService getReverseProvisioningAdapterService() {
         return m_reverseDnsProvisioningAdapterService;
     }
@@ -184,7 +184,7 @@ public class ReverseDnsProvisioningAdapter extends SimpleQueuedProvisioningAdapt
             }
         }
     }
-    
+
     private void sendAndThrow(int nodeId, Exception e) {
         Event event = buildEvent(EventConstants.PROVISIONING_ADAPTER_FAILED, nodeId).addParam("reason", MESSAGE_PREFIX+e.getLocalizedMessage()).getEvent();
         m_eventForwarder.sendNow(event);

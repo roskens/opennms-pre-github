@@ -43,14 +43,14 @@ import org.exolab.castor.xml.ValidationException;
 import org.opennms.core.utils.ConfigFileConstants;
 
 /**
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class C3P0ConnectionFactoryTest extends TestCase {
     public void testMarshalDataSourceFromConfig() throws Exception {
         C3P0ConnectionFactory factory1 = null;
         C3P0ConnectionFactory factory2 = null;
-        
+
         try {
         	factory1 = makeFactory("opennms");
         	factory2 = makeFactory("opennms2");
@@ -72,7 +72,7 @@ public class C3P0ConnectionFactoryTest extends TestCase {
         } finally {
         	Throwable t1 = null;
         	Throwable t2 = null;
-        	
+
     		if (factory1 != null) {
     			try {
     				factory1.close();
@@ -90,16 +90,16 @@ public class C3P0ConnectionFactoryTest extends TestCase {
     				t2 = e2;
     			}
     		}
-    		
+
     		if (t1 != null || t2 != null) {
     			StringBuffer message = new StringBuffer();
     			message.append("Could not successfully close both C3P0 factories.  Future tests might fail.");
-    			
+
     			Throwable choice;
     			if (t1 != null) {
     				message.append("  First factory failed with: " + t1.getMessage() + "; see stack back trace.");
     				choice = t1;
-    				
+
     				if (t2 != null) {
     					System.err.println("  Both factories failed to close.  See stderr for second stack back trace.");
     					t2.printStackTrace(System.err);

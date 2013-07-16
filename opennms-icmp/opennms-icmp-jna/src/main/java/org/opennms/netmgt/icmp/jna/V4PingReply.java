@@ -36,14 +36,14 @@ import org.opennms.jicmp.ip.ICMPPacket;
 import org.opennms.netmgt.icmp.EchoPacket;
 
 class V4PingReply extends ICMPEchoPacket implements EchoPacket {
-    
+
     private long m_receivedTimeNanos;
 
     public V4PingReply(ICMPPacket icmpPacket, long receivedTimeNanos) {
         super(icmpPacket);
         m_receivedTimeNanos = receivedTimeNanos;
     }
-    
+
     public boolean isValid() {
         ByteBuffer content = getContentBuffer();
         return content.limit() >= V4PingRequest.DATA_LENGTH && V4PingRequest.COOKIE == content.getLong(V4PingRequest.OFFSET_COOKIE);
@@ -59,7 +59,7 @@ class V4PingReply extends ICMPEchoPacket implements EchoPacket {
         // this is here just for EchoPacket interface completeness
         return super.getIdentifier();
     }
-    
+
     @Override
     public int getSequenceNumber() {
         // this is here just for EchoPacket interface completeness
@@ -75,12 +75,12 @@ class V4PingReply extends ICMPEchoPacket implements EchoPacket {
     public long getSentTimeNanos() {
         return getContentBuffer().getLong(V4PingRequest.OFFSET_TIMESTAMP);
     }
-    
+
     @Override
     public long getReceivedTimeNanos() {
         return m_receivedTimeNanos;
     }
-    
+
     @Override
     public double elapsedTime(TimeUnit unit) {
         double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);

@@ -56,12 +56,12 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @SuppressWarnings("deprecation")
 public class LoadLabelMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LoadLabelMapController.class);
 
 
 	private Manager manager;
-		
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -79,14 +79,14 @@ public class LoadLabelMapController extends MapsLoggingController {
 	public void setManager(Manager manager) {
 		this.manager = manager;
 	}
-	
+
 	/** {@inheritDoc} */
 	@Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "UTF-8"));
-		
-		
+
+
 		try{
 	        String user = request.getRemoteUser();
 
@@ -102,7 +102,7 @@ public class LoadLabelMapController extends MapsLoggingController {
 
 		return null;
 	}
-	
+
 
 
 }

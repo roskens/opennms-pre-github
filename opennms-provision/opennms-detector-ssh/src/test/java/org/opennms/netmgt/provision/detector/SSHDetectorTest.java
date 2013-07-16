@@ -48,10 +48,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class SSHDetectorTest implements ApplicationContextAware, InitializingBean {
 	//Tested on a local server with SSH
-    
+
     @Autowired
     public SshDetector m_detector;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -63,20 +63,20 @@ public class SSHDetectorTest implements ApplicationContextAware, InitializingBea
         m_detector = new SshDetector();
         m_detector.setTimeout(1);
     }
-    
+
 	@Test(timeout=90000)
 	public void testDetectorSuccess() throws UnknownHostException{
 		//m_detector.init();
 		//assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
 	}
-	
+
 	@Test(timeout=90000)
     public void testDetectorFailWrongPort() throws UnknownHostException{
 	    //m_detector.setPort(30);
         //m_detector.init();
         //assertFalse(m_detector.isServiceDetected(InetAddressUtils.addr("192.168.1.103")));
     }
-	
+
 	@Test(timeout=90000)
     public void testDetectorFailBanner() throws UnknownHostException{
 	    //m_detector.setBanner("Hello there crazy");
@@ -88,6 +88,6 @@ public class SSHDetectorTest implements ApplicationContextAware, InitializingBea
     public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
         // TODO Auto-generated method stub
-        
+
     }
 }

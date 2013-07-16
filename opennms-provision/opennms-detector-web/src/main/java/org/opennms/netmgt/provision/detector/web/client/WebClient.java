@@ -66,7 +66,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class WebClient implements Client<WebRequest, WebResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(WebClient.class);
     private DefaultHttpClient m_httpClient;
 
@@ -120,7 +120,7 @@ public class WebClient implements Client<WebRequest, WebResponse> {
     }
 
     public void setSchema(String schema) {
-        this.schema = schema;        
+        this.schema = schema;
     }
 
     public void setTimeout(int timeout) {

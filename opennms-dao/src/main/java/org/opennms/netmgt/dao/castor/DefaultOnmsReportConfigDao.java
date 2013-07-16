@@ -41,7 +41,7 @@ import org.opennms.netmgt.dao.api.OnmsReportConfigDao;
 
 public class DefaultOnmsReportConfigDao extends AbstractCastorConfigDao<OpennmsReports, List<Report>>
 implements OnmsReportConfigDao {
-    
+
     /**
      * <p>Constructor for DefaultOnmsReportConfigDao.</p>
      */
@@ -78,7 +78,7 @@ implements OnmsReportConfigDao {
         }
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getLogo(String id) {
@@ -98,72 +98,72 @@ implements OnmsReportConfigDao {
         }
         return null;
     }
-    
+
     private Report getReport(String id) {
         for (Report report : getContainer().getObject()) {
             if (id.equals(report.getId())) {
                 return report;
             }
         }
-        
+
         return null;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Parameters getParameters(String id) {
-        
+
         Parameters parameters = null;
         Report report = getReport(id);
         if (report != null) {
             parameters = report.getParameters();
         }
-        
+
         return parameters;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public DateParm[] getDateParms(String id) {
-        
+
         DateParm[] dateParms = null;
         Report report = getReport(id);
         if (report != null) {
             dateParms = report.getParameters().getDateParm();
         }
-        
+
         return dateParms;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public StringParm[] getStringParms(String id) {
-        
+
         StringParm[] stringParms = null;
         Report report = getReport(id);
         if (report != null) {
             stringParms = report.getParameters().getStringParm();
         }
-        
+
         return stringParms;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public IntParm[] getIntParms(String id) {
-        
+
         IntParm[] intParms = null;
         Report report = getReport(id);
         if (report != null) {
             intParms = report.getParameters().getIntParm();
         }
-        
+
         return intParms;
-        
+
     }
 
     /** {@inheritDoc} */
@@ -171,5 +171,5 @@ implements OnmsReportConfigDao {
     public List<Report> translateConfig(OpennmsReports castorConfig) {
         return Collections.unmodifiableList(castorConfig.getReportCollection());
     }
-    
+
 }

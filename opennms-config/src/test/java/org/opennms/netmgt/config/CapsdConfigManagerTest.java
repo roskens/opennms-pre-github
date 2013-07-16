@@ -41,20 +41,20 @@ import org.opennms.test.ThrowableAnticipator;
 
 /**
  * Test for CapsdConfigManager.
- * 
+ *
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  * @see CapsdConfigManager
  */
 public class CapsdConfigManagerTest extends TestCase {
-    
+
     public void testBogus() {
         // Don't do anything... this is a place holder so we have at least one test
     }
-    
+
     /*
      * This is disabled because the plugin instantiation isn't done in
      * CapsdConfigManager anymore.  It's now in PluginManager.
-     */ 
+     */
     /**
      * Make sure that the constructor throws an exception when one of the
      * plugins cannot be loaded.
@@ -76,13 +76,13 @@ public class CapsdConfigManagerTest extends TestCase {
 //
 //        assertNotNull("plugin list", plugins);
 //        assertEquals("plugin list size", 1, plugins.length);
-//        
+//
 //        ProtocolInfo plugin = plugins[0];
 //        assertNotNull("PluginInfo object for plugin zero", plugin);
-//        
+//
 //        assertNotNull("plugin for zero", plugin.getPlugin());
     }
-    
+
     public final void testHttpRegex() throws Exception {
         CapsdConfigManager config = new DefaultCapsdConfigManager(Thread.currentThread().getContextClassLoader().getResourceAsStream("testHttpRegex.xml"));
         ProtocolPlugin http = config.getProtocolPlugin("HTTP");

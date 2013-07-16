@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.features.poller.remote.gwt.server;
 
@@ -49,7 +49,7 @@ class GeocodingHandler implements LocationDefHandler {
 	private int m_size;
 	private Date m_date;
 	private int m_count;
-	
+
 	/**
 	 * <p>Constructor for GeocodingHandler.</p>
 	 *
@@ -62,7 +62,7 @@ class GeocodingHandler implements LocationDefHandler {
 		m_date = new Date();
 		m_count = 0;
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void start(final int size) {
@@ -89,7 +89,7 @@ class GeocodingHandler implements LocationDefHandler {
 		}
 		m_count++;
 	}
-	
+
 	/**
 	 * <p>finish</p>
 	 */

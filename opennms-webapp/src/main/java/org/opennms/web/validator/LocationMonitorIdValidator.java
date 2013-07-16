@@ -57,10 +57,10 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
     @Override
     public void validate(Object obj, Errors errors) {
         LocationMonitorIdCommand cmd = (LocationMonitorIdCommand) obj;
-        
+
         if (cmd.getMonitorId() == null) {
             errors.rejectValue("monitorId", "monitorId.notSpecified",
-                               new Object[] { "monitorId" }, 
+                               new Object[] { "monitorId" },
                                "Value required.");
         } else {
             try {
@@ -71,9 +71,9 @@ public class LocationMonitorIdValidator implements Validator, InitializingBean {
                 }
             } catch (DataAccessException e) {
                 errors.rejectValue("monitorId", "monitorId.notFound",
-                                   new Object[] { "monitorId", cmd.getMonitorId() }, 
+                                   new Object[] { "monitorId", cmd.getMonitorId() },
                                    "Valid location monitor ID required.");
-                
+
             }
         }
     }

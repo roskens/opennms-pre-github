@@ -33,14 +33,14 @@ import org.opennms.nnm.swig.OVsnmpSession;
 import org.opennms.ovapi.TrapProcessingDaemon;
 
 public class OpenNMSDaemon extends TrapProcessingDaemon implements ProcessManagementListener, NNMEventListener {
-	
+
 	private Configuration m_configuration;
 	private EventForwarder m_eventForwarder;
-	
+
     public void setConfiguration(Configuration configuration) {
         m_configuration = configuration;
     }
-    
+
     public void setEventForwarder(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
@@ -48,24 +48,24 @@ public class OpenNMSDaemon extends TrapProcessingDaemon implements ProcessManage
 	public String onInit() {
 		Assert.notNull(m_configuration, "the configuration property must not be null");
 		Assert.notNull(m_eventForwarder, "the eventForwarder property must not be null");
-		
+
 		super.onInit();
-		
+
 		return "opennms initialization complete.";
 	}
 
 	public String onStop() {
 	    super.onStop();
-	    
+
 	    return "opennms stopped successfully.";
-		
+
 	}
 
 	public void onEvent(NNMEvent event) {
 	    FilterChain chain = m_configuration.getFilterChain();
-	    
+
 	    String action = chain.filterEvent(event);
-	    
+
 	    if (Filter.PRESERVE.equals(action)) {
 	        m_eventForwarder.preserve(event);
 	    } else if (Filter.ACCEPT.equals(action)) {
@@ -73,14 +73,14 @@ public class OpenNMSDaemon extends TrapProcessingDaemon implements ProcessManage
 	    } else {
 	        m_eventForwarder.discard(event);
 	    }
-		
+
 	}
 
     protected void onEvent(int reason, OVsnmpSession session, OVsnmpPdu pdu) {
-        
+
         onEvent(new DefaultNNMEvent(pdu));
 
     }
 
- 
+
 }

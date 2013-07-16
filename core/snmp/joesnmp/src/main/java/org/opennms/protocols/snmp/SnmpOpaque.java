@@ -32,9 +32,9 @@ package org.opennms.protocols.snmp;
  * The SnmpOpaque class is an extension of the octet string class and is used to
  * pass opaque data. Opaque data is information that isn't interperted by the
  * manager in general.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
- * 
+ *
  */
 public class SnmpOpaque extends SnmpOctetString {
     /**
@@ -49,7 +49,7 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * The default constructor for this class.
-     * 
+     *
      */
     public SnmpOpaque() {
         super();
@@ -57,10 +57,10 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Constructs an opaque object with the passed data.
-     * 
+     *
      * @param data
      *            The opaque data.
-     * 
+     *
      */
     public SnmpOpaque(byte[] data) {
         super(data);
@@ -68,10 +68,10 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Constructs an object that is a duplicate of the passed object.
-     * 
+     *
      * @param second
      *            The object to be duplicated.
-     * 
+     *
      */
     public SnmpOpaque(SnmpOpaque second) {
         super(second);
@@ -79,10 +79,10 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Constructs an object that is a duplicate of the passed object.
-     * 
+     *
      * @param second
      *            The object to be duplicated.
-     * 
+     *
      */
     public SnmpOpaque(SnmpOctetString second) {
         super(second);
@@ -90,9 +90,9 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns the defined ASN.1 type identifier.
-     * 
+     *
      * @return The ASN.1 identifier.
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -101,9 +101,9 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns a duplicate of the current object.
-     * 
+     *
      * @return A duplicate of self
-     * 
+     *
      */
     @Override
     public SnmpSyntax duplicate() {
@@ -112,9 +112,9 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns a duplicate of the current object.
-     * 
+     *
      * @return A duplicate of self
-     * 
+     *
      */
     @Override
     public Object clone() {
@@ -123,7 +123,7 @@ public class SnmpOpaque extends SnmpOctetString {
 
     /**
      * Returns a string representation of the object.
-     * 
+     *
      */
     @Override
     public String toString() {

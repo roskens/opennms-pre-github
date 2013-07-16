@@ -40,27 +40,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
 
 public class SyslogNorthbounderManager implements InitializingBean, DisposableBean {
-	
+
 	@Autowired
 	private ServiceRegistry m_serviceRegistry;
 
 	@Autowired
 	private SyslogNorthbounderConfigDao m_configDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
-	
+
 	private Registration m_registration = null;
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		
+
 		Assert.notNull(m_nodeDao);
 		Assert.notNull(m_configDao);
 		Assert.notNull(m_serviceRegistry);
-		
+
 		SyslogNorthbounderConfig config = m_configDao.getConfig();
-		
+
 		List<SyslogDestination> destinations = config.getDestinations();
 		for (SyslogDestination syslogDestination : destinations) {
 			SyslogNorthbounder nbi = new SyslogNorthbounder(config, syslogDestination);
@@ -70,7 +70,7 @@ public class SyslogNorthbounderManager implements InitializingBean, DisposableBe
 		}
 
 	}
-	
+
 	@Override
 	public void destroy() throws Exception {
 		m_registration.unregister();

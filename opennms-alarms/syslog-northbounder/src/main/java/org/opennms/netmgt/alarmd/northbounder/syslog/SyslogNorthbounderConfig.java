@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 /**
  * Configuration for Syslog NBI implementation.
  * FIXME: This needs lots of work.
- * 
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 @XmlRootElement(name="syslog-northbounder-config")
@@ -50,22 +50,22 @@ public class SyslogNorthbounderConfig implements Serializable {
 
     @XmlElement(name="enabled", required=false, defaultValue="false")
 	private Boolean m_enabled;
-    
+
     @XmlElement(name="nagles-delay", required=false, defaultValue="1000")
     private Integer m_naglesDelay = 1000;
-    
+
     @XmlElement(name="batch-size", required=false, defaultValue="100")
     private Integer m_batchSize = 100;
-    
+
     @XmlElement(name="queue-size", required=false, defaultValue="300000")
     private Integer m_queueSize = 300000;
-    
+
     @XmlElement(name="message-format", required=false, defaultValue="ALARM ID:${alarmId} NODE:${nodeLabel} ${logMsg}")
     private String m_messageFormat = "ALARM ID:${alarmId} NODE:${nodeLabel} ${logMsg}";
-    
+
     @XmlElement(name="destination")
     private List<SyslogDestination> m_destinations;
-    
+
     @XmlElement(name="uei", required = false)
     private List<String> m_ueis;
 
@@ -76,42 +76,42 @@ public class SyslogNorthbounderConfig implements Serializable {
     public void setDestinations(List<SyslogDestination> destinations) {
     	m_destinations = destinations;
     }
-    
+
     public List<String> getUeis() {
     	return m_ueis;
     }
     public void setUeis(List<String> ueis) {
     	m_ueis = ueis;
     }
-    
+
 	public String getMessageFormat() {
 		return m_messageFormat;
 	}
-	
+
 	public void setMessageFormat(String messageFormat) {
 		m_messageFormat = messageFormat;
 	}
-	
+
 	public Integer getNaglesDelay() {
 		return m_naglesDelay;
 	}
-	
+
 	public void setNaglesDelay(Integer naglesDelay) {
 		m_naglesDelay = naglesDelay;
 	}
-	
+
 	public Integer getBatchSize() {
 		return m_batchSize;
 	}
-	
+
 	public void setBatchSize(Integer batchSize) {
 		m_batchSize = batchSize;
 	}
-	
+
 	public Integer getQueueSize() {
 		return m_queueSize;
 	}
-	
+
 	public void setQueueSize(Integer alarmQueueSize) {
 		m_queueSize = alarmQueueSize;
 	}
@@ -121,7 +121,7 @@ public class SyslogNorthbounderConfig implements Serializable {
 	public void setEnabled(Boolean enabled) {
 		m_enabled = enabled;
 	}
-	
+
 	public SyslogDestination getDestination(String destinationName) {
 		SyslogDestination destination = null;
 		for (SyslogDestination dest : m_destinations) {

@@ -76,7 +76,7 @@ public class XmpCollectionFactory {
     private static XmpCollectionFactory instance;
 
     private static XmpDatacollectionConfig config;
-    
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionFactory.class);
 
 
@@ -89,7 +89,7 @@ public class XmpCollectionFactory {
      * @throws org.exolab.castor.xml.MarshalException if any.
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
-    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException 
+    public static void init() throws IOException, FileNotFoundException, MarshalException, ValidationException
     {
 
         if (instance == null) {
@@ -118,8 +118,8 @@ public class XmpCollectionFactory {
      * @throws org.exolab.castor.xml.ValidationException if any.
      * @throws java.io.IOException if any.
      */
-    public XmpCollectionFactory(String configFile) 
-    throws MarshalException, ValidationException, IOException { 
+    public XmpCollectionFactory(String configFile)
+    throws MarshalException, ValidationException, IOException {
 
         InputStream cfgIn = new FileInputStream(configFile);
 
@@ -137,7 +137,7 @@ public class XmpCollectionFactory {
             }
         }
 
-        return; 
+        return;
     }
 
     /**
@@ -149,7 +149,7 @@ public class XmpCollectionFactory {
      * @throws java.io.IOException if any.
      */
     public XmpCollectionFactory(Reader rdr)
-    throws MarshalException, ValidationException, IOException { 
+    throws MarshalException, ValidationException, IOException {
 
         config = (XmpDatacollectionConfig)Unmarshaller.unmarshal(XmpDatacollectionConfig.class,rdr);
 
@@ -159,7 +159,7 @@ public class XmpCollectionFactory {
     }
 
     /* private methods *********************************** */
-   
+
 
     /* public methods ************************************ */
 
@@ -188,15 +188,15 @@ public class XmpCollectionFactory {
      * @param collectionName a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.RrdRepository} object.
      */
-    public RrdRepository getRrdRepository(String collectionName) 
-    { 
+    public RrdRepository getRrdRepository(String collectionName)
+    {
         RrdRepository repo = new RrdRepository();
 
         //log().debug("XmpCollectionFactory: getting rrd for "+collectionName);
 
         XmpCollection collection = getXmpCollection(collectionName);
 
-        // rrdPath not specific to a collection but specified for all of 
+        // rrdPath not specific to a collection but specified for all of
         // data collection
         if (rrdPath == null) getRrdPath();
 
@@ -223,7 +223,7 @@ public class XmpCollectionFactory {
      * @param collectionName a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.config.xmpDataCollection.XmpCollection} object.
      */
-    public XmpCollection getXmpCollection(String collectionName) 
+    public XmpCollection getXmpCollection(String collectionName)
     {
         XmpCollection[] collections = config.getXmpCollection();
         XmpCollection theCollection = null;

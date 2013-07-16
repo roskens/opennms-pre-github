@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * The Class Person.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement

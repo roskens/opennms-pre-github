@@ -42,5 +42,5 @@ public final class MyActivator implements BundleActivator {
 	public void stop(BundleContext arg0) throws Exception {
 		System.err.println("My Activator is stopped!!!");
 	}
-	
+
 }

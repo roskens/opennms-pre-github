@@ -58,14 +58,14 @@ import org.opennms.netmgt.poller.MonitoredService;
 @Distributable
 final public class JschSshMonitor extends AbstractServiceMonitor {
     private SshMonitor m_monitor;
-    
+
     /**
      * <p>Constructor for JschSshMonitor.</p>
      */
     public JschSshMonitor() {
         m_monitor = new SshMonitor();
     }
-    
+
     /** {@inheritDoc} */
     public PollStatus poll(InetAddress address, Map<String, Object> parameters) {
         return m_monitor.poll(address, parameters);

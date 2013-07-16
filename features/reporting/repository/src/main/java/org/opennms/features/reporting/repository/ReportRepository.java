@@ -46,7 +46,7 @@ public interface ReportRepository {
      * @return a {@link java.util.List} object
      */
     List <BasicReportDefinition> getReports();
-    
+
     /**
      * <p>getOnlineReports</p>
      *
@@ -55,7 +55,7 @@ public interface ReportRepository {
      * @return a {@link java.util.List} object
      */
     List <BasicReportDefinition> getOnlineReports();
-    
+
     /**
      * <p>getReportService</p>
      *
@@ -65,7 +65,7 @@ public interface ReportRepository {
      * @return a {@link java.lang.String} object
      */
     String getReportService(String reportId);
-    
+
     /**
      * <p>getDisplayName</p>
      *

@@ -47,11 +47,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultPollerSettings implements InitializingBean, PollerSettings {
-    
+
     private final String MONITOR_ID_KEY = "locationMonitorId";
-    
+
     private Resource m_configResource;
-    
+
     private Properties m_settings;
 
     /**
@@ -72,10 +72,10 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
             m_settings.remove(MONITOR_ID_KEY);
         else
             m_settings.setProperty(MONITOR_ID_KEY, monitorId.toString());
-        
+
         save();
     }
-    
+
     private void save() {
         FileOutputStream out = null;
         try {
@@ -111,15 +111,15 @@ public class DefaultPollerSettings implements InitializingBean, PollerSettings {
     @Override
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_configResource, "The configurationDir property must be set");
-        
+
         if (m_configResource.exists()) {
             m_settings = PropertiesLoaderUtils.loadProperties(m_configResource);
         } else {
             m_settings = new Properties();
         }
-        
+
     }
-    
-    
+
+
 
 }

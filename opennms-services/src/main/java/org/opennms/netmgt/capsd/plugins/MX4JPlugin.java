@@ -37,10 +37,10 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
 
 /*
-* This class enables the monitoring of MX4J enabled services.  Since there will potentially be several 
-* MX4J services's being monitored the user needs to provide a "friendly name" in the poller-configuration file, 
-* otherwise the port will be used.  
-* 
+* This class enables the monitoring of MX4J enabled services.  Since there will potentially be several
+* MX4J services's being monitored the user needs to provide a "friendly name" in the poller-configuration file,
+* otherwise the port will be used.
+*
 * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
 * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
 */
@@ -51,10 +51,10 @@ import org.opennms.protocols.jmx.connectors.Jsr160ConnectionFactory;
  * @version $Id: $
  */
 public class MX4JPlugin extends JMXPlugin {
-  
+
   /* The factory handles the creation of the connection and returns a CollectionWrapper which is used
-   * in the JXMPlugin base class to determine whether this capability exists.  
-   * 
+   * in the JXMPlugin base class to determine whether this capability exists.
+   *
    * @see org.opennms.netmgt.capsd.JMXPlugin#getMBeanServer(java.util.Map, java.net.InetAddress)
    */
   /** {@inheritDoc} */
@@ -62,7 +62,7 @@ public class MX4JPlugin extends JMXPlugin {
   public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
       return Jsr160ConnectionFactory.getMBeanServerConnection(parameterMap, address);
   }
-  
+
   /* The protocol name is used to...
    * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
    */
@@ -71,8 +71,8 @@ public class MX4JPlugin extends JMXPlugin {
   public String getProtocolName(Map<String, Object> map) {
       return ParameterMap.getKeyedString(map, "friendlyname", "mx4j");
   }
-  
-  /* 
+
+  /*
    * @see org.opennms.netmgt.capsd.Plugin#isProtocolSupported(java.net.InetAddress)
    */
   /** {@inheritDoc} */
@@ -82,7 +82,7 @@ public class MX4JPlugin extends JMXPlugin {
       map.put("port",           "9004");
       map.put("factory",        "JMXRMI");
       map.put("friendlyname",   "mx4j");
-  
+
       return isProtocolSupported(address, map);
   }
 }

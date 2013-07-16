@@ -83,7 +83,7 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
      * This member is set to true if the configuration file has been loaded.
      */
     private static boolean m_loaded = false;
-    
+
     /**
      * Loaded version
      */
@@ -192,7 +192,7 @@ public final class SnmpInterfacePollerConfigFactory extends SnmpInterfacePollerC
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

@@ -54,7 +54,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class RTCPostSubscriber extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RTCPostSubscriber.class);
 
     protected EventProxy m_proxy;
@@ -94,7 +94,7 @@ public class RTCPostSubscriber extends Object {
 
         EventBuilder bldr = new EventBuilder(EventConstants.RTC_SUBSCRIBE_EVENT_UEI, "RTCPostSubscriber");
         bldr.setHost("host");
-        
+
         bldr.addParam(EventConstants.PARM_URL, url);
         bldr.addParam(EventConstants.PARM_USER, username);
         bldr.addParam(EventConstants.PARM_PASSWD, password);
@@ -120,7 +120,7 @@ public class RTCPostSubscriber extends Object {
 
         EventBuilder bldr = new EventBuilder(EventConstants.RTC_UNSUBSCRIBE_EVENT_UEI, "RTCPostSubscriber");
         bldr.setHost("host");
-        
+
         bldr.addParam(EventConstants.PARM_URL, url);
 
         proxy.send(bldr.getEvent());
@@ -178,12 +178,12 @@ public class RTCPostSubscriber extends Object {
         if (username != null) {
             m_username = username;
         }
-        
+
         String password = Vault.getProperty("opennms.rtc-client.http-post.password");
         if (password != null) {
             m_password = password;
         }
-        
+
         String baseUrl = Vault.getProperty("opennms.rtc-client.http-post.base-url");
         if (baseUrl == null) {
             baseUrl = "http://localhost:8080/opennms/rtc/post";

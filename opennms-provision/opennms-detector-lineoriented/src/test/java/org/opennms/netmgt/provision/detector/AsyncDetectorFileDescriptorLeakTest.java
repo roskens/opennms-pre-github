@@ -58,7 +58,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 @Ignore
 public class AsyncDetectorFileDescriptorLeakTest {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorFileDescriptorLeakTest.class);
     private SimpleServer m_server;
     private ServerSocket m_socket;
@@ -82,14 +82,14 @@ public class AsyncDetectorFileDescriptorLeakTest {
         detector.init();
         return detector;
     }
-    
+
     @After
     public void tearDown() throws IOException {
         if(m_server != null){
             m_server.stopServer();
             m_server = null;
         }
-        
+
     }
 
     private void setUpSocket() throws Exception {
@@ -103,7 +103,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
 
     private void setUpServer(final String banner, final int bannerDelay) throws Exception {
         m_server = new SimpleServer() {
-            
+
             @Override
             public void onInit() {
                 if (banner != null) {
@@ -111,7 +111,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
                     setBannerDelay(bannerDelay);
                 }
             }
-            
+
         };
 
         // No timeout
@@ -120,7 +120,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
         m_server.init();
         m_server.startServer();
     }
-    
+
     @Test
     public void testDetectorTimeoutWaitingForBanner() throws Throwable {
         // Start a socket that doesn't have a thread servicing it
@@ -143,9 +143,9 @@ public class AsyncDetectorFileDescriptorLeakTest {
         assertFalse("False positive during detection!!", future.isServiceDetected());
         assertNull(future.getException());
     }
-    
+
     /**
-     * TODO: This test will fail if there are more than a few milliseconds of delay 
+     * TODO: This test will fail if there are more than a few milliseconds of delay
      * between the characters of the banner. We need to fix this behavior.
      */
     @Test
@@ -170,7 +170,7 @@ public class AsyncDetectorFileDescriptorLeakTest {
         assertTrue("False negative during detection!!", future.isServiceDetected());
         assertNull(future.getException());
     }
-    
+
     @Test
     public void testSuccessServer() throws Throwable {
         setUpServer("Winner");
@@ -235,13 +235,13 @@ public class AsyncDetectorFileDescriptorLeakTest {
     public void testNoServerPresent() throws Exception {
         AsyncServiceDetector detector = getNewDetector(1999, ".*");
         LOG.info("Starting testNoServerPresent with detector: {}\n", detector);
-        
+
         final DetectFuture future = detector.isServiceDetected(InetAddressUtils.getLocalHostAddress());
         assertNotNull(future);
         future.awaitFor();
         assertFalse("False positive during detection!!", future.isServiceDetected());
         assertNull(future.getException());
-        
+
         LOG.info("Finished testNoServerPresent with detector: {}\n", detector);
     }
 }

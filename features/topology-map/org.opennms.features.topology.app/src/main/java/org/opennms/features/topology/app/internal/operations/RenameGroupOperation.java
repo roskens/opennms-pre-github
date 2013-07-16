@@ -190,18 +190,18 @@ public class RenameGroupOperation implements Constants, Operation {
 
 	@Override
 	public boolean display(List<VertexRef> targets, OperationContext operationContext) {
-		return targets != null && 
-		targets.size() == 1 && 
-		targets.get(0) != null 
+		return targets != null &&
+		targets.size() == 1 &&
+		targets.get(0) != null
 		;
 	}
 
 	@Override
 	public boolean enabled(List<VertexRef> targets, OperationContext operationContext) {
 		// Only allow the operation on single non-leaf vertices (groups)
-		return targets != null && 
-		targets.size() == 1 && 
-		targets.get(0) != null && 
+		return targets != null &&
+		targets.size() == 1 &&
+		targets.get(0) != null &&
 		operationContext.getGraphContainer().getBaseTopology().getVertex(targets.get(0)).isGroup()
 		;
 	}

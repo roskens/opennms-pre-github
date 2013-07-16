@@ -56,11 +56,11 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <p>
  * REST service to the OpenNMS {@link OnmsAccessPoint} data.
  * </p>
- * 
+ *
  * <pre>
  * curl -v -X GET -u admin:admin http://localhost:8980/opennms/rest/accesspoints
  * </pre>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @Component
@@ -85,7 +85,7 @@ public class AccessPointRestService {
      * <p>
      * getAccessPoint
      * </p>
-     * 
+     *
      * @param accessPointId
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAccessPoint} object.
@@ -108,7 +108,7 @@ public class AccessPointRestService {
      * <p>
      * getCount
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @GET
@@ -128,7 +128,7 @@ public class AccessPointRestService {
      * <p>
      * getOutages
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.model.OnmsOutageCollection} object.
      */
     @GET

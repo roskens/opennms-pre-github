@@ -29,7 +29,7 @@
 package org.opennms.netmgt.snmp;
 
 public abstract class AbstractSnmpValue implements SnmpValue {
-    
+
     /**
      * <p>If the value is in the unprintable ASCII range (< 32) and is not a:</p>
      * <ul>
@@ -37,10 +37,10 @@ public abstract class AbstractSnmpValue implements SnmpValue {
      *   <li>Linefeed (10)</li>
      *   <li>Carriage return (13)</li>
      * <ul>
-     * <p>or the byte is Delete (127) then this method will return false. Also, if the byte 
-     * array has a NULL byte (0) that occurs anywhere besides the last character, return false. 
+     * <p>or the byte is Delete (127) then this method will return false. Also, if the byte
+     * array has a NULL byte (0) that occurs anywhere besides the last character, return false.
      * We will allow the NULL byte as a special case at the end of the string.</p>
-     * 
+     *
      * Based on a modified version of http://stackoverflow.com/a/1447720 for UTF-8 detection.
      */
     protected boolean allBytesDisplayable(final byte[] bytes) {
@@ -49,7 +49,7 @@ public abstract class AbstractSnmpValue implements SnmpValue {
         if (bytes.length >= 3 && (bytes[0] & 0xFF) == 0xEF && (bytes[1] & 0xFF) == 0xBB & (bytes[2] & 0xFF) == 0xBF) {
             i = 3;
         }
-        
+
         int end;
         for (int j = bytes.length; i < j; ++i) {
             int octet = bytes[i];

@@ -50,7 +50,7 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
         "classpath:org/opennms/reporting/availability/svclayer/AvailabilityReportServiceTest.xml"
 })
 public class AvailabilityReportServiceTest implements InitializingBean {
-    
+
     @Autowired
     @Qualifier("mockClassicCalculator")
     AvailabilityCalculator m_classicCalculator;
@@ -61,7 +61,7 @@ public class AvailabilityReportServiceTest implements InitializingBean {
     OnmsReportConfigDao m_configDao;
     @Autowired
     ParameterConversionService m_parameterConversionService;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);

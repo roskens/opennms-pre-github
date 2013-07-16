@@ -62,7 +62,7 @@ public class AlarmsPageTest extends OpenNMSSeleniumTestCase {
     }
 
     @Test
-    public void testAllLinksArePresent() { 
+    public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("link=All alarms (summary)"));
         assertTrue(selenium.isElementPresent("link=All alarms (detail)"));
         assertTrue(selenium.isElementPresent("link=Advanced Search"));

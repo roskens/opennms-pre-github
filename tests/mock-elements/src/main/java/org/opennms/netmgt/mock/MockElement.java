@@ -78,7 +78,7 @@ abstract public class MockElement {
     public void bringUp() {
         setServicePollStatus(PollStatus.up());
     }
-    
+
     // test
     /**
      * <p>bringUnresponsive</p>
@@ -99,7 +99,7 @@ abstract public class MockElement {
     public MockContainer<?,? extends MockElement> getParent() {
         return m_parent;
     }
-    
+
     /**
      * <p>getNetwork</p>
      *
@@ -107,10 +107,10 @@ abstract public class MockElement {
      */
     public MockNetwork getNetwork() {
         MockElement network = this;
-        
+
         while(network.getParent() != null)
             network = network.getParent();
-        
+
         return (MockNetwork)network;
     }
 
@@ -188,21 +188,21 @@ abstract public class MockElement {
     public void visit(MockVisitor v) {
         v.visitElement(this);
     }
-    
+
     /**
      * <p>createDownEvent</p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     abstract public Event createDownEvent();
-    
+
     /**
      * <p>createUpEvent</p>
      *
      * @return a {@link org.opennms.netmgt.xml.event.Event} object.
      */
     abstract public Event createUpEvent();
-    
+
 
     /**
      * <p>createUpEvent</p>
@@ -227,7 +227,7 @@ abstract public class MockElement {
         MockEventUtil.setEventTime(e, date);
         return e;
     }
-    
+
     /**
      * <p>createNewEvent</p>
      *

@@ -46,7 +46,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     public EventDao getEventDao() {
         return m_eventDao;
     }
-    
+
     public void setEventDao(final EventDao eventDao) {
         m_eventDao = eventDao;
     }
@@ -54,7 +54,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     public DistPollerDao getDistPollerDao() {
         return m_distPollerDao;
     }
-    
+
     public void setDistPollerDao(final DistPollerDao distPollerDao) {
         m_distPollerDao = distPollerDao;
     }
@@ -62,7 +62,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     public NodeDao getNodeDao() {
         return m_nodeDao;
     }
-    
+
     public void setNodeDao(final NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
@@ -70,7 +70,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
     public ServiceTypeDao getServiceTypeDao() {
         return m_serviceTypeDao;
     }
-    
+
     public void setServiceTypeDao(final ServiceTypeDao serviceTypeDao) {
         m_serviceTypeDao = serviceTypeDao;
     }
@@ -135,7 +135,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
         } catch (final DataAccessException e) {
             throw new EventProcessorException(e);
         }
-        
+
         if (event.getOperactionCount() > 0) {
             final List<Operaction> a = new ArrayList<Operaction>();
             final List<String> b = new ArrayList<String>();
@@ -170,7 +170,7 @@ public class MockEventWriter implements EventProcessor, InitializingBean {
             oe.setEventTTicketState(event.getTticket().getState().equals("on") ? 1 : 0);
         }
         oe.setEventUei(event.getUei());
-        
+
         m_eventDao.saveOrUpdate(oe);
     }
 

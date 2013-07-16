@@ -67,22 +67,22 @@ import org.opennms.netmgt.model.OnmsArpInterface.StatusType;
 @Entity
 @Table(name="stpNode", uniqueConstraints = {@UniqueConstraint(columnNames={"nodeId", "baseVlan"})})
 public class OnmsStpNode {
-	
+
     @Embeddable
     public static class BridgeBaseType implements Comparable<BridgeBaseType>, Serializable {
-            	
+
 		private static final long serialVersionUID = 4211573691385106051L;
 		public static final int BASE_TYPE_UNKNOWN = 1;
 		public static final int BASE_TYPE_TRANSPARENT_ONLY = 2;
 		public static final int BASE_TYPE_SOURCEROUTE_ONLY = 3;
 		public static final int BASE_TYPE_SRT = 4;
-    	
+
         private static final Integer[] s_order = {1,2,3,4};
 
         private Integer m_basebridgetype;
 
         private static final Map<Integer, String> baseBridgeTypeMap = new HashMap<Integer, String>();
-        
+
         static {
             baseBridgeTypeMap.put(1, "unknown" );
             baseBridgeTypeMap.put(2, "transparent-only" );
@@ -164,7 +164,7 @@ public class OnmsStpNode {
                     return baseBridgeTypeMap.get( code);
             return null;
         }
-        
+
         public static BridgeBaseType UNKNOWN = new BridgeBaseType(BASE_TYPE_UNKNOWN);
         public static BridgeBaseType TRANSPARENT_ONLY = new BridgeBaseType(BASE_TYPE_TRANSPARENT_ONLY);
         public static BridgeBaseType SOURCEROUTE_ONLY = new BridgeBaseType(BASE_TYPE_SOURCEROUTE_ONLY);
@@ -175,21 +175,21 @@ public class OnmsStpNode {
 
     @Embeddable
     public static class StpProtocolSpecification implements Comparable<StpProtocolSpecification>, Serializable {
-            	
+
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = -1815947324977781143L;
 		public static final int STP_PROTOCOL_SPECIFICATION_UNKNOWN = 1;
 		public static final int STP_PROTOCOL_SPECIFICATION_DECLB100 = 2;
 		public static final int STP_PROTOCOL_SPECIFICATION_IEEE8021D = 3;
-    	
+
         private static final Integer[] s_order = {1,2,3};
 
         private Integer m_stpprotocolspecification;
 
         private static final Map<Integer, String> stpProtocolSpecificationMap = new HashMap<Integer, String>();
-        
+
         static {
             stpProtocolSpecificationMap.put(1, "unknown" );
             stpProtocolSpecificationMap.put(2, "decLb100" );
@@ -269,7 +269,7 @@ public class OnmsStpNode {
                     return stpProtocolSpecificationMap.get( code);
             return null;
         }
-        
+
         public static StpProtocolSpecification UNKNOWN = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_UNKNOWN);
         public static StpProtocolSpecification DECLB100 = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_DECLB100);
         public static StpProtocolSpecification IEEE8021D = new StpProtocolSpecification(STP_PROTOCOL_SPECIFICATION_IEEE8021D);
@@ -303,11 +303,11 @@ public class OnmsStpNode {
     @Column(nullable=false)
     @XmlTransient
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
-    
+
     @XmlID
     @XmlAttribute(name="id")
     @Transient
@@ -318,7 +318,7 @@ public class OnmsStpNode {
     public void setId(final Integer id) {
         m_id = id;
     }
-    
+
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -451,7 +451,7 @@ public class OnmsStpNode {
 	public void setBaseVlanName(final String baseVlanName) {
 		m_baseVlanName = baseVlanName;
 	}
-	
+
     @Override
 	public String toString() {
 	    return new ToStringBuilder(this)

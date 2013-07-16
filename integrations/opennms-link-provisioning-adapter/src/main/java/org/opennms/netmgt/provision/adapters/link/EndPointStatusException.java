@@ -37,7 +37,7 @@ package org.opennms.netmgt.provision.adapters.link;
 public class EndPointStatusException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2737843487100746888L;
 
@@ -47,7 +47,7 @@ public class EndPointStatusException extends Exception {
     public EndPointStatusException() {
         super();
     }
-    
+
     /**
      * <p>Constructor for EndPointStatusException.</p>
      *
@@ -56,7 +56,7 @@ public class EndPointStatusException extends Exception {
     public EndPointStatusException(String message) {
         super(message);
     }
-    
+
     /**
      * <p>Constructor for EndPointStatusException.</p>
      *
@@ -65,7 +65,7 @@ public class EndPointStatusException extends Exception {
     public EndPointStatusException(Throwable t) {
         super(t);
     }
-    
+
     /**
      * <p>Constructor for EndPointStatusException.</p>
      *

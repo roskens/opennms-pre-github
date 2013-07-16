@@ -51,7 +51,7 @@ public class SimpleLogMessageTest {
         assertEquals("LegacyScheduler-Thread-34-of-50", log.getThread());
         assertEquals(timestamp("2013-07-23 11:39:22,295"), log.getDate());
     }
-    
+
     static Date timestamp(final String dateString) throws ParseException {
         return BaseLogMessage.parseTimestamp(dateString);
     }

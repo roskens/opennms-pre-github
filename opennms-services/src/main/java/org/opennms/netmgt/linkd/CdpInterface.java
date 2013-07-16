@@ -42,30 +42,30 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * @version $Id: $
  */
 public class CdpInterface {
-	
+
 	/**
 	 * the int that indicated cdp address type
-	 * 
+	 *
 	 */
 
 	public static final int CDP_ADDRESS_TYPE_IP_ADDRESS = 1;
 
 	/**
-	 * the ip address 
+	 * the ip address
 	 */
-	
-	private final int m_cdpIfIndex; 
-	
+
+	private final int m_cdpIfIndex;
+
 	int m_cdpTargetNodeId;
-	
+
 	int m_cdpTargetIfIndex;
-	
+
 	String m_cdpTargetDeviceId;
-	
+
 	CdpInterface(int ifindex) {
 		m_cdpIfIndex = ifindex;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>cdpIfIndex</code>.</p>
 	 *
@@ -106,7 +106,7 @@ public class CdpInterface {
 	public void setCdpTargetNodeId(int cdpTargetNodeId) {
 		m_cdpTargetNodeId = cdpTargetNodeId;
 	}
-	
+
 	public String getCdpTargetDeviceId() {
 		return m_cdpTargetDeviceId;
 	}
@@ -128,5 +128,5 @@ public class CdpInterface {
 	                .append("cdptargetIfIndex:",m_cdpTargetIfIndex)
 	                .append("cdptargetDeviceId:",m_cdpTargetDeviceId)
 	                .toString();
-	} 
+	}
 }

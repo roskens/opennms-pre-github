@@ -47,7 +47,7 @@ public class SnmpRowResult {
         if (m_results.size() == m_columnCount) {
             return true;
         } else if (m_results.size() > 0 && ignoreColumns.length > 0) {
-            /* 
+            /*
              * short-circuit if the table result is telling us to consider
              * certain SnmpObjId's as finished
              */
@@ -69,12 +69,12 @@ public class SnmpRowResult {
     public List<SnmpResult> getResults() {
         return new ArrayList<SnmpResult>(m_results.values());
     }
-    
+
     public void addResult(SnmpObjId column, SnmpResult result) {
         assertTrue(m_instance.equals(result.getInstance()), "unexpected result %s passed to row with instance %s", result, m_instance);
         m_results.put(column, result);
     }
-    
+
     public SnmpInstId getInstance() {
         return m_instance;
     }
@@ -89,7 +89,7 @@ public class SnmpRowResult {
                 return result.getValue();
             }
         }
-        
+
         return null;
     }
 
@@ -98,7 +98,7 @@ public class SnmpRowResult {
     		throw new IllegalArgumentException(String.format(fmt, args));
     	}
     }
-    
+
 
     @Override
     public String toString() {

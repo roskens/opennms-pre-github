@@ -57,7 +57,7 @@ public class PartialUEIFilter extends SubstringFilter {
      */
     @Override
     public String getTextDescription() {
-        return "uei contains " + getUEI(); 
+        return "uei contains " + getUEI();
     }
 
     /**

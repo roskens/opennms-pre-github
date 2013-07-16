@@ -58,9 +58,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class DiskUsagePlugin extends AbstractPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DiskUsagePlugin.class);
-    
+
     /**
      * The protocol supported by this plugin
      */
@@ -71,9 +71,9 @@ public final class DiskUsagePlugin extends AbstractPlugin {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
-    
+
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
-    
+
     /**
      * The available match-types for this plugin
      */
@@ -81,7 +81,7 @@ public final class DiskUsagePlugin extends AbstractPlugin {
     private static final int MATCH_TYPE_STARTSWITH = 1;
     private static final int MATCH_TYPE_ENDSWITH = 2;
     private static final int MATCH_TYPE_REGEX = 3;
-    
+
     /**
      * Returns the name of the protocol that this plugin checks on the target
      * system for support.
@@ -108,9 +108,9 @@ public final class DiskUsagePlugin extends AbstractPlugin {
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
     }
-    
+
     private String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         return (val == null ? null : val.toString());
@@ -132,9 +132,9 @@ public final class DiskUsagePlugin extends AbstractPlugin {
         try {
 
             //String oid = ParameterMap.getKeyedString(qualifiers, "vbname", DEFAULT_OID);
-        	
+
         	String disk = ParameterMap.getKeyedString(qualifiers, "disk",null);
-        	
+
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(address);
             if (qualifiers != null) {
                 // "port" parm
@@ -143,21 +143,21 @@ public final class DiskUsagePlugin extends AbstractPlugin {
                     int port = ParameterMap.getKeyedInteger(qualifiers, "port", agentConfig.getPort());
                     agentConfig.setPort(port);
                 }
-                
+
                 // "timeout" parm
                 //
                 if (qualifiers.get("timeout") != null) {
                     int timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", agentConfig.getTimeout());
                     agentConfig.setTimeout(timeout);
                 }
-                
+
                 // "retry" parm
                 //
                 if (qualifiers.get("retry") != null) {
                     int retry = ParameterMap.getKeyedInteger(qualifiers, "retry", agentConfig.getRetries());
                     agentConfig.setRetries(retry);
                 }
-                
+
                 // "force version" parm
                 //
                 if (qualifiers.get("force version") != null) {
@@ -166,18 +166,18 @@ public final class DiskUsagePlugin extends AbstractPlugin {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
                     else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
-                    
+
                     //TODO: make sure JoeSnmpStrategy correctly handles this.
                     else if (version.equalsIgnoreCase("snmpv3"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
                 }
-                
+
                 // "match-type" parm
                 //
                 if (qualifiers.get("match-type") != null) {
                     String matchTypeStr = ParameterMap.getKeyedString(qualifiers, "match-type", "exact");
                     if (matchTypeStr.equalsIgnoreCase("exact")) {
-                        matchType = MATCH_TYPE_EXACT; 
+                        matchType = MATCH_TYPE_EXACT;
                     } else if (matchTypeStr.equalsIgnoreCase("startswith")) {
                         matchType = MATCH_TYPE_STARTSWITH;
                     } else if (matchTypeStr.equalsIgnoreCase("endswith")) {
@@ -188,37 +188,37 @@ public final class DiskUsagePlugin extends AbstractPlugin {
                         throw new RuntimeException("Unknown value '" + matchTypeStr + "' for parameter 'match-type'");
                     }
                 }
-                
-                
+
+
             }
-                
+
                 SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(hrStorageDescr);
-                
+
                 Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
-                
+
                 if(descrResults.size() == 0) {
                     return false;
                 }
 
-                for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) { 
+                for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) {
                     LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}", InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
-                  
+
                     if (isMatch(e.getValue().toString(), disk, matchType)) {
 			LOG.debug("Found disk '{}' (matching hrStorageDescr was '{}')", disk, e.getValue());
                     	return true;
-                    		
+
                     }
-                     
+
                 }
-                
+
                 return false;
-        
+
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
     }
-    
+
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);

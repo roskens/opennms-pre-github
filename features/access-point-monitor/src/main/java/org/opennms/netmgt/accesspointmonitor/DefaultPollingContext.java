@@ -42,7 +42,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Default polling context that is instantiated on a per package basis.
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  * @version $Id: $
  */

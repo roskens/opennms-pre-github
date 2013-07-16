@@ -48,13 +48,13 @@ public class NullReplacement implements ColumnChangeReplacement {
     public NullReplacement() {
         // do nothing
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return null;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -64,7 +64,7 @@ public class NullReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

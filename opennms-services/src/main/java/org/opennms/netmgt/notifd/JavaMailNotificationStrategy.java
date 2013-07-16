@@ -46,8 +46,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class JavaMailNotificationStrategy implements NotificationStrategy {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(JavaMailNotificationStrategy.class);
 
     /**
@@ -58,7 +58,7 @@ public class JavaMailNotificationStrategy implements NotificationStrategy {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
      */
     /** {@inheritDoc} */
@@ -79,9 +79,9 @@ public class JavaMailNotificationStrategy implements NotificationStrategy {
     /**
      * This method extracts the to, subject, and message text from the
      * parameters passed in the notification.
-     * 
+     *
      * @param arguments
-     * @throws JavaMailerException 
+     * @throws JavaMailerException
      */
     private JavaMailer buildMessage(List<Argument> arguments) throws JavaMailerException {
 
@@ -97,7 +97,7 @@ public class JavaMailNotificationStrategy implements NotificationStrategy {
              * Note: The recipient gets set by whichever of the two switches:
              * (PARAM_EMAIL or PARAM_PAGER_EMAIL) are specified last in the
              * notificationCommands.xml file
-             * 
+             *
              * And the message body will get set to whichever is set last
              * (PARAM_NUM_MSG or PARAM_TEXT_MSG)
              */

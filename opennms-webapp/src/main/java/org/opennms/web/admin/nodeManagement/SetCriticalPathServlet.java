@@ -53,7 +53,7 @@ import org.opennms.core.utils.WebSecurityUtils;
  */
 public class SetCriticalPathServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5363097208855224954L;
     private static final String SQL_SET_CRITICAL_PATH = "INSERT INTO pathoutage (nodeid, criticalpathip, criticalpathservicename) VALUES (?, ?, ?)";
@@ -90,7 +90,7 @@ public class SetCriticalPathServlet extends HttpServlet {
             dispatcher.forward(request, response);
             return;
         }
-	   
+
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/nodemanagement/index.jsp?node=" + node);
         dispatcher.forward(request, response);
     }

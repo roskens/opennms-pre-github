@@ -47,12 +47,12 @@ public class JuniperSyslogParser extends SyslogParser {
     public static SyslogParser getParser(final String text) {
         return new JuniperSyslogParser(text);
     }
-    
+
     @Override
     protected Pattern getPattern() {
         return m_juniperPattern;
     }
-    
+
     @Override
     public SyslogMessage parse() throws SyslogParserException {
         if (!this.find()) {

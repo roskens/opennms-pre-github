@@ -44,7 +44,7 @@ public class OnmsAgent extends Object {
 	public OnmsAgent() {
 		super();
 	}
-	
+
 	/**
 	 * <p>getId</p>
 	 *
@@ -53,7 +53,7 @@ public class OnmsAgent extends Object {
 	public Integer getId() {
 		return m_id;
 	}
-	
+
 	/**
 	 * <p>setId</p>
 	 *

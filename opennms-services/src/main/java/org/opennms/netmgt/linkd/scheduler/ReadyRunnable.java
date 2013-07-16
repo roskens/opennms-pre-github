@@ -46,43 +46,43 @@ public interface ReadyRunnable extends Runnable {
      * <p>suspend</p>
      */
     public void suspend();
-    
+
     /**
      * <p>isSuspended</p>
      *
      * @return a boolean.
      */
     public boolean isSuspended();
-    
+
     /**
      * <p>wakeUp</p>
      */
     public void wakeUp();
-    
+
     /**
      * <p>unschedule</p>
      */
     public void unschedule();
-    
+
     /**
      * <p>schedule</p>
      */
     public void schedule();
-    
+
     /**
      * <p>getInfo</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getInfo();
-    
+
     /**
      * <p>getPackageName</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getPackageName();
-    
+
     /**
      * <p>setPackageName</p>
      *
@@ -90,5 +90,5 @@ public interface ReadyRunnable extends Runnable {
      */
     public void setPackageName(String pkg);
 
-    
+
 }

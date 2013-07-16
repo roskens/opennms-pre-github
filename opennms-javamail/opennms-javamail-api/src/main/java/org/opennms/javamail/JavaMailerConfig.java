@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
  * Provides access to the default javamail configuration data.
  */
 public abstract class JavaMailerConfig {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JavaMailerConfig.class);
 
 
-    
+
     /**
      * This loads the configuration file.
      *

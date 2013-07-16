@@ -53,30 +53,30 @@ public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionPar
     private static final String INTERFACE_ATTR = "interface";
     private static final String FILTER_ATTR = "filter";
 	private String m_serviceInterface = null;
-	
+
     /** {@inheritDoc} */
     @Override
 	protected AbstractBeanDefinition parseInternal(Element element, ParserContext context) {
 		BeanDefinitionBuilder factory = BeanDefinitionBuilder.rootBeanDefinition(ReferenceListFactoryBean.class);
 		factory.addPropertyReference("serviceRegistry", SERVICE_REGISTRY_BEAN_NAME);
-		
+
 		String serviceInterface = element.getAttribute(INTERFACE_ATTR);
         if (StringUtils.hasText(serviceInterface)) {
         	m_serviceInterface = serviceInterface;
             factory.addPropertyValue("serviceInterface", serviceInterface);
         }
-        
+
         String filter = element.getAttribute(FILTER_ATTR);
         if (StringUtils.hasText(filter)) {
             factory.addPropertyValue("filter", filter);
         }
-		
+
         List<Element> childElements = DomUtils.getChildElementsByTagName(element, "listener");
-        
+
         if (childElements != null && childElements.size() > 0) {
         	parseList(childElements, factory);
         }
-        
+
 		return factory.getBeanDefinition();
 	}
 
@@ -91,7 +91,7 @@ public class ReferenceListBeanDefinitionParser extends AbstractBeanDefinitionPar
 		listener.addPropertyValue("serviceInterface", m_serviceInterface);
 		listener.addPropertyValue("bindMethod", element.getAttribute("bind-method"));
 		listener.addPropertyValue("unbindMethod", element.getAttribute("unbind-method"));
-		
+
 		return listener;
 	}
 

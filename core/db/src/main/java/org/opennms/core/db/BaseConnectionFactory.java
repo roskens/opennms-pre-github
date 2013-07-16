@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 /**
  */
 public abstract class BaseConnectionFactory implements ClosableDataSource {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(BaseConnectionFactory.class);
 
     /**

@@ -39,8 +39,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class SNMP Collection Table.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class SnmpCollectionTable extends Table {

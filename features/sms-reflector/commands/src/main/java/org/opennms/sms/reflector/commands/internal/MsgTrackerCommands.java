@@ -53,9 +53,9 @@ import org.slf4j.LoggerFactory;
  */
 public class MsgTrackerCommands implements CommandProvider {
     private static final Logger LOG = LoggerFactory.getLogger(MsgTrackerCommands.class);
-    
+
     private MobileMsgTracker m_tracker;
-    
+
     private static class MsgCallback implements MobileMsgResponseCallback {
 
         MobileMsgResponse m_response;
@@ -77,24 +77,24 @@ public class MsgTrackerCommands implements CommandProvider {
 
         @Override
         public void handleTimeout(MobileMsgRequest request) {
-           LOG.trace("Request {} timed out!", request); 
+           LOG.trace("Request {} timed out!", request);
             m_latch.countDown();
         }
-        
+
         public void waitFor() throws InterruptedException {
             m_latch.await();
         }
-        
+
         public MobileMsgResponse getResponse() {
             return m_response;
         }
-        
+
     }
-    
+
     private static class MsgMatcher implements MobileMsgResponseMatcher {
-        
+
         String m_regex;
-        
+
         public MsgMatcher(String regex) {
             m_regex = regex;
         }
@@ -114,8 +114,8 @@ public class MsgTrackerCommands implements CommandProvider {
                 .toString();
         }
     }
-    
-    
+
+
     /**
      * <p>setMobileMsgTracker</p>
      *
@@ -124,15 +124,15 @@ public class MsgTrackerCommands implements CommandProvider {
     public void setMobileMsgTracker(MobileMsgTracker tracker) {
         m_tracker = tracker;
     }
-    
-    
+
+
     /**
      * <p>_trackSms</p>
      *
      * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
      */
     public void _trackSms(CommandInterpreter intp) {
-        
+
         try {
             String recipient = intp.nextArgument();
             String text = intp.nextArgument();
@@ -155,16 +155,16 @@ public class MsgTrackerCommands implements CommandProvider {
         } catch (Throwable e) {
             intp.printStackTrace(e);
         }
-        
+
     }
-    
+
     /**
      * <p>_trackUssd</p>
      *
      * @param intp a {@link org.eclipse.osgi.framework.console.CommandInterpreter} object.
      */
     public void _trackUssd(CommandInterpreter intp) {
-        
+
         try {
             String gatewayId = intp.nextArgument();
             String text = intp.nextArgument();
@@ -189,20 +189,20 @@ public class MsgTrackerCommands implements CommandProvider {
             intp.printStackTrace(e);
         }
     }
-    
+
     /**
      * <p>getHelp</p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getHelp() { 
-        StringBuffer buffer = new StringBuffer(); 
+    public String getHelp() {
+        StringBuffer buffer = new StringBuffer();
         buffer.append("---Msg Tracker Commands---");
         buffer.append("\n\t").append("trackSms <recipient> <msg> <regexp>");
         buffer.append("\n\t").append("trackUssd <gateway> <msg> <regexp>");
         buffer.append("\n");
-        return buffer.toString(); 
-    } 
+        return buffer.toString();
+    }
 }
 

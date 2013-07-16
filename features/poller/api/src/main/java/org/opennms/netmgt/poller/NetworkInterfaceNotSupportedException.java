@@ -41,7 +41,7 @@ package org.opennms.netmgt.poller;
  */
 public class NetworkInterfaceNotSupportedException extends UnsupportedOperationException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6475953946239469715L;
 

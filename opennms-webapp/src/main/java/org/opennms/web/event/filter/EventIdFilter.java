@@ -41,7 +41,7 @@ import org.opennms.web.filter.SQLType;
 public class EventIdFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="eventId"</code> */
     public static final String TYPE = "eventId";
-    
+
     /**
      * <p>Constructor for EventIdFilter.</p>
      *
@@ -50,5 +50,5 @@ public class EventIdFilter extends EqualsFilter<Integer> {
     public EventIdFilter(int eventId){
         super(TYPE, SQLType.INT, "EVENTID", "id", eventId);
     }
-    
+
 }

@@ -85,7 +85,7 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
         }
         return null;
     }
-    
+
     @Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
     	if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -93,7 +93,7 @@ public class EventsAlarmsOperation extends AbstractOperation implements Operatio
     	} else {
 			return targets != null && targets.size() > 0 && targets.get(0) != null;
     	}
-        
+
     }
 
     @Override

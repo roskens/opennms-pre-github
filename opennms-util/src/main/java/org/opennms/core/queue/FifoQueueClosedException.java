@@ -36,7 +36,7 @@ package org.opennms.core.queue;
  */
 public class FifoQueueClosedException extends FifoQueueException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -9088896767584630679L;
 

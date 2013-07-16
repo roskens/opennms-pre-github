@@ -53,7 +53,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class CustomGraphChooseResourceController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CustomGraphChooseResourceController.class);
 
 
@@ -73,7 +73,7 @@ public class CustomGraphChooseResourceController extends AbstractController impl
         if (resourceId == null) {
             throw new MissingParameterException(Parameters.resourceId.toString());
         }
-        
+
         String selectedResourceId = request.getParameter(Parameters.selectedResourceId.toString());
         if (selectedResourceId != null) {
             OnmsResource selectedResource = m_resourceService.getResourceById(selectedResourceId);
@@ -84,20 +84,20 @@ public class CustomGraphChooseResourceController extends AbstractController impl
                 selectedResourceAndParents.put(r.getId(), r);
                 r = r.getParent();
             }
-            
+
             LOG.debug("handleRequestInternal: addObject {}", selectedResourceAndParents.toString());
             modelAndView.addObject("selectedResourceAndParents", selectedResourceAndParents);
         }
-        
+
         OnmsResource resource = getResourceService().getResourceById(resourceId);
         modelAndView.addObject("parentResource", resource);
-        
+
         modelAndView.addObject("parentResourcePrefabGraphs", m_resourceService.findPrefabGraphsForResource(resource));
 
         List<OnmsResource> childResources = getResourceService().findChildResources(resource);
         LOG.debug("handleRequestInternal: addObject {}", childResources.toString());
         modelAndView.addObject("resources", childResources);
-        
+
         return modelAndView;
     }
 

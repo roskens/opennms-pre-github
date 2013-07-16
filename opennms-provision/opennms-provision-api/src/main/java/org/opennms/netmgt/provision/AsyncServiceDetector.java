@@ -37,7 +37,7 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public interface AsyncServiceDetector extends ServiceDetector {
-    
+
     /**
      * <p>isServiceDetected</p>
      *
@@ -46,5 +46,5 @@ public interface AsyncServiceDetector extends ServiceDetector {
      * @throws java.lang.Exception if any.
      */
     public DetectFuture isServiceDetected(InetAddress address);
-    
+
 }

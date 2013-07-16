@@ -58,7 +58,7 @@ public class DoNotAddColumnReplacement implements ColumnChangeReplacement {
         return false;
     }
 
-    
+
     /**
      * <p>close</p>
      */

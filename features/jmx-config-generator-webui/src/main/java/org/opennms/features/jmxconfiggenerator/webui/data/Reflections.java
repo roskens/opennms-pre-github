@@ -36,7 +36,7 @@ import java.util.Set;
 
 /**
  * This class is a helper class to do some reflection stuff.
- * 
+ *
  * @author Markus von Rüden
  */
 public class Reflections {
@@ -46,25 +46,25 @@ public class Reflections {
 	 * <code>clazz</code>.<br/>
 	 * <br/>
 	 * <b>Example:</b>
-	 * 
+	 *
 	 * <pre>
 	 *   class A implements Serializable, Clonable {
 	 *   ....
 	 *   }
-	 * 
+	 *
 	 *   class B extends A implements Comparable {
 	 *    ....
 	 *   }
-	 * 
+	 *
 	 *   class C extends B {
-	 * 
+	 *
 	 *    ....
-	 * 
+	 *
 	 *   }
-	 * 
+	 *
 	 *   buildClassHierarchy(c.class) returns [C.class, Comparable.class, B.class, Serializable.class, Cloneable.class, A.class]
 	 * </pre>
-	 * 
+	 *
 	 * @param clazz
 	 * @return
 	 */
@@ -77,7 +77,7 @@ public class Reflections {
 	/**
 	 * Builds the class hierarchy as described in
 	 * {@link #buildClassHierarchy(java.lang.Class) }
-	 * 
+	 *
 	 * @param clazz
 	 *            the class to build class hierarchy for
 	 * @param classes

@@ -45,17 +45,17 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<LineOrientedRequest, MultilineHttpResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MultilineHttpDetector.class);
     private static final String DEFAULT_SERVICE_NAME = "HTTP";
     private static final int DEFAULT_PORT = 80;
     private static String DEFAULT_URL="/";
     private static int DEFAULT_MAX_RET_CODE = 399;
-    
+
     private String m_url;
     private int m_maxRetCode;
     private boolean m_checkRetCode = false;
-    
+
     /**
      * <p>Constructor for MultilineHttpDetector.</p>
      */
@@ -63,7 +63,7 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
         contructDefaults();
     }
-    
+
     /**
      * <p>Constructor for MultilineHttpDetector.</p>
      *
@@ -74,21 +74,21 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
         super(serviceName, port);
         contructDefaults();
     }
-    
+
     private void contructDefaults() {
         setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineHttpProtocolFactory()));
         setUrl(DEFAULT_URL);
         setMaxRetCode(DEFAULT_MAX_RET_CODE);
     }
-    
-    
+
+
 
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
         send(request(httpCommand("GET")), contains(DEFAULT_SERVICE_NAME, getUrl(), isCheckRetCode(), getMaxRetCode()));
     }
-    
+
     /**
      * <p>httpCommand</p>
      *
@@ -96,10 +96,10 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
      * @return a {@link java.lang.String} object.
      */
     protected String httpCommand(final String command) {
-        
+
         return String.format("%s %s  HTTP/1.0\r\n\r\n", command, getUrl());
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -109,7 +109,7 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
     protected static LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -124,7 +124,7 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
 
             @Override
             public boolean validate(final MultilineHttpResponse message) {
-                
+
                 try {
                     return message.validateResponse(pattern, url, isCheckCode, maxRetCode);
                 } catch (final Exception e) {
@@ -132,7 +132,7 @@ public abstract class MultilineHttpDetector extends AsyncBasicDetectorMinaImpl<L
                     return false;
                 }
             }
-            
+
         };
     }
 

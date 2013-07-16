@@ -56,7 +56,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
     private boolean m_includeParentsWhenFiltering = true;
     private Set<Object> m_filterOverride = null;
     private final HashMap<Object, Object> m_parent = new HashMap<Object, Object>();
-    
+
    public FilterableHierarchicalContainer(HierarchicalBeanContainer<?,?> container) {
         super();
         m_container = container;
@@ -66,7 +66,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
             @Override
             public void containerPropertySetChange(PropertySetChangeEvent event) {
                 event.getContainer();
-                
+
             }
         });
     }
@@ -88,12 +88,12 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         }else {
             return m_container.getItemIds();
         }
-        
+
     }
 
     @Override
     public Property<?> getContainerProperty(Object itemId, Object propertyId) {
-        
+
         return m_container.getContainerProperty(itemId, propertyId);
     }
 
@@ -109,7 +109,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
 
     @Override
     public boolean containsId(Object itemId) {
-        
+
         return m_container.containsId(itemId);
     }
 
@@ -151,7 +151,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         } else {
             return m_container.getChildren(itemId);
         }
-        
+
     }
 
     @Override
@@ -169,7 +169,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         }else {
             return m_container.rootItemIds();
         }
-        
+
     }
 
     @Override
@@ -190,9 +190,9 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
     @Override
     public boolean isRoot(Object itemId) {
         if(m_filteredRoots != null) {
-            
+
         }
-        
+
         return m_container.isRoot(itemId);
     }
 
@@ -203,14 +203,14 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         }else {
             return m_container.hasChildren(itemId);
         }
-        
+
     }
 
     @Override
     public boolean removeItem(Object itemId) throws UnsupportedOperationException {
         return m_container.removeItem(itemId);
     }
-    
+
     @Override
     protected boolean doFilterContainer(boolean hasFilters) {
         if (!hasFilters) {
@@ -218,7 +218,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
             m_filteredRoots = null;
             m_filteredChildren = null;
             m_filteredParent = null;
-            
+
             if(getFilteredItemIds() != null) {
                 boolean changed = m_container.getItemIds().size() != getFilteredItemIds().size();
                 setFilteredItemIds(null);
@@ -226,7 +226,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
             }else {
                 return false;
             }
-            
+
         }
 
         // Reset data structures
@@ -277,7 +277,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
             return true;
         }
     }
-    
+
     private void addFilteredChildrenRecursively(Object parentItemId, HashSet<Object> includedItems) {
         Collection<?> childList = m_container.getChildren(parentItemId);
         if (childList == null) {
@@ -291,8 +291,8 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
             }
         }
     }
-    
-    
+
+
     private void addFilteredChild(Object parentItemId, Object childItemId) {
         LinkedList<Object> parentToChildrenList = m_filteredChildren
                 .get(parentItemId);
@@ -304,7 +304,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         parentToChildrenList.add(childItemId);
 
     }
-    
+
     private boolean filterIncludingParents(Object itemId, HashSet<Object> includedItems) {
         boolean toBeIncluded = passesFilters(itemId);
 
@@ -320,12 +320,12 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
         }
         return toBeIncluded;
     }
-    
+
     @Override
     public void setFilteredItemIds(List<Object> itemIds) {
         m_filteredItems = itemIds;
     }
-    
+
     @Override
     public List<Object> getFilteredItemIds(){
         return m_filteredItems;
@@ -340,7 +340,7 @@ public class FilterableHierarchicalContainer extends HierarchicalContainer imple
     public void containerItemSetChange(Container.ItemSetChangeEvent event) {
         fireItemSetChange();
     }
-    
+
 
     public void fireItemUpdated() {
         m_container.fireItemSetChange();

@@ -49,7 +49,7 @@ public class CommandProviderShellCommand extends OsgiCommandSupport {
     	for (final ServiceReference<BlueprintContainer> sr : services) {
 
     		final List<String> commands = new ArrayList<String>();
-    		
+
     		final BlueprintContainer container = this.bundleContext.getService(sr);
 			final Collection<ServiceMetadata> metadata = container.getMetadata(ServiceMetadata.class);
     		for (final ServiceMetadata data : metadata) {
@@ -84,14 +84,14 @@ public class CommandProviderShellCommand extends OsgiCommandSupport {
     				commands.add(scope + ":" + function);
     			}
     		}
-    		
+
     		if (commands.size() > 0) {
 	    		System.out.println(sr.getBundle());
-	    		
+
     			for (final String command : commands) {
     				System.out.println("    " + command);
     			}
-	    		
+
 	    		System.out.println();
     		}
     	}

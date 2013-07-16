@@ -59,9 +59,9 @@ import org.slf4j.LoggerFactory;
   * @author <a href="mailto:mhuot@opennms.org">Mike Huot</a>
   */
  public class Syslogd extends AbstractServiceDaemon {
-     
+
      private static final Logger LOG = LoggerFactory.getLogger(Syslogd.class);
-     
+
      /**
      * The name of the logging category for Syslogd.
      */

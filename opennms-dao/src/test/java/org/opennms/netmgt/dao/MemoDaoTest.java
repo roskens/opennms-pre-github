@@ -80,7 +80,7 @@ public class MemoDaoTest implements InitializingBean {
 
     @Autowired
     private MemoDao m_memoDao;
-    
+
     @Autowired
     private DatabasePopulator m_databasePopulator;
 
@@ -104,7 +104,7 @@ public class MemoDaoTest implements InitializingBean {
             m_populated = true;
         }
     }
-    
+
     @Test
     @Transactional
     public void testAddStickyMemoToExistingAlarm() {
@@ -138,22 +138,22 @@ public class MemoDaoTest implements InitializingBean {
         OnmsAlarm newAlarm = m_alarmDao.load(alarm.getId());
         assertEquals("uei://org/opennms/test/EventDaoTest", newAlarm.getUei());
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
-        
+
         final OnmsMemo memo = new OnmsMemo();
         memo.setBody("Call me Ishmael...");
         memo.setAuthor("Herman Melville");
-        Date memoCreation = new Date(); 
+        Date memoCreation = new Date();
         memo.setCreated(memoCreation);
         newAlarm.setStickyMemo(memo);
-        
+
         m_alarmDao.update(newAlarm);
         m_alarmDao.flush();
-        
-        assertNotNull(newAlarm.getStickyMemo().getId());        
+
+        assertNotNull(newAlarm.getStickyMemo().getId());
         assertNotNull(newAlarm.getStickyMemo().getCreated());
         assertNotNull(newAlarm.getStickyMemo().getAuthor());
         assertNotNull(newAlarm.getStickyMemo().getBody());
-        
+
         assertNotNull(alarm.getStickyMemo().getId());
         assertNotNull(alarm.getStickyMemo().getCreated());
         assertNotNull(alarm.getStickyMemo().getAuthor());

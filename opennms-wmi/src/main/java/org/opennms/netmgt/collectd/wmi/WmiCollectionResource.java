@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
  * @version $Id: $
  */
 public abstract class WmiCollectionResource extends AbstractCollectionResource {
-    
+
     protected int m_nodeId;
     protected CollectionAgent m_agent;
 
@@ -109,7 +109,7 @@ public abstract class WmiCollectionResource extends AbstractCollectionResource {
      */
     @Override
     public abstract String getInstance();
-    
+
     @Override
     public String getParent() {
         return m_agent.getStorageDir().toString();

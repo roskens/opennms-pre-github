@@ -49,12 +49,12 @@ import org.opennms.core.utils.ConfigFileConstants;
  * @version $Id: $
  */
 public class ChartConfigFactory extends ChartConfigManager {
-    
+
     private static boolean m_initialized = false;
     private static ChartConfigFactory m_instance = null;
     private static File m_chartConfigFile;
     private static long m_lastModified;
-    
+
     /**
      * <p>init</p>
      *
@@ -68,9 +68,9 @@ public class ChartConfigFactory extends ChartConfigManager {
             m_instance = new ChartConfigFactory();
             reload();
             m_initialized = true;
-        }   
+        }
     }
-    
+
     /**
      * <p>reload</p>
      *
@@ -128,10 +128,10 @@ public class ChartConfigFactory extends ChartConfigManager {
         if (!m_initialized) {
             throw new IllegalStateException("Factory not initialized");
         }
-        
+
         return m_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

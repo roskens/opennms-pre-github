@@ -57,9 +57,9 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
     /**
      * Encapsulates the configuration characteristics unique to a DominoIIOP
      * connection
-     * 
+     *
      * @author Matt Brozowski
-     * 
+     *
      */
     public static class DominoConnectionConfig extends ConnectionConfig {
 
@@ -121,7 +121,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#createProtocol(java.net.Socket,
      *      org.opennms.netmgt.capsd.ConnectonConfig)
      */
@@ -133,7 +133,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#createConfig(java.net.InetAddress,
      *      java.util.Map)
      */
@@ -145,7 +145,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#populateConnectionConfig(org.opennms.netmgt.capsd.ConnectionConfig,
      *      java.util.Map)
      */
@@ -184,7 +184,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /**
      * Method used to retrieve the IOR string from the Domino server.
-     * 
+     *
      * @param host
      *            the host name which has the IOR
      * @param port
@@ -219,7 +219,7 @@ public final class DominoIIOPPlugin extends AbstractTcpPlugin {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.capsd.AbstractTcpPlugin#saveConfig(org.opennms.netmgt.capsd.ConnectionConfig)
      */
     /**

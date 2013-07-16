@@ -37,8 +37,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class Event Window.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class EventWindow extends Window {
@@ -51,7 +51,7 @@ public class EventWindow extends Window {
      * @param fileName the MIB's file name
      * @param events the OpenNMS events object
      * @param logger the logger object
-     * 
+     *
      * @throws Exception the exception
      */
     public EventWindow(final EventConfDao eventConfDao, final EventProxy eventProxy, final String fileName, final Events events, final Logger logger) throws Exception {

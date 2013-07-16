@@ -62,11 +62,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @version $Id: $
  */
 public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
-    
+
     private FilterManager m_filterManager;
-    
+
     private Map<String, List<String>> roleToOnmsGroupMap = new HashMap<String, List<String>>();
-    
+
     private SecurityContextService m_contextService;
 
     public SecurityContextService getContextService() {
@@ -77,7 +77,7 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
 	public void setContextService(SecurityContextService contextService) {
 		m_contextService = contextService;
 	}
-   
+
     public void setRoleToOnmsGroupMap(Map<String, List<String>> roleToOnmsGroupMap) {
         this.roleToOnmsGroupMap = roleToOnmsGroupMap;
     }
@@ -91,7 +91,7 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
     public void setFilterManager(FilterManager filterManager) {
         m_filterManager = filterManager;
     }
-    
+
 
     /* (non-Javadoc)
      * @see org.springframework.security.ui.SpringSecurityFilter#doFilterHttp(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse, javax.servlet.FilterChain)
@@ -99,13 +99,13 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
     /** {@inheritDoc} */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        
+
         boolean shouldFilter = AclUtils.shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
-        List<String> groups = new ArrayList<String>(); 
+        List<String> groups = new ArrayList<String>();
 
         if (shouldFilter) {
-    
-            for (String role: roleToOnmsGroupMap.keySet()) {            
+
+            for (String role: roleToOnmsGroupMap.keySet()) {
                if (userHasAuthority(role))
                    groups.addAll(roleToOnmsGroupMap.get(role));
             }
@@ -115,7 +115,7 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
 
         try {
             if (shouldFilter) {
-                
+
                 String[] groupNames = new String[groups.size()];
                 for(int i = 0; i < groups.size(); i++) {
                     groupNames[i] = groups.get(i);
@@ -131,14 +131,14 @@ public class AuthRoleToOnmsGroupMapFilterEnabler implements Filter {
             }
         }
 
-        
+
     }
 
     private boolean userHasAuthority(String role) {
     	return getContextService().hasRole(role);
     }
-    
-    
+
+
 	@Override
 	public void destroy() {
 	}

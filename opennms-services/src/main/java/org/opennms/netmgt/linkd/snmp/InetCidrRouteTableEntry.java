@@ -74,9 +74,9 @@ public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry
     * Lookup strings for specific table entries
     */
    public final static String IP_ROUTE_PFX_LEN = "ipRoutePfxLen";
-   
+
    /**
-    * <P>The keys that will be supported by default from the 
+    * <P>The keys that will be supported by default from the
     * TreeMap base class. Each of the elements in the list
     * are an instance of the InetCidrRoutetable. Objects
     * in this list should be used by multiple instances of
@@ -257,7 +257,7 @@ public final class InetCidrRouteTableEntry extends IpRouteCollectorEntry
    {
        super(ms_elemList);
    }
-   
+
    @Override
    public InetAddress getIpRouteMask() {
        final Integer prefix = getInt32(InetCidrRouteTableEntry.IP_ROUTE_PFX_LEN);

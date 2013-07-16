@@ -40,18 +40,18 @@ import com.vaadin.data.Validator;
  * @author Markus von Rüden
  */
 public class MBeansNameValidatorTest {
-	
+
 	public MBeansNameValidatorTest() {
 	}
 
-	
+
 	@Test
 	public void testValidate() {
 		final String[] OK = new String[]{
-			"com",  "com_webserver", "someEntry", 
-			"HELLO-WORLD", "Hello_woRlD", 
-			"some-additional-entry",  "some_Entry", 
-			"com.java.op-erating-system" /*strange seperation, but we must test this!*/, 
+			"com",  "com_webserver", "someEntry",
+			"HELLO-WORLD", "Hello_woRlD",
+			"some-additional-entry",  "some_Entry",
+			"com.java.op-erating-system" /*strange seperation, but we must test this!*/,
 			"some.entry.separated.by_.dots.a__.lot.of_.dots",
 			"a", "ab", "ab.cd", "a.bc", "ab.c"};
 		final String[] FAIL = new String[]{

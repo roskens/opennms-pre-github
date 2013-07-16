@@ -43,7 +43,7 @@ public class RtTicketerPluginTest extends TestCase {
 
     /**
      * Test Cases for RtTicketerPlugin
-     * 
+     *
      * @author <a href="mailto:jonathan@opennms.org">Jonathan Sartin</a>
      */
 

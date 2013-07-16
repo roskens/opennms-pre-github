@@ -40,14 +40,14 @@ import java.util.Properties;
  * @version $Id: $
  */
 public abstract class PropertiesUtils {
-	
+
 	private static final String PLACEHOLDER_SUFFIX = "}";
     private static final String PLACEHOLDER_PREFIX = "${";
 
     public static interface SymbolTable {
 		public String getSymbolValue(String symbol);
 	}
-	
+
 	private static class PropertyBasedSymbolTable implements SymbolTable {
 		Properties m_properties;
 		PropertyBasedSymbolTable(Properties properties) {
@@ -58,7 +58,7 @@ public abstract class PropertiesUtils {
 			return m_properties.getProperty(symbol);
 		}
 	}
-    
+
     private static class MapBasedSymbolTable implements SymbolTable {
         Map<String,String> m_map;
         MapBasedSymbolTable(Map<String,String> properties) {
@@ -69,7 +69,7 @@ public abstract class PropertiesUtils {
             return m_map.get(symbol);
         }
     }
-    
+
     /**
      * This recursively substitutes occurrences ${property.name} in initialString with the value of
      * the property property.name taken from the supplied properties object. If
@@ -139,11 +139,11 @@ public abstract class PropertiesUtils {
             SymbolTable symTable, String placeholderPrefix,
             String placeholderSuffix, List<String> list) {
         if (initialString == null) return null;
-        
+
         StringBuffer result = new StringBuffer(initialString);
-        
+
         int startIndex = 0;
-        
+
         while (startIndex >= 0) {
             int beginIndex = result.indexOf(placeholderPrefix, startIndex);
             int endIndex = (beginIndex < 0 ? -1 : result.indexOf(placeholderSuffix, beginIndex+placeholderPrefix.length()));
@@ -158,7 +158,7 @@ public abstract class PropertiesUtils {
                     list.remove(list.size()-1);
                     result.replace(beginIndex, endIndex+1, substVal);
                     startIndex = beginIndex + substVal.length();
-                    
+
                 } else {
                     startIndex = endIndex+1;
                 }
@@ -183,7 +183,7 @@ public abstract class PropertiesUtils {
     public static String getProperty(Properties props, String name, String defaultVal) {
         return props.getProperty(name) == null ? defaultVal : props.getProperty(name);
     }
-    
+
     /**
      * Get a boolean valued property, returning default value if it is not set
      * or is set to an invalid value.
@@ -242,6 +242,6 @@ public abstract class PropertiesUtils {
         }
         return defaultVal;
     }
-    
+
 
 }

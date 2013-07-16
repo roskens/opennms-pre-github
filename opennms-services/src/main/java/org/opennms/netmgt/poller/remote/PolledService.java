@@ -48,7 +48,7 @@ import org.opennms.netmgt.poller.NetworkInterface;
  * @version $Id: $
  */
 public class PolledService implements MonitoredService, Serializable, Comparable<PolledService> {
-    
+
     private static final long serialVersionUID = 2L;
 
     private final InetNetworkInterface m_netInterface;
@@ -58,7 +58,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
     private final Integer m_nodeId;
     private final String m_nodeLabel;
     private final String m_svcName;
-	
+
 	/**
 	 * <p>Constructor for PolledService.</p>
 	 *
@@ -75,7 +75,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
 		m_monitorConfiguration = monitorConfiguration;
 		m_pollModel = pollModel;
 	}
-	
+
 	/**
 	 * <p>getServiceId</p>
 	 *
@@ -144,7 +144,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
     public String getSvcName() {
         return m_svcName;
     }
-	
+
 	/**
 	 * <p>getMonitorConfiguration</p>
 	 *
@@ -153,7 +153,7 @@ public class PolledService implements MonitoredService, Serializable, Comparable
 	public Map<String,Object> getMonitorConfiguration() {
         return m_monitorConfiguration;
     }
-    
+
     /**
      * <p>getPollModel</p>
      *

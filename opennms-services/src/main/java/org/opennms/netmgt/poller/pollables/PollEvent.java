@@ -39,9 +39,9 @@ import java.util.Date;
  * @version $Id: $
  */
 abstract public class PollEvent {
-    
+
     Scope m_scope;
-    
+
     /**
      * <p>Constructor for PollEvent.</p>
      *
@@ -50,7 +50,7 @@ abstract public class PollEvent {
     protected PollEvent(Scope scope) {
         m_scope = scope;
     }
-    
+
     /**
      * <p>getScope</p>
      *
@@ -73,14 +73,14 @@ abstract public class PollEvent {
      * @return a {@link java.util.Date} object.
      */
     abstract public Date getDate();
-    
+
     /**
      * <p>isNodeDown</p>
      *
      * @return a boolean.
      */
     public boolean isNodeDown() {
-        return getScope().equals(Scope.NODE); 
+        return getScope().equals(Scope.NODE);
     }
 
     /**
@@ -91,7 +91,7 @@ abstract public class PollEvent {
     public boolean isInterfaceDown() {
         return getScope().equals(Scope.INTERFACE);
     }
-    
+
     /**
      * <p>isNodeLostService</p>
      *
@@ -100,7 +100,7 @@ abstract public class PollEvent {
     public boolean isNodeLostService() {
         return getScope().equals(Scope.SERVICE);
     }
-    
+
     /**
      * <p>hasLargerScopeThan</p>
      *
@@ -110,7 +110,7 @@ abstract public class PollEvent {
     public boolean hasLargerScopeThan(PollEvent e) {
         return Scope.isLargerThan(this.getScope(), e.getScope());
     }
-    
+
     /**
      * <p>hasSmallerScopeThan</p>
      *
@@ -120,7 +120,7 @@ abstract public class PollEvent {
     public boolean hasSmallerScopeThan(PollEvent e) {
         return Scope.isSmallerThan(this.getScope(), e.getScope());
     }
-    
+
     /**
      * <p>hasScopeLargerThan</p>
      *
@@ -130,7 +130,7 @@ abstract public class PollEvent {
     public boolean hasScopeLargerThan(Scope scope) {
         return Scope.isLargerThan(this.getScope(), scope);
     }
-    
+
     /**
      * <p>hasScopeSmallerThan</p>
      *
@@ -140,7 +140,7 @@ abstract public class PollEvent {
     public boolean hasScopeSmallerThan(Scope scope) {
         return Scope.isSmallerThan(this.getScope(), scope);
     }
-    
+
     /**
      * <p>hasSameScope</p>
      *
@@ -150,7 +150,7 @@ abstract public class PollEvent {
     public boolean hasSameScope(PollEvent e) {
         return this.getScope() == e.getScope();
     }
-    
+
     /**
      * <p>withLargestScope</p>
      *

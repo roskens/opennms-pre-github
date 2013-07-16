@@ -56,7 +56,7 @@ import org.springframework.test.context.ContextConfiguration;
  * NOTE: This class relies on the system property "opennms.ticketer.plugin" being set to
  * {@link TestTicketerPlugin}. Currently, this is done inside {@link DaoTestConfigBean}
  * which is invoked by the OpenNMSConfigurationExecutionListener.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

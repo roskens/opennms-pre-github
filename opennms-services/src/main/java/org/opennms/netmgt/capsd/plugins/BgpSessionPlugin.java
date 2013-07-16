@@ -53,9 +53,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class BgpSessionPlugin extends SnmpPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BgpSessionPlugin.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -65,7 +65,7 @@ public final class BgpSessionPlugin extends SnmpPlugin {
      * Default OID for the table that represents the BGP-peer states.
      */
     private static final String BGP_PEER_STATE_OID = ".1.3.6.1.2.1.15.3.1.2";
-    
+
     /**
      * Default OID for the table that represents the BGP-peer admin states.
      */
@@ -88,7 +88,7 @@ public final class BgpSessionPlugin extends SnmpPlugin {
             return this.state;
         }
     };
-    
+
     /**
      * Implement the BGP Peer admin states
      */
@@ -104,7 +104,7 @@ public final class BgpSessionPlugin extends SnmpPlugin {
             return this.state;
         }
     };
-    
+
     /**
      * Returns the name of the protocol that this plugin checks on the target
      * system for support.
@@ -129,16 +129,16 @@ public final class BgpSessionPlugin extends SnmpPlugin {
     public boolean isProtocolSupported(InetAddress ipaddr, Map<String, Object> qualifiers) {
         try {
             String bgpPeerIp = ParameterMap.getKeyedString(qualifiers,"bgpPeerIp", null);
-            
+
             // If no parameter for bgpPeerIp, do not detect the protocol and quit
             if (bgpPeerIp == null) {
                 LOG.warn("poll: No BGP-Peer IP Defined! ");
                 return false;
             }
-            
+
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
             if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
-            
+
             if (qualifiers != null) {
                 // "port" parm
                 //
@@ -179,7 +179,7 @@ public final class BgpSessionPlugin extends SnmpPlugin {
                 // Get the BGP admin state
                 SnmpObjId bgpPeerAdminStateSnmpObject = SnmpObjId.get(BGP_PEER_ADMIN_STATE_OID + "." + bgpPeerIp);
                 SnmpValue bgpPeerAdminState = SnmpUtils.get(agentConfig, bgpPeerAdminStateSnmpObject);
-                
+
                 // If no admin state received, do not detect the protocol and quit
                 if (bgpPeerAdminState == null)
                 {
@@ -188,17 +188,17 @@ public final class BgpSessionPlugin extends SnmpPlugin {
                 } else {
                     LOG.debug("poll: bgpPeerAdminState: {}", bgpPeerAdminState);
                 }
-                
+
                 // If BGP peer session administratively STOP do not detect
                 if  (Integer.parseInt(bgpPeerAdminState.toString()) != BGP_PEER_ADMIN_STATE.START.value())
                 {
                     return false;
                 }
-                
+
                 // BGP peer session is administratively START check valid state
                 SnmpObjId bgpPeerStateSnmpObject = SnmpObjId.get(BGP_PEER_STATE_OID + "." + bgpPeerIp);
                 SnmpValue bgpPeerState = SnmpUtils.get(agentConfig, bgpPeerStateSnmpObject);
-                
+
                 // If no peer state is received or SNMP is not possible, do not detect and quit
                 if (bgpPeerState == null) {
                     LOG.warn("No BGP peer state received!");
@@ -208,7 +208,7 @@ public final class BgpSessionPlugin extends SnmpPlugin {
                 }
 
                 // Validate sessions, check state is somewhere between IDLE and ESTABLISHED
-                if  (Integer.parseInt(bgpPeerState.toString()) >= BGP_PEER_STATE.IDLE.value() && 
+                if  (Integer.parseInt(bgpPeerState.toString()) >= BGP_PEER_STATE.IDLE.value() &&
                     Integer.parseInt(bgpPeerState.toString()) <= BGP_PEER_STATE.ESTABLISHED.value())
                 {
                     // Session detected

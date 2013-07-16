@@ -62,7 +62,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class DbSnmpInterfaceEntry {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DbSnmpInterfaceEntry.class);
 
     /**
@@ -106,7 +106,7 @@ public final class DbSnmpInterfaceEntry {
     private int m_ifAdminStatus;
 
     private int m_ifOperStatus;
-    
+
     private String m_collect;
 
     /**
@@ -133,18 +133,18 @@ public final class DbSnmpInterfaceEntry {
     private static final int CHANGED_IFADMINSTATUS = 1 << 7;
 
     private static final int CHANGED_IFOPERSTATUS = 1 << 8;
-    
+
     private static final int CHANGED_IFALIAS = 1 << 9;
-    
+
     private static final int CHANGED_COLLECT = 1 << 10;
 
     /**
      * Inserts the new interface into the ipInterface table of the OpenNMS
      * database.
-     * 
+     *
      * @param c
      *            The connection to the database.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -197,7 +197,7 @@ public final class DbSnmpInterfaceEntry {
             values.append(",?");
             names.append(",snmpIfOperStatus");
         }
-        
+
         if ((m_changed & CHANGED_IFALIAS) == CHANGED_IFALIAS) {
             values.append(",?");
             names.append(",snmpIfAlias");
@@ -255,7 +255,7 @@ public final class DbSnmpInterfaceEntry {
             if ((m_changed & CHANGED_IFOPERSTATUS) == CHANGED_IFOPERSTATUS) {
                 stmt.setInt(ndx++, m_ifOperStatus);
             }
-            
+
             if ((m_changed & CHANGED_IFALIAS) == CHANGED_IFALIAS) {
                 stmt.setString(ndx++, m_ifAlias);
             }
@@ -283,10 +283,10 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Updates an existing record in the OpenNMS ipInterface table.
-     * 
+     *
      * @param c
      *            The connection used for the update.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -476,10 +476,10 @@ public final class DbSnmpInterfaceEntry {
      * Load the current interface from the database. If the interface was
      * modified, the modifications are lost. The nodeid and ip address must be
      * set prior to this call.
-     * 
+     *
      * @param c
      *            The connection used to load the data.
-     * 
+     *
      * @throws java.sql.SQLException
      *             Thrown if an error occurs with the connection
      */
@@ -541,7 +541,7 @@ public final class DbSnmpInterfaceEntry {
 
             // get the speed
             m_ifSpeed = rset.getLong(ndx++);
-            if (rset.wasNull()) { 
+            if (rset.wasNull()) {
                 m_ifSpeed = -1L;
             }
 
@@ -556,7 +556,7 @@ public final class DbSnmpInterfaceEntry {
             if (rset.wasNull()) {
                 m_ifOperStatus = -1;
             }
-            
+
             // get the alias
             m_ifAlias = rset.getString(ndx++);
             if (rset.wasNull()) {
@@ -568,11 +568,11 @@ public final class DbSnmpInterfaceEntry {
             if (rset.wasNull()) {
                 m_collect = null;
             }
-        
+
         } finally {
             d.cleanUp();
         }
-        
+
         // clear the mask and mark as backed by the database
         m_changed = 0;
         return true;
@@ -580,7 +580,7 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Default constructor.
-     * 
+     *
      */
     private DbSnmpInterfaceEntry() {
         throw new UnsupportedOperationException("Default constructor not supported!");
@@ -588,12 +588,12 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Constructs a new interface.
-     * 
+     *
      * @param nodeId
      *            The node identifier.
      * @param ifIndex
      *            The interface index to load
-     * 
+     *
      */
     private DbSnmpInterfaceEntry(long nodeId, int ifIndex) {
         this(nodeId, ifIndex, true);
@@ -601,14 +601,14 @@ public final class DbSnmpInterfaceEntry {
 
     /**
      * Constructs a new interface.
-     * 
+     *
      * @param nodeId
      *            The node identifier.
      * @param ifIndex
      *            The interface index to load
      * @param exists
      *            True if the interface already exists.
-     * 
+     *
      */
     private DbSnmpInterfaceEntry(long nodeId, int ifIndex, boolean exists) {
         m_fromDb = exists;
@@ -631,7 +631,7 @@ public final class DbSnmpInterfaceEntry {
      * Returns the node entry's unique identifier. This is a non-mutable
      * element. If the record does not yet exist in the database then a -1 is
      * returned.
-     * 
+     *
      */
     public long getNodeId() {
         return m_nodeId;
@@ -859,7 +859,7 @@ public final class DbSnmpInterfaceEntry {
             return true;
         }
     }
-    
+
     public String getAlias() {
         return m_ifAlias;
     }
@@ -908,7 +908,7 @@ public final class DbSnmpInterfaceEntry {
         }
     }
 
-    
+
     /**
      * Updates the interface information in the configured database. If the
      * interface does not exist the a new row in the table is created. If the
@@ -942,7 +942,7 @@ public final class DbSnmpInterfaceEntry {
      * interface does not exist the a new row in the table is created. If the
      * element already exists then it's current row is updated as needed based
      * upon the current changes to the node.
-     * 
+     *
      * @param db
      *            The database connection used to write the record.
      */
@@ -959,12 +959,12 @@ public final class DbSnmpInterfaceEntry {
     /**
      * Creates a new entry. The entry is created in memory, but is not written
      * to the database until the first call to <code>store</code>.
-     * 
+     *
      * @param nid
      *            The node id of the interface.
      * @param ifIndex
      *            The ifIndex of the interface
-     * 
+     *
      * @return A new interface record.
      */
     public static DbSnmpInterfaceEntry create(int nid, int ifIndex) {
@@ -975,14 +975,14 @@ public final class DbSnmpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ifindex</em>. If the record cannot be found
      * then a null reference is returned.
-     * 
+     *
      * @param nodeId
      *            The node id key
      * @param ifIndex
      *            the interface index.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbSnmpInterfaceEntry get(long nodeId, int ifIndex) throws SQLException {
         Connection db = null;
@@ -1004,16 +1004,16 @@ public final class DbSnmpInterfaceEntry {
      * Retrieves a current record from the database based upon the key fields of
      * <em>nodeID</em> and <em>ifIndex</em>. If the record cannot be found
      * then a null reference is returned.
-     * 
+     *
      * @param db
      *            The database connection used to load the entry.
      * @param nodeId
      *            The node id key
      * @param ifIndex
      *            The interface index.
-     * 
+     *
      * @return The loaded entry or null if one could not be found.
-     * 
+     *
      */
     public static DbSnmpInterfaceEntry get(Connection db, long nodeId, int ifIndex)
     throws SQLException {

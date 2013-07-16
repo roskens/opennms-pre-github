@@ -45,9 +45,9 @@ import org.slf4j.LoggerFactory;
  * @author brozow
  */
 public class EventAnticipator implements EventListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventAnticipator.class);
-    
+
     boolean m_discardUnanticipated = false;
 
     /**
@@ -55,7 +55,7 @@ public class EventAnticipator implements EventListener {
      * given unit test.
      */
     final List<EventWrapper> m_anticipatedEvents = new ArrayList<EventWrapper>();
-    
+
     /**
      * This collection contains events that have been received during the unit test.
      * These events are removed from {@link #m_anticipatedEvents} as they are received.
@@ -64,7 +64,7 @@ public class EventAnticipator implements EventListener {
 
     /**
      * This list contains events that were received during the test duration but were not
-     * in the {@link #m_anticipatedEvents} list. The {@link #m_unanticipatedEvents} list is 
+     * in the {@link #m_anticipatedEvents} list. The {@link #m_unanticipatedEvents} list is
      * only populated if {@link #m_discardUnanticipated} is set to <code>false</code>.
      */
     final List<Event> m_unanticipatedEvents = new ArrayList<Event>();
@@ -73,7 +73,7 @@ public class EventAnticipator implements EventListener {
      */
     public EventAnticipator() {
     }
-    
+
 
     /**
      * @return the discardUnanticipated
@@ -93,12 +93,12 @@ public class EventAnticipator implements EventListener {
 
     /**
      * @param event
-     * 
+     *
      */
     public void anticipateEvent(Event event) {
         anticipateEvent(event, false);
     }
-    
+
     public synchronized void anticipateEvent(Event event, boolean checkUnanticipatedList) {
         EventWrapper w = new EventWrapper(event);
         if (checkUnanticipatedList) {
@@ -111,7 +111,7 @@ public class EventAnticipator implements EventListener {
                     return;
                 }
             }
-        } 
+        }
         m_anticipatedEvents.add(w);
         notifyAll();
     }
@@ -143,7 +143,7 @@ public class EventAnticipator implements EventListener {
         }
         return events;
     }
-    
+
     public synchronized List<Event> getAnticipatedEventsRecieved() {
         return new ArrayList<Event>(m_anticipatedEventsReceived);
     }
@@ -221,7 +221,7 @@ public class EventAnticipator implements EventListener {
                     anticipatedSize + "):\n");
             problems.append(listEvents("\t", missingEvents));
         }
-        
+
         if (sleepAfter > 0) {
             try {
                 Thread.sleep(sleepAfter);
@@ -241,7 +241,7 @@ public class EventAnticipator implements EventListener {
             Assert.fail(problems.toString());
         }
     }
-    
+
     public void verifyAnticipated() {
         verifyAnticipated(0, 0, 0, 0, 0);
     }

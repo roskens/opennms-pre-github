@@ -78,13 +78,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms10205bCapsdNetworkBuilderTest extends Nms10205bNetworkBuilder implements InitializingBean {
 
-    
+
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
     @Autowired
     private Capsd m_capsd;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -96,7 +96,7 @@ public class Nms10205bCapsdNetworkBuilderTest extends Nms10205bNetworkBuilder im
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
 
         super.setIpInterfaceDao(m_interfaceDao);
-        
+
         MockLogAppender.setupLogging(p);
         assertTrue("Capsd must not be null", m_capsd != null);
     }
@@ -138,6 +138,6 @@ public class Nms10205bCapsdNetworkBuilderTest extends Nms10205bNetworkBuilder im
         printNode(J6350_42_IP,"J6350_42");
         printNode(SRX_100_IP,"SRX_100");
 
-        m_capsd.stop();        
-    }    
+        m_capsd.stop();
+    }
 }

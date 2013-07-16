@@ -45,17 +45,17 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * a SnmpHandler class must be defined to process any errors or responses
  * through the library.
  * </P>
- * 
+ *
  * <P>
  * Once the session is created the creator must call <EM>close()</EM> to
  * ensure an orderly release of threads and resources.
  * </P>
- * 
+ *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
- * 
+ *
  * @version 1.1.1.1 2001/11/11 17:27:22
- * 
+ *
  * @see SnmpHandler
  * @see SnmpPacketHandler
  * @see SnmpPortal
@@ -64,7 +64,7 @@ public class SnmpSession extends Object {
     /**
      * This is the command passed to the SnmpHandler if a timeout occurs. All
      * errors are less than zero.
-     * 
+     *
      * @see SnmpHandler
      */
     public static final int ERROR_TIMEOUT = -1;
@@ -72,7 +72,7 @@ public class SnmpSession extends Object {
     /**
      * This is the command passed to the SnmpHandler if an IOException occurs
      * while attempting to transmit the request
-     * 
+     *
      * @see SnmpHandler
      */
     public static final int ERROR_IOEXCEPTION = -2;
@@ -80,7 +80,7 @@ public class SnmpSession extends Object {
     /**
      * This is the command passed to the SnmpHandler if an encoding exception is
      * generated when attempting to send an SnmpPduRequest message
-     * 
+     *
      * @see SnmpHandler
      */
     public static final int ERROR_ENCODING = -3;
@@ -94,7 +94,7 @@ public class SnmpSession extends Object {
     /**
      * The SNMP peer to whom this session will communicate with. The peer
      * contains the parameters also.
-     * 
+     *
      * @see SnmpParameters
      */
     private SnmpPeer m_peer;
@@ -102,7 +102,7 @@ public class SnmpSession extends Object {
     /**
      * The timer object used to schedule the SnmpRequest timeouts. It is also
      * used to schedule the cleanup of the m_requests list.
-     * 
+     *
      * @see org.opennms.protocols.snmp.SnmpSession.CleanupRequest
      * @see SnmpRequest
      */
@@ -229,14 +229,14 @@ public class SnmpSession extends Object {
      * have expired. The cleanup interval is nominally once every 5 to 10
      * seconds. It's used like the garbage collector for the m_requests list.
      * This is used in hopes of minimizing the contention for the request array
-     * 
+     *
      */
     private class CleanupRequest implements Runnable {
         /**
          * Preforms the actual removal of the expired SnmpRequest elements.
-         * 
+         *
          * @see SnmpRequest
-         * 
+         *
          */
         @Override
         public void run() {
@@ -265,7 +265,7 @@ public class SnmpSession extends Object {
      * array. The length passed to the constructor is normally less then the
      * length of the encapsulated array.
      * </P>
-     * 
+     *
      */
     private static class ByteArrayInfo {
         /**
@@ -281,7 +281,7 @@ public class SnmpSession extends Object {
         /**
          * Builds an encapuslated array with the passed buffer and its <EM>
          * valid</EM> length set to <EM>length</EM>.
-         * 
+         *
          * @param buf
          *            The buffer.
          * @param length
@@ -313,12 +313,12 @@ public class SnmpSession extends Object {
      * the encoding. The encoding is performed using the default encoder for the
      * session and limits the size to a 16K buffer.
      * </P>
-     * 
+     *
      * @param pdu
      *            The pdu to encode
-     * 
+     *
      * @return The encoded pdu request
-     * 
+     *
      * @exception SnmpPduEncodingException
      *                Thrown if an encoding exception occurs at the session
      *                level
@@ -386,12 +386,12 @@ public class SnmpSession extends Object {
      * the encoding. The encoding is performed using the default encoder for the
      * session and limits the size to a 16K buffer.
      * </P>
-     * 
+     *
      * @param pdu
      *            The pdu to encode
-     * 
+     *
      * @return The encoded pdu request
-     * 
+     *
      * @exception SnmpPduEncodingException
      *                Thrown if an encoding exception occurs at the session
      *                level
@@ -445,7 +445,7 @@ public class SnmpSession extends Object {
      * Adds an outstanding request to the session. The access to the list is
      * synchronized on the actual list of request. This is done to allow
      * synchronization between addRequest(), removeRequest(), and findRequest()
-     * 
+     *
      * @param req
      *            The request reference to add (not cloned)
      */
@@ -460,7 +460,7 @@ public class SnmpSession extends Object {
      * Object.equals() to find a matching request. If the SnmpRequest object
      * does not override the equals() method the a "by reference" equality is
      * used.
-     * 
+     *
      * @param req
      *            The request to remove. All matching request are removed.
      */
@@ -484,13 +484,13 @@ public class SnmpSession extends Object {
      * returns it to the caller. The matching is done by means using the SNMP
      * Protocol Data Unit's request id. If no match is found then a null is
      * returned
-     * 
+     *
      * @param pdu
      *            The source pdu for the search.
-     * 
+     *
      * @return Returns a SnmpRequest if a match is found. Otherwise a null is
      *         returned.
-     * 
+     *
      */
     SnmpRequest findRequest(SnmpPduPacket pdu) {
         synchronized (m_requests) {
@@ -510,9 +510,9 @@ public class SnmpSession extends Object {
 
     /**
      * Returns the internal timer object for the SNMP Session.
-     * 
+     *
      * @return The internal timer object
-     * 
+     *
      */
     SnmpTimer getTimer() {
         return m_timer;
@@ -524,10 +524,10 @@ public class SnmpSession extends Object {
      * the session AsnEncoder, as defined by the SnmpParameters. Once the packet
      * is encoded it is transmitted to the agent defined by SnmpPeer. If an
      * error occurs an appropiate exception is generated.
-     * 
+     *
      * @param req
      *            The SnmpRequest to transmit
-     * 
+     *
      * @exception SnmpPduEncodingException
      *                Thrown if an encoding exception occurs at the session
      *                level
@@ -536,11 +536,11 @@ public class SnmpSession extends Object {
      *                object.
      * @exception java.io.IOException
      *                Thrown if an error occurs sending the encoded datagram
-     * 
+     *
      * @see SnmpRequest
      * @see SnmpParameters
      * @see SnmpPeer
-     * 
+     *
      */
     void transmit(SnmpRequest req) throws SnmpPduEncodingException, AsnEncodingException, java.io.IOException {
         //
@@ -591,15 +591,15 @@ public class SnmpSession extends Object {
     /**
      * The default SnmpSession constructor. The object is constructed with a
      * default SnmpPeer object.
-     * 
+     *
      * @param peer
      *            The peer agent
-     * 
+     *
      * @see SnmpPeer
-     * 
+     *
      * @exception java.net.SocketException
      *                If thrown it is from the creation of a DatagramSocket.
-     * 
+     *
      */
     public SnmpSession(InetAddress peer) throws SocketException {
         m_sync = new Object();
@@ -618,15 +618,15 @@ public class SnmpSession extends Object {
 
     /**
      * Constructs the SnmpSession with the specific SnmpPeer.
-     * 
+     *
      * @param peer
      *            The SnmpPeer used to configure this session
-     * 
+     *
      * @see SnmpPeer
-     * 
+     *
      * @exception java.net.SocketException
      *                If thrown it is from the creation of a DatagramSocket.
-     * 
+     *
      */
     public SnmpSession(SnmpPeer peer) throws SocketException {
         m_requests = new LinkedList<SnmpRequest>();
@@ -647,18 +647,18 @@ public class SnmpSession extends Object {
     /**
      * Constructs the SnmpSession with the specific parameters. The parameters
      * are associated with the default SnmpPeer object.
-     * 
+     *
      * @param peer
      *            The peer address for agent
      * @param params
      *            The SnmpParameters to configure with this session
-     * 
+     *
      * @see SnmpPeer
      * @see SnmpParameters
-     * 
+     *
      * @exception java.net.SocketException
      *                If thrown it is from the creation of a DatagramSocket.
-     * 
+     *
      */
     public SnmpSession(InetAddress peer, SnmpParameters params) throws SocketException {
         this(peer);
@@ -668,9 +668,9 @@ public class SnmpSession extends Object {
     /**
      * Gets the default SnmpHandler for the session. If the handler has never
      * been set via the setDefaultHandler() method then a null will be returned.
-     * 
+     *
      * @return The default SnmpHandler, a null if one has never been registered.
-     * 
+     *
      */
     public SnmpHandler getDefaultHandler() {
         return m_defHandler;
@@ -678,10 +678,10 @@ public class SnmpSession extends Object {
 
     /**
      * Sets the default SnmpHandler.
-     * 
+     *
      * @param hdl
      *            The new default handler
-     * 
+     *
      */
     public void setDefaultHandler(SnmpHandler hdl) {
         m_defHandler = hdl;
@@ -689,9 +689,9 @@ public class SnmpSession extends Object {
 
     /**
      * Gets the current peer object.
-     * 
+     *
      * @return The current SnmpPeer object
-     * 
+     *
      */
     public SnmpPeer getPeer() {
         return m_peer;
@@ -700,10 +700,10 @@ public class SnmpSession extends Object {
     /**
      * Sets the passed SnmpPeer object to the one used for all new SNMP
      * communications. This includes any outstanding retries.
-     * 
+     *
      * @param peer
      *            The SnmpPeer object for the sesison
-     * 
+     *
      */
     public void setPeer(SnmpPeer peer) {
         m_peer = peer;
@@ -713,9 +713,9 @@ public class SnmpSession extends Object {
     /**
      * Returns the number of outstanding request for the agent. An outstanding
      * request is one that has no yet responded to the query.
-     * 
+     *
      * @return The number of outstanding request
-     * 
+     *
      * @throws java.lang.IllegalStateException
      *             Throw if the session has been closed.
      */
@@ -748,12 +748,12 @@ public class SnmpSession extends Object {
     /**
      * Cancels the current outstanding reqeust as defined by the SnmpPduPacket's
      * requestId method.
-     * 
+     *
      * @param requestId
      *            The request to cancel
-     * 
+     *
      * @see SnmpPduPacket
-     * 
+     *
      * @throws java.lang.IllegalStateException
      *             Throw if the session has been closed.
      */
@@ -787,14 +787,14 @@ public class SnmpSession extends Object {
     /**
      * Send the SNMP PDU to the remote agent and invokes the specified handler
      * when the packet is recieve. This is a non-blocking call.
-     * 
+     *
      * @param pdu
      *            The pdu to encode and send
      * @param handler
      *            The handler object for this request
-     * 
+     *
      * @return The request identifier for the newly sent PDU.
-     * 
+     *
      * @exception SnmpHandlerNotDefinedException
      *                Thrown if the handler is null
      * @exception java.lang.IllegalStateException
@@ -832,12 +832,12 @@ public class SnmpSession extends Object {
     /**
      * Sends the SNMP PDU to the remote agent and uses the default SnmpHandler
      * to process the request. This is a non-blocking call
-     * 
+     *
      * @param pdu
      *            The pdu to encode and send
-     * 
+     *
      * @return The request identifier for the newly sent PDU.
-     * 
+     *
      * @exception SnmpHandlerNotDefinedException
      *                Thrown if the handler is null
      * @exception java.lang.IllegalStateException
@@ -852,14 +852,14 @@ public class SnmpSession extends Object {
 
     /**
      * Send the SNMP PDU Trap to the remote agent. This is a non-blocking call.
-     * 
+     *
      * @param pdu
      *            The pdu to encode and send
      * @param handler
      *            The handler object for this request
-     * 
+     *
      * @return The request identifier for the newly sent PDU.
-     * 
+     *
      * @exception SnmpHandlerNotDefinedException
      *                Thrown if the handler is null
      * @exception java.lang.IllegalStateException
@@ -884,12 +884,12 @@ public class SnmpSession extends Object {
 
     /**
      * Sends the SNMP PDU Trap to the remote agent. This is a non-blocking call
-     * 
+     *
      * @param pdu
      *            The pdu to encode and send
-     * 
+     *
      * @return The request identifier for the newly sent PDU.
-     * 
+     *
      * @exception SnmpHandlerNotDefinedException
      *                Thrown if the handler is null
      * @exception java.lang.IllegalStateException
@@ -906,7 +906,7 @@ public class SnmpSession extends Object {
      * Returns true if the <CODE>close</CODE> method has been called. The
      * session cannot be used to send request after <CODE>close</CODE> has
      * been executed.
-     * 
+     *
      */
     public boolean isClosed() {
         synchronized (m_sync) {
@@ -917,7 +917,7 @@ public class SnmpSession extends Object {
     /**
      * Used to close the session. Once called the session should be considered
      * invalid and unusable.
-     * 
+     *
      * @exception java.lang.IllegalStateException
      *                Thrown if the session has already been closed by another
      *                thread.
@@ -945,10 +945,10 @@ public class SnmpSession extends Object {
 
     /**
      * Sets the default encoder.
-     * 
+     *
      * @param encoder
      *            The new encoder
-     * 
+     *
      */
     public void setAsnEncoder(AsnEncoder encoder) {
         m_encoder = encoder;
@@ -957,7 +957,7 @@ public class SnmpSession extends Object {
 
     /**
      * Gets the AsnEncoder for the session.
-     * 
+     *
      * @return the AsnEncoder
      */
     public AsnEncoder getAsnEncoder() {
@@ -969,7 +969,7 @@ public class SnmpSession extends Object {
      * The object must support all methods of the SnmpSyntax interface. The
      * object is registered globally with the library and is visible to all
      * session after it is registered.
-     * 
+     *
      * @param object
      *            The new SnmpSyntax object to register
      */
@@ -984,7 +984,7 @@ public class SnmpSession extends Object {
     public SnmpSyntax[] getNext(SnmpObjectId[] oids) {
         return getResults(SnmpPduPacket.GETNEXT, oids);
     }
-    
+
     public SnmpSyntax get(SnmpObjectId oid) {
         return getResult(SnmpPduPacket.GET, oid);
     }
@@ -1000,11 +1000,11 @@ public class SnmpSession extends Object {
     public SnmpSyntax[] get(SnmpObjectId[] oids) {
         return getResults(SnmpPduPacket.GET, oids);
     }
-    
+
     public SnmpSyntax[] getBulk(int nonRepeaters, int maxReptitions, SnmpObjectId id) {
         return getBulk(nonRepeaters, maxReptitions, new SnmpObjectId[] { id });
     }
-    
+
     public SnmpSyntax[] getBulk(int nonRepeaters, int maxRepititions, SnmpObjectId[] oids) {
         SnmpVarBind[] varbinds = createVarBinds(oids);
         SnmpPduPacket request = new SnmpPduBulk(nonRepeaters, maxRepititions, varbinds);

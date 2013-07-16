@@ -79,30 +79,30 @@ public class EventsAlarmsWindow extends Window {
 		super("Events & Alarms" + makeLabel(node));
 		eventsBrowser = new Embedded("", new ExternalResource(eventsURL));
 		alarmsBrowser = new Embedded("", new ExternalResource(alarmsURL));
-		
+
 		setImmediate(true);
 		setResizable(false);
-		
+
 		/*Adds the two browsers to separate tabs in a tabsheet layout*/
 		TabSheet tabsheet = new TabSheet();
 		tabsheet.addTab(eventsBrowser, "Events");
 		tabsheet.addTab(alarmsBrowser, "Alarms");
-		
+
 		/*Adds tabsheet component to the main layout of the sub-window*/
 		VerticalLayout layout = new VerticalLayout();
 		layout.addComponent(tabsheet);
-		
+
 		setContent(layout);
 		//addComponent(layout);
 	}
-	
+
 	@Override
 	public void attach() {
 		super.attach();
-		
+
 		int width = (int)getUI().getPage().getBrowserWindowWidth();
     	int height = (int)getUI().getPage().getBrowserWindowHeight();
-    	
+
 		/*Sets the browser and window sizes based on the main window*/
 		int browserWidth = (int)(sizePercentage * width), browserHeight = (int)(sizePercentage * height);
 		int windowWidth = browserWidth + widthCushion, windowHeight = browserHeight + heightCushion;
@@ -110,7 +110,7 @@ public class EventsAlarmsWindow extends Window {
 		setHeight("" + windowHeight + "px");
 		setPositionX((width - windowWidth)/2);
 		setPositionY((height - windowHeight)/2);
-		
+
 		/*Changes the size of the browsers to fit within the sub-window*/
 		alarmsBrowser.setType(Embedded.TYPE_BROWSER);
 		alarmsBrowser.setWidth("" + browserWidth + "px");
@@ -119,5 +119,5 @@ public class EventsAlarmsWindow extends Window {
 		eventsBrowser.setWidth("" + browserWidth + "px");
 		eventsBrowser.setHeight("" + browserHeight + "px");
 	}
-	
+
 }

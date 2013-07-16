@@ -55,7 +55,7 @@ public interface ReportWrapperService {
      */
     public abstract boolean validate(ReportParameters parameters,
             String reportId);
-    
+
     /**
      * This method runs the report
      *
@@ -66,7 +66,7 @@ public interface ReportWrapperService {
      */
     public abstract void run(ReportParameters parameters, ReportMode mode, DeliveryOptions deliveryOptions,
             String reportId);
-    
+
     /**
      * This method returns the delivery options for the report. Providing a userID will
      * allow the report service to pre-populate the destination address
@@ -77,7 +77,7 @@ public interface ReportWrapperService {
      *         be delivered.
      */
     public abstract DeliveryOptions getDeliveryOptions(String userId, String reportId);
-    
+
     /**
      * This method provides a list of formats supported by the report
      *
@@ -85,7 +85,7 @@ public interface ReportWrapperService {
      * @return a list of supported formats
      */
     public abstract List<ReportFormat> getFormats(String reportId);
-    
+
     /**
      * This method runs the report and renders in into the given output stream
      * with no intermediate steps
@@ -95,7 +95,7 @@ public interface ReportWrapperService {
      * @param mode in which to run the report (ONLINE, BATCH or IMMEDIATE)
      */
     public abstract void runAndRender(ReportParameters parameters, ReportMode mode, OutputStream outputStream);
-    
+
     /**
      * This method renders the report into a given output stream.
      *
@@ -105,8 +105,8 @@ public interface ReportWrapperService {
      * @param outputStream stream to render the resulting report
      */
     public abstract void render(String ReportId, String location, ReportFormat format, OutputStream outputStream);
-    
-    
+
+
     /**
      * This method is used to determine whether the report takes any parameters
      *
@@ -114,7 +114,7 @@ public interface ReportWrapperService {
      * @param ReportId a {@link java.lang.String} object.
      */
     public abstract Boolean hasParameters(String ReportId);
-    
+
     /**
      * This method retrieves the runtime parameters taken by the report
      *
@@ -122,5 +122,5 @@ public interface ReportWrapperService {
      * @param ReportId a {@link java.lang.String} object.
      */
     public abstract ReportParameters getParameters(String ReportId);
-    
+
 }

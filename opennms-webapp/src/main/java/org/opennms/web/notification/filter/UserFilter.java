@@ -55,8 +55,8 @@ public class UserFilter extends OneArgFilter<String> {
     public UserFilter(String user) {
         super(TYPE, SQLType.STRING, "NOTIFICATIONS.NOTIFYID", "notifyId", user);
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
@@ -67,8 +67,8 @@ public class UserFilter extends OneArgFilter<String> {
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
-        
-            
+
+
         return Restrictions.sqlRestriction(" {alias}.notifyId in (SELECT DISTINCT usersnotified.notifyid FROM usersnotified WHERE usersnotified.userid=?)", getValue(), Hibernate.STRING);
     }
 

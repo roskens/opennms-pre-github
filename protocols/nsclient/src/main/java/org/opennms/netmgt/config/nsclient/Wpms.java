@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Nsclient object groups
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -57,7 +57,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * An NSClient Object Group
-     *  
+     *
      */
     private java.util.List<org.opennms.netmgt.config.nsclient.Wpm> _wpmList;
 
@@ -77,8 +77,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vWpm
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -90,8 +90,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vWpm
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -106,7 +106,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateWpm.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -117,7 +117,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -126,13 +126,13 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Wpms) {
-        
+
             Wpms temp = (Wpms)obj;
             if (this._wpmList != null) {
                 if (temp._wpmList == null) return false;
-                else if (!(this._wpmList.equals(temp._wpmList))) 
+                else if (!(this._wpmList.equals(temp._wpmList)))
                     return false;
             }
             else if (temp._wpmList != null)
@@ -144,7 +144,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getWpm.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -158,7 +158,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._wpmList.size()) {
             throw new IndexOutOfBoundsException("getWpm: Index value '" + index + "' not in range [0.." + (this._wpmList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.nsclient.Wpm) _wpmList.get(index);
     }
 
@@ -168,7 +168,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.nsclient.Wpm[] getWpm(
@@ -181,7 +181,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getWpmCollection.Returns a reference to '_wpmList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.nsclient.Wpm> getWpmCollection(
@@ -191,7 +191,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getWpmCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getWpmCount(
@@ -204,25 +204,25 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_wpmList != null) {
            result = 37 * result + _wpmList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -237,7 +237,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateWpm.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -247,8 +247,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -262,8 +262,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -287,7 +287,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeWpm.
-     * 
+     *
      * @param vWpm
      * @return true if the object was removed from the collection.
      */
@@ -299,7 +299,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeWpmAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -310,8 +310,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vWpm
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -325,20 +325,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._wpmList.size()) {
             throw new IndexOutOfBoundsException("setWpm: Index value '" + index + "' not in range [0.." + (this._wpmList.size() - 1) + "]");
         }
-        
+
         this._wpmList.set(index, vWpm);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vWpmArray
      */
     public void setWpm(
             final org.opennms.netmgt.config.nsclient.Wpm[] vWpmArray) {
         //-- copy array
         _wpmList.clear();
-        
+
         for (int i = 0; i < vWpmArray.length; i++) {
                 this._wpmList.add(vWpmArray[i]);
         }
@@ -347,14 +347,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_wpmList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vWpmList the Vector to copy.
      */
     public void setWpm(
             final java.util.List<org.opennms.netmgt.config.nsclient.Wpm> vWpmList) {
         // copy vector
         this._wpmList.clear();
-        
+
         this._wpmList.addAll(vWpmList);
     }
 
@@ -362,7 +362,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_wpmList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param wpmList the Vector to set.
      */
     public void setWpmCollection(
@@ -372,7 +372,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -388,8 +388,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

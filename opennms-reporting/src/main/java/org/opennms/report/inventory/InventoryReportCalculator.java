@@ -65,7 +65,7 @@ import org.springframework.beans.factory.InitializingBean;
  * @version $Id: $
  */
 public class InventoryReportCalculator implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(InventoryReportCalculator.class);
 
     String m_baseDir;
@@ -93,15 +93,15 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     RWSConfig m_rwsConfig;
-    
+
     String theDate;
     String user;
     String theField;
     Date reportRequestDate;
-    
+
     RwsNbinventoryreport rnbi;
 
-    
+
     /**
      * <p>Getter for the field <code>theField</code>.</p>
      *
@@ -223,7 +223,7 @@ public class InventoryReportCalculator implements InitializingBean {
     }
 
     private List<String> getGroups() {
-        
+
         try {
             return RWSClientApi.getRWSResourceGroupsList(m_cp).getResource();
         } catch (RancidApiException e) {
@@ -231,31 +231,31 @@ public class InventoryReportCalculator implements InitializingBean {
         }
         return new ArrayList<String>();
     }
-    
+
     private List<String> getDeviceListOnGroup(String groupName) {
         try {
             return RWSClientApi.getRWSResourceDeviceList(m_cp, groupName).getResource();
         } catch (RancidApiException e) {
-            LOG.error("getDeviceListOnGroup: group [{}]. Skipped", groupName); 
+            LOG.error("getDeviceListOnGroup: group [{}]. Skipped", groupName);
         }
         return new ArrayList<String>();
     }
-    
+
     private List<String> getVersionListOnDevice(String deviceName, String groupName) {
         try {
             return RWSClientApi.getRWSResourceConfigList(m_cp, groupName, deviceName).getResource();
         } catch (RancidApiException e) {
-            LOG.error("getVersionListOnDevice:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage()); 
+            LOG.error("getVersionListOnDevice:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
 
         return new ArrayList<String>();
     }
-    
+
     private RancidNode getFullNode(String groupName, String deviceName) {
         try {
             return RWSClientApi.getRWSRancidNodeInventory(m_cp ,groupName, deviceName);
         } catch (RancidApiException e) {
-            LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage()); 
+            LOG.error("getFullNode:  device has no inventory [{}]. {}", deviceName, e.getLocalizedMessage());
         }
         return null;
     }
@@ -265,7 +265,7 @@ public class InventoryReportCalculator implements InitializingBean {
      * <p>calculate</p>
      */
     public void calculate() {
-        
+
         rnbi = new RwsNbinventoryreport();
         rnbi.setUser(user);
         rnbi.setReportRequestDate(reportRequestDate.toString());
@@ -284,7 +284,7 @@ public class InventoryReportCalculator implements InitializingBean {
         catch (ParseException pe){
             tmp_date = Calendar.getInstance().getTime();
         }
-        LOG.debug("calculate:report date[{}]", tmp_date.toString()); 
+        LOG.debug("calculate:report date[{}]", tmp_date.toString());
         rnbi.setReportDate(tmp_date.toString());
 
 
@@ -293,11 +293,11 @@ public class InventoryReportCalculator implements InitializingBean {
         int groupWithoutNodes = 0;
         int groupsWithNodesWithoutinventoryAtAll = 0;
         int groupsWithNodesWithoutinventoryAtReportDate = 0;
-  
+
         for(String groupName : getGroups()) {
-            LOG.debug("calculate:report group [{}]", groupName); 
+            LOG.debug("calculate:report group [{}]", groupName);
             totalGroups++;
-            GroupSet gs = new GroupSet(); 
+            GroupSet gs = new GroupSet();
             gs.setGroupSetName(groupName);
             int totalNodes = 0;
             int nodeMatching = 0;
@@ -317,17 +317,17 @@ public class InventoryReportCalculator implements InitializingBean {
                     nodesWithoutinventoryAtAll++;
                     continue;
                 }
-                
+
                 InventoryNode invNode = new InventoryNode(rancidNode);
                 boolean found = false;
-                
+
                 for (String versionMatch : getVersionListOnDevice(deviceName, groupName)) {
 
 
                     invNode = (InventoryNode)rancidNode.getNodeVersions().get(versionMatch);
 
-                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate()); 
-                    
+                    LOG.debug("calculate:report parsing InventoryNode version[{}] date [{}]", invNode.getVersionId(), invNode.getCreationDate());
+
                     if (tmp_date.compareTo(invNode.getCreationDate()) >  0 ) {
                         found = true;
                         LOG.debug("calculate:report Date found is [{}] version is [{}]", invNode.getCreationDate(), versionMatch);
@@ -335,7 +335,7 @@ public class InventoryReportCalculator implements InitializingBean {
                     }
                 }  //end for on version
                 if (found == false) {
-                    LOG.debug("calculate: device has no configuration at this date[{}]", deviceName); 
+                    LOG.debug("calculate: device has no configuration at this date[{}]", deviceName);
                     groupHasNodesWithoutinventoryAtrequestDate = true;
                     nodesWithoutinventoryAtReportDate++;
                     continue;
@@ -390,7 +390,7 @@ public class InventoryReportCalculator implements InitializingBean {
                             includeNbisn = true;
                             addInventoryElement=true;
                         }
-                        
+
                         InventoryMemoryRP imrp = new InventoryMemoryRP();
                             imrp.setType(im.getType());
                             imrp.setSize(im.getSize());
@@ -414,7 +414,7 @@ public class InventoryReportCalculator implements InitializingBean {
 
                         ie2rp.addInventorySoftwareRP(isrp);
                     }
-                    if (addInventoryElement)   
+                    if (addInventoryElement)
                         ie2rpList.add(ie2rp);
 
                 }
@@ -433,9 +433,9 @@ public class InventoryReportCalculator implements InitializingBean {
             rnbi.addGroupSet(gs);
             if (groupHasDevices) groupsMatching++;
             else groupWithoutNodes++;
-            if (groupHasDevices && groupHasNodesWithoutinventoryAtAll) 
+            if (groupHasDevices && groupHasNodesWithoutinventoryAtAll)
                 groupsWithNodesWithoutinventoryAtAll++;
-            if (groupHasDevices &&groupHasNodesWithoutinventoryAtrequestDate) 
+            if (groupHasDevices &&groupHasNodesWithoutinventoryAtrequestDate)
                 groupsWithNodesWithoutinventoryAtReportDate++;
         } //end for groups
         rnbi.setTotalGroups(totalGroups);
@@ -444,7 +444,7 @@ public class InventoryReportCalculator implements InitializingBean {
         rnbi.setGroupsWithNodesWithoutinventoryAtReportDate(groupsWithNodesWithoutinventoryAtReportDate);
         rnbi.setGroupWithoutNodes(groupWithoutNodes);
     }
-    
+
     /**
      * <p>getNodeBaseInventory</p>
      *
@@ -454,12 +454,12 @@ public class InventoryReportCalculator implements InitializingBean {
      * @return a {@link org.opennms.report.inventory.NodeBaseInventory} object.
      */
     public NodeBaseInventory getNodeBaseInventory(String node, String group, String version) {
-        // get the latest version from the given date        
-        
+        // get the latest version from the given date
+
         LOG.debug("getNodeBaseInventory {} {} {}", node, group, version);
         NodeBaseInventory nbi = new NodeBaseInventory();
 
-        
+
         RancidNode rn;
         try {
             rn = RWSClientApi.getRWSRancidNodeInventory(m_cp, group, node);
@@ -467,9 +467,9 @@ public class InventoryReportCalculator implements InitializingBean {
             LOG.debug("getNodeBaseInventory: inventory not found. Skipping");
             return nbi;
         }
-        
+
         InventoryNode in = (InventoryNode)rn.getNodeVersions().get(version);
-                
+
         nbi.setDevicename(node);
         nbi.setGroupname(group);
         nbi.setVersion(version);
@@ -477,13 +477,13 @@ public class InventoryReportCalculator implements InitializingBean {
         nbi.setCreationdate(in.getCreationDate());
         nbi.setSwconfigurationurl(in.getSoftwareImageUrl());
         nbi.setConfigurationurl(in.getConfigurationUrl());
-        
+
         try {
             nbi.setIe( RWSClientApi.getRWSRancidNodeInventoryElement2(m_cp, rn, version));
         } catch (RancidApiException e) {
             LOG.debug("getNodeBaseInventory: inventory not found for version: {}. Skipping", version);
         }
-        
+
         return nbi;
 
     }
@@ -511,7 +511,7 @@ public class InventoryReportCalculator implements InitializingBean {
             throw new InventoryCalculationException(e);
         }
     }
-    
+
 
     /**
      * <p>marshal</p>

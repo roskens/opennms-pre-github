@@ -84,7 +84,7 @@ public class RequisitionAssetCollection extends LinkedList<RequisitionAsset> {
         clear();
         addAll(assets);
     }
-    
+
     /**
      * <p>getCount</p>
      *

@@ -109,12 +109,12 @@ public class AppConfig {
         collector.setListenerContainer(listenerContainer());
         return collector;
     }
-    
+
     @Bean(name = "snmpStrategy")
     public SnmpStrategy snmpStrategy() {
     	return new Snmp4JStrategy();
     }
-    
+
     @Bean(name = "snmpCollector")
     public SnmpProtocolCollector snmpCollector() {
     	SnmpProtocolCollector snmpCollector = new SnmpProtocolCollector();

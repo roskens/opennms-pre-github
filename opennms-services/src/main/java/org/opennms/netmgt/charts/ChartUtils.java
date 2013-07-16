@@ -78,9 +78,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class ChartUtils {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ChartUtils.class);
-    
+
     /**
      * Use this it initialize required factories so that the WebUI doesn't
      * have to.  Can't wait for Spring.
@@ -120,15 +120,15 @@ public abstract class ChartUtils {
     public static JFreeChart getBarChart(String chartName) throws MarshalException, ValidationException, IOException, SQLException {
 
         //ChartConfigFactory.reload();
-        
+
         BarChart chartConfig = null;
         chartConfig = getBarChartConfigByName(chartName);
-        
+
         if (chartConfig == null) {
             throw new IllegalArgumentException("getBarChart: Invalid chart name.");
         }
-        
-        DefaultCategoryDataset baseDataSet = buildCategoryDataSet(chartConfig);        
+
+        DefaultCategoryDataset baseDataSet = buildCategoryDataSet(chartConfig);
         JFreeChart barChart = createBarChart(chartConfig, baseDataSet);
         addSubTitles(chartConfig, barChart);
 
@@ -136,12 +136,12 @@ public abstract class ChartUtils {
         if(subLabelClass != null) {
             addSubLabels(barChart, subLabelClass);
         }
-        
+
 
         customizeSeries(barChart, chartConfig);
 
         return barChart;
-        
+
     }
 
     /**
@@ -172,14 +172,14 @@ public abstract class ChartUtils {
      * @param chartConfig
      */
     private static void customizeSeries(JFreeChart barChart, BarChart chartConfig) {
-        
+
         /*
          * Set the series colors and labels
          */
         CategoryItemLabelGenerator itemLabelGenerator = new StandardCategoryItemLabelGenerator("{2}", new DecimalFormat("0"));
         SeriesDef[] seriesDefs = chartConfig.getSeriesDef();
         CustomSeriesColors seriesColors = null;
-        
+
         if (chartConfig.getSeriesColorClass() != null) {
             try {
                 seriesColors = (CustomSeriesColors) Class.forName(chartConfig.getSeriesColorClass()).newInstance();
@@ -231,7 +231,7 @@ public abstract class ChartUtils {
      * @return
      */
     private static JFreeChart createBarChart(BarChart chartConfig, DefaultCategoryDataset baseDataSet) {
-        PlotOrientation po = (chartConfig.getPlotOrientation() == "horizontal" ? PlotOrientation.HORIZONTAL : PlotOrientation.VERTICAL);        
+        PlotOrientation po = (chartConfig.getPlotOrientation() == "horizontal" ? PlotOrientation.HORIZONTAL : PlotOrientation.VERTICAL);
         JFreeChart barChart = null;
         if ("3d".equalsIgnoreCase(chartConfig.getVariation())) {
             barChart = ChartFactory.createBarChart3D(chartConfig.getTitle().getValue(),
@@ -252,13 +252,13 @@ public abstract class ChartUtils {
                     chartConfig.getShowToolTips(),
                     chartConfig.getShowUrls());
         }
-        
+
         // Create a bit more headroom for value labels than is allowed for by the default 0.05 upper margin
         ValueAxis rangeAxis = barChart.getCategoryPlot().getRangeAxis();
         if (rangeAxis.getUpperMargin() < 0.1) {
             rangeAxis.setUpperMargin(0.1);
         }
-        
+
         return barChart;
     }
 
@@ -272,7 +272,7 @@ public abstract class ChartUtils {
         /*
          * Configuration can contain more than one series.  This loop adds
          * single series data sets returned from sql query to a base data set
-         * to be displayed in a the chart. 
+         * to be displayed in a the chart.
          */
         Connection conn = null;
         try {
@@ -281,7 +281,7 @@ public abstract class ChartUtils {
             while (it.hasNext()) {
                 SeriesDef def = it.next();
                 JDBCCategoryDataset dataSet = new JDBCCategoryDataset(conn, def.getJdbcDataSet().getSql());
-            
+
                 for (int i = 0; i < dataSet.getRowCount(); i++) {
                     for (int j = 0; j < dataSet.getColumnCount(); j++) {
                         baseDataSet.addValue(dataSet.getValue(i, j), def.getSeriesName(), dataSet.getColumnKey(j));
@@ -295,7 +295,7 @@ public abstract class ChartUtils {
         }
         return baseDataSet;
     }
-    
+
     /**
      * Helper method that returns the JFreeChart to an output stream written in JPEG format.
      *
@@ -312,19 +312,19 @@ public abstract class ChartUtils {
         ImageSize imageSize = chartConfig.getImageSize();
         int hzPixels;
         int vtPixels;
-        
+
         if (imageSize == null) {
             hzPixels = 400;
             vtPixels = 400;
-        } else {            
+        } else {
             hzPixels = imageSize.getHzSize().getPixels();
             vtPixels = imageSize.getVtSize().getPixels();
         }
-        
+
         ChartUtilities.writeChartAsJPEG(out, chart, hzPixels, vtPixels);
-        
+
     }
-    
+
     /**
      * Helper method that returns the JFreeChart to an output stream written in JPEG format.
      *
@@ -342,24 +342,24 @@ public abstract class ChartUtils {
         if(chartConfig.getChartBackgroundColor() != null) {
             setChartBackgroundColor(chartConfig, chart);
         }
-        
+
         if(chartConfig.getPlotBackgroundColor() !=  null) {
             setPlotBackgroundColor(chartConfig, chart);
         }
         ImageSize imageSize = chartConfig.getImageSize();
         int hzPixels;
         int vtPixels;
-        
+
         if (imageSize == null) {
             hzPixels = 400;
             vtPixels = 400;
-        } else {            
+        } else {
             hzPixels = imageSize.getHzSize().getPixels();
             vtPixels = imageSize.getVtSize().getPixels();
         }
-        
+
         ChartUtilities.writeChartAsPNG(out, chart, hzPixels, vtPixels, false, 6);
-        
+
     }
 
     private static void setPlotBackgroundColor(BarChart chartConfig,
@@ -367,7 +367,7 @@ public abstract class ChartUtils {
         Red red = chartConfig.getPlotBackgroundColor().getRgb().getRed();
         Blue blue = chartConfig.getPlotBackgroundColor().getRgb().getBlue();
         Green green = chartConfig.getPlotBackgroundColor().getRgb().getGreen();
-        
+
         chart.getPlot().setBackgroundPaint(new Color(red.getRgbColor(), green.getRgbColor(), blue.getRgbColor()));
     }
 
@@ -378,7 +378,7 @@ public abstract class ChartUtils {
         Green green = chartConfig.getChartBackgroundColor().getRgb().getGreen();
         chart.setBackgroundPaint(new Color(red.getRgbColor(), green.getRgbColor(), blue.getRgbColor()));
     }
-    
+
     /**
      * Helper method that returns the JFreeChart as a PNG byte array.
      *
@@ -395,17 +395,17 @@ public abstract class ChartUtils {
         ImageSize imageSize = chartConfig.getImageSize();
         int hzPixels;
         int vtPixels;
-        
+
         if (imageSize == null) {
             hzPixels = 400;
             vtPixels = 400;
-        } else {            
+        } else {
             hzPixels = imageSize.getHzSize().getPixels();
             vtPixels = imageSize.getVtSize().getPixels();
         }
         return ChartUtilities.encodeAsPNG(chart.createBufferedImage(hzPixels, vtPixels));
     }
-    
+
     /**
      * Helper method used to return a JFreeChart as a buffered Image.
      *
@@ -422,19 +422,19 @@ public abstract class ChartUtils {
         ImageSize imageSize = chartConfig.getImageSize();
         int hzPixels;
         int vtPixels;
-        
+
         if (imageSize == null) {
             hzPixels = 400;
             vtPixels = 400;
-        } else {            
+        } else {
             hzPixels = imageSize.getHzSize().getPixels();
             vtPixels = imageSize.getVtSize().getPixels();
         }
 
         return chart.createBufferedImage(hzPixels, vtPixels);
-        
+
     }
-    
+
     /**
      * Helper method used to retrieve the XML defined BarChart (castor class)
      *
@@ -454,7 +454,7 @@ public abstract class ChartUtils {
         }
         return null;
     }
-    
+
     /**
      * Helper method used to fetch an Iterator for all defined Charts
      *
@@ -466,5 +466,5 @@ public abstract class ChartUtils {
     public static Iterator<BarChart> getChartCollectionIterator() throws IOException, MarshalException, ValidationException {
         return ChartConfigFactory.getInstance().getConfiguration().getBarChartCollection().iterator();
     }
-    
+
 }

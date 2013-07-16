@@ -43,7 +43,7 @@ import junit.framework.TestSuite;
  * @version $Id: $
  */
 public class VersionSettingTestSuite extends TestSuite {
-    
+
     int m_version;
 
     /**
@@ -55,7 +55,7 @@ public class VersionSettingTestSuite extends TestSuite {
         super();
         m_version = version;
     }
-    
+
     /**
      * <p>Constructor for VersionSettingTestSuite.</p>
      *
@@ -91,7 +91,7 @@ public class VersionSettingTestSuite extends TestSuite {
         super(name);
         m_version = version;
     }
-    
+
     private void checkForVersionMethod(final Class<?> theClass) {
         try {
             getSetVersionMethod(theClass);
@@ -103,7 +103,7 @@ public class VersionSettingTestSuite extends TestSuite {
                 }
             });
         }
-            
+
     }
 
     private Method getSetVersionMethod(final Class<?> theClass) throws NoSuchMethodException {

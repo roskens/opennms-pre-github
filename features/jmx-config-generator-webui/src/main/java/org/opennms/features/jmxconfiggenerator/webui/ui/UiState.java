@@ -30,11 +30,11 @@ package org.opennms.features.jmxconfiggenerator.webui.ui;
 import java.util.Arrays;
 
 public enum UiState {
-	IntroductionView("Introduction", true), 
-	ServiceConfigurationView("Service Configuration", true), 
-	MbeansDetection("Determine MBeans information", false), 
-	MbeansView("MBeans Configuration", true), 
-	ResultConfigGeneration("Generate OpenNMS Configuration snippets", false), 
+	IntroductionView("Introduction", true),
+	ServiceConfigurationView("Service Configuration", true),
+	MbeansDetection("Determine MBeans information", false),
+	MbeansView("MBeans Configuration", true),
+	ResultConfigGeneration("Generate OpenNMS Configuration snippets", false),
 	ResultView("OpenNMS Configuration", true);
 
 	private final String description;

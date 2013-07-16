@@ -76,7 +76,7 @@ public class TomcatJdbcPoolConnectionFactory extends BaseConnectionFactory {
         if (!properties.isEmpty()) {
         	m_dataSource.setDbProperties(properties);
         }
-        
+
     	m_dataSource.setAccessToUnderlyingConnectionAllowed(true);
     	m_dataSource.setFairQueue(true);
     }

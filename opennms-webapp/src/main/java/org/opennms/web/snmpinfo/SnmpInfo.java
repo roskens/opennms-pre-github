@@ -44,7 +44,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
  * <p>
  * SnmpInfo class.
  * </p>
- * 
+ *
  * @author ranger
  * @version $Id: $
  * @since 1.8.1
@@ -71,7 +71,7 @@ public class SnmpInfo {
 	private Integer m_maxRequestSize;
 	private String m_writeCommunity;
 	private String m_proxyHost;
-	
+
 	/**
 	 * <p>
 	 * Constructor for SnmpInfo.
@@ -85,7 +85,7 @@ public class SnmpInfo {
 	 * <p>
 	 * Constructor for SnmpInfo.
 	 * </p>
-	 * 
+	 *
 	 * @param config
 	 *            a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
 	 */
@@ -99,12 +99,12 @@ public class SnmpInfo {
 		if (config.getMaxRepetitions() >= 1) m_maxRepetitions = config.getMaxRepetitions();
 		if (config.getMaxVarsPerPdu() >= 1) m_maxVarsPerPdu = config.getMaxVarsPerPdu();
 		if (config.getMaxRequestSize() >= 1) m_maxRequestSize = Integer.valueOf(config.getMaxRequestSize());
-		
+
 		// handle a possible proxy host setting
 		if (config.getProxyFor() != null) { // switch proxy and address
 			m_proxyHost = InetAddressUtils.str(config.getAddress());
-		} 
-		
+		}
+
 		// only set these properties if snmp version is v3
 		if (config.isVersion3()) {
 			m_securityName = config.getSecurityName();
@@ -127,7 +127,7 @@ public class SnmpInfo {
 	 * <p>
 	 * getCommunity
 	 * </p>
-	 * 
+	 *
 	 * @return the read community string
 	 * @deprecated use {@link #getReadCommunity()} instead.
 	 */
@@ -140,7 +140,7 @@ public class SnmpInfo {
 	 * <p>
 	 * setCommunity
 	 * </p>
-	 * 
+	 *
 	 * @param community
 	 *            the read community string to set
 	 * @deprecated use {@link #setReadCommunity(String)} instead.
@@ -154,7 +154,7 @@ public class SnmpInfo {
 	 * <p>
 	 * getVersion
 	 * </p>
-	 * 
+	 *
 	 * @return the version
 	 */
 	public String getVersion() {
@@ -169,7 +169,7 @@ public class SnmpInfo {
 	 * <p>
 	 * getPort
 	 * </p>
-	 * 
+	 *
 	 * @return the port
 	 */
 	public Integer getPort() {
@@ -180,7 +180,7 @@ public class SnmpInfo {
 	 * <p>
 	 * setPort
 	 * </p>
-	 * 
+	 *
 	 * @param port
 	 *            the port to set
 	 */
@@ -192,7 +192,7 @@ public class SnmpInfo {
 	 * <p>
 	 * getRetries
 	 * </p>
-	 * 
+	 *
 	 * @return the retries
 	 */
 	public Integer getRetries() {
@@ -203,7 +203,7 @@ public class SnmpInfo {
 	 * <p>
 	 * setRetries
 	 * </p>
-	 * 
+	 *
 	 * @param retries
 	 *            the retries to set
 	 */
@@ -215,7 +215,7 @@ public class SnmpInfo {
 	 * <p>
 	 * getTimeout
 	 * </p>
-	 * 
+	 *
 	 * @return the timeout
 	 */
 	public Integer getTimeout() {
@@ -226,7 +226,7 @@ public class SnmpInfo {
 	 * <p>
 	 * setTimeout
 	 * </p>
-	 * 
+	 *
 	 * @param timeout
 	 *            the timeout to set
 	 */
@@ -244,7 +244,7 @@ public class SnmpInfo {
 
 	/**
 	 * Returns true if {@link #m_securityLevel} is not null.
-	 * 
+	 *
 	 * @return true if {@link #m_securityLevel} is not null.
 	 */
 	public boolean hasSecurityLevel() {
@@ -254,19 +254,19 @@ public class SnmpInfo {
 	public boolean hasTimeout() {
 		return m_timeout != null;
 	}
-	
+
 	public boolean hasMaxRequestSize() {
 		return m_maxRequestSize != null;
 	}
-	
+
 	public boolean hasMaxRepetitions() {
 		return m_maxRepetitions != null;
 	}
-	
+
 	public boolean hasMaxVarsPerPdu() {
 		return m_maxVarsPerPdu != null;
 	}
-	
+
 	public Integer getSecurityLevel() {
 		return m_securityLevel;
 	}
@@ -354,11 +354,11 @@ public class SnmpInfo {
 	public String getEnterpriseId() {
 		return m_enterpriseId;
 	}
-	
+
 	public String getReadCommunity() {
 		return m_readCommunity;
 	}
-	
+
 	public void setReadCommunity(String readCommunity) {
 		m_readCommunity = readCommunity;
 	}
@@ -366,27 +366,27 @@ public class SnmpInfo {
 	public String getWriteCommunity() {
 		return m_writeCommunity;
 	}
-	
+
 	public void setWriteCommunity(String writeCommunity) {
 		m_writeCommunity = writeCommunity;
 	}
-	
+
 	public Integer getMaxRequestSize() {
 		return m_maxRequestSize;
 	}
-	
+
 	public void setMaxRequestSize(Integer maxRequestSize) {
 		m_maxRequestSize = maxRequestSize;
 	}
-	
+
 	public String getProxyHost() {
 		return m_proxyHost;
 	}
-	
+
 	public void setProxyHost(String proxyHost) {
 		m_proxyHost = proxyHost;
 	}
-	
+
 	@Override
 	public boolean equals(Object obj) {
 		return EqualsBuilder.reflectionEquals(this, obj);
@@ -401,15 +401,15 @@ public class SnmpInfo {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
 	}
-	
+
 
 	/**
 	 * Creates a {@link SnmpEventInfo} object from <code>this</code>.
-	 * 
+	 *
 	 * @param firstIpAddress
 	 *            a {@link java.lang.String} object which represents the first IP Address of the {@link SnmpEventInfo}. Must not be null.
 	 * @param lastIpAddress represents the last IP Address of the {@link SnmpEventInfo}. May be null.
-	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object. 
+	 * @return a {@link org.opennms.netmgt.config.SnmpEventInfo} object.
 	 * @throws java.net.UnknownHostException if any.
 	 */
 	public SnmpEventInfo createEventInfo(String firstIpAddress, String lastIpAddress) throws UnknownHostException {
@@ -439,11 +439,11 @@ public class SnmpInfo {
 		if (m_maxRequestSize != null) eventInfo.setMaxRequestSize(m_maxRequestSize.intValue());
 		return eventInfo;
 	}
-	
+
 	/**
 	 * Invokes {@link #createEventInfo(String, String)} with parameters: ipAddr
 	 * as firstIpAddress and null as lastIpAddress.
-	 * 
+	 *
 	 * @param ipAddr
 	 * @return
 	 * @throws UnknownHostException

@@ -46,11 +46,11 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageSt
 
     /**
      * <p>isStoreByForeignSource</p>
-     * 
+     *
      * @return a {@link java.lang.Boolean} object.
      */
     public abstract Boolean isStoreByForeignSource();
-    
+
     /**
      * <p>getHostAddress</p>
      *
@@ -81,25 +81,25 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageSt
 
     /**
      * <p>getForeignSource</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getForeignSource();
-    
+
     /**
      * <p>getForeignId</p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getForeignId();
-    
+
     /**
      * <p>getStorageDir</p>
-     * 
+     *
      * @return a {@link java.io.File} object.
      */
     public abstract File getStorageDir();
-    
+
     /**
      * <p>getSysObjectId</p>
      *
@@ -109,7 +109,7 @@ public interface CollectionAgent extends NetworkInterface<InetAddress>,StorageSt
 
     /**
      * <p>validateAgent</p>
-     * @throws CollectionInitializationException 
+     * @throws CollectionInitializationException
      */
     public abstract void validateAgent() throws CollectionInitializationException;
 

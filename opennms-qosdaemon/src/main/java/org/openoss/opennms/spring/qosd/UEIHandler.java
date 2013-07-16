@@ -41,7 +41,7 @@ import org.xml.sax.helpers.DefaultHandler;
 public class UEIHandler extends DefaultHandler {
     public String raiseid = null;
     public String clearid = null;
-    
+
     /** {@inheritDoc} */
     @Override
     public void startElement(String namespaceURI, String localName,

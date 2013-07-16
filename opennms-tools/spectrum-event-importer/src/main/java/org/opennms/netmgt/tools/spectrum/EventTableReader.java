@@ -39,15 +39,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 public class EventTableReader {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(EventTableReader.class);
 
     private Resource m_resource;
     private Reader m_reader;
     private StreamTokenizer m_tokenizer;
-    
+
     private static final String keyExpr = "^(0[Xx][0-9A-Fa-f]+)|([0-9]+)$";
-    
+
     /**
      * 0x00000001 monitor
      * 0x00000002 manager
@@ -65,9 +65,9 @@ public class EventTableReader {
      * 0x0000000e ssh
      * 0x0000000f asterisk
      * 0x000000010 av
-     * 
+     *
      */
-    
+
     public EventTableReader(Resource rsrc) throws IOException {
         m_resource = rsrc;
         m_reader = new BufferedReader(new InputStreamReader(m_resource.getInputStream()));
@@ -83,18 +83,18 @@ public class EventTableReader {
         m_tokenizer.wordChars('a', 'z');
         m_tokenizer.wordChars('A', 'Z');
     }
-    
+
     public EventTable getEventTable() throws IOException {
         String tableName = m_resource.getFilename();
-        
+
         EventTable eventTable = new EventTable(tableName);
         String thisKey = null;
         StringBuilder thisValueBuilder = null;
-        
+
         boolean justHitEol = true;
         boolean gotKey = false;
         boolean gotValue = false;
-        
+
         while (m_tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
             if (justHitEol && m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches(keyExpr)) {
                 LOG.trace("Found a key [{}] on line {}, creating a new event-table entry", m_tokenizer.sval, m_tokenizer.lineno());
@@ -120,7 +120,7 @@ public class EventTableReader {
                 gotKey = false;
                 gotValue = false;
             }
-            
+
             if (gotKey && m_tokenizer.ttype == StreamTokenizer.TT_WORD) {
                 if (!gotValue) {
                     LOG.trace("Found first post-key token [{}] on line {}; initializing string builder with it", m_tokenizer.sval, m_tokenizer.lineno());
@@ -132,9 +132,9 @@ public class EventTableReader {
                 }
             }
         }
-        
+
         LOG.debug("Loaded {} entries for table [{}] from [{}]", eventTable.keySet().size(), tableName, m_resource);
         return eventTable;
     }
-    
+
 }

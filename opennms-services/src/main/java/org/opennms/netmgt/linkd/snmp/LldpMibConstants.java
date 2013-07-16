@@ -29,7 +29,7 @@
 package org.opennms.netmgt.linkd.snmp;
 
 public class LldpMibConstants  {
-    
+
     /*
      * LldpChassisIdSubtype ::= TEXTUAL-CONVENTION
     STATUS      current
@@ -141,7 +141,7 @@ public class LldpMibConstants  {
     public static final int LLDP_PORTID_SUBTYPE_PORTCOMPONENT = 2;
     public static final int LLDP_PORTID_SUBTYPE_MACADDRESS = 3;
     public static final int LLDP_PORTID_SUBTYPE_NETWORKADDRESS = 4;
-    public static final int LLDP_PORTID_SUBTYPE_INTERFACENAME = 5;    
+    public static final int LLDP_PORTID_SUBTYPE_INTERFACENAME = 5;
     public static final int LLDP_PORTID_SUBTYPE_AGENTCIRCUITID = 6;
     public static final int LLDP_PORTID_SUBTYPE_LOCAL = 7;
 

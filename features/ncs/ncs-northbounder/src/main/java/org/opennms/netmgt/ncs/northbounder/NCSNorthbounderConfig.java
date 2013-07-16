@@ -50,7 +50,7 @@ import org.opennms.netmgt.alarmd.api.NorthbounderException;
  * FIXME: Make configuration mimic configuration of other HttpClient configurations: PSM, HttpCollector
  * so that users can reuse their configuration knowledge and not have to configured HTTP based client
  * configurations differently in every section of the software.
- * 
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 @XmlRootElement(name="ncs-northbounder-config")
@@ -72,53 +72,53 @@ public class NCSNorthbounderConfig implements Serializable, Comparable<NCSNorthb
         		return new HttpPut(uri);
         	}
         };
-        
+
         abstract HttpEntityEnclosingRequestBase getRequestMethod(URI uri);
     }
-    
+
     @XmlAttribute(name="enabled", required=true)
     private boolean m_enabled = true;
-    
+
     @XmlAttribute(name="nagles-delay", required=true)
     private long m_naglesDelay = 100;
 
     @XmlAttribute(name="method", required=false)
     private HttpMethod m_method = HttpMethod.POST;
-    
+
     @XmlAttribute(name="http-version", required=false)
     private String m_httpVersion = "1.1";
-    
+
     @XmlAttribute(name="user-agent", required=false)
     private String m_userAgent = "OpenNMS Http Northbound Interface";
-    
+
     @XmlAttribute(name="virtual-host", required=false)
     private String m_virtualHost;
-    
+
     @XmlAttribute(name="scheme", required=false)
     private String m_scheme = "http";
-    
+
     @XmlAttribute(name="user-info", required=false)
     private String m_userInfo;
-    
+
     @XmlAttribute(name="host", required=true)
     private String m_host;
 
     @XmlAttribute(name="port", required=false)
     private Integer m_port = Integer.valueOf(80);
-    
+
     @XmlAttribute(name="path", required=false)
     private String m_path = "/";
-    
+
     @XmlAttribute(name="query", required=false)
     private String m_query;
-    
+
     @XmlAttribute(name="fragment", required=false)
     private String m_fragment;
 
     @XmlElement(name="uei")
     private List<String> m_acceptableUeis;
 
-    
+
     @Override
     public int compareTo(NCSNorthbounderConfig o) {
         int c = 0;
@@ -128,7 +128,7 @@ public class NCSNorthbounderConfig implements Serializable, Comparable<NCSNorthb
         }
         return c;
     }
-    
+
     @Override
     public boolean equals(Object o) {
         boolean eq = false;
@@ -142,7 +142,7 @@ public class NCSNorthbounderConfig implements Serializable, Comparable<NCSNorthb
         }
         return eq;
     }
-    
+
     public boolean isEnabled() {
 		return m_enabled;
 	}
@@ -257,7 +257,7 @@ public class NCSNorthbounderConfig implements Serializable, Comparable<NCSNorthb
 
     public URI getURI() {
         try {
-            return new URI(getScheme(), getUserInfo(), getHost(), 
+            return new URI(getScheme(), getUserInfo(), getHost(),
                     getPort(), getPath(), getQuery(), getFragment());
         } catch (URISyntaxException e) {
             throw new NorthbounderException(e);

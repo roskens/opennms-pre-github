@@ -122,7 +122,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         InputStream is = null;
         InputStreamReader isr = null;
         BufferedReader br = null;
-    
+
         StringBuffer sb = new StringBuffer();
         try {
             p = Runtime.getRuntime().exec(command);
@@ -142,13 +142,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             IOUtils.closeQuietly(isr);
             IOUtils.closeQuietly(is);
         }
-    
+
         return sb.toString();
     }
 
     protected Map<String,String> splitMultilineString(final String regex, final String text) {
         final Map<String,String> map = new HashMap<String,String>();
-        
+
         if (text != null) {
             final StringReader sr = new StringReader(text);
             final BufferedReader br = new BufferedReader(sr);
@@ -168,10 +168,10 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 IOUtils.closeQuietly(sr);
             }
         }
-    
+
         return map;
     }
-    
+
     protected Resource getResourceFromProperty(final String propertyName) {
         return getResource(System.getProperty(propertyName));
     }
@@ -180,7 +180,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         if (text == null) return new ByteArrayResource(new byte[0]);
         return new ByteArrayResource(text.getBytes());
     }
-    
+
     protected String findBinary(final String name) {
         List<String> pathEntries = new ArrayList<String>();
         final String path = System.getenv().get("PATH");
@@ -210,7 +210,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
 
     protected String slurpOutput(CommandLine command, boolean ignoreExitCode) {
         LOG.debug("running: {}", command);
-    
+
         final Map<String,String> environment = new HashMap<String,String>(System.getenv());
         environment.put("COLUMNS", "2000");
         DataInputStream input = null;
@@ -218,12 +218,12 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         OutputSuckingParser parser = null;
         String topOutput = null;
         final DefaultExecutor executor = new DefaultExecutor();
-    
+
         final PipedOutputStream output = new PipedOutputStream();
         PumpStreamHandler streamHandler = new PumpStreamHandler(output, output);
         executor.setWatchdog(new ExecuteWatchdog(MAX_PROCESS_WAIT));
         executor.setStreamHandler(streamHandler);
-    
+
         try {
             LOG.trace("executing '{}'", command);
             pis = new PipedInputStream(output);
@@ -246,7 +246,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
             IOUtils.closeQuietly(input);
             IOUtils.closeQuietly(pis);
         }
-        
+
         return topOutput;
     }
 
@@ -270,22 +270,22 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
     protected Set<Integer> getOpenNMSProcesses() {
         LOG.debug("getOpenNMSProcesses()");
         final Set<Integer> processes = new HashSet<Integer>();
-    
+
         final String jps = findBinary("jps");
-        
+
         LOG.debug("jps = {}", jps);
-    
+
         DataInputStream input = null;
         PsParser parser = null;
         PipedInputStream pis = null;
         PipedOutputStream output = new PipedOutputStream();
         DefaultExecutor executor = new DefaultExecutor();
         executor.setWatchdog(new ExecuteWatchdog(5000));
-    
+
         if (jps != null) {
             CommandLine command = CommandLine.parse(jps + " -v");
             PumpStreamHandler streamHandler = new PumpStreamHandler(output, System.err);
-    
+
             try {
             LOG.trace("executing '{}'", command);
                 pis = new PipedInputStream(output);
@@ -298,7 +298,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 parser.join();
                 processes.addAll(parser.getProcesses());
                 LOG.trace("finished '{}'", command);
-                
+
                 if (exitValue != 0) {
                     LOG.debug("error running '{}': exit value was {}", command, exitValue);
                 }
@@ -310,16 +310,16 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 IOUtils.closeQuietly(output);
             }
         }
-    
+
         LOG.trace("looking for ps");
         final String ps = findBinary("ps");
         if (ps != null) {
-            
+
             // try Linux/Mac style
             CommandLine command = CommandLine.parse(ps + " aww -o pid -o args");
             output = new PipedOutputStream();
             PumpStreamHandler streamHandler = new PumpStreamHandler(output, System.err);
-    
+
             try {
                 LOG.debug("executing '{}'", command);
                 pis = new PipedInputStream(output);
@@ -332,7 +332,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 parser.join(MAX_PROCESS_WAIT);
                 processes.addAll(parser.getProcesses());
                 LOG.trace("finished '{}'", command);
-                
+
                 if (exitValue != 0) {
                     LOG.debug("error running '{}': exit value was {}", command, exitValue);
                 }
@@ -343,13 +343,13 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 IOUtils.closeQuietly(pis);
                 IOUtils.closeQuietly(output);
             }
-    
+
             if (processes.size() == 0) {
                 // try Solaris style
                 command = CommandLine.parse(ps + " -ea -o pid -o args");
                 output = new PipedOutputStream();
                 streamHandler = new PumpStreamHandler(output, System.err);
-    
+
                 try {
                     LOG.debug("executing '{}'", command);
                     pis = new PipedInputStream(output);
@@ -362,7 +362,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                     parser.join(MAX_PROCESS_WAIT);
                     processes.addAll(parser.getProcesses());
                     LOG.trace("finished '{}'", command);
-                    
+
                     if (exitValue != 0) {
                         LOG.debug("error running '{}': exit value was {}", command, exitValue);
                     }
@@ -375,11 +375,11 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
                 }
             }
         }
-    
+
         if (processes.size() == 0) {
             LOG.warn("Unable to find any OpenNMS processes.");
         }
-    
+
         return processes;
     }
 
@@ -446,7 +446,7 @@ public abstract class AbstractSystemReportPlugin implements SystemReportPlugin {
         if (m_connection == null || mxBeanName == null || classes == null || classes.size() == 0) {
             return null;
         }
-    
+
         T bean = null;
         for (final Class<T> c : classes) {
             try {

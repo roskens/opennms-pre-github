@@ -44,16 +44,16 @@ import org.opennms.netmgt.model.RrdRepository;
 
 /**
  * MockCollectionResource
- * 
+ *
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MockCollectionResource implements CollectionResource {
-    
+
     private String parent;
     private String instance;
     private String type;
     private Map<String,String> attributes = new HashMap<String,String>();
-    
+
     public MockCollectionResource(String parent, String instance, String type) {
         this.parent = parent;
         this.instance = instance;
@@ -131,7 +131,7 @@ public class MockCollectionResource implements CollectionResource {
     public String getInstance() {
         return instance;
     }
-    
+
     public void setInstance(String instance) {
         this.instance = instance;
     }
@@ -140,7 +140,7 @@ public class MockCollectionResource implements CollectionResource {
     public String getLabel() {
         return null;
     }
-    
+
     public Map<String,String> getAttribtueMap() {
         return attributes;
     }

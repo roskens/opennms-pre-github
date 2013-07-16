@@ -37,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * <p>
- * A Conversation is a sequence of {@link ConversationExchange} instances that are used to 
+ * A Conversation is a sequence of {@link ConversationExchange} instances that are used to
  * describe the sequence of messages that are passed back and forth during a network
  * transaction.
  * </p>
@@ -49,7 +49,7 @@ public class AsyncClientConversation<Request, Response> {
     private final List<ConversationExchange<Request, Response>> m_conversation = new ArrayList<ConversationExchange<Request, Response>>();
     private boolean m_isComplete = false;
     private boolean m_hasBanner = false;
-    
+
     /**
      * <p>addExchange</p>
      *
@@ -58,7 +58,7 @@ public class AsyncClientConversation<Request, Response> {
     public void addExchange(final ConversationExchange<Request, Response> request) {
         m_conversation.add(request);
     }
-    
+
     /**
      * <p>setHasBanner</p>
      *
@@ -67,7 +67,7 @@ public class AsyncClientConversation<Request, Response> {
     public void setHasBanner(final boolean hasBanner){
         m_hasBanner = hasBanner;
     }
-    
+
     /**
      * <p>hasBanner</p>
      *
@@ -108,7 +108,7 @@ public class AsyncClientConversation<Request, Response> {
         if(m_conversation.isEmpty()) {
             m_isComplete = true;
         }
-        
+
         return ex.validate(message);
     }
 

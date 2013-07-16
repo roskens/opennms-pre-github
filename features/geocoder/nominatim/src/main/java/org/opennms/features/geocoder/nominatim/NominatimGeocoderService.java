@@ -29,7 +29,7 @@ public class NominatimGeocoderService implements GeocoderService {
 
     public NominatimGeocoderService() {
     }
-    
+
     public void onInit() {
         if (m_emailAddress == null || "".equals(m_emailAddress)) {
             throw new UnsupportedOperationException("You must specify an email address for the Nominatim geocoder!");
@@ -91,7 +91,7 @@ public class NominatimGeocoderService implements GeocoderService {
     public String getReferer() {
         return m_referer;
     }
-    
+
     public void setReferer(final String referer) {
         m_referer = referer;
     }

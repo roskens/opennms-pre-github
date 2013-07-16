@@ -48,14 +48,14 @@ import org.springframework.mail.javamail.MimeMessageHelper;
  * @version $Id: $
  */
 public class JavaMailDeliveryService implements ReportDeliveryService {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory
 			.getLogger(JavaMailDeliveryService.class);
 
     JavaMailConfigurationDao m_JavamailConfigDao;
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws ReportDeliveryException */
     @Override
     public void deliverReport(Report report, String fileName) throws ReportDeliveryException {
@@ -70,13 +70,13 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
                 sm = new JavaSendMailer(m_JavamailConfigDao.getDefaultSendmailConfig());
             }
             MimeMessageHelper helper = new MimeMessageHelper(sm.getMessage().getMimeMessage(),true);
-                
+
             helper.setTo(report.getRecipient());
             helper.setSubject("OpenNMS Report: " + report.getReportName());
             helper.setText("OpenNMS Report: "); // FIXME: sm.send() will override this.
-                
+
             helper.addAttachment(fileName, new File(fileName));
-                
+
             sm.setMessage(new MimeMailMessage(helper));
             sm.send();
 
@@ -90,7 +90,7 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
             LOG.error("Unexpected exception: {}",e.getMessage(), e);
             throw new ReportDeliveryException("Caught unexpected " + e.getClass().getName() + ": " + e.getMessage());
         }
-        
+
     }
 
 
@@ -103,7 +103,7 @@ public class JavaMailDeliveryService implements ReportDeliveryService {
         return m_JavamailConfigDao;
     }
 
-    
+
     /**
      * <p>setJavamailConfigDao</p>
      *

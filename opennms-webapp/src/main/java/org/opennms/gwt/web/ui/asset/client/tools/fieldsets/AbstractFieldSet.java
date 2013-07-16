@@ -134,7 +134,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 	/**
 	 * checks if the value of fieldset has changed and starts validation if
 	 * necessary.
-	 * 
+	 *
 	 * @return true if fieldset was changed to a state not equales the initioal
 	 *         state of the value.
 	 */
@@ -273,7 +273,7 @@ public abstract class AbstractFieldSet extends Composite implements FieldSet {
 	/**
 	 * Validates FieldSet. Warnings and errors will be checked. CSS tags will be
 	 * set if necessary.
-	 * 
+	 *
 	 * @param object
 	 */
 	protected void validate(Object object) {

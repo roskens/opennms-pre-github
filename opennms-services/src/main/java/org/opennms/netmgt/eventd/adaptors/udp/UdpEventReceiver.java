@@ -57,9 +57,9 @@ import org.springframework.util.Assert;
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
  */
 public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(UdpEventReceiver.class);
-    
+
     /**
      * The default User Datagram Port for the receipt and transmission of
      * events.
@@ -191,7 +191,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
             oThread.interrupt();
 
             m_status = STOPPED;
-            
+
             throw e;
         }
 
@@ -296,7 +296,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
      */
     public void setIpAddress(String ipAddress) {
         assertNotRunning();
-        
+
         m_ipAddress = ipAddress;
     }
 
@@ -382,7 +382,7 @@ public final class UdpEventReceiver implements EventReceiver, UdpEventReceiverMB
     public void setLogPrefix(String prefix) {
         m_logPrefix = prefix;
     }
-    
+
     private void assertNotRunning() {
         Assert.state(m_status == START_PENDING || m_status == STOPPED, "The fiber is already running and cannot be modified or started");
     }

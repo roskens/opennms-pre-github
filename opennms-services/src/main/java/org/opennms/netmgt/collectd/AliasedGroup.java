@@ -46,10 +46,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class AliasedGroup extends AttributeGroup {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(AliasedGroup.class);
-	
+
 	AttributeGroup m_group;
 
 	/**
@@ -133,18 +133,18 @@ public class AliasedGroup extends AttributeGroup {
 	public String toString() {
 		return m_group.toString();
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void visit(CollectionSetVisitor visitor) {
 		visitor.visitGroup(this);
-		
+
 		for(CollectionAttribute attr : getAttributes()) {
 		    AliasedAttribute aliased = new AliasedAttribute(getResource(), (SnmpAttribute)attr);
 		    LOG.debug("visiting at aliased  = {}", aliased);
 		    aliased.visit(visitor);
 		}
-		
+
 		visitor.completeGroup(this);
 	}
 

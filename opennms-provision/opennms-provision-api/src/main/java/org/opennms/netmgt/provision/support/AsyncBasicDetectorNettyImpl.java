@@ -57,15 +57,15 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <p>AsyncBasicDetectorNettyImpl class.</p>
- * 
+ *
  * CAUTION: This class is unused. This implementation has never been in production.
  *
  * @author Seth
  */
 public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends AsyncBasicDetector<Request, Response> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AsyncBasicDetectorNettyImpl.class);
-    
+
     private static final ChannelFactory m_factory = new NioClientSocketChannelFactory(
         Executors.newFixedThreadPool(
           Runtime.getRuntime().availableProcessors()
@@ -77,7 +77,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
           // TODO: Should be uncommented when merging to master
           //new LogPreservingThreadFactory(getClass().getSimpleName() + ".worker", Integer.MAX_VALUE, false)
         )
-    ); 
+    );
 
     /**
      * <p>Constructor for AsyncBasicDetector.</p>
@@ -90,7 +90,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
     public AsyncBasicDetectorNettyImpl(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>Constructor for AsyncBasicDetector.</p>
      *
@@ -102,7 +102,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
     public AsyncBasicDetectorNettyImpl(final String serviceName, final int port, final int timeout, final int retries){
         super(serviceName, port, timeout, retries);
     }
-    
+
     /**
      * <p>dispose</p>
      */
@@ -111,7 +111,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
         LOG.debug("calling dispose on detector {}", getServiceName());
         m_factory.releaseExternalResources();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public final DetectFuture isServiceDetected(final InetAddress address) {
@@ -170,7 +170,7 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
     /**
      * Upstream handler that will reattempt connections if an exception is generated on the
      * channel.
-     * 
+     *
      * TODO: This doesn't work yet... need to figure out how to do retries with Netty
      */
     private class RetryChannelFutureListener implements ChannelFutureListener {
@@ -211,14 +211,14 @@ public abstract class AsyncBasicDetectorNettyImpl<Request, Response> extends Asy
             } else if(cause instanceof Throwable) {
                 LOG.info("Threw a Throwable and detection is false for service {}", getServiceName(), cause);
                 future.setFailure(new ServiceDetectionFailedException());
-            } 
+            }
         }
     }
 
     /**
      * @return
-     * @throws NoSuchAlgorithmException 
-     * @throws KeyManagementException 
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
      */
     private static SSLContext createClientSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
         final TrustManager[] tm = { new RelaxedX509TrustManager() };

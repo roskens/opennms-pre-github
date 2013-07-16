@@ -17,7 +17,7 @@ public class NCSServiceItem {
         m_foreignSource = ncsComponent.getForeignSource();
         m_type = ncsComponent.getType();
     }
-    
+
     public Long getId() {
         return m_id;
     }
@@ -44,7 +44,7 @@ public class NCSServiceItem {
     public void setForeignSource(String foreignSource) {
         m_foreignSource = foreignSource;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;

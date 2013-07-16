@@ -33,22 +33,22 @@ package org.opennms.protocols.snmp;
  * there is no matching object identifier for the agent. The object is an SNMPv2
  * error condition. This condition can be returned to a manager on a variable by
  * variable basis.
- * 
+ *
  * @see SnmpVarBind
- * 
+ *
  * @author Brian Weaver <weave@oculan.com>
- * 
+ *
  */
 public class SnmpNoSuchObject extends SnmpV2Error {
     /**
      * Defines the serialization format version.
-     * 
+     *
      */
     static final long serialVersionUID = -6750389210834760320L;
 
     /**
      * The ASN.1 value that defines this variable.
-     * 
+     *
      */
     public static final byte ASNTYPE = SnmpSMI.SMI_NOSUCHOBJECT;
 
@@ -68,9 +68,9 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * Returns the ASN.1 type for this particular object.
-     * 
+     *
      * @return ASN.1 identifier
-     * 
+     *
      */
     @Override
     public byte typeId() {
@@ -79,7 +79,7 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * Returns a duplicate object of self.
-     * 
+     *
      * @return A duplicate of self
      */
     @Override
@@ -89,7 +89,7 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * Returns a duplicate object of self.
-     * 
+     *
      * @return A duplicate of self
      */
     @Override
@@ -99,7 +99,7 @@ public class SnmpNoSuchObject extends SnmpV2Error {
 
     /**
      * Returns the string representation of the object.
-     * 
+     *
      */
     @Override
     public String toString() {

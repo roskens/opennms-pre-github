@@ -46,18 +46,18 @@ import org.opennms.netmgt.model.OnmsServiceType;
  * @version $Id: $
  */
 public class DemoPollerConfiguration implements PollerConfiguration {
-    
+
     Date m_timestamp;
     PolledService[] m_polledServices;
     private long m_serverTime = 0;
-    
+
     DemoPollerConfiguration(Date timestamp) {
         m_timestamp = timestamp;
-        
+
         OnmsServiceType http = new OnmsServiceType("HTTP");
-        
+
         List<PolledService> polledServices = new ArrayList<PolledService>();
-        
+
         OnmsDistPoller distPoller = new OnmsDistPoller("locahost", "127.0.0.1");
         NetworkBuilder m_builder = new NetworkBuilder(distPoller);
         m_builder.addNode("Google").setId(1);
@@ -68,15 +68,15 @@ public class DemoPollerConfiguration implements PollerConfiguration {
         m_builder.addNode("OpenNMS").setId(2);
         m_builder.addInterface("209.61.128.9").setId(21);
         polledServices.add(createPolledService(211, m_builder.addService(http), new HashMap<String,Object>(), 3000));
-        
+
         m_polledServices = (PolledService[]) polledServices.toArray(new PolledService[polledServices.size()]);
-        
+
     }
-    
+
     DemoPollerConfiguration() {
         this(new Date());
     }
-	
+
     /**
      * <p>getConfigurationTimestamp</p>
      *
@@ -101,7 +101,7 @@ public class DemoPollerConfiguration implements PollerConfiguration {
         service.setId(serviceID);
         return new PolledService(service, monitorConfiguration, new OnmsPollModel(interval));
     }
-    
+
     /**
      * <p>getFirstId</p>
      *
@@ -135,6 +135,6 @@ public class DemoPollerConfiguration implements PollerConfiguration {
         return m_serverTime;
     }
 
-  
+
 
 }

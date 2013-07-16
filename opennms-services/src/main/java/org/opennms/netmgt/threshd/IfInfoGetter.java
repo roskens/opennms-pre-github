@@ -49,7 +49,7 @@ public interface IfInfoGetter {
      * @return a {@link java.util.Map} object.
      */
     public abstract Map<String, String> getIfInfoForNodeAndLabel(int nodeId, String ifLabel);
-    
+
     /**
      * <p>getIfLabel</p>
      *

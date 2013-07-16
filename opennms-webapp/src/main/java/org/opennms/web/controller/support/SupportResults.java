@@ -36,7 +36,7 @@ import org.opennms.netmgt.rt.RTTicket;
 
 public class SupportResults implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2119247915337079075L;
     private boolean m_success = true;
@@ -53,7 +53,7 @@ public class SupportResults implements Serializable {
     public boolean getSuccess() {
         return m_success;
     }
-    
+
     public void setSuccess(final boolean success) {
         m_success = success;
     }
@@ -61,11 +61,11 @@ public class SupportResults implements Serializable {
     public boolean getNeedsLogin() {
         return m_needsLogin;
     }
-    
+
     public void setNeedsLogin(final boolean needsLogin) {
         m_needsLogin = needsLogin;
     }
-    
+
     public String getRTUrl() {
         return m_baseUrl;
     }
@@ -77,15 +77,15 @@ public class SupportResults implements Serializable {
     public String getUsername() {
         return m_username;
     }
-    
+
     public void setUsername(final String username) {
         m_username = username;
     }
-    
+
     public String getQueue() {
         return m_queue;
     }
-    
+
     public void setQueue(final String queue) {
         m_queue = queue;
     }

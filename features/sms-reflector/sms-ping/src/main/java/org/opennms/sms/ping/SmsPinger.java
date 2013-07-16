@@ -38,46 +38,46 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * Pinger Design
- * 
+ *
  * The pinger has four components that are all static
- * 
+ *
  * an icmpSocket
  * a pendingRequest map
  * a pendingReply queue (LinkedBlockingQueue)
  * a timeout queue (DelayQueue)
- * 
+ *
  * It also has three threads:
- * 
+ *
  * a thread to read from the icmpSocket - (icmp socket reader)
  * a thread to process the pendingReplyQueue - (icmp reply processor)
  * a thread to process the timeouts (icmp timeout processor)
- * 
+ *
  * Processing:
- * 
+ *
  * All requests are asynchronous (if synchronous requests are need that
  * are implemented using asynchronous requests and blocking callbacks)
- * 
+ *
  * Making a request: (client thread)
- * - create a pingRequest 
+ * - create a pingRequest
  * - add it to a pendingRequestMap
  * - send the request
  * - add it to the timeout queue
- * 
+ *
  * Reading from the icmp socket: (icmp socket reader)
  * - read a packet from the socket
- * - construct a reply object 
+ * - construct a reply object
  * - verify it is an opennms gen'd packet
  * - add it to the pendingReply queue
- * 
+ *
  * Processing a reply: (icmp reply processor)
  * - take a reply from the pendingReply queue
  * - look up and remove the matching request in the pendingRequest map
  * - call request.processReply(reply) - this will store the reply and
  *   call the handleReply call back
  * - pending request sets completed to true
- * 
+ *
  * Processing a timeout:
  * - take a request from the timeout queue
  * - if the request is completed discard it
@@ -85,22 +85,22 @@ import org.slf4j.LoggerFactory;
  *   of retries and either return a new request with fewer retries or
  *   call the handleTimeout call back
  * - if processTimeout returns a new request than process it as in Making
- *   a request 
- * 
+ *   a request
+ *
  * Thread Details:
- * 
+ *
  * 1.  The icmp socket reader that will listen on the ICMP socket.  It
  *     will pull packets off the socket and construct replies and add
  *     them to a LinkedBlockingQueue
- * 
+ *
  * 2.  The icmp reply processor that will pull replies off the linked
  *     blocking queue and process them.  This will result in calling the
  *     PingResponseCallback handleReply method.
- * 
+ *
  * 3.  The icmp timeout processor that will pull PingRequests off of a
  *     DelayQueue.  A DelayQueue does not allow things to be removed from
  *     them until the timeout has expired.
- * 
+ *
  */
 
 /**
@@ -113,19 +113,19 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SmsPinger {
-    
+
     private static SmsPingTracker s_pingTracker;
     private static Logger log = LoggerFactory.getLogger(SmsPinger.class);
-    
+
 	/**
 	 * Initializes this singleton
 	 *
 	 * @throws java.io.IOException if any.
 	 */
 	public synchronized static void initialize() throws IOException {
-	    if (s_pingTracker == null) throw new IllegalStateException("SmsPinger not yet initialized!!"); 
+	    if (s_pingTracker == null) throw new IllegalStateException("SmsPinger not yet initialized!!");
 	}
-	
+
 	/**
 	 * <p>setSmsPingTracker</p>
 	 *
@@ -172,7 +172,7 @@ public class SmsPinger {
         cb.waitFor();
         return cb.getResponseTime();
     }
-    
+
 
 	/**
 	 * Ping a remote host, using the default number of retries and timeouts.

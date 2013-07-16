@@ -125,7 +125,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Path("requisitions")
 public class RequisitionRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(RequisitionRestService.class);
 
 
@@ -153,8 +153,8 @@ public class RequisitionRestService extends OnmsRestService {
         return Integer.toString(m_accessService.getDeployedCount());
     }
 
-   
-   
+
+
 
     /**
      * Get all the deployed requisitions

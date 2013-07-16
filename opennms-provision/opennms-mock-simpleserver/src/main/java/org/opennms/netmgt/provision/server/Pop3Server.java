@@ -35,7 +35,7 @@ package org.opennms.netmgt.provision.server;
  * @version $Id: $
  */
 public class Pop3Server extends SimpleServer {
-    
+
     /**
      * <p>onInit</p>
      */
@@ -44,6 +44,6 @@ public class Pop3Server extends SimpleServer {
         setTimeout(3000);
         setBanner("+OK");
         addResponseHandler(matches("QUIT"), shutdownServer("+OK"));
-        addErrorHandler(errorString("COMMAND NOT VALID"));        
+        addErrorHandler(errorString("COMMAND NOT VALID"));
     }
 }

@@ -105,14 +105,14 @@ public abstract class Util extends Object {
     	if (request == null || path == null) {
     		throw new IllegalArgumentException("Cannot take null parameters.");
     	}
-    	
+
     	String tmpl = Vault.getProperty("opennms.web.base-url");
         if (tmpl == null) {
             tmpl = "%s://%x%c";
         }
         return substituteUrl(request, tmpl).replaceAll("/+$", "") + "/" + path.replaceAll("^/+", "");
     }
-    
+
     /** Constant <code>substKeywords={ 's', 'h', 'p', 'x', 'c' }</code> */
     protected static final char[] substKeywords = { 's', 'h', 'p', 'x', 'c' };
 
@@ -507,7 +507,7 @@ public abstract class Util extends Object {
     public static String htmlify(final String input) {
         return (input == null ? null : input.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;"));
     }
-    
+
     /**
      * <p>createEventProxy</p>
      *
@@ -534,7 +534,7 @@ public abstract class Util extends Object {
             try {
                 proxy = new TcpEventProxy();
             } catch (final UnknownHostException e) {
-                // XXX Ewwww!  We should just let the first UnknownException bubble up. 
+                // XXX Ewwww!  We should just let the first UnknownException bubble up.
                 throw new UndeclaredThrowableException(e);
             }
         } else {
@@ -551,14 +551,14 @@ public abstract class Util extends Object {
      * @see java.text.DateFormat
      * @param date a {@link java.util.Date} object.
      * @return a {@link java.lang.String} object.
-     * @deprecated We should use the <code>fmt:formatDate</code> taglib at the JSP level 
-     *   instead of converting {@link Date} instances into {@link String} instances inside 
+     * @deprecated We should use the <code>fmt:formatDate</code> taglib at the JSP level
+     *   instead of converting {@link Date} instances into {@link String} instances inside
      *   the model code.
      */
     public static final String formatDateToUIString(final Date date) {
         return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(date);
     }
-    
+
     /**
      * <p>convertToJsSafeString</p>
      *

@@ -80,7 +80,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 	/**
 	 * This queue extends the standard FIFO queue instance so that it is
 	 * possible to peek at an instance without removing it from the queue.
-	 *  
+	 *
 	 */
 	public static final class PeekableFifoQueue<T> extends FifoQueueImpl<T> {
         /**
@@ -88,10 +88,10 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
          * be returned on a <code>remove</code> call. If the queue is
          * currently empty then the caller is blocked until an object is put
          * into the queue.
-         * 
+         *
          * @return The object that would be returned on the next call to
          *         <code>remove</code>.
-         * 
+         *
          * @throws java.lang.InterruptedException
          *             Thrown if the thread is interrupted.
          * @throws org.opennms.core.queue.FifoQueueException
@@ -198,7 +198,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 			public boolean isReady() {
 				return getCurrentTime() >= timeToRun && runnable.isReady();
 			}
-			
+
                         @Override
 			public String getInfo() {
 				return runnable.getInfo();
@@ -213,7 +213,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 			public void schedule() {
 				runnable.schedule();
 			}
-			
+
                         @Override
 			public void suspend() {
 				runnable.suspend();
@@ -228,12 +228,12 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 			public boolean isSuspended() {
 				return runnable.isSuspended();
 			}
-			
+
                         @Override
 			public boolean equals(Object r) {
 				return runnable.equals(r);
 			}
-			
+
                         @Override
 			public void unschedule() {
 				runnable.unschedule();
@@ -244,12 +244,12 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 				return runnable.toString() + " (ready in "
 						+ Math.max(0, timeToRun - getCurrentTime()) + "ms)";
 			}
-			
+
                         @Override
 			public String getPackageName() {
 				return runnable.getPackageName();
 			}
-			
+
                         @Override
 			public void setPackageName(String pkg) {
 				runnable.setPackageName(pkg);
@@ -267,12 +267,12 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 	 */
 	public synchronized void unschedule(ReadyRunnable runnable) {
 	    LOG.debug("unschedule: Removing all {}", runnable.getInfo());
-		
+
 		boolean done = false;
 		synchronized(m_queues) {
 		  Iterator<Long> iter = m_queues.keySet().iterator();
 		  while (iter.hasNext() && !done) {
-		
+
 			Long key = iter.next();
 			unschedule(runnable, key.longValue());
 			}
@@ -296,13 +296,13 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 			    LOG.debug("unschedule: interval queue did not exist, exit");
 				return;
 			}
-			
+
 			PeekableFifoQueue<ReadyRunnable> in = m_queues.get(interval);
 			if (in.isEmpty()) {
 			    LOG.debug("unschedule: interval queue is empty, exit");
 				return;
 			}
-			
+
 			ReadyRunnable readyRun = null;
 			int maxLoops = in.size();
 			boolean first = true;
@@ -315,7 +315,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 					first = false;
 					if (readyRun != null && readyRun.equals(runnable)) {
 					    LOG.debug("unschedule: removing found {}", readyRun.getInfo());
-			
+
 						// Pop the interface/readyRunnable from the
 						// queue for execution.
 						//
@@ -327,7 +327,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 				    LOG.info("unschedule: failed to remove instance {} from scheduler", runnable.getInfo(), ie);
 					Thread.currentThread().interrupt();
 				}
-			} while ( --maxLoops > 0) ; 
+			} while ( --maxLoops > 0) ;
 		}
 	}
 
@@ -358,7 +358,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 		}
 		return rr;
 	}
-	
+
 	/**
 	 * <p>getReadyRunnable</p>
 	 *
@@ -381,7 +381,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 			    LOG.warn("getReadyRunnable: queue is Empty");
 				return null;
 			}
-			
+
 			int maxLoops = in.size();
 			ReadyRunnable readyRun = null;
 			boolean first = true;
@@ -400,7 +400,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 				} catch (InterruptedException ie) {
 				    LOG.info("getReadyRunnable: failed to get instance {} from scheduler", readyRun.getInfo(), ie);
 					Thread.currentThread().interrupt();
-				} 
+				}
 
 			} while (--maxLoops > 0) ;
 		}
@@ -617,7 +617,7 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 							&& --maxLoops > 0);
 
 				}
-				
+
 			}
 
 			// Wait for 1 second if there were no runnables
@@ -643,5 +643,5 @@ public class Scheduler implements Runnable, PausableFiber, ScheduleTimer {
 		}
 
 	} // end run
-	
+
 }

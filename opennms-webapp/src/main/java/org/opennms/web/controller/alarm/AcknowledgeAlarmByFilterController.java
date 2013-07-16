@@ -59,9 +59,9 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeAlarmByFilterController extends AbstractController implements InitializingBean {
     private AlarmRepository m_webAlarmRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -70,7 +70,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebAlarmRepository</p>
      *
@@ -121,7 +121,7 @@ public class AcknowledgeAlarmByFilterController extends AbstractController imple
         }
 
         Filter[] filters = filterArray.toArray(new Filter[filterArray.size()]);
-        
+
         OnmsCriteria criteria = AlarmUtil.getOnmsCriteria(new AlarmCriteria(filters));
 
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {

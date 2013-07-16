@@ -50,14 +50,14 @@ import org.opennms.netmgt.rrd.RrdUtils;
  * @version $Id: $
  */
 public class PersistOperationBuilder {
-    
+
     private RrdRepository m_repository;
     private String m_rrdName;
     private ResourceIdentifier m_resource;
     private Map<AttributeDefinition, String> m_declarations = new TreeMap<AttributeDefinition, String>(new ByNameComparator());
     private Map<String, String> m_metaData = new LinkedHashMap<String, String>();
     private TimeKeeper m_timeKeeper = new DefaultTimeKeeper();
-    
+
     /**
      * RRDTool defined Data Source Types NOTE: "DERIVE" and "ABSOLUTE" not
      * currently supported.
@@ -111,7 +111,7 @@ public class PersistOperationBuilder {
     public void setAttributeValue(AttributeDefinition attrType, String value) {
         m_declarations.put(attrType, value);
     }
-    
+
     public void setAttributeMetadata(String metricIdentifier, String name) {
         m_metaData.put(metricIdentifier, name);
     }
@@ -131,7 +131,7 @@ public class PersistOperationBuilder {
         if (objectType.toLowerCase().startsWith("counter")) {
             return PersistOperationBuilder.DST_COUNTER;
         }
-        
+
         return PersistOperationBuilder.DST_GAUGE;
     }
 
@@ -142,7 +142,7 @@ public class PersistOperationBuilder {
      */
     public void commit() throws RrdException {
         if (m_declarations.size() == 0) {
-            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources            
+            // Nothing to do.  In fact, we'll get an error if we try to create an RRD file with no data sources
             return;
         }
 
@@ -172,7 +172,7 @@ public class PersistOperationBuilder {
     private Map<String, String> getAttributeMappings() {
         return null;
     }
-    
+
     private List<RrdDataSource> getDataSources() {
         List<RrdDataSource> dataSources = new ArrayList<RrdDataSource>(m_declarations.size());
         for (AttributeDefinition attrDef : m_declarations.keySet()) {

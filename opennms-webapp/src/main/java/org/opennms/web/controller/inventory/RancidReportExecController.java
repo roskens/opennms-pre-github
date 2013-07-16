@@ -58,13 +58,13 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 public class RancidReportExecController extends SimpleFormController {
     private static final Logger LOG = LoggerFactory.getLogger(RancidReportExecController.class);
-    
+
 //    InventoryService m_inventoryService;
     ConfigurationReportService m_configurationReportService;
     InventoryReportService m_inventoryReportService;
-    
-    
-    
+
+
+
     /**
      * <p>getConfigurationReportService</p>
      *
@@ -99,23 +99,23 @@ public class RancidReportExecController extends SimpleFormController {
             InventoryReportService inventoryReportService) {
         m_inventoryReportService = inventoryReportService;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response,
             Object command, BindException errors) throws ServletException, IOException, Exception {
 
         LOG.debug("RancidReportExecController ModelAndView onSubmit");
-        
+
         RancidReportExecCommClass bean = (RancidReportExecCommClass) command;
-        
+
         LOG.debug("RancidReportExecController ModelAndView type {}", bean.getReporttype());
         LOG.debug("RancidReportExecController ModelAndView type {}", bean.getFieldhas());
-        
+
         String user = request.getRemoteUser();
         Date reportRequestDate = new Date();
 
-        
+
         ModelAndView mav = new ModelAndView(getSuccessView());
 
         if (bean.getReporttype().compareTo("rancidlist") == 0){
@@ -149,10 +149,10 @@ public class RancidReportExecController extends SimpleFormController {
         } else {
             mav.addObject("reportformat", "HTML");
         }
-        
+
         return mav;
 
-        
+
 //        String redirectURL = request.getHeader("Referer");
 //        response.sendRedirect(redirectURL);
 //        return super.onSubmit(request, response, command, errors);
@@ -162,5 +162,5 @@ public class RancidReportExecController extends SimpleFormController {
     protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws ServletException {
         LOG.debug("RancidReportExecController initBinder");
     }
-    
+
 }

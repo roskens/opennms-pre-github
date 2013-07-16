@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NsclientClient implements Client<NsclientRequest, NsclientPacket> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NsclientClient.class);
 
 

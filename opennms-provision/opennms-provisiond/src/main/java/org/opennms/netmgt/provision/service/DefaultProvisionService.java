@@ -108,9 +108,9 @@ import org.springframework.util.Assert;
 @Service
 public class DefaultProvisionService implements ProvisionService, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultProvisionService.class);
-    
+
     private final static String FOREIGN_SOURCE_FOR_DISCOVERED_NODES = null;
-    
+
     /**
      * ServiceTypeFulfiller
      *
@@ -129,46 +129,46 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
 
     @Autowired
     private DistPollerDao m_distPollerDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
-    
+
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
-    
+
     @Autowired
     private ServiceTypeDao m_serviceTypeDao;
-    
+
     @Autowired
     private CategoryDao m_categoryDao;
-    
+
     @Autowired
     @Qualifier("transactionAware")
     private EventForwarder m_eventForwarder;
-    
+
     @Autowired
     @Qualifier("fastFused")
     private ForeignSourceRepository m_foreignSourceRepository;
-    
+
     @Autowired
     @Qualifier("fastPending")
     private ForeignSourceRepository m_pendingForeignSourceRepository;
 
     @Autowired
     private PluginRegistry m_pluginRegistry;
-    
+
     @Autowired
     private PlatformTransactionManager m_transactionManager;
-    
+
     private final ThreadLocal<HashMap<String, OnmsServiceType>> m_typeCache = new ThreadLocal<HashMap<String, OnmsServiceType>>();
     private final ThreadLocal<HashMap<String, OnmsCategory>> m_categoryCache = new ThreadLocal<HashMap<String, OnmsCategory>>();
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -194,17 +194,17 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     @Transactional
     @Override
     public void insertNode(final OnmsNode node) {
-        
+
         node.setDistPoller(createDistPollerIfNecessary("localhost", "127.0.0.1"));
         m_nodeDao.save(node);
         m_nodeDao.flush();
-        
+
         final EntityVisitor eventAccumlator = new AddEventVisitor(m_eventForwarder);
 
         node.visit(eventAccumlator);
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -213,46 +213,46 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     	final OnmsNode dbNode = m_nodeDao.getHierarchy(node.getId());
 
         dbNode.mergeNode(node, m_eventForwarder, false);
-    
+
         m_nodeDao.update(dbNode);
         m_nodeDao.flush();
 
         final EntityVisitor eventAccumlator = new UpdateEventVisitor(m_eventForwarder);
 
         node.visit(eventAccumlator);
-        
+
     }
 
     /** {@inheritDoc} */
     @Transactional
     @Override
     public void deleteNode(final Integer nodeId) {
-        
+
     	final OnmsNode node = m_nodeDao.get(nodeId);
 
     	if (node != null && shouldDelete(node)) {
             m_nodeDao.delete(node);
             node.visit(new DeleteEventVisitor(m_eventForwarder));
         }
-        
-    
+
+
     }
 
 	private boolean shouldDelete(final OnmsNode node) {
 		String foreignSource = node.getForeignSource();
-		
-		// only delete services that are on discovered nodes if discovery is enabled 
+
+		// only delete services that are on discovered nodes if discovery is enabled
 		// meaning provisiond is managing discovered nodes rather than capsd
 		if (foreignSource == null) return isDiscoveryEnabled();
-		
-		// if we enable deletion of requisitioned entities then we can delete this 
+
+		// if we enable deletion of requisitioned entities then we can delete this
 		if (isRequisitionedEntityDeletionEnabled()) return true;
-		
+
 		// otherwise only delete if it is not requistioned
 		return !isRequisitioned(node);
 
 	}
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -262,25 +262,25 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             m_ipInterfaceDao.delete(iface);
             iface.visit(new DeleteEventVisitor(m_eventForwarder));
         }
-        
+
     }
 
 	private boolean shouldDelete(final OnmsIpInterface iface) {
-		
+
 		String foreignSource = iface.getNode().getForeignSource();
-		
-		// only delete services that are on discovered nodes if discovery is enabled 
+
+		// only delete services that are on discovered nodes if discovery is enabled
 		// meaning provisiond is managing discovered nodes rather than capsd
 		if (foreignSource == null) return isDiscoveryEnabled();
-		
-		// if we enable deletion of requisitioned entities then we can delete this 
+
+		// if we enable deletion of requisitioned entities then we can delete this
 		if (isRequisitionedEntityDeletionEnabled()) return true;
-		
+
 		// otherwise only delete if it is not requistioned
 		return !isRequisitioned(iface);
 
 	}
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -290,89 +290,89 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             m_monitoredServiceDao.delete(monSvc);
             monSvc.visit(new DeleteEventVisitor(m_eventForwarder));
         }
-        
+
     }
 
 	private boolean shouldDelete(final OnmsMonitoredService monSvc) {
 		String foreignSource = monSvc.getIpInterface().getNode().getForeignSource();
-		
-		// only delete services that are on discovered nodes if discovery is enabled 
+
+		// only delete services that are on discovered nodes if discovery is enabled
 		// meaning provisiond is managing discovered nodes rather than capsd
 		if (foreignSource == null) return isDiscoveryEnabled();
-		
-		// if we enable deletion of requisitioned entities then we can delete this 
+
+		// if we enable deletion of requisitioned entities then we can delete this
 		if (isRequisitionedEntityDeletionEnabled()) return true;
-		
+
 		// otherwise only delete if it is not requistioned
 		return !isRequisitioned(monSvc);
-		
-		
+
+
 	}
-	
+
 	public boolean isRequisitioned(OnmsNode node) {
 		String foreignSource = node.getForeignSource();
 		String foreignId = node.getForeignId();
-		
+
 		// is this a discovered node
 		if (foreignSource == null) return false;
-		
+
 		OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
-		if (reqNode == null) { 
+		if (reqNode == null) {
 			// this is no requisition node?
 			LOG.error("No requistion exists for node with foreignSource {} and foreignId {}.  Treating node as unrequistioned", foreignSource, foreignId);
 			return false;
 		} else {
 			return true;
 		}
-		
+
 	}
-	
+
 	public boolean isRequisitioned(OnmsIpInterface ip) {
 		String foreignSource = ip.getNode().getForeignSource();
 		String foreignId = ip.getNode().getForeignId();
-		
+
 		// is this a discovered node
 		if (foreignSource == null) return false;
-		
+
 		OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
-		if (reqNode == null) { 
+		if (reqNode == null) {
 			// this is no requisition node?
 			LOG.error("No requistion exists for node with foreignSource {} and foreignId {}.  Treating node as unrequistioned", foreignSource, foreignId);
 			return false;
 		}
-		
+
 		OnmsIpInterface reqIp = reqNode.getIpInterfaceByIpAddress(ip.getIpAddress());
 		// if we found the ip then its a requisitioned interface
 		return reqIp != null;
-		
+
 	}
-	
+
 	public boolean isRequisitioned(OnmsMonitoredService monSvc) {
 		String foreignSource = monSvc.getIpInterface().getNode().getForeignSource();
 		String foreignId = monSvc.getIpInterface().getNode().getForeignId();
-		
+
 		// is this a discovered node
 		if (foreignSource == null) return false;
-		
+
 		OnmsNode reqNode = getRequisitionedNode(foreignSource, foreignId);
-		if (reqNode == null) { 
+		if (reqNode == null) {
 			// this is no requisition node?
 			LOG.error("No requistion exists for node with foreignSource {} and foreignId {}.  Treating node as unrequistioned", foreignSource, foreignId);
 			return false;
 		}
-		
+
 		OnmsIpInterface reqIp = reqNode.getIpInterfaceByIpAddress(monSvc.getIpAddress());
 		if (reqIp == null) {
 			// there is no matching requistion ip so the interface was discovered
 			return false;
 		}
-		
+
 		OnmsMonitoredService reqSvc =  reqIp.getMonitoredServiceByServiceType(monSvc.getServiceName());
-		
+
 		// if we found the service then its a requistion service
 		return reqSvc != null;
 	}
-	
+
     private void assertNotNull(final Object o, final String format, final Object... args) {
         if (o == null) {
             throw new IllegalArgumentException(String.format(format, args));
@@ -387,7 +387,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         if (snmpInterface != null && snmpInterface.getIfIndex() != null) {
             scannedIface.setSnmpInterface(updateSnmpInterfaceAttributes(nodeId, snmpInterface));
         }
-        
+
         return new UpsertTemplate<OnmsIpInterface, IpInterfaceDao>(m_transactionManager, m_ipInterfaceDao) {
 
             @Override
@@ -401,13 +401,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             protected OnmsIpInterface doUpdate(final OnmsIpInterface dbIface) {
                 if(dbIface.isManaged() && !scannedIface.isManaged()){
                     final Set<OnmsMonitoredService> monSvcs = dbIface.getMonitoredServices();
-                    
+
                     for(final OnmsMonitoredService monSvc : monSvcs){
                         monSvc.visit(new DeleteEventVisitor(m_eventForwarder));
                     }
                     monSvcs.clear();
                 }
-                
+
                 dbIface.mergeInterfaceAttributes(scannedIface);
                 LOG.info("Updating IpInterface {}", dbIface);
                 m_ipInterfaceDao.update(dbIface);
@@ -429,7 +429,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 return scannedIface;
             }
         }.execute();
-        
+
 
     }
 
@@ -469,7 +469,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 m_snmpInterfaceDao.flush();
                 return snmpInterface;
             }
-            
+
         }.execute();
     }
 
@@ -480,12 +480,12 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     	final OnmsIpInterface iface = m_ipInterfaceDao.get(ipInterfaceId);
         assertNotNull(iface, "could not find interface with id %d", ipInterfaceId);
         return addMonitoredService(iface, svcName);
-        
+
     }
 
     private OnmsMonitoredService addMonitoredService(final OnmsIpInterface iface, final String svcName) {
         final OnmsServiceType svcType = createServiceTypeIfNecessary(svcName);
-        
+
         return new CreateIfNecessaryTemplate<OnmsMonitoredService, MonitoredServiceDao>(m_transactionManager, m_monitoredServiceDao) {
 
             @Override
@@ -503,7 +503,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 svc.visit(visitor);
                 return svc;
             }
-            
+
         }.execute();
     }
 
@@ -572,17 +572,17 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         m_nodeDao.clear();
         m_nodeDao.flush();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public OnmsDistPoller createDistPollerIfNecessary(final String dpName, final String dpAddr) {
         return createDistPollerIfNecessary(new OnmsDistPoller(dpName, dpAddr));
     }
-    
+
     public OnmsDistPoller createDistPollerIfNecessary(OnmsDistPoller scannedDistPoller) {
-        
+
         final OnmsDistPoller distPoller = scannedDistPoller == null ? new OnmsDistPoller("localhost", "127.0.0.1") : scannedDistPoller;
-        
+
         return new CreateIfNecessaryTemplate<OnmsDistPoller, DistPollerDao>(m_transactionManager, m_distPollerDao) {
 
             @Override
@@ -597,10 +597,10 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 return distPoller;
             }
         }.execute();
-        
+
     }
-    
-    
+
+
 
     /** {@inheritDoc} */
     @Transactional
@@ -612,21 +612,21 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             return null;
         }
         final OnmsNode node = nodeReq.constructOnmsNodeFromRequisition();
-        
+
         // fill in real database categories
         final HashSet<OnmsCategory> dbCategories = new HashSet<OnmsCategory>();
         for(final OnmsCategory category : node.getCategories()) {
             dbCategories.add(createCategoryIfNecessary(category.getName()));
         }
-        
+
         node.setCategories(dbCategories);
-        
+
         // fill in real service types
         node.visit(new ServiceTypeFulfiller());
-        
+
         return node;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -639,28 +639,28 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }
         return type;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
     public OnmsCategory createCategoryIfNecessary(final String name) {
         preloadExistingCategories();
-        
+
         OnmsCategory category = m_categoryCache.get().get(name);
-        if (category == null) {    
+        if (category == null) {
             category = loadCategory(name);
             m_categoryCache.get().put(category.getName(), category);
         }
         return category;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional(readOnly=true)
     @Override
     public Map<String, Integer> getForeignIdToNodeIdMap(final String foreignSource) {
         return m_nodeDao.getForeignIdToNodeIdMap(foreignSource);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     @Transactional
@@ -670,7 +670,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         if (node == null) {
             return;
         }
-        
+
         final OnmsNode parent = findParent(parentForeignSource, parentForeignId, parentNodeLabel);
 
         setParent(node, parent);
@@ -685,7 +685,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             m_typeCache.set(loadServiceTypeMap());
         }
     }
-    
+
     @Transactional(readOnly=true)
     private HashMap<String, OnmsServiceType> loadServiceTypeMap() {
         final HashMap<String, OnmsServiceType> serviceTypeMap = new HashMap<String, OnmsServiceType>();
@@ -694,7 +694,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }
         return serviceTypeMap;
     }
-    
+
     @Transactional
     private OnmsServiceType loadServiceType(final String serviceName) {
         return new CreateIfNecessaryTemplate<OnmsServiceType, ServiceTypeDao>(m_transactionManager, m_serviceTypeDao) {
@@ -711,16 +711,16 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 m_serviceTypeDao.flush();
                 return type;
             }
-            
+
         }.execute();
     }
-    
+
     private void preloadExistingCategories() {
         if (m_categoryCache.get() == null) {
             m_categoryCache.set(loadCategoryMap());
         }
     }
-    
+
     @Transactional(readOnly=true)
     private HashMap<String, OnmsCategory> loadCategoryMap() {
         final HashMap<String, OnmsCategory> categoryMap = new HashMap<String, OnmsCategory>();
@@ -729,7 +729,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }
         return categoryMap;
     }
-    
+
     @Transactional
     private OnmsCategory loadCategory(final String name) {
         return new CreateIfNecessaryTemplate<OnmsCategory, CategoryDao>(m_transactionManager, m_categoryDao) {
@@ -747,9 +747,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 return category;
             }
         }.execute();
-        
+
     }
-    
+
     @Transactional(readOnly=true)
     private OnmsNode findNodebyNodeLabel(final String label) {
         Collection<OnmsNode> nodes = m_nodeDao.findByLabel(label);
@@ -759,12 +759,12 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     	LOG.error("Unable to locate a unique node using label {}: {} nodes found.  Ignoring relationship.", label, nodes.size());
     	return null;
     }
-    
+
     @Transactional(readOnly=true)
     private OnmsNode findNodebyForeignId(final String foreignSource, final String foreignId) {
         return m_nodeDao.findByForeignId(foreignSource, foreignId);
     }
-    
+
     @Transactional(readOnly=true)
     private OnmsNode findParent(final String foreignSource, final String parentForeignId, final String parentNodeLabel) {
         if (parentForeignId != null) {
@@ -774,13 +774,13 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 return findNodebyNodeLabel(parentNodeLabel);
             }
         }
-    	
+
     	return null;
     }
-    
+
     private void setPathDependency(final OnmsNode node, final OnmsNode parent) {
         if (node == null) return;
-        
+
         OnmsIpInterface critIface = null;
     	if (parent != null) {
     		critIface = parent.getCriticalInterface();
@@ -790,7 +790,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     	node.setPathElement(critIface == null ? null : new PathElement(str(critIface.getIpAddress()), "ICMP"));
 
     }
-    
+
     @Transactional
     private void setParent(final OnmsNode node, final OnmsNode parent) {
         if (node == null) return;
@@ -801,14 +801,14 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         m_nodeDao.update(node);
         m_nodeDao.flush();
     }
-    
+
     /** {@inheritDoc} */
     @Transactional(readOnly=true)
     @Override
     public NodeScanSchedule getScheduleForNode(final int nodeId, final boolean force) {
         return createScheduleForNode(m_nodeDao.get(nodeId), force);
     }
-    
+
     /**
      * <p>getScheduleForNodes</p>
      *
@@ -819,7 +819,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     public List<NodeScanSchedule> getScheduleForNodes() {
         Assert.notNull(m_nodeDao, "Node DAO is null and is not supposed to be");
         final List<OnmsNode> nodes = isDiscoveryEnabled() ? m_nodeDao.findAll() : m_nodeDao.findAllProvisionedNodes();
-        
+
         final List<NodeScanSchedule> scheduledNodes = new ArrayList<NodeScanSchedule>();
         for(final OnmsNode node : nodes) {
         	final NodeScanSchedule nodeScanSchedule = createScheduleForNode(node, false);
@@ -827,10 +827,10 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 scheduledNodes.add(nodeScanSchedule);
             }
         }
-        
+
         return scheduledNodes;
     }
-    
+
     private NodeScanSchedule createScheduleForNode(final OnmsNode node, final boolean force) {
         Assert.notNull(node, "Node may not be null");
         final String actualForeignSource = node.getForeignSource();
@@ -914,7 +914,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 return saveOrUpdate(node);
             }
         }.execute();
-        
+
     }
 
     @Transactional(readOnly=true)
@@ -938,38 +938,38 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 updatedCategories.add(createCategoryIfNecessary(category.getName()));
             }
         }
-        
+
         node.getCategories().addAll(updatedCategories);
-        
+
         m_nodeDao.saveOrUpdate(node);
         m_nodeDao.flush();
-        
+
         return node;
-        
+
     }
-    
+
     @Transactional
     private OnmsIpInterface saveOrUpdate(final OnmsIpInterface iface) {
         iface.visit(new ServiceTypeFulfiller());
         LOG.info("SaveOrUpdating IpInterface {}", iface);
         m_ipInterfaceDao.saveOrUpdate(iface);
         m_ipInterfaceDao.flush();
-        
+
         return iface;
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<ServiceDetector> getDetectorsForForeignSource(final String foreignSourceName) {
     	final ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
-        
+
         final List<PluginConfig> detectorConfigs = foreignSource.getDetectors();
         if (detectorConfigs == null) {
             return new ArrayList<ServiceDetector>(m_pluginRegistry.getAllPlugins(ServiceDetector.class));
         }
-        
+
         final List<ServiceDetector> detectors = new ArrayList<ServiceDetector>(detectorConfigs.size());
         for(final PluginConfig detectorConfig : detectorConfigs) {
             final ServiceDetector detector = m_pluginRegistry.getPluginInstance(ServiceDetector.class, detectorConfig);
@@ -990,20 +990,20 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     public List<NodePolicy> getNodePoliciesForForeignSource(final String foreignSourceName) {
         return getPluginsForForeignSource(NodePolicy.class, foreignSourceName);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<IpInterfacePolicy> getIpInterfacePoliciesForForeignSource(final String foreignSourceName) {
         return getPluginsForForeignSource(IpInterfacePolicy.class, foreignSourceName);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<SnmpInterfacePolicy> getSnmpInterfacePoliciesForForeignSource(final String foreignSourceName) {
         return getPluginsForForeignSource(SnmpInterfacePolicy.class, foreignSourceName);
     }
 
-    
+
     /**
      * <p>getPluginsForForeignSource</p>
      *
@@ -1015,12 +1015,12 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     public <T> List<T> getPluginsForForeignSource(final Class<T> pluginClass, final String foreignSourceName) {
     	final ForeignSource foreignSource = m_foreignSourceRepository.getForeignSource(foreignSourceName);
         assertNotNull(foreignSource, "Expected a foreignSource with name %s", foreignSourceName);
-        
+
         final List<PluginConfig> configs = foreignSource.getPolicies();
         if (configs == null) {
-            return Collections.emptyList(); 
+            return Collections.emptyList();
         }
-        
+
         final List<T> plugins = new ArrayList<T>(configs.size());
         for(final PluginConfig config : configs) {
             final T plugin = m_pluginRegistry.getPluginInstance(pluginClass, config);
@@ -1032,7 +1032,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         }
 
         return plugins;
-        
+
     }
 
     /** {@inheritDoc} */
@@ -1040,11 +1040,11 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     @Override
     public void deleteObsoleteInterfaces(final Integer nodeId, final Date scanStamp) {
     	final List<OnmsIpInterface> obsoleteInterfaces = m_nodeDao.findObsoleteIpInterfaces(nodeId, scanStamp);
-        
+
     	for(final OnmsIpInterface iface : obsoleteInterfaces) {
             iface.visit(new DeleteEventVisitor(m_eventForwarder));
         }
-        
+
         m_nodeDao.deleteObsoleteInterfaces(nodeId, scanStamp);
     }
 
@@ -1076,7 +1076,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         OnmsIpInterface primaryIface = null;
         if (svcIface.isPrimary()) {
             primaryIface = svcIface;
-        } 
+        }
         else if (svcIface.getNode().getPrimaryInterface() == null) {
             svcIface.setIsSnmpPrimary(PrimaryType.PRIMARY);
             m_ipInterfaceDao.saveOrUpdate(svcIface);
@@ -1087,7 +1087,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             m_ipInterfaceDao.saveOrUpdate(svcIface);
             m_ipInterfaceDao.flush();
         }
-        
+
         m_ipInterfaceDao.initialize(primaryIface);
         return primaryIface;
     }
@@ -1114,7 +1114,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
     @Transactional
     @Override
     public OnmsNode createUndiscoveredNode(final String ipAddress) {
-        
+
         OnmsNode node = new UpsertTemplate<OnmsNode, NodeDao>(m_transactionManager, m_nodeDao) {
 
             @Override
@@ -1132,9 +1132,9 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
             @Override
             protected OnmsNode doInsert() {
                 final Date now = new Date();
-                
+
                 final String hostname = getHostnameForIp(ipAddress);
-                
+
                 // @ipv6
                 final OnmsNode node = new OnmsNode(createDistPollerIfNecessary("localhost", "127.0.0.1"));
                 node.setLabel(hostname == null ? ipAddress : hostname);
@@ -1142,30 +1142,30 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
                 node.setForeignSource(FOREIGN_SOURCE_FOR_DISCOVERED_NODES);
                 node.setType("A");
                 node.setLastCapsdPoll(now);
-                
+
                 final OnmsIpInterface iface = new OnmsIpInterface(InetAddressUtils.addr(ipAddress), node);
                 iface.setIsManaged("M");
                 iface.setIpHostName(hostname);
                 iface.setIsSnmpPrimary(PrimaryType.NOT_ELIGIBLE);
                 iface.setIpLastCapsdPoll(now);
-                
+
                 m_nodeDao.save(node);
                 m_nodeDao.flush();
                 return node;
             }
         }.execute();
-        
+
         if (node != null) {
-            
+
             // we do this here rather than in the doInsert method because
             // the doInsert may abort
             node.visit(new AddEventVisitor(m_eventForwarder));
         }
-        
+
         return node;
-        
+
     }
-    
+
     private String getHostnameForIp(final String address) {
     	return addr(address).getCanonicalHostName();
     }
@@ -1180,7 +1180,7 @@ public class DefaultProvisionService implements ProvisionService, InitializingBe
         m_nodeDao.initialize(node.getIpInterfaces());
         return node;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override

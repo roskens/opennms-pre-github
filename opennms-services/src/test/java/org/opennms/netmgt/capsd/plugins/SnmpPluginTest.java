@@ -48,15 +48,15 @@ public class SnmpPluginTest extends OpenNMSTestCase {
 
     /*
      * FIXME: Assertions are not checked
-     * 
+     *
      * Set this flag to false before checking in code.  Use this flag to
      * test against a v3 compatible agent running on the localhost
      * until the MockAgent code is finished.
      */
     private boolean m_runAssertions = false;
-    
+
     private SnmpPlugin m_plugin = null;
-    
+
     public static TestSuite suite() {
         return SnmpTestSuiteUtils.createSnmpStrategyTestSuite(SnmpPluginTest.class);
     }
@@ -81,17 +81,17 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
-            
+
     /**
      * This test works against a live v1/2c compatible agent until
      * the MockAgent code is completed.
-     * @throws UnknownHostException 
+     * @throws UnknownHostException
      */
     public void testIsForcedV1ProtocolSupported() throws UnknownHostException {
         InetAddress address = myLocalHost();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("forced version", "snmpv1");
-        
+
         if (m_runAssertions) {
             assertTrue("protocol is not supported", m_plugin.isProtocolSupported(address, map));
         }
@@ -100,18 +100,18 @@ public class SnmpPluginTest extends OpenNMSTestCase {
     /**
      * This test works against a live v1/2c compatible agent until
      * the MockAgent code is completed.
-     * @throws UnknownHostException 
+     * @throws UnknownHostException
      */
     public void testIsExpectedValue() throws UnknownHostException {
         InetAddress address = myLocalHost();
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("vbvalue", "\\.1\\.3\\.6\\.1\\.4\\.1.*");
-        
+
         if (m_runAssertions) {
             assertTrue("protocol is not supported", m_plugin.isProtocolSupported(address, map));
         }
     }
-    
+
     /*
      * Class under test for boolean isProtocolSupported(InetAddress)
      */
@@ -120,7 +120,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
             assertTrue("protocol is not supported", m_plugin.isProtocolSupported(myLocalHost()));
         }
     }
-    
+
     public final void testIsV3ProtocolSupported() throws ValidationException, IOException, IOException, MarshalException {
         setVersion(SnmpAgentConfig.VERSION3);
         ByteArrayResource rsrc = new ByteArrayResource(getSnmpConfig().getBytes());
@@ -135,7 +135,7 @@ public class SnmpPluginTest extends OpenNMSTestCase {
         setVersion(SnmpAgentConfig.VERSION3);
         ByteArrayResource rsrc = new ByteArrayResource(getSnmpConfig().getBytes());
         SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
-        
+
         Map<String, Object> qualifiers = new HashMap<String, Object>();
         qualifiers.put("force version", "snmpv1");
 

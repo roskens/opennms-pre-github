@@ -37,8 +37,8 @@ import com.vaadin.ui.UI;
 
 /**
  * A factory for creating MibCompilerApplication objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class MibCompilerApplicationFactory extends AbstractApplicationFactory {
 

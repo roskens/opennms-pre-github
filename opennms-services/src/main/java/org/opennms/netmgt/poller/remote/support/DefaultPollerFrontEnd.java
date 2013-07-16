@@ -367,7 +367,7 @@ public class DefaultPollerFrontEnd implements PollerFrontEnd, InitializingBean, 
     private PollerSettings m_pollerSettings;
 
     private PollService m_pollService;
-    
+
     private TimeAdjustment m_timeAdjustment;
 
     // listeners

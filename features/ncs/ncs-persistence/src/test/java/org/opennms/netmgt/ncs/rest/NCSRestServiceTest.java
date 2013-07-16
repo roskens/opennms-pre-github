@@ -211,7 +211,7 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
 		final NCSComponentDao dao = getWebAppContext().getBean(NCSComponentDao.class);
 		dao.flush();
-		
+
 		super.tearDown();
 	}
 
@@ -369,13 +369,13 @@ public class NCSRestServiceTest extends AbstractSpringJerseyRestTestCase {
 
 		/*
 		 * we should now have a tree of:
-		 * 
+		 *
 		 * Top1
 		 *   Child1-1
 		 *     Child2-1+
 		 *   Child1-2
 		 *     Child2-1+
-		 * 
+		 *
 		 * + should be the same object
 		 */
 

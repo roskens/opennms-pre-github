@@ -58,7 +58,7 @@ public class ProvisioningGroupsController extends SimpleFormController {
     public void setProvisioningService(ManualProvisioningService provisioningService) {
         m_provisioningService = provisioningService;
     }
-    
+
     /**
      * <p>setForeignSourceService</p>
      *
@@ -67,12 +67,12 @@ public class ProvisioningGroupsController extends SimpleFormController {
     public void setForeignSourceService(ForeignSourceService fss) {
         m_foreignSourceService = fss;
     }
-    
+
     public static class GroupAction {
         private String m_groupName;
         private String m_action = "show";
         private String m_actionTarget;
-        
+
         public String getAction() {
             return m_action;
         }
@@ -85,7 +85,7 @@ public class ProvisioningGroupsController extends SimpleFormController {
         public void setGroupName(String groupName) {
             m_groupName = groupName;
         }
-        
+
         public String getActionTarget() {
             return m_actionTarget;
         }
@@ -93,20 +93,20 @@ public class ProvisioningGroupsController extends SimpleFormController {
             m_actionTarget = target;
         }
     }
-    
+
     /**
      * <p>Constructor for ProvisioningGroupsController.</p>
      */
     public ProvisioningGroupsController() {
         setCommandClass(GroupAction.class);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(HttpServletRequest request, HttpServletResponse response, Object cmd, BindException errors) throws Exception {
         GroupAction command = (GroupAction)cmd;
         String action = command.getAction();
-        
+
         if (action == null || "show".equalsIgnoreCase(action)) {
             return doShow(request, response, command, errors);
         } else if ("addGroup".equalsIgnoreCase(action)) {
@@ -125,7 +125,7 @@ public class ProvisioningGroupsController extends SimpleFormController {
             errors.reject("Unrecognized action: "+action);
             return super.onSubmit(request, response, command, errors);
         }
-        
+
     }
 
     private ModelAndView doShow(HttpServletRequest request, HttpServletResponse response, GroupAction command, BindException errors) throws Exception {
@@ -195,9 +195,9 @@ public class ProvisioningGroupsController extends SimpleFormController {
         refData.put("groups", groups);
         refData.put("foreignSources", foreignSources);
         refData.put("dbNodeCounts", m_provisioningService.getGroupDbNodeCounts());
-        
+
         return refData;
     }
 
-    
+
 }

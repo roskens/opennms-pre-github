@@ -92,7 +92,7 @@ public class CheckWmi {
 			usage(options, cmd);
 			System.exit(1);
 		}
-        
+
         String wmiWql = "";
         if (cmd.hasOption("wmiWql")) {
             wmiWql = cmd.getOptionValue("wmiWql");
@@ -150,7 +150,7 @@ public class CheckWmi {
 			// Now output a brief report of the check results.
 			System.out.println("Checking: " + wmiWql + " for " + wmiObject + " Op: " + compOp + " Val: " + compVal);
 			System.out.println("Check results: " + WmiResult.convertStateToString(result.getResultCode()) + " (" + wmiObjects.size() + ")");
-            
+
 			for (int i = 0; i < wmiObjects.size(); i++) {
 				System.out.println("Result for (" + (i + 1) + ") " + wmiClass + "\\" + wmiObject + ": " + wmiObjects.get(i));
 			}

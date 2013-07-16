@@ -37,7 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement(name="snmpConfiguration")
 public class SnmpConfiguration {
-	
+
     public static final int DEFAULT_TIMEOUT = 3000;
     public static final int DEFAULT_PORT = 161;
     public static final int VERSION1 = 1;
@@ -61,7 +61,7 @@ public class SnmpConfiguration {
     public static final String DEFAULT_PRIV_PASS_PHRASE = DEFAULT_AUTH_PASS_PHRASE;
 
     public static final SnmpConfiguration DEFAULTS;
-    
+
     static {
         DEFAULTS = new SnmpConfiguration(null);
         DEFAULTS.setTimeout(DEFAULT_TIMEOUT);
@@ -100,11 +100,11 @@ public class SnmpConfiguration {
     private String m_contextEngineId;
     private String m_contextName;
     private String m_enterpriseId;
-    
+
     public SnmpConfiguration() {
         this(DEFAULTS);
     }
-    
+
     public SnmpConfiguration(SnmpConfiguration config) {
         if (config != null) {
             setAuthPassPhrase(config.getAuthPassPhrase());
@@ -124,7 +124,7 @@ public class SnmpConfiguration {
             setEnterpriseId(config.getEnterpriseId());
             setContextName(config.getContextName());
             setContextEngineId(config.getContextEngineId());
-            setEngineId(config.getEngineId());            
+            setEngineId(config.getEngineId());
         }
     }
 
@@ -148,7 +148,7 @@ public class SnmpConfiguration {
     public final int getVersion() {
         return m_version;
     }
-    
+
     public final void setVersion(int version) {
         m_version = version;
     }
@@ -156,7 +156,7 @@ public class SnmpConfiguration {
     public final String getVersionAsString() {
         return versionToString(getVersion());
     }
-    
+
     public final void setVersionAsString(String version) {
         setVersion(stringToVersion(version));
     }
@@ -237,7 +237,7 @@ public class SnmpConfiguration {
             return "unknown";
         }
     }
-    
+
     public static int stringToVersion(String version) {
         if ("v1".equalsIgnoreCase(version)) {
             return VERSION1;
@@ -282,39 +282,39 @@ public class SnmpConfiguration {
     public final void setPrivPassPhrase(String privPassPhrase) {
         m_privPassPhrase = privPassPhrase;
     }
-    
+
     public final String getEngineId() {
     	return m_engineId;
     }
-    
+
     public final void setEngineId(final String engineId) {
     	m_engineId = engineId;
     }
-    
+
     public final String getContextEngineId() {
     	return m_contextEngineId;
     }
-    
+
     public final void setContextEngineId(final String contextEngineId) {
     	m_contextEngineId = contextEngineId;
     }
-    
+
     public final String getContextName() {
     	return m_contextName;
     }
-    
+
     public void setContextName(final String contextName) {
     	m_contextName = contextName;
     }
-    
+
     public final String getEnterpriseId() {
     	return m_enterpriseId;
     }
-    
+
     public void setEnterpriseId(final String enterpriseId) {
     	m_enterpriseId = enterpriseId;
     }
-    
+
     public boolean isVersion3() {
     	return getVersion() == VERSION3;
     }

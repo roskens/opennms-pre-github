@@ -54,5 +54,5 @@ public abstract class AbstractActivator
         throws Exception;
 
     protected abstract void doStop()
-        throws Exception;   
+        throws Exception;
 }

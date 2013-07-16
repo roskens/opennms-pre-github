@@ -87,16 +87,16 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
 //		m_context = new ClassPathXmlApplicationContext(new String[] { "/org/opennms/netmgt/importer/importer-context.xml" }, daoContext);
 //		LOG.debug("SPRING: context.classLoader={}", m_context.getClassLoader());
 //		m_status = Fiber.RUNNING;
-		
-		
-		
+
+
+
 		LOG.debug("SPRING: thread.classLoader={}", Thread.currentThread().getContextClassLoader());
 
 		// finds the already instantiated OpenNMS daoContext
 		BeanFactoryLocator bfl = DefaultLocatorFactory.getInstance();
 		BeanFactoryReference bf = bfl.useBeanFactory("daoContext");
 		ApplicationContext daoContext = (ApplicationContext) bf.getFactory();
-	
+
 		LOG.debug("QoSDrx using /org/openoss/opennms/spring/qosdrx/qosdrx-spring-context.xml");
 		m_context = new ClassPathXmlApplicationContext(new String[] { "/org/openoss/opennms/spring/qosdrx/qosdrx-spring-context.xml" }, daoContext);
 		LOG.debug("SPRING: context.classLoader={}", m_context.getClassLoader());
@@ -104,7 +104,7 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
 		getQoSDrx().init();
 		getQoSDrx().start();
 
-//TODO remove old code		
+//TODO remove old code
 //		ThreadCategory.setPrefix(QoSDrx.NAME);
 //		m_status = Fiber.STARTING;
 //		LOG.debug("SPRING: thread.classLoader={}", Thread.currentThread().getContextClassLoader());
@@ -130,8 +130,8 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
 
 		m_context.close();
 	}
-	
-	
+
+
 	/**
 	 * Method to return statistics from the running receivers to MX4J
 	 *
@@ -141,8 +141,8 @@ public class QoSDrx extends AbstractServiceDaemon implements QoSDrxMBean {
 	public String getRuntimeStatistics(){
 		return getQoSDrx().getRuntimeStatistics();
 	}
-	
-	
+
+
 
 	/**
 	 * <p>getStats</p>

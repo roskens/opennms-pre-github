@@ -61,13 +61,13 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class AcknowledgeEventController extends AbstractController implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AcknowledgeEventController.class);
 
     private WebEventRepository m_webEventRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -76,7 +76,7 @@ public class AcknowledgeEventController extends AbstractController implements In
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebEventRepository</p>
      *
@@ -117,7 +117,7 @@ public class AcknowledgeEventController extends AbstractController implements In
         if (action == null) {
             throw new MissingParameterException("actionCode", new String[] { "event", "actionCode" });
         }
-        
+
         List<Filter> filters = new ArrayList<Filter>();
         filters.add(new EventIdListFilter(WebSecurityUtils.safeParseInt(eventIdStrings)));
         EventCriteria criteria = new EventCriteria(filters.toArray(new Filter[0]));

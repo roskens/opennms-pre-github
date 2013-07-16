@@ -69,19 +69,19 @@ public class DefaultLinkMatchResolverTest {
         props.setProperty("log4j.logger.org.opennms.netmgt.dao.castor", "WARN");
         MockLogAppender.setupLogging(props);
     }
-    
+
     @Test
     public void testSimpleMatch() {
         assertEquals("nc-ral0002-to-ral0001-dwave", m_resolver.getAssociatedEndPoint("nc-ral0001-to-ral0002-dwave"));
     }
-    
+
     @Test
     public void testMultiplePatterns() {
         assertEquals("middle-was-bar", m_resolver.getAssociatedEndPoint("foo-bar-baz"));
         assertEquals("middle-was-now", m_resolver.getAssociatedEndPoint("before-now-after"));
         assertNull(m_resolver.getAssociatedEndPoint("after-wasn't-before"));
     }
-    
+
     @Test
     public void testPatternsFromConfig() {
         assertEquals("middle-was-bar", m_resolver.getAssociatedEndPoint("foo-bar-baz"));

@@ -1,12 +1,12 @@
-/* 
+/*
  * Copyright 2009 IT Mill Ltd.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -41,18 +41,18 @@ public class SSHTerminal extends AbstractComponent {
 	private static final long serialVersionUID = -8914800725736485264L; // serialization ID
 	private int TERM_WIDTH;  // The width of the terminal
 	private int TERM_HEIGHT;  // The height of the terminal
-	private boolean forceUpdate; // Tracks whether the client should be forced to update 
+	private boolean forceUpdate; // Tracks whether the client should be forced to update
 	private boolean focus; // Tells the client to focus on itself
 	private boolean isClosed;  // Tracks whether the whether is closed
 	private boolean closeClient;  // Boolean sent from the server to close the client
 	private SessionTerminal st;  // The terminal specific to the current session
-	private ClientSession session;  // The client instance used in the authorization of user names and passwords 
+	private ClientSession session;  // The client instance used in the authorization of user names and passwords
 	private String dumpContents; // The content from the server to be displayed by the client
 	private SSHWindow sshWindow;  // The window that holds the terminal
 	private ClientChannel channel;  // The connection between the client and the server
 
 	/**
-	 * Constructor for the SSH Terminal 
+	 * Constructor for the SSH Terminal
 	 * @param app The main application
 	 * @param sshWindow The window holding the terminal
 	 * @param session The client instance used in the authorization of user names and passwords
@@ -124,11 +124,11 @@ public class SSHTerminal extends AbstractComponent {
 //			focus = !isFocused;
 //		}
 //	}
-	
+
 
 	/**
 	 * Nested class used to create the client side terminal
-	 * 
+	 *
 	 * @author pdgrenon
 	 * @author lmbell
 	 */
@@ -164,7 +164,7 @@ public class SSHTerminal extends AbstractComponent {
 
 		/**
 		 * Handles the content recieved from the server
-		 * 
+		 *
 		 * @param str The content recieved
 		 * @param forceDump Whether the terminal is forced to dump the content
 		 * @return The contents dumped to terminal
@@ -221,7 +221,7 @@ public class SSHTerminal extends AbstractComponent {
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 }

@@ -56,13 +56,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class ReloadConfigController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ReloadConfigController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -84,7 +84,7 @@ public class ReloadConfigController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 		try {
@@ -96,7 +96,7 @@ public class ReloadConfigController extends MapsLoggingController {
 		} finally {
 			bw.close();
 		}
-		
+
 
 		return null;
 	}

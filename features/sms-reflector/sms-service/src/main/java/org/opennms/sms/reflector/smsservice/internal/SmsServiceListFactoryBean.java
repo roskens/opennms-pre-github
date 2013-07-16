@@ -52,7 +52,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
     private static final Logger LOG = LoggerFactory.getLogger(SmsServiceListFactoryBean.class);
 	private GatewayGroup[] m_gatewayGroups;
 	private SmsService[] m_services;
-	
+
 	/**
 	 * <p>setOutboundMessageNotification</p>
 	 *
@@ -89,7 +89,7 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
 	 * <p>Constructor for SmsServiceListFactoryBean.</p>
 	 */
 	public SmsServiceListFactoryBean() {
-		
+
 	}
 
 	/**
@@ -111,36 +111,36 @@ public class SmsServiceListFactoryBean implements FactoryBean<SmsService[]>, Ini
 		int count = 0;
 		for (GatewayGroup group : m_gatewayGroups) {
 			AGateway[] gateways = group.getGateways();
-			
+
 			if (gateways.length == 0) {
 				LOG.warn("A Gateway group was registered with ZERO gateways!");
 			    return;
 			}
-			
+
 			SmsServiceImpl smsService = new SmsServiceImpl();
 			smsService.setOutboundNotification(m_outboundMessageNotification);
 			smsService.setInboundNotification(m_inboundMessageNotification);
 	        // smsService.setGatewayStatusNotification(m_gatewayStatusNotification);
 
 			for(int i = 0; i < gateways.length; i++){
-				
+
 				try {
 					if(smsService.getServiceStatus() == ServiceStatus.STARTED){
 						smsService.stop();
 					}
 					smsService.addGateway(gateways[i]);
-					
+
 				} catch (final Exception e) {
 				    LOG.warn("Unable to add gateway ({}) to SMS service", gateways[i], e);
 				}
 			}
-			
+
 			smsService.start();
 
 			m_services[count++] = smsService;
 		}
 	}
-	
+
 	/**
 	 * <p>getObject</p>
 	 *

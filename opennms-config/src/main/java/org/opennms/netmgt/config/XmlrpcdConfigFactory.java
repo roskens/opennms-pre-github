@@ -84,7 +84,7 @@ public final class XmlrpcdConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -103,7 +103,7 @@ public final class XmlrpcdConfigFactory {
             }
         }
     }
-    
+
     /**
      * Constructor for testing
      *
@@ -201,7 +201,7 @@ public final class XmlrpcdConfigFactory {
         String generatedSubscriptionName = null;
 
         /* Be backwards-compatible with old configurations.
-         * 
+         *
          * The old style configuration did not have a <serverSubscription> field
          * inside the <external-servers> tag, so create a default one.
          */
@@ -284,7 +284,7 @@ public final class XmlrpcdConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -329,7 +329,7 @@ public final class XmlrpcdConfigFactory {
 
             if (!foundSubscription) {
                 /*
-                 * Oops -- a serverSubscription element referenced a 
+                 * Oops -- a serverSubscription element referenced a
                  * subscription element that doesn't exist.
                  */
                 LOG.error("serverSubscription element {} references a subscription that does not exist", name);
@@ -360,7 +360,7 @@ public final class XmlrpcdConfigFactory {
     public synchronized Enumeration<Subscription> getSubscriptionEnumeration() {
     	return m_config.enumerateSubscription();
     }
-    
+
     /**
      * Retrieves configured list of xmlrpc servers and the events to which
      *  they subscribe.
@@ -380,7 +380,7 @@ public final class XmlrpcdConfigFactory {
     public synchronized Collection<Subscription> getSubscriptionCollection() {
     	return m_config.getSubscriptionCollection();
     }
-    
+
     /**
      * Retrieves the max event queue size from configuration.
      *

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -49,7 +49,7 @@ import org.exolab.castor.xml.Unmarshaller;
  *  will be used in place of the default values during NSClient
  * data
  *  collection.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -131,8 +131,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIpMatch
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -144,8 +144,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIpMatch
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -159,8 +159,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRange
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -172,8 +172,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRange
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -187,8 +187,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vSpecific
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -200,8 +200,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vSpecific
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -237,7 +237,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateIpMatch.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -248,7 +248,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateRange.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -259,7 +259,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateSpecific.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -270,7 +270,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -279,9 +279,9 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Definition) {
-        
+
             Definition temp = (Definition)obj;
             if (this._port != temp._port)
                 return false;
@@ -297,28 +297,28 @@ import org.exolab.castor.xml.Unmarshaller;
                 return false;
             if (this._password != null) {
                 if (temp._password == null) return false;
-                else if (!(this._password.equals(temp._password))) 
+                else if (!(this._password.equals(temp._password)))
                     return false;
             }
             else if (temp._password != null)
                 return false;
             if (this._rangeList != null) {
                 if (temp._rangeList == null) return false;
-                else if (!(this._rangeList.equals(temp._rangeList))) 
+                else if (!(this._rangeList.equals(temp._rangeList)))
                     return false;
             }
             else if (temp._rangeList != null)
                 return false;
             if (this._specificList != null) {
                 if (temp._specificList == null) return false;
-                else if (!(this._specificList.equals(temp._specificList))) 
+                else if (!(this._specificList.equals(temp._specificList)))
                     return false;
             }
             else if (temp._specificList != null)
                 return false;
             if (this._ipMatchList != null) {
                 if (temp._ipMatchList == null) return false;
-                else if (!(this._ipMatchList.equals(temp._ipMatchList))) 
+                else if (!(this._ipMatchList.equals(temp._ipMatchList)))
                     return false;
             }
             else if (temp._ipMatchList != null)
@@ -330,7 +330,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIpMatch.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -343,7 +343,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._ipMatchList.size()) {
             throw new IndexOutOfBoundsException("getIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _ipMatchList.get(index);
     }
 
@@ -353,7 +353,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getIpMatch(
@@ -366,7 +366,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getIpMatchCollection.Returns a reference to
      * '_ipMatchList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getIpMatchCollection(
@@ -376,7 +376,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIpMatchCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIpMatchCount(
@@ -387,7 +387,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'password'. The field 'password'
      * has the following description: Password for this definition
-     * 
+     *
      * @return the value of field 'Password'.
      */
     public java.lang.String getPassword(
@@ -400,7 +400,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
      *  requests are sent.
-     * 
+     *
      * @return the value of field 'Port'.
      */
     public int getPort(
@@ -410,7 +410,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getRange.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -424,7 +424,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._rangeList.size()) {
             throw new IndexOutOfBoundsException("getRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.nsclient.Range) _rangeList.get(index);
     }
 
@@ -434,7 +434,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.nsclient.Range[] getRange(
@@ -447,7 +447,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getRangeCollection.Returns a reference to
      * '_rangeList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.nsclient.Range> getRangeCollection(
@@ -457,7 +457,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getRangeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getRangeCount(
@@ -468,7 +468,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'retry'. The field 'retry' has
      * the following description: number of retries
-     * 
+     *
      * @return the value of field 'Retry'.
      */
     public int getRetry(
@@ -478,7 +478,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getSpecific.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -491,7 +491,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._specificList.size()) {
             throw new IndexOutOfBoundsException("getSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _specificList.get(index);
     }
 
@@ -501,7 +501,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getSpecific(
@@ -514,7 +514,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getSpecificCollection.Returns a reference to
      * '_specificList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getSpecificCollection(
@@ -524,7 +524,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getSpecificCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getSpecificCount(
@@ -535,7 +535,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'timeout'. The field 'timeout'
      * has the following description: timeout (in milliseconds)
-     * 
+     *
      * @return the value of field 'Timeout'.
      */
     public int getTimeout(
@@ -545,7 +545,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasPort.
-     * 
+     *
      * @return true if at least one Port has been added
      */
     public boolean hasPort(
@@ -555,7 +555,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasRetry.
-     * 
+     *
      * @return true if at least one Retry has been added
      */
     public boolean hasRetry(
@@ -565,7 +565,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasTimeout.
-     * 
+     *
      * @return true if at least one Timeout has been added
      */
     public boolean hasTimeout(
@@ -578,14 +578,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         result = 37 * result + _port;
         result = 37 * result + _retry;
@@ -602,13 +602,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_ipMatchList != null) {
            result = 37 * result + _ipMatchList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -623,7 +623,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateIpMatch.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -634,7 +634,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateRange.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -645,7 +645,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateSpecific.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -655,8 +655,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -670,8 +670,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -709,7 +709,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIpMatch.
-     * 
+     *
      * @param vIpMatch
      * @return true if the object was removed from the collection.
      */
@@ -721,7 +721,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIpMatchAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -733,7 +733,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeRange.
-     * 
+     *
      * @param vRange
      * @return true if the object was removed from the collection.
      */
@@ -745,7 +745,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeRangeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -757,7 +757,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeSpecific.
-     * 
+     *
      * @param vSpecific
      * @return true if the object was removed from the collection.
      */
@@ -769,7 +769,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeSpecificAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -780,8 +780,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIpMatch
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -795,20 +795,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._ipMatchList.size()) {
             throw new IndexOutOfBoundsException("setIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
         }
-        
+
         this._ipMatchList.set(index, vIpMatch);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIpMatchArray
      */
     public void setIpMatch(
             final java.lang.String[] vIpMatchArray) {
         //-- copy array
         _ipMatchList.clear();
-        
+
         for (int i = 0; i < vIpMatchArray.length; i++) {
                 this._ipMatchList.add(vIpMatchArray[i]);
         }
@@ -817,14 +817,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_ipMatchList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vIpMatchList the Vector to copy.
      */
     public void setIpMatch(
             final java.util.List<java.lang.String> vIpMatchList) {
         // copy vector
         this._ipMatchList.clear();
-        
+
         this._ipMatchList.addAll(vIpMatchList);
     }
 
@@ -832,7 +832,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_ipMatchList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ipMatchList the Vector to set.
      */
     public void setIpMatchCollection(
@@ -843,7 +843,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'password'. The field 'password' has
      * the following description: Password for this definition
-     * 
+     *
      * @param password the value of field 'password'.
      */
     public void setPassword(
@@ -856,7 +856,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * following description: If set, overrides TCP port 1248 as
      * the port where NSClient
      *  requests are sent.
-     * 
+     *
      * @param port the value of field 'port'.
      */
     public void setPort(
@@ -866,8 +866,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRange
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -881,20 +881,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._rangeList.size()) {
             throw new IndexOutOfBoundsException("setRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
         }
-        
+
         this._rangeList.set(index, vRange);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRangeArray
      */
     public void setRange(
             final org.opennms.netmgt.config.nsclient.Range[] vRangeArray) {
         //-- copy array
         _rangeList.clear();
-        
+
         for (int i = 0; i < vRangeArray.length; i++) {
                 this._rangeList.add(vRangeArray[i]);
         }
@@ -903,14 +903,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_rangeList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vRangeList the Vector to copy.
      */
     public void setRange(
             final java.util.List<org.opennms.netmgt.config.nsclient.Range> vRangeList) {
         // copy vector
         this._rangeList.clear();
-        
+
         this._rangeList.addAll(vRangeList);
     }
 
@@ -918,7 +918,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_rangeList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param rangeList the Vector to set.
      */
     public void setRangeCollection(
@@ -929,7 +929,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'retry'. The field 'retry' has the
      * following description: number of retries
-     * 
+     *
      * @param retry the value of field 'retry'.
      */
     public void setRetry(
@@ -939,8 +939,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vSpecific
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -954,20 +954,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._specificList.size()) {
             throw new IndexOutOfBoundsException("setSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
         }
-        
+
         this._specificList.set(index, vSpecific);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vSpecificArray
      */
     public void setSpecific(
             final java.lang.String[] vSpecificArray) {
         //-- copy array
         _specificList.clear();
-        
+
         for (int i = 0; i < vSpecificArray.length; i++) {
                 this._specificList.add(vSpecificArray[i]);
         }
@@ -976,14 +976,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_specificList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vSpecificList the Vector to copy.
      */
     public void setSpecific(
             final java.util.List<java.lang.String> vSpecificList) {
         // copy vector
         this._specificList.clear();
-        
+
         this._specificList.addAll(vSpecificList);
     }
 
@@ -991,7 +991,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_specificList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param specificList the Vector to set.
      */
     public void setSpecificCollection(
@@ -1002,7 +1002,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'timeout'. The field 'timeout' has
      * the following description: timeout (in milliseconds)
-     * 
+     *
      * @param timeout the value of field 'timeout'.
      */
     public void setTimeout(
@@ -1013,7 +1013,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -1029,8 +1029,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

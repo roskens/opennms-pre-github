@@ -117,11 +117,11 @@ public class DefaultGlobalReportRepositoryTest {
         EasyMock.expect(m_mockReportDefinition2.getId()).andReturn("MockupReportId2");
         EasyMock.replay(m_mockReportDefinition2);
 
-        // Add mockup report to the report list 
+        // Add mockup report to the report list
         m_mockReportList.add(m_mockReportDefinition1);
         m_mockReportList.add(m_mockReportDefinition2);
 
-        // Mockup a local report repository 
+        // Mockup a local report repository
         m_mockLocalReportRepository = EasyMock.createNiceMock(ReportRepository.class);
         EasyMock.expect(m_mockLocalReportRepository.getOnlineReports()).andReturn(m_mockReportList);
         EasyMock.expect(m_mockLocalReportRepository.getReports()).andReturn(m_mockReportList);

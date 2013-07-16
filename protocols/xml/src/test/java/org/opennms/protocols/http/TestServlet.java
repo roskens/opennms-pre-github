@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TestServlet.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")

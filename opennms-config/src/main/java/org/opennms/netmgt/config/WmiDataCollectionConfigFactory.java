@@ -107,7 +107,7 @@ public class WmiDataCollectionConfigFactory {
          LOG.debug("initialize: initializing WMI collection config factory.");
          m_config = CastorUtils.unmarshal(WmiDatacollectionConfig.class, stream);
      }
-     
+
      /**
       * Be sure to call this method before calling getInstance().
       *

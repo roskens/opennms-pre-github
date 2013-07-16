@@ -57,10 +57,10 @@ package org.opennms.netmgt.linkd.snmp;
  * @version $Id: $
  */
 public final class IpRouteTableEntry extends IpRouteCollectorEntry
-{	
-	
+{
+
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the IpRoutetable. Objects
 	 * in this list should be used by multiple instances of
@@ -86,7 +86,7 @@ public final class IpRouteTableEntry extends IpRouteCollectorEntry
 	     * ifIndex.
 	     */
 	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32,       IP_ROUTE_IFINDEX,   ".1.3.6.1.2.1.4.21.1.2",  2),
-	    
+
 	    /**
 	     * The primary routing metric for this route. The
 	     * semantics of this metric are determined by the
@@ -212,8 +212,8 @@ public final class IpRouteTableEntry extends IpRouteCollectorEntry
          */
 	    new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID,        IP_ROUTE_INFO,      ".1.3.6.1.2.1.4.21.1.13",  13)
 	};
-	
-		
+
+
 	/**
 	 * <P>The TABLE_OID is the object identifier that represents
 	 * the root of the IP ROUTE table in the MIB forest.</P>
@@ -233,5 +233,5 @@ public final class IpRouteTableEntry extends IpRouteCollectorEntry
 	public IpRouteTableEntry() {
 		super(ms_elemList);
 	}
-	
-}   
+
+}

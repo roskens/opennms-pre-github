@@ -146,7 +146,7 @@ public interface EventConfDao {
 
     /**
      * <p>getRootEvents</p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.xml.eventconf.Events} object.
      */
     Events getRootEvents();

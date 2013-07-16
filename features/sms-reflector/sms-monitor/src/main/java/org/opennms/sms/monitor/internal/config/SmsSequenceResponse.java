@@ -43,14 +43,14 @@ import org.opennms.sms.reflector.smsservice.SmsResponse;
  */
 @XmlRootElement(name="sms-response")
 public class SmsSequenceResponse extends MobileSequenceResponse {
-	
+
     /**
      * <p>Constructor for SmsSequenceResponse.</p>
      */
     public SmsSequenceResponse() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for SmsSequenceResponse.</p>
 	 *
@@ -59,7 +59,7 @@ public class SmsSequenceResponse extends MobileSequenceResponse {
 	public SmsSequenceResponse(String label) {
 		super(label);
 	}
-	
+
 	/**
 	 * <p>Constructor for SmsSequenceResponse.</p>
 	 *
@@ -81,11 +81,11 @@ public class SmsSequenceResponse extends MobileSequenceResponse {
     public void processResponse(MobileSequenceSession session, MobileMsgRequest request, MobileMsgResponse response) {
         if (response instanceof SmsResponse) {
             SmsResponse smsResponse = (SmsResponse)response;
-            
+
             session.setVariable(getEffectiveLabel(session)+".smsOriginator", smsResponse.getOriginator());
         }
     }
 
-	
+
 
 }

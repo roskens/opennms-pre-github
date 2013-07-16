@@ -33,9 +33,9 @@ import static org.opennms.netmgt.correlation.ncs.Utils.nullSafeEquals;
 public class DependsOn {
 	private Component m_a;
 	private Component m_b;
-	
+
 	public DependsOn() {}
-	
+
 	public DependsOn(Component a, Component b)
 	{
 		m_a = a;
@@ -57,7 +57,7 @@ public class DependsOn {
 	public void setB(Component b) {
 		m_b = b;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "DependsOn[ a=" + m_a + ", b=" + m_b + " ]";
@@ -75,15 +75,15 @@ public class DependsOn {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
-		
+
 		if (obj instanceof DependsOn) {
 			DependsOn d = (DependsOn)obj;
-			
+
 			return nullSafeEquals(m_a, d.m_a)
 				&& nullSafeEquals(m_b, d.m_b);
 		}
 		return false;
 	}
-	
-	
+
+
 }

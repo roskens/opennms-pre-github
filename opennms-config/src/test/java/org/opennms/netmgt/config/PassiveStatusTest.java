@@ -39,7 +39,7 @@ public class PassiveStatusTest extends TestCase {
         PassiveStatusKey ps = new PassiveStatusKey("node1", "1.1.1.1", "ICMP");
         PassiveStatusKey ps2 = new PassiveStatusKey("node1", "2.1.1.1", "HTTP");
         PassiveStatusKey ps3 = new PassiveStatusKey("node1", "1.1.1.1", "ICMP");
-        
+
         assertEquals(ps, ps3);
         assertFalse(ps.equals(ps2));
         assertFalse(ps2.equals(ps3));

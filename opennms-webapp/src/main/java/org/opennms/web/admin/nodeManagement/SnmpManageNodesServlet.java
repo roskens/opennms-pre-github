@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class SnmpManageNodesServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SnmpManageNodesServlet.class);
 
     private static final long serialVersionUID = 1604691299928314549L;

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The mask element
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -94,8 +94,8 @@ public class Maskelement implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMevalue
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -107,8 +107,8 @@ public class Maskelement implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMevalue
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -123,7 +123,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method enumerateMevalue.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -137,7 +137,7 @@ public class Maskelement implements Serializable {
      * the following description: The mask element name can only be
      * one of those
      *  specified above
-     * 
+     *
      * @return the value of field 'Mename'.
      */
     public java.lang.String getMename(
@@ -147,7 +147,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method getMevalue.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -160,7 +160,7 @@ public class Maskelement implements Serializable {
         if (index < 0 || index >= this._mevalueList.size()) {
             throw new IndexOutOfBoundsException("getMevalue: Index value '" + index + "' not in range [0.." + (this._mevalueList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _mevalueList.get(index);
     }
 
@@ -170,7 +170,7 @@ public class Maskelement implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getMevalue(
@@ -183,7 +183,7 @@ public class Maskelement implements Serializable {
      * Method getMevalueCollection.Returns a reference to
      * '_mevalueList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getMevalueCollection(
@@ -193,7 +193,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method getMevalueCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getMevalueCount(
@@ -203,7 +203,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method iterateMevalue.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -221,7 +221,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method removeMevalue.
-     * 
+     *
      * @param vMevalue
      * @return true if the object was removed from the collection.
      */
@@ -233,7 +233,7 @@ public class Maskelement implements Serializable {
 
     /**
      * Method removeMevalueAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -248,7 +248,7 @@ public class Maskelement implements Serializable {
      * following description: The mask element name can only be one
      * of those
      *  specified above
-     * 
+     *
      * @param mename the value of field 'mename'.
      */
     public void setMename(
@@ -257,8 +257,8 @@ public class Maskelement implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMevalue
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -272,20 +272,20 @@ public class Maskelement implements Serializable {
         if (index < 0 || index >= this._mevalueList.size()) {
             throw new IndexOutOfBoundsException("setMevalue: Index value '" + index + "' not in range [0.." + (this._mevalueList.size() - 1) + "]");
         }
-        
+
         this._mevalueList.set(index, vMevalue.intern());
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMevalueArray
      */
     public void setMevalue(
             final java.lang.String[] vMevalueArray) {
         //-- copy array
         _mevalueList.clear();
-        
+
         for (int i = 0; i < vMevalueArray.length; i++) {
                 this._mevalueList.add(vMevalueArray[i].intern());
         }
@@ -294,7 +294,7 @@ public class Maskelement implements Serializable {
     /**
      * Sets the value of '_mevalueList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vMevalueList the Vector to copy.
      */
     public void setMevalue(
@@ -310,7 +310,7 @@ public class Maskelement implements Serializable {
      * Sets the value of '_mevalueList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param mevalueList the Vector to set.
      */
     public void setMevalueCollection(

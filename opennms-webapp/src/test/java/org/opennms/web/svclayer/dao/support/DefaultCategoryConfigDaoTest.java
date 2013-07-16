@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.web.svclayer.dao.support;
 
@@ -47,7 +47,7 @@ import junit.framework.TestCase;
  *
  */
 public class DefaultCategoryConfigDaoTest extends TestCase {
-	
+
 	DefaultCategoryConfigDao m_dao;
 	protected MockCategoryFactory m_catFactory;
 
@@ -81,7 +81,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 	    public void testNothing() {
 	        // test that setUp() / tearDown() works
 	    }
-	    
+
 	/**
 	 * Test method for {@link org.opennms.web.svclayer.dao.support.DefaultCategoryConfigDao#findAll()}.
 	 */
@@ -96,7 +96,7 @@ public class DefaultCategoryConfigDaoTest extends TestCase {
 		while(i.hasNext()) {
 			Category cat = (Category)i.next();
 			MockUtil.println("found a category --" + cat.getLabel());
-			
+
 		}*/
 	}
 

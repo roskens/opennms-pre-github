@@ -50,7 +50,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CollectorConfigDaoImpl implements CollectorConfigDao {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(CollectorConfigDaoImpl.class);
 
     /**
@@ -112,7 +112,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
     public void rebuildPackageIpListMap() {
         getConfig().rebuildPackageIpListMap();
     }
-    
+
     /**
      * <p>getPackages</p>
      *
@@ -122,7 +122,7 @@ public class CollectorConfigDaoImpl implements CollectorConfigDao {
     public Collection<CollectdPackage> getPackages() {
         return getConfig().getPackages();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public CollectdPackage getPackage(String name) {

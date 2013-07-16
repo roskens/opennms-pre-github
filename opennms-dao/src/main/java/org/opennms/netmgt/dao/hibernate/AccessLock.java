@@ -36,24 +36,24 @@ import javax.persistence.Table;
 @Entity
 @Table(name="accessLocks")
 public class AccessLock {
-    
+
     private String m_lockName;
-    
+
     public AccessLock() {
     }
-    
+
     public AccessLock(String lockName) {
         m_lockName = lockName;
     }
-    
+
     @Id
     @Column(name="lockName")
     public String getLockName() {
         return m_lockName;
     }
-    
+
     public void setLockName(String lockName) {
         m_lockName = lockName;
     }
-    
+
 }

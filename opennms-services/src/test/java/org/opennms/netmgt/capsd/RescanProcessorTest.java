@@ -46,31 +46,31 @@ import org.opennms.netmgt.snmp.SnmpUtils;
 import org.opennms.netmgt.snmp.SnmpValueFactory;
 
 public class RescanProcessorTest extends TestCase {
-    
+
     @Override
     protected void setUp(){
         MockLogAppender.setupLogging();
     }
-    
+
     /**
      * Test for bug #2448.
      */
     public void testBadSnmpIfSpeed() {
         int nodeId = 1;
         int ifIndex = 10;
-        
+
         SnmpValueFactory valFactory = SnmpUtils.getValueFactory();
-        
+
         RescanProcessor.setQueuedRescansTracker(new HashSet<Integer>());
-        
+
         IfTableEntry ifTableEntry = new IfTableEntry();
         ifTableEntry.storeResult(new SnmpResult(SnmpObjId.get(".1.3.6.1.2.1.2.2.1.5"), new SnmpInstId("0"), valFactory.getOctetString("".getBytes())));
         DbSnmpInterfaceEntry dbSnmpInterfaceEntry = DbSnmpInterfaceEntry.create(nodeId, ifIndex);
         RescanProcessor.updateSpeed(ifIndex, ifTableEntry, null, dbSnmpInterfaceEntry);
-        
+
         assertEquals("DbSnmpInterfaceEntry ifSpeed value", 0, dbSnmpInterfaceEntry.getSpeed());
     }
-    
+
     public void testScannableInterface() throws UnknownHostException {
         InetAddress ifaddr1 = InetAddressUtils.addr("127.0.0.1");
         DbIpInterfaceEntry[] dbInterfaces = new DbIpInterfaceEntry[1];

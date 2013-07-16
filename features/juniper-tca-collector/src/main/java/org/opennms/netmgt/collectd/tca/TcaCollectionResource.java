@@ -52,7 +52,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * &lt;/datacollection-group&gt;
  * </pre>
  * <p>Note: the persistenceSelectorStrategy and storageStrategy won't be used by the collector.</p>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollectionResource extends AbstractCollectionResource {
@@ -171,7 +171,7 @@ public class TcaCollectionResource extends AbstractCollectionResource {
 	public void setTimeKeeper(TimeKeeper timeKeeper) {
 		m_timeKeeper = timeKeeper;
 	}
-	
+
     /**
      * Sets the attribute value.
      *

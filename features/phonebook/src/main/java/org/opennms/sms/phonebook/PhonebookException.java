@@ -36,7 +36,7 @@ package org.opennms.sms.phonebook;
  */
 public class PhonebookException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -4898300854577411165L;
 

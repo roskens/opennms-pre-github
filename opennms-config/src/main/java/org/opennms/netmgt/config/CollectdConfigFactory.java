@@ -99,9 +99,9 @@ public class CollectdConfigFactory {
 
     /**
      * Private constructor
-     * @param verifyServer 
-     * @param localServer 
-     * 
+     * @param verifyServer
+     * @param localServer
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException

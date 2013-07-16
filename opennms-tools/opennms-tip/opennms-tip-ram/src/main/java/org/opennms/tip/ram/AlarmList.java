@@ -84,7 +84,7 @@ public class AlarmList extends LinkedList<Alarm> {
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -113,7 +113,7 @@ public class AlarmList extends LinkedList<Alarm> {
     public void setTotalCount(int count) {
         m_totalCount = count;
     }
-    
-    
+
+
 
 }

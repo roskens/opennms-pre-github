@@ -35,9 +35,9 @@ public class RealUltimateLayoutOperation extends LayoutOperation {
 
 	public RealUltimateLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final RealUltimateLayoutAlgorithm m_layoutAlgorithm = new RealUltimateLayoutAlgorithm();
-		    
+
 			@Override
 			public LayoutAlgorithm getLayoutAlgorithm() {
 				return m_layoutAlgorithm;

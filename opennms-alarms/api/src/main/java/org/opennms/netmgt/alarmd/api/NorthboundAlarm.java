@@ -41,21 +41,21 @@ import org.opennms.netmgt.model.TroubleTicketState;
 
 /**
  * Wraps the OnmsAlarm into a more generic Alarm instance
- * 
+ *
  * FIXME: Improve this alarm to support TIP and 3GPP collaboration.
  * FIXME: Most of these fields are not implemented waiting on above fix to be completed.
- * 
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class NorthboundAlarm implements Preservable {
-	
+
 	public static final NorthboundAlarm SYNC_LOST_ALARM = new NorthboundAlarm(-1, "uei.opennms.org/alarmd/northbounderSyncLost");
 
 	public enum AlarmType {
 		PROBLEM,
 		RESOLUTION,
 		NOTIFICATION;
-		
+
 		static AlarmType toAlarmType(final int alarmType) {
 			if (alarmType == OnmsAlarm.PROBLEM_TYPE) {
 				return PROBLEM;
@@ -66,7 +66,7 @@ public class NorthboundAlarm implements Preservable {
 			}
 		}
 	}
-	
+
     public enum x733ProbableCause {
         other (1, "other"),
         adapterError (2, "adapterError"),
@@ -143,46 +143,46 @@ public class NorthboundAlarm implements Preservable {
         proceduralError (73, "proceduralError"),
         unauthorizedAccessAttempt (74, "unauthorizedAccessAttempt"),
         unexpectedInformation (75, "unexpectedInformation");
-        
+
         private static final Map<Integer, x733ProbableCause> m_idMap;
-        
+
         private int m_id;
         private String m_label;
-        
+
         private x733ProbableCause(final int id, final String label) {
         	m_id = id;
         	m_label = label;
         }
-        
+
         static {
         	m_idMap = new HashMap<Integer, x733ProbableCause>(values().length);
         	for (final x733ProbableCause cause : values()) {
         		m_idMap.put(cause.getId(), cause);
         	}
         }
-        
+
         public int getId() {
         	return m_id;
         }
-        
+
         public String getLabel() {
         	return m_label;
         }
-        
+
         /**
          * This get returns the x733ProbableCause matching the requested label.  If
          * a null string is passed, x733ProbablCause.other is returned.
-         * 
+         *
          * @param label
          * @return
          */
         public static x733ProbableCause get(final String label) {
         	x733ProbableCause cause = other;
-        	
+
         	if (label == null) {
         		return cause;
         	}
-        	
+
         	for (final Integer key : m_idMap.keySet()) {
         		if (m_idMap.get(key).getLabel().equalsIgnoreCase(label)) {
         			cause = m_idMap.get(key);
@@ -190,10 +190,10 @@ public class NorthboundAlarm implements Preservable {
         	}
         	return cause;
         }
-        
+
         /**
          * Return an x733ProbableCause by ID.
-         * 
+         *
          * @param id
          * @return
          */
@@ -204,9 +204,9 @@ public class NorthboundAlarm implements Preservable {
         		throw new IllegalArgumentException("Unknown x733 Probable Cause ID requested: "+id);
         	}
         }
-		
+
     }
-    
+
     public enum x733AlarmType {
         other (1, "other"), communicationsAlarm (2, "communicationsAlarm"),
         qualityOfServiceAlarm (3, "qualityOfServiceAlarm"), processingErrorAlarm (4, "processingErrorAlarm"),
@@ -214,42 +214,42 @@ public class NorthboundAlarm implements Preservable {
         integrityViolation (7, "integrityViolation"), operationalViolation (8, "operationalViolation"),
         physicalViolation (9, "physicalViolation"), securityServiceOrMechanismViolation (10, "securityServiceOrMechanismViolation"),
         timeDomainViolation (11, "timeDomainViolation");
-        
+
         private static Map<Integer, x733AlarmType> m_idMap;
-        
+
         private int m_id;
         private String m_label;
-        
+
         private x733AlarmType(final int id, final String label) {
         	m_id = id;
         	m_label = label;
         }
-        
+
         static {
         	m_idMap = new HashMap<Integer, x733AlarmType>(values().length);
         	for (final x733AlarmType type : values()) {
         		m_idMap.put(type.getId(), type);
         	}
         }
-        
+
         public int getId() {
         	return m_id;
         }
-        
+
         /**
          * This get returns the x733ProbableCause matching the requested label.  If
          * a null string is passed, x733ProbablCause.other is returned.
-         * 
+         *
          * @param label
          * @return
          */
         public static x733AlarmType get(final String label) {
         	x733AlarmType cause = other;
-        	
+
         	if (label == null) {
         		return cause;
         	}
-        	
+
         	for (final Integer key : m_idMap.keySet()) {
         		if (m_idMap.get(key).getLabel().equalsIgnoreCase(label)) {
         			cause = m_idMap.get(key);
@@ -257,14 +257,14 @@ public class NorthboundAlarm implements Preservable {
         	}
         	return cause;
         }
-        
+
         private String getLabel() {
         	return m_label;
 		}
 
 		/**
          * Return an x733ProbableCause by ID.
-         * 
+         *
          * @param id
          * @return
          */
@@ -278,7 +278,7 @@ public class NorthboundAlarm implements Preservable {
 
 
     }
-	
+
     private final Integer m_id;
     private final String m_uei;
 	private Integer m_nodeId;
@@ -311,14 +311,14 @@ public class NorthboundAlarm implements Preservable {
     private final int m_x733Cause;
 
 	private final String m_eventParms;
-	
+
 	private volatile boolean m_preserved = false;
-    
+
     private NorthboundAlarm(int id, String uei) {
     	// I only set these for the 'special event'
     	m_id = id;
     	m_uei = uei;
-    	
+
     	m_nodeId = null;
         m_ackTime = null;
         m_ackUser = null;
@@ -363,7 +363,7 @@ public class NorthboundAlarm implements Preservable {
         //alarm.getAckId();
         //alarm.getAckTime();
         //alarm.getAckUser();
-        
+
     	m_nodeId = alarm.getNodeId();
         m_ackTime = alarm.getAlarmAckTime();
         m_ackUser = alarm.getAlarmAckUser();
@@ -404,7 +404,7 @@ public class NorthboundAlarm implements Preservable {
         m_x733Type = alarm.getX733AlarmType();
         m_x733Cause = alarm.getX733ProbableCause();
     }
-    
+
     public Integer getId() {
 		return m_id;
 	}

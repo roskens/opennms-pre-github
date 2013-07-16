@@ -51,14 +51,14 @@ public class UpdateMessage {
     |   Additional Data   | additional data
     +---------------------+
     */
-    
+
     private UpdateHeader m_header;
     private String m_zone;
     private String m_prereq;
     private Set<ResourceRecord> m_update;
     private String m_additionalData;
-    
-    
+
+
     /**
      * <p>getHeader</p>
      *
@@ -139,12 +139,12 @@ public class UpdateMessage {
     public void setAdditionalData(String additionalData) {
         m_additionalData = additionalData;
     }
-    
-    
-    
-    
+
+
+
+
     private class UpdateHeader {
-        
+
         /*
                                       1  1  1  1  1  1
         0  1  2  3  4  5  6  7  8  9  0  1  2  3  4  5
@@ -161,7 +161,7 @@ public class UpdateMessage {
       +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
       |                    ADCOUNT                    |
       +--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+--+
-      
+
       These fields are used as follows:
 
    ID      A 16-bit identifier assigned by the entity that generates any
@@ -223,7 +223,7 @@ public class UpdateMessage {
    ADCOUNT The number of RRs in the Additional Data Section.
 
          */
-        
+
         @SuppressWarnings("unused")
         private int m_id;
         @SuppressWarnings("unused")
@@ -240,7 +240,7 @@ public class UpdateMessage {
         private int m_upCount;
         @SuppressWarnings("unused")
         private int m_adCount;
-        
+
     }
 
 }

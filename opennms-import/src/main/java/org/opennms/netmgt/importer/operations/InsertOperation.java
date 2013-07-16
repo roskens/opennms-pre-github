@@ -42,7 +42,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class InsertOperation extends AbstractSaveOrUpdateOperation {
-    
+
     /**
      * <p>Constructor for InsertOperation.</p>
      *
@@ -66,13 +66,13 @@ public class InsertOperation extends AbstractSaveOrUpdateOperation {
         OnmsDistPoller distPoller = getDistPollerDao().get("localhost");
         getNode().setDistPoller(distPoller);
         getNodeDao().save(getNode());
-        
+
     	final List<Event> events = new LinkedList<Event>();
 
     	EntityVisitor eventAccumlator = new AddEventVisitor(events);
 
     	getNode().visit(eventAccumlator);
-        
+
     	return events;
     }
 

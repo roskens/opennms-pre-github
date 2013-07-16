@@ -52,14 +52,14 @@ import org.opennms.web.map.view.VMap;
 import org.opennms.web.map.view.VMapInfo;
 import org.opennms.web.map.view.VProperties;
 public class ResponseAssembler {
-	
+
 	/**
 	 * <p>getRefreshResponse</p>
 	 *
 	 * @param map a {@link org.opennms.web.map.view.VMap} object.
 	 * @return a {@link java.lang.String} object.
 	 */
-    protected static String getRefreshResponse(VMap map){		
+    protected static String getRefreshResponse(VMap map){
 		Map<String,Object> refreshResponseMap = new HashMap<String,Object>();
 		refreshResponseMap.put("elems",map.getElements().values());
 		refreshResponseMap.put("links", map.getLinks());
@@ -79,9 +79,9 @@ public class ResponseAssembler {
         addElementResponseMap.put("mapsWithLoop",mapsWithLoopInfo);
         addElementResponseMap.put("elems",elems);
         addElementResponseMap.put("links", links);
-        return JSONSerializer.toJSON(addElementResponseMap).toString();		
+        return JSONSerializer.toJSON(addElementResponseMap).toString();
 	}
-	
+
 	/**
 	 * <p>getDeleteElementsResponse</p>
 	 *
@@ -89,9 +89,9 @@ public class ResponseAssembler {
 	 * @return a {@link java.lang.String} object.
 	 */
 	protected static String getDeleteElementsResponse(List<String> velemsids){
-        return JSONSerializer.toJSON(velemsids).toString();     
+        return JSONSerializer.toJSON(velemsids).toString();
 	}
-		
+
 	/**
 	 * <p>getLoadNodesResponse</p>
 	 *
@@ -101,7 +101,7 @@ public class ResponseAssembler {
 	protected static String getLoadNodesResponse(List<VElementInfo> elemInfos){
 		return JSONSerializer.toJSON(elemInfos).toString();
 	}
-	
+
    /**
     * <p>getLoadMapsResponse</p>
     *
@@ -145,12 +145,12 @@ public class ResponseAssembler {
 
         if (map.getCreateTime() != null)
             saveMapResponse.put("createTimeString",formatter.format(map.getCreateTime()));
-        else 
+        else
             saveMapResponse.put("createTimeString",formatter.format(now));
-        
-        return JSONSerializer.toJSON(saveMapResponse).toString(); 
+
+        return JSONSerializer.toJSON(saveMapResponse).toString();
 	}
-	
+
 	/**
 	 * <p>getMapResponse</p>
 	 *
@@ -167,12 +167,12 @@ public class ResponseAssembler {
 
         if (map.getCreateTime() != null)
             map.setCreateTimeString(formatter.format(map.getCreateTime()));
-        else 
+        else
             map.setCreateTimeString(formatter.format(now));
 
-        return JSONSerializer.toJSON(map).toString(); 
+        return JSONSerializer.toJSON(map).toString();
 	}
-	
+
     /**
      * <p>getStartupResponse</p>
      *

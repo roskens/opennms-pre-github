@@ -35,11 +35,11 @@ import java.util.List;
 import junit.framework.TestCase;
 
 /**
- * 
+ *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public class CollectionMathTest extends TestCase {
-	
+
 	private List<BigDecimal> getTestCollection() {
 		List<BigDecimal> c = new ArrayList<BigDecimal>();
 		c.add(null);
@@ -55,7 +55,7 @@ public class CollectionMathTest extends TestCase {
 		assertNull(CollectionMath.percentNotNull(c));
 		assertNull(CollectionMath.percentNull(c));
 	}
-	
+
 	public void testPercentNotNull() {
 		List<BigDecimal> c = getTestCollection();
 		assertEquals(new BigDecimal(60).doubleValue(), CollectionMath.percentNotNull(c).doubleValue());
@@ -69,17 +69,17 @@ public class CollectionMathTest extends TestCase {
 		List<BigDecimal> c = getTestCollection();
 		assertEquals(3, CollectionMath.countNotNull(c));
 	}
-	
+
 	public void testCountNull() {
         List<BigDecimal> c = getTestCollection();
 		assertEquals(2, CollectionMath.countNull(c));
 	}
-	
+
 	public void testAverage() {
 		List<BigDecimal> c = getTestCollection();
 		assertEquals(new BigDecimal(39).doubleValue(), CollectionMath.average(c).doubleValue());
 	}
-	
+
 	public void testMedian() {
 		List<BigDecimal> c = getTestCollection();
 		assertEquals(new BigDecimal(16).doubleValue(), CollectionMath.median(c).doubleValue());

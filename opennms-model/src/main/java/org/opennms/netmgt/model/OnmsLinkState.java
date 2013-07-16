@@ -57,9 +57,9 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  */
 @Table(name = "linkstate")
 public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5586375063168201398L;
 
@@ -76,19 +76,19 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 transition.onLinkDown();
                 return LINK_NODE_DOWN;
             }
-            
+
             @Override
             public LinkState parentNodeDown(LinkStateTransition transition) {
                 transition.onLinkDown();
                 return LINK_PARENT_NODE_DOWN;
             }
-            
+
             @Override
             public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
                 return LINK_NODE_UNMANAGED;
             }
-            
+
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
@@ -111,13 +111,13 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             public LinkState parentNodeDown(LinkStateTransition transition) {
                 return LINK_BOTH_DOWN;
             }
-            
+
             @Override
             public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
                 return LINK_NODE_UNMANAGED;
             }
-            
+
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
@@ -141,13 +141,13 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
                 transition.onLinkUp();
                 return LINK_UP;
             }
-            
+
             @Override
             public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
                 return LINK_NODE_UNMANAGED;
             }
-            
+
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
@@ -158,7 +158,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 			public String getDataLinkInterfaceStateType() {
 				return "B";
 			}
-            
+
         },
         LINK_BOTH_DOWN {
 
@@ -171,13 +171,13 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             public LinkState parentNodeUp(LinkStateTransition transition) {
                 return LINK_NODE_DOWN;
             }
-            
+
             @Override
             public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
                 return LINK_NODE_UNMANAGED;
             }
-            
+
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
                 transition.onLinkUnknown();
@@ -194,7 +194,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             public LinkState nodeEndPointFound(LinkStateTransition transition) {
                 return LINK_PARENT_NODE_UNMANAGED;
             }
-            
+
             @Override
             public LinkState parentNodeEndPointFound(LinkStateTransition transition) {
                 return LINK_NODE_UNMANAGED;
@@ -206,13 +206,13 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 			}
         },
         LINK_PARENT_NODE_UNMANAGED{
-          
+
             @Override
             public LinkState parentNodeEndPointFound(LinkStateTransition transition) {
                 transition.onLinkUp();
                 return LINK_UP;
             }
-            
+
             @Override
             public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
                 return LINK_BOTH_UNMANAGED;
@@ -222,16 +222,16 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 			public String getDataLinkInterfaceStateType() {
 				return "U";
 			}
-             
-            
+
+
         },
         LINK_NODE_UNMANAGED{
-            
+
             @Override
             public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
                 return LINK_BOTH_UNMANAGED;
             }
-            
+
             @Override
             public LinkState nodeEndPointFound(LinkStateTransition transition) {
                 transition.onLinkUp();
@@ -242,11 +242,11 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
 			public String getDataLinkInterfaceStateType() {
 				return "U";
 			}
-            
+
         };
-        
+
         public abstract String getDataLinkInterfaceStateType();
-        
+
         public LinkState nodeDown(LinkStateTransition transition) {
             return this;
         }
@@ -273,7 +273,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
         }
         public LinkState parentNodeEndPointDeleted(LinkStateTransition transition) {
             return this;
-            
+
         }
         public LinkState nodeEndPointDeleted(LinkStateTransition transition) {
             return this;
@@ -322,7 +322,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
     public void setId(Integer id) {
         m_id = id;
     }
-    
+
     /**
      * <p>getDataLinkInterface</p>
      *
@@ -354,7 +354,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
     public LinkState getLinkState() {
         return m_linkState;
     }
-    
+
     /**
      * <p>setLinkState</p>
      *
@@ -383,7 +383,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
     public boolean equals(Object o) {
         if (o instanceof OnmsLinkState) {
             OnmsLinkState lso = (OnmsLinkState) o;
-            
+
             return new EqualsBuilder()
                 .append(getId(), lso.getId())
                 .append(getDataLinkInterface(), lso.getDataLinkInterface())
@@ -392,7 +392,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
         }
         return false;
     }
-    
+
     /**
      * <p>compareTo</p>
      *
@@ -407,7 +407,7 @@ public class OnmsLinkState implements Serializable, Comparable<OnmsLinkState> {
             .append(getLinkState(), o.getLinkState())
             .toComparison();
     }
-    
+
     /**
      * <p>hashCode</p>
      *

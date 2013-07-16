@@ -35,14 +35,14 @@ import org.opennms.core.utils.TimeKeeper;
 
 /**
  * The Class ConstantTimeKeeper.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ConstantTimeKeeper implements TimeKeeper {
 
     /** The Fixed Date. */
     private Date m_date;
-    
+
     /**
      * Instantiates a new constant time keeper.
      *
@@ -51,7 +51,7 @@ public class ConstantTimeKeeper implements TimeKeeper {
     public ConstantTimeKeeper(long timestampInSeconds) {
         m_date = new Date(timestampInSeconds * 1000);
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.core.utils.TimeKeeper#getCurrentTime()
      */
@@ -75,5 +75,5 @@ public class ConstantTimeKeeper implements TimeKeeper {
     public TimeZone getTimeZone() {
         return TimeZone.getDefault();
     }
-  
+
 }

@@ -53,53 +53,53 @@ public class DefaultResourceListViewImpl extends Composite implements DefaultRes
     private static DefaultResourceListViewImplUiBinder uiBinder = GWT.create(DefaultResourceListViewImplUiBinder.class);
 
     interface DefaultResourceListViewImplUiBinder extends UiBinder<Widget, DefaultResourceListViewImpl> { }
-    
+
     @UiField
     LayoutPanel m_layoutPanel;
-    
+
     @UiField
     ResourceTable m_resourceTable;
-    
+
     @UiField
     Button m_searchBtn;
-    
+
     @UiField
     FlowPanel m_simplePagerContainer;
-    
+
     private ListDataProvider<ResourceListItem> m_dataProvider;
     private Presenter<ResourceListItem> m_presenter;
-    
+
     public DefaultResourceListViewImpl() {
         initWidget(uiBinder.createAndBindUi(this));
-        
+
         m_layoutPanel.setSize("100%", "335px");
-        
+
         m_dataProvider = new ListDataProvider<ResourceListItem>();
         m_dataProvider.addDataDisplay(m_resourceTable);
-        
+
         SimplePager pager = new SimplePager(TextLocation.CENTER);
         pager.setStyleName("onms-table-no-borders-margin");
         pager.getElement().getStyle().setBackgroundColor("#E0E0E0");
         pager.getElement().getStyle().setWidth(100, Unit.PCT);
         pager.setDisplay(m_resourceTable);
         m_simplePagerContainer.add(pager);
-        
+
         m_resourceTable.getSelectionModel().addSelectionChangeHandler(new Handler() {
-            
+
             @Override
             public void onSelectionChange(SelectionChangeEvent event) {
                 m_presenter.onResourceItemSelected();
             }
         });
-        
+
         m_resourceTable.setWidth("100%");
     }
-    
+
     @UiHandler("m_searchBtn")
     public void onSearchButtonClick(ClickEvent event) {
         m_presenter.onSearchButtonClicked();
     }
-    
+
     @Override
     public void setDataList(List<ResourceListItem> dataList) {
         m_dataProvider.setList(dataList);

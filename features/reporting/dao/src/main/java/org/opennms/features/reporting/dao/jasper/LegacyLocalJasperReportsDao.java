@@ -80,10 +80,10 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
     public LegacyLocalJasperReportsDao(Resource configResource, Resource jrTemplateResource) {
         m_configResource = configResource;
         Assert.notNull(m_configResource, "property configResource must be set to a non-null value");
-        
+
         m_jrTemplateResource = jrTemplateResource;
         Assert.notNull(m_jrTemplateResource, "property configResource must be sot to a non-null value");
-        
+
         try {
             loadConfiguration();
         } catch (Exception e) {
@@ -210,9 +210,9 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
 
     /**
      * <p>getLocalJasperReports</p>
-     * 
+     *
      * Get local jasper reports
-     * 
+     *
      * @return a {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports} object
      */
     public LocalJasperReports getLocalJasperReports() {
@@ -221,9 +221,9 @@ public class LegacyLocalJasperReportsDao implements LocalJasperReportsDao {
 
     /**
      * <p>setLocalJasperReports</p>
-     * 
+     *
      * Set local jasper reports
-     * 
+     *
      * @param localJasperReports a {@link org.opennms.features.reporting.model.jasperreport.LocalJasperReports} object
      */
     public void setLocalJasperReports(LocalJasperReports localJasperReports) {

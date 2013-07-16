@@ -51,10 +51,10 @@ import org.springframework.test.context.ContextConfiguration;
 public class SimpleBackEndTest {
 	@Resource(name="noAuthBean")
 	private SimpleBackEnd m_noAuthBackEnd;
-	
+
 	@Resource(name="authBean")
 	private SimpleBackEnd m_authBackEnd;
-	
+
 	@BeforeClass
 	public static void setup() {
 		MockLogAppender.setupLogging();
@@ -83,10 +83,10 @@ public class SimpleBackEndTest {
 	public void testBackendWithBasicAuthInDifferentThread() throws Exception {
 		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken("testuser", "testpassword"));
 		assertNotNull(m_authBackEnd);
-		
+
 		final AtomicInteger first = new AtomicInteger(-1);
 		final AtomicInteger second = new AtomicInteger(-1);
-		
+
 		Thread t = new Thread() {
                         @Override
 			public void run() {

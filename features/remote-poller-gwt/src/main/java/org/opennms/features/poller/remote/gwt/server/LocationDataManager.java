@@ -64,7 +64,7 @@ public class LocationDataManager { //implements LocationStatusService {
     private Timer m_timer = new Timer();
     /** Constant <code>PADDING_TIME=2000</code> */
     public static final int PADDING_TIME = 2000;
-    
+
     /**
      * <p>setLocationDataService</p>
      *
@@ -144,7 +144,7 @@ public class LocationDataManager { //implements LocationStatusService {
     public Timer getTimer() {
         return m_timer;
     }
-    
+
     /**
      * <p>setTimer</p>
      *
@@ -153,7 +153,7 @@ public class LocationDataManager { //implements LocationStatusService {
     public void setTimer(Timer timer) {
         m_timer = timer;
     }
-    
+
     /**
      * <p>getActiveApplications</p>
      *
@@ -165,26 +165,26 @@ public class LocationDataManager { //implements LocationStatusService {
 
     private void pushApplicationData(final EventExecutorService service) {
         LOG.debug("pushing initialized applications");
-        
+
         final List<ApplicationInfo> appInfos = getLocationDataService().getInfoForAllApplications();
-        
+
         for (final ApplicationInfo appInfo : appInfos) {
             service.addEventUserSpecific(new ApplicationUpdatedRemoteEvent(appInfo));
         }
-        
+
         LOG.debug("finished pushing initialized applications");
     }
 
     private void pushLocationData(final EventExecutorService service) {
         LOG.debug("pushing initialized locations");
-        
+
         List<LocationInfo> locations = getLocationDataService().getInfoForAllLocations();
-        
+
         for (final LocationInfo locationInfo : locations) {
             final LocationUpdatedRemoteEvent event = new LocationUpdatedRemoteEvent(locationInfo);
             service.addEventUserSpecific(event);
         }
-        
+
         LOG.debug("finished pushing initialized locations");
     }
 
@@ -198,7 +198,7 @@ public class LocationDataManager { //implements LocationStatusService {
         LOG.debug("pushing monitor status updates");
         service.addEvent(MapRemoteEventHandler.LOCATION_EVENT_DOMAIN, new LocationsUpdatedRemoteEvent(getLocationDataService().getUpdatedLocationsBetween(startDate, endDate)));
         LOG.debug("finished pushing monitor status updates");
-    
+
         // Every 5 minutes, update the application list too
         LOG.debug("pushing application updates");
         final Collection<ApplicationHandler> appHandlers = new ArrayList<ApplicationHandler>();

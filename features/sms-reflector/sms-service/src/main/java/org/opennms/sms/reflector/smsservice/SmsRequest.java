@@ -54,9 +54,9 @@ public class SmsRequest extends MobileMsgRequest {
     public SmsRequest(OutboundMessage msg, long timeout, int retries, MobileMsgResponseCallback cb, MobileMsgResponseMatcher responseMatcher) {
         super(timeout, retries, cb, responseMatcher);
         m_msg = msg;
-        
+
     }
-    
+
     /**
      * <p>getValidityPeriodInHours</p>
      *
@@ -65,7 +65,7 @@ public class SmsRequest extends MobileMsgRequest {
     public int getValidityPeriodInHours() {
         return m_msg.getValidityPeriod();
     }
-    
+
     /**
      * <p>setValidityPeriodInHours</p>
      *
@@ -137,7 +137,7 @@ public class SmsRequest extends MobileMsgRequest {
         } else {
             return null;
         }
-        
+
     }
 
     /**
@@ -148,7 +148,7 @@ public class SmsRequest extends MobileMsgRequest {
     public OutboundMessage getMessage() {
         return m_msg;
     }
-    
+
     /**
      * <p>toString</p>
      *

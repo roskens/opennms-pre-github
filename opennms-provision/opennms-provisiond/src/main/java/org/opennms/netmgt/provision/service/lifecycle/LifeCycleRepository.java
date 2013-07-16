@@ -37,7 +37,7 @@ import org.opennms.core.tasks.BatchTask;
  * @version $Id: $
  */
 public interface LifeCycleRepository {
-    
+
     /**
      * <p>createNestedLifeCycleInstance</p>
      *

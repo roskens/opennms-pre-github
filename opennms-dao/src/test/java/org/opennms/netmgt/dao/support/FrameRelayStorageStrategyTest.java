@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.StorageStrategyService;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class FrameRelayStorageStrategyTest {
-    
+
     @Test
     public void testStrategy() {
         // Create Mocks
@@ -53,7 +53,7 @@ public class FrameRelayStorageStrategyTest {
         FrameRelayStorageStrategy strategy = new FrameRelayStorageStrategy();
         strategy.setResourceTypeName("frCircuitIfIndex");
         strategy.setStorageStrategyService(service);
-        
+
         // Test InterfaceName
         String parentResource = "1";
         Assert.assertEquals("Se0_0", strategy.getInterfaceName(parentResource, "1"));
@@ -72,7 +72,7 @@ public class FrameRelayStorageStrategyTest {
 
         // Test RelativePath
         Assert.assertEquals("1" + File.separator + "frCircuitIfIndex" + File.separator + "Se0_0.100", strategy.getRelativePathForAttribute(parentResource, resourceName, null));
-        
+
         EasyMock.verify(service);
     }
 }

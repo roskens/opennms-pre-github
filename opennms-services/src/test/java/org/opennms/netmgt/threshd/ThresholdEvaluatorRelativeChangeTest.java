@@ -56,12 +56,12 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
        new ThresholdEvaluatorStateRelativeChange(wrapper);
     }
-    
+
     @Test
     public void testConstructorThresholdNull() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("threshold argument cannot be null"));
-        
+
         try {
             new ThresholdEvaluatorStateRelativeChange(null);
         } catch (Throwable t) {
@@ -69,7 +69,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testEvaluateOnce() {
         Threshold threshold = new Threshold();
@@ -81,10 +81,10 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
        ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceNoTrigger() {
         Threshold threshold = new Threshold();
@@ -96,11 +96,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceTriggerLowBelow() {
         Threshold threshold = new Threshold();
@@ -112,11 +112,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(8.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceTriggerLowEqual() {
         Threshold threshold = new Threshold();
@@ -128,11 +128,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(9.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceNoTriggerLowAbove() {
         Threshold threshold = new Threshold();
@@ -144,11 +144,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(9.5));
     }
-    
+
     @Test
     public void testEvaluateTwiceTriggerHighAbove() {
         Threshold threshold = new Threshold();
@@ -160,11 +160,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(12.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceTriggerHighEqual() {
         Threshold threshold = new Threshold();
@@ -176,11 +176,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(11.0));
     }
-    
+
     @Test
     public void testEvaluateTwiceNoTriggerHighBelow() {
         Threshold threshold = new Threshold();
@@ -192,11 +192,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.0));
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(10.5));
     }
-    
+
     @Test
     public void testEvaluateTwiceNoTriggerHighFirstZero() {
         Threshold threshold = new Threshold();
@@ -208,7 +208,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger on first evaluate", Status.NO_CHANGE, evaluator.evaluate(0.0));
         assertEquals("should not trigger on second evaluate", Status.NO_CHANGE, evaluator.evaluate(1000.0));
     }
@@ -224,12 +224,12 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger on first evaluate", Status.NO_CHANGE, evaluator.evaluate(0.0));
         assertEquals("should not trigger on second evaluate", Status.NO_CHANGE, evaluator.evaluate(1000.0));
         assertEquals("should trigger on third evaluate", Status.TRIGGERED, evaluator.evaluate(1200.0));
     }
-    
+
     @Test
     public void testGetEventForStateNoChange() {
         Threshold threshold = new Threshold();
@@ -244,7 +244,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
 
         assertNull("should not have created an event", evaluator.getEventForState(Status.NO_CHANGE, new Date(), 10.0, null));
     }
-    
+
     @Test
     public void testGetEventForStateTriggered() {
         Threshold threshold = new Threshold();
@@ -259,7 +259,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
 
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(8.0));
         assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(10.0));
-        
+
         // Do it once with a null instance
         Event event = evaluator.getEventForState(Status.TRIGGERED, new Date(), 10.0, null);
         assertNotNull("should have created an event", event);
@@ -269,7 +269,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         parmPresentWithValue(event, "value", "10.0");
         parmPresentWithValue(event, "previousValue", "8.0");
         parmPresentWithValue(event, "multiplier", "1.1");
-        
+
         // And again with a non-null instance
         event = evaluator.getEventForState(Status.TRIGGERED, new Date(), 10.0, new MockCollectionResourceWrapper("testInstance"));
         assertNotNull("should have created an event", event);
@@ -280,7 +280,7 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         parmPresentWithValue(event, "previousValue", "8.0");
         parmPresentWithValue(event, "multiplier", "1.1");
     }
-    
+
     @Test
     public void testGetEventForStateDefaultUEIS() {
         Threshold threshold = new Threshold();
@@ -308,15 +308,15 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setRearm(95.0);
         threshold.setTrigger(1);
         threshold.setTriggeredUEI(triggeredUEI);
-        
+
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
 
         ThresholdEvaluatorStateRelativeChange item = new ThresholdEvaluatorStateRelativeChange(wrapper);
         Event event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
         assertEquals("UEI should be the uei.opennms.org/custom/relativeChangeThresholdTriggered", triggeredUEI, event.getUei());
-       
+
     }
-    
+
     @Test
     public void testNegativeNumberTriggers() {
         Threshold threshold = new Threshold();
@@ -328,11 +328,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(-10.0));
-        assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(-12.0));   	
+        assertEquals("should trigger", Status.TRIGGERED, evaluator.evaluate(-12.0));
     }
-    
+
     @Test
     public void testNegativeNumberNotTriggers() {
         Threshold threshold = new Threshold();
@@ -344,11 +344,11 @@ public class ThresholdEvaluatorRelativeChangeTest extends AbstractThresholdEvalu
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
         ThresholdEvaluatorStateRelativeChange evaluator = new ThresholdEvaluatorStateRelativeChange(wrapper);
-        
+
         assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(-10.0));
-        assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(-10.5));   	
+        assertEquals("should not trigger", Status.NO_CHANGE, evaluator.evaluate(-10.5));
     }
-    	 
+
     @Test
     public void testNegativeValueNoChange() {
     	Threshold threshold = new Threshold();

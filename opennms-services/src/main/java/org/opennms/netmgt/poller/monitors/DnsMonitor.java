@@ -84,7 +84,7 @@ final public class DnsMonitor extends AbstractServiceMonitor {
      * for data from the monitored interface.
      */
     private static final int DEFAULT_TIMEOUT = 5000;
-    
+
     /**
      * Default list of fatal response codes. Original behavior was hard-coded
      * so that only a ServFail(2) was fatal, so make that the configurable
@@ -139,7 +139,7 @@ final public class DnsMonitor extends AbstractServiceMonitor {
         for (final int code : ParameterMap.getKeyedIntegerArray(parameters, "fatal-response-codes", DEFAULT_FATAL_RESP_CODES)) {
             fatalCodes.add(code);
         }
-        
+
         // get the address and DNS address request
         //
         final InetAddress addr = iface.getAddress();
@@ -152,8 +152,8 @@ final public class DnsMonitor extends AbstractServiceMonitor {
             LOG.debug(reason);
             serviceStatus = PollStatus.unavailable(reason);
         }
-        
-        // 
+
+        //
         //
         // return the status of the service
         //
@@ -189,8 +189,8 @@ final public class DnsMonitor extends AbstractServiceMonitor {
                     return PollStatus.available(responseTime);
                 }
             } catch (final InterruptedIOException e) {
-                // No response received, retry without marking the poll failed. If we get this condition over and over until 
-                // the retries are exhausted, it will leave serviceStatus null and we'll get the log message at the bottom 
+                // No response received, retry without marking the poll failed. If we get this condition over and over until
+                // the retries are exhausted, it will leave serviceStatus null and we'll get the log message at the bottom
             } catch (final NoRouteToHostException e) {
                 String reason1 = "No route to host exception for address: " + addr;
                 LOG.debug(reason1, e);
@@ -206,10 +206,10 @@ final public class DnsMonitor extends AbstractServiceMonitor {
             }
         }
         String reason = "Never received valid DNS response for address: " + addr;
-       
+
         LOG.debug(reason);
         return PollStatus.unavailable(reason);
     }
 
-    
+
 }

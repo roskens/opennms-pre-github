@@ -55,9 +55,9 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeEventByFilterController extends AbstractController implements InitializingBean {
     private WebEventRepository m_webEventRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -66,7 +66,7 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebEventRepository</p>
      *
@@ -117,7 +117,7 @@ public class AcknowledgeEventByFilterController extends AbstractController imple
         }
 
         Filter[] filters = filterArray.toArray(new Filter[filterArray.size()]);
-        
+
         EventCriteria criteria = new EventCriteria(filters);
 
         if (action.equals(AcknowledgeType.ACKNOWLEDGED.getShortName())) {

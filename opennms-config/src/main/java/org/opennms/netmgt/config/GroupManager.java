@@ -110,7 +110,7 @@ public abstract class GroupManager {
             m_groups.put(curGroup.getName(), curGroup);
         }
         buildDutySchedules(m_groups);
-        
+
         Roles roles = groupinfo.getRoles();
         m_roles = new LinkedHashMap<String, Role>();
         if (roles != null) {
@@ -138,16 +138,16 @@ public abstract class GroupManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public Map<String, Group> getGroups() throws IOException, MarshalException, ValidationException {
-    
+
         update();
-    
+
         return Collections.unmodifiableMap(m_groups);
-    
+
     }
 
     public OnmsGroupList getOnmsGroupList() throws MarshalException, ValidationException, IOException {
         final OnmsGroupList list = new OnmsGroupList();
-        
+
         for (final String name : getGroupNames()) {
             list.add(getOnmsGroup(name));
         }
@@ -159,11 +159,11 @@ public abstract class GroupManager {
     public OnmsGroup getOnmsGroup(final String groupName) throws MarshalException, ValidationException, IOException {
         final Group castorGroup = getGroup(groupName);
         if (castorGroup == null) return null;
-        
+
         final OnmsGroup group = new OnmsGroup(groupName);
         group.setComments(castorGroup.getComments());
         group.setUsers(castorGroup.getUserCollection());
-        
+
         return group;
     }
 
@@ -175,7 +175,7 @@ public abstract class GroupManager {
         }
         castorGroup.setComments(group.getComments());
         castorGroup.setUser(group.getUsers().toArray(EMPTY_STRING_ARRAY));
-        
+
         saveGroup(group.getName(), castorGroup);
     }
 
@@ -199,7 +199,7 @@ public abstract class GroupManager {
      */
     public boolean hasGroup(String groupName) throws IOException, MarshalException, ValidationException {
         update();
-    
+
         return m_groups.containsKey(groupName);
     }
 
@@ -213,7 +213,7 @@ public abstract class GroupManager {
      */
     public List<String> getGroupNames() throws IOException, MarshalException, ValidationException {
         update();
-    
+
         return new ArrayList<String>(m_groups.keySet());
     }
 
@@ -229,7 +229,7 @@ public abstract class GroupManager {
      */
     public Group getGroup(String name) throws IOException, MarshalException, ValidationException {
         update();
-    
+
         return m_groups.get(name);
     }
 
@@ -242,26 +242,26 @@ public abstract class GroupManager {
         Header header = m_oldHeader;
 
         if (header != null) header.setCreated(EventConstants.formatToString(new Date()));
-    
+
         Groups groups = new Groups();
         for (Group grp : m_groups.values()) {
             groups.addGroup(grp);
         }
-        
-        
+
+
         Roles roles = new Roles();
         for (Role role : m_roles.values()) {
             roles.addRole(role);
         }
-    
+
         Groupinfo groupinfo = new Groupinfo();
         groupinfo.setGroups(groups);
         if (roles.getRoleCount() > 0)
             groupinfo.setRoles(roles);
         groupinfo.setHeader(header);
-    
+
         m_oldHeader = header;
-    
+
         // marshal to a string first, then write the string to the file. This
         // way the original configuration
         // isn't lost if the XML from the marshal is hosed.
@@ -317,7 +317,7 @@ public abstract class GroupManager {
         }
         return false;
     }
-  
+
     /**
      * Determines when a group is next on duty. If a group has no duty schedules
      * listed in the configuration file, that group is assumed to always be on duty.
@@ -346,7 +346,7 @@ public abstract class GroupManager {
             }
         }
         return next;
-    } 
+    }
 
     /**
      * <p>saveXml</p>
@@ -369,10 +369,10 @@ public abstract class GroupManager {
         } else {
             m_groups.put(name, details);
         }
-    
+
         saveGroups();
     }
-    
+
     /**
      * <p>saveRole</p>
      *
@@ -412,8 +412,8 @@ public abstract class GroupManager {
         } else {
             throw new Exception("GroupFactory:delete Invalid user name:" + name);
         }
-        
-        
+
+
         // Saves into "groups.xml" file
         saveGroups();
     }
@@ -439,7 +439,7 @@ public abstract class GroupManager {
         // Saves into "groups.xml" file
         saveGroups();
     }
-    
+
     /**
      * <p>deleteRole</p>
      *
@@ -451,12 +451,12 @@ public abstract class GroupManager {
             if (m_roles.containsKey(name)) {
                 m_roles.remove(name);
             }
-            else 
+            else
                 throw new Exception("GroupFacotry:deleteRole Role doesn't exist: "+name);
         }
         else
             throw new Exception("GroupFactory:deleteRole Invalid role name: "+name);
-        
+
         saveGroups();
     }
 
@@ -497,18 +497,18 @@ public abstract class GroupManager {
             throw new Exception("Group Factory: Rename user.. no value ");
         } else {
             Map<String, Group> map = new LinkedHashMap<String, Group>();
-            
-        	for (Group group : m_groups.values()) {        	   
+
+		for (Group group : m_groups.values()) {
         	   for(ListIterator<String> userList = group.getUserCollection().listIterator(); userList.hasNext();){
         	       String name = userList.next();
-        	       
+
         	       if(name.equals(oldName)){
-        	          userList.set(newName); 
+		          userList.set(newName);
         	       }
         	   }
         	   map.put(group.getName(), group);
         	}
-        	
+
         	m_groups.clear();
         	m_groups.putAll(map);
 
@@ -519,7 +519,7 @@ public abstract class GroupManager {
                     }
                 }
             }
-            
+
             saveGroups();
         }
     }
@@ -532,7 +532,7 @@ public abstract class GroupManager {
     public String[] getRoleNames() {
         return (String[]) m_roles.keySet().toArray(new String[m_roles.keySet().size()]);
     }
-    
+
     /**
      * <p>getRoles</p>
      *
@@ -541,7 +541,7 @@ public abstract class GroupManager {
     public Collection<Role> getRoles() {
         return m_roles.values();
     }
-    
+
     /**
      * <p>getRole</p>
      *
@@ -572,7 +572,7 @@ public abstract class GroupManager {
         }
         return false;
     }
-    
+
     /**
      * <p>getSchedulesForRoleAt</p>
      *
@@ -594,7 +594,7 @@ public abstract class GroupManager {
         }
         return schedules;
     }
-    
+
     /**
      * <p>getUserSchedulesForRole</p>
      *
@@ -615,7 +615,7 @@ public abstract class GroupManager {
             }
         }
         return scheds;
-        
+
     }
 
     /**
@@ -637,8 +637,8 @@ public abstract class GroupManager {
                 return true;
             }
         }
-        
-        // if no user is scheduled then the supervisor is schedule by default 
+
+        // if no user is scheduled then the supervisor is schedule by default
         Role role = getRole(roleId);
         if (userId.equals(role.getSupervisor())) {
         	for (Schedule sched : role.getScheduleCollection()) {
@@ -673,7 +673,7 @@ public abstract class GroupManager {
                      Owner owner = new Owner(roleid, sched.getName(), i);
                      schedEntries.addAll(BasicScheduleUtils.getIntervalsCovering(start, end, BasicScheduleUtils.getGroupSchedule(sched), owner));
                  }
-                 
+
                  OwnedIntervalSequence defaultEntries = new OwnedIntervalSequence(new OwnedInterval(start, end));
                  defaultEntries.removeAll(schedEntries);
                  Owner supervisor = new Owner(roleid, role.getSupervisor());
@@ -683,7 +683,7 @@ public abstract class GroupManager {
                  }
                  schedEntries.addAll(defaultEntries);
                  return schedEntries;
-        
+
     }
 
     /**
@@ -694,7 +694,7 @@ public abstract class GroupManager {
      */
     public List<Group> findGroupsForUser(String user) {
         List<Group> groups = new ArrayList<Group>();
-        
+
         for (Group group : m_groups.values()) {
             if (group.getUserCollection().contains(user)) {
                 groups.add(group);

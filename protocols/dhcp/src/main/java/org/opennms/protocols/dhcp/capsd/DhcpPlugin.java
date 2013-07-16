@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public final class DhcpPlugin extends AbstractPlugin {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DhcpPlugin.class);
 
     /**
@@ -86,14 +86,14 @@ public final class DhcpPlugin extends AbstractPlugin {
      * This method is used to test a passed address for DHCP server support. If
      * the target system is running a DHCP server and responds to the request
      * then a value of true is returned.
-     * 
+     *
      * @param host
      *            The host address to check
      * @param retries
      *            The maximum number of attempts to try.
      * @param timeout
      *            The time to wait for a response to each request.
-     * 
+     *
      * @return True if the remote host supports DHCP.
      */
     private boolean isServer(InetAddress host, int retries, int timeout) {

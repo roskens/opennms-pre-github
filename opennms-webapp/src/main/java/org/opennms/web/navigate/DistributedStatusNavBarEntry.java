@@ -41,7 +41,7 @@ import org.opennms.netmgt.dao.api.LocationMonitorDao;
  */
 public class DistributedStatusNavBarEntry extends LocationBasedNavBarEntry {
     private LocationMonitorDao m_locationMonitorDao;
-    
+
     /** {@inheritDoc} */
     @Override
     public DisplayStatus evaluate(HttpServletRequest request) {

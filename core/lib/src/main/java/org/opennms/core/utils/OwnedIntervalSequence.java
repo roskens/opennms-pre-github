@@ -62,16 +62,16 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
     @Override
     protected Collection<OwnedInterval> combineIntervals(OwnedInterval currInterval, OwnedInterval newInterval) {
         List<OwnedInterval> newIntervals = new ArrayList<OwnedInterval>(3);
-        
+
         // Time Intervals stored locally so we can add them in order
         OwnedInterval firstSeg = null;
         OwnedInterval midSeg = null;
         OwnedInterval thirdSeg = null;
-        
+
         // start and end of the middle segment is computed as we examine the first and last segments
         Date midSegStart;
         Date midSegEnd;
-        
+
         // first we deal with the segment 1
         if (currInterval.getStart().equals(newInterval.getStart())) {
             // we have no first seg so the mid seg starts at the common top
@@ -88,7 +88,7 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
                 midSegStart = currInterval.getStart();
             }
         }
-        
+
         // next we deal with segment 3
         if (currInterval.getEnd().equals(newInterval.getEnd())) {
             midSegEnd = currInterval.getEnd();
@@ -104,11 +104,11 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
                 midSegEnd = currInterval.getEnd();
             }
         }
-        
+
         // now we create the middle seg with combined ownership
         midSeg = new OwnedInterval(currInterval.getOwners(), midSegStart, midSegEnd);
         midSeg.addOwners(newInterval.getOwners());
-        
+
         if (firstSeg != null) {
             newIntervals.add(firstSeg);
         }
@@ -118,8 +118,8 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         if (thirdSeg != null) {
             newIntervals.add(thirdSeg);
         }
-        
-        
+
+
         return newIntervals;
     }
 
@@ -142,21 +142,21 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         List<Owner> reducedOwners = new ArrayList<Owner>(origInterval.getOwners());
         reducedOwners.removeAll(removedInterval.getOwners());
         if (origInterval.isOwned() && removedInterval.isOwned() && reducedOwners.equals(origInterval.getOwners())) {
-            // the removedInterval did not have any owners in common with the original interval 
+            // the removedInterval did not have any owners in common with the original interval
             // so leave the interval intact
             return Collections.singletonList(origInterval);
         }
-        
+
         // if we got here then there is some ownership change in the original interval
-        
+
         // there are potentially three new intervals
         OwnedInterval firstSeg = null;
         OwnedInterval midSeg = null;
         OwnedInterval lastSeg = null;
-        
+
         Date midSegStart = null;
         Date midSegEnd = null;
-        
+
         // first the first Segment
         if (origInterval.getStart().before(removedInterval.getStart())) {
             // then we have a firstSeg that has the original ownership
@@ -168,7 +168,7 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
             midSegStart = origInterval.getStart();
         }
 
-        
+
         // now the last segment
         if (removedInterval.getEnd().before(origInterval.getEnd())) {
             midSegEnd = removedInterval.getEnd();
@@ -176,12 +176,12 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         } else {
             midSegEnd = origInterval.getEnd();
         }
-        
+
         // we only add the midSegment if there are remaining owners
         if (removedInterval.isOwned() && !reducedOwners.isEmpty()) {
             midSeg = new OwnedInterval(reducedOwners, midSegStart, midSegEnd);
         }
-        
+
         List<OwnedInterval> newIntervals = new ArrayList<OwnedInterval>(3);
         if (firstSeg != null) {
             newIntervals.add(firstSeg);
@@ -192,7 +192,7 @@ public class OwnedIntervalSequence extends AbstractTimeIntervalSequence<OwnedInt
         if (lastSeg != null) {
             newIntervals.add(lastSeg);
         }
-        
+
         return newIntervals;
     }
 

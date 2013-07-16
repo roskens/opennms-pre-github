@@ -54,7 +54,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
- * 
+ *
  * Example usage:
  * <pre>
  * private DatabasePopulator m_populator;
@@ -66,12 +66,12 @@ import org.springframework.beans.factory.annotation.Autowired;
  *         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
  *     };
  * }
- * 
+ *
  * @Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
- * 
+ *
  * public void setPopulator(DatabasePopulator populator) {
  *     m_populator = populator;
  * }
@@ -86,7 +86,7 @@ public class EasyMockDataPopulator {
     private OnmsMapElementDao m_onmsMapElementDao;
     @Autowired
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
-    
+
     private OnmsNode m_node1;
     private OnmsNode m_node2;
     private OnmsNode m_node3;
@@ -95,16 +95,16 @@ public class EasyMockDataPopulator {
     private OnmsNode m_node6;
     private OnmsNode m_node7;
     private OnmsNode m_node8;
-    
+
     public void populateDatabase() {
         final OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
 
         final OnmsServiceType icmp = new OnmsServiceType("ICMP");
         final OnmsServiceType snmp = new OnmsServiceType("SNMP");
         final OnmsServiceType http = new OnmsServiceType("HTTP");
-        
+
         final NetworkBuilder builder = new NetworkBuilder(distPoller);
-        
+
         setNode1(builder.addNode("node1").setForeignSource("imported:").setForeignId("1").setType("A").getNode());
         Assert.assertNotNull("newly built node 1 should not be null", getNode1());
         builder.setBuilding("HQ");
@@ -137,7 +137,7 @@ public class EasyMockDataPopulator {
         builder.addService(icmp);
         final OnmsNode node1 = builder.getCurrentNode();
         setNode1(node1);
-        
+
         builder.addNode("node2").setForeignSource("imported:").setForeignId("2").setType("A");
         builder.setBuilding("HQ");
         builder.addInterface("192.168.2.1").setIsManaged("M").setIsSnmpPrimary("P");
@@ -151,7 +151,7 @@ public class EasyMockDataPopulator {
         builder.addAtInterface(node1, "192.168.2.1", "AA:BB:CC:DD:EE:FF").setIfIndex(1).setLastPollTime(new Date()).setStatus('A');
         OnmsNode node2 = builder.getCurrentNode();
         setNode2(node2);
-        
+
         builder.addNode("node3").setForeignSource("imported:").setForeignId("3").setType("A");
         builder.addInterface("192.168.3.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -163,7 +163,7 @@ public class EasyMockDataPopulator {
         builder.addService(icmp);
         OnmsNode node3 = builder.getCurrentNode();
         setNode3(node3);
-        
+
         builder.addNode("node4").setForeignSource("imported:").setForeignId("4").setType("A");
         builder.addInterface("192.168.4.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -175,7 +175,7 @@ public class EasyMockDataPopulator {
         builder.addService(icmp);
         OnmsNode node4 = builder.getCurrentNode();
         setNode4(node4);
-        
+
         //This node purposely doesn't have a foreignId style assetNumber
         builder.addNode("alternate-node1").setType("A").getAssetRecord().setAssetNumber("5");
         builder.addInterface("10.1.1.1").setIsManaged("M").setIsSnmpPrimary("P");
@@ -188,7 +188,7 @@ public class EasyMockDataPopulator {
         builder.addService(icmp);
         OnmsNode node5 = builder.getCurrentNode();
         setNode5(node5);
-        
+
         //This node purposely doesn't have a assetNumber and is used by a test to check the category
         builder.addNode("alternate-node2").setType("A").getAssetRecord().setDisplayCategory("category1");
         builder.addInterface("10.1.2.1").setIsManaged("M").setIsSnmpPrimary("P");
@@ -201,7 +201,7 @@ public class EasyMockDataPopulator {
         builder.addService(icmp);
         OnmsNode node6 = builder.getCurrentNode();
         setNode6(node6);
-        
+
         builder.addNode("alternate-node3").setType("A").getAssetRecord().setDisplayCategory("category1");
         builder.addInterface("10.1.3.1").setIsManaged("M").setIsSnmpPrimary("P");
         builder.addService(icmp);
@@ -255,7 +255,7 @@ public class EasyMockDataPopulator {
         map4.setId(4);
 
 
-        
+
         final OnmsMapElement element1 = new OnmsMapElement(map1, getNode1().getId(),
                 OnmsMapElement.NODE_TYPE,
                 "Test Node",
@@ -344,7 +344,7 @@ public class EasyMockDataPopulator {
         final DataLinkInterface dli76 = new DataLinkInterface(getNode6(), 2, getNode7().getId(), 1, StatusType.ACTIVE, new Date());
         final DataLinkInterface dli78 = new DataLinkInterface(getNode8(), 1, getNode7().getId(), 1, StatusType.ACTIVE, new Date());
         final DataLinkInterface dli68 = new DataLinkInterface(getNode8(), 1, getNode6().getId(), 1, StatusType.ACTIVE, new Date());
-        
+
         Collection<DataLinkInterface> links1 = new ArrayList<DataLinkInterface>();
         Collection<DataLinkInterface> links2 = new ArrayList<DataLinkInterface>();
         Collection<DataLinkInterface> links3 = new ArrayList<DataLinkInterface>();
@@ -353,22 +353,22 @@ public class EasyMockDataPopulator {
         Collection<DataLinkInterface> links6 = new ArrayList<DataLinkInterface>();
         Collection<DataLinkInterface> links7 = new ArrayList<DataLinkInterface>();
         Collection<DataLinkInterface> links8 = new ArrayList<DataLinkInterface>();
-        
+
         links1.add(dli12);
         links1.add(dli13);
         links1.add(dli14);
         links1.add(dli15);
 
         links6.add(dli68);
-        
+
         links7.add(dli76);
         links7.add(dli78);
-        
+
         EasyMock.expect(m_onmsMapDao.findMapById(1)).andReturn(map1).anyTimes();
         EasyMock.expect(m_onmsMapDao.findMapById(2)).andReturn(map2).anyTimes();
         EasyMock.expect(m_onmsMapDao.findMapById(3)).andReturn(map3).anyTimes();
         EasyMock.expect(m_onmsMapDao.findMapById(4)).andReturn(map4).anyTimes();
-        
+
         EasyMock.expect(m_onmsMapElementDao.findNodeElementsOnMap(1)).andReturn(getNodeElements(map1.getMapElements())).anyTimes();
         EasyMock.expect(m_onmsMapElementDao.findNodeElementsOnMap(2)).andReturn(getNodeElements(map2.getMapElements())).anyTimes();
         EasyMock.expect(m_onmsMapElementDao.findNodeElementsOnMap(3)).andReturn(getNodeElements(map3.getMapElements())).anyTimes();
@@ -389,9 +389,9 @@ public class EasyMockDataPopulator {
         EasyMock.expect(m_dataLinkInterfaceDao.findByNodeParentId(8)).andReturn(links8).anyTimes();
 
         EasyMock.replay(m_dataLinkInterfaceDao,m_onmsMapDao,m_onmsMapElementDao);
-         
+
     }
-    
+
     private Set<OnmsMapElement> getMapElements(Set<OnmsMapElement> elements) {
         Set<OnmsMapElement> mapElements = new HashSet<OnmsMapElement>();
         for (OnmsMapElement element: elements) {
@@ -418,23 +418,23 @@ public class EasyMockDataPopulator {
     public OnmsNode getNode1() {
         return m_node1;
     }
-    
+
     public OnmsNode getNode2() {
         return m_node2;
     }
-    
+
     public OnmsNode getNode3() {
         return m_node3;
     }
-    
+
     public OnmsNode getNode4() {
         return m_node4;
     }
-    
+
     public OnmsNode getNode5() {
         return m_node5;
     }
-    
+
     public OnmsNode getNode6() {
         return m_node6;
     }
@@ -442,7 +442,7 @@ public class EasyMockDataPopulator {
     public OnmsNode getNode7() {
         return m_node7;
     }
-    
+
     public OnmsNode getNode8() {
         return m_node8;
     }
@@ -510,5 +510,5 @@ public class EasyMockDataPopulator {
     public void setDataLinkInterfaceDao(final DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
-    
+
 }

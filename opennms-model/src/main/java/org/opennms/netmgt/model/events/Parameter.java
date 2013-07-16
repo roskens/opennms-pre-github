@@ -107,7 +107,7 @@ public final class Parameter {
         // return name + Constants.NAME_VAL_DELIM + value + "(" + type +
         // Constants.DB_ATTRIB_DELIM + encoding + ")";
     }
-    
+
     /**
      * <p>decode</p>
      *
@@ -117,7 +117,7 @@ public final class Parameter {
     public static List<Parm> decode(final String eventparms) {
         if (eventparms == null ) return null;
         final List<Parm> parms = new ArrayList<Parm>();
-  
+
         String[] paramslistString = eventparms.split(Character.toString(Constants.MULTIPLE_VAL_DELIM));
         if (paramslistString != null) {
                 for (int i =0; i< paramslistString.length;i++) {

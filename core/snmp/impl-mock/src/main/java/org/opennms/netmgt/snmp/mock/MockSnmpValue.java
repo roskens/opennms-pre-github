@@ -61,7 +61,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
         }
 
     }
-    
+
     public static class OctetStringSnmpValue extends MockSnmpValue {
 		private byte[] m_bytes;
 
@@ -74,11 +74,11 @@ public class MockSnmpValue extends AbstractSnmpValue {
         public byte[] getBytes() {
         	return m_bytes;
         }
-        
+
                 @Override
         public String toString() {
             final byte[] data = getBytes();
-            
+
             final byte[] results = new byte[data.length];
             for (int i = 0; i < data.length; i++) {
                 results[i] = Character.isISOControl((char)data[i]) ? (byte)'.' : data[i];
@@ -97,7 +97,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             }
             return b.toString();
         }
-        
+
                 @Override
         public boolean isDisplayable() {
             return allBytesDisplayable(getBytes());
@@ -106,15 +106,15 @@ public class MockSnmpValue extends AbstractSnmpValue {
     }
 
     public static class IpAddressSnmpValue extends MockSnmpValue {
-    	
+
     	public IpAddressSnmpValue(InetAddress addr) {
     		this(InetAddrUtils.str(addr));
     	}
-    	
+
     	public IpAddressSnmpValue(byte[] bytes) {
     		this(addrStr(bytes));
     	}
-    	
+
     	public static String addrStr(byte[] bytes) {
     		try {
 				return InetAddrUtils.str(InetAddress.getByAddress(bytes));
@@ -135,12 +135,12 @@ public class MockSnmpValue extends AbstractSnmpValue {
                 return super.toInetAddress();
             }
         }
-        
+
             @Override
         public byte[] getBytes() {
             return toInetAddress().getAddress();
         }
-        
+
             @Override
         public boolean isDisplayable() {
             return true;
@@ -153,31 +153,31 @@ public class MockSnmpValue extends AbstractSnmpValue {
         public NumberSnmpValue(int type, String value) {
             super(type, value);
         }
-        
+
         @Override
         public boolean isNumeric() {
             return true;
         }
-        
+
         @Override
         public int toInt() {
             return Integer.parseInt(getNumberString());
         }
-        
+
         @Override
         public long toLong() {
             return Long.parseLong(getNumberString());
         }
-        
+
         @Override
         public BigInteger toBigInteger() {
             return new BigInteger(getNumberString());
         }
-        
+
         public String getNumberString() {
             return toString();
         }
-        
+
         @Override
         public byte[] getBytes() {
             return toBigInteger().toByteArray();
@@ -188,7 +188,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             return true;
         }
     }
-    
+
     public static class Integer32SnmpValue extends NumberSnmpValue {
         public Integer32SnmpValue(int value) {
             this(Integer.toString(value));
@@ -197,7 +197,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             super(SnmpValue.SNMP_INT32, value);
         }
     }
-    
+
     public static class Gauge32SnmpValue extends NumberSnmpValue {
         public Gauge32SnmpValue(long value) {
             this(Long.toString(value));
@@ -206,7 +206,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             super(SnmpValue.SNMP_GAUGE32, value);
         }
     }
-   
+
     public static class Counter32SnmpValue extends NumberSnmpValue {
 		public Counter32SnmpValue(long value) {
             this(Long.toString(value));
@@ -220,7 +220,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
 			return BigInteger.valueOf(toLong());
 		}
     }
-    
+
     public static class Counter64SnmpValue extends NumberSnmpValue {
         public Counter64SnmpValue(BigInteger value) {
             this(value.toString());
@@ -229,16 +229,16 @@ public class MockSnmpValue extends AbstractSnmpValue {
             super(SnmpValue.SNMP_COUNTER64, value);
         }
     }
-    
+
     static enum UnitOfTime {
         DAYS(4), HOURS(3), MINUTES(2), SECONDS(1), MILLIS(0);
-        
+
         private int m_index;
-        
+
         private UnitOfTime(int index) {
             m_index = index;
         }
-        
+
         private static final long[] s_millisPerUnit = {
             1L,                         // millis
             1000L,                      // seconds
@@ -246,7 +246,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             1000L * 60L * 60L,          // hours
             1000L * 60L * 60L * 24L     // days
         };
-        
+
         private static final String[] s_unitName = {
             "ms",   // millis
             "s",    // seconds
@@ -254,29 +254,29 @@ public class MockSnmpValue extends AbstractSnmpValue {
             "h",    // hours
             "d"     // days
         };
-        
+
         public long wholeUnits(long millis) {
             return millis / s_millisPerUnit[m_index];
         }
-        
+
         public long remainingMillis(long millis) {
             return millis % s_millisPerUnit[m_index];
         }
-        
+
         public String unit() {
             return s_unitName[m_index];
         }
-        
-        
+
+
     }
-    
+
     public static class TimeticksSnmpValue extends NumberSnmpValue {
 
         // Format of string is '(numTicks) HH:mm:ss.hh'
         public TimeticksSnmpValue(String value) {
             super(SnmpValue.SNMP_TIMETICKS, value);
         }
-        
+
         public TimeticksSnmpValue(long centiSeconds) {
         	this("(" + centiSeconds + ")");
         }
@@ -287,25 +287,25 @@ public class MockSnmpValue extends AbstractSnmpValue {
             int end = str.indexOf(')');
             return (end < 0 ? str : str.substring(1, end));
         }
-        
+
         @Override
         public String toString() {
         	return String.valueOf(toLong());
         }
-        
+
         @Override
         public String toDisplayString() {
         	return toString();
         	/*
             long millis = toLong()*10L;
-            
+
             StringBuilder buf = new StringBuilder();
 
             boolean first = true;
             for(UnitOfTime unit : UnitOfTime.values()) {
 
                 if (first) {
-                    first = false; 
+                    first = false;
                  } else {
                      buf.append(' ');
                  }
@@ -313,7 +313,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
                 buf.append(unit.wholeUnits(millis)).append(unit.unit());
                 millis = unit.remainingMillis(millis);
             }
-            
+
             return buf.toString();
             */
         }
@@ -326,7 +326,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
         public StringSnmpValue(String value) {
             super(SnmpValue.SNMP_OCTET_STRING, value);
         }
-        
+
         @Override
         public int toInt() {
             try {
@@ -334,14 +334,14 @@ public class MockSnmpValue extends AbstractSnmpValue {
             } catch (NumberFormatException e) {
                 return super.toInt();
             }
-            
+
         }
 
         @Override
         public boolean isDisplayable() {
             return true;
         }
-        
+
         @Override
         public long toLong() {
             return Long.parseLong(toString());
@@ -354,7 +354,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
             for (byte b : toString().getBytes()) {
                 buff.append(Integer.toHexString(b));
             }
-            
+
             return buff.toString();
         }
     }
@@ -364,7 +364,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
     	public OidSnmpValue(SnmpObjId objId) {
     		this(objId.toString());
     	}
-    	
+
         public OidSnmpValue(String value) {
             super(SnmpValue.SNMP_OBJECT_IDENTIFIER, value);
         }
@@ -398,18 +398,18 @@ public class MockSnmpValue extends AbstractSnmpValue {
     public boolean isEndOfMib() {
         return getType() == SnmpValue.SNMP_END_OF_MIB;
     }
-    
+
         @Override
     public int getType() {
         return m_type;
     }
-    
+
         @Override
     public String toDisplayString() { return toString(); }
-    
+
         @Override
     public String toString() { return m_value; }
-    
+
     public String getValue() { return m_value; }
 
         @Override
@@ -431,7 +431,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
     public boolean isNumeric() {
         return false;
     }
-    
+
         @Override
     public boolean isError() {
         switch (getType()) {
@@ -441,7 +441,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
         default:
             return false;
         }
-        
+
     }
 
         @Override
@@ -489,7 +489,7 @@ public class MockSnmpValue extends AbstractSnmpValue {
         return false;
     }
 
- 
+
 
 
 }

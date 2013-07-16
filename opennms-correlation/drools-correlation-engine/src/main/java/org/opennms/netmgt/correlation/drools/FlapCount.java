@@ -47,7 +47,7 @@ public class FlapCount {
     boolean m_alerted;
 
     Integer m_count;
-    
+
     /**
      * <p>Constructor for FlapCount.</p>
      *
@@ -63,10 +63,10 @@ public class FlapCount {
         m_locationMonitor = locationMonitor;
         m_count = 1;
         m_alerted = false;
-        
+
         LOG.debug("FlapCount created.");
     }
-    
+
     /**
      * <p>increment</p>
      */
@@ -74,7 +74,7 @@ public class FlapCount {
         m_count += 1;
         LOG.debug("FlapCount incremented ({}).", m_count);
     }
-    
+
     /**
      * <p>decrement</p>
      */
@@ -190,7 +190,7 @@ public class FlapCount {
     public void setLocationMonitor(final Integer locationMonitor) {
         m_locationMonitor = locationMonitor;
     }
-    
+
     /**
      * <p>toString</p>
      *

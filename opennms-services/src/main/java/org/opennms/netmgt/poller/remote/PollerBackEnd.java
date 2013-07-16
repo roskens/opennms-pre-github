@@ -47,7 +47,7 @@ import org.opennms.netmgt.poller.ServiceMonitorLocator;
  * @version $Id: $
  */
 public interface PollerBackEnd {
-    
+
     /**
      * Return the set of available MonitoringLocationDefinitions
      *
@@ -55,7 +55,7 @@ public interface PollerBackEnd {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsMonitoringLocationDefinition> getMonitoringLocations();
-    
+
     /**
      * Register a new location monitor
      *
@@ -64,7 +64,7 @@ public interface PollerBackEnd {
      * @return the id of the new locations monitor
      */
     int registerLocationMonitor(String monitoringLocationId);
-    
+
     /**
      * Get monitor name
      *
@@ -72,7 +72,7 @@ public interface PollerBackEnd {
      * @return a {@link java.lang.String} object.
      */
     String getMonitorName(int locationMonitorId);
-    
+
     /**
      * Get service monitor locators for creating serviceMonitors for the poller.
      *
@@ -90,15 +90,15 @@ public interface PollerBackEnd {
      * @return a boolean.
      */
     boolean pollerStarting(int locationMonitorId, Map<String, String> pollerDetails);
-    
+
     /**
      * Notifies the backend that a registered poller is stopping
      *
      * @param locationMonitorId the id of the requesting location monitor
      */
     void pollerStopping(int locationMonitorId);
-    
- 
+
+
     /**
      * Checkin with the backend to let it know that the poller is still alive and to find
      * out if there are any configuration changes.
@@ -108,7 +108,7 @@ public interface PollerBackEnd {
      * @return true if the configuration should be updated.
      */
     MonitorStatus pollerCheckingIn(int locationMonitorId, Date currentConfigurationVersion);
-    
+
     /**
      * Gets the poller configuration assigned to this monitoring location
      *
@@ -116,7 +116,7 @@ public interface PollerBackEnd {
      * @return the PollerConfiguration for the indicicated location monitor
      */
     PollerConfiguration getPollerConfiguration(int locationMonitorId);
-    
+
     /**
      * Report a poll result from the client to the server.
      *

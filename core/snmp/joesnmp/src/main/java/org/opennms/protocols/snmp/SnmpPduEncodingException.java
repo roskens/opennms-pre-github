@@ -31,18 +31,18 @@ package org.opennms.protocols.snmp;
 /**
  * This class is thrown by the SNMP classes when an encoding exception occurs at
  * the SNMP level and not via the AsnEncoder class.
- * 
+ *
  * @see org.opennms.protocols.snmp.asn1.AsnEncoder
  */
 public class SnmpPduEncodingException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 4251105118752643982L;
 
     /**
      * The default exception constructor
-     * 
+     *
      */
     public SnmpPduEncodingException() {
         super();
@@ -50,10 +50,10 @@ public class SnmpPduEncodingException extends Exception {
 
     /**
      * The exception constructor
-     * 
+     *
      * @param why
      *            The reason the exception is being raised
-     * 
+     *
      */
     public SnmpPduEncodingException(String why) {
         super(why);

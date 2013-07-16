@@ -117,7 +117,7 @@ public interface QueryManager {
      * @param dataSource a {@link javax.sql.DataSource} object.
      */
     public void setDataSource(DataSource dataSource);
-    
+
     /**
      * <p>getDataSource</p>
      *
@@ -157,8 +157,8 @@ public interface QueryManager {
      * @param newNodeId a int.
      */
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId);
-    
-    
+
+
 
     /**
      * <p>getCriticalPath</p>
@@ -167,7 +167,7 @@ public interface QueryManager {
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getCriticalPath(int nodeId);
-    
+
     public List<String[]> getNodeServices(int nodeId);
-    
+
 }

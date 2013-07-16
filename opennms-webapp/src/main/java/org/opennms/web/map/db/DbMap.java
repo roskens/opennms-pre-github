@@ -48,7 +48,7 @@ public class DbMap {
     private String owner;
 
     private String group;
-    
+
     private String accessMode;
 
     private String userLastModifies;
@@ -64,9 +64,9 @@ public class DbMap {
     private int offsetY;
 
     private String type;
-    
+
     private int width;
-    
+
     private int height;
 
     private boolean isNew = false;
@@ -77,7 +77,7 @@ public class DbMap {
     public DbMap() {
         this.isNew = true;
     }
-    
+
     /**
      * <p>Constructor for DbMap.</p>
      *
@@ -90,8 +90,8 @@ public class DbMap {
         this.name = name;
         this.owner = owner;
     }
-  
-    
+
+
     /**
      * <p>Constructor for DbMap.</p>
      *

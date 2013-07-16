@@ -62,7 +62,7 @@ public class StringPropertyAttribute implements OnmsAttribute {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * Get the value for this attribute.  This is the property value
      * from the properties file.

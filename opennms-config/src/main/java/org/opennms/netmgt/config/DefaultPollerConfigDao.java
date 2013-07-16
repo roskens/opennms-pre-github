@@ -50,9 +50,9 @@ public class DefaultPollerConfigDao implements InitializingBean {
     private Resource m_configResource;
     private String m_localServer;
     private Boolean m_verifyServer;
-    
+
     private PollerConfig m_pollerConfig;
-    
+
     /**
      * <p>Constructor for DefaultPollerConfigDao.</p>
      */
@@ -69,21 +69,21 @@ public class DefaultPollerConfigDao implements InitializingBean {
         Assert.state(m_configResource != null, "property configResource must be set to a non-null value");
         Assert.state(m_localServer != null, "property localServer must be set to a non-null value");
         Assert.state(m_verifyServer != null, "property verifyServer must be set to a non-null value");
-        
+
         loadConfig();
     }
 
     private void loadConfig() throws Exception {
         InputStream stream = null;
         long lastModified;
-        
+
         File file = null;
         try {
             file = getConfigResource().getFile();
         } catch (IOException e) {
             LOG.info("Resource '{}' does not seem to have an underlying File object; using ", getConfigResource());
         }
-        
+
         if (file != null) {
             lastModified = file.lastModified();
             stream = new FileInputStream(file);
@@ -94,7 +94,7 @@ public class DefaultPollerConfigDao implements InitializingBean {
 
         setPollerConfig(new PollerConfigFactory(lastModified, stream, getLocalServer(), isVerifyServer()));
     }
-    
+
     /**
      * <p>getPollerConfig</p>
      *
@@ -161,6 +161,6 @@ public class DefaultPollerConfigDao implements InitializingBean {
     public void setVerifyServer(Boolean verifyServer) {
         m_verifyServer = verifyServer;
     }
-    
-    
+
+
 }

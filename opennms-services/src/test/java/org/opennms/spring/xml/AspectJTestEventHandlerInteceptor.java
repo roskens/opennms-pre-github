@@ -36,27 +36,27 @@ import org.opennms.netmgt.xml.event.Event;
 import org.springframework.core.Ordered;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 @Aspect
 public class AspectJTestEventHandlerInteceptor implements Ordered {
-    
+
     @Pointcut("execution(* *..AspectJTestEventHandler.*(..))")
     public void testMethods() {}
-    
+
     @Pointcut("@annotation(org.opennms.netmgt.model.events.annotations.EventHandler)")
     public void eventHandlers() {}
-    
+
     @Pointcut("testMethods() && eventHandlers()")
     public void testEventHandlers() {}
-    
-    
+
+
     private int m_preEventCount;
     private int m_postEventCount;
     private int m_handledExceptionCount;
     private int m_order = 0;
-    
+
     public int getPreEventCount() {
         return m_preEventCount;
     }
@@ -68,11 +68,11 @@ public class AspectJTestEventHandlerInteceptor implements Ordered {
     public int getHandledExceptionCount() {
         return m_handledExceptionCount;
     }
-    
+
     @Around("testEventHandlers() && args(event)")
     public void onEvent(ProceedingJoinPoint pjp, Event event) throws Throwable {
         preEvent(event);
-        
+
         try {
             pjp.proceed();
             postEvent(event);
@@ -101,7 +101,7 @@ public class AspectJTestEventHandlerInteceptor implements Ordered {
         m_postEventCount = 0;
         m_handledExceptionCount = 0;
     }
-    
+
     public void setOrder(int order) {
         m_order = order;
     }

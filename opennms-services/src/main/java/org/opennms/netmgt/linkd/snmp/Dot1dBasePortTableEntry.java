@@ -70,7 +70,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
 	public final static String BASE_MTU_EX_DIS = "dot1dBasePortMtuExceededDiscards";
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -82,14 +82,14 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
  		 * contains bridge management information.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, BASE_PORT, ".1.3.6.1.2.1.17.1.4.1.1", 1),
-		
+
 		/**
 		 * The value of the instance of the ifIndex object,
 		 * defined in MIB-II, for the interface corresponding
  		 * to this port.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, BASE_IFINDEX, ".1.3.6.1.2.1.17.1.4.1.2", 2),
-		
+
 		/**
 		 * For a port which (potentially) has the same value
  		 * of dot1dBasePortIfIndex as another port on the
@@ -105,7 +105,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
  		 * value { 0 0 }.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPOBJECTID, BASE_PORT_CIRCUIT, ".1.3.6.1.2.1.17.1.4.1.3", 3),
-		
+
 		/**
 		 * The number of frames discarded by this port due
  		 * to excessive transit delay through the bridge. It
@@ -113,7 +113,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
  		 * route bridges.
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, BASE_DELAY_EX_DIS, ".1.3.6.1.2.1.17.1.4.1.4", 4),
-		
+
 		/**
 		 * The number of frames discarded by this port due
  		 * to an excessive size. It is incremented by both
@@ -143,7 +143,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
 	public Dot1dBasePortTableEntry() {
 		super(bridgePort_elemList);
 	}
-	
+
 	/**
 	 * <p>getBaseBridgePort</p>
 	 *
@@ -165,7 +165,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
 		if (basePort == null) return -1;
 		return basePort;
 	}
-	
+
 	/**
 	 * <p>getBasePortCircuit</p>
 	 *
@@ -174,7 +174,7 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
 	public String getBasePortCircuit() {
 		return getObjectID(Dot1dBasePortTableEntry.BASE_PORT_CIRCUIT);
 	}
-	
+
 
 	/**
 	 * <p>getBasePortDelayExceededDiscards</p>
@@ -196,6 +196,6 @@ public final class Dot1dBasePortTableEntry extends SnmpStore {
 		Integer mtuExceededDiscards = getInt32(Dot1dBasePortTableEntry.BASE_MTU_EX_DIS);
 		if (mtuExceededDiscards == null) return -1;
 		return mtuExceededDiscards;
-		
+
 	}
 }

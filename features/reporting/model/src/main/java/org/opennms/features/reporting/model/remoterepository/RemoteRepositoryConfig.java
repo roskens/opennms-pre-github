@@ -39,7 +39,7 @@ public class RemoteRepositoryConfig {
     private List<RemoteRepositoryDefinition> m_repositoryList = new ArrayList<RemoteRepositoryDefinition>();
 
     private String jasperReportsVersion;
-    
+
     @XmlElement(name = "remoteRepository")
     public List<RemoteRepositoryDefinition> getRepositoryList() {
         return m_repositoryList;
@@ -48,7 +48,7 @@ public class RemoteRepositoryConfig {
     public void setRepositoryList(List<RemoteRepositoryDefinition> repositoryList) {
         this.m_repositoryList = repositoryList;
     }
-    
+
     public String getJasperReportsVersion() {
         return jasperReportsVersion;
     }
@@ -56,5 +56,5 @@ public class RemoteRepositoryConfig {
     public void setJasperReportsVersion(String jasperReportsVersion) {
         this.jasperReportsVersion = jasperReportsVersion;
     }
-    
+
 }

@@ -34,7 +34,7 @@ import java.math.BigInteger;
  * The BerEncoder class is used to implement the AsnEncoder interface for the
  * Basic Encoding Rules (BER). The encoding rules are used to encode and decode
  * SNMP values using BER.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  */
 public class BerEncoder implements AsnEncoder {
@@ -61,11 +61,11 @@ public class BerEncoder implements AsnEncoder {
 
     /**
      * Converts a primitive byte to a primitive long using "unsigned" logic.
-     * 
+     *
      * @param b
      *            The 8-bit value to convert
      * @return Returns the 32-bit converted value
-     * 
+     *
      */
     protected static int byteToInt(byte b) {
         return (b < 0) ? 256 + (int) b : (int) b;
@@ -74,11 +74,11 @@ public class BerEncoder implements AsnEncoder {
     /**
      * Converts a primitive byte to a primitive long. The byte is converted
      * using "unsigned" logic
-     * 
+     *
      * @param b
      *            The 8-bit value to convert
      * @return Returns the 64-bit converted value
-     * 
+     *
      */
     protected static long byteToLong(byte b) {
         return (b < 0) ? 256 + (long) b : (long) b;
@@ -86,13 +86,13 @@ public class BerEncoder implements AsnEncoder {
 
     /**
      * Used to determine if the ASN.1 type is a constructor.
-     * 
+     *
      * @param b
      *            The ASN.1 type
-     * 
+     *
      * @return True if the ASN.1 type is a constructor, otherwise a false is
      *         returned.
-     * 
+     *
      */
     protected static boolean isConstructor(byte b) {
         return ((b & CONSTRUCTOR) == CONSTRUCTOR);
@@ -100,13 +100,13 @@ public class BerEncoder implements AsnEncoder {
 
     /**
      * Used to test if the ASN.1 type is an extension.
-     * 
+     *
      * @param b
      *            The ASN.1 type.
-     * 
+     *
      * @return True if the ASN.1 type is an extension. False if the ASN.1 type
      *         is not an extension.
-     * 
+     *
      */
     protected static boolean isExtensionId(byte b) {
         return ((b & EXTENSION_ID) == EXTENSION_ID);
@@ -116,7 +116,7 @@ public class BerEncoder implements AsnEncoder {
      * Used to copy data from one buffer to another. The method has the
      * flexability to allow the caller to specify an offset in each buffer and
      * the total number of bytes to copy
-     * 
+     *
      * @param src
      *            The source buffer
      * @param srcOff
@@ -127,11 +127,11 @@ public class BerEncoder implements AsnEncoder {
      *            The offset of the first byte in the destination buffer
      * @param bytesToCopy
      *            The number of bytes to copy
-     * 
+     *
      * @exception ArrayIndexOutOfBoundsException
      *                Thrown if there is insufficent space in either array to
      *                copy the data.
-     * 
+     *
      */
     protected static void copy(byte[] src, int srcOff, byte[] dest, int destOff, int bytesToCopy) throws ArrayIndexOutOfBoundsException {
         if ((dest.length - destOff) < bytesToCopy || (src.length - srcOff) < bytesToCopy)
@@ -146,7 +146,7 @@ public class BerEncoder implements AsnEncoder {
      * Used to copy data from one buffer to another. The method has the
      * flexability to allow the caller to specify an offset in each buffer and
      * the total number of integers to copy
-     * 
+     *
      * @param src
      *            The source buffer
      * @param srcOff
@@ -157,11 +157,11 @@ public class BerEncoder implements AsnEncoder {
      *            The offset of the first integer in the destination buffer
      * @param intsToCopy
      *            The number of integer elements to copy
-     * 
+     *
      * @exception ArrayIndexOutOfBoundsException
      *                Thrown if there is insufficent space in either array to
      *                copy the data.
-     * 
+     *
      */
     protected static void copy(int[] src, int srcOff, int[] dest, int destOff, int intsToCopy) throws ArrayIndexOutOfBoundsException {
         if ((dest.length - destOff) < intsToCopy || (src.length - srcOff) < intsToCopy)
@@ -177,7 +177,7 @@ public class BerEncoder implements AsnEncoder {
      * marks the point where the bytes between [pivot..end) are moved to the
      * position marked by begin. The bytes between [begin..pivot) are shifted
      * such that begin is at [begin+(end-pivot)].
-     * 
+     *
      * @param buf
      *            The buffer containing the data to rotate
      * @param begin
@@ -186,10 +186,10 @@ public class BerEncoder implements AsnEncoder {
      *            The pivot point for the rotation
      * @param end
      *            The end of the rotational buffer
-     * 
+     *
      * @exception ArrayIndexOutOfBoundsException
      *                Thrown if an access exception occurs
-     * 
+     *
      */
     protected static void rotate(byte[] buf, int begin, int pivot, int end) throws ArrayIndexOutOfBoundsException {
         int dist = end - pivot;
@@ -219,7 +219,7 @@ public class BerEncoder implements AsnEncoder {
 
     /**
      * Default constructor for the BER Encoder.
-     * 
+     *
      */
     public BerEncoder() {
         // default class constructor.
@@ -227,10 +227,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildLength() method is used to encode an ASN.1 length into the
      * specified byte buffer. The method is defined in the AsnEncoder interface.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -238,18 +238,18 @@ public class BerEncoder implements AsnEncoder {
      *            should start writing the encoded data.
      * @param asnLength
      *            The length to be encoded.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If the
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
      */
     @Override
     public int buildLength(byte[] buf, int startOffset, int asnLength) throws AsnEncodingException {
         if (asnLength <= 0x7f) {
-            // 
+            //
             // check the buffer length
             //
             if ((buf.length - startOffset) < 1)
@@ -281,21 +281,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseLength() method is used to decode an ASN.1 length from the
      * specified buffer. The method is defined to support the AsnEncoder
      * interface.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset and the
      *         decoded length. The first object is an Integer object and
      *         contains the new offset for the next object in buf. The second
      *         object is an Integer and contains the actual decoded length.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -354,11 +354,11 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildHeader() method is used to encode an ASN.1 header into the
      * specified byte buffer. The method is defined to support the AsnEncoder
      * interface. This method is dependant on the buildLength() method.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -368,14 +368,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param asnLength
      *            The length to be encoded.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildHeader(byte[] buf, int startOffset, byte asnType, int asnLength) throws AsnEncodingException {
@@ -387,23 +387,23 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseHeader() method is used to decode an ASN.1 header from the
      * specified buffer. The method is defined to support the AsnEncoder
      * interface. The method also calls the parseLength() method.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset, ASN.1 type,
      *         and decoded length. The first object is an Integer object and
      *         contains the new offset for the next object in buf. The second
      *         object is a Byte object that represents the decoded ASN.1 Type.
      *         The third object is an Integer and contains the actual decoded
      *         length.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -442,10 +442,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildInteger32() method is used to encode an ASN.1 32-bit signed
      * integer into the specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -455,14 +455,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param asnInt32
      *            The 32-bit signed integer to encode.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildInteger32(byte[] buf, int startOffset, byte asnType, int asnInt32) throws AsnEncodingException {
@@ -507,21 +507,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseInteger32() method is used to decode an ASN.1 32-bit signed
      * integer from the specified buffer.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset, ASN.1 type,
      *         and value. The first object is an Integer object and contains the
      *         new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is an Integer and contains the actual decoded value.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -575,10 +575,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildUInteger32() method is used to encode an ASN.1 32-bit unsigned
      * integer into the specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -588,14 +588,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param asnUInt32
      *            The 32-bit unsigned integer to encode.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildUInteger32(byte[] buf, int startOffset, byte asnType, long asnUInt32) throws AsnEncodingException {
@@ -678,21 +678,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseUInteger32() method is used to decode an ASN.1 32-bit unsigned
      * integer from the specified buffer.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset, ASN.1 type,
      *         and value. The first object is an Integer object and contains the
      *         new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is a Long object and contains the actual decoded value.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -752,10 +752,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildUInteger64() method is used to encode an ASN.1 64-bit unsigned
      * integer into the specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -765,14 +765,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param asnUInt64
      *            The 64-bit unsigned integer to encode.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildUInteger64(byte[] buf, int startOffset, byte asnType, BigInteger asnUInt64) throws AsnEncodingException {
@@ -804,21 +804,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseUInteger64() method is used to decode an ASN.1 64-bit unsigned
      * integer from the specified buffer.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset, ASN.1 type,
      *         and value. The first object is an Integer object and contains the
      *         new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type. The third
      *         object is a Long object and contains the actual decoded value.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -864,10 +864,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildNull() method is used to encode an ASN.1 NULL value into the
      * specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -875,14 +875,14 @@ public class BerEncoder implements AsnEncoder {
      *            should start writing the encoded data.
      * @param asnType
      *            The ASN.1 type to place in the buffer
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildNull(byte[] buf, int startOffset, byte asnType) throws AsnEncodingException {
@@ -890,21 +890,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseNull() method is used to decode an ASN.1 Null value from the
      * specified buffer. Since there is no "null" value only the new offset and
      * ASN.1 type are returned.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset and the
      *         ASN.1 type. The first object is an Integer object and contains
      *         the new offset for the next object in buf. The second object is a
      *         Byte object that represents the decoded ASN.1 Type.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -926,10 +926,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildString() method is used to encode an ASN.1 string value into the
      * specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -939,14 +939,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param opaque
      *            An array of bytes to encode into the string.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildString(byte[] buf, int startOffset, byte asnType, byte[] opaque) throws AsnEncodingException {
@@ -984,21 +984,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseString() method is used to decode an ASN.1 opaque string from
      * the specified buffer.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset and ASN.1
      *         type, and byte array. The first object is an Integer object and
      *         contains the new offset for the next object in buf. The second
      *         object is a Byte object that represents the decoded ASN.1 Type.
      *         The third object is an array of primitive bytes.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */
@@ -1045,10 +1045,10 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The buildObjectId() method is used to encode an ASN.1 object id value
      * into the specified byte buffer.
-     * 
+     *
      * @param buf
      *            The output buffer of encoded bytes.
      * @param startOffset
@@ -1058,14 +1058,14 @@ public class BerEncoder implements AsnEncoder {
      *            The ASN.1 type to place in the buffer
      * @param oids
      *            An array of integers to encode.
-     * 
+     *
      * @return Returns the new offset for the next encoding routine. If
      *         startOffset is subtracted from the return value then the length
      *         of the encoded data can be determined.
-     * 
+     *
      * @exception AsnEncodingException
      *                Thrown if an error occurs encoding the datatype.
-     * 
+     *
      */
     @Override
     public int buildObjectId(byte[] buf, int startOffset, byte asnType, int[] oids) throws AsnEncodingException {
@@ -1187,21 +1187,21 @@ public class BerEncoder implements AsnEncoder {
     }
 
     /**
-     * 
+     *
      * The parseObjectId() method is used to decode an ASN.1 Object Identifer
      * from the specified buffer.
-     * 
+     *
      * @param buf
      *            The input buffer
      * @param startOffset
      *            The offset to start decoding in the buffer
-     * 
+     *
      * @return Returns an Object array that contains the new offset and ASN.1
      *         type, and ObjectId array. The first object is an Integer object
      *         and contains the new offset for the next object in buf. The
      *         second object is a Byte object that represents the decoded ASN.1
      *         Type. The third object is an array of primitive integers.
-     * 
+     *
      * @exception AsnDecodingException
      *                Thrown if an error occurs decoding the buffer.
      */

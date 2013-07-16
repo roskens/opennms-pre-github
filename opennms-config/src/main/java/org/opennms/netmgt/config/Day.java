@@ -48,7 +48,7 @@ import org.opennms.netmgt.config.groups.Role;
  * @since 1.8.1
  */
 public class Day {
-    
+
     private Calendar m_calendar;
     private Role m_role;
     private GroupManager m_groupManager;
@@ -66,7 +66,7 @@ public class Day {
         m_calendar = Calendar.getInstance();
         m_calendar.setTime(date);
     }
-    
+
     /**
      * <p>getDate</p>
      *
@@ -75,7 +75,7 @@ public class Day {
     public Date getDate() {
         return m_calendar.getTime();
     }
-    
+
     /**
      * <p>getMonth</p>
      *
@@ -89,14 +89,14 @@ public class Day {
      * @return a int.
      */
     public int getDayOfMonth() { return m_calendar.get(Calendar.DAY_OF_MONTH); }
-    
+
     /**
      * <p>getDayOfYear</p>
      *
      * @return a int.
      */
     public int getDayOfYear() { return m_calendar.get(Calendar.DAY_OF_YEAR); }
-    
+
     /**
      * <p>getDayOfWeek</p>
      *
@@ -105,7 +105,7 @@ public class Day {
     public String getDayOfWeek() {
         return new SimpleDateFormat("EEEE").format(m_calendar.getTime());
     }
-    
+
     /**
      * <p>getTime</p>
      *
@@ -118,7 +118,7 @@ public class Day {
         time.set(m_calendar.get(Calendar.YEAR), m_calendar.get(Calendar.MONTH), m_calendar.get(Calendar.DAY_OF_MONTH), hours, minutes);
         return time.getTime();
     }
-    
+
     /**
      * <p>getEntries</p>
      *
@@ -127,15 +127,15 @@ public class Day {
     public CalendarEntry[] getEntries() {
         try {
             List<CalendarEntry> entries = new ArrayList<CalendarEntry>();
-            
+
             OwnedIntervalSequence schedEntries = m_groupManager.getRoleScheduleEntries(m_role.getName(), getTime(0,0), getTime(24,0));
-            
+
             for (Iterator<OwnedInterval> it = schedEntries.iterator(); it.hasNext();) {
                 OwnedInterval schedEntry = it.next();
                 CalendarEntry entry = new CalendarEntry(schedEntry.getStart(), schedEntry.getEnd(), ownerString(schedEntry.getOwners()), schedEntry.getOwners());
                 entries.add(entry);
             }
-            
+
             return entries.toArray(new CalendarEntry[entries.size()]);
         } catch (Throwable e) {
             throw new WebRolesException("Unable to get schedule entries: " + e.getMessage(), e);
@@ -148,7 +148,7 @@ public class Day {
         for (Owner owner : owners) {
             if (first) {
                 first = false;
-            } else { 
+            } else {
                 buf.append(", ");
             }
             buf.append(owner.getUser());

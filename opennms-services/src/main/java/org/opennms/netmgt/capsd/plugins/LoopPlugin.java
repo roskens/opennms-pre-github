@@ -73,18 +73,18 @@ public class LoopPlugin implements Plugin {
     /** {@inheritDoc} */
     @Override
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
-        
+
         if (qualifiers == null) {
             return false;
         }
-        
+
         String ipMatch = getIpMatch(qualifiers);
         if (IPLike.matches(InetAddressUtils.str(address), ipMatch)) {
             return isSupported(qualifiers);
         } else {
             return false;
         }
-        
+
     }
 
     private boolean isSupported(Map<String, Object> parameters) {

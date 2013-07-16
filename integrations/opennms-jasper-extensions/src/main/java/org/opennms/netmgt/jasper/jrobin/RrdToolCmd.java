@@ -72,7 +72,7 @@ abstract class RrdToolCmd {
         	LOG.debug("Error creating JRobinDatasource: The Following Exception Occured: {}", e.getMessage());
         	return new EmptyJRDataSource();
         }
-        
+
     }
 
     String getOptionValue(String shortForm, String longForm) throws RrdException {

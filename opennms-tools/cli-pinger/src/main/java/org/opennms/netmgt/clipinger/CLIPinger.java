@@ -56,47 +56,47 @@ import org.opennms.netmgt.icmp.PingerFactory;
  */
 
 final public class CLIPinger {
-    
+
     @Option(name = "--timeout", aliases = {"-t"}, required = false, usage = "timeout for each ping, in milliseconds (default 1000)")
     private static long s_timeout = 1000;
-    
+
     @Option(name = "--retry", aliases = {"-r"}, required = false, usage = "retries for each ping (default 2)")
     private static int s_retries = 2;
-    
+
     @Option(name = "--interval", aliases = {"-i"}, required = false, usage = "interval between pings, in milliseconds (default 1000)")
     private static long s_interval = 1000;
-    
+
     @Option(name = "--count", aliases = {"-c"}, required = false, usage = "number of pings (default 5)")
     private static int s_count = 5;
-    
+
     @Argument
     private static List<String> s_arguments = new ArrayList<String>();
-    
+
     public static void main(String[] args) throws CmdLineException {
         new CLIPinger().doMain(args);
     }
-    
+
     @SuppressWarnings("SleepWhileInLoop")
     public void doMain(String[] args) throws CmdLineException {
         setPropertiesIfPossible();
-        
+
         CmdLineParser parser = new CmdLineParser(this);
-        
+
         try {
             parser.parseArgument(args);
         } catch (CmdLineException e) {
             parser.printUsage(System.err);
             System.exit(1);
         }
-        
+
         InetAddress host;
         double rttMs;
-        
+
         if (s_arguments.isEmpty()) {
             parser.printUsage(System.err);
             System.exit(1);
         }
-        
+
         try {
             host = InetAddress.getByName(s_arguments.get(0));
             Pinger p = PingerFactory.getInstance();

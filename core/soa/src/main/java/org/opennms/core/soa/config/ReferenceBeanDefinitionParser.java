@@ -42,28 +42,28 @@ import org.w3c.dom.Element;
  * @version $Id: $
  */
 public class ReferenceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
-        
+
     /** Constant <code>INTERFACE_ATTR="interface"</code> */
     public static final String INTERFACE_ATTR = "interface";
     public static final String FILTER_ATTR = "filter";
-    
+
     /** {@inheritDoc} */
     @Override
     protected Class<?> getBeanClass(Element element) {
         return ReferenceFactoryBean.class;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void doParse(Element element, ParserContext context, BeanDefinitionBuilder bean){
-        
+
         bean.addPropertyReference("serviceRegistry", Constants.SERVICE_REGISTRY_BEAN_NAME);
-        
+
         String serviceInterface = element.getAttribute(INTERFACE_ATTR);
         if (StringUtils.hasText(serviceInterface)) {
             bean.addPropertyValue("serviceInterface", serviceInterface);
         }
-        
+
         String filter = element.getAttribute(FILTER_ATTR);
         if (StringUtils.hasText(filter)) {
             bean.addPropertyValue("filter", filter);

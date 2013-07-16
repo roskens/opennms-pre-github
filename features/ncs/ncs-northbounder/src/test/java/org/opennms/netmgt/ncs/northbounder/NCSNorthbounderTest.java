@@ -54,7 +54,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 /**
  * Tests the HTTP North Bound Interface
  * FIXME: This is far from completed
- * 
+ *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
@@ -65,50 +65,50 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class NCSNorthbounderTest {
 
 	String url = "https://localhost/fmpm/restful/NotificationMessageRelay";
-	
+
 	String xml = "" +
-			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
-			"<ServiceAlarmNotification xmlns=\"http://junosspace.juniper.net/monitoring\">\n" + 
-			"    <ServiceAlarm>\n" + 
-			"        <Id>FS:1</Id>\n" + 
-			"        <Name>NAM1</Name>\n" + 
-			"        <Status>Down</Status>\n" + 
-			"    </ServiceAlarm>\n" + 
-			"    <ServiceAlarm>\n" + 
-			"        <Id>FS:2</Id>\n" + 
-			"        <Name>NAM2</Name>\n" + 
-			"        <Status>Up</Status>\n" + 
-			"    </ServiceAlarm>\n" + 
-			"    <ServiceAlarm>\n" + 
-			"        <Id>FS:3</Id>\n" + 
-			"        <Name>NAM3</Name>\n" + 
-			"        <Status>Down</Status>\n" + 
-			"    </ServiceAlarm>\n" + 
-			"    <ServiceAlarm>\n" + 
-			"        <Id>FS:4</Id>\n" + 
-			"        <Name>NAM4</Name>\n" + 
-			"        <Status>Up</Status>\n" + 
-			"    </ServiceAlarm>\n" + 
-			"</ServiceAlarmNotification>\n" + 
-			"";	
-	
+			"<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+			"<ServiceAlarmNotification xmlns=\"http://junosspace.juniper.net/monitoring\">\n" +
+			"    <ServiceAlarm>\n" +
+			"        <Id>FS:1</Id>\n" +
+			"        <Name>NAM1</Name>\n" +
+			"        <Status>Down</Status>\n" +
+			"    </ServiceAlarm>\n" +
+			"    <ServiceAlarm>\n" +
+			"        <Id>FS:2</Id>\n" +
+			"        <Name>NAM2</Name>\n" +
+			"        <Status>Up</Status>\n" +
+			"    </ServiceAlarm>\n" +
+			"    <ServiceAlarm>\n" +
+			"        <Id>FS:3</Id>\n" +
+			"        <Name>NAM3</Name>\n" +
+			"        <Status>Down</Status>\n" +
+			"    </ServiceAlarm>\n" +
+			"    <ServiceAlarm>\n" +
+			"        <Id>FS:4</Id>\n" +
+			"        <Name>NAM4</Name>\n" +
+			"        <Status>Up</Status>\n" +
+			"    </ServiceAlarm>\n" +
+			"</ServiceAlarmNotification>\n" +
+			"";
+
 	@Test
     @JUnitHttpServer(port=10342, https=false, webapps={
             @Webapp(context="/fmpm", path="src/test/resources/test-webapp")
     })
     public void testTestServlet() throws Exception {
-    	
+
     	TestServlet.reset();
-    	
+
         HttpClient client = new DefaultHttpClient();
         HttpEntity entity = new StringEntity(xml);
         HttpPost method = new HttpPost("http://localhost:10342/fmpm/restful/NotificationMessageRelay");
         method.setEntity(entity);
         HttpResponse response = client.execute(method);
         assertEquals(200, response.getStatusLine().getStatusCode());
-        
+
         assertEquals(xml, TestServlet.getPosted());
-        
+
     }
 
 
@@ -124,9 +124,9 @@ public class NCSNorthbounderTest {
             @Webapp(context="/fmpm", path="src/test/resources/test-webapp")
     })
     public void testForwardAlarms() throws Exception {
-    	
+
     	TestServlet.reset();
-        
+
         NCSNorthbounderConfig config = new NCSNorthbounderConfig();
         config.setScheme("http");
         config.setHost("localhost");
@@ -135,12 +135,12 @@ public class NCSNorthbounderTest {
         config.setMethod(HttpMethod.POST);
 
         NCSNorthbounder nb = new NCSNorthbounder(config);
-        
+
         List<NorthboundAlarm> alarms = Arrays.asList(alarm(1), alarm(2), alarm(3), alarm(4));
         nb.forwardAlarms(alarms);
-        
+
         assertEquals(xml, TestServlet.getPosted());
-        
+
     }
 
 
@@ -150,7 +150,7 @@ public class NCSNorthbounderTest {
         alarm.setUei("uei.opennms.org/test/httpNorthBounder");
         alarm.setEventParms("componentType=Service(string,text);componentName=NAM"+alarmId+"(string,text);componentForeignSource=FS(string,text);componentForeignId="+alarmId+"(string,text);cause=17(string,text)");
         alarm.setAlarmType((alarmId+1) % 2 + 1);
-        
+
         return new NorthboundAlarm(alarm);
 	}
 
@@ -159,9 +159,9 @@ public class NCSNorthbounderTest {
             @Webapp(context="/fmpm", path="src/test/resources/test-webapp")
     })
     public void testForwardAlarmsToHttps() throws Exception {
-    	
+
     	TestServlet.reset();
-        
+
         NCSNorthbounderConfig config = new NCSNorthbounderConfig();
         config.setScheme("https");
         config.setHost("localhost");
@@ -170,11 +170,11 @@ public class NCSNorthbounderTest {
         config.setMethod(HttpMethod.POST);
 
         NCSNorthbounder nb = new NCSNorthbounder(config);
-        
+
         List<NorthboundAlarm> alarms = Arrays.asList(alarm(1), alarm(2), alarm(3), alarm(4));
         nb.forwardAlarms(alarms);
 
         assertEquals(xml, TestServlet.getPosted());
-        
+
     }
 }

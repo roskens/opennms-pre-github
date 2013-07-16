@@ -60,7 +60,7 @@ public class RequisitionNode {
     protected List<RequisitionCategory> m_categories = new ArrayList<RequisitionCategory>();
     @XmlElement(name="asset")
     protected List<RequisitionAsset> m_assets = new ArrayList<RequisitionAsset>();
-    
+
     @XmlAttribute(name = "building")
     protected String m_building;
 
@@ -72,7 +72,7 @@ public class RequisitionNode {
 
     @XmlAttribute(name = "node-label", required = true)
     protected String m_nodeLabel;
-    
+
     @XmlAttribute(name = "parent-foreign-source")
     protected String m_parentForeignSource;
 
@@ -283,7 +283,7 @@ public class RequisitionNode {
     public int getAssetCount() {
         return (m_assets == null)? 0 : m_assets.size();
     }
-    
+
     /* backwards compatibility with ModelImport */
     /**
      * <p>getAsset</p>

@@ -56,7 +56,7 @@ public final class GraphInfo {
 
         // optional
         m_title                = elem.getAttribute("graphTitle");
-        
+
         if ("lastday".equals(m_timespan)) {
             m_timespan = "1_day";
         } else if ("lastweek".equals(m_timespan)) {
@@ -73,11 +73,11 @@ public final class GraphInfo {
     public String getReportName() {
         return m_report;
     }
-    
+
     public String getResourceId() {
         return m_resourceId;
     }
-    
+
     public String getTimespan() {
         return m_timespan;
     }
@@ -89,7 +89,7 @@ public final class GraphInfo {
     public Integer getStartTime() {
         return m_startTime;
     }
-    
+
     public Integer getEndTime() {
         return m_endTime;
     }

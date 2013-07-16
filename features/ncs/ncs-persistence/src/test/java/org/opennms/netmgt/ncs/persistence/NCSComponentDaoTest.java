@@ -59,41 +59,41 @@ import org.springframework.transaction.annotation.Transactional;
 })
 @Transactional
 public class NCSComponentDaoTest {
-	
+
 	@Autowired
 	NCSComponentRepository m_repository;
-	
+
 	@Autowired
 	DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	NodeDao m_nodeDao;
-	
+
 	int m_pe1NodeId;
-	
+
 	int m_pe2NodeId;
-	
+
 	@Before
 	public void setUp() {
-		
+
 		OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
-		
+
 		m_distPollerDao.save(distPoller);
-		
-		
+
+
 		NetworkBuilder bldr = new NetworkBuilder(distPoller);
 		bldr.addNode("PE1").setForeignSource("space").setForeignId("1111-PE1");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe1NodeId = bldr.getCurrentNode().getId();
-		
+
 		bldr.addNode("PE2").setForeignSource("space").setForeignId("2222-PE2");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		m_pe2NodeId = bldr.getCurrentNode().getId();
-		
+
 		NCSComponent svc = new NCSBuilder("Service", "NA-Service", "123")
 		.setName("CokeP2P")
 		.pushComponent("ServiceElement", "NA-ServiceElement", "8765")
@@ -181,38 +181,38 @@ public class NCSComponentDaoTest {
 			.popComponent()
 		.popComponent()
 		.get();
-		
+
 		m_repository.save(svc);
-		
-		
+
+
 	}
 
 	@Test
 	public void testFindComponentsByNodeId() {
-		
+
 		assertNotNull(m_repository);
-		
+
 		assertFalse(0 == m_pe1NodeId);
 		assertFalse(0 == m_pe2NodeId);
-		
+
 		List<NCSComponent> pe1Components = m_repository.findComponentsByNodeId(m_pe1NodeId);
-		
+
 		assertFalse(pe1Components.isEmpty());
-		
+
 		NCSComponent pe1SvcElem = m_repository.findByTypeAndForeignIdentity("ServiceElement", "NA-ServiceElement", "8765");
-		
+
 		assertNotNull(pe1SvcElem);
-		
+
 		assertTrue(pe1Components.contains(pe1SvcElem));
-		
+
 		assertEquals(6, pe1Components.size());
 
 		List<NCSComponent> pe2Components = m_repository.findComponentsByNodeId(m_pe2NodeId);
-		
+
 		assertFalse(pe2Components.isEmpty());
-		
+
 		assertEquals(6, pe2Components.size());
-		
+
 	}
 
 }

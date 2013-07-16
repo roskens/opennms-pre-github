@@ -52,7 +52,7 @@ public class PingOperation extends AbstractOperation {
                     final String addrValue = getIpAddrValue(operationContext, target);
                     final String labelValue = getLabelValue(operationContext, target);
                     final Integer nodeValue = getNodeIdValue(operationContext, target);
-                    
+
                     if (addrValue != null && nodeValue != null && nodeValue > 0) {
                         ipAddr = addrValue;
                         label  = labelValue == null? "" : labelValue;
@@ -65,7 +65,7 @@ public class PingOperation extends AbstractOperation {
             operationContext.getMainWindow().addWindow(new PingWindow(node, getPingURL()));
             return null;
 	}
-	
+
 	@Override
     public boolean display(final List<VertexRef> targets, final OperationContext operationContext) {
         if (operationContext.getDisplayLocation() == DisplayLocation.MENUBAR) {
@@ -75,7 +75,7 @@ public class PingOperation extends AbstractOperation {
         }else {
             return false;
         }
-        
+
     }
 
         @Override

@@ -99,7 +99,7 @@ public class XMPPGroupNotificationStrategy implements NotificationStrategy {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
 	 */
 	/** {@inheritDoc} */
@@ -126,7 +126,7 @@ public class XMPPGroupNotificationStrategy implements NotificationStrategy {
 	/**
 	 * This method extracts the xmpp address and message text from the
 	 * parameters passed in the notification.
-	 * 
+	 *
 	 * @param arguments
 	 * @return String[]
 	 * @throws Exception

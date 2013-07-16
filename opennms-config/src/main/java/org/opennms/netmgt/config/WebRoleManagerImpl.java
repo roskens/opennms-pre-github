@@ -51,38 +51,38 @@ import org.opennms.netmgt.config.users.User;
  * @since 1.8.1
  */
 public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGroupManager {
-    
+
     private GroupManager m_groupManager;
     private UserManager m_userManager;
-    
+
     private class InvalidUser extends WebUser {
 
         public InvalidUser(String name) {
             super(name);
         }
-        
+
         @Override
         public String toString() {
             return "Invalid User ["+getName()+"]";
         }
-        
+
     }
-    
+
     private class InvalidGroup extends WebGroup {
 
         public InvalidGroup(String name) {
             super(name);
             super.setUsers(new ArrayList<WebUser>());
         }
-        
+
         @Override
         public String toString() {
             return "Invalid Group ["+getName()+"]";
         }
-        
+
     }
-    
-    
+
+
     private User getBackingUser(String name) {
         try {
             return m_userManager.getUser(name);
@@ -94,7 +94,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             throw new WebRolesException("Error reading users.xml config file", e);
         }
     }
-    
+
     private Collection<User> getBackingUsers() {
         try {
             return m_userManager.getUsers().values();
@@ -106,11 +106,11 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             throw new WebRolesException("Error reading users.xml config file", e);
         }
     }
-    
+
     private Role getBackingRole(String roleName) {
         return m_groupManager.getRole(roleName);
     }
-    
+
     private Group getBackingGroup(String groupName) {
         try {
             return m_groupManager.getGroup(groupName);
@@ -122,7 +122,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             throw new WebRolesException("Error reading groups.xml config file", e);
         }
     }
-    
+
     private Collection<Group> getBackingGroups() {
         try {
             return m_groupManager.getGroups().values();
@@ -134,17 +134,17 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             throw new WebRolesException("Error reading groups.xml config file", e);
         }
     }
-    
+
     private Collection<WebUser> getUsersScheduleForRole(WebRole role, Date time) {
         try {
-            
+
             String[] users = m_userManager.getUsersScheduledForRole(role.getName(), new Date());
             List<WebUser> webUsers = new ArrayList<WebUser>(users.length);
             for (String user : users) {
                 webUsers.add(getWebUser(user));
             }
             return webUsers;
-            
+
         } catch (MarshalException e) {
             throw new WebRolesException("Error marshalling users.xml config file", e);
         } catch (ValidationException e) {
@@ -154,7 +154,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
 
     }
-    
+
     private WebRole getWebRole(Role role) {
         return new ManagedRole(role);
     }
@@ -167,7 +167,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             return new ManagedUser(u);
         }
     }
-    
+
     private WebUser getWebUser(User user) {
         if (user == null) {
             return new InvalidUser("Select A Valid User...");
@@ -175,7 +175,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             return new ManagedUser(user);
         }
     }
-    
+
     private WebGroup getWebGroup(String groupName) {
         Group g = getBackingGroup(groupName);
         if (g == null) {
@@ -184,7 +184,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             return new ManagedGroup(g);
         }
     }
-    
+
     private WebGroup getWebGroup(Group group) {
         if (group == null) {
             return new InvalidGroup("Select a valid group...");
@@ -192,21 +192,21 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             return new ManagedGroup(group);
         }
     }
-    
+
     private ManagedRole getManagedRole(WebRole webRole) {
         if (webRole instanceof ManagedRole) {
             return (ManagedRole) webRole;
         }
-        
+
         ManagedRole mgdRole = new ManagedRole();
         mgdRole.setName(webRole.getName());
         mgdRole.setDescription(webRole.getDescription());
         mgdRole.setDefaultUser(webRole.getDefaultUser());
         mgdRole.setMembershipGroup(webRole.getMembershipGroup());
-        
+
         return mgdRole;
     }
-    
+
     /**
      * <p>createRole</p>
      *
@@ -216,7 +216,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
     public WebRole createRole() {
         return new ManagedRole();
     }
-    
+
     class ManagedRole extends WebRole {
         private static final int DESCR=0;
         private static final int USER=1;
@@ -234,18 +234,18 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
            super.setDefaultUser(getWebUser(role.getSupervisor()));
            super.setMembershipGroup(getWebGroup(role.getMembershipGroup()));
         }
-        
+
         ManagedRole() {
             super();
             m_role = null;
         }
-        
+
         @Override
         public void setDescription(String description) {
             super.setDescription(description);
             m_flags.set(DESCR);
         }
-        
+
         @Override
         public void setDefaultUser(WebUser defaultUser) {
             super.setDefaultUser(defaultUser);
@@ -261,7 +261,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             super.setName(name);
             m_flags.set(NAME);
         }
-        
+
         public void save() {
             try {
                 Role role = (m_role == null ? new Role() : m_role);
@@ -277,12 +277,12 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
                 if (m_flags.get(NAME)) {
                     role.setName(super.getName());
                 }
-                
+
                 Collection<WebSchedEntry> newEntries = getNewEntries();
                 for (WebSchedEntry entry : newEntries) {
                     entry.update(role);
                 }
-                
+
                 if (m_role != null) {
                     m_groupManager.saveGroups();
                 } else {
@@ -292,7 +292,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             } catch (Throwable e) {
                 throw new WebRolesException("Unable to save role "+getName()+". "+e.getMessage(), e);
             }
-            
+
         }
         @Override
         public Collection<WebUser> getCurrentUsers() {
@@ -315,12 +315,12 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
         public void addEntry(String user, Date startDate, Date endDate) {
             // TODO Auto-generated method stub
-            
+
         }
-        
-        
+
+
     }
-    
+
     class ManagedUser extends WebUser {
         User m_user;
         ManagedUser(String userId) {
@@ -331,7 +331,7 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
             m_user = user;
         }
     }
-    
+
     class ManagedGroup extends WebGroup {
         Group m_group;
         ManagedGroup(String groupName) {
@@ -339,18 +339,18 @@ public class WebRoleManagerImpl implements WebRoleManager, WebUserManager, WebGr
         }
         ManagedGroup(Group group) {
             super(group.getName());
-            
+
             List<WebUser> users = new ArrayList<WebUser>();
             for (String userId : getUsers(group)) {
                 users.add(getWebUser(userId));
             }
             super.setUsers(users);
         }
-        
+
         private List<String> getUsers(Group group) {
             return group.getUserCollection();
         }
-        
+
     }
 
     /**

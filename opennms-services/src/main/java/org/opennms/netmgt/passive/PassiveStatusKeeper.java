@@ -55,11 +55,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PassiveStatusKeeper.class);
-    
+
     private static PassiveStatusKeeper s_instance = new PassiveStatusKeeper();
-    
+
     private static final String PASSIVE_STATUS_UEI = "uei.opennms.org/services/passiveServiceStatus";
 
     private volatile Map<PassiveStatusKey, PollStatus> m_statusTable = null;
@@ -68,14 +68,14 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
 
     private DataSource m_dataSource;
 
-    
+
     /**
      * <p>Constructor for PassiveStatusKeeper.</p>
      */
     public PassiveStatusKeeper() {
     	super("passive");
     }
-    
+
     /**
      * <p>Constructor for PassiveStatusKeeper.</p>
      *
@@ -85,7 +85,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     	this();
         setEventManager(eventMgr);
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -94,7 +94,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     public synchronized static void setInstance(PassiveStatusKeeper psk) {
         s_instance = psk;
     }
-    
+
     /**
      * <p>getInstance</p>
      *
@@ -104,42 +104,42 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
         return s_instance;
     }
 
-    
+
     /**
      * <p>onInit</p>
      */
     @Override
     protected void onInit() {
         if (m_initialized) return;
-        
+
         checkPreRequisites();
         createMessageSelectorAndSubscribe();
-        
+
         m_statusTable = new HashMap<PassiveStatusKey, PollStatus>();
-        
+
         String sql = "select node.nodeLabel AS nodeLabel, outages.ipAddr AS ipAddr, service.serviceName AS serviceName " +
                 "FROM outages " +
                 "JOIN node ON outages.nodeId = node.nodeId " +
                 "JOIN service ON outages.serviceId = service.serviceId " +
                 "WHERE outages.ifRegainedService is NULL";
-        
+
         Querier querier = new Querier(m_dataSource, sql) {
-        
+
             @Override
             public void processRow(ResultSet rs) throws SQLException {
-               
+
                 PassiveStatusKey key = new PassiveStatusKey(rs.getString("nodeLabel"), rs.getString("ipAddr"), rs.getString("serviceName"));
                 m_statusTable.put(key, PollStatus.down());
-                
-                
-                
+
+
+
             }
-        
+
         };
         querier.execute();
-        
-        
-        
+
+
+
         m_initialized = true;
     }
 
@@ -172,7 +172,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
         checkInit();
         setStatus(new PassiveStatusKey(nodeLabel, ipAddr, svcName), pollStatus);
     }
-    
+
     /**
      * <p>setStatus</p>
      *
@@ -211,14 +211,14 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     /** {@inheritDoc} */
     @Override
     public void onEvent(Event e) {
-        
+
         if (isPassiveStatusEvent(e)) {
             LOG.debug("onEvent: received valid registered passive status event: \n", EventUtils.toString(e));
             PassiveStatusValue statusValue = getPassiveStatusValue(e);
             setStatus(statusValue.getKey(), statusValue.getStatus());
             LOG.debug("onEvent: passive status for: {} is: {}", statusValue.getKey(), m_statusTable.get(statusValue.getKey()));
-        } 
-        
+        }
+
         if (!isPassiveStatusEvent(e))
         {
             LOG.debug("onEvent: received Invalid registered passive status event: \n", EventUtils.toString(e));
@@ -232,7 +232,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     				EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_NAME),
     				PollStatus.decode(EventUtils.getParm(e, EventConstants.PARM_PASSIVE_SERVICE_STATUS),EventUtils.getParm(e,EventConstants.PARM_PASSIVE_REASON_CODE))
     				);
-    		
+
 	}
 
 	boolean isPassiveStatusEvent(Event e) {
@@ -260,7 +260,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     public void setEventManager(EventIpcManager eventMgr) {
         m_eventMgr = eventMgr;
     }
-    
+
     /**
      * <p>getDbConnectoinFactory</p>
      *
@@ -269,7 +269,7 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     public DataSource getDbConnectoinFactory() {
         return m_dataSource;
     }
-    
+
     /**
      * <p>setDataSource</p>
      *
@@ -278,5 +278,5 @@ public class PassiveStatusKeeper extends AbstractServiceDaemon implements EventL
     public void setDataSource(DataSource dataSource) {
         m_dataSource = dataSource;
     }
-    
+
 }

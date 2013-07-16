@@ -44,9 +44,9 @@ import org.opennms.netmgt.xml.event.Event;
  * @since 1.8.1
  */
 public class DefaultPollerService implements PollerService {
-	
+
 	private EventProxy m_eventProxy;
-	
+
 	/**
 	 * <p>setEventProxy</p>
 	 *
@@ -55,18 +55,18 @@ public class DefaultPollerService implements PollerService {
 	public void setEventProxy(EventProxy eventProxy) {
 		m_eventProxy = eventProxy;
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void poll(OnmsMonitoredService monSvc, int pollResultId) {
-		
+
 		EventBuilder bldr = new EventBuilder(EventConstants.DEMAND_POLL_SERVICE_EVENT_UEI, "PollerService");
 
 		bldr.setNodeid(monSvc.getNodeId());
 		bldr.setInterface(monSvc.getIpAddress());
 		bldr.setIfIndex(monSvc.getIfIndex());
 		bldr.setService(monSvc.getServiceType().getName());
-		
+
 		bldr.addParam(EventConstants.PARM_DEMAND_POLL_ID, pollResultId);
 
 		sendEvent(bldr.getEvent());

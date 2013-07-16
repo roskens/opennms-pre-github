@@ -51,7 +51,7 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:larry@opennms.org">Lawrence Karnowski </A>
  */
 public class NoticeFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NoticeFactory.class);
 
 
@@ -85,12 +85,12 @@ public class NoticeFactory {
             }
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             ResultSet rs = stmt.executeQuery();
 
             if (rs.next()) {
@@ -309,18 +309,18 @@ public class NoticeFactory {
             }
 
             PreparedStatement stmt = conn.prepareStatement(select.toString());
-            
+
             int parameterIndex = 1;
             for (Filter filter : filters) {
             	parameterIndex += filter.bindParam(stmt, parameterIndex);
             }
-            
+
             if (useLimits) {
             	stmt.setInt(parameterIndex++, limit);
             	stmt.setInt(parameterIndex, offset);
             }
             ResultSet rs = stmt.executeQuery();
-            
+
 //            PreparedStatement ps = conn.prepareStatement(select.toString());
             notices = rs2Notices(rs, servletContext);
 

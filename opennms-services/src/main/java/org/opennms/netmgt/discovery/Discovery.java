@@ -74,9 +74,9 @@ import org.springframework.util.Assert;
  */
 @EventListener(name="OpenNMS.Discovery", logPrefix="discover")
 public class Discovery extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Discovery.class);
-    
+
     /**
      * The callback that sends newSuspect events upon successful ping response.
      */
@@ -88,12 +88,12 @@ public class Discovery extends AbstractServiceDaemon {
     private static final int PING_IDLE = 0;
     private static final int PING_RUNNING = 1;
     private static final int PING_FINISHING = 2;
-    
+
     /**
      * The SQL query used to get the list of managed IP addresses from the database
      */
     private static final String ALL_IP_ADDRS_SQL = "SELECT DISTINCT ipAddr FROM ipInterface WHERE isManaged <> 'D'";
-    
+
     /**
      * a set of devices to skip discovery on
      */
@@ -104,7 +104,7 @@ public class Discovery extends AbstractServiceDaemon {
     private Timer m_timer;
 
     private int m_xstatus = PING_IDLE;
-    
+
     private volatile EventForwarder m_eventForwarder;
 
     private Pinger m_pinger;
@@ -135,7 +135,7 @@ public class Discovery extends AbstractServiceDaemon {
     public EventForwarder getEventForwarder() {
         return m_eventForwarder;
     }
-    
+
     /**
      * <p>setDiscoveryFactory</p>
      *
@@ -170,7 +170,7 @@ public class Discovery extends AbstractServiceDaemon {
     protected void onInit() throws IllegalStateException {
 
         Assert.state(m_eventForwarder != null, "must set the eventForwarder property");
-        
+
         try {
             initializeConfiguration();
             EventIpcManagerFactory.init();
@@ -184,10 +184,10 @@ public class Discovery extends AbstractServiceDaemon {
         DiscoveryConfigFactory.reload();
         setDiscoveryFactory(DiscoveryConfigFactory.getInstance());
     }
-    
+
     private void doPings() {
         LOG.info("starting ping sweep");
-        
+
         try {
             initializeConfiguration();
         } catch (Throwable e) {
@@ -246,7 +246,7 @@ public class Discovery extends AbstractServiceDaemon {
             m_xstatus = PING_FINISHING;
             m_timer.cancel();
         }
-        
+
         LOG.debug("scheduling new discovery timer");
         m_timer = new Timer("Discovery.Pinger", true);
 
@@ -310,7 +310,7 @@ public class Discovery extends AbstractServiceDaemon {
     protected void onResume() {
         startTimer();
     }
-    
+
     /**
      * <p>syncAlreadyDiscovered</p>
      */
@@ -384,7 +384,7 @@ public class Discovery extends AbstractServiceDaemon {
         }
         m_eventForwarder.sendNow(ebldr.getEvent());
     }
-    
+
     /**
      * <p>reloadDaemonConfig</p>
      *
@@ -398,10 +398,10 @@ public class Discovery extends AbstractServiceDaemon {
         }
         LOG.info("reloadDaemonConfig: reload daemon event processed.");
     }
-    
+
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
-        
+
         final List<Parm> parmCollection = event.getParmCollection();
 
         for (final Parm parm : parmCollection) {
@@ -410,7 +410,7 @@ public class Discovery extends AbstractServiceDaemon {
                 break;
             }
         }
-        
+
         LOG.debug("isReloadConfigEventTarget: discovery was target of reload event: {}", isTarget);
         return isTarget;
     }

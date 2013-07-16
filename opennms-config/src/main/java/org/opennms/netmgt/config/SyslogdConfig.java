@@ -52,7 +52,7 @@ public interface SyslogdConfig {
      * @since 1.8.1
      */
     public abstract String getListenAddress();
-    
+
     /**
      * <p>getNewSuspectOnMessage</p>
      *
@@ -101,7 +101,7 @@ public interface SyslogdConfig {
      * @return a {@link org.opennms.netmgt.config.syslogd.HideMessage} object.
      */
     public abstract HideMessage getHideMessages();
-    
+
     /**
      * <p>getDiscardUei</p>
      *

@@ -50,7 +50,7 @@ public class JRobinQueryExecutor extends JRAbstractQueryExecuter {
 
     @Override
     public void close() {
-        
+
     }
 
     @Override

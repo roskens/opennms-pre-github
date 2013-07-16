@@ -35,7 +35,7 @@ package org.opennms.netmgt.provision.service.lifecycle;
  * @version $Id: $
  */
 public interface Lifecycles {
-    
+
     /** Constant <code>IMPORT="import"</code> */
     public static String IMPORT = "import";
     /** Constant <code>NODE="node"</code> */

@@ -12,7 +12,7 @@ public class BottomSimpleViewContribution implements IViewContribution {
 
     @Override
     public Component getView(WidgetContext widgetContext) {
-        
+
         return new Label("This is a test for the bottom view");
     }
 

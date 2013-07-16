@@ -62,7 +62,7 @@ public class ApplicationUpdatedRemoteEvent implements MapRemoteEvent {
 	public void dispatch(final MapRemoteEventHandler presenter) {
 		presenter.updateApplication(m_applicationInfo);
 	}
-	
+
 	/**
 	 * <p>toString</p>
 	 *

@@ -23,7 +23,7 @@ public class MergingGraphProviderTest {
 	private EdgeProvider m_edgeProvider;
 	private MergingGraphProvider m_mergedProvider;
 
-	
+
 	@Before
 	public void setUp() {
 
@@ -47,23 +47,23 @@ public class MergingGraphProviderTest {
 			.edge("ncs1", "nodes", "v1", "nodes", "v3").label("ncsedge1")
 			.edge("ncs2", "nodes", "v2", "nodes", "v4").label("ncsedge2")
 			.get();
-		
+
 		ProviderManager providerManager = new ProviderManager();
 		providerManager.onEdgeProviderBind(m_edgeProvider);
-		
+
 		m_mergedProvider = new MergingGraphProvider(m_graphProvider, providerManager);
 	}
-	
+
 	@Test
 	public void testGraphProvider() {
 		List<? extends Vertex> roots = m_graphProvider.getRootGroup();
 		assertEquals(1, roots.size());
 		Vertex root = roots.get(0);
 		assertNotNull(root);
-		
+
 		assertEquals("nodes", root.getNamespace());
 		assertEquals("g0", root.getId());
-		
+
 		List<? extends Vertex> children = m_graphProvider.getChildren(root);
 		assertEquals(2, children.size());
 		assertEquals(root, m_graphProvider.getParent(children.get(0)));
@@ -80,22 +80,22 @@ public class MergingGraphProviderTest {
 		assertEquals("edge1", m_mergedProvider.getEdge("nodes", "e1").getLabel());
 		assertEquals("ncsedge2", m_mergedProvider.getEdge(new AbstractEdgeRef("ncs", "ncs2")).getLabel());
 	}
-	
+
 	@Test
 	public void testGetEdges() {
 		// with no criteria set.. just base edges
 		List<? extends Edge> edges = m_mergedProvider.getEdges();
-		
+
 		assertEquals(4, edges.size());
 		assertEquals(m_graphProvider.getEdges(), edges);
-		
+
 		// set a criteria now and get some ncs edges
 		m_mergedProvider.setCriteria(SimpleEdgeProvider.labelMatches("ncs", "ncsedge2"));
-		
+
 		edges = m_mergedProvider.getEdges();
 
 		assertEquals(5, edges.size());
 		assertTrue(edges.contains(new AbstractEdgeRef("ncs", "ncs2")));
-		
+
 	}
 }

@@ -34,12 +34,12 @@ import com.google.gwt.i18n.client.Messages;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  *         Basic static string i18n mechanism by GWT for messages with embedded
  *         content. Just add:
  *         DefaultMessage("[''{0}''] English [''{1}''] default String") ''{0}'',
  *         ''{1}'', ... is the template to insert parameters
- *         Key("Key to map value to the translated property files") 
+ *         Key("Key to map value to the translated property files")
  *         String myI18nString([String mySuperString], [Date niceDate]) method to get
  *         the i18n string with the embedded string
  */

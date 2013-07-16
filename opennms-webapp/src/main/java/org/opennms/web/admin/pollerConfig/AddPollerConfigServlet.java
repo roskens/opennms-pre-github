@@ -362,7 +362,7 @@ public class AddPollerConfigServlet extends HttpServlet {
             newprop.setValue(port);
             if (port.indexOf(":") != -1) {
                 newprop.setKey("ports");
-            } else { 
+            } else {
                 newprop.setKey("port");
             }
             if (newMonitor != null && newService != null) {

@@ -79,20 +79,20 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
     @Autowired
     ApplicationDao m_applicationDao;
-    
+
     @Autowired
     LocationMonitorDao m_locationMonitorDao;
-    
+
     @Autowired
     MonitoredServiceDao m_monServiceDao;
-    
+
     @Autowired
     DatabasePopulator m_databasePopulator;
-    
+
     public static final String BASE_REST_URL = "/remotelocations/availability";
-    
+
     public static final boolean USE_EXISTING = false;
-    
+
     @Before
     @Override
     public void setUp() throws Throwable {
@@ -100,8 +100,8 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
 
         DaoTestConfigBean bean = new DaoTestConfigBean();
         bean.afterPropertiesSet();
-        
-        
+
+
         if(USE_EXISTING) {
             TemporaryDatabase db = new TemporaryDatabasePostgreSQL("opennms", true);
             db.setPopulateSchema(false);
@@ -111,11 +111,11 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             MockDatabase db = new MockDatabase(true);
             DataSourceFactory.setInstance(db);
         }
-        
-                
+
+
         setServletContext(new MockServletContext("file:src/main/webapp"));
 
-        getServletContext().addInitParameter("contextConfigLocation", 
+        getServletContext().addInitParameter("contextConfigLocation",
                 "classpath:/org/opennms/web/rest/applicationContext-test.xml " +
                 "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml " +
                 "classpath*:/META-INF/opennms/component-service.xml " +
@@ -127,22 +127,22 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                 "classpath:/META-INF/opennms/applicationContext-reporting.xml " +
                 "/WEB-INF/applicationContext-spring-security.xml " +
                 "/WEB-INF/applicationContext-jersey.xml");
-        
+
         getServletContext().addInitParameter("parentContextKey", "daoContext");
-                
+
         ServletContextEvent e = new ServletContextEvent(getServletContext());
         setContextListener(new ContextLoaderListener());
         getContextListener().contextInitialized(e);
 
         getServletContext().setContextPath(contextPath);
-        setServletConfig(new MockServletConfig(getServletContext(), "dispatcher"));    
+        setServletConfig(new MockServletConfig(getServletContext(), "dispatcher"));
         getServletConfig().addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
         getServletConfig().addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
-        
+
         try {
 
             MockFilterConfig filterConfig = new MockFilterConfig(getServletContext(), "openSessionInViewFilter");
-            setFilter(new OpenSessionInViewFilter());        
+            setFilter(new OpenSessionInViewFilter());
             getFilter().init(filterConfig);
 
             setDispatcher(new SpringServlet());
@@ -151,28 +151,28 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         } catch (ServletException se) {
             throw se.getRootCause();
         }
-        
+
         setWebAppContext(WebApplicationContextUtils.getWebApplicationContext(getServletContext()));
-        
-        
+
+
         afterServletStart();
-        
+
         System.err.println("------------------------------------------------------------------------------");
     }
-    
+
     @Override
     protected void afterServletStart() {
         MockLogAppender.setupLogging();
-        
+
         m_databasePopulator = getBean("databasePopulator", DatabasePopulator.class);
-        
+
         m_applicationDao = getBean("applicationDao", ApplicationDao.class);
         m_locationMonitorDao = getBean("locationMonitorDao", LocationMonitorDao.class);
         m_monServiceDao = getBean("monitoredServiceDao", MonitoredServiceDao.class);
-        
+
         if(!USE_EXISTING) {
             m_databasePopulator.populateDatabase();
-        
+
             try {
                 createLocationMonitors();
             } catch (InterruptedException e) {
@@ -181,15 +181,15 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             }
         }
     }
-    
+
     @Test
     public void testGetAvailability() {
-        
+
         assertFalse("Don't use existing database", USE_EXISTING);
-        
+
         TransactionTemplate txTemplate = getBean("transactionTemplate", TransactionTemplate.class);
         txTemplate.execute(new TransactionCallbackWithoutResult() {
-            
+
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 long startMillis = System.currentTimeMillis() - 12000;
@@ -198,38 +198,38 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                 @SuppressWarnings("unused") // increment the time segment
                 final TimeChunk timeChunk = timeChunker.getNextSegment();
                 Collection<OnmsLocationSpecificStatus> allStatusChanges = m_locationMonitorDao.getStatusChangesForApplicationBetween(new Date(startMillis), new Date(), "IPv6");
-                
+
                 final AvailCalculator calc = new AvailCalculator(timeChunker);
-                
+
                 for(OnmsLocationSpecificStatus statusChange : allStatusChanges) {
                     calc.onStatusChange(statusChange);
                 }
-                
+
                 Collection<OnmsMonitoredService> svcs = m_monServiceDao.findByApplication(m_applicationDao.findByName("IPv6"));
                 double avail = calc.getAvailabilityFor(svcs, 0);
                 assertEquals(0.8333, avail, 0.03);
             }
         });
-        
+
     }
-    
-    
+
+
     @Test
     public void testGetLocations() throws Exception {
         String url = "/remotelocations";
         String responseString = sendRequest(GET, url, 200);
-        
+
         assertTrue(responseString != null);
     }
-    
+
     @Test
     public void testGetParticipants() throws Exception {
         String url = "/remotelocations/participants";
         String responseString = sendRequest(GET, url, 200);
-        
+
         assertTrue(responseString != null);
     }
-    
+
     @Test
     public void testRemotePollerAvailability() throws Exception {
         long startTime = System.currentTimeMillis();
@@ -238,11 +238,11 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         parameters.put("resolution", "minute");
         //addStartTime(parameters);
         //addEndTime(parameters);
-        
+
         String responseString = sendRequest(GET, url, parameters, 200);
-        
-        
-        
+
+
+
         if(USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
@@ -251,14 +251,14 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             assertTrue(responseString.contains("IPv4"));
         }
         System.err.println("total time taken: " + (System.currentTimeMillis() - startTime) + "UptimeCalculator.count = " + UptimeCalculator.count);
-        
+
         Thread.sleep(360000);
-        
+
         startTime = System.currentTimeMillis();
         responseString = sendRequest(GET, url, parameters, 200);
-        
-        
-        
+
+
+
         if(USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
@@ -266,10 +266,10 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
             assertTrue(responseString.contains("IPv6"));
             assertTrue(responseString.contains("IPv4"));
         }
-        
+
         System.err.println("total time taken for cache: " + (System.currentTimeMillis() - startTime) + "UptimeCalculator.count = " + UptimeCalculator.count);
     }
-    
+
     @Test
     public void testRemotePollerAvailabilitySingleLocation() throws Exception {
         long startTime = System.currentTimeMillis();
@@ -278,9 +278,9 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         parameters.put("resolution", "minute");
         addStartTime(parameters);
         addEndTime(parameters);
-        
+
         String responseString = sendRequest(GET, url, parameters, 200);
-        
+
         if(USE_EXISTING) {
             assertTrue(responseString.contains("HTTP-v6"));
             assertTrue(responseString.contains("HTTP-v4"));
@@ -290,7 +290,7 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         }
         System.err.println("total time taken: " + (System.currentTimeMillis() - startTime));
     }
-    
+
     private void addEndTime(Map<String, String> parameters) {
         if(USE_EXISTING) {
             parameters.put("endTime", "" + 1307101853449L);
@@ -314,52 +314,52 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
         parameters.put("startTime", "" + (new Date().getTime() - (86400000 * 2)));
         parameters.put("endTime", "" + (new Date().getTime() - 86400000));
         parameters.put("resolution", "minute");
-        
+
         String responseString = sendRequest(GET, url, parameters, 200);
-        
+
         assertTrue(responseString.contains("IPv6"));
         assertTrue(responseString.contains("IPv4"));
-        
+
     }
-    
-    
+
+
     private void createLocationMonitors() throws InterruptedException {
         TransactionTemplate txTemplate = getBean("transactionTemplate", TransactionTemplate.class);
         txTemplate.execute(new TransactionCallbackWithoutResult() {
-            
+
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
-                
+
                 System.err.println("======= Starting createLocationMonitors() ======");
                 OnmsLocationMonitor locMon1 = new OnmsLocationMonitor();
                 locMon1.setDefinitionName("RDU");
                 locMon1.setLastCheckInTime(new Date());
                 locMon1.setStatus(MonitorStatus.STARTED);
                 m_locationMonitorDao.save(locMon1);
-                
+
                 OnmsApplication ipv6App = new OnmsApplication();
                 ipv6App.setName("IPv6");
                 m_applicationDao.saveOrUpdate(ipv6App);
-                
+
                 OnmsApplication ipv4App = new OnmsApplication();
                 ipv4App.setName("IPv4");
                 m_applicationDao.saveOrUpdate(ipv4App);
-                
+
                 OnmsMonitoredService service2 = m_monServiceDao.findByType("HTTP").get(1);
                 service2.addApplication(ipv4App);
                 ipv4App.addMonitoredService(service2);
                 m_monServiceDao.saveOrUpdate(service2);
                 m_applicationDao.saveOrUpdate(ipv4App);
-                
+
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
                 for(OnmsMonitoredService service : services) {
-                    
+
                     service = m_monServiceDao.findByType("HTTP").get(0);
                     service.addApplication(ipv6App);
                     ipv6App.addMonitoredService(service);
                     m_monServiceDao.saveOrUpdate(service);
                     m_applicationDao.saveOrUpdate(ipv6App);
-                    
+
                     OnmsLocationMonitor locMon = m_locationMonitorDao.findAll().get(0);
                     OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
                     statusChange.setLocationMonitor(locMon);
@@ -367,51 +367,51 @@ public class RemotePollerAvailabilityRestServiceTest extends AbstractSpringJerse
                     statusChange.setMonitoredService(service);
                     m_locationMonitorDao.saveStatusChange(statusChange);
                 }
-                
+
                 System.err.println("======= End createLocationMonitors() ======");
-                
+
             }
         });
-        
+
         Thread.sleep(10000L);
-        
+
         txTemplate.execute(new TransactionCallbackWithoutResult() {
-            
+
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
                 for(OnmsMonitoredService service : services) {
-                
+
                     OnmsLocationMonitor locMon = m_locationMonitorDao.findAll().get(0);
                     OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
                     statusChange.setLocationMonitor(locMon);
                     statusChange.setPollResult(PollStatus.unavailable());
                     statusChange.setMonitoredService(service);
-                
+
                     m_locationMonitorDao.saveStatusChange(statusChange);
                 }
             }
         });
-        
+
         Thread.sleep(2000L);
-        
+
         txTemplate.execute(new TransactionCallbackWithoutResult() {
-            
+
             @Override
             protected void doInTransactionWithoutResult(TransactionStatus status) {
                 List<OnmsMonitoredService> services = m_monServiceDao.findByType("HTTP");
                 for(OnmsMonitoredService service : services) {
-                
+
                     OnmsLocationMonitor locMon = m_locationMonitorDao.findAll().get(0);
                     OnmsLocationSpecificStatus statusChange = new OnmsLocationSpecificStatus();
                     statusChange.setLocationMonitor(locMon);
                     statusChange.setPollResult(PollStatus.available());
                     statusChange.setMonitoredService(service);
-                
+
                     m_locationMonitorDao.saveStatusChange(statusChange);
                 }
             }
         });
-        
+
     }
 }

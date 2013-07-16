@@ -72,13 +72,13 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class EditForeignSourceController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EditForeignSourceController.class);
 
 
     private ForeignSourceService m_foreignSourceService;
     private static final Map<String,Set<String>> m_pluginParameters = new HashMap<String,Set<String>>();
-    
+
     /**
      * <p>setForeignSourceService</p>
      *
@@ -87,14 +87,14 @@ public class EditForeignSourceController extends SimpleFormController {
     public void setForeignSourceService(ForeignSourceService fss) {
         m_foreignSourceService = fss;
     }
-    
+
     public static class TreeCommand {
         private String m_formPath;
         private String m_action;
         private ForeignSource m_formData;
         private String m_currentNode;
         private String m_foreignSourceName = "hardcoded";
-        
+
         public String getAction() {
             return m_action;
         }
@@ -134,7 +134,7 @@ public class EditForeignSourceController extends SimpleFormController {
         public void setDataPath(String path) {
             m_formPath = "foreignSourceEditForm.formData."+path;
         }
-        
+
         @Override
         public String toString() {
             return new ToStringBuilder(this)
@@ -187,7 +187,7 @@ public class EditForeignSourceController extends SimpleFormController {
             errors.reject("Unrecognized action: "+action);
             return showForm(request, response, errors);
         }
-        
+
     }
 
     private ModelAndView done(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
@@ -222,7 +222,7 @@ public class EditForeignSourceController extends SimpleFormController {
         treeCmd.setCurrentNode(treeCmd.getFormPath()+".parameters[" + numParameters + "]");
         return showForm(request, response, errors);
     }
-    
+
     private ModelAndView doSave(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
         ForeignSource fs = m_foreignSourceService.saveForeignSource(treeCmd.getForeignSourceName(), treeCmd.getFormData());
         treeCmd.setFormData(fs);
@@ -243,7 +243,7 @@ public class EditForeignSourceController extends SimpleFormController {
     }
 
     private ModelAndView doDelete(HttpServletRequest request, HttpServletResponse response, TreeCommand treeCmd, BindException errors) throws Exception {
-        
+
         ForeignSource fs = m_foreignSourceService.deletePath(treeCmd.getForeignSourceName(), treeCmd.getDataPath());
         treeCmd.setFormData(fs);
         return showForm(request, response, errors);
@@ -288,7 +288,7 @@ public class EditForeignSourceController extends SimpleFormController {
         map.put("pluginInfo", m_foreignSourceService.getWrappers());
         map.put("classFieldWidth", classFieldWidth);
         map.put("valueFieldWidth", valueFieldWidth);
-        
+
         return map;
     }
 
@@ -316,6 +316,6 @@ public class EditForeignSourceController extends SimpleFormController {
         return null;
     }
 
-    
-    
+
+
 }

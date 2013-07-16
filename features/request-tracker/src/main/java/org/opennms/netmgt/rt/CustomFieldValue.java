@@ -32,7 +32,7 @@ import java.io.Serializable;
 
 public class CustomFieldValue implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1023360304505747481L;
     private String m_value;

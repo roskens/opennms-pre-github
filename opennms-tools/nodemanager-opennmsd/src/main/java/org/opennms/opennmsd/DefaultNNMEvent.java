@@ -36,7 +36,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class DefaultNNMEvent implements NNMEvent {
-    
+
     private static final Logger log = LoggerFactory.getLogger(DefaultNNMEvent.class);
 
     public DefaultNNMEvent(OVsnmpPdu trap) {
@@ -63,8 +63,8 @@ public class DefaultNNMEvent implements NNMEvent {
     public Date getTimeStamp() {
         return new Date();
     }
-    
-    
+
+
 
 
 }

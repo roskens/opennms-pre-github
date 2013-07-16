@@ -46,7 +46,7 @@ import org.opennms.netmgt.xml.event.Parm;
 import org.opennms.netmgt.xml.event.Value;
 
 /**
- * 
+ *
  * @author <a href="mailto:mike@opennms.org">Mike Davidson</a>
  * @author <a href="http://www.opennms.org/">OpenNMS</a>
  */
@@ -64,11 +64,11 @@ final class BroadcastEventProcessor implements EventListener {
      * connection to the message server is opened and this instance is setup as
      * the endpoint for broadcast events. When a new event arrives it is
      * processed and the appropriate action is taken.
-     * 
+     *
      * @param thresholdableServices
      *            List of all the ThresholdableService objects scheduled for
      *            thresholding.
-     * 
+     *
      */
     BroadcastEventProcessor(Threshd threshd, List<ThresholdableService> thresholdableServices) {
 
@@ -122,7 +122,7 @@ final class BroadcastEventProcessor implements EventListener {
 
 	// scheduled outage configuration change
 	ueiList.add(EventConstants.SCHEDOUTAGES_CHANGED_EVENT_UEI);
-        
+
         //thresholds configuration change
         ueiList.add(EventConstants.THRESHOLDCONFIG_CHANGED_EVENT_UEI);
 
@@ -135,7 +135,7 @@ final class BroadcastEventProcessor implements EventListener {
      * still active. This call may be invoked more than once safely and may be
      * invoked during object finalization.
      * </p>
-     * 
+     *
      */
     synchronized void close() {
         EventIpcManagerFactory.getIpcManager().removeEventListener(this);
@@ -246,12 +246,12 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * Process the event.
-     * 
+     *
      * This event is generated when a managed node which supports SNMP gains a
      * new interface. In this situation the ThresholdableService object
      * representing the primary SNMP interface of the node must be
      * reinitialized.
-     * 
+     *
      * The ThresholdableService object associated with the primary SNMP
      * interface for the node will be marked for reinitialization.
      * Reinitializing the ThresholdableService object consists of calling the
@@ -259,12 +259,12 @@ final class BroadcastEventProcessor implements EventListener {
      * ServiceThresholder.initialize() method which will refresh attributes such
      * as the interface key list and number of interfaces (both of which most
      * likely have changed).
-     * 
+     *
      * Reinitialization will take place the next time the ThresholdableService
      * is popped from an interval queue for thresholding.
-     * 
+     *
      * If any errors occur scheduling the service no error is returned.
-     * 
+     *
      * @param event
      *            The event to process.
      */
@@ -299,28 +299,28 @@ final class BroadcastEventProcessor implements EventListener {
                 }
             }
         }
- 
+
     }
 
     /**
      * Process the event.
-     * 
+     *
      * This event is generated when the threshold configuration files are modified.
      * In this situation the ThresholdableService object
      * representing the primary SNMP interface of the node must be
      * reinitialized.
-     * 
+     *
      * The ThresholdableService object associated with the primary SNMP
      * interface for the node will be marked for reinitialization.
      * Reinitializing the ThresholdableService object consists of calling the
      * ServiceThresholder.release() method followed by the
      * ServiceThresholder.initialize() method which will refresh various attributes
-     * 
+     *
      * Reinitialization will take place the next time the ThresholdableService
      * is popped from an interval queue for thresholding.
-     * 
+     *
      * If any errors occur scheduling the service no error is returned.
-     * 
+     *
      * @param event
      *            The event to process.
      */
@@ -332,9 +332,9 @@ final class BroadcastEventProcessor implements EventListener {
             LOG.error("thresholdConfigurationChangedHandler: Failed to reload threshold configuration because {}", e.getMessage(), e);
             return; //Do nothing else - the config is borked, so we carry on with what we've got which should still be relatively ok
         }
-        //Tell the service thresholders to reinit 
+        //Tell the service thresholders to reinit
         m_threshd.reinitializeThresholders();
-        
+
        //Mark *all* thresholdable Services for reinit (very similar to reinitializePrimarySnmpInterfaceHandler but without the interface check)
         synchronized (m_thresholdableServices) {
             for (ThresholdableService tSvc : m_thresholdableServices) {
@@ -353,12 +353,12 @@ final class BroadcastEventProcessor implements EventListener {
      * Process the event, construct a new ThresholdableService object
      * representing the node/interface combination, and schedule the interface
      * for thresholding.
-     * 
+     *
      * If any errors occur scheduling the interface no error is returned.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void nodeGainedServiceHandler(Event event) {
 
@@ -374,20 +374,20 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * Process the 'primarySnmpInterfaceChanged' event.
-     * 
+     *
      * Extract the old and new primary SNMP interface addresses from the event
      * parms. Any ThresholdableService objects located in the collectable
      * services list which match the IP address of the old primary interface and
      * have a service name of "SNMP" are flagged for deletion. This will ensure
      * that the old primary interface is no longer collected against.
-     * 
+     *
      * Finally the new primary SNMP interface is scheduled. The packages are
      * examined and new ThresholdableService objects are created, initialized
      * and scheduled for thresholding.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void primarySnmpInterfaceChangedHandler(Event event) {
 
@@ -399,7 +399,7 @@ final class BroadcastEventProcessor implements EventListener {
         String oldPrimaryIfAddr = null;
         @SuppressWarnings("unused")
         String newPrimaryIfAddr = null;
-        
+
         for (final Parm parm : event.getParmCollection()) {
             final String parmName = parm.getParmName();
             final Value parmValue = parm.getValue();
@@ -478,10 +478,10 @@ final class BroadcastEventProcessor implements EventListener {
      * associated with the old nodeId are moved under the new nodeId and the
      * nodeId of the collectable service is updated to reflect the interface's
      * new parent nodeId.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void interfaceReparentedHandler(Event event) {
 
@@ -535,7 +535,7 @@ final class BroadcastEventProcessor implements EventListener {
         // SnmpMonitor.NodeInfo attribute to reflect the new nodeId. All
         // subsequent thresholdings will then be updating the appropriate RRDs.
         //
-        
+
         //unused - commented out
         //boolean isPrimarySnmpInterface = false;
         synchronized (m_thresholdableServices) {
@@ -570,10 +570,10 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This method is responsible for handling nodeDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void nodeDeletedHandler(Event event) {
 
@@ -615,10 +615,10 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This method is responsible for handling interfaceDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void interfaceDeletedHandler(Event event) {
 
@@ -663,10 +663,10 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This method is responsible for handling serviceDeleted events.
-     * 
+     *
      * @param event
      *            The event to process.
-     * 
+     *
      */
     private void serviceDeletedHandler(Event event) {
 

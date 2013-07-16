@@ -51,7 +51,7 @@ import org.opennms.netmgt.rt.RequestTrackerException;
 public class RtTicketerPlugin implements Plugin {
     private static final Logger LOG = LoggerFactory.getLogger(RtTicketerPlugin.class);
     private static Pattern m_tagPattern = Pattern.compile("<[^>]*>");
-    
+
     private RequestTracker m_requestTracker;
 
     private String m_queue;
@@ -75,13 +75,13 @@ public class RtTicketerPlugin implements Plugin {
 	    m_validOpenStatus = dao.getValidOpenStatus();
 	    m_validClosedStatus = dao.getValidClosedStatus();
 	    m_validCancelledStatus = dao.getValidCancelledStatus();
-	    
+
 	    m_queue = dao.getQueue();
 	    m_requestor = dao.getRequestor();
 
 	    m_requestTracker = new RequestTracker(dao.getBaseURL(), dao.getUsername(), dao.getPassword(), dao.getTimeout(), dao.getRetry());
 	}
-    
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -97,7 +97,7 @@ public class RtTicketerPlugin implements Plugin {
         } catch (final RequestTrackerException e) {
             throw new PluginException(e);
         }
-		
+
 		if (rtt != null) {
 		    ticket = new Ticket();
     		ticket.setState(rtToOpenNMSState(rtt.getStatus()));
@@ -108,7 +108,7 @@ public class RtTicketerPlugin implements Plugin {
 		} else {
 		    throw new PluginException("could not find ticket in RT for Ticket: " + ticketId);
 		}
-		
+
 		return ticket;
 
 	}
@@ -122,64 +122,64 @@ public class RtTicketerPlugin implements Plugin {
 	 */
     @Override
 	public void saveOrUpdate(final Ticket newTicket) throws PluginException {
-		
+
 		String newTicketID;
-		
+
 		Ticket currentTicket = null;
-		
+
 		try {
-		    
+
 		    // If there's no external ID in the OpenNMS ticket, we need to create one
-			
+
 			if ((newTicket.getId() == null) ) {
-			    
+
 			    LOG.debug("TicketId is null creating a new ticket");
                 RTTicket ticket = rtTicketFromTicket(newTicket);
-                
+
                 Long rtTicketNumber = null;
                 try {
                     rtTicketNumber = m_requestTracker.createTicket(ticket);
                 } catch (final Exception e) {
                     throw new PluginException(e);
                 }
-                
+
                 if (rtTicketNumber == null) {
                     throw new PluginException("Received no ticket number from RT");
                 }
-				
+
 			    newTicketID = rtTicketNumber.toString();
 				newTicket.setId(newTicketID);
 
 				LOG.debug("created new ticket: {}", newTicket.getId());
-				
-				
+
+
 			} else {
-			    
-			    currentTicket = get(newTicket.getId()); 
+
+			    currentTicket = get(newTicket.getId());
 				LOG.debug("updating existing ticket: {}", currentTicket.getId());
-				
+
 				if (currentTicket.getState() != newTicket.getState()) {
 					updateRtStatus(newTicket);
 				} else {
 					// There is no else at the moment
 					// Tickets are _only_ updated with new state
 				}
-				
+
 			}
-			
+
 		} catch (final PluginException e) {
 			LOG.error("Failed to create or update RT ticket", e);
 			throw e;
 		}
-			
+
 	}
 
 	/**
 	* Convenience method for updating the Ticket Status in RT
-	* 
+	*
 	* @param ticket the ticket details
 	*/
-	
+
 	private void updateRtStatus(final Ticket ticket) throws PluginException {
 
         try {
@@ -213,15 +213,15 @@ public class RtTicketerPlugin implements Plugin {
      * @param   state   a valid <code>org.opennms.netmgt.ticketd.Ticket.State</code>.
      * @return a String representing the RT Status of the ticket.
      */
-	
+
 	private String openNMSToRTState(final Ticket.State state) {
 
 		String rtStatus;
-		
+
 		LOG.debug("getting RT status from OpenNMS State {}", state);
 
         switch (state) {
-        
+
             case OPEN:
             	// ticket is new
             	rtStatus = m_openStatus;
@@ -241,22 +241,22 @@ public class RtTicketerPlugin implements Plugin {
                 LOG.debug("No valid OpenNMS state on ticket");
                 rtStatus = m_openStatus;
         }
-        
+
         LOG.debug("OpenNMS state was {}, setting RT status to {}", state, rtStatus);
-        
+
         return rtStatus;
     }
 
     /**
-     * Convenience method for converting RT ticket Status to 
+     * Convenience method for converting RT ticket Status to
      * OpenNMS enumerated ticket states.
-     * 
+     *
      * @param rtStatus a valid RT status string
      * @return the converted <code>org.opennms.netmgt.ticketd.Ticket.State</code>
      */
-	
+
     private Ticket.State rtToOpenNMSState(final String rtStatus) {
-    	
+
         if (m_validOpenStatus.contains(rtStatus)) {
         	LOG.debug("RT status {} matched OpenNMS state Open", rtStatus);
         	return Ticket.State.OPEN;
@@ -267,12 +267,12 @@ public class RtTicketerPlugin implements Plugin {
             LOG.debug("RT status {} matched OpenNMS state Cancelled", rtStatus);
             return Ticket.State.CANCELLED;
 		}
-        
+
         // we don't know what it is, so default to keeping it open.
         return Ticket.State.OPEN;
-        
+
     }
-    
+
     /**
      * <p>setUser</p>
      *
@@ -291,7 +291,7 @@ public class RtTicketerPlugin implements Plugin {
     public void setPassword(final String password) {
         m_requestTracker.setPassword(password);
     }
-	
-	
+
+
 
 }

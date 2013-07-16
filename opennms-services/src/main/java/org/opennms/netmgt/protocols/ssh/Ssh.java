@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Ssh.class);
-    
+
     private static final Pattern SSH_IOEXCEPTION_PATTERN = Pattern.compile("^.*java.io.IOException.*$");
     private static final Pattern SSH_AUTHENTICATION_PATTERN = Pattern.compile("^.*Authentication:.*$");
     private static final Pattern SSH_NOROUTETOHOST_PATTERN = Pattern.compile("^.*java.net.NoRouteToHostException.*$");
@@ -76,7 +76,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     protected String m_serverBanner = "";
     protected InetAddress m_address;
     protected Throwable m_error;
-    
+
     private Socket m_socket = null;
     private BufferedReader m_reader = null;
     private OutputStream m_writer = null;
@@ -85,7 +85,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
      * <p>Constructor for Ssh.</p>
      */
     public Ssh() { }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -94,7 +94,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public Ssh(final InetAddress address) {
         setAddress(address);
     }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -105,7 +105,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
         setAddress(address);
         setPort(port);
     }
-    
+
     /**
      * <p>Constructor for Ssh.</p>
      *
@@ -127,7 +127,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public void setAddress(final InetAddress address) {
         m_address = address;
     }
- 
+
     /**
      * Get the address to connect to.
      *
@@ -145,7 +145,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public void setPort(final int port) {
         m_port = port;
     }
-    
+
     /**
      * Get the port to connect to.
      *
@@ -157,7 +157,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
         }
         return m_port;
     }
-    
+
     /**
      * Set the username to connect as.
      *
@@ -166,7 +166,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public void setUsername(final String username) {
         m_username = username;
     }
-    
+
     /**
      * Get the username to connect as.
      *
@@ -175,7 +175,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public String getUsername() {
         return m_username;
     }
-    
+
     /**
      * Set the password to connect with.
      *
@@ -211,7 +211,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     public String getClientBanner() {
         return m_banner;
     }
-    
+
     /**
      * Get the SSH server version banner.
      *
@@ -229,7 +229,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
     protected void setError(final Throwable t) {
         m_error = t;
     }
-    
+
     /**
      * <p>getError</p>
      *
@@ -256,7 +256,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
             m_socket.setTcpNoDelay(true);
             m_socket.connect(new InetSocketAddress(getAddress(), getPort()), getTimeout());
             m_socket.setSoTimeout(getTimeout());
-            
+
             m_reader = new BufferedReader(new InputStreamReader(m_socket.getInputStream()));
             m_writer = m_socket.getOutputStream();
 
@@ -321,7 +321,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
         final double responseTime = tracker.elapsedTimeInMillis();
 
         PollStatus ps = PollStatus.unavailable();
-        
+
         final String errorMessage;
         if (getError() != null) {
             errorMessage = getError().getMessage();
@@ -345,7 +345,7 @@ public class Ssh extends org.opennms.netmgt.protocols.AbstractPoll {
         } else if (SSH_IOEXCEPTION_PATTERN.matcher(errorMessage).matches()) {
             ps = PollStatus.unavailable("I/O exception");
         }
-        
+
         return ps;
     }
 }

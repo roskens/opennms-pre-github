@@ -35,7 +35,7 @@ import java.util.Comparator;
 
 /**
  * <p>This comparator will sort {@link InetAddress} instances in the following order:</p>
- * 
+ *
  * <ul>
  * <li><code>Inet4Address</code> instances</li>
  * <li><code>Inet6Address</code> instances that are routable with scopeId == 0</li>

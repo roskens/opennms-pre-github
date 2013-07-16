@@ -35,13 +35,13 @@ package org.opennms.netmgt.correlation.drools;
  * @version $Id: $
  */
 public class TimerExpired {
-    
+
     private Integer m_id;
-    
+
     TimerExpired(final Integer id) {
         m_id = id;
     }
-    
+
     /**
      * <p>getId</p>
      *

@@ -102,8 +102,8 @@ public class RrdOutputSocket {
             LOG.warn("Error when trying to open connection to {}:{}, dropping {} performance messages: {}", m_host, m_port, m_messageCount, e.getMessage());
         } finally {
             if (socket != null) {
-                try { 
-                    socket.close(); 
+                try {
+                    socket.close();
                 } catch (IOException e) {
                     LOG.warn("IOException when closing TCP performance data socket: {}", e.getMessage());
                 }

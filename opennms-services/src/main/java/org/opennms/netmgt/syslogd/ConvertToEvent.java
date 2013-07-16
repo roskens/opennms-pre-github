@@ -104,10 +104,10 @@ final class ConvertToEvent {
     /**
      * Private constructor to prevent the used of <em>new</em> except by the
      * <code>make</code> method.
-     * 
-     * @param eventXml 
-     * @param port 
-     * @param addr 
+     *
+     * @param eventXml
+     * @param port
+     * @param addr
      */
     private ConvertToEvent(InetAddress addr, int port, String eventXml) {
         m_sender = addr;
@@ -129,7 +129,7 @@ final class ConvertToEvent {
      * @throws java.io.UnsupportedEncodingException
      *          Thrown if the data buffer cannot be decoded using the
      *          US-ASCII encoding.
-     * @throws MessageDiscardedException 
+     * @throws MessageDiscardedException
      */
     static ConvertToEvent make(final DatagramPacket packet, final String matchPattern, final int hostGroup, final int messageGroup, final UeiList ueiList, final HideMessage hideMessage, final String discardUei)
             throws UnsupportedEncodingException, MessageDiscardedException {
@@ -148,7 +148,7 @@ final class ConvertToEvent {
      * @throws java.io.UnsupportedEncodingException
      *          Thrown if the data buffer cannot be decoded using the
      *          US-ASCII encoding.
-     * @throws MessageDiscardedException 
+     * @throws MessageDiscardedException
      */
     static ConvertToEvent make(final InetAddress addr, final int port, final byte[] data,
                                final int len, final String matchPattern, final int hostGroup, final int messageGroup,
@@ -218,7 +218,7 @@ final class ConvertToEvent {
 
             bldr.setInterface(addr(hostAddress));
         }
-        
+
         bldr.setLogDest("logndisplay");
 
 
@@ -254,10 +254,10 @@ final class ConvertToEvent {
             for (final UeiMatch uei : ueiMatch) {
                 final boolean otherStuffMatches = matchFacility(uei.getFacilityCollection(), facilityTxt) &&
                                                   matchSeverity(uei.getSeverityCollection(), priorityTxt) &&
-                                                  matchProcess(uei.getProcessMatch(), message.getProcessName()) && 
+                                                  matchProcess(uei.getProcessMatch(), message.getProcessName()) &&
                                                   matchHostname(uei.getHostnameMatch(), message.getHostName()) &&
                                                   matchHostAddr(uei.getHostaddrMatch(), message.getHostAddress());
-                
+
                 if (otherStuffMatches && uei.getMatch().getType().equals("substr")) {
                     if (matchSubstring(discardUei, bldr, matchedText, uei)) {
                         break;
@@ -281,11 +281,11 @@ final class ConvertToEvent {
                     if (fullText.contains(hide.getMatch().getExpression())) {
                         // We should hide the message based on this match
                     	doHide = true;
-                    }            	
+                    }
                 } else if (hide.getMatch().getType().equals("regex")) {
                 	try {
                     	msgPat = Pattern.compile(hide.getMatch().getExpression(), Pattern.MULTILINE);
-                    	msgMat = msgPat.matcher(fullText);            		
+			msgMat = msgPat.matcher(fullText);
                 	} catch (PatternSyntaxException pse) {
 			    LOG.warn("Failed to compile regex pattern '{}'", hide.getMatch().getExpression(), pse);
                 		msgMat = null;
@@ -310,7 +310,7 @@ final class ConvertToEvent {
         bldr.addParam("syslogmessage", message.getMessage());
         bldr.addParam("severity", "" + priorityTxt);
         bldr.addParam("timestamp", message.getSyslogFormattedDate());
-        
+
         if (message.getProcessName() != null) {
             bldr.addParam("process", message.getProcessName());
         }
@@ -335,26 +335,26 @@ final class ConvertToEvent {
         if (mat != null && mat.find()) return true;
         return false;
     }
-    
+
     private static boolean matchHostAddr(final HostaddrMatch hostaddrMatch, final String hostAddress) {
         if (hostaddrMatch == null) return true;
         if (hostAddress == null) return false;
-        
+
         final String expression = hostaddrMatch.getExpression();
-        
+
         if (matchFind(expression, hostAddress, "hostaddr-match")) {
             LOG.trace("Successful regex hostaddr-match for input '{}' against expression '{}'", hostAddress, expression);
             return true;
         }
         return false;
     }
-    
+
     private static boolean matchHostname(final HostnameMatch hostnameMatch, final String hostName) {
         if (hostnameMatch == null) return true;
         if (hostName == null) return false;
-        
+
         final String expression = hostnameMatch.getExpression();
-        
+
         if (matchFind(expression, hostName, "hostname-match")) {
             LOG.trace("Successful regex hostname-match for input '{}' against expression '{}'", hostName, expression);
             return true;

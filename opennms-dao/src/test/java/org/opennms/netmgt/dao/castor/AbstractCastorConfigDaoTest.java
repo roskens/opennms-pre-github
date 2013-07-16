@@ -42,17 +42,17 @@ import org.springframework.core.io.Resource;
 
 /**
  * Unit tests for common AbstractCastorConfigDao functionality.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  * @see AbstractCastorConfigDao
  */
 public class AbstractCastorConfigDaoTest extends TestCase {
     public void testAfterPropertiesSetWithNoConfigSet() {
         TestCastorConfigDao dao = new TestCastorConfigDao();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property configResource must be set and be non-null"));
-        
+
         try {
             dao.afterPropertiesSet();
         } catch (Throwable t) {
@@ -60,16 +60,16 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
-    
+
+
     public void testAfterPropertiesSetWithBogusFileResource() throws Exception {
         Resource resource = new FileSystemResource("/bogus-file");
         TestCastorConfigDao dao = new TestCastorConfigDao();
         dao.setConfigResource(resource);
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new MarshallingResourceFailureException(ThrowableAnticipator.IGNORE_MESSAGE));
-        
+
         try {
             dao.afterPropertiesSet();
         } catch (Throwable t) {
@@ -77,14 +77,14 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetWithGoodConfigFile() throws Exception {
         TestCastorConfigDao dao = new TestCastorConfigDao();
-        
+
         InputStream in = ConfigurationTestUtils.getInputStreamForConfigFile("users.xml");
         dao.setConfigResource(new InputStreamResource(in));
         dao.afterPropertiesSet();
-        
+
         assertNotNull("userinfo should not be null", dao.getUserinfo());
     }
 
@@ -97,7 +97,7 @@ public class AbstractCastorConfigDaoTest extends TestCase {
         public Userinfo translateConfig(Userinfo castorConfig) {
             return castorConfig;
         }
-        
+
         public Userinfo getUserinfo() {
             return getContainer().getObject();
         }

@@ -33,8 +33,8 @@ public class ImpactEventSent {
 
     private Component m_component;
     private ComponentDownEvent m_cause;
-    
-    
+
+
     public ImpactEventSent(Component component, ComponentDownEvent cause) {
         m_component = component;
         m_cause = cause;
@@ -93,9 +93,9 @@ public class ImpactEventSent {
             return false;
         return true;
     }
-    
-    
-    
-    
+
+
+
+
 
 }

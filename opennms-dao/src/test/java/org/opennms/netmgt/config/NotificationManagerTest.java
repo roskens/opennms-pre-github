@@ -85,13 +85,13 @@ public class NotificationManagerTest implements InitializingBean {
 
 	@Autowired
 	private IpInterfaceDao m_ipInterfaceDao;
-	
+
 	@Autowired
 	private MonitoredServiceDao m_serviceDao;
 
 	@Autowired
 	private ServiceTypeDao m_serviceTypeDao;
-	
+
 	@Autowired
 	private CategoryDao m_categoryDao;
 
@@ -115,7 +115,7 @@ public class NotificationManagerTest implements InitializingBean {
 
         m_configManager = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
         m_notificationManager = new NotificationManagerImpl(m_configManager, m_dataSource);
-        
+
         final OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
         OnmsNode node;
         OnmsIpInterface ipInterface;
@@ -140,7 +140,7 @@ public class NotificationManagerTest implements InitializingBean {
 		node.addCategory(category1);
 		node.addCategory(category2);
 		node.addCategory(category3);
-		
+
 		ipInterface = new OnmsIpInterface(addr("192.168.1.1"), node);
         service = new OnmsMonitoredService(ipInterface, serviceType);
 		m_nodeDao.save(node);
@@ -151,31 +151,31 @@ public class NotificationManagerTest implements InitializingBean {
 		node.addCategory(category2);
 		node.addCategory(category4);
 		m_nodeDao.save(node);
-        
+
         ipInterface = new OnmsIpInterface(addr("192.168.1.1"), node);
         m_ipInterfaceDao.save(ipInterface);
         service = new OnmsMonitoredService(ipInterface, serviceType);
         m_serviceDao.save(service);
-        
+
         ipInterface = new OnmsIpInterface(addr("0.0.0.0"), node);
         m_ipInterfaceDao.save(ipInterface);
-        
+
         // node 3
         node = new OnmsNode(distPoller, "node 3");
         m_nodeDao.save(node);
-        
+
         ipInterface = new OnmsIpInterface(addr("192.168.1.2"), node);
         m_ipInterfaceDao.save(ipInterface);
         service = new OnmsMonitoredService(ipInterface, serviceType);
         m_serviceDao.save(service);
-        
+
         // node 4 has an interface, but no services
         node = new OnmsNode(distPoller, "node 4");
         m_nodeDao.save(node);
 
         ipInterface = new OnmsIpInterface(addr("192.168.1.3"), node);
         m_ipInterfaceDao.save(ipInterface);
-        
+
         // node 5 has no interfaces
         node = new OnmsNode(distPoller, "node 5");
         m_nodeDao.save(node);
@@ -186,7 +186,7 @@ public class NotificationManagerTest implements InitializingBean {
         m_serviceTypeDao.flush();
         m_categoryDao.flush();
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNoElement() {
@@ -195,7 +195,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr IPLIKE *.*.*.*)",
                                            true);
     }
-    
+
     /**
      * This should match because even though the node is not set in the event,
      * the IP address is in the database on *some* node.
@@ -208,7 +208,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            true);
     }
-    
+
     /**
      * Trapd sends events like this (with no nodeId set but an interface set)
      * when it gets a trap from a device with an IP that isn't in the
@@ -250,7 +250,7 @@ public class NotificationManagerTest implements InitializingBean {
             // I expected this
         }
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testIplikeAllStars() {
@@ -268,7 +268,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            true);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNodeOnlyMatchZeroesIpAddr() {
@@ -277,7 +277,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            true);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testNodeOnlyNoMatch() {
@@ -286,7 +286,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            false);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testWrongNodeId() throws InterruptedException {
@@ -295,7 +295,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(nodeid == 1)",
                                            false);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testIpAddrSpecificPass() throws InterruptedException {
@@ -304,7 +304,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            true);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testIpAddrSpecificFail() {
@@ -313,7 +313,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.2')",
                                            false);
     }
-    
+
 
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
@@ -323,7 +323,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            true);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificFail() {
@@ -332,7 +332,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.2')",
                                            false);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testIpAddrServiceSpecificWrongService() {
@@ -350,7 +350,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(ipaddr == '192.168.1.1')",
                                            false);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testMultipleCategories() {
@@ -359,7 +359,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(catincCategoryOne) & (catincCategoryTwo) & (catincCategoryThree)",
                                            true);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testMultipleCategoriesNotMember() throws InterruptedException {
@@ -392,7 +392,7 @@ public class NotificationManagerTest implements InitializingBean {
                                            "(nodeId == 5)",
                                            false);
     }
-    
+
     /**
      * This tests bugzilla bug #1807.  The problem happened when we add our
      * own constraints to the filter but fail to wrap the user's filter in
@@ -411,12 +411,12 @@ public class NotificationManagerTest implements InitializingBean {
                 "(nodelabel=='node 1') | (nodelabel=='node 2')",
                 false);
     }
-    
+
     private void doTestNodeInterfaceServiceWithRule(String description, int nodeId, String intf, String svc, String rule, boolean matches) {
         Notification notif = new Notification();
         notif.setName("a notification");
         notif.setRule(rule);
-        
+
         EventBuilder builder = new EventBuilder("uei.opennms.org/doNotCareAboutTheUei", "Test.Event");
         builder.setNodeid(nodeId);
         builder.setInterface(addr(intf));
@@ -424,7 +424,7 @@ public class NotificationManagerTest implements InitializingBean {
 
         assertEquals(description, matches, m_notificationManager.nodeInterfaceServiceValid(notif, builder.getEvent()));
     }
-    
+
     public static class NotificationManagerImpl extends NotificationManager {
         protected NotificationManagerImpl(NotifdConfigManager configManager, DataSource dcf) {
             super(configManager, dcf);
@@ -433,7 +433,7 @@ public class NotificationManagerTest implements InitializingBean {
         @Override
         protected void saveXML(String xmlString) throws IOException {
             return;
-            
+
         }
 
         @Override

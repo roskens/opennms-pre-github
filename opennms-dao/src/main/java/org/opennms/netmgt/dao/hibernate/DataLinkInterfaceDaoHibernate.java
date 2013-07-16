@@ -105,7 +105,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 	final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.eq("node.type", "D");
-        
+
         for (final DataLinkInterface dataLinkIface : findMatching(builder.toCriteria())) {
         	dataLinkIface.setStatus(StatusType.DELETED);
         	saveOrUpdate(dataLinkIface);
@@ -149,11 +149,11 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
     @Override
     public void setStatusForNode(final Integer nodeid, final String source, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE (nodeid = ? OR nodeparentid = ?) and source = ?
-        
+
         final CriteriaBuilder builder = new CriteriaBuilder(DataLinkInterface.class);
         if (source != null) builder.eq("source", source);
         builder.or(new EqRestriction("node.id", nodeid), new EqRestriction("nodeParentId", nodeid));
-        
+
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
             iface.setStatus(action);
             saveOrUpdate(iface);
@@ -166,7 +166,7 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
 
         setStatusForNodeAndIfIndex(nodeid, ifIndex, null, action);
     }
-    
+
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeid, final Integer ifIndex, String source, final StatusType action) {
         // UPDATE datalinkinterface set status = ? WHERE source = ? and ((nodeid = ? and ifindex = ?) OR (nodeparentid = ? AND parentifindex = ?))
@@ -178,13 +178,13 @@ public class DataLinkInterfaceDaoHibernate extends AbstractDaoHibernate<DataLink
             new AllRestriction(
                 new EqRestriction("node.id", nodeid),
                 new EqRestriction("ifIndex", ifIndex)
-            ), 
+            ),
             new AllRestriction(
                 new EqRestriction("nodeParentId", nodeid),
                 new EqRestriction("parentIfIndex", ifIndex)
             )
         );
-        
+
         for (final DataLinkInterface iface : findMatching(builder.toCriteria())) {
             iface.setStatus(action);
             saveOrUpdate(iface);

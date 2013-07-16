@@ -47,16 +47,16 @@ import org.slf4j.LoggerFactory;
  * This class is designed to collect the necessary SMB information from the
  * target address and store the collected information. When the class is
  * initially constructed no information is collected.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Weave </a>
  * @author <a href="mailto:mike@opennms.org">Mike </a>
  * @author <a href="http://www.opennms.org">OpenNMS </a>
- * 
+ *
  */
 final class IfSmbCollector implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfSmbCollector.class);
-    
+
     /**
      * The MAC address that is returned from a Samba server
      */
@@ -105,10 +105,10 @@ final class IfSmbCollector implements Runnable {
     /**
      * This method is used to convert a 6 byte MAC address into a colon
      * separated string.
-     * 
+     *
      * @param mac
      *            The 6 byte MAC address
-     * 
+     *
      * @return The formatted MAC address.
      */
     private String toMacString(byte[] mac) {
@@ -124,10 +124,10 @@ final class IfSmbCollector implements Runnable {
     /**
      * Constructs a new SMB collector targeted at the passed address. The
      * presence of an Exchange server is set to false.
-     * 
+     *
      * @param target
      *            The target IP address.
-     * 
+     *
      */
     IfSmbCollector(InetAddress target) {
         m_target = target;
@@ -143,12 +143,12 @@ final class IfSmbCollector implements Runnable {
     /**
      * Constructs a new SMB collector targeted at the passed address. The
      * presence of an Exchange server is set to passed value.
-     * 
+     *
      * @param target
      *            The target IP address.
      * @param hasExchange
      *            Sets the presence or absence of an exchange server.
-     * 
+     *
      */
     IfSmbCollector(InetAddress target, boolean hasExchange) {
         m_target = target;
@@ -232,10 +232,10 @@ final class IfSmbCollector implements Runnable {
     /**
      * This method inspects the provided netBIOS name for control characters
      * (chars w/ decimal value less than 20/ <SPACE>
-     * 
+     *
      * @param nbName
      *            NetBIOS name to check
-     * 
+     *
      * @return true if string contains control chars, false otherwise.
      */
     boolean containsCtrlChars(String nbName) {

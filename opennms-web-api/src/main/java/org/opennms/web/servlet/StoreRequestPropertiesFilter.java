@@ -75,7 +75,7 @@ public class StoreRequestPropertiesFilter implements Filter {
             request.setAttribute(m_relativeServletPathAttribute,
                                  servletPath);
         }
-        
+
         chain.doFilter(request, response);
     }
 

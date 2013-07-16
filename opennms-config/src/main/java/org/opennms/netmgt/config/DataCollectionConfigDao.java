@@ -104,7 +104,7 @@ public interface DataCollectionConfigDao {
 
     /**
      * <p>getRootDataCollection</p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.config.datacollection.DatacollectionConfig} object.
      */
     DatacollectionConfig getRootDataCollection();

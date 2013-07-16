@@ -76,7 +76,7 @@ public class LegacyLocalReportsDao implements LocalReportsDao {
         m_configResource = configResource;
         Assert.notNull(m_configResource, "property configResource must be set to a non-null value");
         logger.debug("Config resource is set to " + m_configResource.toString());
-        
+
         try {
             loadConfiguration();
         } catch (Exception e) {

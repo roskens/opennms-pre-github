@@ -61,7 +61,7 @@ public class EventConfWrapper {
     public int hashCode() {
         return m_event.getUei().hashCode();
     }
-    
+
     @Override
     public String toString() {
     		StringBuffer b = new StringBuffer("Event: ");
@@ -132,11 +132,11 @@ public class EventConfWrapper {
 		if (m_event.getUei() != null) {
 			b.append(" Uei: " + m_event.getUei() + "\n");
 		}
-        
+
 		b.append("End Event\n");
         return b.toString();
     }
-    
+
     public static String toString(Event e) {
     	return e == null ? null : new EventConfWrapper(e).toString();
     }

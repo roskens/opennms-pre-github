@@ -59,14 +59,14 @@ import org.springframework.core.io.InputStreamResource;
  * @author <a href="mail:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultDataCollectionConfigDaoTest {
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
         System.setProperty("opennms.home", "src/test/opennms-home");
         ConfigurationTestUtils.setRelativeHomeDirectory("src/test/opennms-home");
     }
-    
+
     @After
     public void tearDown() {
         MockLogAppender.assertNoWarningsOrGreater();

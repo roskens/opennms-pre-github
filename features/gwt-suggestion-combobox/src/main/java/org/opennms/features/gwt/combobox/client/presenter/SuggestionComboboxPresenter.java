@@ -42,19 +42,19 @@ import com.google.gwt.user.client.Window.Location;
 import com.google.gwt.user.client.ui.HasWidgets;
 
 public class SuggestionComboboxPresenter implements Presenter, SuggestionComboboxView.Presenter<NodeDetail>{
-    
+
     private final SimpleEventBus m_eventBus;
     private final SuggestionComboboxView<NodeDetail> m_view;
     private final NodeService m_nodeService;
-    
+
     public SuggestionComboboxPresenter(SimpleEventBus eventBus, SuggestionComboboxView<NodeDetail> view, NodeService nodeService) {
         m_eventBus = eventBus;
         m_view = view;
         m_view.setPresenter(this);
-        
+
         m_nodeService = nodeService;
     }
-    
+
     @Override
     public void go(final HasWidgets container) {
         container.clear();
@@ -72,7 +72,7 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
     @Override
     public void onGoButtonClicked() {
         m_nodeService.getNodeByNodeLabel(m_view.getSelectedText(), new RequestCallback() {
-            
+
             @Override
             public void onResponseReceived(Request request, Response response) {
                 if(response.getStatusCode() == 200) {
@@ -82,7 +82,7 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
                     Window.alert("Error Occurred Retreiving Nodes");
                 }
             }
-            
+
             @Override
             public void onError(Request request, Throwable exception) {
                 Window.alert("error in retrieving the Rest call");
@@ -107,7 +107,7 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
             @Override
             public void onError(Request request, Throwable exception) {
                 Window.alert("error in retrieving the Rest call");
-                
+
             }
         });
     }
@@ -126,7 +126,7 @@ public class SuggestionComboboxPresenter implements Presenter, SuggestionCombobo
 
         Location.assign(builder.toString());
     }
-    
+
     public native final String getBaseHref()/*-{
         try{
             return $wnd.getBaseHref();

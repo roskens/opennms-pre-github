@@ -40,9 +40,9 @@ import java.io.PrintWriter;
  * @author <a href="weave@oculan.com">Weave </a>
  */
 public class FilterParseException extends RuntimeException {
-    
+
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -1504582717903933407L;
     /**

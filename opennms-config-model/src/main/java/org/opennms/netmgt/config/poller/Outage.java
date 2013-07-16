@@ -54,7 +54,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * A scheduled outage
- * 
+ *
  */
 
 @XmlRootElement(name="outage", namespace="http://xmlns.opennms.org/xsd/config/poller/outages")
@@ -84,8 +84,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vInterface
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -95,8 +95,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vInterface
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -107,8 +107,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vNode
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -118,8 +118,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vNode
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -131,7 +131,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method enumerateInterface.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -141,7 +141,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method enumerateNode.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -151,7 +151,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -168,14 +168,14 @@ public class Outage extends BasicSchedule implements Serializable {
             Outage temp = (Outage)obj;
             if (this._interfaceList != null) {
                 if (temp._interfaceList == null) return false;
-                else if (!(this._interfaceList.equals(temp._interfaceList))) 
+                else if (!(this._interfaceList.equals(temp._interfaceList)))
                     return false;
             }
             else if (temp._interfaceList != null)
                 return false;
             if (this._nodeList != null) {
                 if (temp._nodeList == null) return false;
-                else if (!(this._nodeList.equals(temp._nodeList))) 
+                else if (!(this._nodeList.equals(temp._nodeList)))
                     return false;
             }
             else if (temp._nodeList != null)
@@ -187,7 +187,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method getInterface.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -209,7 +209,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Interface[] getInterface() {
@@ -221,7 +221,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method getInterfaceCollection.Returns a reference to
      * '_interfaceList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Interface> getInterfaceCollection() {
@@ -230,7 +230,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method getInterfaceCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getInterfaceCount() {
@@ -239,7 +239,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method getNode.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -261,7 +261,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Node[] getNode() {
@@ -273,7 +273,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Method getNodeCollection.Returns a reference to '_nodeList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Node> getNodeCollection() {
@@ -282,7 +282,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method getNodeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getNodeCount() {
@@ -294,7 +294,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
@@ -313,7 +313,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -329,7 +329,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method iterateInterface.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -339,7 +339,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method iterateNode.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -348,8 +348,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -363,8 +363,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -393,7 +393,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method removeInterface.
-     * 
+     *
      * @param vInterface
      * @return true if the object was removed from the collection.
      */
@@ -403,7 +403,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method removeInterfaceAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -413,7 +413,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method removeNode.
-     * 
+     *
      * @param vNode
      * @return true if the object was removed from the collection.
      */
@@ -423,7 +423,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method removeNodeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -432,8 +432,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vInterface
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -449,8 +449,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vInterfaceArray
      */
     public void setInterface(final Interface[] vInterfaceArray) {
@@ -465,7 +465,7 @@ public class Outage extends BasicSchedule implements Serializable {
     /**
      * Sets the value of '_interfaceList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vInterfaceList the Vector to copy.
      */
     public void setInterface(final List<Interface> vInterfaceList) {
@@ -479,7 +479,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Sets the value of '_interfaceList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param _interfaceList the Vector to set.
      */
     public void setInterfaceCollection(final List<Interface> _interfaceList) {
@@ -487,8 +487,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vNode
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -504,8 +504,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vNodeArray
      */
     public void setNode(final Node[] vNodeArray) {
@@ -520,7 +520,7 @@ public class Outage extends BasicSchedule implements Serializable {
     /**
      * Sets the value of '_nodeList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vNodeList the Vector to copy.
      */
     public void setNode(final List<Node> vNodeList) {
@@ -534,7 +534,7 @@ public class Outage extends BasicSchedule implements Serializable {
      * Sets the value of '_nodeList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param nodeList the Vector to set.
      */
     public void setNodeCollection(final List<Node> nodeList) {
@@ -543,7 +543,7 @@ public class Outage extends BasicSchedule implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -558,8 +558,8 @@ public class Outage extends BasicSchedule implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

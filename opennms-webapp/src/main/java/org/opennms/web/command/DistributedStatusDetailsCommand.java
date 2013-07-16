@@ -38,7 +38,7 @@ package org.opennms.web.command;
 public class DistributedStatusDetailsCommand {
     private String m_location;
     private String m_application;
-    
+
     /**
      * <p>getApplication</p>
      *
@@ -71,5 +71,5 @@ public class DistributedStatusDetailsCommand {
     public void setLocation(String location) {
         m_location = location;
     }
-    
+
 }

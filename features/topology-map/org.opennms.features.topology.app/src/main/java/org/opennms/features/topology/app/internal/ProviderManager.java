@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  * It relays bind and unbind events to each GraphProvider.
  */
 public class ProviderManager {
-	
+
 	public static interface ProviderListener {
 
 		void edgeProviderAdded(EdgeProvider oldProvider,
@@ -29,23 +29,23 @@ public class ProviderManager {
 				VertexProvider newProvider);
 
 		void vertexProviderRemoved(VertexProvider removedProvider);
-		
+
 	}
-	
+
 	private static final Logger s_log = LoggerFactory.getLogger(ProviderManager.class);
-	
+
 	private final Map<String, VertexProvider> m_vertexProviders = new HashMap<String, VertexProvider>();
 	private final Map<String, EdgeProvider> m_edgeProviders = new HashMap<String, EdgeProvider>();
 	private final Set<ProviderListener> m_listeners = new CopyOnWriteArraySet<ProviderListener>();
-	
+
 	public Collection<VertexProvider> getVertexListeners() {
 		return Collections.unmodifiableCollection(m_vertexProviders.values());
 	}
-	
+
 	public Collection<EdgeProvider> getEdgeListeners() {
 		return Collections.unmodifiableCollection(m_edgeProviders.values());
 	}
-	
+
 	public synchronized void onEdgeProviderBind(EdgeProvider newProvider) {
 		s_log.info("ProviderManager onEdgeProviderBind({}}", newProvider);
 		try {
@@ -91,7 +91,7 @@ public class ProviderManager {
 			LoggerFactory.getLogger(this.getClass()).warn("Exception during onVertexProviderUnbind()", e);
 		}
 	}
-    
+
     private void fireEdgeProviderAdded(EdgeProvider oldProvider, EdgeProvider newProvider) {
     	for(ProviderListener listener : m_listeners) {
     		listener.edgeProviderAdded(oldProvider, newProvider);
@@ -115,11 +115,11 @@ public class ProviderManager {
     		listener.vertexProviderRemoved(removedProvider);
     	}
 	}
-    
+
     public void addProviderListener(ProviderListener providerListener) {
     	m_listeners.add(providerListener);
     }
-    
+
     public void removeProviderListener(ProviderListener providerListener) {
     	m_listeners.remove(providerListener);
     }

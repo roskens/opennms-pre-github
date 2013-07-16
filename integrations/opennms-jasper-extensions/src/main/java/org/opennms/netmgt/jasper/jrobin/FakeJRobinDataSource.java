@@ -37,7 +37,7 @@ import net.sf.jasperreports.engine.JRField;
 public class FakeJRobinDataSource implements JRDataSource {
 
     private static long INCREMENT = 300L * 1000L;
-    
+
     private int m_rows;
     private String[] m_fields;
     private int m_currentRow = 0;
@@ -69,7 +69,7 @@ public class FakeJRobinDataSource implements JRDataSource {
         }
         return null;
     }
-    
+
     @Override
     public boolean next() throws JRException {
         m_currentRow++;

@@ -45,7 +45,7 @@ public enum AcknowledgeType {
 
     /** Constant <code>s_ackTypesString</code> */
     private static final Map<String, AcknowledgeType> s_ackTypesString;
-    
+
     private String m_shortName;
 
     static {
@@ -87,7 +87,7 @@ public enum AcknowledgeType {
     public String getShortName() {
         return m_shortName;
     }
-    
+
     /**
      * Convenience method for getting the SQL <em>ORDER BY</em> clause related
      * this sort style.
@@ -98,13 +98,13 @@ public enum AcknowledgeType {
         switch (this) {
         case ACKNOWLEDGED:
             return " ALARMACKUSER IS NOT NULL";
-    
+
         case UNACKNOWLEDGED:
             return " ALARMACKUSER IS NULL";
-    
+
         case BOTH:
             return " (ALARMACKUSER IS NULL OR ALARMACKUSER IS NOT NULL)";
-            
+
         default:
             throw new IllegalArgumentException("Cannot get clause for AcknowledgeType " + this);
         }

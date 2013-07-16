@@ -34,7 +34,7 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * <p>
  * AccessPointMonitorMBean interface.
  * </p>
- * 
+ *
  * @author <a href="jwhite@datavalet.com">Jesse White</a>
  */
 public interface AccessPointMonitorMBean extends BaseOnmsMBean {

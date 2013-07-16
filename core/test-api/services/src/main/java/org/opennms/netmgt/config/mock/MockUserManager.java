@@ -44,7 +44,7 @@ public class MockUserManager extends UserManager {
     boolean updateNeeded = true;
     private long m_lastModified;
     private long m_fileSize;
-    
+
     public MockUserManager(GroupManager groupManager, String xmlString) throws MarshalException, ValidationException {
         super(groupManager);
         m_xmlString = xmlString;

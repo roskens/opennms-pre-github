@@ -52,7 +52,7 @@ public class SetSequenceGenerator extends AbstractSqlGenerator<SetSequenceStatem
     public String getTempTableName() {
     	return m_tempTableName;
     }
-    
+
         @Override
 	public ValidationErrors validate(final SetSequenceStatement statement, final Database database, final SqlGeneratorChain sqlGeneratorChain) {
         ValidationErrors validationErrors = new ValidationErrors();
@@ -75,7 +75,7 @@ public class SetSequenceGenerator extends AbstractSqlGenerator<SetSequenceStatem
 			sb.append(statement.getValue());
 		} else {
 			sb.append("(SELECT max(").append(m_tempTableName).append(".id)").append("+1").append(" AS id FROM (");
-			
+
 			final List<String> tables = statement.getTables();
 			final Map<String,String> columns = statement.getColumns();
 			final int tableSize = tables.size();

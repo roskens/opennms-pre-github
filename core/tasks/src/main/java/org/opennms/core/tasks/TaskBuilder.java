@@ -35,9 +35,9 @@ package org.opennms.core.tasks;
  * @version $Id: $
  */
 public class TaskBuilder<T extends ContainerTask<?>> {
-    
+
     private T m_task;
-    
+
     /**
      * <p>Constructor for TaskBuilder.</p>
      *
@@ -47,25 +47,25 @@ public class TaskBuilder<T extends ContainerTask<?>> {
     public TaskBuilder(T task) {
         m_task = task;
     }
-    
+
     /**
      * <p>createSequence</p>
      *
      * @return a {@link org.opennms.core.tasks.TaskBuilder} object.
      */
     public TaskBuilder<SequenceTask> createSequence() {
-        return m_task.getCoordinator().createSequence(m_task); 
+        return m_task.getCoordinator().createSequence(m_task);
     }
-    
+
     /**
      * <p>createBatch</p>
      *
      * @return a {@link org.opennms.core.tasks.TaskBuilder} object.
      */
     public TaskBuilder<BatchTask> createBatch() {
-        return m_task.getCoordinator().createBatch(m_task); 
+        return m_task.getCoordinator().createBatch(m_task);
     }
-    
+
     /**
      * <p>setParent</p>
      *
@@ -76,7 +76,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         parent.add(m_task);
         return this;
     }
-    
+
     /**
      * <p>addSequence</p>
      *
@@ -87,7 +87,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         createSequence().add(runnables).setParent(m_task);
         return this;
     }
-    
+
     /**
      * <p>addSequence</p>
      *
@@ -98,7 +98,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         createSequence().add(runIns).setParent(m_task);
         return this;
     }
-    
+
     /**
      * <p>addBatch</p>
      *
@@ -121,7 +121,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         return this;
     }
 
-    
+
     /**
      * <p>add</p>
      *
@@ -134,7 +134,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         }
         return this;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -153,7 +153,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         }
         return this;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -171,7 +171,7 @@ public class TaskBuilder<T extends ContainerTask<?>> {
         }
         return this;
     }
-    
+
     /**
      * <p>get</p>
      *
@@ -190,6 +190,6 @@ public class TaskBuilder<T extends ContainerTask<?>> {
     public T get(ContainerTask<?> parent) {
         return setParent(parent).get();
     }
-    
+
 
 }

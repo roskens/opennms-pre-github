@@ -59,7 +59,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  */
 public final class SSLCertPlugin extends AbstractPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SSLCertPlugin.class);
 
     /**

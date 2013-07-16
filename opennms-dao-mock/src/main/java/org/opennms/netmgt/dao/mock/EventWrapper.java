@@ -75,7 +75,7 @@ public class EventWrapper {
     public int hashCode() {
         return m_event.getUei().hashCode();
     }
-    
+
     /**
      * <p>toString</p>
      *

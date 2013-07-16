@@ -48,7 +48,7 @@ public class BlueprintIViewContribution implements IViewContribution {
 
 	@Override
 	public Component getView(WidgetContext widgetContext) {
-		// Get the component by asking the blueprint container to instantiate a prototype bean 
+		// Get the component by asking the blueprint container to instantiate a prototype bean
 		Component component = (Component)m_container.getComponentInstance(m_beanName);
 		return component;
 	}

@@ -35,9 +35,9 @@ package org.opennms.netmgt.provision.detector.ssh.response;
  * @version $Id: $
  */
 public class SshResponse {
-    
+
     private boolean m_isAvailable = false;
-    
+
     /**
      * <p>receive</p>
      *
@@ -46,7 +46,7 @@ public class SshResponse {
     public void receive(boolean isAvail) {
         m_isAvailable = isAvail;
     }
-    
+
     /**
      * <p>isAvailable</p>
      *

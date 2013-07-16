@@ -357,7 +357,7 @@ public class TerminalTest {
 		term.write("\u001b[49;m");
 		term.write("\u001b[<8;m");
 	}
-	
+
 	@Test
 	public void testCSI_DSR() {
 		//testing different Device Status Reports (DSR)
@@ -371,62 +371,62 @@ public class TerminalTest {
 		term.write("\u001b[?26n");
 		term.write("\u001b[?53n");
 	}
-	
+
 	@Test
 	public void testCSI_DECREQTPARM() {
 		//testing different Report Terminal Parameters
 		term.write("\u001b[0x");
 		term.write("\u001b[1x");
 	}
-	
+
 	@Test
 	public void testCSI_ED() {
 		//testing the erase display sequence
 		term.write("\u001b[1J");
 		term.write("\u001b[2J");
 	}
-	
+
 	@Test
 	public void testCSI_DA() {
 		//testing the Device Attributes
 		term.write("\u001b[>0c");
 	}
-	
+
 	@Test
 	public void testCSI_TBC() {
 		//testing the Tabulation Clear sequence
 		term.write("\u001b[3g");
 		term.write("\u001b[4g");
 	}
-	
+
 	@Test
 	public void testCSI_EL() {
 		//testing the erase line sequence
 		term.write("\u001b[1K");
 		term.write("\u001b[2K");
 	}
-	
+
 	@Test
 	public void testCSI_CTC() {
 		//testing the Cursor Tabulation Control
 		term.write("\u001b[5W");
 		term.write("\u001b[6W");
 	}
-	
+
 	@Test
 	public void testCSI_DECSTBM() {
 		//testing the Top and Bottom margins
 		term.write("\u001b[?6h");
 		term.write("\u001b[" + (char)0x72);
 	}
-	
+
 	@Test
 	public void testCSI_CUP() {
 		//testing the Cursor up sequence
 		term.write("\u001b[?6h");
 		term.write("\u001b[" + (char)0x48);
 	}
-	
+
 	@Test
 	public void testDUMB_ECHO() {
 		//testing chars that fall through to the dumb_echo method
@@ -434,7 +434,7 @@ public class TerminalTest {
 		term.write("" + (char)8);
 		term.write("" + (char)9);
 	}
-	
+
 	@Test
 	public void testState_Str() {
 		//testing different sequences that change the state to Str

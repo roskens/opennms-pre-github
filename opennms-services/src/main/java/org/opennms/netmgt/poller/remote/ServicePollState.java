@@ -79,7 +79,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     public void setLastPoll(final PollStatus lastPoll) {
         m_lastPoll = lastPoll;
     }
-    
+
     /**
      * <p>getLastPollTime</p>
      *
@@ -88,7 +88,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
     public Date getLastPollTime() {
         return (m_lastPoll == null ? null : m_lastPoll.getTimestamp());
     }
-    
+
     /**
      * <p>getNextPollTime</p>
      *
@@ -151,7 +151,7 @@ public class ServicePollState implements Comparable<ServicePollState>, Serializa
             .append(this.getPolledService(), that.getPolledService())
             .isEquals();
     }
-    
+
     /**
      * <p>compareTo</p>
      *

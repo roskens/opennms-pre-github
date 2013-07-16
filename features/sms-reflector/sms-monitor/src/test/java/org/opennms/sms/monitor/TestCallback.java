@@ -40,11 +40,11 @@ import org.smslib.InboundMessage;
 import org.smslib.USSDResponse;
 
 public class TestCallback implements MobileMsgResponseCallback {
-    
+
     CountDownLatch m_latch = new CountDownLatch(1);
     AtomicReference<MobileMsgResponse> m_response = new AtomicReference<MobileMsgResponse>(null);
 
-    
+
     MobileMsgResponse getResponse() throws InterruptedException {
         m_latch.await();
         return m_response.get();
@@ -80,7 +80,7 @@ public class TestCallback implements MobileMsgResponseCallback {
 
     /**
      * @return
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     public InboundMessage getMessage() throws InterruptedException {
         MobileMsgResponse response = getResponse();
@@ -88,9 +88,9 @@ public class TestCallback implements MobileMsgResponseCallback {
             return ((SmsResponse)response).getMessage();
         }
         return null;
-        
+
     }
-    
+
     public USSDResponse getUSSDResponse() throws InterruptedException{
         MobileMsgResponse response = getResponse();
         if (response instanceof UssdResponse) {
@@ -98,5 +98,5 @@ public class TestCallback implements MobileMsgResponseCallback {
         }
         return null;
     }
-    
+
 }

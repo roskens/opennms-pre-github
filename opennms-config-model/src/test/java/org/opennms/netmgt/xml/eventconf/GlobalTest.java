@@ -59,7 +59,7 @@ public class GlobalTest extends XmlTestNoCastor<Global> {
 				"<doNotOverride>I'm very important, don't mess with me!</doNotOverride>" +
 				"</security>" +
 				"</global>",
-				"target/classes/xsds/eventconf.xsd" }, 
+				"target/classes/xsds/eventconf.xsd" },
 				{global1,
 					"<global>" +
 					"<security>" +
@@ -67,7 +67,7 @@ public class GlobalTest extends XmlTestNoCastor<Global> {
 					"<doNotOverride>Also important</doNotOverride>" +
 					"</security>" +
 					"</global>",
-					"target/classes/xsds/eventconf.xsd" }, 
+					"target/classes/xsds/eventconf.xsd" },
 		});
 	}
 

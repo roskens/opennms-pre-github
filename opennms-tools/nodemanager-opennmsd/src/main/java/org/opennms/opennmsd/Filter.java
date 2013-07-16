@@ -31,21 +31,21 @@ package org.opennms.opennmsd;
 import java.util.regex.Pattern;
 
 public class Filter {
-    
+
     public static final String DISCARD = "discard";
     public static final String ACCEPT = "accept";
     public static final String PRESERVE = "preserve";
-    
+
     private Pattern m_categoryMatcher;
     private Pattern m_eventNameMatcher;
     private Pattern m_severityMatcher;
     private String m_addressMatchSpec;
     private String m_action = Filter.DISCARD;
-    
+
     public String getAction() {
         return m_action;
     }
-    
+
     public void setCategoryMatcher(String categoryMatcherRegexp) {
         m_categoryMatcher = Pattern.compile(categoryMatcherRegexp);
     }
@@ -101,7 +101,7 @@ public class Filter {
         return m_categoryMatcher.matcher(category).find();
 
     }
-    
+
     public String toString() {
         StringBuffer buf = new StringBuffer("[ ");
         buf.append(toPatternString(m_categoryMatcher)).append(" ");
@@ -111,16 +111,16 @@ public class Filter {
         buf.append(" ]");
         return buf.toString();
     }
-    
+
     private String toPatternString(Pattern p) {
         if (p == null) return "<match-any>";
         return p.pattern();
     }
-    
+
     private String toAddrSpecString(String addrSpec) {
         if (addrSpec == null) return "<match-any>";
         return addrSpec;
     }
-    
-    
+
+
 }

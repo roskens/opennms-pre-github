@@ -39,7 +39,7 @@ import org.opennms.features.topology.api.IconRepository;
 import org.slf4j.LoggerFactory;
 
 public class IconRepositoryManager {
-    
+
     private class ConfigIconRepository implements IconRepository{
 
         private Map<String, String> m_iconMap = new HashMap<String, String>();
@@ -48,32 +48,32 @@ public class IconRepositoryManager {
         public boolean contains(String type) {
             return m_iconMap.containsKey(type);
         }
-        
+
         @Override
         public String getIconUrl(String type) {
             return m_iconMap.get(type);
         }
-        
+
         public void addIconConfig(String key, String url) {
             if(m_iconMap.containsKey(key)) {
                 m_iconMap.remove(key);
             }
             m_iconMap.put(key, url);
         }
-        
+
     }
-    
+
     private List<IconRepository> m_iconRepos = new ArrayList<IconRepository>();
     private ConfigIconRepository m_configRepo = new ConfigIconRepository();
-    
+
     public IconRepositoryManager() {
         m_iconRepos.add(m_configRepo);
     }
-    
+
     public void addRepository(IconRepository iconRepo) {
         m_iconRepos.add(iconRepo);
     }
-    
+
     public synchronized void onBind(IconRepository iconRepo) {
         try {
             addRepository(iconRepo);
@@ -81,7 +81,7 @@ public class IconRepositoryManager {
             LoggerFactory.getLogger(this.getClass()).warn("Exception during onBind()", e);
         }
     }
-    
+
     public synchronized void onUnbind(IconRepository iconRepo) {
         try {
             m_iconRepos.remove(iconRepo);
@@ -89,7 +89,7 @@ public class IconRepositoryManager {
             LoggerFactory.getLogger(this.getClass()).warn("Exception during onUnbind()", e);
         }
     }
-    
+
     public String lookupIconUrlForExactKey(String key) {
         for(IconRepository iconRepo : m_iconRepos) {
             if(iconRepo.contains(key)) {
@@ -98,17 +98,17 @@ public class IconRepositoryManager {
         }
         return null;
     }
-    
+
     public String findIconUrlByKey(String key) {
-    	
+
         if(key != null) {
         	// if the exact key is configured then use it
         	String iconUrl = lookupIconUrlForExactKey(key);
         	if (iconUrl != null) {
         		return iconUrl;
         	}
-            
-        	// 
+
+		//
             int lastColon = key.lastIndexOf(':');
             if ("default".equals(key)) {
             	// we got here an no default icon was registered!!
@@ -131,12 +131,12 @@ public class IconRepositoryManager {
         }else {
             return findIconUrlByKey("default");
         }
-        
+
     }
 
     public void updateIconConfig(Dictionary<String,?> properties) {
         Enumeration<String> keys = properties.keys();
-        
+
         while(keys.hasMoreElements()) {
             String key = keys.nextElement();
             String url = (String)properties.get(key);

@@ -87,8 +87,8 @@ public class IncludeCollection implements Serializable {
 
 
     /**
-     * 
-     * 
+     *
+     *
      * @param excludeFilter
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -98,8 +98,8 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param excludeFilter
      * @throws IndexOutOfBoundsException if the index
@@ -111,7 +111,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method enumerateExcludeFilter.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -121,7 +121,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -129,27 +129,27 @@ public class IncludeCollection implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof IncludeCollection) {
-        
+
             final IncludeCollection temp = (IncludeCollection)obj;
             if (m_systemDef != null) {
                 if (temp.m_systemDef == null) return false;
-                else if (!(m_systemDef.equals(temp.m_systemDef))) 
+                else if (!(m_systemDef.equals(temp.m_systemDef)))
                     return false;
             }
             else if (temp.m_systemDef != null)
                 return false;
             if (m_dataCollectionGroup != null) {
                 if (temp.m_dataCollectionGroup == null) return false;
-                else if (!(m_dataCollectionGroup.equals(temp.m_dataCollectionGroup))) 
+                else if (!(m_dataCollectionGroup.equals(temp.m_dataCollectionGroup)))
                     return false;
             }
             else if (temp.m_dataCollectionGroup != null)
                 return false;
             if (m_excludeFilters != null) {
                 if (temp.m_excludeFilters == null) return false;
-                else if (!(m_excludeFilters.equals(temp.m_excludeFilters))) 
+                else if (!(m_excludeFilters.equals(temp.m_excludeFilters)))
                     return false;
             }
             else if (temp.m_excludeFilters != null)
@@ -163,7 +163,7 @@ public class IncludeCollection implements Serializable {
      * Returns the value of field 'dataCollectionGroup'. The field
      * 'dataCollectionGroup' has the following description: Data
      * Collection Group Name
-     * 
+     *
      * @return the value of field 'DataCollectionGroup'.
      */
     @XmlAttribute(name="dataCollectionGroup")
@@ -173,7 +173,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method getExcludeFilter.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -190,10 +190,10 @@ public class IncludeCollection implements Serializable {
      * Method getExcludeFilter.Returns the contents of the
      * collection in an Array.  <p>Note:  Just in case the
      * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call. 
+     * a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of
      * exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="exclude-filter")
@@ -205,7 +205,7 @@ public class IncludeCollection implements Serializable {
      * Method getExcludeFilterCollection.Returns a reference to
      * '_excludeFilterList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getExcludeFilterCollection() {
@@ -214,7 +214,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method getExcludeFilterCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getExcludeFilterCount() {
@@ -225,7 +225,7 @@ public class IncludeCollection implements Serializable {
      * Returns the value of field 'systemDef'. The field
      * 'systemDef' has the following description: System Definition
      * Name
-     * 
+     *
      * @return the value of field 'SystemDef'.
      */
     @XmlAttribute(name="systemDef")
@@ -238,7 +238,7 @@ public class IncludeCollection implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
@@ -254,13 +254,13 @@ public class IncludeCollection implements Serializable {
         if (m_excludeFilters != null) {
            result = 37 * result + m_excludeFilters.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -275,7 +275,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method iterateExcludeFilter.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -284,8 +284,8 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -298,8 +298,8 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -321,7 +321,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method removeExcludeFilter.
-     * 
+     *
      * @param excludeFilter
      * @return true if the object was removed from the collection.
      */
@@ -331,7 +331,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method removeExcludeFilterAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -343,7 +343,7 @@ public class IncludeCollection implements Serializable {
      * Sets the value of field 'dataCollectionGroup'. The field
      * 'dataCollectionGroup' has the following description: Data
      * Collection Group Name
-     * 
+     *
      * @param dataCollectionGroup the value of field
      * 'dataCollectionGroup'.
      */
@@ -365,8 +365,8 @@ public class IncludeCollection implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param excludeFilters
      */
     public void setExcludeFilter(final String[] excludeFilters) {
@@ -379,7 +379,7 @@ public class IncludeCollection implements Serializable {
     /**
      * Sets the value of '_excludeFilterList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param excludeFilters the Vector to copy.
      */
     public void setExcludeFilter(final List<String> excludeFilters) {
@@ -393,7 +393,7 @@ public class IncludeCollection implements Serializable {
      * Sets the value of '_excludeFilterList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param excludeFilters the Vector to set.
      */
     public void setExcludeFilterCollection(final List<String> excludeFilters) {
@@ -406,7 +406,7 @@ public class IncludeCollection implements Serializable {
     /**
      * Sets the value of field 'systemDef'. The field 'systemDef'
      * has the following description: System Definition Name
-     * 
+     *
      * @param systemDef the value of field 'systemDef'.
      */
     public void setSystemDef(final String systemDef) {
@@ -415,7 +415,7 @@ public class IncludeCollection implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling

@@ -58,7 +58,7 @@ public interface MapsAdapterConfig {
      *
      * @return a {@link java.util.List} object.
      */
-    public List<Cmap> getAllMaps();    
+    public List<Cmap> getAllMaps();
     /**
      * <p>getSubMaps</p>
      *
@@ -106,6 +106,6 @@ public interface MapsAdapterConfig {
     public void update() throws IOException, MarshalException, ValidationException;
 
     public Lock getReadLock();
-    
+
     public Lock getWriteLock();
 }

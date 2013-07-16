@@ -33,7 +33,7 @@ import org.opennms.web.filter.NoSubstringFilter;
 public class NegativeEventParmLikeFilter extends NoSubstringFilter {
 
     public static final String TYPE = "noparmmatchany";
-    
+
     public NegativeEventParmLikeFilter(String value) {
         super(TYPE, "eventParms", "eventParms", value + "(string,text)");
     }
@@ -48,11 +48,11 @@ public class NegativeEventParmLikeFilter extends NoSubstringFilter {
 
         return buffer.toString();
     }
-    
+
     @Override
     public String getDescription() {
         return TYPE + "=" + getValueString().replace("(string,text)", "");
-        
+
     }
 
 }

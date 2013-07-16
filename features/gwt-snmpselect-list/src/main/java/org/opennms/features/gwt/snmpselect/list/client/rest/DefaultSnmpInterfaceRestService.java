@@ -45,7 +45,7 @@ import com.google.gwt.json.client.JSONObject;
 import com.google.gwt.json.client.JSONParser;
 
 public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService{
-    
+
     private static String DEFAULT_RESPONSE = "{" +
     "\"@totalCount\" : \"2\"," +
     "\"@count\" : \"2\"," +
@@ -84,19 +84,19 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
       "\"nodeId\" : \"10\"" +
     "} ]" +
 "}";
-    
+
     private SnmpInterfaceRequestHandler m_requestHandler;
     private int m_nodeId;
-    
+
     public DefaultSnmpInterfaceRestService(int nodeId) {
         m_nodeId = nodeId;
     }
-    
+
     @Override
     public void getInterfaceList() {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode("rest/nodes/" + m_nodeId + "/snmpinterfaces?limit=0"));
         builder.setHeader("accept", "application/json");
-        
+
         try {
             builder.sendRequest(null, new RequestCallback() {
 
@@ -107,7 +107,7 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
                     }else {
                         m_requestHandler.onError("An Error Occurred retreiving the SNMP Interfaces for this node.\n" +
                         		"Status Code: " + response.getStatusCode());
-                        
+
                         m_requestHandler.onResponse(parseJSONData(DEFAULT_RESPONSE));
                     }
                 }
@@ -115,26 +115,26 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
                 @Override
                 public void onError(Request request, Throwable exception) {
                     m_requestHandler.onError(exception.getMessage());
-                    
+
                 }
             });
         } catch (RequestException e) {
             e.printStackTrace();
         }
-        
+
     }
 
     protected List<SnmpCellListItem> parseJSONData(String jsonString) {
         List<SnmpCellListItem> cellList = new ArrayList<SnmpCellListItem>();
         JSONObject jsonObject = JSONParser.parseStrict(jsonString).isObject();
-        
+
         if(jsonObject.containsKey("snmpInterface") && jsonObject.get("snmpInterface").isArray() != null) {
             JsArray<SnmpCellListItem> jsArray = createJsArray(jsonObject.get("snmpInterface").isArray().getJavaScriptObject());
             for(int i = 0; i < jsArray.length(); i++) {
                 cellList.add(jsArray.get(i));
             }
         }
-        
+
         return cellList;
     }
 
@@ -152,7 +152,7 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
 
                 @Override
                 public void onResponseReceived(Request request, Response response) {
-                    
+
                 }
 
                 @Override
@@ -169,5 +169,5 @@ public class DefaultSnmpInterfaceRestService implements SnmpInterfaceRestService
     public void setSnmpInterfaceRequestHandler(SnmpInterfaceRequestHandler handler) {
         m_requestHandler = handler;
     }
-    
+
 }

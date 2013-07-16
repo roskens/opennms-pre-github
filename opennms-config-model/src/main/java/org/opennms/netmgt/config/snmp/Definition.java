@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -65,7 +65,7 @@ import org.xml.sax.ContentHandler;
  * which
  *  will be used in place of the default values during SNMP data
  *  collection.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -105,8 +105,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIpMatch
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -116,8 +116,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIpMatch
      * @throws IndexOutOfBoundsException if the index
@@ -128,8 +128,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRange
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -139,8 +139,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRange
      * @throws IndexOutOfBoundsException if the index
@@ -151,8 +151,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vSpecific
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -162,8 +162,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vSpecific
      * @throws IndexOutOfBoundsException if the index
@@ -175,7 +175,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method enumerateIpMatch.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -185,7 +185,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method enumerateRange.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -195,7 +195,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method enumerateSpecific.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -205,7 +205,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Overrides the Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -215,7 +215,7 @@ public class Definition extends Configuration implements Serializable {
 		if (this == obj) return true;
 
 		final Definition temp = (Definition)obj;
-		
+
 		return new EqualsBuilder()
 			.appendSuper(super.equals(obj))
 			.append(getRangeCollection(), temp.getRangeCollection())
@@ -226,7 +226,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getIpMatch.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -237,7 +237,7 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._ipMatchList.size()) {
             throw new IndexOutOfBoundsException("getIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
         }
-        
+
         return _ipMatchList.get(index);
     }
 
@@ -247,7 +247,7 @@ public class Definition extends Configuration implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public String[] getIpMatch() {
@@ -258,7 +258,7 @@ public class Definition extends Configuration implements Serializable {
      * Method getIpMatchCollection.Returns a reference to
      * '_ipMatchList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getIpMatchCollection() {
@@ -267,7 +267,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getIpMatchCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIpMatchCount() {
@@ -276,7 +276,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getRange.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -288,7 +288,7 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._rangeList.size()) {
             throw new IndexOutOfBoundsException("getRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
         }
-        
+
         return _rangeList.get(index);
     }
 
@@ -298,7 +298,7 @@ public class Definition extends Configuration implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Range[] getRange() {
@@ -309,7 +309,7 @@ public class Definition extends Configuration implements Serializable {
      * Method getRangeCollection.Returns a reference to
      * '_rangeList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Range> getRangeCollection() {
@@ -318,7 +318,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getRangeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getRangeCount() {
@@ -327,7 +327,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getSpecific.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -338,7 +338,7 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._specificList.size()) {
             throw new IndexOutOfBoundsException("getSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
         }
-        
+
         return _specificList.get(index);
     }
 
@@ -348,7 +348,7 @@ public class Definition extends Configuration implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public String[] getSpecific() {
@@ -359,7 +359,7 @@ public class Definition extends Configuration implements Serializable {
      * Method getSpecificCollection.Returns a reference to
      * '_specificList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getSpecificCollection() {
@@ -368,7 +368,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method getSpecificCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getSpecificCount() {
@@ -380,14 +380,14 @@ public class Definition extends Configuration implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
         @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         if (_rangeList != null) {
            result = 37 * result + _rangeList.hashCode();
         }
@@ -397,13 +397,13 @@ public class Definition extends Configuration implements Serializable {
         if (_ipMatchList != null) {
            result = 37 * result + _ipMatchList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
         @Override
@@ -418,7 +418,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method iterateIpMatch.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -428,7 +428,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method iterateRange.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -438,7 +438,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method iterateSpecific.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -447,8 +447,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -461,8 +461,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -490,7 +490,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeIpMatch.
-     * 
+     *
      * @param vIpMatch
      * @return true if the object was removed from the collection.
      */
@@ -500,7 +500,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeIpMatchAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -510,7 +510,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeRange.
-     * 
+     *
      * @param vRange
      * @return true if the object was removed from the collection.
      */
@@ -520,7 +520,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeRangeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -530,7 +530,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeSpecific.
-     * 
+     *
      * @param vSpecific
      * @return true if the object was removed from the collection.
      */
@@ -540,7 +540,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method removeSpecificAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -549,8 +549,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIpMatch
      * @throws IndexOutOfBoundsException if the index
@@ -561,19 +561,19 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._ipMatchList.size()) {
             throw new IndexOutOfBoundsException("setIpMatch: Index value '" + index + "' not in range [0.." + (this._ipMatchList.size() - 1) + "]");
         }
-        
+
         this._ipMatchList.set(index, vIpMatch);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIpMatchArray
      */
     public void setIpMatch(final String[] vIpMatchArray) {
         //-- copy array
         _ipMatchList.clear();
-        
+
         for (int i = 0; i < vIpMatchArray.length; i++) {
                 this._ipMatchList.add(vIpMatchArray[i]);
         }
@@ -582,13 +582,13 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_ipMatchList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vIpMatchList the Vector to copy.
      */
     public void setIpMatch(final List<String> vIpMatchList) {
         // copy vector
         this._ipMatchList.clear();
-        
+
         this._ipMatchList.addAll(vIpMatchList);
     }
 
@@ -596,7 +596,7 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_ipMatchList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ipMatchList the Vector to set.
      */
     public void setIpMatchCollection(final List<String> ipMatchList) {
@@ -604,8 +604,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRange
      * @throws IndexOutOfBoundsException if the index
@@ -616,19 +616,19 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._rangeList.size()) {
             throw new IndexOutOfBoundsException("setRange: Index value '" + index + "' not in range [0.." + (this._rangeList.size() - 1) + "]");
         }
-        
+
         this._rangeList.set(index, vRange);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRangeArray
      */
     public void setRange(final Range[] vRangeArray) {
         //-- copy array
         _rangeList.clear();
-        
+
         for (int i = 0; i < vRangeArray.length; i++) {
                 this._rangeList.add(vRangeArray[i]);
         }
@@ -637,13 +637,13 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_rangeList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vRangeList the Vector to copy.
      */
     public void setRange(final List<Range> vRangeList) {
         // copy vector
         this._rangeList.clear();
-        
+
         this._rangeList.addAll(vRangeList);
     }
 
@@ -651,7 +651,7 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_rangeList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param rangeList the Vector to set.
      */
     public void setRangeCollection(final List<Range> rangeList) {
@@ -659,8 +659,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vSpecific
      * @throws IndexOutOfBoundsException if the index
@@ -671,19 +671,19 @@ public class Definition extends Configuration implements Serializable {
         if (index < 0 || index >= this._specificList.size()) {
             throw new IndexOutOfBoundsException("setSpecific: Index value '" + index + "' not in range [0.." + (this._specificList.size() - 1) + "]");
         }
-        
+
         this._specificList.set(index, vSpecific);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vSpecificArray
      */
     public void setSpecific(final String[] vSpecificArray) {
         //-- copy array
         _specificList.clear();
-        
+
         for (int i = 0; i < vSpecificArray.length; i++) {
                 this._specificList.add(vSpecificArray[i]);
         }
@@ -692,13 +692,13 @@ public class Definition extends Configuration implements Serializable {
     /**
      * Sets the value of '_specificList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vSpecificList the Vector to copy.
      */
     public void setSpecific(final List<String> vSpecificList) {
         // copy vector
         this._specificList.clear();
-        
+
         this._specificList.addAll(vSpecificList);
     }
 
@@ -706,7 +706,7 @@ public class Definition extends Configuration implements Serializable {
      * Sets the value of '_specificList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param specificList the Vector to set.
      */
     public void setSpecificCollection(final List<String> specificList) {
@@ -715,7 +715,7 @@ public class Definition extends Configuration implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -729,8 +729,8 @@ public class Definition extends Configuration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

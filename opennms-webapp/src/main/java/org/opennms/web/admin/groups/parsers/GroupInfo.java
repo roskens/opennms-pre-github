@@ -232,7 +232,7 @@ public class GroupInfo {
         for (String user : m_users) {
             buffer.append("\t" + user + "\n");
         }
- 
+
         for (DutySchedule dutySchedule : m_dutySchedules) {
             buffer.append(dutySchedule.toString() + "\n");
         }

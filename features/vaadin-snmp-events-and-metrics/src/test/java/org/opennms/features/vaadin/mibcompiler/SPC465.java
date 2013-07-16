@@ -44,8 +44,8 @@ import org.opennms.features.vaadin.mibcompiler.services.JsmiMibParser;
 
 /**
  * The Test Class for <a href="http://issues.opennms.org/browse/SPC-465">SPC-465</a>
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class SPC465 {
 
@@ -67,7 +67,7 @@ public class SPC465 {
     /**
      * Test standard parse.
      * <p>This test is to verify that the problem is not JsmiParser.</p>
-     * 
+     *
      * @throws Exception the exception
      */
     @Test

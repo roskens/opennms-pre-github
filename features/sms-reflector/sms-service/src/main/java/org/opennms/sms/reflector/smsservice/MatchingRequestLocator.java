@@ -40,7 +40,7 @@ import org.opennms.protocols.rt.RequestLocator;
  * @version $Id: $
  */
 public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, MobileMsgResponse> {
-    
+
     private final Set<MobileMsgRequest> m_requests = new CopyOnWriteArraySet<MobileMsgRequest>();
 
     /**
@@ -64,15 +64,15 @@ public class MatchingRequestLocator implements RequestLocator<MobileMsgRequest, 
     @Override
     public MobileMsgRequest locateMatchingRequest(MobileMsgResponse response) {
         for(MobileMsgRequest request : m_requests) {
-            
+
             if (request.matches(response)) {
                 return request;
             }
-        }   
-            
+        }
+
         return null;
     }
-    
+
     /**
      * <p>requestTimedOut</p>
      *

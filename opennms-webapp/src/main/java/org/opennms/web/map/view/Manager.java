@@ -69,8 +69,8 @@ public interface Manager {
      * @throws MapsException if any.
      * @throws org.opennms.web.map.MapNotFoundException if any.
      */
-    VMap openMap() throws 
-            MapNotFoundException;    
+    VMap openMap() throws
+            MapNotFoundException;
 
     /**
      * Take the map with id in input and return it in VMap form.
@@ -82,7 +82,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      * @throws org.opennms.web.map.MapNotFoundException if any.
      */
-    VMap openMap(int id, String user, boolean refreshElems) throws MapNotFoundException, MapsException ;    
+    VMap openMap(int id, String user, boolean refreshElems) throws MapNotFoundException, MapsException ;
 
     /**
      * <p>clearMap</p>
@@ -120,7 +120,7 @@ public interface Manager {
 	 * @param mapid a int.
 	 * @return a {@link org.opennms.web.map.view.VElement} object.
 	 */
-	VElement newElement(int mapid, int elementId, String type) throws MapsException ;	
+	VElement newElement(int mapid, int elementId, String type) throws MapsException ;
 
 	/**
 	 * Create a new (not child) empty Submap with the identifier setted to id.
@@ -134,9 +134,9 @@ public interface Manager {
 	 * @throws org.opennms.web.map.MapsException if any.
 	 * @param iconname a {@link java.lang.String} object.
 	 */
-	VElement newElement(int mapId, int elementId, String type, String iconname, int x,int y) throws 
+	VElement newElement(int mapId, int elementId, String type, String iconname, int x,int y) throws
             MapsException ;
-	
+
     /**
      * delete the map current map
      *
@@ -156,7 +156,7 @@ public interface Manager {
      * @return a int.
      */
     int save(VMap map) throws MapsException ;
-        
+
     /**
      * <p>refreshMap</p>
      *
@@ -165,7 +165,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     VMap refreshMap(VMap map) throws MapsException;
-        
+
     /**
      * Refreshs avail,severity and status of the map in input and its elements
      *
@@ -174,7 +174,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     VMap reloadMap(VMap map)throws MapsException;
-        
+
     /**
      * <p>foundLoopOnMaps</p>
      *
@@ -184,7 +184,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     boolean foundLoopOnMaps(VMap parentMap,int mapId) throws MapsException ;
-    
+
 	/**
 	 * <p>getElementInfo</p>
 	 *
@@ -192,7 +192,7 @@ public interface Manager {
 	 * @throws org.opennms.web.map.MapsException if any.
 	 */
 	List<VElementInfo> getElementInfo() throws MapsException;
-	
+
     /**
      * Get a Map of nodelabel to the
      * container mapids.
@@ -202,7 +202,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     Map<String,Set<Integer>> getNodeLabelToMaps(String user) throws MapsException;
-    
+
     /**
      * <p>searchMap</p>
      *
@@ -215,7 +215,7 @@ public interface Manager {
      * @return a {@link org.opennms.web.map.view.VMap} object.
      */
     VMap searchMap(String owner,String userModifies, int width, int height,List<VElement> velems) throws MapsException ;
-    
+
     /**
      * <p>getProperties</p>
      *
@@ -224,7 +224,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     VProperties getProperties(boolean isUserAdmin) throws MapsException;
-    
+
     /**
      * <p>addElements</p>
      *
@@ -234,7 +234,7 @@ public interface Manager {
      * @throws org.opennms.web.map.MapsException if any.
      */
     VMap addElements(VMap map, List<VElement> velems) throws MapsException;
-    
+
     /**
      * <p>reloadConfig</p>
      *
@@ -246,10 +246,10 @@ public interface Manager {
      * <p> ExecCommand</p>
      */
     String execCommand(Command command);
-    
+
     Command getCommand(String id);
-    
+
     void removeCommand(String id);
-        
+
     boolean checkCommandExecution();
 }

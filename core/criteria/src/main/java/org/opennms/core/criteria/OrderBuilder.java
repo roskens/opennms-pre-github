@@ -37,16 +37,16 @@ import org.slf4j.LoggerFactory;
 
 
 public final class OrderBuilder {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OrderBuilder.class);
-	
+
     private final LinkedHashSet<Order> m_orders = new LinkedHashSet<Order>();
 
     private String m_lastAttribute = null;
 
     /**
      * Append an order object to the end of the order list.
-     * 
+     *
      * @param order
      *            the order object to append
      * @return whether it was added (true if added, false if already

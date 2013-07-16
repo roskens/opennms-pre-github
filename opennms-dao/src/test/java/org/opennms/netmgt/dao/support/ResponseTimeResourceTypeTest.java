@@ -45,11 +45,11 @@ public class ResponseTimeResourceTypeTest extends TestCase {
     public void testGetResourcesUsingDao() throws IOException {
         ResourceDao resourceDao = new DefaultResourceDao();
         NodeDao nodeDao = createMock(NodeDao.class);
-        
+
         expect(nodeDao.get(1)).andReturn(new OnmsNode());
-        
+
         ResponseTimeResourceType r = new ResponseTimeResourceType(resourceDao, nodeDao);
-        
+
         replay(nodeDao);
         r.getResourcesForNode(1);
         verify(nodeDao);

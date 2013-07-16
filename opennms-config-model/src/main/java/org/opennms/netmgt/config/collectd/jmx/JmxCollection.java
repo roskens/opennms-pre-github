@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -54,7 +54,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class JmxCollection.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -139,7 +139,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -148,13 +148,13 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof JmxCollection) {
-        
+
             JmxCollection temp = (JmxCollection)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
@@ -163,14 +163,14 @@ import org.exolab.castor.xml.Unmarshaller;
                 return false;
             if (this._rrd != null) {
                 if (temp._rrd == null) return false;
-                else if (!(this._rrd.equals(temp._rrd))) 
+                else if (!(this._rrd.equals(temp._rrd)))
                     return false;
             }
             else if (temp._rrd != null)
                 return false;
             if (this._mbeans != null) {
                 if (temp._mbeans == null) return false;
-                else if (!(this._mbeans.equals(temp._mbeans))) 
+                else if (!(this._mbeans.equals(temp._mbeans)))
                     return false;
             }
             else if (temp._mbeans != null)
@@ -183,7 +183,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'maxVarsPerPdu'. The field
      * 'maxVarsPerPdu' has the following description: DEPRECATED
-     * 
+     *
      * @return the value of field 'MaxVarsPerPdu'.
      */
     public int getMaxVarsPerPdu(
@@ -193,7 +193,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'mbeans'.
-     * 
+     *
      * @return the value of field 'Mbeans'.
      */
     public Mbeans getMbeans(
@@ -203,7 +203,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -213,7 +213,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'rrd'.
-     * 
+     *
      * @return the value of field 'Rrd'.
      */
     public Rrd getRrd(
@@ -223,7 +223,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method hasMaxVarsPerPdu.
-     * 
+     *
      * @return true if at least one MaxVarsPerPdu has been added
      */
     public boolean hasMaxVarsPerPdu(
@@ -236,14 +236,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -255,13 +255,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_mbeans != null) {
            result = 37 * result + _mbeans.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -276,8 +276,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -292,8 +292,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -312,7 +312,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'maxVarsPerPdu'. The field
      * 'maxVarsPerPdu' has the following description: DEPRECATED
-     * 
+     *
      * @param maxVarsPerPdu the value of field 'maxVarsPerPdu'.
      */
     public void setMaxVarsPerPdu(
@@ -322,7 +322,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'mbeans'.
-     * 
+     *
      * @param mbeans the value of field 'mbeans'.
      */
     public void setMbeans(
@@ -332,7 +332,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -342,7 +342,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'rrd'.
-     * 
+     *
      * @param rrd the value of field 'rrd'.
      */
     public void setRrd(
@@ -352,7 +352,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -369,8 +369,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

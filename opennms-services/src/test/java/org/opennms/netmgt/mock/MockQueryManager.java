@@ -46,7 +46,7 @@ public class MockQueryManager implements QueryManager {
     public void setDataSource(DataSource dataSource) {
         // Don't do anything because this one doesn't use the database.
     }
-    
+
     @Override
     public DataSource getDataSource() {
         return null;
@@ -136,15 +136,15 @@ public class MockQueryManager implements QueryManager {
         // TODO Auto-generated method stub
 
     }
-    
-    
+
+
     @Override
     public void resolveOutage(int nodeId, String ipAddr, String svcName, int dbid, String time) {
         // TODO Auto-generated method stub
 
     }
-    
-    
+
+
     @Override
     public void reparentOutages(String ipAddr, int oldNodeId, int newNodeId) {
         // TODO Auto-generated method stub

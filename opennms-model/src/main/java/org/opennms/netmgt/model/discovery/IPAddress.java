@@ -44,7 +44,7 @@ import org.opennms.core.utils.InetAddressUtils;
 public class IPAddress implements Comparable<IPAddress> {
 
     final byte[] m_ipAddr;
-    
+
     /**
      * <p>Constructor for IPAddress.</p>
      *
@@ -53,7 +53,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public IPAddress(final IPAddress addr) {
         m_ipAddr = addr.m_ipAddr;
     }
-    
+
     /**
      * <p>Constructor for IPAddress.</p>
      *
@@ -62,7 +62,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public IPAddress(final String dottedNotation) {
         m_ipAddr = InetAddressUtils.toIpAddrBytes(dottedNotation);
     }
-    
+
     /**
      * <p>Constructor for IPAddress.</p>
      *
@@ -71,7 +71,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public IPAddress(final InetAddress inetAddress) {
         m_ipAddr = inetAddress.getAddress();
     }
-    
+
     /**
      * <p>Constructor for IPAddress.</p>
      *
@@ -80,7 +80,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public IPAddress(final byte[] ipAddrOctets) {
         m_ipAddr = ipAddrOctets;
     }
-    
+
     /**
      * <p>toInetAddress</p>
      *
@@ -89,7 +89,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public InetAddress toInetAddress() {
         return InetAddressUtils.getInetAddress(m_ipAddr);
     }
-    
+
     /**
      * <p>toOctets</p>
      *
@@ -112,7 +112,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public int hashCode() {
     	return Arrays.hashCode(m_ipAddr);
     }
-    
+
     /**
      * <p>compareTo</p>
      *
@@ -123,12 +123,12 @@ public class IPAddress implements Comparable<IPAddress> {
     public int compareTo(final IPAddress o) {
         return new ByteArrayComparator().compare(m_ipAddr, o.toOctets());
     }
-    
+
     public String toUserString() {
         // this returns dotted notation for ipv4 or the double colon format for ipv6
         return toInetAddress().getHostAddress().replaceFirst("(^|:)(0:)+", "::");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -138,14 +138,14 @@ public class IPAddress implements Comparable<IPAddress> {
     public String toDbString() {
         return InetAddressUtils.toIpAddrString(m_ipAddr);
     }
-    
+
     /** {@inheritDoc} */
     public BigInteger toBigInteger() {
         return new BigInteger(1, m_ipAddr);
     }
-    
-    
-    
+
+
+
     /**
      * <p>incr</p>
      *
@@ -160,15 +160,15 @@ public class IPAddress implements Comparable<IPAddress> {
             // if overflow we need to carry to the next byte
             carry = b[i] == 0 ? carry : 0;
         }
-        
+
         if (carry > 0) {
             // we have overflowed the address
             throw new IllegalStateException("you have tried to increment the max ip address");
         }
-        
+
         return new IPAddress(b);
     }
-    
+
     /**
      * <p>decr</p>
      *
@@ -176,23 +176,23 @@ public class IPAddress implements Comparable<IPAddress> {
      */
     public IPAddress decr() {
     	final byte[] b = new byte[m_ipAddr.length];
-        
+
         int borrow = 1;
         for(int i = m_ipAddr.length-1; i >= 0; i--) {
             b[i] = (byte)(m_ipAddr[i] - borrow);
             // if underflow then we need to borrow from the next byte
             borrow = b[i] == (byte)0xff ? borrow : 0;
         }
-        
+
         if (borrow > 0) {
             // we have underflowed the address
             throw new IllegalStateException("you have tried to decrement the '0' ip address");
         }
-        
+
         return new IPAddress(b);
-        
+
     }
-    
+
     /**
      * <p>isPredecessorOf</p>
      *
@@ -202,7 +202,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public boolean isPredecessorOf(final IPAddress other) {
         return other.decr().equals(this);
     }
-    
+
     /**
      * <p>isSuccessorOf</p>
      *
@@ -212,7 +212,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public boolean isSuccessorOf(final IPAddress other) {
         return other.incr().equals(this);
     }
-    
+
     /**
      * <p>isLessThan</p>
      *
@@ -222,7 +222,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public boolean isLessThan(final IPAddress other) {
         return compareTo(other) < 0;
     }
-    
+
     /**
      * <p>isLessThanOrEqualTo</p>
      *
@@ -232,7 +232,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public boolean isLessThanOrEqualTo(final IPAddress other) {
         return compareTo(other) <= 0;
     }
-    
+
     /**
      * <p>isGreaterThan</p>
      *
@@ -242,7 +242,7 @@ public class IPAddress implements Comparable<IPAddress> {
     public boolean isGreaterThan(final IPAddress other) {
         return compareTo(other) > 0;
     }
-    
+
     /**
      * <p>isGreaterThanOrEqualTo</p>
      *

@@ -60,7 +60,7 @@ public class ValidatingMessageBodyReader<T> implements MessageBodyReader<T> {
 	protected Providers providers;
 
 	/**
-	 * @return true if the class is a JAXB-marshallable class that has 
+	 * @return true if the class is a JAXB-marshallable class that has
 	 * an {@link javax.xml.bind.annotation.XmlRootElement} annotation.
 	 */
         @Override
@@ -84,7 +84,7 @@ public class ValidatingMessageBodyReader<T> implements MessageBodyReader<T> {
 				jaxbContext = JAXBContext.newInstance(clazz);
 
 			}
-			
+
 			return JaxbUtils.unmarshal(clazz, new InputSource(stream), jaxbContext);
 
 		} catch (final JAXBException e) {

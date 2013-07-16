@@ -41,7 +41,7 @@ public class IpListTest extends XmlTest<IpList> {
     public IpListTest(final IpList sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final IpList list = new IpList();

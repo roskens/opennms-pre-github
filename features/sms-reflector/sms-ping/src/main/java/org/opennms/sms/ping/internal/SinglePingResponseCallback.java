@@ -46,9 +46,9 @@ import org.smslib.Message;
  * @version $Id: $
  */
 public class SinglePingResponseCallback implements PingResponseCallback {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SinglePingResponseCallback.class);
-    
+
     private CountDownLatch bs = new CountDownLatch(1);
     @SuppressWarnings("unused")
     private Throwable error = null;

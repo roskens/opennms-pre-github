@@ -47,7 +47,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * This element is used for converting events into alarms.
- * 
+ *
  */
 
 @XmlRootElement(name="alarm-data")
@@ -92,13 +92,13 @@ public class AlarmData implements Serializable {
      */
 	@XmlAttribute(name="x733-probable-cause")
     private Integer _x733ProbableCause;
-	
+
 	/**
 	 * Field m_updateField
 	 */
     @XmlElement(name="update-field", required=false)
     private List<UpdateField> m_updateFieldList = new ArrayList<UpdateField>();
-    
+
 
     public AlarmData() {
         super();
@@ -126,7 +126,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'alarmType'.
-     * 
+     *
      * @return the value of field 'AlarmType'.
      */
     public Integer getAlarmType() {
@@ -135,7 +135,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'autoClean'.
-     * 
+     *
      * @return the value of field 'AutoClean'.
      */
     public Boolean getAutoClean() {
@@ -144,7 +144,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'clearKey'.
-     * 
+     *
      * @return the value of field 'ClearKey'.
      */
     public java.lang.String getClearKey() {
@@ -153,7 +153,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'reductionKey'.
-     * 
+     *
      * @return the value of field 'ReductionKey'.
      */
     public java.lang.String getReductionKey(
@@ -163,7 +163,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'x733AlarmType'.
-     * 
+     *
      * @return the value of field 'X733AlarmType'.
      */
     public java.lang.String getX733AlarmType(
@@ -173,7 +173,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'x733ProbableCause'.
-     * 
+     *
      * @return the value of field 'X733ProbableCause'.
      */
     public Integer getX733ProbableCause() {
@@ -182,7 +182,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Method hasAlarmType.
-     * 
+     *
      * @return true if at least one AlarmType has been added
      */
     public boolean hasAlarmType(
@@ -192,7 +192,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Method hasAutoClean.
-     * 
+     *
      * @return true if at least one AutoClean has been added
      */
     public boolean hasAutoClean(
@@ -202,7 +202,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Method hasX733ProbableCause.
-     * 
+     *
      * @return true if at least one X733ProbableCause has been added
      */
     public boolean hasX733ProbableCause(
@@ -212,7 +212,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Returns the value of field 'autoClean'.
-     * 
+     *
      * @return the value of field 'AutoClean'.
      */
     public Boolean isAutoClean(
@@ -222,7 +222,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'alarmType'.
-     * 
+     *
      * @param alarmType the value of field 'alarmType'.
      */
     public void setAlarmType(
@@ -232,7 +232,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'autoClean'.
-     * 
+     *
      * @param autoClean the value of field 'autoClean'.
      */
     public void setAutoClean(
@@ -242,7 +242,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'clearKey'.
-     * 
+     *
      * @param clearKey the value of field 'clearKey'.
      */
     public void setClearKey(
@@ -252,7 +252,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'reductionKey'.
-     * 
+     *
      * @param reductionKey the value of field 'reductionKey'.
      */
     public void setReductionKey(
@@ -262,7 +262,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'x733AlarmType'.
-     * 
+     *
      * @param x733AlarmType the value of field 'x733AlarmType'.
      */
     public void setX733AlarmType(
@@ -272,7 +272,7 @@ public class AlarmData implements Serializable {
 
     /**
      * Sets the value of field 'x733ProbableCause'.
-     * 
+     *
      * @param x733ProbableCause the value of field
      * 'x733ProbableCause'.
      */
@@ -280,23 +280,23 @@ public class AlarmData implements Serializable {
             final Integer x733ProbableCause) {
         this._x733ProbableCause = x733ProbableCause;
     }
-    
+
     public UpdateField[] getUpdateField() {
         return m_updateFieldList.toArray(new UpdateField[0]);
     }
-    
+
     public Collection<UpdateField> getUpdateFieldCollection() {
         return m_updateFieldList;
     }
-    
+
     public List<UpdateField> getUpdateFieldList() {
         return m_updateFieldList;
     }
-    
+
     public int getUpdateFieldListCount() {
         return m_updateFieldList.size();
     }
-    
+
     public Boolean hasUpdateFields() {
         Boolean hasFields = true;
         if (m_updateFieldList == null || m_updateFieldList.isEmpty()) {
@@ -304,20 +304,20 @@ public class AlarmData implements Serializable {
         }
         return hasFields;
     }
-    
+
     public void setUpdateField(UpdateField[] fields) {
         m_updateFieldList.clear();
         for (int i = 0; i < fields.length; i++) {
             m_updateFieldList.add(fields[i]);
         }
     }
-    
+
     public void setUpdateField(final List<UpdateField> fields) {
         if (m_updateFieldList == fields) return;
         m_updateFieldList.clear();
         m_updateFieldList.addAll(fields);
     }
-    
+
     public void setUpdateFieldCollection(final Collection<UpdateField> fields) {
         if (m_updateFieldList == fields) return;
         m_updateFieldList.clear();

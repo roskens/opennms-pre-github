@@ -39,7 +39,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public interface CorrelationEngine {
-    
+
     /**
      * <p>getName</p>
      *

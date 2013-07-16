@@ -34,9 +34,9 @@ import org.opennms.netmgt.provision.service.ProvisionService;
 
 public abstract class ImportOperation {
     private static final Logger LOG = LoggerFactory.getLogger(ImportOperation.class);
-    
+
     final private ProvisionService m_provisionService;
-    
+
     /**
      * <p>Constructor for ImportOperation.</p>
      *
@@ -71,16 +71,16 @@ public abstract class ImportOperation {
      * <p>persist</p>
      */
     public void persist() {
-    
+
         final ImportOperation oper = this;
-    
+
         LOG.info("Persist: {}", oper);
-    
+
         doPersist();
-    	
-    
+
+
         LOG.info("Clear cache: {}", this);
-    
+
         // clear the cache to we don't use up all the memory
     	getProvisionService().clearCache();
     }

@@ -30,7 +30,7 @@ package org.opennms.netmgt.capsd.plugins;
 
 /*
  * This class determines whether a JBoss instance exists for an IP Address.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -49,7 +49,7 @@ import org.opennms.protocols.jmx.connectors.JBossConnectionFactory;
  * @version $Id: $
  */
 public class JBossPlugin extends JMXPlugin {
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.capsd.JMXPlugin#getMBeanServer()
      */
@@ -58,7 +58,7 @@ public class JBossPlugin extends JMXPlugin {
     public ConnectionWrapper getMBeanServerConnection(Map<String, Object> map, InetAddress address) {
         return  JBossConnectionFactory.getMBeanServerConnection(map, address);
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
@@ -73,7 +73,7 @@ public class JBossPlugin extends JMXPlugin {
     /** {@inheritDoc} */
     @Override
     public boolean isProtocolSupported(InetAddress address) {
-        
+
         HashMap<String, Object> map = new HashMap<String, Object>();
         map.put("port", "1099");
 

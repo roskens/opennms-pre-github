@@ -54,7 +54,7 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
     SecureXmlRpcClient client;
     String serviceName;
     boolean secure = false;
-    
+
     /**
      * <p>Setter for the field <code>serviceName</code>.</p>
      *
@@ -63,7 +63,7 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
     public void setServiceName(String serviceName) {
         this.serviceName = serviceName;
     }
-    
+
     /**
      * <p>Getter for the field <code>serviceName</code>.</p>
      *
@@ -72,7 +72,7 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
     public String getServiceName() {
         return this.serviceName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Object invoke(MethodInvocation methodInvocation) throws Throwable {
@@ -99,12 +99,12 @@ public class XmlRpcClientInterceptor extends UrlBasedRemoteAccessor implements M
             try {
                 client = new SecureXmlRpcClient(getServiceUrl());
                 client.setup();
-                
+
             } catch (Throwable e) {
                 throw new RemoteLookupFailureException("Invalid url ", e);
             }
         }
-        
+
         return client;
     }
 

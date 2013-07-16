@@ -50,11 +50,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class PollableService extends PollableElement implements ReadyRunnable, MonitoredService {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(PollableService.class);
 
     private final class PollRunner implements Runnable {
-    	
+
     	private volatile PollStatus m_pollStatus;
             @Override
 		public void run() {
@@ -85,7 +85,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
         m_svcName = svcName;
         m_netInterface = new InetNetworkInterface(iface.getAddress());
     }
-    
+
     /**
      * <p>getInterface</p>
      *
@@ -94,7 +94,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public PollableInterface getInterface() {
         return (PollableInterface)getParent();
     }
-    
+
     /**
      * <p>getNode</p>
      *
@@ -112,7 +112,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public PollableNetwork getNetwork() {
         return getInterface().getNetwork();
     }
-    
+
     /**
      * <p>getContext</p>
      *
@@ -151,7 +151,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public int getNodeId() {
         return getInterface().getNodeId();
     }
-    
+
     /**
      * <p>getNodeLabel</p>
      *
@@ -187,7 +187,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     @Override
     public PollStatus poll() {
         PollStatus newStatus = m_pollConfig.poll();
-        if (!newStatus.isUnknown()) { 
+        if (!newStatus.isUnknown()) {
             updateStatus(newStatus);
         }
         return getStatus();
@@ -228,22 +228,22 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
             return poll();
         }
     }
-    
 
-    
+
+
     /** {@inheritDoc} */
     @Override
     public Event createDownEvent(Date date) {
         return getContext().createEvent(EventConstants.NODE_LOST_SERVICE_EVENT_UEI, getNodeId(), getAddress(), getSvcName(), date, getStatus().getReason());
     }
-    
-    
+
+
     /** {@inheritDoc} */
     @Override
     public Event createUpEvent(Date date) {
         return getContext().createEvent(EventConstants.NODE_REGAINED_SERVICE_EVENT_UEI, getNodeId(), getAddress(), getSvcName(), date, getStatus().getReason());
     }
-    
+
     /**
      * <p>createUnresponsiveEvent</p>
      *
@@ -288,7 +288,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     /** {@inheritDoc} */
     @Override
     public void processStatusChange(Date date) {
-        
+
         if (getContext().isServiceUnresponsiveEnabled()) {
             if (isStatusChanged() && getStatus().equals(PollStatus.unresponsive())) {
                 getContext().sendEvent(createUnresponsiveEvent(date));
@@ -303,25 +303,25 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
         }
         super.processStatusChange(date);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void updateStatus(PollStatus newStatus) {
-        
+
         if (!getContext().isServiceUnresponsiveEnabled()) {
             if (newStatus.equals(PollStatus.unresponsive()))
                 newStatus = PollStatus.down();
         }
-        
+
         PollStatus currentStatus = getStatus();
         if (!currentStatus.equals(newStatus)) {
             m_oldStatus = getStatus();
             setStatusChangeTime(m_pollConfig.getCurrentTime());
         }
-            
-        
+
+
         super.updateStatus(newStatus);
-        
+
         if (!currentStatus.equals(newStatus)) {
             getSchedule().adjustSchedule();
         }
@@ -335,7 +335,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public synchronized void setSchedule(Schedule schedule) {
         m_schedule = schedule;
     }
-    
+
     /**
      * <p>getSchedule</p>
      *
@@ -344,7 +344,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public synchronized Schedule getSchedule() {
         return m_schedule;
     }
-    
+
     /**
      * <p>getStatusChangeTime</p>
      *
@@ -356,7 +356,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     private void setStatusChangeTime(long statusChangeTime) {
         m_statusChangeTime = statusChangeTime;
     }
-    
+
     /**
      * <p>isReady</p>
      *
@@ -371,7 +371,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
 		 */
         //return isTreeLockAvailable();
 		return true;
-		
+
     }
 
 
@@ -385,7 +385,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public void run() {
         doRun(500);
     }
-    
+
     /**
      * <p>doRun</p>
      *
@@ -439,7 +439,7 @@ public class PollableService extends PollableElement implements ReadyRunnable, M
     public void schedule() {
         if (m_schedule == null)
             throw new IllegalStateException("Cannot schedule a service whose schedule is set to null");
-        
+
         m_schedule.schedule();
     }
 

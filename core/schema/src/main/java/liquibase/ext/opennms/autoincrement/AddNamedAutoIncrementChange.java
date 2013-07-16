@@ -52,11 +52,11 @@ public class AddNamedAutoIncrementChange extends AddAutoIncrementChange {
     public String getSequenceName() {
     	return m_sequenceName;
     }
-    
+
     public void setSequenceName(final String sequenceName) {
     	m_sequenceName = sequenceName;
     }
-    
+
     @Override
     public SqlStatement[] generateStatements(final Database database) {
     	final List<SqlStatement> statements = new ArrayList<SqlStatement>();

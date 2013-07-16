@@ -35,11 +35,11 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         MockLogAppender.setupLogging();
-        
+
         setupDatabase();
-        
+
         createMockRrd();
 
         setupEventManager();
@@ -69,33 +69,33 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
         MockLogAppender.assertNoWarningsOrGreater();
         super.tearDown();
     }
-    
+
     public void xtestIcmpDouble() throws Exception {
         setupFetchSequence("icmp-double", new double[] { 69000.0, 79000.0, 74999.0, 74998.0 });
         replayMocks();
         ensureExceededAfterFetches("icmp-double", 3);
         verifyMocks();
     }
-    
+
     public void testNormalValue() throws Exception {
         setupFetchSequence("icmp", new double[] { 69000.0, 79000.0, 74999.0, 74998.0 });
-		
+
         replayMocks();
         ensureNoEventAfterFetches("icmp", 4);
         verifyMocks();
     }
-    
+
     public void testBigValue() throws Exception {
         setupFetchSequence("icmp", new double[] {79000.0, 80000.0, 84999.0, 84998.0, 97000.0 });
-        
+
         replayMocks();
         ensureExceededAfterFetches("icmp", 3);
         ensureNoEventAfterFetches("icmp", 2);
         verifyMocks();
     }
-    
+
     public void testRearm() throws Exception {
-        double values[] = { 
+        double values[] = {
                 79000.0,
                 80000.0,
                 84999.0, // expect exceeded
@@ -105,9 +105,9 @@ public class LatencyThresholderIntegrationTest extends ThresholderTestCase {
                 77000.0,
                 77000.0 // expect exceeded
         };
-        
+
         setupFetchSequence("icmp", values);
-        
+
         replayMocks();
         ensureExceededAfterFetches("icmp", 3);
         ensureRearmedAfterFetches("icmp", 2);

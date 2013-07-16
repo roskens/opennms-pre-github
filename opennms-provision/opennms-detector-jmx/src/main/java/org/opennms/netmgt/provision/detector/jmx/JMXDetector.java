@@ -50,7 +50,7 @@ public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integ
     protected JMXDetector(String serviceName, int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>Constructor for JMXDetector.</p>
      *
@@ -71,7 +71,7 @@ public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integ
     protected final void expectBeanCount(ResponseValidator<Integer> bannerValidator) {
         getConversation().expectBanner(bannerValidator);
     }
-    
+
     /**
      * <p>greatThan</p>
      *
@@ -83,11 +83,11 @@ public abstract class JMXDetector extends BasicDetector<ConnectionWrapper, Integ
 
             @Override
             public boolean validate(Integer response) {
-                
+
                 return (response >= count);
             }
-            
+
         };
     }
-	
+
 }

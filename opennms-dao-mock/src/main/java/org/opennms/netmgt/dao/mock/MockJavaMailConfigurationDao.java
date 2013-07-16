@@ -61,13 +61,13 @@ public class MockJavaMailConfigurationDao implements JavaMailConfigurationDao {
     @Override
     public void verifyMarshaledConfiguration() throws IllegalStateException {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public void reloadConfiguration() throws DataAccessResourceFailureException {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

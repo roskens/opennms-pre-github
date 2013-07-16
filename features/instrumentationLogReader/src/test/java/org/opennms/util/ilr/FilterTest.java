@@ -60,10 +60,10 @@ public class FilterTest {
                 if(i == 1){
                     return true;
                 }else{
-                    return false;   
-                }        
+                    return false;
+                }
             }
-        }; 
+        };
         boolean expectedTrue = predicate.apply(1);
         boolean expectedFalse = predicate.apply(0);
 
@@ -102,17 +102,17 @@ public class FilterTest {
         List<Integer> expected = Arrays.asList(new Integer[] {1, 3, 5, 7, 9});
         assertEquals(expected, oddNumbers);
     }
-    
+
     @Test
     public void testFilterServiceCollectorsByServiceID () {
         setup();
-        
+
         final String serviceID = "0/3.3.3.3/SNMP";
-        
+
         Collection<ServiceCollector> filtered = filter(c.getServiceCollectors(), and(eq(serviceID(), serviceID), lessThan(collectionCount(), 2)));
         assertEquals(1, filtered.size());
         assertEquals(serviceID, filtered.iterator().next().getServiceID());
-        
+
     }
 
     @Test
@@ -121,18 +121,18 @@ public class FilterTest {
         final String serviceID1 = "0/1.1.1.1/SNMP";
         final String serviceID2 = "0/2.2.2.2/SNMP";
         final String serviceID3 = "0/3.3.3.3/SNMP";
-        
+
         Collection<ServiceCollector> compoundOrFilter = filter(c.getServiceCollectors(), or(byServiceID(serviceID2), byServiceID(serviceID3)));
         assertEquals(2, compoundOrFilter.size());
         assertEquals(serviceID2, compoundOrFilter.iterator().next().getServiceID());
-        
-        
+
+
         Collection<ServiceCollector> compoundAndFilter = filter(c.getServiceCollectors(), and(byServiceID(serviceID1), byServiceID(serviceID2)));
         assertEquals(0, compoundAndFilter.size());
         assertFalse(compoundOrFilter.contains(serviceID1));
         assertFalse(compoundOrFilter.contains(serviceID2));
         assertFalse(compoundOrFilter.contains(serviceID3));
-        
+
     }
 
 

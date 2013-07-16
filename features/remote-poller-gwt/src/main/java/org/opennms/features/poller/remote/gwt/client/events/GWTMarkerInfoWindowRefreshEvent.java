@@ -37,15 +37,15 @@ import com.google.gwt.event.shared.GwtEvent;
  * when any data related to the marker is updated by back-end RPC calls.
  */
 public class GWTMarkerInfoWindowRefreshEvent extends GwtEvent<GWTMarkerInfoWindowRefreshHandler> {
-    
+
     public final static Type<GWTMarkerInfoWindowRefreshHandler> TYPE = new Type<GWTMarkerInfoWindowRefreshHandler>();
-    
+
     private GWTMarkerState m_marker;
-    
+
     public GWTMarkerInfoWindowRefreshEvent(GWTMarkerState markerState) {
         setMarkerState(markerState);
     }
-    
+
     @Override
     protected void dispatch(GWTMarkerInfoWindowRefreshHandler handler) {
         handler.onGWTMarkerInfoWindowRefresh(this);

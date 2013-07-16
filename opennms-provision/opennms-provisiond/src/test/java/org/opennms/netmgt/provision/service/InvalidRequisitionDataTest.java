@@ -74,19 +74,19 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 @DirtiesContext
 public class InvalidRequisitionDataTest extends ProvisioningTestCase implements InitializingBean {
-    
+
     @Autowired
     private MockNodeDao m_nodeDao;
 
     @Autowired
     private EventDao m_eventDao;
-    
+
     @Autowired
     private Provisioner m_provisioner;
-    
+
     @Autowired
     private ResourceLoader m_resourceLoader;
-    
+
     @Autowired
     @Qualifier("mock")
     private MockEventIpcManager m_eventManager;
@@ -206,7 +206,7 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
 
         // should fail to import the node, it should bomb if the requisition is unparseable
         assertEquals(0, m_nodeDao.countAll());
-        
+
     }
 
     private Event getStarted(final Resource resource) {
@@ -226,7 +226,7 @@ public class InvalidRequisitionDataTest extends ProvisioningTestCase implements 
         .addParam( EventConstants.PARM_IMPORT_RESOURCE, resource.toString() )
         .getEvent();
     }
-    
+
     private Event getNodeAdded(final int nodeId) {
         return new EventBuilder( EventConstants.NODE_ADDED_EVENT_UEI, "Provisiond" )
         .setNodeid(nodeId).getEvent();

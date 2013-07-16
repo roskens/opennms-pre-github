@@ -127,7 +127,7 @@ public final class IfTableEntry extends SnmpStore {
 
     /** Constant <code>IF_SPECIFIC="ifSpecific"</code> */
     public final static String IF_SPECIFIC = "ifSpecific";
-    
+
     /** Constant <code>ms_elemList</code> */
     public final static NamedSnmpVar[] ms_elemList = new NamedSnmpVar[] {
         new NamedSnmpVar(NamedSnmpVar.SNMPINT32, IF_INDEX, ".1.3.6.1.2.1.2.2.1.1", 1),
@@ -185,7 +185,7 @@ public final class IfTableEntry extends SnmpStore {
     public Integer getIfType() {
         return getInt32(IfTableEntry.IF_TYPE);
     }
-    
+
     /**
      * <p>getIfAdminStatus</p>
      *

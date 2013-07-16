@@ -35,8 +35,8 @@ import com.vaadin.data.validator.RegexpValidator;
  * @author Markus von Rüden
  */
 public class NameValidator extends RegexpValidator {
-	
-	public NameValidator() {		
+
+	public NameValidator() {
 		super("[a-zA-Z0-9_]+([\\.-][a-zA-Z0-9_]+)*", true, "You must specify a valid name. Allowed characters: (a-z, A-Z, 0-9,. , _)");
 	}
 

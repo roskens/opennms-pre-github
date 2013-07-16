@@ -65,7 +65,7 @@ public class InterfaceOutagesController extends AbstractController implements In
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
     	String nodeIdString = request.getParameter("node");
     	String ipAddr = request.getParameter("ipAddr");
-    	
+
     	int nodeId = -1;
         Outage[] outages = new Outage[0];
 
@@ -111,7 +111,7 @@ public class InterfaceOutagesController extends AbstractController implements In
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

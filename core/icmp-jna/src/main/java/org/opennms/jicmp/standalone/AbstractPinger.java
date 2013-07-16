@@ -48,7 +48,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
     protected final Metric m_metric = new Metric();
     private volatile boolean m_stopped = false;
     private final List<PingReplyListener> m_listeners = new ArrayList<PingReplyListener>();
-    
+
     protected AbstractPinger(NativeDatagramSocket pingSocket) {
         m_pingSocket = pingSocket;
     }
@@ -88,7 +88,7 @@ public abstract class AbstractPinger<T extends InetAddress> implements Runnable 
             getPingSocket().close();
         }
     }
-    
+
     protected List<PingReplyListener> getListeners() {
         return m_listeners;
     }

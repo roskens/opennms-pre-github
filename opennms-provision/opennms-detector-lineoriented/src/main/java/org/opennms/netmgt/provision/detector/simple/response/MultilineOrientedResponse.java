@@ -44,18 +44,18 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MultilineOrientedResponse {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MultilineOrientedResponse.class);
     private BufferedReader m_in;
-    
+
     private List<String> m_responseList = new ArrayList<String>();
-    
+
     /**
      * <p>Constructor for MultilineOrientedResponse.</p>
      */
     public MultilineOrientedResponse() {
     }
-    
+
     /**
      * <p>addLine</p>
      *
@@ -74,7 +74,7 @@ public class MultilineOrientedResponse {
     public void receive(final BufferedReader in) {
         m_in = in;
     }
-    
+
     /**
      * <p>startsWith</p>
      *
@@ -89,7 +89,7 @@ public class MultilineOrientedResponse {
         }
         return true;
     }
-    
+
     /**
      * <p>expectedCodeRange</p>
      *
@@ -104,17 +104,17 @@ public class MultilineOrientedResponse {
                 return false;
             }
          }
-        
+
         return true;
-            
+
     }
-    
+
     private String getCode(final String firstResponseLine) {
         return firstResponseLine.substring(0, 3);
     }
 
-    
-    //Kept in here 
+
+    //Kept in here
     /**
      * <p>containedInHTTP</p>
      *
@@ -126,19 +126,19 @@ public class MultilineOrientedResponse {
      */
     public boolean containedInHTTP(final String pattern, final String url, final boolean isCheckCode, final int maxRetCode) {
         int checkMaxRetCode = maxRetCode;
-        
+
         try {
-            
+
             final String response = getEntireResponse(m_in);
             LOG.debug("Checking http response, pattern: {}  URL: {}  isCheckCode: {}  MaxRetCode: {}\n", pattern, url, isCheckCode, checkMaxRetCode);
             if (response != null && response.contains(pattern)) {
                 LOG.debug("Return from server was: {}", response);
                 if (isCheckCode) {
-                                                
+
                     if (("/".equals(url)) || (isCheckCode == false)) {
                         checkMaxRetCode = 600;
                     }
-                    
+
                     final StringTokenizer t = new StringTokenizer(response);
                     t.nextToken();
                     final String codeString = t.nextToken();
@@ -155,13 +155,13 @@ public class MultilineOrientedResponse {
         } catch (final Exception e) {
             return false;
         }
-        
+
         return false;
     }
 
     /**
      * @return
-     * @throws IOException 
+     * @throws IOException
      */
     private String getEntireResponse(final BufferedReader in) throws IOException {
         final char[] cbuf = new char[1024];
@@ -171,7 +171,7 @@ public class MultilineOrientedResponse {
             while ((chars = in.read(cbuf, 0, 1024)) != -1) {
                 response.append(cbuf, 0, chars);
             }
-                
+
         } catch (final java.net.SocketTimeoutException timeoutEx) {
             if (timeoutEx.bytesTransferred > 0) {
                 response.append(cbuf, 0, timeoutEx.bytesTransferred);
@@ -191,7 +191,7 @@ public class MultilineOrientedResponse {
         } catch(final Exception e) {
             return false;
         }
-        
+
     }
 
     @Override

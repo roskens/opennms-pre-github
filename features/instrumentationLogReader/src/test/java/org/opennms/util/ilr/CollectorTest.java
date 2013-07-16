@@ -117,7 +117,7 @@ public class CollectorTest {
         assertEquals(5, c.getThreadCount());
     }
 
-    @Test 
+    @Test
     public void testCollectionsPerService() {
         Collector c = new Collector();
         c.addLog("2010-05-26 12:12:40,883 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: begin:24/216.216.217.254/SNMP");
@@ -193,7 +193,7 @@ public class CollectorTest {
         assertEquals(39451+19332+3768+21889+41372+39375,c.getTotalCollectionTimePerService("32028/209.219.9.78/SNMP"));
     }
 
-    @Test 
+    @Test
     public void testReadLogMessagesFromFile() throws IOException {
         Collector c = new Collector();
         c.readLogMessagesFromFile("target/test-classes/TestLogFile.log");
@@ -221,18 +221,18 @@ public class CollectorTest {
         c.readLogMessagesFromFile("target/test-classes/TestLogFile.log");
         StringWriter out = new StringWriter();
         c.printGlobalStats(new PrintWriter(out, true));
-        String actualOutput = out.toString(); 
+        String actualOutput = out.toString();
         assertTrue(actualOutput.contains("Start Time: 2010-05-26 12:12:40,883"));
         assertTrue(actualOutput.contains("End Time: 2010-06-01 08:45:12,104"));
         assertTrue(actualOutput.contains("Duration: 5d20h32m31.221s"));
         assertTrue(actualOutput.contains("Total Services: 5"));
         assertTrue(actualOutput.contains("Threads Used: 5"));
     }
-    @Test 
+    @Test
     public void testPrintServiceStats () throws IOException {
         Collector c = new Collector ();
         c.readLogMessagesFromFile("target/test-classes/TestLogFile.log");
-        String expectedOutput = String.format(Collector.SERVICE_DATA_FORMAT, 
+        String expectedOutput = String.format(Collector.SERVICE_DATA_FORMAT,
                                               "24/216.216.217.254/SNMP",
                                               "7.144s",
                                               1,

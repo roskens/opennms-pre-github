@@ -50,7 +50,7 @@ import org.opennms.netmgt.config.UserManager;
  */
 public class RenameUserServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -560190996358287556L;
 

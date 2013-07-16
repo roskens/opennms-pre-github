@@ -74,7 +74,7 @@ public class OnmsMap implements Serializable {
     public static final String ACCESS_MODE_USER = "RO";
     /** Constant <code>ACCESS_MODE_GROUP="RWRO"</code> */
     public static final String ACCESS_MODE_GROUP = "RWRO";
-    
+
     private int id;
 
     private String name;
@@ -536,7 +536,7 @@ public class OnmsMap implements Serializable {
     public void setMapElements(Set<OnmsMapElement> mapElements) {
         this.mapElements = mapElements;
     }
-    
+
     /**
      * <p>addMapElement</p>
      *
@@ -547,5 +547,5 @@ public class OnmsMap implements Serializable {
         getMapElements().add(element);
     }
 
-    
+
 }

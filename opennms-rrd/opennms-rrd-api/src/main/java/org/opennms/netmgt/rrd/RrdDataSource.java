@@ -34,7 +34,7 @@ public class RrdDataSource {
     private int m_heartBeat;
     private String m_min;
     private String m_max;
-    
+
     /**
      * <p>Constructor for RrdDataSource.</p>
      *

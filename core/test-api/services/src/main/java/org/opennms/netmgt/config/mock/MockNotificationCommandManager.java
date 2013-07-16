@@ -48,9 +48,9 @@ public class MockNotificationCommandManager extends NotificationCommandManager {
             // This will never happen; all JVMs support UTF-8
         }
     }
-    
+
     @Override
     public void update() throws Exception {
-        
+
     }
 }

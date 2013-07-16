@@ -50,7 +50,7 @@ public class StringDateLocalValidator implements Validator {
 	 * Validates if the string representation of given object is parseable to an
 	 * {@link Date}. The expected format is "yyyy-MM-dd". The given object will
 	 * be casted by <code>(String) object</code>.
-	 * 
+	 *
 	 * @param object
 	 */
 	@Override

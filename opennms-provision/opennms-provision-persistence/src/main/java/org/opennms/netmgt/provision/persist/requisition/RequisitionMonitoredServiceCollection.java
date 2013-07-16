@@ -84,7 +84,7 @@ public class RequisitionMonitoredServiceCollection extends LinkedList<Requisitio
         clear();
         addAll(services);
     }
-    
+
     /**
      * <p>getCount</p>
      *

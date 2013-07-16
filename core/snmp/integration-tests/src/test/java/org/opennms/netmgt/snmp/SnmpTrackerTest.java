@@ -60,9 +60,9 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitSnmpAgent(host="172.20.1.205", resource="classpath:snmpTestData1.properties")
 public class SnmpTrackerTest implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SnmpTrackerTest.class);
-	
+
 	@Autowired
 	private SnmpPeerFactory m_snmpPeerFactory;
 
@@ -98,15 +98,15 @@ public class SnmpTrackerTest implements InitializingBean {
         public CountingColumnTracker(final SnmpObjId base) {
             super(base);
         }
-        
+
         public CountingColumnTracker(final SnmpObjId base, final int maxRepetitions) {
             super(base, maxRepetitions);
         }
-        
+
         public long getCount() {
             return m_count;
         }
-        
+
         @Override
         protected void storeResult(final SnmpResult res) {
         	LOG.debug("storing result: {}", res);
@@ -118,7 +118,7 @@ public class SnmpTrackerTest implements InitializingBean {
     static private final class ResultTable {
     	private int m_rowsAdded = 0;
     	private Map<SnmpInstId, SnmpRowResult> m_results = new HashMap<SnmpInstId, SnmpRowResult>();
-        
+
         SnmpValue getResult(final SnmpObjId base, final SnmpInstId inst) {
         	final SnmpRowResult row = m_results.get(inst);
             if (row == null) {
@@ -130,11 +130,11 @@ public class SnmpTrackerTest implements InitializingBean {
         SnmpValue getResult(final SnmpObjId base, final String inst) {
             return getResult(base, new SnmpInstId(inst));
         }
-        
+
         int getRowsAdded() {
             return m_rowsAdded;
         }
-        
+
         void addSnmpRowResult(final SnmpRowResult row) {
             m_rowsAdded++;
             m_results.put(row.getInstance(), row);
@@ -162,11 +162,11 @@ public class SnmpTrackerTest implements InitializingBean {
             m_responses.add(row);
             m_results.addSnmpRowResult(row);
         }
-        
+
         public List<SnmpRowResult> getResponses() {
             return m_responses;
         }
-        
+
         public ResultTable getResults() {
             return m_results;
         }
@@ -182,7 +182,7 @@ public class SnmpTrackerTest implements InitializingBean {
         walker.start();
         walker.waitFor();
     }
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -193,14 +193,14 @@ public class SnmpTrackerTest implements InitializingBean {
         MockLogAppender.setupLogging();
         SnmpPeerFactory.setInstance(m_snmpPeerFactory);
     }
-    
+
     @Test
     public void testColumnTracker() throws Exception {
     	final CountingColumnTracker ct = new CountingColumnTracker(SnmpObjId.get(".1.3.6.1.2.1.2.2.1.1"));
         walk(ct, 10, 3);
         assertEquals("number of columns returned must match test data", Long.valueOf(6).longValue(), ct.getCount());
     }
- 
+
     @Test
     public void testTableTrackerWithFullTable() throws Exception {
     	final TestRowCallback rc = new TestRowCallback();
@@ -267,5 +267,5 @@ public class SnmpTrackerTest implements InitializingBean {
             }
         }
     }
-    
+
 }

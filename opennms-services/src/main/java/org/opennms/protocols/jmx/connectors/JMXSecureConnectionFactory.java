@@ -53,7 +53,7 @@ import java.util.Map;
  * @version $Id: $
  */
 public class JMXSecureConnectionFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JMXSecureConnectionFactory.class);
 
     /**

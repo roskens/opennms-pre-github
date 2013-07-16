@@ -60,7 +60,7 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
     public MicroblogReplyNotificationStrategy() throws IOException {
         super();
     }
-    
+
     /**
      * <p>Constructor for MicroblogReplyNotificationStrategy.</p>
      *
@@ -81,13 +81,13 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
             LOG.error("Cannot send a microblog reply notice to a user with no microblog username set. Either set a microblog username for this OpenNMS user or use the MicroblogUpdateNotificationStrategy instead.");
             return 1;
         }
-        
+
         // In case the user tried to be helpful, avoid a double @@
         if (destUser.startsWith("@"))
             destUser = destUser.substring(1);
-        
+
         String fullMessage = String.format("@%s %s", destUser, buildMessageBody(arguments));
-        
+
         LOG.debug("Dispatching microblog reply notification for user '{}' at base URL '{}' with message '{}'", svc.getUserId(), svc.getBaseURL(), fullMessage);
         try {
             response = svc.updateStatus(fullMessage);
@@ -96,9 +96,9 @@ public class MicroblogReplyNotificationStrategy extends MicroblogNotificationStr
             LOG.info("Failed to update status for user '{}' at service URL '{}', caught exception", svc.getUserId(), svc.getBaseURL(), e);
             return 1;
         }
-        
+
         LOG.info("Microblog reply notification succeeded: reply update posted with ID {}", response.getId());
         return 0;
     }
-    
+
 }

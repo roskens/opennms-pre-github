@@ -52,10 +52,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TcaCollectionSet.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
-public class TcaCollectionSet implements CollectionSet {	
+public class TcaCollectionSet implements CollectionSet {
 	private static final Logger LOG = LoggerFactory.getLogger(TcaCollectionSet.class);
 
 	/** The Constant LAST_TIMESTAMP. */
@@ -187,7 +187,7 @@ public class TcaCollectionSet implements CollectionSet {
 
 	/**
 	 * Process.
-	 * 
+	 *
 	 * <p>A sample TCA Data looks like the following:</p>
 	 * <ul>
 	 * <li>OID=.1.3.6.1.4.1.27091.3.1.6.1.1.172.19.37.60.1, Type=OctetString, Value=172.19.37.60 </li>
@@ -198,7 +198,7 @@ public class TcaCollectionSet implements CollectionSet {
 	 * 1327451777,11,0,11,0,1|1327451778,11,0,11,0,1|1327451779,11,0,11,0,1|1327451780,11,0,11,0,1|1327451781,11,0,11,0,1|
 	 * 1327451782,11,0,11,0,1|1327451783,11,0,11,0,1|1327451784,11,0,11,0,1|1327451785,11,0,11,0,1|1327451786,11,0,11,0,1|</li>
 	 * </ul>
-	 * 
+	 *
 	 * <ul>
 	 * <li>timestamp (epoch)</li>
 	 * <li>delay local-remote ~ current inbound-delay</li>

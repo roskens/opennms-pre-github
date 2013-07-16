@@ -29,7 +29,7 @@
 package org.opennms.opennmsd;
 
 public interface NNMEventListener {
-	
+
 	public void onEvent(NNMEvent event);
 
 }

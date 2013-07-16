@@ -91,10 +91,10 @@ public class FilesystemForeignSourceRepositoryTest extends ForeignSourceReposito
         Set<ForeignSource> foreignSources = m_foreignSourceRepository.getForeignSources();
         assertEquals("number of foreign sources must be 1", 1, foreignSources.size());
         assertEquals("getAll() foreign source name must match", m_defaultForeignSourceName, foreignSources.iterator().next().getName());
-        
+
         // check that the foreign source matches
         final ForeignSource newForeignSource = m_foreignSourceRepository.getForeignSource(m_defaultForeignSourceName);
-        
+
         assertEquals(foreignSource.getName(), newForeignSource.getName());
         assertEquals(foreignSource.getDateStampAsDate(), newForeignSource.getDateStampAsDate());
         assertEquals(foreignSource.getDetectorNames(), newForeignSource.getDetectorNames());

@@ -28,7 +28,7 @@
 
 /*
  * Created on 9-mar-2006
- * 
+ *
  * Class that holds informations for node bridges
  */
 package org.opennms.netmgt.linkd;
@@ -41,7 +41,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
  * <p>
  * OspfInterface class.
  * </p>
- * 
+ *
  * @author antonio
  * @version $Id: $
  */
@@ -52,9 +52,9 @@ public class OspfNbrInterface {
      */
 
     InetAddress m_ospfNbrIpAddr;
-    
+
     InetAddress m_ospfNbrNetMask;
-    
+
     InetAddress m_ospfNbrRouterId;
 
     int m_ospfNbrNodeId;
@@ -92,8 +92,8 @@ public class OspfNbrInterface {
     public InetAddress getOspfNbrRouterId() {
         return m_ospfNbrRouterId;
     }
-    
-    
+
+
     public InetAddress getOspfNbrNetMask() {
         return m_ospfNbrNetMask;
     }
@@ -106,7 +106,7 @@ public class OspfNbrInterface {
      * <p>
      * toString
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override

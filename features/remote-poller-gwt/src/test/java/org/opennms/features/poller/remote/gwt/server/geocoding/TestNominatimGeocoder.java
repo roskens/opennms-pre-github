@@ -46,7 +46,7 @@ public class TestNominatimGeocoder extends AbstractGeocoderTest {
 			assertEquals(local, remote);
 		}
 	}
-	
+
 	@Test
 	public void testLookupFailure() throws Exception {
 		if (shouldRun()) {

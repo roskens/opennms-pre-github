@@ -66,15 +66,15 @@ public class ResourceTypeUtilsTest {
     @Before
     public void setUp() throws Exception {
         m_fileAnticipator = new FileAnticipator();
-        
+
         RrdUtils.setStrategy(new NullRrdStrategy());
     }
-    
+
     @After
     public void tearDown() throws Exception {
         m_fileAnticipator.tearDown();
     }
-    
+
 
     @Test
     public void testLoadPropertiesNullRrdDirectory() {
@@ -101,25 +101,25 @@ public class ResourceTypeUtilsTest {
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testLoadPropertiesEmpty() throws Exception {
         OnmsResource childResource = createResource();
         createPropertiesFile(childResource, "", false);
 
         Properties p = ResourceTypeUtils.getStringProperties(m_fileAnticipator.getTempDir(), "snmp/1/eth0");
-        
+
         assertNotNull("properties should not be null", p);
         assertEquals("properties size", 0, p.size());
     }
-    
+
     @Test
     public void testLoadPropertiesNonEmpty() throws Exception {
         OnmsResource childResource = createResource();
         createPropertiesFile(childResource, "foo=bar", false);
 
         Properties p = ResourceTypeUtils.getStringProperties(m_fileAnticipator.getTempDir(), "snmp/1/eth0");
-        
+
         assertNotNull("properties should not be null", p);
         assertEquals("properties size", 1, p.size());
         assertNotNull("property 'foo' should exist", p.get("foo"));
@@ -134,7 +134,7 @@ public class ResourceTypeUtilsTest {
         Properties p = ResourceTypeUtils.getStringProperties(m_fileAnticipator.getTempDir(), "snmp/1/eth0");
         assertNull("no properties file was created, so the properties object should be null", p);
     }
-    
+
     @Test
     public void testGetAttributesAtRelativePathWithBogusDirectory() {
         File bogusRrdDirectory = new File("/foo/bogus/blam/cheese/this/really/should/never/exist");
@@ -191,5 +191,5 @@ public class ResourceTypeUtilsTest {
             return m_fileAnticipator.tempFile(m_intf, "strings.properties", propertiesContent);
         }
     }
-    
+
 }

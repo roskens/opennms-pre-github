@@ -41,7 +41,7 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  */
 public class AssetServiceMockup extends RemoteServiceServlet implements AssetService {
 
@@ -50,7 +50,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 	private AssetCommand asset = new AssetCommand();
 	private SimpleDateFormat onmsFormatter = new SimpleDateFormat("yyyy-MM-dd");
 	private AssetSuggCommand assetSugg = new AssetSuggCommand();
-	
+
 	public AssetServiceMockup() {
 		setData();
 	}
@@ -157,7 +157,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		asset.setLeaseExpires("FooDate");
 		asset.setVendorAssetNumber("VendorAssetNumber");
 		asset.setMaintcontract("423423423_contract+Plus");
-		
+
 		Date maintConExp;
 		try {
 			maintConExp = onmsFormatter.parse("2000-12-27");
@@ -165,7 +165,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 			e.printStackTrace();
 			maintConExp = new Date();
 		}
-		
+
 		asset.setMaintContractExpiration(onmsFormatter.format(maintConExp));
 		asset.setSupportPhone("SupportPhone");
 	}
@@ -213,7 +213,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 
         @Override
 	public AssetSuggCommand getAssetSuggestions() throws Exception {
-		
+
 		assetSugg.addDescription("001");
 		assetSugg.addDescription("001");
 		assetSugg.addDescription("002");
@@ -238,7 +238,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		assetSugg.addAdmin("Medium Mario");
 		assetSugg.addAdmin("Bad Mario");
 		assetSugg.addAdmin("Pure Mario");
-		
+
 		assetSugg.addManufacturer("Atari");
 		assetSugg.addManufacturer("Atari");
 		assetSugg.addManufacturer("Bell-Labs");
@@ -248,7 +248,7 @@ public class AssetServiceMockup extends RemoteServiceServlet implements AssetSer
 		assetSugg.addSnmpcommunity("public");
 		assetSugg.addSnmpcommunity("not so public");
 		assetSugg.addSnmpcommunity("private");
-		
+
 		return assetSugg;
 	}
 }

@@ -71,19 +71,19 @@ import com.sun.jersey.spi.resource.PerRequest;
 public class AcknowledgmentRestService extends OnmsRestService {
     @Autowired
     private AcknowledgmentDao m_ackDao;
-    
+
     @Autowired
     private AlarmDao m_alarmDao;
-    
+
     @Autowired
     private NotificationDao m_notificationDao;
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
 
     @Context
     SecurityContext m_securityContext;
-    
+
     /**
      * <p>getAcknowledgment</p>
      *
@@ -103,7 +103,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
             readUnlock();
         }
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -132,17 +132,17 @@ public class AcknowledgmentRestService extends OnmsRestService {
     @Transactional
     public OnmsAcknowledgmentCollection getAcks() {
         readLock();
-        
+
         try {
             final CriteriaBuilder builder = getQueryFilters(m_uriInfo.getQueryParameters());
             OnmsAcknowledgmentCollection coll = new OnmsAcknowledgmentCollection(m_ackDao.findMatching(builder.toCriteria()));
-    
+
             //For getting totalCount
             builder.clearOrder();
             builder.limit(null);
             builder.offset(null);
             coll.setTotalCount(m_ackDao.countMatching(builder.toCriteria()));
-    
+
             return coll;
         } finally {
             readUnlock();
@@ -161,7 +161,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
     @Transactional
     public OnmsAcknowledgment acknowledge(MultivaluedMap<String, String> formParams) {
     	writeLock();
-    	
+
     	try {
 	        String alarmId = formParams.getFirst("alarmId");
 	        String notifId = formParams.getFirst("notifId");
@@ -181,7 +181,7 @@ public class AcknowledgmentRestService extends OnmsRestService {
 	    		final OnmsNotification notification = m_notificationDao.get(Integer.valueOf(notifId));
 	    		ack = new OnmsAcknowledgment(notification);
 	    	}
-	        
+
 	        if ("ack".equals(action)) {
 	            ack.setAckAction(AckAction.ACKNOWLEDGE);
 	        } else if ("unack".equals(action)) {

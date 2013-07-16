@@ -56,9 +56,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="mailto:brozow@opennms.org">Matt Brozowski</A>
  */
 public class SnmpCollector implements ServiceCollector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpCollector.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -138,7 +138,7 @@ public class SnmpCollector implements ServiceCollector {
      * permitted to pack into a single outgoing PDU. This value is intentionally
      * kept relatively small in order to communicate successfully with the
      * largest possible number of agents.
-     * 
+     *
      * @deprecated If not configured in SNMP collector configuration, use agent's
      * setting for defaults are now determined there.
      */
@@ -214,7 +214,7 @@ public class SnmpCollector implements ServiceCollector {
     	initSnmpPeerFactory();
         //initDataCollectionConfig();
         initDatabaseConnectionFactory();
-        
+
         // Get path to RRD repository
         //initializeRrdRepository();
 
@@ -303,16 +303,16 @@ public class SnmpCollector implements ServiceCollector {
      *
      * Responsible for performing all necessary initialization for the specified
      * interface in preparation for data collection.
-     * @throws CollectionInitializationException 
+     * @throws CollectionInitializationException
      */
     @Override
     public void initialize(CollectionAgent agent, Map<String, Object> parameters) throws CollectionInitializationException {
         agent.validateAgent();
-        
+
         // XXX: Experimental code that creates an OnmsSnmpCollection only once
 //        ServiceParameters params = new ServiceParameters(parameters);
 //        agent.setAttribute("SNMP_COLLECTION", new OnmsSnmpCollection(agent, params));
-//        
+//
 //        params.logIfAliasConfig();
     }
 
@@ -338,7 +338,7 @@ public class SnmpCollector implements ServiceCollector {
             // XXX: Experimental code that reuses the OnmsSnmpCollection
             // OnmsSnmpCollection snmpCollection = (OnmsSnmpCollection)agent.getAttribute("SNMP_COLLECTION");
             // ServiceParameters params = snmpCollection.getServiceParameters();
-            
+
             // XXX: This code would be commented out in light if the experimental code above was enabled
             final ServiceParameters params = new ServiceParameters(parameters);
             params.logIfAliasConfig();
@@ -352,11 +352,11 @@ public class SnmpCollector implements ServiceCollector {
                 logNoDataToCollect(agent);
                 // should we return here?
             }
-            
+
             Collectd.instrumentation().beginCollectingServiceData(collectionSet.getCollectionAgent().getNodeId(), collectionSet.getCollectionAgent().getHostAddress(), serviceName());
             try {
                 collectionSet.collect();
-                
+
                 /*
                  * FIXME: Should we even be doing this? I say we get rid of this force rescan thingie
                  * {@see http://issues.opennms.org/browse/NMS-1057}
@@ -382,7 +382,7 @@ public class SnmpCollector implements ServiceCollector {
             }
         } catch (CollectionException e) {
             Collectd.instrumentation().reportCollectionException(agent.getNodeId(), agent.getHostAddress(), serviceName(), e);
-            
+
             throw e;
         } catch (Throwable t) {
             throw new CollectionException("Unexpected error during node SNMP collection for: " + agent.getHostAddress(), t);
@@ -411,7 +411,7 @@ public class SnmpCollector implements ServiceCollector {
         LOG.info("agent {} defines no data to collect.  Skipping.", agent);
     }
 
-    
+
 
     // Unused
 //    int unexpected(CollectionAgent agent, Throwable t) {

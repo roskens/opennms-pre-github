@@ -74,7 +74,7 @@ public class AlarmStatisticsServiceTest implements InitializingBean {
         m_dbPopulator.resetDatabase();
         m_dbPopulator.populateDatabase();
     }
-    
+
     @Test
     public void testCount() {
     	final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);

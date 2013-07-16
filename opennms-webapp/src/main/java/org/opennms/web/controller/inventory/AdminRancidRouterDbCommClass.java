@@ -36,17 +36,17 @@ package org.opennms.web.controller.inventory;
  * @since 1.8.1
  */
 public class AdminRancidRouterDbCommClass {
-        
+
     private String groupName;
-    
+
     private String deviceName;
-    
+
     private String statusName;
-    
+
     private String deviceTypeName;
 
     private String comment;
-    
+
     /**
      * <p>Getter for the field <code>comment</code>.</p>
      *
@@ -91,7 +91,7 @@ public class AdminRancidRouterDbCommClass {
     public String getStatusName() {
         return statusName;
     }
-    
+
     /**
      * <p>Setter for the field <code>statusName</code>.</p>
      *
@@ -100,7 +100,7 @@ public class AdminRancidRouterDbCommClass {
     public void setStatusName(String statusName) {
         this.statusName = statusName;
     }
-    
+
     /**
      * <p>Getter for the field <code>groupName</code>.</p>
      *

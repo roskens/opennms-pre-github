@@ -49,9 +49,9 @@ public class AdhocGraphType {
      * <p>Constructor for AdhocGraphType.</p>
      */
     public AdhocGraphType() {
-        
+
     }
-    
+
     /**
      * <p>setName</p>
      *
@@ -78,7 +78,7 @@ public class AdhocGraphType {
     public void setCommandPrefix(String commandPrefix) {
         m_commandPrefix = commandPrefix;
     }
-    
+
     /**
      * <p>getCommandPrefix</p>
      *
@@ -96,7 +96,7 @@ public class AdhocGraphType {
     public void setOutputMimeType(String outputMimeType) {
         m_outputMimeType = outputMimeType;
     }
-    
+
     /**
      * <p>getOutputMimeType</p>
      *

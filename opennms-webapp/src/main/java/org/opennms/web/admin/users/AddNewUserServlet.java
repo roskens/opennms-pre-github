@@ -54,7 +54,7 @@ import org.opennms.netmgt.config.users.User;
  */
 public class AddNewUserServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 9221831285444697701L;
 

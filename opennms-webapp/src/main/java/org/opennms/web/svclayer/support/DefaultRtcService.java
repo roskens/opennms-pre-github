@@ -67,10 +67,10 @@ public class DefaultRtcService implements RtcService, InitializingBean {
     public RtcNodeModel getNodeList() {
         OnmsCriteria serviceCriteria = createServiceCriteria();
         OnmsCriteria outageCriteria = createOutageCriteria();
-        
+
         return getNodeListForCriteria(serviceCriteria, outageCriteria);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public RtcNodeModel getNodeListForCriteria(OnmsCriteria serviceCriteria, OnmsCriteria outageCriteria) {
@@ -81,23 +81,23 @@ public class DefaultRtcService implements RtcService, InitializingBean {
 
         Date periodEnd = new Date(System.currentTimeMillis());
         Date periodStart = new Date(periodEnd.getTime() - (24 * 60 * 60 * 1000));
-        
+
         Disjunction disjunction = Restrictions.disjunction();
         disjunction.add(Restrictions.isNull("ifRegainedService"));
         disjunction.add(Restrictions.ge("ifLostService", periodStart));
         disjunction.add(Restrictions.ge("ifRegainedService", periodStart));
         outageCriteria.add(disjunction);
-        
+
         outageCriteria.addOrder(Order.asc("monitoredService"));
         outageCriteria.addOrder(Order.asc("ifLostService"));
-        
+
         List<OnmsMonitoredService> services = m_monitoredServiceDao.findMatching(serviceCriteria);
         List<OnmsOutage> outages = m_outageDao.findMatching(outageCriteria);
-        
+
         Map<OnmsMonitoredService, Long> serviceDownTime = calculateServiceDownTime(periodEnd, periodStart, outages);
-        
+
         RtcNodeModel model = new RtcNodeModel();
-        
+
         OnmsNode lastNode = null;
         int serviceCount = 0;
         int serviceDownCount = 0;
@@ -105,32 +105,32 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         for (OnmsMonitoredService service : services) {
             if (!service.getIpInterface().getNode().equals(lastNode) && lastNode != null) {
                 Double availability = calculateAvailability(serviceCount, downMillisCount);
-                
+
                 model.addNode(new RtcNodeModel.RtcNode(lastNode, serviceCount, serviceDownCount, availability));
-                
+
                 serviceCount = 0;
                 serviceDownCount = 0;
                 downMillisCount = 0;
             }
-            
+
             serviceCount++;
             if (service.isDown()) {
                 serviceDownCount++;
             }
-            
+
             Long downMillis = serviceDownTime.get(service);
             if  (downMillis != null) {
                 downMillisCount += downMillis;
             }
-            
+
             lastNode = service.getIpInterface().getNode();
         }
         if (lastNode != null) {
             Double availability = calculateAvailability(serviceCount, downMillisCount);
-            
+
             model.addNode(new RtcNodeModel.RtcNode(lastNode, serviceCount, serviceDownCount, availability));
         }
-        
+
         return model;
     }
 
@@ -149,7 +149,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         outageCriteria.add(Restrictions.ne("ipInterface.isManaged", "D"));
         outageCriteria.createAlias("monitoredService.ipInterface.node", "node", OnmsCriteria.INNER_JOIN);
         outageCriteria.add(Restrictions.ne("node.type", "D"));
-        
+
         return outageCriteria;
     }
 
@@ -169,7 +169,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         serviceCriteria.add(Restrictions.ne("node.type", "D"));
         serviceCriteria.createAlias("serviceType", "serviceType", OnmsCriteria.INNER_JOIN);
         serviceCriteria.createAlias("currentOutages", "currentOutages", OnmsCriteria.INNER_JOIN);
-        
+
         return serviceCriteria;
     }
 
@@ -179,21 +179,21 @@ public class DefaultRtcService implements RtcService, InitializingBean {
             if (map.get(outage.getMonitoredService()) == null) {
                 map.put(outage.getMonitoredService(), Long.valueOf(0));
             }
-            
+
             Date begin;
             if (outage.getIfLostService().before(periodStart)) {
                 begin = periodStart;
             } else {
                 begin = outage.getIfLostService();
             }
-            
+
             Date end;
             if (outage.getIfRegainedService() == null || !outage.getIfRegainedService().before(periodEnd)) {
                 end = periodEnd;
             } else {
                 end = outage.getIfRegainedService();
             }
-            
+
             Long count = map.get(outage.getMonitoredService());
             count += (end.getTime() - begin.getTime());
             map.put(outage.getMonitoredService(), count);
@@ -206,7 +206,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
 
         return ((double) upMillis / (double) (serviceCount * (24 * 60 * 60 * 1000)));
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */
@@ -215,7 +215,7 @@ public class DefaultRtcService implements RtcService, InitializingBean {
         Assert.state(m_monitoredServiceDao != null, "property monitoredServiceDao must be set and non-null");
         Assert.state(m_outageDao != null, "property outageDao must be set and non-null");
     }
-    
+
     /**
      * <p>getMonitoredServiceDao</p>
      *

@@ -47,7 +47,7 @@ import org.springframework.dao.DataRetrievalFailureException;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
-    
+
     static {
         try {
             SiteStatusViewsFactory.init();
@@ -61,7 +61,7 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
             throw new DataRetrievalFailureException("Error load site status view config file", e);
         }
     }
-    
+
     /**
      * <p>Constructor for DefaultSiteStatusViewConfigDao.</p>
      */
@@ -91,7 +91,7 @@ public class DefaultSiteStatusViewConfigDao implements SiteStatusViewConfigDao {
     public Views getViews() {
         return SiteStatusViewsFactory.getConfig().getViews();
     }
-    
+
     /**
      * Use this method to get a Map of view names to marshalled classes based on the generated View class
      * from the XSD.

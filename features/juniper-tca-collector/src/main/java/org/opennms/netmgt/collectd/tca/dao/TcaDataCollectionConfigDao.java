@@ -32,7 +32,7 @@ import org.opennms.netmgt.collectd.tca.config.TcaDataCollectionConfig;
 
 /**
  * The Interface TcaDataCollectionConfigDao.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface TcaDataCollectionConfigDao {

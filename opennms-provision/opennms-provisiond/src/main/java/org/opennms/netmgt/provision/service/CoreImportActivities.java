@@ -58,9 +58,9 @@ import org.springframework.core.io.Resource;
 @ActivityProvider
 public class CoreImportActivities {
     private static final Logger LOG = LoggerFactory.getLogger(CoreImportActivities.class);
-    
+
     ProvisionService m_provisionService;
-    
+
     public CoreImportActivities(final ProvisionService provisionService) {
         m_provisionService = provisionService;
     }
@@ -80,34 +80,34 @@ public class CoreImportActivities {
 
         return ri;
     }
-    
+
     @Activity( lifecycle = "import", phase = "audit", schedulingHint="import" )
     public ImportOperationsManager auditNodes(final RequisitionImport ri, final Boolean rescanExisting) {
         if (ri.isAborted()) {
             info("The import has been aborted, skipping audit phase import.");
             return null;
         }
-        
+
         final Requisition specFile = ri.getRequisition();
 
         info("Auditing nodes for requisition %s", specFile);
 
         // @ipv6
         m_provisionService.createDistPollerIfNecessary("localhost", "127.0.0.1");
-        
+
         final String foreignSource = specFile.getForeignSource();
         final Map<String, Integer> foreignIdsToNodes = m_provisionService.getForeignIdToNodeIdMap(foreignSource);
 
         final ImportOperationsManager opsMgr = new ImportOperationsManager(foreignIdsToNodes, m_provisionService, rescanExisting);
-        
+
         opsMgr.setForeignSource(foreignSource);
         opsMgr.auditNodes(specFile);
 
         debug("Finished auditing nodes.");
-        
+
         return opsMgr;
     }
-    
+
     @Activity( lifecycle = "import", phase = "scan", schedulingHint="import" )
     public void scanNodes(final Phase currentPhase, final ImportOperationsManager opsMgr, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -116,14 +116,14 @@ public class CoreImportActivities {
         }
 
         info("Scheduling nodes for phase %s", currentPhase);
-        
+
         final Collection<ImportOperation> operations = opsMgr.getOperations();
-        
+
         for(final ImportOperation op : operations) {
             final LifeCycleInstance nodeScan = currentPhase.createNestedLifeCycle("nodeImport");
 
             debug("Created lifecycle %s for operation %s", nodeScan, op);
-            
+
             nodeScan.setAttribute("operation", op);
             nodeScan.setAttribute("requisitionImport", ri);
             nodeScan.trigger();
@@ -131,8 +131,8 @@ public class CoreImportActivities {
 
 
     }
-    
-    
+
+
     @Activity( lifecycle = "nodeImport", phase = "scan", schedulingHint="import" )
     public void scanNode(final ImportOperation operation, final RequisitionImport ri, final Boolean rescanExisting) {
         if (ri.isAborted()) {
@@ -143,13 +143,13 @@ public class CoreImportActivities {
         if (rescanExisting == null || rescanExisting) {
             info("Running scan phase of %s", operation);
             operation.scan();
-    
+
             info("Finished Running scan phase of %s", operation);
         } else {
             info("Skipping scan phase of %s, because the %s parameter was set during import.", operation, EventConstants.PARM_IMPORT_RESCAN_EXISTING);
         }
     }
-    
+
     @Activity( lifecycle = "nodeImport", phase = "persist" , schedulingHint = "import" )
     public void persistNode(final ImportOperation operation, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -162,7 +162,7 @@ public class CoreImportActivities {
         info("Finished Running persist phase of %s", operation);
 
     }
-    
+
     @Activity( lifecycle = "import", phase = "relate" , schedulingHint = "import" )
     public void relateNodes(final BatchTask currentPhase, final RequisitionImport ri) {
         if (ri.isAborted()) {
@@ -171,7 +171,7 @@ public class CoreImportActivities {
         }
 
         info("Running relate phase");
-        
+
         final Requisition requisition = ri.getRequisition();
         RequisitionVisitor visitor = new AbstractRequisitionVisitor() {
             @Override
@@ -180,13 +180,13 @@ public class CoreImportActivities {
                 currentPhase.add(parentSetter(m_provisionService, nodeReq, requisition.getForeignSource()));
             }
         };
-        
+
         requisition.visit(visitor);
-        
+
         LOG.info("Finished Running relate phase");
 
     }
-    
+
     private static Runnable parentSetter(final ProvisionService provisionService, final OnmsNodeRequisition nodeReq, final String foreignSource) {
         return new Runnable() {
             @Override
@@ -200,7 +200,7 @@ public class CoreImportActivities {
                     //
                     // @see http://issues.opennms.org/browse/NMS-4109
                     //
-                    nodeReq.getParentForeignSource() == null ? 
+                    nodeReq.getParentForeignSource() == null ?
                         foreignSource : nodeReq.getParentForeignSource(),
                     nodeReq.getParentForeignId(),
                     nodeReq.getParentNodeLabel()
@@ -213,7 +213,7 @@ public class CoreImportActivities {
             public String toString() {
                 return "set parent for node "+nodeReq.getNodeLabel();
             }
-        }; 
+        };
     }
 
     protected void info(String format, Object... args) {

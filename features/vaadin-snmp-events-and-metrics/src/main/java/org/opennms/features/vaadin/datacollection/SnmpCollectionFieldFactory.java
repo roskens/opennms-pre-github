@@ -38,8 +38,8 @@ import com.vaadin.ui.TextField;
 
 /**
  * A factory for creating SNMP Collection Field objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public final class SnmpCollectionFieldFactory implements FormFieldFactory {

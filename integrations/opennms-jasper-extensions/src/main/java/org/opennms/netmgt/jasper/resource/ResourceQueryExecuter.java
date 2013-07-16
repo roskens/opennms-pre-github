@@ -59,7 +59,7 @@ public class ResourceQueryExecuter extends JRAbstractQueryExecuter {
     @Override
     protected String getParameterReplacement(String parameterName) {
         Object parameterVal = getParameterValue(parameterName);
-        
+
         return String.valueOf(parameterVal);
     }
 

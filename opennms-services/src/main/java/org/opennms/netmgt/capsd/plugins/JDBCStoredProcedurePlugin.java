@@ -57,7 +57,7 @@ import org.slf4j.LoggerFactory;
  * @since 0.1
  */
 public final class JDBCStoredProcedurePlugin extends JDBCPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(JDBCStoredProcedurePlugin.class);
 	/**
 	 * The stored procedure checked by the plugin

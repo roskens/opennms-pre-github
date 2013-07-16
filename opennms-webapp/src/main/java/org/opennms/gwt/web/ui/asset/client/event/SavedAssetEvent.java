@@ -32,7 +32,7 @@ import com.google.gwt.event.shared.GwtEvent;
 
 /**
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  */
 public class SavedAssetEvent extends GwtEvent<SavedAssetEventHandler> {
 	public static final Type<SavedAssetEventHandler> TYPE = new Type<SavedAssetEventHandler>();

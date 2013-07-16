@@ -56,7 +56,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
  * @author brozow
  */
 public class MockProxy implements CommandResponder {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MockProxy.class);
 
     private TransportMapping m_transport;
@@ -65,23 +65,23 @@ public class MockProxy implements CommandResponder {
 
     public MockProxy(int port) throws IOException {
         m_transport = new DefaultUdpTransportMapping(new UdpAddress(InetAddress.getLocalHost(), port));
-        
+
         m_snmp = new Snmp(m_transport);
-        
+
         m_snmp.addCommandResponder(this);
-        
+
         m_transport.listen();
-        
+
     }
 
     @Override
     public void processPdu(CommandResponderEvent e) {
         PDU command = e.getPDU();
         if (command == null) return;
-     
+
         PDU response = processRequest(command);
           if (response == null) return;
-          
+
           StatusInformation statusInformation = new StatusInformation();
           StateReference ref = e.getStateReference();
           try {
@@ -99,8 +99,8 @@ public class MockProxy implements CommandResponder {
           catch (MessageException ex) {
               LOG.error("Error while sending response", ex);
           }
-          
-        
+
+
     }
 
     /**
@@ -109,7 +109,7 @@ public class MockProxy implements CommandResponder {
      */
     private PDU processRequest(PDU request) {
         if (!isRequestPDU(request)) return null;
-        
+
         switch(request.getType()) {
         case PDU.GET:
             return processGet(request);
@@ -124,7 +124,7 @@ public class MockProxy implements CommandResponder {
         default:
             return processUnhandled(request);
         }
-        
+
     }
 
     /**
@@ -173,7 +173,7 @@ public class MockProxy implements CommandResponder {
         response.setErrorIndex(0);
         response.setErrorStatus(0);
         response.setType(PDU.RESPONSE);
-        
+
         Vector<VariableBinding> varBinds = response.getVariableBindings();
         for(int i = 0; i < varBinds.size(); i++) {
             VariableBinding varBind = varBinds.get(i);
@@ -183,7 +183,7 @@ public class MockProxy implements CommandResponder {
                     if (response.getErrorIndex() == 0) {
                         response.setErrorIndex(i+1);
                         response.setErrorStatus(PDU.noSuchName);
-                    } 
+                    }
                 } else {
                     varBind.setVariable(Null.endOfMibView);
                 }
@@ -191,7 +191,7 @@ public class MockProxy implements CommandResponder {
                 response.set(i, nextVarBind);
             }
         }
-        
+
         return response;
     }
 
@@ -205,7 +205,7 @@ public class MockProxy implements CommandResponder {
         response.setErrorIndex(0);
         response.setErrorStatus(0);
         response.setType(PDU.RESPONSE);
-        
+
         Vector<VariableBinding> varBinds = response.getVariableBindings();
         for(int i = 0; i < varBinds.size(); i++) {
             VariableBinding varBind = varBinds.get(i);
@@ -215,7 +215,7 @@ public class MockProxy implements CommandResponder {
                     if (response.getErrorIndex() == 0) {
                         response.setErrorIndex(i+1);
                         response.setErrorStatus(PDU.noSuchName);
-                    } 
+                    }
                 } else {
                     varBind.setVariable(Null.endOfMibView);
                 }
@@ -223,7 +223,7 @@ public class MockProxy implements CommandResponder {
                 response.set(i, nextVarBind);
             }
         }
-        
+
         return response;
 
     }
@@ -247,7 +247,7 @@ public class MockProxy implements CommandResponder {
     }
 
     /**
-     * 
+     *
      */
     public void stop() throws IOException {
         m_snmp.close();

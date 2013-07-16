@@ -52,16 +52,16 @@ public abstract class MenuBuilder<T, K>{
 	    if(menuPath.isEmpty()) {
 	        return;
 	    }
-	    
+
 	    String first = menuPath.get(0).contains(".") ? menuPath.get(0).substring(0, menuPath.get(0).indexOf('.')) : menuPath.get(0);
-	    
+
 	    if(menuPath.size() == 1) {
 	        if(menu.containsKey(first)) {
 	            add(Collections.singletonList(first + "_dup"), command, menu );
 	        }else {
 	            menu.put(first, command);
 	        }
-	        
+
 	    }else {
 	        Object item = menu.get(first);
 	        if(item == null) {
@@ -78,7 +78,7 @@ public abstract class MenuBuilder<T, K>{
 	            newMenuPath.addAll(menuPath.subList(1, menuPath.size()));
 	            add(newMenuPath, command, menu);
 	        }
-	        
+
 	    }
 	}
 
@@ -92,20 +92,20 @@ public abstract class MenuBuilder<T, K>{
 	        add(menuPath, t);
 	    }
 	}
-	
+
 	protected abstract void addMenuItems(K subMenu, Map<String, Object> value);
 
 	protected Set<Entry<String, Object>> getSortedMenuItems() {
 	    LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
-	    
+
 	    List<String> keys = new ArrayList<String>(m_menuBar.keySet());
 	    Collections.sort(keys, new Comparator<String>() {
-	
+
 	        @Override
 	        public int compare(String menuName1, String menuName2) {
 	            int index1 = -1;
 	            int index2 = -1;
-	            
+
 	            if(m_menuOrder.contains(menuName1)) {
 	                index1 = m_menuOrder.indexOf(menuName1);
 	            }else {
@@ -115,7 +115,7 @@ public abstract class MenuBuilder<T, K>{
 	                    index1 = m_menuOrder.size();
 	                }
 	            }
-	            
+
 	            if(m_menuOrder.contains(menuName2)) {
 	                index2 = m_menuOrder.indexOf(menuName2);
 	            }else {
@@ -125,16 +125,16 @@ public abstract class MenuBuilder<T, K>{
 	                    index2 = m_menuOrder.size();
 	                }
 	            }
-	            
+
 	            return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
 	        }
 	    });
-	    
+
 	    for(String key : keys) {
-	        
+
 	        sortedList.put(key, m_menuBar.get(key));
 	    }
-	    
+
 	    return sortedList.entrySet();
 	}
 
@@ -144,17 +144,17 @@ public abstract class MenuBuilder<T, K>{
 	    }else {
 	        return commandKey;
 	    }
-	    
-	    
+
+
 	}
 
 	private Map<String, String> getLabelProperties(String commandLabel) {
 	    Map<String, String> propMap = new HashMap<String, String>();
-	    
+
 	    if(commandLabel.contains("?")) {
 	        String propStr = commandLabel.substring(commandLabel.indexOf('?') + 1, commandLabel.length());
 	        String[] properties = propStr.split(";");
-	        
+
 	        for(String property : properties) {
 	            String[] propKeyVal = property.split("=");
 	            if(propKeyVal.length > 1) {
@@ -162,34 +162,34 @@ public abstract class MenuBuilder<T, K>{
 	            }
 	        }
 	    }
-	    
+
 	    return propMap;
 	}
 
 	protected Set<Entry<String, Object>> getSortedSubmenuGroup(final String parentMenuName, Map<String, Object> value) {
-	        
+
 	        LinkedHashMap<String, Object> sortedList = new LinkedHashMap<String, Object>();
-	        
+
 	        List<String> keys = new ArrayList<String>(value.keySet());
 	        final List<String> submenuOrder = m_submenuOrderMap.get(parentMenuName) != null ? m_submenuOrderMap.get(parentMenuName) :  m_submenuOrderMap.containsKey("default") ? m_submenuOrderMap.get("default") : new ArrayList<String>();
 	        Collections.sort(keys, new Comparator<String>() {
-	
+
 	            @Override
 	            public int compare(String menuName1, String menuName2) {
-	                
+
 	                int index1 = -1;
 	                int index2 = -1;
-	                
+
 	                String group1 = getGroupForLabel(menuName1, submenuOrder);
 	                if(submenuOrder.contains(menuName1.toLowerCase()) && group1 == null) {
 	                    group1 = menuName1.toLowerCase();
 	                }
-	                
+
 	                String group2 = getGroupForLabel(menuName2, submenuOrder);
 	                if(submenuOrder.contains(menuName2.toLowerCase()) && group2 == null) {
 	                    group2 = menuName2.toLowerCase();
 	                }
-	                
+
 	                if(submenuOrder.contains(group1)) {
 	                    index1 = submenuOrder.indexOf(group1);
 	                }else {
@@ -199,7 +199,7 @@ public abstract class MenuBuilder<T, K>{
 	                        index1 = submenuOrder.size();
 	                    }
 	                }
-	                
+
 	                if(submenuOrder.contains(group2)) {
 	                    index2 = submenuOrder.indexOf(group2);
 	                }else {
@@ -209,29 +209,29 @@ public abstract class MenuBuilder<T, K>{
 	                        index2 = submenuOrder.size();
 	                    }
 	                }
-	                
+
 	                return index1 == index2 ? menuName1.compareTo(menuName2) : index1 - index2;
 	            }
 	        });
-	        
+
 	        String prevGroup = null;
 	        int separatorCount = 0;
 	        for(String key : keys) {
 	            if(prevGroup != null && !prevGroup.equals(getGroupForLabel(key, submenuOrder))) {
 	                sortedList.put("separator" + separatorCount++, null);
 	            }
-	           
+
 	            Object command = value.get(key);
 	//            if(key.contains("?")) {
 	//                sortedList.put(key.substring(0, key.indexOf("?")), command);
 	//            }else {
-	//                
+	//
 	//            }
 	            sortedList.put(key, command);
-	            
+
 	            prevGroup = getGroupForLabel(key, submenuOrder);
 	        }
-	        
+
 	        return sortedList.entrySet();
 	    }
 
@@ -246,16 +246,16 @@ public abstract class MenuBuilder<T, K>{
 	private String getGroupForLabel(String label, List<String> submenuOrder) {
 	    String group = null;
 	    String[] groupParams = label.split("\\?");
-	    
+
 	    for(String param : groupParams) {
 	        if(param.contains("group")) {
 	            String[] keyValue = param.split("=");
 	            group = keyValue[1];
 	            return submenuOrder.contains(group) ? group : null;
-	            
+
 	        }
 	    }
-	    
+
 	    return null;
 	}
 

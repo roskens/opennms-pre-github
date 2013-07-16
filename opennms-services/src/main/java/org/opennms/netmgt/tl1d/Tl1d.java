@@ -79,7 +79,7 @@ public class Tl1d extends AbstractServiceDaemon {
     public Tl1d() {
         super(LOG4J_CATEGORY);
     }
-	
+
     /**
      * <p>handleRelooadConfigurationEvent</p>
      *
@@ -87,7 +87,7 @@ public class Tl1d extends AbstractServiceDaemon {
      */
     @EventHandler(uei=EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void handleRelooadConfigurationEvent(Event e) {
-        
+
 
         if (isReloadConfigEventTarget(e)) {
             EventBuilder ebldr = null;
@@ -97,9 +97,9 @@ public class Tl1d extends AbstractServiceDaemon {
                 /*
                  * leave everything currently on the queue, no need to mess with that, might want a handler
                  * someday for emptying the current queue on a reload event or even a pause clients or something.
-                 * 
+                 *
                  * Don't interrupt message processor, it simply waits on the queue from something to be added.
-                 * 
+                 *
                  */
 
                 m_configurationDao.update();
@@ -110,7 +110,7 @@ public class Tl1d extends AbstractServiceDaemon {
 
                 LOG.debug("handleReloadConfigurationEvent: {} defined.", m_tl1Clients.size());
                 LOG.info("handleReloadConfigurationEvent: completed.");
-                
+
                 ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, getName());
                 ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Tl1d");
 
@@ -120,17 +120,17 @@ public class Tl1d extends AbstractServiceDaemon {
                 ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Tl1d");
                 ebldr.addParam(EventConstants.PARM_REASON, exception.getLocalizedMessage().substring(1, 128));
             }
-            
+
             if (ebldr != null) {
                 m_eventForwarder.sendNow(ebldr.getEvent());
             }
 
         }
     }
-    
+
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
-        
+
         List<Parm> parmCollection = event.getParmCollection();
 
         for (Parm parm : parmCollection) {
@@ -139,7 +139,7 @@ public class Tl1d extends AbstractServiceDaemon {
                 break;
             }
         }
-        
+
         LOG.debug("isReloadConfigEventTarget: Tl1d was target of reload event: {}", isTarget);
         return isTarget;
     }
@@ -149,7 +149,7 @@ public class Tl1d extends AbstractServiceDaemon {
      */
     @Override
     public synchronized void onInit() {
-        initializeTl1Connections();  
+        initializeTl1Connections();
     }
 
     /**
@@ -158,7 +158,7 @@ public class Tl1d extends AbstractServiceDaemon {
     @Override
     public synchronized void onStart() {
         LOG.info("onStart: Initializing Tl1d message processing.");
-        
+
         m_tl1MesssageProcessor = new Thread("Tl1-Message-Processor") {
             @Override
             public void run() {
@@ -171,19 +171,19 @@ public class Tl1d extends AbstractServiceDaemon {
         LOG.info("onStart: message processing thread started.");
 
         startClients();
-        
+
         LOG.info("onStart: Finished Initializing Tl1d connections.");
     }
 
     private void startClients() {
         LOG.info("startClients: starting clients...");
-        
+
         for (Tl1Client client : m_tl1Clients) {
             LOG.debug("startClients: starting client: {}", client);
             client.start();
             LOG.debug("startClients: started client.");
         }
-        
+
         LOG.info("startClients: clients started.");
     }
 
@@ -196,53 +196,53 @@ public class Tl1d extends AbstractServiceDaemon {
         m_tl1MesssageProcessor.interrupt();
 		removeClients();
 	}
-	
+
 	private void removeClients() {
-	    
+
 	    LOG.info("removeClients: removing current set of defined TL1 clients...");
-	    
+
 	    Iterator<Tl1Client> it = m_tl1Clients.iterator();
 	    while (it.hasNext()) {
             Tl1Client client = it.next();
-            
+
             LOG.debug("removeClients: removing client: {}", client);
-            
+
             client = null;
             it.remove();
         }
-	    
+
 	    LOG.info("removeClients: all clients removed.");
 	}
 
     private void stopListeners() {
         LOG.info("stopListeners: calling stop on all clients...");
-        
+
         for (Tl1Client client : m_tl1Clients) {
             LOG.debug("stopListeners: calling stop on client: {}", client);
 			client.stop();
 		}
-        
+
         LOG.info("stopListeners: clients stopped.");
     }
 
     private void initializeTl1Connections() {
         LOG.info("onInit: Initializing Tl1d connections...");
-    
+
         List<Tl1Element> configElements = m_configurationDao.getElements();
-    
+
         for(Tl1Element element : configElements) {
             try {
                 Tl1Client client = (Tl1Client) Class.forName(element.getTl1ClientApi()).newInstance();
-                
+
                 LOG.debug("initializeTl1Connections: initializing client: {}", client);
-                
+
                 client.setHost(element.getHost());
                 client.setPort(element.getPort());
                 client.setTl1Queue(m_tl1Queue);
                 client.setMessageProcessor((Tl1AutonomousMessageProcessor) Class.forName(element.getTl1MessageParser()).newInstance());
                 client.setReconnectionDelay(element.getReconnectDelay());
                 m_tl1Clients.add(client);
-                
+
                 LOG.debug("initializeTl1Connections: client initialized.");
             } catch (InstantiationException e) {
                 LOG.error("onInit: could not instantiate specified class.", e);
@@ -257,7 +257,7 @@ public class Tl1d extends AbstractServiceDaemon {
     }
 
     private void processMessage(Tl1AutonomousMessage message) {
-        
+
         LOG.debug("processMessage: Processing message: {}", message);
 
         EventBuilder bldr = new EventBuilder(Tl1AutonomousMessage.UEI, "Tl1d");
@@ -265,7 +265,7 @@ public class Tl1d extends AbstractServiceDaemon {
         bldr.setInterface(addr(message.getHost())); //interface is the IP
         bldr.setService("TL-1"); //Service it TL-1
         bldr.setSeverity(message.getId().getHighestSeverity());
-        
+
         bldr.setTime(message.getTimestamp());
         bldr.addParam("raw-message", message.getRawMessage());
         bldr.addParam("alarm-code", message.getId().getAlarmCode());
@@ -274,9 +274,9 @@ public class Tl1d extends AbstractServiceDaemon {
         bldr.addParam("autoblock", message.getAutoBlock().getBlock());
         bldr.addParam("aid",message.getAutoBlock().getAid());
         bldr.addParam("additionalParams",message.getAutoBlock().getAdditionalParams());
-        
+
         m_eventForwarder.sendNow(bldr.getEvent());
-        
+
         LOG.debug("processMessage: Message processed: {}", message);
     }
 
@@ -297,20 +297,20 @@ public class Tl1d extends AbstractServiceDaemon {
         while (cont ) {
             try {
                 LOG.debug("doMessageProcessing: taking message from queue..");
-                
+
                 Tl1AutonomousMessage message = m_tl1Queue.take();
-                
+
                 LOG.debug("doMessageProcessing: message taken: {}", message);
-                
+
                 processMessage(message);
             } catch (InterruptedException e) {
                 LOG.warn("doMessageProcessing: received interrupt", e);
             }
         }
-        
+
         LOG.debug("doMessageProcessing: Exiting processing messages.");
     }
-    
+
     /**
      * <p>setEventForwarder</p>
      *

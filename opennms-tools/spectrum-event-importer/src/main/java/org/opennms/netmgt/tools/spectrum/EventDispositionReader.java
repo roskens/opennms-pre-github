@@ -47,7 +47,7 @@ public class EventDispositionReader {
     private Resource m_resource;
     private Reader m_reader;
     private StreamTokenizer m_tokenizer;
-    
+
     private static final String eventCodeExpr = "^0[Xx][0-9A-Fa-f]{1,8}$";
     private static final String logEventToken = "E";
     private static final String createAlarmToken = "A";
@@ -55,20 +55,20 @@ public class EventDispositionReader {
     private static final String notUserClearableToken = "N";
     private static final String notPersistentToken = "T";
     private static final String clearAlarmToken = "C";
-    
+
     /**
-     *  E  A ,,U,N,T 
+     *  E  A ,,U,N,T
      * 0x180000    E 50              A 2,               0x180000,     N
-     * 
+     *
      * This entry states that when an event of type 0x180000 occurs, it will be logged (E) with a severity of 50.
      * Also it will generate an alarm (A) of severity Major (2) and of alarm type 0x180000. The alarm is not user
      * clearable (N).
-     * 
+     *
      * The E can be present or absent. If absent the event is not logged to the Archive Manager and will not be
      * observed in any client view unless the client is displaying the event history when the event occurs. The
      * event severity is not currently used but is logged with the event. If the E is absent the severity should
      * also be absent.
-     * 
+     *
      * The A indicates that when this event occurs an alarm should be generated. Following the A are the alarm
      * severity, alarm cause (type) and three qualifiers that can appear in any combination. The alarm type does
      * not need to have the same value as the type of the event that generates it, however making them equal
@@ -78,19 +78,19 @@ public class EventDispositionReader {
      *     generated for subsequent occurrences, instead the existing alarm is noted)
      * N - The alarm is not user clearable
      * T - the alarm is not persistent (it will not be maintained through a SpectroSERVER restart)
-     *  
+     *
      *  In place of the A there can be a C. The C would be followed by an alarm cause value and indicates that
      *  when the event occurs it should clear an alarm of the type indicated if one exists on the model.
-     *  
+     *
      *  In place of the U one or more event variables can be listed as event discriminators:
      *  E A ,,,N,T
-     *  
+     *
      *  When discriminators are specified then they are considered together with the alarm cause in determining
      *  the effective type of the alarm. Consider the following:
-     *  
+     *
      *  0x180000 E 50 A 2,0x180000, 2,3,N
      *  0x180001 E 50 C   0x180000, 2,3
-     *  
+     *
      *  This states that event 0x180000 should generate an alarm of type 0x180000 and that the values for event
      *  variables 2 and 3 should be saved with the alarm. If event 0x180000 occurs again and there is already
      *  an alarm present, but the new values of event variables 2 and 3 are not both equal to those stored with
@@ -100,7 +100,7 @@ public class EventDispositionReader {
      *  alarm was generated with the same values of event variables 2 and 3 that were stored when the alarm was
      *  created. The specification of the discriminators with the clear event is required.
      */
-    
+
     private enum TokenType {
         none,
         eventCode,
@@ -116,7 +116,7 @@ public class EventDispositionReader {
         notUserClearable,
         notPersistent
     }
-    
+
     public EventDispositionReader(Resource rsrc) throws IOException {
         m_resource = rsrc;
         m_reader = new BufferedReader(new InputStreamReader(m_resource.getInputStream()));
@@ -132,18 +132,18 @@ public class EventDispositionReader {
         m_tokenizer.wordChars('a', 'z');
         m_tokenizer.wordChars('A', 'Z');
     }
-    
+
     public List<EventDisposition> getEventDispositions() throws IOException {
         List<EventDisposition> eventDispositions = new ArrayList<EventDisposition>();
         EventDisposition thisEventDisposition = null;
         TokenType lastToken = TokenType.none;
-        
+
         boolean pastAlarmCause = false;
         boolean justHitEol = true;
-        
+
         while (m_tokenizer.nextToken() != StreamTokenizer.TT_EOF) {
             //System.err.println(m_tokenizer);
-            
+
             if (justHitEol && m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches(eventCodeExpr)) {
                 LOG.debug("Found an event code {} on line {}, creating a new event-disposition", m_tokenizer.sval, m_tokenizer.lineno());
                 thisEventDisposition = new EventDisposition(m_tokenizer.sval);
@@ -163,7 +163,7 @@ public class EventDispositionReader {
                 }
                 justHitEol = true;
             }
-            
+
             if (m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.equals(logEventToken)) {
                 if (lastToken != TokenType.eventCode) {
 					LOG.error(
@@ -178,7 +178,7 @@ public class EventDispositionReader {
                 thisEventDisposition.setLogEvent(true);
                 lastToken = TokenType.logEvent;
             }
-            
+
             if (lastToken == TokenType.logEvent) {
                 if (m_tokenizer.nextToken() == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches("^\\d+$")) {
 					LOG.trace(
@@ -198,7 +198,7 @@ public class EventDispositionReader {
                     throw new IllegalArgumentException("Found an out-of-place token [" + m_tokenizer.sval + "] on line " + m_tokenizer.lineno());
                 }
             }
-            
+
             if (m_tokenizer.ttype == StreamTokenizer.TT_WORD && (m_tokenizer.sval.equals(createAlarmToken) || m_tokenizer.sval.equals(clearAlarmToken))) {
 				LOG.trace(
 						"Found a create-alarm or clear-alarm token [{}] on line {}, checking that it's not out of order",
@@ -213,7 +213,7 @@ public class EventDispositionReader {
                     throw new IllegalArgumentException("Found an out-of-place token [" + m_tokenizer.sval + "] on line "+ m_tokenizer.lineno());
                 }
             }
-            
+
             if (m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.equals(createAlarmToken)) {
                 LOG.debug("Found a create-alarm token [{}] on line {}", m_tokenizer.sval, m_tokenizer.lineno());
 				LOG.trace(
@@ -237,7 +237,7 @@ public class EventDispositionReader {
                     thisEventDisposition.setAlarmSeverity(Integer.valueOf(m_tokenizer.sval));
                     lastToken = TokenType.alarmSeverity;
                 }
-                
+
                 if (m_tokenizer.nextToken() != ',') {
 					LOG.error(
 							"The alarm-severity value [{}] on line {} of {} is not followed by a comma",
@@ -249,13 +249,13 @@ public class EventDispositionReader {
                 lastToken = TokenType.alarmSeverityComma;
                 continue;
             }
-            
+
             if (m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.equals(clearAlarmToken)) {
                 LOG.debug("Found a clear-alarm token [{}] on line {}, setting clearAlarm to true", m_tokenizer.sval, m_tokenizer.lineno());
                 thisEventDisposition.setClearAlarm(true);
                 lastToken = TokenType.clearAlarm;
             }
-            
+
             if (lastToken == TokenType.alarmSeverityComma || lastToken == TokenType.clearAlarm) {
                 if (m_tokenizer.ttype != StreamTokenizer.TT_WORD) {
 					LOG.error(
@@ -264,9 +264,9 @@ public class EventDispositionReader {
 							m_tokenizer.lineno(),
 							m_resource,
 							m_tokenizer.ttype);
-                    throw new IllegalArgumentException("Expected an alarm-cause [e.g. 0xNNN...] after the " + lastToken.name() + " on line " + m_tokenizer.lineno() + " but got a non-word token instead");                    
+                    throw new IllegalArgumentException("Expected an alarm-cause [e.g. 0xNNN...] after the " + lastToken.name() + " on line " + m_tokenizer.lineno() + " but got a non-word token instead");
                 } else if (m_tokenizer.sval.matches(eventCodeExpr)) {
-                    if (lastToken == TokenType.alarmSeverityComma) { 
+                    if (lastToken == TokenType.alarmSeverityComma) {
                         LOG.debug("Found alarm-cause of [{}] on line {}, setting accordingly", m_tokenizer.sval, m_tokenizer.lineno());
                         thisEventDisposition.setAlarmCause(m_tokenizer.sval);
                     } else if (lastToken == TokenType.clearAlarm) {
@@ -276,12 +276,12 @@ public class EventDispositionReader {
                     lastToken = TokenType.alarmCause;
                 }
             }
-            
+
             if (lastToken == TokenType.alarmCause && m_tokenizer.ttype == ',') {
                 lastToken = TokenType.alarmCauseComma;
                 pastAlarmCause = true;
             }
-            
+
             if (lastToken == TokenType.alarmCauseComma && m_tokenizer.ttype != StreamTokenizer.TT_WORD) {
 				LOG.error(
 						"Found an unexpected non-word token after the comma that follows alarm-cause or clear-alarm-cause [{}] on line {} of {}",
@@ -290,14 +290,14 @@ public class EventDispositionReader {
 						m_resource);
                 throw new IllegalArgumentException("Unexpected token after the comma following alarm-cause or clear-alarm-cause [" + thisEventDisposition.getAlarmCause() + "] on line " + m_tokenizer.lineno());
             }
-            
+
             if (pastAlarmCause && m_tokenizer.ttype == ',') {
 				LOG.trace(
 						"Ignoring a comma in post-(clear)-alarm-cause section of disposition for event-code {} on line {}",
 						thisEventDisposition.getEventCode(),
 						m_tokenizer.lineno());
             }
-            
+
             if (pastAlarmCause && m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.matches("^\\d+$")) {
 				LOG.debug(
 						"Found a numeric token [{}] after the (clear)-alarm-cause on line {}, adding as a discriminator",
@@ -305,7 +305,7 @@ public class EventDispositionReader {
 						m_tokenizer.lineno());
                 thisEventDisposition.addDiscriminator(Integer.valueOf(m_tokenizer.sval));
             }
-            
+
             if (pastAlarmCause && m_tokenizer.ttype == StreamTokenizer.TT_WORD && m_tokenizer.sval.equals(uniqueAlarmToken)) {
 				LOG.debug(
 						"Found a unique-alarm token [{}] after the (clear)-alarm-cause on line {}, setting unique-alarm to true",
@@ -331,7 +331,7 @@ public class EventDispositionReader {
             }
 
         }
-        
+
         LOG.info("Loaded {} event-dispositions from [{}]", eventDispositions.size(), m_resource);
         return eventDispositions;
     }

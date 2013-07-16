@@ -268,7 +268,7 @@ public interface PollerConfig {
      */
     boolean isPolled(String ipaddr, String svcName);
 
-    
+
     /**
      * Returns true if the ip is part of at least one package and if this package
      * has the service enabled and if there is a monitor for this service and the
@@ -303,7 +303,7 @@ public interface PollerConfig {
      * @return list of RRA strings.
      */
     List<String> getRRAList(Package pkg);
-    
+
     /**
      * <p>getAllPackageMatches</p>
      *
@@ -311,21 +311,21 @@ public interface PollerConfig {
      * @return a {@link java.util.List} object.
      */
     List<String> getAllPackageMatches(String ipAddr);
-    
+
     /**
      * <p>getNextOutageIdSql</p>
      *
      * @return a {@link java.lang.String} object.
      */
     String getNextOutageIdSql();
-    
+
     /**
      * <p>enumeratePackage</p>
      *
      * @return a {@link java.util.Enumeration} object.
      */
     public Enumeration<Package> enumeratePackage();
-    
+
     /**
      * <p>getPackage</p>
      *
@@ -333,7 +333,7 @@ public interface PollerConfig {
      * @return a {@link org.opennms.netmgt.config.poller.Package} object.
      */
     public Package getPackage(String pkgName);
-    
+
     /**
      * <p>getServiceSelectorForPackage</p>
      *
@@ -355,7 +355,7 @@ public interface PollerConfig {
      * @return a {@link java.util.Map} object.
      */
     public Map<String, ServiceMonitor> getServiceMonitors();
-    
+
     /**
      * <p>releaseAllServiceMonitors</p>
      */
@@ -368,7 +368,7 @@ public interface PollerConfig {
      * @return a {@link org.opennms.netmgt.poller.ServiceMonitor} object.
      */
     public ServiceMonitor getServiceMonitor(String svcName);
-    
+
     /**
      * <p>update</p>
      *
@@ -377,7 +377,7 @@ public interface PollerConfig {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public void update() throws IOException, MarshalException, ValidationException;
-    
+
     /**
      * <p>save</p>
      *
@@ -387,14 +387,14 @@ public interface PollerConfig {
      */
     public void save() throws MarshalException, IOException, ValidationException;
 
-    
+
     /**
      * <p>addPackage</p>
      *
      * @param pkg a {@link org.opennms.netmgt.config.poller.Package} object.
      */
     void addPackage(Package pkg);
-    
+
     /**
      * <p>addMonitor</p>
      *

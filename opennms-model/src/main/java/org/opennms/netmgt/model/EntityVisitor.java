@@ -32,7 +32,7 @@ package org.opennms.netmgt.model;
  * <p>EntityVisitor interface.</p>
  */
 public interface EntityVisitor {
-	
+
 	public void visitNode(OnmsNode node);
 
 	public void visitNodeComplete(OnmsNode node);

@@ -70,5 +70,5 @@ public class TopologyComponentState extends AbstractComponentState {
         m_edges = edges;
     }
 
-    
+
 }

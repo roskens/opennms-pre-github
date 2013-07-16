@@ -54,7 +54,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * Test the user stories/use cases associated with the Link Adapter.
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  *
  */
@@ -72,7 +72,7 @@ import org.springframework.test.context.ContextConfiguration;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class LinkProvisioningAdapterTest implements InitializingBean {
-    
+
     public static final String END_POINT_1 = "nc-ral0001-to-ral0002-dwave";
     public static final String END_POINT_2 = "nc-ral0002-to-ral0001-dwave";
     public static final String UP_STATUS = "G";
@@ -86,263 +86,263 @@ public class LinkProvisioningAdapterTest implements InitializingBean {
     private LinkMatchResolver m_matchResolver;
 
     private NodeLinkService m_nodeLinkService;
-    
-    
+
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp() {
         m_matchResolver = createMock(LinkMatchResolver.class);
         m_nodeLinkService = createMock(NodeLinkService.class);
-        
+
         expect(m_matchResolver.getAssociatedEndPoint(END_POINT_1)).andStubReturn(END_POINT_2);
         expect(m_matchResolver.getAssociatedEndPoint(END_POINT_2)).andStubReturn(END_POINT_1);
         expect(m_matchResolver.getAssociatedEndPoint(not(or(eq(END_POINT_1), eq(END_POINT_2))))).andStubReturn(null);
-        
+
         expect(m_nodeLinkService.getNodeLabel(1)).andStubReturn(END_POINT_1);
         expect(m_nodeLinkService.getNodeLabel(2)).andStubReturn(END_POINT_2);
         expect(m_nodeLinkService.getNodeLabel(not(or(eq(1), eq(2))))).andStubReturn(null);
-        
+
     }
-    
+
     @Test
     public void dwoTestStubs(){
         replay();
         assertEquals(END_POINT_2, m_matchResolver.getAssociatedEndPoint(END_POINT_1));
         assertEquals(END_POINT_1, m_matchResolver.getAssociatedEndPoint(END_POINT_2));
         assertNull(m_matchResolver.getAssociatedEndPoint("other"));
-        
+
         assertEquals(END_POINT_1, m_nodeLinkService.getNodeLabel(1));
         assertEquals(END_POINT_2, m_nodeLinkService.getNodeLabel(2));
         assertNull(m_nodeLinkService.getNodeLabel(17));
-        
+
         verify();
     }
-    
-    
-    
+
+
+
     @Test
     public void dwoAddLinkedNodes() {
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
-        
+
         // we make node2 return null the first time so when node1 is added it appear node2 is not there
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
-        
-        
+
+
+
         m_adapter.doAddNode(1);
         m_adapter.doAddNode(2);
-         
-        
-        
+
+
+
         verify();
     }
-    
+
     @Test
     public void dwoAddEndPoint2EndPoint1Exists() {
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
+
         m_adapter.doAddNode(2);
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoAddEndPoint1EndPoint2Exists() {
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
+
         m_adapter.doAddNode(1);
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoDataLinkFailedEventEndPoint1(){
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
-        
+
         m_nodeLinkService.updateLinkStatus(1,2, FAILED_STATUS);
-        
+
         replay();
-        
+
         EventBuilder eventBuilder = new EventBuilder(EventConstants.DATA_LINK_FAILED_EVENT_UEI, null);
         eventBuilder.setParam("endPoint1", END_POINT_1);
         eventBuilder.setParam("endPoint2", END_POINT_2);
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
         m_adapter.dataLinkFailed(eventBuilder.getEvent());
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoDataLinkFailEventEndPoint2(){
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
-        
+
         m_nodeLinkService.updateLinkStatus(1, 2, FAILED_STATUS);
-        
+
         replay();
-        
+
         EventBuilder eventBuilder = new EventBuilder(EventConstants.DATA_LINK_FAILED_EVENT_UEI, null);
         eventBuilder.setParam("endPoint1", END_POINT_2);
         eventBuilder.setParam("endPoint2", END_POINT_1);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
         m_adapter.dataLinkFailed(eventBuilder.getEvent());
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoDataLinkRestoredEventEndPoint1(){
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
-        
+
         m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
-        
+
         replay();
-        
+
         EventBuilder eventBuilder = new EventBuilder(EventConstants.DATA_LINK_RESTORED_EVENT_UEI, null);
         eventBuilder.setParam("endPoint1", END_POINT_1);
         eventBuilder.setParam("endPoint2", END_POINT_2);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
         m_adapter.dataLinkRestored(eventBuilder.getEvent());
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoDataLinkRestoredEventEndPoint2(){
 
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
-        
+
         m_nodeLinkService.updateLinkStatus(1,2, UP_STATUS);
-        
+
         replay();
-        
+
         EventBuilder eventBuilder = new EventBuilder(EventConstants.DATA_LINK_RESTORED_EVENT_UEI, null);
         eventBuilder.setParam("endPoint1", END_POINT_2);
         eventBuilder.setParam("endPoint2", END_POINT_1);
         eventBuilder.setCreationTime(new Date());
         eventBuilder.setDescription("nodeLinkFailed");
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
         m_adapter.dataLinkRestored(eventBuilder.getEvent());
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoTestUpdateEndPoint1(){
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
-        
+
         // we make node2 return null the first time so when node1 is added it appear node2 is not there
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andReturn(null).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
-        
-        
+
+
+
         m_adapter.doAddNode(1);
         m_adapter.doAddNode(2);
-         
-        
-        
+
+
+
         verify();
     }
-    
+
     @Test
     public void dwoUpdateEndPoint2EndPoint1Exists() {
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
+
         m_adapter.doAddNode(2);
-        
+
         verify();
     }
-    
+
     @Test
     public void dwoUpdateEndPoint1EndPoint2Exists() {
-        
+
         expect(m_nodeLinkService.getNodeId(END_POINT_1)).andStubReturn(1);
         expect(m_nodeLinkService.getNodeId(END_POINT_2)).andStubReturn(2);
 
         m_nodeLinkService.createLink(1, 2);
-        
+
         replay();
-        
+
         m_adapter.setLinkMatchResolver(m_matchResolver);
         m_adapter.setNodeLinkService(m_nodeLinkService);
-        
+
         m_adapter.doAddNode(1);
-        
+
         verify();
     }
-    
+
     public <T> T createMock(Class<T> clazz){
         return m_easyMock.createMock(clazz);
     }
-    
+
     public void verify(){
         m_easyMock.verifyAll();
     }
-    
+
     public void replay(){
         m_easyMock.replayAll();
     }

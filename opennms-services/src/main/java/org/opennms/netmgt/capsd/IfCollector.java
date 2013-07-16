@@ -59,11 +59,11 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS </a>
  */
 public final class IfCollector implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfCollector.class);
-    
+
     private PluginManager m_pluginManager;
-    
+
     /**
      * The primary target internet address
      */
@@ -108,9 +108,9 @@ public final class IfCollector implements Runnable {
      * This class is used to encapsulate the supported protocol information
      * discovered for an interface. The is the combination of the protocol name
      * and the in/out qualifiers for the plugin.
-     * 
+     *
      * @author <a href="mailto:weave@oculan.com">Weave </a>
-     * 
+     *
      */
     static final class SupportedProtocol {
         /**
@@ -126,7 +126,7 @@ public final class IfCollector implements Runnable {
         /**
          * Creates a new supported protocol based upon the protocol string and
          * the qualifier map.
-         * 
+         *
          * @param protoName
          *            The name of the protocol.
          * @param qualifiers
@@ -158,18 +158,18 @@ public final class IfCollector implements Runnable {
      * configured list of protocol specifications from the Configuration
      * Manager. The list of supported protocols are added to the supports list.
      * Any failures in the plugins are logged and discarded.
-     * 
+     *
      * @param target
      *            The target to probe
      * @param supports
      *            The supported protocols (SupportedProtocol)
-     * 
+     *
      */
     private void probe(InetAddress target, List<SupportedProtocol> supports) {
         String logAddr = InetAddressUtils.str(target);
 
         CapsdProtocolInfo[] plugins = m_pluginManager.getProtocolSpecification(target);
-        
+
         // First run the plugins to find out all the capabilities
         // for the interface
         //
@@ -217,12 +217,12 @@ public final class IfCollector implements Runnable {
      * in the constructor. The main work of the class is preformed in the
      * {@link #run run}method. This provides a well known interface that can be
      * collected in a thread pool or directly invoked.
-     * 
+     *
      * @param addr
      *            The target of the poll.
      * @param doSnmpCollection
      *            Flag which indicates if SNMP collection should be done.
-     * 
+     *
      */
     IfCollector(PluginManager pluginManager, InetAddress addr, boolean doSnmpCollection) {
         this(pluginManager, addr, doSnmpCollection, new HashSet<InetAddress>());
@@ -265,7 +265,7 @@ public final class IfCollector implements Runnable {
      * Returns the map of additional interface targets. The keys are instances
      * of {@link java.net.InetAddress addresses}and the mapped values are
      * {@link java.util.List lists}of supported protocols.
-     * 
+     *
      */
     Map<InetAddress, List<SupportedProtocol>> getAdditionalTargets() {
         return m_subTargets;
@@ -280,7 +280,7 @@ public final class IfCollector implements Runnable {
 
     /**
      * Returns the list of non-IP interfaces..
-     * 
+     *
      */
     List<Integer> getNonIpInterfaces() {
         return m_nonIpInterfaces;
@@ -313,7 +313,7 @@ public final class IfCollector implements Runnable {
     IfSnmpCollector getSnmpCollector() {
         return m_snmpCollector;
     }
-    
+
     void deleteSnmpCollector() {
         m_snmpCollector = null;
     }
@@ -493,7 +493,7 @@ public final class IfCollector implements Runnable {
                         LOG.debug("ifCollector.run: probing subtarget {}", InetAddressUtils.str(subtarget));
                         probe(subtarget, probelist);
                         m_previouslyProbed.add(subtarget);
-                        
+
                         LOG.debug("ifCollector.run: adding subtarget {} # supported protocols: {}", InetAddressUtils.str(subtarget), probelist.size());
                         LOG.debug("----------------------------------------------------------------------------------------");
                         m_subTargets.put(subtarget, probelist);

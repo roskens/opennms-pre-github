@@ -50,7 +50,7 @@ public class PaletteCategory {
 	public PaletteCategory() {
 		this(null);
 	}
-	
+
 	/**
 	 * <p>Constructor for PaletteCategory.</p>
 	 *
@@ -68,7 +68,7 @@ public class PaletteCategory {
 	public String getLabel() {
 		return m_label;
 	}
-	
+
 	/**
 	 * <p>setLabel</p>
 	 *
@@ -77,7 +77,7 @@ public class PaletteCategory {
 	public void setLabel(String label) {
 		m_label = label;
 	}
-	
+
 	/**
 	 * <p>getItems</p>
 	 *
@@ -86,7 +86,7 @@ public class PaletteCategory {
 	public List<PaletteItem> getItems() {
 		return Collections.unmodifiableList(m_items);
 	}
-	
+
 	/**
 	 * <p>addItem</p>
 	 *
@@ -95,6 +95,6 @@ public class PaletteCategory {
 	public void addItem(PaletteItem item) {
 		m_items.add(item);
 	}
-	
-	
+
+
 }

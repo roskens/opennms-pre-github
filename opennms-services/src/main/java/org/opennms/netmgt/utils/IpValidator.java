@@ -41,9 +41,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class IpValidator extends Object {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(IpValidator.class);
-	
+
     /**
      * <p>isIpValid</p>
      *
@@ -73,5 +73,5 @@ public class IpValidator extends Object {
             }
         }
         return true;
-    }     
+    }
 }

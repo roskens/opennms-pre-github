@@ -18,21 +18,21 @@ import org.slf4j.LoggerFactory;
 
 
 public class NCSCriteriaServiceManager {
-    
+
     private Map<String, List<ServiceRegistration<Criteria>>> m_registrationMap = new HashMap<String, List<ServiceRegistration<Criteria>>>();
     private BundleContext m_bundleContext;
-    
+
     public void registerCriteria(Criteria ncsCriteria, String sessionId) {
         //This is to get around an issue with the NCSPathProvider when registering a service with different namespaces
         //removeAllServicesForSession(sessionId);
         removeServicesForSessionWithNamespace(sessionId, ncsCriteria.getNamespace());
-        
+
         Dictionary<String, Object> properties = new Hashtable<String, Object>();
         properties.put("sessionId", sessionId);
         properties.put("namespace", ncsCriteria.getNamespace());
-        
+
         ServiceRegistration<Criteria> registeredService = m_bundleContext.registerService(Criteria.class, ncsCriteria, properties);
-        
+
         if(m_registrationMap.containsKey(sessionId)) {
             List<ServiceRegistration<Criteria>> list = m_registrationMap.get(sessionId);
             list.add(registeredService);
@@ -41,9 +41,9 @@ public class NCSCriteriaServiceManager {
             serviceList.add(registeredService);
             m_registrationMap.put(sessionId, serviceList);
         }
-        
+
     }
-    
+
     private void removeServicesForSessionWithNamespace(String sessionId, String namespace) {
         if(m_registrationMap.containsKey(sessionId)) {
             List<ServiceRegistration<Criteria>> serviceList = m_registrationMap.get(sessionId);
@@ -62,8 +62,8 @@ public class NCSCriteriaServiceManager {
             if(removedService != null) serviceList.remove(removedService);
         }
     }
-    
-    
+
+
     private void removeAllServicesForSession(String sessionId) {
         if(m_registrationMap.containsKey(sessionId)) {
             List<ServiceRegistration<Criteria>> serviceList = m_registrationMap.get(sessionId);
@@ -74,11 +74,11 @@ public class NCSCriteriaServiceManager {
                     LoggerFactory.getLogger(this.getClass()).warn("Attempted to unregister a service that is already unregistered {}", e);
                 }
             }
-            
+
             serviceList.clear();
         }
     }
-    
+
     protected void removeAllServices() {
         for(String key : m_registrationMap.keySet()) {
             removeAllServicesForSession(key);
@@ -97,32 +97,32 @@ public class NCSCriteriaServiceManager {
                     case BundleEvent.STOPPING:
                         removeAllServices();
                 }
-                
+
             }
-            
+
         });
     }
 
 
     public boolean isCriteriaRegistered(String namespace, String sessionId) {
         List<ServiceRegistration<Criteria>> registrationList = m_registrationMap.get(sessionId);
-        
+
         if(registrationList != null) {
             for(ServiceRegistration<Criteria> critRegistration : registrationList) {
                 String namespaceProperty = (String) critRegistration.getReference().getProperty("namespace");
                 if(namespaceProperty.equals( namespace )) {
                     return true;
-                }    
+                }
             }
         }
-        
+
         return false;
     }
 
 
     public void unregisterCriteria(String namespace, String sessionId) {
         List<ServiceRegistration<Criteria>> registrationList = m_registrationMap.get(sessionId);
-        
+
         List<ServiceRegistration<Criteria>> clearedList = new ArrayList<ServiceRegistration<Criteria>>();
         for(ServiceRegistration<Criteria> criteriaRegistration : registrationList) {
             String namespaceProperty = (String) criteriaRegistration.getReference().getProperty("namespace");
@@ -131,25 +131,25 @@ public class NCSCriteriaServiceManager {
                 clearedList.add(criteriaRegistration);
             }
         }
-        
+
         if(clearedList.size() > 0) {
             registrationList.removeAll(clearedList);
         }
-        
+
     }
 
 
     public void addCriteriaServiceListener(ServiceListener listener, String sessionId, String namespace) {
         try {
-            m_bundleContext.addServiceListener( listener, 
+            m_bundleContext.addServiceListener( listener,
                     "(&(objectClass=org.opennms.features.topology.api.topo.Criteria)(sessionId=" + sessionId + ")(namespace=" + namespace + "))");
         } catch (InvalidSyntaxException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        
+
     }
-    
+
     public void removeCriteriaServiceListener(ServiceListener listener) {
         m_bundleContext.removeServiceListener(listener);
     }

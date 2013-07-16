@@ -43,22 +43,22 @@ import org.slf4j.LoggerFactory;
 
 class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultLifeCycleInstance.class);
-    
+
     /*
-     * Complications... 
+     * Complications...
      * separation between 'phase list... lifecycle definition', 'provider set', 'phase running'
-     * 
+     *
      * also
      * confusion.. about definitions and factories
-     * 
+     *
      * other notes:
      * phase runners can and should be built at lifecycle creation time rather than 'on the fly'
      * only strange case is 'fan-out' of lifecycles
-     * 
-     * 
-     *  
+     *
+     *
+     *
      */
-    
+
     final BatchTask m_containingPhase;
     final LifeCycleRepository m_repository;
     final DefaultTaskCoordinator m_coordinator;
@@ -66,7 +66,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     final Phase[] m_phases;
     final Object[] m_providers;
     final Map<String, Object> m_attributes = new HashMap<String, Object>();
-    
+
     /**
      * <p>Constructor for DefaultLifeCycleInstance.</p>
      *
@@ -95,7 +95,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
             LOG.debug("Adding phase {} to lifecycle", m_phases[i].getName());
             add(m_phases[i]);
         }
-        
+
         setAttribute("lifeCycleInstance", this);
     }
 
@@ -142,7 +142,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
     public Object getAttribute(String key) {
         return m_attributes.get(key);
     }
-    
+
     /**
      * <p>getAttribute</p>
      *
@@ -158,9 +158,9 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         } else {
             return getAttribute(key, getClass(defaultValue));
         }
-        
+
     }
-    
+
     /**
      * <p>getClass</p>
      *
@@ -185,7 +185,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         m_attributes.put(key, value);
         return this;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public <T> T findAttributeByType(Class<T> clazz) {
@@ -202,7 +202,7 @@ class DefaultLifeCycleInstance extends SequenceTask implements LifeCycleInstance
         return result;
     }
 
-    
+
     /** {@inheritDoc} */
     @Override
     public LifeCycleInstance createNestedLifeCycle(BatchTask containingPhase, String lifeCycleName) {

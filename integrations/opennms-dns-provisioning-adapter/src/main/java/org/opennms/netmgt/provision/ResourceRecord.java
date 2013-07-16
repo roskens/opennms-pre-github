@@ -40,9 +40,9 @@ public class ResourceRecord {
     private String m_rClass;
     private Integer m_rdLength;
     private String m_rdata;
-    
+
     private String m_ttl;
-    
+
     /**
      * <p>getName</p>
      *

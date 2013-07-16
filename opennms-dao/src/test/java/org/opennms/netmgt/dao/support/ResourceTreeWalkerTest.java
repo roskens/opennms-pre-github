@@ -52,30 +52,30 @@ public class ResourceTreeWalkerTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private ResourceDao m_resourceDao = m_mocks.createMock(ResourceDao.class);
     private ResourceVisitor m_visitor = m_mocks.createMock(ResourceVisitor.class);
-    
+
     @Override
     public void setUp() throws Exception {
         super.setUp();
     }
-    
+
     public void testAfterPropertiesSet() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(m_visitor);
-        
+
         m_mocks.replayAll();
         walker.afterPropertiesSet();
         m_mocks.verifyAll();
     }
-    
+
     public void testAfterPropertiesSetNoResourceDao() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(null);
         walker.setVisitor(m_visitor);
-        
+
         ThrowableAnticipator ta = new  ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property resourceDao must be set to a non-null value"));
-        
+
         m_mocks.replayAll();
         try {
             walker.afterPropertiesSet();
@@ -85,12 +85,12 @@ public class ResourceTreeWalkerTest extends TestCase {
         ta.verifyAnticipated();
         m_mocks.verifyAll();
     }
-    
+
     public void testAfterPropertiesSetNoVisitor() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(null);
-        
+
         ThrowableAnticipator ta = new  ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property visitor must be set to a non-null value"));
 
@@ -103,32 +103,32 @@ public class ResourceTreeWalkerTest extends TestCase {
         ta.verifyAnticipated();
         m_mocks.verifyAll();
     }
-    
+
     public void testWalkEmptyList() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(m_visitor);
-        
+
         m_mocks.replayAll();
         walker.afterPropertiesSet();
         m_mocks.verifyAll();
-        
+
         expect(m_resourceDao.findTopLevelResources()).andReturn(new ArrayList<OnmsResource>(0));
 
         m_mocks.replayAll();
         walker.walk();
         m_mocks.verifyAll();
     }
-    
+
     public void testWalkTopLevel() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(m_visitor);
-        
+
         m_mocks.replayAll();
         walker.afterPropertiesSet();
         m_mocks.verifyAll();
-        
+
         MockResourceType resourceType = new MockResourceType();
         List<OnmsResource> resources = new ArrayList<OnmsResource>(2);
         resources.add(new OnmsResource("1", "Node One", resourceType, new HashSet<OnmsAttribute>(0)));
@@ -142,16 +142,16 @@ public class ResourceTreeWalkerTest extends TestCase {
         walker.walk();
         m_mocks.verifyAll();
     }
-    
+
     public void testWalkChildren() {
         ResourceTreeWalker walker = new ResourceTreeWalker();
         walker.setResourceDao(m_resourceDao);
         walker.setVisitor(m_visitor);
-        
+
         m_mocks.replayAll();
         walker.afterPropertiesSet();
         m_mocks.verifyAll();
-        
+
         MockResourceType resourceType = new MockResourceType();
         OnmsResource childResource = new OnmsResource("eth0", "Interface eth0", resourceType, new HashSet<OnmsAttribute>(0));
         OnmsResource topResource = new OnmsResource("1", "Node One", resourceType, new HashSet<OnmsAttribute>(0), Collections.singletonList(childResource));

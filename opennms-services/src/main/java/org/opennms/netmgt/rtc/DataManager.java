@@ -87,9 +87,9 @@ import org.xml.sax.SAXException;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public class DataManager extends Object {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DataManager.class);
-    
+
     private class RTCNodeProcessor implements RowCallbackHandler {
 		RTCNodeKey m_currentKey = null;
 
@@ -121,7 +121,7 @@ public class DataManager extends Object {
 					addNodeToCategory(cat, rtcN);
 				}
 			}
-		
+
 		}
 
 		private RTCNode getRTCNode(RTCNodeKey key) {
@@ -136,12 +136,12 @@ public class DataManager extends Object {
 		private boolean catContainsIfService(RTCCategory cat, RTCNodeKey key) {
 			return cat.containsService(key.getSvcName()) && catContainsNode(cat, (int)key.getNodeID());
 		}
-		
-		private boolean catContainsNode(RTCCategory cat, Integer nodeID) {			
+
+		private boolean catContainsNode(RTCCategory cat, Integer nodeID) {
 			Set<Integer> nodeIds = catGetNodeIds(cat);
 			return nodeIds.contains(nodeID);
 		}
-		
+
 		private Set<Integer> catGetNodeIds(RTCCategory cat) {
 			Set<Integer> nodeIds = m_categoryNodeIdLists.get(cat.getLabel());
 			if(nodeIds == null) {
@@ -150,32 +150,32 @@ public class DataManager extends Object {
 			}
 			return nodeIds;
 		}
-		
+
 		private Set<Integer> catConstructNodeIds (RTCCategory cat) {
 			String filterRule = cat.getEffectiveRule();
 			try {
 				LOG.debug("Category: {}\t{}", cat.getLabel(), filterRule);
-		
+
 				Set<Integer> nodeIds = FilterDaoFactory.getInstance().getNodeMap(filterRule).keySet();
-				
+
 		        LOG.debug("Number of nodes satisfying rule: {}", nodeIds.size());
-		
+
 		        return nodeIds;
-		        
+
 			} catch (FilterParseException e) {
 				LOG.error("Unable to parse filter rule {} ignoring category {}", filterRule, cat.getLabel(), e);
 				return Collections.emptySet();
 			}
 		}
-		
+
 		// This is processed for each outage, passing two null means there is not outage
 		public void processOutage(RTCNodeKey key, Timestamp ifLostService, Timestamp ifRegainedService) {
 			RTCNode rtcN = m_map.getRTCNode(key);
 			// if we can't find the node it doesn't belong to any category
 			if (rtcN == null) return;
-			
+
 			addOutageToRTCNode(rtcN, ifLostService, ifRegainedService);
-			
+
 		}
 	}
 
@@ -191,24 +191,24 @@ public class DataManager extends Object {
 
     /**
      * Get the 'ismanaged' status for the node ID, IP address combination
-     * 
+     *
      * @param nodeid
      *            the node ID of the interface
      * @param ip
      *            the interface for which the status is required
      * @param svc
      *            the service for which status is required
-     * 
+     *
      * @return the 'status' from the ifServices table
      */
     private char getServiceStatus(long nodeid, InetAddress ip, String svc) {
-    	
+
     	JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
     	String status= (String)template.queryForObject(RTCConstants.DB_GET_SERVICE_STATUS, new Object[] { Long.valueOf(nodeid), InetAddressUtils.str(ip), svc }, String.class);
 
     	if (status == null) return '\0';
     	return status.charAt(0);
-    	
+
     }
 
 	private void addOutageToRTCNode(RTCNode rtcN, Timestamp lostTimeTS, Timestamp regainedTimeTS) {
@@ -267,7 +267,7 @@ public class DataManager extends Object {
         try {
             for (Categorygroup cg : cFactory.getConfig().getCategorygroupCollection()) {
                 final String commonRule = cg.getCommon().getRule();
-    
+
                 for (final org.opennms.netmgt.config.categories.Category cat : cg.getCategories().getCategoryCollection()) {
                     m_categories.put(new RTCCategory(cat, commonRule).getLabel(), new RTCCategory(cat, commonRule));
                 }
@@ -284,7 +284,7 @@ public class DataManager extends Object {
      * appropriate category.
      * @param dbConn
      *            the database connection.
-     * 
+     *
      * @throws SQLException
      *             if the database read fails due to an SQL error
      * @throws FilterParseException
@@ -296,45 +296,45 @@ public class DataManager extends Object {
      */
     private void populateNodesFromDB(String query, Object[] args) throws SQLException, FilterParseException, RTCException {
 
-    	final String getOutagesInWindow = 
-    			"select " + 
-    			"       ifsvc.nodeid as nodeid, " + 
-    			"       ifsvc.ipAddr as ipaddr, " + 
-    			"       s.servicename as servicename, " + 
-    			"       o.ifLostService as ifLostService, " + 
-    			"       o.ifRegainedService as ifRegainedService " + 
-    			"  from " + 
-    			"       ifservices ifsvc " + 
-    			"  join " + 
-    			"       service s on (ifsvc.serviceid = s.serviceid) " + 
-    			"left outer  join " + 
+	final String getOutagesInWindow =
+			"select " +
+			"       ifsvc.nodeid as nodeid, " +
+			"       ifsvc.ipAddr as ipaddr, " +
+			"       s.servicename as servicename, " +
+			"       o.ifLostService as ifLostService, " +
+			"       o.ifRegainedService as ifRegainedService " +
+			"  from " +
+			"       ifservices ifsvc " +
+			"  join " +
+			"       service s on (ifsvc.serviceid = s.serviceid) " +
+			"left outer  join " +
     			"       outages o on " +
-    			"          (" + 
-    			"            o.nodeid = ifsvc.nodeid " + 
-    			"            and o.ipaddr = ifsvc.ipaddr " + 
-    			"            and o.serviceid = ifsvc.serviceid " + 
+			"          (" +
+			"            o.nodeid = ifsvc.nodeid " +
+			"            and o.ipaddr = ifsvc.ipaddr " +
+			"            and o.serviceid = ifsvc.serviceid " +
     			"            and " +
-    			"            (" + 
-    			"               o.ifLostService > ? " + 
-    			"               OR  o.ifRegainedService > ? " + 
+			"            (" +
+			"               o.ifLostService > ? " +
+			"               OR  o.ifRegainedService > ? " +
     			"               OR  o.ifRegainedService is null " +
     			"            )" +
     			"          ) " +
     			" where ifsvc.status='A' " +
                 (query == null ? "" : "and "+query) +
-    			" order by " + 
+			" order by " +
     			"       ifsvc.nodeid, ifsvc.ipAddr, ifsvc.serviceid, o.ifLostService ";
-    	
+
 		long window = (new Date()).getTime() - RTCManager.getRollingWindow();
 		Timestamp windowTS = new Timestamp(window);
 
     	RowCallbackHandler rowHandler = new RTCNodeProcessor();
 
     	Object[] sqlArgs = createArgs(windowTS, windowTS, args);
-    	
+
     	JdbcTemplate template = new JdbcTemplate(getConnectionFactory());
     	template.query(getOutagesInWindow, sqlArgs, rowHandler);
-    	
+
     }
 
 	private Object[] createArgs(Object arg1, Object arg2, Object[] remaining) {
@@ -365,7 +365,7 @@ public class DataManager extends Object {
      * @throws org.opennms.netmgt.rtc.RTCException if any.
      */
     public DataManager() throws SAXException, IOException, SQLException, FilterParseException, RTCException {
-			
+
     	// read the categories.xml to get all the categories
     	createCategoriesMap();
 
@@ -448,7 +448,7 @@ public class DataManager extends Object {
             // yet I only have ICMP in the service list, the node will not be
             // added when
             // HTTP is discovered, because it is not in the services list.
-            // 
+            //
             // This is mainly useful when SNMP is discovered on a node.
 
             LOG.debug("rtcN : Rescanning services on : {}", ip);
@@ -633,11 +633,11 @@ public class DataManager extends Object {
         }
 
         // finally remove from map
-        
+
         m_map.delete(rtcN);
 
     }
-    
+
     /**
      * <p>assetInfoChanged</p>
      *
@@ -657,9 +657,9 @@ public class DataManager extends Object {
             throw new UndeclaredThrowableException(ex);
         }
 
-    	
+
     }
-    
+
     /**
      * <p>nodeCategoryMembershipChanged</p>
      *
@@ -696,16 +696,16 @@ public class DataManager extends Object {
      *             category rule fails for some reason
      */
     public synchronized void rtcNodeRescan(long nodeid) throws SQLException, FilterParseException, RTCException {
-    	
+
     	for (Iterator<RTCCategory> it = m_categories.values().iterator(); it.hasNext();) {
 			RTCCategory cat = it.next();
 			cat.deleteNode(nodeid);
 		}
-    	
+
     	m_map.deleteNode(nodeid);
-    	
+
     	populateNodesFromDB("ifsvc.nodeid = ?", new Object[] { Long.valueOf(nodeid) });
-    	
+
     }
 
     /**

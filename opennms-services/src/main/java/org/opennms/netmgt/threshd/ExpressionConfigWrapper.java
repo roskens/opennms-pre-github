@@ -44,7 +44,7 @@ import org.opennms.netmgt.config.threshd.Expression;
 
 
 /**
- * 
+ *
  * @author <a href="mailto:jeffg@opennms.org">Jeff Gehlbach</a>
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
@@ -59,7 +59,7 @@ public class ExpressionConfigWrapper extends BaseThresholdDefConfigWrapper {
 	private static class BindingsSniffer extends HashMap<String,Object> implements JexlContext {
 
 		/**
-		 * 
+		 *
 		 */
 		private static final long serialVersionUID = 5595028572061424206L;
 		private final Set<String> m_sniffedKeys = new HashSet<String>();
@@ -128,7 +128,7 @@ public class ExpressionConfigWrapper extends BaseThresholdDefConfigWrapper {
 
 	/**
 	 * This class provides an instance that gives access to the {@link java.lang.Math} functions.
-	 * You can access this variable in your expressions by using the <code>math</code> variable 
+	 * You can access this variable in your expressions by using the <code>math</code> variable
 	 * (ie. <code>math.abs(-1)</code>).
 	 */
 	public static class MathBinding {

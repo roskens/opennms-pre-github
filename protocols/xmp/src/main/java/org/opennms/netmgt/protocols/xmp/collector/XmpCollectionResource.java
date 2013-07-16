@@ -66,7 +66,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-class XmpCollectionResource extends AbstractCollectionResource 
+class XmpCollectionResource extends AbstractCollectionResource
 {
     /* class variables and methods *********************** */
 	private static final Logger LOG = LoggerFactory.getLogger(XmpCollectionResource.class);
@@ -81,7 +81,7 @@ class XmpCollectionResource extends AbstractCollectionResource
     CollectionAgent agent;
 
     /* constructors  ************************************* */
-    XmpCollectionResource(CollectionAgent agent, String resourceType, String nodeTypeName, String instance) 
+    XmpCollectionResource(CollectionAgent agent, String resourceType, String nodeTypeName, String instance)
     {
         super(agent);
 
@@ -101,7 +101,7 @@ class XmpCollectionResource extends AbstractCollectionResource
             this.resourceType = resourceType;
         nodeType = -1;
 
-        // filter the instance so it does not have slashes (/) nor colons 
+        // filter the instance so it does not have slashes (/) nor colons
         // in it as they can munge our rrd file layout
 
         // filter so there are not spaces either just so that
@@ -122,7 +122,7 @@ class XmpCollectionResource extends AbstractCollectionResource
     }
 
     /* private methods *********************************** */
-    
+
 
     /* public methods ************************************ */
 
@@ -171,8 +171,8 @@ class XmpCollectionResource extends AbstractCollectionResource
      *
      * @param aGroup a {@link org.opennms.netmgt.config.collector.AttributeGroup} object.
      */
-    public void addAttributeGroup(AttributeGroup aGroup)  
-    {  
+    public void addAttributeGroup(AttributeGroup aGroup)
+    {
         listOfGroups.add(aGroup);
     }
 
@@ -210,7 +210,7 @@ class XmpCollectionResource extends AbstractCollectionResource
      */
     public void setResourceTypeName(String nodeTypeName) { this.nodeTypeName = nodeTypeName; }
 
-    // return -1 for non-tabular; what do we return for 
+    // return -1 for non-tabular; what do we return for
     // for interface or tabular data?
 
     /**
@@ -255,8 +255,8 @@ class XmpCollectionResource extends AbstractCollectionResource
 
     /** {@inheritDoc} */
     @Override
-    public void visit(CollectionSetVisitor visitor) 
-    { 
+    public void visit(CollectionSetVisitor visitor)
+    {
         LOG.debug("XmpCollectionResource: visit starting with {} attribute groups", getGroups().size());
 
         visitor.visitResource(this);

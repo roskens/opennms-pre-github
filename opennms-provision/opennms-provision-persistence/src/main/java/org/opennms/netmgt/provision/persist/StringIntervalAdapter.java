@@ -51,7 +51,7 @@ public class StringIntervalAdapter extends XmlAdapter<String, Duration> {
     .appendSeconds().appendSuffix("s").appendSeparator(" ")
     .appendMillis().appendSuffix("ms")
     .toFormatter();
-    
+
     /** {@inheritDoc} */
     @Override
     public String marshal(Duration v) {

@@ -39,7 +39,7 @@ import org.springframework.webflow.execution.RequestContext;
  * @since 1.8.1
  */
 public interface DatabaseReportService {
-    
+
     /**
      * <p>execute</p>
      *

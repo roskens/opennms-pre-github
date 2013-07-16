@@ -63,7 +63,7 @@ public final class DhcpdConfigFactory {
 
     /**
      * Default constructor (used by test as was as static methods)
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException

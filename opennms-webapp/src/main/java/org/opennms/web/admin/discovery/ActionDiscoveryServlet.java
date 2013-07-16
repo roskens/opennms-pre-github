@@ -63,20 +63,20 @@ import org.slf4j.LoggerFactory;
  * @since 1.8.1
  */
 public class ActionDiscoveryServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ActionDiscoveryServlet.class);
 
- 
+
     private static final long serialVersionUID = 2L;
-    
+
     /** Constant <code>log</code> */
-    
-    
+
+
     /** Constant <code>addSpecificAction="AddSpecific"</code> */
     public static String addSpecificAction = "AddSpecific";
     /** Constant <code>removeSpecificAction="RemoveSpecific"</code> */
     public static String removeSpecificAction = "RemoveSpecific";
-    
+
     /** Constant <code>addIncludeRangeAction="AddIncludeRange"</code> */
     public static String addIncludeRangeAction = "AddIncludeRange";
     /** Constant <code>removeIncludeRangeAction="RemoveIncludeRange"</code> */
@@ -91,11 +91,11 @@ public class ActionDiscoveryServlet extends HttpServlet {
     public static String addExcludeRangeAction = "AddExcludeRange";
     /** Constant <code>removeExcludeRangeAction="RemoveExcludeRange"</code> */
     public static String removeExcludeRangeAction = "RemoveExcludeRange";
-    
+
     /** Constant <code>saveAndRestartAction="SaveAndRestart"</code> */
     public static String saveAndRestartAction = "SaveAndRestart";
-    
-    
+
+
 	/** {@inheritDoc} */
     @Override
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -109,12 +109,12 @@ public class ActionDiscoveryServlet extends HttpServlet {
         }
         //load current general settings
         config = GeneralSettingsLoader.load(request,config);
-        
+
         String action = request.getParameter("action");
         LOG.debug("action: {}", action);
-        
 
-        
+
+
         //add a Specific
         if(action.equals(addSpecificAction)){
         	LOG.debug("Adding Specific");
@@ -141,9 +141,9 @@ public class ActionDiscoveryServlet extends HttpServlet {
         	Specific spec= config.getSpecific(index);
         	boolean result = config.removeSpecific(spec);
         	LOG.debug("Removing Specific result = {}", result);
-        } 
+        }
 
-        
+
         //add an 'Include Range'
         if(action.equals(addIncludeRangeAction)){
         	LOG.debug("Adding Include Range");
@@ -171,8 +171,8 @@ public class ActionDiscoveryServlet extends HttpServlet {
         	IncludeRange ir= config.getIncludeRange(index);
         	boolean result = config.removeIncludeRange(ir);
         	LOG.debug("Removing Include Range result = {}", result);
-        } 
-        
+        }
+
         //add an 'Include URL'
         if(action.equals(addIncludeUrlAction)){
             LOG.debug("Adding Include URL");
@@ -199,8 +199,8 @@ public class ActionDiscoveryServlet extends HttpServlet {
             IncludeUrl iu = config.getIncludeUrl(index);
             boolean result = config.removeIncludeUrl(iu);
             LOG.debug("Removing Include URL result = {}", result);
-        } 
-        
+        }
+
         //add an 'Exclude Range'
         if(action.equals(addExcludeRangeAction)){
         	LOG.debug("Adding Exclude Range");
@@ -220,8 +220,8 @@ public class ActionDiscoveryServlet extends HttpServlet {
         	ExcludeRange er= config.getExcludeRange(index);
         	boolean result = config.removeExcludeRange(er);
         	LOG.debug("Removing Exclude Range result = {}", result);
-        }         
-        
+        }
+
         //save configuration and restart discovery service
         if(action.equals(saveAndRestartAction)){
         	DiscoveryConfigFactory dcf=null;
@@ -236,7 +236,7 @@ public class ActionDiscoveryServlet extends HttpServlet {
         		LOG.error("Error while saving configuration. {}", ex);
         		throw new ServletException(ex);
         	}
-        	
+
         	EventProxy proxy = null;
         	try {
     			proxy = Util.createEventProxy();
@@ -253,17 +253,17 @@ public class ActionDiscoveryServlet extends HttpServlet {
     			LOG.error(me.getMessage());
     		}
 
-            LOG.info("Restart Discovery requested!");  
+            LOG.info("Restart Discovery requested!");
             sess.removeAttribute("discoveryConfiguration");
             response.sendRedirect(Util.calculateUrlBase( request, "event/query?msgmatchany=Discovery" ));
             return;
         }
-        
+
         sess.setAttribute("discoveryConfiguration", config);
         RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/discovery/edit-config.jsp");
         dispatcher.forward(request, response);
     }
-	
+
 	/** {@inheritDoc} */
     @Override
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

@@ -62,16 +62,16 @@ import org.springframework.mail.javamail.MimeMailMessage;
  * @version $Id: $
  */
 public class JavaSendMailer extends JavaMailer2 {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JavaSendMailer.class);
 
-    
+
     private Properties m_properties;
-    
+
     private SendmailConfig m_config;
     private MimeMailMessage m_message;
     private Session m_session;
-    
+
     /**
      * Constructs everything required to call send()
      *
@@ -106,7 +106,7 @@ public class JavaSendMailer extends JavaMailer2 {
     public JavaSendMailer(SendmailConfig config) throws JavaMailerException {
         this(config, true);
     }
-    
+
     /**
      * <p>buildMimeMessage</p>
      *
@@ -124,8 +124,8 @@ public class JavaSendMailer extends JavaMailer2 {
         mimeMsg.setSubject(m_config.getSendmailMessage().getSubject());
         return mimeMsg;
     }
-    
-    
+
+
     /**
      * Helper method to create an Authenticator based on Password Authentication
      *
@@ -147,10 +147,10 @@ public class JavaSendMailer extends JavaMailer2 {
     }
 
     private Properties createProps(boolean useJmProps) throws IOException {
-        
+
         Properties props = generatePropsFromConfig(m_config.getJavamailPropertyCollection());
         configureProperties(props, useJmProps);
-        
+
         //get rid of this
         return Session.getDefaultInstance(new Properties()).getProperties();
     }
@@ -167,19 +167,19 @@ public class JavaSendMailer extends JavaMailer2 {
      * This method uses a properties file reader to pull in opennms styled javamail properties and sets
      * the actual javamail properties.  This is here to preserve the backwards compatibility but configuration
      * will probably change soon.
-     * 
+     *
      * FIXME definitely will change soon, will be deprecated
-     * 
+     *
      * @throws IOException
-     */    
+     */
     private void configureProperties(Properties sendmailConfigDefinedProps, boolean useJmProps) {
-        
+
         //this loads the properties from the old style javamail-configuration.properties
         //TODO: deprecate this
         Properties props = null;
         try {
             props = JavaMailerConfig.getProperties();
-            
+
             /* These strange properties from javamail-configuration.properties need to be translated into actual javax.mail properties
              * FIXME: The precedence of the properties file vs. the SendmailConfiguration should probably be addressed here
              * FIXME: if using a valid sendmail config, it probably doesn't make sense to use any of these properties
@@ -205,14 +205,14 @@ public class JavaSendMailer extends JavaMailer2 {
         } catch (IOException e) {
             LOG.info("configureProperties: could not load javamail.properties, continuing for is no longer required", e);
         }
-        
+
         //this sets any javamail properties that were set in the SendmailConfig object
         if (props == null) {
             props = new Properties();
         }
-        
+
         props.putAll(sendmailConfigDefinedProps);
-        
+
         if (!props.containsKey("mail.smtp.auth")) {
             props.setProperty("mail.smtp.auth", String.valueOf(m_config.isUseAuthentication()));
         }
@@ -236,13 +236,13 @@ public class JavaSendMailer extends JavaMailer2 {
                 props.setProperty("mail.smtps.socketFactory.port", String.valueOf(m_config.getSendmailHost().getPort()));
             }
         }
-        
+
         if (!props.containsKey("mail.smtp.quitwait")) {
             props.setProperty("mail.smtp.quitwait", String.valueOf(m_config.getSendmailProtocol().isQuitWait()));
         }
-        
+
     }
-    
+
     /**
      * <p>send</p>
      *
@@ -252,7 +252,7 @@ public class JavaSendMailer extends JavaMailer2 {
         m_message.setText(m_config.getSendmailMessage().getBody());
         send(m_message);
     }
-    
+
     private void send(MimeMailMessage message) throws JavaMailerException {
         Transport t = null;
         try {

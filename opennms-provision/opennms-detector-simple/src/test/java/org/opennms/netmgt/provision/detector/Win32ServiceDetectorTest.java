@@ -71,7 +71,7 @@ public class Win32ServiceDetectorTest implements InitializingBean {
         m_detector.setTimeout(500);
         m_detector.setWin32ServiceName("VMware Tools Service");
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorSuccessful() throws UnknownHostException{
         assertTrue(m_detector.isServiceDetected(InetAddressUtils.addr(TEST_IP_ADDRESS)));

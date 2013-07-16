@@ -39,7 +39,7 @@ import org.springframework.core.io.Resource;
 public class EventFormatReader {
     private Resource m_resource;
     private BufferedReader m_reader;
-    
+
     /**
      *
      * {d "%w- %d %m-, %Y - %T"} - A "bwNetworkRoutingServiceRouteExhaustion" event has occurred, from {t} device, named {m}.
@@ -56,14 +56,14 @@ public class EventFormatReader {
      * problemText = {S 8}
      * recommendedActionsText = {S 9}
      * (event [{e}])
-     * 
+     *
      */
-    
+
     public EventFormatReader(Resource rsrc) throws IOException {
         m_resource = rsrc;
         m_reader = new BufferedReader(new InputStreamReader(m_resource.getInputStream()));
     }
-    
+
     public EventFormat getEventFormat() throws IOException {
         String fileName = m_resource.getFilename();
         String eventCode = "deadbeef";
@@ -71,16 +71,16 @@ public class EventFormatReader {
         if (m.matches()) {
             eventCode = "0x" + m.group(1);
         }
-        
+
         EventFormat ef = new EventFormat(eventCode);
         StringBuilder contents = new StringBuilder("");
         String thisLine;
-        
+
         while ((thisLine = m_reader.readLine()) != null) {
             contents.append(thisLine).append("\n");
         }
-        
+
         ef.setContents(contents.toString());
         return ef;
-    }    
+    }
 }

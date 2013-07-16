@@ -55,11 +55,11 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class SnmpIfCollector extends AggregateTracker {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpIfCollector.class);
-    
+
     private Map<SnmpInstId, SNMPCollectorEntry> m_results = new TreeMap<SnmpInstId, SNMPCollectorEntry>();
-    
+
     /**
      * Holds the IP Address of the primary SNMP iterface.
      */
@@ -68,7 +68,7 @@ public class SnmpIfCollector extends AggregateTracker {
     private List<SnmpAttributeType> m_objList;
 
     private SnmpCollectionSet m_collectionSet;
-    
+
     /**
      * <p>toString</p>
      *
@@ -77,11 +77,11 @@ public class SnmpIfCollector extends AggregateTracker {
     @Override
     public String toString() {
     	StringBuffer buffer = new StringBuffer();
-    	
+
     	buffer.append(getClass().getName());
     	buffer.append("@");
     	buffer.append(Integer.toHexString(hashCode()));
-    	
+
     	buffer.append(": Primary Interface: " + m_primaryIf);
     	buffer.append(", object list: " + m_objList);
     	buffer.append(", CollectionSet: ");
@@ -92,7 +92,7 @@ public class SnmpIfCollector extends AggregateTracker {
     		buffer.append("@");
         	buffer.append(Integer.toHexString(m_collectionSet.hashCode()));
     	}
-    	
+
     	return buffer.toString();
     }
 
@@ -108,7 +108,7 @@ public class SnmpIfCollector extends AggregateTracker {
      */
     public SnmpIfCollector(InetAddress address, List<SnmpAttributeType> objList, SnmpCollectionSet collectionSet) {
         super(SnmpAttributeType.getCollectionTrackers(objList));
-        
+
         LOG.debug("COLLECTING on list of {} items", objList.size());
         LOG.debug("List is {}", objList);
         // Process parameters
@@ -127,7 +127,7 @@ public class SnmpIfCollector extends AggregateTracker {
     public List<SNMPCollectorEntry> getEntries() {
         return new ArrayList<SNMPCollectorEntry>(m_results.values());
     }
-    
+
 	/** {@inheritDoc} */
     @Override
 	protected void reportGenErr(String msg) {
@@ -162,7 +162,7 @@ public class SnmpIfCollector extends AggregateTracker {
         entry.storeResult(res);
 
     }
-    
+
     /**
      * <p>hasData</p>
      *
@@ -171,7 +171,7 @@ public class SnmpIfCollector extends AggregateTracker {
     public boolean hasData() {
         return !m_results.isEmpty();
     }
-    
+
     /**
      * <p>getCollectionSet</p>
      *

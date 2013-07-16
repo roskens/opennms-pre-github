@@ -53,11 +53,11 @@ import org.xml.sax.ContentHandler;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Range implements Serializable {
 	private static final long serialVersionUID = 3386982883357355619L;
-	
+
 
 	/* Note: Until a way to specify the order is found...
-	 * The jaxb code seems to put things in the reverse order 
-	 * of the order the attributes are declared.  So PRESERVE this 
+	 * The jaxb code seems to put things in the reverse order
+	 * of the order the attributes are declared.  So PRESERVE this
 	 * ordering so we don't end up with end="" begin=""
 	 */
     /**
@@ -84,7 +84,7 @@ public class Range implements Serializable {
     /**
      * Returns the value of field 'begin'. The field 'begin' has
      * the following description: Starting IP address of the range.
-     * 
+     *
      * @return the value of field 'Begin'.
      */
     public String getBegin() {
@@ -94,7 +94,7 @@ public class Range implements Serializable {
     /**
      * Returns the value of field 'end'. The field 'end' has the
      * following description: Ending IP address of the range.
-     * 
+     *
      * @return the value of field 'End'.
      */
     public String getEnd() {
@@ -103,7 +103,7 @@ public class Range implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid() {
@@ -116,8 +116,8 @@ public class Range implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -129,8 +129,8 @@ public class Range implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -146,7 +146,7 @@ public class Range implements Serializable {
     /**
      * Sets the value of field 'begin'. The field 'begin' has the
      * following description: Starting IP address of the range.
-     * 
+     *
      * @param begin the value of field 'begin'.
      */
     public void setBegin(final String begin) {
@@ -156,7 +156,7 @@ public class Range implements Serializable {
     /**
      * Sets the value of field 'end'. The field 'end' has the
      * following description: Ending IP address of the range.
-     * 
+     *
      * @param end the value of field 'end'.
      */
     public void setEnd(final String end) {
@@ -165,7 +165,7 @@ public class Range implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -178,8 +178,8 @@ public class Range implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

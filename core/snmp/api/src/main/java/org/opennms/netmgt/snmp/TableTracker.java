@@ -38,7 +38,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class TableTracker extends CollectionTracker implements RowCallback, RowResultFactory {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(TableTracker.class);
 
     private final SnmpTableResult m_tableResult;
@@ -48,7 +48,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
     public TableTracker(SnmpObjId... ids) {
         this(null, ids);
     }
-    
+
     public TableTracker(RowCallback rc, SnmpObjId... ids) {
         this(rc, 2, ids);
     }
@@ -105,7 +105,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
     	LOG.debug("storeResult: {}", res);
         m_tableResult.storeResult(res);
     }
-    
+
         @Override
     public void rowCompleted(SnmpRowResult row) {
         // the default implementation just forwards this to the super class
@@ -136,11 +136,11 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 				return lhs.compareTo(rhs);
             }
         });
-        
+
         for(Iterator<ColumnTracker> it = sortedTrackerList.iterator(); it.hasNext() && trackers.size() < maxVarsPerPdu; ) {
-        
+
             ColumnTracker tracker = it.next();
-            
+
             if (!tracker.isFinished()) {
                 trackers.add(tracker);
             }
@@ -162,7 +162,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
         public void processResponse(SnmpObjId responseObjId, SnmpValue val) {
             try {
             ResponseProcessor rp = m_processors.get(m_currentIndex);
-            
+
             if (++m_currentIndex == m_processors.size()) {
                 m_currentIndex = 0;
             }
@@ -176,15 +176,15 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 
         @Override
         public boolean processErrors(int errorStatus, int errorIndex) {
-            
+
             /*
              * errorIndex is varBind index (1 based array of vars)
-             * 
-             * 
+             *
+             *
              */
-            
+
             int columnIndex = (errorIndex - 1) % m_processors.size();
-            
+
             ResponseProcessor rp = m_processors.get(columnIndex);
 
             return rp.processErrors(errorStatus, 1);
@@ -192,7 +192,7 @@ public class TableTracker extends CollectionTracker implements RowCallback, RowR
 
     }
 
-    
-    
+
+
 
 }

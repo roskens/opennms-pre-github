@@ -55,7 +55,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class EndPointDetector extends SyncAbstractDetector implements InitializingBean {
-    
+
     /** Constant <code>DEFAULT_SERVICE_NAME="EndPoint"</code> */
     protected static final String DEFAULT_SERVICE_NAME = "EndPoint";
 
@@ -63,14 +63,14 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
      * The system object identifier to retrieve from the remote agent.
      */
     private static final String SYS_OBJECT_ID = ".1.3.6.1.2.1.1.2.0";
-    
-    //These are -1 so by default we use the AgentConfig 
+
+    //These are -1 so by default we use the AgentConfig
     private static final int DEFAULT_PORT = -1;
     private static final int DEFAULT_TIMEOUT = -1;
     private static final int DEFAULT_RETRIES = -1;
-    
+
     private String m_forceVersion;
-    
+
     @Autowired
     private SnmpAgentConfigFactory m_agentConfigFactory;
 
@@ -127,7 +127,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     protected void configureAgentVersion(SnmpAgentConfig agentConfig) {
         if (getForceVersion() != null) {
             String version = getForceVersion();
-            
+
             if (version.equalsIgnoreCase("snmpv1")) {
                 agentConfig.setVersion(SnmpAgentConfig.VERSION1);
             } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
@@ -147,16 +147,16 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
         if (getPort() > 0) {
             agentConfig.setPort(getPort());
         }
-        
+
         if (getTimeout() > 0) {
             agentConfig.setTimeout(getTimeout());
         }
-        
+
         if (getRetries() > -1) {
             agentConfig.setRetries(getRetries());
         }
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -172,7 +172,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
         else {
             return val.toString();
         }
-        
+
     }
 
     /**
@@ -201,7 +201,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     public void setAgentConfigFactory(SnmpAgentConfigFactory agentConfigFactory) {
         m_agentConfigFactory = agentConfigFactory;
     }
-    
+
     /**
      * <p>getAgentConfigFactory</p>
      *
@@ -219,7 +219,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     public void setEndPointConfigurationDao(EndPointConfigurationDao dao) {
         m_configDao = dao;
     }
-    
+
     /**
      * <p>getEndPointConfigurationDao</p>
      *
@@ -228,7 +228,7 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     public EndPointConfigurationDao getEndPointConfigurationDao() {
         return m_configDao;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
@@ -238,6 +238,6 @@ public class EndPointDetector extends SyncAbstractDetector implements Initializi
     @Override
     public void dispose() {
     }
-    
+
 
 }

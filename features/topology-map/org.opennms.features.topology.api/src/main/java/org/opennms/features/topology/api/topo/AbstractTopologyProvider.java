@@ -36,21 +36,21 @@ import org.slf4j.LoggerFactory;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Collections2;
 
-public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvider implements GraphProvider {    
+public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvider implements GraphProvider {
     protected static final String SIMPLE_VERTEX_ID_PREFIX = "v";
 	protected static final String SIMPLE_GROUP_ID_PREFIX = "g";
 	protected static final String SIMPLE_EDGE_ID_PREFIX = "e";
-	
+
 	/**
-	 * This class generates an unique id. 
-	 * The generated id has the format '<prefix><counter>' (e.g. v100). 
+	 * This class generates an unique id.
+	 * The generated id has the format '<prefix><counter>' (e.g. v100).
 	 * So the generator must be initialized with a prefix and the initial counter.
-	 * 
+	 *
 	 * @author Markus von Rüden
 	 *
 	 */
     protected static abstract class IdGenerator {
-        /** 
+        /**
          * The topology provider. It is needed to initialize the counter.
          */
         private final AbstractTopologyProvider provider;
@@ -73,12 +73,12 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
 
         /**
-         * Returns the next id in format '<prefix><counter>' (e.g. v100). 
-         * 
-         * If an entry with the generated id (see {@link #createId()} 
-         * already exists in {@link #provider} a new one is created. 
+         * Returns the next id in format '<prefix><counter>' (e.g. v100).
+         *
+         * If an entry with the generated id (see {@link #createId()}
+         * already exists in {@link #provider} a new one is created.
          * This process is done until a key is created which is not already in {@link #provider}
-         * @return The next id in format '<prefix><counter>' (e.g. v100). 
+         * @return The next id in format '<prefix><counter>' (e.g. v100).
          */
         public String getNextId() {
             try {
@@ -99,13 +99,13 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
 
         /**
-         * Returns the initial value of counter. 
-         * 
+         * Returns the initial value of counter.
+         *
          * Therefore the maximum number of each id from the {@link #getContent()} values are used.
          * A id can start with any prefix (or none) so only ids which starts with the same id as {@link #idPrefix} are considered.
          * If there is no matching content, 0 is returned.
-         *   
-         * @return The initial value of counter. 
+         *
+         * @return The initial value of counter.
          */
         private int getInitValue() {
             int max = 0;
@@ -117,7 +117,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
 
         /**
-         * Returns true if the {@link #provider} does not contain a vertex id '<generatedId>', false otherwise. 
+         * Returns true if the {@link #provider} does not contain a vertex id '<generatedId>', false otherwise.
          * @param generatedId The generated id
          * @return true if the {@link #provider} does not contain a vertex id '<generatedId>', false otherwise.
          */
@@ -132,9 +132,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         }
 
         /**
-         * Gets the integer value from the id. 
+         * Gets the integer value from the id.
          * If the id does not match to this generator or the id cannot be parsed as an integer 0 is returned.
-         * 
+         *
          * @param id the generated id. Should start with {@link #idPrefix}.
          * @return the integer value from the id. If the id does not match to this generator or the id cannot be parsed as an integer 0 is returned.
          */
@@ -154,7 +154,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
                 initialized = true;
             }
         }
-        
+
         public abstract List<Ref> getContent();
     }
 
@@ -164,21 +164,21 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
             return new ArrayList<Ref>(getGroups());
         }
 	};
-	
+
 	private IdGenerator edgeIdGenerator = new IdGenerator(SIMPLE_EDGE_ID_PREFIX, this) {
         @Override
         public List<Ref> getContent() {
             return new ArrayList<Ref>(getEdges());
         }
 	};
-	
+
 	private IdGenerator vertexIdGenerator = new IdGenerator(SIMPLE_VERTEX_ID_PREFIX, this) {
 	    @Override
 	    public List<Ref> getContent() {
 	        return new ArrayList<Ref>(getVerticesWithoutGroups());
         }
 	};
-	
+
 	protected String getNextVertexId() {
 	    return vertexIdGenerator.getNextId();
 	}
@@ -190,11 +190,11 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
 	protected String getNextEdgeId() {
 	    return edgeIdGenerator.getNextId();
 	}
-	
+
     protected AbstractTopologyProvider(String namespace) {
 		super(namespace);
 	}
-    
+
     public List<Vertex> getVerticesWithoutGroups() {
         return new ArrayList<Vertex>(
                 Collections2.filter(getVertices(), new Predicate<Vertex>() {
@@ -203,7 +203,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
                     };
                 }));
     }
-    
+
     public List<Vertex> getGroups() {
         return new ArrayList<Vertex>(
                 Collections2.filter(getVertices(), new Predicate<Vertex>() {
@@ -217,9 +217,9 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
     public final void removeVertex(VertexRef... vertexId) {
         for (VertexRef vertex : vertexId) {
             if (vertex == null) continue;
-            
+
             getSimpleVertexProvider().remove(vertexId);
-            
+
             removeEdges(getEdgeIdsForVertex(vertex));
         }
     }
@@ -234,7 +234,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         String id = getNextVertexId();
         return addVertex(id, x, y);
     }
-    
+
     protected final AbstractVertex addVertex(String id, int x, int y) {
         LoggerFactory.getLogger(getClass()).debug("Adding vertex in {} with ID: {}", getClass().getSimpleName(), id);
         AbstractVertex vertex = new SimpleLeafVertex(getVertexNamespace(), id, x, y);
@@ -296,7 +296,7 @@ public abstract class AbstractTopologyProvider extends DelegatingVertexEdgeProvi
         AbstractEdge edge = new AbstractEdge(getEdgeNamespace(), id, source, target);
 
         addEdges(edge);
-        
+
         return edge;
     }
 

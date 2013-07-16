@@ -60,13 +60,13 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
     public boolean supportsType(String type) {
         return TYPE.equals(type);
     }
-    
+
     public static class ThresholdEvaluatorStateAbsoluteChange extends AbstractThresholdEvaluatorState {
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
         private double m_change;
 
         private double m_lastSample = Double.NaN;
-        
+
         private double m_previousTriggeringSample;
 
         public ThresholdEvaluatorStateAbsoluteChange(BaseThresholdDefConfigWrapper threshold) {
@@ -145,7 +145,7 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
                 return null;
             }
         }
-        
+
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String,String> params = new HashMap<String,String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
@@ -157,7 +157,7 @@ public class ThresholdEvaluatorAbsoluteChange implements ThresholdEvaluator {
         public double getPreviousTriggeringSample() {
             return m_previousTriggeringSample;
         }
-        
+
         public void setPreviousTriggeringSample(double previousTriggeringSample) {
             m_previousTriggeringSample = previousTriggeringSample;
         }

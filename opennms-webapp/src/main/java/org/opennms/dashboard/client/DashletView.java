@@ -40,7 +40,7 @@ import com.google.gwt.user.client.ui.DockPanel.DockLayoutConstant;
  * @since 1.8.1
  */
 public class DashletView extends Composite {
-    
+
     private Dashlet m_dashlet;
 
     /**
@@ -62,7 +62,7 @@ public class DashletView extends Composite {
         this(dashlet);
         initWidget(view);
     }
-    
+
     /**
      * <p>getTitle</p>
      *
@@ -72,13 +72,13 @@ public class DashletView extends Composite {
     public String getTitle() {
         return m_dashlet.getTitle();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setTitle(String title) {
         m_dashlet.setTitle(title);
     }
-    
+
     /**
      * <p>addToTitleBar</p>
      *
@@ -93,7 +93,7 @@ public class DashletView extends Composite {
      * <p>onDashLoad</p>
      */
     public void onDashLoad() {
-        
+
     }
 
 }

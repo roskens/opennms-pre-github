@@ -60,8 +60,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class CategoryModel extends Object {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory.getLogger(CategoryModel.class);
 
     /** The name of the category that includes all services and nodes. */
@@ -173,7 +173,7 @@ public class CategoryModel extends Object {
         m_factory.getReadLock().lock();
         try {
             org.opennms.netmgt.config.categories.Category category = m_factory.getCategory(categoryName);
-    
+
             if (category != null) {
                 comment = category.getComment();
             }
@@ -195,12 +195,12 @@ public class CategoryModel extends Object {
         }
 
         final String categoryName = rtcCategory.getCatlabel();
-        
+
         m_factory.getWriteLock().lock();
         try {
             org.opennms.netmgt.config.categories.Category categoryDef = m_factory.getCategory(categoryName);
             org.opennms.web.category.Category category = new org.opennms.web.category.Category(categoryDef, rtcCategory, new Date());
-    
+
             synchronized (m_categoryMap) {
                 m_categoryMap.put(categoryName, category);
             }
@@ -259,7 +259,7 @@ public class CategoryModel extends Object {
         try {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
-            
+
             PreparedStatement stmt = conn.prepareStatement("select getManagePercentAvailNodeWindow(?, ?, ?) as avail");
             d.watch(stmt);
 
@@ -282,7 +282,7 @@ public class CategoryModel extends Object {
 
         return avail;
     }
-    
+
     /**
      * Return the availability percentage for all managed services on the given
      * nodes for the last 24 hours. If there are no managed services on these
@@ -299,7 +299,7 @@ public class CategoryModel extends Object {
         Date yesterday = cal.getTime();
 
         return getNodeAvailability(nodeIds, yesterday, now);
-    }    
+    }
     /**
      * Return the availability percentage for all managed services on the given
      * nodes from the given start time until the given end time. If there are no
@@ -346,7 +346,7 @@ public class CategoryModel extends Object {
         	sb.append(")");
             PreparedStatement stmt = conn.prepareStatement(sb.toString());
             d.watch(stmt);
-            
+
             // yes, these are supposed to be backwards, the end time first
             stmt.setTimestamp(1, new Timestamp(end.getTime()));
             stmt.setTimestamp(2, new Timestamp(start.getTime()));
@@ -366,7 +366,7 @@ public class CategoryModel extends Object {
         }
 
         return Collections.unmodifiableMap(retMap);
-    }    
+    }
 
     /**
      * Return the availability percentage for all managed services on the given
@@ -435,7 +435,7 @@ public class CategoryModel extends Object {
 
             ResultSet rs = stmt.executeQuery();
             d.watch(rs);
-            
+
             if (rs.next()) {
                 avail = rs.getDouble("avail");
             }
@@ -503,10 +503,10 @@ public class CategoryModel extends Object {
         try {
             Connection conn = Vault.getDbConnection();
             d.watch(conn);
-            
+
             PreparedStatement stmt = conn.prepareStatement("select getPercentAvailabilityInWindow(?, ?, ?, ?, ?) as avail from ifservices, ipinterface where ifservices.ipaddr = ipinterface.ipaddr and ifservices.nodeid = ipinterface.nodeid and ipinterface.ismanaged='M' and ifservices.nodeid=? and ifservices.ipaddr=? and serviceid=?");
             d.watch(stmt);
-            
+
             stmt.setInt(1, nodeId);
             stmt.setString(2, ipAddr);
             stmt.setInt(3, serviceId);
@@ -519,7 +519,7 @@ public class CategoryModel extends Object {
 
             ResultSet rs = stmt.executeQuery();
             d.watch(rs);
-            
+
             if (rs.next()) {
                 avail = rs.getDouble("avail");
             }

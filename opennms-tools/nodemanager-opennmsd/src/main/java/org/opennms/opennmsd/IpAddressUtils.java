@@ -31,18 +31,18 @@ package org.opennms.opennmsd;
 import java.net.InetAddress;
 
 public abstract class IpAddressUtils {
-    
+
     /**
      * Converts the internet address to a long value so that it can be compared
      * using simple opertions. The address is converted in network byte order
      * (big endin) and allows for comparisions like &lt;, &gt;, &lt;=, &gt;=,
      * ==, and !=.
-     * 
+     *
      * @param addr
      *            The address to convert to a long
-     * 
+     *
      * @return The address as a long value.
-     * 
+     *
      */
     protected static long toLong(InetAddress addr) {
         byte[] baddr = addr.getAddress();
@@ -50,9 +50,9 @@ public abstract class IpAddressUtils {
 
         return result;
     }
-    
+
     public static boolean verifyIpMatch(String hostAddress, String ipMatch) {
-        
+
         String hostOctets[] = hostAddress.split("\\.", 0);
         String matchOctets[] = ipMatch.split("\\.", 0);
         for (int i = 0; i < 4; i++) {
@@ -68,13 +68,13 @@ public abstract class IpAddressUtils {
     * "200-300" or "200,300,501-700"
     * "*" matches any
     * This method is commonly used for matching IP octets or ports
-    * 
+    *
     * @param value
     * @param patterns
     * @return
     */
     public static boolean matchNumericListOrRange(String value, String patterns) {
-        
+
         String patternList[] = patterns.split(",", 0);
         for (int i = 0; i < patternList.length; i++) {
             if (matchRange(value, patternList[i]))
@@ -91,7 +91,7 @@ public abstract class IpAddressUtils {
     */
     public static boolean matchRange(String value, String pattern) {
         int dashCount = countChar('-', pattern);
-        
+
         if ("*".equals(pattern))
             return true;
         else if (dashCount == 0)
@@ -109,7 +109,7 @@ public abstract class IpAddressUtils {
     }
 
     public static int countChar(char charIn, String stingIn) {
-        
+
         int charCount = 0;
         int charIndex = 0;
         for (int i=0; i<stingIn.length(); i++) {

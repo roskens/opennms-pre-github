@@ -65,7 +65,7 @@ public class MockTransactionManager implements PlatformTransactionManager {
                 //System.err.println("isCompleted");
                 return true;
             }
-            
+
         };
     }
 

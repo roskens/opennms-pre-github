@@ -48,7 +48,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * Top-level element for the service-configuration.xml configuration file.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @XmlRootElement(name = "service-configuration")
@@ -84,8 +84,8 @@ public class ServiceConfiguration implements Serializable {
     // -----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -96,8 +96,8 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
@@ -110,7 +110,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method enumerateService.
-     * 
+     *
      * @return an Enumeration over all possible elements of this collection
      */
     public java.util.Enumeration<Service> enumerateService() {
@@ -119,7 +119,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -145,7 +145,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method getService.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -171,7 +171,7 @@ public class ServiceConfiguration implements Serializable {
      * thread, we pass a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of exactly the
      * correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Service[] getService() {
@@ -182,7 +182,7 @@ public class ServiceConfiguration implements Serializable {
     /**
      * Method getServiceCollection.Returns a reference to '_serviceList'. No
      * type checking is performed on any modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<Service> getServiceCollection() {
@@ -191,7 +191,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method getServiceCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getServiceCount() {
@@ -203,7 +203,7 @@ public class ServiceConfiguration implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -218,7 +218,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method iterateService.
-     * 
+     *
      * @return an Iterator over all possible elements in this collection
      */
     public Iterator<Service> iterateService() {
@@ -233,7 +233,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method removeService.
-     * 
+     *
      * @param vService
      * @return true if the object was removed from the collection.
      */
@@ -244,7 +244,7 @@ public class ServiceConfiguration implements Serializable {
 
     /**
      * Method removeServiceAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -254,8 +254,8 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vService
      * @throws java.lang.IndexOutOfBoundsException
@@ -274,8 +274,8 @@ public class ServiceConfiguration implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vServiceArray
      */
     public void setService(final Service[] vServiceArray) {
@@ -290,7 +290,7 @@ public class ServiceConfiguration implements Serializable {
     /**
      * Sets the value of '_serviceList' by copying the given Vector. All
      * elements will be checked for type safety.
-     * 
+     *
      * @param vServiceList
      *            the Vector to copy.
      */

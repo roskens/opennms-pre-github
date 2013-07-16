@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -54,7 +54,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Class Configuration.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -71,14 +71,14 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Number of variables to send per SNMP request.
-	 * 
+	 *
 	 */
 	@XmlAttribute(name="max-vars-per-pdu")
 	private Integer _maxVarsPerPdu;
 
 	/**
 	 * Number of repetitions to send per get-bulk request.
-	 * 
+	 *
 	 */
 	@XmlAttribute(name="max-repetitions")
 	private Integer _maxRepetitions;
@@ -151,7 +151,7 @@ public class Configuration implements Serializable {
 	 */
 	@XmlAttribute(name="enterprise-id")
 	private String _enterpriseId;
-	
+
     /**
      * If set, forces SNMP data collection to the specified version.
      */
@@ -238,7 +238,7 @@ public class Configuration implements Serializable {
     	setPrivacyProtocol(privacyProtocol);
     	setEnterpriseId(enterpriseId);
 	}
-	
+
 	public void deleteMaxRepetitions() {
 		_maxRepetitions = null;
 	}
@@ -269,7 +269,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Overrides the Object.equals method.
-	 * 
+	 *
 	 * @param obj
 	 * @return true if the objects are equal.
 	 */
@@ -279,7 +279,7 @@ public class Configuration implements Serializable {
 		if (this == obj) return true;
 
 		final Configuration temp = (Configuration)obj;
-		
+
 		return new EqualsBuilder()
 			.append(getPort(), temp.getPort())
 			.append(getRetry(), temp.getRetry())
@@ -306,7 +306,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'authPassphrase'. The field 'authPassphrase'
 	 * has the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'AuthPassphrase'.
 	 */
 	public final String getAuthPassphrase() {
@@ -316,7 +316,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'authProtocol'. The field 'authProtocol' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'AuthProtocol'.
 	 */
 	public final String getAuthProtocol() {
@@ -326,7 +326,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'contextEngineId'. The field 'contextEngineId'
 	 * has the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'ContextEngineId'.
 	 */
 	public final String getContextEngineId() {
@@ -336,7 +336,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'contextName'. The field 'contextName' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'ContextName'.
 	 */
 	public final String getContextName() {
@@ -346,7 +346,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'engineId'. The field 'engineId' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'EngineId'.
 	 */
 	public final String getEngineId() {
@@ -356,7 +356,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'enterpriseId'. The field 'enterpriseId' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'EnterpriseId'.
 	 */
 	public final String getEnterpriseId() {
@@ -367,8 +367,8 @@ public class Configuration implements Serializable {
 	 * Returns the value of field 'maxRepetitions'. The field 'maxRepetitions'
 	 * has the following description: Number of repetitions to send per get-bulk
 	 * request.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the value of field 'MaxRepetitions'.
 	 */
 	public final Integer getMaxRepetitions() {
@@ -381,7 +381,7 @@ public class Configuration implements Serializable {
 	 * number of bytes that may be encoded into an individual SNMP PDU request
 	 * by Collectd. Provides a means to limit the size of outgoing PDU requests.
 	 * Default is 65535, must be at least 484.
-	 * 
+	 *
 	 * @return the value of field 'MaxRequestSize'.
 	 */
 	public final Integer getMaxRequestSize() {
@@ -391,8 +391,8 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'maxVarsPerPdu'. The field 'maxVarsPerPdu' has
 	 * the following description: Number of variables to send per SNMP request.
-	 * 
-	 * 
+	 *
+	 *
 	 * @return the value of field 'MaxVarsPerPdu'.
 	 */
 	public final Integer getMaxVarsPerPdu() {
@@ -403,7 +403,7 @@ public class Configuration implements Serializable {
 	 * Returns the value of field 'port'. The field 'port' has the following
 	 * description: If set, overrides UDP port 161 as the port where SNMP
 	 * GET/GETNEXT/GETBULK requests are sent.
-	 * 
+	 *
 	 * @return the value of field 'Port'.
 	 */
 	public final Integer getPort() {
@@ -413,7 +413,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'privacyPassphrase'. The field
 	 * 'privacyPassphrase' has the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'PrivacyPassphrase'.
 	 */
 	public final String getPrivacyPassphrase() {
@@ -423,7 +423,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'privacyProtocol'. The field 'privacyProtocol'
 	 * has the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'PrivacyProtocol'.
 	 */
 	public final String getPrivacyProtocol() {
@@ -434,7 +434,7 @@ public class Configuration implements Serializable {
 	 * Returns the value of field 'proxyHost'. The field 'proxyHost' has the
 	 * following description: The proxy host to use when communiciating with
 	 * this agent
-	 * 
+	 *
 	 * @return the value of field 'ProxyHost'.
 	 */
 	public final String getProxyHost() {
@@ -444,7 +444,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'readCommunity'. The field 'readCommunity' has
 	 * the following description: Default read community string
-	 * 
+	 *
 	 * @return the value of field 'ReadCommunity'.
 	 */
 	public final String getReadCommunity() {
@@ -454,7 +454,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'retry'. The field 'retry' has the following
 	 * description: Default number of retries
-	 * 
+	 *
 	 * @return the value of field 'Retry'.
 	 */
 	public final Integer getRetry() {
@@ -464,7 +464,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'securityLevel'. The field 'securityLevel' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'SecurityLevel'.
 	 */
 	public final Integer getSecurityLevel() {
@@ -474,7 +474,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'securityName'. The field 'securityName' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @return the value of field 'SecurityName'.
 	 */
 	public final String getSecurityName() {
@@ -484,7 +484,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'timeout'. The field 'timeout' has the
 	 * following description: Default timeout (in milliseconds)
-	 * 
+	 *
 	 * @return the value of field 'Timeout'.
 	 */
 	public final Integer getTimeout() {
@@ -495,7 +495,7 @@ public class Configuration implements Serializable {
 	 * Returns the value of field 'version'. The field 'version' has the
 	 * following description: If set, forces SNMP data collection to the
 	 * specified version.
-	 * 
+	 *
 	 * @return the value of field 'Version'.
 	 */
 	public final String getVersion() {
@@ -505,7 +505,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Returns the value of field 'writeCommunity'. The field 'writeCommunity'
 	 * has the following description: Default write community string
-	 * 
+	 *
 	 * @return the value of field 'WriteCommunity'.
 	 */
 	public final String getWriteCommunity() {
@@ -514,7 +514,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasMaxRepetitions.
-	 * 
+	 *
 	 * @return true if at least one MaxRepetitions has been added
 	 */
 	public boolean hasMaxRepetitions() {
@@ -523,7 +523,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasMaxRequestSize.
-	 * 
+	 *
 	 * @return true if at least one MaxRequestSize has been added
 	 */
 	public boolean hasMaxRequestSize() {
@@ -532,7 +532,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasMaxVarsPerPdu.
-	 * 
+	 *
 	 * @return true if at least one MaxVarsPerPdu has been added
 	 */
 	public boolean hasMaxVarsPerPdu() {
@@ -541,7 +541,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasPort.
-	 * 
+	 *
 	 * @return true if at least one Port has been added
 	 */
 	public boolean hasPort() {
@@ -550,7 +550,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasRetry.
-	 * 
+	 *
 	 * @return true if at least one Retry has been added
 	 */
 	public boolean hasRetry() {
@@ -559,7 +559,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasSecurityLevel.
-	 * 
+	 *
 	 * @return true if at least one SecurityLevel has been added
 	 */
 	public boolean hasSecurityLevel() {
@@ -568,7 +568,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method hasTimeout.
-	 * 
+	 *
 	 * @return true if at least one Timeout has been added
 	 */
 	public boolean hasTimeout() {
@@ -580,7 +580,7 @@ public class Configuration implements Serializable {
 	 * <p>
 	 * The following steps came from <b>Effective Java Programming Language
 	 * Guide</b> by Joshua Bloch, Chapter 3
-	 * 
+	 *
 	 * @return a hash code value for the object.
 	 */
         @Override
@@ -639,7 +639,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method isValid.
-	 * 
+	 *
 	 * @return true if this object is valid according to the schema
 	 */
 	public boolean isValid() {
@@ -652,8 +652,8 @@ public class Configuration implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param out
 	 * @throws MarshalException
 	 *             if object is null or if any SAXException is thrown during
@@ -666,8 +666,8 @@ public class Configuration implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @param handler
 	 * @throws java.io.IOException
 	 *             if an IOException occurs during marshaling
@@ -684,7 +684,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'authPassphrase'. The field 'authPassphrase' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @param authPassphrase
 	 *            the value of field 'authPassphrase'.
 	 */
@@ -695,7 +695,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'authProtocol'. The field 'authProtocol' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @param authProtocol
 	 *            the value of field 'authProtocol'.
 	 */
@@ -706,7 +706,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'contextEngineId'. The field 'contextEngineId'
 	 * has the following description: SNMPv3
-	 * 
+	 *
 	 * @param contextEngineId
 	 *            the value of field 'contextEngineId'.
 	 */
@@ -717,7 +717,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'contextName'. The field 'contextName' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @param contextName
 	 *            the value of field 'contextName'.
 	 */
@@ -728,7 +728,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'engineId'. The field 'engineId' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @param engineId
 	 *            the value of field 'engineId'.
 	 */
@@ -739,7 +739,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'enterpriseId'. The field 'enterpriseId' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @param enterpriseId
 	 *            the value of field 'enterpriseId'.
 	 */
@@ -751,8 +751,8 @@ public class Configuration implements Serializable {
 	 * Sets the value of field 'maxRepetitions'. The field 'maxRepetitions' has
 	 * the following description: Number of repetitions to send per get-bulk
 	 * request.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param maxRepetitions
 	 *            the value of field 'maxRepetitions'.
 	 */
@@ -766,7 +766,7 @@ public class Configuration implements Serializable {
 	 * of bytes that may be encoded into an individual SNMP PDU request by
 	 * Collectd. Provides a means to limit the size of outgoing PDU requests.
 	 * Default is 65535, must be at least 484.
-	 * 
+	 *
 	 * @param maxRequestSize
 	 *            the value of field 'maxRequestSize'.
 	 */
@@ -777,8 +777,8 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'maxVarsPerPdu'. The field 'maxVarsPerPdu' has
 	 * the following description: Number of variables to send per SNMP request.
-	 * 
-	 * 
+	 *
+	 *
 	 * @param maxVarsPerPdu
 	 *            the value of field 'maxVarsPerPdu'.
 	 */
@@ -790,7 +790,7 @@ public class Configuration implements Serializable {
 	 * Sets the value of field 'port'. The field 'port' has the following
 	 * description: If set, overrides UDP port 161 as the port where SNMP
 	 * GET/GETNEXT/GETBULK requests are sent.
-	 * 
+	 *
 	 * @param port
 	 *            the value of field 'port'.
 	 */
@@ -801,7 +801,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'privacyPassphrase'. The field
 	 * 'privacyPassphrase' has the following description: SNMPv3
-	 * 
+	 *
 	 * @param privacyPassphrase
 	 *            the value of field 'privacyPassphrase'.
 	 */
@@ -812,7 +812,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'privacyProtocol'. The field 'privacyProtocol'
 	 * has the following description: SNMPv3
-	 * 
+	 *
 	 * @param privacyProtocol
 	 *            the value of field 'privacyProtocol'.
 	 */
@@ -824,7 +824,7 @@ public class Configuration implements Serializable {
 	 * Sets the value of field 'proxyHost'. The field 'proxyHost' has the
 	 * following description: The proxy host to use when communiciating with
 	 * this agent
-	 * 
+	 *
 	 * @param proxyHost
 	 *            the value of field 'proxyHost'.
 	 */
@@ -835,7 +835,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'readCommunity'. The field 'readCommunity' has
 	 * the following description: Default read community string
-	 * 
+	 *
 	 * @param readCommunity
 	 *            the value of field 'readCommunity'.
 	 */
@@ -846,7 +846,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'retry'. The field 'retry' has the following
 	 * description: Default number of retries
-	 * 
+	 *
 	 * @param retry
 	 *            the value of field 'retry'.
 	 */
@@ -857,7 +857,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'securityLevel'. The field 'securityLevel' has
 	 * the following description: SNMPv3
-	 * 
+	 *
 	 * @param securityLevel
 	 *            the value of field 'securityLevel'.
 	 */
@@ -868,7 +868,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'securityName'. The field 'securityName' has the
 	 * following description: SNMPv3
-	 * 
+	 *
 	 * @param securityName
 	 *            the value of field 'securityName'.
 	 */
@@ -879,7 +879,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'timeout'. The field 'timeout' has the following
 	 * description: Default timeout (in milliseconds)
-	 * 
+	 *
 	 * @param timeout
 	 *            the value of field 'timeout'.
 	 */
@@ -891,7 +891,7 @@ public class Configuration implements Serializable {
 	 * Sets the value of field 'version'. The field 'version' has the following
 	 * description: If set, forces SNMP data collection to the specified
 	 * version.
-	 * 
+	 *
 	 * @param version
 	 *            the value of field 'version'.
 	 */
@@ -902,7 +902,7 @@ public class Configuration implements Serializable {
 	/**
 	 * Sets the value of field 'writeCommunity'. The field 'writeCommunity' has
 	 * the following description: Default write community string
-	 * 
+	 *
 	 * @param writeCommunity
 	 *            the value of field 'writeCommunity'.
 	 */
@@ -912,7 +912,7 @@ public class Configuration implements Serializable {
 
 	/**
 	 * Method unmarshal.
-	 * 
+	 *
 	 * @param reader
 	 * @throws MarshalException
 	 *             if object is null or if any SAXException is thrown during
@@ -926,8 +926,8 @@ public class Configuration implements Serializable {
 	}
 
 	/**
-	 * 
-	 * 
+	 *
+	 *
 	 * @throws ValidationException
 	 *             if this object is an invalid instance according to the schema
 	 */

@@ -56,16 +56,16 @@ import org.springframework.web.servlet.view.RedirectView;
  * @since 1.8.1
  */
 public class AlarmSeverityChangeController extends AbstractController implements InitializingBean {
-    
+
     /** Constant <code>ESCALATE_ACTION="1"</code> */
     public final static String ESCALATE_ACTION = "1";
     /** Constant <code>CLEAR_ACTION="2"</code> */
     public final static String CLEAR_ACTION = "2";
 
     private AlarmRepository m_webAlarmRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -74,7 +74,7 @@ public class AlarmSeverityChangeController extends AbstractController implements
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebAlarmRepository</p>
      *
@@ -129,8 +129,8 @@ public class AlarmSeverityChangeController extends AbstractController implements
         } else {
             throw new ServletException("Unknown alarm severity action: " + action);
         }
-        
-        
+
+
         String redirectParms = request.getParameter("redirectParms");
         String redirect = request.getParameter("redirect");
         String viewName;

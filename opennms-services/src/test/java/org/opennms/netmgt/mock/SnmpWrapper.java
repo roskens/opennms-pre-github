@@ -33,15 +33,15 @@ import org.opennms.netmgt.xml.event.Snmp;
 
 public class SnmpWrapper {
 	Snmp m_snmp;
-	
+
 	public SnmpWrapper(final Snmp snmp) {
 		m_snmp = snmp;
 	}
-	
+
 	public Snmp getSnmp() {
 		return m_snmp;
 	}
-	
+
         @Override
 	public String toString() {
         return EventUtils.toString(m_snmp);

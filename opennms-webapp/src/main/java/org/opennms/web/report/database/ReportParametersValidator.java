@@ -49,7 +49,7 @@ import org.springframework.binding.validation.ValidationContext;
  * @since 1.8.1
  */
 public class ReportParametersValidator {
-    
+
     /**
      * <p>validateReportParameters</p>
      *
@@ -58,10 +58,10 @@ public class ReportParametersValidator {
      */
     public void  validateReportParameters(ReportParameters reportCriteria, ValidationContext context) {
         MessageContext messages = context.getMessageContext();
-        
-        
+
+
         List<ReportDateParm> dateParms = reportCriteria.getDateParms();
-        
+
         for (Iterator<ReportDateParm> dateParmIter = dateParms.iterator(); dateParmIter.hasNext();) {
             ReportDateParm dateParm = dateParmIter.next();
             if (dateParm.getDate() == null) {
@@ -69,9 +69,9 @@ public class ReportParametersValidator {
                                     defaultText("cannot have null date field" + dateParm.getDisplayName()).build());
             }
         }
-        
+
         List<ReportStringParm> stringParms = reportCriteria.getStringParms();
-        
+
         for (Iterator<ReportStringParm> stringParmIter = stringParms.iterator(); stringParmIter.hasNext();) {
             ReportStringParm stringParm = stringParmIter.next();
             if (stringParm.getValue() == "" ) {
@@ -79,9 +79,9 @@ public class ReportParametersValidator {
                                     defaultText("cannot have empty string field" + stringParm.getDisplayName()).build());
             }
         }
-        
+
         List<ReportIntParm> intParms = reportCriteria.getIntParms();
-        
+
         for (Iterator<ReportIntParm> intParmIter = intParms.iterator(); intParmIter.hasNext();) {
             ReportIntParm intParm = intParmIter.next();
             // TODO add a more sensible check here - I think we probably can have zero int parm
@@ -90,9 +90,9 @@ public class ReportParametersValidator {
                                     defaultText("cannot have zero integer field" + intParm.getDisplayName()).build());
             }
         }
-        
+
         List<ReportFloatParm> floatParms = reportCriteria.getFloatParms();
-        
+
         for (Iterator<ReportFloatParm> floatParmIter = floatParms.iterator(); floatParmIter.hasNext();) {
             ReportFloatParm floatParm = floatParmIter.next();
             if (floatParm.getValue() == null ) {
@@ -100,9 +100,9 @@ public class ReportParametersValidator {
                                     defaultText("cannot have null float field" + floatParm.getDisplayName()).build());
             }
         }
-        
+
         List<ReportDoubleParm> doubleParms = reportCriteria.getDoubleParms();
-        
+
         for (Iterator<ReportDoubleParm> doubleParmIter = doubleParms.iterator(); doubleParmIter.hasNext();) {
             ReportDoubleParm doubleParm = doubleParmIter.next();
             if (doubleParm.getValue() == null ) {
@@ -110,7 +110,7 @@ public class ReportParametersValidator {
                                     defaultText("cannot have null double field" + doubleParm.getDisplayName()).build());
             }
         }
-        
+
     }
 
 }

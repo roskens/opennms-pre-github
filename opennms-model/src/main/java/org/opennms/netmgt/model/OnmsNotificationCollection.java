@@ -46,7 +46,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class OnmsNotificationCollection extends LinkedList<OnmsNotification> {
 
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = 1140502309473962746L;
     private int m_totalCount;
@@ -87,7 +87,7 @@ public class OnmsNotificationCollection extends LinkedList<OnmsNotification> {
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *

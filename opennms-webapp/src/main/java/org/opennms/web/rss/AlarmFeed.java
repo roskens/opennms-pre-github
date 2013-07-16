@@ -95,7 +95,7 @@ public class AlarmFeed extends AbstractFeed {
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(queryCriteria);
 
         SyndEntry entry;
-        
+
         for (OnmsAlarm alarm : alarms) {
             entry = new SyndEntryImpl();
             entry.setPublishedDate(alarm.getFirstEventTime());
@@ -107,7 +107,7 @@ public class AlarmFeed extends AbstractFeed {
                 entry.setUpdatedDate(alarm.getFirstEventTime());
             }
             entry.setLink(getUrlBase() + "alarm/detail.htm?id=" + alarm.getId());
-            
+
             entries.add(entry);
         }
 

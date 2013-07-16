@@ -68,13 +68,13 @@ import com.sun.jersey.spi.resource.PerRequest;
 public class NotificationRestService extends OnmsRestService {
     @Autowired
     private NotificationDao m_notifDao;
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
 
     @Context
     SecurityContext m_securityContext;
-    
+
     /**
      * <p>getNotification</p>
      *
@@ -94,7 +94,7 @@ public class NotificationRestService extends OnmsRestService {
             readUnlock();
         }
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -123,22 +123,22 @@ public class NotificationRestService extends OnmsRestService {
     @Transactional
     public OnmsNotificationCollection getNotifications() {
         readLock();
-        
+
         try {
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsNotification.class);
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);
             builder.orderBy("notifyId").desc();
-    
+
             OnmsNotificationCollection coll = new OnmsNotificationCollection(m_notifDao.findMatching(builder.toCriteria()));
-    
+
             coll.setTotalCount(m_notifDao.countMatching(builder.count().toCriteria()));
-    
+
             return coll;
         } finally {
             readUnlock();
         }
     }
-    
+
     /**
      * <p>updateNotification</p>
      *
@@ -151,7 +151,7 @@ public class NotificationRestService extends OnmsRestService {
     @Transactional
     public Response updateNotification(@PathParam("notifId") String notifId, @FormParam("ack") Boolean ack) {
         writeLock();
-        
+
         try {
             OnmsNotification notif=m_notifDao.get(new Integer(notifId));
             if(ack==null) {
@@ -163,7 +163,7 @@ public class NotificationRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>updateNotifications</p>
      *
@@ -174,7 +174,7 @@ public class NotificationRestService extends OnmsRestService {
     @Transactional
     public Response updateNotifications(final MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             Boolean ack=false;
             if(params.containsKey("ack")) {
@@ -184,7 +184,7 @@ public class NotificationRestService extends OnmsRestService {
 
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsNotification.class);
             applyQueryFilters(params, builder);
-            
+
             for (final OnmsNotification notif : m_notifDao.findMatching(builder.toCriteria())) {
                 processNotifAck(notif, ack);
             }

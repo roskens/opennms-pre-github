@@ -35,8 +35,8 @@ import com.vaadin.ui.TextField;
 
 /**
  * A factory for creating Resource Type Field objects.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public final class ResourceTypeFieldFactory implements FormFieldFactory {

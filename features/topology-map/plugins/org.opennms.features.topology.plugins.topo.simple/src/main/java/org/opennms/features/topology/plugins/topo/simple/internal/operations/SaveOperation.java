@@ -40,7 +40,7 @@ import org.opennms.features.topology.plugins.topo.simple.SimpleGraphProvider;
 import org.slf4j.LoggerFactory;
 
 public class SaveOperation implements Operation {
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         try {

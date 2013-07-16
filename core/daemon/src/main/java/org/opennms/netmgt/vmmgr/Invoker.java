@@ -80,22 +80,22 @@ import org.slf4j.MDC;
  * @author <a href="mailto:sowmya@opennms.org">Sowmya Nataraj</a>
  */
 public class Invoker {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Invoker.class);
-	
+
     private MBeanServer m_server;
     private InvokeAtType m_atType;
     private boolean m_reverse = false;
     private boolean m_failFast = true;
     private List<InvokerService> m_services;
-    
+
     /**
      * <p>Constructor for Invoker.</p>
      */
     public Invoker() {
-        
+
     }
-    
+
     /**
      * <p>getDefaultServiceConfigFactory</p>
      *
@@ -109,7 +109,7 @@ public class Invoker {
             throw new UndeclaredThrowableException(t);
         }
     }
-    
+
     /**
      * <p>instantiateClasses</p>
      */
@@ -124,13 +124,13 @@ public class Invoker {
             try {
                 // preload the class
             	LOG.debug("loading class {}", service.getClassName());
-                
+
 
                 Class<?> clazz = Class.forName(service.getClassName());
 
                 // Get a new instance of the class
                 LOG.debug("create new instance of {}", service.getClassName());
-                
+
                 Map<?,?> mdc = Logging.getCopyOfContextMap();
                 Object bean;
                 try {
@@ -141,7 +141,7 @@ public class Invoker {
 
                 // Register the mbean
                 LOG.debug("registering mbean instance {}", service.getName());
-                
+
                 ObjectName name = new ObjectName(service.getName());
                 invokerService.setMbean(getServer().registerMBean(bean, name));
 
@@ -194,11 +194,11 @@ public class Invoker {
             // We can  use the original list
             invokerServicesOrdered = getServices();
         }
-        
+
         List<InvokerResult> resultInfo = new ArrayList<InvokerResult>(invokerServicesOrdered.size());
         for (int pass = 0, end = getLastPass(); pass <= end; pass++) {
         	LOG.debug("starting pass {}", pass);
-            
+
 
             for (InvokerService invokerService : invokerServicesOrdered) {
                 Service service = invokerService.getService();
@@ -211,14 +211,14 @@ public class Invoker {
                         return resultInfo;
                     }
                 }
-                
+
                 for (Invoke invoke : invokerService.getService().getInvoke()) {
                     if (invoke.getPass() != pass || !getAtType().equals(invoke.getAt())) {
                         continue;
                     }
 
-                    LOG.debug("pass {} on service {} will invoke method \"{}\"", pass, name, invoke.getMethod()); 
-                    
+                    LOG.debug("pass {} on service {} will invoke method \"{}\"", pass, name, invoke.getMethod());
+
 
                     try {
                         Object result = invoke(invoke, mbean);
@@ -231,9 +231,9 @@ public class Invoker {
                     }
                 }
             }
-            
+
             LOG.debug("completed pass {}", pass);
-           
+
         }
 
         return resultInfo;
@@ -241,29 +241,29 @@ public class Invoker {
 
     /**
      * Get the last pass for a set of InvokerServices.
-     * 
+     *
      * @param invokerServices list to look at
      * @return highest pass value found for all Invoke objects in the
      *      invokerServices list
      */
     private int getLastPass() {
         List<InvokerService> invokerServices = getServices();
-        
+
         int end = 0;
-        
+
         for (InvokerService invokerService : invokerServices) {
             Invoke[] invokes = invokerService.getService().getInvoke();
             if (invokes == null) {
                 continue;
             }
-            
+
             for (Invoke invoke : invokes) {
                 if (invoke.getPass() > end) {
                     end = invoke.getPass();
                 }
             }
         }
-        
+
         return end;
     }
 
@@ -286,7 +286,7 @@ public class Invoker {
         }
 
         LOG.debug("Invoking {} on object {}", invoke.getMethod(), mbean.getObjectName());
-        
+
 
         Object object;
         try {

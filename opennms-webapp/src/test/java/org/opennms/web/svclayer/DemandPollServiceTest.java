@@ -58,7 +58,7 @@ import org.opennms.web.services.PollerService;
 import org.opennms.web.svclayer.support.DefaultDemandPollService;
 
 public class DemandPollServiceTest extends TestCase {
-	
+
 	private DefaultDemandPollService m_demandPollService;
 	private DemandPollDao m_demandPollDao;
 	private MonitoredServiceDao m_monitoredServiceDao;
@@ -81,12 +81,12 @@ public class DemandPollServiceTest extends TestCase {
         @Override
 	protected void tearDown() throws Exception {
 	}
-	
+
 	class SingleDemandPollStore implements DemandPollDao {
-		
+
 		int m_id = 13;
 		DemandPoll m_demandPoll = null;
-		
+
 		public int getExpectedId() {
 			return m_id;
 		}
@@ -160,7 +160,7 @@ public class DemandPollServiceTest extends TestCase {
                 @Override
 		public void initialize(Object obj) {
 			// TODO Auto-generated method stub
-			
+
 		}
 
                 @Override
@@ -186,12 +186,12 @@ public class DemandPollServiceTest extends TestCase {
         public int countMatching(OnmsCriteria criteria) {
             throw new UnsupportedOperationException("not yet implemented");
         }
-		
-		
+
+
 	}
-	
+
 	public void testPollMonitoredService() throws EventProxyException {
-		
+
 		final int expectedResultId = m_pollStore.getExpectedId();
 
 		// anticipate a call to the dao save with a pollResult
@@ -204,9 +204,9 @@ public class DemandPollServiceTest extends TestCase {
 				m_pollStore.save(poll);
 				return null;
 			}
-			
+
 		});
-		
+
 		OnmsServiceType svcType = new OnmsServiceType();
 		svcType.setId(3);
 		svcType.setName("HTTP");
@@ -220,11 +220,11 @@ public class DemandPollServiceTest extends TestCase {
 		expect(m_monitoredServiceDao.get(1, addr("192.168.1.1"), 1, 3)).andReturn(monSvc);
 
 		m_pollerService.poll(monSvc, expectedResultId);
-		
+
 		replay(m_demandPollDao);
 		replay(m_monitoredServiceDao);
 		replay(m_pollerService);
-		
+
 		DemandPoll result = m_demandPollService.pollMonitoredService(1, addr("192.168.1.1"), 1, 3);
 
 		verify(m_demandPollDao);
@@ -233,23 +233,23 @@ public class DemandPollServiceTest extends TestCase {
 
 		assertNotNull("Null is an invalid response from pollMonitoredService", result);
 		assertEquals("Expected Id to be set by dao", expectedResultId, result.getId().intValue());
-		
+
 	}
-	
+
 	public void testGetUpdatedResults() {
-		
+
 		final int resultId = 3;
-		
+
 		DemandPoll expectedResult = new DemandPoll();
-		
-		
+
+
 		expect(m_demandPollDao.get(resultId)).andReturn(expectedResult);
 		replay(m_demandPollDao);
-		
+
 		DemandPoll result = m_demandPollService.getUpdatedResults(resultId);
-		
+
 		verify(m_demandPollDao);
-		
+
 		assertEquals(expectedResult, result);
 	}
 

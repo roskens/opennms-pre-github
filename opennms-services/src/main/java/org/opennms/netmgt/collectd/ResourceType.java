@@ -41,9 +41,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class ResourceType {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(ResourceType.class);
-    
+
     private CollectionAgent m_agent;
     private OnmsSnmpCollection m_snmpCollection;
     private Collection<SnmpAttributeType> m_attributeTypes;
@@ -67,7 +67,7 @@ public abstract class ResourceType {
     public CollectionAgent getAgent() {
         return m_agent;
     }
-    
+
     /**
      * <p>getCollectionName</p>
      *
@@ -76,7 +76,7 @@ public abstract class ResourceType {
     protected String getCollectionName() {
         return m_snmpCollection.getName();
     }
-    
+
     /**
      * <p>getCollection</p>
      *
@@ -97,7 +97,7 @@ public abstract class ResourceType {
         }
         return m_attributeTypes;
     }
-    
+
     /**
      * <p>loadAttributeTypes</p>
      *
@@ -113,7 +113,7 @@ public abstract class ResourceType {
     protected boolean hasDataToCollect() {
         return !getAttributeTypes().isEmpty();
     }
-    
+
     /**
      * This method returns an array of the instances that the attributes of this type should be collected for
      * It is used to restricting data collection to just these instances.  It is useful for collecting only the
@@ -141,7 +141,7 @@ public abstract class ResourceType {
      * @return a {@link org.opennms.netmgt.collectd.SnmpCollectionResource} object.
      */
     public abstract SnmpCollectionResource findAliasedResource(SnmpInstId inst, String ifAlias);
-    
+
     /**
      * <p>getResources</p>
      *

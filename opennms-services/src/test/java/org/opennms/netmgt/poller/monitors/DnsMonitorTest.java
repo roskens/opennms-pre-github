@@ -72,12 +72,12 @@ import org.xbill.DNS.Type;
     })
 @JUnitConfigurationEnvironment
 public class DnsMonitorTest {
-    
+
     @Before
     public void setup() throws Exception {
         MockLogAppender.setupLogging(true);
     }
-    
+
     @Test
     public void testIPV6Response() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -89,12 +89,12 @@ public class DnsMonitorTest {
         m.put("retry", "1");
         m.put("timeout", "1000");
         m.put("lookup", "ipv6.example.com");
-        
+
         final PollStatus status = monitor.poll(svc, m);
         MockUtil.println("Reason: "+status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
-    
+
     @Test
     // type not found is still considered a valid response with the default response codes
     public void testNotFound() throws UnknownHostException {
@@ -107,12 +107,12 @@ public class DnsMonitorTest {
         m.put("retry", "2");
         m.put("timeout", "5000");
         m.put("lookup", "bogus.example.com");
-        
+
         final PollStatus status = monitor.poll(svc, m);
         MockUtil.println("Reason: "+status.getReason());
         assertEquals("Expected service to be available", PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
-    
+
     @Test
     // type not found is still considered a valid response with the default response codes
     public void testNotFoundWithCustomRcode() throws UnknownHostException {
@@ -126,12 +126,12 @@ public class DnsMonitorTest {
         m.put("timeout", "5000");
         m.put("lookup", "bogus.example.com");
         m.put("fatal-response-codes", "3");
-        
+
         final PollStatus status = monitor.poll(svc, m);
         MockUtil.println("Reason: "+status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
-    
+
     @Test
     public void testUnrecoverable() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -142,12 +142,12 @@ public class DnsMonitorTest {
         m.put("port", "9000");
         m.put("retry", "2");
         m.put("timeout", "500");
-        
+
         final PollStatus status = monitor.poll(svc, m);
         MockUtil.println("Reason: "+status.getReason());
         assertEquals(PollStatus.SERVICE_UNAVAILABLE, status.getStatusCode());
     }
-    
+
     @Test
     public void testDNSIPV4Response() throws UnknownHostException {
         final Map<String, Object> m = new ConcurrentSkipListMap<String, Object>();
@@ -159,12 +159,12 @@ public class DnsMonitorTest {
         m.put("retry", "1");
         m.put("timeout", "3000");
         m.put("lookup", "example.com");
-        
+
         final PollStatus status = monitor.poll(svc, m);
         MockUtil.println("Reason: "+status.getReason());
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());
     }
-    
+
     @Test
     public void testDnsJavaResponse() throws IOException {
         final Lookup l = new Lookup("example.com");
@@ -172,14 +172,14 @@ public class DnsMonitorTest {
         resolver.setPort(9153);
         l.setResolver(resolver);
         l.run();
-        
+
         System.out.println("result: " + l.getResult());
         if(l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
-    
+
     @Test
     public void testDnsJavaQuadARecord() throws IOException {
         final Lookup l = new Lookup("ipv6.example.com", Type.AAAA);
@@ -187,14 +187,14 @@ public class DnsMonitorTest {
         resolver.setPort(9153);
         l.setResolver(resolver);
         l.run();
-        
+
         System.out.println("result: " + l.getResult());
         if(l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
         assertTrue(l.getResult() == Lookup.SUCCESSFUL);
     }
-    
+
     @Test
     public void testDnsJavaWithDnsServer() throws TextParseException, UnknownHostException {
         final Lookup l = new Lookup("example.com", Type.AAAA);
@@ -202,14 +202,14 @@ public class DnsMonitorTest {
         resolver.setPort(9153);
         l.setResolver(resolver);
         l.run();
-        
+
         System.out.println("result: " + l.getResult());
         final Record[] answers = l.getAnswers();
         assertEquals(answers.length, 1);
-        
+
         final Record record = answers[0];
         System.err.println(record.getTTL());
-        
+
         if(l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }
@@ -224,15 +224,15 @@ public class DnsMonitorTest {
         resolver.setPort(9153);
         l.setResolver(resolver);
         l.run();
-        
+
         System.out.println("result: " + l.getResult());
         final Record[] answers = l.getAnswers();
         assertNotNull(answers);
         assertEquals(answers.length, 1);
-        
+
         final Record record = answers[0];
         System.err.println(record.getTTL());
-        
+
         if(l.getResult() == Lookup.SUCCESSFUL) {
             System.out.println(l.getAnswers()[0].rdataToString());
         }

@@ -59,11 +59,11 @@ public class ResponderFilter extends EqualsFilter<String> {
 //    public String getSql() {
 //        return (" ANSWEREDBY='" + this.responder + "'");
 //    }
-//    
+//
 //    public String getParamSql() {
 //        return (" ANSWEREDBY=?");
 //    }
-//    
+//
 //    public int bindParams(PreparedStatement ps, int parameterIndex) throws SQLException {
 //    	ps.setString(parameterIndex, this.responder);
 //    	return 1;

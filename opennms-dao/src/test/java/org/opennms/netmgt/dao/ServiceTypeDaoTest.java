@@ -66,8 +66,8 @@ public class ServiceTypeDaoTest implements InitializingBean {
     public void testLazyLoad() {
     	OnmsServiceType t = new OnmsServiceType("ICMP");
     	m_serviceTypeDao.save(t);
-    	
-    	
+
+
     	OnmsServiceType type = m_serviceTypeDao.get(1);
     	assertEquals("ICMP", type.getName());
     }

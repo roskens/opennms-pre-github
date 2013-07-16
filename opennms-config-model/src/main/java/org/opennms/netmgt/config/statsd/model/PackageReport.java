@@ -46,7 +46,7 @@ public class PackageReport {
     private String m_description;
     private Long m_retainInterval;
     private StatsdPackage m_pkg;
-    
+
     /**
      * <p>isEnabled</p>
      *

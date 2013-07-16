@@ -60,7 +60,7 @@ public final class ServletPipeline
                 return new Dispatcher(path, handler);
             }
         }
-        
+
         return null;
     }
 
@@ -99,7 +99,7 @@ public final class ServletPipeline
         extends HttpServletRequestWrapper
     {
         private final String requestUri;
-        
+
         public RequestWrapper(HttpServletRequest req, String requestUri)
         {
             super(req);

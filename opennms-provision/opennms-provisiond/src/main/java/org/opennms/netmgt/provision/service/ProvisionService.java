@@ -60,8 +60,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @version $Id: $
  */
 public interface ProvisionService {
-    
-	
+
+
     boolean isRequisitionedEntityDeletionEnabled();
 
     /**
@@ -70,7 +70,7 @@ public interface ProvisionService {
      * @return a boolean.
      */
     boolean isDiscoveryEnabled();
-    
+
     /**
      * Clear the Hibernate object cache. This is used to clear the object
      * cache created by Hibernate. This is needed so large imports don't end
@@ -109,7 +109,7 @@ public interface ProvisionService {
      */
     @Transactional
     void updateNode(OnmsNode node);
-    
+
     /**
      * <p>updateNodeAttributes</p>
      *
@@ -118,7 +118,7 @@ public interface ProvisionService {
      */
     @Transactional
     OnmsNode updateNodeAttributes(OnmsNode node);
-   
+
     /**
      * <p>getDbNodeInitCat</p>
      *
@@ -127,7 +127,7 @@ public interface ProvisionService {
      */
     @Transactional
     OnmsNode getDbNodeInitCat(Integer nodeId);
-    
+
     /**
      * <p>updateIpInterfaceAttributes</p>
      *
@@ -137,7 +137,7 @@ public interface ProvisionService {
      */
     @Transactional
     OnmsIpInterface updateIpInterfaceAttributes(Integer nodeId, OnmsIpInterface ipInterface);
-    
+
     /**
      * <p>updateSnmpInterfaceAttributes</p>
      *
@@ -279,18 +279,18 @@ public interface ProvisionService {
      */
     @Transactional
     void setNodeParentAndDependencies(
-            String foreignSource, String foreignId, 
-            String parentForeignSource, String parentForeignId, 
+            String foreignSource, String foreignId,
+            String parentForeignSource, String parentForeignId,
             String parentNodeLabel
            );
-    
+
     /**
      * Returns a list of scheduled nodes.
      *
      * @return a {@link java.util.List} object.
      */
     List<NodeScanSchedule> getScheduleForNodes();
-    
+
     /**
      * <p>getScheduleForNode</p>
      *
@@ -299,7 +299,7 @@ public interface ProvisionService {
      * @return a {@link org.opennms.netmgt.provision.service.NodeScanSchedule} object.
      */
     NodeScanSchedule getScheduleForNode(int nodeId, boolean force);
-    
+
     /**
      * <p>setForeignSourceRepository</p>
      *
@@ -322,7 +322,7 @@ public interface ProvisionService {
      * @return a {@link java.util.List} object.
      */
     List<ServiceDetector> getDetectorsForForeignSource(String foreignSource);
-    
+
     /**
      * <p>getNodePoliciesForForeignSource</p>
      *
@@ -330,7 +330,7 @@ public interface ProvisionService {
      * @return a {@link java.util.List} object.
      */
     List<NodePolicy> getNodePoliciesForForeignSource(String foreignSourceName);
-    
+
     /**
      * <p>getIpInterfacePoliciesForForeignSource</p>
      *
@@ -338,7 +338,7 @@ public interface ProvisionService {
      * @return a {@link java.util.List} object.
      */
     List<IpInterfacePolicy> getIpInterfacePoliciesForForeignSource(String foreignSourceName);
-    
+
     /**
      * <p>getSnmpInterfacePoliciesForForeignSource</p>
      *

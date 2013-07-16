@@ -65,7 +65,7 @@ public class OutageSuppressedController extends AbstractController {
 	Collection<OnmsOutage> foundOutages;
 
 	Collection<OnmsOutage> viewOutages;
-	
+
 	SuppressOutages m_suppress = new SuppressOutages();
 
 	private String m_successView;
@@ -92,10 +92,10 @@ public class OutageSuppressedController extends AbstractController {
 		Limit limit = new TableLimit(limitFactory);
 
 		CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService);
-		
+
 		Map<String, Object> myModel = new HashMap<String, Object>();
 		Integer totalRows = m_outageService.getSuppressedOutageCount();
-	
+
 		myModel.put("request", limit.toString());
 
 		myModel.put("all_params", request.getParameterNames().toString());
@@ -120,17 +120,17 @@ public class OutageSuppressedController extends AbstractController {
 			myModel.put("end", ROW_LIMIT);
 
 		} else {
-			
+
 			Integer rowstart = null;
 			Integer rowend = null;
-			
-				
+
+
 				//quirky situation... - as we started on 0 (zero)
 				rowstart = ((limit.getPage() * ROW_LIMIT +1 ) - ROW_LIMIT);
 				rowend = ( ROW_LIMIT);
 				myModel.put("begin", rowstart);
 				myModel.put("end", rowend);
-			
+
 			if (limit.getSort().getProperty() == null) {
 				foundOutages = m_outageService.getSuppressedOutagesByRange(
 						rowstart, rowend, "outages.nodeid", "asc");
@@ -143,13 +143,13 @@ public class OutageSuppressedController extends AbstractController {
 
 			}
 		}
-		
-		// Pretty smart to build the collection after any suppressions..... 
+
+		// Pretty smart to build the collection after any suppressions.....
 		Collection<Map<String,Object>> theTable = m_cview.theTable(foundOutages);
-		 
+
 		myModel.put("tabledata", theTable);
 		myModel.put("totalRows", totalRows);
-		
+
 		myModel.put("selected_outages", CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService));
 		return new ModelAndView(getSuccessView(), myModel);
 	}
@@ -162,7 +162,7 @@ public class OutageSuppressedController extends AbstractController {
         public void setSuccessView(String successView) {
                 m_successView = successView;
         }
-        
+
         /**
          * <p>getSuccessView</p>
          *

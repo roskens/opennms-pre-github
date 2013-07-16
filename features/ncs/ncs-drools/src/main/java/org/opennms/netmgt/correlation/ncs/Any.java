@@ -32,14 +32,14 @@ package org.opennms.netmgt.correlation.ncs;
 
 public class Any {
 	private Component m_component;
-	
-	
+
+
 	public Any() {}
-	
+
 	public Any(Component component)
 	{
 		m_component = component;
-		
+
 	}
 
     public Component getComponent() {
@@ -55,7 +55,7 @@ public class Any {
         return "Any [component=" + m_component + "]";
     }
 
-	
-	
-	
+
+
+
 }

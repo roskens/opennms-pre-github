@@ -53,7 +53,7 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
     private Long m_startTime = System.currentTimeMillis();
     private Long m_endTime = m_startTime + (24 * 60 * 60 * 1000); // one day
     private AttributeStatisticVisitor m_statisticVisitor = m_mocks.createMock(AttributeStatisticVisitor.class);
-    
+
     public void testAfterPropertiesSet() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);
@@ -67,10 +67,10 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
 
     public void testAfterPropertiesSetNoStatisticVisitor() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property statisticVisitor must be set to a non-null value"));
-        
+
         attributeVisitor.setRrdDao(m_rrdDao);
         attributeVisitor.setConsolidationFunction("AVERAGE");
         attributeVisitor.setStartTime(m_startTime);
@@ -84,10 +84,10 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoConsolidationFunction() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property consolidationFunction must be set to a non-null value"));
 
@@ -104,10 +104,10 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoRrdDao() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property rrdDao must be set to a non-null value"));
 
@@ -124,10 +124,10 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoStartTime() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property startTime must be set to a non-null value"));
 
@@ -144,10 +144,10 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoEndTime() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property endTime must be set to a non-null value"));
 
@@ -185,7 +185,7 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         attributeVisitor.visit(attribute);
         m_mocks.verifyAll();
     }
-    
+
     public void testVisitWithNonRrdAttribute() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);
@@ -204,7 +204,7 @@ public class RrdStatisticAttributeVisitorTest extends TestCase {
         attributeVisitor.visit(attribute);
         m_mocks.verifyAll();
     }
-    
+
     public void testVisitWithNotANumberRrdAttribute() throws Exception {
         RrdStatisticAttributeVisitor attributeVisitor = new RrdStatisticAttributeVisitor();
         attributeVisitor.setRrdDao(m_rrdDao);

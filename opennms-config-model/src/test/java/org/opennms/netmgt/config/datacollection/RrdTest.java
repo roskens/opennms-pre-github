@@ -40,7 +40,7 @@ public class RrdTest extends XmlTest<Rrd> {
     public RrdTest(final Rrd sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Rrd rrd = new Rrd();

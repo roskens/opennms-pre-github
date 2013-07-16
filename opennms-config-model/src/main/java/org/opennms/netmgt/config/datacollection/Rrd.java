@@ -91,8 +91,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param rra
      * @throws IndexOutOfBoundsException if the index
@@ -110,7 +110,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method enumerateRra.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -120,14 +120,14 @@ public class Rrd implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
     @Override()
     public boolean equals(final Object obj) {
         if ( this == obj ) return true;
-        
+
         if (obj instanceof Rrd) {
             final Rrd temp = (Rrd)obj;
 
@@ -141,7 +141,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method getRra.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -160,7 +160,7 @@ public class Rrd implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="rra", required=true)
@@ -172,7 +172,7 @@ public class Rrd implements Serializable {
      * Method getRraCollection.Returns a reference to '_rraList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getRraCollection() {
@@ -181,7 +181,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method getRraCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getRraCount() {
@@ -191,7 +191,7 @@ public class Rrd implements Serializable {
     /**
      * Returns the value of field 'step'. The field 'step' has the
      * following description: step size for the RRD
-     * 
+     *
      * @return the value of field 'Step'.
      */
     @XmlAttribute(name="step", required=true)
@@ -201,7 +201,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method hasStep.
-     * 
+     *
      * @return true if at least one Step has been added
      */
     public boolean hasStep() {
@@ -213,24 +213,24 @@ public class Rrd implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         result = 37 * result + m_step;
         if (m_rras != null) {
            result = 37 * result + m_rras.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -245,7 +245,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method iterateRra.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -254,8 +254,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -268,8 +268,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -289,7 +289,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method removeRra.
-     * 
+     *
      * @param rra
      * @return true if the object was removed from the collection.
      */
@@ -299,7 +299,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method removeRraAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -308,8 +308,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param rra
      * @throws IndexOutOfBoundsException if the index
@@ -323,8 +323,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param rras
      */
     public void setRra(final String[] rras) {
@@ -337,7 +337,7 @@ public class Rrd implements Serializable {
     /**
      * Sets the value of '_rraList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param rras the Vector to copy.
      */
     public void setRra(final List<String> rras) {
@@ -351,7 +351,7 @@ public class Rrd implements Serializable {
      * Sets the value of '_rraList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param rras the Vector to set.
      */
     public void setRraCollection(final List<String> rras) {
@@ -364,7 +364,7 @@ public class Rrd implements Serializable {
     /**
      * Sets the value of field 'step'. The field 'step' has the
      * following description: step size for the RRD
-     * 
+     *
      * @param step the value of field 'step'.
      */
     public void setStep(final Integer step) {
@@ -373,7 +373,7 @@ public class Rrd implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -388,8 +388,8 @@ public class Rrd implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

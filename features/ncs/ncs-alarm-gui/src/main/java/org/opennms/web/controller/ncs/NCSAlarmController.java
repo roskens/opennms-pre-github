@@ -53,21 +53,21 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("alarm/ncs-alarms.htm")
 public class NCSAlarmController {
-    
+
     public static final int DEFAULT_MULTIPLE = 0;
-    
+
     private String m_successView = "alarm/ncs-alarms";
     private Integer m_defaultShortLimit = 1000;
     private Integer m_defaultLongLimit = 2000;
     private AcknowledgeType m_defaultAcknowledgeType = AcknowledgeType.UNACKNOWLEDGED;
     private SortStyle m_defaultSortStyle = SortStyle.ID;
-    
+
     @Autowired
     AlarmRepository m_webAlarmRepository;
-    
+
     @Autowired
     ServletContext m_servletContext;
-     
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
         String display = request.getParameter("display");
@@ -128,29 +128,29 @@ public class NCSAlarmController {
             try {
                 multiple = Math.max(0, WebSecurityUtils.safeParseInt(multipleString));
             } catch (NumberFormatException e) {
-            } 
+            }
         }
 
         // put the parameters in a convenient struct
-        
+
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         AlarmQueryParms parms = new AlarmQueryParms();
         parms.ackType = ackType;
         parms.display = display;
         parms.filters = filterList;
         parms.limit = limit;
-        parms.multiple =  multiple; 
+        parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
-        
+
         AlarmCriteria queryCriteria = new AlarmCriteria(filters, sortStyle, ackType, limit, limit * multiple);
         AlarmCriteria countCriteria = new AlarmCriteria(ackType, filters);
 
         OnmsAlarm[] alarms = m_webAlarmRepository.getMatchingAlarms(AlarmUtil.getOnmsCriteria(queryCriteria));
-        
+
         // get the total alarm count
         int alarmCount = m_webAlarmRepository.countMatchingAlarms(AlarmUtil.getOnmsCriteria(countCriteria));
-        
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("alarms", alarms);
         modelAndView.addObject("alarmCount", alarmCount);

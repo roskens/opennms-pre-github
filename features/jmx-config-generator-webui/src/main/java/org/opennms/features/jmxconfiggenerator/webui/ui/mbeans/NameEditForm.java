@@ -46,7 +46,7 @@ import com.vaadin.ui.TextField;
 
 /**
  * Handles the editing of the MBeans name.
- * 
+ *
  * @author Markus von Rüden
  */
 public class NameEditForm extends Form implements ModelChangeListener<Item>, ViewStateChangedListener,
@@ -159,7 +159,7 @@ public class NameEditForm extends Form implements ModelChangeListener<Item>, Vie
 		if (parameter.getAdditionalCallback() == null) return;
 		parameter.getAdditionalCallback().callback(type, outer);
 	}
-	
+
 	protected FormParameter getFormParameter() {
 		return parameter;
 	}

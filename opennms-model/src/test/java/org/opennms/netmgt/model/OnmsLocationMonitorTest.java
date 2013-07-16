@@ -35,59 +35,59 @@ public class OnmsLocationMonitorTest extends TestCase {
         OnmsLocationMonitor o1 = new OnmsLocationMonitor();
         o1.setDefinitionName("a");
         o1.setId(1);
-        
+
         OnmsLocationMonitor o2 = new OnmsLocationMonitor();
         o2.setDefinitionName("a");
         o2.setId(1);
-        
+
         assertEquals("compareTo should return 0 as the two objects are equal", 0, o1.compareTo(o2));
     }
-    
+
     public void testCompareToFirstHigherId() {
         OnmsLocationMonitor o1 = new OnmsLocationMonitor();
         o1.setDefinitionName("a");
         o1.setId(2);
-        
+
         OnmsLocationMonitor o2 = new OnmsLocationMonitor();
         o2.setDefinitionName("a");
         o2.setId(1);
-        
+
         assertEquals("compareTo should return 1 as the first object has a higher ID", 1, o1.compareTo(o2));
     }
-    
+
     public void testCompareToFirstLowerId() {
         OnmsLocationMonitor o1 = new OnmsLocationMonitor();
         o1.setDefinitionName("a");
         o1.setId(1);
-        
+
         OnmsLocationMonitor o2 = new OnmsLocationMonitor();
         o2.setDefinitionName("a");
         o2.setId(2);
-        
+
         assertEquals("compareTo should return 1 as the first object has a lower ID", -1, o1.compareTo(o2));
     }
-    
+
     public void testCompareToFirstHigherName() {
         OnmsLocationMonitor o1 = new OnmsLocationMonitor();
         o1.setDefinitionName("b");
         o1.setId(1);
-        
+
         OnmsLocationMonitor o2 = new OnmsLocationMonitor();
         o2.setDefinitionName("a");
         o2.setId(1);
-        
+
         assertEquals("compareTo should return 1 as the first object has a higher name", 1, o1.compareTo(o2));
     }
-    
+
     public void testCompareToFirstLowerName() {
         OnmsLocationMonitor o1 = new OnmsLocationMonitor();
         o1.setDefinitionName("a");
         o1.setId(1);
-        
+
         OnmsLocationMonitor o2 = new OnmsLocationMonitor();
         o2.setDefinitionName("b");
         o2.setId(1);
-        
+
         assertEquals("compareTo should return 1 as the first object has a lower name", -1, o1.compareTo(o2));
     }
 }

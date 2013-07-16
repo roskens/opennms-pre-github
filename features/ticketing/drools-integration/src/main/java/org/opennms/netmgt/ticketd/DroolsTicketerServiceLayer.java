@@ -54,7 +54,7 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
     private static final Logger LOG = LoggerFactory.getLogger(DroolsTicketerServiceLayer.class);
     DroolsTicketerConfigDao m_configDao;
     KnowledgeBase m_knowledgeBase;
-	
+
 	/**
 	 * <p>Constructor for DroolsTicketerServiceLayer.</p>
 	 */
@@ -62,22 +62,22 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
     	m_configDao = new DroolsTicketerConfigDao();
         m_knowledgeBase = createKnowledgeBase();
     }
-    
+
     public DroolsTicketerServiceLayer(DroolsTicketerConfigDao configDao) {
     	m_configDao = configDao;
         m_knowledgeBase = createKnowledgeBase();
     }
-    
+
     public DroolsTicketerConfigDao getConfigDao() {
     	return m_configDao;
     }
-    
+
     @Override
     public void reloadTicketer() {
         LOG.debug("reloadTicketer: Reloading ticketer");
         m_knowledgeBase = createKnowledgeBase();
     }
-    
+
     private KnowledgeBase createKnowledgeBase() {
         LOG.debug("createKnowledgeBase: Creating Drools KnowledgeBase");
         final Properties props = new Properties();
@@ -85,7 +85,7 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
 
         final PackageBuilderConfiguration conf = new PackageBuilderConfiguration(props);
         KnowledgeBuilder builder = KnowledgeBuilderFactory.newKnowledgeBuilder(conf);
-        
+
         // Use the rules file defined in the configuration file
         // We will not throw an exception if the rules failed to be parsed
         builder.add(ResourceFactory.newFileResource(m_configDao.getRulesFile()), ResourceType.DRL);
@@ -93,28 +93,28 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
             LOG.error("Failed to create Drools KnowledgeBase: {}", builder.getErrors().toString());
             return null;
         }
-        
+
         KnowledgeBase knowledgeBase = KnowledgeBaseFactory.newKnowledgeBase();
         knowledgeBase.addKnowledgePackages(builder.getKnowledgePackages());
         return knowledgeBase;
     }
-    
+
 	/**
 	 * Called from API implemented method after successful retrieval of Alarm.
-	 * 
+	 *
 	 * @param alarm OpenNMS Model class alarm
 	 * @return OpenNMS Ticket processed by Drools logic.
 	 */
     @Override
     protected Ticket createTicketFromAlarm(OnmsAlarm alarm) {
         LOG.debug("createTicketFromAlarm: Processing ticket.");
-        
+
         // Call superclass method if the knowledge-base was not properly created.
         if( m_knowledgeBase == null ) {
             LOG.error("KnowledgeBase is NULL, creating basic ticket form alarm.");
             return super.createTicketFromAlarm(alarm);
         }
-        
+
         Ticket ticket = new Ticket();
         StatefulKnowledgeSession session = m_knowledgeBase.newStatefulKnowledgeSession();
         try {
@@ -127,7 +127,7 @@ public class DroolsTicketerServiceLayer extends DefaultTicketerServiceLayer {
         } finally {
             session.dispose();
         }
-        
+
         LOG.debug("createTicketFromAlarm: Succesfully processed ticket.");
         return ticket;
     }

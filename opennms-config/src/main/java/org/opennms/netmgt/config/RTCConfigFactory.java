@@ -73,7 +73,7 @@ public final class RTCConfigFactory {
     /**
      * Parse the rolling window in the properties file in the format <xx>h <yy>m
      * <zz>s into a long value of milliseconds
-     * 
+     *
      * @return the rolling window as milliseconds
      */
     private long parseRollingWindow(String rolling) throws IllegalArgumentException {
@@ -142,7 +142,7 @@ public final class RTCConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -161,7 +161,7 @@ public final class RTCConfigFactory {
             }
         }
     }
-    
+
     /**
      * <p>Constructor for RTCConfigFactory.</p>
      *
@@ -177,7 +177,7 @@ public final class RTCConfigFactory {
     private void marshal(InputStream stream) throws MarshalException, ValidationException {
         m_config = CastorUtils.unmarshal(RTCConfiguration.class, stream);
     }
-    
+
     /**
      * <p>setInstance</p>
      *

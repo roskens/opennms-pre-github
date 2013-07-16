@@ -50,8 +50,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class Event Form.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 // TODO when a new resource type is added, the resourceType list passed to GroupFieldFactory must be updated.
 @SuppressWarnings("serial")
@@ -78,7 +78,7 @@ public abstract class GroupForm extends Form implements ClickListener {
 
     /**
      * Instantiates a new group form.
-     * 
+     *
      * @param dataCollectionConfigDao the OpenNMS Data Collection Configuration DAO
      * @param source the OpenNMS Data Collection Group object
      */

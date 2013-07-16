@@ -53,11 +53,11 @@ public class SyslogRegexTest {
                 {
                     "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
                     "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"
-                }, 
+                },
                 {
                     "\\s(19|20)\\d\\d([-/.])(0[1-9]|1[012])\\2(0[1-9]|[12][0-9]|3[01])(\\s+)(\\S+)(\\s)(\\S.+)",
                     "<6>main: 2010-08-01 localhost foo23: load test 23 on tty1"
-                }, 
+                },
                 {
                     "foo0: .*load test (\\S+) on ((pts\\/\\d+)|(tty\\d+))",
                     "<6>main: 2010-08-19 localhost foo23: load test 23 on tty1"

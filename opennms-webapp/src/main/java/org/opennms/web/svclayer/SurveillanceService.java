@@ -68,7 +68,7 @@ public interface SurveillanceService {
      * @return a {@link org.opennms.web.svclayer.SimpleWebTable} object.
      */
     public SimpleWebTable createSurveillanceTable(String surveillanceViewName, ProgressMonitor progressMonitor);
-    
+
     /**
      * <p>getHeaderRefreshSeconds</p>
      *
@@ -84,7 +84,7 @@ public interface SurveillanceService {
      * @return a boolean.
      */
     public boolean isViewName(String viewName);
-    
+
     /**
      * <p>getViewNames</p>
      *

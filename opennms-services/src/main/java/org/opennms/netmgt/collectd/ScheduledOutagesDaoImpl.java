@@ -44,16 +44,16 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class ScheduledOutagesDaoImpl implements ScheduledOutagesDao {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesDaoImpl.class);
-	
+
 	/**
 	 * <p>Constructor for ScheduledOutagesDaoImpl.</p>
 	 */
 	public ScheduledOutagesDaoImpl() {
 		loadScheduledOutagesConfigFactory();
 	}
-	
+
 	private void loadScheduledOutagesConfigFactory() {
 	    // Load up the configuration for the scheduled outages.
 	    try {
@@ -75,8 +75,8 @@ public class ScheduledOutagesDaoImpl implements ScheduledOutagesDao {
 	public OnmsOutageCalendar get(String outageName) {
 		return new OnmsOutageCalendar();
 	}
-	
-	
-	
+
+
+
 
 }

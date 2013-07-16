@@ -38,7 +38,7 @@ package org.opennms.web.controller;
  */
 public class DaemonStatusBinder {
 	private String[] values = new String[0];
-	
+
 	/**
 	 * <p>Setter for the field <code>values</code>.</p>
 	 *
@@ -47,7 +47,7 @@ public class DaemonStatusBinder {
 	public void setValues(String[] values) {
 		this.values = values;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>values</code>.</p>
 	 *
@@ -56,5 +56,5 @@ public class DaemonStatusBinder {
 	public String[] getValues() {
 		return values;
 	}
-	
+
 }

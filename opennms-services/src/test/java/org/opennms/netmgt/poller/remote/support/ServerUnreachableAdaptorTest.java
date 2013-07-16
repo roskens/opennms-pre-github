@@ -44,13 +44,13 @@ public class ServerUnreachableAdaptorTest extends TestCase {
     public void testPollerStartingWhenBackEndReturnsFalse() {
         int id = 1;
         Map<String, String> details = new HashMap<String, String>();
-        
+
         PollerBackEnd backEnd = createMock(PollerBackEnd.class);
         expect(backEnd.pollerStarting(id, details)).andReturn(false);
-        
+
         ServerUnreachableAdaptor adaptor = new ServerUnreachableAdaptor();
         adaptor.setRemoteBackEnd(backEnd);
-        
+
         replay(backEnd);
         adaptor.pollerStarting(id, details);
         verify(backEnd);

@@ -88,7 +88,7 @@ public class AvailabilityMonitorTest {
             public String getSvcUrl() {
                 return null;
             }
-            
+
         };
         PollStatus status = sm.poll(svc, parameters);
         assertEquals(PollStatus.SERVICE_AVAILABLE, status.getStatusCode());

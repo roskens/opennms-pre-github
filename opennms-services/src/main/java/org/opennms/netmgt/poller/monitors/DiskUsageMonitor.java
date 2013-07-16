@@ -65,15 +65,15 @@ import org.slf4j.LoggerFactory;
 
 @Distributable(DistributionContext.DAEMON)
 final public class DiskUsageMonitor extends SnmpMonitorStrategy {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(DiskUsageMonitor.class);
-    
+
     private static final String m_serviceName = "DISK-USAGE";
-    
+
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
     private static final String hrStorageSize  = ".1.3.6.1.2.1.25.2.3.1.5";
     private static final String hrStorageUsed  = ".1.3.6.1.2.1.25.2.3.1.6";
-    
+
     /**
      * The available match-types for this monitor
      */
@@ -148,29 +148,29 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         int matchType = MATCH_TYPE_EXACT;
-        
+
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
 
         PollStatus status = PollStatus.available();
         InetAddress ipaddr = (InetAddress) iface.getAddress();
-        
+
         // Retrieve this interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(ipaddr);
         if (agentConfig == null) throw new RuntimeException("SnmpAgentConfig object not available for interface " + ipaddr);
         final String hostAddress = InetAddressUtils.str(ipaddr);
 		LOG.debug("poll: setting SNMP peer attribute for interface {}", hostAddress);
-        
+
         agentConfig.setTimeout(ParameterMap.getKeyedInteger(parameters, "timeout", agentConfig.getTimeout()));
         agentConfig.setRetries(ParameterMap.getKeyedInteger(parameters, "retry", ParameterMap.getKeyedInteger(parameters, "retries", agentConfig.getRetries())));
         agentConfig.setPort(ParameterMap.getKeyedInteger(parameters, "port", agentConfig.getPort()));
-        
+
         String diskName = ParameterMap.getKeyedString(parameters, "disk", null);
         Integer percentFree = ParameterMap.getKeyedInteger(parameters, "free", 15);
-        
+
         String matchTypeStr = ParameterMap.getKeyedString(parameters, "match-type", "exact");
         if (matchTypeStr.equalsIgnoreCase("exact")) {
-            matchType = MATCH_TYPE_EXACT; 
+            matchType = MATCH_TYPE_EXACT;
         } else if (matchTypeStr.equalsIgnoreCase("startswith")) {
             matchType = MATCH_TYPE_STARTSWITH;
         } else if (matchTypeStr.equalsIgnoreCase("endswith")) {
@@ -180,61 +180,61 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
         } else {
             throw new RuntimeException("Unknown value '" + matchTypeStr + "' for parameter 'match-type'");
         }
-        
+
         LOG.debug("diskName=", diskName);
         LOG.debug("percentfree=", percentFree);
         LOG.debug("matchType=", matchTypeStr);
-        
+
         LOG.debug("poll: service= SNMP address= {}", agentConfig);
 
-        
+
         try {
             LOG.debug("DiskUsageMonitor.poll: SnmpAgentConfig address: {}", agentConfig);
             SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(hrStorageDescr);
-            
-            
-            
+
+
+
             Map<SnmpInstId, SnmpValue> flagResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
-            
+
             if(flagResults.size() == 0) {
                 LOG.debug("SNMP poll failed: no results, addr={} oid={}", hostAddress, hrStorageDescrSnmpObject);
                 return PollStatus.unavailable();
             }
 
-            for (Map.Entry<SnmpInstId, SnmpValue> e : flagResults.entrySet()) { 
+            for (Map.Entry<SnmpInstId, SnmpValue> e : flagResults.entrySet()) {
                 LOG.debug("poll: SNMPwalk poll succeeded, addr={} oid={} instance={} value={}", hostAddress, hrStorageDescrSnmpObject, e.getKey(), e.getValue());
-                
+
                 if (isMatch(e.getValue().toString(), diskName, matchType)) {
 			LOG.debug("DiskUsageMonitor.poll: found disk=", diskName);
-                	
+
                 	SnmpObjId hrStorageSizeSnmpObject = SnmpObjId.get(hrStorageSize + "." + e.getKey().toString());
                 	SnmpObjId hrStorageUsedSnmpObject = SnmpObjId.get(hrStorageUsed + "." + e.getKey().toString());
-                	
-                	
+
+
                 	SnmpValue snmpSize = SnmpUtils.get(agentConfig, hrStorageSizeSnmpObject);
                 	SnmpValue snmpUsed = SnmpUtils.get(agentConfig, hrStorageUsedSnmpObject);
                 	float calculatedPercentage = ( (( (float)snmpSize.toLong() - (float)snmpUsed.toLong() ) / (float)snmpSize.toLong() ) ) * 100;
-                
+
 			LOG.debug("DiskUsageMonitor: calculatedPercentage={} percentFree={}", calculatedPercentage, percentFree);
-                	
+
                 	if (calculatedPercentage < percentFree) {
-                	
+
                 		return PollStatus.unavailable(diskName + " usage high (" + (100 - (int)calculatedPercentage)  + "%)");
-                		
+
                 	}
                 	else {
                 		return status;
                 	}
                 }
-            
-                 
+
+
             }
 
             // if we get here.. it means we did not find the disk...  which means we should not be monitoring it.
             LOG.debug("DiskUsageMonitor: no disks found");
             return PollStatus.unavailable("could not find " + diskName + "in table");
-            
-            
+
+
         } catch (NumberFormatException e) {
             String reason = "Number operator used on a non-number " + e.getMessage();
             LOG.debug(reason);
@@ -251,7 +251,7 @@ final public class DiskUsageMonitor extends SnmpMonitorStrategy {
 
         return status;
     }
-    
+
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);

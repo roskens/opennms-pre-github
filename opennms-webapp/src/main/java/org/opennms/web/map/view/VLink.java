@@ -53,11 +53,11 @@ final public class VLink {
 	private int numberOfLinks;
     //the link type defined in the map properties file
 	private int linkTypeId;
-	
+
 	private String linkStatusString;
-	
+
     private final String id;
-	
+
 	/**
 	 * <p>Constructor for VLink.</p>
 	 *
@@ -77,18 +77,18 @@ final public class VLink {
         String  a = elem1Id+elem1Type;
         String  b = elem2Id+elem2Type;
         String id = a + "-" + b;
-        
+
         if (elem1Id > elem2Id) {
             id = b + "-" + a;
         }
-        
+
         if (elem1Id == elem2Id && elem2Type.equals(MapsConstants.MAP_TYPE)) {
             id = b + "-" + a;
         }
 		id = id+"-"+linkTypeId;
 		this.id = id;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>vlinkStatusMap</code>.</p>
 	 *
@@ -166,7 +166,7 @@ final public class VLink {
 
 		return true;
 	}
-	
+
 	/**
 	 * <p>getFirst</p>
 	 *
@@ -184,7 +184,7 @@ final public class VLink {
 	public String getSecond() {
 		return elem2Id+elem2Type;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>linkTypeId</code>.</p>
 	 *
@@ -193,7 +193,7 @@ final public class VLink {
 	public int getLinkTypeId() {
 		return linkTypeId;
 	}
-	
+
 	/**
 	 * <p>Setter for the field <code>linkTypeId</code>.</p>
 	 *
@@ -212,7 +212,7 @@ final public class VLink {
 	public String toString() {
 			return ""+getFirst()+"-"+getSecond()+"-"+linkTypeId+"-"+linkStatusString+" nodeids:"+this.nodeids.toString();
 	}
-	
+
     /**
      * <p>Getter for the field <code>id</code>.</p>
      *
@@ -221,7 +221,7 @@ final public class VLink {
     public String getId() {
 		return id;
 	}
-    
+
     /**
      * <p>getIdWithoutLinkType</p>
      *
@@ -249,7 +249,7 @@ final public class VLink {
         int i=0;
         if (vlinkStatusMap.containsKey(statusString)) {
             i = vlinkStatusMap.get(statusString);
-        } 
+        }
         vlinkStatusMap.put(statusString, ++i);
         return i;
     }

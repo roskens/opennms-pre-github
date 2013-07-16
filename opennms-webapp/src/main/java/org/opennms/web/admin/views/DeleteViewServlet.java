@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.ViewFactory;
  */
 public class DeleteViewServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 5700775415816346802L;
 

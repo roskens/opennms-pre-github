@@ -44,30 +44,30 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment
 public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCase {
-    
+
     @Test
     public void testForeignSources() throws Exception {
         createForeignSource();
         String url = "/foreignSources";
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("ICMP"));
-        
+
         url = "/foreignSources/test";
         sendPut(url, "scanInterval=1h", 303, "/foreignSources/test");
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("<scan-interval>1h</scan-interval>"));
-        
+
         url = "/foreignSources/test";
         sendPut(url, "scanInterval=1h", 303, "/foreignSources/test");
         sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("<scan-interval>1d</scan-interval>"));
-        
+
         sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("<scan-interval>1d</scan-interval>"));
     }
-    
+
     @Test
     public void testDetectors() throws Exception {
         createForeignSource();
@@ -77,7 +77,7 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         assertTrue(xml.contains("<detectors "));
         assertTrue(xml.contains("<detector "));
         assertTrue(xml.contains("name=\"ICMP\""));
-        
+
         url = "/foreignSources/test/detectors/HTTP";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("org.opennms.netmgt.provision.detector.simple.HttpDetector"));
@@ -96,11 +96,11 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         assertTrue(xml.contains("<policy "));
         assertTrue(xml.contains("name=\"lower-case-node\""));
         assertTrue(xml.contains("value=\"Lower-Case-Nodes\""));
-        
+
         url = "/foreignSources/test/policies/all-ipinterfaces";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("org.opennms.netmgt.provision.persist.policies.InclusiveInterfacePolicy"));
-        
+
         xml = sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 204);
     }
@@ -109,7 +109,7 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         String fs =
             "<foreign-source xmlns=\"http://xmlns.opennms.org/xsd/config/foreign-source\" name=\"test\">" +
                 "<scan-interval>1d</scan-interval>" +
-                "<detectors>" + 
+                "<detectors>" +
                     "<detector class=\"org.opennms.netmgt.provision.detector.datagram.DnsDetector\" name=\"DNS\"/>" +
                     "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpDetector\" name=\"HTTP\"/>" +
                     "<detector class=\"org.opennms.netmgt.provision.detector.simple.HttpsDetector\" name=\"HTTPS\"/>" +
@@ -126,5 +126,5 @@ public class ForeignSourceRestServiceTest extends AbstractSpringJerseyRestTestCa
         MockHttpServletResponse response = sendPost("/foreignSources", fs, 303, "/foreignSources/test");
         System.err.println("response = " + stringifyResponse(response));
     }
-    
+
 }

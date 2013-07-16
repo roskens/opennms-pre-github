@@ -45,8 +45,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class System Definition Panel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class SystemDefPanel extends VerticalLayout {

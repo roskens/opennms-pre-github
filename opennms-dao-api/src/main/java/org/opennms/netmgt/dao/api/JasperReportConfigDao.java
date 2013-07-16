@@ -32,7 +32,7 @@ package org.opennms.netmgt.dao.api;
  * <p>JasperReportConfigDao interface.</p>
  */
 public interface JasperReportConfigDao {
-    
+
     /**
      * <p>getTemplateLocation</p>
      *
@@ -40,7 +40,7 @@ public interface JasperReportConfigDao {
      * @return a {@link java.lang.String} object.
      */
     String getTemplateLocation(String id);
-    
+
     /**
      * <p>getEngine</p>
      *

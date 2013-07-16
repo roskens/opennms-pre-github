@@ -47,7 +47,7 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
      * Value of round-trip-time for the ping packets in microseconds.
      */
     Number[] m_responseTimes;
-    
+
     Throwable m_error;
 
     /**
@@ -105,7 +105,7 @@ public class ParallelPingResponseCallback implements PingResponseCallback {
     public void waitFor() throws InterruptedException {
         m_latch.await();
     }
-    
+
     public void rethrowError() throws Exception {
         if (m_error instanceof Error) {
             throw (Error)m_error;

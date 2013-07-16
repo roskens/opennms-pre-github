@@ -35,9 +35,9 @@ public class SimpleLayoutOperation extends LayoutOperation {
 
 	public SimpleLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final SimpleLayoutAlgorithm m_layoutAlgorithm = new SimpleLayoutAlgorithm();
-		    
+
 			@Override
 			public LayoutAlgorithm getLayoutAlgorithm() {
 				return m_layoutAlgorithm;

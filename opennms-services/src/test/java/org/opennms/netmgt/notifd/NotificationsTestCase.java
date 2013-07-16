@@ -83,29 +83,29 @@ public class NotificationsTestCase {
         bean.afterPropertiesSet();
 
         MockLogAppender.setupLogging();
-        
+
         m_network = createMockNetwork();
-        
+
         m_db = createDatabase(m_network);
-    
+
         m_eventMgr = new MockEventIpcManager();
         m_eventMgr.setEventWriter(m_db);
-        
+
         m_notifdConfig = new MockNotifdConfigManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifd-configuration.xml"));
         m_notifdConfig.setNextNotifIdSql(m_db.getNextNotifIdSql());
         m_notifdConfig.setNextUserNotifIdSql(m_db.getNextUserNotifIdSql());
-        
+
         m_groupManager = createGroupManager();
         m_userManager = createUserManager(m_groupManager);
-        
-        m_destinationPathManager = new MockDestinationPathManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "destination-paths.xml"));        
+
+        m_destinationPathManager = new MockDestinationPathManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "destination-paths.xml"));
         m_notificationCommandManger = new MockNotificationCommandManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notification-commands.xml"));
         m_notificationManager = new MockNotificationManager(m_notifdConfig, m_db, ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "notifications.xml"));
         m_pollOutagesConfigManager = new MockPollerConfig(m_network);
-        
+
         m_anticipator = new NotificationAnticipator();
         MockNotificationStrategy.setAnticipator(m_anticipator);
-        
+
         m_notifd = new Notifd();
         m_notifd.setEventManager(m_eventMgr);
         m_notifd.setConfigManager(m_notifdConfig);
@@ -115,23 +115,23 @@ public class NotificationsTestCase {
         m_notifd.setNotificationCommandManager(m_notificationCommandManger);
         m_notifd.setNotificationManager(m_notificationManager);
         m_notifd.setPollOutagesConfigManager(m_pollOutagesConfigManager);
-                
+
         m_notifd.init();
         m_notifd.start();
-        
+
 //        Date downDate = new Date();
 //        anticipateNotificationsForGroup("node 2 down.", "All services are down on node 2.", "InitialGroup", downDate, 0);
-//    
+//
 //        //bring node down now
 //        m_eventMgr.sendEventToListeners(m_network.getNode(2).createDownEvent(downDate));
-//    
+//
 //        m_anticipator.waitForAnticipated(2000);
-//        
+//
 //        m_anticipator.reset();
-    
+
         MockUtil.println("################ Finish Setup ################");
 
-    
+
     }
 
     protected MockDatabase createDatabase(MockNetwork network) throws Exception {
@@ -154,7 +154,7 @@ public class NotificationsTestCase {
     private MockGroupManager createGroupManager() throws MarshalException, ValidationException, IOException {
         return new MockGroupManager(ConfigurationTestUtils.getConfigForResourceWithReplacements(this, "groups.xml"));
     }
-    
+
     protected void tearDown() throws Exception {
         this.tearDown(false);
     }
@@ -169,7 +169,7 @@ public class NotificationsTestCase {
             MockLogAppender.assertNoWarningsOrGreater();
         }
     }
-    
+
     public void testDoNothing() {
         // this is only here to ensure that we don't get an error when running AllTests
     }
@@ -183,7 +183,7 @@ public class NotificationsTestCase {
         String[] users = group.getUser();
         return anticipateNotificationsForUsers(users, subject, textMsg, startTime, interval);
     }
-    
+
     protected long anticipateNotificationsForRole(String subject, String textMsg, String groupName, Date startTime, long interval) throws Exception {
         return anticipateNotificationsForRole(subject, textMsg, groupName, startTime.getTime(), interval);
     }
@@ -213,9 +213,9 @@ public class NotificationsTestCase {
         Group group = m_groupManager.getGroup(groupName);
         String[] users = group.getUser();
         return Arrays.asList(users);
-        
+
     }
-    
+
     protected void verifyAnticipated(long lastNotifyTime, long waitTime) {
         verifyAnticipated(lastNotifyTime, waitTime, 1000);
     }

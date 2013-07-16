@@ -1,12 +1,12 @@
 /*
  * Copyright 1999,2005 The Apache Software Foundation.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *      http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -29,7 +29,7 @@ import org.apache.xmlrpc.XmlRpcTransport;
  * @author ranger
  * @version $Id: $
  */
-public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportFactory 
+public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportFactory
 {
     // Default properties for new http transports
     protected int timeout = 0;
@@ -44,7 +44,7 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
         super(url);
         this.timeout = timeout;
     }
-    
+
     /**
      * Contructor taking a Base64 encoded Basic Authentication string.
      *
@@ -57,7 +57,7 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
         this(url, timeout);
         this.auth = auth;
     }
-    
+
     /**
      * <p>createTransport</p>
      *
@@ -68,13 +68,13 @@ public class TimeoutSecureXmlRpcTransportFactory extends DefaultXmlRpcTransportF
     @Override
 	public XmlRpcTransport createTransport() throws XmlRpcClientException {
         if ("https".equals(url.getProtocol())) {
-            if (timeout > 0) 
+            if (timeout > 0)
             {
                 throw new XmlRpcClientException("Timeouts not supported under https.", null);
             }
             return new DefaultXmlRpcTransport(url, auth);
         }
-        
+
         return new TimeoutSecureXmlRpcTransport(url, auth, timeout);
     }
 }

@@ -42,13 +42,13 @@ public class EventForwarderDefaultImpl extends AbstractEventForwarder implements
 	public void flushSyncEvent(Event event) {
 		super.filter(event);
 	}
-		
+
         @Override
 	public void sendStartSync() {
 	}
 
         @Override
 	public void sendEndSync() {
-	} 
-	
+	}
+
 }

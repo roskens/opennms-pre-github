@@ -53,7 +53,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
 
     private int m_pageSize;
     private ReportStoreService m_reportStoreService;
-    
+
     /**
      * <p>Constructor for ManageDatabaseReportController.</p>
      */
@@ -69,7 +69,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
     public void setReportStoreService(ReportStoreService reportStoreService) {
         m_reportStoreService = reportStoreService;
     }
-    
+
     /**
      * <p>setPageSize</p>
      *
@@ -78,7 +78,7 @@ public class ManageDatabaseReportController extends SimpleFormController {
     public void setPageSize(int pageSize) {
         m_pageSize = pageSize;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Map<String, Object> referenceData(HttpServletRequest req) throws Exception {
@@ -88,13 +88,13 @@ public class ManageDatabaseReportController extends SimpleFormController {
         PagedListHolder<ReportCatalogEntry> pagedListHolder = new PagedListHolder<ReportCatalogEntry>(reportCatalog);
         pagedListHolder.setPageSize(m_pageSize);
         int page = ServletRequestUtils.getIntParameter(req, "p", 0);
-        pagedListHolder.setPage(page); 
+        pagedListHolder.setPage(page);
         data.put("formatMap", formatMap);
         data.put("pagedListHolder", pagedListHolder);
         return data;
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView onSubmit(Object command) throws Exception {
@@ -103,6 +103,6 @@ public class ManageDatabaseReportController extends SimpleFormController {
         ModelAndView mav = new ModelAndView(getSuccessView());
         return mav;
     }
-    
-    
+
+
 }

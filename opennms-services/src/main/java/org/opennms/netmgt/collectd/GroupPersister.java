@@ -61,14 +61,14 @@ public class GroupPersister extends BasePersister {
     public void visitGroup(AttributeGroup group) {
         pushShouldPersist(group);
         if (shouldPersist()) {
-            
+
             Map<String, String> dsNamesToRrdNames = new LinkedHashMap<String , String>();
             for (CollectionAttribute a : group.getAttributes()) {
                 if (NumericAttributeType.supportsType(a.getType())) {
                     dsNamesToRrdNames.put(a.getName(), group.getName());
                 }
             }
-            
+
             createBuilder(group.getResource(), group.getName(), group.getGroupType().getAttributeTypes());
             File path = group.getResource().getResourceDir(getRepository());
             ResourceTypeUtils.updateDsProperties(path, dsNamesToRrdNames);

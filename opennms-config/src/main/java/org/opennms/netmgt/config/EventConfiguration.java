@@ -42,17 +42,17 @@ class EventConfiguration {
      * Map of configured event files and their events
      */
     private Map<Resource, Events> m_eventFiles = new HashMap<Resource, Events>();
-    
+
     /**
      * The mapping of all the event configuration objects for searching
      */
     private EventConfData m_eventConfData = new EventConfData();
-    
+
     /**
      * The list of secure tags.
      */
     private Set<String> m_secureTags = new HashSet<String>();
-    
+
     /**
      * Total count of events in these files.
      */

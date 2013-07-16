@@ -29,15 +29,15 @@ public class NodeTableCellStyleGenerator  implements CellStyleGenerator {
 
     private final AlarmCellStyleRenderer cellStyleRenderer = new AlarmCellStyleRenderer();
     private AlarmDao alarmDao;
-    
+
     protected AlarmDao getAlarmDao() {
         return alarmDao;
     }
-    
+
     public void setAlarmDao(AlarmDao alarmDao) {
         this.alarmDao = alarmDao;
     }
-    
+
     @Override
     public String getStyle(Table source, Object itemId, Object propertyId) {
         if (itemId == null || !(itemId instanceof Integer)) return "";

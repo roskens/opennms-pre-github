@@ -64,9 +64,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class Notifd extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Notifd.class);
-    
+
     /**
      * The singleton instance.
      */
@@ -78,7 +78,7 @@ public final class Notifd extends AbstractServiceDaemon {
     private final Map<String, NoticeQueue> m_noticeQueues = new HashMap<String, NoticeQueue>();
 
     /**
-     * 
+     *
      */
     private final Map<String, NotifdQueueHandler> m_queueHandlers = new HashMap<String, NotifdQueueHandler>();
 
@@ -87,13 +87,13 @@ public final class Notifd extends AbstractServiceDaemon {
      */
     private volatile BroadcastEventProcessor m_eventReader;
 
-    // Would be better if these were final but the are initialized in setters 
+    // Would be better if these were final but the are initialized in setters
     private volatile EventIpcManager m_eventManager;
 
     private volatile NotifdConfigManager m_configManager;
 
     private volatile NotificationManager m_notificationManager;
-    
+
     private volatile GroupManager m_groupManager;
 
     private volatile UserManager m_userManager;
@@ -103,7 +103,7 @@ public final class Notifd extends AbstractServiceDaemon {
     private volatile NotificationCommandManager m_notificationCommandManager;
 
     private volatile PollOutagesConfigManager m_pollOutagesConfigManager;
-    
+
     private volatile NodeDao m_nodeDao;
 
     /**
@@ -118,7 +118,7 @@ public final class Notifd extends AbstractServiceDaemon {
      */
     @Override
     protected void onInit() {
-        
+
         m_eventReader = new BroadcastEventProcessor();
 
         try {
@@ -142,7 +142,7 @@ public final class Notifd extends AbstractServiceDaemon {
             LOG.error("start: Failed to load notifd queue handlers.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         m_eventReader.setDestinationPathManager(getDestinationPathManager());
         m_eventReader.setEventManager(getEventManager());
         m_eventReader.setGroupManager(getGroupManager());
@@ -170,7 +170,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public NotifdConfigManager getConfigManager() {
         return m_configManager;
     }
-    
+
     /**
      * <p>setConfigManager</p>
      *
@@ -179,7 +179,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setConfigManager(NotifdConfigManager manager ) {
         m_configManager = manager;
     }
-    
+
     /**
      * <p>getGroupManager</p>
      *
@@ -188,7 +188,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public GroupManager getGroupManager() {
         return m_groupManager;
     }
-    
+
     /**
      * <p>setGroupManager</p>
      *
@@ -197,7 +197,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setGroupManager(GroupManager manager) {
         m_groupManager = manager;
     }
-    
+
     /**
      * <p>getUserManager</p>
      *
@@ -206,7 +206,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public UserManager getUserManager() {
         return m_userManager;
     }
-    
+
     /**
      * <p>setUserManager</p>
      *
@@ -215,7 +215,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setUserManager(UserManager manager) {
         m_userManager = manager;
     }
-    
+
     /**
      * <p>getDestinationPathManager</p>
      *
@@ -224,7 +224,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public DestinationPathManager getDestinationPathManager() {
         return m_destinationPathManager;
     }
-    
+
     /**
      * <p>setDestinationPathManager</p>
      *
@@ -233,7 +233,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setDestinationPathManager(DestinationPathManager manager) {
         m_destinationPathManager = manager;
     }
-    
+
     /**
      * <p>getNotificationCommandManager</p>
      *
@@ -251,7 +251,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setNotificationCommandManager(NotificationCommandManager manager) {
         m_notificationCommandManager = manager;
     }
-    
+
     /**
      * <p>getNotificationManager</p>
      *
@@ -260,7 +260,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public NotificationManager getNotificationManager() {
         return m_notificationManager;
     }
-    
+
     /**
      * <p>setNotificationManager</p>
      *
@@ -269,7 +269,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setNotificationManager(NotificationManager notificationManager) {
         m_notificationManager = notificationManager;
     }
-    
+
     /**
      * <p>getBroadcastEventProcessor</p>
      *
@@ -346,7 +346,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public EventIpcManager getEventManager() {
         return m_eventManager;
     }
-    
+
     /**
      * <p>setEventManager</p>
      *
@@ -364,7 +364,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setPollOutagesConfigManager(PollOutagesConfigManager configManager) {
         m_pollOutagesConfigManager = configManager;
     }
-    
+
     /**
      * <p>getPollOutagesConfigManager</p>
      *
@@ -373,7 +373,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public PollOutagesConfigManager getPollOutagesConfigManager() {
         return m_pollOutagesConfigManager;
     }
-    
+
     /**
      * <p>setNodeDao</p>
      *
@@ -382,7 +382,7 @@ public final class Notifd extends AbstractServiceDaemon {
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>getNodeDao</p>
      *

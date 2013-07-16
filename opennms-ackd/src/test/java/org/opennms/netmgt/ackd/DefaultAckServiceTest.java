@@ -88,15 +88,15 @@ public class DefaultAckServiceTest implements InitializingBean {
     @Autowired AcknowledgmentDao m_ackDao;
 
     @Autowired NotificationDao m_notifDao;
-    
+
     @Autowired AlarmDao m_alarmDao;
-    
+
     @Autowired EventDao m_eventDao;
-    
+
     @Autowired NodeDao m_nodeDao;
 
     @Autowired DatabasePopulator m_populator;
-    
+
     @Before public void createDb() {
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
@@ -114,10 +114,10 @@ public class DefaultAckServiceTest implements InitializingBean {
 
     @Test(expected=IllegalStateException.class)
     public void notificationWithMissingAlarm() {
-        
+
         OnmsNode dbNode = m_nodeDao.get(m_populator.getNode1().getId());
         OnmsEvent event = getEvent(dbNode);
-        
+
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setAlarmType(OnmsAlarm.PROBLEM_TYPE);
         alarm.setDescription(event.getEventDescr());
@@ -148,30 +148,30 @@ public class DefaultAckServiceTest implements InitializingBean {
 
         m_ackDao.processAck(ack);
     }
- 
-    @Test 
+
+    @Test
     public void processAck() {
-        
+
         OnmsNode dbNode = m_nodeDao.get(m_populator.getNode1().getId());
         OnmsEvent event = getEvent(dbNode);
         OnmsNotification notif = getNotification(event);
         // OnmsUserNotification un = getUserNotification(notif);
-        
+
         Assert.assertTrue(m_notifDao.countAll() > 0);
-        
+
         List<OnmsNotification> notifs = m_notifDao.findAll();
         Assert.assertTrue((notifs.contains(notif)));
-        
+
         OnmsAcknowledgment ack = new OnmsAcknowledgment();
         ack.setRefId(notif.getNotifyId());
         ack.setAckType(AckType.NOTIFICATION);
         m_ackDao.processAck(ack);
-        
+
         List<Acknowledgeable> ackables = m_ackDao.findAcknowledgables(ack);
         Assert.assertEquals(1, ackables.size());
         Acknowledgeable ackable = ackables.get(0);
         Assert.assertEquals("admin", ackable.getAckUser());
-        
+
     }
 
     @SuppressWarnings("unused")
@@ -184,7 +184,7 @@ public class DefaultAckServiceTest implements InitializingBean {
         notif.setUsersNotified(usersNotified);
         m_notifDao.save(notif);
         m_notifDao.flush();
-        
+
         return un;
     }
 
@@ -198,7 +198,7 @@ public class DefaultAckServiceTest implements InitializingBean {
         notif.setTextMsg("ackd notif test");
         m_notifDao.save(notif);
         m_notifDao.flush();
-        
+
         return notif;
     }
 

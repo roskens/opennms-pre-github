@@ -59,7 +59,7 @@ public class NotificationsPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isElementPresent("link=All acknowledged notices"));
     }
 
-    @Test 
+    @Test
     public void testAllFormsArePresent() {
         assertTrue(selenium.isElementPresent("css=input[type=submit]"));
         assertTrue(selenium.isElementPresent("//input[@value='Get details']"));

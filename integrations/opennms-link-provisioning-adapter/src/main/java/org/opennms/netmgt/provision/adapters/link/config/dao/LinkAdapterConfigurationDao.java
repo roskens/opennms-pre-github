@@ -46,17 +46,17 @@ public interface LinkAdapterConfigurationDao {
      * @return a {@link java.util.Set} object.
      */
     public Set<LinkPattern> getPatterns();
-    
+
     /**
      * <p>setPatterns</p>
      *
      * @param patterns a {@link java.util.Set} object.
      */
     public void setPatterns(Set<LinkPattern> patterns);
-    
+
     /**
      * <p>saveCurrent</p>
      */
     public void saveCurrent();
-    
+
 }

@@ -56,7 +56,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class AbstractTcpPlugin extends AbstractPlugin {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractTcpPlugin.class);
 
     int m_defaultPort;

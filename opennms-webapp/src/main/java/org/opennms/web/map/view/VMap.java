@@ -45,12 +45,12 @@ import org.opennms.web.map.db.DbMap;
  */
 final public class VMap extends DbMap {
     private final Map<String, VElement> elements = new ConcurrentHashMap<String, VElement>();
-    
+
     private final List<VLink> links = new ArrayList<VLink>();
-    
+
     private String createTimeString;
     private String lastModifiedTimeString;
-    
+
     /**
      *  Create a new VMap with empty name.
      *
@@ -60,7 +60,7 @@ final public class VMap extends DbMap {
     	super();
     	super.setName(mapName);
     }
-        
+
     /**
      * <p>Constructor for VMap.</p>
      *
@@ -83,7 +83,7 @@ final public class VMap extends DbMap {
         super(id, name, background, owner, accessMode, userLastModifies, scale,
                 offsetX, offsetY, type, width, height);
     }
-    
+
     /**
      * <p>addElement</p>
      *
@@ -131,7 +131,7 @@ final public class VMap extends DbMap {
     public void addLink(VLink link) {
     	this.links.add(link);
     }
- 
+
     /**
      * <p>addLinks</p>
      *
@@ -151,11 +151,11 @@ final public class VMap extends DbMap {
      */
     public VElement removeElement(int id, String type) {
     	VElement ve = elements.remove(getElementId(id, type));
-        
-        if (ve != null) { 
+
+        if (ve != null) {
             ve.isChild = false;
         }
-        
+
         return ve;
     }
 
@@ -169,7 +169,7 @@ final public class VMap extends DbMap {
         int index = links.indexOf(link);
     	return links.remove(index);
     }
-        
+
     /**
      * <p>getLinksOnElement</p>
      *
@@ -179,13 +179,13 @@ final public class VMap extends DbMap {
      */
     public List<VLink> getLinksOnElement(int id, String type) {
     	List<VLink> lns = new ArrayList<VLink>();
-        
+
         for (VLink vlink : links) {
     		if (vlink.getId().indexOf(getElementId(id, type)) != -1) {
     			lns.add(vlink);
     		}
     	}
-        
+
     	return lns;
     }
 
@@ -198,11 +198,11 @@ final public class VMap extends DbMap {
      */
     public List<VLink> removeLinksOnElementList(int id, String type) {
         List<VLink> links = new ArrayList<VLink>();
-        
+
         for (VLink vlink: getLinksOnElement(id, type)) {
-            links.add(removeLink(vlink)); 
+            links.add(removeLink(vlink));
         }
-            
+
     	return links;
     }
 
@@ -236,9 +236,9 @@ final public class VMap extends DbMap {
      *
      * @return a java$util$Map object.
      */
-    public java.util.Map<String,VElement> getElements() {        
+    public java.util.Map<String,VElement> getElements() {
         return elements;
-    } 
+    }
 
     /**
      * <p>Getter for the field <code>links</code>.</p>
@@ -247,22 +247,22 @@ final public class VMap extends DbMap {
      */
     public List<VLink> getLinks() {
     	return links;
-    } 
-    
+    }
+
     /**
      * <p>removeAllElements</p>
      */
     public void removeAllElements() {
         elements.clear();
     }
-    
+
     /**
      * <p>removeAllLinks</p>
      */
     public void removeAllLinks() {
         links.clear();
     }
-    
+
     /**
      * <p>size</p>
      *
@@ -271,7 +271,7 @@ final public class VMap extends DbMap {
     public int size() {
         return elements.size();
     }
-    
+
     /**
      * <p>linksize</p>
      *
@@ -301,85 +301,85 @@ final public class VMap extends DbMap {
     public boolean containsLink(VLink link) {
      	return links.contains(link);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public  void setAccessMode(String accessMode) {
     	super.setAccessMode(accessMode);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public  void setBackground(String background) {
     	super.setBackground(background);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setCreateTime(Timestamp createTime) {
     	super.setCreateTime(createTime);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setLastModifiedTime(Timestamp lastModifiedTime) {
     	super.setLastModifiedTime(lastModifiedTime);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setName(String name) {
     	super.setName(name);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setOffsetX(int offsetX) {
     	super.setOffsetX(offsetX);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setOffsetY(int offsetY) {
     	super.setOffsetY(offsetY);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setOwner(String owner) {
     	super.setOwner(owner);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setScale(float scale) {
     	super.setScale(scale);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setType(String type) {
     	super.setType(type);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setWidth(int width) {
     	super.setWidth(width);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setHeight(int height) {
     	super.setHeight(height);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setUserLastModifies(String userLastModifies) {
     	super.setUserLastModifies(userLastModifies);
     }
-    
+
     /**
      * <p>isNew</p>
      *
@@ -397,7 +397,7 @@ final public class VMap extends DbMap {
     private String getElementId(int id, String type) {
         return id + type;
     }
-    
+
     /**
      * <p>Getter for the field <code>createTimeString</code>.</p>
      *

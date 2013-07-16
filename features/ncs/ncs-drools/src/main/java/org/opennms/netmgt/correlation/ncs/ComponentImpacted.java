@@ -34,15 +34,15 @@ public class ComponentImpacted {
 
 	private Component m_target;
 	private ComponentDownEvent m_cause;
-	
+
 	public ComponentImpacted() {}
-	
+
 	public ComponentImpacted(Component target, ComponentDownEvent cause)
 	{
 		m_target = target;
 		m_cause = cause;
 	}
-	
+
 	public Component getTarget() {
 		return m_target;
 	}
@@ -58,7 +58,7 @@ public class ComponentImpacted {
 
 	@Override
 	public String toString() {
-		return "ComponentImpacted[ target=" + m_target + 
+		return "ComponentImpacted[ target=" + m_target +
 				", cause=" + m_cause +
 				" ]";
 	}
@@ -76,7 +76,7 @@ public class ComponentImpacted {
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
-		
+
 		if (obj instanceof ComponentImpacted) {
 			ComponentImpacted o = (ComponentImpacted)obj;
 			return nullSafeEquals(m_target, o.m_target)
@@ -84,9 +84,9 @@ public class ComponentImpacted {
 		}
 		return false;
 	}
-	
-	
-	
-	
+
+
+
+
 
 }

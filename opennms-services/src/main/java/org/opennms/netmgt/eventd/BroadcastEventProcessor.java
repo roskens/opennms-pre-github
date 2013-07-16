@@ -48,13 +48,13 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class BroadcastEventProcessor implements EventListener {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
-    
+
     private final EventIpcManager m_eventIpcManager;
     private final EventConfDao m_eventConfDao;
-    
+
     /**
      * <p>Constructor for BroadcastEventProcessor.</p>
      *
@@ -64,10 +64,10 @@ public class BroadcastEventProcessor implements EventListener {
     public BroadcastEventProcessor(EventIpcManager eventIpcManager, EventConfDao eventConfDao) {
         Assert.notNull(eventIpcManager, "argument eventIpcManager must not be null");
         Assert.notNull(eventConfDao, "argument eventConfDao must not be null");
-        
+
         m_eventIpcManager = eventIpcManager;
         m_eventConfDao = eventConfDao;
-        
+
         addEventListener();
     }
 
@@ -120,23 +120,23 @@ public class BroadcastEventProcessor implements EventListener {
      */
     @Override
     public void onEvent(Event event) {
-        
+
         LOG.debug("onEvent: received event, UEI = {}", event.getUei());
         EventBuilder ebldr = null;
-        
+
         if (isReloadConfigEvent(event)) {
             try {
                 m_eventConfDao.reload();
                 ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, getName());
                 ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Eventd");
-                
+
             } catch (Throwable e) {
                 LOG.error("onEvent: Could not reload events config", e);
                 ebldr = new EventBuilder(EventConstants.RELOAD_DAEMON_CONFIG_SUCCESSFUL_UEI, getName());
                 ebldr.addParam(EventConstants.PARM_DAEMON_NAME, "Eventd");
                 ebldr.addParam(EventConstants.PARM_REASON, e.getLocalizedMessage().substring(0, 128));
             }
-            
+
             if (ebldr != null) {
                 m_eventIpcManager.sendNow(ebldr.getEvent());
             }
@@ -145,22 +145,22 @@ public class BroadcastEventProcessor implements EventListener {
 
     private boolean isReloadConfigEvent(Event event) {
         boolean isTarget = false;
-        
+
         if (EventConstants.RELOAD_DAEMON_CONFIG_UEI.equals(event.getUei())) {
             List<Parm> parmCollection = event.getParmCollection();
-            
+
             for (Parm parm : parmCollection) {
                 if (EventConstants.PARM_DAEMON_NAME.equals(parm.getParmName()) && "Eventd".equalsIgnoreCase(parm.getValue().getContent())) {
                     isTarget = true;
                     break;
                 }
             }
-        
+
         // Deprecating this one...
         } else if (EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI.equals(event.getUei())) {
             isTarget = true;
         }
-        
+
         return isTarget;
     }
 }

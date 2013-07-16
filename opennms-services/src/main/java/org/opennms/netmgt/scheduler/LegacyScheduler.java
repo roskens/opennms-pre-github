@@ -53,9 +53,9 @@ import org.springframework.util.Assert;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LegacyScheduler.class);
-    
+
     /**
      * The map of queue that contain {@link ReadyRunnable ready runnable}
      * instances. The queues are mapped according to the interval of scheduling.
@@ -87,7 +87,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
     /**
      * This queue extends the standard FIFO queue instance so that it is
      * possible to peek at an instance without removing it from the queue.
-     * 
+     *
      */
     public static final class PeekableFifoQueue<T> extends FifoQueueImpl<T> {
         /**
@@ -95,10 +95,10 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
          * be returned on a <code>remove</code> call. If the queue is
          * currently empty then the caller is blocked until an object is put
          * into the queue.
-         * 
+         *
          * @return The object that would be returned on the next call to
          *         <code>remove</code>.
-         * 
+         *
          * @throws java.lang.InterruptedException
          *             Thrown if the thread is interrupted.
          * @throws org.opennms.core.queue.FifoQueueException
@@ -200,18 +200,18 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
             public boolean isReady() {
                 return getCurrentTime() >= timeToRun && runnable.isReady();
             }
-            
+
             @Override
             public void run() {
                 runnable.run();
             }
-            
+
             @Override
             public String toString() { return runnable.toString()+" (ready in "+Math.max(0, timeToRun-getCurrentTime())+"ms)"; }
         };
         schedule(timeKeeper, interval);
     }
-    
+
     /* (non-Javadoc)
 	 * @see org.opennms.netmgt.scheduler.Scheduler#getCurrentTime()
 	 */
@@ -224,7 +224,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
     public long getCurrentTime() {
         return System.currentTimeMillis();
     }
-    
+
     /* (non-Javadoc)
 	 * @see org.opennms.netmgt.scheduler.Scheduler#start()
 	 */
@@ -322,7 +322,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
     public String getName() {
         return m_runner.toString();
     }
-    
+
     /**
      * Returns total number of elements currently scheduled.
      *
@@ -366,7 +366,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
              * signals us to wakeup.
              */
             synchronized (this) {
-                
+
                 if (m_status != RUNNING && m_status != PAUSED && m_status != PAUSE_PENDING && m_status != RESUME_PENDING) {
                     LOG.debug("run: status = {}, time to exit", m_status);
                     break;
@@ -390,7 +390,7 @@ public class LegacyScheduler implements Runnable, PausableFiber, Scheduler {
 
                 if (m_status == RESUME_PENDING) {
                     LOG.debug("run: resuming.");
-                    
+
                     m_status = RUNNING;
                 }
 

@@ -68,7 +68,7 @@ public class JUnitSnmpAgentExecutionListenerTest {
     			SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.254")), m_oid)
     	);
     }
-    
+
     @Test
     @JUnitSnmpAgents({
     		@JUnitSnmpAgent(host="192.168.0.1", port=161, resource="classpath:loadSnmpDataTest.properties"),
@@ -84,7 +84,7 @@ public class JUnitSnmpAgentExecutionListenerTest {
     			SnmpUtils.get(SnmpPeerFactory.getInstance().getAgentConfig(addr("192.168.0.2")), m_oid)
     	);
     }
-    
+
     private SnmpValue octetString(String s) {
     	return SnmpUtils.getValueFactory().getOctetString(s.getBytes());
     }

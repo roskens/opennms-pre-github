@@ -44,10 +44,10 @@ import com.vaadin.ui.Notification;
 
 /**
  * The Collect Field.
- * 
+ *
  * TODO: when a new group is added, the groupField must be updated.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class CollectField extends CustomField<Collect> implements Button.ClickListener {

@@ -41,7 +41,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     private String[] m_printLines;
     private int m_width;
     private int m_height;
-    
+
     /**
      * <p>getHeight</p>
      *
@@ -51,7 +51,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public int getHeight() {
         return m_height;
     }
-    
+
     /**
      * <p>setHeight</p>
      *
@@ -60,7 +60,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public void setHeight(int height) {
         m_height = height;
     }
-    
+
     /**
      * <p>getInputStream</p>
      *
@@ -70,7 +70,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public InputStream getInputStream() {
         return m_inputStream;
     }
-    
+
     /**
      * <p>setInputStream</p>
      *
@@ -79,7 +79,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public void setInputStream(InputStream inputStream) {
         m_inputStream = inputStream;
     }
-    
+
     /**
      * <p>getPrintLines</p>
      *
@@ -89,7 +89,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public String[] getPrintLines() {
         return m_printLines;
     }
-    
+
     /**
      * <p>setPrintLines</p>
      *
@@ -98,7 +98,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public void setPrintLines(String[] printLines) {
         m_printLines = printLines;
     }
-    
+
     /**
      * <p>getWidth</p>
      *
@@ -108,7 +108,7 @@ public class DefaultRrdGraphDetails implements RrdGraphDetails {
     public int getWidth() {
         return m_width;
     }
-    
+
     /**
      * <p>setWidth</p>
      *

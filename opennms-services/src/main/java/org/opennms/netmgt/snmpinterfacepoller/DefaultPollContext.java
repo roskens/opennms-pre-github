@@ -56,10 +56,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultPollContext implements PollContext {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPollContext.class);
-    
+
     private volatile EventIpcManager m_eventManager;
     private volatile String m_name;
     private volatile String m_localHostName;
@@ -112,7 +112,7 @@ public class DefaultPollContext implements PollContext {
     public EventIpcManager getEventManager() {
         return m_eventManager;
     }
-    
+
     /**
      * <p>setEventManager</p>
      *
@@ -121,7 +121,7 @@ public class DefaultPollContext implements PollContext {
     public void setEventManager(EventIpcManager eventManager) {
         m_eventManager = eventManager;
     }
-    
+
     /**
      * <p>setLocalHostName</p>
      *
@@ -130,7 +130,7 @@ public class DefaultPollContext implements PollContext {
     public void setLocalHostName(String localHostName) {
         m_localHostName = localHostName;
     }
-    
+
     /**
      * <p>getLocalHostName</p>
      *
@@ -170,7 +170,7 @@ public class DefaultPollContext implements PollContext {
     public String getServiceName() {
         return m_serviceName;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setServiceName(String serviceName) {
@@ -196,9 +196,9 @@ public class DefaultPollContext implements PollContext {
     /** {@inheritDoc} */
     @Override
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface) {
-        
+
             log().debug("createEvent: uei = " + uei + " nodeid = " + nodeId + " date = " + date);
-        
+
         EventBuilder bldr = new EventBuilder(uei, this.getName(), date);
         bldr.setNodeid(nodeId);
         if (address != null) {
@@ -214,8 +214,8 @@ public class DefaultPollContext implements PollContext {
         if (snmpinterface.getIfName() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_NAME, snmpinterface.getIfName());
         if (snmpinterface.getIfDescr() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_DESC, snmpinterface.getIfDescr());
         if (snmpinterface.getIfAlias() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_ALIAS, snmpinterface.getIfAlias());
-        if (snmpinterface.getNetMask() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_MASK, str(snmpinterface.getNetMask()));        
-        
+        if (snmpinterface.getNetMask() != null) bldr.addParam(EventConstants.PARM_SNMP_INTERFACE_MASK, str(snmpinterface.getNetMask()));
+
         return bldr.getEvent();
     }
 

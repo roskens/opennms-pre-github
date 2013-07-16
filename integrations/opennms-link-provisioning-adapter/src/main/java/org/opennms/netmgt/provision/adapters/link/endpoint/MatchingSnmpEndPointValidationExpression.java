@@ -51,7 +51,7 @@ public class MatchingSnmpEndPointValidationExpression extends EndPointValidation
      */
     public MatchingSnmpEndPointValidationExpression() {
     }
-    
+
     /**
      * <p>Constructor for MatchingSnmpEndPointValidationExpression.</p>
      *

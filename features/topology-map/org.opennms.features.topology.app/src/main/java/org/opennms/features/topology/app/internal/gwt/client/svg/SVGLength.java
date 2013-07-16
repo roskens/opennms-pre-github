@@ -7,7 +7,7 @@ public class SVGLength extends JavaScriptObject {
     public static final int SVG_LENGTHTYPE_PX = 5;
 
     protected SVGLength() {
-        
+
     }
 
     public final native int getUnitType() /*-{
@@ -26,5 +26,5 @@ public class SVGLength extends JavaScriptObject {
         $wnd.console.log("calling: " + convertToSpecifiedUnits + " with type: " + unitType);
         this.convertToSpecifiedUnits(unitType);
     }-*/;
-    
+
 }

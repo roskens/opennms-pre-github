@@ -103,7 +103,7 @@ public class ModelImporterTest implements InitializingBean {
     private SnmpInterfaceDao m_snmpInterfaceDao;
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -123,39 +123,39 @@ public class ModelImporterTest implements InitializingBean {
         private int m_categoryCompleted;
         private int m_assetCount;
         private int m_assetCompleted;
-        
+
         public int getModelImportCount() {
             return m_modelImportCount;
         }
-        
+
         public int getModelImportCompletedCount() {
             return m_modelImportCompleted;
         }
-        
+
         public int getNodeCount() {
             return m_nodeCount;
         }
-        
+
         public int getNodeCompletedCount() {
             return m_nodeCompleted;
         }
-        
+
         public int getInterfaceCount() {
             return m_ifaceCount;
         }
-        
+
         public int getInterfaceCompletedCount() {
             return m_ifaceCompleted;
         }
-        
+
         public int getMonitoredServiceCount() {
             return m_svcCount;
         }
-        
+
         public int getMonitoredServiceCompletedCount() {
             return m_svcCompleted;
         }
-        
+
         public int getCategoryCount() {
             return m_categoryCount;
         }
@@ -198,12 +198,12 @@ public class ModelImporterTest implements InitializingBean {
         public void visitCategory(Category category) {
             m_categoryCount++;
         }
-        
+
         @Override
         public void visitAsset(Asset asset) {
             m_assetCount++;
         }
-        
+
         @Override
         public String toString() {
             return (new ToStringCreator(this)
@@ -246,14 +246,14 @@ public class ModelImporterTest implements InitializingBean {
         public void completeCategory(Category category) {
             m_categoryCompleted++;
         }
-        
+
         @Override
         public void completeAsset(Asset asset) {
             m_assetCompleted++;
         }
-        
+
     }
-    
+
     @Test
     public void testVisit() throws Exception {
 
@@ -263,39 +263,39 @@ public class ModelImporterTest implements InitializingBean {
         specFile.visitImport(visitor);
         verifyCounts(visitor);
     }
-    
+
     @Test
     public void testFindQuery() throws Exception {
-        ModelImporter mi = m_importer;        
+        ModelImporter mi = m_importer;
         String specFile = "/tec_dump.xml.smalltest";
         mi.importModelFromResource(new ClassPathResource(specFile));
         for (OnmsAssetRecord assetRecord : m_importer.getAssetRecordDao().findAll()) {
             System.err.println(assetRecord.getAssetNumber());
         }
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testPopulate() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
-        
-        ModelImporter mi = m_importer;        
+
+        ModelImporter mi = m_importer;
         String specFile = "/tec_dump.xml.smalltest";
         mi.importModelFromResource(new ClassPathResource(specFile));
 
         //Verify distpoller count
         assertEquals(1, mi.getDistPollerDao().countAll());
-        
+
         //Verify node count
         assertEquals(10, mi.getNodeDao().countAll());
-        
+
         //Verify ipinterface count
         assertEquals(30, mi.getIpInterfaceDao().countAll());
-        
+
         //Verify ifservices count
         assertEquals(50, mi.getMonitoredServiceDao().countAll());
-        
+
         //Verify service count
         assertEquals(3, mi.getServiceTypeDao().countAll());
     }
@@ -318,11 +318,11 @@ public class ModelImporterTest implements InitializingBean {
     }
 
 
-    
+
     /**
      * This test first bulk imports 10 nodes then runs update with 1 node missing
      * from the import file.
-     * 
+     *
      * @throws ModelImportException
      */
     @Test
@@ -330,21 +330,21 @@ public class ModelImporterTest implements InitializingBean {
     public void testImportUtf8() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
-        
+
         //Initialize the database
         ModelImporter mi = m_importer;
         String specFile = "/utf-8.xml";
         mi.importModelFromResource(new ClassPathResource(specFile));
-        
+
         assertEquals(1, mi.getNodeDao().countAll());
-        // \u00f1 is unicode for n~ 
+        // \u00f1 is unicode for n~
         assertEquals("\u00f1ode2", mi.getNodeDao().get(1).getLabel());
     }
-    
+
     /**
      * This test first bulk imports 10 nodes then runs update with 1 node missing
      * from the import file.
-     * 
+     *
      * @throws ModelImportException
      */
     @Test
@@ -352,12 +352,12 @@ public class ModelImporterTest implements InitializingBean {
     public void testDelete() throws Exception {
         createAndFlushServiceTypes();
         createAndFlushCategories();
-        
+
         //Initialize the database
         ModelImporter mi = m_importer;
         String specFile = "/tec_dump.xml.smalltest";
         mi.importModelFromResource(new ClassPathResource(specFile));
-        
+
         assertEquals(10, mi.getNodeDao().countAll());
     }
 
@@ -383,7 +383,7 @@ public class ModelImporterTest implements InitializingBean {
         m_serviceTypeDao.save(new OnmsServiceType("HTTP"));
         m_serviceTypeDao.flush();
     }
-    
+
     private void createAndFlushCategories() {
         m_categoryDao.save(new OnmsCategory("AC"));
         m_categoryDao.save(new OnmsCategory("AP"));

@@ -40,11 +40,11 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<MapPanelBoundsChangedEventHandler> TYPE = new Type<MapPanelBoundsChangedEventHandler>();
     private GWTBounds m_newBounds;
-    
+
     /**
      * <p>Constructor for MapPanelBoundsChangedEvent.</p>
      *
@@ -53,12 +53,12 @@ public class MapPanelBoundsChangedEvent extends GwtEvent<MapPanelBoundsChangedEv
     public MapPanelBoundsChangedEvent(GWTBounds bounds) {
         setBounds(bounds);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(MapPanelBoundsChangedEventHandler handler) {
         handler.onBoundsChanged(this);
-        
+
     }
 
     /** {@inheritDoc} */

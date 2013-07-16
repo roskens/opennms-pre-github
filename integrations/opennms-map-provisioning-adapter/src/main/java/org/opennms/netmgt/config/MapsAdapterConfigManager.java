@@ -113,7 +113,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      * in each - so as to avoid file reads
      */
     private Map<String, List<String>> m_urlIPMap;
-    
+
     /**
      * A mapping of the configured package to a list of IPs selected via filter
      * rules, so as to avoid database access.
@@ -124,25 +124,25 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      * A mapping of the configured sub-maps to a list of maps
      */
     private Map<String,List<String>> m_submapNameMapNameMap;
-    
+
 
     /**
      * A mapping of the configured mapName to cmaps
      */
     private Map<String,Cmap> m_mapNameCmapMap;
-    
+
 
      /**
       * <p>Constructor for MapsAdapterConfigManager.</p>
       */
      public MapsAdapterConfigManager() {
      }
-    
+
     @Override
      public Lock getReadLock() {
          return m_readLock;
      }
-     
+
     @Override
      public Lock getWriteLock() {
          return m_writeLock;
@@ -170,7 +170,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
             getWriteLock().unlock();
         }
     }
-    
+
     private boolean hasCmaps() {
         return (m_config.getCmaps() != null);
     }
@@ -178,7 +178,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured map name to container cmap.
-     * 
+     *
      */
 
     private void createmapNameCmapMap() {
@@ -191,13 +191,13 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         }
     }
 
-    
+
     /**
      * Go through the maps adapter configuration and build a mapping of each
      * configured sub-map to container map.
-     * 
+     *
      */
-    
+
     private void createSubMapMapMap() {
         m_submapNameMapNameMap = new HashMap<String, List<String>>();
         if (hasCmaps()) {
@@ -213,29 +213,29 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
                     LOG.debug("createSubMapMapMap: added container map: {} to submap: {}", cmap.getMapName(), subMapName);
                 }
             }
-        }        
-    }
-    
-    /**
-      *  Verify that no loop are in maps definition 
-    */
-    
-    private void verifyMapConsistency() throws ValidationException {
-        for (final String mapName : m_submapNameMapNameMap.keySet()) {
-            // verify cmap exists!
-            if (!cmapExist(mapName)) 
-                throw new ValidationException("Defined a submap without defining the map: mapName " + mapName);
-            
         }
     }
 
     /**
-     *  Verify that all maps are well defined 
+      *  Verify that no loop are in maps definition
+    */
+
+    private void verifyMapConsistency() throws ValidationException {
+        for (final String mapName : m_submapNameMapNameMap.keySet()) {
+            // verify cmap exists!
+            if (!cmapExist(mapName))
+                throw new ValidationException("Defined a submap without defining the map: mapName " + mapName);
+
+        }
+    }
+
+    /**
+     *  Verify that all maps are well defined
    */
-   
+
    private void verifyMapHasLoop() throws ValidationException {
        // TODO use the Floyd's Cycle-Finding Algorithm
-       /*       
+       /*
         * String startnode;
         * String slownode = startnode;
         * String fastnode1 = startnode;
@@ -273,7 +273,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      */
     private void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
-    
+
         for(final Package pkg : packages()) {
             for(final String url : includeURLs(pkg)) {
                 final List<String> iplist = IpListFromUrl.parse(url);
@@ -294,29 +294,29 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         getWriteLock().lock();
         try {
             m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
-            
+
             for(final Package pkg : packages()) {
-        
+
                 // Get a list of IP addresses per package against the filter rules from
                 // database and populate the package, IP list map.
                 //
                 try {
                     final List<InetAddress> ipList = getIpList(pkg);
                     LOG.debug("createPackageIpMap: package {}: ipList size = {}", pkg.getName(), ipList.size());
-        
+
                     if (ipList.size() > 0) {
                         m_pkgIpMap.put(pkg, ipList);
                     }
                 } catch (final Throwable t) {
                     LOG.error("createPackageIpMap: failed to map package: {} to an IP List with filter \"{}\"", pkg.getName(), pkg.getFilter().getContent(), t);
                 }
-    
+
             }
         } finally {
             getWriteLock().unlock();
         }
     }
-    
+
     private List<InetAddress> getIpList(final Package pkg) {
         final StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
         if (m_verifyServer) {
@@ -330,38 +330,38 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         LOG.debug("createPackageIpMap: package is {}. filter rules are {}", pkg.getName(), rules);
         return FilterDaoFactory.getInstance().getActiveIPAddressList(rules);
     }
-    
+
     /**
      * This method is used to determine if the named interface is included in
      * the passed package definition. If the interface belongs to the package
      * then a value of true is returned. If the interface does not belong to the
      * package a false value is returned.
-     * 
+     *
      * <strong>Note: </strong>Evaluation of the interface against a package
      * filter will only work if the IP is already in the database.
-     * 
+     *
      * @param iface
      *            The interface to test against the package.
      * @param pkg
      *            The package to check for the inclusion of the interface.
-     * 
+     *
      * @return True if the interface is included in the package, false
      *         otherwise.
      */
     private boolean interfaceInPackage(final String iface, final Package pkg) {
         boolean filterPassed = false;
-    
+
         // get list of IPs in this package
         final List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
             filterPassed = ipList.contains(addr(iface));
         }
-    
+
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", iface, pkg.getName(), String.valueOf(filterPassed));
-    
+
         if (!filterPassed)
             return false;
-    
+
         //
         // Ensure that the interface is in the specific list or
         // that it is in the include range and is not excluded
@@ -369,18 +369,18 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
         boolean has_specific = false;
         boolean has_range_include = false;
         boolean has_range_exclude = false;
- 
+
         // if there are NO include ranges then treat act as if the user include
         // the range 0.0.0.0 - 255.255.255.255
         has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
-        
+
         for (IncludeRange rng : pkg.getIncludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_include = true;
                 break;
             }
         }
-    
+
         byte[] addr = toIpAddrBytes(iface);
 
         for (String spec : pkg.getSpecificCollection()) {
@@ -390,19 +390,19 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
                 break;
             }
         }
-    
+
         final Enumeration<String> eurl = pkg.enumerateIncludeUrl();
         while (!has_specific && eurl.hasMoreElements()) {
             has_specific = interfaceInUrl(iface, eurl.nextElement());
         }
-    
+
         for (ExcludeRange rng : pkg.getExcludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_exclude = true;
                 break;
             }
         }
-    
+
         return has_specific || (has_range_include && !has_range_exclude);
     }
 
@@ -411,9 +411,9 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      * the passed package's URL includes. If the interface is found in any of
      * the URL files, then a value of true is returned, else a false value is
      * returned.
-     * 
+     *
      * <pre>
-     * 
+     *
      *  The file URL is read and each entry in this file checked. Each line
      *   in the URL file can be one of -
      *   &lt;IP&gt;&lt;space&gt;#&lt;comments&gt;
@@ -421,31 +421,31 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      *   &lt;IP&gt;
      *   or
      *   #&lt;comments&gt;
-     *  
+     *
      *   Lines starting with a '#' are ignored and so are characters after
      *   a '&lt;space&gt;#' in a line.
-     *  
+     *
      * </pre>
-     * 
+     *
      * @param addr
      *            The interface to test against the package's URL
      * @param url
      *            The URL file to read
-     * 
+     *
      * @return True if the interface is included in the URL, false otherwise.
      */
     private boolean interfaceInUrl(final String addr, final String url) {
         boolean bRet = false;
-    
+
         // get list of IPs in this URL
         final List<String> iplist = m_urlIPMap.get(url);
         if (iplist != null && iplist.size() > 0) {
             bRet = iplist.contains(addr);
         }
-    
+
         return bRet;
     }
-    
+
     /**
      * Returns a list of package names that the ip belongs to, null if none.
      *
@@ -458,10 +458,10 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
      */
     public List<String> getAllPackageMatches(final String ipaddr) {
         getReadLock().lock();
-        
+
         try {
             final List<String> matchingPkgs = new ArrayList<String>();
-    
+
             for(final Package pkg : packages()) {
                 final boolean inPkg = interfaceInPackage(ipaddr, pkg);
                 if (inPkg) {
@@ -520,7 +520,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     }
 
 // methods from interface
-    
+
     /**
      * <p>getAllMaps</p>
      *
@@ -646,7 +646,7 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
             getReadLock().unlock();
         }
     }
-    
+
     /**
      * <p>getCelements</p>
      *
@@ -681,5 +681,5 @@ abstract public class MapsAdapterConfigManager implements MapsAdapterConfig {
     public void rebuildPackageIpListMap() {
         createPackageIpListMap();
     }
-    
+
 }

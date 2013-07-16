@@ -44,7 +44,7 @@ import org.opennms.core.soa.Filter;
  * @author brozow
  */
 public class FilterParserTest {
-    
+
     private void parseFilterThenValidateString(String filterString) {
         parseFilterThenValidateString(filterString, filterString);
     }
@@ -109,23 +109,23 @@ public class FilterParserTest {
     public void parsePatternMatchingFilterWithEscapedStar() {
         parseFilterThenValidateString("(a=a\\)*\\**c)");
     }
-    
+
     @Test
     public void testAndFilter() {
         Map<String, String> dict = new HashMap<String, String>();
         dict.put("a", "2");
         dict.put("b", "4");
         dict.put("c", "x");
-        
+
         FilterParser parser = new FilterParser();
-        
+
         Filter a1 = parser.parse("(&(a=2)(b=4)(c=x))");
         Filter a2 = parser.parse("(&(a=2)(b=4)(z=nope))");
 
         assertThat("Expected " + a1 + " to match", a1.match(dict), is(true));
         assertThat("Expected " + a2 + " to match", a2.match(dict), is(false));
-        
-        
+
+
     }
 
 

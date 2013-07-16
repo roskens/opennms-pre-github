@@ -40,7 +40,7 @@ import org.springframework.test.context.ContextConfiguration;
 /**
  * Tests the HTTP North Bound Interface
  * FIXME: This is far from completed
- * 
+ *
  * @author <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
@@ -52,28 +52,28 @@ public class HttpNorthBounderTest {
 
     @Test
     public void testForwardAlarms() throws InterruptedException {
-        
+
         HttpNorthbounder nb = new HttpNorthbounder();
         HttpNorthbounderConfig config = new HttpNorthbounderConfig("localhost");
         config.setMethod(HttpMethod.POST);
         config.setPath("/jms/post");
         config.setPort(Integer.valueOf(10342));
-        
+
         nb.setConfig(config);
-        
+
         OnmsAlarm alarm = new OnmsAlarm();
         alarm.setId(1);
         alarm.setUei("uei.opennms.org/test/httpNorthBounder");
-        
+
         NorthboundAlarm a = new NorthboundAlarm(alarm);
 //        List<Alarm> alarms = Arrays.asList(a);
-//        
+//
 //        nb.forwardAlarms(alarms);
-        
+
         nb.onAlarm(a);
-        
+
         Thread.sleep(10000);
-        
+
     }
 
 }

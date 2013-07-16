@@ -79,7 +79,7 @@ public class OutageListController extends AbstractController implements Initiali
     public void setOutageService(OutageService service) {
         m_outageService = service;
     }
-    
+
     /**
      * <p>setFilterView</p>
      *
@@ -101,7 +101,7 @@ public class OutageListController extends AbstractController implements Initiali
 //        myModel.put("request", limit.toString());
 
 //        myModel.put("all_params", request.getParameterNames().toString());
-        
+
         Integer rowstart;
         Integer rowend;
         if (limit.getPage() == 1) {
@@ -116,7 +116,7 @@ public class OutageListController extends AbstractController implements Initiali
             rowstart = ((limit.getPage() * getDefaultRowsDisplayed() + 1) - getDefaultRowsDisplayed());
             rowend = getDefaultRowsDisplayed();
         }
-        
+
 //        myModel.put("rowStart", rowstart);
 //        myModel.put("rowEnd", rowend);
 //        myModel.put("begin", rowstart);
@@ -124,10 +124,10 @@ public class OutageListController extends AbstractController implements Initiali
 
         OnmsCriteria criteria = m_filterView.buildCriteria(request);
         OnmsCriteria countCriteria = m_filterView.buildCriteria(request);
-        
+
         String orderProperty;
         String sortOrder;
-        
+
         if (limit.getSort().getProperty() == null) {
             orderProperty = "outageid";
             sortOrder = "desc";
@@ -135,14 +135,14 @@ public class OutageListController extends AbstractController implements Initiali
             orderProperty = limit.getSort().getProperty();
             sortOrder = limit.getSort().getSortOrder();
         }
-        
+
         Collection<OnmsOutage> foundOutages = m_outageService.getOutagesByRange(rowstart, rowend, orderProperty, sortOrder, criteria);
 
         myModel.put("tabledata", m_outageListBuilder.theTable(foundOutages));
         myModel.put("totalRows", m_outageService.getOutageCount(countCriteria)); // used by org.extremecomponents.table.callback.LimitCallback.retrieveRows
 
         //myModel.put("selected_outages", CurrentOutageParseResponse.findSelectedOutagesIDs(request,m_outageService));
-        
+
         return new ModelAndView(getSuccessView(), myModel);
     }
 
@@ -154,7 +154,7 @@ public class OutageListController extends AbstractController implements Initiali
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>getSuccessView</p>
      *
@@ -172,7 +172,7 @@ public class OutageListController extends AbstractController implements Initiali
     public void setDefaultRowsDisplayed(int defaultRowsDisplayed) {
         m_defaultRowsDisplayed = defaultRowsDisplayed;
     }
-    
+
     /**
      * <p>getDefaultRowsDisplayed</p>
      *

@@ -49,13 +49,13 @@ import com.sun.jna.Platform;
  * @author brozow
  */
 public class V6Pinger extends AbstractPinger<Inet6Address> {
-	
+
 
 	private static final Logger LOG = LoggerFactory.getLogger(V6Pinger.class);
 
     public V6Pinger(final int pingerId) throws Exception {
         super(pingerId, NativeDatagramSocket.create(NativeDatagramSocket.PF_INET6, Platform.isMac() ? NativeDatagramSocket.SOCK_DGRAM : NativeDatagramSocket.SOCK_RAW, NativeDatagramSocket.IPPROTO_ICMPV6));
-        
+
         // Windows requires at least one packet sent before a receive call can be made without error
         // so we send a packet here to make sure...  This one should not match the normal ping requests
         // since it does not contain the cookie so it won't interface.
@@ -68,9 +68,9 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
             getPingSocket().send(packet.toDatagramPacket(InetAddress.getByName("::1")));
         }
     }
-    
-    
-    
+
+
+
 //    @Override
 //    public void start() {
 //        throw new UnsupportedOperationException("Put socket initialization here rather than the constructor");
@@ -87,10 +87,10 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
             while (!isFinished()) {
                 getPingSocket().receive(datagram);
                 final long received = System.nanoTime();
-    
+
                 final ICMPv6Packet icmpPacket = new ICMPv6Packet(getIPPayload(datagram));
                 final V6PingReply echoReply = icmpPacket.getType() == Type.EchoReply ? new V6PingReply(icmpPacket, received) : null;
-            
+
                 if (echoReply != null && echoReply.getIdentifier() == pingerId && echoReply.isValid()) {
                     notifyPingListeners(datagram.getAddress(), echoReply);
                 }
@@ -104,7 +104,7 @@ public class V6Pinger extends AbstractPinger<Inet6Address> {
     private ByteBuffer getIPPayload(final NativeDatagramPacket datagram) {
         return datagram.getContent();
     }
-    
+
     @Override
     public void ping(final Inet6Address addr, final int identifier, final int sequenceNumber, final long threadId, final long count, final long interval, final int packetSize) throws InterruptedException {
         final NativeDatagramSocket socket = getPingSocket();

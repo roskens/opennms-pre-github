@@ -43,7 +43,7 @@ import org.w3c.dom.Element;
  * @version $Id: $
  */
 public class DefaultRegistryDefinitionParser extends  AbstractSingleBeanDefinitionParser {
-    
+
     /** {@inheritDoc} */
     @Override
     protected Class<?> getBeanClass(Element element) {
@@ -61,10 +61,10 @@ public class DefaultRegistryDefinitionParser extends  AbstractSingleBeanDefiniti
     protected String resolveId(Element element, AbstractBeanDefinition definition, ParserContext parserContext) throws BeanDefinitionStoreException {
         return Constants.SERVICE_REGISTRY_BEAN_NAME;
     }
-    
-    
-    
-    
 
-    
+
+
+
+
+
 }

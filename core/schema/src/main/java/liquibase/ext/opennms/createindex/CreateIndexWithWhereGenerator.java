@@ -53,7 +53,7 @@ public class CreateIndexWithWhereGenerator extends CreateIndexGenerator {
     			LogFactory.getLogger().warning("expected 1 create index statement, but got " + superSql.length);
             	return superSql;
     		}
-    		
+
     		return new Sql[] {
     				new UnparsedSql(superSql[0].toSql() + " WHERE " + ((CreateIndexWithWhereStatement)statement).getWhere(),
     						superSql[0].getEndDelimiter(), superSql[0].getAffectedDatabaseObjects().toArray(new DatabaseObject[0]))

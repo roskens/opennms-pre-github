@@ -40,17 +40,17 @@ import org.snmp4j.smi.VariableBinding;
 public class Snmp4JV2TrapBuilder implements SnmpTrapBuilder {
     private Snmp4JStrategy m_strategy;
     private PDU m_pdu;
-    
+
     protected Snmp4JV2TrapBuilder(Snmp4JStrategy strategy, PDU pdu, int type) {
         m_strategy = strategy;
         m_pdu = pdu;
         m_pdu.setType(type);
     }
-    
+
     protected Snmp4JV2TrapBuilder(Snmp4JStrategy strategy) {
         this(strategy, new PDU(), PDU.TRAP);
     }
-    
+
     protected PDU getPDU() {
         return m_pdu;
     }
@@ -59,7 +59,7 @@ public class Snmp4JV2TrapBuilder implements SnmpTrapBuilder {
     public void send(String destAddr, int destPort, String community) throws Exception {
         SnmpAgentConfig snmpAgentConfig = m_strategy.buildAgentConfig(destAddr, destPort, community, m_pdu);
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(snmpAgentConfig);
-        
+
         m_strategy.send(agentConfig, m_pdu, false);
     }
 
@@ -67,29 +67,29 @@ public class Snmp4JV2TrapBuilder implements SnmpTrapBuilder {
 			int retries, String community) throws Exception {
         SnmpAgentConfig snmpAgentConfig = m_strategy.buildAgentConfig(destAddr, destPort, timeout, retries, community, m_pdu);
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(snmpAgentConfig);
-        
+
         return m_strategy.send(agentConfig, m_pdu, true);
 	}
 
 	public void send(String destAddr, int destPort, int securityLevel,
 			String securityName, String authPassPhrase, String authProtocol,
 			String privPassPhrase, String privProtocol) throws Exception {
-        SnmpAgentConfig snmpAgentConfig = 
+        SnmpAgentConfig snmpAgentConfig =
         	m_strategy.buildAgentConfig(destAddr, destPort, securityLevel, securityName, authPassPhrase, authProtocol, privPassPhrase, privProtocol, m_pdu);
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(snmpAgentConfig);
-        
+
         m_strategy.send(agentConfig, m_pdu, false);
-		
+
 	}
 
 	public SnmpValue[] sendInform(String destAddr, int destPort, int timeout,
 			int retries, int securityLevel, String securityName,
 			String authPassPhrase, String authProtocol, String privPassPhrase,
 			String privProtocol) throws Exception {
-        SnmpAgentConfig snmpAgentConfig = 
+        SnmpAgentConfig snmpAgentConfig =
         	m_strategy.buildAgentConfig(destAddr, destPort, timeout, retries, securityLevel, securityName, authPassPhrase, authProtocol, privPassPhrase, privProtocol, m_pdu);
         Snmp4JAgentConfig agentConfig = new Snmp4JAgentConfig(snmpAgentConfig);
-        
+
         return m_strategy.send(agentConfig, m_pdu, true);
 	}
 

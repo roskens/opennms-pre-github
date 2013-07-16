@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
 public abstract class SnmpUtils {
 
 	private static final transient Logger LOG = LoggerFactory.getLogger(SnmpUtils.class);
-	
+
     private static Properties sm_config;
     private static StrategyResolver s_strategyResolver;
 
@@ -68,7 +68,7 @@ public abstract class SnmpUtils {
     private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig, CollectionTracker... trackers) {
         return new TooBigReportingAggregator(trackers, agentConfig.getAddress());
     }
-    
+
     public static SnmpWalker createWalker(SnmpAgentConfig agentConfig, String name, CollectionTracker tracker) {
         return getStrategy().createWalker(agentConfig, name, createTooBigTracker(agentConfig, tracker));
     }
@@ -76,11 +76,11 @@ public abstract class SnmpUtils {
     private static TooBigReportingAggregator createTooBigTracker(SnmpAgentConfig agentConfig, CollectionTracker tracker) {
         return createTooBigTracker(agentConfig, new CollectionTracker[] { tracker });
     }
-    
+
     public static SnmpValue get(SnmpAgentConfig agentConfig, SnmpObjId oid) {
         return getStrategy().get(agentConfig, oid);
     }
-    
+
     public static SnmpValue[] get(SnmpAgentConfig agentConfig, SnmpObjId oids[]) {
         return getStrategy().get(agentConfig, oids);
     }
@@ -88,11 +88,11 @@ public abstract class SnmpUtils {
     public static SnmpValue getNext(SnmpAgentConfig agentConfig, SnmpObjId oid) {
         return getStrategy().getNext(agentConfig, oid);
     }
-    
+
     public static SnmpValue[] getNext(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         return getStrategy().getNext(agentConfig, oids);
     }
-    
+
     public static SnmpValue[] getBulk(SnmpAgentConfig agentConfig, SnmpObjId[] oids) {
         return getStrategy().getBulk(agentConfig, oids);
     }
@@ -112,54 +112,54 @@ public abstract class SnmpUtils {
     public static List<SnmpValue> getColumns(final SnmpAgentConfig agentConfig, final String name, final SnmpObjId oid)  throws InterruptedException {
 
         final List<SnmpValue> results = new ArrayList<SnmpValue>();
-        
+
         SnmpWalker walker=SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
-   
+
             @Override
             protected void storeResult(SnmpResult res) {
                 results.add(res.getValue());
             }
-           
+
         });
         walker.start();
         walker.waitFor();
         return results;
     }
-    
-    public static Map<SnmpInstId, SnmpValue> getOidValues(SnmpAgentConfig agentConfig, String name, SnmpObjId oid) 
+
+    public static Map<SnmpInstId, SnmpValue> getOidValues(SnmpAgentConfig agentConfig, String name, SnmpObjId oid)
 	throws InterruptedException {
 
         final Map<SnmpInstId, SnmpValue> results = new LinkedHashMap<SnmpInstId, SnmpValue>();
-        
+
         SnmpWalker walker=SnmpUtils.createWalker(agentConfig, name, new ColumnTracker(oid) {
-   
+
             @Override
             protected void storeResult(SnmpResult res) {
                 results.put(res.getInstance(), res.getValue());
             }
-           
+
         });
 	walker.start();
 	walker.waitFor();
         return results;
     }
-    
+
     public static void setConfig(Properties config) {
         sm_config = config;
     }
-    
+
     public static SnmpStrategy getStrategy() {
     	return getStrategyResolver().getStrategy();
     }
-    
+
     public static StrategyResolver getStrategyResolver() {
     	return s_strategyResolver != null ? s_strategyResolver : new DefaultStrategyResolver();
     }
-    
+
     public static void setStrategyResolver(StrategyResolver strategyResolver) {
     	s_strategyResolver = strategyResolver;
     }
-    
+
     private static class DefaultStrategyResolver implements StrategyResolver {
 
 		@Override
@@ -171,9 +171,9 @@ public abstract class SnmpUtils {
 	            throw new RuntimeException("Unable to instantiate class "+strategyClass, e);
 	        }
 		}
-    	
+
     }
-    
+
     public static String getStrategyClassName() {
         // Use SNMP4J as the default SNMP strategy
         return getConfig().getProperty("org.opennms.snmp.strategyClass", "org.opennms.netmgt.snmp.snmp4j.Snmp4JStrategy");
@@ -187,19 +187,19 @@ public abstract class SnmpUtils {
     public static void registerForTraps(final TrapNotificationListener listener, final TrapProcessorFactory processorFactory, final InetAddress address, final int snmpTrapPort) throws IOException {
         getStrategy().registerForTraps(listener, processorFactory, address, snmpTrapPort);
     }
-    
+
     public static void unregisterForTraps(final TrapNotificationListener listener, final InetAddress address, final int snmpTrapPort) throws IOException {
         getStrategy().unregisterForTraps(listener, snmpTrapPort);
     }
-    
+
     public static SnmpValueFactory getValueFactory() {
         return getStrategy().getValueFactory();
     }
-    
+
     public static SnmpV1TrapBuilder getV1TrapBuilder() {
         return getStrategy().getV1TrapBuilder();
     }
-    
+
     public static SnmpTrapBuilder getV2TrapBuilder() {
         return getStrategy().getV2TrapBuilder();
     }
@@ -219,15 +219,15 @@ public abstract class SnmpUtils {
     public static String getLocalEngineID() {
     	return getHexString(getStrategy().getLocalEngineID());
     }
-    
+
     static final byte[] HEX_CHAR_TABLE = {
 	    (byte)'0', (byte)'1', (byte)'2', (byte)'3',
 	    (byte)'4', (byte)'5', (byte)'6', (byte)'7',
 	    (byte)'8', (byte)'9', (byte)'a', (byte)'b',
 	    (byte)'c', (byte)'d', (byte)'e', (byte)'f'
-	};    
+	};
 
-	public static String getHexString(byte[] raw) 
+	public static String getHexString(byte[] raw)
 	  {
 	    byte[] hex = new byte[2 * raw.length];
 	    int index = 0;

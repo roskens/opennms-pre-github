@@ -98,19 +98,19 @@ public class OpenNMSTestCase extends TestCase {
      * @return
      */
     protected InetAddress myLocalHost() {
-        
+
 //        try {
 //            return InetAddressUtils.str(InetAddress.getLocalHost());
 //        } catch (UnknownHostException e) {
 //            e.printStackTrace();
 //            fail("Exception getting localhost");
 //        }
-//        
+//
 //        return null;
-        
+
         return InetAddressUtils.getInetAddress("127.0.0.1");
     }
-    
+
     protected String myVersion() {
         switch (m_version) {
         case SnmpAgentConfig.VERSION1 :
@@ -129,7 +129,7 @@ public class OpenNMSTestCase extends TestCase {
     private EventProxy m_eventProxy;
 
     protected PlatformTransactionManager m_transMgr;
-    
+
     public void setVersion(int version) {
         m_version = version;
     }
@@ -139,17 +139,17 @@ public class OpenNMSTestCase extends TestCase {
         super.setUp();
         MockUtil.println("------------ Begin Test "+this+" --------------------------");
         MockLogAppender.setupLogging();
-        
+
         if (m_runSupers) {
-        
+
             createMockNetwork();
-            
+
             populateDatabase();
-            
+
             DataSourceFactory.setInstance(m_db);
 
             SnmpPeerFactory.setInstance(new SnmpPeerFactory(new ByteArrayResource(getSnmpConfig().getBytes())));
-            
+
             if (isStartEventd()) {
                 m_eventdIpcMgr = new EventIpcManagerDefaultImpl();
 
@@ -159,13 +159,13 @@ public class OpenNMSTestCase extends TestCase {
 
                 /*
                  * Make sure we specify a full resource path since "this" is
-                 * the unit test class, which is most likely in another package. 
+                 * the unit test class, which is most likely in another package.
                  */
                 File configFile = ConfigurationTestUtils.getFileForResource(this, "/org/opennms/netmgt/mock/eventconf.xml");
                 DefaultEventConfDao eventConfDao = new DefaultEventConfDao();
                 eventConfDao.setConfigResource(new FileSystemResource(configFile));
                 eventConfDao.afterPropertiesSet();
-                
+
                 EventExpander eventExpander = new EventExpander();
                 eventExpander.setEventConfDao(eventConfDao);
                 eventExpander.afterPropertiesSet();
@@ -175,7 +175,7 @@ public class OpenNMSTestCase extends TestCase {
                 jdbcEventWriter.setDataSource(m_db);
                 jdbcEventWriter.setGetNextIdString("select nextVal('eventsNxtId')"); // for HSQL: "SELECT max(eventId)+1 from events"
                 jdbcEventWriter.afterPropertiesSet();
-                
+
                 EventIpcBroadcastProcessor eventIpcBroadcastProcessor = new EventIpcBroadcastProcessor();
                 eventIpcBroadcastProcessor.setEventIpcBroadcaster(m_eventdIpcMgr);
                 eventIpcBroadcastProcessor.afterPropertiesSet();
@@ -184,33 +184,33 @@ public class OpenNMSTestCase extends TestCase {
                 eventProcessors.add(eventExpander);
                 eventProcessors.add(jdbcEventWriter);
                 eventProcessors.add(eventIpcBroadcastProcessor);
-                
+
                 DefaultEventHandlerImpl eventHandler = new DefaultEventHandlerImpl();
                 eventHandler.setEventProcessors(eventProcessors);
                 eventHandler.afterPropertiesSet();
-                
+
                 m_eventdIpcMgr.setHandlerPoolSize(5);
                 m_eventdIpcMgr.setEventHandler(eventHandler);
                 m_eventdIpcMgr.afterPropertiesSet();
-                
+
                 m_eventProxy = m_eventdIpcMgr;
-                
+
                 EventIpcManagerFactory.setIpcManager(m_eventdIpcMgr);
-                
+
                 EventIpcManagerEventHandlerProxy proxy = new EventIpcManagerEventHandlerProxy();
                 proxy.setEventIpcManager(m_eventdIpcMgr);
                 proxy.afterPropertiesSet();
                 List<EventHandler> eventHandlers = new ArrayList<EventHandler>(1);
                 eventHandlers.add(proxy);
-                
+
                 TcpEventReceiver tcpEventReceiver = new TcpEventReceiver();
                 tcpEventReceiver.setPort(5837);
                 tcpEventReceiver.setEventHandlers(eventHandlers);
-                
+
                 UdpEventReceiver udpEventReceiver = new UdpEventReceiver();
                 udpEventReceiver.setPort(5837);
                 tcpEventReceiver.setEventHandlers(eventHandlers);
-                
+
                 List<EventReceiver> eventReceivers = new ArrayList<EventReceiver>(2);
                 eventReceivers.add(tcpEventReceiver);
                 eventReceivers.add(udpEventReceiver);
@@ -219,13 +219,13 @@ public class OpenNMSTestCase extends TestCase {
                 m_eventd.setEventdServiceManager(eventdServiceManager);
                 m_eventd.setEventReceivers(eventReceivers);
                 m_eventd.setReceiver(new BroadcastEventProcessor(m_eventdIpcMgr, eventConfDao));
-                
+
                 m_eventd.init();
                 m_eventd.start();
             }
-        
+
         }
-        
+
         m_transMgr = new DataSourceTransactionManager(DataSourceFactory.getInstance());
 
     }
@@ -239,7 +239,7 @@ public class OpenNMSTestCase extends TestCase {
         m_network = new MockNetwork();
         m_network.createStandardNetwork();
     }
-    
+
     @Override
     public void runTest() throws Throwable {
         try {
@@ -293,7 +293,7 @@ public class OpenNMSTestCase extends TestCase {
     public String toString() {
         return super.toString() + " - " + getSnmpImplementation() + " " + myVersion();
     }
-    
+
     private static String getSnmpImplementation() {
         return SnmpUtils.getStrategy().getClass().getSimpleName();
     }

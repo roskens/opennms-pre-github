@@ -54,7 +54,7 @@ public class NoticeQueryParms extends Object {
     public int multiple;
 
     public String display;
-    
+
     /**
      * Convert the internal (and useful) ArrayList filters object into an array
      * of Filter instances.

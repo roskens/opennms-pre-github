@@ -38,7 +38,7 @@ import java.util.ListIterator;
 public class IPAddressRangeSet implements Iterable<IPAddressRange> {
     // The ranges are kept in order and non-overlapping
     List<IPAddressRange> m_ranges = new LinkedList<IPAddressRange>();
-    
+
     public void add(IPAddressRange range) {
         IPAddressRange working = range;
         // we traverse the ordered list
@@ -61,12 +61,12 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
                 //in which case we just go on to the next entry
             }
         }
-        
+
         // if we got here then we have not yet added the working range
         // and it belongs at the end of the list
         m_ranges.add(working);
     }
-    
+
     public void remove(IPAddressRange range) {
         for(ListIterator<IPAddressRange> it = m_ranges.listIterator(); it.hasNext(); ) {
             IPAddressRange r = it.next();
@@ -79,7 +79,7 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
             } else if (remaining.length == 1) {
                 // 2.  r overlaps the end of range so we have just the remaining end
                 // so replace r with its left over end
-                // 3. r and range do not over lap 
+                // 3. r and range do not over lap
                 // so we are just replacing r with itself
                 it.set(remaining[0]);
             } else if (remaining.length == 2) {
@@ -88,9 +88,9 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
                 it.set(remaining[0]);
                 it.add(remaining[1]);
             }
-        }            
+        }
     }
-    
+
     public IPAddressRange[] toArray() {
         return m_ranges.toArray(new IPAddressRange[m_ranges.size()]);
     }
@@ -110,7 +110,7 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
             buf.append(r);
         }
         buf.append("]");
-        
+
         return buf.toString();
     }
 
@@ -124,12 +124,12 @@ public class IPAddressRangeSet implements Iterable<IPAddressRange> {
             add(r);
         }
     }
-    
+
     public void removeAll(IPAddressRangeSet ranges) {
         for(IPAddressRange r : ranges) {
             remove(r);
         }
     }
 
-    
+
 }

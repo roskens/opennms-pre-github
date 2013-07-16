@@ -67,7 +67,7 @@ public class RrdRepository {
     public List<String> getRraList() {
         return m_rraList;
     }
-    
+
     /**
      * <p>setRraList</p>
      *
@@ -85,7 +85,7 @@ public class RrdRepository {
     public int getStep() {
         return m_step;
     }
-    
+
     /**
      * <p>setStep</p>
      *

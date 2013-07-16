@@ -40,7 +40,7 @@ import java.util.TreeMap;
  */
 public class DuplicateTreeMap<K, V> extends TreeMap<K, List<V>> {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8020472612288161254L;
 
@@ -61,7 +61,7 @@ public class DuplicateTreeMap<K, V> extends TreeMap<K, List<V>> {
             l = new LinkedList<V>();
             put(key, l);
         }
-        
+
         if (l.contains(value)) {
             return value;
         } else {

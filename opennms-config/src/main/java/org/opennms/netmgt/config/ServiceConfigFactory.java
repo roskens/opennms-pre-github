@@ -75,10 +75,10 @@ public final class ServiceConfigFactory {
     /**
      * Private constructor. This constructor used to load the specified
      * configuration file and initialized an instance of the class.
-     * 
+     *
      * @param configFile
      *            The name of the configuration file.
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      */
@@ -139,7 +139,7 @@ public final class ServiceConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

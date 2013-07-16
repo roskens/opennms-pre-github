@@ -44,7 +44,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AlarmRestServiceBase extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AlarmRestServiceBase.class);
 
 
@@ -70,7 +70,7 @@ public class AlarmRestServiceBase extends OnmsRestService {
 
     	cb.fetch("firstEvent", FetchType.EAGER);
         cb.fetch("lastEvent", FetchType.EAGER);
-        
+
         cb.alias("node", "node", JoinType.LEFT_JOIN);
         cb.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
         cb.alias("node.ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
@@ -121,7 +121,7 @@ public class AlarmRestServiceBase extends OnmsRestService {
                 final String severity = m.group(3);
                 final OnmsSeverity onmsSeverity = OnmsSeverity.get(severity);
                 // System.err.println("translateSeverity: " + severity + " = " + onmsSeverity);
-                
+
                 final String newQuery = m.replaceFirst(" " + (alias == null? "" : alias) + "severity " + comparator + " " + onmsSeverity.getId());
                 params.remove("query");
                 params.add("query", newQuery);

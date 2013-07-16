@@ -40,7 +40,7 @@ public class OpenlayersWidgetCompontentTest {
         final OnmsNode node = new OnmsNode();
         final OnmsAssetRecord asset = new OnmsAssetRecord();
         final OnmsGeolocation geo = new OnmsGeolocation();
-        
+
         node.setId(1);
         node.setAssetRecord(asset);
         asset.setGeolocation(geo);
@@ -49,7 +49,7 @@ public class OpenlayersWidgetCompontentTest {
         geo.setCity("Pittsboro");
         geo.setState("NC");
         geo.setZip("27312");
-        
+
         assertEquals("220 Chatham Business Dr., Pittsboro, NC 27312", geo.asAddressString());
 
         EasyMock.expect(m_geocoder.getCoordinates(geo.asAddressString())).andReturn(new Coordinates(-1.0f, 1.0f)).times(1);
@@ -61,11 +61,11 @@ public class OpenlayersWidgetCompontentTest {
         target.addAttribute(EasyMock.eq("longitude"), EasyMock.eq("-1.0"));
         target.addAttribute(EasyMock.eq("latitude"), EasyMock.eq("1.0"));
         target.endTag(EasyMock.eq("1"));
-        
+
         EasyMock.replay(m_nodeDao, m_assetDao, m_geocoder, target);
 
         // m_component.paintNode(target, node);
-        
+
         EasyMock.verify(m_nodeDao, m_assetDao, m_geocoder, target);
     }
 }

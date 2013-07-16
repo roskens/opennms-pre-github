@@ -57,7 +57,7 @@ import org.springframework.core.io.Resource;
 
 public class MockSnmpStrategy implements SnmpStrategy {
 	private static final transient Logger LOG = LoggerFactory.getLogger(MockSnmpStrategy.class);
-	
+
     public static final SnmpAgentAddress ALL_AGENTS = new SnmpAgentAddress(InetAddrUtils.addr("0.0.0.0"), 161);
     private static final SnmpValue[] EMPTY_SNMP_VALUE_ARRAY = new SnmpValue[0];
 
@@ -230,18 +230,18 @@ public class MockSnmpStrategy implements SnmpStrategy {
             // Text
             engineID[4] = 4;
         }
-        
+
         byte[] bytes = new byte[engineID.length+ip.length];
         System.arraycopy(engineID, 0, bytes, 0, engineID.length);
         System.arraycopy(ip, 0, bytes, engineID.length, ip.length);
-        
+
         return bytes;
     }
 
     public static void setDataForAddress(final SnmpAgentAddress agentAddress, final Resource resource) throws IOException {
         m_loaders.put(agentAddress, new PropertyOidContainer(resource));
     }
-    
+
     public static void removeHost(final SnmpAgentAddress agentAddr) {
         m_loaders.remove(agentAddr);
     }

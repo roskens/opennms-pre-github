@@ -58,7 +58,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
         m_endTime = m_archive.getEndTime();
         m_rows = m_archive.getRows();
         m_consolFun = getArchive().getConsolFun();
-        
+
         m_data = new TreeMap<Integer,RrdEntry>();
         for (int row = 0; row < m_rows; row++) {
             m_data.put(row, getRawDataForRowWithTimestamp(row, getStartTime() + (row * m_step)));
@@ -84,7 +84,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
         final Robin r = m_archive.getRobin(getDsIndex(dsName));
         return r.getValue(row);
     }
-    
+
     private RrdEntry getDataForRowWithTimestamp(final int row, final long timestamp) throws IOException {
         final RrdEntry rawEntry = m_data.get(row);
         if (rawEntry == null) {
@@ -137,7 +137,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
     public long getNativeStep() throws IOException {
         return m_step;
     }
-    
+
     public long getStartTime() throws IOException {
         return m_startTime;
     }
@@ -145,12 +145,12 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
     public long getEndTime() throws IOException {
         return m_endTime;
     }
-    
+
     @Override
     public int getRows() throws IOException {
         return m_rows;
     }
-    
+
     public void close() throws IOException {
     }
 
@@ -171,7 +171,7 @@ public class RrdArchive extends BaseRrdDataSource implements Comparable<RrdArchi
             return super.toString();
         }
     }
-    
+
     public int compareTo(final RrdArchive archive) {
         try {
             /* Go from highest to lowest resolution (step).

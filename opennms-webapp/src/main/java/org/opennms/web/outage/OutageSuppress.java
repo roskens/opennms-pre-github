@@ -38,7 +38,7 @@ import java.sql.Date;
  * @since 1.8.1
  */
 public class OutageSuppress {
-    
+
     /**
      * <p>SuppressOutage</p>
      *
@@ -47,11 +47,11 @@ public class OutageSuppress {
      * @param suppressedBy a {@link java.lang.String} object.
      */
     public void SuppressOutage (Integer outageID, Date Time, String suppressedBy) {
-        // Some quirks, if time is == 0 - We will set this to 
+        // Some quirks, if time is == 0 - We will set this to
         // the largest possible date that we can come up with
-        //    
+        //
     }
-    
+
     /**
      * <p>UnSuppressOutage</p>
      *
@@ -61,9 +61,9 @@ public class OutageSuppress {
     public void UnSuppressOutage (Integer outageID, String suppressedBy) {
         // Need no time really....
         // We'll actually just delete the suppresstimefield
-    
+
     }
-    
+
     /**
      * <p>SubmitOutageSuppressedEvent</p>
      *
@@ -74,7 +74,7 @@ public class OutageSuppress {
     public void SubmitOutageSuppressedEvent(Integer outageID, Date suppressTime, String suppressedBy){
 
     }
-    
+
     /**
      * <p>SubmitUnSuppressedEvent</p>
      *
@@ -82,7 +82,7 @@ public class OutageSuppress {
      * @param suppressedBy a {@link java.lang.String} object.
      */
     public void SubmitUnSuppressedEvent (Integer outageID, String suppressedBy){
-        
+
     }
 
 }

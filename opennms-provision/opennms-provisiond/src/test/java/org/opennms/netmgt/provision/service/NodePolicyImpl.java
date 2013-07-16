@@ -48,7 +48,7 @@ public class NodePolicyImpl implements NodePolicy {
     }
 
     public void setParameter(String key, String value) {
-        
+
     }
 
 }

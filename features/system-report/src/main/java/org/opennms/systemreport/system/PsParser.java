@@ -53,7 +53,7 @@ public final class PsParser extends Thread {
         m_skipText = skipText;
         m_matchField = matchField;
     }
-    
+
     @Override
     public void run() {
         final InputStreamReader isr = new InputStreamReader(m_input);

@@ -56,7 +56,7 @@ public class SyntaxToEventTest {
 		Parm parm = SyntaxToEvent.processSyntax("Test",octetString);
 
 		assertEquals("Test", parm.getParmName());
-		assertEquals("00:00:00:00:00:00", parm.getValue().getContent());	
+		assertEquals("00:00:00:00:00:00", parm.getValue().getContent());
 	}
 
 	@Test
@@ -71,13 +71,13 @@ public class SyntaxToEventTest {
 
 		assertEquals("Test", parm.getParmName());
 		assertEquals(EventConstants.XML_ENCODING_MAC_ADDRESS, parm.getValue().getEncoding());
-		assertEquals("00:55:55:55:55:55", parm.getValue().getContent());	
+		assertEquals("00:55:55:55:55:55", parm.getValue().getContent());
 	}
 
 	/**
 	 * We are allowing NULL in the last position of the string in case there
 	 * are any SNMP agents sending OctetString values in this format.
-	 * 
+	 *
 	 * @see SnmpUtils#allBytesDisplayable()
 	 */
 	@Test
@@ -93,7 +93,7 @@ public class SyntaxToEventTest {
 		assertEquals("Test", parm.getParmName());
 		assertEquals(EventConstants.XML_ENCODING_TEXT, parm.getValue().getEncoding());
 		// I'm not sure what is converting the NULL char to a "."...
-		assertEquals("UUUUU.", parm.getValue().getContent());	
+		assertEquals("UUUUU.", parm.getValue().getContent());
 	}
 
 	@Test

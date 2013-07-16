@@ -34,7 +34,7 @@ import com.google.gwt.http.client.RequestException;
 import com.google.gwt.http.client.URL;
 
 public class DefaultNodeService implements NodeService {
-    
+
     public static String TEST_RESPONSE = "{" +
     		"\"@totalCount\" : \"4\"," +
     		"\"@count\" : \"4\"," +
@@ -108,14 +108,14 @@ public class DefaultNodeService implements NodeService {
     		  "\"lastCapsdPoll\" : \"2011-06-05T07:31:51.912-04:00\"" +
     		  "} ]" +
     		"}";
-    
+
     private static String BASE_URL = "rest/nodes";
     @Override
     public void getAllNodes(RequestCallback callback) {
         sendRequest(callback, BASE_URL + "?limit=0");
     }
 
-    
+
     private void sendRequest(RequestCallback callback, String url) {
         RequestBuilder builder = new RequestBuilder(RequestBuilder.GET, URL.encode(url));
         builder.setHeader("accept", "application/json");

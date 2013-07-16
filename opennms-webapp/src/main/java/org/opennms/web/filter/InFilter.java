@@ -39,7 +39,7 @@ import org.hibernate.criterion.Restrictions;
  * @since 1.8.1
  */
 public abstract class InFilter<T> extends MultiArgFilter<T> {
-    
+
     /**
      * <p>Constructor for InFilter.</p>
      *
@@ -53,13 +53,13 @@ public abstract class InFilter<T> extends MultiArgFilter<T> {
     public InFilter(String filterType, SQLType<T> type, String fieldName, String propertyName, T[] values){
         super(filterType, type, fieldName, propertyName, values);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
         return Restrictions.in(getPropertyName(), getValuesAsList());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
@@ -67,7 +67,7 @@ public abstract class InFilter<T> extends MultiArgFilter<T> {
         buf.append(getSQLFieldName());
         buf.append(" IN (");
         T[] values = getValues();
-        
+
         for(int i = 0; i < values.length; i++) {
             if (i != 0) {
                 buf.append(", ");

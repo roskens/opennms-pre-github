@@ -55,12 +55,12 @@ public class ThreeComVlanTable extends VlanTableBasic {
 	public ThreeComVlanTable(InetAddress address) {
         super(address, "threeComVlanTable", ThreeComVlanTableEntry.threeComVlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected ThreeComVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new ThreeComVlanTableEntry();
     }
-    
+
 }
 

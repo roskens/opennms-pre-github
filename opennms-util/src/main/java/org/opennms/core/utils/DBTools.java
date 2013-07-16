@@ -48,7 +48,7 @@ public class DBTools {
 
     /**
      * The JDBC hostname. This token is replaced when the url is constructed.
-     * 
+     *
      * @see #constructUrl
      */
     public static final String JDBC_HOST = "OPENNMS_JDBC_HOSTNAME";
@@ -77,7 +77,7 @@ public class DBTools {
     /**
      * Default port to use to check this service. Defaults to '4100' Make sure
      * than is less than MAX_PORT_VALUE and greater than MIN_PORT_VALUE
-     * 
+     *
      * @see #MIN_PORT_VALUE
      * @see #MAX_PORT_VALUE
      */

@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class TcaCollector.
- * 
+ *
  * <p>A collector specialized to retrieve special SNMP data from Juniper TCA Devices.</p>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public class TcaCollector implements ServiceCollector {

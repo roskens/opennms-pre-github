@@ -41,13 +41,13 @@ import org.quartz.JobExecutionException;
  */
 public class ReportJob implements Job {
 
-    
+
     /** Constant <code>KEY="report"</code> */
     protected static final String KEY = "report";
 
     private Reportd m_reportd;
 
-    
+
     /** {@inheritDoc} */
     @Override
     public void execute(JobExecutionContext context)

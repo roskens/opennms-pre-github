@@ -59,7 +59,7 @@ public class ConcreteObjectTest {
 		assertEquals(OnmsIpInterface.class, crit.getType("node.ipInterfaces"));
 		assertEquals(Map.class, crit.getType("details"));
 	}
-	
+
 	@Test
 	public void testAliases() throws Exception {
 		final CriteriaBuilder builder = new CriteriaBuilder(OnmsAlarm.class);
@@ -67,7 +67,7 @@ public class ConcreteObjectTest {
 
 		builder.fetch("firstEvent", FetchType.EAGER);
         builder.fetch("lastEvent", FetchType.EAGER);
-        
+
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
         builder.alias("node.ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
@@ -82,17 +82,17 @@ public class ConcreteObjectTest {
 		assertEquals(OnmsOutage.class, crit.getType("currentOutage"));
 		assertEquals(OnmsMonitoredService.class, crit.getType("service"));
 	}
-	
+
 	@Test
 	public void testNode() throws Exception {
 	    final CriteriaBuilder builder = new CriteriaBuilder(OnmsNode.class);
 	    builder.distinct();
-	    
+
         builder.alias("snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
 	    builder.alias("ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
-	    
+
 	    final Criteria crit = builder.toCriteria();
-	    
+
 	    assertEquals(InetAddress.class, crit.getType("ipInterface.ipAddress"));
 	}
 }

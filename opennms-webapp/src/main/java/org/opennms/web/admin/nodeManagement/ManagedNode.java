@@ -51,7 +51,7 @@ public class ManagedNode {
     protected String nodeLabel;
 
     /**
-     * 
+     *
      */
     protected List<ManagedInterface> interfaces;
 

@@ -38,13 +38,13 @@ import java.util.Date;
  * @since 1.8.1
  */
 public class InventoryWrapper {
-    
+
     private String version;
     private Date date;
     private String group;
     private String urlViewVC;
-    
-    
+
+
     /**
      * <p>Constructor for InventoryWrapper.</p>
      *

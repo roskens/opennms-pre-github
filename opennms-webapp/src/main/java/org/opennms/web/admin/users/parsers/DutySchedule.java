@@ -170,7 +170,7 @@ public class DutySchedule implements Cloneable {
     /**
      * Gets the index value of a day. This method returns the index value of a
      * day abbreviation
-     * 
+     *
      * @param aDay
      *            the day abbreviation
      * @return the index associated with this abbreviation
@@ -216,7 +216,7 @@ public class DutySchedule implements Cloneable {
     public int getStopTime() {
         return m_stopTime;
     }
-    
+
     /**
      * Gets the days this DutySchedule is active.
      *
@@ -366,7 +366,7 @@ public class DutySchedule implements Cloneable {
 
         return buffer.toString();
     }
-    
+
     /**
      * <p>hasDay</p>
      *
@@ -376,7 +376,7 @@ public class DutySchedule implements Cloneable {
     public boolean hasDay(int aDay) {
         return m_days.get(aDay);
     }
-    
+
     /**
      * <p>clone</p>
      *

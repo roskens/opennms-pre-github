@@ -39,21 +39,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 public class SpringSecurityContextService implements SecurityContextService {
 
 	private SecurityContext m_context;
-	
+
 	public SpringSecurityContextService() {
 		this.m_context = SecurityContextHolder.getContext();
 	}
-	
+
 	@Override
 	public String getUsername() {
 		return getUserDetails().getUsername();
 	}
-	
+
 	@Override
 	public String getPassword() {
 		return getUserDetails().getPassword();
 	}
-	
+
 	private UserDetails getUserDetails() {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	    if (principal instanceof UserDetails) {
@@ -62,7 +62,7 @@ public class SpringSecurityContextService implements SecurityContextService {
 	        throw new IllegalStateException("principal should always be instanceof UserDetails");
 	    }
 	}
-	
+
 	@Override
 	public boolean hasRole(String role) {
 		boolean hasRole = false;
@@ -81,11 +81,11 @@ public class SpringSecurityContextService implements SecurityContextService {
 	public boolean isAuthenticated() {
 		return this.m_context.getAuthentication().isAuthenticated();
 	}
-	
+
 	/**
 	 * Check if the currently logged in user is present in authorities of
 	 * current user
-	 * 
+	 *
 	 * @param authorities
 	 *            - all assigned authorities
 	 * @param role

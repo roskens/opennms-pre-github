@@ -60,9 +60,9 @@ import org.slf4j.LoggerFactory;
 // I this thise needs a jcifs.properties file so we can't distribute it now
 @Distributable(DistributionContext.DAEMON)
 final public class SmbMonitor extends AbstractServiceMonitor {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(SmbMonitor.class);
-    
+
     /**
      * Default retries.
      */
@@ -93,14 +93,14 @@ final public class SmbMonitor extends AbstractServiceMonitor {
      * During the poll ...
      * </P>
      */
-    
+
     /**
      * Do a node-status request before checking name?
      * First appears in OpenNMS 1.10.10. Default is true.
      */
     private static final String DO_NODE_STATUS = "do-node-status";
     private static final boolean DO_NODE_STATUS_DEFAULT = true;
-    
+
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
@@ -130,21 +130,21 @@ final public class SmbMonitor extends AbstractServiceMonitor {
         // to determine if SMB is supported.
         //
         NbtAddress nbtAddr = null;
-        
+
         /*
          * This try block was updated to reflect the behavior of the plugin.
          */
         final String hostAddress = InetAddressUtils.str(ipv4Addr);
-        
+
         final boolean doNodeStatus = ParameterMap.getKeyedBoolean(parameters, DO_NODE_STATUS, DO_NODE_STATUS_DEFAULT);
-        
+
         try {
             nbtAddr = NbtAddress.getByName(hostAddress);
-            
+
             if (doNodeStatus) {
                 nbtAddr.getNodeType();
             }
-            
+
             if (!nbtAddr.getHostName().equals(hostAddress))
                 serviceStatus = PollStatus.available();
 

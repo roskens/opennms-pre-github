@@ -96,8 +96,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param parameter
      * @throws IndexOutOfBoundsException if the index
@@ -109,7 +109,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method enumerateParameter.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -119,7 +119,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -127,20 +127,20 @@ public class PersistenceSelectorStrategy implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof PersistenceSelectorStrategy) {
-        
+
             final PersistenceSelectorStrategy temp = (PersistenceSelectorStrategy)obj;
             if (m_clazz != null) {
                 if (temp.m_clazz == null) return false;
-                else if (!(m_clazz.equals(temp.m_clazz))) 
+                else if (!(m_clazz.equals(temp.m_clazz)))
                     return false;
             }
             else if (temp.m_clazz != null)
                 return false;
             if (m_parameters != null) {
                 if (temp.m_parameters == null) return false;
-                else if (!(m_parameters.equals(temp.m_parameters))) 
+                else if (!(m_parameters.equals(temp.m_parameters)))
                     return false;
             }
             else if (temp.m_parameters != null)
@@ -154,7 +154,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Returns the value of field 'clazz'. The field 'clazz' has
      * the following description: Java class name of the class that
      * implements the PersistenceSelectorStrategy.
-     * 
+     *
      * @return the value of field 'Clazz'.
      */
     @XmlAttribute(name="class")
@@ -164,7 +164,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method getParameter.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -185,7 +185,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlElement(name="parameter")
@@ -197,7 +197,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Method getParameterCollection.Returns a reference to
      * '_parameterList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Parameter> getParameterCollection() {
@@ -206,7 +206,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method getParameterCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getParameterCount() {
@@ -218,26 +218,26 @@ public class PersistenceSelectorStrategy implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_clazz != null) {
            result = 37 * result + m_clazz.hashCode();
         }
         if (m_parameters != null) {
            result = 37 * result + m_parameters.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -252,7 +252,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method iterateParameter.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -261,8 +261,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -275,8 +275,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -298,7 +298,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method removeParameter.
-     * 
+     *
      * @param parameter
      * @return true if the object was removed from the collection.
      */
@@ -308,7 +308,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method removeParameterAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -320,7 +320,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Sets the value of field 'clazz'. The field 'clazz' has the
      * following description: Java class name of the class that
      * implements the PersistenceSelectorStrategy.
-     * 
+     *
      * @param clazz the value of field 'clazz'.
      */
     public void setClazz(final String clazz) {
@@ -328,8 +328,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param parameter
      * @throws IndexOutOfBoundsException if the index
@@ -343,8 +343,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param parameters
      */
     public void setParameter(final Parameter[] parameters) {
@@ -357,7 +357,7 @@ public class PersistenceSelectorStrategy implements Serializable {
     /**
      * Sets the value of '_parameterList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param parameters the Vector to copy.
      */
     public void setParameter(final List<Parameter> parameters) {
@@ -370,7 +370,7 @@ public class PersistenceSelectorStrategy implements Serializable {
      * Sets the value of '_parameterList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param parameters the Vector to set.
      */
     public void setParameterCollection(final List<Parameter> parameters) {
@@ -379,7 +379,7 @@ public class PersistenceSelectorStrategy implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -394,8 +394,8 @@ public class PersistenceSelectorStrategy implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

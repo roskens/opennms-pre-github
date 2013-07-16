@@ -38,7 +38,7 @@ import java.util.Set;
  * @version $Id: $
  */
 public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
-    
+
     /**
      * <p>add</p>
      *
@@ -48,7 +48,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * @param <V> a V object.
      */
     public void add(K key, V value);
-    
+
     /**
      * <p>remove</p>
      *
@@ -57,7 +57,7 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * @return a boolean.
      */
     public boolean remove(K key, V value);
-    
+
     /**
      * <p>getCopy</p>
      *
@@ -65,5 +65,5 @@ public interface MultivaluedMap<K, V> extends Map<K, Set<V>> {
      * @return a {@link java.util.Set} object.
      */
     public Set<V> getCopy(K key);
-    
+
 }

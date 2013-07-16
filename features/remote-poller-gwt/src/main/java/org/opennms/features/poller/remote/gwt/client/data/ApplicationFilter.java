@@ -35,7 +35,7 @@ import org.opennms.features.poller.remote.gwt.client.ApplicationInfo;
 import org.opennms.features.poller.remote.gwt.client.location.LocationInfo;
 
 public class ApplicationFilter implements LocationFilter {
-    
+
     private final Set<ApplicationInfo> m_applications = new HashSet<ApplicationInfo>();
 
     public Set<ApplicationInfo> getApplications() {

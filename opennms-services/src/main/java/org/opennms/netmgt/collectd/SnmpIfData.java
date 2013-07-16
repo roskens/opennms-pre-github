@@ -46,7 +46,7 @@ public class SnmpIfData {
     private final int m_ifType;
     private final String m_rrdLabel;
     private final String m_ifAlias;
-    
+
     private final Map<String,String> m_attributes = new HashMap<String,String>();
 
     /**
@@ -71,7 +71,7 @@ public class SnmpIfData {
         m_attributes.put("snmpifspeed", Long.toString(nullSafeUnbox(snmpIface.getIfSpeed(), -1)));
         m_attributes.put("snmpifalias", m_ifAlias);
     }
-    
+
     protected static int nullSafeUnbox(Integer num, int dflt) {
         return (num == null ? dflt : num.intValue());
     }
@@ -133,7 +133,7 @@ public class SnmpIfData {
     public String getIfAlias() {
         return m_ifAlias;
     }
-    
+
     /**
      * <p>getAttribtuesMap</p>
      *

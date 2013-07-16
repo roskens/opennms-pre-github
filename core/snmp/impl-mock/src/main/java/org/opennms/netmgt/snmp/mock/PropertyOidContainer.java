@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 
 public class PropertyOidContainer {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PropertyOidContainer.class);
-	
+
     private final NavigableMap<SnmpObjId,SnmpValue> m_tree = new TreeMap<SnmpObjId,SnmpValue>();
 
     public PropertyOidContainer(final Resource resource) throws IOException {
@@ -93,7 +93,7 @@ public class PropertyOidContainer {
             return next.firstKey();
         }
     }
-    
+
     public SnmpValue findNextValueForOid(final SnmpObjId oid) {
         final SnmpObjId nextOid = findNextOidForOid(oid);
         if (nextOid == null) {

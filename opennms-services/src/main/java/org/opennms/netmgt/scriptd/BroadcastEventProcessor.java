@@ -40,7 +40,7 @@ import org.opennms.netmgt.xml.event.Event;
  * This class receives all events on behalf of the <em>Scriptd</em> service.
  * All events are placed on a queue, so they can be handled by the "Executor"
  * (this allows the Executor to pause and resume without losing events).
- * 
+ *
  * @author <a href="mailto:jim.doble@tavve.com">Jim Doble </a>
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
@@ -53,10 +53,10 @@ final class BroadcastEventProcessor implements EventListener {
 
     /**
      * This constructor subscribes to eventd for all events
-     * 
+     *
      * @param execQ
      *            The queue where executable events are stored.
-     * 
+     *
      */
     BroadcastEventProcessor(FifoQueue<Event> execQ) {
         // set up the executable queue first

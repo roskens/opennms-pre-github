@@ -47,7 +47,7 @@ import org.opennms.test.mock.EasyMockUtils;
 public class AttributeMatchingResourceVisitorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private AttributeVisitor m_attributeVisitor = m_mocks.createMock(AttributeVisitor.class);
-    
+
     public void testAfterPropertiesSet() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);
@@ -58,10 +58,10 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
 
     public void testAfterPropertiesSetNoAttributeVisitor() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property attributeVisitor must be set to a non-null value"));
-        
+
         resourceVisitor.setAttributeVisitor(null);
         resourceVisitor.setAttributeMatch("ifInOctets");
 
@@ -72,10 +72,10 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         }
         ta.verifyAnticipated();
     }
-    
+
     public void testAfterPropertiesSetNoResourceTypeMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalStateException("property attributeMatch must be set to a non-null value"));
 
@@ -106,7 +106,7 @@ public class AttributeMatchingResourceVisitorTest extends TestCase {
         resourceVisitor.visit(resource);
         m_mocks.verifyAll();
     }
-    
+
     public void testVisitWithoutMatch() throws Exception {
         AttributeMatchingResourceVisitor resourceVisitor = new AttributeMatchingResourceVisitor();
         resourceVisitor.setAttributeVisitor(m_attributeVisitor);

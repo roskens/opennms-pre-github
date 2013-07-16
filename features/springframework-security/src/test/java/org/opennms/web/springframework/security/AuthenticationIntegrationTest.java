@@ -73,13 +73,13 @@ public class AuthenticationIntegrationTest implements InitializingBean {
     private UserManager m_userManager;
 
 	@Autowired
-	private AuthenticationProvider m_provider; 
+	private AuthenticationProvider m_provider;
 
 	@Before
 	public void setUp() {
 	    MockLogAppender.setupLogging(true, "DEBUG");
 	}
-	
+
 	@Test
 	public void testAuthenticateAdmin() {
 	    org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken("admin", "admin");
@@ -92,7 +92,7 @@ public class AuthenticationIntegrationTest implements InitializingBean {
 		assertEquals("GrantedAuthorities zero role", Authentication.ROLE_USER, itr.next().getAuthority());
 		assertEquals("GrantedAuthorities two name", Authentication.ROLE_ADMIN, itr.next().getAuthority());
 	}
-	
+
 	@Test
 	public void testAuthenticateRtc() {
 		org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken("rtc", "rtc");
@@ -103,7 +103,7 @@ public class AuthenticationIntegrationTest implements InitializingBean {
 		assertEquals("GrantedAuthorities size", 1, authorities.size());
 		assertEquals("GrantedAuthorities one name", Authentication.ROLE_RTC, authorities.iterator().next().getAuthority());
 	}
-	
+
 	@Test
 	public void testAuthenticateTempUser() throws Exception {
         OnmsUser user = new OnmsUser("tempuser");
@@ -120,11 +120,11 @@ public class AuthenticationIntegrationTest implements InitializingBean {
 		assertEquals("GrantedAuthorities size", 1, authorities.size());
 		assertEquals("GrantedAuthorities zero role", Authentication.ROLE_USER, authorities.iterator().next().getAuthority());
 	}
-	
+
 	@Test
 	public void testAuthenticateBadUsername() {
 		org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken("badUsername", "admin");
-		
+
 		ThrowableAnticipator ta = new ThrowableAnticipator();
 		ta.anticipate(new BadCredentialsException("Bad credentials"));
 		try {
@@ -134,7 +134,7 @@ public class AuthenticationIntegrationTest implements InitializingBean {
 		}
 		ta.verifyAnticipated();
 	}
-	
+
 	@Test
 	public void testAuthenticateBadPassword() {
 		org.springframework.security.core.Authentication authentication = new UsernamePasswordAuthenticationToken("admin", "badPassword");

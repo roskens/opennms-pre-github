@@ -81,7 +81,7 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 /**
  * Populates a test database with some entities (nodes, interfaces, services).
- * 
+ *
  * Example usage:
  * <pre>
  * private DatabasePopulator m_populator;
@@ -93,12 +93,12 @@ import org.springframework.transaction.support.TransactionTemplate;
  *         "classpath:/META-INF/opennms/applicationContext-databasePopulator.xml"
  *     };
  * }
- * 
+ *
  * @Override
  * protected void onSetUpInTransactionIfEnabled() {
  *     m_populator.populateDatabase();
  * }
- * 
+ *
  * public void setPopulator(DatabasePopulator populator) {
  *     m_populator = populator;
  * }
@@ -128,20 +128,20 @@ public class DatabasePopulator {
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
     private AcknowledgmentDao m_acknowledgmentDao;
     private TransactionOperations m_transOperation;
-    
+
     private OnmsNode m_node1;
     private OnmsNode m_node2;
     private OnmsNode m_node3;
     private OnmsNode m_node4;
     private OnmsNode m_node5;
     private OnmsNode m_node6;
-    
+
     private boolean m_populateInSeparateTransaction = true;
 
     public boolean populateInSeparateTransaction() {
         return m_populateInSeparateTransaction;
     }
-    
+
     public void setPopulateInSeparateTransaction(final boolean pop) {
         m_populateInSeparateTransaction = pop;
     }
@@ -209,7 +209,7 @@ public class DatabasePopulator {
 
         final OnmsDistPoller distPoller = getDistPoller("localhost", "127.0.0.1");
         final NetworkBuilder builder = new NetworkBuilder(distPoller);
-        
+
         final OnmsNode node1 = buildNode1(builder);
         getNodeDao().save(builder.getCurrentNode());
         getNodeDao().flush();
@@ -218,56 +218,56 @@ public class DatabasePopulator {
         getNodeDao().save(node2);
         getNodeDao().flush();
         setNode2(node2);
-        
+
         OnmsNode node3 = buildNode3(builder);
         getNodeDao().save(node3);
         getNodeDao().flush();
         setNode3(node3);
-        
+
         OnmsNode node4 = buildNode4(builder);
         getNodeDao().save(node4);
         getNodeDao().flush();
         setNode4(node4);
-        
+
         OnmsNode node5 = buildNode5(builder);
         getNodeDao().save(node5);
         getNodeDao().flush();
         setNode5(node5);
-        
+
         OnmsNode node6 = buildNode6(builder);
         getNodeDao().save(node6);
         getNodeDao().flush();
         setNode6(node6);
-        
+
         final OnmsEvent event = buildEvent(distPoller);
         getEventDao().save(event);
         getEventDao().flush();
-        
+
         final OnmsNotification notif = buildTestNotification(builder, event);
         getNotificationDao().save(notif);
         getNotificationDao().flush();
-        
+
         final OnmsUserNotification userNotif = buildTestUserNotification(notif);
         getUserNotificationDao().save(userNotif);
         getUserNotificationDao().flush();
-        
+
         final OnmsUserNotification userNotif2 = buildTestUser2Notification(notif);
         getUserNotificationDao().save(userNotif2);
         getUserNotificationDao().flush();
-        
+
         final OnmsMonitoredService svc = getMonitoredServiceDao().get(node1.getId(), InetAddressUtils.addr("192.168.1.1"), "SNMP");
         final OnmsOutage resolved = new OnmsOutage(new Date(), new Date(), event, event, svc, null, null);
         getOutageDao().save(resolved);
         getOutageDao().flush();
-        
+
         final OnmsOutage unresolved = new OnmsOutage(new Date(), event, svc);
         getOutageDao().save(unresolved);
         getOutageDao().flush();
-        
+
         final OnmsAlarm alarm = buildAlarm(event);
         getAlarmDao().save(alarm);
         getAlarmDao().flush();
-        
+
         final OnmsMap map = new OnmsMap("DB_Pop_Test_Map", "admin");
         map.setBackground("fake_background.jpg");
         map.setAccessMode(OnmsMap.ACCESS_MODE_ADMIN);
@@ -275,7 +275,7 @@ public class DatabasePopulator {
         map.setMapGroup("admin");
         getOnmsMapDao().save(map);
         getOnmsMapDao().flush();
-        
+
         final OnmsMapElement mapElement = new OnmsMapElement(map, 1,
                 OnmsMapElement.NODE_TYPE,
                 "Test Node",
@@ -284,19 +284,19 @@ public class DatabasePopulator {
                 10);
         getOnmsMapElementDao().save(mapElement);
         getOnmsMapElementDao().flush();
-        
+
         final DataLinkInterface dli = new DataLinkInterface(node1, 1, node1.getId(), 1, StatusType.ACTIVE, new Date());
         getDataLinkInterfaceDao().save(dli);
         getDataLinkInterfaceDao().flush();
-        
+
         final DataLinkInterface dli2 = new DataLinkInterface(node1, 2, node1.getId(), 1, StatusType.ACTIVE, new Date());
         getDataLinkInterfaceDao().save(dli2);
         getDataLinkInterfaceDao().flush();
-        
+
         final DataLinkInterface dli3 = new DataLinkInterface(node2, 1, node1.getId(), 1, StatusType.ACTIVE, new Date());
         getDataLinkInterfaceDao().save(dli3);
         getDataLinkInterfaceDao().flush();
-        
+
         final OnmsAcknowledgment ack = new OnmsAcknowledgment();
         ack.setAckTime(new Date());
         ack.setAckType(AckType.UNSPECIFIED);
@@ -304,7 +304,7 @@ public class DatabasePopulator {
         ack.setAckUser("admin");
         getAcknowledgmentDao().save(ack);
         getAcknowledgmentDao().flush();
-        
+
         final OnmsMonitoringLocationDefinition def = new OnmsMonitoringLocationDefinition();
         def.setName("RDU");
         def.setArea("East Coast");
@@ -342,7 +342,7 @@ public class DatabasePopulator {
         builder.addCategory(getCategory("DEV_AC"));
         builder.addCategory(getCategory("IMP_mid"));
         builder.addCategory(getCategory("OPS_Online"));
-        builder.addCategory(getCategory("Routers")); 
+        builder.addCategory(getCategory("Routers"));
         builder.setBuilding("HQ");
         builder.addSnmpInterface(1)
             .setCollectionEnabled(true)
@@ -654,31 +654,31 @@ public class DatabasePopulator {
     public void setUserNotificationDao(final UserNotificationDao userNotificationDao) {
         m_userNotificationDao = userNotificationDao;
     }
-    
+
     public OnmsNode getNode1() {
         return m_node1;
     }
-    
+
     public OnmsNode getNode2() {
         return m_node2;
     }
-    
+
     public OnmsNode getNode3() {
         return m_node3;
     }
-    
+
     public OnmsNode getNode4() {
         return m_node4;
     }
-    
+
     public OnmsNode getNode5() {
         return m_node5;
     }
-    
+
     public OnmsNode getNode6() {
         return m_node6;
     }
-    
+
     private void setNode1(final OnmsNode node1) {
         m_node1 = node1;
     }
@@ -734,7 +734,7 @@ public class DatabasePopulator {
     public void setDataLinkInterfaceDao(final DataLinkInterfaceDao dataLinkInterfaceDao) {
         this.m_dataLinkInterfaceDao = dataLinkInterfaceDao;
     }
-    
+
     public AcknowledgmentDao getAcknowledgmentDao() {
         return m_acknowledgmentDao;
     }

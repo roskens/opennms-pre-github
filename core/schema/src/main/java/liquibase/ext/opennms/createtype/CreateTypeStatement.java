@@ -52,19 +52,19 @@ public class CreateTypeStatement extends AbstractSqlStatement {
 		m_columnTypes.put(name, type);
 		return this;
 	}
-	
+
 	public String getName() {
 		return m_name;
 	}
-	
+
 	public List<String> getColumns() {
 		return m_columns;
 	}
-	
+
 	public String getColumnType(final String name) {
 		return m_columnTypes.get(name);
 	}
-	
+
         @Override
 	public String toString() {
 		return new ToStringBuilder(this)

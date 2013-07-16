@@ -58,8 +58,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class DataCollectionGroupPanel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 // TODO When renaming a group, all the SNMP collections must be updated.
 @SuppressWarnings("serial")
@@ -147,7 +147,7 @@ public abstract class DataCollectionGroupPanel extends Panel implements TabSheet
         if (tab != null) {
             Notification.show("Selected tab: " + tab.getCaption());
         }
-    }    
+    }
 
     /**
      * Gets the OpenNMS data collection group.

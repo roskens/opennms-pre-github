@@ -224,7 +224,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
 	public int getMonitorsStopped() {
 		return m_monitorsStopped.size();
 	}
-	
+
 	/**
 	 * <p>getMonitorsDisconnected</p>
 	 *
@@ -293,7 +293,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
 	    if (noMonitorsExist()) {
 	        return StatusDetails.unknown("No monitors exist for this location.");
 	    }
-	    
+
 	    // white/uninitialized: if no monitors have reported in
 		if (m_locationStatuses == null || m_locationStatuses.size() == 0) {
 			return StatusDetails.unknown("No monitors have reported in for this location.");
@@ -351,7 +351,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
 				}
 			}
 		}
-		
+
 		// yellow/marginal: If some (but not all) started monitors report "down" for the same service
 		if (anyDown.size() > 0) {
 			return StatusDetails.marginal("The following services are reported down by at least one monitor: " + getServiceNames(anyDown) + ".");
@@ -359,10 +359,10 @@ public class LocationMonitorState implements Serializable, IsSerializable {
 
 		return StatusDetails.up();
 	}
-	
+
 	private String getServiceNames(Set<Integer> serviceIds) {
 	    StringBuilder buf = new StringBuilder();
-	    
+
 	    boolean first = true;
 	    for(Integer serviceId : serviceIds) {
 	        if (first) {
@@ -374,7 +374,7 @@ public class LocationMonitorState implements Serializable, IsSerializable {
 	    }
 	    return buf.toString();
 	}
-	
+
 	private String getServiceName(Integer serviceId) {
 	    for(GWTLocationSpecificStatus status : m_locationStatuses) {
 	        if (serviceId.equals(status.getMonitoredService().getId())) {

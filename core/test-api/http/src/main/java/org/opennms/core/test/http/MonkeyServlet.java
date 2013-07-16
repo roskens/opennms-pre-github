@@ -38,7 +38,7 @@ import javax.servlet.http.HttpServletResponse;
 
 public class MonkeyServlet extends HttpServlet {
 	/**
-     * 
+     *
      */
     private static final long serialVersionUID = 5010146048652721388L;
 
@@ -46,7 +46,7 @@ public class MonkeyServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 //		super.doGet(req, resp);
-		
+
 		String responseText = "You are reading this from a servlet!\n";
 		ServletOutputStream os = resp.getOutputStream();
 		os.print(responseText);

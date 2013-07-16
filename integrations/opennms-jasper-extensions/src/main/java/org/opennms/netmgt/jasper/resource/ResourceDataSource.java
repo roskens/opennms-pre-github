@@ -44,16 +44,16 @@ import net.sf.jasperreports.engine.JRField;
 import org.opennms.netmgt.jasper.helper.ResourcePathFileTraversal;
 
 public class ResourceDataSource implements JRDataSource {
-    
+
     private class ResourceFilterFields{
         private String[] m_fields;
         private String[] m_strProps;
-        
+
         public ResourceFilterFields(String[] fields, String[] strProps) {
             m_fields = fields;
             m_strProps = strProps;
         }
-        
+
         public String getValueForField(String fieldName, String curPath) {
             if(contains(fieldName, m_fields)) {
                 return getFilenameForField(fieldName, curPath);
@@ -62,9 +62,9 @@ public class ResourceDataSource implements JRDataSource {
             }else {
                 return null;
             }
-            
+
         }
-        
+
         private String getStringsPropertyValue(String fieldName, String curPath) {
             File curDir = new File(curPath);
             FilenameFilter filter = new FilenameFilter() {
@@ -73,9 +73,9 @@ public class ResourceDataSource implements JRDataSource {
                 public boolean accept(File f, String name) {
                     return name.matches("strings.properties");
                 }
-                
+
             };
-            
+
             File[] strFiles = curDir.listFiles(filter);
             if(curDir.exists() && strFiles.length == 1) {
                 File strPropFile = strFiles[0];
@@ -91,9 +91,9 @@ public class ResourceDataSource implements JRDataSource {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
-                
+
             }
-            
+
             return null;
         }
 
@@ -111,7 +111,7 @@ public class ResourceDataSource implements JRDataSource {
             }else {
                 return curDir.getAbsolutePath() + File.separator + dsName + getFileExtension();
             }
-            
+
         }
 
         private String getFilenameFromDSfile(File file, String dsName) {
@@ -134,24 +134,24 @@ public class ResourceDataSource implements JRDataSource {
         private String getFileExtension() {
             String jniStrategy = System.getProperty("org.opennms.rrd.strategyClass");
             String rrdFileExtension = System.getProperty("org.opennms.rrd.fileExtension");
-            
+
             if(jniStrategy != null && jniStrategy.contains("JniStrategy")) {
                 if(rrdFileExtension != null) {
                     return rrdFileExtension;
                 }else {
                     return ".rrd";
                 }
-                
+
             }else {
                 return ".jrb";
             }
-            
+
         }
-        
+
         public boolean containsField(String fieldName) {
             return (contains(fieldName, m_fields) || contains(fieldName, m_strProps));
         }
-        
+
         private boolean contains(String fieldName, String[] array) {
             if(array != null) {
                 for(String fName : array) {
@@ -163,11 +163,11 @@ public class ResourceDataSource implements JRDataSource {
             return false;
         }
     }
-    
+
     private int m_currentRow = -1;
     private List<String> m_paths;
     private ResourceFilterFields m_filterFields;
-    
+
     public ResourceDataSource(ResourceQuery query) {
       extractPaths(query);
       m_filterFields = new ResourceFilterFields(query.getFilters(), query.getStringProperties());
@@ -197,7 +197,7 @@ public class ResourceDataSource implements JRDataSource {
             }else {
                 return null;
             }
-            
+
         }
     }
 

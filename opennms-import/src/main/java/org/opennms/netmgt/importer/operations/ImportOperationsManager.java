@@ -56,22 +56,22 @@ import org.springframework.transaction.support.TransactionTemplate;
  * @version $Id: $
  */
 public class ImportOperationsManager {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ImportOperationsManager.class);
 
-    
+
 	private List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
     private List<ImportOperation> m_updates = new LinkedList<ImportOperation>();
     private Map<String, Integer> m_foreignIdToNodeMap;
-    
+
     private ImportOperationFactory m_operationFactory;
     private ImportStatistics m_stats = new DefaultImportStatistics();
 	private EventIpcManager m_eventMgr;
-	
+
 	private int m_scanThreads = 50;
 	private int m_writeThreads = 4;
     private String m_foreignSource;
-    
+
     /**
      * <p>Constructor for ImportOperationsManager.</p>
      *
@@ -93,18 +93,18 @@ public class ImportOperationsManager {
      * @return a {@link org.opennms.netmgt.importer.operations.SaveOrUpdateOperation} object.
      */
     public SaveOrUpdateOperation foundNode(String foreignId, String nodeLabel, String building, String city) {
-        
+
         if (nodeExists(foreignId)) {
             return updateNode(foreignId, nodeLabel, building, city);
         } else {
             return insertNode(foreignId, nodeLabel, building, city);
-        }        
+        }
     }
 
     private boolean nodeExists(String foreignId) {
         return m_foreignIdToNodeMap.containsKey(foreignId);
     }
-    
+
     private SaveOrUpdateOperation insertNode(String foreignId, String nodeLabel, String building, String city) {
         InsertOperation insertOperation = m_operationFactory.createInsertOperation(getForeignSource(), foreignId, nodeLabel, building, city);
         m_inserts.add(insertOperation);
@@ -127,7 +127,7 @@ public class ImportOperationsManager {
     private Integer processForeignId(String foreignId) {
         return m_foreignIdToNodeMap.remove(foreignId);
     }
-    
+
     /**
      * <p>getOperationCount</p>
      *
@@ -136,7 +136,7 @@ public class ImportOperationsManager {
     public int getOperationCount() {
         return m_inserts.size() + m_updates.size() + m_foreignIdToNodeMap.size();
     }
-    
+
     /**
      * <p>getInsertCount</p>
      *
@@ -163,9 +163,9 @@ public class ImportOperationsManager {
     public int getDeleteCount() {
     	return m_foreignIdToNodeMap.size();
     }
-    
+
     class DeleteIterator implements Iterator<ImportOperation> {
-    	
+
     	private Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
 
             @Override
@@ -179,21 +179,21 @@ public class ImportOperationsManager {
             Integer nodeId = entry.getValue();
             String foreignId = entry.getKey();
             return m_operationFactory.createDeleteOperation(nodeId, m_foreignSource, foreignId);
-			
+
 		}
 
             @Override
 		public void remove() {
 			m_foreignIdIterator.remove();
 		}
-    	
+
     }
-    
+
     class OperationIterator implements Iterator<ImportOperation> {
-    	
+
     	Iterator<Iterator<ImportOperation>> m_iterIter;
     	Iterator<ImportOperation> m_currentIter;
-    	
+
     	OperationIterator() {
     		List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
     		iters.add(new DeleteIterator());
@@ -201,14 +201,14 @@ public class ImportOperationsManager {
     		iters.add(m_inserts.iterator());
     		m_iterIter = iters.iterator();
     	}
-    	
+
             @Override
 		public boolean hasNext() {
 			while((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
 				m_currentIter = m_iterIter.next();
 				m_iterIter.remove();
 			}
-			
+
 			return (m_currentIter == null ? false: m_currentIter.hasNext());
 		}
 
@@ -221,10 +221,10 @@ public class ImportOperationsManager {
 		public void remove() {
 			m_currentIter.remove();
 		}
-    	
-    	
+
+
     }
-    
+
     /**
      * <p>shutdownAndWaitForCompletion</p>
      *
@@ -241,7 +241,7 @@ public class ImportOperationsManager {
             LOG.error(msg, e);
         }
     }
- 
+
     /**
      * <p>persistOperations</p>
      *
@@ -260,13 +260,13 @@ public class ImportOperationsManager {
 		shutdownAndWaitForCompletion(pool, "persister interrupted!");
 
 		m_stats.finishProcessingOps();
-    	
+
     }
-    
+
 	private void preprocessOperations(final TransactionTemplate template, final OnmsDao<?, ?> dao, OperationIterator iterator, final ExecutorService dbPool) {
-		
+
 		m_stats.beginPreprocessingOps();
-		
+
 		ExecutorService pool = Executors.newFixedThreadPool(m_scanThreads, new LogPreservingThreadFactory(getClass().getSimpleName() + ".preprocessOperations", m_scanThreads, false));
 		for (Iterator<ImportOperation> it = iterator; it.hasNext();) {
     		final ImportOperation oper = it.next();
@@ -279,9 +279,9 @@ public class ImportOperationsManager {
     		pool.execute(r);
 
     	}
-		
+
 		shutdownAndWaitForCompletion(pool, "preprocessor interrupted!");
-		
+
 		m_stats.finishPreprocessingOps();
 	}
 
@@ -321,10 +321,10 @@ public class ImportOperationsManager {
 		LOG.info("Persist: {}", oper);
 
 		List<Event> events = persistToDatabase(oper, template);
-		
+
 		m_stats.finishPersisting(oper);
-		
-		
+
+
 		if (m_eventMgr != null && events != null) {
 			m_stats.beginSendingEvents(oper, events);
 			LOG.info("Send Events: {}", oper);
@@ -343,7 +343,7 @@ public class ImportOperationsManager {
 
 	/**
      * Persist the import operation changes to the database.
-     *  
+     *
      * @param oper changes to persist
      * @param template transaction template in which to perform the persist operation
      * @return list of events
@@ -368,7 +368,7 @@ public class ImportOperationsManager {
 	public void setScanThreads(int scanThreads) {
 		m_scanThreads = scanThreads;
 	}
-	
+
 	/**
 	 * <p>setWriteThreads</p>
 	 *

@@ -71,7 +71,7 @@ import org.springframework.test.context.ContextConfiguration;
 public class OnmsStpNodeDaoHibernateTest implements InitializingBean {
     @Autowired
     private NodeDao m_nodeDao;
-    
+
 	@Autowired
     private StpNodeDao m_stpNodeDao;
 

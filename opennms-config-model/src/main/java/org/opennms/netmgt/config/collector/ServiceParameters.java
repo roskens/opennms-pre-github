@@ -45,7 +45,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
  */
 public class ServiceParameters {
     private static final Logger LOG = LoggerFactory.getLogger(ServiceParameters.class);
-    
+
     Map<String, Object> m_parameters;
 
     /**
@@ -56,7 +56,7 @@ public class ServiceParameters {
     public ServiceParameters(Map<String, Object> parameters) {
         m_parameters = parameters;
     }
-    
+
     /**
      * <p>getParameters</p>
      *

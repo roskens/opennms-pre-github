@@ -84,7 +84,7 @@ public class OnmsAlarmCollection extends LinkedList<OnmsAlarm> {
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *

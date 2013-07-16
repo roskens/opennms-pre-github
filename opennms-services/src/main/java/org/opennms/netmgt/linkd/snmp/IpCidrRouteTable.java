@@ -35,8 +35,8 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * <P>IpCidrRouteTable uses a SnmpSession to collect the ipRouteTable entries
- * It implements the SnmpHandler to receive notifications when a reply is 
- * received/error occurs in the SnmpSession used to send requests/receive 
+ * It implements the SnmpHandler to receive notifications when a reply is
+ * received/error occurs in the SnmpSession used to send requests/receive
  * replies.</P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
@@ -45,7 +45,7 @@ import org.opennms.netmgt.snmp.SnmpObjId;
  */
 public class IpCidrRouteTable extends SnmpTable<IpCidrRouteTableEntry>
 {
-    
+
    /**
     * <P>Constructs an InetCidrRouteTable object that is used to collect
     * the address elements from the remote agent. Once all
@@ -62,12 +62,12 @@ public class IpCidrRouteTable extends SnmpTable<IpCidrRouteTableEntry>
    {
         super(address, "ipRouteTable", IpCidrRouteTableEntry.ms_elemList);
    }
-   
+
    @Override
     protected IpCidrRouteTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new IpCidrRouteTableEntry();
     }
 
-    
+
 
 }

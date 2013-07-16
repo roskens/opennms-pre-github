@@ -65,7 +65,7 @@ public class PuppetProvisioningAdapter extends SimpleQueuedProvisioningAdapter {
     @Override
     public void processPendingOperationForNode(final AdapterOperation op) throws ProvisioningAdapterException {
         LOG.info("processPendingOperationForNode: Handling Operation: {}", op);
-        
+
         if (op.getType() == AdapterOperationType.ADD || op.getType() == AdapterOperationType.UPDATE) {
             throw new ProvisioningAdapterException(new UnsupportedOperationException("This operation: "+op+", is currently not supported."));
         } else if (op.getType() == AdapterOperationType.DELETE) {

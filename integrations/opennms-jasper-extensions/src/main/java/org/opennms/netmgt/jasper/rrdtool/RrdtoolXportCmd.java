@@ -64,7 +64,7 @@ public class RrdtoolXportCmd {
 		try {
 			Process process = Runtime.getRuntime().exec(commandArray);
 			// this closes the stream when its finished
-			byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());             
+			byte[] byteArray = FileCopyUtils.copyToByteArray(process.getInputStream());
 			// this close the stream when its finished
 			String errors = FileCopyUtils.copyToString(new InputStreamReader(process.getErrorStream()));
 			if (errors.length() > 0) {

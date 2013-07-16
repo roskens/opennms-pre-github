@@ -92,7 +92,7 @@ public class InetAddressUtilsTest {
             (byte)0x0f,
             (byte)0xf0,
             (byte)0x01,
-            (byte)0x00 
+            (byte)0x00
         };
         byte[] actual = InetAddressUtils.macAddressStringToBytes("ff:80:f:f0:01:00");
         Assert.assertArrayEquals(expected, actual);
@@ -121,14 +121,14 @@ public class InetAddressUtilsTest {
             // Expected
         }
     }
-    
+
     @Test
     public void testNMS4972() throws Exception {
         String ip1 = "1.1.1.1";
         String ip2 = "255.255.255.255";
         Assert.assertFalse(BigInteger.ZERO.compareTo(InetAddressUtils.difference(ip1, ip2)) < 0);
     }
-    
+
     @Test
     public void testCidrFunctions() throws Exception {
         assertEquals("255.0.0.0", str(InetAddressUtils.convertCidrToInetAddressV4(8)));

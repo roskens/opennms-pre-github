@@ -119,7 +119,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
          */
         m_allowHtmlFields = new HashSet<String>();
         final String allowHtmlFieldNames = System.getProperty("opennms.assets.allowHtmlFields");
-        
+
         if (allowHtmlFieldNames != null) {
             for (String fieldName : allowHtmlFieldNames.split("\\s*,\\s*")) {
                 m_allowHtmlFields.add(fieldName.toLowerCase());
@@ -268,7 +268,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
 
         // copy the transfer object for rpc back to the hibernate model
         final AssetCommand sanitizeBeanStringProperties = WebSecurityUtils.sanitizeBeanStringProperties(assetCommand, m_allowHtmlFields);
-        
+
         // logger.debug("nodeId: '{}' sanitized assetCommand: '{}'", nodeId, sanitizeBeanStringProperties);
 
         BeanUtils.copyProperties(sanitizeBeanStringProperties, m_onmsAssetRecord);
@@ -282,7 +282,7 @@ public class AssetServiceImpl extends RemoteServiceServlet implements AssetServi
             geolocation = new OnmsGeolocation();
             m_onmsAssetRecord.setGeolocation(geolocation);
         }
-        
+
         // logger.debug("geolocation: {}", geolocation);
 
         geolocation.setLongitude(sanitizeBeanStringProperties.getLongitude());

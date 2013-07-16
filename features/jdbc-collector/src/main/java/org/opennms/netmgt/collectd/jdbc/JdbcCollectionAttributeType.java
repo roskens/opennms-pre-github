@@ -37,17 +37,17 @@ import org.opennms.netmgt.config.jdbc.JdbcColumn;
 public class JdbcCollectionAttributeType implements CollectionAttributeType {
     JdbcColumn m_column;
     AttributeGroupType m_groupType;
-    
+
     public JdbcCollectionAttributeType(JdbcColumn column, AttributeGroupType groupType) {
         m_groupType=groupType;
         m_column=column;
     }
-    
+
     @Override
     public AttributeGroupType getGroupType() {
         return m_groupType;
     }
-    
+
     @Override
     public void storeAttribute(CollectionAttribute attribute, Persister persister) {
         if (m_column.getDataType().equalsIgnoreCase("string")) {
@@ -56,12 +56,12 @@ public class JdbcCollectionAttributeType implements CollectionAttributeType {
             persister.persistNumericAttribute(attribute);
         }
     }
-    
+
     @Override
     public String getName() {
         return m_column.getAlias();
     }
-    
+
     @Override
     public String getType() {
         return m_column.getDataType();

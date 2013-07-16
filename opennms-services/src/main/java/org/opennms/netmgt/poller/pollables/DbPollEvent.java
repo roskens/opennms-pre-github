@@ -38,11 +38,11 @@ import java.util.Date;
  * @version $Id: $
  */
 public class DbPollEvent extends PollEvent {
-    
+
     int m_eventId;
     String m_uei;
     Date m_date;
-    
+
     /**
      * <p>Constructor for DbPollEvent.</p>
      *
@@ -55,7 +55,7 @@ public class DbPollEvent extends PollEvent {
         m_eventId = eventId;
         m_date = date;
     }
-    
+
     /**
      * <p>getEventId</p>
      *
@@ -65,7 +65,7 @@ public class DbPollEvent extends PollEvent {
     public int getEventId() {
         return m_eventId;
     }
-    
+
     /**
      * <p>getDate</p>
      *
@@ -75,7 +75,7 @@ public class DbPollEvent extends PollEvent {
     public Date getDate() {
         return m_date;
     }
-    
+
     /**
      * <p>hashCode</p>
      *
@@ -83,7 +83,7 @@ public class DbPollEvent extends PollEvent {
      */
     @Override
     public int hashCode() { return m_eventId; }
-    
+
     /**
      * <p>equals</p>
      *
@@ -94,7 +94,7 @@ public class DbPollEvent extends PollEvent {
         if (e == null) return false;
         return m_eventId == e.getEventId();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
@@ -102,7 +102,7 @@ public class DbPollEvent extends PollEvent {
             return equals((PollEvent)o);
         return false;
     }
-    
+
     /**
      * <p>toString</p>
      *

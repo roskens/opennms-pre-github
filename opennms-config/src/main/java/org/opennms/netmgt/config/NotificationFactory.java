@@ -68,17 +68,17 @@ public class NotificationFactory extends NotificationManager {
     private static boolean initialized = false;
 
     /**
-     * 
+     *
      */
     private File m_noticeConfFile;
 
     /**
-     * 
+     *
      */
     private long m_lastModified;
 
     /**
-     * 
+     *
      */
     private NotificationFactory() {
         super(NotifdConfigFactory.getInstance(), DataSourceFactory.getInstance());

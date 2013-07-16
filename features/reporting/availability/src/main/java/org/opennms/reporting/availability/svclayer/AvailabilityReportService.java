@@ -122,9 +122,9 @@ public class AvailabilityReportService implements ReportService {
     @Override
     public void render(String id, String location, ReportFormat format,
             OutputStream outputStream) {
-        
+
         FileInputStream inputStream = null;
-        
+
             try {
                 inputStream = new FileInputStream(location);
                 render(id, inputStream, format, outputStream);
@@ -132,7 +132,7 @@ public class AvailabilityReportService implements ReportService {
                 LOG.error("could not open input file", e);
             }
     }
-    
+
     private void render(String id, InputStream inputStream, ReportFormat format,
             OutputStream outputStream) {
 
@@ -200,12 +200,12 @@ public class AvailabilityReportService implements ReportService {
     }
 
     // this new version needs the report wrapper to persist the entry
-    
+
     /** {@inheritDoc} */
     @Override
     public String run(HashMap<String, Object> reportParms,
             String reportId) {
-        
+
         AvailabilityCalculator calculator;
         String reportFileName = null;
 
@@ -220,12 +220,12 @@ public class AvailabilityReportService implements ReportService {
         }
 
         calculator.setCategoryName((String) reportParms.get("reportCategory"));
-        
+
         LOG.debug("set availability calculator report category to: {}", calculator.getCategoryName());
 
         calculator.setCalendar(new GregorianCalendar());
         calculator.setPeriodEndDate((Date) reportParms.get("endDate"));
-        
+
         LOG.debug("set availability calculator end date to: {}", calculator.getPeriodEndDate());
 
         calculator.setLogoURL(m_configDao.getLogo(reportId));
@@ -248,15 +248,15 @@ public class AvailabilityReportService implements ReportService {
         return reportFileName;
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void runAndRender(HashMap<String, Object> reportParms,
             String reportId, ReportFormat format, OutputStream outputStream) {
-        
+
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         BufferedOutputStream bout = new BufferedOutputStream(out);
-        
+
         AvailabilityCalculator calculator;
 
         LOG.debug("running OpenNMS database report {}", reportId);
@@ -270,13 +270,13 @@ public class AvailabilityReportService implements ReportService {
         }
 
         calculator.setCategoryName((String) reportParms.get("reportCategory"));
-        
+
         LOG.debug("set availability calculator report category to: {}", calculator.getCategoryName());
 
 
         calculator.setCalendar(new GregorianCalendar());
         calculator.setPeriodEndDate((Date) reportParms.get("endDate"));
-        
+
         LOG.debug("set availability calculator end date to: {}", calculator.getPeriodEndDate());
 
         calculator.setLogoURL(m_configDao.getLogo(reportId));
@@ -301,17 +301,17 @@ public class AvailabilityReportService implements ReportService {
             LOG.error("Unable to calculate report data ", ce);
         } catch (IOException e) {
             LOG.error("IO exception flushing output stream ", e);
-        } 
-        
+        }
+
     }
 
-    
+
     /** {@inheritDoc} */
     @Override
     public ReportParameters getParameters(String ReportId) {
         return m_parameterConversionService.convert(m_configDao.getParameters(ReportId));
     }
-    
+
     /**
      * <p>setCalendarCalculator</p>
      *
@@ -338,7 +338,7 @@ public class AvailabilityReportService implements ReportService {
     public void setConfigDao(OnmsReportConfigDao configDao) {
         m_configDao = configDao;
     }
-    
+
     /**
      * <p>setParameterConversionService</p>
      *

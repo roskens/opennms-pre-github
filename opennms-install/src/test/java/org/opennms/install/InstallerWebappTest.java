@@ -44,7 +44,7 @@ public class InstallerWebappTest extends TestCase {
     private FileAnticipator m_anticipator;
 
     private File m_tomcat;
-    
+
     private File m_tomcat_webapps;
 
     private File m_tomcat_conf_dir;
@@ -152,9 +152,9 @@ public class InstallerWebappTest extends TestCase {
     public void testServerXmlNoFile() throws Exception {
         m_installer.checkServerXmlOldOpennmsContext();
     }
-    
+
     public void testServerVersion41() throws IOException {
-        String readme = 
+        String readme =
             "$Id$\n"
             + "\n"
             + "                   The Tomcat 4.1 Servlet/JSP Container\n"
@@ -168,7 +168,7 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(readme, running, "4.1");
     }
-    
+
     public void testServerVersion5() throws IOException {
         String running =
             "$Id$\n"
@@ -179,9 +179,9 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(null, running, "5");
     }
-    
+
     public void testServerVersion55() throws IOException {
-        String running = 
+        String running =
             "$Id$\n"
             + "\n"
             + "                 ============================================\n"
@@ -190,7 +190,7 @@ public class InstallerWebappTest extends TestCase {
 
         testServerVersion(null, running, "5.5");
     }
-    
+
     private void testServerVersion(String readme, String running, String version)
         throws IOException {
         if (readme != null) {
@@ -199,7 +199,7 @@ public class InstallerWebappTest extends TestCase {
         if (running != null) {
             m_anticipator.tempFile(m_tomcat, "RUNNING.txt", running);
         }
-                               
+
         assertEquals("Server version", version, m_installer.checkServerVersion());
     }
 }

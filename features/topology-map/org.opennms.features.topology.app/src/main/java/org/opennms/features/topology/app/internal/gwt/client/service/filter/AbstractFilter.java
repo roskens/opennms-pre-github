@@ -11,7 +11,7 @@ public abstract class AbstractFilter implements Filter {
 
     @Override
     abstract public String toString();
-    
+
     @Override
     public boolean equals(Object o) {
         if (o instanceof Filter) {

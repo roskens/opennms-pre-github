@@ -45,7 +45,7 @@ This is not properly annotated so comment out the annotations so it not discover
 public class OnmsServerMap extends OnmsEntity implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -858347716282069343L;
 
@@ -74,7 +74,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
     public OnmsServerMap() {
     }
 
-    
+
     /**
      * <p>getId</p>
      *
@@ -87,7 +87,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -97,7 +97,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
         m_id = id;
     }
 
-    
+
     /**
      * <p>getIpAddress</p>
      *
@@ -117,7 +117,7 @@ public class OnmsServerMap extends OnmsEntity implements Serializable {
         m_ipAddr = ipAddr;
     }
 
-    
+
     /**
      * <p>getServerName</p>
      *

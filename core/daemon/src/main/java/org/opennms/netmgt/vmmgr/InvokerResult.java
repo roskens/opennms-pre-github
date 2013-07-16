@@ -33,7 +33,7 @@ import javax.management.ObjectInstance;
 import org.opennms.netmgt.config.service.Service;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 class InvokerResult {
@@ -41,7 +41,7 @@ class InvokerResult {
     private ObjectInstance m_mbean;
     private Object m_result;
     private Throwable m_throwable;
-    
+
     /**
      * <p>Constructor for InvokerResult.</p>
      *
@@ -56,7 +56,7 @@ class InvokerResult {
         m_result = result;
         m_throwable = throwable;
     }
-    
+
     /**
      * <p>getMbean</p>
      *
@@ -65,7 +65,7 @@ class InvokerResult {
     public ObjectInstance getMbean() {
         return m_mbean;
     }
-    
+
     /**
      * <p>getResult</p>
      *
@@ -74,7 +74,7 @@ class InvokerResult {
     public Object getResult() {
         return m_result;
     }
-    
+
     /**
      * <p>getThrowable</p>
      *

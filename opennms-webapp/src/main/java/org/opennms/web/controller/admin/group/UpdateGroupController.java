@@ -67,13 +67,13 @@ public class UpdateGroupController extends AbstractController implements Initial
 
             // get the rest of the group information from the form
             String users[] = request.getParameterValues("selectedUsers");
-            
+
             newGroup.setUsers(new ArrayList<String>(Arrays.asList(users)));
 
             String[] selectedCategories = request.getParameterValues("selectedCategories");
-            
+
             newGroup.setAuthorizedCategories(new ArrayList<String>(Arrays.asList(selectedCategories)));
-            
+
             Vector<Object> newSchedule = new Vector<Object>();
             ChoiceFormat days = new ChoiceFormat("0#Mo|1#Tu|2#We|3#Th|4#Fr|5#Sa|6#Su");
 
@@ -131,7 +131,7 @@ public class UpdateGroupController extends AbstractController implements Initial
     @Override
     public void afterPropertiesSet() throws Exception {
         // TODO Auto-generated method stub
-        
+
     }
 
 }

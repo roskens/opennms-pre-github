@@ -62,6 +62,6 @@ public interface RemotePollerPresenter extends MapPanelBoundsChangedEventHandler
 		ApplicationDeselectedEventHandler,
 		ApplicationSelectedEventHandler, MapRemoteEventHandler
 {
-    
-    
+
+
 }

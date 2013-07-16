@@ -33,7 +33,7 @@ import java.util.Date;
 import junit.framework.TestCase;
 
 /**
- * 
+ *
  * @author <a href="mailto:ranger@opennms.org">Benjamin Reed</a>
  */
 public class FuzzyDateFormatterTest extends TestCase {
@@ -55,15 +55,15 @@ public class FuzzyDateFormatterTest extends TestCase {
         assertEquals("2 weeks",      FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 14) ), now));
         assertEquals("2 weeks",      FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 17) ), now));
         assertEquals("1 month",      FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 30) ), now));
-        
+
         Double realMonth = (1000 * 60 * 60 * 24 * 365.0 / 12.0);
-        
+
         assertEquals("2 months",     FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (realMonth.longValue() * 2) ), now));
         assertEquals("3 months",     FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (Double.valueOf(realMonth * 2.5)).longValue() ), now));
-        
+
         // why is this not 8.0?
         assertEquals("8 months",     FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (Double.valueOf(realMonth * 8)).longValue() ), now));
-        
+
         assertEquals("1 year",       FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 365) ), now));
         assertEquals("2 years",      FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 548) ), now));
         assertEquals("2 years",      FuzzyDateFormatter.calculateDifference(new Date(now.getTime() - (1000L * 60 * 60 * 24 * 730) ), now));

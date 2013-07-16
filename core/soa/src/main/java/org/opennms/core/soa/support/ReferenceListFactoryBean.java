@@ -47,11 +47,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, InitializingBean, RegistrationListener<T> {
-    
+
     private ServiceRegistry m_serviceRegistry;
     private Class<T> m_serviceInterface;
     private List<RegistrationListener<T>> m_listeners = new CopyOnWriteArrayList<RegistrationListener<T>>();
-    
+
     private List<T> m_providerRegistrations = new CopyOnWriteArrayList<T>();
     private Filter m_filter;
 
@@ -63,7 +63,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public void setServiceRegistry(ServiceRegistry serviceRegistry) {
         m_serviceRegistry = serviceRegistry;
     }
-    
+
     /**
      * <p>setServiceInterface</p>
      *
@@ -72,11 +72,11 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public void setServiceInterface(Class<T> serviceInterface) {
         m_serviceInterface = serviceInterface;
     }
-    
+
     public void setFilter(String filter) {
         m_filter = (filter == null ? null : new FilterParser().parse(filter));
     }
-    
+
     /**
      * <p>getObject</p>
      *
@@ -87,7 +87,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public List<T> getObject() throws Exception {
         return m_providerRegistrations;
     }
-    
+
     /**
      * <p>getObjectType</p>
      *
@@ -117,21 +117,21 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_serviceRegistry, "The serviceRegistry must be set");
         Assert.notNull(m_serviceInterface, "The serviceInterface must be set");
-        
+
         m_serviceRegistry.addListener(m_serviceInterface, this, true);
     }
 
     /** {@inheritDoc} */
     @Override
     public void providerRegistered(Registration registration, T provider) {
-        
+
         if (m_filter != null && !m_filter.match(registration.getProperties())) {
             // this object doesn't match the filter so skip it
             return;
         }
-        
+
         m_providerRegistrations.add(provider);
-        
+
         for(RegistrationListener<T> listener : m_listeners) {
             listener.providerRegistered(registration, provider);
         }
@@ -146,13 +146,13 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
             // this object didn't belong to the match registrations so do nothing
             return;
         }
-        
+
         for(RegistrationListener<T> listener : m_listeners) {
             listener.providerUnregistered(registration, provider);
         }
-        
+
     }
-    
+
     /**
      * <p>setListener</p>
      *
@@ -161,7 +161,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public void setListener(RegistrationListener<T> listener) {
     	addListener(listener);
     }
-    
+
     /**
      * <p>addListener</p>
      *
@@ -170,7 +170,7 @@ public class ReferenceListFactoryBean<T> implements FactoryBean<List<T>>, Initia
     public void addListener(RegistrationListener<T> listener) {
         m_listeners.add((RegistrationListener<T>) listener);
     }
-    
+
     /**
      * <p>removeListener</p>
      *

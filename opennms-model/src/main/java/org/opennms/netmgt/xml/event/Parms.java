@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The varbinds from the trap
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -87,8 +87,8 @@ public class Parms implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vParm
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -100,8 +100,8 @@ public class Parms implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vParm
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -116,7 +116,7 @@ public class Parms implements Serializable {
 
     /**
      * Method enumerateParm.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -127,7 +127,7 @@ public class Parms implements Serializable {
 
     /**
      * Method getParm.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -141,7 +141,7 @@ public class Parms implements Serializable {
         if (index < 0 || index >= this._parmList.size()) {
             throw new IndexOutOfBoundsException("getParm: Index value '" + index + "' not in range [0.." + (this._parmList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.xml.event.Parm) _parmList.get(index);
     }
 
@@ -151,7 +151,7 @@ public class Parms implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.xml.event.Parm[] getParm(
@@ -164,10 +164,10 @@ public class Parms implements Serializable {
      * Method getParmCollection.Returns a reference to '_parmList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @deprecated This entire class has been deprecated. Use Event.getParmCollection instead
-     * 
-     * 
+     *
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.xml.event.Parm> getParmCollection(
@@ -177,7 +177,7 @@ public class Parms implements Serializable {
 
     /**
      * Method getParmCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getParmCount(
@@ -187,7 +187,7 @@ public class Parms implements Serializable {
 
     /**
      * Method iterateParm.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -205,7 +205,7 @@ public class Parms implements Serializable {
 
     /**
      * Method removeParm.
-     * 
+     *
      * @param vParm
      * @return true if the object was removed from the collection.
      */
@@ -217,7 +217,7 @@ public class Parms implements Serializable {
 
     /**
      * Method removeParmAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -228,8 +228,8 @@ public class Parms implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vParm
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -243,20 +243,20 @@ public class Parms implements Serializable {
         if (index < 0 || index >= this._parmList.size()) {
             throw new IndexOutOfBoundsException("setParm: Index value '" + index + "' not in range [0.." + (this._parmList.size() - 1) + "]");
         }
-        
+
         this._parmList.set(index, vParm);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vParmArray
      */
     public void setParm(
             final org.opennms.netmgt.xml.event.Parm[] vParmArray) {
         //-- copy array
         _parmList.clear();
-        
+
         for (int i = 0; i < vParmArray.length; i++) {
                 this._parmList.add(vParmArray[i]);
         }
@@ -265,14 +265,14 @@ public class Parms implements Serializable {
     /**
      * Sets the value of '_parmList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vParmList the Vector to copy.
      */
     public void setParm(
             final java.util.List<org.opennms.netmgt.xml.event.Parm> vParmList) {
         // copy vector
         this._parmList.clear();
-        
+
         this._parmList.addAll(vParmList);
     }
 
@@ -280,7 +280,7 @@ public class Parms implements Serializable {
      * Sets the value of '_parmList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param parmList the Vector to set.
      */
     public void setParmCollection(

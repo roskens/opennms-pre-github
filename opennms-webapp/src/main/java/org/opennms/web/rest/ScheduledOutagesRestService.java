@@ -64,7 +64,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 
 /**
  * <p>ScheduledOutagesRestService class.</p>
- * 
+ *
  * <ul>
  * <li><b>GET /sched-outages</b><br>to get a list of configured scheduled outages.</li>
  * <li><b>POST /sched-outages</b><br>to add a new outage (or update an existing one).</li>
@@ -79,7 +79,7 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <li><b>DELETE /sched-outages/{outageName}/threshd/{package}</b><br>to remove a specific outage from a threshd's package.</li>
  * <li><b>DELETE /sched-outages/{outageName}/notifd</b><br>to remove a specific outage from the notifications.</li>
  * </ul>
- * 
+ *
  * <p>Node and Interface status (the requests return true or false):</p>
  * <ul>
  * <li><b>GET /sched-outages/{outageName}/nodeInOutage/{nodeId}</b><br>to check if a node (with a specific nodeId) is currently on outage for a specific scheduled outage calendar.</li>
@@ -87,7 +87,7 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <li><b>GET /sched-outages/nodeInOutage/{nodeId}</b><br>to check if a node (with a specific nodeId) is currently in outage.</li>
  * <li><b>GET /sched-outages/interfaceInOutage/{ipAddr}</b><br>to check if an interface (with a specific IP address) is currently on outage.</li>
  * </ul>
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 @Component
@@ -95,15 +95,15 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Path("sched-outages")
 public class ScheduledOutagesRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ScheduledOutagesRestService.class);
 
 
     private enum ConfigAction { ADD, REMOVE, REMOVE_FROM_ALL };
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
-    
+
     @Autowired
     protected PollOutagesConfigFactory m_configFactory;
 

@@ -82,7 +82,7 @@ public class OnmsDistPoller implements Serializable {
      * default constructor
      */
     public OnmsDistPoller() {}
-    
+
     /**
      * minimal constructor
      *
@@ -100,7 +100,7 @@ public class OnmsDistPoller implements Serializable {
      *
      * @return a {@link java.lang.String} object.
      */
-    @Id 
+    @Id
     @Column(name="dpName", nullable=false)
     public String getName() {
         return m_name;

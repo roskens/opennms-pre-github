@@ -82,20 +82,20 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
         Object[] values = {nodeid, OnmsMapElement.NODE_TYPE, OnmsMapElement.NODE_HIDE_TYPE};
         return find("from OnmsMapElement as element where element.elementId = ? and (element.type = ? or element.type = ? )", values);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void deleteElementsByMapId(final OnmsMap map) {
         getHibernateTemplate().execute(new HibernateCallback<Void>() {
             @Override
             public Void doInHibernate(Session session) throws HibernateException, SQLException {
-                
+
              String hql = "delete from OnmsMapElement as element where element.map.id = :mapId";
              Query query = session.createQuery(hql);
              query.setInteger("mapId",map.getId());
              query.executeUpdate();
-             return null;      
-            } 
+             return null;
+            }
         });
     }
 
@@ -105,7 +105,7 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
       getHibernateTemplate().execute(new HibernateCallback<Void>() {
           @Override
           public Void doInHibernate(Session session) throws HibernateException, SQLException {
-              
+
            String hql = "delete from OnmsMapElement as element where element.elementId = :nodeId and" +
            		" ( element.type = :typenode or element.type = :typemap )";
            Query query = session.createQuery(hql);
@@ -113,8 +113,8 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
            query.setString("typenode",OnmsMapElement.NODE_TYPE);
            query.setString("typemap",OnmsMapElement.NODE_HIDE_TYPE);
            query.executeUpdate();
-           return null;      
-          } 
+           return null;
+          }
       });
   }
 
@@ -124,13 +124,13 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
         getHibernateTemplate().execute(new HibernateCallback<Void>() {
             @Override
             public Void doInHibernate(Session session) throws HibernateException, SQLException {
-                
+
              String hql = "delete from OnmsMapElement as element where element.type = :type";
              Query query = session.createQuery(hql);
              query.setString("type",type);
              query.executeUpdate();
-             return null;      
-            } 
+             return null;
+            }
         });
 
     }
@@ -141,17 +141,17 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
         getHibernateTemplate().execute(new HibernateCallback<Void>() {
             @Override
             public Void doInHibernate(Session session) throws HibernateException, SQLException {
-                
+
              String hql = "delete from OnmsMapElement as element where element.elementId = :id and element.type = :type";
              Query query = session.createQuery(hql);
              query.setInteger("id",id);
              query.setString("type",type);
              query.executeUpdate();
-             return null;      
-            } 
+             return null;
+            }
        });
 
-      
+
     }
 
     /** {@inheritDoc} */
@@ -181,12 +181,12 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
         getHibernateTemplate().execute(new HibernateCallback<Void>() {
             @Override
             public Void doInHibernate(Session session) throws HibernateException, SQLException {
-                
+
              String hql = "delete from OnmsMapElement as element where element.id in ( select el.id from OnmsMapElement as el where el.map.type = ?)";
              Query query = session.createQuery(hql);
              query.setParameter(0, mapType);
              query.executeUpdate();
-             return null;      
+             return null;
             }
         });
     }
@@ -219,7 +219,7 @@ public class OnmsMapElementDaoHibernate extends AbstractDaoHibernate<OnmsMapElem
         Number nu = getHibernateTemplate().execute(new HibernateCallback<Number>() {
               @Override
               public Number doInHibernate(Session session) throws HibernateException, SQLException {
-                  
+
                String hql = "select count(*) from OnmsMapElement as element where element.map.id = ?)";
                Query query = session.createQuery(hql);
                query.setParameter(0, mapid);

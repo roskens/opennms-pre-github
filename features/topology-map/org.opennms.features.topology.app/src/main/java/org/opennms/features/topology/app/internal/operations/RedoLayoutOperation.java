@@ -42,7 +42,7 @@ public class RedoLayoutOperation implements Operation {
 	@Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         DisplayState graphContainer = operationContext.getGraphContainer();
-        
+
         graphContainer.redoLayout();
         return null;
     }

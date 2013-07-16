@@ -40,13 +40,13 @@ import org.opennms.core.soa.Filter;
  * @author brozow
  */
 public class AndFilter extends AbstractFilter {
-    
+
     List<Filter> m_filters;
 
     public AndFilter(List<Filter> filters) {
         m_filters = filters;
     }
-    
+
     public AndFilter(Filter... filters) {
         this(Arrays.asList(filters));
     }

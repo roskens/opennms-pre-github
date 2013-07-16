@@ -140,7 +140,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     public int compareTo(OnmsApplication o) {
         return getName().compareToIgnoreCase(o.getName());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -165,7 +165,7 @@ public class OnmsApplication implements Comparable<OnmsApplication> {
     public int hashCode() {
         return getName().hashCode();
     }
-    
+
 
 
 }

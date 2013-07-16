@@ -105,7 +105,7 @@ public class GroupOperationsTest {
 	private static TestOperationContext getOperationContext(GraphContainer mockedContainer) {
 		return new TestOperationContext(mockedContainer);
 	}
-	
+
 	private static Form getForm(final Window prompt) {
 	    for (Iterator<Component> itr = prompt.iterator(); itr.hasNext();) {
             Component component = itr.next();
@@ -122,7 +122,7 @@ public class GroupOperationsTest {
         assertNotNull(prompt);
         return prompt;
 	}
-	
+
 	private SimpleGraphProvider m_topologyProvider;
 
 	@Before
@@ -511,7 +511,7 @@ public class GroupOperationsTest {
 	    Vertex vertex2 = m_topologyProvider.addVertex(0, 0);
 	    Vertex group1 = m_topologyProvider.addGroup("group1",  "group");
 	    m_topologyProvider.setParent(vertex1,  group1);
-        
+
 	    // we try to add the group to itself. There is no selection
 	    {
 	        GraphContainer graphContainer = EasyMock.createNiceMock(GraphContainer.class);
@@ -520,16 +520,16 @@ public class GroupOperationsTest {
             graphContainer.redoLayout();
             EasyMock.expectLastCall().anyTimes();
             EasyMock.replay(graphContainer);
-    	    
+
             AddVertexToGroupOperation operation = new AddVertexToGroupOperation();
             OperationContext context = getOperationContext(graphContainer);
             operation.execute(Arrays.asList((VertexRef)group1), context);
-    
+
             // Grab the window, put a value into the form field, and commit the form to complete
             // the operation.
             Form form = getForm(getPrompt(context));
-            
-            
+
+
             Field field = form.getField("Group");
             field.setValue(group1.getId());
             Assert.assertEquals(group1.getId(), field.getValue());         // Make sure that the value was set
@@ -541,8 +541,8 @@ public class GroupOperationsTest {
             }
             EasyMock.verify(graphContainer);
 	    }
-        
-    
+
+
         // we try to add the group to itself. There are multiple selections
 	    {
             GraphContainer graphContainer = EasyMock.createNiceMock(GraphContainer.class);
@@ -555,35 +555,35 @@ public class GroupOperationsTest {
             EasyMock.expectLastCall().anyTimes();
             EasyMock.replay(graphContainer);
             EasyMock.replay(selectionManager);
-            
+
             AddVertexToGroupOperation operation = new AddVertexToGroupOperation();
             OperationContext context = getOperationContext(graphContainer);
             operation.execute(Arrays.asList((VertexRef)group1), context);
-    
+
             // Grab the window, put a value into the form field, and commit the form to complete
             // the operation.
             Form form = getForm(getPrompt(context));
-            
+
             // we try to add the group to itself. There is no selection
             Field field = form.getField("Group");
             field.setValue(group1.getId());
             Assert.assertEquals(group1.getId(), field.getValue());         // Make sure that the value was set
             form.commit();
-            
+
             // v0 and v1 should be children of g0
             Assert.assertEquals(group1, vertex1.getParent()); //v0
             Assert.assertEquals(group1, vertex2.getParent()); //v1
-            
+
             // g0 should not be a children of g0
             Assert.assertNull(group1.getParent());
-            
+
             EasyMock.verify(graphContainer, selectionManager);
 	    }
-	
+
 	}
-	
-	
-	
+
+
+
 	@Test
 	public void testCreateGroupOperation() {
 		m_topologyProvider.resetContainer();
@@ -766,16 +766,16 @@ public class GroupOperationsTest {
 		}
 		EasyMock.verify(graphContainer);
 	}
-	
+
 	/**
 	 * This test creates two groups:
 	 * <ol>
 	 * 	<li>an empty group 'group1'</li>
 	 * <li>a group 'group2' with two nodes ('node1' and 'node2')
 	 * </ol>
-	 * We add group2 to group1 and the nodes of group2 should not be added to group1. 
+	 * We add group2 to group1 and the nodes of group2 should not be added to group1.
 	 * They should still be assigned to group2
-	 * 
+	 *
 	 */
 	@Test
 	public void testAddGroupWithNodesToAnotherGroup() {
@@ -786,7 +786,7 @@ public class GroupOperationsTest {
 		 Vertex group2 = m_topologyProvider.addGroup("group1",  "group");
 		 m_topologyProvider.setParent(node1, group2);
 		 m_topologyProvider.setParent(node2, group2);
-	        
+
 		 // we try to add group2 to group1
 		 {
 			 GraphContainer graphContainer = EasyMock.createNiceMock(GraphContainer.class);
@@ -799,27 +799,27 @@ public class GroupOperationsTest {
 	         EasyMock.expectLastCall().anyTimes();
 	         EasyMock.replay(graphContainer);
 	         EasyMock.replay(selectionManager);
-	            
+
 	         AddVertexToGroupOperation operation = new AddVertexToGroupOperation();
 	         OperationContext context = getOperationContext(graphContainer);
 	         operation.execute(Arrays.asList((VertexRef)group2), context);
-	    
+
 	         // Grab the window, put a value into the form field, and commit the form to complete
 	         // the operation.
 	         Form form = getForm(getPrompt(context));
-	            
+
 	         // we try to add the group to itself. There is no selection
 	         Field field = form.getField("Group");
 	         field.setValue(group1.getId());
 	         Assert.assertEquals(group1.getId(), field.getValue());         // Make sure that the value was set
 	         form.commit();
-	            
+
 	         // verify
 	         Assert.assertEquals(group1, group2.getParent()); // group2 should be child of group1
 	         Assert.assertEquals(group2, node1.getParent()); // node1 is still child of group2
 	         Assert.assertEquals(group2, node2.getParent()); // node 2 is still child of group2
 	         Assert.assertNull(group1.getParent()); 	         // group 1 has no parent
-	            
+
 	         EasyMock.verify(graphContainer, selectionManager);
 		 }
 	}

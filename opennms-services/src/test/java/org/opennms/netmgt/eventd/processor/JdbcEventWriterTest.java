@@ -49,11 +49,11 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         JdbcEventdServiceManager eventdServiceManager = new JdbcEventdServiceManager();
         eventdServiceManager.setDataSource(getDataSource());
         eventdServiceManager.afterPropertiesSet();
-        
+
         m_jdbcEventWriter = new JdbcEventWriter();
         m_jdbcEventWriter.setEventdServiceManager(eventdServiceManager);
         m_jdbcEventWriter.setDataSource(getDataSource());
@@ -66,7 +66,7 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
      */
     public void testNextEventId() {
         int nextId = getJdbcTemplate().queryForInt(m_jdbcEventWriter.getGetNextIdString());
-        
+
         // an empty db should produce '1' here
         assertEquals(1, nextId);
     }
@@ -114,7 +114,7 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
         final String descr = jdbcTemplate.queryForObject("SELECT eventDescr FROM events LIMIT 1", String.class);
         assertEquals("abc%0def", descr);
     }
-    
+
     /**
      * Tests writing nulls to postgres db and the db encoding.
      * @throws SQLException
@@ -129,30 +129,30 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
         final String logMessage = jdbcTemplate.queryForObject("SELECT eventLogmsg FROM events LIMIT 1", String.class);
         assertEquals("abc%0def", logMessage);
     }
-    
+
     public void testGetEventHostWithNullHost() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr, ipHostname) VALUES (?, ?, ?)", nodeId, "192.168.1.1", "First Interface");
-        
+
         // don't convert to using event builder as this is testing eventd persist functionality and needs to try 'invalid' events
         Event event = new Event();
-        
+
         assertEquals("getHostName should return the hostname for the IP address that was passed", null, m_jdbcEventWriter.getEventHost(event));
     }
-    
+
     public void testGetEventHostWithHostNoNodeId() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr, ipHostname) VALUES (?, ?, ?)", nodeId, "192.168.1.1", "First Interface");
-        
+
         // don't convert to using event builder as this is testing eventd persist functionality and needs to try 'invalid' events
         Event event = new Event();
         event.setHost("192.168.1.1");
-        
+
         assertEquals("getHostName should return the hostname for the IP address that was passed", event.getHost(), m_jdbcEventWriter.getEventHost(event));
     }
-    
+
     public void testGetEventHostWithOneMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         long nodeId = jdbcTemplate.queryForLong("SELECT nodeId FROM node LIMIT 1");
@@ -165,35 +165,35 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
 
         assertEquals("getHostName should return the hostname for the IP address that was passed", "First Interface", m_jdbcEventWriter.getEventHost(event));
     }
-    
+
     public void testGetHostNameWithOneMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr, ipHostname) VALUES (?, ?, ?)", nodeId, "192.168.1.1", "First Interface");
-        
+
         assertEquals("getHostName should return the hostname for the IP address that was passed", "First Interface", m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
-    
+
     public void testGetHostNameWithOneMatchNullHostname() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime) VALUES (nextVal('nodeNxtId'), now())");
         int nodeId = jdbcTemplate.queryForInt("SELECT nodeId FROM node LIMIT 1");
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr) VALUES (?, ?)", nodeId, "192.168.1.1");
-    
+
         assertEquals("getHostName should return the IP address it was passed", "192.168.1.1", m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
-    
+
     public void testGetHostNameWithTwoMatch() throws Exception {
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeLabel) VALUES (nextVal('nodeNxtId'), now(), ?)", "First Node");
         int nodeId1 = jdbcTemplate.queryForInt("SELECT nodeId FROM node WHERE nodeLabel = ?", "First Node");
         jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeLabel) VALUES (nextVal('nodeNxtId'), now(), ?)", "Second Node");
         int nodeId2 = jdbcTemplate.queryForInt("SELECT nodeId FROM node WHERE nodeLabel = ?", "Second Node");
-        
+
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr, ipHostname) VALUES (?, ?, ?)", nodeId1, "192.168.1.1", "First Interface");
         jdbcTemplate.update("INSERT into ipInterface (nodeId, ipAddr, ipHostname) VALUES (?, ?, ?)", nodeId2, "192.168.1.1", "Second Interface");
-        
+
         assertEquals("getHostName should return the IP address it was passed", "First Interface", m_jdbcEventWriter.getHostName(nodeId1, "192.168.1.1"));
     }
-    
+
     public void testGetHostNameWithNoHostMatch() throws Exception {
             assertEquals("getHostName should return the IP address it was passed", "192.168.1.1", m_jdbcEventWriter.getHostName(1, "192.168.1.1"));
     }
@@ -203,14 +203,14 @@ public class JdbcEventWriterTest extends PopulatedTemporaryDatabaseTestCase {
         String serviceName = "some bogus service";
 
         jdbcTemplate.update("insert into service (serviceId, serviceName) values (?, ?)", new Object[] { serviceId, serviceName });
-        
+
         EventBuilder builder = new EventBuilder("uei.opennms.org/foo", "someSource");
         builder.setLogMessage("logndisplay");
         builder.setService(serviceName);
-        
+
 
         m_jdbcEventWriter.process(null, builder.getEvent());
-        
+
         assertEquals("event count", 1, getJdbcTemplate().queryForInt("select count(*) from events"));
         assertEquals("event service ID", serviceId, getJdbcTemplate().queryForInt("select serviceID from events"));
     }

@@ -37,10 +37,10 @@ import java.util.Date;
  * @version $Id: $
  */
 public class TimeInterval implements Comparable<TimeInterval> {
-    
+
     private Date m_start;
     private Date m_end;
-    
+
 
     /**
      * <p>Constructor for TimeInterval.</p>
@@ -53,12 +53,12 @@ public class TimeInterval implements Comparable<TimeInterval> {
         if (end == null) throw new NullPointerException("end is null");
         if (start.compareTo(end) >= 0)
             throw new IllegalArgumentException("start ("+start+") must come strictly before end ("+end+")");
-        
+
         m_start = start;
         m_end = end;
-            
+
     }
-    
+
     /**
      * <p>getStart</p>
      *
@@ -67,7 +67,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
     public Date getStart() {
         return m_start;
     }
-    
+
     /**
      * <p>getEnd</p>
      *
@@ -76,7 +76,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
     public Date getEnd() {
         return m_end;
     }
-    
+
     /**
      * Returns -1, 0, 1 based on how date compares to this interval
      *
@@ -93,7 +93,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
             return -1;
         else return 0;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -103,7 +103,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
     public String toString() {
         return "["+m_start+" - "+m_end+']';
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object o) {
@@ -151,7 +151,7 @@ public class TimeInterval implements Comparable<TimeInterval> {
     public boolean overlaps(TimeInterval interval) {
         return compareTo(interval) == 0;
     }
-    
-    
+
+
 
 }

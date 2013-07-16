@@ -36,7 +36,7 @@ import org.junit.Test;
 
 /**
  * The Test class for XML Collector for Juniper RPC Replay Statistics
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorRpcReplyTest extends AbstractXmlCollectorTest {
@@ -48,7 +48,7 @@ public class XmlCollectorRpcReplyTest extends AbstractXmlCollectorTest {
     public String getXmlConfigFileName() {
         return "src/test/resources/rpc-reply-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */

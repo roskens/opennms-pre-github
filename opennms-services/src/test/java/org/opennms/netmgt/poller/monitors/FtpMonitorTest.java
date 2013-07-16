@@ -52,7 +52,7 @@ public class FtpMonitorTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         m_serverSocket = new ServerSocket();
         m_serverSocket.bind(null); // don't care what address, just gimme a port
     }
@@ -62,11 +62,11 @@ public class FtpMonitorTest extends TestCase {
         if (m_serverSocket != null && !m_serverSocket.isClosed()) {
             m_serverSocket.close();
         }
-        
+
         if (m_serverThread != null) {
             m_serverThread.join(1500);
         }
-        
+
         super.tearDown();
     }
 
@@ -100,13 +100,13 @@ public class FtpMonitorTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         PollStatus status = doPoll();
         assertTrue("status should be available (Up), but is: " + status, status.isAvailable());
     }
-    
+
     public void testMonitorFailureWithBogusResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -120,13 +120,13 @@ public class FtpMonitorTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         PollStatus status = doPoll();
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
-    
+
     public void testMonitorFailureWithNoResponse() throws Exception {
         Thread m_serverThread = new Thread(new Runnable() {
             @Override
@@ -140,16 +140,16 @@ public class FtpMonitorTest extends TestCase {
                 }
             }
         });
-        
+
         m_serverThread.start();
-        
+
         PollStatus status = doPoll();
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }
-    
+
     public void testMonitorFailureWithClosedPort() throws Exception {
         m_serverSocket.close();
-        
+
         PollStatus status = doPoll();
         assertTrue("status should be unavailable (Down), but is: " + status, status.isUnavailable());
     }

@@ -46,7 +46,7 @@ import org.springframework.web.servlet.mvc.AbstractCommandController;
  * @since 1.8.1
  */
 public class DistributedStatusDetailsController extends AbstractCommandController {
-    
+
     private DistributedStatusService m_distributedStatusService;
     private String m_successView;
 

@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 public class WrappedVertex implements VertexRef {
-	
+
 	public String iconKey;
 	@XmlID
 	public String id;
@@ -64,7 +64,7 @@ public class WrappedVertex implements VertexRef {
 	public boolean selected;
 	@XmlIDREF
 	public WrappedVertex parent;
-	
+
 	public static WrappedVertex create(Vertex vertex) {
 		return (vertex.isGroup() ? new WrappedGroup(vertex) : new WrappedLeafVertex(vertex));
 	}
@@ -154,11 +154,11 @@ public class WrappedVertex implements VertexRef {
 	public boolean equals(Object obj) {
 		if (this == obj) return true;
 		if (obj == null) return false;
-		
+
 		if (!(obj instanceof VertexRef)) return false;
 
 		VertexRef ref = (VertexRef)obj;
-		
+
 		return getNamespace().equals(ref.getNamespace()) && getId().equals(ref.getId());
 
 	}
@@ -183,5 +183,5 @@ public class WrappedVertex implements VertexRef {
 	}
 
 	@Override
-	public String toString() { return "WrappedVertex:"+namespace+":"+id+ "[label="+label+", styleName="+styleName+"]"; } 
+	public String toString() { return "WrappedVertex:"+namespace+":"+id+ "[label="+label+", styleName="+styleName+"]"; }
 }

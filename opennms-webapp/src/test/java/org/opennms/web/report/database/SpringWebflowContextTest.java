@@ -47,7 +47,7 @@ import com.sun.jersey.spi.container.servlet.ServletContainer;
 import com.sun.jersey.spi.spring.container.servlet.SpringServlet;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  *
  */
@@ -71,7 +71,7 @@ public class SpringWebflowContextTest extends TestCase {
 
         servletContext = new MockServletContext("file:src/main/webapp");
 
-        servletContext.addInitParameter("contextConfigLocation", 
+        servletContext.addInitParameter("contextConfigLocation",
                                         "classpath:/org/opennms/web/rest/applicationContext-test.xml " +
                                         "classpath:/META-INF/opennms/applicationContext-commonConfigs.xml " +
                                         "classpath*:/META-INF/opennms/component-service.xml " +
@@ -90,14 +90,14 @@ public class SpringWebflowContextTest extends TestCase {
         contextListener.contextInitialized(e);
 
         servletContext.setContextPath(contextPath);
-        servletConfig = new MockServletConfig(servletContext, "dispatcher");    
+        servletConfig = new MockServletConfig(servletContext, "dispatcher");
         servletConfig.addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
         servletConfig.addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
 
         try {
 
             MockFilterConfig filterConfig = new MockFilterConfig(servletContext, "openSessionInViewFilter");
-            filter = new OpenSessionInViewFilter();        
+            filter = new OpenSessionInViewFilter();
             filter.init(filterConfig);
 
             dispatcher = new SpringServlet();

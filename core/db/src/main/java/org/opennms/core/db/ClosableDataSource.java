@@ -36,7 +36,7 @@ import javax.sql.DataSource;
  * <p>ClosableDataSource interface.</p>
  */
 public interface ClosableDataSource extends DataSource {
-    
+
     /**
      * Close the datasource, if necessary.
      *
@@ -61,13 +61,13 @@ public interface ClosableDataSource extends DataSource {
      * @param minPool
      */
     void setMinPool(final int minPool);
-    
+
     /**
      * The maximum number of pooled connections to retain.
      * @param maxPool
      */
     void setMaxPool(final int maxPool);
-    
+
     /**
      * The maximum number of connections that can be created.
      * @param maxSize

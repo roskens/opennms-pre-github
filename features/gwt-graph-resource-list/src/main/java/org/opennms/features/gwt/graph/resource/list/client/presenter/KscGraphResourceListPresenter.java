@@ -43,30 +43,30 @@ import com.google.gwt.user.client.ui.HasWidgets;
 import com.google.gwt.user.client.ui.Widget;
 
 public class KscGraphResourceListPresenter extends DefaultResourceListPresenter implements Presenter, KscChooseResourceListView.Presenter<ResourceListItem> {
-    
+
     public interface ViewChoiceDisplay{
         HasClickHandlers getViewButton();
         HasClickHandlers getChooseButton();
         Widget asWidget();
     }
-    
+
     SearchPopupDisplay m_searchPopup;
     List<ResourceListItem> m_dataList;
     private ViewChoiceDisplay m_viewChoiceDisplay;
-    
+
     public KscGraphResourceListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopupDisplay searchPopupView, JsArray<ResourceListItem> resourceList, ViewChoiceDisplay viewChoiceDisplay, String baseUrl) {
         super(view, searchPopupView, resourceList, baseUrl);
-        
+
         initializeViewChoiceDisplay(viewChoiceDisplay);
     }
-    
-   
+
+
 
 
     private void initializeViewChoiceDisplay(ViewChoiceDisplay viewChoiceDisplay) {
         m_viewChoiceDisplay = viewChoiceDisplay;
         viewChoiceDisplay.getChooseButton().addClickHandler(new ClickHandler() {
-            
+
             @Override
             public void onClick(ClickEvent event) {
                 ResourceListItem resource = getView().getSelectedResource();
@@ -74,17 +74,17 @@ public class KscGraphResourceListPresenter extends DefaultResourceListPresenter 
                     StringBuilder urlBuilder = new StringBuilder();
                     urlBuilder.append( getBaseUrl() + "/KSC/customGraphEditDetails.htm");
                     urlBuilder.append("?resourceId=" + resource.getId());
-                    
+
                     Location.assign(urlBuilder.toString());
                 }else {
                     getView().showWarning();
                 }
-                
+
             }
         });
-        
+
         viewChoiceDisplay.getViewButton().addClickHandler(new ClickHandler() {
-            
+
             @Override
             public void onClick(ClickEvent event) {
                 ResourceListItem resource = getView().getSelectedResource();
@@ -93,25 +93,25 @@ public class KscGraphResourceListPresenter extends DefaultResourceListPresenter 
                     urlBuilder.append(getBaseUrl() + "KSC/customGraphChooseResource.htm");
                     urlBuilder.append("?selectedResourceId=");
                     urlBuilder.append("&resourceId=" +  resource.getId());
-                    
+
                     Location.assign(urlBuilder.toString());
                 }else{
                     getView().showWarning();
                 }
-                
+
             }
         });
     }
-    
+
     @Override
     public void go(HasWidgets container) {
         super.go(container);
         container.add(m_viewChoiceDisplay.asWidget());
     }
-    
+
     @Override
     public void onResourceItemSelected() {
-        
+
     }
 
 }

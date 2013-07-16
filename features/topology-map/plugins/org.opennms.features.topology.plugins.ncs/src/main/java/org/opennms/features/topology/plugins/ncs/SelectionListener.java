@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.opennms.features.topology.plugins.ncs;
 

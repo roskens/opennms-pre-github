@@ -45,9 +45,9 @@ import org.opennms.netmgt.config.charts.ChartConfiguration;
  * @version $Id: $
  */
 public abstract class ChartConfigManager {
-    
+
     static ChartConfiguration m_configuration = null;
-    
+
     /**
      * <p>parseXml</p>
      *
@@ -59,7 +59,7 @@ public abstract class ChartConfigManager {
     public synchronized static void parseXml(InputStream stream) throws MarshalException, ValidationException, IOException {
         m_configuration = CastorUtils.unmarshal(ChartConfiguration.class, stream);
     }
-    
+
     /**
      * <p>saveXml</p>
      *
@@ -98,7 +98,7 @@ public abstract class ChartConfigManager {
     public ChartConfiguration getConfiguration() throws IOException, MarshalException, ValidationException {
         return m_configuration;
     }
-    
+
     /**
      * <p>setConfiguration</p>
      *

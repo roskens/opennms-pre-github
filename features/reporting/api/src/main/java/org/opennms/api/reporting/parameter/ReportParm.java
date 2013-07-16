@@ -39,7 +39,7 @@ import java.io.Serializable;
 public class ReportParm implements Serializable {
 
     private static final long serialVersionUID = -7987984390575422836L;
-    
+
     String m_name;
     String m_displayName;
 

@@ -37,7 +37,7 @@ package org.opennms.web.controller.statisticsReports;
  */
 public class StatisticsReportIdNotFoundException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 481510407468988562L;
 

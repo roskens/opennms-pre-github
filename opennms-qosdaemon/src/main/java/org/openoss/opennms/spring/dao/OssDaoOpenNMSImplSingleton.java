@@ -123,7 +123,7 @@ public class OssDaoOpenNMSImplSingleton {
 	public void setNodeDao(NodeDao nodeDao) {
 		OssDaoOpenNMSImplSingleton.nodeDao = nodeDao;
 	}
-	
+
 	/**
 	 * <p>Setter for the field <code>transTemplate</code>.</p>
 	 *

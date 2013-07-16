@@ -54,7 +54,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  */
 public class NavBarController extends AbstractController implements InitializingBean, OnmsHeaderProvider {
     private List<NavBarEntry> m_navBarItems;
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */
@@ -71,7 +71,7 @@ public class NavBarController extends AbstractController implements Initializing
 
     private NavBarModel createNavBarModel(HttpServletRequest request) {
         Map<NavBarEntry, DisplayStatus> navBar = new LinkedHashMap<NavBarEntry, DisplayStatus>();
-        
+
         for (NavBarEntry entry : getNavBarItems()) {
             navBar.put(entry, entry.evaluate(request));
         }
@@ -101,15 +101,15 @@ public class NavBarController extends AbstractController implements Initializing
     public String getHeaderHtml(HttpServletRequest request) {
         return createHeaderHtml(request);
     }
-    
+
     private String createHeaderHtml(HttpServletRequest request) {
         return "<div id='header'>" +
               "<h1 id='headerlogo'><a href='index.jsp'><img src=\"../images/logo.png\" alt='OpenNMS Web Console Home'></a></h1>" +
           "<div id='headerinfo'>" +
           "<h2>Topology Map</h2>" +
-          "<p align=\"right\" >" + 
+          "<p align=\"right\" >" +
           "User: <a href=\"/opennms/account/selfService/index.jsp\" title=\"Account self-service\"><strong>" + request.getRemoteUser() + "</strong></a>" +
-          "&nbsp;(Notices " + getNoticeStatus() + " )" + 
+          "&nbsp;(Notices " + getNoticeStatus() + " )" +
           " - <a href=\"opennms/j_spring_security_logout\">Log out</a><br></p>"+
           "</div>" +
           "<div id='headernavbarright'>" +

@@ -46,7 +46,7 @@ import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer> {
-    
+
     /**
      * <p>findByLocationDefinition</p>
      *
@@ -54,7 +54,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsLocationMonitor> findByLocationDefinition(final OnmsMonitoringLocationDefinition locationDefinition);
-    
+
     /**
      * <p>findByApplication</p>
      *
@@ -69,7 +69,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link java.util.List} object.
      */
     List<OnmsMonitoringLocationDefinition> findAllMonitoringLocationDefinitions();
-    
+
     /**
      * <p>findMonitoringLocationDefinition</p>
      *
@@ -77,14 +77,14 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition} object.
      */
     OnmsMonitoringLocationDefinition findMonitoringLocationDefinition(final String monitoringLocationDefinitionName);
-    
+
     /**
      * <p>saveMonitoringLocationDefinition</p>
      *
      * @param def a {@link org.opennms.netmgt.model.OnmsMonitoringLocationDefinition} object.
      */
     void saveMonitoringLocationDefinition(final OnmsMonitoringLocationDefinition def);
-    
+
     /**
      * <p>saveMonitoringLocationDefinitions</p>
      *
@@ -98,7 +98,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @param status a {@link org.opennms.netmgt.model.OnmsLocationSpecificStatus} object.
      */
     void saveStatusChange(final OnmsLocationSpecificStatus status);
-    
+
     /**
      * <p>getMostRecentStatusChange</p>
      *
@@ -114,7 +114,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsLocationSpecificStatus> getAllMostRecentStatusChanges();
-    
+
     /**
      * <p>getAllStatusChangesAt</p>
      *
@@ -122,7 +122,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsLocationSpecificStatus> getAllStatusChangesAt(final Date timestamp);
-    
+
     /**
      * Returns all status changes since the date, <b>and</b> one previous
      * status change (so that status at the beginning of the period can be
@@ -143,7 +143,7 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsLocationSpecificStatus> getStatusChangesForLocationBetween(final Date startDate, final Date endDate, final String locationDefinitionName);
-    
+
     /**
      * <p>getStatusChangesForApplicationBetween</p>
      *
@@ -154,10 +154,10 @@ public interface LocationMonitorDao extends OnmsDao<OnmsLocationMonitor, Integer
      * @since 1.8.1
      */
     Collection<OnmsLocationSpecificStatus> getStatusChangesForApplicationBetween(final Date startDate, final Date endDate, final String applicationName);
-    
+
     /**
      * <p>getStatusChangesBetweenForApplications</p>
-     * 
+     *
      * @param startDate a {@link java.util.Date} object.
      * @param endDate a {@link java.util.Date} object.
      * @param application a {@link java.util.Collection} object.

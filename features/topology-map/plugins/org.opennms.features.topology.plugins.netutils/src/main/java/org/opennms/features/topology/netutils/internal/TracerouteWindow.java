@@ -76,16 +76,16 @@ public class TracerouteWindow extends Window {
 	private String tracerouteUrl;
 
 	/**
-	 * The TracerouteWindow method constructs a TracerouteWindow component with a size proportionate to the 
+	 * The TracerouteWindow method constructs a TracerouteWindow component with a size proportionate to the
 	 * width and height of the main window.
-	 * @param node 
+	 * @param node
 	 * @param width Width of Main window
 	 * @param height Height of Main window
 	 */
 	public TracerouteWindow(final Node node, final String url) {
 
 		this.tracerouteUrl = url;
-		
+
 		String label = "";
 		String ipAddress = "";
 		if (node != null) {
@@ -96,7 +96,7 @@ public class TracerouteWindow extends Window {
 		/*Sets up window settings*/
 		if (label == null || label.equals("") || label.equalsIgnoreCase(noLabel)) {
 			label = "";
-		} 
+		}
 		if (!label.equals("")) caption = " - " + label;
 		setCaption("Traceroute" + caption);
 		setImmediate(true);
@@ -145,13 +145,13 @@ public class TracerouteWindow extends Window {
 		grid.setComponentAlignment(forcedHopField, Alignment.MIDDLE_LEFT);
 
 		/*Creates the Ping button and sets up the listener*/
-		tracerouteButton = new Button("Traceroute"); 
+		tracerouteButton = new Button("Traceroute");
 		tracerouteButton.addClickListener(new Button.ClickListener() {
                         @Override
 			public void buttonClick(ClickEvent event) {
 				changeBrowserURL(buildURL());
 			}
-		}); 
+		});
 
 		/*Adds components to the form and sets the width and spacing*/
 		form.addComponent(grid);
@@ -279,11 +279,11 @@ public class TracerouteWindow extends Window {
 			if (n < 0 || n > 255) return false; //Integers in an IP address must be within 0-255
 			else count++;
 		}
-		return (count == 4); //IP address must has 4 integer values separated by a '.' 
+		return (count == 4); //IP address must has 4 integer values separated by a '.'
 	}
 
 	/**
-	 * The buildEmbeddedBrowser method creates a new browser instance and adds it to the 
+	 * The buildEmbeddedBrowser method creates a new browser instance and adds it to the
 	 * bottom layout. The browser is set to invisible by default.
 	 */
 	private void buildEmbeddedBrowser() {

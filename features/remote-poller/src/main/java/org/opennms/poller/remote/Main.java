@@ -57,9 +57,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class Main {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
-    
+
     String[] m_args;
     ClassPathXmlApplicationContext m_context;
     PollerFrontEnd m_frontEnd;
@@ -83,7 +83,7 @@ public class Main {
         	}
         }
         initializeLogging();
-        
+
         final String pingerClass = System.getProperty("org.opennms.netmgt.icmp.pingerClass");
         if (pingerClass == null) {
         	LOG.info("org.opennms.netmgt.icmp.pingerClass not set; using JnaPinger by default");
@@ -102,7 +102,7 @@ public class Main {
     		// RMI doesn't have authentication
     		return;
     	}
-    	
+
     	if (m_username == null) {
     		GroovyGui gui = createGui();
             gui.createAndShowGui();
@@ -110,7 +110,7 @@ public class Main {
             m_username = auth.getUsername();
             m_password = auth.getPassword();
     	}
-    	
+
     	if (m_username != null) {
     		SecurityContextHolder.setStrategyName(SecurityContextHolder.MODE_GLOBAL);
     		SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(m_username, m_password));
@@ -124,9 +124,9 @@ public class Main {
 			throw new RuntimeException("Unable to find Configuration GUI!", e);
 		}
 	}
-    
+
     private void run() {
-        
+
         try {
             parseArguments();
             getAuthenticationInfo();
@@ -148,14 +148,14 @@ public class Main {
             LOG.error("Exception occurred during registration!", e);
             System.exit(27);
         }
-        
+
     }
 
     private void parseArguments() throws ParseException {
         Options options = new Options();
-        
+
         options.addOption("h", "help", false, "this help");
-        
+
         options.addOption("d", "debug", false, "write debug messages to the log");
         options.addOption("g", "gui", false, "start a GUI (default: false)");
         options.addOption("l", "location", true, "the location name of this remote poller");
@@ -173,7 +173,7 @@ public class Main {
 
         if (m_cl.hasOption("d")) {
         }
-        
+
         if (m_cl.hasOption("l")) {
             m_locationName = m_cl.getOptionValue("l");
         }
@@ -190,11 +190,11 @@ public class Main {
             usage(options);
             System.exit(3);
         }
-        
+
         if (m_cl.hasOption("g")) {
             m_gui = true;
         }
-        
+
         if (m_cl.hasOption("n")) {
         	m_username = m_cl.getOptionValue("n");
         	m_password = m_cl.getOptionValue("p");
@@ -208,7 +208,7 @@ public class Main {
         HelpFormatter formatter = new HelpFormatter();
         formatter.printHelp(getClass().getName() + " -u [URL] [options]", o);
     }
-    
+
     private void registerShutDownHook() {
         Thread shutdownHook = new Thread() {
             @Override
@@ -248,7 +248,7 @@ public class Main {
         m_frontEnd = (PollerFrontEnd) m_context.getBean("pollerFrontEnd");
 
         m_frontEnd.addPropertyChangeListener(new PropertyChangeListener() {
-            
+
             private boolean shouldExit(PropertyChangeEvent e) {
 				LOG.info("shouldExit: received property change event: {};oldvalue:{};newvalue:{}", e.getPropertyName(), e.getOldValue(), e.getNewValue());
                 String propName = e.getPropertyName();
@@ -259,16 +259,16 @@ public class Main {
                 	LOG.info("shouldExit: Exiting because exitNecessary is TRUE");
                     return true;
                 }
-                
+
                 // if started becomes false the we should exit
                 if ("started".equals(propName) && Boolean.FALSE.equals(newValue)) {
                 	LOG.info("shouldExit: Exiting because started is now false");
                     return true;
                 }
-                
+
             	LOG.info("shouldExit: not exiting");
                 return false;
-                
+
             }
 
             @Override
@@ -277,10 +277,10 @@ public class Main {
                     System.exit(10);
                 }
             }
-            
+
         });
     }
-		
+
     /**
      * <p>main</p>
      *
@@ -302,7 +302,7 @@ public class Main {
             }
         }
         new Main(args).run();
-        
+
     }
 
 

@@ -65,8 +65,8 @@ import de.steinwedel.vaadin.MessageBox.EventListener;
 
 /**
  * The Class Event Administration Application.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 @Title("Events Administration")

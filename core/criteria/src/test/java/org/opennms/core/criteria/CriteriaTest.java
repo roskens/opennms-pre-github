@@ -57,7 +57,7 @@ public class CriteriaTest {
 		assertNotNull(cb);
 		assertNotNull(cb.toCriteria());
 	}
-	
+
 	@Test
 	public void testOrder() {
 		final List<Order> orders = new ArrayList<Order>();
@@ -99,7 +99,7 @@ public class CriteriaTest {
 		// should be ignored still
 		cb.orderBy("id").asc();
 		assertArrayEquals(orders.toArray(), cb.toCriteria().getOrders().toArray());
-		
+
 		cb.clearOrder().orderBy("id").asc();
 		orders.clear();
 		orders.add(Order.asc("id"));
@@ -116,11 +116,11 @@ public class CriteriaTest {
 		i.next();
 		assertEquals(FetchType.LAZY, i.next().getFetchType());
 	}
-	
+
 	@Test
 	public void testAlias() {
 		CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
-		
+
 		cb.alias("node", "node").join("node.snmpInterfaces", "snmpInterface").join("node.ipInterfaces", "ipInterface");
 		assertEquals(JoinType.LEFT_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
 		assertEquals(3, cb.toCriteria().getAliases().size());
@@ -130,21 +130,21 @@ public class CriteriaTest {
 		assertEquals("ook", cb.toCriteria().getAliases().iterator().next().getAlias());
 		assertEquals(JoinType.FULL_JOIN, cb.toCriteria().getAliases().iterator().next().getType());
 	}
-	
+
 	@Test
 	public void testDistinct() {
 		final CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
-		
+
 		cb.alias("node", "node");
 		assertFalse(cb.toCriteria().isDistinct());
-		
+
 		cb.distinct();
 		assertTrue(cb.toCriteria().isDistinct());
-		
+
 		cb.distinct(false);
 		assertFalse(cb.toCriteria().isDistinct());
 	}
-	
+
 	@Test
 	public void testLimits() {
 		CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
@@ -156,7 +156,7 @@ public class CriteriaTest {
 	@Test
 	public void testRestrictions() {
 		CriteriaBuilder cb = new CriteriaBuilder(OnmsAlarm.class);
-		
+
 		final List<Restriction> expected = new ArrayList<Restriction>();
 		expected.add(Restrictions.isNull("tticketId"));
 		expected.add(Restrictions.isNotNull("severity"));
@@ -170,12 +170,12 @@ public class CriteriaTest {
 		expected.add(Restrictions.eq("id", 1));
 		expected.add(Restrictions.and(Restrictions.gt("firstEventTime", d), Restrictions.lt("severity", OnmsSeverity.CRITICAL)));
 		assertEquals(expected, cb.toCriteria().getRestrictions());
-		
+
 		cb.like("description", "*foo*").ilike("uei", "*bar*");
 		expected.add(Restrictions.like("description", "*foo*"));
 		expected.add(Restrictions.ilike("uei", "*bar*"));
 		assertEquals(expected, cb.toCriteria().getRestrictions());
-		
+
 		final List<String> inValues = new ArrayList<String>();
 		inValues.add("a");
 		inValues.add("b");
@@ -187,7 +187,7 @@ public class CriteriaTest {
 		cb.not().in("nodeLabel", notInValues);
 		expected.add(Restrictions.not(Restrictions.in("nodeLabel", notInValues)));
 		assertEquals(expected, cb.toCriteria().getRestrictions());
-		
+
 		cb = new CriteriaBuilder(OnmsAlarm.class);
 		expected.clear();
 		cb.between("id", 1, 10);
@@ -195,7 +195,7 @@ public class CriteriaTest {
 		cb.ne("id", 8);
 		expected.add(Restrictions.not(Restrictions.eq("id", 8)));
 		assertEquals(expected, cb.toCriteria().getRestrictions());
-		
+
 		cb = new CriteriaBuilder(OnmsAlarm.class);
                 cb.id(1).and(Restrictions.gt("firstEventTime", d), Restrictions.lt("severity", OnmsSeverity.CRITICAL));
                 expected.clear();

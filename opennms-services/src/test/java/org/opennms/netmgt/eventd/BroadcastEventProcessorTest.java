@@ -39,58 +39,58 @@ import org.opennms.test.mock.EasyMockUtils;
 
 /**
  * Test case for BroadcastEventProcessor.
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class BroadcastEventProcessorTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
     private EventConfDao m_eventConfDao = m_mocks.createMock(EventConfDao.class);
-    
+
     public void testInstantiateWithNullEventIpcManager() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument eventIpcManager must not be null"));
-        
+
         try {
             new BroadcastEventProcessor(null, m_eventConfDao);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     public void testInstantiateWithNullEventConfDao() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("argument eventConfDao must not be null"));
-        
+
         try {
             new BroadcastEventProcessor(new MockEventIpcManager(), null);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     public void testInstantiateAndClose() {
         MockEventIpcManager eventIpcManager = new MockEventIpcManager();
         BroadcastEventProcessor processor = new BroadcastEventProcessor(eventIpcManager, m_eventConfDao);
         processor.close();
     }
-    
+
     public void testReload() {
         MockEventIpcManager eventIpcManager = new MockEventIpcManager();
         BroadcastEventProcessor processor = new BroadcastEventProcessor(eventIpcManager, m_eventConfDao);
-        
+
         EventBuilder eventBuilder = new EventBuilder(EventConstants.EVENTSCONFIG_CHANGED_EVENT_UEI, "dunno");
-        
+
         // Expect a call to reload the EventConfDao
         m_eventConfDao.reload();
-        
+
         m_mocks.replayAll();
-        
+
         processor.onEvent(eventBuilder.getEvent());
-        
+
         m_mocks.verifyAll();
     }
 }

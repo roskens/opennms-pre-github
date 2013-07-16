@@ -79,7 +79,7 @@ public class ReportParameters implements Serializable {
     public void setDateParms(List<ReportDateParm> dateParms) {
         m_dateParms = dateParms;
     }
-    
+
     /**
      * <p>getStringParms</p>
      *
@@ -97,7 +97,7 @@ public class ReportParameters implements Serializable {
     public void setStringParms(List<ReportStringParm> strings) {
         m_stringParms = strings;
     }
-    
+
     /**
      * <p>getIntParms</p>
      *
@@ -115,7 +115,7 @@ public class ReportParameters implements Serializable {
     public void setIntParms(List<ReportIntParm> ints) {
         m_intParms = ints;
     }
-    
+
     /**
      * <p>getFloatParms</p>
      *
@@ -187,7 +187,7 @@ public class ReportParameters implements Serializable {
     public String getDisplayName() {
         return m_displayName;
     }
-    
+
     /**
      * <p>setFormat</p>
      *
@@ -210,13 +210,13 @@ public class ReportParameters implements Serializable {
      * <p>getReportParms</p>
      *
      * * @param format a {@link org.opennms.api.reporting.ReportMode} object.
-     * 
+     *
      * @return a {@link java.util.HashMap} object.
      */
     public HashMap<String, Object> getReportParms(ReportMode mode) {
-        
+
         HashMap <String,Object>parmMap = new HashMap<String, Object>();
-        
+
         // Add all the strings from the report
         if (m_stringParms != null ) {
             Iterator<ReportStringParm>stringIter = m_stringParms.iterator();
@@ -233,7 +233,7 @@ public class ReportParameters implements Serializable {
                 parmMap.put(parm.getName(), parm.getValue(mode));
             }
         }
-        
+
         // Add all the integers from the report
         if (m_intParms != null) {
             Iterator<ReportIntParm>intIter = m_intParms.iterator();
@@ -242,7 +242,7 @@ public class ReportParameters implements Serializable {
                 parmMap.put(parm.getName(), parm.getValue());
             }
         }
-        
+
         // Add all the floats from the report
         if (m_floatParms != null) {
             Iterator<ReportFloatParm>floatIter = m_floatParms.iterator();
@@ -251,7 +251,7 @@ public class ReportParameters implements Serializable {
                 parmMap.put(parm.getName(), parm.getValue());
             }
         }
-        
+
         // Add all the double parameters from the report
         if (m_doubleParms != null) {
             Iterator<ReportDoubleParm>doubleIter = m_doubleParms.iterator();
@@ -260,21 +260,21 @@ public class ReportParameters implements Serializable {
                 parmMap.put(parm.getName(), parm.getValue());
             }
         }
-        
+
         return parmMap;
     }
-    
+
     /**
      * <p>getReportParms</p>
      *
      * @return a {@link java.util.HashMap} object.
      */
     public HashMap<String, Object> getReportParms() {
-        
+
         return getReportParms(ReportMode.IMMEDIATE);
-        
+
     }
-    
-    
+
+
 
 }

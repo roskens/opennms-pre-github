@@ -51,7 +51,7 @@ public interface RrdGraphService {
      */
     public InputStream getPrefabGraph(String resourceId,
             String report, long start, long end, Integer width, Integer height);
-    
+
     /**
      * <p>getAdhocGraph</p>
      *

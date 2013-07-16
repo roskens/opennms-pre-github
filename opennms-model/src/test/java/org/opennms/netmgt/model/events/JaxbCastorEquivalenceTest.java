@@ -112,7 +112,7 @@ public class JaxbCastorEquivalenceTest {
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setNormalize(true);
-        
+
         assertXmlEquals(formattedCastorXml, jaxbXml);
 
         org.exolab.castor.xml.Unmarshaller castorUnmarshaller = new org.exolab.castor.xml.Unmarshaller(Event.class);
@@ -303,7 +303,7 @@ public class JaxbCastorEquivalenceTest {
 		maskelement.setMevalue(new String[] { "6" });
 		return maskelement;
 	}
-	
+
 	private void assertXmlEquals(final String string, final String string2) throws Exception {
         final DetailedDiff diff = getDiff(string, string2);
         System.err.println("diff = " + diff);

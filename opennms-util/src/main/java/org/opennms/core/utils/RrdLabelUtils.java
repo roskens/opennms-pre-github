@@ -29,7 +29,7 @@
 package org.opennms.core.utils;
 
 public abstract class RrdLabelUtils {
-    
+
     public static String computeNameForRRD(String ifname, String ifdescr) {
         String label = null;
         if (ifname != null && !ifname.equals("")) {
@@ -38,9 +38,9 @@ public abstract class RrdLabelUtils {
             label = AlphaNumeric.parseAndReplace(ifdescr, '_');
         }
         return label;
-        
+
     }
-    
+
     public static String computePhysAddrForRRD(String physaddr) {
         String physAddrForRRD = null;
 
@@ -48,13 +48,13 @@ public abstract class RrdLabelUtils {
             String parsedPhysAddr = AlphaNumeric.parseAndTrim(physaddr);
             if (parsedPhysAddr.length() == 12) {
                 physAddrForRRD = parsedPhysAddr;
-            } 
+            }
         }
-       
+
         return physAddrForRRD;
-        
+
     }
-    
+
     public static String computeLabelForRRD(String ifname, String ifdescr, String physaddr) {
         String name = computeNameForRRD(ifname, ifdescr);
         String physAddrForRRD = computePhysAddrForRRD(physaddr);

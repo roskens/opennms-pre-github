@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
-    
+
     private static final String TYPE = "relativeChange";
 
     /** {@inheritDoc} */
@@ -66,7 +66,7 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
     public boolean supportsType(String type) {
         return TYPE.equals(type);
     }
-    
+
     public static class ThresholdEvaluatorStateRelativeChange extends AbstractThresholdEvaluatorState {
         private BaseThresholdDefConfigWrapper m_thresholdConfig;
         private double m_multiplier;
@@ -154,7 +154,7 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
                 return null;
             }
         }
-        
+
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String,String> params = new HashMap<String,String>();
             params.put("previousValue", formatValue(getPreviousTriggeringSample()));
@@ -167,7 +167,7 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
         public double getPreviousTriggeringSample() {
             return m_previousTriggeringSample;
         }
-        
+
         public void setPreviousTriggeringSample(double previousTriggeringSample) {
             m_previousTriggeringSample = previousTriggeringSample;
         }
@@ -190,7 +190,7 @@ public class ThresholdEvaluatorRelativeChange implements ThresholdEvaluator {
         public boolean isTriggered() {
             return false;
         }
-        
+
         // FIXME This must be implemented correctly
         @Override
         public void clearState() {

@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
 
 
 /*
- * This is the base class that handles the actual capability test.  The subclass is responsible 
+ * This is the base class that handles the actual capability test.  The subclass is responsible
  * for getting the ConnectionWrapper that is used to attempt to contact the remote resource.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -52,14 +52,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class JMXPlugin extends AbstractPlugin {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(JMXPlugin.class);
-    
+
     private String protocolName = null;
 
     /* The subclass can use set the protocol name from the parameters map
-     * 
+     *
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
     /**
@@ -69,7 +69,7 @@ public abstract class JMXPlugin extends AbstractPlugin {
      * @return a {@link java.lang.String} object.
      */
     public abstract String getProtocolName(Map<String, Object> parameterMap);
-    
+
     /*
      * The subclass is responsible for getting the connection.
      */
@@ -81,7 +81,7 @@ public abstract class JMXPlugin extends AbstractPlugin {
      * @return a {@link org.opennms.protocols.jmx.connectors.ConnectionWrapper} object.
      */
     public abstract ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address);
-    
+
     /*
      * @see org.opennms.netmgt.capsd.Plugin#getProtocolName()
      */
@@ -102,7 +102,7 @@ public abstract class JMXPlugin extends AbstractPlugin {
     /** {@inheritDoc} */
     @Override
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> map) {
-        
+
         if (protocolName == null) {
             protocolName = getProtocolName(map);
         }
@@ -110,9 +110,9 @@ public abstract class JMXPlugin extends AbstractPlugin {
         boolean res = false;
         ConnectionWrapper connection = null;
         try {
-            
+
             connection = getMBeanServerConnection(map, address);
-            
+
             Integer result = connection.getMBeanServer().getMBeanCount();
             LOG.debug("isProtocolSupported? {} {} {}", getProtocolName(), result, connection);
             if (result != null) {
@@ -125,7 +125,7 @@ public abstract class JMXPlugin extends AbstractPlugin {
                 connection.close();
             }
         }
-        
+
         return res;
     }
 }

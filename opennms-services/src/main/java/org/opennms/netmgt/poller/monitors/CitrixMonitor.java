@@ -59,8 +59,8 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 final public class CitrixMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(CitrixMonitor.class);
 
     /**
@@ -98,9 +98,9 @@ final public class CitrixMonitor extends AbstractServiceMonitor {
         //
         // get the parameters
         //
-        
+
         TimeoutTracker timeoutTracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
-        
+
         int port = ParameterMap.getKeyedInteger(parameters, "port", DEFAULT_PORT);
 
         // Extract the address
@@ -115,9 +115,9 @@ final public class CitrixMonitor extends AbstractServiceMonitor {
         for(timeoutTracker.reset(); timeoutTracker.shouldRetry() && !serviceStatus.isAvailable(); timeoutTracker.nextAttempt()) {
             Socket socket = null;
             try {
-                
+
                 timeoutTracker.startAttempt();
-                
+
                 socket = new Socket();
                 socket.connect(new InetSocketAddress(ipv4Addr, port), timeoutTracker.getConnectionTimeout());
                 socket.setSoTimeout(timeoutTracker.getSoTimeout());
@@ -148,32 +148,32 @@ final public class CitrixMonitor extends AbstractServiceMonitor {
             	String reason = "Connection refused by host "+host;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-            	
+
             } catch (NoRouteToHostException e) {
 
             	// No route to host!! Try retries anyway in case strict timeouts are enabled
                 String reason = "Unable to test host " + host + ", no route available";
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-            
+
             } catch (InterruptedIOException e) {
-            	
+
             	String reason = "did not connect to host " + host +" within timeout: " + timeoutTracker;
                 LOG.debug(reason);
                 serviceStatus = PollStatus.unavailable(reason);
-                		
+
             } catch (IOException e) {
-            	
+
             	String reason = "Error communicating with host " + host;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-                
+
             } catch (Throwable t) {
 
                 String reason = "Undeclared throwable exception caught contacting host " + host;
                 LOG.debug(reason, t);
                 serviceStatus = PollStatus.unavailable(reason);
-                
+
             } finally {
                 try {
                     if (socket != null) {
@@ -183,7 +183,7 @@ final public class CitrixMonitor extends AbstractServiceMonitor {
                 } catch (IOException e) {
                 }
             }
-            
+
         }
 
         //

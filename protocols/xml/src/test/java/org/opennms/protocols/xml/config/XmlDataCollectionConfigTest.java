@@ -56,7 +56,7 @@ import org.xml.sax.SAXException;
 
 /**
  * The Class XmlDataCollectionConfigTest.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlDataCollectionConfigTest {
@@ -102,7 +102,7 @@ public class XmlDataCollectionConfigTest {
     public void setUp() throws Exception {
         fileAnticipator = new FileAnticipator();
 
-        // Mock up a XmlDataCollectionConfig class.      
+        // Mock up a XmlDataCollectionConfig class.
         XmlRrd xmlRrd = new XmlRrd();
         xmlRrd.addRra("RRA:AVERAGE:0.5:1:8928");
         xmlRrd.addRra("RRA:AVERAGE:0.5:12:8784");

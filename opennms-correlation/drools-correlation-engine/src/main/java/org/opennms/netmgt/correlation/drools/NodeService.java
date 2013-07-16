@@ -38,7 +38,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional
 public interface NodeService {
-    
+
     /**
      * <p>getParentNode</p>
      *

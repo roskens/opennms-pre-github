@@ -60,55 +60,55 @@ import org.slf4j.LoggerFactory;
 public class Starter {
 
     private static Logger logger = LoggerFactory.getLogger(Starter.class);
-    
+
     @Option(name = "-jmx", usage = "Generate jmx-datacollection.xml by reading JMX over RMI")
     private boolean jmx = false;
-    
+
     @Option(name = "-service", usage = "Your optional service-name. Like cassandra, jboss, tomcat")
     private String serviceName = "anyservice";
-    
+
     @Option(name = "-host", usage = "Hostname or IP-Adress of JMX-RMI host")
     private String hostName;
-    
+
     @Option(name = "-username", usage = "Username for JMX-RMI Authentication")
     private String username;
-    
+
     @Option(name = "-password", usage = "Password for JMX-RMI Authentication")
     private String password;
-    
+
     @Option(name = "-port", usage = "Port of JMX-RMI service")
     private String port;
-    
+
     @Option(name = "-jmxmp", usage = "Use JMXMP and not JMX-RMI")
     private boolean jmxmp = false;
-    
+
     // @Option(name = "-ssl", usage = "Use SSL for the connection")
     private boolean ssl = false;
-    
+
     @Option(name = "-skipDefaultVM", usage = "set to process default JavaVM Beans.")
     private boolean skipDefaultVM = false;
-    
+
     @Option(name = "-runWritableMBeans", usage = "include MBeans that are read- and writable.")
     private boolean runWritableMBeans = false;
-    
+
     @Option(name = "-graph", usage = "Generate snmp-graph.properties linke file to out, by reading jmx-datacollection.xml like file from input")
     private boolean graph = false;
-    
+
     @Option(name = "-input", usage = "Jmx-datacolletion.xml like file to parse")
     private String inputFile;
-    
+
     @Option(name = "-out", usage = "File to write generated snmp-graph.properties linke content")
     private String outFile;
-    
+
     @Option(name = "-template", usage = "Template file for SnmpGraphs")
     private String templateFile;
-    
+
     @Option(name = "-dictionary", usage = "Dictionary properties file for replacing attribute names and parts of this names")
     private String dictionaryFile;
-    
+
     @Option(name = "-url", usage = "JMX URL Usage: <hostname>:<port> OR service:jmx:<protocol>:<sap> OR service:jmx:remoting-jmx://<hostname>:<port>")
     private String url;
-	
+
     private Map<String, String> dictionary = new HashMap<String, String>();
 
     public static void main(String[] args) throws IOException {
@@ -137,7 +137,7 @@ public class Starter {
             if (jmx) {
                 JMXConnector jmxConnector = null;
                 JmxDatacollectionConfiggenerator jmxConfigGenerator = new JmxDatacollectionConfiggenerator();
-                
+
                 JMXServiceURL jmxServiceURL = null;
                 if (hostName != null && port != null && outFile != null) {
                     jmxServiceURL = jmxConfigGenerator.getJmxServiceURL(jmxmp, hostName, port);
@@ -216,7 +216,7 @@ public class Starter {
         logger.info("Dictionary entries loaded: '{}'", internalDictionary.size());
         return internalDictionary;
     }
-    
+
     private Map<String, String> loadExternalDictionary(String dictionaryFile) {
         Map<String, String> externalDictionary = new HashMap<String, String>();
         Properties properties = new Properties();

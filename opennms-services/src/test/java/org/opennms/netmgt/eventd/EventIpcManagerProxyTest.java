@@ -39,30 +39,30 @@ import junit.framework.TestCase;
 
 public class EventIpcManagerProxyTest extends TestCase {
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     private EventIpcManagerProxy m_proxy = new EventIpcManagerProxy();
     private EventListener m_eventListener = m_mocks.createMock(EventListener.class);
 
     public void testAddEventListenerNoProxySet() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
-        
+
         ta.anticipate(new IllegalStateException("property delegate not set; has the event daemon successfully started?"));
         try {
             m_proxy.addEventListener(m_eventListener);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
-    
+
     public void testAddEventListenerWithProxySet() {
         EventIpcManager delegate = EasyMock.createMock(EventIpcManager.class);
-        
+
         m_proxy.setDelegate(delegate);
-        
+
         delegate.addEventListener(m_eventListener);
-        
+
         m_mocks.replayAll();
         m_proxy.addEventListener(m_eventListener);
         m_mocks.verifyAll();

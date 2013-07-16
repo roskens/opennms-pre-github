@@ -38,10 +38,10 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class LocationManagerInitializationCompleteEvent extends GwtEvent<LocationManagerInitializationCompleteEventHander> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<LocationManagerInitializationCompleteEventHander> TYPE = new Type<LocationManagerInitializationCompleteEventHander>();
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(LocationManagerInitializationCompleteEventHander handler) {

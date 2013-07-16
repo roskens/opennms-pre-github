@@ -49,5 +49,5 @@ public class Discovery extends AbstractSpringContextJmxServiceDaemon<org.opennms
     protected String getSpringContext() {
         return "discoveryContext";
     }
-    
+
 }

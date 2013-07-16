@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlValue;
 
 /**
  * The Class FormField.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="form-field")

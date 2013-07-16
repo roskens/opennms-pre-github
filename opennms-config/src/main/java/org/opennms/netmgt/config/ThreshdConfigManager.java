@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.netmgt.config;
 
@@ -92,7 +92,7 @@ public abstract class ThreshdConfigManager {
      * The name of the local OpenNMS server
      */
     protected String m_localServer;
-    
+
     /**
      * <p>Constructor for ThreshdConfigManager.</p>
      *
@@ -122,7 +122,7 @@ public abstract class ThreshdConfigManager {
      */
     protected void createUrlIpMap() {
         m_urlIPMap = new HashMap<String, List<String>>();
-    
+
         for (Package pkg : m_config.getPackageCollection()) {
             for (String urlname : pkg.getIncludeUrlCollection()) {
                 java.util.List<String> iplist = IpListFromUrl.parse(urlname);
@@ -139,19 +139,19 @@ public abstract class ThreshdConfigManager {
      * rules from the database.
      */
     protected void createPackageIpListMap() {
-    
+
         m_pkgIpMap = new HashMap<Package, List<InetAddress>>();
-    
+
         Enumeration<org.opennms.netmgt.config.threshd.Package> pkgEnum = m_config.enumeratePackage();
         while (pkgEnum.hasMoreElements()) {
             org.opennms.netmgt.config.threshd.Package pkg = pkgEnum.nextElement();
-    
+
             //
             // Get a list of ipaddress per package agaist the filter rules from
             // database and populate the package, IP list map.
             //
             StringBuffer filterRules = new StringBuffer(pkg.getFilter().getContent());
-    
+
             try {
                 if (m_verifyServer) {
                     filterRules.append(" & (serverName == ");
@@ -160,10 +160,10 @@ public abstract class ThreshdConfigManager {
                     filterRules.append('\"');
                     filterRules.append(")");
                 }
-    
+
 
                 LOG.debug("createPackageIpMap: package is {}. filer rules are {}", filterRules, pkg.getName());
-    
+
                 List<InetAddress> ipList = FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules.toString());
                 if (ipList.size() > 0) {
                     m_pkgIpMap.put(pkg, ipList);
@@ -193,18 +193,18 @@ public abstract class ThreshdConfigManager {
      * @throws org.exolab.castor.xml.ValidationException if any.
      */
     public synchronized void saveCurrent() throws MarshalException, IOException, ValidationException {
-    
+
              //marshall to a string first, then write the string to the file. This way the original config
              //isn't lost if the xml from the marshall is hosed.
              StringWriter stringWriter = new StringWriter();
              Marshaller.marshal(m_config, stringWriter);
-             
+
              String xmlString = stringWriter.toString();
             if (xmlString!=null)
              {
                  saveXML(xmlString);
              }
-    
+
              reloadXML();
      }
 
@@ -254,7 +254,7 @@ public abstract class ThreshdConfigManager {
      * the passed package's url includes. If the interface is found in any of
      * the URL files, then a value of true is returned, else a false value is
      * returned.
-     * 
+     *
      * <pre>
      * The file URL is read and each entry in this file checked. Each line
      *  in the URL file can be one of -
@@ -263,27 +263,27 @@ public abstract class ThreshdConfigManager {
      *  &lt;IP&gt;
      *  or
      *  #&lt;comments&gt;
-     * 
+     *
      *  Lines starting with a '#' are ignored and so are characters after
      *  a '&lt;space&gt;#' in a line.
      * </pre>
-     * 
+     *
      * @param addr
      *            The interface to test against the package's URL
      * @param url
      *            The url file to read
-     * 
+     *
      * @return True if the interface is included in the url, false otherwise.
      */
     private boolean interfaceInUrl(String addr, String url) {
         boolean bRet = false;
-    
+
         // get list of IPs in this URL
         java.util.List<String> iplist = m_urlIPMap.get(url);
         if (iplist != null && iplist.size() > 0) {
             bRet = iplist.contains(addr);
         }
-    
+
         return bRet;
     }
 
@@ -304,22 +304,22 @@ public abstract class ThreshdConfigManager {
      *         otherwise.
      */
     public synchronized boolean interfaceInPackage(String iface, org.opennms.netmgt.config.threshd.Package pkg) {
-    
+
         final InetAddress ifaceAddr = addr(iface);
         boolean filterPassed = false;
-    
+
         // get list of IPs in this package
         java.util.List<InetAddress> ipList = m_pkgIpMap.get(pkg);
         if (ipList != null && ipList.size() > 0) {
 			filterPassed = ipList.contains(ifaceAddr);
         }
-    
+
 
         LOG.debug("interfaceInPackage: Interface {} passed filter for package {}?: {}", filterPassed, iface, pkg.getName());
-    
+
         if (!filterPassed)
             return false;
-    
+
         //
         // Ensure that the interface is in the specific list or
         // that it is in the include range and is not excluded
@@ -327,9 +327,9 @@ public abstract class ThreshdConfigManager {
         boolean has_specific = false;
         boolean has_range_include = false;
         boolean has_range_exclude = false;
-        
+
         has_range_include = pkg.getIncludeRangeCount() == 0 && pkg.getSpecificCount() == 0;
-    
+
         for (IncludeRange rng : pkg.getIncludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_include = true;
@@ -351,14 +351,14 @@ public abstract class ThreshdConfigManager {
         while (!has_specific && eurl.hasMoreElements()) {
             has_specific = interfaceInUrl(iface, eurl.nextElement());
         }
-    
+
         for (ExcludeRange rng : pkg.getExcludeRangeCollection()) {
             if (isInetAddressInRange(iface, rng.getBegin(), rng.getEnd())) {
                 has_range_exclude = true;
                 break;
             }
         }
-    
+
         return has_specific || (has_range_include && !has_range_exclude);
     }
 

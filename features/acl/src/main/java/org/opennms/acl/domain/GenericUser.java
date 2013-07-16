@@ -62,7 +62,7 @@ import org.springframework.util.Assert;
 public class GenericUser implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2527391420135516265L;
     /**

@@ -81,7 +81,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Scope("prototype")
 @Transactional
 public class OnmsIpInterfaceResource extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsIpInterfaceResource.class);
 
 
@@ -96,8 +96,8 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
 
     @Context
     ResourceContext m_context;
-    
-    @Context 
+
+    @Context
     UriInfo m_uriInfo;
 
     /**
@@ -110,25 +110,25 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public OnmsIpInterfaceList getIpInterfaces(@PathParam("nodeCriteria") final String nodeCriteria) {
         readLock();
-        
+
         try {
             LOG.debug("getIpInterfaces: reading interfaces for node {}", nodeCriteria);
-    
+
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
-            
+
             final MultivaluedMap<String,String> params = m_uriInfo.getQueryParameters();
-            
+
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsIpInterface.class);
             builder.ne("isManaged", "D");
             builder.limit(20);
             applyQueryFilters(params, builder);
             builder.alias("node", "node");
             builder.eq("node.id", node.getId());
-            
+
             final OnmsIpInterfaceList interfaceList = new OnmsIpInterfaceList(m_ipInterfaceDao.findMatching(builder.toCriteria()));
-    
+
             interfaceList.setTotalCount(m_ipInterfaceDao.countMatching(builder.count().toCriteria()));
-            
+
             return interfaceList;
         } finally {
             readUnlock();
@@ -147,7 +147,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     @Path("{ipAddress}")
     public OnmsIpInterface getIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress) {
         readLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -170,7 +170,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     @Consumes(MediaType.APPLICATION_XML)
     public Response addIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, final OnmsIpInterface ipInterface) {
         writeLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -185,12 +185,12 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             LOG.debug("addIpInterface: adding interface {}", ipInterface);
             node.addIpInterface(ipInterface);
             m_ipInterfaceDao.save(ipInterface);
-            
+
             final EventBuilder bldr = new EventBuilder(EventConstants.NODE_GAINED_INTERFACE_EVENT_UEI, getClass().getName());
-    
+
             bldr.setNodeid(node.getId());
             bldr.setInterface(ipInterface.getIpAddress());
-    
+
             try {
                 m_eventProxy.send(bldr.getEvent());
             } catch (final EventProxyException ex) {
@@ -201,7 +201,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>updateIpInterface</p>
      *
@@ -215,7 +215,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     @Path("{ipAddress}")
     public Response updateIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress, final MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -226,9 +226,9 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
                 throw getException(Status.CONFLICT, "deleteIpInterface: can't find interface with ip address " + ipAddress + " for node " + nodeCriteria);
             }
             LOG.debug("updateIpInterface: updating ip interface {}", ipInterface);
-    
+
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(ipInterface);
-    
+
             for(final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
                     final String stringValue = params.getFirst(key);
@@ -255,7 +255,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
     @Path("{ipAddress}")
     public Response deleteIpInterface(@PathParam("nodeCriteria") final String nodeCriteria, @PathParam("ipAddress") final String ipAddress) {
         writeLock();
-        
+
         try {
             final OnmsNode node = m_nodeDao.get(nodeCriteria);
             if (node == null) {
@@ -268,12 +268,12 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             LOG.debug("deleteIpInterface: deleting interface {} from node {}", ipAddress, nodeCriteria);
             node.getIpInterfaces().remove(intf);
             m_nodeDao.save(node);
-            
+
             final EventBuilder bldr = new EventBuilder(EventConstants.INTERFACE_DELETED_EVENT_UEI, getClass().getName());
-    
+
             bldr.setNodeid(node.getId());
             bldr.setInterface(addr(ipAddress));
-    
+
             try {
                 m_eventProxy.send(bldr.getEvent());
             } catch (final EventProxyException ex) {
@@ -284,7 +284,7 @@ public class OnmsIpInterfaceResource extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     /**
      * <p>getServices</p>
      *

@@ -57,7 +57,7 @@ public class NodeFilter extends EqualsFilter<Integer> {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_servletContext = servletContext;
     }
-    
+
     public NodeFilter(int nodeId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_appContext = appContext;
@@ -71,11 +71,11 @@ public class NodeFilter extends EqualsFilter<Integer> {
     @Override
     public String getTextDescription() {
         String nodeName = getNodeLabel();
-        
+
         if(nodeName == null) {
             nodeName = Integer.toString(getNodeId());
         }
-            
+
         return (TYPE + "=" + nodeName);
     }
 

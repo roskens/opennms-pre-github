@@ -81,7 +81,7 @@ public class OnmsIpRouteInterface {
     @Embeddable
     public static class RouteType implements Comparable<RouteType>, Serializable {
         private static final long serialVersionUID = -4784344871599250528L;
-        
+
         public static final int ROUTE_TYPE_OTHER = 1;
         public static final int ROUTE_TYPE_INVALID = 2;
         public static final int ROUTE_TYPE_DIRECT = 3;
@@ -92,7 +92,7 @@ public class OnmsIpRouteInterface {
         private Integer m_routeType;
 
         private static final Map<Integer, String> routeTypeMap = new HashMap<Integer, String>();
-        
+
         static {
             routeTypeMap.put(ROUTE_TYPE_OTHER, "Other" );
             routeTypeMap.put(ROUTE_TYPE_INVALID, "Invalid" );
@@ -173,7 +173,7 @@ public class OnmsIpRouteInterface {
                     return routeTypeMap.get( code);
             return null;
         }
-        
+
         public static RouteType OTHER = new RouteType(ROUTE_TYPE_OTHER);
         public static RouteType INVALID = new RouteType(ROUTE_TYPE_INVALID);
         public static RouteType DIRECT = new RouteType(ROUTE_TYPE_DIRECT);
@@ -184,11 +184,11 @@ public class OnmsIpRouteInterface {
     @Column(nullable=false)
     @XmlTransient
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
-    
+
     @XmlID
     @XmlAttribute(name="id")
     @Transient

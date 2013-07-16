@@ -52,7 +52,7 @@ import com.vaadin.ui.TextField;
 
 /**
  * This form handles editing of a {@link ServiceConfig} model.
- * 
+ *
  * @author Markus von Rüden <mvr@opennms.com>
  * @see ServiceConfig
  */
@@ -67,7 +67,7 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
 		setImmediate(true);
 		setDescription(UIHelper.loadContentFromFile(getClass(), "/descriptions/ServiceConfiguration.html"));
 		setFormFieldFactory(new com.vaadin.ui.DefaultFieldFactory() {
-            
+
             @Override
             public Field<?> createField(Item item, Object propertyId, Component uiContext) {
                 if (MetaConfigModel.PASSWORD.equals(propertyId)) {
@@ -108,12 +108,12 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
 	}
 
 	private Object[] createVisibleItemProperties() {
-	    return new Object[] { MetaConfigModel.SERVICE_NAME, 
+	    return new Object[] { MetaConfigModel.SERVICE_NAME,
 	            MetaConfigModel.JMXMP,
 	            MetaConfigModel.HOST,
 	            MetaConfigModel.PORT,
 	            MetaConfigModel.AUTHENTICATE,
-	            MetaConfigModel.USER, 
+	            MetaConfigModel.USER,
 	            MetaConfigModel.PASSWORD,
 	            MetaConfigModel.SKIP_DEFAULT_VM,
 	            MetaConfigModel.RUN_WRITABLE_MBEANS };
@@ -135,7 +135,7 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
 	/**
 	 * DefaultFieldFactory works for us, we only add some additional stuff to
 	 * each field -> if needed.
-	 * 
+	 *
 	 */
 	private void initFields() {
 		getField(MetaConfigModel.AUTHENTICATE).addListener(new ValueChangeListener() {
@@ -186,12 +186,12 @@ public class ConfigForm extends Form implements ModelChangeListener<UiModel>, Cl
 	 * description (optional). This method gets all descriptions and assign each
 	 * description to the name. If the option starts with at least one '-' all
 	 * '-' are removed. Therefore the builded map looks like:
-	 * 
+	 *
 	 * <pre>
 	 *      {key} -> {value}
 	 *      "force" -> "this option forces the deletion of the file"
 	 * </pre>
-	 * 
+	 *
 	 * @return a Map containing a description for each option defined in
 	 *         {@link org.opennms.tools.jmxconfiggenerator.Starter}
 	 * @see org.opennms.tools.jmxconfiggenerator.Starter

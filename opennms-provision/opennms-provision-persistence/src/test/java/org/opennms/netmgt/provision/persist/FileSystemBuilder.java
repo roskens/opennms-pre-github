@@ -18,15 +18,15 @@ class FileSystemBuilder {
 		m_baseDir.deleteOnExit();
 		m_dirs.push(m_baseDir);
 	}
-	
+
 	public File getCurrentDir() {
 		return m_dirs.peek();
 	}
-	
+
 	public File pop() {
 		return m_dirs.pop();
 	}
-	
+
 	public FileSystemBuilder dir(String name) {
 		File dir = new File(getCurrentDir(), name);
 		dir.mkdirs();
@@ -34,11 +34,11 @@ class FileSystemBuilder {
 		m_dirs.push(dir);
 		return this;
 	}
-	
+
 	public FileSystemBuilder file(String name) throws IOException {
 		return file(name, "");
 	}
-	
+
 	public FileSystemBuilder file(String name, String contents) throws IOException {
 		File file = new File(getCurrentDir(), name);
 		FileUtils.writeStringToFile(file, contents);
@@ -49,8 +49,8 @@ class FileSystemBuilder {
 	public void cleanup() throws IOException {
 		m_dirs.clear();
 		FileUtils.deleteDirectory(m_baseDir);
-		
+
 	}
-	
-	
+
+
 }

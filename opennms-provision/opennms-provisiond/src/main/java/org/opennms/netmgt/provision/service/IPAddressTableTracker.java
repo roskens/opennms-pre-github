@@ -56,10 +56,10 @@ import org.opennms.netmgt.snmp.TableTracker;
  */
 public class IPAddressTableTracker extends TableTracker {
     private static final Logger LOG = LoggerFactory.getLogger(IPAddressTableTracker.class);
-    
+
 	public static final SnmpObjId IP_ADDRESS_PREFIX_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.32.1");
     public static final SnmpObjId IP_ADDRESS_TABLE_ENTRY = SnmpObjId.get(".1.3.6.1.2.1.4.34.1");
-    
+
     public static final SnmpObjId IP_ADDRESS_IF_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "3");
     public static final SnmpObjId IP_ADDRESS_TYPE_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "4");
     public static final SnmpObjId IP_ADDRESS_PREFIX_INDEX = SnmpObjId.get(IP_ADDRESS_TABLE_ENTRY, "5");
@@ -85,19 +85,19 @@ public class IPAddressTableTracker extends TableTracker {
         IP_ADDRESS_PREFIX_INDEX,
         IP_ADDRESS_TYPE_INDEX
     };
-    
+
     class IPAddressRow extends SnmpRowResult {
 
         public IPAddressRow(final int columnCount, final SnmpInstId instance) {
             super(columnCount, instance);
             LOG.debug("column count = {}, instance = {}", columnCount, instance);
         }
-        
+
         public Integer getIfIndex() {
         	final SnmpValue value = getValue(IP_ADDRESS_IF_INDEX);
         	return value.toInt();
         }
-        
+
         public String getIpAddress() {
             final SnmpResult result = getResult(IP_ADDRESS_IF_INDEX);
             SnmpInstId instance = result.getInstance();
@@ -229,12 +229,12 @@ public class IPAddressTableTracker extends TableTracker {
                     return result;
                 }
             }
-            
+
             return null;
         }
 
     }
-    
+
     /**
      * <p>Constructor for IPInterfaceTableTracker.</p>
      */
@@ -250,7 +250,7 @@ public class IPAddressTableTracker extends TableTracker {
     public IPAddressTableTracker(final RowCallback rowProcessor) {
         super(rowProcessor, s_tableColumns);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public SnmpRowResult createRowResult(final int columnCount, final SnmpInstId instance) {
@@ -269,7 +269,7 @@ public class IPAddressTableTracker extends TableTracker {
      * @param row a {@link org.opennms.netmgt.provision.service.IPAddressTableTracker.IPAddressRow} object.
      */
     public void processIPAddressRow(final IPAddressRow row) {
-        
+
     }
 
 }

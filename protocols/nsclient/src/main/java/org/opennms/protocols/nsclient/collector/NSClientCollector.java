@@ -78,7 +78,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NSClientCollector implements ServiceCollector {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientCollector.class);
 
 
@@ -118,14 +118,14 @@ public class NSClientCollector implements ServiceCollector {
         }
 
     }
-    
+
     class NSClientCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
 
         String m_alias;
         String m_value;
         NSClientCollectionResource m_resource;
         CollectionAttributeType m_attribType;
-        
+
         NSClientCollectionAttribute(NSClientCollectionResource resource, CollectionAttributeType attribType, String alias, String value) {
             super();
             m_resource=resource;
@@ -168,7 +168,7 @@ public class NSClientCollector implements ServiceCollector {
         public String getType() {
             return m_attribType.getType();
         }
-        
+
         @Override
         public String toString() {
             return "NSClientCollectionAttribute " + m_alias+"=" + m_value;
@@ -178,15 +178,15 @@ public class NSClientCollector implements ServiceCollector {
         public String getMetricIdentifier() {
             return "Not supported yet._" + "NSC_" + getName();
         }
-        
+
     }
-    
+
     class NSClientCollectionResource extends AbstractCollectionResource {
-         
-		NSClientCollectionResource(CollectionAgent agent) { 
+
+		NSClientCollectionResource(CollectionAgent agent) {
             super(agent);
         }
-        
+
         @Override
         public int getType() {
             return -1; //Is this right?
@@ -207,12 +207,12 @@ public class NSClientCollector implements ServiceCollector {
             NSClientCollectionAttribute attr = new NSClientCollectionAttribute(this, type, type.getName(), value);
             addAttribute(attr);
         }
-        
+
         @Override
         public String getResourceTypeName() {
             return "node"; //All node resources for NSClient; nothing of interface or "indexed resource" type
         }
-        
+
         @Override
         public String getInstance() {
             return null; //For node type resources, use the default instance
@@ -223,22 +223,22 @@ public class NSClientCollector implements ServiceCollector {
             return m_agent.getStorageDir().toString();
         }
     }
-    
+
     class NSClientCollectionSet implements CollectionSet {
         private int m_status;
         private Date m_timestamp;
         private NSClientCollectionResource m_collectionResource;
-        
+
         NSClientCollectionSet(CollectionAgent agent, Date timestamp) {
             m_status = ServiceCollector.COLLECTION_FAILED;
             m_collectionResource = new NSClientCollectionResource(agent);
         }
-        
+
         @Override
         public int getStatus() {
             return m_status;
         }
-        
+
         void setStatus(int status) {
             m_status = status;
         }
@@ -262,9 +262,9 @@ public class NSClientCollector implements ServiceCollector {
 		@Override
 		public Date getCollectionTimestamp() {
 			return m_timestamp;
-		}        
+		}
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public CollectionSet collect(CollectionAgent agent, EventProxy eproxy, Map<String, Object> parameters) {
@@ -276,10 +276,10 @@ public class NSClientCollector implements ServiceCollector {
         // check scheduled nodes to see if that group should be collected
         NsclientCollection collection = NSClientDataCollectionConfigFactory.getInstance().getNSClientCollection(collectionName);
         NSClientAgentState agentState = m_scheduledNodes.get(agent.getNodeId());
-        
+
         NSClientCollectionSet collectionSet=new NSClientCollectionSet(agent, new Date());
         NSClientCollectionResource collectionResource=collectionSet.getResource();
-        
+
         for (Wpm wpm : collection.getWpms().getWpm()) {
             //All NSClient Perfmon counters are per node
             AttributeGroupType attribGroupType=new AttributeGroupType(wpm.getName(),"all");
@@ -572,7 +572,7 @@ public class NSClientCollector implements ServiceCollector {
             this.lastChecked = lastChecked;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public RrdRepository getRrdRepository(String collectionName) {

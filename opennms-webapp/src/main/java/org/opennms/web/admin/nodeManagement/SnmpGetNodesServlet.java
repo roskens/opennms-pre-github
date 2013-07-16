@@ -56,7 +56,7 @@ import org.opennms.core.utils.DBUtils;
  */
 public class SnmpGetNodesServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -9025129128736990895L;
 

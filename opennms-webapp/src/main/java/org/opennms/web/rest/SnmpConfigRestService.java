@@ -65,7 +65,7 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <b>Be aware</b> that setting the SNMP configuration for a rage of IPs is
  * currently not supported by this REST service!
  * </p>
- * 
+ *
  * <p>
  * The implementation only supports a PUT request because it is an implied
  * "Update" of the configuration since it requires an IP address and all IPs
@@ -73,9 +73,9 @@ import com.sun.jersey.spi.resource.PerRequest;
  * optimization of the configuration store:<code>snmp-config.xml</code>.
  * </p>
  * <p>
- * Example 1: Change SNMP configuration. 
+ * Example 1: Change SNMP configuration.
  * </p>
- * 
+ *
  * <pre>
  * curl -v -X PUT -H "Content-Type: application/xml" \
  *      -H "Accept: application/xml" \
@@ -91,11 +91,11 @@ import com.sun.jersey.spi.resource.PerRequest;
  * <p>
  * Example 2: Query SNMP community string.
  * </p>
- * 
+ *
  * <pre>
  * curl -v -X GET -u admin:admin http://localhost:8980/opennms/rest/snmpConfig/10.1.1.1
  * </pre>
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @version $Id: $
  * @since 1.8.1
@@ -106,12 +106,12 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("snmpConfig")
 @Transactional
 public class SnmpConfigRestService extends OnmsRestService {
-    @Context 
+    @Context
     UriInfo m_uriInfo;
 
     @Autowired
     private SnmpPeerFactory m_snmpPeerFactory;
-    
+
     /**
      * <p>getSnmpInfo</p>
      *
@@ -127,7 +127,7 @@ public class SnmpConfigRestService extends OnmsRestService {
             final InetAddress addr = InetAddressUtils.addr(ipAddr);
             if (addr == null) {
                 throw new WebApplicationException(Response.serverError().build());
-            }            
+            }
     		SnmpAgentConfig config = m_snmpPeerFactory.getAgentConfig(addr);
             return new SnmpInfo(config);
         } finally {
@@ -158,7 +158,7 @@ public class SnmpConfigRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-   
+
     /**
      * Updates a specific interface
      *

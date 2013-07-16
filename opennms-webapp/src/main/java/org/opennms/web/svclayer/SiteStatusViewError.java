@@ -36,7 +36,7 @@ package org.opennms.web.svclayer;
  * @since 1.8.1
  */
 public class SiteStatusViewError {
-	
+
 	private String m_shortDescr;
 	private String m_longDescr;
 
@@ -57,7 +57,7 @@ public class SiteStatusViewError {
 	public void setShortDescr(String shortDescr) {
 		m_shortDescr = shortDescr;
 	}
-	
+
 	/**
 	 * <p>getLongDescr</p>
 	 *
@@ -75,5 +75,5 @@ public class SiteStatusViewError {
 	public void setLongDescr(String longDescr) {
 		m_longDescr = longDescr;
 	}
-	
+
 }

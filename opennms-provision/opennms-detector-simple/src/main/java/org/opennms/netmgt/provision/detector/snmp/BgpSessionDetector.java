@@ -58,7 +58,7 @@ public class BgpSessionDetector extends SnmpDetector {
      * Default OID for the table that represents the BGP-peer states.
      */
     private static final String BGP_PEER_STATE_OID = ".1.3.6.1.2.1.15.3.1.2";
-    
+
     private String m_bgpPeerIp = "";
     /**
      * <p>Constructor for BgpSessionDetector.</p>
@@ -81,7 +81,7 @@ public class BgpSessionDetector extends SnmpDetector {
         try {
             String bgpPeerIp = getBgpPeerIp();
             SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(address);
-            
+
             configureAgentPTR(agentConfig);
 
             configureAgentVersion(agentConfig);
@@ -91,7 +91,7 @@ public class BgpSessionDetector extends SnmpDetector {
             if  (bgpPeerState != null && Integer.parseInt(bgpPeerState) >= 1 && Integer.parseInt(bgpPeerState) <= 6){
                 return true;
             }
-            
+
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }

@@ -46,7 +46,7 @@ abstract public class JDBCTemplate {
 
     private DataSource m_db;
     private String m_sql;
-    
+
     /**
      * <p>Constructor for JDBCTemplate.</p>
      *
@@ -98,7 +98,7 @@ abstract public class JDBCTemplate {
             d.cleanUp();
         }
     }
-    
+
     /**
      * <p>reproduceStatement</p>
      *
@@ -108,7 +108,7 @@ abstract public class JDBCTemplate {
     public String reproduceStatement(final Object values[]) {
     		return m_sql+": with vals "+argsToString(values);
     }
-    
+
     abstract void executeStmt(PreparedStatement stmt) throws SQLException;
 
 }

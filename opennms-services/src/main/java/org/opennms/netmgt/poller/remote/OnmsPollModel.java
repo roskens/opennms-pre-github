@@ -40,16 +40,16 @@ import java.util.Date;
  */
 public class OnmsPollModel implements Serializable {
     private static final long serialVersionUID = 5288536977670149130L;
-    
+
     private long m_pollInterval;
-    
+
     /**
      * <p>Constructor for OnmsPollModel.</p>
      */
     public OnmsPollModel() {
         m_pollInterval = -1L;
     }
-    
+
     /**
      * <p>Constructor for OnmsPollModel.</p>
      *
@@ -58,7 +58,7 @@ public class OnmsPollModel implements Serializable {
     public OnmsPollModel(long pollInterval) {
         m_pollInterval = pollInterval;
     }
-	
+
 	/**
 	 * <p>getPollInterval</p>
 	 *
@@ -96,7 +96,7 @@ public class OnmsPollModel implements Serializable {
     public Date getPreviousPollTime(Date initialPollTime) {
         return new Date(initialPollTime.getTime()-m_pollInterval);
     }
-	
-	
-	
+
+
+
 }

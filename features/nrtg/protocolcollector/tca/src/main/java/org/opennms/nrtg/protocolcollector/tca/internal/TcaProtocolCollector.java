@@ -58,8 +58,8 @@ public class TcaProtocolCollector implements ProtocolCollector {
         keywords.add("outboundDelay");
         keywords.add("outboundJitter");
         keywords.add("timesyncStatus");
-        
-    }    
+
+    }
     public SnmpStrategy getSnmpStrategy() {
         return m_snmpStrategy;
     }
@@ -78,10 +78,10 @@ public class TcaProtocolCollector implements ProtocolCollector {
             String[] results = snmpResultSubSet.split(",");
             result = results[keywords.indexOf(keyword) +1];
         }
-        
+
         return result;
     }
-    
+
     @Override
     public CollectionJob collect(final CollectionJob collectionJob) {
         logger.info("TcaProtocolCollector is collecting collectionJob '{}'", collectionJob);
@@ -90,10 +90,10 @@ public class TcaProtocolCollector implements ProtocolCollector {
 
         List<Collectable> trackers = new ArrayList<Collectable>();
         for (final String metricObjId : collectionJob.getAllMetrics()) {
-            
+
             final String keyword = metricObjId.substring(metricObjId.lastIndexOf("_") + 1);
             final SnmpObjId requestOid = SnmpObjId.get(metricObjId.substring(0, metricObjId.lastIndexOf("_")));
-            
+
             SnmpObjId base = requestOid.getPrefix(requestOid.length() - 1);
             int lastId = requestOid.getLastSubId();
 
@@ -134,7 +134,7 @@ public class TcaProtocolCollector implements ProtocolCollector {
             // TODO What should we do here
         }
         return collectionJob;
-        
+
     }
 
     /*

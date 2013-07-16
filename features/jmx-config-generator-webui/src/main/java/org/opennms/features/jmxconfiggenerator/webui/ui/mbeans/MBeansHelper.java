@@ -41,7 +41,7 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
 /**
  * This class is a helper to build a tree representation or the MBean's
  * objectname for the MBeantree.
- * 
+ *
  * @author Markus von Rüden
  */
 public class MBeansHelper {
@@ -63,7 +63,7 @@ public class MBeansHelper {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param input
 	 *            any Mbean
 	 * @param removeLastElement
@@ -82,7 +82,7 @@ public class MBeansHelper {
 			 * returned by the method ObjectName.getKeyPropertyListString(),
 			 * with type as the first key, and j2eeType, if present, as the
 			 * second key.(http://visualvm.java.net/mbeans_tab.html).
-			 * 
+			 *
 			 * Below is the implementation of the above definition.
 			 */
 			ObjectName obj = ObjectName.getInstance(input.getObjectname());
@@ -110,7 +110,7 @@ public class MBeansHelper {
 	 * Builds the class hierarchy of the given <code>clazz</code> and returns
 	 * the value of the given map if any class in the hierarchy of
 	 * <code>clazz</code> is registered as a key to the map.
-	 * 
+	 *
 	 * @param <T>
 	 *            type of the value in the map
 	 * @param map

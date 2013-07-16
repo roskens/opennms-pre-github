@@ -50,21 +50,21 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
      * <p>Constructor for ThresholdEvaluatorHighLow.</p>
      */
     public ThresholdEvaluatorHighLow() {
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean supportsType(String type) {
         return "low".equals(type) || "high".equals(type);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ThresholdEvaluatorState getThresholdEvaluatorState(BaseThresholdDefConfigWrapper threshold) {
         return new ThresholdEvaluatorStateHighLow(threshold);
     }
-    
+
     public static class ThresholdEvaluatorStateHighLow extends AbstractThresholdEvaluatorState {
         /**
          * Castor Threshold object containing threshold configuration data.
@@ -78,7 +78,7 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
 
         /**
          * Threshold armed flag
-         * 
+         *
          * This flag must be true before evaluate() will return true (indicating
          * that the threshold has been triggered). This flag is initialized to true
          * by the constructor and is set to false each time the threshold is
@@ -87,16 +87,16 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
          * the rearm value.
          */
         private boolean m_armed;
-        
+
         private CollectionResourceWrapper m_lastCollectionResourceUsed;
 
         public ThresholdEvaluatorStateHighLow(BaseThresholdDefConfigWrapper threshold) {
             Assert.notNull(threshold, "threshold argument cannot be null");
-            
+
             setThresholdConfig(threshold);
             setExceededCount(0);
             setArmed(true);
-        }    
+        }
 
         public boolean isArmed() {
             return m_armed;
@@ -129,11 +129,11 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
 
             m_thresholdConfig = thresholdConfig;
         }
-        
+
         public String getType() {
             return getThresholdConfig().getType();
         }
-        
+
         @Override
         public Status evaluate(double dsValue) {
             if (isThresholdExceeded(dsValue)) {
@@ -191,7 +191,7 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
         protected boolean isTriggerCountExceeded() {
             return getExceededCount() >= getThresholdConfig().getTrigger();
         }
-        
+
         @Override
         public Event getEventForState(Status status, Date date, double dsValue, CollectionResourceWrapper resource) {
             /*
@@ -219,8 +219,8 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
                     return createBasicEvent(uei, date, dsValue, resource);
                 } else {
                     throw new IllegalArgumentException("Threshold type " + getThresholdConfig().getType() + " is not supported");
-                } 
-                
+                }
+
             case RE_ARMED:
                 uei=getThresholdConfig().getRearmedUEI();
                 if ("low".equals(getThresholdConfig().getType())) {
@@ -235,8 +235,8 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
                     return createBasicEvent(uei, date, dsValue, resource);
                 } else {
                     throw new IllegalArgumentException("Threshold type " + getThresholdConfig().getType() + " is not supported");
-                } 
-                
+                }
+
             case NO_CHANGE:
                 return null;
 
@@ -244,7 +244,7 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
                 throw new IllegalArgumentException("Status " + status + " is not supported for converting to an event.");
             }
         }
-        
+
         private Event createBasicEvent(String uei, Date date, double dsValue, CollectionResourceWrapper resource) {
             Map<String,String> params = new HashMap<String,String>();
             params.put("threshold", Double.toString(getThresholdConfig().getValue()));
@@ -252,7 +252,7 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
             params.put("rearm", Double.toString(getThresholdConfig().getRearm()));
             return createBasicEvent(uei, date, dsValue, resource, params);
         }
-        
+
         @Override
         public ThresholdEvaluatorState getCleanClone() {
             return new ThresholdEvaluatorStateHighLow(m_thresholdConfig);
@@ -262,13 +262,13 @@ public class ThresholdEvaluatorHighLow implements ThresholdEvaluator {
         public boolean isTriggered() {
             return !isArmed();
         }
-        
+
         @Override
         public void clearState() {
             setArmed(true);
             setExceededCount(0);
         }
-        
+
     }
 
 }

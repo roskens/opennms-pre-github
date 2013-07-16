@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpAttribute extends AbstractCollectionAttribute {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(SnmpAttribute.class);
 
     private CollectionResource m_resource;
@@ -168,8 +168,8 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
     public String getName() {
         return getAttributeType().getName();
     }
-    
-    
+
+
     @Override
     public String getMetricIdentifier() {
         String instance = m_resource.getInstance();
@@ -178,7 +178,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
         }
         return "SNMP_"+SnmpObjId.get(m_type.getSnmpObjId(), instance);
     }
-    
+
     /**
      * <p>getNumericValue</p>
      *
@@ -209,7 +209,7 @@ public class SnmpAttribute extends AbstractCollectionAttribute {
             return null;
         }
     }
-    
+
     /**
      * <p>getStringValue</p>
      *

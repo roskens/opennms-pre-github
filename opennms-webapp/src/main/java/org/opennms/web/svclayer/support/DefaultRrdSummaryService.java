@@ -305,7 +305,7 @@ public class DefaultRrdSummaryService implements RrdSummaryService, Initializing
                     for(OnmsResource child : getChildResources1(nodeResource)) {
                         if (child.getResourceType() instanceof NodeSnmpResourceType) {
                             addAttributes(getResourceGraphAttributes(child));
-                        } 
+                        }
                     }
 
                     for(OnmsResource child : getChildResources2(nodeResource)) {

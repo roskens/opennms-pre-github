@@ -44,7 +44,7 @@ import java.lang.annotation.Target;
 public @interface Webapp {
 
 	String context() default "/";
-	
+
 	String path();
 
 }

@@ -84,7 +84,7 @@ public class RequisitionInterfaceCollection extends LinkedList<RequisitionInterf
         clear();
         addAll(interfaces);
     }
-    
+
     /**
      * <p>getCount</p>
      *

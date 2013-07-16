@@ -41,7 +41,7 @@ public class CollectTest extends XmlTest<Collect> {
     public CollectTest(final Collect sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Collect collect = new Collect();

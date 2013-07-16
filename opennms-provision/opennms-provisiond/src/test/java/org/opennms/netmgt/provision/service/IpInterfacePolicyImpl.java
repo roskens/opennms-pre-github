@@ -48,7 +48,7 @@ public class IpInterfacePolicyImpl implements IpInterfacePolicy {
     }
 
     public void setParameter(String key, String value) {
-        
+
     }
 
 }

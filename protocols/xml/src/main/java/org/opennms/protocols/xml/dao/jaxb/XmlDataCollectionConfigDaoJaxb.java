@@ -44,7 +44,7 @@ import org.springframework.core.io.FileSystemResource;
 
 /**
  * The Class XmlDataCollectionConfigDaoJaxb.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlDataCollectionConfigDaoJaxb extends AbstractJaxbConfigDao<XmlDataCollectionConfig, XmlDataCollectionConfig> implements XmlDataCollectionConfigDao {

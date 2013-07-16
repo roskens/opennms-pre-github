@@ -57,7 +57,7 @@ public class IpNetToMediaTable	extends SnmpTable<IpNetToMediaTableEntry>
 	 */
 	public IpNetToMediaTable(InetAddress address) {
 	        super(address, "ipNetToMediaTable", IpNetToMediaTableEntry.ms_elemList);
-	    }	
+	    }
     /** {@inheritDoc} */
         @Override
     protected IpNetToMediaTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

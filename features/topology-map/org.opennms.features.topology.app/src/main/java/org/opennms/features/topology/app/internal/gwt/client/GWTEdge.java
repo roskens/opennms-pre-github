@@ -35,12 +35,12 @@ import org.opennms.features.topology.app.internal.gwt.client.d3.Func;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public final class GWTEdge extends JavaScriptObject {
-    
+
     public static final String SVG_EDGE_ELEMENT = "path";
     public static final int EDGE_WIDTH = 3;
-    
+
     protected GWTEdge() {};
-    
+
     public static final native GWTEdge create(String id, GWTVertex source, GWTVertex target) /*-{
     	return {"id":id, "source":source, "target":target, "cssClass": "path", "linkNum":1, "tooltipText": ""};
 	}-*/;
@@ -48,28 +48,28 @@ public final class GWTEdge extends JavaScriptObject {
     public final native GWTVertex getSource() /*-{
         return this.source;
     }-*/;
-    
+
     public final native GWTVertex getTarget() /*-{
         return this.target;
     }-*/;
-    
+
     public final native String getId() /*-{
         return this.id;
     }-*/;
-    
+
     @SuppressWarnings("unused")
     private final native boolean isSelected() /*-{
         return this.selected === undefined ? false : this.selected;
     }-*/;
-    
+
     public final native void setSelected(boolean selected) /*-{
         this.selected = selected;
     }-*/;
-    
+
     public final native void setCssClass(String cssClass) /*-{
         this.cssClass = cssClass;
     }-*/;
-    
+
     public final native String getCssClass() /*-{
         return this.cssClass;
     }-*/;
@@ -77,15 +77,15 @@ public final class GWTEdge extends JavaScriptObject {
     public final native void setLinkNum(int num) /*-{
         this.linkNum = num;
     }-*/;
-    
+
     public final native int getLinkNum() /*-{
         return this.linkNum;
     }-*/;
-    
+
     public final native void setTooltipText(String tooltipText) /*-{
         this.tooltipText = tooltipText;
     }-*/;
-    
+
     public final native String getTooltipText()/*-{
         return this.tooltipText;
     }-*/;
@@ -93,7 +93,7 @@ public final class GWTEdge extends JavaScriptObject {
     public static final native void consoleLog(Object obj)/*-{
         $wnd.console.log(obj);
     }-*/;
-    
+
     public static D3Behavior draw() {
         return new D3Behavior() {
 
@@ -103,7 +103,7 @@ public final class GWTEdge extends JavaScriptObject {
             }
         };
     }
-    
+
     protected static Func<String, GWTEdge> createPath(){
         return new Func<String, GWTEdge>(){
 
@@ -115,14 +115,14 @@ public final class GWTEdge extends JavaScriptObject {
                 int dy = Math.abs(target.getY() - source.getY());
                 int dr = edge.getLinkNum() > 1 ? (Math.max(dx, dy) * 10) / edge.getLinkNum() : 0;
                 int direction = edge.getLinkNum() % 2 == 0  ? 0 : 1;
-                
-                return "M" + source.getX() + "," + source.getY() + 
+
+                return "M" + source.getX() + "," + source.getY() +
                        " A" + dr + "," + dr + " 0 0, " + direction + " " + target.getX() + "," + target.getY();
             }
-            
+
         };
     }
-    
+
     protected static Func<String, GWTEdge> getCssStyleClass(){
         return new Func<String, GWTEdge>(){
 

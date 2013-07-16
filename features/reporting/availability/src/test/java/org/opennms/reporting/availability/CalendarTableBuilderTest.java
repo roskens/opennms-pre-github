@@ -30,9 +30,9 @@ package org.opennms.reporting.availability;
 
 /*
  * @author jsartin
- * 
+ *
  * Test cases for building calendar table used in availability reports
- * 
+ *
  */
 
 import java.util.Calendar;
@@ -75,7 +75,7 @@ public class CalendarTableBuilderTest extends TestCase {
 		CalendarTableBuilder builder = new CalendarTableBuilder(year,month);
 		for (int i= 0; i < builder.m_days.length; i++) {
 			System.out.println("day " + i + " " + builder.m_days[i].getVisible());
-			
+
 		}
 		int firstWeekDay = getDayOfWeek(locale, year, month, dayOfMonth);
 		int daysInMonth = getDaysInMonth(locale, year, month);
@@ -84,13 +84,13 @@ public class CalendarTableBuilderTest extends TestCase {
         int displayDays = numWeeks * 7;
 
 	}
-	
+
 	public void testGetDaysInMonth() {
 		assertEquals(29, getDaysInMonth(Locale.US, 2004, Calendar.FEBRUARY));
 		assertEquals(28, getDaysInMonth(Locale.US, 2005, Calendar.FEBRUARY));
 	}
-	
-	
+
+
 	private int getDaysInMonth(Locale locale, int year, int month) {
 		Calendar cal = Calendar.getInstance(locale);
 		cal.set(year, month, 1);

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.netmgt.asterisk.agi.scripts;
 
@@ -64,7 +64,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
     public static final String VAR_OPENNMS_USER_PIN = "OPENNMS_USER_PIN";
     /** Constant <code>VAR_OPENNMS_USERNAME="OPENNMS_USERNAME"</code> */
     public static final String VAR_OPENNMS_USERNAME = "OPENNMS_USERNAME";
-    
+
     /**
      * <p>sayAlphaInterruptible</p>
      *
@@ -80,7 +80,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayDateTimeInterruptible</p>
      *
@@ -96,7 +96,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayDigitsInterruptible</p>
      *
@@ -112,7 +112,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayNumberInterruptible</p>
      *
@@ -128,7 +128,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayPhoneticInterruptible</p>
      *
@@ -144,7 +144,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayTimeInterruptible</p>
      *
@@ -160,7 +160,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
             return 0x0;
         }
     }
-    
+
     /**
      * <p>sayIpAddressInterruptible</p>
      *
@@ -181,7 +181,7 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
         }
         return 0x0;
     }
-    
+
     /**
      * <p>sayIpAddressInterruptible</p>
      *
@@ -190,14 +190,14 @@ public abstract class BaseOnmsAgiScript extends BaseAgiScript {
      * @throws org.asteriskjava.fastagi.AgiException if any.
      */
     protected char sayIpAddressInterruptible(String addrString) throws AgiException {
-    	
+
     	final InetAddress addr = InetAddressUtils.addr(addrString);
     	if (addr == null) {
     		return 0x0;
     	}
 		return sayIpAddressInterruptible(addr);
     }
-    
+
     /**
      * <p>streamFileInterruptible</p>
      *

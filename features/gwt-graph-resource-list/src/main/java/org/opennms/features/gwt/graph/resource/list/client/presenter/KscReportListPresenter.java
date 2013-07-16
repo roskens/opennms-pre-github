@@ -41,7 +41,7 @@ public class KscReportListPresenter extends DefaultResourceListPresenter {
     public KscReportListPresenter(DefaultResourceListView<ResourceListItem> view, SearchPopup searchPopup, JsArray<ResourceListItem> dataList, String baseUrl) {
         super(view, searchPopup, dataList, baseUrl);
     }
-    
+
 
     @Override
     public void onResourceItemSelected() {
@@ -49,9 +49,9 @@ public class KscReportListPresenter extends DefaultResourceListPresenter {
         urlBuilder.append(getBaseUrl() + "/KSC/customView.htm");
         urlBuilder.append("?type=" + getView().getSelectedResource().getType());
         urlBuilder.append("&report=" + getView().getSelectedResource().getId());
-        
+
         Location.assign(urlBuilder.toString());
     }
-    
+
 
 }

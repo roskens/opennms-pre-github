@@ -47,9 +47,9 @@ import org.springframework.core.io.Resource;
 import org.springframework.util.Assert;
 
 public class QueueingForeignSourceRepository implements ForeignSourceRepository, InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(QueueingForeignSourceRepository.class);
-    
+
     private final ConcurrentMap<String,Requisition> m_pendingRequisitions     = new ConcurrentHashMap<String,Requisition>();
     private final ConcurrentMap<String,ForeignSource> m_pendingForeignSources = new ConcurrentHashMap<String,ForeignSource>();
     ForeignSourceRepository m_repository = null;
@@ -88,7 +88,7 @@ public class QueueingForeignSourceRepository implements ForeignSourceRepository,
     public ForeignSourceRepository getForeignSourceRepository() {
         return m_repository;
     }
-    
+
     public void setForeignSourceRepository(final ForeignSourceRepository fsr) {
         m_repository = fsr;
     }

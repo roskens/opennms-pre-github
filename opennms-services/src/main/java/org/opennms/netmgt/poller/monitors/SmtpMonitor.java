@@ -67,9 +67,9 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 public final class SmtpMonitor extends AbstractServiceMonitor {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(SmtpMonitor.class);
-    
+
 
     /**
      * Default SMTP port.
@@ -137,7 +137,7 @@ public final class SmtpMonitor extends AbstractServiceMonitor {
         if (iface.getType() != NetworkInterface.TYPE_INET) {
             throw new NetworkInterfaceNotSupportedException("Unsupported interface type, only TYPE_INET currently supported");
         }
-        
+
         TimeoutTracker tracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
 
         int port = ParameterMap.getKeyedInteger(parameters, "port", DEFAULT_PORT);

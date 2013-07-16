@@ -54,11 +54,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class NtpDetectorTest implements ApplicationContextAware {
-    
+
     private ApplicationContext m_applicationContext;
     public NtpDetector m_detector;
     private SimpleUDPServer m_server;
-    
+
     @Before
     public void setUp(){
         MockLogAppender.setupLogging();
@@ -66,9 +66,9 @@ public class NtpDetectorTest implements ApplicationContextAware {
         m_detector = getDetector(NtpDetector.class);
         m_detector.setRetries(0);
         assertNotNull(m_detector);
-        
+
         m_server = new SimpleUDPServer(){
-          
+
             @Override
             public void onInit(){
                 NtpMessage message = new NtpMessage();
@@ -83,56 +83,56 @@ public class NtpDetectorTest implements ApplicationContextAware {
                 message.receiveTimestamp = message.transmitTimestamp;
                 message.transmitTimestamp = message.transmitTimestamp;
                 byte[] response = message.toByteArray();
-                
+
                 addRequestResponse(null, response);
             }
-            
+
         };
         m_server.setPort(1800);
         m_server.setInetAddress(InetAddressUtils.getLocalHostAddress());
     }
-    
+
     @After
     public void tearDown() throws IOException {
         m_server.stopServer();
         m_server = null;
     }
-     
+
     @Test(timeout=90000)
     public void testDetectorSuccess() throws Exception{
         m_server.onInit();
         m_server.startServer();
-        
+
         m_detector.setPort(m_server.getPort());
         m_detector.setIpToValidate(InetAddressUtils.str(m_server.getInetAddress()));
         m_detector.init();
         assertTrue("Testing for NTP service, got false when true is supposed to be returned", m_detector.isServiceDetected(m_server.getInetAddress()));
     }
-    
+
     @Test(timeout=90000)
     public void testDetectorFailWrongPort() throws Exception{
         m_server.onInit();
         m_server.startServer();
-        
+
         m_detector.setPort(2000);
         m_detector.setIpToValidate(InetAddressUtils.str(m_server.getInetAddress()));
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
-    
+
     // This test is no longer valid because setIpToValidate is no longer needed.
     @Ignore
     @Test(timeout=90000)
     public void testDetectorFailIncorrectIp() throws Exception{
         m_server.onInit();
         m_server.startServer();
-        
+
         m_detector.setPort(m_server.getPort());
         m_detector.setIpToValidate("127.0.0.10");
         m_detector.init();
         assertFalse(m_detector.isServiceDetected(m_server.getInetAddress()));
     }
-    
+
     private NtpDetector getDetector(Class<? extends ServiceDetector> detectorClass) {
         Object bean = m_applicationContext.getBean(detectorClass.getName());
         assertNotNull(bean);

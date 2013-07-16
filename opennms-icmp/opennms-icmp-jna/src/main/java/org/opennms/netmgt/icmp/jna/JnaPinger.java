@@ -63,7 +63,7 @@ public class JnaPinger implements Pinger {
 
     /**
      * Initializes this singleton
-     * @throws Exception 
+     * @throws Exception
      */
     private synchronized void initialize() throws Exception {
         if (m_pingTracker != null) return;

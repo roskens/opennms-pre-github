@@ -12,7 +12,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * <p>
  * IpRange class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class IpRange implements Serializable, Comparable<IpRange> {

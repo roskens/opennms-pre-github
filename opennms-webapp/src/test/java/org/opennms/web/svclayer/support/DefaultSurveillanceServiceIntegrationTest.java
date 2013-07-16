@@ -66,7 +66,7 @@ public class DefaultSurveillanceServiceIntegrationTest implements InitializingBe
     @Autowired
     private SurveillanceService m_surveillanceService;
     @Autowired
-    private DatabasePopulator m_databasePopulator; 
+    private DatabasePopulator m_databasePopulator;
 
     @Override
     public void afterPropertiesSet() throws Exception {

@@ -35,7 +35,7 @@ import org.opennms.netmgt.config.reporting.Parameters;
  * <p>ParameterConversionService interface.</p>
  */
 public interface ParameterConversionService {
-    
+
     /**
      * <p>convert</p>
      *

@@ -55,7 +55,7 @@ public interface LifeCycleInstance {
      * @return a {@link java.lang.String} object.
      */
     String getName();
-    
+
     /**
      * <p>setAttribute</p>
      *
@@ -131,6 +131,6 @@ public interface LifeCycleInstance {
      */
     DefaultTaskCoordinator getCoordinator();
 
-    
+
 
 }

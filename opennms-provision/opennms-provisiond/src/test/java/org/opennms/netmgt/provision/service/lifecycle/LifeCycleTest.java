@@ -47,10 +47,10 @@ import org.opennms.core.test.MockLogAppender;
  * @author brozow
  */
 public class LifeCycleTest {
-    
+
     private final String[] m_expectedPhases = new String[] {"phase1", "phase2", "phase3"};
     private DefaultLifeCycleRepository m_lifeCycleRepository;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -61,17 +61,17 @@ public class LifeCycleTest {
 
     @Test
     public void testBuildLifeCycle() {
-        
+
         LifeCycle bldr = new LifeCycle("sample");
         for(String phase : m_expectedPhases) {
             bldr.addPhase(phase);
         }
-        
+
         m_lifeCycleRepository.addLifeCycle(bldr);
-        
+
         LifeCycleInstance lifecycle = m_lifeCycleRepository.createLifeCycleInstance("sample");
 
-        
+
         assertNotNull(lifecycle);
         assertEquals("sample", lifecycle.getName());
         List<String> phases = lifecycle.getPhaseNames();
@@ -82,9 +82,9 @@ public class LifeCycleTest {
     public void testBuildLifeCycleFromArray() {
 
         LifeCycle r = new LifeCycle("sample").addPhases(m_expectedPhases);
-        
+
         m_lifeCycleRepository.addLifeCycle(r);
-        
+
         LifeCycleInstance lifecycle = m_lifeCycleRepository.createLifeCycleInstance("sample");
 
         assertNotNull(lifecycle);

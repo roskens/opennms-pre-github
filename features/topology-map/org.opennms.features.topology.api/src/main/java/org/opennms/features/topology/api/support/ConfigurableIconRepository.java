@@ -49,7 +49,7 @@ public class ConfigurableIconRepository implements IconRepository, ManagedServic
 	public ConfigurableIconRepository(Map<String, String> iconMap) {
 		 m_iconMap = new AtomicReference<Map<String,String>>(iconMap);
 	}
-	
+
 	private Map<String, String> iconMap() {
 		return m_iconMap.get();
 	}
@@ -57,18 +57,18 @@ public class ConfigurableIconRepository implements IconRepository, ManagedServic
     public boolean contains(String type) {
         return iconMap().containsKey(type);
     }
-    
+
     @Override
     public String getIconUrl(String type) {
         return iconMap().get(type);
     }
-    
+
 	@Override
 	public void updated(Dictionary<String,?> properties) throws ConfigurationException {
-		
+
 		while(true) {
 			Map<String, String> oldMap = m_iconMap.get();
-			
+
 			// create the new map using the old as defaults
 			Map<String, String> newMap = new HashMap<String, String>(oldMap);
 			for(String key : Collections.list(properties.keys())) {

@@ -41,7 +41,7 @@ public class ParameterTest extends XmlTest<Parameter> {
     public ParameterTest(final Parameter sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Parameter parm = new Parameter();

@@ -40,7 +40,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 
 /**
  * The Class TcaDataCollectionConfig.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @XmlRootElement(name="tca-collection")

@@ -51,7 +51,7 @@ public interface OutageService {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsOutage> getCurrentOutages();
-    
+
     /**
      * <p>getOutagesByRange</p>
      *
@@ -75,7 +75,7 @@ public interface OutageService {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsOutage> getOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction, String filter);
-    
+
     /**
      * <p>getSuppressedOutagesByRange</p>
      *
@@ -85,8 +85,8 @@ public interface OutageService {
      * @param direction a {@link java.lang.String} object.
      * @return a {@link java.util.Collection} object.
      */
-    Collection<OnmsOutage> getSuppressedOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction);    
-    
+    Collection<OnmsOutage> getSuppressedOutagesByRange(Integer offset, Integer limit, String orderProperty, String direction);
+
     /**
      * <p>getSuppressedOutages</p>
      *
@@ -100,7 +100,7 @@ public interface OutageService {
      * @return a {@link java.lang.Integer} object.
      */
     Integer getCurrentOutageCount();
-    
+
     /**
      * <p>getOutageCount</p>
      *
@@ -177,7 +177,7 @@ public interface OutageService {
      * @return a {@link java.util.Collection} object.
      */
     Collection<OnmsOutage> getOutagesForService(int nodeId, String ipInterface, int serviceId);
-    
+
     /**
      * <p>getOutagesForService</p>
      *
@@ -246,12 +246,12 @@ public interface OutageService {
      * @return a {@link java.lang.Integer} object.
      */
     Integer outageResolvedCountFiltered(String searchFilter);
-	
-    // This we may have to define 
+
+    // This we may have to define
     /*
     OutageSummary[] getCurrentOutageSummaries() ;
 
     OutageSummary[] getCurrentSDSOutageSummaries() ;
     */
-    
+
 }

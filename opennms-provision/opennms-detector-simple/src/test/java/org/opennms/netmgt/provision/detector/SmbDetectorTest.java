@@ -38,22 +38,22 @@ import org.junit.Test;
  *
  */
 public class SmbDetectorTest {
-    
+
 //    private SmbDetector m_detector;
-    
+
 //    @Before
 //    public void setUp() {
 //        MockLogAppender.setupLogging();
 //        m_detector = new SmbDetector();
-//        
+//
 //    }
-    
+
     @After
     public void tearDown() {
-        
+
     }
-    
-    //Tested against a Windows XP machine on local network. 
+
+    //Tested against a Windows XP machine on local network.
     @Test(timeout=30000)
     public void testMyDetector() throws UnknownHostException {
         //m_detector.init();

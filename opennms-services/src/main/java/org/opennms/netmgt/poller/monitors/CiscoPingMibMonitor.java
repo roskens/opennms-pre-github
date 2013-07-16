@@ -63,7 +63,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * availability of the ICMP service on remote interfaces, using the CISCO-PING-MIB
  * as a proxy of sorts. The class implements the ServiceMonitor interface that
  * allows it to be used along with other plug-ins by the service poller framework.
- * 
+ *
  * Derived from the SnmpMonitor class.  See that class' docs for authorship history.
  * </P>
  *
@@ -76,7 +76,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 @Distributable(DistributionContext.DAEMON)
 public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     private static final Logger LOG = LoggerFactory.getLogger(CiscoPingMibMonitor.class);
-	
+
     @SuppressWarnings("unused")
 	private static final class CiscoPingEntry {
 		private int m_ciscoPingSerialNumber;
@@ -156,7 +156,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 		public int calculateMinInitialWait() {
 			return m_ciscoPingPacketCount * (m_ciscoPingPacketTimeout + m_ciscoPingPacketDelay);
 		}
-		
+
 		public SnmpObjId[] generateCreateOids() {
 			SnmpObjId[] oids = {
 					SnmpObjId.get(PING_ENTRY_OID + "." + PING_PROTOCOL + "." + m_ciscoPingSerialNumber),
@@ -171,7 +171,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			};
 			return oids;
 		}
-		
+
 		public SnmpValue[] generateCreateValues() {
 			SnmpValueFactory vf = SnmpUtils.getValueFactory();
 			SnmpValue[] values = {
@@ -187,14 +187,14 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			};
 			return values;
 		}
-		
+
 		public SnmpObjId[] generateRowStatusOids() {
 			SnmpObjId[] oids = {
 					SnmpObjId.get(PING_ENTRY_OID + "." + PING_ENTRY_STATUS + "." + m_ciscoPingSerialNumber)
 			};
 			return oids;
 		}
-		
+
 		public SnmpValue[] generateRowStatusValues() {
 			SnmpValueFactory vf = SnmpUtils.getValueFactory();
 			SnmpValue[] values = {
@@ -202,7 +202,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			};
 			return values;
 		}
-		
+
 		public SnmpObjId[] generateResultsOids() {
 			SnmpObjId[] oids = {
 					SnmpObjId.get(PING_ENTRY_OID + "." + PING_SENT_PACKETS + "." + m_ciscoPingSerialNumber),
@@ -214,7 +214,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			};
 			return oids;
 		}
-		
+
                 @Override
 		public String toString() {
 			StringBuilder sb = new StringBuilder("CiscoPingEntry: [ciscoPingSerialNumber=");
@@ -228,23 +228,23 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			sb.append("ciscoPingEntryOwner=").append(m_ciscoPingEntryOwner).append(",");
 			sb.append("ciscoPingVrfName=").append(m_ciscoPingVrfName);
 			sb.append("]");
-			
+
 			return sb.toString();
 		}
 	}
-	
+
 	private static NodeDao s_nodeDao = null;
-	
+
     /**
      * Name of monitored service.
      */
     private static final String SERVICE_NAME = "CiscoPing";
-    
+
     /**
      * Default timeout, in milliseconds, for the SNMP operations underlying this poll
      */
     private static final int DEFAULT_TIMEOUT = 1800;
-    
+
     /**
      * Default retry count for the SNMP operations underlying this poll
      */
@@ -256,7 +256,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     private static final String PING_ENTRY_OID = ".1.3.6.1.4.1.9.9.16.1.1.1"; // Enterprises / cisco / ciscoMgmt /
                                                                                 // ciscoPingMIB / ciscoPingMIBObjects /
                                                                                 // ciscoPingTable / ciscoPingEntry
-    
+
     @SuppressWarnings("unused")
     private static final String PING_SERIAL = "1";
     private static final String PING_PROTOCOL = "2";
@@ -274,7 +274,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     private static final String PING_ENTRY_OWNER = "15";
     private static final String PING_ENTRY_STATUS = "16";
     private static final String PING_VRF_NAME = "17";
-    
+
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_ACTIVE = 1;
     @SuppressWarnings("unused")
@@ -285,34 +285,34 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     @SuppressWarnings("unused")
     private static final int ROWSTATUS_CREATE_WAIT = 5;
     private static final int ROWSTATUS_DESTROY = 6;
-    
+
     private static final int PING_PROTOCOL_IPV4 = 1;
     private static final int PING_PROTOCOL_IPV6 = 20;
 
     /* Number of ping packets that IOS should send */
     private static final String PARM_PACKET_COUNT = "packet-count";
     private static final int PARM_PACKET_COUNT_DEFAULT = 5;
-    
+
     /* Size in bytes of each ping packet that IOS should send */
     private static final String PARM_PACKET_SIZE = "packet-size";
     private static final int PARM_PACKET_SIZE_DEFAULT = 100;
-    
+
     /* Timeout in milliseconds for each ping packet that IOS will send */
     private static final String PARM_PACKET_TIMEOUT = "packet-timeout";
     private static final int PARM_PACKET_TIMEOUT_DEFAULT = 2000;
-    
+
     /* Delay in milliseconds among the ping packets that IOS will send */
     private static final String PARM_PACKET_DELAY = "packet-delay";
     private static final int PARM_PACKET_DELAY_DEFAULT = 0;
-    
+
     /* A string identifying which management application "owns" this entry in the ciscoPingTable */
     private static final String PARM_ENTRY_OWNER = "entry-owner";
     private static final String PARM_ENTRY_OWNER_DEFAULT = "OpenNMS CiscoPingMibMonitor";
-    
-    /* A string indicating the VPN name in which IOS will perform the ping. Normally blank. */ 
+
+    /* A string indicating the VPN name in which IOS will perform the ping. Normally blank. */
     private static final String PARM_VRF_NAME = "vrf-name";
     private static final String PARM_VRF_NAME_DEFAULT = "";
-    
+
     /* Maximum age (in ms, but with 1s accuracy) of a ciscoPingEntry that will not be deleted.
      * Set to zero to disable cleanup of the ciscoPingTable.  Best to leave set to default.
      */
@@ -320,22 +320,22 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     private static final String PARM_CLEANUP_INTERVAL = "cleanup-interval";
     @SuppressWarnings("unused")
     private static final int PARM_CLEANUP_INTERVAL_DEFAULT = 86400000;
-    
+
     /* The node ID of the node that will act as our IOS ping proxy */
     private static final String PARM_PROXY_NODE_ID = "proxy-node-id";
-    
+
     /* The foreign-source name of the node that will act as our IOS ping proxy */
     private static final String PARM_PROXY_FOREIGN_SOURCE = "proxy-node-foreign-source";
-    
+
     /* The foreign-id of the node that will act as our IOS ping proxy */
     private static final String PARM_PROXY_FOREIGN_ID = "proxy-node-foreign-id";
-    
+
     /* The IP address of the interface to use as our IOS ping proxy */
     private static final String PARM_PROXY_IP_ADDR = "proxy-ip-addr";
-    
+
     /* The IP address of the interface we ultimately want to ping */
     private static final String PARM_TARGET_IP_ADDR = "target-ip-addr";
-    
+
     /* The percent of proxied pings that must succeed for the service to be up */
     private static final String PARM_SUCCESS_PERCENT = "success-percent";
     private static final int PARM_SUCCESS_PERCENT_DEFAULT = 100;
@@ -393,7 +393,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     	// Cannot use the pollerdContext because it creates a circular reference
     	// Cannot do this in the one-time initialize for the same reason, so do it here instead.
     	if (s_nodeDao == null) s_nodeDao = (NodeDao) BeanUtils.getFactory("commonContext", ClassPathXmlApplicationContext.class).getBean("nodeDao");
-    	
+
         super.initialize(svc);
         return;
     }
@@ -412,7 +412,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         InetAddress targetIpAddr = (InetAddress) determineTargetAddress(svc, parameters);
-    	
+
         int pingProtocol = 0;
         try {
         	pingProtocol = determineAddrType(targetIpAddr);
@@ -430,17 +430,17 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         pingEntry.setCiscoPingPacketDelay(ParameterMap.getKeyedInteger(parameters, PARM_PACKET_DELAY, PARM_PACKET_DELAY_DEFAULT));
         pingEntry.setCiscoPingEntryOwner(ParameterMap.getKeyedString(parameters, PARM_ENTRY_OWNER, PARM_ENTRY_OWNER_DEFAULT));
         pingEntry.setCiscoPingVrfName(ParameterMap.getKeyedString(parameters, PARM_VRF_NAME, PARM_VRF_NAME_DEFAULT));
-        
+
         pingEntry.setCiscoPingSerialNumber(Double.valueOf(System.currentTimeMillis() / 1000).intValue());
         pingEntry.setCiscoPingProtocol(pingProtocol);
         pingEntry.setCiscoPingAddress(targetIpAddr);
         pingEntry.setCiscoPingEntryStatus(ROWSTATUS_CREATE_AND_GO);
-        
+
         int minSuccessPercent = ParameterMap.getKeyedInteger(parameters, PARM_SUCCESS_PERCENT, PARM_SUCCESS_PERCENT_DEFAULT);
-        
+
         // FIXME: Should the cleanup stuff be fixed to actually use this? Not clear if it really matters.
         // int cleanupInterval = ParameterMap.getKeyedInteger(parameters, PARM_CLEANUP_INTERVAL, PARM_CLEANUP_INTERVAL_DEFAULT);
-        
+
         // Determine the node to use as our IOS ping proxy
         //
         InetAddress proxyIpAddr = determineProxyAddress(parameters, svc);
@@ -448,7 +448,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
             LOG.debug("Unable to determine proxy address for this service");
             return PollStatus.unavailable("Unable to determine proxy address for this service");
         }
-        
+
         // Retrieve the *proxy* interface's SNMP peer object
         //
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(proxyIpAddr);
@@ -465,21 +465,21 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 
         PollStatus serviceStatus = null;
         TimeoutTracker timeoutTracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
-        
+
         // Send the SET-REQUEST PDU to create the ciscoPingEntry in createAndGo mode
         SnmpValue[] setResult = SnmpUtils.set(agentConfig, pingEntry.generateCreateOids(), pingEntry.generateCreateValues());
         if (setResult == null) {
 		LOG.warn("SNMP SET operation unsuccessful for proxy-ping entry for target {} -- {}", targetIpAddr, pingEntry);
         	return PollStatus.unknown("SNMP SET failed for ciscoPingTable entry on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());
         }
-        
+
         // With the ciscoPingEntry created, we now wait until the specified pings have had time to
         // complete.  Twice the time it would take assuming a zero response time per ping seems like
         // a good starting point.
         try {
 			Thread.sleep(pingEntry.calculateMinInitialWait() * 2);
 		} catch (InterruptedException e) { }
-        
+
         // Now check whether the ping has completed and, if so, whether it succeeded and its times
         SnmpValue[] statusValues = null;
         for (timeoutTracker.reset(); (timeoutTracker.shouldRetry() && (statusValues == null || statusValues.length < 6 || statusValues[5].toInt() != 1)); timeoutTracker.nextAttempt()) {
@@ -491,21 +491,21 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 		LOG.warn("SNMP GET operation unsuccessful for proxy-ping entry for target {} -- {}", targetIpAddr, pingEntry);
         	return PollStatus.unknown("SNMP GET failed for ciscoPingTable entry on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());
         }
-        
+
         // If we got results back but they do not contain the pingCompleted column is missing,
         // mark the service unknown
         if (statusValues.length < 6) {
 		LOG.warn("Proxy-ping entry did not indicate whether ping completed after retries exhausted for target {} -- {}", targetIpAddr, pingEntry);
-        	return PollStatus.unknown("ciscoPingTable entry is missing pingCompleted column on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());        	        	
+		return PollStatus.unknown("ciscoPingTable entry is missing pingCompleted column on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());
         }
-        
+
         // If we got the results back but they indicate that the ping still has not completed,
         // mark the service unknown
         if (statusValues[5].toInt() != 1) {
 		LOG.warn("Proxy-ping entry marked not completed after retries exhausted for target {} -- {}", targetIpAddr, pingEntry);
-        	return PollStatus.unknown("ciscoPingTable entry marked not completed on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());        	
+		return PollStatus.unknown("ciscoPingTable entry marked not completed on proxy interface " + proxyIpAddr + " with instance ID " + pingEntry.getCiscoPingSerialNumber());
         }
-        
+
         // If the ping has completed, verify that the percent of completed pings meets our minimum
         // success percent.  If not, mark the service down.
         double sentPings = statusValues[0].toInt();
@@ -520,7 +520,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         	cleanupCurrentEntry(pingEntry, proxyIpAddr, agentConfig);
         	return PollStatus.unavailable(successPct + " percent (" + receivedPings + "/" + sentPings+ ") pings succeeded, less than target " + minSuccessPercent + " percent");
         }
-        
+
         // If we've arrived here, then enough pings completed to consider the service up!
         Map<String,Number> pingProps = new HashMap<String,Number>();
         double minRtt = statusValues[2].toInt();
@@ -532,13 +532,13 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
         pingProps.put("minRtt", minRtt);
         pingProps.put("avgRtt", avgRtt);
         pingProps.put("maxRtt", maxRtt);
-        
+
         cleanupCurrentEntry(pingEntry, proxyIpAddr, agentConfig);
-        
+
         // TODO: Find and clean up defunct rows before returning
         // Actually it's not clear that this is necessary, seems IOS cleans up old
         // entries on its own some minutes after their creation.  Need to investigate.
-        
+
         serviceStatus = PollStatus.available(avgRtt);
         serviceStatus.setProperties(pingProps);
         return serviceStatus;
@@ -558,7 +558,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			overrideTarget = PropertiesUtils.substitute(rawOverrideTarget, getServiceProperties(svc));
 			LOG.debug("Expanded value '{}' of parameter {} to '{}' for service {} on interface {}", rawOverrideTarget, PARM_TARGET_IP_ADDR, overrideTarget, svc.getSvcName(), svc.getAddress());
 		}
-		
+
 		if (overrideTarget == null) return svc.getAddress();
 		LOG.debug("Using user-specified override target IP address {} instead of service address {} for service {}", overrideTarget, svc.getAddress(), svc.getSvcName());
 		try {
@@ -578,14 +578,14 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 		String proxyNodeId = ParameterMap.getKeyedString(parameters, PARM_PROXY_NODE_ID, null);
 		String proxyNodeFS = ParameterMap.getKeyedString(parameters, PARM_PROXY_FOREIGN_SOURCE, null);
 		String proxyNodeFI = ParameterMap.getKeyedString(parameters, PARM_PROXY_FOREIGN_ID, null);
-		
+
 		String rawProxyIpAddr = ParameterMap.getKeyedString(parameters, PARM_PROXY_IP_ADDR, null);
 		String proxyIpAddr = rawProxyIpAddr;
 		if (rawProxyIpAddr != null) {
 			proxyIpAddr = PropertiesUtils.substitute(rawProxyIpAddr, getServiceProperties(svc));
 			LOG.debug("Expanded value '{}' of parameter {} to '{}' for service {} on interface {}", rawProxyIpAddr, PARM_PROXY_IP_ADDR, proxyIpAddr, svc.getSvcName(), svc.getAddress());
 		}
-		
+
 		/* If we have a foreign-source and foreign-id, short circuit to use that */
 		if (proxyNodeFS != null && !proxyNodeFS.equals("") && proxyNodeFI != null && !proxyNodeFI.equals("")) {
 			LOG.debug("Trying to look up proxy node with foreign-source {}, foreign-id {} for target interface {}", proxyNodeFS, proxyNodeFI, svc.getAddress());
@@ -597,7 +597,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			LOG.info("Using address {} from node '{}':'{}' as proxy for service '{}' on interface {}", proxyAddress, proxyNodeFS, proxyNodeFI, svc.getSvcName(), svc.getIpAddr());
 			return proxyAddress;
 		}
-		
+
 		/* No match with foreign-source / foreign-id?  Try with a node ID */
 		if (proxyNodeId != null && Integer.valueOf(proxyNodeId) != null) {
 			LOG.debug("Trying to look up proxy node with database ID {} for target interface {}", proxyNodeId, svc.getAddress());
@@ -608,7 +608,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			LOG.info("Using address {} from node with DBID {} as proxy for service '{}' on interface {}", proxyAddress, proxyNodeId, svc.getSvcName(), svc.getIpAddr());
 			return proxyAddress;
 		}
-		
+
 		/* No match with any node criteria?  Try for a plain old IP address. */
 		LOG.info("Trying to use address {} as proxy-ping agent address for target interface {}", proxyIpAddr, svc.getAddress());
 		try {
@@ -620,7 +620,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 			LOG.info("Using address {} (user-specified) as proxy for service '{}' on interface {}", proxyAddress, svc.getSvcName(), svc.getIpAddr());
 			return proxyAddress;
 		}
-		
+
 		LOG.error("Unable to determine proxy address for service '{}' on interface '{}'. The poll will be unable to proceed.", svc.getSvcName(), svc.getIpAddr());
 		return null;
 	}
@@ -636,7 +636,7 @@ public class CiscoPingMibMonitor extends SnmpMonitorStrategy {
 		LOG.error("The address {} is neither IPv4 nor IPv6. Don't know how to proceed, giving up.", ipaddr);
 		throw new RuntimeException("Cannot work with address " + ipaddr + " because it is neither IPv4 nor IPv6.");
 	}
-	
+
     private Properties getServiceProperties(MonitoredService svc) {
         Properties properties = new Properties();
         properties.put("ipaddr", svc.getIpAddr());

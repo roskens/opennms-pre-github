@@ -54,7 +54,7 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultTaskCoordinator implements InitializingBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskCoordinator.class);
 
     /**
@@ -70,7 +70,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
             m_queue = queue;
             start();
         }
-        
+
         @Override
         public void run() {
             while(true) {
@@ -93,16 +93,16 @@ public class DefaultTaskCoordinator implements InitializingBean {
             }
         }
     }
-    
+
 
     private final BlockingQueue<Future<Runnable>> m_queue;
     private final ConcurrentHashMap<String, CompletionService<Runnable>> m_taskCompletionServices = new ConcurrentHashMap<String, CompletionService<Runnable>>();
     @SuppressWarnings("unused")
     private final RunnableActor m_actor;
-    
+
     private String m_defaultExecutor ;
     private CompletionService<Runnable> m_defaultCompletionService;
-    
+
     // This is used to adjust timing during testing
     private Long m_loopDelay;
 
@@ -118,7 +118,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
             new LogPreservingThreadFactory(SyncTask.ADMIN_EXECUTOR, 1, false)
         ));
     }
-    
+
     /**
      * <p>Constructor for DefaultTaskCoordinator.</p>
      *
@@ -140,20 +140,20 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public void setDefaultExecutor(String executorName) {
         m_defaultExecutor = executorName;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      */
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(m_defaultExecutor, "defaultExecutor must be set");
-        
+
         m_defaultCompletionService = getCompletionService(m_defaultExecutor);
-        
+
         Assert.notNull(m_defaultCompletionService, "defaultExecutor must be set to the name of an added executor");
-        
+
     }
-    
+
     /**
      * <p>createTask</p>
      *
@@ -164,7 +164,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public SyncTask createTask(ContainerTask<?> parent, Runnable r) {
         return new SyncTask(this, parent, r);
     }
-    
+
     /**
      * <p>createTask</p>
      *
@@ -176,7 +176,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public SyncTask createTask(ContainerTask<?> parent, Runnable r, String schedulingHint) {
         return new SyncTask(this, parent, r, schedulingHint);
     }
-    
+
     /**
      * <p>createTask</p>
      *
@@ -189,7 +189,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public <T> AsyncTask<T> createTask(ContainerTask<?> parent, Async<T> async, Callback<T> cb) {
         return new AsyncTask<T>(this, parent, async, cb);
     }
-    
+
 
     /**
      * <p>createBatch</p>
@@ -200,7 +200,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public TaskBuilder<BatchTask> createBatch(ContainerTask<?> parent) {
         return new TaskBuilder<BatchTask>(new BatchTask(this, parent));
     }
-    
+
     /**
      * <p>createBatch</p>
      *
@@ -209,7 +209,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public TaskBuilder<BatchTask> createBatch() {
         return createBatch((ContainerTask<?>)null);
     }
-    
+
     /**
      * <p>createBatch</p>
      *
@@ -221,7 +221,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
         return createBatch(parent).add(tasks).get(parent);
     }
 
-    
+
     /**
      * <p>createBatch</p>
      *
@@ -232,7 +232,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
         return createBatch().add(tasks).get();
     }
 
-    
+
     /**
      * <p>createSequence</p>
      *
@@ -242,7 +242,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public TaskBuilder<SequenceTask> createSequence(ContainerTask<?> parent) {
         return new TaskBuilder<SequenceTask>(new SequenceTask(this, parent));
     }
-    
+
     /**
      * <p>createSequence</p>
      *
@@ -251,7 +251,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public TaskBuilder<SequenceTask> createSequence() {
         return createSequence((ContainerTask<?>)null);
     }
-    
+
     /**
      * <p>createSequence</p>
      *
@@ -263,7 +263,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
         return createSequence(parent).add(tasks).get(parent);
     }
 
-    
+
     /**
      * <p>createSquence</p>
      *
@@ -274,8 +274,8 @@ public class DefaultTaskCoordinator implements InitializingBean {
         return createSequence().add(tasks).get();
     }
 
-    
-    
+
+
     /**
      * <p>setLoopDelay</p>
      *
@@ -284,7 +284,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public void setLoopDelay(long millis) {
         m_loopDelay = millis;
     }
-    
+
     /**
      * <p>schedule</p>
      *
@@ -293,7 +293,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
     public void schedule(final Task task) {
         onProcessorThread(scheduler(task));
     }
-    
+
     /**
      * <p>addDependency</p>
      *
@@ -305,7 +305,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
         dependent.incrPendingPrereqCount();
         onProcessorThread(dependencyAdder(prereq, dependent));
     }
-    
+
     private void onProcessorThread(final Runnable r) {
         Future<Runnable> now = new Future<Runnable>() {
             @Override
@@ -336,14 +336,14 @@ public class DefaultTaskCoordinator implements InitializingBean {
         m_queue.add(now);
     }
 
-    
+
 
     private Runnable scheduler(final Task task) {
         return new Runnable() {
             @Override
             public void run() {
                 task.scheduled();
-                task.submitIfReady(); 
+                task.submitIfReady();
             }
             @Override
             public String toString() {
@@ -351,7 +351,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
             }
         };
     }
-    
+
     Runnable taskCompleter(final Task task) {
         return new Runnable() {
             @Override
@@ -364,8 +364,8 @@ public class DefaultTaskCoordinator implements InitializingBean {
             }
         };
     }
-    
-    
+
+
     private void notifyDependents(Task completed) {
         // log().debug(String.format("Task %s completed!", completed));
         completed.onComplete();
@@ -376,18 +376,18 @@ public class DefaultTaskCoordinator implements InitializingBean {
             if (dependent.isReady()) {
                 // log().debug(String.format("Task %s %s ready.", dependent, dependent.isReady() ? "is" : "is not"));
             }
-            
+
             dependent.submitIfReady();
         }
 
         // log().debug(String.format("CLEAN: removing dependents of %s", completed));
         completed.clearDependents();
-        
-        
+
+
     }
 
     /**
-     * The returns a runnable that is run on the taskCoordinator thread.. This is 
+     * The returns a runnable that is run on the taskCoordinator thread.. This is
      * done to keep the Task data structures thread safe.
      */
     private Runnable dependencyAdder(final Task prereq, final Task dependent) {
@@ -403,7 +403,7 @@ public class DefaultTaskCoordinator implements InitializingBean {
                 /**
                  *  the prereq task may have completed between the time this adder was enqueued
                  *  and the time we got here.  In this case there will be no tasks to kick this
-                 *  one off... so check it here. 
+                 *  one off... so check it here.
                  */
                 dependent.submitIfReady();
             }
@@ -413,15 +413,15 @@ public class DefaultTaskCoordinator implements InitializingBean {
             }
         };
     }
-    
-    
+
+
     private CompletionService<Runnable> getCompletionService(String name) {
         CompletionService<Runnable> completionService = m_taskCompletionServices.get(name);
         CompletionService<Runnable> selected = completionService != null ? completionService : m_defaultCompletionService;
         // log().debug(String.format("USING COMPLETION SERVICE %s : %s!", name, selected));
         return selected;
     }
-    
+
     void markTaskAsCompleted(Task task) {
         onProcessorThread(taskCompleter(task));
     }
@@ -429,11 +429,11 @@ public class DefaultTaskCoordinator implements InitializingBean {
     void submitToExecutor(String executorPreference, Runnable workToBeDone, Task owningTask) {
         submitToExecutor(executorPreference, workToBeDone, taskCompleter(owningTask));
     }
-    
+
     void submitToExecutor(String executorPreference, final Runnable workToBeDone, Runnable completionProcessor) {
         getCompletionService(executorPreference).submit(workToBeDone, completionProcessor);
     }
-    
+
     /**
      * <p>addExecutor</p>
      *

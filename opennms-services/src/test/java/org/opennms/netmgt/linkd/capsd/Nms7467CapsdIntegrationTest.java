@@ -94,7 +94,7 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
 
     @Before
     public void setUp() throws Exception {
-        assertTrue("Capsd must not be null", m_capsd != null);        
+        assertTrue("Capsd must not be null", m_capsd != null);
     }
 
 
@@ -107,7 +107,7 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.init();
         m_capsd.start();
         m_capsd.scanSuspectInterface(CISCO_WS_C2948_IP);
-        
+
 
         List<OnmsIpInterface> ips = m_interfaceDao.findByIpAddress(CISCO_WS_C2948_IP);
         assertTrue("Has only one ip interface", ips.size() == 1);
@@ -123,13 +123,13 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         for (OnmsSnmpInterface snmpinterface: ip.getNode().getSnmpInterfaces()) {
             assertTrue("The mac address is null", snmpinterface.getPhysAddr() != null);
             assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
-            assertTrue("The mac for ifindex" + snmpinterface.getIfIndex() + " must correspond: " + snmpinterface.getPhysAddr(), 
+            assertTrue("The mac for ifindex" + snmpinterface.getIfIndex() + " must correspond: " + snmpinterface.getPhysAddr(),
                        snmpinterface.getPhysAddr().equals(CISCO_WS_C2948_IF_MAC_MAP.get(snmpinterface.getIfIndex())));
         }
-        
+
         m_capsd.stop();
 
-        
+
     }
 
     @Test
@@ -141,7 +141,7 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.init();
         m_capsd.start();
         m_capsd.scanSuspectInterface(NETGEAR_SW_108_IP);
-        
+
         List<OnmsIpInterface> ips = m_interfaceDao.findByIpAddress(NETGEAR_SW_108_IP);
         assertTrue("Has only one ip interface", ips.size() == 1);
 
@@ -156,15 +156,15 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         for (OnmsSnmpInterface snmpinterface: ip.getNode().getSnmpInterfaces()) {
             assertTrue("The mac address is null", snmpinterface.getPhysAddr() != null);
             assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
-            assertTrue("The mac for ifindex must correspond", 
+            assertTrue("The mac for ifindex must correspond",
                        snmpinterface.getPhysAddr().equals(NETGEAR_SW_108_IF_MAC_MAP.get(snmpinterface.getIfIndex())));
         }
-        
+
         m_capsd.stop();
 
-        
+
     }
-    
+
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=CISCO_C870_IP_PRIMARY, port=161, resource="classpath:linkd/nms7467/"+CISCO_C870_IP+"-walk.txt")
@@ -174,14 +174,14 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.init();
         m_capsd.start();
         m_capsd.scanSuspectInterface(CISCO_C870_IP_PRIMARY);
-        
+
         OnmsIpInterface ipmain = m_interfaceDao.findByIpAddress(CISCO_C870_IP_PRIMARY).get(0);
         assertTrue("should have a master not null ip interface ",ipmain != null);
-        
+
         Set<OnmsIpInterface> ifs = ipmain.getNode().getIpInterfaces();
-        
+
         assertTrue("Should have 4 ip interface. Found: " + ifs.size(), ifs.size() == 4);
-        
+
         for (OnmsIpInterface ipinterface: ifs) {
             assertTrue("The ifindex should not be null for ipaddress: " +ipinterface.getIpHostName(), ipinterface.getIfIndex() != null);
             assertTrue("The ifindex is not corresponding: found: " + ipinterface.getIfIndex() + " should be: "
@@ -194,10 +194,10 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         }
 
         assertTrue("Has 16 snmp interface", ipmain.getNode().getSnmpInterfaces().size() == 16);
-        
+
         m_capsd.stop();
 
-        
+
     }
 
     @Test
@@ -209,13 +209,13 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.init();
         m_capsd.start();
         m_capsd.scanSuspectInterface(LINUX_UBUNTU_IP);
-        
+
 
         OnmsIpInterface ipmain = m_interfaceDao.findByIpAddress(LINUX_UBUNTU_IP).get(0);
         assertTrue("Should have 1 ip master interface",ipmain != null);
-        
+
         Set<OnmsIpInterface> ifs = ipmain.getNode().getIpInterfaces();
-        
+
         assertTrue("should have 2 ipinterface", ifs.size() == 2);
         for (OnmsIpInterface ip: ifs) {
             assertTrue("The if index should not be null", ip.getIfIndex() != null);
@@ -233,13 +233,13 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
             assertTrue("The mac address is not null for ifindex 1", snmpinterface.getPhysAddr() == null);
             else {
             assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
-            assertTrue("The mac for ifindex must correspond", 
+            assertTrue("The mac for ifindex must correspond",
                        snmpinterface.getPhysAddr().equals(LINUX_UBUNTU_IF_MAC_MAP.get(snmpinterface.getIfIndex())));
             }
         }
         m_capsd.stop();
     }
-    
+
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=DARWIN_10_8_IP, port=161, resource="classpath:linkd/nms7467/"+DARWIN_10_8_IP+"-walk.txt")
@@ -249,7 +249,7 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
         m_capsd.init();
         m_capsd.start();
         m_capsd.scanSuspectInterface(DARWIN_10_8_IP);
-        
+
 
         List<OnmsIpInterface> ips = m_interfaceDao.findByIpAddress(DARWIN_10_8_IP);
         assertTrue("Has one ip primary interface", ips.size() == 1);
@@ -270,10 +270,10 @@ public class Nms7467CapsdIntegrationTest extends Nms7467NetworkBuilder implement
             else {
             assertTrue("The mac address is null", snmpinterface.getPhysAddr() != null);
             assertTrue("The mac must be valid", snmpinterface.getPhysAddr().length() == 12);
-            assertTrue("The mac for ifindex must correspond: " + snmpinterface.getPhysAddr(), 
+            assertTrue("The mac for ifindex must correspond: " + snmpinterface.getPhysAddr(),
                        snmpinterface.getPhysAddr().equals(DARWIN_10_8_IF_MAC_MAP.get(snmpinterface.getIfIndex())));
             }
         }
-        m_capsd.stop();        
+        m_capsd.stop();
     }
 }

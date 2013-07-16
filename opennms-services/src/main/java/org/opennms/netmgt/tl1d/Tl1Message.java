@@ -38,7 +38,7 @@ import java.util.Date;
  * @version $Id: $
  */
 public abstract class Tl1Message {
-    
+
     /** Constant <code>INPUT=1</code> */
     public static final int INPUT = 1;
     /** Constant <code>OUTPUT=2</code> */
@@ -51,7 +51,7 @@ public abstract class Tl1Message {
     private Date m_timestamp;
     private String m_rawMessage;
     private String m_host;
-    
+
     /**
      * <p>getTimestamp</p>
      *
@@ -105,7 +105,7 @@ public abstract class Tl1Message {
     public void setHost(String host) {
         m_host = host;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -115,5 +115,5 @@ public abstract class Tl1Message {
     public String toString() {
         return "Message from: "+m_host+"\n"+m_rawMessage;
     }
-        
+
 }

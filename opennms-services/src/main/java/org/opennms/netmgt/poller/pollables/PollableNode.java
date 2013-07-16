@@ -47,16 +47,16 @@ public class PollableNode extends PollableContainer {
     private static final Logger LOG = LoggerFactory.getLogger(PollableNode.class);
 
     /**
-     * Represents a Lock 
+     * Represents a Lock
      *
      * @author brozow
      */
     public class Lock {
         private Thread m_owner = null;
         private int m_obtainCount = 0;
-        
+
         public synchronized void obtain() {
-            
+
             if (m_owner != Thread.currentThread()) {
                 LOG.debug("Trying to obtain lock for {}", PollableNode.this);
                 while (m_owner != null) {
@@ -67,9 +67,9 @@ public class PollableNode extends PollableContainer {
             }
             m_obtainCount++;
         }
-        
+
         public synchronized void obtain(long timeout) {
-            
+
             if (m_owner != Thread.currentThread()) {
                 LOG.debug("Trying to obtain lock for {}", PollableNode.this);
                 long now = System.currentTimeMillis();
@@ -85,7 +85,7 @@ public class PollableNode extends PollableContainer {
             }
             m_obtainCount++;
         }
-        
+
         public synchronized void release() {
             if (m_owner == Thread.currentThread()) {
                 m_obtainCount--;
@@ -105,7 +105,7 @@ public class PollableNode extends PollableContainer {
         }
 
     }
-    
+
     private final int m_nodeId;
     private String m_nodeLabel;
     private final Lock m_lock = new Lock();
@@ -131,7 +131,7 @@ public class PollableNode extends PollableContainer {
     public int getNodeId() {
         return m_nodeId;
     }
-    
+
     /**
      * <p>getNodeLabel</p>
      *
@@ -188,7 +188,7 @@ public class PollableNode extends PollableContainer {
     public PollableNetwork getNetwork() {
         return (PollableNetwork)getParent();
     }
-    
+
     /**
      * <p>getContext</p>
      *
@@ -198,7 +198,7 @@ public class PollableNode extends PollableContainer {
     public PollContext getContext() {
         return getNetwork().getContext();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Object createMemberKey(PollableElement member) {
@@ -215,7 +215,7 @@ public class PollableNode extends PollableContainer {
      */
     public PollableService createService(final InetAddress addr, final String svcName) {
         final PollableService retVal[] = new PollableService[1];
-        
+
         Runnable r = new Runnable() {
             @Override
             public void run() {
@@ -248,19 +248,19 @@ public class PollableNode extends PollableContainer {
         super.visitThis(v);
         v.visitNode(this);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Event createDownEvent(Date date) {
         return getContext().createEvent(EventConstants.NODE_DOWN_EVENT_UEI, getNodeId(), null, null, date, getStatus().getReason());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Event createUpEvent(Date date) {
         return getContext().createEvent(EventConstants.NODE_UP_EVENT_UEI, getNodeId(), null, null, date, getStatus().getReason());
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -278,7 +278,7 @@ public class PollableNode extends PollableContainer {
     public PollableElement getLockRoot() {
         return this;
     }
-    
+
     /**
      * <p>isTreeLockAvailable</p>
      *
@@ -288,7 +288,7 @@ public class PollableNode extends PollableContainer {
     public boolean isTreeLockAvailable() {
         return m_lock.isLockAvailable();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void obtainTreeLock(long timeout) {
@@ -297,7 +297,7 @@ public class PollableNode extends PollableContainer {
         else
             m_lock.obtain(timeout);
     }
-    
+
     /**
      * <p>releaseTreeLock</p>
      */
@@ -305,7 +305,7 @@ public class PollableNode extends PollableContainer {
     public void releaseTreeLock() {
         m_lock.release();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public PollStatus doPoll(final PollableElement elem) {

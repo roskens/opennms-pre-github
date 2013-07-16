@@ -91,9 +91,9 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public abstract class AbstractJdbcPersister implements InitializingBean, EventProcessor {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractJdbcPersister.class);
-    
+
     // Field sizes in the events table
     /** Constant <code>EVENT_UEI_FIELD_SIZE=256</code> */
     protected static final int EVENT_UEI_FIELD_SIZE = 256;
@@ -101,12 +101,12 @@ public abstract class AbstractJdbcPersister implements InitializingBean, EventPr
     /** Constant <code>EVENT_HOST_FIELD_SIZE=256</code> */
     protected static final int EVENT_HOST_FIELD_SIZE = 256;
 
-    /** 
+    /**
      * Constant <code>EVENT_INTERFACE_FIELD_SIZE=50</code>.
      * This value must be long enough to accommodate an IPv6 address
      * with scope identifier suffix (if present). Basic IPv6 addresses
      * are 39 characters so this will accommodate a 10-digit scope
-     * identifier (any 32-bit decimal value). 
+     * identifier (any 32-bit decimal value).
      */
     protected static final int EVENT_INTERFACE_FIELD_SIZE = 50;
 
@@ -156,7 +156,7 @@ public abstract class AbstractJdbcPersister implements InitializingBean, EventPr
 
     /** Constant <code>EVENT_SOURCE_FIELD_SIZE=128</code> */
     protected static final int EVENT_SOURCE_FIELD_SIZE = 128;
-    
+
     /** Constant <code>EVENT_X733_ALARMTYPE_SIZE=31</code> */
     protected static final int EVENT_X733_ALARMTYPE_SIZE = 31;
 
@@ -173,7 +173,7 @@ public abstract class AbstractJdbcPersister implements InitializingBean, EventPr
     private EventdServiceManager m_eventdServiceManager;
 
     private DataSource m_dataSource;
-    
+
     private String m_getNextIdString;
 
     /**
@@ -302,7 +302,7 @@ public abstract class AbstractJdbcPersister implements InitializingBean, EventPr
             return new Timestamp(System.currentTimeMillis());
         }
     }
-    
+
     /**
      * <p>getNextId</p>
      *
@@ -388,7 +388,7 @@ public abstract class AbstractJdbcPersister implements InitializingBean, EventPr
      */
     protected boolean checkEventSanityAndDoWeProcess(Event event, String logPrefix) {
         Assert.notNull(event, "event argument must not be null");
-    
+
         /*
          * Check value of <logmsg> attribute 'dest', if set to
          * "donotpersist" then simply return, the uei is not to be

@@ -91,7 +91,7 @@ public class DefaultOutageService implements OutageService {
     public Integer getCurrentOutageCount() {
         return m_dao.currentOutageCount();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Integer getOutageCount(OnmsCriteria criteria) {
@@ -101,7 +101,7 @@ public class DefaultOutageService implements OutageService {
         criteria.createAlias("ipInterface.node", "node");
 
         criteria.setProjection(Projections.rowCount());
-        
+
         return m_dao.countMatching(criteria);
     }
 

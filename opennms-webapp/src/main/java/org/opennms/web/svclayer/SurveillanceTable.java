@@ -55,7 +55,7 @@ import org.opennms.netmgt.model.OnmsNode;
  * @since 1.8.1
  */
 public class SurveillanceTable {
-    
+
     String m_label = null;
     AggregateStatus[][] m_statusTable = null;
     Set<OnmsNode>[] m_rowNodes = null;
@@ -63,14 +63,14 @@ public class SurveillanceTable {
     String[] m_rowHeaders = null;
     String[] m_columnHeaders = null;
 	private SimpleWebTable m_webTable;
-    
+
     /**
      * <p>Constructor for SurveillanceTable.</p>
      */
     public SurveillanceTable() {
-        
+
     }
-    
+
     // FIXME: Can we get rid of the the @SuppressWarnings?
     /**
      * <p>Constructor for SurveillanceTable.</p>
@@ -86,7 +86,7 @@ public class SurveillanceTable {
         m_rowHeaders = new String[rows];
         m_columnHeaders = new String[columns];
     }
-    
+
     /**
      * <p>setWebTable</p>
      *
@@ -95,7 +95,7 @@ public class SurveillanceTable {
     public void setWebTable(SimpleWebTable webTable) {
     	m_webTable = webTable;
     }
-    
+
     /**
      * <p>getWebTable</p>
      *
@@ -104,7 +104,7 @@ public class SurveillanceTable {
     public SimpleWebTable getWebTable() {
     	return m_webTable;
     }
-    
+
     /**
      * <p>setStatus</p>
      *
@@ -115,7 +115,7 @@ public class SurveillanceTable {
     public void setStatus(int row, int col, AggregateStatus status) {
         m_statusTable[row][col] = status;
     }
-    
+
     /**
      * <p>getStatus</p>
      *
@@ -126,7 +126,7 @@ public class SurveillanceTable {
     public AggregateStatus getStatus(int row, int col) {
         return m_statusTable[row][col];
     }
-    
+
     /**
      * <p>getRowCount</p>
      *
@@ -135,7 +135,7 @@ public class SurveillanceTable {
     public int getRowCount() {
         return m_rowHeaders.length;
     }
-    
+
     /**
      * <p>getColumnCount</p>
      *
@@ -144,7 +144,7 @@ public class SurveillanceTable {
     public int getColumnCount() {
         return m_columnHeaders.length;
     }
-    
+
     /**
      * <p>getStatusRow</p>
      *
@@ -154,7 +154,7 @@ public class SurveillanceTable {
     public AggregateStatus[] getStatusRow(int row) {
         return m_statusTable[row];
     }
-    
+
     /**
      * This method returns an ordered list of Aggregate Status rows
      * and columns the internal table.  Usefull when needing to
@@ -169,7 +169,7 @@ public class SurveillanceTable {
         }
         return orderedRows;
     }
-    
+
     /**
      * Handy method for return a map with the key being the row header and the
      * value being an ordered collection of aggregate stati.
@@ -177,16 +177,16 @@ public class SurveillanceTable {
      * @return Map<String, List<AggregateStatus>> map
      */
     public Map<String, List<AggregateStatus>> getColumnOrderedRowsWithHeaders() {
-        
+
         Map<String, List<AggregateStatus>> map = new LinkedHashMap<String, List<AggregateStatus>>();
-        
+
         for (int i = 0; i < m_rowHeaders.length; i++) {
             map.put(m_rowHeaders[i], getColumnOrderedRow(m_statusTable[i]));
         }
-        
+
         return map;
     }
-    
+
     /**
      * This method returns on ordered list of Aggregate Status columns
      * based on the array argument.
@@ -205,7 +205,7 @@ public class SurveillanceTable {
         }
         return orderedRow;
     }
-    
+
     /**
      * This method returns on ordered list of Aggregate Status columns
      * based on the row specified from the status internal table.
@@ -235,7 +235,7 @@ public class SurveillanceTable {
     public String getRowHeader(int row) {
         return m_rowHeaders[row];
     }
-    
+
     /**
      * <p>setRowHeader</p>
      *
@@ -245,7 +245,7 @@ public class SurveillanceTable {
     public void setRowHeader(int row, String header) {
         m_rowHeaders[row] = header;
     }
-    
+
     /**
      * <p>getRowHeaders</p>
      *
@@ -254,7 +254,7 @@ public class SurveillanceTable {
     public String[] getRowHeaders() {
         return m_rowHeaders;
     }
-    
+
     /**
      * <p>getRowHeaderList</p>
      *
@@ -282,7 +282,7 @@ public class SurveillanceTable {
     public String[] getColumnHeaders() {
         return m_columnHeaders;
     }
-    
+
     /**
      * <p>getColumnHeaderList</p>
      *
@@ -318,7 +318,7 @@ public class SurveillanceTable {
     public AggregateStatus[][] getStatusTable() {
         return m_statusTable;
     }
-    
+
     private List<String> asLinkedList(String[] headers) {
         List<String> headerList = new LinkedList<String>();
         for (int i = 0; i < m_rowHeaders.length; i++) {
@@ -399,7 +399,7 @@ public class SurveillanceTable {
     public Set<OnmsNode> getNodesForRow(int row) {
         return m_rowNodes[row];
     }
-    
+
     /**
      * <p>setNodesForRow</p>
      *
@@ -407,7 +407,7 @@ public class SurveillanceTable {
      * @param nodes a {@link java.util.Collection} object.
      */
     public void setNodesForRow(int row, Collection<OnmsNode>nodes) {
-        m_rowNodes[row] = new HashSet<OnmsNode>(nodes);        
+        m_rowNodes[row] = new HashSet<OnmsNode>(nodes);
     }
 
     /**
@@ -419,7 +419,7 @@ public class SurveillanceTable {
     public Set<OnmsNode> getNodesForColumn(int col) {
         return m_columnNodes[col];
     }
-    
+
     /**
      * <p>setNodesForColumn</p>
      *
@@ -429,5 +429,5 @@ public class SurveillanceTable {
     public void setNodesForColumn(int col, Collection<OnmsNode> columnNodes) {
         m_columnNodes[col] = new HashSet<OnmsNode>(columnNodes);
     }
-    
+
 }

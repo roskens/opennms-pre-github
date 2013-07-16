@@ -40,7 +40,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
     private String m_relativePath;
     private String m_rrdFile;
     private OnmsResource m_resource;
-    
+
     /**
      * <p>Constructor for RrdGraphAttribute.</p>
      *
@@ -93,7 +93,7 @@ public class RrdGraphAttribute implements OnmsAttribute {
     public String getRrdRelativePath() {
         return m_relativePath + File.separator + m_rrdFile;
     }
-    
+
     /** {@inheritDoc} */
     @Override
 	public String toString() {

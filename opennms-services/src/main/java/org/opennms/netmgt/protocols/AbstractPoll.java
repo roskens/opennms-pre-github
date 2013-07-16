@@ -43,7 +43,7 @@ import org.opennms.netmgt.model.PollStatus;
 public abstract class AbstractPoll implements Poll {
     // default timeout of 3 seconds
     protected int m_timeout = 3000;
-    
+
     /**
      * Set the timeout in milliseconds.
      *
@@ -70,7 +70,7 @@ public abstract class AbstractPoll implements Poll {
      * @throws org.opennms.netmgt.protocols.InsufficientParametersException if any.
      */
     public abstract PollStatus poll(TimeoutTracker tracker) throws InsufficientParametersException;
-    
+
     /**
      * <p>poll</p>
      *

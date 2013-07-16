@@ -40,11 +40,11 @@ import com.google.gwt.event.shared.GwtEvent;
  * @since 1.8.1
  */
 public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEventHandler> {
-    
+
     /** Constant <code>TYPE</code> */
     public static Type<ApplicationDeselectedEventHandler> TYPE = new Type<ApplicationDeselectedEventHandler>();
     private ApplicationInfo m_appInfo;
-    
+
     /**
      * <p>Constructor for ApplicationDeselectedEvent.</p>
      *
@@ -53,7 +53,7 @@ public class ApplicationDeselectedEvent extends GwtEvent<ApplicationDeselectedEv
     public ApplicationDeselectedEvent(ApplicationInfo appInfo) {
         setAppInfo(appInfo);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void dispatch(ApplicationDeselectedEventHandler handler) {

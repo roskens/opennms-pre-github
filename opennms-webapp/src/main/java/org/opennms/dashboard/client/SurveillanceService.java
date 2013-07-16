@@ -48,7 +48,7 @@ public interface SurveillanceService extends RemoteService {
      * @return a {@link org.opennms.dashboard.client.SurveillanceData} object.
      */
     public SurveillanceData getSurveillanceData();
-    
+
     /**
      * <p>getAlarmsForSet</p>
      *
@@ -56,7 +56,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link org.opennms.dashboard.client.Alarm} objects.
      */
     public Alarm[] getAlarmsForSet(SurveillanceSet set);
-    
+
     /**
      * <p>getNotificationsForSet</p>
      *
@@ -64,7 +64,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link org.opennms.dashboard.client.Notification} objects.
      */
     public Notification[] getNotificationsForSet(SurveillanceSet set);
-    
+
     /**
      * <p>getNodeNames</p>
      *
@@ -72,7 +72,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link java.lang.String} objects.
      */
     public String[] getNodeNames(SurveillanceSet set);
-    
+
     /**
      * <p>getResources</p>
      *
@@ -80,7 +80,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link java.lang.String} objects.
      */
     public String[][] getResources(SurveillanceSet set);
-    
+
     /**
      * <p>getChildResources</p>
      *
@@ -88,7 +88,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link java.lang.String} objects.
      */
     public String[][] getChildResources(String resourceId);
-    
+
     /**
      * <p>getPrefabGraphs</p>
      *
@@ -96,7 +96,7 @@ public interface SurveillanceService extends RemoteService {
      * @return an array of {@link java.lang.String} objects.
      */
     public String[][] getPrefabGraphs(String resourceId);
-    
+
     /**
      * <p>getRtcForSet</p>
      *

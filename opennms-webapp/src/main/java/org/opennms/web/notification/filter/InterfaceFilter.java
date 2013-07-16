@@ -52,7 +52,7 @@ public class InterfaceFilter extends EqualsFilter<String> {
     public InterfaceFilter(String ipAddress) {
         super(TYPE, SQLType.STRING, "INTERFACEID", "ipAddress", ipAddress);
     }
-    
+
     /**
      * <p>toString</p>
      *

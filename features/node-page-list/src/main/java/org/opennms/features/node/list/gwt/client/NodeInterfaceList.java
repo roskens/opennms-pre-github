@@ -44,8 +44,8 @@ public class NodeInterfaceList implements EntryPoint {
    * This is the entry point method.
    */
   @Override
-  public void onModuleLoad() {  
-      
+  public void onModuleLoad() {
+
       if(Navigator.getUserAgent().contains("MSIE")) {
           NodeList<Element> divs = RootPanel.getBodyElement().getElementsByTagName("div");
           for(int j = 0; j < divs.getLength(); j++) {
@@ -63,7 +63,7 @@ public class NodeInterfaceList implements EntryPoint {
               }
           }
       }
-      
+
   }
 
     private void createView(Element elem) {
@@ -71,5 +71,5 @@ public class NodeInterfaceList implements EntryPoint {
           RootPanel.get(elem.getId()).add(nodeList);
     }
 
-   
+
 }

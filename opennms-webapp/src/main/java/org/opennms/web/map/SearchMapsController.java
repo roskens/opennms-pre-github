@@ -61,13 +61,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class SearchMapsController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SearchMapsController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -98,7 +98,7 @@ public class SearchMapsController extends MapsLoggingController {
 
         int d = WebSecurityUtils.safeParseInt(request
                                                      .getParameter("MapElemDimension"));
-        
+
         LOG.debug("default element dimension: {}", d );
 
 
@@ -124,13 +124,13 @@ public class SearchMapsController extends MapsLoggingController {
             LOG.debug("Recalculated - Max number of element on the row: {}", n );
             LOG.debug("Recalculated - Max number of element in the map: {}", n * k );
         }
-		
+
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
                                                                       .getOutputStream(), "UTF-8"));
 		try {
             List<VElement> velems = new ArrayList<VElement>();
             // response for addElement
-			
+
 			int x = -1;
             int y = 0;
             int s = 1;

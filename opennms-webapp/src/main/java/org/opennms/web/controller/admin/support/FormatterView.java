@@ -46,7 +46,7 @@ import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.view.InternalResourceView;
 
 public final class FormatterView implements View {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(FormatterView.class);
 
 
@@ -56,11 +56,11 @@ public final class FormatterView implements View {
     public FormatterView(final SystemReportFormatter formatter) {
         super();
         m_formatter = formatter;
-        
+
         if (m_formatter == null || !m_formatter.needsOutputStream() || m_formatter.getContentType() == null) {
             m_view = new InternalResourceView("/admin/support/systemReportList.htm");
         }
-        
+
         LOG.debug("formatter = {}, view = {}", m_formatter, m_view);
     }
 
@@ -104,7 +104,7 @@ public final class FormatterView implements View {
                     m_formatter.write(plugin);
                     output.flush();
                 }
-                
+
                 LOG.debug("finishing output");
                 m_formatter.end();
             } catch (final Throwable e) {
@@ -133,7 +133,7 @@ public final class FormatterView implements View {
         }
         return fileName;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

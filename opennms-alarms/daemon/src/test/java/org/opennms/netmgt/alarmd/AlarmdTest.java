@@ -112,7 +112,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         public boolean isInitialized() {
             return m_startCalled;
         }
-        
+
         public List<NorthboundAlarm> getAlarms() {
             return m_alarms;
         }
@@ -165,7 +165,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         node.setId(1);
         node.setLabel("node1");
         m_nodeDao.save(node);
-        
+
         m_northbounder = new MockNorthbounder();
         m_registry.register(m_northbounder, Northbounder.class);
     }
@@ -210,7 +210,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
 
         });
     }
-    
+
 
     @Test
     @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
@@ -331,7 +331,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         final List<NorthboundAlarm> alarms = m_northbounder.getAlarms();
         assertTrue(alarms.size() > 0);
     }
-    
+
 
     @Test
     public void testNoLogmsg() throws Exception {
@@ -371,25 +371,25 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     @JUnitTemporaryDatabase(tempDbClass=MockDatabase.class)
     public void changeFields() throws InterruptedException, SQLException {
         assertEquals(0, m_jdbcTemplate.queryForInt("select count(*) from alarms"));
-        
+
         String reductionKey = "testUpdateField";
-        
+
         int alarmCount = m_jdbcTemplate.queryForInt("select count(*) from alarms");
-        
+
         assertEquals(0, alarmCount);
-        
+
         MockNode node1 = m_mockNetwork.getNode(1);
-        
+
         //Verify we have the default alarm
         sendNodeDownEvent(reductionKey, node1);
         int severity = m_jdbcTemplate.queryForInt("select severity from alarms a where a.reductionKey = ?", reductionKey);
         assertEquals(OnmsSeverity.MAJOR, OnmsSeverity.get(severity));
-        
+
         //Store the original logmsg from the original alarm (we are about to test changing it with subsequent alarm reduction)
         String defaultLogMsg = m_jdbcTemplate.query("select logmsg from alarms", new ResultSetExtractor<String>() {
 
@@ -399,23 +399,23 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
                 int row = results.getRow();
                 boolean isLast = results.isLast();
                 boolean isFirst = results.isFirst();
-                
+
                 if (row != 1 && !isLast && !isFirst) {
                     throw new SQLException("Row count is not = 1.  There should only be one row returned from the query: \n"+ results.getStatement());
                 }
-                
+
                 return results.getString(1);
             }
-            
+
         });
-        
+
         assertTrue("The logmsg column should not be null", defaultLogMsg != null);
 
         //Duplicate the alarm but change the severity and verify the change
         sendNodeDownEventWithUpdateFieldSeverity(reductionKey, node1, OnmsSeverity.CRITICAL);
         severity = m_jdbcTemplate.queryForInt("select severity from alarms");
         assertEquals("Severity should now be Critical", OnmsSeverity.CRITICAL, OnmsSeverity.get(severity));
-        
+
         //Duplicate the alarm but don't force the change of severity
         sendNodeDownEvent(reductionKey, node1);
         severity = m_jdbcTemplate.queryForInt("select severity from alarms");
@@ -432,7 +432,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         });
         assertEquals("new logMsg", newLogMsg);
         assertTrue(!newLogMsg.equals(defaultLogMsg));
-        
+
         //Duplicate the alarm but force logmsg to not change (lggmsg field is updated by default)
         sendNodeDownEventDontChangeLogMsg(reductionKey, node1, "newer logMsg");
         newLogMsg = m_jdbcTemplate.query("select logmsg from alarms", new ResultSetExtractor<String>() {
@@ -445,7 +445,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         assertTrue("The logMsg should not have changed.", !"newer logMsg".equals(newLogMsg));
         assertEquals("The logMsg should still be equal to the previous update.", "new logMsg", newLogMsg);
 
-        
+
         //Duplicate the alarm with the default configuration and verify the logmsg has changed (as is the default behavior
         //for this field)
         sendNodeDownEvent(reductionKey, node1);
@@ -458,28 +458,28 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         });
         assertTrue("The logMsg should have changed.", !"new logMsg".equals(newLogMsg));
         assertEquals("The logMsg should new be the default logMsg.", newLogMsg, defaultLogMsg);
-        
+
     }
 
     //Supporting method for test
     private void sendNodeDownEventDontChangeLogMsg(String reductionKey, MockNode node, String logMsg) {
-        
+
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
 
         if (reductionKey != null) {
             AlarmData data = new AlarmData();
             data.setAlarmType(1);
             data.setReductionKey(reductionKey);
-            
+
             List<UpdateField> fields = new ArrayList<UpdateField>();
-            
+
             UpdateField field = new UpdateField();
             field.setFieldName("logMsg");
             field.setUpdateOnReduction(Boolean.FALSE);
             fields.add(field);
-            
+
             data.setUpdateField(fields);
-            
+
             event.setAlarmData(data);
         } else {
             event.setAlarmData(null);
@@ -490,25 +490,25 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
 
         m_eventdIpcMgr.sendNow(event.getEvent());
     }
-    
+
     private void sendNodeDownEventChangeLogMsg(String reductionKey, MockNode node, String logMsg) {
-        
+
         EventBuilder event = MockEventUtil.createNodeDownEventBuilder("Test", node);
 
         if (reductionKey != null) {
             AlarmData data = new AlarmData();
             data.setAlarmType(1);
             data.setReductionKey(reductionKey);
-            
+
             List<UpdateField> fields = new ArrayList<UpdateField>();
-            
+
             UpdateField field = new UpdateField();
             field.setFieldName("logMsg");
             field.setUpdateOnReduction(Boolean.TRUE);
             fields.add(field);
-            
+
             data.setUpdateField(fields);
-            
+
             event.setAlarmData(data);
         } else {
             event.setAlarmData(null);
@@ -527,16 +527,16 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
             AlarmData data = new AlarmData();
             data.setAlarmType(1);
             data.setReductionKey(reductionKey);
-            
+
             List<UpdateField> fields = new ArrayList<UpdateField>();
-            
+
             UpdateField field = new UpdateField();
             field.setFieldName("Severity");
             field.setUpdateOnReduction(Boolean.TRUE);
             fields.add(field);
-            
+
             data.setUpdateField(fields);
-            
+
             event.setAlarmData(data);
         } else {
             event.setAlarmData(null);
@@ -544,7 +544,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
 
         event.setLogDest("logndisplay");
         event.setLogMessage("testing");
-        
+
         event.setSeverity(severity.getLabel());
 
         m_eventdIpcMgr.sendNow(event.getEvent());
@@ -556,7 +556,7 @@ public class AlarmdTest implements TemporaryDatabaseAware<MockDatabase>, Initial
         if (reductionKey != null) {
             AlarmData data = new AlarmData();
             data.setAlarmType(1);
-            data.setReductionKey(reductionKey);            
+            data.setReductionKey(reductionKey);
             event.setAlarmData(data);
         } else {
             event.setAlarmData(null);

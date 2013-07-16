@@ -41,31 +41,31 @@ import org.opennms.netmgt.snmp.SnmpConfiguration;
  * @version $Id: $
  */
 public interface SnmpConfigDao extends SnmpAgentConfigFactory {
-    
+
     /** {@inheritDoc} */
     @Override
     SnmpAgentConfig getAgentConfig(InetAddress ipAddress);
-    
+
     /**
      * <p>saveOrUpdate</p>
      *
      * @param config a {@link org.opennms.netmgt.snmp.SnmpAgentConfig} object.
      */
     void saveOrUpdate(SnmpAgentConfig config);
-    
+
     /**
      * <p>getDefaults</p>
      *
      * @return a {@link org.opennms.netmgt.snmp.SnmpConfiguration} object.
      */
     SnmpConfiguration getDefaults();
-    
+
     /**
      * <p>saveAsDefaults</p>
      *
      * @param defaults a {@link org.opennms.netmgt.snmp.SnmpConfiguration} object.
      */
     void saveAsDefaults(SnmpConfiguration defaults);
-    
+
 
 }

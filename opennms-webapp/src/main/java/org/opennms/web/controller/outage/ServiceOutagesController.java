@@ -110,7 +110,7 @@ public class ServiceOutagesController extends AbstractController implements Init
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

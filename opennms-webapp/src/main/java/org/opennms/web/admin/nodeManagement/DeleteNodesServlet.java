@@ -65,7 +65,7 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class DeleteNodesServlet extends HttpServlet {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DeleteNodesServlet.class);
 
     private static final long serialVersionUID = 573510937493956121L;
@@ -116,7 +116,7 @@ public class DeleteNodesServlet extends HttpServlet {
                     LOG.warn("Node SNMP data directory *not* deleted successfully: {}", nodeDir.getAbsolutePath());
                 }
             }
-            
+
             // Response time RRD directories
             for (String ipAddr : ipAddrs) {
                 File intfDir = new File(m_rtRrdDirectory, ipAddr);
@@ -171,7 +171,7 @@ public class DeleteNodesServlet extends HttpServlet {
     private void sendDeleteNodeEvent(int node) throws ServletException {
         EventBuilder bldr = new EventBuilder(EventConstants.DELETE_NODE_EVENT_UEI, "web ui");
         bldr.setNodeid(node);
-        
+
         bldr.addParam(EventConstants.PARM_TRANSACTION_NO, "webUI");
 
         sendEvent(bldr.getEvent());
@@ -189,7 +189,7 @@ public class DeleteNodesServlet extends HttpServlet {
         if (array == null) {
             return new ArrayList<Integer>(0);
         }
-        
+
         List<Integer> list = new ArrayList<Integer>(array.length);
         for (String a : array) {
             list.add(WebSecurityUtils.safeParseInt(a));
@@ -201,7 +201,7 @@ public class DeleteNodesServlet extends HttpServlet {
      * Deletes all files and sub-directories under the specified directory
      * If a deletion fails, the method stops attempting to delete and returns
      * false.
-     * 
+     *
      * @return true if all deletions were successful, false otherwise.
      */
     private boolean deleteDir(File file) {

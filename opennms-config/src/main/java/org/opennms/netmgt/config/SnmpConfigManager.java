@@ -38,7 +38,7 @@ import org.opennms.netmgt.config.snmp.SnmpConfig;
 /**
  * This class handles merging a new Definition into the current running SNMP
  * Configuration.
- * 
+ *
  * @author <a href="mailto:david@opennms.org>David Hustace</a>
  */
 public class SnmpConfigManager {
@@ -50,7 +50,7 @@ public class SnmpConfigManager {
 	 * <p>
 	 * Constructor for SnmpConfigManager.
 	 * </p>
-	 * 
+	 *
 	 * @param config
 	 *            a {@link org.opennms.netmgt.config.snmp.SnmpConfig} object.
 	 */
@@ -66,7 +66,7 @@ public class SnmpConfigManager {
 	 * default {@link #m_config} object and are not different from those values
 	 * (e.g. the port of the definition is set and equally to the port set in
 	 * the SnmpConfig)
-	 * 
+	 *
 	 * @param def
 	 *            The Definition where the defaults get removed
 	 */
@@ -97,7 +97,7 @@ public class SnmpConfigManager {
 	 * <p>
 	 * getConfig
 	 * </p>
-	 * 
+	 *
 	 * @return a {@link org.opennms.netmgt.config.snmp.SnmpConfig} object.
 	 */
 	public SnmpConfig getConfig() {
@@ -126,12 +126,12 @@ public class SnmpConfigManager {
 	/**
 	 * This is the exposed method for moving the data from a configureSNMP event
 	 * into the SnmpConfig from SnmpPeerFactory.
-	 * 
+	 *
 	 * @param eventDef
 	 *            a {@link org.opennms.netmgt.config.snmp.Definition} object.
 	 */
 	public void mergeIntoConfig(final Definition eventDef) {
-		removeDefaults(eventDef); 
+		removeDefaults(eventDef);
 		MergeableDefinition eventToMerge = new MergeableDefinition(eventDef);
 
 		// remove pass
@@ -152,7 +152,7 @@ public class SnmpConfigManager {
 	/**
 	 * This method purges specifics and ranges from definitions that don't match
 	 * the attributes specified in the event (the updateDef)
-	 * 
+	 *
 	 * @param updatedDef
 	 * @param eventDef
 	 */
@@ -174,14 +174,14 @@ public class SnmpConfigManager {
 	}
 
 	/**
-	 * Checks if the two objects are equal or not. They are equal if 
+	 * Checks if the two objects are equal or not. They are equal if
 	 * <ul>
 	 * 	<li>obj1 and obj2 are null</li>
 	 *  <li>obj1 and obj2 are not null and obj1.equals(obj2)</li>
 	 * </ul>
-	 * 
+	 *
 	 * Otherwise they are not equal.
-	 * 
+	 *
 	 * @param obj1 Object 1
 	 * @param obj2 Object 2
 	 * @return true if obj1 and obj2 are equal, otherwise false.

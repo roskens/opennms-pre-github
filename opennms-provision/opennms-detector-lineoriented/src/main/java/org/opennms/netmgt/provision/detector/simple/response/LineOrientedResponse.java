@@ -39,9 +39,9 @@ import java.util.regex.Pattern;
  * @version $Id: $
  */
 public class LineOrientedResponse {
-    
+
     private String m_response;
-    
+
     /**
      * <p>Constructor for LineOrientedResponse.</p>
      *
@@ -50,7 +50,7 @@ public class LineOrientedResponse {
     public LineOrientedResponse(final String response) {
         setResponse(response);
     }
-    
+
     /**
      * <p>receive</p>
      *
@@ -70,7 +70,7 @@ public class LineOrientedResponse {
     public boolean startsWith(final String prefix) {
         return getResponse() != null && getResponse().startsWith(prefix);
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -80,7 +80,7 @@ public class LineOrientedResponse {
     public boolean contains(final String pattern) {
         return getResponse() != null && getResponse().contains(pattern);
     }
-    
+
     /**
      * <p>endsWith</p>
      *
@@ -90,7 +90,7 @@ public class LineOrientedResponse {
     public boolean endsWith(final String suffix) {
         return getResponse() != null && getResponse().endsWith(suffix);
     }
-    
+
     /**
      * <p>matches</p>
      *
@@ -100,7 +100,7 @@ public class LineOrientedResponse {
     public boolean matches(final String regex) {
         return getResponse() != null && getResponse().toString().trim().matches(regex);
     }
-    
+
     /**
      * <p>find</p>
      *
@@ -110,7 +110,7 @@ public class LineOrientedResponse {
     public boolean find(final String regex) {
         return getResponse() != null && Pattern.compile(regex).matcher(getResponse()).find();
     }
-    
+
     /**
      * <p>equals</p>
      *
@@ -120,7 +120,7 @@ public class LineOrientedResponse {
     public boolean equals(final String response) {
         return (response == null ? getResponse() == null : response.equals(getResponse()));
     }
-    
+
     /**
      * <p>toString</p>
      *

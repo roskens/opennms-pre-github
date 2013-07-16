@@ -56,7 +56,7 @@ public class NCSEdgeProvider implements EdgeProvider {
 
 	public static class NCSEdge extends AbstractEdge {
 		private final String m_serviceName;
-		
+
 		public NCSEdge (String serviceName, NCSVertex source, NCSVertex target) {
 			super("ncs", source.getId() + ":::" + target.getId(), source, target);
 			m_serviceName = serviceName;
@@ -134,7 +134,7 @@ public class NCSEdgeProvider implements EdgeProvider {
 	/**
 	 * This factory works by using {@link NCSServiceCriteria} to construct edges based on
 	 * connecting all of the ServiceElements that make up a Service to each other.
-	 * 
+	 *
 	 * @param criteria An {@link NCSServiceCriteria} object
 	 */
 	@Override
@@ -178,7 +178,7 @@ public class NCSEdgeProvider implements EdgeProvider {
 								targetLabel = targetNode.getLabel();
 							}
 						}
-						
+
 						retval.add(new NCSEdge(service.getName(), new NCSVertex(String.valueOf(sourceNode.getId()), sourceLabel), new NCSVertex(String.valueOf(targetNode.getId()), targetLabel)));
 					}
 				}
@@ -204,7 +204,7 @@ public class NCSEdgeProvider implements EdgeProvider {
 	public String getEdgeNamespace() {
 		return "ncs";
 	}
-	
+
 	@Override
 	public boolean contributesTo(String namespace) {
 		return "nodes".equals(namespace);
@@ -221,9 +221,9 @@ public class NCSEdgeProvider implements EdgeProvider {
 	}
 
 	public static class NCSServiceCriteria extends ArrayList<Long> implements Criteria {
-		
+
 		private static final long serialVersionUID = 5833460704861282509L;
-		
+
 		public NCSServiceCriteria(Collection<Long> serviceIds) {
 			super(serviceIds);
 		}
@@ -238,7 +238,7 @@ public class NCSEdgeProvider implements EdgeProvider {
 			return ElementType.EDGE;
 		}
 	}
-	
+
 	public static Criteria createCriteria(Collection<Long> selectedIds) {
 		return new NCSServiceCriteria(selectedIds);
 	}

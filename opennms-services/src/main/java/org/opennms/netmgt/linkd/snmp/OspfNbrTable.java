@@ -34,11 +34,11 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 public class OspfNbrTable extends SnmpTable<OspfNbrTableEntry>{
-    
+
     public OspfNbrTable(InetAddress address) {
         super(address, "ospfNbrTable",OspfNbrTableEntry.ospfnbrtable_elemList);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected OspfNbrTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

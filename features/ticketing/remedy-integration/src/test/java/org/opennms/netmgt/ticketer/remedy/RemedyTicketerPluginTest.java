@@ -11,14 +11,14 @@ import org.opennms.api.integration.ticketing.Ticket.State;
 
 public class RemedyTicketerPluginTest extends TestCase {
 
-		
+
 	RemedyTicketerPlugin m_ticketer;
-	
+
 	Ticket m_ticket;
-	
-	
+
+
 	String m_ticketId;
-	
+
     /**
      * Don't run this test unless the runOtrsTests property
      * is set to "true".
@@ -29,7 +29,7 @@ public class RemedyTicketerPluginTest extends TestCase {
             System.err.println("Skipping test '" + getName() + "' because system property '" + getRunTestProperty() + "' is not set to 'true'");
             return;
         }
-            
+
         try {
             System.err.println("------------------- begin "+getName()+" ---------------------");
             super.runTest();
@@ -52,19 +52,19 @@ public class RemedyTicketerPluginTest extends TestCase {
 	        System.setProperty("opennms.home", "src" + File.separatorChar + "test" + File.separatorChar + "opennms-home");
 
 	        m_ticketer = new RemedyTicketerPlugin();
-	        	        
+
 	        m_ticket = new Ticket();
 	        m_ticket.setState(Ticket.State.OPEN);
 	        m_ticket.setSummary("Test OpenNMS Integration");
 	        m_ticket.setDetails("Created by Axis java client. Date: "+ new Date());
 			m_ticket.setUser("antonio@opennms.it");
-			
+
 	}
 
-	
-	 
+
+
 	public void testSaveAndGet() {
-	    		
+
 		try {
             m_ticketer.saveOrUpdate(m_ticket);
             m_ticketId = m_ticket.getId();
@@ -74,32 +74,32 @@ public class RemedyTicketerPluginTest extends TestCase {
 		} catch (PluginException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public void testOpenCloseStatus() {
 		testSaveAndGet();
 		try {
-			assertEquals(State.OPEN, m_ticket.getState());			
-			
+			assertEquals(State.OPEN, m_ticket.getState());
+
 			// Close the Ticket
 			m_ticket.setState(State.CLOSED);
 			m_ticketer.saveOrUpdate(m_ticket);
-			
+
 			Ticket ticket = m_ticketer.get(m_ticketId);
 			assertEquals(State.CLOSED, ticket.getState());
 
 			//Reopen The Ticket
 			m_ticket.setState(State.OPEN);
 			m_ticketer.saveOrUpdate(m_ticket);
-			
+
 			ticket = m_ticketer.get(m_ticketId);
 			assertEquals(State.OPEN, ticket.getState());
-			
+
 			//Cancel the Ticket
 			m_ticket.setState(State.CANCELLED);
 			m_ticketer.saveOrUpdate(m_ticket);
-			
+
 			ticket = m_ticketer.get(m_ticketId);
 			assertEquals(State.CANCELLED, ticket.getState());
 
@@ -131,17 +131,17 @@ public class RemedyTicketerPluginTest extends TestCase {
 			//Close the Ticket
 			m_ticket.setState(State.CLOSED);
 			m_ticketer.saveOrUpdate(m_ticket);
-			
+
 			ticket = m_ticketer.get(m_ticketId);
 			assertEquals(State.CLOSED, ticket.getState());
 
 			//Cancel the Ticket
 			m_ticket.setState(State.CANCELLED);
 			m_ticketer.saveOrUpdate(m_ticket);
-			
+
 			ticket = m_ticketer.get(m_ticketId);
 			assertEquals(State.CANCELLED, ticket.getState());
-			
+
 			// try to re open
 			m_ticket.setState(State.OPEN);
 			m_ticketer.saveOrUpdate(m_ticket);

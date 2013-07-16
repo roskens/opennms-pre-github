@@ -35,7 +35,7 @@ public class KKLayoutOperation extends LayoutOperation {
 
 	public KKLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final KKLayoutAlgorithm m_layoutAlgorithm = new KKLayoutAlgorithm();
 			@Override
 			public LayoutAlgorithm getLayoutAlgorithm() {

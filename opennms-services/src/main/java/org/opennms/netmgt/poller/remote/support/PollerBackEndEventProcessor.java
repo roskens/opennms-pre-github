@@ -45,7 +45,7 @@ import org.opennms.netmgt.xml.event.Event;
 public class PollerBackEndEventProcessor {
 
     private PollerBackEnd m_pollerBackEnd;
-    
+
     /**
      * <p>setPollerBackEnd</p>
      *

@@ -45,16 +45,16 @@ import org.springframework.context.ApplicationContextAware;
  * @version $Id: $
  */
 public class GatewayStatusNotification implements IGatewayStatusNotification, ApplicationContextAware {
-	
+
 	private Collection<IGatewayStatusNotification> m_listenerList;
 	private ApplicationContext m_applicationContext;
-	
+
 	/**
 	 * <p>Constructor for GatewayStatusNotification.</p>
 	 */
 	public GatewayStatusNotification() {
 	}
-	
+
 	/**
 	 * <p>Constructor for GatewayStatusNotification.</p>
 	 *
@@ -79,7 +79,7 @@ public class GatewayStatusNotification implements IGatewayStatusNotification, Ap
 		}
 		return m_listenerList;
 	}
-	
+
 	/**
 	 * <p>setListenerList</p>
 	 *

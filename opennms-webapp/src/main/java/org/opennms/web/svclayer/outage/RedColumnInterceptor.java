@@ -59,4 +59,4 @@ public class RedColumnInterceptor implements ColumnInterceptor {
             column.setStyle("");
         }
     }
-} 
+}

@@ -32,12 +32,12 @@ import org.opennms.features.topology.api.topo.Edge;
 import org.opennms.features.topology.api.topo.Vertex;
 
 public interface GraphVisitor {
-	
+
 	public void visitGraph(Graph graph) throws Exception;
 	public void completeGraph(Graph graph) throws Exception;
-	
+
 	public void visitVertex(Vertex vertex) throws Exception;
-	
+
 	public void visitEdge(Edge edge) throws Exception;
 
 }

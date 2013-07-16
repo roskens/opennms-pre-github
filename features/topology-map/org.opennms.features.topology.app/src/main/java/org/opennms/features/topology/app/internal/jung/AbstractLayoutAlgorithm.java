@@ -17,13 +17,13 @@ public abstract class AbstractLayoutAlgorithm implements LayoutAlgorithm, Layout
 
 	protected Dimension selectLayoutSize(GraphContainer g) {
 		int vertexCount = g.getGraph().getDisplayVertices().size();
-		
+
 		 double height = 1.5*Math.sqrt(vertexCount)*ELBOW_ROOM;
 		 double width = height*16/9;
-		 
+
 		 return new Dimension((int)width, (int)height);
-		 
-		
+
+
 	}
 
 	protected Transformer<VertexRef, Point2D> initializer(final Layout graphLayout) {

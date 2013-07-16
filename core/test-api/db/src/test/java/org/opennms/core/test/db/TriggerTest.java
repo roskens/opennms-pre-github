@@ -33,28 +33,28 @@ import junit.framework.AssertionFailedError;
 import org.opennms.test.ThrowableAnticipator;
 
 public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
-   
-    
+
+
     public void testSetIpInterfaceIfIndexLikeCapsdDoes() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
-        
+
         assertEquals("ipinterface.id", 1, jdbcTemplate.queryForInt("SELECT id FROM ipinterface"));
         assertEquals("snmpinterface.id", 2, jdbcTemplate.queryForInt("SELECT id FROM snmpinterface"));
-        
+
         assertEquals("ifIndex", 0, jdbcTemplate.queryForInt("SELECT ifIndex FROM ipinterface"));
         executeSQL("UPDATE ipInterface SET ifIndex = 1 WHERE nodeID = 1 AND ipAddr = '1.2.3.4'");
         assertEquals("ifIndex", 1, jdbcTemplate.queryForInt("SELECT ifIndex FROM ipinterface"));
 
         assertEquals("snmpInterfaceId", 2, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
-    
+
     public void testSetIpInterfaceIfIndexLikeCapsdDoesBadIfIndex() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', null )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
-        
+
         assertEquals("ifIndex", 0, jdbcTemplate.queryForInt("SELECT ifIndex FROM ipinterface"));
 
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -67,12 +67,12 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         	ta.verifyAnticipated();
         }
     }
-    
+
     public void testSetIpInterfaceIfIndexLikeCapsdButOppositeOrder() throws Exception {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
-        
+
         assertEquals("snmpInterfaceId", 1, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
     }
 
@@ -80,9 +80,9 @@ public class TriggerTest extends PopulatedTemporaryDatabaseTestCase {
         executeSQL("INSERT INTO node (nodeId, nodeCreateTime) VALUES ( 1, now() )");
         executeSQL("INSERT INTO snmpInterface (nodeId, snmpIfIndex) VALUES ( 1, 1)");
         executeSQL("INSERT INTO ipInterface (nodeId, ipAddr, ifIndex) VALUES ( 1, '1.2.3.4', 1 )");
-        
+
         assertEquals("snmpInterfaceId", 1, jdbcTemplate.queryForInt("SELECT snmpInterfaceId FROM ipInterface WHERE nodeID = ?", 1));
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new AssertionFailedError(ThrowableAnticipator.IGNORE_MESSAGE));
         try {

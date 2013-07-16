@@ -58,7 +58,7 @@ import org.opennms.core.utils.WebSecurityUtils;
  */
 public class ServiceNoticeUpdateServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -5205846787997118203L;
     private static final String UPDATE_SERVICE = "UPDATE ifservices SET notify = ? WHERE nodeID = ? AND ipaddr = ? AND serviceid = ?";

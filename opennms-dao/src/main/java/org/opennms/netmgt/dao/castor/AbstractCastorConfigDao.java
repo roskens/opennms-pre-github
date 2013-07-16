@@ -48,7 +48,7 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractCastorConfigDao.class);
     private Class<K> m_castorClass;
     private String m_description;
@@ -67,7 +67,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      */
     public AbstractCastorConfigDao(final Class<K> entityClass, final String description) {
         super();
-        
+
         m_castorClass = entityClass;
         m_description = description;
     }
@@ -88,14 +88,14 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
      */
     protected V loadConfig(final Resource resource) {
         long startTime = System.currentTimeMillis();
-        
+
         LOG.debug("Loading {} configuration from {}", m_description, resource);
 
         V config = translateConfig(CastorUtils.unmarshalWithTranslatedExceptions(m_castorClass, resource));
-        
+
         long endTime = System.currentTimeMillis();
         LOG.info(createLoadedLogMessage(config, (endTime - startTime)));
-        
+
         return config;
     }
 
@@ -116,7 +116,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     @Override
     public void afterPropertiesSet() {
         Assert.state(m_configResource != null, "property configResource must be set and be non-null");
-    
+
         final V config = loadConfig(m_configResource);
         m_container = new FileReloadContainer<V>(config, m_configResource, m_callback);
 
@@ -142,7 +142,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     public void setConfigResource(final Resource configResource) {
         m_configResource = configResource;
     }
-    
+
     /**
      * <p>getContainer</p>
      *
@@ -151,7 +151,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
     protected FileReloadContainer<V> getContainer() {
         return m_container;
     }
-    
+
     public class CastorReloadCallback implements FileReloadCallback<V> {
         @Override
         public V reload(final V object, final Resource resource) {
@@ -179,7 +179,7 @@ public abstract class AbstractCastorConfigDao<K, V> implements InitializingBean 
             m_container.setReloadCheckInterval(m_reloadCheckInterval);
         }
     }
-    
+
     /**
      * <p>getDescription</p>
      *

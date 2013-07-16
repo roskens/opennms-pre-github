@@ -56,5 +56,5 @@ public class OnmsReductionKeyMemo extends OnmsMemo {
     public void setReductionKey(String reductionKey) {
         this.m_reductionKey = reductionKey;
     }
-    
+
 }

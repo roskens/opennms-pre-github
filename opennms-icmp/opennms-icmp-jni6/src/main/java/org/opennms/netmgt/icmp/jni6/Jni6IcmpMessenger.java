@@ -50,13 +50,13 @@ import org.slf4j.LoggerFactory;
  */
 public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingResponse> {
     private static final Logger LOG = LoggerFactory.getLogger(Jni6IcmpMessenger.class);
-    
+
     private int m_pingerId;
     private ICMPv6Socket m_socket;
-    
+
     /**
      * <p>Constructor for JniIcmpMessenger.</p>
-     * @param pingerId 
+     * @param pingerId
      *
      * @throws java.io.IOException if any.
      */
@@ -69,14 +69,14 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
         while (true) {
             try {
                 DatagramPacket packet = m_socket.receive();
-                
+
                 Jni6PingResponse reply = Jni6IcmpMessenger.createPingResponse(packet);
-                
+
                 if (reply != null && reply.getIdentifier() == m_pingerId) {
                     pendingReplies.offer(reply);
                 }
 
-     
+
             } catch (IOException e) {
                 LOG.error("I/O Error occurred reading from ICMP Socket", e);
             } catch (IllegalArgumentException e) {
@@ -90,7 +90,7 @@ public class Jni6IcmpMessenger implements Messenger<Jni6PingRequest, Jni6PingRes
 
     }
 
-    
+
     /**
      * <p>sendRequest</p>
      *

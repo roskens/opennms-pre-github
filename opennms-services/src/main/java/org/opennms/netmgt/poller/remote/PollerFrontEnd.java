@@ -42,35 +42,35 @@ import org.opennms.netmgt.model.OnmsMonitoringLocationDefinition;
  * @version $Id: $
  */
 public interface PollerFrontEnd {
-    
+
     /**
      * <p>getMonitoringLocations</p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<OnmsMonitoringLocationDefinition> getMonitoringLocations();
-    
+
     /**
      * <p>getPolledServices</p>
      *
      * @return a {@link java.util.Collection} object.
      */
     public Collection<PolledService> getPolledServices();
-    
+
     /**
      * Is the poller currently registered with the server.
      *
      * @return true if and only if the server has been registered
      */
     public boolean isRegistered();
-    
+
     /**
      * Return the monitor name of the poller or null if none exist
      *
      * @return a {@link java.lang.String} object.
      */
     public String getMonitorName();
-    
+
     /**
      * Register the poller if it has not been registered before.
      *
@@ -87,33 +87,33 @@ public interface PollerFrontEnd {
      * @param initialPollTime the time to set its initialPollTime to
      */
     public void setInitialPollTime(Integer polledServiceId, Date initialPollTime);
-    
+
     /**
      * Poll the service with id polledServiceId and report the results to the server
      *
      * @param polledServiceId The serviceid of the polledService that needs to be polled
      */
     public void pollService(Integer polledServiceId);
-    
+
     /**
      * Returns whether or not the poller has been started
      *
      * @return a boolean.
      */
     public boolean isStarted();
-    
+
     /**
      * Returns whether some error occurred and an exit is necessary
      *
      * @return a boolean.
      */
     public boolean isExitNecessary();
-    
+
     /**
      * Stop polling.  This should be called before the system exits.
      */
     public void stop();
-    
+
     /**
      * Returns the state of polling in this monitor.
      *
@@ -136,7 +136,7 @@ public interface PollerFrontEnd {
      * @param l a {@link org.opennms.netmgt.poller.remote.ConfigurationChangedListener} object.
      */
     public void addConfigurationChangedListener(ConfigurationChangedListener l);
-    
+
     /**
      * Remove a config change listener
      *
@@ -169,6 +169,6 @@ public interface PollerFrontEnd {
      * @param l a {@link org.opennms.netmgt.poller.remote.ServicePollStateChangedListener} object.
      */
     public void removeServicePollStateChangedListener(ServicePollStateChangedListener l);
-	
+
 
 }

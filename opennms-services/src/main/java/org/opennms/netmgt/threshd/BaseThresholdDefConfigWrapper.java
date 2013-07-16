@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.threshd.Threshold;
  */
 public abstract class BaseThresholdDefConfigWrapper {
     Basethresholddef m_baseDef;
-    
+
     /**
      * <p>Constructor for BaseThresholdDefConfigWrapper.</p>
      *
@@ -54,7 +54,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     protected BaseThresholdDefConfigWrapper(Basethresholddef baseDef) {
         m_baseDef=baseDef;
     }
-    
+
     /**
      * <p>getConfigWrapper</p>
      *
@@ -70,21 +70,21 @@ public abstract class BaseThresholdDefConfigWrapper {
         }
         return null;
     }
-    
+
     /**
      * <p>getDatasourceExpression</p>
      *
      * @return a descriptive string for the data source - typically either a data source name, or an expression of data source names
      */
     public abstract String getDatasourceExpression();
-    
+
     /**
      * Returns the names of the datasources required to evaluate this threshold
      *
      * @return Collection of the names of datasources
      */
     public abstract Collection<String> getRequiredDatasources();
-    
+
     /**
      * Evaluate the threshold expression/datasource in terms of the named values supplied, and return that value
      *
@@ -93,7 +93,7 @@ public abstract class BaseThresholdDefConfigWrapper {
      * @throws org.opennms.netmgt.threshd.ThresholdExpressionException if any.
      */
     public abstract double evaluate(Map<String, Double> values)  throws ThresholdExpressionException;
-    
+
     /**
      * <p>getDsType</p>
      *
@@ -102,7 +102,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public String getDsType() {
         return m_baseDef.getDsType();
     }
-    
+
     /**
      * <p>getDsLabel</p>
      *
@@ -111,7 +111,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public String getDsLabel() {
         return m_baseDef.getDsLabel();
     }
-    
+
     /**
      * <p>getRearm</p>
      *
@@ -120,7 +120,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public double getRearm() {
         return m_baseDef.getRearm();
     }
-    
+
     /**
      * <p>getTrigger</p>
      *
@@ -129,7 +129,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public int getTrigger() {
         return m_baseDef.getTrigger();
     }
-    
+
     /**
      * <p>getType</p>
      *
@@ -138,7 +138,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public String getType() {
         return m_baseDef.getType();
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -147,7 +147,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public double getValue() {
         return m_baseDef.getValue();
     }
-    
+
     /**
      * <p>hasRearm</p>
      *
@@ -156,7 +156,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public boolean hasRearm() {
         return m_baseDef.hasRearm();
     }
-    
+
     /**
      * <p>hasTrigger</p>
      *
@@ -165,7 +165,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public boolean hasTrigger() {
         return m_baseDef.hasTrigger();
     }
-    
+
     /**
      * <p>hasValue</p>
      *
@@ -174,7 +174,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public boolean hasValue() {
         return m_baseDef.hasValue();
     }
-    
+
     /**
      * <p>getTriggeredUEI</p>
      *
@@ -183,7 +183,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public String getTriggeredUEI() {
         return m_baseDef.getTriggeredUEI();
     }
-    
+
     /**
      * <p>getRearmedUEI</p>
      *
@@ -192,7 +192,7 @@ public abstract class BaseThresholdDefConfigWrapper {
     public String getRearmedUEI() {
         return m_baseDef.getRearmedUEI();
     }
-    
+
     /**
      * <p>getBasethresholddef</p>
      *
@@ -218,7 +218,7 @@ public abstract class BaseThresholdDefConfigWrapper {
         && getDsType().equals(o.getDsType())
         && getDatasourceExpression().equals(o.getDatasourceExpression());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int hashCode() {
@@ -248,7 +248,7 @@ public abstract class BaseThresholdDefConfigWrapper {
         && getBasethresholddef().getFilterOperator().equals(o.getBasethresholddef().getFilterOperator())
         && Arrays.equals(getBasethresholddef().getResourceFilter(), o.getBasethresholddef().getResourceFilter());
     }
-    
+
     /**
      * <p>merge</p>
      *
@@ -257,6 +257,6 @@ public abstract class BaseThresholdDefConfigWrapper {
     public void merge(BaseThresholdDefConfigWrapper threshold) {
         m_baseDef = threshold.getBasethresholddef();
     }
-    
+
 }
 

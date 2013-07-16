@@ -46,6 +46,6 @@ public class Tl1d extends AbstractSpringContextJmxServiceDaemon<org.opennms.netm
     /** {@inheritDoc} */
     @Override
     protected String getSpringContext() {
-        return "tl1DaemonContext";       
+        return "tl1DaemonContext";
     }
 }

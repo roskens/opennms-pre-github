@@ -46,11 +46,11 @@ import org.opennms.web.svclayer.DemandPollService;
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 public class DefaultDemandPollService implements DemandPollService {
-	
+
 	private PollerService m_pollerService;
 	private DemandPollDao m_demandPollDao;
 	private MonitoredServiceDao m_monitoredServiceDao;
-	
+
 	/**
 	 * <p>setDemandPollDao</p>
 	 *
@@ -59,7 +59,7 @@ public class DefaultDemandPollService implements DemandPollService {
 	public void setDemandPollDao(final DemandPollDao demandPollDao) {
 		m_demandPollDao = demandPollDao;
 	}
-	
+
 	/**
 	 * <p>setPollerAPI</p>
 	 *
@@ -68,7 +68,7 @@ public class DefaultDemandPollService implements DemandPollService {
 	public void setPollerAPI(final PollerService pollerAPI) {
 		m_pollerService = pollerAPI;
 	}
-	
+
 	/**
 	 * <p>setMonitoredServiceDao</p>
 	 *
@@ -82,11 +82,11 @@ public class DefaultDemandPollService implements DemandPollService {
 	public DemandPoll pollMonitoredService(final int nodeId, final InetAddress ipAddr, final int ifIndex, final int serviceId) {
 	    final DemandPoll demandPoll = new DemandPoll();
 		demandPoll.setRequestTime(new Date());
-		
+
 		m_demandPollDao.save(demandPoll);
-		
+
 		final OnmsMonitoredService monSvc = m_monitoredServiceDao.get(nodeId, ipAddr, ifIndex, serviceId);
-		
+
 		if (monSvc == null) {
 			throw new RuntimeException("Service doesn't exist: "+monSvc);
 		}

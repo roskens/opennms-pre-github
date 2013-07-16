@@ -36,11 +36,11 @@ import org.opennms.netmgt.snmp.SnmpObjId;
 
 /**
  * The Class TcaData.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 public final class TcaData extends SnmpTable<TcaDataEntry> {
-	
+
 	/**
 	 * Instantiates a new TCA data.
 	 *

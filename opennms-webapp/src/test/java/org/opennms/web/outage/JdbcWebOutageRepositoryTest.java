@@ -60,13 +60,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class JdbcWebOutageRepositoryTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     WebOutageRepository m_outageRepo;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -76,38 +76,38 @@ public class JdbcWebOutageRepositoryTest implements InitializingBean {
     public void setUp(){
         m_dbPopulator.populateDatabase();
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testCountMatchingOutages(){
         OutageCriteria criteria = new OutageCriteria(new OutageIdFilter(1));
         int outages = m_outageRepo.countMatchingOutages(criteria);
-        
+
         assertEquals(1, outages);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testGetOutage(){
         Outage[] outages = m_outageRepo.getMatchingOutages(new OutageCriteria(new OutageIdFilter(1)));
         assertNotNull(outages);
         assertEquals(1, outages.length);
-        
+
         Outage outage = m_outageRepo.getOutage(1);
         assertNotNull(outage);
     }
-    
+
     @Test
     @Transactional
     public void testGetOutages() {
         Outage[] outages = m_outageRepo.getMatchingOutages(new OutageCriteria());
         assertNotNull(outages);
         assertEquals(2, outages.length);
-        
+
         assertNotNull(outages[0].getRegainedServiceTime());
         assertNull(outages[1].getRegainedServiceTime());
     }
-    
+
     @Test
     @Transactional
     public void testGetOutageSummaries() {

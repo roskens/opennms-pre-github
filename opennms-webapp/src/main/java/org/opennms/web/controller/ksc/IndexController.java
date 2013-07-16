@@ -48,7 +48,7 @@ import org.springframework.web.servlet.mvc.AbstractController;
  * @since 1.8.1
  */
 public class IndexController extends AbstractController implements InitializingBean {
-    
+
     private ResourceService m_resourceService;
     private KscReportService m_kscReportService;
 
@@ -67,7 +67,7 @@ public class IndexController extends AbstractController implements InitializingB
         modelAndView.addObject("nodeResources", getResourceService().findNodeResources());
         modelAndView.addObject("nodeSourceResources", getResourceService().findNodeSourceResources());
         modelAndView.addObject("domainResources", getResourceService().findDomainResources());
-        
+
         return modelAndView;
     }
 
@@ -88,7 +88,7 @@ public class IndexController extends AbstractController implements InitializingB
     public void setResourceService(ResourceService resourceService) {
         m_resourceService = resourceService;
     }
-    
+
     /**
      * <p>getKscReportService</p>
      *

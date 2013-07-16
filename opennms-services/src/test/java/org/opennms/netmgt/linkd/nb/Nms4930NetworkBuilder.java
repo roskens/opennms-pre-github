@@ -7,7 +7,7 @@ public class Nms4930NetworkBuilder extends LinkdNetworkBuilder {
 	@SuppressWarnings("deprecation")
 	public void buildNetwork4005() {
         NetworkBuilder nb = getNetworkBuilder();
-        
+
         nb.addNode("cisco1").setForeignSource("linkd").setForeignId("cisco1").setSysObjectId(".1.3.6.1.4.1.9.1.122").setType("A");
         nb.addInterface("10.1.1.2").setIsSnmpPrimary("P").setIsManaged("M")
         .addSnmpInterface(3).setIfType(6).setCollectionEnabled(true).setIfSpeed(100000000).setPhysAddr("c2007db90010");

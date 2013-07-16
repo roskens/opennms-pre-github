@@ -63,7 +63,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
 
         @Override
 	public void sync() {
-		
+
 		for (EventForwarder forwarder: m_forwarders) {
 			forwarder.sendStartSync();
 			for (Event event: getEvents()) {
@@ -75,7 +75,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
 
 	private Event getXMLEvent(OnmsAlarm alarm) {
         Event event = new Event();
-        
+
         event.setDbid(alarm.getLastEvent().getId());
 
         //UEI
@@ -88,7 +88,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
         // Source
         if (alarm.getLastEvent().getEventSource() != null ) {
             event.setSource(alarm.getLastEvent().getEventSource());
-        } 
+        }
 
         //nodeid
         if (alarm.getNode() != null) {
@@ -108,17 +108,17 @@ public class AlarmEventSynchronization implements EventSynchronization {
             dateFormat.setTimeZone(TimeZone.getTimeZone("GMT"));
             event.setTime(dateFormat.format(alarm.getLastEventTime()));
         }
-        
+
         // host
         if (alarm.getLastEvent().getEventHost() != null) {
             event.setHost(alarm.getLastEvent().getEventHost());
         }
-        
+
         // interface
         if (alarm.getIpAddr() != null) {
             event.setInterfaceAddress(alarm.getIpAddr());
         }
-        
+
         // Service Name
         if (alarm.getServiceType() != null) {
             event.setService(alarm.getServiceType().getName());
@@ -128,7 +128,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
         if (alarm.getDescription() != null ) {
             event.setDescr(alarm.getDescription());
         }
-        
+
         // Log message
         if (alarm.getLogMsg() != null) {
             Logmsg msg = new Logmsg();
@@ -140,7 +140,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
         if (alarm.getSeverity() != null) {
             event.setSeverity((alarm.getSeverity()).getLabel());
         }
-        
+
         // operator Instruction
         if (alarm.getOperInstruct() != null) {
             event.setOperinstruct(alarm.getOperInstruct());
@@ -154,7 +154,7 @@ public class AlarmEventSynchronization implements EventSynchronization {
         event.setAlarmData(ad);
         return event;
     }
-	
+
         @Override
 	public List<Event> getEvents() {
         BeanFactoryReference bf = BeanUtils.getBeanFactory("daoContext");
@@ -168,14 +168,14 @@ public class AlarmEventSynchronization implements EventSynchronization {
                     Map<String, OnmsAlarm> forwardAlarms = new HashMap<String, OnmsAlarm>();
                 	for (OnmsAlarm alarm : alarmDao.findAll()) {
                 		// Got Clear alarm
-                		if (alarm.getAlarmType() == 2) {               
+				if (alarm.getAlarmType() == 2) {
                 			if (forwardAlarms.containsKey(alarm.getClearKey())) {
                 				OnmsAlarm raise = forwardAlarms.get(alarm.getClearKey());
                 				if (raise.getLastEventTime().before(alarm.getLastEventTime())) {
                 					forwardAlarms.remove(alarm.getClearKey());
                 				}
                 			} else {
-                    			forwardAlarms.put(alarm.getClearKey(), alarm);                			                				
+					forwardAlarms.put(alarm.getClearKey(), alarm);
                 			}
                 		} else if (alarm.getAlarmType() == 1){
                 			if (forwardAlarms.containsKey(alarm.getReductionKey())) {
@@ -184,14 +184,14 @@ public class AlarmEventSynchronization implements EventSynchronization {
                   			    	forwardAlarms.put(alarm.getReductionKey(),alarm);
                   			    }
                 			} else {
-                				forwardAlarms.put(alarm.getReductionKey(), alarm);                			                			
+						forwardAlarms.put(alarm.getReductionKey(), alarm);
                 			}
                 		}  else {
-            				forwardAlarms.put(alarm.getReductionKey(), alarm);                			                			                			
+					forwardAlarms.put(alarm.getReductionKey(), alarm);
                 		}
                     }
                 	for (OnmsAlarm alarm : forwardAlarms.values()) {
-                		if (alarm.getAlarmType() != 2) {               
+				if (alarm.getAlarmType() != 2) {
                 			Event xmlEvent = getXMLEvent(alarm);
                         	if (xmlEvent != null) xmlevents.add(xmlEvent);
                 		}
@@ -199,11 +199,11 @@ public class AlarmEventSynchronization implements EventSynchronization {
                 }
 
             });
-        
+
         } catch (final RuntimeException e) {
         }
         return xmlevents;
     }
-	
+
 
 }

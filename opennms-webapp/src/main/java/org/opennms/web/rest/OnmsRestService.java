@@ -71,7 +71,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
  * @since 1.8.1
  */
 public class OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsRestService.class);
 
     private final ReentrantReadWriteLock m_globalLock = new ReentrantReadWriteLock();
@@ -92,7 +92,7 @@ public class OnmsRestService {
 	protected void readLock() {
 	    m_readLock.lock();
 	}
-	
+
 	protected void readUnlock() {
 	    if (m_globalLock.getReadHoldCount() > 0) {
 	        m_readLock.unlock();
@@ -137,11 +137,11 @@ public class OnmsRestService {
     		builder.offset(Integer.valueOf(params.getFirst("start")));
     		params.remove("start");
     	}
-    	
+
 	    if(params.containsKey("orderBy")) {
 	    	builder.orderBy(params.getFirst("orderBy"));
 			params.remove("orderBy");
-			
+
 			if(params.containsKey("order")) {
 				if("desc".equalsIgnoreCase(params.getFirst("order"))) {
 					builder.desc();
@@ -172,7 +172,7 @@ public class OnmsRestService {
 
 		for (final String key : params.keySet()) {
 			for (final String paramValue : params.get(key)) { // NOSONAR
-                        // NOSONAR the interface of MultivaluedMap.class declares List<String> as return value, 
+                        // NOSONAR the interface of MultivaluedMap.class declares List<String> as return value,
                         // the actual implementation com.sun.jersey.core.util.MultivaluedMapImpl returns a String, so this is fine in some way ...
 				if ("null".equalsIgnoreCase(paramValue)) {
 					builder.isNull(key);
@@ -235,7 +235,7 @@ public class OnmsRestService {
     		return null;
     	}
     }
-    
+
     protected String removeParameter(final MultivaluedMap<java.lang.String, java.lang.String> params, final String key, final String defaultValue) {
     	final String value = removeParameter(params, key);
     	if (value == null) {
@@ -244,7 +244,7 @@ public class OnmsRestService {
     		return value;
     	}
     }
-    
+
     /**
      * <p>throwException</p>
      *
@@ -263,8 +263,8 @@ public class OnmsRestService {
         return new WebApplicationException(Response.status(status).type(MediaType.TEXT_PLAIN).entity(t.getMessage()).build());
     }
 
-    
-    
+
+
 
     /**
      * Convert a column name with underscores to the corresponding property name using "camel case".  A name

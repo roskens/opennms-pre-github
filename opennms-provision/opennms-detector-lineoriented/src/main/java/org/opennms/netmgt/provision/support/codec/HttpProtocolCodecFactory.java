@@ -42,17 +42,17 @@ import org.apache.mina.filter.codec.ProtocolEncoder;
  * @version $Id: $
  */
 public class HttpProtocolCodecFactory implements ProtocolCodecFactory {
-    
+
     private LineOrientedEncoder m_encoder;
     private HttpStatusResponseDecoder m_decoder;
-    
+
     /**
      * <p>Constructor for HttpProtocolCodecFactory.</p>
      */
     public HttpProtocolCodecFactory() {
         this(Charset.defaultCharset());
     }
-    
+
     /**
      * <p>Constructor for HttpProtocolCodecFactory.</p>
      *
@@ -62,7 +62,7 @@ public class HttpProtocolCodecFactory implements ProtocolCodecFactory {
         m_encoder = new LineOrientedEncoder(charset);
         m_decoder = new HttpStatusResponseDecoder(charset);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ProtocolDecoder getDecoder(final IoSession session) throws Exception {

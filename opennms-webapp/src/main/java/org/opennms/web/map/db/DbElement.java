@@ -61,7 +61,7 @@ public class DbElement implements Cloneable {
     private String icon;
 
     private String sysoid;
-    
+
     /**
      * <p>Getter for the field <code>sysoid</code>.</p>
      *
@@ -83,7 +83,7 @@ public class DbElement implements Cloneable {
     private int x;
 
     private int y;
-    
+
     /**
      * <p>Constructor for DbElement.</p>
      */
@@ -273,7 +273,7 @@ public class DbElement implements Cloneable {
             throw new UndeclaredThrowableException(e, "CloneNotSupportedException thrown while calling super.clone(), which is odd since we implement the Cloneable interface");
         }
     }
-    
+
     /**
      * <p>isMap</p>
      *

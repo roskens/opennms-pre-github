@@ -39,13 +39,13 @@ import org.slf4j.LoggerFactory;
 /**
  * Convenience class for looking up string and integer values in a parameter
  * map.
- * 
+ *
  * @deprecated This class *modifies* the maps that are passed in, we should really do it another way.
  */
 public abstract class ParameterMap {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ParameterMap.class);
-	
+
 	/**
 	 * This method is used to lookup a specific key in the map. If the mapped
 	 * value is a string it is converted to a long and the original string
@@ -61,9 +61,9 @@ public abstract class ParameterMap {
 	 */
     @SuppressWarnings("unchecked")
     public static long getKeyedLong(final Map map, final String key, final long defValue) {
-	    
+
 	    if (map == null) return defValue;
-	    
+
         long value = defValue;
         Object oValue = map.get(key);
 
@@ -80,7 +80,7 @@ public abstract class ParameterMap {
         }
         return value;
 	}
-	
+
     /**
      * This method is used to lookup a specific key in the map. If the mapped
      * value is a string it is converted to an integer and the original string
@@ -111,9 +111,9 @@ public abstract class ParameterMap {
      */
     @SuppressWarnings("unchecked")
     public final static int[] getKeyedIntegerArray(final Map map, final String key, final int[] defValues) {
-        
+
         if (map == null) return defValues;
-        
+
         int[] result = defValues;
         Object oValue = map.get(key);
 
@@ -158,7 +158,7 @@ public abstract class ParameterMap {
      */
     @SuppressWarnings("unchecked")
     public static String getKeyedString(final Map map, final String key, final String defValue) {
-        
+
         if (map == null) return defValue;
 
         String value = defValue;
@@ -188,9 +188,9 @@ public abstract class ParameterMap {
      */
     @SuppressWarnings("unchecked")
     public static boolean getKeyedBoolean(final Map map, final String key, final boolean defValue) {
-        
+
         if (map == null) return defValue;
-        
+
         boolean value = defValue;
         Object oValue = map.get(key);
 
@@ -213,7 +213,7 @@ public abstract class ParameterMap {
     }
 
     /**
-     * This method is used to lookup a specific key in the map. If the value 
+     * This method is used to lookup a specific key in the map. If the value
      * cannot be found in the map then the default value is stored
      * in the map. If the specified key does not exist in the map then the
      * default value is returned.

@@ -61,7 +61,7 @@ import com.atlassian.jira.rest.client.internal.jersey.JerseyJiraRestClientFactor
  * OpenNMS Trouble Ticket Plugin API implementation for Atlassian JIRA.
  * This implementation relies on the JIRA REST interface and is compatible
  * with JIRA 5.0+.
- * 
+ *
  * @see http://www.atlassian.com/software/jira/overview
  * @see http://docs.atlassian.com/jira-rest-java-client/1.0/apidocs/
  *
@@ -121,7 +121,7 @@ public class JiraTicketerPlugin implements Plugin {
             ticket.setState(getStateFromId(issue.getStatus().getName()));
 
             return ticket;
-        } else { 
+        } else {
             return null;
         }
     }

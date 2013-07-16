@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DefaultTaskMonitor implements TaskMonitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DefaultTaskMonitor.class);
 
     /**
@@ -90,7 +90,7 @@ public class DefaultTaskMonitor implements TaskMonitor {
     public void monitorException(final Throwable t) {
     	LOG.trace("monitorException({})", t);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public TaskMonitor getChildTaskMonitor(final Task task, final Task child) {

@@ -74,7 +74,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("stats/alarms")
 @Transactional
 public class AlarmStatsRestService extends AlarmRestServiceBase {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AlarmStatsRestService.class);
 
 
@@ -83,7 +83,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
     @Autowired
     AlarmStatisticsService m_statisticsService;
 
-    @Context 
+    @Context
     UriInfo m_uriInfo;
 
     @GET
@@ -105,26 +105,26 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
 
         try {
             final AlarmStatisticsBySeverity stats = new AlarmStatisticsBySeverity();
-    
+
             String[] severities = StringUtils.split(severitiesString, ",");
             if (severities == null || severities.length == 0) {
                 severities = OnmsSeverity.names().toArray(EMPTY_STRING_ARRAY);
             }
-    
+
             for (final String severityName : severities) {
                 final OnmsSeverity severity = OnmsSeverity.get(severityName);
-    
+
                 final AlarmStatistics stat = getStats(severity);
                 stat.setSeverity(severity);
                 stats.add(stat);
             }
-            
+
             return stats;
         } finally {
             readUnlock();
         }
     }
-    
+
     protected AlarmStatistics getStats(final OnmsSeverity severity) {
         final AlarmStatistics stats = new AlarmStatistics();
 
@@ -140,7 +140,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
         }
 
         final Criteria criteria = builder.toCriteria();
-        
+
         LOG.debug("criteria = {}", criteria);
 
         final int count = m_statisticsService.getTotalCount(criteria);
@@ -203,7 +203,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
 
         builder.fetch("firstEvent", FetchType.EAGER);
         builder.fetch("lastEvent", FetchType.EAGER);
-        
+
         builder.alias("node", "node", JoinType.LEFT_JOIN);
         builder.alias("node.snmpInterfaces", "snmpInterface", JoinType.LEFT_JOIN);
         builder.alias("node.ipInterfaces", "ipInterface", JoinType.LEFT_JOIN);
@@ -224,11 +224,11 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
         public void setStats(final List<AlarmStatistics> stats) {
             m_stats = stats;
         }
-        
+
         public void add(final AlarmStatistics stats) {
             m_stats.add(stats);
         }
-        
+
         @Override
         public String toString() {
             return new ToStringBuilder(this)
@@ -236,7 +236,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
                 .toString();
         }
     }
-    
+
     @Entity
     @XmlRootElement(name = "alarmStatistics")
     public static class AlarmStatistics {
@@ -274,7 +274,7 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
         public int getAcknowledgedCount() {
             return m_acknowledgedCount;
         }
-        
+
         public void setAcknowledgedCount(final int count) {
             m_acknowledgedCount = count;
         }
@@ -283,14 +283,14 @@ public class AlarmStatsRestService extends AlarmRestServiceBase {
         public int getUnacknowledgedCount() {
             return m_totalCount - m_acknowledgedCount;
         }
-        
+
         public void setUnacknowledgedCount(final int count) {}
 
         @XmlAttribute(name="severity")
         public OnmsSeverity getSeverity() {
             return m_severity;
         }
-        
+
         public void setSeverity(final OnmsSeverity severity) {
             m_severity = severity;
         }

@@ -43,59 +43,59 @@ import org.opennms.core.soa.ServiceRegistry;
  * @author brozow
  */
 public class RegistrationListenerBeanTest {
-    
+
     private int m_totalProvided = 0;
-    
+
     @Test
     public void testCallBindUnbindMethods() throws Exception {
-       
+
         RegistrationListenerBean<Hello> listener = new RegistrationListenerBean<Hello>();
         listener.setServiceInterface(Hello.class);
         listener.setTarget(this);
         listener.setBindMethod("bind");
         listener.setUnbindMethod("unbind");
         listener.afterPropertiesSet();
-        
+
         ServiceRegistry registry = new DefaultServiceRegistry();
-        
+
         Registration reg1 = registry.register(new MyProvider("prov1"), Hello.class, Goodbye.class);
         Registration reg2 = registry.register(new MyProvider("prov2"), Hello.class, Goodbye.class);
-        
+
         ReferenceListFactoryBean<Hello> bean = new ReferenceListFactoryBean<Hello>();
         bean.setServiceInterface(Hello.class);
         bean.setServiceRegistry(registry);
-        
+
         bean.addListener(listener);
 
         bean.afterPropertiesSet();
-        
+
         assertEquals(2, getTotalProvided());
-        
+
         Registration reg3 = registry.register(new MyProvider("prov3"), Hello.class, Goodbye.class);
-        
+
         assertEquals(3, getTotalProvided());
-        
+
         reg2.unregister();
-        
+
         assertEquals(2, getTotalProvided());
-        
+
         reg1.unregister();
         reg3.unregister();
-        
+
         assertEquals(0, getTotalProvided());
 
-        
-        
+
+
     }
-    
+
     public int getTotalProvided() {
         return m_totalProvided;
     }
-    
+
     public void bind(Hello hello, Map<String, String> properties) {
         m_totalProvided++;
     }
-    
+
     public void unbind(Hello hello, Map<String, String> properties) {
         m_totalProvided--;
     }

@@ -40,7 +40,7 @@ public class TimeTest extends XmlTest<Time> {
     public TimeTest(final Time sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Time time = new Time();

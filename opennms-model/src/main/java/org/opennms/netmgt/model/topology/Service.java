@@ -11,7 +11,7 @@ import java.util.List;
 public abstract class Service {
 
 	private List<EndPoint> m_endpoints;
-	
+
 	private String m_name;
 
 	public List<EndPoint> getEndpoints() {

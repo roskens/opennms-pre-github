@@ -54,7 +54,7 @@ public class TticketTest extends XmlTestNoCastor<Tticket> {
 				"target/classes/xsds/eventconf.xsd" },
 				{tticket1,
 				"<tticket state=\"on\">This is a test</tticket>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

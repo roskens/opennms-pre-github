@@ -49,14 +49,14 @@ import org.springframework.web.servlet.ModelAndView;
  * <p>
  * ExecCommandAjaxController class.
  * </p>
- * 
+ *
  * @author antonio this class provides to create pages for executing ping and
  *         traceroute commands with ajax call back
  * @version $Id: $
  * @since 1.8.18
  */
 public class ExecCommandAjaxController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ExecCommandAjaxController.class);
 
     private Manager manager;
@@ -77,19 +77,19 @@ public class ExecCommandAjaxController extends MapsLoggingController {
         String id = request.getParameter("id");
 
         String command = request.getParameter("command");
-        
+
         String address = request.getParameter("address");
 
-        
+
         response.setBufferSize(0);
         response.setContentType("text/html");
         response.setHeader("pragma", "no-Cache");
         response.setHeader("Expires", "0");
         response.setHeader("Cache-Control", "no-Cache");
-        
+
         final OutputStreamWriter os = new OutputStreamWriter(
                                                              response.getOutputStream(),
-                                                             "UTF-8");        
+                                                             "UTF-8");
         try {
             final Command p;
             if (id == null) {
@@ -97,7 +97,7 @@ public class ExecCommandAjaxController extends MapsLoggingController {
                     throw new IllegalArgumentException("Command or id is required");
                 if (address == null )
                     throw new IllegalArgumentException("Address is required");
-                
+
                 if ( NetworkElementFactory.getInstance(getServletContext()).getInterfacesWithIpAddress(address).length == 0 ) {
                     os.write("NOADDRESSINDATABASE");
                 } else if (!manager.checkCommandExecution()) {
@@ -200,6 +200,5 @@ public class ExecCommandAjaxController extends MapsLoggingController {
         }
         return commandToExec;
     }
-    
 
 }

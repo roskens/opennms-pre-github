@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:brozow@opennms.org">brozow </a>
  */
 public final class IfSnmpCollector implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfSnmpCollector.class);
 
     /**
@@ -231,10 +231,10 @@ public final class IfSnmpCollector implements Runnable {
         if (!hasIfTable()) {
             throw new IndexOutOfBoundsException("Illegal Index, no table present");
         }
-        
+
         return m_ifTable.getAdminStatus(ifIndex);
     }
-    
+
     /**
      * <p>getOperStatus</p>
      *
@@ -245,7 +245,7 @@ public final class IfSnmpCollector implements Runnable {
         if (!hasIfTable()) {
             throw new IndexOutOfBoundsException("Illegal Index, no table present");
         }
-        
+
         return m_ifTable.getOperStatus(ifIndex);
     }
 
@@ -259,7 +259,7 @@ public final class IfSnmpCollector implements Runnable {
         if (!hasIfTable()) {
             throw new IndexOutOfBoundsException("Illegal Index, no table present");
         }
-        
+
         return m_ifTable.getIfType(ifIndex);
     }
 
@@ -301,7 +301,7 @@ public final class IfSnmpCollector implements Runnable {
 
         return snmpIfName;
     }
-    
+
     /**
      * <p>getIfDescr</p>
      *
@@ -310,13 +310,13 @@ public final class IfSnmpCollector implements Runnable {
      */
     public String getIfDescr(final int ifIndex) {
         String ifDescr = null;
-        
+
         if (hasIfTable()) {
             ifDescr = m_ifTable.getIfDescr(ifIndex);
         }
         return ifDescr;
     }
-    
+
     /**
      * <p>getInterfaceSpeed</p>
      *
@@ -325,7 +325,7 @@ public final class IfSnmpCollector implements Runnable {
      */
     public Long getInterfaceSpeed(final int ifIndex) {
         Long ifSpeed = null;
-        
+
         try {
 
             if (hasIfXTable() && getIfXTable().getIfHighSpeed(ifIndex) != null && getIfXTable().getIfHighSpeed(ifIndex) > 4294) {
@@ -335,13 +335,13 @@ public final class IfSnmpCollector implements Runnable {
                 ifSpeed = m_ifTable.getIfSpeed(ifIndex);
                 LOG.debug("getInterfaceSpeed:  Using ifSpeed for ifIndex {}: {}", ifIndex, ifSpeed);
             }
-            
+
         } catch(Throwable e) {
             LOG.warn("getInterfaceSpeed: exception retrieving interface speed for ifIndex {}", ifIndex);
         }
         return ifSpeed;
     }
-    
+
     /**
      * <p>getPhysAddr</p>
      *
@@ -350,13 +350,13 @@ public final class IfSnmpCollector implements Runnable {
      */
     public String getPhysAddr(final int ifIndex) {
         String physAddr = null;
-        
+
         if (hasIfTable()) {
             physAddr = m_ifTable.getPhysAddr(ifIndex);
         }
         return physAddr;
     }
-    
+
     /**
      * <p>getIfAlias</p>
      *
@@ -402,11 +402,11 @@ public final class IfSnmpCollector implements Runnable {
         m_ifTable = new IfTable(m_address);
         m_ipAddrTable = new IpAddrTable(m_address);
         m_ifXTable = new IfXTable(m_address);
-        
+
         SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(m_address);
-        
+
         LOG.debug("run: collecting for: {} with agentConfig: {}", m_address, agentConfig);
-        
+
         SnmpWalker walker = SnmpUtils.createWalker(agentConfig, "system/ifTable/ifXTable/ipAddrTable", new CollectionTracker[] { m_sysGroup, m_ifTable, m_ipAddrTable, m_ifXTable});
         walker.start();
 

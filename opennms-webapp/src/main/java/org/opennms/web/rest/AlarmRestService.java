@@ -79,7 +79,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getAlarm
      * </p>
-     * 
+     *
      * @param alarmId
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAlarm} object.
@@ -102,7 +102,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getCount
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @GET
@@ -122,7 +122,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * getAlarms
      * </p>
-     * 
+     *
      * @return a {@link org.opennms.netmgt.model.OnmsAlarmCollection} object.
      */
     @GET
@@ -149,7 +149,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * updateAlarm
      * </p>
-     * 
+     *
      * @param alarmId
      *            a {@link java.lang.String} object.
      * @param ack
@@ -214,7 +214,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
      * <p>
      * updateAlarms
      * </p>
-     * 
+     *
      * @param formProperties
      *            a {@link org.opennms.web.rest.MultivaluedMapImpl} object.
      */
@@ -264,7 +264,7 @@ public class AlarmRestService extends AlarmRestServiceBase {
                 }
                 m_ackDao.processAck(acknowledgement);
             }
-            
+
             if (alarms.size() == 1) {
                 return Response.seeOther(getRedirectUri(m_uriInfo, alarms.get(0).getId())).build();
             } else {

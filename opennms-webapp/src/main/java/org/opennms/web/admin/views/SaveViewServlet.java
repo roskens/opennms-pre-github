@@ -48,7 +48,7 @@ import org.opennms.netmgt.config.views.View;
  */
 public class SaveViewServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 3564581615040703927L;
 

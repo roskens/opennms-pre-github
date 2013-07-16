@@ -48,7 +48,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServiceDaemon> implements BaseOnmsMBean {
 
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractSpringContextJmxServiceDaemon.class);
-	
+
     /** Constant <code>DAEMON_BEAN_NAME="daemon"</code> */
     public static final String DAEMON_BEAN_NAME = "daemon";
 
@@ -64,7 +64,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     public AbstractSpringContextJmxServiceDaemon() {
         super();
     }
-    
+
     /**
      * <p>getSpringContext</p>
      *
@@ -87,7 +87,7 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
     protected ApplicationContext getContext() {
         return m_context;
     }
-    
+
     /**
      * <p>init</p>
      */
@@ -105,16 +105,16 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
                 LOG.debug("SPRING: context.classLoader= {}",  m_context.getClassLoader());
                 LOG.info("{} initialization complete.", getLoggingPrefix());
             }
-            
+
         });
     }
-    
+
     /**
      * <p>start</p>
      */
     @Override
     public final void start() {
-        
+
         Logging.withPrefix(getLoggingPrefix(), new Runnable() {
 
             @Override
@@ -128,13 +128,13 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
                     daemon.start();
                 } catch (Throwable t) {
                     LOG.error("Could not start daemon: {}", t, t);
-                    
+
                     try {
                         stop();
                     } catch (Throwable tt) {
                         LOG.error("Could not stop daemon after it failed to start: {}", tt, tt);
                     }
-                    
+
                     if (t instanceof RuntimeException) {
                         throw (RuntimeException) t;
                     } else {
@@ -146,9 +146,9 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
                 LOG.debug("SPRING: context.classLoader= {}",  m_context.getClassLoader());
                 LOG.info("{} initialization complete.", getLoggingPrefix());
             }
-            
+
         });
-        
+
     }
 
     /**
@@ -170,16 +170,16 @@ public abstract class AbstractSpringContextJmxServiceDaemon<T extends SpringServ
 
             @Override
             public void run() {
-                
+
                 setStatus(Fiber.STOP_PENDING);
 
                 if (m_context != null) {
                     m_context.close();
                 }
-                
+
                 setStatus(Fiber.STOPPED);
             }
-            
+
         });
     }
 

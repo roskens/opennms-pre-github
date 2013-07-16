@@ -37,13 +37,13 @@ import java.util.Iterator;
  * @version $Id: $
  */
 abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
-    
+
     private static final class PeekableIterator<T> implements Iterator<T> {
-        
+
         Iterator<T> m_it;
         T m_peeked = null;
 
-        
+
         public PeekableIterator(Iterator<T> it) {
             m_it = it;
         }
@@ -63,12 +63,12 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
                 return m_it.next();
             }
         }
-        
+
         public T peek() {
             if (m_peeked == null && m_it.hasNext()) {
                 m_peeked = m_it.next();
             }
-                
+
             return m_peeked;
         }
 
@@ -78,9 +78,9 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
         }
 
     }
-    
+
     private PeekableIterator<T> m_it;
-    
+
     /**
      * <p>Constructor for FilteringIterator.</p>
      *
@@ -109,7 +109,7 @@ abstract public class FilteringIterator<T> implements Iterator<T>, Iterable<T> {
         skipNonMatching();
         return m_it.hasNext();
     }
-    
+
     private void skipNonMatching() {
         while(m_it.hasNext() && !matches(m_it.peek())) {
             m_it.next();

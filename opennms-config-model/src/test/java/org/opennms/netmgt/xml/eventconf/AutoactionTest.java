@@ -53,7 +53,7 @@ public class AutoactionTest extends XmlTestNoCastor<Autoaction> {
 				"target/classes/xsds/eventconf.xsd" },
 				{autoaction1,
 				"<autoaction state=\"on\">These are important data</autoaction>",
-				"target/classes/xsds/eventconf.xsd" } 
+				"target/classes/xsds/eventconf.xsd" }
 		});
 	}
 

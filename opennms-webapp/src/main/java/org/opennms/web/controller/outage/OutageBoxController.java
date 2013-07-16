@@ -54,7 +54,7 @@ public class OutageBoxController extends AbstractController implements Initializ
 
     private WebOutageRepository m_webOutageRepository;
     private String m_successView;
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -89,7 +89,7 @@ public class OutageBoxController extends AbstractController implements Initializ
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebOutageRepository</p>
      *

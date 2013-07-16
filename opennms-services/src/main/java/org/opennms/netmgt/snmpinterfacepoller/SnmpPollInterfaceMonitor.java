@@ -51,14 +51,14 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpPollInterfaceMonitor {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpPollInterfaceMonitor.class);
 
     /**
      * ifAdminStatus table from MIB-2.
      */
     private static final String IF_ADMIN_STATUS_OID = ".1.3.6.1.2.1.2.2.1.7.";
-    
+
     /**
      * ifOperStatus table from MIB-2.
      */

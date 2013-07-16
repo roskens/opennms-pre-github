@@ -76,7 +76,7 @@ public abstract class SubstringFilter extends OneArgFilter<String> {
     public String formatValue(String value) {
         return super.formatValue('%'+value+'%');
     }
-    
-    
+
+
 
 }

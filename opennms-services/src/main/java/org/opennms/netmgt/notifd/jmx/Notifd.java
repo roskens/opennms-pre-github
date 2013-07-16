@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Notifd.class);
-    
+
     /**
      * Logging category for log4j
      */
@@ -79,14 +79,14 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
             LOG.error("start: Failed to init NotifdConfigFactory.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         try {
             NotificationFactory.init();
         } catch (Throwable t) {
             LOG.error("start: Failed to init NotificationFactory.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         try {
             DataSourceFactory.init();
         } catch (Throwable t) {
@@ -107,14 +107,14 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
             LOG.error("start: Failed to init user factory.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         try {
             DestinationPathFactory.init();
         } catch (Throwable t) {
             LOG.error("start: Failed to init destination path factory.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         try {
             NotificationCommandFactory.init();
         } catch (Throwable t) {
@@ -128,7 +128,7 @@ public class Notifd extends AbstractServiceDaemon implements NotifdMBean {
             LOG.error("start: Failed to init poll outage config factory.", t);
             throw new UndeclaredThrowableException(t);
         }
-        
+
         getNotifd().setEventManager(EventIpcManagerFactory.getIpcManager());
         getNotifd().setConfigManager(NotifdConfigFactory.getInstance());
         getNotifd().setNotificationManager(NotificationFactory.getInstance());

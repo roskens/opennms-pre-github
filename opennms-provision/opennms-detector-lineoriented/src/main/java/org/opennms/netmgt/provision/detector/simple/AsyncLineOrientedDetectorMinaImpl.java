@@ -80,10 +80,10 @@ public abstract class AsyncLineOrientedDetectorMinaImpl extends AsyncBasicDetect
             public boolean validate(final LineOrientedResponse response) {
                 return response.startsWith(prefix);
             }
-            
+
         };
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ResponseValidator<LineOrientedResponse> find(final String regex){
@@ -93,11 +93,11 @@ public abstract class AsyncLineOrientedDetectorMinaImpl extends AsyncBasicDetect
             public boolean validate(final LineOrientedResponse response) {
                 return response.find(regex);
             }
-          
-            
+
+
         };
     }
-    
+
     /**
      * <p>request</p>
      *

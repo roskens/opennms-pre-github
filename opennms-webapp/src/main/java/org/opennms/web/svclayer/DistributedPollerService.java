@@ -65,7 +65,7 @@ public interface DistributedPollerService {
      */
     @Transactional(readOnly = false)
     public void pauseLocationMonitor(LocationMonitorIdCommand command, BindException errors);
-    
+
     /**
      * <p>resumeLocationMonitor</p>
      *
@@ -74,7 +74,7 @@ public interface DistributedPollerService {
      */
     @Transactional(readOnly = false)
     public void resumeLocationMonitor(LocationMonitorIdCommand command, BindException errors);
-    
+
     /**
      * <p>deleteLocationMonitor</p>
      *

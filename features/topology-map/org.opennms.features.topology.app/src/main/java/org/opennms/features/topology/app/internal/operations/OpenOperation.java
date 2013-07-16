@@ -40,10 +40,10 @@ import org.slf4j.LoggerFactory;
 
 
 public class OpenOperation implements Operation {
-    
+
 	@Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
-        
+
         try {
             operationContext.getGraphContainer().getBaseTopology().load("graph.xml");
         } catch (MalformedURLException e) {

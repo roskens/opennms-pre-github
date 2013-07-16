@@ -77,7 +77,7 @@ public class AppConfig {
     // JMS Template
     //
     @Bean(name = "JmsTemplate")
-    public JmsTemplate jmsTemplate() {     
+    public JmsTemplate jmsTemplate() {
         JmsTemplate jmsTemplate = new JmsTemplate(connectionFactory());
         jmsTemplate.setExplicitQosEnabled(true);
         jmsTemplate.setTimeToLive(120000);

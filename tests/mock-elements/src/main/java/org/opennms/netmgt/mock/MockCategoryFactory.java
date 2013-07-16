@@ -32,7 +32,7 @@ package org.opennms.netmgt.mock;
  * @author jsartin
  *
  * CategoryFactory that can be used to provide categories as needed for Unit tests
- * 
+ *
  */
 
 import java.io.ByteArrayInputStream;
@@ -53,10 +53,10 @@ public class MockCategoryFactory implements CatFactory {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-	
+
 	private Catinfo m_config;
-	
-	private static final String CATEGORY_CONFIG = 
+
+	private static final String CATEGORY_CONFIG =
 		"<catinfo>" +
 	    " <header>" +
 	    "  <rev>1.3</rev>" +
@@ -91,11 +91,11 @@ public class MockCategoryFactory implements CatFactory {
 		"  </categories>" +
 		" </categorygroup>" +
 		"</catinfo>";
-	
+
 	public MockCategoryFactory() throws MarshalException, ValidationException, IOException {
         this(CATEGORY_CONFIG);
     }
-	
+
 	public MockCategoryFactory(String config) throws MarshalException, ValidationException, IOException {
         m_config = CastorUtils.unmarshal(Catinfo.class, new ByteArrayInputStream(config.getBytes()));
     }
@@ -104,7 +104,7 @@ public class MockCategoryFactory implements CatFactory {
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -112,14 +112,14 @@ public class MockCategoryFactory implements CatFactory {
 
 	 /**
      * Return the categories configuration.
-     * 
+     *
      * @return the categories configuration
      */
     @Override
     public synchronized Catinfo getConfig() {
         return m_config;
     }
-	
+
     @Override
 	   public synchronized Category getCategory(final String name) {
 	       for (final Categorygroup cg : m_config.getCategorygroupCollection()) {
@@ -132,7 +132,7 @@ public class MockCategoryFactory implements CatFactory {
 
 	        return null;
 	    }
-	   
+
     @Override
 	   public synchronized String getEffectiveRule(final String catlabel) {
 	       for (final Categorygroup cg : m_config.getCategorygroupCollection()) {

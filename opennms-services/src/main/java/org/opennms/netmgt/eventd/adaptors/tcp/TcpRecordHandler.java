@@ -47,10 +47,10 @@ import org.slf4j.LoggerFactory;
  * break it up into records. Each record is written to a piped writer. This
  * means that the reader never gets too far ahead of the parse. It means more
  * threads for less memory usage. As always there is a tradeoff.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http;//www.opennms.org">OpenNMS </a>
- * 
+ *
  */
 final class TcpRecordHandler implements Runnable {
     private static final Logger LOG = LoggerFactory.getLogger(TcpRecordHandler.class);
@@ -101,7 +101,7 @@ final class TcpRecordHandler implements Runnable {
 
         /**
          * Constructs a new state manager.
-         * 
+         *
          * @param level
          *            The level of the state manager
          * @param handler
@@ -193,7 +193,7 @@ final class TcpRecordHandler implements Runnable {
 
     /**
      * Constructs a new record handler.
-     * 
+     *
      * @param s
      *            The socket to read from
      * @param xchange
@@ -284,7 +284,7 @@ final class TcpRecordHandler implements Runnable {
                 return 0;
             }
         },
-        
+
         // The state tree starts here!
         new StateManager(8, this) { // gobbles up white space after
             // record

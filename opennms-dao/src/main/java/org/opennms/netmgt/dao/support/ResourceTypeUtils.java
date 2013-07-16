@@ -52,7 +52,7 @@ import org.springframework.util.Assert;
  * <p>ResourceTypeUtils class.</p>
  */
 public abstract class ResourceTypeUtils {
-    
+
     private static Logger LOG = LoggerFactory.getLogger(ResourceTypeUtils.class);
 
     /** Constant <code>DS_PROPERTIES_FILE="ds.properties"</code> */
@@ -68,14 +68,14 @@ public abstract class ResourceTypeUtils {
      * @return a {@link java.util.Set} object.
      */
     public static Set<OnmsAttribute> getAttributesAtRelativePath(File rrdDirectory, String relativePath) {
-        
+
         Set<OnmsAttribute> attributes =  new HashSet<OnmsAttribute>();
 
         loadRrdAttributes(rrdDirectory, relativePath, attributes);
         loadStringAttributes(rrdDirectory, relativePath, attributes);
-        
+
         return attributes;
-        
+
     }
 
     private static void loadStringAttributes(File rrdDirectory,
@@ -92,11 +92,11 @@ public abstract class ResourceTypeUtils {
         int suffixLength = RrdFileConstants.getRrdSuffix().length();
         File resourceDir = new File(rrdDirectory, relativePath);
         File[] files = resourceDir.listFiles(RrdFileConstants.RRD_FILENAME_FILTER);
-        
+
         if (files == null) {
             return;
         }
-        
+
         for (final File file : files) {
             String fileName = file.getName();
             if (isStoreByGroup() && !isResponseTime(relativePath)) {
@@ -114,7 +114,7 @@ public abstract class ResourceTypeUtils {
             }
         }
     }
-    
+
     /**
      * <p>getDsProperties</p>
      *
@@ -130,7 +130,7 @@ public abstract class ResourceTypeUtils {
             return new Properties();
         }
     }
-    
+
     /**
      * <p>getRrdFileForDs</p>
      *
@@ -180,9 +180,9 @@ public abstract class ResourceTypeUtils {
     public static Properties getStringProperties(File rrdDirectory, String relativePath) {
         Assert.notNull(rrdDirectory, "rrdDirectory argument must not be null");
         Assert.notNull(relativePath, "relativePath argument must not be null");
-        
+
         File resourceDir = new File(rrdDirectory, relativePath);
-        
+
         return getStringProperties(resourceDir);
     }
 
@@ -206,7 +206,7 @@ public abstract class ResourceTypeUtils {
             throw new DataAccessResourceFailureException(message, e);
         }
     }
-    
+
     /**
      * <p>saveUpdatedProperties</p>
      *
@@ -264,9 +264,9 @@ public abstract class ResourceTypeUtils {
             throw new DataAccessResourceFailureException(message, e);
         }
     }
-    
+
     /**
-     * 
+     *
      * @param nodeSource a {@link java.lang.String} object.
      * @return a {@link java.io.File} object.
      */

@@ -36,8 +36,8 @@ import org.opennms.netmgt.xml.eventconf.Events;
 
 /**
  * The Interface MibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface MibParser {
 
@@ -72,7 +72,7 @@ public interface MibParser {
 
     /**
      * Gets the MIB name.
-     * 
+     *
      * @return the MIB name.
      */
     String getMibName();

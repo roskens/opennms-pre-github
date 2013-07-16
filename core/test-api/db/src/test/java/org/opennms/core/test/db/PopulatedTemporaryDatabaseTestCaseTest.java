@@ -39,21 +39,21 @@ public class PopulatedTemporaryDatabaseTestCaseTest extends
      */
     @Override
     public void testNothing() {
-        // nothing... this class mainly tests our super's setUp() 
+        // nothing... this class mainly tests our super's setUp()
     }
 
     public void testExecuteSQL() {
         executeSQL("SELECT now()");
     }
-    
+
     public void testExecuteSQLFromJdbcTemplate() {
         jdbcTemplate.queryForObject("SELECT now()", Date.class);
     }
-    
+
     public void testExecuteSQLFromGetJdbcTemplate() {
         getJdbcTemplate().queryForObject("SELECT now()", Date.class);
     }
-    
+
     public void testUpdateIplike() throws Exception {
         getInstallerDb().setPostgresIpLikeLocation(null);
         getInstallerDb().updateIplike();

@@ -103,7 +103,7 @@ public class SyslogClient {
         this.facility = facility;
 
         address = InetAddressUtils.getLocalHostAddress();
-        
+
         try {
             socket = new DatagramSocket();
         } catch (SocketException e) {

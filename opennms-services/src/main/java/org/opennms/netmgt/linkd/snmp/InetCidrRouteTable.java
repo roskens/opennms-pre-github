@@ -37,8 +37,8 @@ import org.slf4j.LoggerFactory;
 
 /**
  * <P>InetCidrRouteTable uses a SnmpSession to collect the ipRouteTable entries
- * It implements the SnmpHandler to receive notifications when a reply is 
- * received/error occurs in the SnmpSession used to send requests/receive 
+ * It implements the SnmpHandler to receive notifications when a reply is
+ * received/error occurs in the SnmpSession used to send requests/receive
  * replies.</P>
  *
  * @author <A HREF="mailto:rssntn67@yahoo.it">Antonio Russo</A>
@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  */
 public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry>
 {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(InetCidrRouteTable.class);
    /**
     * <P>Constructs an InetCidrRouteTable object that is used to collect
@@ -65,7 +65,7 @@ public class InetCidrRouteTable extends SnmpTable<InetCidrRouteTableEntry>
    {
         super(address, "ipRouteTable", InetCidrRouteTableEntry.ms_elemList);
    }
-   
+
    @Override
     protected InetCidrRouteTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {
         return new InetCidrRouteTableEntry();

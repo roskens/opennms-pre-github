@@ -64,7 +64,7 @@ import org.opennms.netmgt.model.PollStatus;
  * @version $Id: $
  */
 public interface ServiceMonitor {
-	
+
     /**
      * <P>
      * This method is called after the framework creates an instance of the

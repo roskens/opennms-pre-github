@@ -37,19 +37,19 @@ import java.util.Set;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class AggregateStatusDefinition {
-    
+
     private int m_id;
     private String m_name;
     private String m_reportCategory;
     private Set<OnmsCategory> m_categories;
-    
+
     /**
      * <p>Constructor for AggregateStatusDefinition.</p>
      */
     public AggregateStatusDefinition() {
-        
+
     }
-    
+
     /**
      * <p>Constructor for AggregateStatusDefinition.</p>
      *
@@ -60,7 +60,7 @@ public class AggregateStatusDefinition {
         if (aggrStatus == null || categories == null || categories.isEmpty()) {
             throw new IllegalArgumentException("Invalid arguments");
         }
-        
+
         m_name = aggrStatus;
         m_categories = categories;
     }
@@ -73,7 +73,7 @@ public class AggregateStatusDefinition {
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -100,7 +100,7 @@ public class AggregateStatusDefinition {
 	public void setName(String name) {
 		m_name = name;
 	}
-    
+
 
 	/**
 	 * <p>getCategories</p>
@@ -119,7 +119,7 @@ public class AggregateStatusDefinition {
     public void setCategories(Set<OnmsCategory> categories) {
         m_categories = categories;
     }
-    
+
     /**
      * <p>toString</p>
      *

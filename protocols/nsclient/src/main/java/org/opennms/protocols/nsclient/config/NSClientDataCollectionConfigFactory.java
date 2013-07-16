@@ -34,7 +34,7 @@ package org.opennms.protocols.nsclient.config;
 //
 //  OpenNMS(R) is Copyright (C) 2006 The OpenNMS Group, Inc.  All rights reserved.
 //  OpenNMS(R) is a derivative work, containing both original code, included code and modified
-//  code that was published under the GNU General Public License. Copyrights for modified 
+//  code that was published under the GNU General Public License. Copyrights for modified
 //  and included code are below.
 //
 //  OpenNMS(R) is a registered trademark of The OpenNMS Group, Inc.
@@ -66,13 +66,13 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:cmiskell@opennms.org">Craig Miskell</a>
  */
 public class NSClientDataCollectionConfigFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientDataCollectionConfigFactory.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
      /** The singleton instance. */
      private static NSClientDataCollectionConfigFactory m_instance;
 
@@ -93,7 +93,7 @@ public class NSClientDataCollectionConfigFactory {
       */
      public NSClientDataCollectionConfigFactory(final String configFile) throws MarshalException, ValidationException, IOException {
          InputStream is = null;
-         
+
          try {
              is = new FileInputStream(configFile);
              initialize(is);
@@ -105,7 +105,7 @@ public class NSClientDataCollectionConfigFactory {
      public Lock getReadLock() {
          return m_readLock;
      }
-     
+
      public Lock getWriteLock() {
          return m_writeLock;
      }
@@ -145,7 +145,7 @@ public class NSClientDataCollectionConfigFactory {
          }
          return m_instance;
      }
-     
+
      /**
       * <p>setInstance</p>
       *
@@ -215,7 +215,7 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getStep</p>
       *
@@ -235,7 +235,7 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getRRAList</p>
       *
@@ -255,7 +255,7 @@ public class NSClientDataCollectionConfigFactory {
              getReadLock().unlock();
          }
      }
-     
+
      /**
       * <p>getRrdPath</p>
       *
@@ -268,7 +268,7 @@ public class NSClientDataCollectionConfigFactory {
              if (rrdPath == null) {
                  throw new RuntimeException("Configuration error, failed to retrieve path to RRD repository.");
              }
-         
+
              /*
               * TODO: make a path utils class that has the below in it strip the
               * File.separator char off of the end of the path.
@@ -276,7 +276,7 @@ public class NSClientDataCollectionConfigFactory {
              if (rrdPath.endsWith(File.separator)) {
                  rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
              }
-             
+
              return rrdPath;
          } finally {
              getReadLock().unlock();

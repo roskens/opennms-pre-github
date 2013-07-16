@@ -48,7 +48,7 @@ import org.springframework.context.access.DefaultLocatorFactory;
  * @version $Id: $
  */
 public abstract class BeanUtils {
-	
+
 	public static final Logger LOG = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
@@ -75,7 +75,7 @@ public abstract class BeanUtils {
     public static <T> T getBean(BeanFactoryReference beanFactory, String beanId, Class<T> clazz) {
         return clazz.cast(beanFactory.getFactory().getBean(beanId));
     }
-    
+
     /**
      * Helper method that combines getBeanFactory and getBean.
      *
@@ -89,7 +89,7 @@ public abstract class BeanUtils {
     public static <T> T getBean(String contextId, String beanId, Class<T> clazz) {
         return getBean(getBeanFactory(contextId), beanId, clazz);
     }
-    
+
     /**
      * Helper method that calls getBeanFactory(contextId).getFactory()
      * and casts the result.

@@ -80,7 +80,7 @@ public class JasperReportServiceGetParametersTest {
         ReportParameters params = service.getParameters(id);
         assertEquals(7, params.getReportParms().size());
     }
- 
+
     @Test
     public void readPropertiesOfJasperUriTest() throws ReportException {
         String id = "REMOTE_jasper-uri-test";
@@ -88,7 +88,7 @@ public class JasperReportServiceGetParametersTest {
         ReportParameters params = service.getParameters(id);
         assertEquals(1, params.getReportParms().size());
     }
-    
+
     @Test
     public void readPropertiesOfJasperResourceInputStreamURITest() throws ReportException {
         String id = "REMOTE_jasper-resource-inputstream-uri-test";

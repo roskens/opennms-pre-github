@@ -46,7 +46,7 @@ import org.springframework.core.io.Resource;
 
 /**
  * TODO: Make this unit test work
- * 
+ *
  * @author <a href="mailto:jeffg@opennms.org>Jeff Gehlbach</a>
  * @author <a href="http://www.opennms.org/>OpenNMS</a>
  *
@@ -75,12 +75,12 @@ public class MicroblogNotificationStrategyTest {
 
         Assert.assertEquals("NotificationStrategy should return 0 on success", 0, ns.send(arguments));
     }
-    
+
     public List<Argument> configureArgs() {
         List<Argument> arguments = new ArrayList<Argument>();
         Argument arg = null;
         arg = new Argument("-tm", null, "text message for " + getClass().getSimpleName() + " at " + new Date(), false);
-        arguments.add(arg);        
+        arguments.add(arg);
 
         return arguments;
     }

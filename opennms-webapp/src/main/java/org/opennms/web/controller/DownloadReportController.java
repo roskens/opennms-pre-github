@@ -87,7 +87,7 @@ public class DownloadReportController extends AbstractController {
 
         try {
             Integer reportCatalogEntryId = Integer.valueOf(WebSecurityUtils.safeParseInt(request.getParameter("locatorId")));
-            
+
             String requestFormat = new String(request.getParameter("format"));
 
             if ((ReportFormat.PDF == ReportFormat.valueOf(requestFormat))
@@ -119,7 +119,7 @@ public class DownloadReportController extends AbstractController {
 
         return null;
     }
-    
+
     /**
      * <p>setReportStoreService</p>
      *

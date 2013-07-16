@@ -12,9 +12,9 @@ import com.google.gwt.dom.client.Element;
 import com.google.gwt.user.client.ui.Widget;
 
 public interface TopologyView<T> {
-    
+
     public static final int LEFT_MARGIN = 60;
-    
+
     public interface Presenter<T>{
         void addGraphUpdateListener(GraphUpdateListener listener);
         T getViewRenderer();
@@ -23,7 +23,7 @@ public interface TopologyView<T> {
         void onBackgroundClick();
         void onBackgroundDoubleClick(SVGPoint center);
     }
-    
+
     void setPresenter(Presenter<T> presenter);
     Widget asWidget();
     SVGElement getSVGElement();

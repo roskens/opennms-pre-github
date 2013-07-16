@@ -39,8 +39,8 @@ import java.util.List;
 public class ServiceSelector {
 	private String m_filterRule;
 	private List<String> m_serviceNames;
-	
-	
+
+
 	/**
 	 * <p>Constructor for ServiceSelector.</p>
 	 *
@@ -51,7 +51,7 @@ public class ServiceSelector {
 		m_filterRule = filterRule;
 		m_serviceNames = serviceNames;
 	}
-	
+
 	/**
 	 * <p>getFilterRule</p>
 	 *
@@ -60,7 +60,7 @@ public class ServiceSelector {
 	public String getFilterRule() {
 		return m_filterRule;
 	}
-	
+
 	/**
 	 * <p>getServiceNames</p>
 	 *

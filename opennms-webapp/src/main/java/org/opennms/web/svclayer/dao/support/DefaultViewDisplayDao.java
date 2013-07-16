@@ -54,7 +54,7 @@ import org.springframework.dao.DataRetrievalFailureException;
  * @since 1.8.1
  */
 public class DefaultViewDisplayDao implements ViewDisplayDao {
-	
+
 	/**
 	 * <p>Constructor for DefaultViewDisplayDao.</p>
 	 */
@@ -71,7 +71,7 @@ public class DefaultViewDisplayDao implements ViewDisplayDao {
 			throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
 		}
 	}
-	
+
 	/**
 	 * <p>getView</p>
 	 *
@@ -90,7 +90,7 @@ public class DefaultViewDisplayDao implements ViewDisplayDao {
 		} catch (IOException e) {
 			throw new DataRetrievalFailureException("Error load viewsDisplay file", e);
 		}
-		
+
 	}
 
 }

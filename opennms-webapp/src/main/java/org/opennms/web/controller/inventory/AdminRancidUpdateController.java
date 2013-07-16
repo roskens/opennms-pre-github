@@ -51,12 +51,12 @@ import org.springframework.web.servlet.mvc.SimpleFormController;
  */
 @SuppressWarnings("deprecation")
 public class AdminRancidUpdateController extends SimpleFormController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AdminRancidUpdateController.class);
 
 
     InventoryService m_inventoryService;
-        
+
     /**
      * <p>getInventoryService</p>
      *
@@ -83,7 +83,7 @@ public class AdminRancidUpdateController extends SimpleFormController {
         LOG.debug("AdminRancidUpdateController ModelAndView onSubmit");
 
         AdminRancidRouterDbCommClass bean = (AdminRancidRouterDbCommClass) command;
-                       
+
         LOG.debug("AdminRancidUpdateController ModelAndView onSubmit updating device[{}] group[{}] status[{}]", bean.getDeviceName(), bean.getGroupName(), bean.getStatusName());
 
         if (request.isUserInRole(Authentication.ROLE_ADMIN)) {
@@ -103,5 +103,5 @@ public class AdminRancidUpdateController extends SimpleFormController {
         throws ServletException {
         LOG.debug("AdminRancidUpdateController initBinder");
     }
-    
+
 }

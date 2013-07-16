@@ -62,10 +62,10 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  * @author ranger
  */
 public class JdbcWebEventRepository implements WebEventRepository, InitializingBean {
-    
+
     @Autowired
     SimpleJdbcTemplate m_simpleJdbcTemplate;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -73,11 +73,11 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
 
     private String getSql(final String selectClause, final EventCriteria criteria) {
         final StringBuilder buf = new StringBuilder(selectClause);
-        
+
         criteria.visit(new EventCriteriaVisitor<RuntimeException>(){
-            
+
             boolean first = true;
-            
+
             public void and(StringBuilder buf) {
                 if (first) {
                     buf.append(" WHERE ");
@@ -86,7 +86,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
                     buf.append(" AND ");
                 }
             }
-            
+
             @Override
             public void visitAckType(AcknowledgeType ackType) {
                 and(buf);
@@ -104,17 +104,17 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
                 buf.append(" ");
                 buf.append(sortStyle.getOrderByClause());
             }
-            
+
             @Override
             public void visitLimit(int limit, int offset) {
                 buf.append(" LIMIT ").append(limit).append(" OFFSET ").append(offset);
             }
 
         });
-        
+
         return buf.toString();
     }
-    
+
     private PreparedStatementSetter paramSetter(final EventCriteria criteria, final Object... args) {
         return new PreparedStatementSetter() {
             int paramIndex = 1;
@@ -131,10 +131,10 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
                     }
                 });
             }
-            
+
         };
     }
-    
+
     public static class EventMapper implements ParameterizedRowMapper<Event>{
 
         @Override
@@ -158,9 +158,9 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
             }
 
             event.ipAddr = rs.getString("ipAddr");
-            event.serviceID = (Integer) rs.getObject("serviceID"); 
+            event.serviceID = (Integer) rs.getObject("serviceID");
             event.nodeLabel = rs.getString("nodeLabel");;
-            event.serviceName = rs.getString("serviceName"); 
+            event.serviceName = rs.getString("serviceName");
             event.createTime = new Date((rs.getTimestamp("eventCreateTime")).getTime());
             event.description = rs.getString("eventDescr");
             event.logGroup = rs.getString("eventLoggroup");
@@ -180,12 +180,12 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
             event.acknowledgeTime = getTimestamp("eventAckTime", rs);
 
             event.alarmId = (Integer) rs.getObject("alarmid");
-            
+
             event.eventDisplay = Boolean.valueOf(rs.getString("eventDisplay").equals("Y"));
 
             return event;
         }
-        
+
         private Date getTimestamp(String field, ResultSet rs) throws SQLException{
             if(rs.getTimestamp(field) != null){
                 return new Date(rs.getTimestamp(field).getTime());
@@ -193,7 +193,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
                 return null;
             }
         }
-        
+
     }
 
     /** {@inheritDoc} */
@@ -210,7 +210,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         String sql = getSql(selectClause, criteria);
         //sql = sql + " AND EVENTDISPLAY='Y'";
         sql = sql + " GROUP BY EVENTSEVERITY";
-        
+
         final int[] alarmCounts = new int[8];
         jdbc().query(sql, paramSetter(criteria), new RowCallbackHandler(){
 
@@ -218,11 +218,11 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
             public void processRow(ResultSet rs) throws SQLException {
                 int severity = rs.getInt("EVENTSEVERITY");
                 int alarmCount = rs.getInt("EVENTCOUNT");
-                
+
                 alarmCounts[severity] = alarmCount;
-                
+
             }
-            
+
         });
         return alarmCounts;
     }
@@ -244,12 +244,12 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         String sql = getSql("SELECT EVENTS.*, NODE.NODELABEL, SERVICE.SERVICENAME FROM EVENTS LEFT OUTER JOIN NODE USING (NODEID) LEFT OUTER JOIN SERVICE USING (SERVICEID) ", criteria);
         return getEvents(sql, paramSetter(criteria));
     }
-    
+
     private Event[] getEvents(String sql, PreparedStatementSetter setter){
         List<Event> events = queryForList(sql, setter, new EventMapper());
         return events.toArray(new Event[0]);
     }
-    
+
     void acknowledgeEvents(String user, Date timestamp, int[] eventIds){
         acknowledgeMatchingEvents(user, timestamp, new EventCriteria(new EventIdListFilter(eventIds)));
     }
@@ -266,7 +266,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         String sql = getSql("UPDATE EVENTS SET EVENTACKUSER=?, EVENTACKTIME=? ", criteria);
         jdbc().update(sql, paramSetter(criteria, user, new Timestamp(timestamp.getTime())));
     }
-    
+
     /**
      * <p>unacknowledgeAll</p>
      */
@@ -281,12 +281,12 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
         String sql = getSql("UPDATE EVENTS SET EVENTACKUSER=NULL, EVENTACKTIME=null ", criteria);
         jdbc().update(sql, paramSetter(criteria));
     }
-    
+
     private int queryForInt(String sql, PreparedStatementSetter setter) throws DataAccessException {
         Integer number = queryForObject(sql, setter, new SingleColumnRowMapper<Integer>(Integer.class));
         return (number != null ? number.intValue() : 0);
     }
-    
+
     private <T> T queryForObject(String sql, PreparedStatementSetter setter, RowMapper<T> rowMapper) throws DataAccessException {
         return DataAccessUtils.requiredSingleResult(jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rowMapper, 1)));
     }
@@ -295,7 +295,7 @@ public class JdbcWebEventRepository implements WebEventRepository, InitializingB
     private <T> List<T> queryForList(String sql, PreparedStatementSetter setter, ParameterizedRowMapper<T> rm) {
         return jdbc().query(sql, setter, new RowMapperResultSetExtractor<T>(rm));
     }
-    
+
     private JdbcOperations jdbc() {
         return m_simpleJdbcTemplate.getJdbcOperations();
     }

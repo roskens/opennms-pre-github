@@ -59,7 +59,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
     JUnitHttpServerExecutionListener.class
 })
 public class JUnitHttpServerTest {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JUnitHttpServerTest.class);
 
     @Test
@@ -109,11 +109,11 @@ public class JUnitHttpServerTest {
     public void testBasicAuthSuccess() throws Exception {
     	final DefaultHttpClient client = new DefaultHttpClient();
     	final HttpUriRequest method = new HttpGet("http://localhost:9162/testContext/monkey");
-        
+
     	final CredentialsProvider cp = client.getCredentialsProvider();
     	final UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("admin", "istrator");
         cp.setCredentials(new AuthScope("localhost", 9162), credentials);
-        
+
         final HttpResponse response = client.execute(method);
         final String responseString = EntityUtils.toString(response.getEntity());
         LOG.debug("got response:\n{}", responseString);
@@ -128,11 +128,11 @@ public class JUnitHttpServerTest {
     public void testBasicAuthFailure() throws Exception {
     	final DefaultHttpClient client = new DefaultHttpClient();
     	final HttpUriRequest method = new HttpGet("http://localhost:9162/testContext/monkey");
-        
+
     	final CredentialsProvider cp = client.getCredentialsProvider();
         UsernamePasswordCredentials credentials = new UsernamePasswordCredentials("admin", "sucks");
         cp.setCredentials(new AuthScope("localhost", 9162), credentials);
-        
+
         final HttpResponse response = client.execute(method);
         assertEquals(401, response.getStatusLine().getStatusCode());
     }

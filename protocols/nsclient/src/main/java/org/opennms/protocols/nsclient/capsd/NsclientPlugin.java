@@ -53,7 +53,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS</a>
  */
 public class NsclientPlugin extends AbstractPlugin {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NsclientPlugin.class);
 
 
@@ -191,7 +191,7 @@ public class NsclientPlugin extends AbstractPlugin {
      * connection is made using the params variable data and a check is
      * requested from the remote NSClient service.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to connect to.
      * @param port

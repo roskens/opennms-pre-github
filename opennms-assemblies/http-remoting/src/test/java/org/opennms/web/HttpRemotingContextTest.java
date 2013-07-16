@@ -47,7 +47,7 @@ import org.springframework.web.context.ContextLoaderListener;
 /**
  * Test the Spring context for the http-remoting project by loading it with a
  * {@link org.springframework.mock.web.MockServletContext}.
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author Seth
  */
@@ -59,7 +59,7 @@ public class HttpRemotingContextTest extends TestCase {
 	private MockServletContext servletContext;
 	private ContextLoaderListener contextListener;
 	private Filter filter;
-	
+
 	@Override
 	public void setUp() throws Exception {
 		MockLogAppender.setupLogging();
@@ -76,7 +76,7 @@ public class HttpRemotingContextTest extends TestCase {
 		servletContext = new MockServletContext("file:src/main/webapp");
 
 		servletContext.addInitParameter(
-				"contextConfigLocation", 
+				"contextConfigLocation",
 				"classpath:/META-INF/opennms/applicationContext-commonConfigs.xml " +
 				"classpath:/META-INF/opennms/applicationContext-soa.xml " +
 				"classpath:/META-INF/opennms/applicationContext-dao.xml " +
@@ -93,7 +93,7 @@ public class HttpRemotingContextTest extends TestCase {
 		contextListener.contextInitialized(e);
 
 		servletContext.setContextPath(contextPath);
-		servletConfig = new MockServletConfig(servletContext, "dispatcher");    
+		servletConfig = new MockServletConfig(servletContext, "dispatcher");
 		servletConfig.addInitParameter("com.sun.jersey.config.property.resourceConfigClass", "com.sun.jersey.api.core.PackagesResourceConfig");
 		servletConfig.addInitParameter("com.sun.jersey.config.property.packages", "org.opennms.web.rest");
 

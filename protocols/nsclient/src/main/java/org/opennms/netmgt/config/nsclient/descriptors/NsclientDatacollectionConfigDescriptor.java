@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
 /**
  * Class NsclientDatacollectionConfigDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class NsclientDatacollectionConfigDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -88,27 +88,27 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
         _nsURI = "http://xmlns.opennms.org/xsd/config/nsclient-datacollection";
         _xmlName = "nsclient-datacollection-config";
         _elementDefinition = true;
-        
+
         //-- set grouping compositor
         setCompositorAsSequence();
         org.exolab.castor.xml.util.XMLFieldDescriptorImpl  desc           = null;
         org.exolab.castor.mapping.FieldHandler             handler        = null;
         org.exolab.castor.xml.FieldValidator               fieldValidator = null;
         //-- initialize attribute descriptors
-        
+
         //-- _rrdRepository
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_rrdRepository", "rrdRepository", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientDatacollectionConfig target = (NsclientDatacollectionConfig) object;
                 return target.getRrdRepository();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -129,7 +129,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _rrdRepository
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -141,19 +141,19 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
         //-- _nsclientCollectionList
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(org.opennms.netmgt.config.nsclient.NsclientCollection.class, "_nsclientCollectionList", "nsclient-collection", org.exolab.castor.xml.NodeType.Element);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 NsclientDatacollectionConfig target = (NsclientDatacollectionConfig) object;
                 return target.getNsclientCollection();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -185,7 +185,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
         desc.setMultivalued(true);
         addFieldDescriptor(desc);
         addSequenceElement(desc);
-        
+
         //-- validation code for: _nsclientCollectionList
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -201,7 +201,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -212,7 +212,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -224,7 +224,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -235,7 +235,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -246,7 +246,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -258,7 +258,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -270,7 +270,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -281,7 +281,7 @@ import org.opennms.netmgt.config.nsclient.NsclientDatacollectionConfig;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

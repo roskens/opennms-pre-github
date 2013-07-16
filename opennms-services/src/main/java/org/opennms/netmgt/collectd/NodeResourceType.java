@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class NodeResourceType extends ResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(NodeResourceType.class);
-    
+
     private NodeInfo m_nodeInfo;
 
     /**

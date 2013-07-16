@@ -61,7 +61,7 @@ public class MockAtInterfaceDao extends AbstractMockDao<OnmsAtInterface, Integer
     @Override
     public void setStatusForNodeAndIfIndex(Integer nodeid, Integer ifIndex, StatusType action) {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override

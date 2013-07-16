@@ -40,7 +40,7 @@ import org.opennms.protocols.snmp.SnmpSyntax;
 import org.opennms.protocols.snmp.SnmpVarBind;
 
 public class JoeSnmpV1TrapBuilder implements SnmpV1TrapBuilder {
-    
+
     SnmpPduTrap trap = new SnmpPduTrap();
 
     @Override

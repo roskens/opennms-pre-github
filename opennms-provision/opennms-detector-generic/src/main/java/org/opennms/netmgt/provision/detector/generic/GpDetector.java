@@ -46,17 +46,17 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
-    
+
     private static String DEFAULT_HOPTION = "--hostname";
     private static String DEFAULT_TOPTION = "--timeout";
-    
+
     private String m_script;
     private String m_args;
     private String m_banner;
     private String m_match;
     private String m_hoption = DEFAULT_HOPTION;
     private String m_toption = DEFAULT_TOPTION;
-    
+
     /**
      * <p>Constructor for GpDetector.</p>
      */
@@ -90,7 +90,7 @@ public class GpDetector extends BasicDetector<GpRequest, GpResponse>{
             public boolean validate(final GpResponse response) {
                 return response.validate(banner);
             }
-            
+
         };
     }
 

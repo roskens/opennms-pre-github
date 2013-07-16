@@ -67,7 +67,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class EventDaoTest implements InitializingBean {
     @Autowired
 	private DistPollerDao m_distPollerDao;
-    
+
     @Autowired
 	private EventDao m_eventDao;
 
@@ -76,7 +76,7 @@ public class EventDaoTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
 	@Before
 	public void setUp() {
 		m_databasePopulator.populateDatabase();
@@ -112,7 +112,7 @@ public class EventDaoTest implements InitializingBean {
 	    event.setAlarm(alarm);
         event.setIpAddr(iface.getIpAddress());
         m_eventDao.save(event);
-       
+
         OnmsEvent newEvent = m_eventDao.load(event.getId());
         assertEquals("uei://org/opennms/test/EventDaoTest", newEvent.getEventUei());
         assertNotNull(newEvent.getServiceType());

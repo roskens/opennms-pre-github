@@ -40,7 +40,7 @@ import org.opennms.netmgt.snmp.SnmpAgentConfig;
 import org.springframework.core.io.Resource;
 
 /**
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
@@ -53,7 +53,7 @@ public class ConfigureSnmpTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
     	super.setUp();
-    	
+
         Resource rsrc = ConfigurationTestUtils.getSpringResourceForResource(this, "snmp-config-configureSnmpTest.xml");
     	SnmpPeerFactory.setInstance(new SnmpPeerFactory(rsrc));
     }
@@ -61,8 +61,8 @@ public class ConfigureSnmpTest extends TestCase {
     /**
      * Tests creating a string representation of an IP address that is converted to an InetAddress and then
      * a long and back to an IP address.
-     * 
-     * @throws UnknownHostException 
+     *
+     * @throws UnknownHostException
      */
     public void testToIpAddrString() throws UnknownHostException {
         String addr = "192.168.1.1";
@@ -72,21 +72,21 @@ public class ConfigureSnmpTest extends TestCase {
     /**
      * Test method for {@link org.opennms.netmgt.config.SnmpPeerFactory#createSnmpEventInfo(org.opennms.netmgt.xml.event.Event)}.
      * Tests creating an SNMP config definition from a configureSNMP event.
-     * 
-     * @throws UnknownHostException 
+     *
+     * @throws UnknownHostException
      */
     public void testCreateSnmpEventInfo() throws UnknownHostException {
         EventBuilder bldr = createConfigureSnmpEventBuilder("192.168.1.1", null);
         addCommunityStringToEvent(bldr, "seemore");
-        
+
         SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
-        
+
         assertNotNull(info);
         assertEquals("192.168.1.1", info.getFirstIPAddress());
         assertNull(info.getLastIPAddress());
         assertTrue(info.isSpecific());
     }
-    
+
     /**
      * Tests getting the correct SNMP Peer after a configureSNMP event and merge to the running config.
      * @throws UnknownHostException
@@ -96,33 +96,33 @@ public class ConfigureSnmpTest extends TestCase {
         EventBuilder bldr = createConfigureSnmpEventBuilder(addr, null);
         addCommunityStringToEvent(bldr, "abc");
         SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
-        
+
         SnmpPeerFactory.getInstance().define(info);
 
         SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(addr));
         assertEquals(InetAddressUtils.str(agent.getAddress()), addr);
         assertEquals("abc", agent.getReadCommunity());
     }
-    
+
     /**
      * This test should remove the specific 192.168.0.5 from the first definition and
      * replace it with a range 192.168.0.5 - 192.168.0.7.
-     * 
+     *
      * @throws UnknownHostException
      */
     public void testSnmpEventInfoClassWithRangeReplacingSpecific() throws UnknownHostException {
         final String addr1 = "192.168.0.5";
         final String addr2 = "192.168.0.7";
-        
+
         SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(addr1));
         assertEquals(SnmpAgentConfig.VERSION2C, agent.getVersion());
-        
+
         EventBuilder bldr = createConfigureSnmpEventBuilder(addr1, addr2);
         SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
         info.setVersion("v2c");
-        
+
         SnmpPeerFactory.getInstance().define(info);
-        
+
         agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(addr1));
         assertEquals(InetAddressUtils.str(agent.getAddress()), addr1);
         assertEquals(SnmpAgentConfig.VERSION2C, agent.getVersion());
@@ -131,22 +131,22 @@ public class ConfigureSnmpTest extends TestCase {
 
     /**
      * Tests getting the correct SNMP Peer after merging a new range that super sets a current range.
-     * 
+     *
      * @throws UnknownHostException
      */
     public void testSnmpEventInfoClassWithRangeSuperSettingDefRanges() throws UnknownHostException {
         final String addr1 = "192.168.99.1";
         final String addr2 = "192.168.108.254";
-        
+
         SnmpAgentConfig agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(addr1));
         assertEquals(SnmpAgentConfig.VERSION1, agent.getVersion());
-        
+
         EventBuilder bldr = createConfigureSnmpEventBuilder(addr1, addr2);
         SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
         info.setCommunityString("opennmsrules");
-        
+
         SnmpPeerFactory.getInstance().define(info);
-        
+
         agent = SnmpPeerFactory.getInstance().getAgentConfig(InetAddressUtils.addr(addr1));
         assertEquals(InetAddressUtils.str(agent.getAddress()), addr1);
         assertEquals(SnmpAgentConfig.VERSION1, agent.getVersion());
@@ -156,32 +156,32 @@ public class ConfigureSnmpTest extends TestCase {
     /**
      * Tests getting the correct SNMP Peer after receiving a configureSNMP event that moves a
      * specific from one definition into another.
-     * 
+     *
      * @throws UnknownHostException
      */
     public void testSplicingSpecificsIntoRanges() throws UnknownHostException {
         assertEquals(3, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getRangeCount());
         assertEquals(6, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getSpecificCount());
-        
+
         final String specificAddr = "10.1.1.7";
         final EventBuilder bldr = createConfigureSnmpEventBuilder(specificAddr, null);
         final SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
         info.setCommunityString("splice-test");
         info.setVersion("v2c");
-        
+
         SnmpPeerFactory.getInstance().define(info);
-        
+
         assertEquals(5, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getRangeCount());
-        
+
         assertEquals("10.1.1.10", SnmpPeerFactory.getSnmpConfig().getDefinition(2).getSpecific(0));
         assertEquals(1, SnmpPeerFactory.getSnmpConfig().getDefinition(2).getSpecificCount());
         assertEquals(m_startingDefCount, SnmpPeerFactory.getSnmpConfig().getDefinitionCount());
     }
-    
+
     /**
      * This test should show that a specific is added to the definition and the current
      * single definition should become the beginning address in the adjacent range.
-     * 
+     *
      * @throws UnknownHostException
      */
     public void testSplice2() throws UnknownHostException {
@@ -189,14 +189,14 @@ public class ConfigureSnmpTest extends TestCase {
         assertEquals(1, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getSpecificCount());
         assertEquals("10.1.1.10", SnmpPeerFactory.getSnmpConfig().getDefinition(3).getSpecific(0));
         assertEquals("10.1.1.11", SnmpPeerFactory.getSnmpConfig().getDefinition(3).getRange(0).getBegin());
-        
+
         final String specificAddr = "10.1.1.7";
         final EventBuilder bldr = createConfigureSnmpEventBuilder(specificAddr, null);
         final SnmpEventInfo info = new SnmpEventInfo(bldr.getEvent());
         info.setCommunityString("splice2-test");
 
         SnmpPeerFactory.getInstance().define(info);
-        
+
         assertEquals(3, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getRangeCount());
         assertEquals(1, SnmpPeerFactory.getSnmpConfig().getDefinition(3).getSpecificCount());
         assertEquals("10.1.1.7", SnmpPeerFactory.getSnmpConfig().getDefinition(3).getSpecific(0));
@@ -204,16 +204,16 @@ public class ConfigureSnmpTest extends TestCase {
 
         String marshalledConfig = SnmpPeerFactory.marshallConfig();
         assertNotNull(marshalledConfig);
-        
+
     }
 
     private EventBuilder createConfigureSnmpEventBuilder(final String firstIp, final String lastIp) {
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.CONFIGURE_SNMP_EVENT_UEI, "ConfigureSnmpTest");
 
         bldr.addParam(EventConstants.PARM_FIRST_IP_ADDRESS, firstIp);
         bldr.addParam(EventConstants.PARM_LAST_IP_ADDRESS, lastIp);
-        
+
         return bldr;
     }
 

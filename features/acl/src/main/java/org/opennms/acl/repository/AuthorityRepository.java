@@ -136,7 +136,7 @@ public interface AuthorityRepository {
 
     /**
      * Delete all user's authorities
-     * 
+     *
      * @param username
      * @return the result of the operation
      */

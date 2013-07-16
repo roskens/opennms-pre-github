@@ -60,8 +60,8 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable
 final public class MemcachedMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(MemcachedMonitor.class);
 
     /**
@@ -87,7 +87,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
         "cmdget", "cmdset", "gethits", "getmisses", "evictions",
         "bytesread", "byteswritten", "threads"
     };
-    
+
     /**
      * {@inheritDoc}
      *
@@ -97,7 +97,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
 
         TimeoutTracker timeoutTracker = new TimeoutTracker(parameters, DEFAULT_RETRY, DEFAULT_TIMEOUT);
-        
+
         int port = ParameterMap.getKeyedInteger(parameters, "port", DEFAULT_PORT);
 
         // Extract the address
@@ -113,7 +113,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
             try {
 
                 timeoutTracker.startAttempt();
-                
+
                 socket = new Socket();
                 socket.connect(new InetSocketAddress(ipv4Addr, port), timeoutTracker.getConnectionTimeout());
                 socket.setSoTimeout(timeoutTracker.getSoTimeout());
@@ -199,7 +199,7 @@ final public class MemcachedMonitor extends AbstractServiceMonitor {
                 } catch (IOException e) {
                 }
             }
-            
+
         }
 
         //

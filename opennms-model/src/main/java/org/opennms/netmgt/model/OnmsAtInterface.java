@@ -126,11 +126,11 @@ public class OnmsAtInterface {
     @Column(nullable=false)
     @XmlTransient
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
 	public Integer getId() {
 		return m_id;
 	}
-	
+
     @XmlID
     @XmlAttribute(name="id")
     @Transient
@@ -141,7 +141,7 @@ public class OnmsAtInterface {
     public void setId(final Integer id) {
 		m_id = id;
 	}
-	
+
     @ManyToOne(optional=false, fetch=FetchType.LAZY)
     @JoinColumn(name="nodeId")
     @XmlElement(name="nodeId")
@@ -181,7 +181,7 @@ public class OnmsAtInterface {
 	public String getMacAddress() {
 		return m_macAddress;
 	}
-	
+
 	/**
 	 * <p>Setter for the field <code>macAddress</code>.</p>
 	 *
@@ -206,11 +206,11 @@ public class OnmsAtInterface {
 	public Integer getSourceNodeId() {
 		return m_sourceNodeId;
 	}
-	
+
 	public void setSourceNodeId(final Integer sourceNodeId) {
 		m_sourceNodeId = sourceNodeId;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>ifindex</code>.</p>
 	 *
@@ -237,7 +237,7 @@ public class OnmsAtInterface {
 	public Date getLastPollTime() {
 		return m_lastPollTime;
 	}
-	
+
 	public void setLastPollTime(final Date lastPollTime) {
 		m_lastPollTime = lastPollTime;
 	}

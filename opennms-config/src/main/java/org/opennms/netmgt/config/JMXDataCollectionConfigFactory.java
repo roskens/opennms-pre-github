@@ -82,7 +82,7 @@ public final class JMXDataCollectionConfigFactory {
      * The config class loaded from the config file
      */
     private JmxDatacollectionConfig m_config;
-     
+
 
     /**
      * This member is set to true if the configuration file has been loaded.
@@ -110,14 +110,14 @@ public final class JMXDataCollectionConfigFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      */
     private JMXDataCollectionConfigFactory(String configFile) throws IOException {
         initialize(new FileSystemResource(configFile));
     }
-    
+
     private void initialize(Resource resource) {
         JMXDataCollectionConfigDao dao = new JMXDataCollectionConfigDao();
         dao.setConfigResource(resource);
@@ -140,16 +140,16 @@ public final class JMXDataCollectionConfigFactory {
         //
         // CollectionGroupMap
         // collectionName -> groupMap
-        // 
+        //
         // GroupMap
         // groupMapName -> Group
         //
         // This is parsed and built at initialization for
         // faster processing at run-time.
-        // 
+        //
         m_collectionMap = new HashMap<String, JmxCollection>();
         m_collectionGroupMap = new HashMap<String, Map<String, Mbean>>();
-        
+
         // BOZO isn't the collection name defined in the jmx-datacollection.xml file and
         // global to all the mbeans?
         Collection<JmxCollection> collections = m_config.getJmxCollectionCollection();
@@ -227,7 +227,7 @@ public final class JMXDataCollectionConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *
@@ -253,7 +253,7 @@ public final class JMXDataCollectionConfigFactory {
      * @return a list of MIB objects
      */
     public Map<String, List<Attrib>> getAttributeMap(String cName, String aSysoid, String anAddress) {
-        
+
         Map<String, List<Attrib>> attributeMap = new HashMap<String, List<Attrib>>();
 
 
@@ -266,14 +266,14 @@ public final class JMXDataCollectionConfigFactory {
         }
 
         // Retrieve the appropriate Collection object
-        // 
+        //
         JmxCollection collection = m_collectionMap.get(cName);
         if (collection == null) {
             return attributeMap;
         }
-        
+
         Mbeans beans = collection.getMbeans();
-        
+
         Enumeration<Mbean> en = beans.enumerateMbean();
         while (en.hasMoreElements()) {
             List<Attrib> list = new ArrayList<Attrib>();
@@ -282,7 +282,7 @@ public final class JMXDataCollectionConfigFactory {
             for (int i = 0; i < attributes.length; i++) {
                 list.add(attributes[i]);
             }
-            
+
             CompAttrib[] compAttributes = mbean.getCompAttrib();
             for (int i = 0; i < compAttributes.length; i++) {
                 CompMember[] compMembers = compAttributes[i].getCompMember();
@@ -294,11 +294,11 @@ public final class JMXDataCollectionConfigFactory {
                     list.add(compAttrib);
                 }
             }
-            attributeMap.put(mbean.getObjectname(), list);            
+            attributeMap.put(mbean.getObjectname(), list);
         }
         return attributeMap;
     }
-    
+
     /**
      * <p>getMBeanInfo</p>
      *
@@ -307,9 +307,9 @@ public final class JMXDataCollectionConfigFactory {
      */
     public Map<String, BeanInfo> getMBeanInfo(String cName) {
         Map<String, BeanInfo> map = new HashMap<String, BeanInfo>();
-        
+
         // Retrieve the appropriate Collection object
-        // 
+        //
         JmxCollection collection = m_collectionMap.get(cName);
 
         if (collection == null) {
@@ -319,20 +319,20 @@ public final class JMXDataCollectionConfigFactory {
             Enumeration<Mbean> en = beans.enumerateMbean();
             while (en.hasMoreElements()) {
                 BeanInfo beanInfo = new BeanInfo();
-                
+
                 Mbean mbean = en.nextElement();
                 beanInfo.setMbeanName(mbean.getName());
                 beanInfo.setObjectName(mbean.getObjectname());
                 beanInfo.setKeyField(mbean.getKeyfield());
                 beanInfo.setExcludes(mbean.getExclude());
                 beanInfo.setKeyAlias(mbean.getKeyAlias());
-                
+
                 Attrib[] attributes = mbean.getAttrib();
                 CompAttrib[] compositeAttributes = mbean.getCompAttrib();
-                
+
                 List<String> attribNameList = new ArrayList<String>();
                 List<String> compAttribNameList = new ArrayList<String>();
-                
+
                 for (Object ca : compositeAttributes) {
                     CompAttrib myCa = (CompAttrib)ca;
                     CompMember[] compositeMembers = myCa.getCompMember();
@@ -340,14 +340,14 @@ public final class JMXDataCollectionConfigFactory {
                         CompMember myCm = (CompMember)cm;
                         attribNameList.add(myCa.getName() + "|" + myCm.getName());
                         compAttribNameList.add(myCa.getName() + "|" + myCm.getName());
-                    }                    
+                    }
                 }
-                
+
                 for (Object a : attributes) {
                     Attrib myA = (Attrib)a;
                     attribNameList.add(myA.getName());
                 }
-                
+
                 beanInfo.setAttributes(attribNameList);
                 beanInfo.setCompositeAttributes(compAttribNameList);
                 map.put(mbean.getObjectname(), beanInfo);
@@ -364,11 +364,11 @@ public final class JMXDataCollectionConfigFactory {
      */
     public Map<String, String[]> getMBeanInfo_save(String cName) {
         Map<String, String[]> map = new HashMap<String, String[]>();
-        
+
         // Retrieve the appropriate Collection object
-        // 
+        //
         JmxCollection collection = m_collectionMap.get(cName);
-        
+
         Mbeans beans = collection.getMbeans();
         Enumeration<Mbean> en = beans.enumerateMbean();
         while (en.hasMoreElements()) {
@@ -388,13 +388,13 @@ public final class JMXDataCollectionConfigFactory {
      * Takes a list of castor generated MibObj objects iterates over them
      * creating corresponding MibObject objects and adding them to the supplied
      * MibObject list.
-     * 
+     *
      * @param objectList
      *            List of MibObject objects parsed from
      *            'datacollection-config.xml'
      * @param mibObjectList
-     *            List of MibObject objects currently being built 
-     */ 
+     *            List of MibObject objects currently being built
+     */
     static void processObjectList(List<Attrib> objectList, List<Attr> mibObjectList) {
         //TODO: Make mibObjectList a Set
         //TODO: Delete this method, it is not referenced anywhere
@@ -475,7 +475,7 @@ public final class JMXDataCollectionConfigFactory {
             throw new RuntimeException("Configuration error, failed to "
                     + "retrieve path to RRD repository.");
         }
-    
+
         /*
          * TODO: make a path utils class that has the below in it strip the
          * File.separator char off of the end of the path.
@@ -483,7 +483,7 @@ public final class JMXDataCollectionConfigFactory {
         if (rrdPath.endsWith(File.separator)) {
             rrdPath = rrdPath.substring(0, (rrdPath.length() - File.separator.length()));
         }
-        
+
         return rrdPath;
     }
 }

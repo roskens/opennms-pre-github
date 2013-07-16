@@ -38,16 +38,16 @@ import com.google.gwt.user.client.rpc.IsSerializable;
  * @since 1.8.1
  */
 public class SurveillanceData implements IsSerializable {
-    
+
     private boolean m_complete = false;
-    
+
     private String m_name;
-    
+
     private SurveillanceGroup[] m_columnGroups;
     private SurveillanceGroup[] m_rowGroups;
-    
+
     private SurveillanceIntersection[][] m_cells;
-    
+
     /**
      * <p>getName</p>
      *
@@ -92,7 +92,7 @@ public class SurveillanceData implements IsSerializable {
     public int getColumnCount() {
         return m_columnGroups.length;
     }
-    
+
     /**
      * <p>getRowCount</p>
      *
@@ -101,7 +101,7 @@ public class SurveillanceData implements IsSerializable {
     public int getRowCount() {
         return m_rowGroups.length;
     }
-    
+
     /**
      * The heading of the column number 'colunmIndex' using zero based index
      *
@@ -111,7 +111,7 @@ public class SurveillanceData implements IsSerializable {
     public String getColumnHeading(int columnIndex) {
         return m_columnGroups[columnIndex].getLabel();
     }
-    
+
     /**
      * The heading of row with index 'rowIndex' using zero based index
      *
@@ -133,8 +133,8 @@ public class SurveillanceData implements IsSerializable {
         ensureData();
         return m_cells[row][col];
     }
-    
-    
+
+
 
     private void ensureData() {
         if (m_cells == null) {
@@ -146,7 +146,7 @@ public class SurveillanceData implements IsSerializable {
             }
         }
     }
-    
+
     /**
      * <p>setCell</p>
      *
@@ -160,7 +160,7 @@ public class SurveillanceData implements IsSerializable {
         cell.setColumnGroup(m_columnGroups[col]);
         m_cells[row][col] = cell;
     }
-    
+
     /**
      * <p>setCell</p>
      *
@@ -184,7 +184,7 @@ public class SurveillanceData implements IsSerializable {
     public void setCell(int row, int col, String value) {
         setCell(row, col, value, null);
     }
-    
+
     /**
      * <p>getIntersection</p>
      *
@@ -231,7 +231,7 @@ public class SurveillanceData implements IsSerializable {
     public void setRowGroups(SurveillanceGroup[] rowGroups) {
         m_rowGroups = rowGroups;
     }
-    
-    
+
+
 
 }

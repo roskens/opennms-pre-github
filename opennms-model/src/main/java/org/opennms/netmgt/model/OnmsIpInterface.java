@@ -74,7 +74,7 @@ import org.springframework.core.style.ToStringCreator;
 @Entity
 @Table(name="ipInterface")
 public class OnmsIpInterface extends OnmsEntity implements Serializable {
-    
+
     private static final long serialVersionUID = 7750043250236397014L;
 
     private Integer m_id;
@@ -134,11 +134,11 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
     @Column(nullable=false)
     @XmlTransient
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>getInterfaceId</p>
      *
@@ -289,7 +289,7 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
     public void setPrimaryString(String primaryType) {
         m_isSnmpPrimary = new PrimaryType(primaryType.charAt(0));
     }
-    
+
     /**
      * <p>getIsSnmpPrimary</p>
      *
@@ -309,7 +309,7 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
     public void setIsSnmpPrimary(PrimaryType issnmpprimary) {
         m_isSnmpPrimary = issnmpprimary;
     }
-    
+
     /**
      * <p>isPrimary</p>
      *
@@ -454,13 +454,13 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
         return down;
     }
 
-    
-    @Transient 
+
+    @Transient
     @XmlAttribute
     public int getMonitoredServiceCount () {
     	return m_monitoredServices.size();
     }
-    
+
     /**
      * <p>getMonitoredServiceByServiceType</p>
      *
@@ -482,25 +482,25 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      * @param scannedIface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public void mergeInterfaceAttributes(OnmsIpInterface scannedIface) {
-        
+
         if (hasNewValue(scannedIface.getIsManaged(), getIsManaged())) {
             setIsManaged(scannedIface.getIsManaged());
         }
-    
+
         if (hasNewCollectionTypeValue(scannedIface.getIsSnmpPrimary(), getIsSnmpPrimary())) {
             setIsSnmpPrimary(scannedIface.getIsSnmpPrimary());
         }
-    
+
         if (hasNewValue(scannedIface.getIpHostName(), getIpHostName())) {
             setIpHostName(scannedIface.getIpHostName());
         }
-        
+
         if (hasNewValue(scannedIface.getIpLastCapsdPoll(), getIpLastCapsdPoll())) {
             setIpLastCapsdPoll(scannedIface.getIpLastCapsdPoll());
         }
-        
+
     }
-    
+
     /**
      * <p>hasNewCollectionTypeValue</p>
      *
@@ -521,22 +521,22 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      * @param deleteMissing a boolean.
      */
     public void mergeMonitoredServices(OnmsIpInterface scannedIface, EventForwarder eventForwarder, boolean deleteMissing) {
-    
+
         // create map of services to serviceType
         Map<OnmsServiceType, OnmsMonitoredService> serviceTypeMap = new HashMap<OnmsServiceType, OnmsMonitoredService>();
         for (OnmsMonitoredService svc : scannedIface.getMonitoredServices()) {
             serviceTypeMap.put(svc.getServiceType(), svc);
         }
-    
+
         // for each service in the database
         for (Iterator<OnmsMonitoredService> it = getMonitoredServices().iterator(); it.hasNext();) {
             OnmsMonitoredService svc = it.next();
-            
+
             // find the corresponding scanned service
             OnmsMonitoredService imported = serviceTypeMap.get(svc.getServiceType());
             if (imported == null) {
                 if (deleteMissing) {
-                    // there is no scanned service... delete it from the database 
+                    // there is no scanned service... delete it from the database
                     it.remove();
                     svc.visit(new DeleteEventVisitor(eventForwarder));
                 }
@@ -545,11 +545,11 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
                 // otherwice update the service attributes
                 svc.mergeServiceAttributes(imported);
             }
-            
+
             // mark the service is updated
             serviceTypeMap.remove(svc.getServiceType());
         }
-        
+
         // for any services not found in the database, add them
         Collection<OnmsMonitoredService> newServices = serviceTypeMap.values();
         for (OnmsMonitoredService svc : newServices) {
@@ -565,14 +565,14 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
      * @param scannedIface a {@link org.opennms.netmgt.model.OnmsIpInterface} object.
      */
     public void updateSnmpInterface(OnmsIpInterface scannedIface) {
-        
+
         if (!hasNewValue(scannedIface.getIfIndex(), getIfIndex())) {
             /* no ifIndex in currently scanned interface so don't bother
              * we must have failed to collect data
-             */ 
+             */
             return;
         }
-        
+
         if (scannedIface.getSnmpInterface() == null) {
             // there is no longer an snmpInterface associated with the ipInterface
             setSnmpInterface(null);
@@ -582,9 +582,9 @@ public class OnmsIpInterface extends OnmsEntity implements Serializable {
             OnmsSnmpInterface snmpIface = getNode().getSnmpInterfaceWithIfIndex(scannedIface.getIfIndex());
             setSnmpInterface(snmpIface);
         }
-        
-        
-        
+
+
+
     }
 
     /**

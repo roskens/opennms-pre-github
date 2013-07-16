@@ -42,7 +42,7 @@ import org.springframework.beans.factory.InitializingBean;
  * <p>DataSourceFactoryBean class.</p>
  */
 public class DataSourceFactoryBean implements FactoryBean<DataSource>, InitializingBean, DisposableBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DataSourceFactoryBean.class);
 
     /**

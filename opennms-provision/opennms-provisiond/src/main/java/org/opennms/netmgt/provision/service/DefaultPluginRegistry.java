@@ -62,29 +62,29 @@ import org.springframework.context.ApplicationContext;
  */
 public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultPluginRegistry.class);
-    
-    
+
+
     @Autowired(required=false)
     Set<SyncServiceDetector> m_syncDetectors;
-    
+
     @Autowired(required=false)
     Set<AsyncServiceDetector> m_asyncDetectors;
-    
+
     @Autowired(required=false)
     Set<NodePolicy> m_nodePolicies;
-    
+
     @Autowired(required=false)
     Set<IpInterfacePolicy> m_ipInterfacePolicies;
-    
+
     @Autowired(required=false)
     Set<SnmpInterfacePolicy> m_snmpInterfacePolicies;
-    
+
     @Autowired
     ServiceRegistry m_serviceRegistry;
-    
+
     @Autowired
     private ApplicationContext m_applicationContext;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -94,15 +94,15 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
         addAllExtensions(m_ipInterfacePolicies, IpInterfacePolicy.class, OnmsPolicy.class);
         addAllExtensions(m_snmpInterfacePolicies, SnmpInterfacePolicy.class, OnmsPolicy.class);
     }
-    
+
     private static void debug(String format, Object... args) {
         LOG.debug(String.format(format, args));
     }
-    
+
     private static void info(String format, Object... args) {
         LOG.info(String.format(format, args));
     }
-    
+
     private static void error(Throwable cause, String format, Object... args) {
         if (cause == null) {
             LOG.error(String.format(format, args));
@@ -110,7 +110,7 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
             LOG.error(String.format(format, args), cause);
         }
     }
-    
+
     private <T> void addAllExtensions(Collection<T> extensions, Class<?>... extensionPoints) {
         if (extensions == null || extensions.isEmpty()) {
             info("Found NO Extensions for ExtensionPoints %s", Arrays.toString(extensionPoints));
@@ -127,7 +127,7 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
     public <T> Collection<T> getAllPlugins(Class<T> pluginClass) {
         return beansOfType(pluginClass).values();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public <T> T getPluginInstance(Class<T> pluginClass, PluginConfig pluginConfig) {
@@ -135,30 +135,30 @@ public class DefaultPluginRegistry implements PluginRegistry, InitializingBean {
         if (pluginInstance == null) {
             return null;
         }
-        
+
         Map<String, String> parameters = new HashMap<String, String>(pluginConfig.getParameterMap());
 
-        
+
         BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(pluginInstance);
         try {
             wrapper.setPropertyValues(parameters);
         } catch (BeansException e) {
             error(e, "Could not set properties on report definition: %s", e.getMessage());
         }
-        
+
         return pluginInstance;
     }
 
     private <T> Map<String, T> beansOfType(Class<T> pluginClass) {
         return BeanFactoryUtils.beansOfTypeIncludingAncestors(m_applicationContext, pluginClass, true, true);
     }
-    
+
     private <T> T beanWithNameOfType(String beanName, Class<T> pluginClass) {
         Map<String, T> beans = beansOfType(pluginClass);
         T bean = beans.get(beanName);
         if (bean != null) debug("Found bean %s with name %s of type %s", bean, beanName, pluginClass);
         return bean;
     }
-    
-    
+
+
 }

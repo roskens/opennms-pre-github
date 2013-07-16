@@ -34,5 +34,5 @@ import org.opennms.netmgt.model.OnmsDistPoller;
  * <p>DistPollerDao interface.</p>
  */
 public interface DistPollerDao extends OnmsDao<OnmsDistPoller, String> {
-    
+
 }

@@ -42,7 +42,7 @@ public class Report {
     private String m_name;
     private String m_className;
     private LinkedHashMap<String, String> m_parameters = new LinkedHashMap<String, String>();
-    
+
     /**
      * <p>getClassName</p>
      *

@@ -38,7 +38,7 @@ import org.opennms.core.db.install.InstallerDb;
 
 public class InstallerSQLTest extends TestCase {
     private InstallerDb m_installerDb;
-    
+
     private static String s_bug1455CreateSQL =
         "create table category_node (\n"
         + "                categoryId              integer,\n"
@@ -61,10 +61,10 @@ public class InstallerSQLTest extends TestCase {
 
     public void testBug1455NoSpace() throws Exception {
         m_installerDb.readTables(new StringReader(s_bug1455CreateSQL));
-        
+
         m_installerDb.getForeignKeyConstraints();
     }
-    
+
     public void testBug1455WithSpace() throws Exception {
         String modified =
             s_bug1455CreateSQL.replaceFirst("categories\\(categoryId\\)",

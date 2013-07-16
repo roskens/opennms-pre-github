@@ -51,15 +51,15 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.orm.ObjectRetrievalFailureException;
 
 public class DistributedStatusResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DistributedStatusResourceType.class);
-    
+
     /** Constant <code>DISTRIBUTED_DIRECTORY="distributed"</code> */
     public static final String DISTRIBUTED_DIRECTORY = "distributed";
-    
+
     private ResourceDao m_resourceDao;
     private LocationMonitorDao m_locationMonitorDao;
-    
+
     /**
      * <p>Constructor for DistributedStatusResourceType.</p>
      *
@@ -103,7 +103,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         LinkedList<OnmsResource> resources =
             new LinkedList<OnmsResource>();
-        
+
         Collection<LocationMonitorIpInterface> statuses = m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(nodeId);
 
         for (LocationMonitorIpInterface status : statuses) {
@@ -111,17 +111,17 @@ public class DistributedStatusResourceType implements OnmsResourceType {
             int id = status.getLocationMonitor().getId();
             final OnmsIpInterface ipInterface = status.getIpInterface();
 			String ipAddr = InetAddressUtils.str(ipInterface.getIpAddress());
-            
+
             File iface = getInterfaceDirectory(id, ipAddr);
-            
+
             if (iface.isDirectory()) {
                 resources.add(createResource(definitionName, id, ipAddr));
             }
         }
-        
+
         return OnmsResource.sortIntoResourceList(resources);
     }
-    
+
     /**
      * <p>getResourcesForLocationMonitor</p>
      *
@@ -143,13 +143,13 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         } catch (DataAccessException e) {
             throw new ObjectRetrievalFailureException("The '" + getName() + "' resource type does not exist on this location Monitor.  Nested exception is: " + e.getClass().getName() + ": " + e.getMessage(), e);
         }
-        
+
         File[] intfDirs =
             locationMonitorDirectory.listFiles(RrdFileConstants.INTERFACE_DIRECTORY_FILTER);
 
         // XXX is this test even needed?
         if (intfDirs == null) {
-            return resources; 
+            return resources;
         }
 
         // XXX this isn't right at all
@@ -166,7 +166,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
     private OnmsResource createResource(String definitionName,
             int locationMonitorId, String intf) {
         String monitor = definitionName + "-" + locationMonitorId;
-        
+
         String label = intf + " from " + monitor;
         String resource = locationMonitorId + File.separator + intf;
 
@@ -175,14 +175,14 @@ public class DistributedStatusResourceType implements OnmsResourceType {
                                             intf));
         return new OnmsResource(resource, label, this, set);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         // is this right?
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
@@ -202,7 +202,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnNode(int nodeId) {
         return getResourcesForNode(nodeId).size() > 0;
     }
-    
+
     /*
     private int getLocationMonitorIdFromResource(String resource) {
         int index = resource.indexOf(File.separator);
@@ -213,9 +213,9 @@ public class DistributedStatusResourceType implements OnmsResourceType {
                                                getName());
         }
         String dir = resource.substring(0, index);
-        return getLocationMonitorIdFromLocationMonitorDirectory(dir); 
+        return getLocationMonitorIdFromLocationMonitorDirectory(dir);
     }
-    
+
     private String getIpAddressFromResource(String resource) {
         int index = resource.indexOf(File.separator);
         if (index == -1) {
@@ -247,7 +247,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         }
         return Integer.parseInt(dir.substring(index + 1));
     }
-    
+
     /**
      * <p>getInterfaceDirectory</p>
      *
@@ -258,7 +258,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
     public File getInterfaceDirectory(int id, String ipAddr) {
         return new File(m_resourceDao.getRrdDirectory(), getRelativeInterfacePath(id, ipAddr));
     }
-    
+
     /**
      * <p>getRelativeInterfacePath</p>
      *
@@ -277,17 +277,17 @@ public class DistributedStatusResourceType implements OnmsResourceType {
     private File getLocationMonitorDirectory(int locationMonitorId, boolean verify) throws ObjectRetrievalFailureException {
         return getLocationMonitorDirectory(Integer.toString(locationMonitorId), verify);
     }
-    
+
     private File getLocationMonitorDirectory(String locationMonitorId, boolean verify) throws ObjectRetrievalFailureException {
         File locationMonitorDirectory = new File(m_resourceDao.getRrdDirectory(verify), locationMonitorId);
 
         if (verify && !locationMonitorDirectory.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No node directory exists for node " + locationMonitorId + ": " + locationMonitorDirectory);
         }
-        
+
         return locationMonitorDirectory;
     }
-    
+
     public class AttributeLoader implements LazySet.Loader<OnmsAttribute> {
         private String m_definitionName;
         private int m_locationMonitorId;
@@ -302,7 +302,7 @@ public class DistributedStatusResourceType implements OnmsResourceType {
         @Override
         public Set<OnmsAttribute> load() {
             LOG.debug("lazy-loading attributes for distributed status resource {}-{}/{}", m_definitionName, m_locationMonitorId, m_intf);
-            
+
             return ResourceTypeUtils.getAttributesAtRelativePath(m_resourceDao.getRrdDirectory(), getRelativeInterfacePath(m_locationMonitorId, m_intf));
         }
     }

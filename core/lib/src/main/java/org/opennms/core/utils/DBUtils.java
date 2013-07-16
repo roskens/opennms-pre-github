@@ -45,9 +45,9 @@ import org.slf4j.LoggerFactory;
  * @author ranger
  */
 public class DBUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DBUtils.class);
-	
+
     private final Set<Statement> m_statements;
     private final Set<ResultSet> m_resultSets;
     private final Set<Connection> m_connections;
@@ -59,7 +59,7 @@ public class DBUtils {
     public DBUtils() {
         this(DBUtils.class);
     }
-    
+
     /**
      * <p>Constructor for DBUtils.</p>
      *
@@ -114,7 +114,7 @@ public class DBUtils {
             }
         }
         m_resultSets.clear();
-        
+
         for (Statement s : m_statements) {
             if (s != null) {
                 try {
@@ -125,7 +125,7 @@ public class DBUtils {
             }
         }
         m_statements.clear();
-        
+
         for (Connection c : m_connections) {
             if (c != null) {
                 try {
@@ -137,5 +137,5 @@ public class DBUtils {
         }
         m_connections.clear();
     }
-    
+
 }

@@ -45,7 +45,7 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
  * @version $Id: $
  */
 public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
-    
+
     /**
      * <p>Constructor for MultilineHttpStatusResponseDecoder.</p>
      *
@@ -54,7 +54,7 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
     public MultilineHttpStatusResponseDecoder(final Charset charset) {
         super(charset, "\r\n");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
@@ -65,12 +65,12 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
         }
         // Remember the initial position.
         final int start = in.position();
-        
+
         // Now find the first CRLF in the buffer.
         byte previous = 0;
         while (in.hasRemaining()) {
             final byte current = in.get();
-            
+
             if (previous == '\r' && current == '\n') {
                 // Remember the current position and limit.
                 final int position = in.position();
@@ -80,8 +80,8 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
                     in.limit(position);
                     // The bytes between in.position() and in.limit()
                     // now contain a full CRLF terminated line.
-                    
-                   if(!checkIndicator(in.slice())) { 
+
+                   if(!checkIndicator(in.slice())) {
                        response.addLine(in.getString(getCharset().newDecoder()));
                        out.write(response);
                        session.removeAttribute(CURRENT_RESPONSE);
@@ -89,8 +89,8 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
                     }else {
                        response.addLine(in.getString(getCharset().newDecoder()));
                     }
-                    
-                    
+
+
                 } finally {
                     // Set the position to point right after the
                     // detected line and set the limit to the old
@@ -103,18 +103,18 @@ public class MultilineHttpStatusResponseDecoder extends MultiLineDecoder {
                 // return true until there are no more lines in the
                 // buffer.
                 return true;
-                
+
                 }
-            
+
             previous = current;
         }
         // Could not find CRLF in the buffer. Reset the initial
         // position to the one we recorded above.
         in.position(start);
-        
+
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected boolean checkIndicator(final IoBuffer in) throws CharacterCodingException {

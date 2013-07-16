@@ -37,9 +37,9 @@ public abstract class LogUtils {
     public static enum Level {
         ERROR, WARN, INFO, DEBUG, TRACE
     }
-    
+
     private static Level m_level = Level.INFO;
-    
+
     public static void setLevel(final Level level) {
         m_level = level;
     }

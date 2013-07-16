@@ -85,7 +85,7 @@ public class OnmsEventCollection extends LinkedList<OnmsEvent> {
         clear();
         addAll(events);
     }
-    
+
     /**
      * <p>getCount</p>
      *
@@ -95,7 +95,7 @@ public class OnmsEventCollection extends LinkedList<OnmsEvent> {
     public Integer getCount() {
     	return this.size();
     }
-    
+
     /**
      * <p>getTotalCount</p>
      *
@@ -105,7 +105,7 @@ public class OnmsEventCollection extends LinkedList<OnmsEvent> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *

@@ -58,7 +58,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * Mock XML-RPC server that anticipates specific XML-RPC method calls.
  * </p>
- * 
+ *
  * @author mikeh@aiinet.com
  * @author dj@gregor.com
  */
@@ -67,14 +67,14 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
      * Represents an XML-RPC call as a String method name and a Vector of
      * method arguments.  Note: the equals method looks for Hashtables in the
      * Vector and ignores comparisons on the values for any entries with a key
-     * of "description". 
-     * 
+     * of "description".
+     *
      * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
      */
     public class XmlrpcCall {
         private String m_method;
         private Vector<Object> m_vector;
-        
+
         public XmlrpcCall(String method, Vector<Object> vector) {
             assertNotNull("null method not allowed", method);
             assertNotNull("null vector not allowed", vector);
@@ -128,20 +128,20 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             }
             return true;
         }
-        
+
         @SuppressWarnings("unchecked")
         private boolean hashtablesMatchIgnoringDescriptionKeys(Object a, Object b) {
             Hashtable<String, String> ha = (Hashtable<String, String>) a;
             Hashtable<String, String> hb = (Hashtable<String, String>) b;
-            
+
             if (ha.size() != hb.size()) {
                 return false;
             }
-            
+
             if (!ha.keySet().equals(hb.keySet())) {
                 return false;
             }
-            
+
             for (String key : ha.keySet()) {
                 if (key.equals("description")) {
                     // This shouldn't happen, but let's test anyway
@@ -154,7 +154,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
                     }
                 }
             }
-            
+
             return true;
         }
     }
@@ -162,9 +162,9 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
     private List<XmlrpcCall> m_anticipated = new ArrayList<XmlrpcCall>();
 
     private List<XmlrpcCall> m_unanticipated = new ArrayList<XmlrpcCall>();
-    
+
     private WebServer m_webServer = null;
-    
+
     private int m_port;
 
     /** default port number */
@@ -210,28 +210,28 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
         if (m_webServer == null) {
             return;
         }
-        
+
         m_webServer.shutdown();
         waitForShutdown();
-        
+
         m_webServer = null;
     }
-    
+
     private void waitForStartup() throws IOException {
         boolean keepRunning = true;
         Socket s = null;
-        
+
         while (keepRunning) {
             try {
                 Thread.sleep(10);
             } catch (InterruptedException e) {
                 // do nothing
             }
-            
+
             try {
                 s = new Socket("localhost", m_port);
                 keepRunning = false;
-                
+
                 sendCheckCall(s);
             } catch (ConnectException e) {
                 // do nothing
@@ -252,7 +252,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
 	        p.print("POST / HTTP/1.0\r\n");
 	        p.print("Connection: close\r\n");
 	        p.print("\r\n");
-	
+
 	        p.print("<?xml.version=\"1.0\"?><methodCall><methodName>" + CHECK_METHOD_NAME + "</methodName><params></params></methodCall>\r\n");
     	} finally {
     		IOUtils.closeQuietly(p);
@@ -261,24 +261,24 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
     		p = null;
     	}
     }
-    
+
     private void waitForShutdown() throws IOException {
         boolean keepRunning = true;
         Socket s = null;
-        
+
         while (keepRunning) {
             try {
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 // do nothing
             }
-            
+
             try {
                 s = new Socket("localhost", m_port);
 
                 sendCheckCall(s);
             } catch (ConnectException e) {
-                keepRunning = false; 
+                keepRunning = false;
             } finally {
                 if (s != null) {
                     s.close();
@@ -286,7 +286,7 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             }
         }
     }
-    
+
     public void anticipateCall(String method, Object... args) {
         Vector<Object> params = new Vector<Object>();
         for(Object arg: args) {
@@ -307,17 +307,17 @@ public class XmlrpcAnticipator implements XmlRpcHandler {
             vector.add(message);
             return vector;
         }
-        
+
         ourExecute(method, vector);
         return vector;
     }
-    
+
     public synchronized void ourExecute(String method, Vector<Object> vector) {
         // Ignore internal checks
         if (method.equals(CHECK_METHOD_NAME)) {
             return;
         }
-        
+
         XmlrpcCall c = new XmlrpcCall(method, vector);
         if (m_anticipated.contains(c)) {
             m_anticipated.remove(c);

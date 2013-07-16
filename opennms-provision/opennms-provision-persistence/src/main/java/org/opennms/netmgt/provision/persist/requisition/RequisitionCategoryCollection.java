@@ -84,7 +84,7 @@ public class RequisitionCategoryCollection extends LinkedList<RequisitionCategor
         clear();
         addAll(categories);
     }
-    
+
     /**
      * <p>getCount</p>
      *

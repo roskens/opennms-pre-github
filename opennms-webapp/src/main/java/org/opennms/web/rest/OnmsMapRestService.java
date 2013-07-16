@@ -70,7 +70,7 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("maps")
 @Transactional
 public class OnmsMapRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OnmsMapRestService.class);
 
     @Autowired
@@ -91,7 +91,7 @@ public class OnmsMapRestService extends OnmsRestService {
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public OnmsMapList getMaps() {
         readLock();
-        
+
         try {
             final CriteriaBuilder builder = new CriteriaBuilder(OnmsMap.class);
             applyQueryFilters(m_uriInfo.getQueryParameters(), builder);
@@ -173,13 +173,13 @@ public class OnmsMapRestService extends OnmsRestService {
     @Path("{mapId}")
     public Response updateMap(@PathParam("mapId") final int mapId, final MultivaluedMapImpl params) {
         writeLock();
-        
+
         try {
             final OnmsMap map = m_mapDao.get(mapId);
             if (map == null) throw getException(Response.Status.BAD_REQUEST, "updateMap: Can't find map with id " + mapId);
-    
+
             LOG.debug("updateMap: updating map {}", map);
-    
+
             final BeanWrapper wrapper = PropertyAccessorFactory.forBeanPropertyAccess(map);
             for(final String key : params.keySet()) {
                 if (wrapper.isWritableProperty(key)) {
@@ -188,7 +188,7 @@ public class OnmsMapRestService extends OnmsRestService {
                     wrapper.setPropertyValue(key, value);
                 }
             }
-    
+
             LOG.debug("updateMap: map {} updated", map);
             m_mapDao.saveOrUpdate(map);
             return Response.seeOther(m_uriInfo.getBaseUriBuilder().path(this.getClass()).path(this.getClass(), "getMap").build(mapId)).build();

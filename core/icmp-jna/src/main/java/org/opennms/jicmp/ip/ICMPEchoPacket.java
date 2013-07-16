@@ -37,7 +37,7 @@ import java.nio.ByteBuffer;
  * @author brozow
  */
 public class ICMPEchoPacket extends ICMPPacket {
-    
+
     public ICMPEchoPacket(int size) {
         super(size);
     }
@@ -45,13 +45,13 @@ public class ICMPEchoPacket extends ICMPPacket {
     public ICMPEchoPacket(ICMPPacket icmpPacket) {
         super(icmpPacket);
     }
-    
+
     public ByteBuffer getContentBuffer() {
         ByteBuffer content = m_packetData.duplicate();
         content.position(8);
         return content.slice();
     }
-    
+
     public int getPacketLength() {
         return m_packetData.limit();
     }
@@ -59,15 +59,15 @@ public class ICMPEchoPacket extends ICMPPacket {
     public int getIdentifier() {
         return getUnsignedShort(4);
     }
-    
+
     public void setIdentifier(int id) {
         setUnsignedShort(4, id);
     }
-    
+
     public int getSequenceNumber() {
         return getUnsignedShort(6);
     }
-    
+
     public void setSequenceNumber(int sn) {
         setUnsignedShort(6, sn);
     }

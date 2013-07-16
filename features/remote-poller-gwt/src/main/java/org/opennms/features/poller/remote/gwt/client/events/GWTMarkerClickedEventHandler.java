@@ -38,7 +38,7 @@ import com.google.gwt.event.shared.EventHandler;
  * @since 1.8.1
  */
 public interface GWTMarkerClickedEventHandler extends EventHandler {
-    
+
     /**
      * <p>onGWTMarkerClicked</p>
      *

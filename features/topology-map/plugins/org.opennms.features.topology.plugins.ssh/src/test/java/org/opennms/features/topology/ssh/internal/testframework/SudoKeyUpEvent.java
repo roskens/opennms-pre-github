@@ -59,7 +59,7 @@ public class SudoKeyUpEvent extends KeyUpEvent{
         return isAltDown;
     }
 
-    @Override 
+    @Override
     public boolean isShiftKeyDown(){
         return isShiftDown;
     }

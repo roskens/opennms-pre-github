@@ -48,7 +48,7 @@ public interface Pinger {
      * @param retries The number of times to retry.
      * @param packetsize The size in byte of the ICMP packet.
      * @param sequenceId an ID representing the ping
-     * 
+     *
      * @param cb the {@link org.opennms.netmgt.ping.PingResponseCallback} callback to call upon success or error
      */
     public void ping(InetAddress host, long timeout, int retries, int packetsize, int sequenceId, PingResponseCallback cb) throws Exception;
@@ -61,7 +61,7 @@ public interface Pinger {
      * @param timeout The time to wait between each retry.
      * @param retries The number of times to retry.
      * @param sequenceId an ID representing the ping
-     * 
+     *
      * @param cb the {@link org.opennms.netmgt.ping.PingResponseCallback} callback to call upon success or error
      */
     public void ping(InetAddress host, long timeout, int retries, int sequenceId, PingResponseCallback cb) throws Exception;
@@ -78,7 +78,7 @@ public interface Pinger {
      * @return The response time in microseconds if the host is reachable and has responded with an echo reply, otherwise a null value.
      */
     public Number ping(InetAddress host, long timeout, int retries, int packetsize) throws Exception;
-    
+
 
     /**
      * This method is used to ping a remote host to test for ICMP support. If
@@ -91,7 +91,7 @@ public interface Pinger {
      * @return The response time in microseconds if the host is reachable and has responded with an echo reply, otherwise a null value.
      */
     public Number ping(InetAddress host, long timeout, int retries) throws Exception;
-    
+
 
 	/**
 	 * Ping a remote host, using the default number of retries and timeouts.
@@ -117,7 +117,7 @@ public interface Pinger {
 	 *     echo reply, it will contain a number, otherwise a null value.
 	 */
 	public List<Number> parallelPing(InetAddress host, int count, long timeout, long pingInterval) throws Exception;
-	
+
 	/**
 	 * Initialize IPv4 in this Pinger implementation.  If unable to do so, implementations should throw an exception.
 	 * @throws Exception
@@ -129,12 +129,12 @@ public interface Pinger {
 	 * @throws Exception
 	 */
 	public void initialize6() throws Exception;
-	
+
 	/**
 	 * Whether or not IPv4 is initialized and available for this implementation.
 	 */
 	public boolean isV4Available();
-	
+
 	/**
 	 * Whether or not IPv6 is initialized and available for this implementation.
 	 * @return

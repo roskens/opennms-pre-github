@@ -48,9 +48,9 @@ import java.util.Map;
 // FIXME: THIS IS INSANE
 // FIXME: 2011-05-18 Seth: OK it is less insane now... but still insane
 public class RTCHashMap {
-	
+
     Map<RTCNodeKey,List<RTCNode>> m_map;
-	
+
     /**
      * constructor
      *
@@ -68,10 +68,10 @@ public class RTCHashMap {
 		}
     	return nodes;
     }
-    
+
     /**
      * Add the node with nodeid as key
-     * 
+     *
      * @param nodeid
      *            the nodeid
      * @param rtcN
@@ -95,7 +95,7 @@ public class RTCHashMap {
 
     /**
      * Add the rtc node with nodeid and ip as key
-     * 
+     *
      * @param nodeid
      *            the nodeid
      * @param inetAddress
@@ -118,11 +118,11 @@ public class RTCHashMap {
             m_map.put(key, nodesList);
         }
     }
-    
+
     private void add(long nodeid, InetAddress ip, String svcName, RTCNode rtcN) {
         m_map.put(new RTCNodeKey(nodeid, ip, svcName), Collections.singletonList(rtcN));
     }
-    
+
     /**
      * Add an rtc node
      *
@@ -133,7 +133,7 @@ public class RTCHashMap {
     	add(rtcN.getNodeID(), rtcN.getIP(), rtcN);
     	add(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
     }
-    
+
     /**
      * <p>delete</p>
      *
@@ -144,11 +144,11 @@ public class RTCHashMap {
     	delete(rtcN.getNodeID(), rtcN.getIP(), rtcN);
     	delete(rtcN.getNodeID(), rtcN.getIP(), rtcN.getSvcName(), rtcN);
     }
-    
-    
+
+
     /**
      * Delete the node from list with nodeid as key
-     * 
+     *
      * @param nodeid
      *            the nodeid
      * @param rtcN
@@ -165,7 +165,7 @@ public class RTCHashMap {
 
     /**
      * Delete the rtc node from list with nodeid and ip as key
-     * 
+     *
      * @param nodeid
      *            the nodeid
      * @param inetAddress
@@ -181,7 +181,7 @@ public class RTCHashMap {
             nodesList.remove(rtcN);
         }
     }
-    
+
     private void delete(long nodeid, InetAddress ip, String svcName, RTCNode rtcN) {
     	RTCNodeKey key = new RTCNodeKey(nodeid, ip, svcName);
     	m_map.remove(key);
@@ -391,7 +391,7 @@ public class RTCHashMap {
 		}
 		return nodes.get(0);
 	}
-	
+
 	/**
 	 * <p>getRTCNode</p>
 	 *
@@ -403,7 +403,7 @@ public class RTCHashMap {
 	public RTCNode getRTCNode(long nodeid, InetAddress ipaddr, String svcname) {
 		return getRTCNode(new RTCNodeKey(nodeid, ipaddr, svcname));
 	}
-	
+
 	/**
 	 * <p>getRTCNodes</p>
 	 *
@@ -414,9 +414,9 @@ public class RTCHashMap {
 		RTCNodeKey key = new RTCNodeKey(nodeid, null, null);
 		List<RTCNode> nodes = m_map.get(key);
 		if (nodes == null) return Collections.emptyList();
-		return Collections.unmodifiableList(nodes); 
+		return Collections.unmodifiableList(nodes);
 	}
-	
+
 	/**
 	 * <p>getRTCNodes</p>
 	 *

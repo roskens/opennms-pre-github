@@ -69,21 +69,21 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class DaoWebOutageRepositoryTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     WebOutageRepository m_daoOutageRepo;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @BeforeClass
     public static void setupLogging(){
-       
+
         Properties props = new Properties();
         props.setProperty("log4j.logger.org.hibernate", "INFO");
         props.setProperty("log4j.logger.org.springframework", "INFO");
@@ -91,66 +91,66 @@ public class DaoWebOutageRepositoryTest implements InitializingBean {
 
         MockLogAppender.setupLogging(props);
     }
-    
+
     @Before
     public void setUp(){
         m_dbPopulator.populateDatabase();
-        
+
         OnmsMonitoredService svc2 = m_dbPopulator.getMonitoredServiceDao().get(2, InetAddressUtils.addr("192.168.2.1"), "ICMP");
         OnmsEvent event = m_dbPopulator.getEventDao().get(1);
-        
+
         OnmsOutage unresolved2 = new OnmsOutage(new Date(), event, svc2);
         m_dbPopulator.getOutageDao().save(unresolved2);
         m_dbPopulator.getOutageDao().flush();
-        
+
     }
-    
+
     @Test
     @Transactional
     public void testCountMatchingOutages(){
         int count = m_daoOutageRepo.countMatchingOutages(new OutageCriteria());
         assertEquals(3, count);
-        
+
         count = m_daoOutageRepo.countMatchingOutages(new OutageCriteria(new RegainedServiceDateBeforeFilter(new Date())));
         assertEquals(1, count);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testGetMatchingOutages(){
         Outage[] outage = m_daoOutageRepo.getMatchingOutages(new OutageCriteria());
         assertEquals(3, outage.length);
-        
+
         outage = m_daoOutageRepo.getMatchingOutages(new OutageCriteria(new RegainedServiceDateBeforeFilter(new Date())));
         assertEquals(1, outage.length);
-        
+
         outage = m_daoOutageRepo.getMatchingOutages(new OutageCriteria(new OutageIdFilter(1)));
         assertEquals(1, outage.length);
         assertEquals(1, outage[0].getId());
-        
+
         outage = m_daoOutageRepo.getMatchingOutages(new OutageCriteria(new OutageIdFilter(2)));
         assertEquals(1, outage.length);
         assertEquals(2, outage[0].getId());
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on specific IDs so we need a fresh database
     public void testGetOutage(){
         Outage outage = m_daoOutageRepo.getOutage(1);
         assertNotNull(outage);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on records created in @Before so we need a fresh database
     public void testGetOutageSummaries() {
         OutageSummary[] summaries = m_daoOutageRepo.getMatchingOutageSummaries(new OutageCriteria());
         assertEquals("there should be 2 outage summary in the default (current) outage criteria match", 2, summaries.length);
     }
-    
+
     @Test
     @JUnitTemporaryDatabase // Relies on records created in @Before so we need a fresh database
     public void testCountMatchingSummaries(){
-        
+
         int count = m_daoOutageRepo.countMatchingOutageSummaries(new OutageCriteria());
         assertEquals(2, count);
     }

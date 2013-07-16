@@ -36,7 +36,7 @@ package org.opennms.netmgt.asterisk.utils;
  */
 public class AsteriskOriginatorException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6830694356801565351L;
 

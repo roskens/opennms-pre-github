@@ -54,11 +54,11 @@ import org.springframework.remoting.RemoteAccessException;
  */
 public class ServerUnreachableAdaptor implements PollerBackEnd {
     private static final Logger LOG = LoggerFactory.getLogger(ServerUnreachableAdaptor.class);
-    
+
     private String m_monitorName;
     private PollerBackEnd m_remoteBackEnd;
     private boolean m_serverUnresponsive = false;
-    
+
     /**
      * <p>setRemoteBackEnd</p>
      *
@@ -140,7 +140,7 @@ public class ServerUnreachableAdaptor implements PollerBackEnd {
             }
             m_serverUnresponsive = false;
             return pollerStarting;
-            
+
         } catch (final RemoteAccessException e) {
             m_serverUnresponsive = true;
             LOG.warn("Server is unable to respond due to the following exception.", e);

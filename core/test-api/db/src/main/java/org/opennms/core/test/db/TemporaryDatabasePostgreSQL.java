@@ -55,7 +55,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
 import org.springframework.util.StringUtils;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
@@ -100,7 +100,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
              System.getProperty(ADMIN_USER_PROPERTY, DEFAULT_ADMIN_USER),
              System.getProperty(ADMIN_PASSWORD_PROPERTY, DEFAULT_ADMIN_PASSWORD), useExisting);
     }
-    
+
     public TemporaryDatabasePostgreSQL(String testDatabase, String driver, String url,
             String adminUser, String adminPassword) throws Exception {
         this(testDatabase, driver, url, adminUser, adminPassword, false);
@@ -137,7 +137,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
             resetOutputStream();
             m_installerDb.setDatabaseName(getTestDatabase());
             m_installerDb.setDataSource(getDataSource());
-            
+
             m_installerDb.setAdminDataSource(getAdminDataSource());
             m_installerDb.setPostgresOpennmsUser(m_adminUser);
 
@@ -385,7 +385,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
                         final String message = "Failed to drop test database on last attempt " + (dropAttempt + 1) + ": " + e;
                         System.err.println(new Date().toString() + ": " + message);
                         dumpThreads();
-                        
+
                         TemporaryDatabaseException newException = new TemporaryDatabaseException(message);
                         newException.initCause(e);
                         throw newException;
@@ -433,7 +433,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
 
         m_destroyed = true;
     }
-    
+
     public static void dumpThreads() {
         Map<Thread, StackTraceElement[]> threads = Thread.getAllStackTraces();
         int daemons = 0;
@@ -601,7 +601,7 @@ public class TemporaryDatabasePostgreSQL implements TemporaryDatabase {
     public String getUrl() {
         return m_url;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)

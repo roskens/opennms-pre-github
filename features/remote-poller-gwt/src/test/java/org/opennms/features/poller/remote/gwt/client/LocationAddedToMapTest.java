@@ -58,16 +58,16 @@ import de.novanic.eventservice.client.event.RemoteEventService;
 
 
 public class LocationAddedToMapTest {
-    
+
     public class TestApplicationView implements ApplicationView {
-        
+
         GWTBounds bounds;
         private Application m_application;
         @SuppressWarnings("unused")
         private HandlerManager m_eventBus;
         private int m_marker = 0;
         private String m_statusMessage;
-        
+
         public TestApplicationView(Application application, HandlerManager eventBus) {
             m_application = application;
             m_eventBus = eventBus;
@@ -144,7 +144,7 @@ public class LocationAddedToMapTest {
             m_marker++;
             //try { Thread.sleep(1); } catch (Throwable e) {}
         }
-        
+
         public int getMarkerCount() {
             return m_marker;
         }
@@ -162,15 +162,15 @@ public class LocationAddedToMapTest {
             return m_statusMessage;
         }
     }
-    
+
     private class TestCommandExecutor implements CommandExecutor {
-        
+
         private List<Object> m_commands = new LinkedList<Object>();
         @Override
         public void schedule(Scheduler.RepeatingCommand command) {
             m_commands.add(command);
         }
-        
+
         public void run() {
             boolean finished = false;
             while(!finished) {
@@ -205,16 +205,16 @@ public class LocationAddedToMapTest {
         public void schedule(Command command) {
             m_commands.add(command);
         }
-        
+
     }
-    
+
     RemoteEventService m_remoteEventService;
     LocationStatusServiceAsync m_locationStatusService;
     private TestApplicationView m_testApplicationView;
     private TestServer m_testServer;
     private Random m_random;
     private TestCommandExecutor m_testExecutor = new TestCommandExecutor();
-    
+
     @Before
     public void setUp() {
         m_testServer = new TestServer();
@@ -228,57 +228,57 @@ public class LocationAddedToMapTest {
     public void testAddLocation() {
         int numLocations = 3000;
         int numApps = 12;
-        
+
         Set<LocationInfo> locations = new HashSet<LocationInfo>();
         GWTBounds bounds = createLocations(numLocations, locations);
-        
+
         for( LocationInfo locationInfo : locations) {
             m_testServer.sendUserSpecificEvent(new LocationUpdatedRemoteEvent(locationInfo));
         }
-        
+
         //create apps and update by sending event
         Set<ApplicationInfo> apps = createApps(numApps, locations);
-        
+
         for(ApplicationInfo app : apps) {
             m_testServer.sendUserSpecificEvent(new ApplicationUpdatedRemoteEvent(app));
         }
-        
+
         m_testServer.sendUserSpecificEvent(new UpdateCompleteRemoteEvent());
-        
+
         m_testExecutor.run();
-        
+
         assertNotNull(m_testApplicationView.getMapBounds());
-        
+
         assertEquals(bounds, m_testApplicationView.getMapBounds());
         assertEquals(numLocations, m_testApplicationView.getMarkerCount());
         m_testApplicationView.resetMarkerCount();
-        
+
         m_testServer.sendDomainEvent(new LocationsUpdatedRemoteEvent(locations));
-        
+
         for(ApplicationInfo app : apps) {
             m_testServer.sendDomainEvent(new ApplicationUpdatedRemoteEvent(app));
         }
-        
+
         m_testExecutor.run();
-        
+
         assertEquals(0, m_testApplicationView.getMarkerCount());
     }
-    
+
     @Test
     public void testStatusMessage() {
         int numLocations = 10;
         Set<LocationInfo> locations = new HashSet<LocationInfo>();
         createLocations(numLocations , locations);
-        
+
         m_testServer.sendDomainEvent(new LocationsUpdatedRemoteEvent(locations));
-        
+
         int updated = 0;
         while(!m_testExecutor.runOnePass()) {
             updated++;
             assertEquals("Updated " + updated + " of 10", m_testApplicationView.getStatusMessage());
         }
     }
-    
+
     private void initialize() {
         HandlerManager eventBus = new HandlerManager(null);
         Application application = new Application(eventBus);
@@ -291,10 +291,10 @@ public class LocationAddedToMapTest {
         for(LocationInfo location : locations) {
             locNames.add(location.getName());
         }
-        
+
         Set<ApplicationInfo> apps = new HashSet<ApplicationInfo>();
         for(int i = 1; i <= numApps; i++) {
-            
+
             apps.add(new ApplicationInfo(i, "app" + i, Collections.<GWTMonitoredService>emptySet(), locNames, new StatusDetails(Status.UP, "All things good here")));
         }
         return apps;
@@ -302,7 +302,7 @@ public class LocationAddedToMapTest {
 
     private GWTBounds createLocations(int num, Set<LocationInfo> locations) {
         BoundsBuilder boundsBldr = new BoundsBuilder();
-        
+
         for(int i = 1; i <= num; i++) {
             double lat = m_random.nextDouble() * 22 + 27;
             double lng = m_random.nextDouble() * -57 - 67;
@@ -310,8 +310,8 @@ public class LocationAddedToMapTest {
             LocationInfo location1 = new LocationInfo("location" + i, "area" + i, i + " Opennms Way", lat + "," + lng, 100L, null, new StatusDetails(Status.UP, "reason is that its up"), null);
             locations.add(location1);
         }
-        
-        
+
+
         return boundsBldr.getBounds();
     }
 

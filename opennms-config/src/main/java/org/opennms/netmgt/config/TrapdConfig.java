@@ -40,7 +40,7 @@ import org.opennms.netmgt.snmp.SnmpV3User;
  */
 public interface TrapdConfig {
 	public abstract String getSnmpTrapAddress();
-	
+
     /**
      * <p>getSnmpTrapPort</p>
      *

@@ -33,13 +33,13 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedService;
 
 public class IconConfigManager implements ManagedService {
-    
+
     private IconRepositoryManager m_iconRepoManager;
 
     public void setIconRepositoryManager(IconRepositoryManager iconRepoManager) {
         m_iconRepoManager = iconRepoManager;
     }
-    
+
     @Override
     public void updated(Dictionary<String,?> properties) throws ConfigurationException {
         m_iconRepoManager.updateIconConfig(properties);

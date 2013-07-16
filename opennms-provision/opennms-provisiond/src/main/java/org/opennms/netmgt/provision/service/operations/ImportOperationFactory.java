@@ -58,7 +58,7 @@ public interface ImportOperationFactory {
      * @return a {@link org.opennms.netmgt.provision.service.operations.UpdateOperation} object.
      */
     public abstract UpdateOperation createUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService service);
-    
+
     /**
      * <p>createDeleteOperation</p>
      *

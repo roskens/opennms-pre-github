@@ -39,7 +39,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class SupportRtConfigDao extends ReadOnlyRtConfigDao {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SupportRtConfigDao.class);
 
 

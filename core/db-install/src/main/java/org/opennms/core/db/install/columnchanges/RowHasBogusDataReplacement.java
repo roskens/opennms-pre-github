@@ -44,7 +44,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
     private final String m_table;
     private final String m_column;
-    
+
     /**
      * <p>Constructor for RowHasBogusDataReplacement.</p>
      *
@@ -55,7 +55,7 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
         m_table = table;
         m_column = column;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
@@ -81,7 +81,7 @@ public class RowHasBogusDataReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

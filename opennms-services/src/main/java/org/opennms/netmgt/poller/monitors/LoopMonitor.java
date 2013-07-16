@@ -102,7 +102,7 @@ public class LoopMonitor implements ServiceMonitor {
         sb.append(ParameterMap.getKeyedString(parameters, "is-supported", "false"));
         sb.append(" for ip-match: ");
         sb.append(ParameterMap.getKeyedString(parameters, "ip-match", "*.*.*.*"));
-        
+
         return PollStatus.get(status, sb.toString());
     }
 

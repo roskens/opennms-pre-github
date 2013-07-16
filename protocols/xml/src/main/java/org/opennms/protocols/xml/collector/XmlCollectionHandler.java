@@ -37,7 +37,7 @@ import org.opennms.protocols.xml.config.XmlDataCollection;
 
 /**
  * The Class XML Collection Handler.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public interface XmlCollectionHandler  {

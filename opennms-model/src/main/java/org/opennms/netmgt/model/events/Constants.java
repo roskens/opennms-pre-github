@@ -87,7 +87,7 @@ public class Constants extends EventConstants {
      * @see #MULTIPLE_VAL_DELIM
      */
     public static String escape(final String inStr, final char delimchar) {
-        
+
         final StringBuilder buf = new StringBuilder(inStr.length()+16);
 
         for (final char ch : inStr.toCharArray()) {
@@ -98,7 +98,7 @@ public class Constants extends EventConstants {
                 buf.append(ch);
             }
         }
-        
+
         return buf.toString();
     }
 
@@ -187,7 +187,7 @@ public class Constants extends EventConstants {
     public static String format(final String origString, final int maxlen) {
         if (origString == null)
             return null;
-        
+
         final String escapedString = Constants.escape(origString, '\u0000');
 
         if (maxlen != 0 && escapedString.length() >= maxlen) {

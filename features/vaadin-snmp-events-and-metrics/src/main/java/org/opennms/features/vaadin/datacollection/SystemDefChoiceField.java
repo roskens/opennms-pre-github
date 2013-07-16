@@ -43,8 +43,8 @@ import com.vaadin.ui.TextField;
 
 /**
  * The System Definition Choice Field.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class SystemDefChoiceField extends CustomField<SystemDefChoice> {

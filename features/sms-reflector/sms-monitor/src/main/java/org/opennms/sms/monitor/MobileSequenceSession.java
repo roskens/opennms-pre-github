@@ -53,13 +53,13 @@ import org.smslib.USSDSessionStatus;
  * @version $Id: $
  */
 public class MobileSequenceSession {
-	
+
 	private static final int DEFAULT_RETRIES = 0;
 	private static final long DEFAULT_TIMEOUT = 10000L;
-	
+
     private List<SequenceSessionVariable> m_sessionVariables;
 	private MobileMsgTracker m_tracker;
-	
+
 
     /**
      * <p>Constructor for MobileSequenceSession.</p>
@@ -78,10 +78,10 @@ public class MobileSequenceSession {
      * @param tracker a {@link org.opennms.sms.reflector.smsservice.MobileMsgTracker} object.
      */
     public MobileSequenceSession(Map<String, Object> parameters, List<SequenceSessionVariable> sessionVariables, MobileMsgTracker tracker) {
-        
-        m_sessionVariables = sessionVariables; 
+
+        m_sessionVariables = sessionVariables;
         m_tracker = tracker;
-        
+
         if (parameters.get("retry") == null) {
             parameters.put("retry", String.valueOf(DEFAULT_RETRIES));
         }
@@ -97,10 +97,10 @@ public class MobileSequenceSession {
     }
 
 
-	
+
 	private Properties m_properties = new Properties();
 	private Map<String, SessionVariableGenerator> m_generators = new HashMap<String,SessionVariableGenerator>();
-	
+
 	/**
 	 * <p>getProperties</p>
 	 *
@@ -109,7 +109,7 @@ public class MobileSequenceSession {
 	public Properties getProperties() {
 		return m_properties;
 	}
-	
+
 	/**
 	 * <p>getGenerators</p>
 	 *
@@ -140,7 +140,7 @@ public class MobileSequenceSession {
 	public long getTimeout() {
 		return Long.parseLong(getProperties().getProperty("timeout", String.valueOf(DEFAULT_TIMEOUT)));
 	}
-	
+
     /**
      * <p>setTimeout</p>
      *
@@ -180,7 +180,7 @@ public class MobileSequenceSession {
 	}
 
 	void checkinVariables() {
-	    
+
 	    for (SequenceSessionVariable var : m_sessionVariables) {
 	        var.checkIn(getProperties());
 	    }
@@ -188,7 +188,7 @@ public class MobileSequenceSession {
 	}
 
     void checkoutVariables() throws ClassNotFoundException, InstantiationException, IllegalAccessException {
-    
+
 	    for (SequenceSessionVariable var : m_sessionVariables) {
 			var.checkOut(getProperties());
 		}
@@ -225,14 +225,14 @@ public class MobileSequenceSession {
 	 */
 	public boolean ussdStatusMatches(String expected, USSDSessionStatus actual) {
 		USSDSessionStatus status;
-	
+
 		try {
 			int statusVal = Integer.parseInt(substitute(expected));
 			status = USSDSessionStatus.getByNumeric(statusVal);
 		} catch (NumberFormatException e) {
 			status = USSDSessionStatus.valueOf(substitute(expected));
 		}
-		
+
 		return status.equals(actual);
 	}
 

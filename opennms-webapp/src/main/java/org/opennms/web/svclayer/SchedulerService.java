@@ -45,7 +45,7 @@ import org.springframework.webflow.execution.RequestContext;
  */
 @Transactional(readOnly = true)
 public interface SchedulerService {
-    
+
     /**
      * <p>getTriggerDescriptions</p>
      *
@@ -60,7 +60,7 @@ public interface SchedulerService {
      */
     @Transactional(readOnly = false)
     public abstract void removeTrigger(String triggerName);
-    
+
     /**
      * <p>removeTriggers</p>
      *
@@ -68,7 +68,7 @@ public interface SchedulerService {
      */
     @Transactional(readOnly = false)
     public abstract void removeTriggers(String[] triggerNames);
-    
+
     /**
      * <p>exists</p>
      *
@@ -89,9 +89,9 @@ public interface SchedulerService {
      */
     @Transactional(readOnly = false)
     public abstract String addCronTrigger(String id,
-            ReportParameters criteria, 
+            ReportParameters criteria,
             DeliveryOptions deliveryOptions,
-            String cronExpression, 
+            String cronExpression,
             RequestContext context);
 
     /**
@@ -105,7 +105,7 @@ public interface SchedulerService {
      */
     @Transactional(readOnly = false)
     public abstract String execute(String id,
-            ReportParameters criteria, 
+            ReportParameters criteria,
             DeliveryOptions deliveryOptions,
             RequestContext context);
 

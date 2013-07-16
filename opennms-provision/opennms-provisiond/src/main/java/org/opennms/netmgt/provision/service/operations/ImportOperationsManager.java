@@ -69,20 +69,20 @@ public class ImportOperationsManager {
 	}
 
 	/**
-     * TODO: Seth 2012-03-08: These lists may consume a lot of RAM for large provisioning 
-     * groups. We may need to figure out how to use flyweight objects instead of heavier 
-     * {@link OnmsNode} objects in these lists. Our goal is to handle 50,000+ nodes per 
+     * TODO: Seth 2012-03-08: These lists may consume a lot of RAM for large provisioning
+     * groups. We may need to figure out how to use flyweight objects instead of heavier
+     * {@link OnmsNode} objects in these lists. Our goal is to handle 50,000+ nodes per
      * import operation.
      */
     private final List<ImportOperation> m_inserts = new LinkedList<ImportOperation>();
     private final List<ImportOperation> m_updates = new LinkedList<ImportOperation>();
-    
+
     private final ProvisionService m_provisionService;
     private final Map<String, Integer> m_foreignIdToNodeMap;
     private Boolean m_rescanExisting;
-    
+
     private String m_foreignSource;
-    
+
     /**
      * <p>Constructor for ImportOperationsManager.</p>
      *
@@ -106,20 +106,20 @@ public class ImportOperationsManager {
      * @return a {@link org.opennms.netmgt.provision.service.operations.SaveOrUpdateOperation} object.
      */
     public SaveOrUpdateOperation foundNode(String foreignId, String nodeLabel, String building, String city) {
-        
+
         SaveOrUpdateOperation ret;
         if (nodeExists(foreignId)) {
         	ret = updateNode(foreignId, nodeLabel, building, city);
         } else {
             ret = insertNode(foreignId, nodeLabel, building, city);
-        }        
+        }
         return ret;
     }
 
     private boolean nodeExists(String foreignId) {
         return m_foreignIdToNodeMap.containsKey(foreignId);
     }
-    
+
     private SaveOrUpdateOperation insertNode(final String foreignId, final String nodeLabel, final String building, final String city) {
         SaveOrUpdateOperation insertOperation = new InsertOperation(getForeignSource(), foreignId, nodeLabel, building, city, m_provisionService);
         m_inserts.add(insertOperation);
@@ -147,7 +147,7 @@ public class ImportOperationsManager {
     private Integer processForeignId(String foreignId) {
         return m_foreignIdToNodeMap.remove(foreignId);
     }
-    
+
     /**
      * <p>getOperationCount</p>
      *
@@ -156,7 +156,7 @@ public class ImportOperationsManager {
     public int getOperationCount() {
         return m_inserts.size() + m_updates.size() + m_foreignIdToNodeMap.size();
     }
-    
+
     /**
      * <p>getInsertCount</p>
      *
@@ -183,9 +183,9 @@ public class ImportOperationsManager {
     public int getDeleteCount() {
     	return m_foreignIdToNodeMap.size();
     }
-    
+
     private class DeleteIterator implements Iterator<ImportOperation> {
-    	
+
     	private final Iterator<Entry<String, Integer>> m_foreignIdIterator = m_foreignIdToNodeMap.entrySet().iterator();
 
             @Override
@@ -197,21 +197,21 @@ public class ImportOperationsManager {
 		public ImportOperation next() {
             Entry<String, Integer> entry = m_foreignIdIterator.next();
             return new DeleteOperation(entry.getValue(), getForeignSource(), entry.getKey(), m_provisionService);
-			
+
 		}
 
             @Override
 		public void remove() {
 			m_foreignIdIterator.remove();
 		}
-    	
+
     }
-    
+
     private class OperationIterator implements Iterator<ImportOperation>, Enumeration<ImportOperation> {
-    	
+
     	Iterator<Iterator<ImportOperation>> m_iterIter;
     	Iterator<ImportOperation> m_currentIter;
-    	
+
     	OperationIterator() {
     		List<Iterator<ImportOperation>> iters = new ArrayList<Iterator<ImportOperation>>(3);
     		iters.add(new DeleteIterator());
@@ -219,14 +219,14 @@ public class ImportOperationsManager {
     		iters.add(m_inserts.iterator());
     		m_iterIter = iters.iterator();
     	}
-    	
+
             @Override
 		public boolean hasNext() {
 			while((m_currentIter == null || !m_currentIter.hasNext()) && m_iterIter.hasNext()) {
 				m_currentIter = m_iterIter.next();
 				m_iterIter.remove();
 			}
-			
+
 			return (m_currentIter == null ? false: m_currentIter.hasNext());
 		}
 
@@ -249,10 +249,10 @@ public class ImportOperationsManager {
         public ImportOperation nextElement() {
             return next();
         }
-    	
-    	
+
+
     }
-    
+
     /**
      * <p>shutdownAndWaitForCompletion</p>
      *
@@ -270,7 +270,7 @@ public class ImportOperationsManager {
             Thread.currentThread().interrupt();
         }
     }
-    
+
     /**
      * <p>getOperations</p>
      *
@@ -279,7 +279,7 @@ public class ImportOperationsManager {
     public Collection<ImportOperation> getOperations() {
         return Collections.list(new OperationIterator());
     }
-    
+
     @SuppressWarnings("unused")
     private Runnable sequence(final Executor pool, final Runnable a, final Runnable b) {
         return new Runnable() {
@@ -312,7 +312,7 @@ public class ImportOperationsManager {
     public Boolean getRescanExisting() {
         return m_rescanExisting;
     }
-    
+
     /**
      * <p>auditNodes</p>
      *
@@ -332,7 +332,7 @@ public class ImportOperationsManager {
         };
         return r;
     }
-    
+
     @SuppressWarnings("unused")
     private Runnable scanner(final ImportOperation oper) {
         return new Runnable() {

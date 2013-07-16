@@ -41,7 +41,7 @@ public @interface ValidateUsing {
 	 * The name of the XSD file associated with this JAXB-compatible object.
 	 * This will be used by JAXBUtils to validate the XML when passing through
 	 * the system.
-	 * 
+	 *
 	 * @return The name of the XSD file, without paths.  This file is expected
 	 * to be in the classpath, in /xsds/.
 	 */

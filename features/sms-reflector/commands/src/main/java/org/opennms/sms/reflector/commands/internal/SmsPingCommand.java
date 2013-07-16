@@ -52,13 +52,13 @@ public class SmsPingCommand implements Command {
 				throw new IllegalArgumentException("You need to have a phone number to ping. Usage smsPing <phoneNumber>");
 			}
             Long latency = SmsPinger.ping(phoneNumber);
-            
+
             if(latency == null){
             	out.println("Ping Timedout");
             }else{
             	out.println("Ping roundtrip time: " + latency);
             }
-            
+
         } catch (Throwable e) {
         	err.println(e);
         }

@@ -80,7 +80,7 @@ public class RrdFileConstants extends Object {
             return isValidRRDDomainInterfaceDir(file);
         }
     };
-    
+
     /**
      * Convenience filter that matches integer-named directories that either
      * contain RRD files or directories that contain RRD files.
@@ -136,7 +136,7 @@ public class RrdFileConstants extends Object {
             return isValidRRDNodeSourceDir(file);
         }
     };
-    
+
     /**
      * <p>isValidRRDNodeSourceDir</p>
      *
@@ -147,7 +147,7 @@ public class RrdFileConstants extends Object {
         if (!file.isDirectory()) {
             return false;
         }
-    
+
         // if the nodeSource dir contains RRDs, then it is queryable
         final File[] nodeRRDs = file.listFiles(RRD_FILENAME_FILTER);
         if (nodeRRDs != null && nodeRRDs.length > 0) {
@@ -164,7 +164,7 @@ public class RrdFileConstants extends Object {
 
         return false;
     }
-     
+
     /**
      * Convenience filter that matches non-integer-named directories that
      * contain directories that contain RRD files.
@@ -175,7 +175,7 @@ public class RrdFileConstants extends Object {
             return isValidRRDDomainDir(file);
         }
     };
-    
+
     public static final FileFilter SOURCE_DIRECTORY_FILTER = new FileFilter() {
         @Override
         public boolean accept(final File file) {
@@ -192,7 +192,7 @@ public class RrdFileConstants extends Object {
             // if the directory name is an integer
             Integer.parseInt(file.getName());
         } catch (final Throwable e) {
-           
+
             // if the source dir contains integer-named directories, then
             // it is queryable
             final File[] idDirs = file.listFiles(NODE_DIRECTORY_FILTER);
@@ -219,7 +219,7 @@ public class RrdFileConstants extends Object {
             // if the directory name is an integer
             Integer.parseInt(file.getName());
         } catch (final Throwable e) {
-        
+
             // if the domain dir contains queryable interface directories, then
             // it is queryable
             final File[] intfDirs = file.listFiles(INTERFACE_DIRECTORY_FILTER);
@@ -277,7 +277,7 @@ public class RrdFileConstants extends Object {
 
         return false;
     }
-    
+
     /**
      * Determines if the provided File object represents a valid RRD latency
      * directory.
@@ -376,7 +376,7 @@ public class RrdFileConstants extends Object {
     	final Matcher matcher = GRAPHING_ESCAPE_PATTERN.matcher(path);
     	return matcher.replaceAll("\\\\$1");
     }
-    
+
     /**
      * <p>getRrdSuffix</p>
      *
@@ -385,5 +385,5 @@ public class RrdFileConstants extends Object {
     public static String getRrdSuffix() {
         return RrdUtils.getExtension();
     }
-    
+
 }

@@ -44,7 +44,7 @@ public class PropertyPath {
     private PropertyPath parent = null;
     private String propertyName;
     private String key;
-    
+
     /**
      * <p>Constructor for PropertyPath.</p>
      *
@@ -56,7 +56,7 @@ public class PropertyPath {
         if (lastIndex < 0) {
             propertyName = PropertyAccessorUtils.getPropertyName(canonicalPath);
             key = computeKey(canonicalPath);
-        } 
+        }
         else {
             parent = new PropertyPath(canonicalPath.substring(0, lastIndex));
             String lastProperty = canonicalPath.substring(lastIndex+1);
@@ -70,7 +70,7 @@ public class PropertyPath {
         if (keyPrefix < 0) {
             return "";
         }
-        
+
         int keySuffix = property.indexOf(PropertyAccessor.PROPERTY_KEY_SUFFIX_CHAR);
         return property.substring(keyPrefix+1, keySuffix);
     }
@@ -114,7 +114,7 @@ public class PropertyPath {
     public String getPropertyName() {
         return propertyName;
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -124,7 +124,7 @@ public class PropertyPath {
     public Object getValue(Object root) throws InvalidPropertyException {
         return getValue(PropertyAccessorFactory.forBeanPropertyAccess(root));
     }
-    
+
     /**
      * <p>getValue</p>
      *
@@ -134,6 +134,6 @@ public class PropertyPath {
     public Object getValue(BeanWrapper beanWrapper) throws InvalidPropertyException {
         return beanWrapper.getPropertyValue(toString());
     }
-    
+
 }
 

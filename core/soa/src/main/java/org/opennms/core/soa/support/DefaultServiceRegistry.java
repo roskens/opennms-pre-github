@@ -50,7 +50,7 @@ import org.opennms.core.soa.filter.FilterParser;
  * @version $Id: $
  */
 public class DefaultServiceRegistry implements ServiceRegistry {
-    
+
     /**
      * AnyFilter
      *
@@ -67,20 +67,20 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 
     /** Constant <code>INSTANCE</code> */
     public static final DefaultServiceRegistry INSTANCE = new DefaultServiceRegistry();
-    
+
     private class ServiceRegistration implements Registration {
 
         private boolean m_unregistered = false;
         private Object m_provider;
         private Map<String, String> m_properties;
         private Class<?>[] m_serviceInterfaces;
-        
+
         public ServiceRegistration(Object provider, Map<String, String> properties, Class<?>[] serviceInterfaces) {
             m_provider = provider;
             m_properties = properties;
             m_serviceInterfaces = serviceInterfaces;
         }
-        
+
 
         @Override
         public Map<String, String> getProperties() {
@@ -102,10 +102,10 @@ public class DefaultServiceRegistry implements ServiceRegistry {
                     return serviceInterface.cast( m_provider );
                 }
             }
-            
+
             throw new IllegalArgumentException("Provider not registered with interface " + serviceInterface);
         }
-        
+
         @Override
         public Object getProvider() {
         	return m_provider;
@@ -120,26 +120,26 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         public boolean isUnregistered() {
             return m_unregistered;
         }
-        
+
         @Override
         public void unregister() {
             m_unregistered = true;
             DefaultServiceRegistry.this.unregister(this);
             m_provider = null;
         }
-        
+
     }
-    
+
     private MultivaluedMap<Class<?>, ServiceRegistration> m_registrationMap = MultivaluedMapImpl.synchronizedMultivaluedMap();
     private MultivaluedMap<Class<?>, RegistrationListener<?>> m_listenerMap = MultivaluedMapImpl.synchronizedMultivaluedMap();
     private List<RegistrationHook> m_hooks = new CopyOnWriteArrayList<RegistrationHook>();
-    
+
     /** {@inheritDoc} */
     @Override
     public <T> T findProvider(Class<T> serviceInterface) {
         return findProvider(serviceInterface, null);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public <T> T findProvider(Class<T> serviceInterface, String filter) {
@@ -149,7 +149,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
         }
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public <T> Collection<T> findProviders(Class<T> serviceInterface) {
@@ -159,7 +159,7 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     /** {@inheritDoc} */
     @Override
     public <T> Collection<T> findProviders(Class<T> serviceInterface, String filter) {
-        
+
         Filter f = filter == null ? new AnyFilter() : new FilterParser().parse(filter);
 
         Set<ServiceRegistration> registrations = getRegistrations(serviceInterface);
@@ -194,24 +194,24 @@ public class DefaultServiceRegistry implements ServiceRegistry {
      */
     @Override
     public Registration register(Object serviceProvider, Map<String, String> properties, Class<?>... services) {
-        
+
         ServiceRegistration registration = new ServiceRegistration(serviceProvider, properties, services);
-        
+
         for(Class<?> serviceInterface : services) {
             m_registrationMap.add(serviceInterface, registration);
         }
-        
+
         fireRegistrationAdded(registration);
-        
+
         for(Class<?> serviceInterface : services) {
             fireProviderRegistered(serviceInterface, registration);
         }
 
-        
+
         return registration;
 
     }
-    
+
     private void fireRegistrationAdded(ServiceRegistration registration) {
     	for(RegistrationHook hook : m_hooks) {
     		hook.registrationAdded(registration);
@@ -229,13 +229,13 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     }
 
     private void unregister(ServiceRegistration registration) {
-        
+
         for(Class<?> serviceInterface : registration.getProvidedInterfaces()) {
             m_registrationMap.remove(serviceInterface, registration);
         }
-        
+
         fireRegistrationRemoved(registration);
-        
+
         for(Class<?> serviceInterface : registration.getProvidedInterfaces()) {
             fireProviderUnregistered(serviceInterface, registration);
         }
@@ -253,22 +253,22 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     public <T> void addListener(Class<T> service,  RegistrationListener<T> listener, boolean notifyForExistingProviders) {
 
         if (notifyForExistingProviders) {
-            
+
             Set<ServiceRegistration> registrations = null;
-            
+
             synchronized (m_registrationMap) {
                 m_listenerMap.add(service, listener);
                 registrations = getRegistrations(service);
             }
-            
+
             for(ServiceRegistration registration : registrations) {
                 listener.providerRegistered(registration, registration.getProvider(service));
             }
-            
+
         } else {
-            
+
             m_listenerMap.add(service, listener);
-            
+
         }
     }
 
@@ -277,24 +277,24 @@ public class DefaultServiceRegistry implements ServiceRegistry {
     public <T> void removeListener(Class<T> service, RegistrationListener<T> listener) {
         m_listenerMap.remove(service, listener);
     }
-    
+
     private <T> void fireProviderRegistered(Class<T> serviceInterface, Registration registration) {
         Set<RegistrationListener<T>> listeners = getListeners(serviceInterface);
-        
+
         for(RegistrationListener<T> listener : listeners) {
             listener.providerRegistered(registration, registration.getProvider(serviceInterface));
         }
     }
-    
+
     private <T> void fireProviderUnregistered(Class<T> serviceInterface, Registration registration) {
         Set<RegistrationListener<T>> listeners = getListeners(serviceInterface);
-        
+
         for(RegistrationListener<T> listener : listeners) {
             listener.providerUnregistered(registration, registration.getProvider(serviceInterface));
         }
-        
+
     }
-    
+
     @SuppressWarnings("unchecked")
     private <T> Set<RegistrationListener<T>> getListeners(Class<T> serviceInterface) {
         Set<RegistrationListener<?>> listeners = m_listenerMap.getCopy(serviceInterface);
@@ -304,18 +304,18 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 	@Override
 	public void addRegistrationHook(RegistrationHook hook, boolean notifyForExistingProviders) {
         if (notifyForExistingProviders) {
-            
+
             Set<ServiceRegistration> registrations = null;
-            
+
             synchronized (m_registrationMap) {
             	m_hooks.add(hook);
                 registrations = getAllRegistrations();
             }
-            
+
             for(ServiceRegistration registration : registrations) {
             	hook.registrationAdded(registration);
             }
-            
+
         } else {
             m_hooks.add(hook);
         }
@@ -325,16 +325,16 @@ public class DefaultServiceRegistry implements ServiceRegistry {
 	public void removeRegistrationHook(RegistrationHook hook) {
 		m_hooks.remove(hook);
 	}
-	
+
 	private Set<ServiceRegistration> getAllRegistrations() {
 		Set<ServiceRegistration> registrations = new LinkedHashSet<ServiceRegistration>();
-		
+
 		for(Set<ServiceRegistration> registrationSet: m_registrationMap.values()) {
 			registrations.addAll(registrationSet);
 		}
-		
+
 		return registrations;
-		
+
 	}
 
 }

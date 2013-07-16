@@ -40,7 +40,7 @@ public class EventParameter {
     private String m_name;
     private Object m_value;
     private Event m_event;
-    
+
     /**
      * <p>getEvent</p>
      *

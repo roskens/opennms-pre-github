@@ -49,30 +49,30 @@ public class OperationCommand extends Action implements Command  {
 
     Operation m_operation;
     Map<String, String> m_props;
-    
+
     public OperationCommand(String caption, Operation operation, Map<String, String> props) {
         super(caption == null ? props.get(Operation.OPERATION_LABEL) : caption);
         m_operation = operation;
         m_props = props;
     }
-    
+
     public OperationCommand(String caption, String menuLocation, String contextMenuLocation){
     	this(caption, null, getProperties(menuLocation, contextMenuLocation));
     }
-    
+
     public static Map<String, String> getProperties(String menuLocation, String contextMenuLocation){
         Map<String, String> props = new HashMap<String, String>();
         if(menuLocation != null){
             props.put(Operation.OPERATION_MENU_LOCATION, menuLocation);
         }
-        
+
         if(contextMenuLocation != null){
             props.put(Operation.OPERATION_CONTEXT_LOCATION, contextMenuLocation);
         }
-        
+
         return props;
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#doCommand(java.lang.Object, org.opennms.features.topology.app.internal.SimpleGraphContainer, com.vaadin.ui.Window, org.opennms.features.topology.app.internal.CommandManager)
      */
@@ -80,16 +80,16 @@ public class OperationCommand extends Action implements Command  {
     public void doCommand(List<VertexRef> targets, OperationContext operationContext) {
         m_operation.execute(targets, operationContext);
     }
-	
+
     /* (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#undoCommand()
      */
     @Override
     public void undoCommand() {
         throw new UnsupportedOperationException("The undoCommand is not supported at this time");
-        
+
     }
-	
+
     /* (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#getMenuPosition()
      */
@@ -98,7 +98,7 @@ public class OperationCommand extends Action implements Command  {
         String menuLocation = m_props.get(Operation.OPERATION_MENU_LOCATION);
         return menuLocation == null ? null : menuLocation.isEmpty() ? getCaption() : menuLocation + "|" + getCaption();
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.features.topology.app.internal.Command#isAction()
      */
@@ -107,12 +107,12 @@ public class OperationCommand extends Action implements Command  {
         String contextLocation = m_props.get(Operation.OPERATION_CONTEXT_LOCATION);
         return contextLocation != null;
     }
-    
+
     @Override
     public String toString() {
         return getCaption();
     }
-    
+
     @Override
     public Operation getOperation() {
         return m_operation;

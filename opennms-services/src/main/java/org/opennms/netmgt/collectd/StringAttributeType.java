@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.collector.Persister;
  * @version $Id: $
  */
 public class StringAttributeType extends SnmpAttributeType {
-    
+
     /**
      * <p>supportsType</p>
      *
@@ -50,7 +50,7 @@ public class StringAttributeType extends SnmpAttributeType {
     public static boolean supportsType(String rawType) {
         return rawType.toLowerCase().startsWith("string");
     }
-    
+
     /**
      * <p>Constructor for StringAttributeType.</p>
      *

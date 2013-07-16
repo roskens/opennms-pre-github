@@ -50,7 +50,7 @@ import org.springframework.util.StringUtils;
  * <p>AssetModel class.</p>
  */
 public class AssetModel {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AssetModel.class);
 
 
@@ -197,7 +197,7 @@ public class AssetModel {
             d.cleanUp();
         }
     }
-    
+
     /**
      * <p>modifyAsset</p>
      *
@@ -316,13 +316,13 @@ public class AssetModel {
         Assert.notNull(columnName, "argument columnName cannot be null");
         Assert.notNull(searchText, "argument searchText cannot be null");
 
-        /* 
+        /*
          * TODO: delete this test soon.
          * The category column is used in the search and but is not in the
          * s_columns static var.  This breaks the WebUI.
          */
         // Assert.isTrue(isColumnValid(columnName), "Column \"" + columnName + "\" is not a valid column name");
-        
+
         List<MatchingAsset> list = new ArrayList<MatchingAsset>();
 
         columnName = WebSecurityUtils.sanitizeDbColumnName(columnName);
@@ -351,7 +351,7 @@ public class AssetModel {
         } finally {
             d.cleanUp();
         }
-        
+
         return list.toArray(new MatchingAsset[list.size()]);
     }
 
@@ -381,7 +381,7 @@ public class AssetModel {
         } finally {
             d.cleanUp();
         }
-        
+
         return list.toArray(new MatchingAsset[list.size()]);
     }
 
@@ -506,48 +506,48 @@ public class AssetModel {
      */
     private static final String[][] s_columns = new String[][] {
         new String[] { "Address 1", "address1" },
-        new String[] { "Address 2", "address2" }, 
-        new String[] { "Asset Number", "assetNumber" }, 
-        new String[] { "Building", "building" }, 
-        new String[] { "Circuit ID", "circuitId" }, 
-        new String[] { "City", "city" }, 
-        new String[] { "Comments", "comment" }, 
-        new String[] { "Date Installed", "dateInstalled" }, 
-        new String[] { "Department", "department" }, 
-        new String[] { "Description", "description" }, 
-        new String[] { "Display Category", "displayCategory" }, 
-        new String[] { "Division", "division" }, 
-        new String[] { "Floor", "floor" }, 
-        new String[] { "Lease", "lease" }, 
-        new String[] { "Lease Expires", "leaseExpires" }, 
+        new String[] { "Address 2", "address2" },
+        new String[] { "Asset Number", "assetNumber" },
+        new String[] { "Building", "building" },
+        new String[] { "Circuit ID", "circuitId" },
+        new String[] { "City", "city" },
+        new String[] { "Comments", "comment" },
+        new String[] { "Date Installed", "dateInstalled" },
+        new String[] { "Department", "department" },
+        new String[] { "Description", "description" },
+        new String[] { "Display Category", "displayCategory" },
+        new String[] { "Division", "division" },
+        new String[] { "Floor", "floor" },
+        new String[] { "Lease", "lease" },
+        new String[] { "Lease Expires", "leaseExpires" },
         new String[] { "Maint Contract", "maintContract" },
-        new String[] { "Maint Contract Expires", "maintContractExpires" }, 
-        new String[] { "Maint Phone", "supportPhone" }, 
-        new String[] { "Manufacturer", "manufacturer" }, 
-        new String[] { "Model Number", "modelNumber" }, 
-        new String[] { "Notification Category", "notifyCategory" }, 
-        new String[] { "Operating System", "operatingSystem" }, 
-        new String[] { "Port", "port" }, 
-        new String[] { "Poller Category", "pollerCategory" }, 
-        new String[] { "Rack", "rack" }, 
-        new String[] { "Region", "region" }, 
-        new String[] { "Room", "room" }, 
-        new String[] { "Serial Number", "serialNumber" }, 
-        new String[] { "Slot", "slot" }, 
-        new String[] { "State", "state" }, 
-        new String[] { "Threshold Category", "thresholdCategory" }, 
+        new String[] { "Maint Contract Expires", "maintContractExpires" },
+        new String[] { "Maint Phone", "supportPhone" },
+        new String[] { "Manufacturer", "manufacturer" },
+        new String[] { "Model Number", "modelNumber" },
+        new String[] { "Notification Category", "notifyCategory" },
+        new String[] { "Operating System", "operatingSystem" },
+        new String[] { "Port", "port" },
+        new String[] { "Poller Category", "pollerCategory" },
+        new String[] { "Rack", "rack" },
+        new String[] { "Region", "region" },
+        new String[] { "Room", "room" },
+        new String[] { "Serial Number", "serialNumber" },
+        new String[] { "Slot", "slot" },
+        new String[] { "State", "state" },
+        new String[] { "Threshold Category", "thresholdCategory" },
         new String[] { "User Last Modified", "userLastModified" },
-        new String[] { "Vendor", "vendor" }, 
-        new String[] { "Vendor Asset Number", "vendorAssetNumber" }, 
-        new String[] { "Vendor Fax", "vendorFax" }, 
-        new String[] { "Vendor Phone", "vendorPhone" }, 
+        new String[] { "Vendor", "vendor" },
+        new String[] { "Vendor Asset Number", "vendorAssetNumber" },
+        new String[] { "Vendor Fax", "vendorFax" },
+        new String[] { "Vendor Phone", "vendorPhone" },
         new String[] { "ZIP Code", "zip" },
         new String[] { "Username", "username" },
         new String[] { "Password", "password" },
         new String[] { "Enable Password", "enable" },
         new String[] { "Connection type", "connection" },
         new String[] { "Auto Enable", "autoenable" },
-        new String[] { "Cpu", "cpu" },        
+        new String[] { "Cpu", "cpu" },
         new String[] { "Ram", "ram" },
         new String[] { "Storage Controller", "storagectrl" },
         new String[] { "HDD 1", "hdd1" },

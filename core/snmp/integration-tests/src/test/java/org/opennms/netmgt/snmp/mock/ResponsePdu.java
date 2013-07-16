@@ -29,7 +29,7 @@
 package org.opennms.netmgt.snmp.mock;
 
 public class ResponsePdu extends TestPdu {
-    
+
     // we only use the errors related to reading since we don't support writing yet
     public static final int NO_ERR = 0;
     public static final int TOO_BIG_ERR = 1;
@@ -42,22 +42,22 @@ public class ResponsePdu extends TestPdu {
     public ResponsePdu() {
         super();
     }
-    
+
     public int getErrorStatus() {
         return m_errorStatus;
     }
-    
+
     void setErrorStatus(int errorStatus) {
         m_errorStatus = errorStatus;
     }
-    
+
     public int getErrorIndex() {
         return m_errorIndex;
     }
-    
+
     void setErrorIndex(int errorIndex) {
         m_errorIndex = errorIndex;
     }
 
-    
+
 }

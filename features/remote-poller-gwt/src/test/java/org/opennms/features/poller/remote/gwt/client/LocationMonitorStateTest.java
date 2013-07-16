@@ -53,7 +53,7 @@ public class LocationMonitorStateTest {
 		monitors.add(getMonitor("CONFIG_CHANGED"));
 		lms = new LocationMonitorState(monitors, null);
 		assertTrue("all location monitors should be STARTED or CONFIG_CHANGED", lms.allMonitorsStarted());
-		
+
 		monitors.add(getMonitor("DISCONNECTED"));
 		lms = new LocationMonitorState(monitors, null);
 		assertFalse("at least one monitor is not STARTED or CONFIG_CHANGED", lms.allMonitorsStarted());
@@ -73,7 +73,7 @@ public class LocationMonitorStateTest {
 		lms = new LocationMonitorState(monitors, null);
 		assertTrue("at least one monitor is CONFIG_CHANGED or STARTED", lms.atLeastOneMonitorStarted());
 	}
-	
+
 	@Test
 	public void testAllButOneMonitorsDisconnected() {
 		Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
@@ -82,11 +82,11 @@ public class LocationMonitorStateTest {
 		}
 		LocationMonitorState lms = new LocationMonitorState(monitors, null);
 		assertFalse("all monitors should be DISCONNECTED", lms.allButOneMonitorsDisconnected());
-		
+
 		monitors.add(getMonitor("STARTED"));
 		lms = new LocationMonitorState(monitors, null);
 		assertTrue("all but one monitors are DISCONNECTED", lms.allButOneMonitorsDisconnected());
-		
+
 		monitors.add(getMonitor("CONFIG_CHANGED"));
 		lms = new LocationMonitorState(monitors, null);
 		assertFalse("more than one monitor is STARTED or CONFIG_CHANGED", lms.allButOneMonitorsDisconnected());
@@ -106,7 +106,7 @@ public class LocationMonitorStateTest {
 			status.setMonitoredService(getService(++count, "HTTP"));
 			status.setPollResult(GWTPollResult.available(100));
 			statuses.add(status);
-			
+
 			status = new GWTLocationSpecificStatus();
 			status.setId(++count);
 			status.setLocationMonitor(monitor);
@@ -114,7 +114,7 @@ public class LocationMonitorStateTest {
 			status.setPollResult(GWTPollResult.available(150));
 			statuses.add(status);
 		}
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, statuses);
 		assertEquals("status should be up", Status.UP, lms.getStatusDetails().getStatus());
 	}
@@ -136,7 +136,7 @@ public class LocationMonitorStateTest {
 		status.setMonitoredService(getService(++count, "HTTP"));
 		status.setPollResult(GWTPollResult.available(100));
 		statuses.add(status);
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, statuses);
 		assertEquals("status should be marginal if only one monitor started, and more than one disconnected", Status.MARGINAL, lms.getStatusDetails().getStatus());
 	}
@@ -145,7 +145,7 @@ public class LocationMonitorStateTest {
 	public void testMarkerStatusSomeReportDownStatus() {
 		Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
 		Collection<GWTLocationSpecificStatus> statuses = new ArrayList<GWTLocationSpecificStatus>();
-		
+
 		int httpServiceId = ++count;
 		int ftpServiceId = ++count;
 
@@ -201,7 +201,7 @@ public class LocationMonitorStateTest {
 			status.setMonitoredService(getService(++count, "HTTP"));
 			status.setPollResult(GWTPollResult.available(100));
 			statuses.add(status);
-			
+
 			status = new GWTLocationSpecificStatus();
 			status.setId(++count);
 			status.setLocationMonitor(monitor);
@@ -209,7 +209,7 @@ public class LocationMonitorStateTest {
 			status.setPollResult(GWTPollResult.down("totally busted!"));
 			statuses.add(status);
 		}
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, statuses);
 		assertEquals("status should be down when one service is down across all monitors", Status.DOWN, lms.getStatusDetails().getStatus());
 	}
@@ -229,7 +229,7 @@ public class LocationMonitorStateTest {
 			status.setPollResult(GWTPollResult.down("completely wacked"));
 			statuses.add(status);
 		}
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, statuses);
 		assertEquals("status should be down when one (of one) service is down across all monitors", Status.DOWN, lms.getStatusDetails().getStatus());
 	}
@@ -248,7 +248,7 @@ public class LocationMonitorStateTest {
 			status.setMonitoredService(getService(++count, "HTTP"));
 			status.setPollResult(GWTPollResult.down("exploded"));
 			statuses.add(status);
-			
+
 			status = new GWTLocationSpecificStatus();
 			status.setId(++count);
 			status.setLocationMonitor(monitor);
@@ -256,7 +256,7 @@ public class LocationMonitorStateTest {
 			status.setPollResult(GWTPollResult.down("casters up"));
 			statuses.add(status);
 		}
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, statuses);
 		assertEquals("status should be down when two services (of two) are down across all monitors", Status.DOWN, lms.getStatusDetails().getStatus());
 	}
@@ -289,7 +289,7 @@ public class LocationMonitorStateTest {
 	public void testMarkerStatusOnlyOneRegisteredMonitorIsStopped() {
 		Collection<GWTLocationMonitor> monitors = new ArrayList<GWTLocationMonitor>();
 		monitors.add(getMonitor("STOPPED"));
-		
+
 		LocationMonitorState lms = new LocationMonitorState(monitors, null);
 		assertEquals("single stopped monitor should be unknown", Status.UNKNOWN, lms.getStatusDetails().getStatus());
 	}

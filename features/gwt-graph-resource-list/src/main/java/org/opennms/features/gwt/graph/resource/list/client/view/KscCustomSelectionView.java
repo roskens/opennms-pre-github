@@ -37,7 +37,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 public class KscCustomSelectionView implements SelectionDisplay {
-    
+
     public static final String VIEW = "view";
     public static final String CUSTOMIZE = "customize";
     public static final String CREATE_NEW = "createNew";
@@ -50,7 +50,7 @@ public class KscCustomSelectionView implements SelectionDisplay {
     RadioButton m_createNewRB;
     RadioButton m_createNewExistingRB;
     RadioButton m_deleteRB;
-    
+
     public KscCustomSelectionView() {
         m_vertPanel = new VerticalPanel();
         m_vertPanel.setStyleName("onms-table-no-borders-margin");
@@ -60,16 +60,16 @@ public class KscCustomSelectionView implements SelectionDisplay {
         m_createNewRB = new RadioButton("group1","Create New");
         m_createNewExistingRB = new RadioButton("group1","Create New from Existing");
         m_deleteRB = new RadioButton("group1","Delete");
-        
+
         m_vertPanel.add(m_viewRB);
         m_vertPanel.add(m_customizeRB);
         m_vertPanel.add(m_createNewRB);
         m_vertPanel.add(m_createNewExistingRB);
         m_vertPanel.add(m_deleteRB);
         m_vertPanel.add(m_submitButton);
-        
+
     }
-    
+
     @Override
     public HasClickHandlers getSubmitButton() {
         return m_submitButton;

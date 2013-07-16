@@ -40,21 +40,21 @@ import org.opennms.netmgt.poller.ServiceMonitorLocator;
  * @version $Id: $
  */
 public interface PollService {
-    
+
     /**
      * <p>setServiceMonitorLocators</p>
      *
      * @param locators a {@link java.util.Collection} object.
      */
     public void setServiceMonitorLocators(Collection<ServiceMonitorLocator> locators);
-    
+
     /**
      * <p>initialize</p>
      *
      * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
     public void initialize(PolledService polledService);
-	
+
 	/**
 	 * <p>poll</p>
 	 *
@@ -62,13 +62,13 @@ public interface PollService {
 	 * @return a {@link org.opennms.netmgt.model.PollStatus} object.
 	 */
 	public PollStatus poll(PolledService polledService);
-    
+
     /**
      * <p>release</p>
      *
      * @param polledService a {@link org.opennms.netmgt.poller.remote.PolledService} object.
      */
     public void release(PolledService polledService);
-    
+
 
 }

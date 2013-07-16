@@ -53,7 +53,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -68,13 +68,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase
 public class NetworkElementFactoryTest implements InitializingBean {
-    
+
     @Autowired
     DatabasePopulator m_dbPopulator;
-    
+
     @Autowired
     ApplicationContext m_appContext;
-    
+
     @Autowired
     DataSource m_dataSource;
 
@@ -83,37 +83,37 @@ public class NetworkElementFactoryTest implements InitializingBean {
 
     @Autowired
     NodeDao m_nodeDao;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     @Before
     public void setUp() {
         m_dbPopulator.populateDatabase();
     }
-    
+
     @Test
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetNodeLabel() throws SQLException {
         String nodeLabel = NetworkElementFactory.getInstance(m_appContext).getNodeLabel(1);
-        
+
         assertEquals(nodeLabel, "node1");
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
     public void testGetIpPrimaryAddress() throws SQLException {
         m_jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeType, nodeLabel) VALUES (12, now(), 'A', 'nodeLabel')");
         m_jdbcTemplate.update("INSERT INTO ipinterface (nodeid, ipaddr, iplastcapsdpoll, issnmpprimary) VALUES (12, '172.168.1.1', now(), 'P')");
-        
+
         String ipAddr = NetworkElementFactory.getInstance(m_appContext).getIpPrimaryAddress(12);
-        
+
         assertEquals(ipAddr, "172.168.1.1");
     }
-    
+
     @Test
     @Transactional
     @JUnitTemporaryDatabase
@@ -126,11 +126,11 @@ public class NetworkElementFactoryTest implements InitializingBean {
 
         m_jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeType) VALUES (12, now(), 'A')");
         m_jdbcTemplate.update("INSERT INTO ipInterface (nodeId, ipAddr, isManaged) VALUES (12, '1.1.1.1', 'M')");
-        
+
         final List<OnmsNode> nodes = NetworkElementFactory.getInstance(m_appContext).getNodesWithIpLike("*.*.*.*");
         assertEquals("node count", 1, nodes.size());
     }
-    
+
     // bug introduced in revision 2932
     @Test
     @JUnitTemporaryDatabase
@@ -144,7 +144,7 @@ public class NetworkElementFactoryTest implements InitializingBean {
         m_jdbcTemplate.update("INSERT INTO node (nodeId, nodeCreateTime, nodeType) VALUES (12, now(), 'A')");
         m_jdbcTemplate.update("INSERT INTO ipInterface (nodeId, ipAddr, isManaged) VALUES (12, '1.1.1.1', 'M')");
         m_jdbcTemplate.update("INSERT INTO ipInterface (nodeId, ipAddr, isManaged) VALUES (12, '1.1.1.2', 'M')");
-        
+
         final List<OnmsNode> nodes = NetworkElementFactory.getInstance(m_appContext).getNodesWithIpLike("*.*.*.*");
         assertEquals("node count", 1, nodes.size());
     }
@@ -171,42 +171,42 @@ public class NetworkElementFactoryTest implements InitializingBean {
     public void testGetActiveInterfacesOnNode() {
     	Interface[] intfs = NetworkElementFactory.getInstance(m_appContext).getActiveInterfacesOnNode(m_dbPopulator.getNode1().getId());
     	assertEquals("active interfaces", 4, intfs.length);
-    	
+
     }
-        
+
     @Test
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetDataLinksOnInterface() {
         List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(), 1);
         assertEquals(4, dlis.size());
-        
+
         List<LinkInterface> dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnInterface(m_dbPopulator.getNode1().getId(), 9);
         assertEquals(0, dlis2.size());
     }
-    
+
     @Test
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetAtInterfaces() throws Exception {
         AtInterface atif = NetworkElementFactory.getInstance(m_appContext).getAtInterface(m_dbPopulator.getNode2().getId(), "192.168.2.1");
         assertEquals("AA:BB:CC:DD:EE:FF", atif.get_physaddr());
-        
+
         List<OnmsNode> nodes = NetworkElementFactory.getInstance(m_appContext).getNodesFromPhysaddr("AA:BB:CC:DD:EE:FF");
         assertEquals(1, nodes.size());
     }
-    
+
     @Test
     @Transactional
     @JUnitTemporaryDatabase
     public void testGetDataLinksOnNode() throws SQLException {
     	List<LinkInterface> dlis = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnNode(m_dbPopulator.getNode1().getId());
         assertEquals(5, dlis.size());
-        
+
         List<LinkInterface> dlis2 = NetworkElementFactory.getInstance(m_appContext).getDataLinksOnNode(100);
         assertEquals(0, dlis2.size());
     }
-    
+
     @Test
     @JUnitTemporaryDatabase
     public void testGetServicesOnInterface() {

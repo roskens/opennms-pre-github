@@ -37,7 +37,7 @@ import java.util.Collection;
  * @version $Id: $
  */
 public interface EventSubscriptionService {
-    
+
     /**
      * Registers an event listener that is interested in all events
      *

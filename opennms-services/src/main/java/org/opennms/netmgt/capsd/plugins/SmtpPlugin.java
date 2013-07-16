@@ -68,7 +68,7 @@ public final class SmtpPlugin extends AbstractPlugin {
      * The regular expression test used to determine if the reply is a multi
      * line reply. A multi line reply is one that each line, but the last, is in
      * the form of "ddd-" where 'ddd' is the result code.
-     * 
+     *
      */
     private static final RE MULTILINE_RESULT;
 
@@ -116,12 +116,12 @@ public final class SmtpPlugin extends AbstractPlugin {
      * true is returned from the method. Otherwise a false value is returned to
      * the caller.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to connect to.
      * @param port
      *            The remote port on the host.
-     * 
+     *
      * @return True if server supports SMTP on the specified port, false
      *         otherwise
      */

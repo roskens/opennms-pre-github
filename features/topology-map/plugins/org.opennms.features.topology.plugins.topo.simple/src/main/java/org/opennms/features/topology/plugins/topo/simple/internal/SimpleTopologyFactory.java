@@ -47,7 +47,7 @@ import org.osgi.service.cm.ConfigurationException;
 import org.osgi.service.cm.ManagedServiceFactory;
 
 public class SimpleTopologyFactory implements ManagedServiceFactory {
-		
+
 	private static final String TOPOLOGY_LOCATION = "topologyLocation";
 	private static final String LABEL = "label";
 
@@ -66,7 +66,7 @@ public class SimpleTopologyFactory implements ManagedServiceFactory {
 
 	@Override
 	public void updated(String pid, @SuppressWarnings("unchecked") Dictionary properties) throws ConfigurationException {
-		
+
 		try {
 			String location = (String)properties.get(TOPOLOGY_LOCATION);
 			URI url = new URI(location);
@@ -117,9 +117,9 @@ public class SimpleTopologyFactory implements ManagedServiceFactory {
 		if (registration != null) {
 			registration.unregister();
 		}
-		
+
 		m_providers.remove(pid);
-			
+
 	}
 
 }

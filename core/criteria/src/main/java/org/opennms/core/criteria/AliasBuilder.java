@@ -38,9 +38,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AliasBuilder {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AliasBuilder.class);
-	
+
     final Map<String, Alias> m_aliases = new HashMap<String, Alias>();
 
     public AliasBuilder alias(final String associationPath, final String alias, final JoinType type) {

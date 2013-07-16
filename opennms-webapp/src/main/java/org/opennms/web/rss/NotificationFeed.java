@@ -49,7 +49,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  * @since 1.8.1
  */
 public class NotificationFeed extends AbstractFeed {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NotificationFeed.class);
 
 
@@ -73,7 +73,7 @@ public class NotificationFeed extends AbstractFeed {
             Notification[] notifications = model.allNotifications("desc");
 
             SyndEntry entry;
-            
+
             int count = 0;
             for (Notification notification : notifications) {
                 if (count++ == this.getMaxEntries()) {
@@ -89,13 +89,13 @@ public class NotificationFeed extends AbstractFeed {
                     entry.setUpdatedDate(notification.getTimeReplied());
                 }
                 entry.setLink(getUrlBase() + "notification/detail.jsp?notice=" + notification.getId());
-                
+
                 entries.add(entry);
             }
         } catch (SQLException e) {
             LOG.warn("unable to get outstanding notifications", e);
         }
-        
+
         feed.setEntries(entries);
         return feed;
     }

@@ -39,9 +39,9 @@ import org.smslib.test.*;
  * @version $Id: $
  */
 public class TestGatewayGroupImpl implements GatewayGroup {
-	
+
 	AGateway[] m_gateways;
-	
+
 	/**
 	 * <p>Constructor for TestGatewayGroupImpl.</p>
 	 */
@@ -49,7 +49,7 @@ public class TestGatewayGroupImpl implements GatewayGroup {
 		m_gateways = new AGateway[1];
 		m_gateways[0] = new TestGateway("modem.id");
 	}
-	
+
 	/**
 	 * <p>getGateways</p>
 	 *
@@ -59,5 +59,5 @@ public class TestGatewayGroupImpl implements GatewayGroup {
 	public AGateway[] getGateways() {
 		return m_gateways;
 	}
-	
+
 }

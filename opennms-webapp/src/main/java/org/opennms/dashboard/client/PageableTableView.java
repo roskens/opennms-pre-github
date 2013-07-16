@@ -50,21 +50,21 @@ public abstract class PageableTableView extends DashletView implements Pageable 
 	private String[] m_headings;
 	private int m_pageSize = 5;
 	private int m_currentIndex = 0;
-	
+
 	PageableTableView(Dashlet dashlet, int pageSize, String[] headings) {
         super(dashlet);
         m_pageSize = pageSize;
-        
+
         initializeTable(headings);
-        
+
         m_pager = new Pager(this);
-        
+
         //m_panel.add(m_pager);
         m_panel.add(m_table);
         initWidget(m_panel);
-        
+
     }
-    
+
     /**
      * <p>onDashLoad</p>
      */
@@ -99,10 +99,10 @@ public abstract class PageableTableView extends DashletView implements Pageable 
      * @param headings an array of {@link java.lang.String} objects.
      */
     protected void initializeTable(String[] headings) {
-	    
+
 	    setHeadings(headings);
-	    
-	    for(int i = 1; i <= getPageSize(); i++) {  
+
+	    for(int i = 1; i <= getPageSize(); i++) {
 	        clearRow(i);
 	    }
 	}
@@ -112,7 +112,7 @@ public abstract class PageableTableView extends DashletView implements Pageable 
 	    for(int i = 0; i < headings.length; i++) {
 	        m_table.setText(0, i, headings[i]);
 	    }
-	
+
 	    m_table.getRowFormatter().setStyleName(0, "header");
 	}
 
@@ -124,35 +124,35 @@ public abstract class PageableTableView extends DashletView implements Pageable 
 	    if (row >= m_table.getRowCount()) {
 	        return;
 	    }
-	    
+
 	    for(int column = 0; column < getColumnCount(); column++) {
 	    	m_table.clearCell(row, column);
 	    }
-	
+
 	    String currStyle = m_table.getRowFormatter().getStyleName(row);
 	    if (currStyle != null) {
 	        m_table.getRowFormatter().removeStyleName(row, currStyle);
 	    }
 	    formatCells(m_table, row);
-	
+
 	}
 
 	/**
 	 * <p>refresh</p>
 	 */
 	protected void refresh() {
-	
+
 	    int rows = Math.min(m_currentIndex+getPageSize(), getElementCount());
-	    
+
 	    for(int i = m_currentIndex+1; i <= rows; i++) {
 	        setRow(m_table, i - m_currentIndex, i-1);
 	        formatCells(m_table, i - m_currentIndex);
 	    }
-	    
+
 	    for(int i = rows+1; i <= m_currentIndex+getPageSize(); i++) {
 	        clearRow(i - m_currentIndex);
 	    }
-	
+
 	    m_pager.update();
 	}
 

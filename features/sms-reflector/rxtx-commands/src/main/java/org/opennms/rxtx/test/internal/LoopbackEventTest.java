@@ -207,11 +207,11 @@ public class LoopbackEventTest {
                 }
                 Thread.sleep(100);
             } catch (InterruptedException e) {
-            	
+
             } catch (IOException e) {
             	System.out.println(e);
             }
-            
+
         }
 
         public static void main(String[] args) {
@@ -224,13 +224,13 @@ public class LoopbackEventTest {
                 loopbackTest.connect(args[0]);
 
                 // Register the serial event handler
-                String testString = args.length < 2 
+                String testString = args.length < 2
                 	? "The quick brown fox jumps over the lazy dog"
                     : args[1].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\");
                 InputStream inStream =
                         loopbackTest.getSerialInputStream();
-                
-                String result = args.length < 3 ? testString : args[2].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\"); 
+
+                String result = args.length < 3 ? testString : args[2].replace("\\r", "\r").replace("\\n", "\n").replace("\\\\", "\\");
 
                 SerialEventHandler serialEventHandler =
                         new SerialEventHandler(inStream, 2048);
@@ -245,7 +245,7 @@ public class LoopbackEventTest {
                 for(int i = 0; i < bytes.length; i++) {
                 	outStream.write(bytes[i]);
                 }
-		    
+
                 // Wait until all the data is received
                 long startTime = System.currentTimeMillis();
                 long elapsedTime;
@@ -257,7 +257,7 @@ public class LoopbackEventTest {
                     } catch (InterruptedException ex) {
                     }
                     elapsedTime = System.currentTimeMillis() - startTime;
-                    
+
                     actual = serialEventHandler.getReadBuffer();
                     matches = actual.equals(result);
                     System.out.println("Expected: " + result + " Actual: " + actual + " Equals? " + matches);

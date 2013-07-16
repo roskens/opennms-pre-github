@@ -35,7 +35,7 @@ import org.opennms.netmgt.model.events.EventBuilder;
 import org.opennms.netmgt.xml.event.Event;
 
 public class TestEngine extends AbstractCorrelationEngine {
-    
+
     Integer m_timerId = null;
 
     @Override
@@ -57,9 +57,9 @@ public class TestEngine extends AbstractCorrelationEngine {
 		else {
 			throw new IllegalArgumentException("Unexpected event with uei = "+e.getUei());
 		}
-		
+
 	}
-    
+
     @Override
 	public List<String> getInterestingEvents() {
 		List<String> ueis = new ArrayList<String>();

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -77,7 +77,7 @@ import org.xml.sax.ContentHandler;
 
 /**
  * Class RuleSet.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -151,8 +151,8 @@ public class RuleSet implements Serializable {
 
 
 	/**
-     * 
-     * 
+     *
+     *
      * @param vEvent
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -164,8 +164,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vEvent
      * @throws IndexOutOfBoundsException if the index
@@ -179,8 +179,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vGlobal
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -192,8 +192,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vGlobal
      * @throws IndexOutOfBoundsException if the index
@@ -207,8 +207,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRuleFile
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -220,8 +220,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRuleFile
      * @throws IndexOutOfBoundsException if the index
@@ -236,7 +236,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method enumerateEvent.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -247,7 +247,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method enumerateGlobal.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -258,7 +258,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method enumerateRuleFile.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -269,7 +269,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Returns the value of field 'appContext'.
-     * 
+     *
      * @return the value of field 'AppContext'.
      */
     public String getAppContext(
@@ -279,7 +279,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getEvent.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -292,7 +292,7 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._eventList.size()) {
             throw new IndexOutOfBoundsException("getEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
         }
-        
+
         return (String) _eventList.get(index);
     }
 
@@ -302,7 +302,7 @@ public class RuleSet implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public String[] getEvent(
@@ -315,7 +315,7 @@ public class RuleSet implements Serializable {
      * Method getEventCollection.Returns a reference to
      * '_eventList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getEventCollection(
@@ -325,7 +325,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getEventCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getEventCount(
@@ -335,7 +335,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getGlobal.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -350,7 +350,7 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._globalList.size()) {
             throw new IndexOutOfBoundsException("getGlobal: Index value '" + index + "' not in range [0.." + (this._globalList.size() - 1) + "]");
         }
-        
+
         return (Global) _globalList.get(index);
     }
 
@@ -360,7 +360,7 @@ public class RuleSet implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Global[] getGlobal(
@@ -373,7 +373,7 @@ public class RuleSet implements Serializable {
      * Method getGlobalCollection.Returns a reference to
      * '_globalList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<Global> getGlobalCollection(
@@ -383,7 +383,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getGlobalCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getGlobalCount(
@@ -393,7 +393,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public String getName(
@@ -403,7 +403,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getRuleFile.
-     * 
+     *
      * @param index
      * @throws IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -416,7 +416,7 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._ruleFileList.size()) {
             throw new IndexOutOfBoundsException("getRuleFile: Index value '" + index + "' not in range [0.." + (this._ruleFileList.size() - 1) + "]");
         }
-        
+
         return (String) _ruleFileList.get(index);
     }
 
@@ -426,7 +426,7 @@ public class RuleSet implements Serializable {
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public String[] getRuleFile(
@@ -439,7 +439,7 @@ public class RuleSet implements Serializable {
      * Method getRuleFileCollection.Returns a reference to
      * '_ruleFileList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public List<String> getRuleFileCollection(
@@ -449,7 +449,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method getRuleFileCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getRuleFileCount(
@@ -459,7 +459,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -474,7 +474,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method iterateEvent.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -485,7 +485,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method iterateGlobal.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -496,7 +496,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method iterateRuleFile.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -506,8 +506,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -521,8 +521,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws IOException if an IOException occurs during
      * marshaling
@@ -560,7 +560,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeEvent.
-     * 
+     *
      * @param vEvent
      * @return true if the object was removed from the collection.
      */
@@ -572,7 +572,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeEventAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -584,7 +584,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeGlobal.
-     * 
+     *
      * @param vGlobal
      * @return true if the object was removed from the collection.
      */
@@ -596,7 +596,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeGlobalAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -608,7 +608,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeRuleFile.
-     * 
+     *
      * @param vRuleFile
      * @return true if the object was removed from the collection.
      */
@@ -620,7 +620,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method removeRuleFileAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -632,7 +632,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Sets the value of field 'appContext'.
-     * 
+     *
      * @param appContext the value of field 'appContext'.
      */
     public void setAppContext(
@@ -641,8 +641,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vEvent
      * @throws IndexOutOfBoundsException if the index
@@ -656,20 +656,20 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._eventList.size()) {
             throw new IndexOutOfBoundsException("setEvent: Index value '" + index + "' not in range [0.." + (this._eventList.size() - 1) + "]");
         }
-        
+
         this._eventList.set(index, vEvent);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vEventArray
      */
     public void setEvent(
             final String[] vEventArray) {
         //-- copy array
         _eventList.clear();
-        
+
         for (int i = 0; i < vEventArray.length; i++) {
                 this._eventList.add(vEventArray[i]);
         }
@@ -678,14 +678,14 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_eventList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vEventList the Vector to copy.
      */
     public void setEvent(
             final List<String> vEventList) {
         // copy vector
         this._eventList.clear();
-        
+
         this._eventList.addAll(vEventList);
     }
 
@@ -693,7 +693,7 @@ public class RuleSet implements Serializable {
      * Sets the value of '_eventList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param eventList the Vector to set.
      */
     public void setEventCollection(
@@ -702,8 +702,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vGlobal
      * @throws IndexOutOfBoundsException if the index
@@ -717,20 +717,20 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._globalList.size()) {
             throw new IndexOutOfBoundsException("setGlobal: Index value '" + index + "' not in range [0.." + (this._globalList.size() - 1) + "]");
         }
-        
+
         this._globalList.set(index, vGlobal);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vGlobalArray
      */
     public void setGlobal(
             final Global[] vGlobalArray) {
         //-- copy array
         _globalList.clear();
-        
+
         for (int i = 0; i < vGlobalArray.length; i++) {
                 this._globalList.add(vGlobalArray[i]);
         }
@@ -739,14 +739,14 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_globalList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vGlobalList the Vector to copy.
      */
     public void setGlobal(
             final List<Global> vGlobalList) {
         // copy vector
         this._globalList.clear();
-        
+
         this._globalList.addAll(vGlobalList);
     }
 
@@ -754,7 +754,7 @@ public class RuleSet implements Serializable {
      * Sets the value of '_globalList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param globalList the Vector to set.
      */
     public void setGlobalCollection(
@@ -764,7 +764,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -773,8 +773,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vRuleFile
      * @throws IndexOutOfBoundsException if the index
@@ -788,20 +788,20 @@ public class RuleSet implements Serializable {
         if (index < 0 || index >= this._ruleFileList.size()) {
             throw new IndexOutOfBoundsException("setRuleFile: Index value '" + index + "' not in range [0.." + (this._ruleFileList.size() - 1) + "]");
         }
-        
+
         this._ruleFileList.set(index, vRuleFile);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vRuleFileArray
      */
     public void setRuleFile(
             final String[] vRuleFileArray) {
         //-- copy array
         _ruleFileList.clear();
-        
+
         for (int i = 0; i < vRuleFileArray.length; i++) {
                 this._ruleFileList.add(vRuleFileArray[i]);
         }
@@ -810,14 +810,14 @@ public class RuleSet implements Serializable {
     /**
      * Sets the value of '_ruleFileList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vRuleFileList the Vector to copy.
      */
     public void setRuleFile(
             final List<String> vRuleFileList) {
         // copy vector
         this._ruleFileList.clear();
-        
+
         this._ruleFileList.addAll(vRuleFileList);
     }
 
@@ -825,7 +825,7 @@ public class RuleSet implements Serializable {
      * Sets the value of '_ruleFileList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param ruleFileList the Vector to set.
      */
     public void setRuleFileCollection(
@@ -835,7 +835,7 @@ public class RuleSet implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -851,8 +851,8 @@ public class RuleSet implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */
@@ -921,7 +921,7 @@ public class RuleSet implements Serializable {
 
 	public CorrelationEngine constructEngine(Resource basePath, ApplicationContext appContext, EventIpcManager eventIpcManager) {
 		final ApplicationContext configContext = new ConfigFileApplicationContext(basePath, getConfigLocation(), appContext);
-		
+
 		final DroolsCorrelationEngine engine = new DroolsCorrelationEngine();
 		engine.setName(getName());
 		engine.setAssertBehaviour(getAssertBehaviour());
@@ -941,11 +941,11 @@ public class RuleSet implements Serializable {
 
 	public Map<String, Object> getGlobals(final ApplicationContext context) {
 		final Map<String, Object> globals = new HashMap<String, Object>();
-	
+
 		for(final Global global : getGlobal()) {
 	        globals.put(global.getName(), global.constructValue(context));
 		}
-	
+
 		return globals;
 	}
 
@@ -965,7 +965,7 @@ public class RuleSet implements Serializable {
 		for(final String resourcePath : getRuleFile()) {
 	        resources.add( getResource(resourceLoader, resourcePath) );
 	    }
-	    
+
 	    return resources;
 	}
 
@@ -973,7 +973,7 @@ public class RuleSet implements Serializable {
 	public String getConfigLocation() {
 		return PropertiesUtils.substitute(getAppContext(), System.getProperties());
 	}
-    
-    
+
+
 
 }

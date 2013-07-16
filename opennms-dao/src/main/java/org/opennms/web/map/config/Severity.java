@@ -40,7 +40,7 @@ public class Severity implements Comparable<Severity> {
 	private String label;
 	private String color;
 
-	private boolean flash = false; 
+	private boolean flash = false;
 	/**
 	 * <p>Constructor for Severity.</p>
 	 *
@@ -54,7 +54,7 @@ public class Severity implements Comparable<Severity> {
 		this.label = label;
 		this.color = color;
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 *
@@ -67,7 +67,7 @@ public class Severity implements Comparable<Severity> {
 		else if(this.id<othSev.getId()) return -1;
 		else  return 1;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>color</code>.</p>
 	 *

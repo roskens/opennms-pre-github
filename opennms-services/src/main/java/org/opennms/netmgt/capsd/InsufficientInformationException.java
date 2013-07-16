@@ -40,7 +40,7 @@ package org.opennms.netmgt.capsd;
 public class InsufficientInformationException extends Exception {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 8687696175850117574L;
 

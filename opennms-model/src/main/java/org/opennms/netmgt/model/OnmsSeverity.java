@@ -48,9 +48,9 @@ public enum OnmsSeverity implements Serializable {
     MINOR(5, "Minor", "yellow"),
     MAJOR(6, "Major", "orange"),
     CRITICAL(7, "Critical", "red");
-    
-    private static final Map<Integer, OnmsSeverity> m_idMap; 
-    
+
+    private static final Map<Integer, OnmsSeverity> m_idMap;
+
     private int m_id;
     private String m_label;
     private String m_color;
@@ -67,7 +67,7 @@ public enum OnmsSeverity implements Serializable {
         m_label = label;
         m_color = color;
     }
-    
+
     /**
      * <p>getId</p>
      *
@@ -76,7 +76,7 @@ public enum OnmsSeverity implements Serializable {
     public int getId() {
         return m_id;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -124,7 +124,7 @@ public enum OnmsSeverity implements Serializable {
     public boolean isGreaterThan(final OnmsSeverity other) {
         return compareTo(other) > 0;
     }
-    
+
     /**
      * <p>isGreaterThanOrEqual</p>
      *
@@ -134,7 +134,7 @@ public enum OnmsSeverity implements Serializable {
     public boolean isGreaterThanOrEqual(final OnmsSeverity other) {
         return compareTo(other) >= 0;
     }
-    
+
     /**
      * <p>get</p>
      *

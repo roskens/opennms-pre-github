@@ -42,10 +42,10 @@ import org.opennms.netmgt.alarmd.api.Preservable;
 /**
  * Based on Matt's queue implementation of event forwarding in opennmsd (OVAPI daemon)
  * When in forwarding state, uses Nagle's algorithm to batch up alarms for forwarding by the NBI.
- * 
+ *
  * FIXME: Need to make sure the are reasonable defaults in the configuration just-in-case
- * the NBI implementations don't set the batch size, etc. 
- * 
+ * the NBI implementations don't set the batch size, etc.
+ *
  * @auther <a mailto:brozow@opennms.org>Matt Brozowski</a>
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
@@ -65,11 +65,11 @@ class AlarmQueue<T extends Preservable> {
             }
             m_preservedQueue.offer(a);
         }
-        
+
         protected void discardNonPreservedAlarms() {
             List<T> alarms = new ArrayList<T>(m_queue.size());
             m_queue.drainTo(alarms);
-            
+
             addPreservedToPreservedQueue(alarms);
         }
 
@@ -85,21 +85,21 @@ class AlarmQueue<T extends Preservable> {
         protected void loadNextBatch() {
             m_preservedQueue.drainTo(m_nextBatch, m_maxBatchSize - m_nextBatch.size());
         }
-        
+
     }
-    
+
     private final State FORWARDING = new State() {
 
         @Override
         public List<T> getAlarmsToForward() throws InterruptedException {
             List<T> alarms = new ArrayList<T>(m_maxBatchSize);
-            
+
             T a = m_queue.take();
             alarms.add(a);
-            
-            
+
+
             m_queue.drainTo(alarms, m_maxBatchSize - alarms.size());
-            
+
             if (m_naglesDelay <= 0) {
                 return alarms;
             }
@@ -108,19 +108,19 @@ class AlarmQueue<T extends Preservable> {
             long expirationTime = now + m_naglesDelay;
             while (alarms.size() < m_maxBatchSize && now < expirationTime) {
                 T alarm = m_queue.poll(expirationTime - now, TimeUnit.MILLISECONDS);
-                
+
                 if (alarm != null) {
                     alarms.add(alarm);
                     m_queue.drainTo(alarms, m_maxBatchSize - alarms.size());
                 }
-                
+
                 now = System.currentTimeMillis();
             }
 
             return alarms;
-            
+
         }
-        
+
         @Override
         public void forwardSuccessful(List<T> alarms) {
             // no need to do anything here
@@ -128,19 +128,19 @@ class AlarmQueue<T extends Preservable> {
 
         @Override
         public void forwardFailed(List<T> alarms) {
-            
+
             addPreservedToPreservedQueue(alarms);
-            
+
             if (!m_preservedQueue.isEmpty()) {
                setState(FAILING);
             }
         }
-        
+
         @Override
         public String toString() { return "FORWARDING"; }
 
     };
-    
+
     private final State FAILING = new State() {
 
         @Override
@@ -148,8 +148,8 @@ class AlarmQueue<T extends Preservable> {
             discardNonPreservedAlarms();
 
             loadNextBatch();
-            
-            
+
+
             //Matt, why are we returning a field?
             return m_nextBatch;
         }
@@ -171,9 +171,9 @@ class AlarmQueue<T extends Preservable> {
 
         @Override
         public String toString() { return "FAILING"; }
-        
+
     };
-    
+
     private final State RECOVERING = new State() {
 
         @Override
@@ -181,7 +181,7 @@ class AlarmQueue<T extends Preservable> {
             loadNextBatch();
             return m_nextBatch;
         }
-        
+
         @Override
         public void forwardFailed(List<T> alarms) {
             setState(FAILING);
@@ -197,11 +197,11 @@ class AlarmQueue<T extends Preservable> {
 
         @Override
         public String toString() {
-            return "RECOVERING"; 
+            return "RECOVERING";
         }
-        
+
     };
-    
+
     // operational parameters
     private int m_maxPreservedAlarms = 300000;
     private int m_maxBatchSize = 100;
@@ -209,39 +209,39 @@ class AlarmQueue<T extends Preservable> {
 
     // queue for all alarms to be forwarded
     private BlockingQueue<T> m_queue = new LinkedBlockingQueue<T>();
-    
+
     // queue for preserving alarms that are being saved during a forwarding failure
     private BlockingQueue<T> m_preservedQueue = new LinkedBlockingQueue<T>();
-    
+
     // a list of alarms that are pending due to a forwarding failure
     private List<T> m_nextBatch;
-    
+
     // used to define the behavior of the getNext and forwardSuccessful and forwardFailed
     private State m_state = FORWARDING;
-    
-    // creates messages use to indicate that a connection failure has 
+
+    // creates messages use to indicate that a connection failure has
     // occurred or queue has overflowed
     private StatusFactory<T> m_statusFactory;
-    
-    
+
+
     public AlarmQueue(StatusFactory<T> statusFactory) {
     	m_statusFactory = statusFactory;
 	}
-    
-    
+
+
     private void setState(State state) {
         m_state = state;
         LOG.debug("Setting state of AlarmQueue to {}", m_state);
     }
-    
+
     public long getNaglesDelay() {
         return m_naglesDelay;
     }
-    
+
     public void setNaglesDelay(long delay) {
         m_naglesDelay = delay;
     }
-    
+
     public int getMaxPreservedAlarms() {
         return m_maxPreservedAlarms;
     }
@@ -257,32 +257,32 @@ class AlarmQueue<T extends Preservable> {
     public void setMaxBatchSize(int maxBatchSize) {
         m_maxBatchSize = maxBatchSize;
     }
-    
+
     public void init() {
-       m_nextBatch = new ArrayList<T>(m_maxBatchSize); 
+       m_nextBatch = new ArrayList<T>(m_maxBatchSize);
     }
 
     public void discard(T a) {
         // do nothing
     }
-    
+
     public void accept(T a) {
         m_queue.offer(a);
     }
-    
+
     public void preserve(T a) {
         a.setPreserved(true);
         m_queue.offer(a);
     }
-    
+
     public List<T> getAlarmsToForward() throws InterruptedException {
         return m_state.getAlarmsToForward();
     }
-    
+
     public void forwardSuccessful(List<T> alarms) {
         m_state.forwardSuccessful(alarms);
     }
-    
+
     public void forwardFailed(List<T> alarms) {
         m_state.forwardFailed(alarms);
     }

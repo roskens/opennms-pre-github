@@ -90,20 +90,20 @@ public class OutageAllController extends UrlFilenameViewController {
 		Context context = new HttpServletRequestContext(request);
 		LimitFactory limitFactory = new TableLimitFactory(context, "tabledata");
 		Limit limit = new TableLimit(limitFactory);
-		
+
 		OutagesFilteringView m_filterService = new OutagesFilteringView();
 
 		String searchFilter = m_filterService.filterQuery(request);
-		
+
 		Map<String, Object> myModel = new HashMap<String, Object>();
-		
+
 		if (searchFilter.equals("")) {
 			searchFilter = " AND 1=1 ";
 		}
-		
+
 		Integer totalRows = m_outageService.outageCountFiltered(searchFilter);
 		limit.setRowAttributes(totalRows, ROW_LIMIT);
-		
+
 		if (limit.getPage() == 1) {
 			// no offset set
 			myModel.put("rowStart", 0);
@@ -125,17 +125,17 @@ public class OutageAllController extends UrlFilenameViewController {
 			myModel.put("end", ROW_LIMIT);
 
 		} else {
-			
+
 			Integer rowstart = null;
 			Integer rowend = null;
-			
-				
+
+
 				//quirky situation... - as we started on 0 (zero)
 				rowstart = ((limit.getPage() * ROW_LIMIT +1 ) - ROW_LIMIT);
 				rowend = ( ROW_LIMIT);
 				myModel.put("begin", rowstart);
 				myModel.put("end", rowend);
-			
+
 			if (limit.getSort().getProperty() == null) {
 				foundOutages = m_outageService.getOutagesByRange(
 						rowstart, rowend, "iflostservice", "asc",searchFilter);
@@ -150,14 +150,14 @@ public class OutageAllController extends UrlFilenameViewController {
 		}
 
 		Collection<Map<String,Object>> theTable = m_cview.theTable(foundOutages);
-		
+
 		myModel.put("searchfilter",searchFilter);
 		myModel.put("tabledata", theTable);
 		myModel.put("totalRows", totalRows);
 		myModel.put("suffix",request.getQueryString());
-		
-				
-		
+
+
+
 		return new ModelAndView(getSuccessView(), myModel);
 //		return new ModelAndView("displayAllOutages" + getSuffix(), myModel);
 	}
@@ -170,7 +170,7 @@ public class OutageAllController extends UrlFilenameViewController {
         public void setSuccessView(String successView) {
                 m_successView = successView;
         }
-        
+
         /**
          * <p>getSuccessView</p>
          *

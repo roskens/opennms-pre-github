@@ -38,10 +38,10 @@ import org.opennms.netmgt.provision.detector.jmx.client.Jsr160Client;
  * @version $Id: $
  */
 public abstract class AbstractJsr160Detector extends JMXDetector {
-   
+
     /** Constant <code>DEFAULT_PORT=9003</code> */
     protected static int DEFAULT_PORT = 9003;
-    
+
     private String m_factory = "STANDARD";
     private String m_friendlyName = "jsr160";
     private String m_protocol = "rmi";
@@ -49,7 +49,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
     private String m_urlPath = "/jmxrmi";
     private String m_username = "opennms";
     private String m_password = "OPENNMS";
-    
+
     /**
      * <p>Constructor for AbstractJsr160Detector.</p>
      *
@@ -72,7 +72,7 @@ public abstract class AbstractJsr160Detector extends JMXDetector {
         client.setUsername(getUsername());
         client.setPassword(getPassword());
         client.setType(getType());
-        
+
         return client;
     }
 

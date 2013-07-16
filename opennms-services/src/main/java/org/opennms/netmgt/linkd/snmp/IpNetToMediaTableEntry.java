@@ -72,7 +72,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
     public static final String  TABLE_OID   = ".1.3.6.1.2.1.4.22.1";    // start of table (GETNEXT)
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the IpNetToMediatable. Objects
 	 * in this list should be used by multiple instances of
@@ -89,16 +89,16 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
 	    new NamedSnmpVar(NamedSnmpVar.SNMPINT32,       INTM_INDEX,    TABLE_OID + ".1",  1),
 
         /**
-         * The media-dependent `physical' address. 
+         * The media-dependent `physical' address.
          */
 	    new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, INTM_PHYSADDR, TABLE_OID + ".2",  2),
-        
+
         /**
          * The IpAddress corresponding to the media-
          * dependent `physical' address.
          */
 	    new NamedSnmpVar(NamedSnmpVar.SNMPIPADDRESS,   INTM_NETADDR,  TABLE_OID + ".3",  3),
-        
+
         /**
          * The type of mapping.
          * Setting this object to the value invalid(2) has
@@ -143,7 +143,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
 		if (val == null) return -1;
 		return val;
 	}
-	
+
 	/**
 	 * <p>getIpNetToMediaPhysAddress</p>
 	 *
@@ -157,11 +157,11 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
             if (hexString != null && hexString.length() == 12) {
                 // If the hex string is 12 characters long, than the agent is kinda weird and
                 // is returning the value as a raw binary value that is 6 bytes in length.
-                // But that's OK, as long as we can convert it into a string, that's fine. 
+                // But that's OK, as long as we can convert it into a string, that's fine.
                 return hexString;
             } else {
-                // This is the normal case that most agents conform to: the value is an ASCII 
-                // string representing the colon-separated MAC address. We just need to reformat 
+                // This is the normal case that most agents conform to: the value is an ASCII
+                // string representing the colon-separated MAC address. We just need to reformat
                 // it to remove the colons and convert it into a 12-character string.
                 return normalizeMacAddress(getDisplayString(IpNetToMediaTableEntry.INTM_PHYSADDR));
             }
@@ -170,7 +170,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
 	        return getDisplayString(IpNetToMediaTableEntry.INTM_PHYSADDR);
 	    }
 	}
-	
+
 	/**
 	 * <p>getIpNetToMediaNetAddress</p>
 	 *
@@ -179,7 +179,7 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
 	public InetAddress getIpNetToMediaNetAddress(){
 		return getIPAddress(IpNetToMediaTableEntry.INTM_NETADDR);
 	}
-	
+
 	/**
 	 * <p>getIpNetToMediatype</p>
 	 *
@@ -191,4 +191,4 @@ public final class IpNetToMediaTableEntry extends SnmpStore {
 		return val;
 	}
 
-}   
+}

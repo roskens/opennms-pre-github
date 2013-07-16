@@ -58,12 +58,12 @@ public final class CapsdConfigFactory {
      * The singleton instance of this factory
      */
     private static CapsdConfig s_singleton = null;
-        
+
     /**
      * This class only has static methods.
      */
     private CapsdConfigFactory() {
-        
+
     }
 
     /**
@@ -133,7 +133,7 @@ public final class CapsdConfigFactory {
 
         return s_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

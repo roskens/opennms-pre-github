@@ -53,7 +53,7 @@ public class PathOutageFactory extends Object {
     private static final String GET_CRITICAL_PATHS = "SELECT DISTINCT criticalpathip, criticalpathservicename FROM pathoutage ORDER BY criticalpathip, criticalpathservicename";
 
     private static final String GET_CRITICAL_PATH_BY_NODEID = "SELECT criticalpathip, criticalpathservicename FROM pathoutage WHERE nodeid=?";
-    
+
     private static final String GET_NODES_IN_PATH = "SELECT DISTINCT pathoutage.nodeid FROM pathoutage, ipinterface WHERE pathoutage.criticalpathip=? AND pathoutage.criticalpathservicename=? AND pathoutage.nodeid=ipinterface.nodeid AND ipinterface.ismanaged!='D' ORDER BY nodeid";
 
     private static final String COUNT_MANAGED_SVCS = "SELECT count(*) FROM ifservices WHERE status ='A' and nodeid=?";
@@ -71,7 +71,7 @@ public class PathOutageFactory extends Object {
     private static final String GET_CRITICAL_PATH_STATUS = "SELECT count(*) FROM outages WHERE ipaddr=? AND ifregainedservice IS NULL AND serviceid=(SELECT serviceid FROM service WHERE servicename=?)";
 
     private static final String IS_CRITICAL_PATH_MANAGED = "SELECT count(*) FROM ifservices WHERE ipaddr=? AND status='A' AND serviceid=(SELECT serviceid FROM service WHERE servicename=?)";
-    
+
     /** Constant <code>NO_CRITICAL_PATH="Not Configured"</code> */
     public static final String NO_CRITICAL_PATH = "Not Configured";
 
@@ -104,7 +104,7 @@ public class PathOutageFactory extends Object {
         }
         return paths;
     }
-    
+
     /**
      * <p>
      * Retrieve critical path by nodeid
@@ -186,7 +186,7 @@ public class PathOutageFactory extends Object {
         String result[] = new String[3];
         result[1] = "Cleared";
         result[2] = "Unmanaged";
-        
+
         int nodeID = WebSecurityUtils.safeParseInt(nodeIDStr);
 
         PreparedStatement stmt = conn.prepareStatement(GET_NODELABEL_BY_NODEID);

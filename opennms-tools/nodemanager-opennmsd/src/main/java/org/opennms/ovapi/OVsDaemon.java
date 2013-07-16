@@ -40,30 +40,30 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class OVsDaemon {
-    
+
     Logger log = LoggerFactory.getLogger(getClass());
-    
+
     public abstract static class ScheduledTask implements Runnable {
-        
+
         long m_nextRuntimeInMillis = -1;
         long m_period = 0;
 
         public long getNextRuntimeMillis() {
             return m_nextRuntimeInMillis;
         }
-        
+
         public void setNextRuntimeMillis(long nextRunTimeMillis) {
             m_nextRuntimeInMillis = nextRunTimeMillis;
         }
-        
+
         public long getPeriod() {
             return m_period;
         }
-        
+
         public void setPeriod(long period) {
             m_period = period;
         }
-        
+
         public abstract void run();
 
         public void setTimeout(long now, timeval tm) {
@@ -89,16 +89,16 @@ public abstract class OVsDaemon {
         private boolean isPeriodic() {
             return getPeriod() > 0;
         }
-        
+
     }
-    
+
     static class DefaultOVsDaemon extends OVsDaemon {
-        
-        
+
+
         protected String onInit() {
-            
+
             ScheduledTask statusReporter = new ScheduledTask() {
-                
+
                 long m_lastRun = System.currentTimeMillis();
 
                 public void run() {
@@ -106,23 +106,23 @@ public abstract class OVsDaemon {
                     setStatus("Timer run at "+now+" after " + (now - m_lastRun) + " millis.  Period is "+getPeriod());
                     m_lastRun = now;
                 }
-                
+
             };
-            
+
             schedule(statusReporter, 10000, 20000);
-            
+
             return "DefaultOVsDaemon has finished initializing.";
         }
 
         protected String onStop() {
             return "DefaultOVsDaemon has exited successfully.";
         }
-        
+
     }
-    
+
     private int m_ovspmdFd;
     private boolean m_finished = false;
-    
+
     private List<ScheduledTask> m_scheduledTasks = new LinkedList<ScheduledTask>();
     private long m_selectedMillis;
 
@@ -141,16 +141,16 @@ public abstract class OVsDaemon {
         if (NNM.OVsInit(sp) < 0) {
             log("error calling OVsInit");
         }
-        
+
         m_ovspmdFd = sp[0];
 
         String initResponse = "";
         int success = NNM.OVS_RSP_FAILURE;
         try {
-        
+
             initResponse = onInit();
             success = NNM.OVS_RSP_SUCCESS;
-            
+
         } catch (Throwable t) {
             initResponse = "Exception occurred initializing "+this+": "+t;
             log(initResponse, t);
@@ -159,7 +159,7 @@ public abstract class OVsDaemon {
         if (initComplete(initResponse, success) < 0) {
             log("error calling OVsInitComplete");
         }
-        
+
         String callmsg;
         try {
             callmsg = (String)call();
@@ -167,7 +167,7 @@ public abstract class OVsDaemon {
             callmsg = "Exception occurred calling "+this+": "+t;
             log(callmsg, t);
         }
-        
+
         if (NNM.OVsDone(callmsg) < 0) {
             log("error occurred calling OVsDone");
         }
@@ -177,7 +177,7 @@ public abstract class OVsDaemon {
         log("OVsInitComlete("+initResponse+", \""+success+"\")");
         return NNM.OVsInitComplete(success, initResponse);
     }
-    
+
     public void setStatus(String message) {
         log("OVsResponse(OVS_RSP_LAST_MSG, \""+message+"\")");
         if (NNM.OVsResponse(NNM.OVS_RSP_LAST_MSG, message) < 0) {
@@ -187,11 +187,11 @@ public abstract class OVsDaemon {
 
     public int readPmdCmd() {
         OVsPMDCommand command = new OVsPMDCommand();
-        
+
         if (NNM.OVsReceive(command) < 0) {
             log("error calling OVsReceive");
         }
-        
+
         return command.getCode();
     }
 
@@ -206,12 +206,12 @@ public abstract class OVsDaemon {
     public Object call() throws Exception {
         long start = System.currentTimeMillis();
         long end = start;
-        
-    
+
+
         fd_set fdset = new fd_set();
         timeval tm = new timeval();
 
-    
+
         while (!isFinished()) {
             fdset.zero();
             tm.setTimeInMillis(Integer.MAX_VALUE);
@@ -224,12 +224,12 @@ public abstract class OVsDaemon {
             if (fds > 0) {
                 processReads(fdset);
             }
-            
+
             processTimeouts();
-        }     
-        
+        }
+
         end = System.currentTimeMillis();
-        
+
         return onStop();
     }
 
@@ -242,7 +242,7 @@ public abstract class OVsDaemon {
         for(ScheduledTask task : tasks) {
             if (task.isReady(now)) {
                 task.run();
-                
+
                 if (task.setNextPeriod()) {
                     // reschedule it for next time
                     m_scheduledTasks.add(task);
@@ -255,18 +255,18 @@ public abstract class OVsDaemon {
         if (fdset.isSet(getPmdFd())) {
             int code = readPmdCmd();
             setStatus("Received cmd code "+code+" from pmd");
-    
+
             if (code == NNM.OVS_CMD_EXIT) {
                 setFinished(true);
             }
         }
-    
+
     }
-    
+
     public void schedule(ScheduledTask task, long delay) {
         schedule(task, delay, 0);
     }
-    
+
     public void schedule(ScheduledTask task, long delay, long period) {
         task.setNextRuntimeMillis(System.currentTimeMillis()+delay);
         task.setPeriod(period);

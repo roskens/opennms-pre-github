@@ -78,7 +78,7 @@ public class OperationListShellCommand extends OsgiCommandSupport {
 			System.out.println("    " + operationClass);
     		System.out.println("    " + makeLine(operationClass));
     		System.out.println();
-    		
+
     		System.out.println("    ID:    " + operation.getId());
     		//System.out.println("    Label: " + operation.getLabel());
     		System.out.println();
@@ -89,13 +89,13 @@ public class OperationListShellCommand extends OsgiCommandSupport {
 	    		System.out.println("    Service Properties:");
 	    		System.out.println("    " + makeLine("Service Properties:"));
 	    		System.out.println();
-	    		
+
 	    		for (final String key : props.keySet()) {
 	    			final Object object = props.get(key);
 	    			final String value = (object instanceof Object[])? Arrays.toString((Object[])object) : object.toString();
 					System.out.println("        " + key + "=" + value);
 	    		}
-	    		
+
 	    		System.out.println();
     		}
     	}

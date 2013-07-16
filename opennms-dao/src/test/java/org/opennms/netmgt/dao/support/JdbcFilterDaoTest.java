@@ -72,7 +72,7 @@ import org.springframework.transaction.support.TransactionCallbackWithoutResult;
 import org.springframework.transaction.support.TransactionTemplate;
 
 /**
- * 
+ *
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)
@@ -89,15 +89,15 @@ import org.springframework.transaction.support.TransactionTemplate;
 public class JdbcFilterDaoTest implements InitializingBean {
     @Autowired
     NodeDao m_nodeDao;
-    
+
     @Autowired
     IpInterfaceDao m_interfaceDao;
-    
+
     @Autowired
     ServiceTypeDao m_serviceTypeDao;
 
     JdbcFilterDao m_dao;
-    
+
     @Autowired
     DatabasePopulator m_populator;
 
@@ -246,7 +246,7 @@ public class JdbcFilterDaoTest implements InitializingBean {
             @Override
             public void doInTransactionWithoutResult(TransactionStatus status) {
                 final List<OnmsIpInterface> ifaces = m_interfaceDao.findByIpAddress("192.168.1.1");
-                
+
                 assertEquals("should be 1 interface", 1, ifaces.size());
 
                 OnmsIpInterface iface = ifaces.get(0);

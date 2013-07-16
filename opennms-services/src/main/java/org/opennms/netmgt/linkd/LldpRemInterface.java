@@ -32,7 +32,7 @@ package org.opennms.netmgt.linkd;
 import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class LldpRemInterface {
-	
+
     private final Integer m_lldpRemChassidSubtype;
     private final String m_lldpRemChassisid;
     private final Integer m_lldpRemIfIndex;
@@ -48,8 +48,8 @@ public class LldpRemInterface {
         m_lldpRemIfIndex = lldpRemIfIndex;
         m_lldpLocIfIndex = lldpLocIfIndex;
     }
-	
-    
+
+
 	public Integer getLldpRemChassidSubtype() {
         return m_lldpRemChassidSubtype;
     }

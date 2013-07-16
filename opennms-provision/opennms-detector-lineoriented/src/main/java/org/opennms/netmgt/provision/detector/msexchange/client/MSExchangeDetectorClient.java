@@ -50,19 +50,19 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSExchangeResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(MSExchangeDetectorClient.class);
     private Integer m_imapPort;
     private Integer m_pop3Port;
     private String m_pop3Response;
     private String m_imapResponse;
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
-        
+
     }
 
     /** {@inheritDoc} */
@@ -76,27 +76,27 @@ public class MSExchangeDetectorClient implements Client<LineOrientedRequest, MSE
         Socket socket = null;
         InputStreamReader isr = null;
         BufferedReader lineRdr = null;
-        
+
         if(port != null){
             try{
                 socket = new Socket();
                 final InetSocketAddress inetSocketAddress = new InetSocketAddress(address, port.intValue());
                 socket.connect(inetSocketAddress, timeout);
                 socket.setSoTimeout(timeout);
-                
-    
+
+
                 // Allocate a line reader
                 isr = new InputStreamReader(socket.getInputStream());
                 lineRdr = new BufferedReader(isr);
-    
+
                 // Read the banner line and see if it contains the
                 // substring "Microsoft Exchange"
                 //
                 final String banner = lineRdr.readLine();
-                
+
                 socket.close();
                 return banner;
-                
+
             }catch(final Exception e) {
                 LOG.debug("An error occurred while connecting to {}:{}", InetAddressUtils.str(address), port, e);
                 IOUtils.closeQuietly(lineRdr);

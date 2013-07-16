@@ -43,7 +43,7 @@ public class JdbcDataCollectionConfigFactory {
     private static final Logger LOG = LoggerFactory.getLogger(JdbcDataCollectionConfigFactory.class);
 
     private JdbcDataCollectionConfig m_jdbcDataCollectionConfig = null;
-    
+
     public JdbcDataCollectionConfigFactory() {
         try {
             File cfgFile = ConfigFileConstants.getFile(ConfigFileConstants.JDBC_COLLECTION_CONFIG_FILE_NAME);
@@ -55,7 +55,7 @@ public class JdbcDataCollectionConfigFactory {
             // TODO rethrow.
         }
     }
-    
+
     public JdbcDataCollectionConfig unmarshall(InputStream configFile) {
         try {
             m_jdbcDataCollectionConfig = JaxbUtils.unmarshal(JdbcDataCollectionConfig.class, new InputSource(configFile));

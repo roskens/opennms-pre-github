@@ -38,8 +38,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class Resource Type Table.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class GroupTable extends Table {

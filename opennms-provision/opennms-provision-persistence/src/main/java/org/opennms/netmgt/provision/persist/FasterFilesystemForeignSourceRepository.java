@@ -62,19 +62,19 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class FasterFilesystemForeignSourceRepository extends AbstractForeignSourceRepository implements InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(FasterFilesystemForeignSourceRepository.class);
     private String m_requisitionPath;
     private String m_foreignSourcePath;
     private boolean m_updateDateStamps = true;
-    
+
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     private DirectoryWatcher<ForeignSource> m_foreignSources;
     private DirectoryWatcher<Requisition> m_requisitions;
-    
+
     /**
      * <p>Constructor for FilesystemForeignSourceRepository.</p>
      *
@@ -88,7 +88,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_requisitionPath, "Requisition path must not be empty.");
         Assert.notNull(m_foreignSourcePath, "Foreign source path must not be empty.");
-        
+
         m_foreignSources = new DirectoryWatcher<ForeignSource>(new File(m_foreignSourcePath), fsLoader());
         m_requisitions = new DirectoryWatcher<Requisition>(new File(m_requisitionPath), reqLoader());
     }
@@ -106,7 +106,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
         	activeForeignSourceNames.addAll(m_foreignSources.getBaseNamesWithExtension(".xml"));
         	activeForeignSourceNames.addAll(m_requisitions.getBaseNamesWithExtension(".xml"));
         	return activeForeignSourceNames;
-        	
+
         } finally {
             m_readLock.unlock();
         }
@@ -125,7 +125,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>getForeignSourceCount</p>
      *
@@ -141,7 +141,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_readLock.unlock();
         }
     }
- 
+
     /**
      * <p>getForeignSources</p>
      *
@@ -238,7 +238,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>getRequisitions</p>
      *
@@ -263,7 +263,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_readLock.unlock();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Requisition getRequisition(final String foreignSourceName) throws ForeignSourceRepositoryException {
@@ -311,7 +311,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
         if (requisition == null) {
             throw new ForeignSourceRepositoryException("can't save a null requisition!");
         }
-        
+
         LOG.debug("Writing requisition {} to {}", requisition.getForeignSource(), m_requisitionPath);
         validate(requisition);
 
@@ -362,7 +362,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_writeLock.unlock();
         }
     }
-    
+
     /**
      * <p>setRequisitionPath</p>
      *
@@ -389,7 +389,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
             m_writeLock.unlock();
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Date getRequisitionDate(final String foreignSource) throws ForeignSourceRepositoryException {
@@ -427,7 +427,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
         // Unnecessary, there is no caching/delayed writes in FilesystemForeignSourceRepository
         LOG.debug("flush() called");
     }
-    
+
     private FileReloadCallback<ForeignSource> fsLoader() {
     	return new FileReloadCallback<ForeignSource>() {
 
@@ -437,7 +437,7 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
 			}
 		};
     };
-    
+
 	private FileReloadCallback<Requisition> reqLoader() {
 		return new FileReloadCallback<Requisition>() {
 
@@ -447,5 +447,5 @@ public class FasterFilesystemForeignSourceRepository extends AbstractForeignSour
 			}
 		};
 	}
-    
+
 }

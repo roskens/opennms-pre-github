@@ -134,7 +134,7 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
 			return value.toString();
 		}
 	}
-	
+
 	/**
 	 * Sets the non collapsbile columns.
 	 * @param nonCollapsibleColumns
@@ -144,11 +144,11 @@ public class SelectionAwareTable extends Table implements SelectionListener, Sel
 	    for (Object eachPropertyId : m_container.getContainerPropertyIds()) {
 	        setColumnCollapsible(eachPropertyId,  true);
 	    }
-	    
+
 	    // set new value
 	    if (nonCollapsibleColumns == null) nonCollapsibleColumns = new ArrayList<String>();
         this.nonCollapsibleColumns = nonCollapsibleColumns;
-        
+
         // set non collapsible
         for (Object eachPropertyId : this.nonCollapsibleColumns) {
             setColumnCollapsible(eachPropertyId,  false);

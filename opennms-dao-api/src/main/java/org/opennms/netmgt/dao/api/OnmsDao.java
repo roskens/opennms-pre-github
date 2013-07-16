@@ -38,13 +38,13 @@ import org.opennms.netmgt.model.OnmsCriteria;
  * <p>OnmsDao interface.</p>
  */
 public interface OnmsDao<T, K extends Serializable> {
-    
+
     /**
      * This is used to lock the table in order to implement upsert type operations
      */
     void lock();
 
-    
+
     /**
      * <p>initialize</p>
      *
@@ -91,7 +91,7 @@ public interface OnmsDao<T, K extends Serializable> {
      * @return a {@link java.util.List} object.
      */
     List<T> findAll();
-    
+
     /**
      * <p>findMatching</p>
      *
@@ -123,7 +123,7 @@ public interface OnmsDao<T, K extends Serializable> {
      * @return a int.
      */
     int countMatching(final OnmsCriteria onmsCrit);
-    
+
     /**
      * <p>get</p>
      *

@@ -34,11 +34,11 @@ import org.junit.Ignore;
  *
  * @author Markus Neumann <markus@opennms.com>
  */
-@Ignore 
+@Ignore
 public class JmxTestDummy implements JmxTestDummyMBean {
 
     String name = "JmxTest";
-    
+
     int x = 42;
 
     int writable = 0;

@@ -36,7 +36,7 @@ class MockNNMEvent implements NNMEvent {
     private String m_severity;
     private String m_sourceAddress;
     private Date m_timeStamp;
-    
+
     public String getCategory() {
         return m_category;
     }
@@ -67,7 +67,7 @@ class MockNNMEvent implements NNMEvent {
     public void setTimeStamp(Date timeStamp) {
         m_timeStamp = timeStamp;
     }
-    
+
     public static NNMEvent createEvent(String category, String severity,
             String name, String address) {
         MockNNMEvent event = new MockNNMEvent();
@@ -79,5 +79,5 @@ class MockNNMEvent implements NNMEvent {
         return event;
     }
 
-    
+
 }

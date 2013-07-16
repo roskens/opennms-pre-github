@@ -37,7 +37,7 @@ import org.opennms.sms.reflector.smsservice.SmsService;
  * @version $Id: $
  */
 public interface SmsServiceRegistrar {
-	
+
 	/**
 	 * <p>registerSmsService</p>
 	 *

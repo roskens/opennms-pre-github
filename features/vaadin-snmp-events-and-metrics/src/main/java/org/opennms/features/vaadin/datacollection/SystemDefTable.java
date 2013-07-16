@@ -38,8 +38,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class System Definition Table.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public abstract class SystemDefTable extends Table {

@@ -53,7 +53,7 @@ import java.util.Map;
  */
 public class EventKey extends LinkedHashMap<String, Object> implements Serializable, Comparable<EventKey> {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 3498941419429346315L;
 
@@ -296,12 +296,12 @@ public class EventKey extends LinkedHashMap<String, Object> implements Serializa
     /**
      * <pre>
      * Evaluate the hash code for this object
-     * 
+     *
      *  This hashtable gets constructed once and does not really change -
      *  so hashcode is only evaluated at construction time. Also, while
      *  the superclass uses just the entry set to calculate the hashcode,
      *  this uses both the names and their values in calculating the hashcode
-     * 
+     *
      */
     private void evaluateHashCode() {
         m_hashCode = 0;

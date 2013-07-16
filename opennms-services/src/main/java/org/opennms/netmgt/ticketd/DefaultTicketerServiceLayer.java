@@ -130,12 +130,12 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     }
 
-    private void setTicketState(String ticketId, State state) throws PluginException { 
+    private void setTicketState(String ticketId, State state) throws PluginException {
         try {
             Ticket ticket = m_ticketerPlugin.get(ticketId);
             ticket.setState(state);
             m_ticketerPlugin.saveOrUpdate(ticket);
-        } catch (PluginException e) {            
+        } catch (PluginException e) {
             LOG.error("Unable to set ticket state");
             throw e;
         }
@@ -194,7 +194,7 @@ public class DefaultTicketerServiceLayer implements TicketerServiceLayer, Initia
 
     /**
      * Called from API implemented method after successful retrieval of Alarm.
-     * 
+     *
      * @param alarm OpenNMS Model class alarm
      * @return OpenNMS Ticket with contents of alarm.
      * TODO: Add alarm attributes to Ticket.

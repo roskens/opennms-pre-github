@@ -36,5 +36,5 @@ package org.opennms.netmgt.config;
  * @author brozow
  */
 public interface DbConnectionFactory extends javax.sql.DataSource {
-        
+
 }

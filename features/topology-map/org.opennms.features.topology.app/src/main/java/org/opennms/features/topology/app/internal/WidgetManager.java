@@ -44,9 +44,9 @@ public class WidgetManager {
 
     private List<IViewContribution> m_viewContributors = new CopyOnWriteArrayList<IViewContribution>();
     private List<WidgetUpdateListener> m_listeners = new CopyOnWriteArrayList<WidgetUpdateListener>();
-    
+
     public WidgetManager() {}
-    
+
     public void addUpdateListener(WidgetUpdateListener listener) {
         LoggerFactory.getLogger(this.getClass()).info("Adding WidgetUpdateListener {} to WidgetManager {}", listener, this);
         synchronized (m_listeners) {
@@ -65,10 +65,10 @@ public class WidgetManager {
     public int widgetCount() {
         return m_viewContributors.size();
     }
-    
+
     /**
      * Gets the list of Widgets as IViewContributions
-     * 
+     *
      * @return List<IViewContribution>
      */
     public List<IViewContribution> getWidgets(){
@@ -83,7 +83,7 @@ public class WidgetManager {
         });
         return Collections.unmodifiableList(widgets);
     }
-    
+
     public synchronized void onBind(IViewContribution viewContribution) {
         LoggerFactory.getLogger(this.getClass()).info("Binding IViewContribution {} to WidgetManager {}", viewContribution, this);
         synchronized (m_viewContributors) {
@@ -101,7 +101,7 @@ public class WidgetManager {
             listener.widgetListUpdated(this);
         }
     }
-    
+
     public synchronized void onUnbind(IViewContribution viewContribution) {
         LoggerFactory.getLogger(this.getClass()).info("Unbinding IViewContribution {} from WidgetManager {}", viewContribution, this);
         synchronized (m_viewContributors) {

@@ -44,10 +44,10 @@ import org.opennms.netmgt.xml.event.Log;
 import org.xml.sax.InputSource;
 
 /**
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- * 
+ *
  */
 final class UdpReceivedEvent {
     /**
@@ -88,10 +88,10 @@ final class UdpReceivedEvent {
      * Constructs a new event encapsulation instance based upon the information
      * passed to the method. The passed datagram data is decoded into a string
      * using the <tt>US-ASCII</tt> character encoding.
-     * 
+     *
      * @param packet
      *            The datagram received from the remote agent.
-     * 
+     *
      * @throws java.io.UnsupportedEncodingException
      *             Thrown if the data buffer cannot be decoded using the
      *             US-ASCII encoding.
@@ -104,7 +104,7 @@ final class UdpReceivedEvent {
      * Constructs a new event encapsulation instance based upon the information
      * passed to the method. The passed byte array is decoded into a string
      * using the <tt>US-ASCII</tt> character encoding.
-     * 
+     *
      * @param addr
      *            The remote agent's address.
      * @param port
@@ -113,7 +113,7 @@ final class UdpReceivedEvent {
      *            The XML data in US-ASCII encoding.
      * @param len
      *            The length of the XML data in the buffer.
-     * 
+     *
      * @throws java.io.UnsupportedEncodingException
      *             Thrown if the data buffer cannot be decoded using the
      *             US-ASCII encoding.
@@ -131,9 +131,9 @@ final class UdpReceivedEvent {
     /**
      * Decodes the XML package from the remote agent. If an error occurs or the
      * datagram had malformed XML then an exception is generated.
-     * 
+     *
      * @return The toplevel <code>Log</code> element of the XML document.
-     * 
+     *
      * @throws org.exolab.castor.xml.ValidationException
      *             Throws if the documents data does not match the defined XML
      *             Schema Definition.
@@ -151,7 +151,7 @@ final class UdpReceivedEvent {
     /**
      * Adds the event to the list of events acknowledged in this event XML
      * document.
-     * 
+     *
      * @param e
      *            The event to acknowledge.
      */

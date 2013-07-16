@@ -46,7 +46,7 @@ import org.slf4j.LoggerFactory;
 import edu.bucknell.net.JDHCP.DHCPMessage;
 
 final class Client extends Observable implements Runnable, Fiber {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Client.class);
 
     private final static short DHCP_TARGET_PORT = 67;
@@ -92,7 +92,7 @@ final class Client extends Observable implements Runnable, Fiber {
 
         /**
          * Constructor
-         * 
+         *
          * @param incoming
          *            UDP socket over which the DHCP request was sent
          * @param client

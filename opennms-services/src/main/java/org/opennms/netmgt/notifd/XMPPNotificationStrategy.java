@@ -94,7 +94,7 @@ public class XMPPNotificationStrategy implements NotificationStrategy {
 
 	/*
 	 * (non-Javadoc)
-	 * 
+	 *
 	 * @see org.opennms.netmgt.notifd.NotificationStrategy#send(java.util.List)
 	 */
 	/** {@inheritDoc} */
@@ -114,7 +114,7 @@ public class XMPPNotificationStrategy implements NotificationStrategy {
 			    }
 			    LOG.warn("Blank XMPP address on notification: {}", argumentString);
 			    return 1;
-			} 
+			}
 
 			XMPPNotificationManager xmppManager = XMPPNotificationManager.getInstance();
 
@@ -132,7 +132,7 @@ public class XMPPNotificationStrategy implements NotificationStrategy {
 	/**
 	 * This method extracts the xmpp address and message text from the
 	 * parameters passed in the notification.
-	 * 
+	 *
 	 * @param arguments
 	 * @return String[]
 	 * @throws Exception

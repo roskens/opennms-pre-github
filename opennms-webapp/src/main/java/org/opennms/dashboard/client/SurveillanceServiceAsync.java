@@ -43,7 +43,7 @@ public interface SurveillanceServiceAsync {
      * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getSurveillanceData(AsyncCallback<SurveillanceData> cb);
-    
+
     /**
      * <p>getAlarmsForSet</p>
      *
@@ -51,7 +51,7 @@ public interface SurveillanceServiceAsync {
      * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getAlarmsForSet(SurveillanceSet set, AsyncCallback<Alarm[]> cb);
-    
+
     /**
      * <p>getNotificationsForSet</p>
      *
@@ -59,7 +59,7 @@ public interface SurveillanceServiceAsync {
      * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getNotificationsForSet(SurveillanceSet set, AsyncCallback<Notification[]> cb);
-    
+
     /**
      * <p>getNodeNames</p>
      *
@@ -67,7 +67,7 @@ public interface SurveillanceServiceAsync {
      * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getNodeNames(SurveillanceSet set, AsyncCallback<String[]> cb);
-    
+
     /**
      * <p>getResources</p>
      *
@@ -91,7 +91,7 @@ public interface SurveillanceServiceAsync {
      * @param cb a {@link com.google.gwt.user.client.rpc.AsyncCallback} object.
      */
     public void getPrefabGraphs(String resourceId, AsyncCallback<String[][]> cb);
-    
+
     /**
      * <p>getRtcForSet</p>
      *

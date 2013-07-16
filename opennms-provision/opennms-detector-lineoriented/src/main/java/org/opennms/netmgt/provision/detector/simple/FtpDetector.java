@@ -42,18 +42,18 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
-    
+
     private static final String DEFAULT_SERVICE_NAME = "FTP";
     private static final int DEFAULT_PORT = 21;
     private String m_multilineIndicator = "-";
-    
+
     /**
      * Default constructor
      */
     public FtpDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -71,7 +71,7 @@ public class FtpDetector extends AsyncMultilineDetectorMinaImpl {
     protected void onInit() {
         //setup the correct codec for this Detector
         setProtocolCodecFilter(new ProtocolCodecFilter(new MultilineOrientedCodecFactory(CHARSET_UTF8, getMultilineIndicator())));
-        
+
         expectBanner(expectCodeRange(100, 600));
         send(request("quit"), expectCodeRange(100,600));
     }

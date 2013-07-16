@@ -40,7 +40,7 @@ public class MockEventDao extends AbstractMockDao<OnmsEvent, Integer> implements
             }
             counts.put(eventUei, counts.get(eventUei) + 1);
         }
-        
+
         final Set<CountedObject<String>> countedObjects = new HashSet<CountedObject<String>>();
         for (final String uei : counts.keySet()) {
             countedObjects.add(new CountedObject<String>(uei, counts.get(uei)));

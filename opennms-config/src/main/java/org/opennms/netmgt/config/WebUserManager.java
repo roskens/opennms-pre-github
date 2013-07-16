@@ -38,7 +38,7 @@ import java.util.Collection;
  * @since 1.8.1
  */
 public interface WebUserManager {
-    
+
     /**
      * <p>getUsers</p>
      *

@@ -51,18 +51,18 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SnmpTrapNotificationStrategy implements NotificationStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpTrapNotificationStrategy.class);
-    
+
     private List<Argument> m_arguments;
 
     /** {@inheritDoc} */
     @Override
     public int send (List<Argument> arguments) {
-        
+
         m_arguments = arguments;
         String argVersion = getVersion();
-        
+
         if (argVersion == null) {
             LOG.info("send: trapVersion paramenter is null, defaulting to \"v1\".");
             argVersion = "v1";
@@ -85,10 +85,10 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
             LOG.info("send: Exception trying to send trap. ",e);
             return 1;
         }
-        
+
         return 0;
     }
-    
+
     private String getVersion() {
         return getSwitchValue("trapVersion");
     }
@@ -98,21 +98,21 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      *
      * @throws java.lang.Exception if any.
      */
-    public void sendV1Trap() throws Exception {        
+    public void sendV1Trap() throws Exception {
         SnmpV1TrapBuilder pdu = SnmpUtils.getV1TrapBuilder();
 
         pdu.setEnterprise(SnmpObjId.get(getEnterpriseId()));
-        
+
         pdu.setGeneric(getGenericId());
-        
+
         pdu.setSpecific(getSpecificId());
-        
+
         pdu.setTimeStamp(0);
-        
+
         InetAddress agentAddress = getHostInetAddress();
         pdu.setAgentAddress(agentAddress);
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.4.1.5813.20.1"), SnmpUtils.getValueFactory().getOctetString(getVarbind().getBytes()));
-        
+
         pdu.send(InetAddressUtils.str(agentAddress), getPort(), getCommunity());
     }
 
@@ -122,10 +122,10 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      * @throws java.lang.Exception if any.
      */
     public void sendV2Trap() throws Exception {
-        
+
         SnmpObjId enterpriseId = SnmpObjId.get(getEnterpriseId());
         boolean isGeneric = false;
-        
+
         SnmpObjId trapOID;
         if (SnmpObjId.get(".1.3.6.1.6.3.1.1.5").isPrefixOf(enterpriseId)) {
             isGeneric = true;
@@ -135,11 +135,11 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
             // XXX or should it be this
             // trap OID = enterprise + ".0." + specific;
         }
-        
+
         SnmpTrapBuilder pdu = SnmpUtils.getV2TrapBuilder();
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.2.1.1.3.0"), SnmpUtils.getValueFactory().getTimeTicks(0));
         pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.1.0"), SnmpUtils.getValueFactory().getObjectId(trapOID));
-        
+
         if (isGeneric) {
             pdu.addVarBind(SnmpObjId.get(".1.3.6.1.6.3.1.1.4.3.0"), SnmpUtils.getValueFactory().getObjectId(enterpriseId));
         }
@@ -150,13 +150,13 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
 
     /**
      * Helper method to get the Host argument.
-     * 
+     *
      * @return
      * @throws UnknownHostException
      */
     private InetAddress getHostInetAddress() throws UnknownHostException {
         String switchValue = getSwitchValue("trapHost");
-        
+
         if (switchValue == null) {
             LOG.info("getHostInetAddress: trapHost not specified, defaulting to: \"127.0.0.1\".");
             switchValue = "127.0.0.1";
@@ -172,7 +172,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      */
     private int getPort() {
         String switchValue = getSwitchValue("trapPort");
-        
+
         if (switchValue == null) {
             LOG.info("getPort: trapPort argument not specified, defaulting to: \"162\".");
             return 162;
@@ -188,7 +188,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      */
     private String getCommunity() {
         String switchValue = getSwitchValue("trapCommunity");
-        
+
         if (switchValue == null) {
             LOG.info("getCommunity: trapCommunity not specified, defaulting to: \"public\".");
             switchValue = "public";
@@ -202,9 +202,9 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      * Helper method to get the trap enterprise ID argument.
      * @return
      */
-    private String getEnterpriseId() {        
+    private String getEnterpriseId() {
         String switchValue = getSwitchValue("trapEnterprise");
-        
+
         if (switchValue == null) {
             LOG.info("getEnterpriseId: trapEnterprise not specified, defaulting to: \".1.3.6.1.4.1.5813\".");
             switchValue = ".1.3.6.1.4.1.5813";
@@ -220,7 +220,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      */
     private int getGenericId() {
         String switchValue = getSwitchValue("trapGeneric");
-        
+
         if (switchValue == null) {
             LOG.info("getGenericId: trapGeneric argument not specified, defaulting to: \"6\".");
             return 6;
@@ -229,14 +229,14 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
         }
         return Integer.parseInt(switchValue);
     }
-        
+
     /**
      * Helper method to get the trap specific id argument.
      * @return
      */
     private int getSpecificId() {
         String switchValue = getSwitchValue("trapSpecific");
-        
+
         if (switchValue == null) {
             LOG.info("getSpecificId: trapSpecific argument not specified, defaulting to: \"1\".");
             return 1;
@@ -252,7 +252,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
      */
     private String getVarbind() {
         String switchValue = getSwitchValue("trapVarbind");
-        
+
         if (switchValue == null) {
             LOG.info("getVarbind: trapVarbind argument not specified, defaulting to: \"OpenNMS Trap Notification\".");
             return "OpenNMS Trap Notification";
@@ -278,7 +278,7 @@ public class SnmpTrapNotificationStrategy implements NotificationStrategy {
         }
         if (value != null && value.equals(""))
             value = null;
-        
+
         return value;
     }
 }

@@ -29,30 +29,30 @@
 package org.opennms.netmgt.snmp;
 
 public class InstanceListTracker extends AggregateTracker {
-    
+
     public InstanceListTracker(SnmpObjId base, String instances) {
         this(base, SnmpInstId.convertToSnmpInstIds(instances), null);
     }
-    
+
     public InstanceListTracker(SnmpObjId base, String instances, CollectionTracker parent) {
         this(base, SnmpInstId.convertToSnmpInstIds(instances), parent);
     }
-    
+
     public InstanceListTracker(SnmpObjId base, SnmpInstId[] instances) {
         this(base, instances, null);
     }
-    
+
     public InstanceListTracker(SnmpObjId base, SnmpInstId[] instances, CollectionTracker parent) {
         super(getSingleInstanceTrackers(base, instances), parent);
     }
-    
+
     private static SingleInstanceTracker[] getSingleInstanceTrackers(SnmpObjId base, SnmpInstId[] instances) {
         SingleInstanceTracker[] trackers = new SingleInstanceTracker[instances.length];
         for (int i = 0; i < instances.length; i++) {
             trackers[i] = new SingleInstanceTracker(base, instances[i]);
         }
         return trackers;
-        
+
     }
 
 }

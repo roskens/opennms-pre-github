@@ -38,7 +38,7 @@ import org.springframework.aop.target.AbstractLazyCreationTargetSource;
  * @version $Id: $
  */
 public class ServiceRegistryTargetSource extends AbstractLazyCreationTargetSource {
-    
+
     private ServiceRegistry m_serviceRegistry;
     private Class<?> m_serviceInterface;
     private String m_filter;
@@ -47,7 +47,7 @@ public class ServiceRegistryTargetSource extends AbstractLazyCreationTargetSourc
      * <p>Constructor for ServiceRegistryTargetSource.</p>
      *
      * @param serviceRegistry a {@link org.opennms.core.soa.ServiceRegistry} object.
-     * @param filter 
+     * @param filter
      * @param serviceInterface a {@link java.lang.Class} object.
      */
     public ServiceRegistryTargetSource(ServiceRegistry serviceRegistry, String filter, Class<?> serviceInterface) {
@@ -61,8 +61,8 @@ public class ServiceRegistryTargetSource extends AbstractLazyCreationTargetSourc
     protected Object createObject() throws Exception {
         Object object = m_serviceRegistry.findProvider(m_serviceInterface, m_filter);
         if (object == null) {
-            throw new IllegalStateException("Unable to find an object that implements '" + 
-                    m_serviceInterface + 
+            throw new IllegalStateException("Unable to find an object that implements '" +
+                    m_serviceInterface +
                     (m_filter == null ? "'" : " matching filter "+m_filter));
         }
         return object;

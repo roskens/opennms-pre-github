@@ -43,20 +43,20 @@ import org.opennms.web.filter.SQLType;
 public class EventIdListFilter extends InFilter<Integer> {
     /** Constant <code>TYPE="eventIdList"</code> */
     public static final String TYPE = "eventIdList";
-    
+
     private static Integer[] box(int[] values) {
         if (values == null) {
             return null;
         }
-        
+
         Integer[] boxed = new Integer[values.length];
         for(int i = 0; i < values.length; i++) {
             boxed[i] = values[i];
         }
-        
+
         return boxed;
     }
-    
+
     /**
      * <p>Constructor for EventIdListFilter.</p>
      *
@@ -65,7 +65,7 @@ public class EventIdListFilter extends InFilter<Integer> {
     public EventIdListFilter(int[] eventIds) {
         super(TYPE, SQLType.INT, "EVENTID", "id", box(eventIds));
     }
-    
+
     /**
      * <p>Constructor for EventIdListFilter.</p>
      *
@@ -88,5 +88,5 @@ public class EventIdListFilter extends InFilter<Integer> {
         buf.append(")");
         return buf.toString();
     }
-    
+
 }

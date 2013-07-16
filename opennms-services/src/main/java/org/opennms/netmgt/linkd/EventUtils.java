@@ -38,7 +38,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public final class EventUtils {
-    
+
     /**
      * Ensures the given event has an interface or ifIndex
      *

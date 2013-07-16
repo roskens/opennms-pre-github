@@ -41,38 +41,38 @@ import org.springframework.scheduling.quartz.QuartzJobBean;
  * <p>BatchReportJob class.</p>
  */
 public class BatchReportJob extends QuartzJobBean {
-    
+
     private ApplicationContext m_context;
 
     /** {@inheritDoc} */
     @Override
     protected void executeInternal(JobExecutionContext jobContext)
             throws JobExecutionException {
-        
+
         JobDataMap dataMap = jobContext.getMergedJobDataMap();
-       
-        // TODO this needs the reportServiceName in the criteria 
-        
-//        
+
+        // TODO this needs the reportServiceName in the criteria
+
+//
 //        ReportServiceLocator reportServiceLocator =
 //            (ReportServiceLocator)m_context.getBean("reportServiceLocator");
-//        
+//
 //        ReportService reportService = reportServiceLocator.getReportService((String)dataMap.get("reportServiceName"));
-//        
-//        reportService.run(criteria.getReportParms(), 
-//                          deliveryOptions, 
+//
+//        reportService.run(criteria.getReportParms(),
+//                          deliveryOptions,
 //                          (String)dataMap.get("reportId"));
-        
-        ReportWrapperService reportWrapperService = 
+
+        ReportWrapperService reportWrapperService =
             (ReportWrapperService)m_context.getBean("reportWrapperService");
-        
+
         reportWrapperService.run((ReportParameters) dataMap.get("criteria"),
                                  (ReportMode) dataMap.get("mode"),
                                  (DeliveryOptions) dataMap.get("deliveryOptions"),
                                  (String)dataMap.get("reportId"));
-        
+
     }
-    
+
     /**
      * <p>setApplicationContext</p>
      *
@@ -81,7 +81,7 @@ public class BatchReportJob extends QuartzJobBean {
     public void setApplicationContext(ApplicationContext applicationContext) {
         m_context = applicationContext;
     }
-    
-    
+
+
 
 }

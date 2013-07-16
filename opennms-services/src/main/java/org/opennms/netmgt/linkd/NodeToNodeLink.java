@@ -132,18 +132,18 @@ public class NodeToNodeLink {
 	    if (!(o instanceof NodeToNodeLink)) return false;
 	    final NodeToNodeLink nodelink = (NodeToNodeLink)o;
 
-		if (this.m_nodeId == nodelink.getNodeId() && 
+		if (this.m_nodeId == nodelink.getNodeId() &&
 			this.m_ifIndex == nodelink.getIfindex()	&&
 			this.m_nodeParentId == nodelink.getNodeparentid() &&
 			this.m_parentIfIndex == nodelink.getParentifindex()) return true;
 
-		if (this.m_nodeId == nodelink.getNodeparentid() && 
+		if (this.m_nodeId == nodelink.getNodeparentid() &&
 			this.m_ifIndex == nodelink.getParentifindex()	&&
 			this.m_nodeParentId == nodelink.getNodeId() &&
 			this.m_parentIfIndex == nodelink.getIfindex()) return true;
-		
+
 		return false;
 
 	}
- 
+
 }

@@ -54,12 +54,12 @@ public class NodeListController extends AbstractCommandController implements Ini
 
     private String m_successView;
     private NodeListService m_nodeListService;
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object cmd, BindException errors) throws Exception {
         NodeListCommand command = (NodeListCommand) cmd;
-    
+
         NodeListModel model = m_nodeListService.createNodeList(command);
         ModelAndView modelAndView = new ModelAndView(getSuccessView(), "model", model);
         modelAndView.addObject(getCommandName(), command);
@@ -76,7 +76,7 @@ public class NodeListController extends AbstractCommandController implements Ini
         Assert.state(m_successView != null, "successView property cannot be null");
         Assert.state(m_nodeListService != null, "nodeListService property cannot be null");
     }
-    
+
     /**
      * <p>getSuccessView</p>
      *

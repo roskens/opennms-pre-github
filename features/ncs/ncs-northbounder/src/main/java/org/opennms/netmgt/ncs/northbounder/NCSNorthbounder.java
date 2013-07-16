@@ -73,22 +73,22 @@ import org.slf4j.LoggerFactory;
 /**
  * Forwards north bound alarms via HTTP.
  * FIXME: Needs lots of work still :(
- * 
+ *
  * @author <a mailto:david@opennms.org>David Hustace</a>
  */
 public class NCSNorthbounder extends AbstractNorthbounder {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(NCSNorthbounder.class);
 
     //FIXME: This should be wired with Spring but is implmented as was in the PSM
     // Make sure that the {@link EmptyKeyRelaxedTrustSSLContext} algorithm
     // is available to JSSE
     static {
-        
+
         //this is a safe call because the method returns -1 if it is already installed (by PageSequenceMonitor, etc.)
         java.security.Security.addProvider(new EmptyKeyRelaxedTrustProvider());
     }
-    
+
 
     private static final String COMPONENT_NAME = "componentName";
 	private static final String COMPONENT_FOREIGN_ID = "componentForeignId";
@@ -98,21 +98,21 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 
     public NCSNorthbounder(NCSNorthbounderConfig config) {
         super("NCSNorthbounder");
-        
+
 		m_config = config;
-		
+
 		setNaglesDelay(m_config.getNaglesDelay());
 
     }
 
-    
+
 	@Override
     public boolean accepts(NorthboundAlarm alarm) {
     	if (!m_config.isEnabled()) return false;
-    	
+
     	if (alarm.getAlarmType() == null) return false;
     	if (alarm.getAlarmType() == AlarmType.NOTIFICATION) return false;
-    	
+
         if(m_config.getAcceptableUeis() != null && m_config.getAcceptableUeis().size() != 0 && !m_config.getAcceptableUeis().contains(alarm.getUei())) return false;
 
         Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
@@ -122,48 +122,48 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         if (!alarmParms.containsKey(COMPONENT_FOREIGN_SOURCE)) return false;
         if (!alarmParms.containsKey(COMPONENT_FOREIGN_ID)) return false;
         if (!alarmParms.containsKey(COMPONENT_NAME)) return false;
-        
+
         // we only send events for "Service" components
         if (!"Service".equals(alarmParms.get(COMPONENT_TYPE))) return false;
-        
+
 
         return true;
-        
+
     }
-    
+
 	private ServiceAlarmNotification toServiceAlarms(List<NorthboundAlarm> alarms) {
-		
+
 		List<ServiceAlarm> serviceAlarms = new ArrayList<ServiceAlarm>(alarms.size());
 		for(NorthboundAlarm alarm : alarms) {
 			serviceAlarms.add(toServiceAlarm(alarm));
 		}
-		
+
 		return new ServiceAlarmNotification(serviceAlarms);
 
 	}
-	
+
     private ServiceAlarm toServiceAlarm(NorthboundAlarm alarm) {
     	AlarmType alarmType = alarm.getAlarmType();
-    	
+
     	Map<String, String> alarmParms = getParameterMap(alarm.getEventParms());
-    	
+
     	String id = alarmParms.get(COMPONENT_FOREIGN_SOURCE)+":"+alarmParms.get(COMPONENT_FOREIGN_ID);
     	String name = alarmParms.get(COMPONENT_NAME);
-    	
+
     	return new ServiceAlarm(id, name, alarmType == AlarmType.PROBLEM ? "Down" : "Up");
 	}
-    
+
     Map<String, String> getParameterMap(String parmString) {
-    	
+
     	Map<String, String> parmMap = new HashMap<String, String>();
-    	
+
     	String[] parms = parmString.split(";");
-    	
+
     	for(String parm : parms) {
     		if (parm.endsWith("(string,text)")) {
     			// we only include string valued keys in the map
     			parm = parm.substring(0, parm.length()-"(string,text)".length());
-    			
+
     			int eq = parm.indexOf('=');
     			if (0 < eq && eq < parm.length()) {
     				String key = parm.substring(0, eq);
@@ -172,51 +172,51 @@ public class NCSNorthbounder extends AbstractNorthbounder {
     			}
     		}
     	}
-    	
+
     	return parmMap;
-    	
+
     }
 
 
 
-    
+
     @Override
     public void forwardAlarms(List<NorthboundAlarm> alarms) throws NorthbounderException {
-    	
+
     	if (!m_config.isEnabled()) return;
-    	
+
         LOG.info("Forwarding {} alarms", alarms.size());
-  
+
         HttpEntity entity = createEntity(alarms);
-        
+
         postAlarms(entity);
     }
 
 
 	private void postAlarms(HttpEntity entity) {
 		//Need a configuration bean for these
-        
+
         int connectionTimeout = 3000;
         int socketTimeout = 3000;
         Integer retryCount = Integer.valueOf(3);
-        
-        HttpVersion httpVersion = determineHttpVersion(m_config.getHttpVersion());        
+
+        HttpVersion httpVersion = determineHttpVersion(m_config.getHttpVersion());
         String policy = CookiePolicy.BROWSER_COMPATIBILITY;
-        
+
         URI uri = m_config.getURI();
-        
+
         DefaultHttpClient client = new DefaultHttpClient(buildParams(httpVersion, connectionTimeout,
                 socketTimeout, policy, m_config.getVirtualHost()));
-        
+
         client.setHttpRequestRetryHandler(new DefaultHttpRequestRetryHandler(retryCount, false));
-        
+
         if ("https".equals(uri.getScheme())) {
             final SchemeRegistry registry = client.getConnectionManager().getSchemeRegistry();
             final Scheme https = registry.getScheme("https");
 
             // Override the trust validation with a lenient implementation
             SSLSocketFactory factory = null;
-            
+
             try {
                 factory = new SSLSocketFactory(SSLContext.getInstance(EmptyKeyRelaxedTrustSSLContext.ALGORITHM), SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
             } catch (Throwable e) {
@@ -227,11 +227,11 @@ public class NCSNorthbounder extends AbstractNorthbounder {
             // This will replace the existing "https" schema
             registry.register(lenient);
         }
-        
+
         HttpEntityEnclosingRequestBase method = m_config.getMethod().getRequestMethod(uri);
 
         method.setEntity(entity);
-            
+
         method.getParams().setParameter(CoreProtocolPNames.USER_AGENT, m_config.getUserAgent());
 
         HttpResponse response = null;
@@ -242,7 +242,7 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         } catch (IOException e) {
             throw new NorthbounderException(e);
         }
-        
+
         if (response != null) {
             int code = response.getStatusLine().getStatusCode();
             HttpResponseRange range = new HttpResponseRange("200-399");
@@ -251,7 +251,7 @@ public class NCSNorthbounder extends AbstractNorthbounder {
                 throw new NorthbounderException("response code out of range for uri:" + uri + ".  Expected " + range + " but received " + code);
             }
         }
-        
+
         System.err.println(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
         LOG.debug(response != null ? response.getStatusLine().getReasonPhrase() : "Response was null");
 	}
@@ -276,7 +276,7 @@ public class NCSNorthbounder extends AbstractNorthbounder {
 			throw new NorthbounderException("failed to convert alarms to xml", e);
 		}
 	}
-	
+
 
 	private HttpVersion determineHttpVersion(String version) {
         HttpVersion httpVersion = null;
@@ -301,7 +301,7 @@ public class NCSNorthbounder extends AbstractNorthbounder {
         }
         return parms;
     }
-    
+
     public NCSNorthbounderConfig getConfig() {
         return m_config;
     }

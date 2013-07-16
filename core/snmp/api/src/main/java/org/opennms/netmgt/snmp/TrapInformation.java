@@ -34,7 +34,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class TrapInformation implements TrapNotification {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(TrapInformation.class);
 
     /**
@@ -51,7 +51,7 @@ public abstract class TrapInformation implements TrapNotification {
         m_agent = agent;
         m_community = community;
         m_trapProcessor = trapProcessor;
-        
+
     }
 
     protected abstract InetAddress getTrapAddress();
@@ -73,7 +73,7 @@ public abstract class TrapInformation implements TrapNotification {
     protected void validate() {
         // by default we do nothing;
     }
-    
+
     protected InetAddress getAgentAddress() {
         return getAgent();
     }
@@ -94,21 +94,21 @@ public abstract class TrapInformation implements TrapNotification {
     protected abstract TrapIdentity getTrapIdentity();
 
     protected void processTrap() {
-        
+
         validate();
-        
+
         m_trapProcessor.setVersion(getVersion());
         m_trapProcessor.setCommunity(getCommunity());
         m_trapProcessor.setAgentAddress(getAgentAddress());
         m_trapProcessor.setTrapAddress(getTrapAddress());
-    
+
         LOG.debug("{} trap - trapInterface: ()", getVersion(), getTrapAddress());
-        
+
         // time-stamp
         m_trapProcessor.setTimeStamp(getTimeStamp());
-    
+
         m_trapProcessor.setTrapIdentity(getTrapIdentity());
-        
+
         for (int i = 0; i < getPduLength(); i++) {
             processVarBindAt(i);
         } // end for loop

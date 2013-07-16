@@ -37,7 +37,7 @@ package org.opennms.web.servlet;
  */
 public class MissingParameterException extends RuntimeException {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3100193382920197884L;
 

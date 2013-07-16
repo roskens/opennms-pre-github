@@ -37,7 +37,7 @@ import org.opennms.features.topology.api.topo.Vertex;
 import org.opennms.features.topology.api.topo.VertexRef;
 
 public class ResetOperation implements Constants, Operation {
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
 

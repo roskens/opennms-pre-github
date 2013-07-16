@@ -82,15 +82,15 @@ public abstract class AsyncMultilineDetectorNettyImpl extends AsyncBasicDetector
      */
     protected static ResponseValidator<MultilineOrientedResponse> expectCodeRange(final int beginRange, final int endRange){
         return new ResponseValidator<MultilineOrientedResponse>() {
-            
+
             @Override
             public boolean validate(final MultilineOrientedResponse response) {
                 return response.expectedCodeRange(beginRange, endRange);
             }
-            
+
         };
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public ResponseValidator<MultilineOrientedResponse> startsWith(final String pattern){
@@ -100,10 +100,10 @@ public abstract class AsyncMultilineDetectorNettyImpl extends AsyncBasicDetector
             public boolean validate(final MultilineOrientedResponse response) {
                 return response.startsWith(pattern);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -120,7 +120,7 @@ public abstract class AsyncMultilineDetectorNettyImpl extends AsyncBasicDetector
         retval.addLast("frameDecoder", new DelimiterBasedFrameDecoder(1024, Delimiters.lineDelimiter()));
         retval.addLast("stringDecoder", new StringDecoder(CharsetUtil.UTF_8));
         retval.addLast("multilineDecoder", new MultilineOrientedResponseDecoder());
-        
+
         // Downstream handlers
         retval.addLast("stringEncoder", new StringEncoder(CharsetUtil.UTF_8));
         retval.addLast("lineEncoder", new LineOrientedRequestEncoder());

@@ -35,9 +35,9 @@ import java.util.List;
 public class DependsOnAny {
 	private Component m_component;
 	private List<Component> m_subComponents;
-	
+
 	public DependsOnAny() {}
-	
+
 	public DependsOnAny(Component component, List<Component> subComponents)
 	{
 		m_component = component;
@@ -60,9 +60,9 @@ public class DependsOnAny {
         m_subComponents = subComponents;
     }
 
-	
-	
-	
-	
-	
+
+
+
+
+
 }

@@ -36,7 +36,7 @@ import java.util.Date;
  * <p/>
  * @author Christian Pape
  * @author Markus Neumann
- * 
+ *
  */
 public interface Measurement extends Serializable {
 

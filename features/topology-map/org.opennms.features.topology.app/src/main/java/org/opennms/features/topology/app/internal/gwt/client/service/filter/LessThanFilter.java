@@ -8,7 +8,7 @@ public class LessThanFilter extends AttributeComparisonFilter {
         super(attribute);
         m_value = value;
     }
-    
+
     @Override
     protected boolean valueMatches(String value) {
         try {
@@ -17,13 +17,13 @@ public class LessThanFilter extends AttributeComparisonFilter {
             return value.compareToIgnoreCase(m_value) <= 0;
         }
     }
-    
+
     @Override
     public String toString() {
         StringBuilder buf = new StringBuilder();
         buf.append("(").append(getAttribute()).append("<=").append(m_value).append(")");
         return buf.toString();
     }
-    
+
 
 }

@@ -113,7 +113,7 @@ public class WmiResult {
 
 	/**
 	 * Constructor, sets the response member.
-	 * 
+	 *
 	 * @param response
 	 *            the response value from the server.
 	 */

@@ -53,11 +53,11 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public final class ThresholdEntity implements Cloneable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdEntity.class);
-    
+
     private static List<ThresholdEvaluator> s_thresholdEvaluators;
-    
+
     //Contains a list of evaluators for each used "instance".  Is populated with the list for the "default" instance (the "null" key)
     // in the Constructor.  Note that this means we must use a null-key capable map like HashMap
     private Map<String,List<ThresholdEvaluatorState>> m_thresholdEvaluatorStates = new HashMap<String,List<ThresholdEvaluatorState>>();
@@ -87,7 +87,7 @@ public final class ThresholdEntity implements Cloneable {
     public BaseThresholdDefConfigWrapper getThresholdConfig() {
         return m_thresholdEvaluatorStates.get(null).get(0).getThresholdConfig();
     }
-    
+
     private boolean hasThresholds() {
         return m_thresholdEvaluatorStates.get(null).size()!=0;
     }
@@ -195,7 +195,7 @@ public final class ThresholdEntity implements Cloneable {
         return buffer.toString();
     }
 
-    
+
     /**
      * Evaluates the threshold in light of the provided datasource value and
      * create any events for thresholds.
@@ -239,7 +239,7 @@ public final class ThresholdEntity implements Cloneable {
             LOG.warn("Failed to evaluate: ", e);
             return events; //No events to report
         }
-        
+
         LOG.debug("evaluate: value= {} against threshold: {}", dsValue, this);
 
         for (ThresholdEvaluatorState item : getThresholdEvaluatorStates(instance)) {
@@ -266,7 +266,7 @@ public final class ThresholdEntity implements Cloneable {
         //If it is an Expression, then we don't yet know what to do - this will likely just fail with some sort of exception.
         //perhaps we should figure out how to expand it (or at least use code elsewhere to do so sensibly)
         String datasource=getDataSourceExpression();
-  
+
 
         // Use RRD strategy to "fetch" value of the datasource from the RRD file
         Double dsValue = null;
@@ -330,8 +330,8 @@ public final class ThresholdEntity implements Cloneable {
             }
         }
 
- 
-        String message = "Threshold type '" + threshold.getType() + "' for "+ threshold.getDatasourceExpression() + " is not supported"; 
+
+        String message = "Threshold type '" + threshold.getType() + "' for "+ threshold.getDatasourceExpression() + " is not supported";
         LOG.warn(message);
         throw new IllegalArgumentException(message);
     }
@@ -347,19 +347,19 @@ public final class ThresholdEntity implements Cloneable {
         if(result==null) {
             //There is no set of evaluators for this instance; create a list by copying the base ones
             List<ThresholdEvaluatorState> defaultList=m_thresholdEvaluatorStates.get(null);
-          
+
             //Create the new list
             result=new LinkedList<ThresholdEvaluatorState>();
             for(ThresholdEvaluatorState state: defaultList) {
                 result.add(state.getCleanClone());
             }
-            
+
             //Store the new list with the instance as the key
             m_thresholdEvaluatorStates.put(instance == null ? null : instance.intern(), result);
         }
         return result;
     }
-    
+
     /**
      * Merges the configuration and update states using parameter entity as a reference.
      *
@@ -378,7 +378,7 @@ public final class ThresholdEntity implements Cloneable {
     public void delete() {
         sendRearmForTriggeredStates();
     }
-    
+
     private void sendRearmForTriggeredStates() {
         for (String instance : m_thresholdEvaluatorStates.keySet()) {
             for (ThresholdEvaluatorState state : m_thresholdEvaluatorStates.get(instance)) {

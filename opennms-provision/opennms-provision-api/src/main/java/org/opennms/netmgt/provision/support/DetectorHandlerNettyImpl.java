@@ -47,9 +47,9 @@ import org.slf4j.LoggerFactory;
  * @author Seth
  */
 public class DetectorHandlerNettyImpl<Request, Response> extends SimpleChannelHandler {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DetectorHandlerNettyImpl.class);
-    
+
     //private DetectFuture m_future;
     private AsyncClientConversation<Request, Response> m_conversation;
 

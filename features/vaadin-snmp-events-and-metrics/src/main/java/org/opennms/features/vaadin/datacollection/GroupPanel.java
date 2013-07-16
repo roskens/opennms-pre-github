@@ -44,8 +44,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class GroupPanel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class GroupPanel extends VerticalLayout {

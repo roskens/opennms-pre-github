@@ -42,7 +42,7 @@ public class StorageStrategyTest extends XmlTest<StorageStrategy> {
     public StorageStrategyTest(final StorageStrategy sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final StorageStrategy strategy = new StorageStrategy();

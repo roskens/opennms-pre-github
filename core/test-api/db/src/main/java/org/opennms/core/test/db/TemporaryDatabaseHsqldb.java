@@ -25,7 +25,7 @@ public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingB
     public TemporaryDatabaseHsqldb() {
         this(TEST_DB_NAME_PREFIX + System.currentTimeMillis());
     }
-    
+
     public TemporaryDatabaseHsqldb(final String testDatabase) {
         m_testDatabase = testDatabase;
     }
@@ -53,11 +53,11 @@ public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingB
     public DataSource getDataSource() {
         return m_dataSource;
     }
-    
+
     public void setDataSource(final DataSource dataSource) {
         m_dataSource = dataSource;
     }
-    
+
     @Override
     public void afterPropertiesSet() {
         Assert.notNull(m_dataSource);
@@ -146,7 +146,7 @@ public class TemporaryDatabaseHsqldb implements TemporaryDatabase, InitializingB
     public SimpleJdbcTemplate getJdbcTemplate() {
         return m_jdbcTemplate;
     }
-    
+
     public void setJdbcTemplate(final SimpleJdbcTemplate template) {
         m_jdbcTemplate = template;
     }

@@ -53,7 +53,7 @@ public class OnmsNamespaceHandler extends NamespaceHandlerSupport {
         registerBeanDefinitionParser("service", new OnmsServiceBeanDefinitionParser());
         registerBeanDefinitionDecorator("annotated-subscription", new AnnotatedSubscriptionBeanDefinitionDecorator());
     }
-    
+
     public class OnmsServiceBeanDefinitionParser extends AbstractBeanDefinitionParser {
 
         @Override

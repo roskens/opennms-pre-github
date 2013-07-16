@@ -52,7 +52,7 @@ import org.springframework.web.servlet.mvc.AbstractFormController;
  * @since 1.8.1
  */
 public class RrdSummaryController extends AbstractFormController implements InitializingBean {
-	
+
 	static class MarshalledView implements View {
 
                 @Override
@@ -65,11 +65,11 @@ public class RrdSummaryController extends AbstractFormController implements Init
 			Assert.notNull(model.get("summary"), "summary must not be null.. unable to marshall xml");
 			Marshaller.marshal(model.get("summary"), response.getWriter());
 		}
-		
+
 	}
-	
+
 	private RrdSummaryService m_rrdSummaryService;
-	
+
 
 	/**
 	 * <p>Constructor for RrdSummaryController.</p>
@@ -83,8 +83,8 @@ public class RrdSummaryController extends AbstractFormController implements Init
         Summary summary = m_rrdSummaryService.getSummary(spec);
         return new ModelAndView(new MarshalledView(), "summary", summary);
     }
-	
-	
+
+
 
 
 	/**
@@ -119,7 +119,7 @@ public class RrdSummaryController extends AbstractFormController implements Init
             HttpServletResponse response, Object command, BindException errors)
             throws Exception {
         return getSummary((SummarySpecification)command);
-        
+
     }
 
     /** {@inheritDoc} */

@@ -45,7 +45,7 @@ import org.opennms.core.xml.JaxbUtils;
 
 /**
  * Service to be launched by the manager.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class Service implements Serializable {
@@ -101,8 +101,8 @@ public class Service implements Serializable {
     // -----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -113,8 +113,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
@@ -126,8 +126,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -138,8 +138,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
@@ -152,7 +152,7 @@ public class Service implements Serializable {
 
     /**
      * Method enumerateAttribute.
-     * 
+     *
      * @return an Enumeration over all possible elements of this collection
      */
     public Enumeration<Attribute> enumerateAttribute() {
@@ -161,7 +161,7 @@ public class Service implements Serializable {
 
     /**
      * Method enumerateInvoke.
-     * 
+     *
      * @return an Enumeration over all possible elements of this collection
      */
     public Enumeration<Invoke> enumerateInvoke() {
@@ -170,7 +170,7 @@ public class Service implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -217,7 +217,7 @@ public class Service implements Serializable {
 
     /**
      * Method getAttribute.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -243,7 +243,7 @@ public class Service implements Serializable {
      * thread, we pass a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of exactly the
      * correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlTransient
@@ -255,7 +255,7 @@ public class Service implements Serializable {
     /**
      * Method getAttributeCollection.Returns a reference to '_attributeList'.
      * No type checking is performed on any modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     @XmlTransient
@@ -265,7 +265,7 @@ public class Service implements Serializable {
 
     /**
      * Method getAttributeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getAttributeCount() {
@@ -274,7 +274,7 @@ public class Service implements Serializable {
 
     /**
      * Returns the value of field 'className'.
-     * 
+     *
      * @return the value of field 'ClassName'.
      */
     @XmlTransient
@@ -284,7 +284,7 @@ public class Service implements Serializable {
 
     /**
      * Method getInvoke.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException
      *             if the index given is outside the bounds of the collection
@@ -309,7 +309,7 @@ public class Service implements Serializable {
      * thread, we pass a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of exactly the
      * correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     @XmlTransient
@@ -321,7 +321,7 @@ public class Service implements Serializable {
     /**
      * Method getInvokeCollection.Returns a reference to '_invokeList'. No
      * type checking is performed on any modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     @XmlTransient
@@ -331,7 +331,7 @@ public class Service implements Serializable {
 
     /**
      * Method getInvokeCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getInvokeCount() {
@@ -340,7 +340,7 @@ public class Service implements Serializable {
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     @XmlTransient
@@ -353,7 +353,7 @@ public class Service implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming Language
      * Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     public int hashCode() {
@@ -377,7 +377,7 @@ public class Service implements Serializable {
 
     /**
      * Method iterateAttribute.
-     * 
+     *
      * @return an Iterator over all possible elements in this collection
      */
     public Iterator<Attribute> iterateAttribute() {
@@ -386,7 +386,7 @@ public class Service implements Serializable {
 
     /**
      * Method iterateInvoke.
-     * 
+     *
      * @return an Iterator over all possible elements in this collection
      */
     public Iterator<Invoke> iterateInvoke() {
@@ -394,8 +394,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      */
     public void marshal(final java.io.Writer out) {
@@ -416,7 +416,7 @@ public class Service implements Serializable {
 
     /**
      * Method removeAttribute.
-     * 
+     *
      * @param vAttribute
      * @return true if the object was removed from the collection.
      */
@@ -427,7 +427,7 @@ public class Service implements Serializable {
 
     /**
      * Method removeAttributeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -438,7 +438,7 @@ public class Service implements Serializable {
 
     /**
      * Method removeInvoke.
-     * 
+     *
      * @param vInvoke
      * @return true if the object was removed from the collection.
      */
@@ -449,7 +449,7 @@ public class Service implements Serializable {
 
     /**
      * Method removeInvokeAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -459,8 +459,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vAttribute
      * @throws java.lang.IndexOutOfBoundsException
@@ -479,8 +479,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vAttributeArray
      */
     public void setAttribute(final Attribute[] vAttributeArray) {
@@ -495,7 +495,7 @@ public class Service implements Serializable {
     /**
      * Sets the value of '_attributeList' by copying the given Vector. All
      * elements will be checked for type safety.
-     * 
+     *
      * @param vAttributeList
      *            the Vector to copy.
      */
@@ -508,7 +508,7 @@ public class Service implements Serializable {
 
     /**
      * Sets the value of field 'className'.
-     * 
+     *
      * @param className
      *            the value of field 'className'.
      */
@@ -517,8 +517,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vInvoke
      * @throws java.lang.IndexOutOfBoundsException
@@ -537,8 +537,8 @@ public class Service implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vInvokeArray
      */
     public void setInvoke(final Invoke[] vInvokeArray) {
@@ -553,7 +553,7 @@ public class Service implements Serializable {
     /**
      * Sets the value of '_invokeList' by copying the given Vector. All
      * elements will be checked for type safety.
-     * 
+     *
      * @param vInvokeList
      *            the Vector to copy.
      */
@@ -566,7 +566,7 @@ public class Service implements Serializable {
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name
      *            the value of field 'name'.
      */

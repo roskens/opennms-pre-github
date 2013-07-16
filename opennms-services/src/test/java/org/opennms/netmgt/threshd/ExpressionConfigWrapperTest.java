@@ -37,11 +37,11 @@ import org.junit.Test;
 import org.opennms.netmgt.config.threshd.Expression;
 
 /**
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ExpressionConfigWrapperTest {
-    
+
     /* See NMS-5014 */
     @Test
     public void testComplexExpression() throws Exception {

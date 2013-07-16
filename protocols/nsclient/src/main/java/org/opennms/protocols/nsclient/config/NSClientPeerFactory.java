@@ -79,7 +79,7 @@ import org.springframework.core.io.FileSystemResource;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class NSClientPeerFactory {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NSClientPeerFactory.class);
 
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
@@ -103,7 +103,7 @@ public final class NSClientPeerFactory {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException
@@ -456,12 +456,12 @@ public final class NSClientPeerFactory {
 
     private void setNSClientAgentConfig(final NSClientAgentConfig agentConfig, final Definition def) {
         setCommonAttributes(agentConfig, def);
-        agentConfig.setPassword(determinePassword(def));       
+        agentConfig.setPassword(determinePassword(def));
     }
 
     /**
      * This is a helper method to set all the common attributes in the agentConfig.
-     * 
+     *
      * @param agentConfig
      * @param def
      * @param version
@@ -491,7 +491,7 @@ public final class NSClientPeerFactory {
     }
 
     /**
-     * Helper method to search the nsclient configuration 
+     * Helper method to search the nsclient configuration
      * @param def
      * @return
      */
@@ -499,7 +499,7 @@ public final class NSClientPeerFactory {
         return (def.getTimeout() == 0 ? (m_config.getTimeout() == 0 ? (long) NSClientAgentConfig.DEFAULT_TIMEOUT : m_config.getTimeout()) : def.getTimeout());
     }
 
-    private int determineRetries(final Definition def) {        
+    private int determineRetries(final Definition def) {
         return (def.getRetry() == 0 ? (m_config.getRetry() == 0 ? NSClientAgentConfig.DEFAULT_RETRIES : m_config.getRetry()) : def.getRetry());
     }
 

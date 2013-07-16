@@ -44,14 +44,14 @@ public class Actiond implements ActiondMBean {
      */
     @Override
     public void init() {
-    	
+
     	try {
 			ActiondConfigFactory.init();
 		} catch (Throwable e) {
 			throw new UndeclaredThrowableException(e);
 		}
     	ActiondConfigFactory actiondConfig = ActiondConfigFactory.getInstance();
-    	
+
         org.opennms.netmgt.actiond.Actiond actiond = org.opennms.netmgt.actiond.Actiond.getInstance();
         actiond.setActiondConfig(actiondConfig);
         actiond.init();

@@ -46,7 +46,7 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
 
     /**
      * <p>get</p>
-     * 
+     *
      * @deprecated Use {@link #get(Integer, InetAddress, Integer, Integer)} instead
      *
      * @param nodeId a {@link java.lang.Integer} object.
@@ -58,7 +58,7 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
     OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer ifIndex, Integer serviceId);
 
     /**
-     * <p>get</p> 
+     * <p>get</p>
      *
      * @param nodeId a {@link java.lang.Integer} object.
      * @param ipAddr a {@link java.lang.String} object.
@@ -67,7 +67,7 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
      */
     OnmsMonitoredService get(Integer nodeId, String ipAddr, Integer serviceId);
 
-    
+
 
     /**
      * <p>get</p>
@@ -113,7 +113,7 @@ public interface MonitoredServiceDao extends OnmsDao<OnmsMonitoredService, Integ
      * @return a {@link java.util.Collection} object.
      */
     Set<OnmsMonitoredService> findByApplication(OnmsApplication application);
-    
+
     /**
      * <p>getPrimaryService</p>
      *

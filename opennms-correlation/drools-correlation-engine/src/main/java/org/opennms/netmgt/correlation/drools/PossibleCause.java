@@ -37,7 +37,7 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class PossibleCause extends Cause {
-    
+
     /**
      * <p>Constructor for PossibleCause.</p>
      *

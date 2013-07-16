@@ -35,20 +35,20 @@ import java.util.Set;
  * <p>DemandPoll class.</p>
  */
 public class DemandPoll {
-	
+
 	private Integer m_id;
 	private Date m_requestTime;
 	private String m_userName;
 	private String m_description;
 	private Set<PollResult> m_pollResults;
-	
+
 	/**
 	 * <p>Constructor for DemandPoll.</p>
 	 */
 	public DemandPoll() {
-		
+
 	}
-	
+
 	/**
 	 * <p>getDescription</p>
 	 *
@@ -137,5 +137,5 @@ public class DemandPoll {
 	public void setUserName(String user) {
 		m_userName = user;
 	}
-	
+
 }

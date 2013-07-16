@@ -66,7 +66,7 @@ public class LocationMonitorDaoTest implements InitializingBean {
         m_locationMonitorDao.pauseAll();
 
     }
-    
+
 	@Test
 	@Transactional
     public void testResumeAll() {

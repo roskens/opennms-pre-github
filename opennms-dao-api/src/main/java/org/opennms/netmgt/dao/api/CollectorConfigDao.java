@@ -56,14 +56,14 @@ public interface CollectorConfigDao {
      * <p>rebuildPackageIpListMap</p>
      */
     void rebuildPackageIpListMap();
-    
+
     /**
      * <p>getPackages</p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<CollectdPackage> getPackages();
-    
+
     /**
      * <p>getPackage</p>
      *

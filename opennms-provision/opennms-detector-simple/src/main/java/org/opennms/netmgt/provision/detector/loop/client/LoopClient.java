@@ -43,16 +43,16 @@ import org.opennms.netmgt.provision.support.Client;
  * @version $Id: $
  */
 public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
-    
+
     private String m_address;
     private boolean m_isSupported = false;
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
-        
+
     }
 
     /** {@inheritDoc} */
@@ -85,7 +85,7 @@ public class LoopClient implements Client<LineOrientedRequest, LoopResponse> {
     public LoopResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return null;
     }
-    
+
     private LoopResponse receiveResponse() {
         LoopResponse loopResponse = new LoopResponse();
         loopResponse.receive(m_address, isSupported());

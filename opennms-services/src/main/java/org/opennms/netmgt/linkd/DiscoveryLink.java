@@ -50,11 +50,11 @@ import org.slf4j.LoggerFactory;
  * This class is designed to discover link among nodes using the collected and
  * the necessary SNMP information. When the class is initially constructed no
  * information is used.
- * 
+ *
  * @author <a href="mailto:antonio@opennms.it">Antonio Russo </a>
  */
 public final class DiscoveryLink implements ReadyRunnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(DiscoveryLink.class);
 
     private String packageName;
@@ -70,7 +70,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     private List<LinkableNode> m_lldpNodes = new ArrayList<LinkableNode>();
 
     private List<LinkableNode> m_ospfNodes = new ArrayList<LinkableNode>();
-    
+
     private List<LinkableNode> m_cdpNodes = new ArrayList<LinkableNode>();
 
     // this is the list of MAC address just parsed by discovery process
@@ -169,7 +169,7 @@ public final class DiscoveryLink implements ReadyRunnable {
                     && linkableNode.getOspfinterfaces() != null ) {
                 LOG.debug("run: adding to ospf node list: node with nodeid/ospfrouterid/#ospfinterface {}/{}/#{}", linkableNode.getNodeId(),str(linkableNode.getOspfRouterId()),linkableNode.getOspfinterfaces().size());
                 m_ospfNodes.add(linkableNode);
-            }   
+            }
             if (discoveryUsingLldp && linkableNode.getLldpChassisId() != null
                     && linkableNode.getLldpChassisIdSubtype() != null) {
                 LOG.debug("run: adding to lldp node list: node with nodeid/sysname/chassisid {}/{}/{}", linkableNode.getNodeId(),linkableNode.getLldpSysname(),linkableNode.getLldpChassisId());
@@ -223,7 +223,7 @@ public final class DiscoveryLink implements ReadyRunnable {
         macsExcluded.clear();
         m_lldpNodes.clear();
         m_ospfNodes.clear();
-        
+
         if (getLinkd().getAtInterfaces(getPackageName()) != null)
             getLinkd().getAtInterfaces(getPackageName()).clear();
 
@@ -576,7 +576,7 @@ public final class DiscoveryLink implements ReadyRunnable {
         int node1Id = node1.getNodeId();
         int node2Id = node2.getNodeId();
         LOG.info("getCdpLinks: checking cdp links between node1 {} and node2 {}", node1Id, node2Id);
-        
+
         List<NodeToNodeLink> cdplinks = new ArrayList<NodeToNodeLink>();
         for (final CdpInterface cdpIface : node1.getCdpInterfaces()) {
             LOG.debug("getCdpLinks: parsing cdp interface {} on node {}.", cdpIface,node1Id);
@@ -609,7 +609,7 @@ public final class DiscoveryLink implements ReadyRunnable {
         }
         return cdplinks;
     }
-    
+
     private void getLinksFromCdp() {
         LOG.info("getLinksFromCdp: adding links using Cisco Discovery Protocol");
 
@@ -659,14 +659,14 @@ public final class DiscoveryLink implements ReadyRunnable {
         }
         LOG.info("getLinksFromOspf: done OSPF. Found links # {}.", i);
     }
-    
+
     private List<NodeToNodeLink> getOspfLink(LinkableNode linknode1,
             LinkableNode linknode2) {
         LOG.info("getLinksFromOspf: finding OSPF links between node with id {} and node with id {}.", linknode1.getNodeId(), linknode2.getNodeId());
         List<NodeToNodeLink> links = new ArrayList<NodeToNodeLink>();
         for (OspfNbrInterface ospf: linknode1.getOspfinterfaces()) {
             for (OspfNbrInterface ospf2: linknode2.getOspfinterfaces()) {
-                if (ospf.getOspfNbrRouterId().equals(linknode2.getOspfRouterId()) && ospf.getOspfNbrNodeId() == linknode2.getNodeId() 
+                if (ospf.getOspfNbrRouterId().equals(linknode2.getOspfRouterId()) && ospf.getOspfNbrNodeId() == linknode2.getNodeId()
                         && ospf2.getOspfNbrRouterId().equals(linknode1.getOspfRouterId()) && ospf2.getOspfNbrNodeId() == linknode1.getNodeId()) {
                     if (getSubnetAddress(ospf).equals(getSubnetAddress(ospf2))) {
                         NodeToNodeLink link = new NodeToNodeLink(ospf.getOspfNbrNodeId(), ospf.getOspfNbrIfIndex());
@@ -674,18 +674,18 @@ public final class DiscoveryLink implements ReadyRunnable {
                         link.setParentifindex(ospf2.getOspfNbrIfIndex());
                         links.add(link);
                     }
-                }                
+                }
             }
         }
         return links;
     }
 
-    
+
     protected InetAddress getSubnetAddress(OspfNbrInterface ospfinterface) {
         byte[] ip = ospfinterface.getOspfNbrIpAddr().getAddress();
         byte[] nm = ospfinterface.getOspfNbrNetMask().getAddress();
         try {
-            return InetAddress.getByAddress(new byte[]{ 
+            return InetAddress.getByAddress(new byte[]{
                     (byte) (ip[0] & nm[0]), (byte) (ip[1] & nm[1]),(byte) (ip[2] & nm[2]), (byte) (ip[3] & nm[3])
                     });
         } catch (UnknownHostException e) {
@@ -699,7 +699,7 @@ public final class DiscoveryLink implements ReadyRunnable {
     // If node1 has a lldp rem entry for node2
     // then node2 mast have an lldp rem entry for node1
     // the parent node is that with nodeid1 < nodeid2
-    
+
     // FIXME We must manage the case in which one of the two device has no RemTable
     private void getLinkdFromLldp() {
         LOG.info("getLinkdFromLldp: adding links using Layer Link Discovery Protocol");
@@ -738,16 +738,16 @@ public final class DiscoveryLink implements ReadyRunnable {
         }
         return links;
     }
-    
+
     boolean isCdpNode(int nodeid) {
         for (final LinkableNode curNode : m_cdpNodes ) {
             if (nodeid == curNode.getNodeId())
                 return true;
         }
         return false;
-	
+
     }
-    
+
     /**
      * @param nodeid
      * @return LinkableSnmpNode or null if not found
@@ -895,7 +895,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     /**
      * Return the Scheduler
-     * 
+     *
      * @return a {@link org.opennms.netmgt.linkd.scheduler.Scheduler} object.
      */
     public Scheduler getScheduler() {
@@ -904,7 +904,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     /**
      * Set the Scheduler
-     * 
+     *
      * @param scheduler
      *            a {@link org.opennms.netmgt.linkd.scheduler.Scheduler}
      *            object.
@@ -927,7 +927,7 @@ public final class DiscoveryLink implements ReadyRunnable {
 
     /**
      * Schedule again the job
-     * 
+     *
      * @return
      */
     private void reschedule() {
@@ -941,7 +941,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getInitialSleepTime
      * </p>
-     * 
+     *
      * @return Returns the initial_sleep_time.
      */
     public long getInitialSleepTime() {
@@ -952,7 +952,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setInitialSleepTime
      * </p>
-     * 
+     *
      * @param initial_sleep_time
      *            The initial_sleep_timeto set.
      */
@@ -964,7 +964,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * isReady
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     @Override
@@ -976,7 +976,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getDiscoveryInterval
      * </p>
-     * 
+     *
      * @return Returns the discovery_link_interval.
      */
     public long getDiscoveryInterval() {
@@ -987,7 +987,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setSnmpPollInterval
      * </p>
-     * 
+     *
      * @param interval
      *            The discovery_link_interval to set.
      */
@@ -999,7 +999,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getSnmpPollInterval
      * </p>
-     * 
+     *
      * @return Returns the discovery_link_interval.
      */
     public long getSnmpPollInterval() {
@@ -1010,7 +1010,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * setDiscoveryInterval
      * </p>
-     * 
+     *
      * @param interval
      *            The discovery_link_interval to set.
      */
@@ -1022,7 +1022,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Getter for the field <code>links</code>.
      * </p>
-     * 
+     *
      * @return an array of {@link org.opennms.netmgt.linkd.NodeToNodeLink}
      *         objects.
      */
@@ -1034,7 +1034,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getMacLinks
      * </p>
-     * 
+     *
      * @return an array of {@link org.opennms.netmgt.linkd.MacToNodeLink}
      *         objects.
      */
@@ -1046,7 +1046,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * isSuspended
      * </p>
-     * 
+     *
      * @return Returns the suspendCollection.
      */
     @Override
@@ -1153,7 +1153,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * getInfo
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override
@@ -1170,7 +1170,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingBridge
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean discoveryUsingBridge() {
@@ -1181,7 +1181,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Setter for the field <code>discoveryUsingBridge</code>.
      * </p>
-     * 
+     *
      * @param discoveryUsingBridge
      *            a boolean.
      */
@@ -1193,7 +1193,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingLldp
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean discoveryUsingOspf() {
@@ -1204,7 +1204,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Setter for the field <code>discoveryUsingOspf</code>.
      * </p>
-     * 
+     *
      * @param discoveryUsingOspf
      *            a boolean.
      */
@@ -1216,7 +1216,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingLldp
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean discoveryUsingLldp() {
@@ -1227,7 +1227,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Setter for the field <code>discoveryUsingLldp</code>.
      * </p>
-     * 
+     *
      * @param discoveryUsingLldp
      *            a boolean.
      */
@@ -1239,7 +1239,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingCdp
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean discoveryUsingCdp() {
@@ -1250,7 +1250,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Setter for the field <code>discoveryUsingCdp</code>.
      * </p>
-     * 
+     *
      * @param discoveryUsingCdp
      *            a boolean.
      */
@@ -1262,7 +1262,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * discoveryUsingRoutes
      * </p>
-     * 
+     *
      * @return a boolean.
      */
     public boolean discoveryUsingRoutes() {
@@ -1273,7 +1273,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Setter for the field <code>discoveryUsingRoutes</code>.
      * </p>
-     * 
+     *
      * @param discoveryUsingRoutes
      *            a boolean.
      */
@@ -1285,7 +1285,7 @@ public final class DiscoveryLink implements ReadyRunnable {
      * <p>
      * Getter for the field <code>packageName</code>.
      * </p>
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @Override

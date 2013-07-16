@@ -231,7 +231,7 @@ public class Varbind implements Serializable {
 	public EventMatcher constructMatcher() {
 		// ignore this is vbnumber is null
 		if (m_vbnumber == null) return EventMatchers.trueMatcher();
-		
+
 		List<EventMatcher> valueMatchers = new ArrayList<EventMatcher>(m_values.size());
 		for(String value : m_values) {
 			if (value == null) continue;
@@ -243,7 +243,7 @@ public class Varbind implements Serializable {
 				valueMatchers.add(valueEqualsMatcher(varbind(m_vbnumber), value));
 			}
 		}
-		
+
 		if (valueMatchers.size() == 1) {
 			return valueMatchers.get(0);
 		} else {
@@ -251,6 +251,6 @@ public class Varbind implements Serializable {
 			return EventMatchers.or(matchers);
 		}
 
-	}	
+	}
 
 }

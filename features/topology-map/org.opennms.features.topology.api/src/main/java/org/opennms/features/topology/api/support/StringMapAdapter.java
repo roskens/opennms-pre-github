@@ -45,7 +45,7 @@ public class StringMapAdapter extends XmlAdapter<StringMapAdapter.JaxbMap, Map<S
 	}
 
 	public static final class Entry {
-		
+
 		@XmlAttribute
 		public String key;
 		@XmlAttribute

@@ -217,12 +217,12 @@ public class EventConstants {
      * The node added event UEI
      */
     public final static String NODE_ADDED_EVENT_UEI = "uei.opennms.org/nodes/nodeAdded";
-    
+
     /**
      * The node updated event UEI (added for the ProvisioningAdapter integration)
      */
     public final static String NODE_UPDATED_EVENT_UEI = "uei.opennms.org/nodes/nodeUpdated";
-    
+
 	/**
 	 * The node category membership changed UEI
 	 */
@@ -272,7 +272,7 @@ public class EventConstants {
      * The snmp interface admin down event UEI
      */
     public final static String SNMP_INTERFACE_ADMIN_DOWN_EVENT_UEI = "uei.opennms.org/nodes/snmp/interfaceAdminDown";
-    
+
     /**
      * The node down event UEI
      */
@@ -362,12 +362,12 @@ public class EventConstants {
      * ThresholdEvaluatorRearmingAbsoluteChange exceeded UEI
      */
     public final static String REARMING_ABSOLUTE_CHANGE_EXCEEDED_EVENT_UEI = "uei.opennms.org/threshold/rearmingAbsoluteChangeExceeded";
-    
+
     /**
      * ThresholdEvaluatorRearmingAbsoluteChange exceeded UEI
      */
     public final static String REARMING_ABSOLUTE_CHANGE_REARM_EVENT_UEI = "uei.opennms.org/threshold/rearmingAbsoluteChangeRearmed";
-    
+
     /**
      * The interface index changed event
      */
@@ -476,7 +476,7 @@ public class EventConstants {
      */
 
     public final static String RESCAN_COMPLETED_EVENT_UEI = "uei.opennms.org/internal/capsd/rescanCompleted";
-    
+
     /**
      * The suspect scan completed UEI
      */
@@ -492,7 +492,7 @@ public class EventConstants {
      */
     public final static String RTC_UNSUBSCRIBE_EVENT_UEI = "uei.opennms.org/internal/rtc/unsubscribe";
 
-    
+
     /**
      * An event used by queued to indicate that data for certain rrds should be immediately flushed to the disk
      */
@@ -531,22 +531,22 @@ public class EventConstants {
         * The scheduled-outages configuration was changed by the user via the web UI (or manually, for that matter)
         */
     public final static String SCHEDOUTAGES_CHANGED_EVENT_UEI = "uei.opennms.org/internal/schedOutagesChanged";
-    
+
     /**
      * The threshold config was changed by the user via the web UI, or manually
      */
     public final static String THRESHOLDCONFIG_CHANGED_EVENT_UEI = "uei.opennms.org/internal/thresholdConfigChange";
-       
+
     /**
      * The event config was changed by the user via the web UI, or manually, and should be reloaded
      */
     public final static String EVENTSCONFIG_CHANGED_EVENT_UEI = "uei.opennms.org/internal/eventsConfigChange";
-    
+
     /**
      * The Snmp Poller config was changed by the user via the web UI, or manually, and should be reloaded
      */
     public final static String SNMPPOLLERCONFIG_CHANGED_EVENT_UEI = "uei.opennms.org/internal/reloadSnmpPollerConfig";
-    
+
     /**
      * Reload Vacuumd configuration UEI
      */
@@ -568,13 +568,13 @@ public class EventConstants {
     /**
      * Reportd UEIs
      */
-    
+
     public static final String REPORTD_RUN_REPORT = "uei.opennms.org/reportd/runReport";
     /** Constant <code>PARM_REPORT_NAME="reportName"</code> */
     public static final String PARM_REPORT_NAME = "reportName";
     public static final String REPORT_RUN_FAILED_UEI = "uei.opennms.org/reportd/reportRunFailed";
     public static final String REPORT_DELIVERY_FAILED_UEI = "uei.opennms.org/reportd/reportDeliveryFailed";
-    
+
     /** Constant <code>REMOTE_NODE_LOST_SERVICE_UEI="uei.opennms.org/remote/nodes/nodeLostSe"{trunked}</code> */
     public static final String REMOTE_NODE_LOST_SERVICE_UEI = "uei.opennms.org/remote/nodes/nodeLostService";
     /** Constant <code>REMOTE_NODE_REGAINED_SERVICE_UEI="uei.opennms.org/remote/nodes/nodeRegain"{trunked}</code> */
@@ -609,7 +609,7 @@ public class EventConstants {
     public static final String PROVISION_SCAN_COMPLETE_UEI="uei.opennms.org/internal/provisiond/nodeScanCompleted";
     /** Constant <code>PROVISION_SCAN_ABORTED_UEI="uei.opennms.org/internal/provisiond/nod"{trunked}</code> */
     public static final String PROVISION_SCAN_ABORTED_UEI="uei.opennms.org/internal/provisiond/nodeScanAborted";
-    
+
     /** Constant <code>PARM_FAILURE_MESSAGE="failureMessage"</code> */
     public static final String PARM_FAILURE_MESSAGE = "failureMessage";
 
@@ -620,7 +620,7 @@ public class EventConstants {
     public static final String PARM_IMPORT_RESOURCE = "importResource";
 
     public static final String PARM_IMPORT_RESCAN_EXISTING = "importRescanExisting";
-    
+
     /** Constant <code>PARM_ALARM_ID="alarmId"</code> */
     public static final String PARM_ALARM_ID = "alarmId";
     /** Constant <code>PARM_ALARM_UEI="alarmUei"</code> */
@@ -636,7 +636,7 @@ public class EventConstants {
     public final static String TROUBLETICKET_CLOSE_UEI = "uei.opennms.org/troubleTicket/close";
     /** Constant <code>TROUBLETICKET_CANCEL_UEI="uei.opennms.org/troubleTicket/cancel"</code> */
     public final static String TROUBLETICKET_CANCEL_UEI = "uei.opennms.org/troubleTicket/cancel";
-    
+
     /** Constant <code>TL1_AUTONOMOUS_MESSAGE_UEI="uei.opennms.org/api/tl1d/message/autono"{trunked}</code> */
     public final static String TL1_AUTONOMOUS_MESSAGE_UEI = "uei.opennms.org/api/tl1d/message/autonomous";
 
@@ -654,7 +654,7 @@ public class EventConstants {
     /** Constant <code>DATA_LINK_UNMANAGED_EVENT_UEI="uei.opennms.org/internal/linkd/dataLink"{trunked}</code> */
     public static final String DATA_LINK_UNMANAGED_EVENT_UEI = "uei.opennms.org/internal/linkd/dataLinkUnmanaged";
 
-   
+
     //
     // end eventUEIs
     //
@@ -679,7 +679,7 @@ public class EventConstants {
      * suppression of a notification
      */
     public final static String PARM_CRITICAL_PATH_NOTICE_SUPRESSED = "noticeSupressed";
-    
+
     /**
      * This parameter is set to indicate the id of the demandPoll object to store the results
      * of a demandPoll in
@@ -823,72 +823,72 @@ public class EventConstants {
      * The parameter name for the "SNMP security name string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_SECURITY_NAME = "securityName";
-    
+
     /**
      * The parameter name for the "SNMP security level string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_SECURITY_LEVEL = "securityLevel";
-    
+
     /**
      * The parameter name for the "SNMP auth passphrase string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_AUTH_PASSPHRASE = "authPassphrase";
-    
+
     /**
      * The parameter name for the "SNMP auth protocol string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_AUTH_PROTOCOL = "authProtocol";
-    
+
     /**
      * The parameter name for the "SNMP engine id string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_ENGINE_ID = "engineId";
-    
+
     /**
      * The parameter name for the "SNMP context engine id string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_CONTEXT_ENGINE_ID = "contextEngineId";
-    
+
     /**
      * The parameter name for the "SNMP enterprise id string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_ENTERPRISE_ID = "enterpriseId";
-    
+
     /**
      * The parameter name for the "SNMP context name string" when sent as an event parameter.
      */
-    public final static String PARM_SNMP_CONTEXT_NAME = "contextName"; 
-    
+    public final static String PARM_SNMP_CONTEXT_NAME = "contextName";
+
     /**
      * The parameter name for the "SNMP privacy passphrase string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_PRIVACY_PASSPHRASE = "privPassphrase";
-    
+
     /**
      * The parameter name for the "SNMP privacy protocol string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_PRIVACY_PROTOCOL = "privProtocol";
-    
+
     /**
      * The parameter name for the "SNMP max repetitions string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_MAX_REPETITIONS = "maxRepetitions";
-    
+
     /**
      * The parameter name for the "SNMP max request size string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_MAX_REQUEST_SIZE = "maxRequestSize";
-    
+
     /**
      * The parameter name for the "SNMP max vars per pdu string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_MAX_VARS_PER_PDU = "maxVarsPerPdu";
-    
+
     /**
      * The parameter name for the "SNMP proxy host string" when sent as an event parameter.
      */
     public final static String PARM_SNMP_PROXY_HOST= "proxyHost";
-    
+
     /**
      * The first IP address in a range of IP addresses when sent as an event
      * parm.
@@ -907,12 +907,12 @@ public class EventConstants {
      */
     @Deprecated
     public final static String PARM_COMMUNITY_STRING = "communityString";
-    
+
     /**
      * The SNMP read community string when sent as an event parm.
      */
     public final static String PARM_SNMP_READ_COMMUNITY_STRING = "readCommunityString";
-    
+
     /**
      * The SNMP write community string when sent as an event parm.
      */
@@ -969,18 +969,18 @@ public class EventConstants {
      * The status to indicate which kind of external xmlrpc command to invoke.
      */
     public final static String PARM_SOURCE_EVENT_STATUS = "eventStatus";
-    
+
     /**
      * Used for retaining the reason from a monitor determines SERVICE_UNAVAILABLE
      */
     public final static String PARM_LOSTSERVICE_REASON = "eventReason";
-    
+
     /**
      * Used for setting the value for  PARM_LOSTSERVICE_REASON when the lost
      * service is due to a critical path outage
      */
     public final static String PARM_VALUE_PATHOUTAGE = "pathOutage";
-    
+
     /**
      * Parms used for passive status events sent to the PassiveServiceKeeper
      */
@@ -1002,7 +1002,7 @@ public class EventConstants {
     public static final String PARM_FOREIGN_ID = "foreignId";
 
 
-    
+
     /**
      * Parms used for configureSnmp events
      */
@@ -1018,19 +1018,19 @@ public class EventConstants {
     public final static String PARM_LOCATION_MONITOR_ID = "locationMonitorId";
     /** Constant <code>PARM_LOCATION="location"</code> */
     public final static String PARM_LOCATION = "location";
-    
+
     /**
      * Parm use for promoteEnqueuedData event
      */
     public static final String PARM_FILES_TO_PROMOTE = "filesToPromote";
-    
+
     /**
      * Parameter used in event snmp poller definition
-     */ 
+     */
     public final static String PARM_SNMP_INTERFACE_IFINDEX="snmpifindex";
 
     /** Constant <code>PARM_SNMP_INTERFACE_IP="ipaddr"</code> */
-    public final static String PARM_SNMP_INTERFACE_IP="ipaddr"; 
+    public final static String PARM_SNMP_INTERFACE_IP="ipaddr";
 
     /** Constant <code>PARM_SNMP_INTERFACE_NAME="snmpifname"</code> */
     public final static String PARM_SNMP_INTERFACE_NAME="snmpifname";
@@ -1043,7 +1043,7 @@ public class EventConstants {
 
     /** Constant <code>PARM_SNMP_INTERFACE_MASK="mask"</code> */
     public final static String PARM_SNMP_INTERFACE_MASK="mask";
-    
+
     //
     // End event parms
     //
@@ -1090,12 +1090,12 @@ public class EventConstants {
      * Used for indicating a reason message in an event or alarm.
      */
     public static final String PARM_REASON = "reason";
-    
+
     /**
      * Used for indication the first endpoint to a map link
      */
     public static final String PARM_ENDPOINT1 = "endPoint1";
-    
+
     /**
      * Used for indication the second endpoint to a map link
      */
@@ -1192,7 +1192,7 @@ public class EventConstants {
             return formatter;
         }
     };
-    
+
     public static final ThreadLocal<DateFormat> FORMATTER_FULL_GMT = new ThreadLocal<DateFormat>() {
         @Override
         protected synchronized DateFormat initialValue() {
@@ -1338,7 +1338,7 @@ public class EventConstants {
             if (value instanceof String)
                 result = new String(Base64.encodeBase64(((String) value).getBytes()));
             else if (value instanceof Number) {
-                
+
                 byte[] ibuf = null;
                 if (value instanceof BigInteger)
                     ibuf = ((BigInteger) value).toByteArray();
@@ -1363,7 +1363,7 @@ public class EventConstants {
                 result = macAddress.toString();
             }
         }
-        
+
         if (result == null)
             throw new IllegalArgumentException("unable to encode "+value+" of type "+value.getClass());
 

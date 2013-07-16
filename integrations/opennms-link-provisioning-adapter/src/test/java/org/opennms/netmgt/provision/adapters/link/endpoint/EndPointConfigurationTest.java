@@ -44,7 +44,7 @@ import org.springframework.core.io.ClassPathResource;
 public class EndPointConfigurationTest {
 
     private EndPointConfigurationDao m_endPointDao;
-    
+
     @Before
     public void setUp() throws Exception {
         DefaultEndPointConfigurationDao dao = new DefaultEndPointConfigurationDao();
@@ -58,14 +58,14 @@ public class EndPointConfigurationTest {
         props.setProperty("log4j.logger.org.opennms", "DEBUG");
         props.setProperty("log4j.logger.org.opennms.netmgt.dao.castor", "WARN");
         MockLogAppender.setupLogging(props);
-        
+
         XMLUnit.setIgnoreComments(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setNormalize(true);
 
     }
-    
+
     @Test
     public void testGetFromDao() throws Exception {
         EndPointTypeValidator validator = m_endPointDao.getValidator();

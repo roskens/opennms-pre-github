@@ -49,7 +49,7 @@ import org.opennms.netmgt.rrd.RrdGraphDetails;
  */
 public class JRobinRrdGraphDetails implements RrdGraphDetails {
     private static final Logger LOG = LoggerFactory.getLogger(JRobinRrdGraphDetails.class);
-    
+
     private RrdGraph m_rrdGraph;
     private String m_graphCommand;
 
@@ -63,7 +63,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
         m_rrdGraph = rrdGraph;
         m_graphCommand = graphCommand;
     }
-    
+
     /**
      * <p>getRrdGraph</p>
      *
@@ -72,7 +72,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     public RrdGraph getRrdGraph() {
         return m_rrdGraph;
     }
-    
+
     /**
      * <p>getGraphCommand</p>
      *
@@ -81,7 +81,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     public String getGraphCommand() {
         return m_graphCommand;
     }
-    
+
     /**
      * <p>getInputStream</p>
      *
@@ -114,7 +114,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     @Override
     public int getHeight() throws RrdException {
         assertGraphProduced();
-        
+
         return m_rrdGraph.getRrdGraphInfo().getHeight();
     }
 
@@ -127,7 +127,7 @@ public class JRobinRrdGraphDetails implements RrdGraphDetails {
     @Override
     public int getWidth() throws RrdException {
         assertGraphProduced();
-        
+
         return m_rrdGraph.getRrdGraphInfo().getWidth();
     }
 

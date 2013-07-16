@@ -37,7 +37,7 @@ import org.slf4j.LoggerFactory;
  * @author Seth
  */
 public abstract class LocaleUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LocaleUtils.class);
 
     public static final Locale DEFAULT_LOCALE = new Locale(Locale.ENGLISH.getLanguage(), Locale.US.getCountry());
@@ -112,7 +112,7 @@ public abstract class LocaleUtils {
                             if (
                                 prefer.getLanguage().equalsIgnoreCase(avail.getLanguage()) &&
                                 (prefer.getCountry() == null ?
-                                    true : 
+                                    true :
                                     prefer.getCountry().equalsIgnoreCase(avail.getCountry())
                                 )
                             ) {

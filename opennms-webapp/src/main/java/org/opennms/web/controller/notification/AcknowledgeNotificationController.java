@@ -58,9 +58,9 @@ import org.springframework.web.servlet.view.RedirectView;
 public class AcknowledgeNotificationController extends AbstractController implements InitializingBean {
 
     private WebNotificationRepository m_webNotificationRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -69,7 +69,7 @@ public class AcknowledgeNotificationController extends AbstractController implem
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebNotificationRepository</p>
      *

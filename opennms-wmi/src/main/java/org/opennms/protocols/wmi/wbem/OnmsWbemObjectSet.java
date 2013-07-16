@@ -53,5 +53,5 @@ public interface OnmsWbemObjectSet {
      * @return a {@link org.opennms.protocols.wmi.wbem.OnmsWbemObject} object.
      * @throws org.opennms.protocols.wmi.WmiException if any.
      */
-    public OnmsWbemObject get(Integer idx) throws WmiException;   
+    public OnmsWbemObject get(Integer idx) throws WmiException;
 }

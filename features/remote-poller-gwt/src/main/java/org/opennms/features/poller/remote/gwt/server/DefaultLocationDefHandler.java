@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.features.poller.remote.gwt.server;
 
@@ -52,7 +52,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
 		m_locationDataService = locationDataService;
 		m_eventService = eventService;
 	}
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void start(final int size) {
@@ -68,7 +68,7 @@ class DefaultLocationDefHandler implements LocationDefHandler {
 		final LocationUpdatedRemoteEvent event = new LocationUpdatedRemoteEvent(m_locationDataService.getLocationInfo(def));
 		getEventService().addEventUserSpecific(event);
 	}
-	
+
 	/**
 	 * <p>finish</p>
 	 */

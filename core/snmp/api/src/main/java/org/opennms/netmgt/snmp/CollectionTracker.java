@@ -30,7 +30,7 @@ package org.opennms.netmgt.snmp;
 
 
 public abstract class CollectionTracker implements Collectable {
-    
+
     public static final int NO_ERR = 0;
     public static final int TOO_BIG_ERR = 1;
     public static final int NO_SUCH_NAME_ERR = 2;
@@ -40,12 +40,12 @@ public abstract class CollectionTracker implements Collectable {
     private boolean m_failed = false;
     private boolean m_timedOut = false;
     private boolean m_finished = false;
-    
-    
+
+
     public CollectionTracker() {
         this(null);
     }
-    
+
     public CollectionTracker(CollectionTracker parent) {
         m_parent = parent;
     }
@@ -53,35 +53,35 @@ public abstract class CollectionTracker implements Collectable {
     public void setParent(CollectionTracker parent) {
         m_parent = parent;
     }
-    
+
     public CollectionTracker getParent() {
         return m_parent;
     }
 
     public boolean failed() { return m_failed || m_timedOut; }
-    
+
     public boolean timedOut() { return m_timedOut; }
-    
+
     abstract public void setMaxRepetitions(int maxRepetitions);
-    
+
     public void setFailed(boolean failed) {
         m_failed = failed;
     }
-    
+
     public void setTimedOut(boolean timedOut) {
         m_timedOut = timedOut;
     }
-    
+
     protected void storeResult(SnmpResult res) {
         if (m_parent != null) {
             m_parent.storeResult(res);
         }
     }
-    
+
     public boolean isFinished() {
         return m_finished;
     }
-    
+
     public final void setFinished(boolean finished) {
         m_finished = finished;
     }
@@ -93,19 +93,19 @@ public abstract class CollectionTracker implements Collectable {
             m_parent.reportTooBigErr(msg);
         }
     }
-    
+
     protected void reportGenErr(String msg) {
         if (m_parent != null) {
             m_parent.reportGenErr(msg);
         }
     }
-    
+
     protected void reportNoSuchNameErr(String msg) {
         if (m_parent != null) {
             m_parent.reportNoSuchNameErr(msg);
         }
     }
-    
+
     @Override
     public CollectionTracker getCollectionTracker() {
         return this;

@@ -125,7 +125,7 @@ public final class VacuumdConfigFactory {
                 IOUtils.closeQuietly(is);
             }
         }
-        
+
         m_loadedFromFile = true;
     }
 
@@ -162,7 +162,7 @@ public final class VacuumdConfigFactory {
 
         return m_singleton;
     }
-    
+
     /**
      * Set the singleton instance of this factory.
      *
@@ -171,7 +171,7 @@ public final class VacuumdConfigFactory {
     public static synchronized void setInstance(VacuumdConfigFactory instance) {
         m_singleton = instance;
     }
-    
+
     /**
      * Returns a Collection of automations defined in the config
      *
@@ -180,7 +180,7 @@ public final class VacuumdConfigFactory {
     public synchronized Collection<Automation> getAutomations() {
         return m_config.getAutomations().getAutomationCollection();
     }
-    
+
 	/**
 	 * Returns a Collection of triggers defined in the config
 	 *
@@ -241,7 +241,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns an Action with a name matching the string parmater
      *
@@ -256,7 +256,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns an Automation with a name matching the string parameter
      *
@@ -271,7 +271,7 @@ public final class VacuumdConfigFactory {
         }
         return null;
     }
-    
+
     /**
      * Returns the AutoEvent associated with the auto-event-name
      *
@@ -301,7 +301,7 @@ public final class VacuumdConfigFactory {
         }
         return sql;
     }
-    
+
     /**
      * <p>getStatements</p>
      *

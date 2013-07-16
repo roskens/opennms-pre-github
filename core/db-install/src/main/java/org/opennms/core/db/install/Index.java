@@ -77,7 +77,7 @@ public class Index {
         m_unique = unique;
         m_where = where;
     }
-    
+
     /**
      * <p>findIndexInString</p>
      *
@@ -89,20 +89,20 @@ public class Index {
         if (!m.find()) {
             return null;
         }
-        
+
         boolean unique = (m.group(1) != null);
         String name = m.group(2);
         String table = m.group(3);
         String using = m.group(4);
         String columnList = m.group(5);
         String where = m.group(6);
-        
+
         String[] columns = columnList.split("\\s*,\\s*");
 
         return new Index(name, table, using, Arrays.asList(columns), unique,
                          where);
     }
-    
+
     /**
      * <p>isOnDatabase</p>
      *
@@ -112,7 +112,7 @@ public class Index {
      */
     public boolean isOnDatabase(Connection connection) throws SQLException {
         boolean exists;
-    
+
         Statement st = connection.createStatement();
         ResultSet rs = null;
         try {
@@ -126,7 +126,7 @@ public class Index {
             }
             st.close();
         }
-        
+
         return exists;
     }
 
@@ -144,7 +144,7 @@ public class Index {
             st.close();
         }
     }
-    
+
     /**
      * <p>addToDatabase</p>
      *
@@ -159,7 +159,7 @@ public class Index {
             st.close();
         }
     }
-    
+
     /**
      * <p>getSql</p>
      *
@@ -170,7 +170,7 @@ public class Index {
         sql.append("CREATE ");
         if (m_unique) {
             sql.append("UNIQUE ");
-            
+
         }
         sql.append("INDEX ");
         sql.append(m_name);
@@ -187,7 +187,7 @@ public class Index {
             sql.append(" WHERE ");
             sql.append(m_where);
         }
-        
+
         return sql.toString();
     }
 
@@ -209,7 +209,7 @@ public class Index {
     public String getTable() {
         return m_table;
     }
-    
+
     /**
      * <p>isUnique</p>
      *
@@ -218,7 +218,7 @@ public class Index {
     public boolean isUnique() {
         return m_unique;
     }
-    
+
     /**
      * <p>getColumns</p>
      *
@@ -237,7 +237,7 @@ public class Index {
     public String getIndexUniquenessQuery() throws Exception {
         String firstColumn = getColumns().get(0);
         String columnList = StringUtils.collectionToDelimitedString(getColumns(), ", ");
-        
+
         /*
          * E.g. select * from foo where (a, b) in (select a, b from foo
          *      group by a, b having count(a) > 1 order by a, b);
@@ -252,7 +252,7 @@ public class Index {
         }
         sql.append(" ORDER BY " + columnList + " ) "
                    + "ORDER BY " + columnList);
-        
+
         return sql.toString();
 
         /*
@@ -270,7 +270,7 @@ public class Index {
         } else {
             return null;
         }
-        
+
         if (m_where != null) {
             whereComponents.add("( " + m_where + " )");
         }

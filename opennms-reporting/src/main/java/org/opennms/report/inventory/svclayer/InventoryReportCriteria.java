@@ -45,7 +45,7 @@ public class InventoryReportCriteria {
     String reportEmail;
     String user;
     Date reportRequestDate;
-    
+
     /**
      * <p>Getter for the field <code>theDate</code>.</p>
      *
@@ -172,7 +172,7 @@ public class InventoryReportCriteria {
     public void setReportRequestDate(Date reportRequestDate) {
         this.reportRequestDate = reportRequestDate;
     }
-    
 
-    
+
+
 }

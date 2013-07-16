@@ -41,7 +41,7 @@ import org.springframework.stereotype.Component;
  */
 @Scope("prototype")
 public class MX4JDetector extends AbstractJsr160Detector {
-    
+
     /**
      * <p>Constructor for MX4JDetector.</p>
      */
@@ -55,6 +55,6 @@ public class MX4JDetector extends AbstractJsr160Detector {
     @Override
     protected void onInit() {
         expectBeanCount(greatThan(0));
-        
+
     }
 }

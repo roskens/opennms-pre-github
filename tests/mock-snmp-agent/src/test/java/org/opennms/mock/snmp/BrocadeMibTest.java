@@ -71,7 +71,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 @RunWith(Parameterized.class)
 public class BrocadeMibTest  {
-	
+
     @Parameters
     public static Collection<Object[]> versions() {
     	return Arrays.asList(new Object[][] {
@@ -85,24 +85,24 @@ public class BrocadeMibTest  {
     private USM m_usm;
 	private ArrayList<AnticipatedRequest> m_requestedVarbinds;
 	private int m_version;
-	
+
 	public BrocadeMibTest(int version) {
 		m_version = version;
 	}
-	
+
     private class AnticipatedRequest {
     	private String m_requestedOid;
     	private Variable m_requestedValue;
     	private String m_expectedOid;
     	private int m_expectedSyntax;
     	private Variable m_expectedValue;
-    	
+
     	public AnticipatedRequest(String requestedOid, Variable requestedValue) {
     		m_requestedOid = requestedOid;
     		m_requestedValue = requestedValue;
     	}
 
-    	
+
     	public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
     		m_expectedOid = expectedOid;
     		m_expectedSyntax = expectedSyntax;
@@ -126,9 +126,9 @@ public class BrocadeMibTest  {
 	        assertEquals("syntax", m_expectedSyntax, vb.getSyntax());
 	        assertEquals("value", m_expectedValue, val);
 		}
-    	
+
     }
-    
+
 
     @Before
     public void setUp() throws Exception {
@@ -138,10 +138,10 @@ public class BrocadeMibTest  {
         SecurityModels.getInstance().addSecurityModel(m_usm);
 
         m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("brocadeTestData1.properties"), "127.0.0.1/1691");	// Homage to Empire
-        
+
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
-    
+
     @After
     public void tearDown() throws Exception {
     	if (m_agent != null) {
@@ -154,11 +154,11 @@ public class BrocadeMibTest  {
     	m_requestedVarbinds.add(r);
     	return r;
     }
-    
+
     public AnticipatedRequest request(String requestOid) {
     	return request(requestOid, null);
     }
-    
+
     public void reset() {
     	m_requestedVarbinds.clear();
     }
@@ -166,7 +166,7 @@ public class BrocadeMibTest  {
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -178,7 +178,7 @@ public class BrocadeMibTest  {
      * MockSnmpAgent tears itself down properly. In particular, we want to make
      * sure that the UDP listener gets torn down so listening port is free for
      * later instances of the agent.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -191,9 +191,9 @@ public class BrocadeMibTest  {
 
     @Test
     public void testGetNext() throws Exception {
-    	
+
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11.1", SMIConstants.SYNTAX_COUNTER32, new Counter32(128350705));
-    	
+
     	doGetNext();
 
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11.1").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11.2", SMIConstants.SYNTAX_COUNTER32, new Counter32(1047537430));
@@ -203,18 +203,18 @@ public class BrocadeMibTest  {
 
     @Test
     public void testGetNextMultipleVarbinds() throws Exception {
-    	
+
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11.1", SMIConstants.SYNTAX_COUNTER32, new Counter32(128350705));
 
     	doGetNext();
 
     	m_agent.getUsm().setEngineBoots(15);
-    	
+
     	byte[] hexString = new byte[] { (byte)0x11, (byte)0x00, (byte)0x33, (byte)0x44, (byte)0x55, (byte)0x66, (byte)0x77, (byte)0x88 };
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.11.1", SMIConstants.SYNTAX_COUNTER32, new Counter32(128350705));
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.12").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.12.1", SMIConstants.SYNTAX_COUNTER32, new Counter32(3180401803L));
     	request(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.34").andExpect(".1.3.6.1.4.1.1588.2.1.1.1.6.2.1.34.1", SMIConstants.SYNTAX_OCTET_STRING, new OctetString(hexString));
-    	
+
     	doGetNext();
 
         // This statement breaks the internal state of the SNMP4J agent
@@ -226,37 +226,37 @@ public class BrocadeMibTest  {
     	doGetNext();
 
     }
-    
+
     private void doGetNext() throws Exception {
     	requestAndVerifyResponse(PDU.GETNEXT, m_version);
     }
-    
+
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
     	PDU pdu = createPDU(version);
-    	
+
     	for(AnticipatedRequest a : m_requestedVarbinds) {
     		pdu.add(a.getRequestVarbind());
     	}
     	pdu.setType(pduType);
-    	
+
     	PDU response = sendRequest(pdu, version);
-        
+
         assertNotNull("request timed out", response);
         System.err.println("Response is: "+response);
         assertTrue("unexpected report pdu: " + ((VariableBinding)response.getVariableBindings().get(0)).getOid(), response.getType() != PDU.REPORT);
-        
+
         assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(), response.getVariableBindings().size());
-        
+
         for(int i = 0; i < m_requestedVarbinds.size(); i++) {
         	AnticipatedRequest a = m_requestedVarbinds.get(i);
         	VariableBinding vb = response.get(i);
         	a.verify(vb);
         }
-        
+
         reset();
-        
+
     }
-    
+
     private PDU createPDU(int version) {
     	if (version == SnmpConstants.version3) {
     		return new ScopedPDU();
@@ -264,7 +264,7 @@ public class BrocadeMibTest  {
     		return new PDU();
     	}
     }
-   
+
     private PDU sendRequest(PDU pdu, int version) throws Exception {
     	if (version == SnmpConstants.version3) {
     		return sendRequestV3(pdu);
@@ -288,7 +288,7 @@ public class BrocadeMibTest  {
 
             ResponseEvent e = snmp.send(pdu, target);
             response = e.getResponse();
-        } finally { 
+        } finally {
             if (transport != null) {
                 transport.close();
             }
@@ -298,7 +298,7 @@ public class BrocadeMibTest  {
 
 	private PDU sendRequestV3(PDU pdu) throws IOException {
 		PDU response;
-    	
+
         OctetString userId = new OctetString("opennmsUser");
         OctetString pw = new OctetString("0p3nNMSv3");
 
@@ -308,7 +308,7 @@ public class BrocadeMibTest  {
         target.setAddress(new UdpAddress(InetAddress.getByName("127.0.0.1"), 1691));
         target.setVersion(SnmpConstants.version3);
         target.setTimeout(5000);
-        
+
         TransportMapping transport = null;
         try {
             USM usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
@@ -320,17 +320,17 @@ public class BrocadeMibTest  {
             snmp.getUSM().addUser(userId, user);
 
             transport.listen();
-            
+
             ResponseEvent e = snmp.send(pdu, target);
             response = e.getResponse();
-        } finally { 
+        } finally {
             if (transport != null) {
                 transport.close();
             }
         }
 		return response;
 	}
-	
+
 	private URL classPathResource(String path) {
 		return getClass().getClassLoader().getResource(path);
 	}

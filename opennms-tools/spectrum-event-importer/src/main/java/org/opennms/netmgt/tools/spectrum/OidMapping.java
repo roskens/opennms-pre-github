@@ -36,9 +36,9 @@ public class OidMapping {
     private String m_oid;
     private int m_eventVarNum;
     private int m_indexLength;
-    
+
     private static final String s_oidExpr = "^\\.?([0-9]+\\.){3,}[0-9]+$";
-    
+
     public OidMapping(String oid) {
         if (! oid.matches(s_oidExpr)) {
             throw new IllegalArgumentException("The OID must be of the form .1.3.6.1 or 1.3.6.1 and must be at least three octets in length");

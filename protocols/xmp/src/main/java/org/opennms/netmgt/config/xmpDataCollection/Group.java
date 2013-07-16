@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -44,7 +44,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * a MIB object group
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -98,8 +98,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIncludeGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -111,8 +111,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIncludeGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -126,8 +126,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMibObj
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -139,8 +139,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMibObj
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -155,7 +155,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateIncludeGroup.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -166,7 +166,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateMibObj.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -177,7 +177,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -186,34 +186,34 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Group) {
-        
+
             Group temp = (Group)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._resourceType != null) {
                 if (temp._resourceType == null) return false;
-                else if (!(this._resourceType.equals(temp._resourceType))) 
+                else if (!(this._resourceType.equals(temp._resourceType)))
                     return false;
             }
             else if (temp._resourceType != null)
                 return false;
             if (this._mibObjList != null) {
                 if (temp._mibObjList == null) return false;
-                else if (!(this._mibObjList.equals(temp._mibObjList))) 
+                else if (!(this._mibObjList.equals(temp._mibObjList)))
                     return false;
             }
             else if (temp._mibObjList != null)
                 return false;
             if (this._includeGroupList != null) {
                 if (temp._includeGroupList == null) return false;
-                else if (!(this._includeGroupList.equals(temp._includeGroupList))) 
+                else if (!(this._includeGroupList.equals(temp._includeGroupList)))
                     return false;
             }
             else if (temp._includeGroupList != null)
@@ -225,7 +225,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIncludeGroup.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -238,7 +238,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._includeGroupList.size()) {
             throw new IndexOutOfBoundsException("getIncludeGroup: Index value '" + index + "' not in range [0.." + (this._includeGroupList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _includeGroupList.get(index);
     }
 
@@ -246,10 +246,10 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getIncludeGroup.Returns the contents of the
      * collection in an Array.  <p>Note:  Just in case the
      * collection contents are changing in another thread, we pass
-     * a 0-length Array of the correct type into the API call. 
+     * a 0-length Array of the correct type into the API call.
      * This way we <i>know</i> that the Array returned is of
      * exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getIncludeGroup(
@@ -262,7 +262,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getIncludeGroupCollection.Returns a reference to
      * '_includeGroupList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getIncludeGroupCollection(
@@ -272,7 +272,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getIncludeGroupCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getIncludeGroupCount(
@@ -282,7 +282,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getMibObj.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -297,7 +297,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._mibObjList.size()) {
             throw new IndexOutOfBoundsException("getMibObj: Index value '" + index + "' not in range [0.." + (this._mibObjList.size() - 1) + "]");
         }
-        
+
         return (org.opennms.netmgt.config.xmpDataCollection.MibObj) _mibObjList.get(index);
     }
 
@@ -307,7 +307,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * are changing in another thread, we pass a 0-length Array of
      * the correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public org.opennms.netmgt.config.xmpDataCollection.MibObj[] getMibObj(
@@ -320,7 +320,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getMibObjCollection.Returns a reference to
      * '_mibObjList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<org.opennms.netmgt.config.xmpDataCollection.MibObj> getMibObjCollection(
@@ -330,7 +330,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getMibObjCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getMibObjCount(
@@ -341,7 +341,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'name'. The field 'name' has the
      * following description: group name
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -359,7 +359,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *  generally be given their own resource type. MIB2 tables,
      *  however, need not be given a separate resourceType as they
      *  are handled out-of-box by ONMS.
-     * 
+     *
      * @return the value of field 'ResourceType'.
      */
     public java.lang.String getResourceType(
@@ -372,14 +372,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -393,13 +393,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_includeGroupList != null) {
            result = 37 * result + _includeGroupList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -414,7 +414,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateIncludeGroup.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -425,7 +425,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateMibObj.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -435,8 +435,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -450,8 +450,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -482,7 +482,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIncludeGroup.
-     * 
+     *
      * @param vIncludeGroup
      * @return true if the object was removed from the collection.
      */
@@ -494,7 +494,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeIncludeGroupAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -506,7 +506,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeMibObj.
-     * 
+     *
      * @param vMibObj
      * @return true if the object was removed from the collection.
      */
@@ -518,7 +518,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeMibObjAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -529,8 +529,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vIncludeGroup
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -544,20 +544,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._includeGroupList.size()) {
             throw new IndexOutOfBoundsException("setIncludeGroup: Index value '" + index + "' not in range [0.." + (this._includeGroupList.size() - 1) + "]");
         }
-        
+
         this._includeGroupList.set(index, vIncludeGroup);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vIncludeGroupArray
      */
     public void setIncludeGroup(
             final java.lang.String[] vIncludeGroupArray) {
         //-- copy array
         _includeGroupList.clear();
-        
+
         for (int i = 0; i < vIncludeGroupArray.length; i++) {
                 this._includeGroupList.add(vIncludeGroupArray[i]);
         }
@@ -566,14 +566,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_includeGroupList' by copying the given
      * Vector. All elements will be checked for type safety.
-     * 
+     *
      * @param vIncludeGroupList the Vector to copy.
      */
     public void setIncludeGroup(
             final java.util.List<java.lang.String> vIncludeGroupList) {
         // copy vector
         this._includeGroupList.clear();
-        
+
         this._includeGroupList.addAll(vIncludeGroupList);
     }
 
@@ -581,7 +581,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_includeGroupList' by setting it to the
      * given Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param includeGroupList the Vector to set.
      */
     public void setIncludeGroupCollection(
@@ -590,8 +590,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMibObj
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -605,20 +605,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._mibObjList.size()) {
             throw new IndexOutOfBoundsException("setMibObj: Index value '" + index + "' not in range [0.." + (this._mibObjList.size() - 1) + "]");
         }
-        
+
         this._mibObjList.set(index, vMibObj);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMibObjArray
      */
     public void setMibObj(
             final org.opennms.netmgt.config.xmpDataCollection.MibObj[] vMibObjArray) {
         //-- copy array
         _mibObjList.clear();
-        
+
         for (int i = 0; i < vMibObjArray.length; i++) {
                 this._mibObjList.add(vMibObjArray[i]);
         }
@@ -627,14 +627,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_mibObjList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vMibObjList the Vector to copy.
      */
     public void setMibObj(
             final java.util.List<org.opennms.netmgt.config.xmpDataCollection.MibObj> vMibObjList) {
         // copy vector
         this._mibObjList.clear();
-        
+
         this._mibObjList.addAll(vMibObjList);
     }
 
@@ -642,7 +642,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_mibObjList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param mibObjList the Vector to set.
      */
     public void setMibObjCollection(
@@ -653,7 +653,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'name'. The field 'name' has the
      * following description: group name
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -671,7 +671,7 @@ import org.exolab.castor.xml.Unmarshaller;
      *  generally be given their own resource type. MIB2 tables,
      *  however, need not be given a separate resourceType as they
      *  are handled out-of-box by ONMS.
-     * 
+     *
      * @param resourceType the value of field 'resourceType'.
      */
     public void setResourceType(
@@ -681,7 +681,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -697,8 +697,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

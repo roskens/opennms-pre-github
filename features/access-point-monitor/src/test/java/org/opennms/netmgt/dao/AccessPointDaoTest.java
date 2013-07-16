@@ -54,7 +54,7 @@ import org.springframework.transaction.support.TransactionTemplate;
  * <p>
  * AccessPointDaoTest
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

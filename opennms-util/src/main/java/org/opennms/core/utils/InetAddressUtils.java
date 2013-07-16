@@ -52,7 +52,7 @@ import org.xbill.DNS.Type;
  * @version $Id: $
  */
 abstract public class InetAddressUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(InetAddressUtils.class);
 
     private static final ByteArrayComparator s_BYTE_ARRAY_COMPARATOR = new ByteArrayComparator();
@@ -100,7 +100,7 @@ abstract public class InetAddressUtils {
 			return addr("127.0.0.1");
 		}
 	}
-	
+
 	public static String getLocalHostAddressAsString() {
         final String localhost = str(getLocalHostAddress());
 		return localhost == null? "127.0.0.1" : localhost;
@@ -114,7 +114,7 @@ abstract public class InetAddressUtils {
         }
         return localHostAddress.getHostName();
 	}
-	
+
 	public static String incr(final String address) throws UnknownHostException {
         return InetAddressUtils.toIpAddrString(incr(InetAddressUtils.toIpAddrBytes(address)));
     }
@@ -399,12 +399,12 @@ abstract public class InetAddressUtils {
             final byte[] end = InetAddressUtils.toIpAddrBytes(endString);
             if (s_BYTE_ARRAY_COMPARATOR.compare(addr, end) <= 0) {
                 return true;
-            } else { 
+            } else {
                 return false;
             }
         } else if (s_BYTE_ARRAY_COMPARATOR.compare(addr, begin) == 0) {
             return true;
-        } else { 
+        } else {
             return false;
         }
     }
@@ -430,12 +430,12 @@ abstract public class InetAddressUtils {
         if (s_BYTE_ARRAY_COMPARATOR.compare(addr, begin) > 0) {
             if (s_BYTE_ARRAY_COMPARATOR.compare(addr, end) <= 0) {
                 return true;
-            } else { 
+            } else {
                 return false;
             }
         } else if (s_BYTE_ARRAY_COMPARATOR.compare(addr, begin) == 0) {
             return true;
-        } else { 
+        } else {
             return false;
         }
     }
@@ -536,21 +536,21 @@ abstract public class InetAddressUtils {
             }
         }
     }
-    
+
     public static InetAddress addr(final String ipAddrString) {
         return ipAddrString == null ? null : getInetAddress(ipAddrString.trim());
     }
-    
+
     /**
      * This function is used to ensure that an IP address string is in fully-qualified
      * format without any "::" segments for an IPv6 address.
-     * 
+     *
      * FIXME: do we lose
      */
     public static String normalize(final String ipAddrString) {
     	return ipAddrString == null? null : toIpAddrString(addr(ipAddrString.trim()));
     }
-    
+
 	public static String str(final InetAddress addr) {
         return addr == null ? null : toIpAddrString(addr);
     }
@@ -610,15 +610,15 @@ abstract public class InetAddressUtils {
         }
         return contents;
     }
-    
+
     public static String macAddressBytesToString(byte[] macAddress) {
         if (macAddress.length != 6) {
             throw new IllegalArgumentException("Cannot decode MAC address: " + macAddress);
         }
-        
+
         return String.format(
-            //"%02X:%02X:%02X:%02X:%02X:%02X", 
-            "%02x%02x%02x%02x%02x%02x", 
+            //"%02X:%02X:%02X:%02X:%02X:%02X",
+            "%02x%02x%02x%02x%02x%02x",
             macAddress[0],
             macAddress[1],
             macAddress[2],

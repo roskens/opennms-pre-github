@@ -36,10 +36,10 @@ import org.opennms.netmgt.xml.event.Event;
 @EventListener(name="AspectJTestEventHandler")
 public class AspectJTestEventHandler {
 
-    
+
     private Throwable thrownException = null;
     private int handlerCallCount = 0;
-    
+
     public void setThrownException(Throwable throwable) {
         this.thrownException = throwable;
     }

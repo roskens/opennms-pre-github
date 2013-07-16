@@ -46,9 +46,9 @@ import org.opennms.netmgt.config.datacollection.Systems;
 import org.springframework.core.io.FileSystemResource;
 
 public class DataCollectionConfigFile {
-	
+
 	File m_file;
-	
+
 	/**
 	 * <p>Constructor for DataCollectionConfigFile.</p>
 	 *
@@ -57,7 +57,7 @@ public class DataCollectionConfigFile {
 	public DataCollectionConfigFile(File file) {
 		m_file = file;
 	}
-	
+
 	/**
 	 * <p>visit</p>
 	 *
@@ -66,53 +66,53 @@ public class DataCollectionConfigFile {
 	public void visit(DataCollectionVisitor visitor) {
         DatacollectionConfig dataCollectionConfig = getDataCollectionConfig();
         visitor.visitDataCollectionConfig(dataCollectionConfig);
-        
+
         for (Iterator<SnmpCollection> it = dataCollectionConfig.getSnmpCollectionCollection().iterator(); it.hasNext();) {
             SnmpCollection snmpCollection = it.next();
             doVisit(snmpCollection, visitor);
         }
         visitor.completeDataCollectionConfig(dataCollectionConfig);
     }
-	
+
 	private void doVisit(SnmpCollection snmpCollection, DataCollectionVisitor visitor) {
         visitor.visitSnmpCollection(snmpCollection);
-        
+
         // rrd block
         doVisit(snmpCollection.getRrd(), visitor);
-        
+
         // loop over systems
         doVisit(snmpCollection.getSystems(), visitor);
-        
+
         // loop over groups
         doVisit(snmpCollection.getGroups(), visitor);
-        
+
         visitor.completeSnmpCollection(snmpCollection);
     }
 
     private void doVisit(Groups groups, DataCollectionVisitor visitor) {
-        
+
         for (Iterator<Group> it = groups.getGroupCollection().iterator(); it.hasNext();) {
             Group group = it.next();
             doVisit(group, visitor);
         }
-        
+
     }
 
     private void doVisit(Group group, DataCollectionVisitor visitor) {
         visitor.visitGroup(group);
-        
+
         // mibObj
         for (Iterator<MibObj> it = group.getMibObjCollection().iterator(); it.hasNext();) {
             MibObj mibObj = it.next();
             doVisit(mibObj, visitor);
         }
-        
+
         // subGroups
         for (Iterator<String> it = group.getIncludeGroupCollection().iterator(); it.hasNext();) {
             String subGroup = it.next();
             doVisitSubGroup(subGroup, visitor);
         }
-        
+
         visitor.completeGroup(group);
     }
 
@@ -135,27 +135,27 @@ public class DataCollectionConfigFile {
 
     private void doVisit(SystemDef systemDef, DataCollectionVisitor visitor) {
         visitor.visitSystemDef(systemDef);
-        
+
         // handle the choice between sysOid and sysOidMask
         doVisit(systemDef.getSystemDefChoice(), visitor);
-        
+
         // handle ipList
         doVisit(systemDef.getIpList(), visitor);
-        
+
         // handle collect
         doVisit(systemDef.getCollect(), visitor);
-        
+
         visitor.completeSystemDef(systemDef);
     }
 
     private void doVisit(Collect collect, DataCollectionVisitor visitor) {
         visitor.visitCollect(collect);
-        
+
         // visit all the includeGroup specs
         for (Iterator<String> it = collect.getIncludeGroupCollection().iterator(); it.hasNext();) {
             String includeGroup = it.next();
             doVisitIncludeGroup(includeGroup, visitor);
-            
+
         }
         visitor.completeCollect(collect);
     }
@@ -163,12 +163,12 @@ public class DataCollectionConfigFile {
     private void doVisitIncludeGroup(String includeGroup, DataCollectionVisitor visitor) {
         visitor.visitIncludeGroup(includeGroup);
         visitor.completeIncludeGroup(includeGroup);
-        
+
     }
 
     private void doVisit(IpList ipList, DataCollectionVisitor visitor) {
         if (ipList == null) return;
-        
+
         visitor.visitIpList(ipList);
         visitor.completeIpList(ipList);
     }
@@ -176,10 +176,10 @@ public class DataCollectionConfigFile {
     private void doVisit(SystemDefChoice systemDefChoice, DataCollectionVisitor visitor) {
         if (systemDefChoice.getSysoid() != null)
             doVisitSysOid(systemDefChoice.getSysoid(), visitor);
-        
+
         if (systemDefChoice.getSysoidMask() != null)
             doVisitSysOidMask(systemDefChoice.getSysoidMask(), visitor);
-        
+
     }
 
     private void doVisitSysOidMask(String sysoidMask, DataCollectionVisitor visitor) {

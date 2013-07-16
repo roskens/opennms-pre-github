@@ -39,13 +39,13 @@ public class bsd_sockaddr_in extends Structure {
     public byte    sin_family;
     /* we  use an array of bytes rather than int16 to avoid jna byte reordering */
     public byte[]  sin_port;
-    /* we use an array of bytes rather than the tradition int32 
+    /* we use an array of bytes rather than the tradition int32
      * to avoid having jna to byte-order swapping.. They are already in
      * network byte order in java
      */
     public byte[]  sin_addr;
     public byte[]  sin_zero = new byte[8];
-    
+
     public bsd_sockaddr_in(int family, byte[] addr, byte[] port) {
         sin_family = (byte)(0xff & family);
         assertLen("port", port, 2);
@@ -54,23 +54,23 @@ public class bsd_sockaddr_in extends Structure {
         sin_addr = addr;
         sin_len = (byte)(0xff & size());
     }
-    
+
     public bsd_sockaddr_in() {
         this((byte)0, new byte[4], new byte[2]);
     }
-    
+
     public bsd_sockaddr_in(InetAddress address, int port) {
-        this(NativeDatagramSocket.AF_INET, 
-             address.getAddress(), 
+        this(NativeDatagramSocket.AF_INET,
+             address.getAddress(),
              new byte[] {(byte)(0xff & (port >> 8)), (byte)(0xff & port)});
     }
-    
+
     private void assertLen(String field, byte[] addr, int len) {
         if (addr.length != len) {
             throw new IllegalArgumentException(field+" length must be "+len+" bytes");
         }
     }
-    
+
     public InetAddress getAddress() {
         try {
             return InetAddress.getByAddress(sin_addr);
@@ -79,7 +79,7 @@ public class bsd_sockaddr_in extends Structure {
             return null;
         }
     }
-    
+
     public void setAddress(InetAddress address) {
         byte[] addr = address.getAddress();
         assertLen("address", addr, 4);
@@ -93,7 +93,7 @@ public class bsd_sockaddr_in extends Structure {
         }
         return port;
     }
-    
+
     public void setPort(int port) {
         byte[] p = new byte[] {(byte)(0xff & (port >> 8)), (byte)(0xff & port)};
         assertLen("port", p, 2);

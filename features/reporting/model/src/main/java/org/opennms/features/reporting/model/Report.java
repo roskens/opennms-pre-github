@@ -32,7 +32,7 @@ import javax.xml.bind.annotation.*;
 
 /**
  * Class Report.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -47,7 +47,7 @@ public class Report {
 
     /**
      * the name of this report as displayed in the webui
-     *  
+     *
      */
     private String displayName;
 
@@ -74,7 +74,7 @@ public class Report {
      * Returns the value of field 'description'. The field
      * 'description' has the following description: report
      * description
-     * 
+     *
      * @return the value of field 'Description'.
      */
     @XmlAttribute(name = "description")
@@ -86,8 +86,8 @@ public class Report {
      * Returns the value of field 'displayName'. The field
      * 'displayName' has the following description: the name of
      * this report as displayed in the webui
-     *  
-     * 
+     *
+     *
      * @return the value of field 'DisplayName'.
      */
     @XmlAttribute(name = "display-name")
@@ -100,7 +100,7 @@ public class Report {
      * following description: the name of this report as defined in
      * engine
      *  configuration
-     * 
+     *
      * @return the value of field 'Id'.
      */
     @XmlAttribute(name = "id")
@@ -115,7 +115,7 @@ public class Report {
      *  displayed in the browser. If not set OpenNMS assumes that
      * the report
      *  must be executed in batch mode.
-     * 
+     *
      * @return the value of field 'Online'.
      */
     @XmlAttribute(name = "online")
@@ -128,7 +128,7 @@ public class Report {
      * 'reportService' has the following description: the name of
      * the engine to use to process and
      *  render this report
-     * 
+     *
      * @return the value of field 'ReportService'.
      */
     @XmlAttribute(name = "report-service")
@@ -143,7 +143,7 @@ public class Report {
      *  displayed in the browser. If not set OpenNMS assumes that
      * the report
      *  must be executed in batch mode.
-     * 
+     *
      * @return the value of field 'Online'.
      */
     public boolean isOnline() {

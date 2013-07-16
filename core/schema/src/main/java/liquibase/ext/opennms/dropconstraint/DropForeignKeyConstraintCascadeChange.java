@@ -44,11 +44,11 @@ public class DropForeignKeyConstraintCascadeChange extends DropForeignKeyConstra
 	public String getCascade() {
 		return m_cascade;
 	}
-	
+
 	public void setCascade(final String cascade) {
 		m_cascade = cascade;
 	}
-	
+
         @Override
     public SqlStatement[] generateStatements(final Database database) {
     	return DropForeignKeyConstraintCascadeStatement.createFromSqlStatements(super.generateStatements(database), Boolean.valueOf(m_cascade));

@@ -114,7 +114,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
 
     @Autowired
     private Eventd m_eventd;
-    
+
     private Syslogd m_syslogd;
 
     private final List<ExecutorService> m_executorServices = Arrays.asList(new ExecutorService[] {
@@ -198,7 +198,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
         startSyslogdGracefully();
 
         int eventCount = 100;
-        
+
         List<Integer> foos = new ArrayList<Integer>();
 
         for (int i = 0; i < eventCount; i++) {
@@ -220,7 +220,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
         long mid = System.currentTimeMillis();
         m_eventCounter.waitForFinish(120000);
         long end = System.currentTimeMillis();
-        
+
         final long total = (end - start);
         final double eventsPerSecond = (eventCount * 1000.0 / total);
         System.err.println(String.format("total time: %d, wait time: %d, events per second: %8.4f", total, (end - mid), eventsPerSecond));
@@ -248,7 +248,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
         WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
 
         m_eventCounter.waitForFinish(120000);
-        
+
         assertEquals(1, m_eventCounter.getCount());
     }
 
@@ -274,7 +274,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
         WaterfallExecutor.waterfall(m_executorServices, new SyslogConnection(pkt, MATCH_PATTERN, HOST_GROUP, MESSAGE_GROUP, UEI_LIST, HIDE_MESSAGE, DISCARD_UEI));
 
         m_eventCounter.waitForFinish(120000);
-        
+
         assertEquals(1, m_eventCounter.getCount());
     }
 
@@ -288,7 +288,7 @@ public class SyslogdEventdLoadTest implements InitializingBean {
         Log eventLog = new Log();
         Events events = new Events();
         eventLog.setEvents(events);
-        
+
         int eventCount = 10000;
         m_eventCounter.setAnticipated(eventCount);
 

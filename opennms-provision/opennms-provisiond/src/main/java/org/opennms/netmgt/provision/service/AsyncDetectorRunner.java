@@ -40,10 +40,10 @@ import org.opennms.netmgt.provision.DetectFutureListener;
 
 class AsyncDetectorRunner implements Async<Boolean> {
     private static final Logger LOG = LoggerFactory.getLogger(AsyncDetectorRunner.class);
-    
+
     private final IpInterfaceScan m_ifaceScan;
     private final AsyncServiceDetector m_detector;
-    
+
     /**
      * <p>Constructor for AsyncDetectorRunner.</p>
      *
@@ -70,7 +70,7 @@ class AsyncDetectorRunner implements Async<Boolean> {
 	private String getHostAddress() {
 		return InetAddressUtils.str(m_ifaceScan.getAddress());
 	}
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -93,5 +93,5 @@ class AsyncDetectorRunner implements Async<Boolean> {
             }
         };
     }
-    
+
 }

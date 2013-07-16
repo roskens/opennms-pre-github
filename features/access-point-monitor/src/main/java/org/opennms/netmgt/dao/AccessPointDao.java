@@ -38,7 +38,7 @@ import org.opennms.netmgt.model.OnmsAccessPointCollection;
  * <p>
  * AccessPointDao interface.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public interface AccessPointDao extends OnmsDao<OnmsAccessPoint, String> {
@@ -47,7 +47,7 @@ public interface AccessPointDao extends OnmsDao<OnmsAccessPoint, String> {
      * <p>
      * findByPackage
      * </p>
-     * 
+     *
      * @param pkg
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsAccessPointCollection}
@@ -59,7 +59,7 @@ public interface AccessPointDao extends OnmsDao<OnmsAccessPoint, String> {
      * <p>
      * findDistinctPackagesLike
      * </p>
-     * 
+     *
      * @param pkg
      *            a {@link java.lang.String} object.
      * @return a {@link java.util.List} object.

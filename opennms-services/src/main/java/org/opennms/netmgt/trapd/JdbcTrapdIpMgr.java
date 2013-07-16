@@ -49,7 +49,7 @@ import org.springframework.util.Assert;
  */
 public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
     private DataSource m_dataSource;
-    
+
     /**
      * The SQL statement used to extract the list of currently known IP
      * addresses and their node IDs from the IP Interface table.
@@ -106,7 +106,7 @@ public class JdbcTrapdIpMgr implements TrapdIpMgr, InitializingBean {
         if (addr == null || nodeid == -1) {
             return -1;
         }
-        
+
         return longValue(m_knownips.put(addr, Long.valueOf(nodeid)));
     }
 

@@ -89,7 +89,7 @@ final public class SshMonitor extends AbstractServiceMonitor {
         String match = ParameterMap.getKeyedString(parameters, "match", null);
         String clientBanner = ParameterMap.getKeyedString(parameters, "client-banner", Ssh.DEFAULT_CLIENT_BANNER);
         PollStatus ps = PollStatus.unavailable();
-        
+
         Ssh ssh = new Ssh(address, port, tracker.getConnectionTimeout());
         ssh.setClientBanner(clientBanner);
 
@@ -144,7 +144,7 @@ final public class SshMonitor extends AbstractServiceMonitor {
                 }
             }
         }
-        return ps;        
+        return ps;
     }
 
     /**

@@ -48,7 +48,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
     public void testConstructorThresholdNull() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new IllegalArgumentException("threshold argument cannot be null"));
-        
+
         try {
             new ThresholdEvaluatorStateHighLow(null);
         } catch (Throwable t) {
@@ -68,7 +68,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-        
+
         try {
             new ThresholdEvaluatorStateHighLow(wrapper);
         } catch (Throwable t) {
@@ -76,7 +76,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testConstructorThresholdNoDsName() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -95,7 +95,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testConstructorThresholdNoDsType() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -107,7 +107,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-       
+
         try {
             new ThresholdEvaluatorStateHighLow(wrapper);
         } catch (Throwable t) {
@@ -115,7 +115,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testConstructorThresholdNoValue() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -127,7 +127,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setRearm(0.5);
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-       
+
         try {
             new ThresholdEvaluatorStateHighLow(wrapper);
         } catch (Throwable t) {
@@ -135,7 +135,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testConstructorThresholdNoRearm() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -147,7 +147,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setValue(1.0);
         threshold.setTrigger(3);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-      
+
         try {
             new ThresholdEvaluatorStateHighLow(wrapper);
         } catch (Throwable t) {
@@ -155,7 +155,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testConstructorThresholdNoTrigger() {
         ThrowableAnticipator ta = new ThrowableAnticipator();
@@ -167,7 +167,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setValue(1.0);
         threshold.setRearm(0.5);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-        
+
         try {
             new ThresholdEvaluatorStateHighLow(wrapper);
         } catch (Throwable t) {
@@ -175,7 +175,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testEvaluateHighNoTrigger() {
         Threshold threshold = new Threshold();
@@ -186,13 +186,13 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setRearm(0.5);
         threshold.setTrigger(1);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-      
+
         ThresholdEvaluatorState item = new ThresholdEvaluatorStateHighLow(wrapper);
 
         Status status = item.evaluate(100.0);
         assertEquals("threshold evaluation status", Status.NO_CHANGE, status);
     }
-    
+
     @Test
     public void testEvaluateHighTriggerOnce() {
         Threshold threshold = new Threshold();
@@ -203,13 +203,13 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setRearm(0.5);
         threshold.setTrigger(1);
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
-       
+
         ThresholdEvaluatorState item = new ThresholdEvaluatorStateHighLow(wrapper);
 
         Status status = item.evaluate(100.0);
         assertEquals("threshold evaluation status", Status.TRIGGERED, status);
     }
-    
+
     @Test
     public void testEvaluateHighNoTriggerTwice() {
         Threshold threshold = new Threshold();
@@ -226,7 +226,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         Status status = item.evaluate(100.0);
         assertEquals("threshold evaluation status", Status.NO_CHANGE, status);
     }
-    
+
     @Test
     public void testEvaluateHighTriggerTwice() {
         Threshold threshold = new Threshold();
@@ -246,7 +246,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         status = item.evaluate(100.0);
         assertEquals("second threshold evaluation status", Status.TRIGGERED, status);
     }
-    
+
     @Test
     public void testEvaluateHighTriggerTwiceNoRetrigger() {
         Threshold threshold = new Threshold();
@@ -265,7 +265,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
 
         status = item.evaluate(100.0);
         assertEquals("second threshold evaluation status", Status.TRIGGERED, status);
-        
+
         status = item.evaluate(100.0);
         assertEquals("third threshold evaluation status", Status.NO_CHANGE, status);
 
@@ -273,7 +273,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         assertEquals("fourth threshold evaluation status", Status.NO_CHANGE, status);
 
     }
-    
+
     @Test
     public void testEvaluateHighTriggerRearm() {
         Threshold threshold = new Threshold();
@@ -333,7 +333,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         Status status = item.evaluate(100.0);
         assertEquals("threshold evaluation status", Status.NO_CHANGE, status);
     }
-    
+
     @Test
     public void testIsThresholdExceededHighTriggeredAbove() {
         Threshold threshold = new Threshold();
@@ -348,7 +348,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("threshold should be exceeded", item.isThresholdExceeded(100.0));
     }
-    
+
     @Test
     public void testIsThresholdExceededHighTriggeredEqual() {
         Threshold threshold = new Threshold();
@@ -363,7 +363,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("threshold should be exceeded", item.isThresholdExceeded(99.0));
     }
-    
+
     @Test
     public void testIsThresholdExceededHighNotTriggeredBelow() {
         Threshold threshold = new Threshold();
@@ -393,7 +393,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("threshold should be exceeded", item.isThresholdExceeded(98.0));
     }
-    
+
     @Test
     public void testIsThresholdExceededLowTriggeredEqual() {
         Threshold threshold = new Threshold();
@@ -408,7 +408,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("threshold should be exceeded", item.isThresholdExceeded(99.0));
     }
-    
+
     @Test
     public void testIsThresholdExceededLowNotTriggeredAbove() {
         Threshold threshold = new Threshold();
@@ -423,7 +423,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertFalse("threshold should not be exceeded", item.isThresholdExceeded(100.0));
     }
-    
+
     @Test
     public void testIsThresholdExceededBogusType() {
         Threshold threshold = new Threshold();
@@ -445,7 +445,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testIsRearmExceededHighTriggeredBelow() {
         Threshold threshold = new Threshold();
@@ -460,7 +460,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("rearm should be exceeded", item.isRearmExceeded(0.0));
     }
-    
+
     @Test
     public void testIsRearmExceededHighTriggeredEqual() {
         Threshold threshold = new Threshold();
@@ -475,7 +475,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("rearm should be exceeded", item.isRearmExceeded(0.5));
     }
-    
+
     @Test
     public void testIsRearmExceededHighNoTriggeredAbove() {
         Threshold threshold = new Threshold();
@@ -490,7 +490,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertFalse("rearm should not be exceeded", item.isRearmExceeded(1.0));
     }
-    
+
     @Test
     public void testIsRearmExceededLowTriggeredAbove() {
         Threshold threshold = new Threshold();
@@ -505,7 +505,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("rearm should be exceeded", item.isRearmExceeded(1.0));
     }
-    
+
     @Test
     public void testIsRearmExceededLowTriggeredEqual() {
         Threshold threshold = new Threshold();
@@ -520,7 +520,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         assertTrue("rearm should be exceeded", item.isRearmExceeded(0.5));
     }
-    
+
     @Test
     public void testIsRearmExceededLowNoTriggeredBelow() {
         Threshold threshold = new Threshold();
@@ -558,7 +558,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         }
         ta.verifyAnticipated();
     }
-    
+
     @Test
     public void testIsTriggerCountExceededAtTriggerValueOne() {
         Threshold threshold = new Threshold();
@@ -578,7 +578,7 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
 
         assertTrue("trigger count should be exeeded after exceeding value (and being triggered)", item.isTriggerCountExceeded());
     }
-    
+
     @Test
     public void testIsTriggerCountExceededNotAtTriggerValueTwo() {
         Threshold threshold = new Threshold();
@@ -641,42 +641,42 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         Event event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
         assertEquals("UEI should be the highThresholdExceededUEI", EventConstants.HIGH_THRESHOLD_EVENT_UEI, event.getUei());
         parmPresentAndValueNonNull(event, "instance");
-        
+
         // High rearm, with null instance
         event=item.getEventForState(Status.RE_ARMED, new Date(), 94.0, null);
         assertEquals("UEI should be the highThresholdRearmedUEI", EventConstants.HIGH_THRESHOLD_REARM_EVENT_UEI, event.getUei());
         parmPresentAndValueNonNull(event, "instance");
-        
+
         // High exceed, with non-null instance
         event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, new MockCollectionResourceWrapper("testInstance"));
         assertEquals("UEI should be the highThresholdExceededUEI", EventConstants.HIGH_THRESHOLD_EVENT_UEI, event.getUei());
         parmPresentWithValue(event, "instance", "testInstance");
-        
+
         // High rearm, with non-null instance
         event=item.getEventForState(Status.RE_ARMED, new Date(), 94.0, new MockCollectionResourceWrapper("testInstance"));
         assertEquals("UEI should be the highThresholdRearmedUEI", EventConstants.HIGH_THRESHOLD_REARM_EVENT_UEI, event.getUei());
         parmPresentWithValue(event, "instance", "testInstance");
-        
+
         // Set it up again for low tests
         threshold.setType("low");
         threshold.setValue(95.0);
         threshold.setRearm(99.0);
-        
+
         // Low exceed, with null instance
         event=item.getEventForState(Status.TRIGGERED, new Date(), 94.0, null);
         assertEquals("UEI should be the lowThresholdExceededUEI", EventConstants.LOW_THRESHOLD_EVENT_UEI, event.getUei());
         parmPresentAndValueNonNull(event, "instance");
-        
+
         // Low rearm, with null instance
         event=item.getEventForState(Status.RE_ARMED, new Date(), 100.0, null);
         assertEquals("UEI should be the lowThresholdRearmedUEI", EventConstants.LOW_THRESHOLD_REARM_EVENT_UEI, event.getUei());
         parmPresentAndValueNonNull(event, "instance");
-        
+
         // Low exceed, with non-null instance
         event=item.getEventForState(Status.TRIGGERED, new Date(), 94.0, new MockCollectionResourceWrapper("testInstance"));
         assertEquals("UEI should be the lowThresholdExceededUEI", EventConstants.LOW_THRESHOLD_EVENT_UEI, event.getUei());
         parmPresentWithValue(event, "instance", "testInstance");
-        
+
         // Low rearm, with non-null instance
         event=item.getEventForState(Status.RE_ARMED, new Date(), 100.0, new MockCollectionResourceWrapper("testInstance"));
         assertEquals("UEI should be the lowThresholdRearmedUEI", EventConstants.LOW_THRESHOLD_REARM_EVENT_UEI, event.getUei());
@@ -696,17 +696,16 @@ public class ThresholdEvaluatorHighLowTest extends AbstractThresholdEvaluatorTes
         threshold.setTrigger(1);
         threshold.setTriggeredUEI(triggeredUEI);
         threshold.setRearmedUEI(rearmedUEI);
-        
+
         ThresholdConfigWrapper wrapper=new ThresholdConfigWrapper(threshold);
 
         ThresholdEvaluatorStateHighLow item = new ThresholdEvaluatorStateHighLow(wrapper);
         Event event=item.getEventForState(Status.TRIGGERED, new Date(), 100.0, null);
         assertEquals("UEI should be the uei.opennms.org/custom/thresholdTriggered", triggeredUEI, event.getUei());
         parmPresentAndValueNonNull(event, "instance");
-        
+
         event=item.getEventForState(Status.RE_ARMED, new Date(), 94.0, null);
         assertEquals("UEI should be the uei.opennms.org/custom/thresholdRearmed", rearmedUEI, event.getUei());
-        parmPresentAndValueNonNull(event, "instance");        
+        parmPresentAndValueNonNull(event, "instance");
     }
 }
-  

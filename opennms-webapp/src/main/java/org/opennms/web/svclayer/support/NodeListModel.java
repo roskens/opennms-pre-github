@@ -45,7 +45,7 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 public class NodeListModel {
     private List<NodeModel> m_nodes;
     private int m_interfaceCount;
-    
+
     /**
      * <p>Constructor for NodeListModel.</p>
      *
@@ -56,7 +56,7 @@ public class NodeListModel {
         m_nodes = nodes;
         m_interfaceCount = interfaceCount;
     }
-    
+
     /**
      * <p>getNodes</p>
      *
@@ -74,7 +74,7 @@ public class NodeListModel {
     public List<NodeModel> getNodesLeft() {
         return m_nodes.subList(0, getLastInLeftColumn());
     }
-    
+
     /**
      * <p>getNodesRight</p>
      *
@@ -92,7 +92,7 @@ public class NodeListModel {
     public int getLastInLeftColumn() {
         return (int) Math.ceil(m_nodes.size()/2.0);
     }
-    
+
     /**
      * <p>getNodeCount</p>
      *
@@ -101,7 +101,7 @@ public class NodeListModel {
     public int getNodeCount() {
         return m_nodes.size();
     }
-    
+
     /**
      * <p>getInterfaceCount</p>
      *
@@ -110,33 +110,33 @@ public class NodeListModel {
     public int getInterfaceCount() {
         return m_interfaceCount;
     }
-    
+
     public static class NodeModel {
         private OnmsNode m_node;
         private List<OnmsIpInterface> m_interfaces;
         private List<OnmsArpInterface> m_arpinterfaces;
         private List<OnmsSnmpInterface> m_snmpinterfaces;
-        
-        
+
+
         public NodeModel(OnmsNode node, List<OnmsIpInterface> interfaces, List<OnmsArpInterface> arpinterfaces, List<OnmsSnmpInterface> snmpinterfaces) {
             m_node = node;
             m_interfaces = interfaces;
             m_arpinterfaces = arpinterfaces;
             m_snmpinterfaces = snmpinterfaces;
         }
-        
+
         public OnmsNode getNode() {
             return m_node;
         }
-        
+
         public List<OnmsIpInterface> getInterfaces() {
             return m_interfaces;
         }
-        
+
         public List<OnmsArpInterface> getArpInterfaces() {
             return m_arpinterfaces;
         }
-        
+
         public List<OnmsSnmpInterface> getSnmpInterfaces() {
             return m_snmpinterfaces;
         }

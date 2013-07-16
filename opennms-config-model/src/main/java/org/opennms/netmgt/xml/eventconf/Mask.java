@@ -274,7 +274,7 @@ public class Mask implements Serializable {
 		}
 		return true;
 	}
-	
+
 	public EventMatcher constructMatcher() {
 		EventMatcher[] matchers = new EventMatcher[getMaskelementCount()+getVarbindCount()];
 		int index = 0;
@@ -282,15 +282,15 @@ public class Mask implements Serializable {
 			matchers[index] = maskElement.constructMatcher();
 			index++;
  		}
-		
+
 		for(Varbind varbind : m_varbinds) {
 			matchers[index] = varbind.constructMatcher();
 			index++;
 		}
-		
+
 		return EventMatchers.and(matchers);
 	}
-	
+
 	public Maskelement getMaskElement(String mename) {
 		for(Maskelement element : m_maskElements) {
 			if (mename.equals(element.getMename())) {
@@ -304,6 +304,6 @@ public class Mask implements Serializable {
 		Maskelement element = getMaskElement(mename);
 		return element == null ? null : element.getMevalueCollection();
 	}
-	
+
 
 }

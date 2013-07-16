@@ -37,17 +37,17 @@ public class PercentileDataAnalyzer implements DataAnalyzer {
 	private int m_percentileNumber;		// e.g. 95 for 95th percentile
 	private double m_percentileValue = Double.NaN;
 	private boolean m_verbose = false;
-	
+
 	private double m_lowestValue = Double.NaN;
 	private double m_highestValue = Double.NaN;
 
 	public PercentileDataAnalyzer(List<Double> operands) {
 		setParms(operands);
 	}
-	
+
 	public List<Integer> findSamplesInViolation(double[] values) {
 		List<Integer> violatorIndices = new ArrayList<Integer>();
-		
+
 		calculatePercentile(values);
 		double absThreshold = m_percentileValue * m_thresholdMultiplier;
 		for (int i = 0; i < values.length; i++) {
@@ -57,16 +57,16 @@ public class PercentileDataAnalyzer implements DataAnalyzer {
 			if (values[i] > absThreshold) {
 				violatorIndices.add(i);
 			}
-		}		
+		}
 		return violatorIndices;
 	}
-	
+
 	public void setParms(List<Double> parms) {
 		m_percentileNumber = parms.get(0).intValue();
 		m_thresholdMultiplier = parms.get(1);
 	}
 
-	private void calculatePercentile(double[] values) {	
+	private void calculatePercentile(double[] values) {
 		if (m_verbose) {
 			SpikeHunter.printToUser("Before removing NaN values, " + values.length + " values are in the set");
 		}
@@ -95,19 +95,19 @@ public class PercentileDataAnalyzer implements DataAnalyzer {
 		m_lowestValue = sortedValues.get(0);
 		m_highestValue = sortedValues.get(sortedValues.size()-1);
 	}
-	
+
 	/*
 	 * According with the Apache Commons Math (3.0-SNAPSHOT), the percentile should be calculated according with the following rules:
-	 * 
+	 *
 	 * 1) Let n be the length of the (sorted) array and 0 < p <= 100 be the desired percentile.
 	 * 2) If n = 1 return the unique array element (regardless of the value of p); otherwise
 	 * 3) Compute the estimated percentile position pos = p * (n + 1) / 100 and the difference, d between pos and floor(pos) (i.e. the fractional part of pos).
 	 * 4) If pos < 1 return the smallest element in the array.
 	 * 5) Else if pos >= n return the largest element in the array.
 	 * 6) Else let lower be the element in position floor(pos) in the array and let upper be the next element in the array. Return lower + d * (upper - lower)
-	 * 
+	 *
 	 * Source: http://commons.apache.org/math/apidocs/org/apache/commons/math/stat/descriptive/rank/Percentile.html
-	 * 
+	 *
 	 */
 	public int getPercentilePossition(float n) {
 	    if (n == 0)
@@ -127,7 +127,7 @@ public class PercentileDataAnalyzer implements DataAnalyzer {
 	public String toString() {
 		return "Nth-percentile analyzer (N=" + m_percentileNumber + ", P_N=" + ((m_percentileValue != Double.NaN) ? m_percentileValue : "not yet calculated") + ", lowest=" + m_lowestValue + ", highest=" + m_highestValue + ")";
 	}
-	
+
 	public void setVerbose(boolean v) {
 		m_verbose = v;
 	}

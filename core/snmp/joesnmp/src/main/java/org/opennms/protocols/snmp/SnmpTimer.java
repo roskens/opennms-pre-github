@@ -36,9 +36,9 @@ import java.util.NoSuchElementException;
 /**
  * Provides a simple timer scheduler for use by the internal SnmpSession class.
  * Resolution is provided at the millisecond level.
- * 
+ *
  * @see SnmpSession
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver</a>
  */
 class SnmpTimer extends Object {
@@ -64,7 +64,7 @@ class SnmpTimer extends Object {
 
     /**
      * Used to track the individual runnables and when the runnable "expires".
-     * 
+     *
      */
     private class TimeoutElement {
         /**
@@ -80,7 +80,7 @@ class SnmpTimer extends Object {
         /**
          * Default Constructor. Takes an Offset from now and a runnable that
          * will be executed.
-         * 
+         *
          * @param offset
          *            The offset from the current time in milliseconds.
          * @param what
@@ -95,14 +95,14 @@ class SnmpTimer extends Object {
     /**
      * This object is the thread of execution that monitors and executes the
      * scheduled runnables.
-     * 
+     *
      */
     private class Scheduler implements Runnable {
         /**
          * Runs in an infinite loop waiting for new runnables to expire or for
          * the m_exit variable to be set true. The m_sync in the parent class is
          * used to synchronize this method
-         * 
+         *
          */
         @Override
         public void run() {
@@ -214,7 +214,7 @@ class SnmpTimer extends Object {
     /**
      * Creates an SnmpTime object and it's internal thread that is used to
      * schedule the execution of the runnables.
-     * 
+     *
      */
     SnmpTimer() {
         m_exit = false;
@@ -229,12 +229,12 @@ class SnmpTimer extends Object {
      * Schedules the runnable to be run after AT LEAST ms milliseconds of time
      * has expired. The runnable may be invoked in a delayed manner, but will
      * not be run BEFORE ms milliseconds have expired.
-     * 
+     *
      * @param runner
      *            The runnable object
      * @param milliseconds
      *            The number of milliseconds to wait
-     * 
+     *
      */
     void schedule(Runnable runner, long milliseconds) {
         if (runner != null) {
@@ -247,7 +247,7 @@ class SnmpTimer extends Object {
 
     /**
      * Cancels the current timer object and terminates the internal thread
-     * 
+     *
      */
     void cancel() {
         synchronized (m_sync) {

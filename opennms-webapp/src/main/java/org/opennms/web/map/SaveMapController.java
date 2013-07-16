@@ -56,7 +56,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class SaveMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SaveMapController.class);
 
 	private Manager manager;
@@ -86,19 +86,19 @@ public class SaveMapController extends MapsLoggingController {
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
-			
+
 		int mapId = WebSecurityUtils.safeParseInt(request.getParameter("MapId"));
 		String mapName = request.getParameter("MapName");
 		String mapBackground = request.getParameter("MapBackground");
 		int mapWidth = WebSecurityUtils.safeParseInt(request.getParameter("MapWidth"));
 		int mapHeight = WebSecurityUtils.safeParseInt(request.getParameter("MapHeight"));
-		
+
 		String query = request.getQueryString();
 		String queryNodes = request.getParameter("Nodes");
-		
+
 		LOG.debug("Saving map {} the query received is '{}'", mapName, query);
         LOG.debug("Saving map {} the data received is '{}'", mapName, queryNodes);
 
@@ -145,33 +145,33 @@ public class SaveMapController extends MapsLoggingController {
 							+ MapsConstants.NODE_TYPE + " and "
 							+ MapsConstants.MAP_TYPE);
 				}
-				
+
 				String label=null;
                 if (map.getElement(id, type) != null && map.getElement(id, type).getLabel() != null) {
                     LOG.debug("preserving the label: {}", map.getElement(id, type).getLabel());
                     label = map.getElement(id, type).getLabel();
-                }                
-                
+                }
+
                 VElement ve = manager.newElement(map.getId(), id, type, icon, x, y);
                 if (label != null )
-                    ve.setLabel(label);                    
-                
+                    ve.setLabel(label);
+
                 LOG.debug("adding map element to map with id: {}{} and label: {}", id, type, ve.getLabel());
 				elems.add(ve);
 			}
 
 			map.removeAllLinks();
 			map.removeAllElements();
-				
+
 			map.addElements(elems);
 
-				
+
 			map.setUserLastModifies(request.getRemoteUser());
 			map.setName(mapName);
 			map.setBackground(mapBackground);
 			map.setWidth(mapWidth);
 			map.setHeight(mapHeight);
-			
+
 			if (map.isNew()) {
 			    LOG.debug("Map is New Map");
 				map.setType(MapsConstants.USER_GENERATED_MAP);
@@ -185,7 +185,7 @@ public class SaveMapController extends MapsLoggingController {
 
 	        LOG.info("{} Map saved. With map id: {}", map.getName(),  mapId);
 
-			if (map.isNew()) 
+			if (map.isNew())
 			    map.setId(mapId);
 
 			bw.write(ResponseAssembler.getSaveMapResponse(map));

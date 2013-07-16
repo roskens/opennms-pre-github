@@ -47,7 +47,7 @@ public class SnmpThresholdNetworkInterface {
     private ThresholdNetworkInterface m_networkInterface;
     private SnmpThresholdConfiguration m_thresholdConfiguration;
     private Map<String, Map<String, Set<ThresholdEntity>>> m_allInterfaceMap;
-    
+
     /**
      * <p>Constructor for SnmpThresholdNetworkInterface.</p>
      *
@@ -79,7 +79,7 @@ public class SnmpThresholdNetworkInterface {
     public void setThresholdConfiguration(SnmpThresholdConfiguration thresholdConfiguration) {
         m_thresholdConfiguration = thresholdConfiguration;
     }
-    
+
     /**
      * <p>setAllInterfaceMap</p>
      *
@@ -88,7 +88,7 @@ public class SnmpThresholdNetworkInterface {
     public void setAllInterfaceMap(Map<String, Map<String, Set<ThresholdEntity>>> allInterfaceMap) {
         m_allInterfaceMap = allInterfaceMap;
     }
-    
+
     /**
      * <p>getAllInterfaceMap</p>
      *
@@ -97,7 +97,7 @@ public class SnmpThresholdNetworkInterface {
     public Map<String, Map<String, Set<ThresholdEntity>>> getAllInterfaceMap() {
         return m_allInterfaceMap;
     }
-    
+
     /**
      * <p>getNetworkInterface</p>
      *
@@ -151,7 +151,7 @@ public class SnmpThresholdNetworkInterface {
     public Integer getNodeId() {
         return m_networkInterface.getNodeId();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String toString() {
@@ -187,7 +187,7 @@ public class SnmpThresholdNetworkInterface {
             // Add the new threshold map for this interface to the all interfaces map.
             getAllInterfaceMap().put(ifLabel, thresholdMap);
         }
-        
+
         return Collections.unmodifiableMap(thresholdMap);
     }
 

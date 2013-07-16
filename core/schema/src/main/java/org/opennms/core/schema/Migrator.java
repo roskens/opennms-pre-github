@@ -63,9 +63,9 @@ import org.springframework.core.io.ResourceLoader;
  * @version $Id: $
  */
 public class Migrator {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Migrator.class);
-	
+
     private static final Pattern POSTGRESQL_VERSION_PATTERN = Pattern.compile("^(?:PostgreSQL|EnterpriseDB) (\\d+\\.\\d+)");
     public static final float POSTGRES_MIN_VERSION = 7.4f;
     public static final float POSTGRES_MAX_VERSION_PLUS_ONE = 9.9f;

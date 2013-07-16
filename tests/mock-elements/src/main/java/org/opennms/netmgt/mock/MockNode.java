@@ -130,7 +130,7 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     public int getNodeId() {
         return m_nodeid;
     }
-    
+
     /**
      * <p>getNextIfIndex</p>
      *
@@ -192,7 +192,7 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     public Event createDownEvent() {
         return MockEventUtil.createNodeDownEvent("Test", this);
     }
-    
+
     /**
      * <p>createDownEventWithReason</p>
      *
@@ -202,7 +202,7 @@ public class MockNode extends MockContainer<MockNetwork,MockInterface> {
     public Event createDownEventWithReason(String reason) {
         return MockEventUtil.createNodeDownEventWithReason("Test", this, reason);
     }
-    
+
     /**
      * <p>createNewEvent</p>
      *

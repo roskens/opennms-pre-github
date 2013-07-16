@@ -42,12 +42,12 @@ import org.hibernate.criterion.Criterion;
  * @since 1.8.1
  */
 public abstract class BaseFilter<T> implements Filter {
-    
+
     protected String m_filterName;
     protected SQLType<T> m_sqlType;
     private String m_fieldName;
     private String m_propertyName;
-    
+
     /**
      * <p>Constructor for BaseFilter.</p>
      *
@@ -73,7 +73,7 @@ public abstract class BaseFilter<T> implements Filter {
     public String getSQLFieldName() {
         return m_fieldName;
     }
-    
+
     /**
      * <p>getPropertyName</p>
      *
@@ -92,7 +92,7 @@ public abstract class BaseFilter<T> implements Filter {
     public String getDescription() {
         return m_filterName+"="+getValueString();
     }
-    
+
     /**
      * <p>bindValue</p>
      *
@@ -104,7 +104,7 @@ public abstract class BaseFilter<T> implements Filter {
     final public void bindValue(PreparedStatement ps, int parameterIndex, T value) throws SQLException {
         m_sqlType.bindParam(ps, parameterIndex, value);
     }
-    
+
     /**
      * <p>formatValue</p>
      *
@@ -114,7 +114,7 @@ public abstract class BaseFilter<T> implements Filter {
     public String formatValue(T value) {
         return m_sqlType.formatValue(value);
     }
-    
+
     /**
      * <p>getValueAsString</p>
      *
@@ -124,14 +124,14 @@ public abstract class BaseFilter<T> implements Filter {
     final public String getValueAsString(T value) {
         return m_sqlType.getValueAsString(value);
     }
-    
+
     /**
      * <p>getValueString</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public abstract String getValueString();
-    
+
     /**
      * <p>getCriterion</p>
      *

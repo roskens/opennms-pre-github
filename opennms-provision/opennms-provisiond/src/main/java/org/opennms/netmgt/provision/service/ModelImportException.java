@@ -40,7 +40,7 @@ public class ModelImportException extends Exception {
     public ModelImportException(String msg) {
         super(msg);
     }
-    
+
     /**
      * <p>Constructor for ModelImportException.</p>
      *

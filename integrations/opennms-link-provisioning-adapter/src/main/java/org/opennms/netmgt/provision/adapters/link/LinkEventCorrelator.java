@@ -61,7 +61,7 @@ public class LinkEventCorrelator {
      * <p>Constructor for LinkEventCorrelator.</p>
      */
     public LinkEventCorrelator() {}
-    
+
     /**
      * <p>isLinkUp</p>
      *
@@ -71,7 +71,7 @@ public class LinkEventCorrelator {
     public boolean isLinkUp(Event e) {
         return false;
     }
-    
+
     /**
      * <p>logEvent</p>
      *
@@ -80,7 +80,7 @@ public class LinkEventCorrelator {
     public void logEvent(Event e) {
         LOG.debug("Correlating Event {}/{}/{}/{}", e.getUei(), e.getNodeid(), e.getInterface(), e.getService());
     }
-    
+
     /**
      * <p>handleNodeDown</p>
      *
@@ -101,7 +101,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleNodeDown");
         }
     }
-    
+
     /**
      * <p>handleNodeUp</p>
      *
@@ -122,7 +122,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleNodeUp");
         }
     }
-    
+
     /**
      * <p>handleInterfaceDown</p>
      *
@@ -135,7 +135,7 @@ public class LinkEventCorrelator {
             logEvent(e);
             int nodeId = Long.valueOf(e.getNodeid()).intValue();
             if(nodeHasEndPointService(nodeId)){
-                linkDown(nodeId); 
+                linkDown(nodeId);
             }
             else {
                 LOG.debug("Discarding Event {} since ip {} is node the primary interface of node {}", e.getUei(), e.getInterface(), e.getNodeid());
@@ -146,7 +146,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleInterfaceDown");
         }
     }
-    
+
     /**
      * <p>handleInterfaceUp</p>
      *
@@ -159,7 +159,7 @@ public class LinkEventCorrelator {
             logEvent(e);
             int nodeId = Long.valueOf(e.getNodeid()).intValue();
             if(nodeHasEndPointService(nodeId)){
-                linkUp(nodeId); 
+                linkUp(nodeId);
             }
             else {
                 LOG.debug("Discarding Event {} since ip {} is not the primary interface of node {}", e.getUei(), e.getInterface(), e.getNodeid());
@@ -170,7 +170,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleInterfaceUp");
         }
     }
-    
+
     /**
      * <p>handleServiceUnresponsive</p>
      *
@@ -198,7 +198,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleServiceUnresponsive");
         }
     }
-    
+
     /**
      * <p>handleServiceResponsive</p>
      *
@@ -226,7 +226,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleServiceResponsive");
         }
     }
-    
+
     /**
      * <p>handleNodeGainedService</p>
      *
@@ -235,7 +235,7 @@ public class LinkEventCorrelator {
     @Transactional
     @EventHandler(uei = EventConstants.NODE_GAINED_SERVICE_EVENT_UEI)
     public void handleNodeGainedService(Event e) {
-       try { 
+       try {
             logEvent(e);
             if (e.getService() != null && !e.getService().equals(getEndPointTypeValidator().getServiceName())) {
                 LOG.debug("Discarding Event {} since service {} does not match EndPoint service {}", e.getUei(), e.getService(), getEndPointTypeValidator().getServiceName());
@@ -253,7 +253,7 @@ public class LinkEventCorrelator {
            LOG.debug("Bailing out of handleNodeGainedService");
        }
     }
-    
+
     /**
      * <p>handleNodeLostService</p>
      *
@@ -276,9 +276,9 @@ public class LinkEventCorrelator {
             else {
                 LOG.debug("Discarding Event {} since ip {} is node the primary interface of node {}", e.getUei(), e.getInterface(), e.getNodeid());
             }
-        
-            
-        } 
+
+
+        }
         catch(Throwable t) {
             LOG.debug("Caught a throwable in handleNodeLostService!", t);
         }
@@ -286,7 +286,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleNodeLostService");
         }
     }
-    
+
     /**
      * <p>handleNodeRegainedService</p>
      *
@@ -314,7 +314,7 @@ public class LinkEventCorrelator {
             LOG.debug("Bailing out of handleNodeRegainedService");
         }
     }
-    
+
     /**
      * <p>handleServiceUnmanaged</p>
      *
@@ -323,7 +323,7 @@ public class LinkEventCorrelator {
     @Transactional
     @EventHandler(uei = EventConstants.SERVICE_UNMANAGED_EVENT_UEI)
     public void handleServiceUnmanaged(Event e) {
-       try { 
+       try {
             logEvent(e);
             if (e.getService() != null && !e.getService().equals(getEndPointTypeValidator().getServiceName())) {
                 LOG.debug("Discarding Event {} since service {} does not match EndPoint service {}", e.getUei(), e.getService(), getEndPointTypeValidator().getServiceName());
@@ -331,7 +331,7 @@ public class LinkEventCorrelator {
             }
             int nodeId = Long.valueOf(e.getNodeid()).intValue();
             if(isSnmpPrimary(nodeId, e.getInterface())){
-                linkUp(nodeId); 
+                linkUp(nodeId);
             }
             else {
                 LOG.debug("Discarding Event {} since ip {} is not the primary interface of node {}", e.getUei(), e.getInterface(), e.getNodeid());
@@ -342,7 +342,7 @@ public class LinkEventCorrelator {
            LOG.debug("Bailing out of handleServiceUnmanaged");
        }
     }
-    
+
     /**
      * <p>handleServiceDeleted</p>
      *
@@ -356,7 +356,7 @@ public class LinkEventCorrelator {
                 LOG.debug("Discarding Event {} since service {} does not match EndPoint service {}", e.getUei(), e.getService(), getEndPointTypeValidator().getServiceName());
                 return;
             }
-            
+
             int nodeId = Long.valueOf(e.getNodeid()).intValue();
             if(isSnmpPrimary(nodeId, e.getInterface())){
                 endPointDeleted(nodeId);
@@ -369,7 +369,7 @@ public class LinkEventCorrelator {
        }finally {
            LOG.debug("Bailing out of handleServiceDeleted");
        }
-        
+
     }
 
     private void linkDown(int nodeId) {
@@ -385,7 +385,7 @@ public class LinkEventCorrelator {
                 linkStateObj.setLinkState(LinkState.LINK_UP);
             }
             LinkState linkState = linkStateObj.getLinkState();
-            
+
             if (dli.getNode().getId() == nodeId) {
                 isParent = false;
             } else {
@@ -396,7 +396,7 @@ public class LinkEventCorrelator {
             m_nodeLinkService.saveLinkState(linkStateObj);
         }
     }
-    
+
     private void endPointDeleted(int nodeId){
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
 
@@ -408,19 +408,19 @@ public class LinkEventCorrelator {
                 linkStateObj.setLinkState(LinkState.LINK_UP);
             }
             LinkState linkState = linkStateObj.getLinkState();
-            
+
             if (dli.getNode().getId() == nodeId) {
                 linkState = linkState.nodeEndPointDeleted(transition);
             } else {
                 linkState = linkState.parentNodeEndPointDeleted(transition);
             }
-            
-            
+
+
             linkStateObj.setLinkState(linkState);
             m_nodeLinkService.saveLinkState(linkStateObj);
         }
     }
-    
+
     private void linkUp(int nodeId) {
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
             boolean isParent = false;
@@ -433,7 +433,7 @@ public class LinkEventCorrelator {
                 linkStateObj.setLinkState(LinkState.LINK_UP);
             }
             LinkState linkState = linkStateObj.getLinkState();
-            
+
             if (dli.getNode().getId() == nodeId) {
                 isParent = false;
             } else {
@@ -444,7 +444,7 @@ public class LinkEventCorrelator {
             m_nodeLinkService.saveLinkState(linkStateObj);
         }
     }
-    
+
     private void endPointFound(int nodeId){
         for (DataLinkInterface dli : m_nodeLinkService.getLinkContainingNodeId(nodeId)) {
 
@@ -456,18 +456,18 @@ public class LinkEventCorrelator {
                 linkStateObj.setLinkState(LinkState.LINK_BOTH_UNMANAGED);
             }
             LinkState linkState = linkStateObj.getLinkState();
-            
+
             if (dli.getNode().getId() == nodeId) {
                 linkState = linkState.nodeEndPointFound(transition);
             } else {
                 linkState = linkState.parentNodeEndPointFound(transition);
             }
-            
+
             linkStateObj.setLinkState(linkState);
             m_nodeLinkService.saveLinkState(linkStateObj);
         }
     }
-    
+
     /**
      * <p>isSnmpPrimary</p>
      *

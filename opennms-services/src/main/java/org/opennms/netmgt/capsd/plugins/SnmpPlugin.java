@@ -90,9 +90,9 @@ public class SnmpPlugin extends AbstractPlugin {
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
     }
-    
+
     private String getValue(SnmpAgentConfig agentConfig, String oid) {
         SnmpValue val = SnmpUtils.get(agentConfig, SnmpObjId.get(oid));
         if (val == null || val.isNull() || val.isEndOfMib() || val.isError()) {
@@ -115,14 +115,14 @@ public class SnmpPlugin extends AbstractPlugin {
      */
     @Override
     public boolean isProtocolSupported(InetAddress address, Map<String, Object> qualifiers) {
-        
+
         try {
 
             String oid = ParameterMap.getKeyedString(qualifiers, "vbname", DEFAULT_OID);
             SnmpAgentConfig agentConfig = SnmpPeerFactory.getInstance().getAgentConfig(address);
             String expectedValue = null;
             String isTable = null;
-            
+
             if (qualifiers != null) {
                 // "port" parm
                 //
@@ -130,21 +130,21 @@ public class SnmpPlugin extends AbstractPlugin {
                     int port = ParameterMap.getKeyedInteger(qualifiers, "port", agentConfig.getPort());
                     agentConfig.setPort(port);
                 }
-                
+
                 // "timeout" parm
                 //
                 if (qualifiers.get("timeout") != null) {
                     int timeout = ParameterMap.getKeyedInteger(qualifiers, "timeout", agentConfig.getTimeout());
                     agentConfig.setTimeout(timeout);
                 }
-                
+
                 // "retry" parm
                 //
                 if (qualifiers.get("retry") != null) {
                     int retry = ParameterMap.getKeyedInteger(qualifiers, "retry", agentConfig.getRetries());
                     agentConfig.setRetries(retry);
                 }
-                
+
                 // "force version" parm
                 //
                 if (qualifiers.get("force version") != null) {
@@ -153,54 +153,54 @@ public class SnmpPlugin extends AbstractPlugin {
                         agentConfig.setVersion(SnmpAgentConfig.VERSION1);
                     else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION2C);
-                    
+
                     //TODO: make sure JoeSnmpStrategy correctly handles this.
                     else if (version.equalsIgnoreCase("snmpv3"))
                         agentConfig.setVersion(SnmpAgentConfig.VERSION3);
                 }
-                
+
                 // "vbvalue" parm
                 //
                 if (qualifiers.get("vbvalue") != null) {
                     expectedValue = (String) qualifiers.get("vbvalue");
                 }
-                
+
                 if(qualifiers.get("table") != null) {
                 	isTable = (String) qualifiers.get("table");
                 }
             }
-            
+
             if (isTable != null && isTable.equalsIgnoreCase("true")) {
-            	
+
             	 SnmpObjId snmpObjId = SnmpObjId.get(oid);
-            	
+
             	  Map<SnmpInstId, SnmpValue> table = SnmpUtils.getOidValues(agentConfig, "SnmpPlugin", snmpObjId);
-            	  for (Map.Entry<SnmpInstId, SnmpValue> e : table.entrySet()) { 
-                      if (e.getValue().toString().equals(expectedValue)) {	
+		  for (Map.Entry<SnmpInstId, SnmpValue> e : table.entrySet()) {
+                      if (e.getValue().toString().equals(expectedValue)) {
                       	return true;
-                      }    
+                      }
                   }
             }
-            
-            else { 
+
+            else {
             	String retrievedValue = getValue(agentConfig, oid);
-            
+
             	if (retrievedValue != null && expectedValue != null) {
             		return (Pattern.compile(expectedValue).matcher(retrievedValue).find());
             	} else {
             		return (retrievedValue != null);
-                
+
                 //return (expectedValue == null ? true : retrievedValue.equals(expectedValue));
             	}
-            
+
             }
-            
+
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
         // should never get here.
         return false;
-        
+
     }
 }

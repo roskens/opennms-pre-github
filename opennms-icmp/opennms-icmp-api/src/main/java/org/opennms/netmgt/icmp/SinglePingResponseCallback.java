@@ -43,19 +43,19 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 public class SinglePingResponseCallback implements PingResponseCallback {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory
 			.getLogger(SinglePingResponseCallback.class);
 
-    
+
     /**
      * Value of round-trip-time for the ping in microseconds.
      */
     private Long m_responseTime = null;
 
     private InetAddress m_host;
-    
+
     private Throwable m_error = null;
 
     private CountDownLatch m_latch = new CountDownLatch(1);
@@ -140,7 +140,7 @@ public class SinglePingResponseCallback implements PingResponseCallback {
     public Long getResponseTime() {
         return m_responseTime;
     }
-    
+
     public Throwable getError() {
         return m_error;
     }

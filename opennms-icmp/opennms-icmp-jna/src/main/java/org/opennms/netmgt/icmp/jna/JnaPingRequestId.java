@@ -57,7 +57,7 @@ public class JnaPingRequestId {
         m_sequenceNumber = sequenceNumber;
         m_threadId = threadId;
     }
-    
+
     /**
      * <p>Constructor for JnaPingRequestId.</p>
      *
@@ -93,7 +93,7 @@ public class JnaPingRequestId {
     public int getSequenceNumber() {
         return m_sequenceNumber;
     }
-    
+
     public long getThreadId() {
         return m_threadId;
     }
@@ -103,8 +103,8 @@ public class JnaPingRequestId {
     public boolean equals(Object obj) {
         if (obj instanceof JnaPingRequestId) {
             JnaPingRequestId id = (JnaPingRequestId)obj;
-            return (new InetAddressComparator().compare(getAddress(), id.getAddress()) == 0) 
-                && getIdentifier() == id.getIdentifier() 
+            return (new InetAddressComparator().compare(getAddress(), id.getAddress()) == 0)
+                && getIdentifier() == id.getIdentifier()
                 && getSequenceNumber() == id.getSequenceNumber()
                 && getThreadId() == id.getThreadId();
         }
@@ -144,6 +144,6 @@ public class JnaPingRequestId {
         buf.append(']');
         return buf.toString();
     }
-    
+
 
 }

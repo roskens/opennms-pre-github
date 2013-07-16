@@ -51,12 +51,12 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * <p>ResponseTimeResourceType class.</p>
  */
 public class ResponseTimeResourceType implements OnmsResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ResponseTimeResourceType.class);
-    
+
     private ResourceDao m_resourceDao;
     private NodeDao m_nodeDao;
-    
+
     /**
      * <p>Constructor for ResponseTimeResourceType.</p>
      *
@@ -67,7 +67,7 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         m_resourceDao = resourceDao;
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -94,22 +94,22 @@ public class ResponseTimeResourceType implements OnmsResourceType {
         List<OnmsResource> empty = Collections.emptyList();
         return empty;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNode(final int nodeId) {
     	final LinkedList<OnmsResource> resources = new LinkedList<OnmsResource>();
-        
+
     	final OnmsNode node = m_nodeDao.get(nodeId);
         if (node == null) {
             throw new ObjectRetrievalFailureException(OnmsNode.class, nodeId, "Could not find node for node Id " + nodeId, null);
         }
-        
+
         for (final OnmsIpInterface i : node.getIpInterfaces()) {
             String ipAddr = InetAddressUtils.str(i.getIpAddress());
 
             final File iface = getInterfaceDirectory(ipAddr, false);
-            
+
             if (iface.isDirectory()) {
                 resources.add(createResource(i));
             }
@@ -120,7 +120,7 @@ public class ResponseTimeResourceType implements OnmsResourceType {
 
     private File getInterfaceDirectory(final String ipAddr, final boolean verify) {
     	final File response = new File(m_resourceDao.getRrdDirectory(verify), DefaultResourceDao.RESPONSE_DIRECTORY);
-        
+
     	final File intfDir = new File(response, ipAddr);
         if (verify && !intfDir.isDirectory()) {
             throw new ObjectRetrievalFailureException(File.class, "No interface directory exists for " + ipAddr + ": " + intfDir);
@@ -128,11 +128,11 @@ public class ResponseTimeResourceType implements OnmsResourceType {
 
         return intfDir;
     }
-    
+
     private String getRelativeInterfacePath(final String ipAddr) {
         return DefaultResourceDao.RESPONSE_DIRECTORY + File.separator + ipAddr;
     }
-    
+
     private OnmsResource createResource(final OnmsIpInterface ipInterface) {
     	final String intf = InetAddressUtils.str(ipInterface.getIpAddress());
     	final String label = intf;
@@ -176,13 +176,13 @@ public class ResponseTimeResourceType implements OnmsResourceType {
     public String getLinkForResource(final OnmsResource resource) {
         return "element/interface.jsp?node=" + resource.getParent().getName() + "&intf=" + resource.getName();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
         return getResourcesForNodeSource(nodeSource, nodeId).size() > 0;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {

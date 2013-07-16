@@ -37,7 +37,7 @@ import java.net.InetAddress;
  * @version $Id: $
  */
 public interface SyncServiceDetector extends ServiceDetector {
-    
+
     /**
      * <p>isServiceDetected</p>
      *

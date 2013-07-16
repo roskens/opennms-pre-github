@@ -47,20 +47,20 @@ public class SearchPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("Search Options"));
         assertTrue(selenium.isTextPresent("MAC Address"));
     }
-        
+
      @Test
      public void testAllLinksArePresent() {
         assertTrue(selenium.isElementPresent("link=All nodes"));
         assertTrue(selenium.isElementPresent("link=All nodes and their interfaces"));
         assertTrue(selenium.isElementPresent("link=All nodes with asset info"));
      }
-      
-     @Test 
+
+     @Test
      public void testAllFormsArePresent() {
         assertTrue(selenium.isElementPresent("css=input[type=submit]"));
         assertEquals("Search", selenium.getValue("css=input[type=submit]"));
      }
-      
+
      @Test
      public void testAllLinks() {
         selenium.click("link=All nodes");

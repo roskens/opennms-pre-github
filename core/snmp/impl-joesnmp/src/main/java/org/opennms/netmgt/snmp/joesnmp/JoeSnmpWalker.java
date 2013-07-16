@@ -48,9 +48,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JoeSnmpWalker extends SnmpWalker {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(JoeSnmpWalker.class);
-	
+
 	static public abstract class JoeSnmpPduBuilder extends WalkerPduBuilder {
         public JoeSnmpPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
@@ -59,7 +59,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         public abstract SnmpPduPacket getPdu();
 
     }
-    
+
     public static class GetNextBuilder extends JoeSnmpPduBuilder {
         private SnmpPduRequest m_nextPdu = null;
 
@@ -67,7 +67,7 @@ public class JoeSnmpWalker extends SnmpWalker {
             super(maxVarsPerPdu);
             reset();
         }
-        
+
         @Override
         public void reset() {
             m_nextPdu = new SnmpPduRequest(SnmpPduRequest.GETNEXT);
@@ -78,7 +78,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         public SnmpPduPacket getPdu() {
             return m_nextPdu;
         }
-        
+
         @Override
         public void addOid(SnmpObjId snmpObjId) {
             SnmpVarBind varBind = new SnmpVarBind(new SnmpObjectId(snmpObjId.getIds()));
@@ -94,16 +94,16 @@ public class JoeSnmpWalker extends SnmpWalker {
         }
 
     }
-    
+
     public class GetBulkBuilder extends JoeSnmpPduBuilder {
-        
+
         private SnmpPduBulk m_bulkPdu;
 
         public GetBulkBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
             reset();
         }
-        
+
         @Override
         public void reset() {
             m_bulkPdu = new SnmpPduBulk();
@@ -130,14 +130,14 @@ public class JoeSnmpWalker extends SnmpWalker {
         public void setMaxRepetitions(int maxRepetitions) {
             m_bulkPdu.setMaxRepititions(maxRepetitions);
         }
-        
+
     }
-    
+
     public class JoeSnmpResponseHandler implements SnmpHandler {
 
         @Override
         public void snmpReceivedPdu(SnmpSession session, int command, SnmpPduPacket pdu) {
-            
+
             try {
                 SnmpPduRequest response = (SnmpPduRequest)pdu;
                 LOG.debug("Received a tracker pdu from {} of size {} errorStatus = {}, errorIndex = {}", getAddress(), pdu.getLength(), response.getErrorStatus(), response.getErrorIndex());
@@ -164,7 +164,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         public void snmpTimeoutError(SnmpSession session, SnmpSyntax pdu) {
             handleTimeout(getName()+": snmpTimeoutError for: " + getAddress());
         }
-        
+
     }
 
 
@@ -180,7 +180,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         m_peer = getPeer(agentConfig);
         m_handler = new JoeSnmpResponseHandler();
     }
-    
+
     private SnmpPeer getPeer(JoeSnmpAgentConfig agentConfig) {
         SnmpPeer peer = new SnmpPeer(agentConfig.getAddress());
         peer.getParameters().setVersion(agentConfig.getVersion());
@@ -189,7 +189,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         peer.setPort(agentConfig.getPort());
         peer.setRetries(agentConfig.getRetries());
         peer.setTimeout(agentConfig.getTimeout());
-        return peer;        
+        return peer;
     }
 
         @Override
@@ -200,8 +200,8 @@ public class JoeSnmpWalker extends SnmpWalker {
 
         @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
-        return (getVersion() == SnmpSMI.SNMPV1 
-                ? (JoeSnmpPduBuilder)new GetNextBuilder(maxVarsPerPdu) 
+        return (getVersion() == SnmpSMI.SNMPV1
+                ? (JoeSnmpPduBuilder)new GetNextBuilder(maxVarsPerPdu)
                 : (JoeSnmpPduBuilder)new GetBulkBuilder(maxVarsPerPdu));
     }
 
@@ -212,7 +212,7 @@ public class JoeSnmpWalker extends SnmpWalker {
         LOG.debug("Sending tracker pdu of size {}", joePduBuilder.getPdu().getLength());
         m_session.send(joePduBuilder.getPdu(), m_handler);
     }
-    
+
     protected int getVersion() {
         return m_peer.getParameters().getVersion();
     }

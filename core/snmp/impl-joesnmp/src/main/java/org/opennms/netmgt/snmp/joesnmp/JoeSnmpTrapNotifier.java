@@ -39,7 +39,7 @@ import org.opennms.protocols.snmp.SnmpTrapHandler;
 import org.opennms.protocols.snmp.SnmpTrapSession;
 
 public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
-    
+
     private TrapProcessorFactory m_trapProcessorFactory;
     private TrapNotificationListener m_listener;
 
@@ -53,7 +53,7 @@ public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
      * Process the recieved SNMP v2c trap that was received by the underlying
      * trap session.
      * </P>
-     * 
+     *
      * @param session
      *            The trap session that received the datagram.
      * @param agent
@@ -64,20 +64,20 @@ public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
      *            The community string contained in the message.
      * @param pdu
      *            The protocol data unit containing the data
-     * 
+     *
      */
     @Override
     public void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent,
             int port, SnmpOctetString community, SnmpPduPacket pdu) {
         m_listener.trapReceived(new V2TrapInformation(agent, new String(community.getString()), pdu, m_trapProcessorFactory.createTrapProcessor()));
     }
-    
+
     /**
      * <P>
      * Process the recieved SNMP v1 trap that was received by the underlying
      * trap session.
      * </P>
-     * 
+     *
      * @param session
      *            The trap session that received the datagram.
      * @param agent
@@ -88,14 +88,14 @@ public class JoeSnmpTrapNotifier implements SnmpTrapHandler {
      *            The community string contained in the message.
      * @param pdu
      *            The protocol data unit containing the data
-     * 
+     *
      */
     @Override
     public void snmpReceivedTrap(SnmpTrapSession session, InetAddress agent,
             int port, SnmpOctetString community, SnmpPduTrap pdu) {
         m_listener.trapReceived(new V1TrapInformation(agent, new String(community.getString()), pdu, m_trapProcessorFactory.createTrapProcessor()));
     }
-    
+
     /**
      * <P>
      * Processes an error condition that occurs in the SnmpTrapSession. The

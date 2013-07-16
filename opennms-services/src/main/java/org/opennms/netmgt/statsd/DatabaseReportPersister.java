@@ -70,7 +70,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
             data.setValue(stat.getStatistic());
             dbReport.addData(data);
         }
-        
+
         m_statisticsReportDao.save(dbReport);
     }
 
@@ -79,7 +79,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
         if (resource != null) {
             return resource;
         }
-      
+
         resource = new ResourceReference();
         resource.setResourceId(id);
         m_resourceReferenceDao.save(resource);
@@ -95,7 +95,7 @@ public class DatabaseReportPersister implements ReportPersister, InitializingBea
         Assert.state(m_statisticsReportDao != null, "property statisticsReportDao must be set to a non-null value");
         Assert.state(m_resourceReferenceDao != null, "property resourceReferenceDao must be set to a non-null value");
     }
-    
+
     /**
      * <p>getStatisticsReportDao</p>
      *

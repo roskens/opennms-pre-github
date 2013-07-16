@@ -49,7 +49,7 @@ public class AgentConfigData {
      */
     public AgentConfigData() {
     }
-    
+
     /**
      * <p>Constructor for AgentConfigData.</p>
      *

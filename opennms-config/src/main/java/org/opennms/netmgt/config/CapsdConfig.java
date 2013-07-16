@@ -142,14 +142,14 @@ public interface CapsdConfig {
      * @return boolean flag as a string value
      */
     String getXmlrpc();
-    
+
     /**
      * <p>isXmlRpcEnabled</p>
      *
      * @return a boolean.
      */
     boolean isXmlRpcEnabled();
-    
+
     /**
      * <p>getProtocolPlugin</p>
      *
@@ -164,7 +164,7 @@ public interface CapsdConfig {
      * @param plugin a {@link org.opennms.netmgt.config.capsd.ProtocolPlugin} object.
      */
     void addProtocolPlugin(ProtocolPlugin plugin);
-    
+
     /**
      * <p>determinePrimarySnmpInterface</p>
      *

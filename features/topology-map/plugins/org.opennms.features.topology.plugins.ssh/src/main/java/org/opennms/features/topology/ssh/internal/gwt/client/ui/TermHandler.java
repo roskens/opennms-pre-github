@@ -74,7 +74,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 	public KeyBuffer getKeybuf() {
 		return keybuf;
 	}
-	
+
 	/**
 	 * The onKeyDown method handles all keys that are held down, before
 	 * KeyUp and KeyPress events are triggered.
@@ -90,7 +90,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			}
 		}
 	}
-	
+
 	/**
 	 * The onKeyPress method handles all keys that were held down and then lifted up,
 	 * after the KeyDown and KeyUp events are triggered
@@ -104,7 +104,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			event.getNativeEvent().preventDefault();
 		}
 	}
-	
+
 	/**
 	 * The onKeyUp method handles all keys that were lifted up, after the KeyDown
 	 * event is triggered and before the KeyPress event is triggered
@@ -132,9 +132,9 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			updateTimer.schedule(50);
 		}
 	}
-	
+
 	/**
-	 * The close method stops the update timer and sets the status of the 
+	 * The close method stops the update timer and sets the status of the
 	 * TermHandler to closed, preventing out of sync errors.
 	 */
 	public synchronized void close() {
@@ -154,7 +154,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			k = c.getCharCode();
 		}
 		else if (c.getKeyCode() != 0) k = c.getKeyCode();
-		
+
 		if (c.isCtrlDown()) {
 			k = ctrlPressed(k);
 			if (k == -1) return;
@@ -166,7 +166,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 			queue(buildCharacter(k, isCharCode));
 		}
 	}
-	
+
 	/**
 	 * The ctrlPressed method deciphers a key/char code that
 	 * was pressed while the CTRL key was held down
@@ -230,7 +230,7 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 		}
 		return k;
 	}
-	
+
 	/**
 	 * The buildCharacter method deciphers key/char codes and converts
 	 * them into VT100 format codes
@@ -269,5 +269,5 @@ public class TermHandler implements KeyUpHandler, KeyDownHandler, KeyPressHandle
 		}
 		return s;
 	}
-	
+
 }

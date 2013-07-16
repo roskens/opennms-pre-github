@@ -51,8 +51,8 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
     private OnmsMapDao m_onmsMapDao;
     private OnmsMapElementDao m_onmsMapElementDao;
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
-    
-    
+
+
     public OnmsMapDao getOnmsMapDao() {
         return m_onmsMapDao;
     }
@@ -84,26 +84,26 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
     private OnmsMap getMap(int mapId) {
         return getOnmsMapDao().findMapById(mapId);
     }
-    
+
     @Override
     public void save() {
         save("1");
     }
 
     public void save(String filename) {
-        
+
         List<Vertex> vertices = super.getVertices();
         int rootMapid = Integer.parseInt(filename);
         OnmsMap rootMap = getMap(rootMapid);
         getOnmsMapElementDao().deleteElementsByMapId(rootMap);
-        
+
         for (Vertex vertex : vertices) {
             if (vertex.isGroup()) {
                 Integer mapid = ((SimpleGroup)vertex).getMapid();
                 getOnmsMapElementDao().deleteElementsByMapId(getMap(mapid));
             }
         }
-        
+
         for (Vertex vertex : vertices) {
             Integer mapid;
             Integer id;
@@ -138,14 +138,14 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
         OnmsMap map = getMap(Integer.parseInt(filename));
         List<Vertex> vertices = getVertex(map.getId(),null);
         List<Edge> edges = getEdges(vertices);
-        
+
         clearVertices();
         addVertices(vertices.toArray(new Vertex[] {}));
-        
+
         clearEdges();
         addEdges(edges.toArray(new Edge[] {}));
     }
-    
+
 
     private List<Vertex> getVertex(int mapId, SimpleGroup parent) {
         List<Vertex> vertexes = new ArrayList<Vertex>();
@@ -157,7 +157,7 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
             vertex.setParent(parent);
             vertexes.add(vertex);
         }
-        
+
         for (OnmsMapElement element: getOnmsMapElementDao().findMapElementsOnMap(mapId)) {
             SimpleGroup vertex = new SimpleGroup(getVertexNamespace(), Integer.toString(element.getId()));
             vertex.setLocked(false);
@@ -167,7 +167,7 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
             vertexes.add(vertex);
             vertexes.addAll(getVertex(element.getElementId(),vertex));
         }
-        
+
         return vertexes;
     }
 
@@ -178,7 +178,7 @@ public class OnmsTopologyProvider extends AbstractTopologyProvider implements Gr
             if (!vertex.isGroup())
                 leafs.add((SimpleLeafVertex) vertex);
         }
-        
+
         for (Vertex target: leafs){
             for (DataLinkInterface link: getDataLinkInterfaceDao().findByNodeParentId(((SimpleLeafVertex)target).getNodeID())) {
                 for (Vertex source: leafs) {

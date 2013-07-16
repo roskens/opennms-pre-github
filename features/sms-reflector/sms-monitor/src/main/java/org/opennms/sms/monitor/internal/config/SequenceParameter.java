@@ -49,13 +49,13 @@ public class SequenceParameter {
 
 	@XmlAttribute(name="value")
 	private String m_value;
-	
+
 	/**
 	 * <p>Constructor for SequenceParameter.</p>
 	 */
 	public SequenceParameter() {
 	}
-	
+
 	/**
 	 * <p>Constructor for SequenceParameter.</p>
 	 *
@@ -66,7 +66,7 @@ public class SequenceParameter {
 		m_key = key;
 		m_value = value;
 	}
-	
+
 	/**
 	 * <p>getKey</p>
 	 *
@@ -75,7 +75,7 @@ public class SequenceParameter {
 	public String getKey() {
 		return m_key;
 	}
-	
+
 	/**
 	 * <p>getValue</p>
 	 *

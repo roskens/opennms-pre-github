@@ -6,7 +6,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 public class GWTBoundingBox extends JavaScriptObject {
 
     protected GWTBoundingBox() {}
-    
+
     public static final native GWTBoundingBox create(int x, int y, int width, int height) /*-{
         return {"x":x, "y":y, "width":width, "height":height};
     }-*/;
@@ -26,5 +26,5 @@ public class GWTBoundingBox extends JavaScriptObject {
     public final native int getHeight() /*-{
         return this.height;
     }-*/;
-    
+
 }

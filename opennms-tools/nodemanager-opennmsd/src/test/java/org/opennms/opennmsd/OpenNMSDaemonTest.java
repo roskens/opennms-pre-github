@@ -32,29 +32,29 @@ import org.jmock.Mock;
 import org.jmock.MockObjectTestCase;
 
 public class OpenNMSDaemonTest extends MockObjectTestCase {
-    
+
     Mock m_mockConfiguration;
     Mock m_mockForwarder;
     OpenNMSDaemon m_daemon;
-    
+
     public void setUp() {
-      
+
         m_mockConfiguration = mock(Configuration.class);
         m_mockForwarder = mock(EventForwarder.class);
-        
+
         //m_daemon = new OpenNMSDaemon();
         //m_daemon.setConfiguration(getConfiguration());
        // m_daemon.setEventForwarder(getForwarder());
-        
-        
-        
-        
+
+
+
+
     }
-    
+
     public Configuration getConfiguration() {
         return (Configuration)m_mockConfiguration.proxy();
     }
-    
+
     public static NNMEvent getEvent() {
         return MockNNMEvent.createEvent("Category", "Warning", "linkDown", "1.1.1.1");
     }
@@ -62,7 +62,7 @@ public class OpenNMSDaemonTest extends MockObjectTestCase {
     public EventForwarder getForwarder() {
         return (EventForwarder)m_mockForwarder.proxy();
     }
-    
+
     public void testBogus() {}
     public void XXXtestInitWithNoConfig() {
         OpenNMSDaemon daemon = new OpenNMSDaemon();
@@ -70,23 +70,23 @@ public class OpenNMSDaemonTest extends MockObjectTestCase {
             daemon.onInit();
             fail("Expected an exception");
         } catch (IllegalStateException e) {
-            
+
         } catch (Throwable t) {
             fail("Unexpected exception "+t);
         }
-        
+
         daemon.onStop();
-        
+
     }
-    
+
     public void XXXtestInit() {
-        
+
         m_daemon.onInit();
-        
+
         m_daemon.onStop();
 
     }
-    
+
     public void XXXtestEventAccept() {
 
         NNMEvent event = getEvent();
@@ -97,10 +97,10 @@ public class OpenNMSDaemonTest extends MockObjectTestCase {
 
         testEventProcessing(Filter.ACCEPT, event);
     }
-    
+
     public void XXXtestEventDiscard() {
         NNMEvent event = getEvent();
-        
+
         m_mockForwarder.expects(once()).method("discard").
         with( same( event ) );
 
@@ -110,22 +110,22 @@ public class OpenNMSDaemonTest extends MockObjectTestCase {
     private void testEventProcessing(String action, NNMEvent event) {
         Filter acceptEverything = new Filter();
         acceptEverything.setAction(action);
-        
+
 
         FilterChain filterChain = new FilterChain();
         filterChain.addFilter(acceptEverything);
-        
-        
+
+
 
         m_mockConfiguration.expects(once()).
             method("getFilterChain").
             will( returnValue(filterChain) );
-        
+
 
         m_daemon.onInit();
-        
+
         m_daemon.onEvent(event);
-        
+
         m_daemon.onStop();
     }
 

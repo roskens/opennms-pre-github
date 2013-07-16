@@ -45,11 +45,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class OnmsGatewayGroupRegistrar implements GatewayGroupRegistrar, DisposableBean, InitializingBean {
-	
+
 	private final List<Registration> m_registrations = new ArrayList<Registration>();
-	
+
 	private ServiceRegistry m_serviceRegistry;
-	
+
 	/** {@inheritDoc} */
         @Override
 	public void registerGatewayGroup(GatewayGroup gatewayGroup) {

@@ -76,13 +76,13 @@ public interface IWmiClient {
      * @throws org.opennms.protocols.wmi.WmiException if any.
      */
     public void connect(String domain, String username, String password) throws WmiException;
-	
+
 	/**
 	 * <p>disconnect</p>
 	 *
 	 * @throws org.opennms.protocols.wmi.WmiException if any.
 	 */
 	public void disconnect() throws WmiException;
-	
+
 }
 

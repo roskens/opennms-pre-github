@@ -35,17 +35,17 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.VariableBinding;
 
 /**
- * Represents a MockAgent 
+ * Represents a MockAgent
  *
  * @author brozow
  */
 public class MockAgent {
-    
+
     private SortedMap<OID, SubAgent> m_subAgents = new TreeMap<OID, SubAgent>();
 
     public void addSubAgent(SubAgent subAgent) {
         m_subAgents.put(subAgent.getBaseOID(), subAgent);
-        
+
     }
 
     /**
@@ -60,7 +60,7 @@ public class MockAgent {
                 return result;
             }
         }
-        
+
         return result;
     }
 

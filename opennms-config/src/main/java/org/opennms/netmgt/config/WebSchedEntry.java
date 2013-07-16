@@ -43,7 +43,7 @@ import org.opennms.netmgt.config.groups.Time;
  * @since 1.8.1
  */
 public class WebSchedEntry {
-    
+
     int m_schedIndex;
     int m_timeIndex;
     String m_user;
@@ -63,7 +63,7 @@ public class WebSchedEntry {
     public WebSchedEntry(int schedIndex, int timeIndex, String user, Date startDate, Date endDate) {
         this(schedIndex, timeIndex, user, new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(startDate), new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(endDate));
     }
-    
+
     /**
      * <p>Constructor for WebSchedEntry.</p>
      *
@@ -82,7 +82,7 @@ public class WebSchedEntry {
         m_begins = begins;
         m_ends = ends;
     }
-    
+
     /**
      * <p>isNew</p>
      *
@@ -91,7 +91,7 @@ public class WebSchedEntry {
     public boolean isNew() {
         return m_schedIndex == -1 && m_timeIndex == -1;
     }
-    
+
     /**
      * <p>update</p>
      *

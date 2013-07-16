@@ -64,7 +64,7 @@ public class UssdSessionStatusMatcher extends SequenceResponseMatcher {
 	public UssdSessionStatusMatcher(String text) {
 		setText(text);
 	}
-	
+
 	/**
 	 * <p>Constructor for UssdSessionStatusMatcher.</p>
 	 *

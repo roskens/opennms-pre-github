@@ -51,66 +51,66 @@ import org.slf4j.LoggerFactory;
  */
 public class XssRequestWrapper extends HttpServletRequestWrapper
 {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XssRequestWrapper.class);
 
     private Map<String, String[]> sanitized_parameters;
     private Map<String, String[]> original_parameters;
-    
+
     /**
      * <p>Constructor for XssRequestWrapper.</p>
      *
      * @param req a {@link javax.servlet.http.HttpServletRequest} object.
      */
     @SuppressWarnings("unchecked")
-    public XssRequestWrapper(HttpServletRequest req) 
+    public XssRequestWrapper(HttpServletRequest req)
     {
         super(req);
-        original_parameters = req.getParameterMap();   
+        original_parameters = req.getParameterMap();
         sanitized_parameters = getParameterMap();
             snzLogger();
-    }       
-
-    /** {@inheritDoc} */
-    @Override
-    public String getParameter(String name) 
-    {       
-        String[] vals = getParameterMap().get(name); 
-        if (vals != null && vals.length > 0) 
-            return vals[0];
-        else        
-            return null;        
     }
 
     /** {@inheritDoc} */
     @Override
-    public Map<String, String[]> getParameterMap() 
-    {   
+    public String getParameter(String name)
+    {
+        String[] vals = getParameterMap().get(name);
+        if (vals != null && vals.length > 0)
+            return vals[0];
+        else
+            return null;
+    }
+
+    /** {@inheritDoc} */
+    @Override
+    public Map<String, String[]> getParameterMap()
+    {
         if (sanitized_parameters==null)
             sanitized_parameters = sanitizeParamMap(original_parameters);
-        return sanitized_parameters;           
+        return sanitized_parameters;
 
     }
 
     /** {@inheritDoc} */
     @Override
     public String[] getParameterValues(String name)
-    {   
+    {
         return getParameterMap().get(name);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void removeAttribute(String name) {
         super.getRequest().removeAttribute(name);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setAttribute(String name, Object o) {
         super.getRequest().setAttribute(name, o);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public Object getAttribute(String name) {
@@ -122,29 +122,29 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
     public void setCharacterEncoding(String enc) throws UnsupportedEncodingException {
         super.getRequest().setCharacterEncoding(enc);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getCharacterEncoding() {
         return super.getRequest().getCharacterEncoding();
     }
 
-    private  Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw) 
-    {       
+    private  Map<String, String[]> sanitizeParamMap(Map<String, String[]> raw)
+    {
         Map<String, String[]> res = new HashMap<String, String[]>();
         if (raw==null)
             return res;
-    
+
         for (String key : (Set<String>) raw.keySet())
-        {           
+        {
             String[] rawVals = raw.get(key);
             String[] snzVals = new String[rawVals.length];
-            for (int i=0; i < rawVals.length; i++) 
+            for (int i=0; i < rawVals.length; i++)
             {
                 snzVals[i] = WebSecurityUtils.sanitizeString(rawVals[i]);
             }
             res.put(key, snzVals);
-        }           
+        }
         return res;
     }
 
@@ -157,13 +157,13 @@ public class XssRequestWrapper extends HttpServletRequestWrapper
             String[] snzVals = sanitized_parameters.get(key);
             if (rawVals !=null && rawVals.length>0)
             {
-                for (int i=0; i < rawVals.length; i++) 
+                for (int i=0; i < rawVals.length; i++)
                 {
-                    if (rawVals[i].equals(snzVals[i]))                                                          
-                        LOG.debug("Sanitization. Param seems safe: {}[{}]={}", key, i, snzVals[i]);               
+                    if (rawVals[i].equals(snzVals[i]))
+                        LOG.debug("Sanitization. Param seems safe: {}[{}]={}", key, i, snzVals[i]);
                     else
                         LOG.debug("Sanitization. Param modified: {}[{}]={}", key, i, snzVals[i]);
-                }       
+                }
             }
         }
     }

@@ -10,15 +10,15 @@ import org.opennms.features.topology.plugins.ncs.internal.NCSCriteriaServiceMana
 public class HideNCSPathOperation implements Operation {
 
     private NCSCriteriaServiceManager m_serviceManager;
-    
+
     @Override
     public Undoer execute(List<VertexRef> targets, OperationContext operationContext) {
         String sessionId = operationContext.getGraphContainer().getSessionId();
         if(m_serviceManager.isCriteriaRegistered("ncsPath", sessionId)) {
             m_serviceManager.unregisterCriteria("ncsPath", sessionId);
         }
-        
-        
+
+
         return null;
     }
 
@@ -28,7 +28,7 @@ public class HideNCSPathOperation implements Operation {
         if(m_serviceManager.isCriteriaRegistered("ncsPath", sessionId)) {
             return true;
         }
-        
+
         return false;
     }
 

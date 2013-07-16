@@ -43,7 +43,7 @@ public class UssdCommands implements CommandProvider
 {
     private SmsService m_service;
     // private USSDNotification m_ussdNotification;
-    
+
     /**
      * <p>setService</p>
      *
@@ -52,7 +52,7 @@ public class UssdCommands implements CommandProvider
     public void setService(SmsService svc) {
         m_service = svc;
     }
-    
+
     /**
      * <p>_ussdSend</p>
      *
@@ -61,13 +61,13 @@ public class UssdCommands implements CommandProvider
     public void _ussdSend(CommandInterpreter intp) {
         String data = intp.nextArgument();
         String gwId = intp.nextArgument();
-        
+
         if (data == null || gwId == null) {
             intp.println("usage: ussdSend <data> <gatewayID>");
         }
         intp.println("Data is : " + data);
         intp.println("Gateway ID is : " + gwId);
-        
+
         USSDRequest req = new USSDRequest(data);
         req.setGatewayId(gwId);
         intp.println("USSD raw request: " + req.toString());
@@ -79,20 +79,20 @@ public class UssdCommands implements CommandProvider
             intp.printStackTrace(e);
         }
     }
-    
+
     /**
      * <p>getHelp</p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    public String getHelp() { 
-        StringBuffer buffer = new StringBuffer(); 
+    public String getHelp() {
+        StringBuffer buffer = new StringBuffer();
         buffer.append("---USSD Commands---");
         buffer.append("\n\t").append("ussdSend <data> <gatewayID>");
         buffer.append("\n");
-        return buffer.toString(); 
-    } 
+        return buffer.toString();
+    }
 
 }
 

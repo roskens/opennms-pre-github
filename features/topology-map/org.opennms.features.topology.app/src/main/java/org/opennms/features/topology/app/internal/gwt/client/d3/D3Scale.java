@@ -33,7 +33,7 @@ import com.google.gwt.core.client.JavaScriptObject;
 import com.google.gwt.core.client.JsArray;
 
 public class D3Scale extends JavaScriptObject {
-    
+
     protected D3Scale() {}
 
     public final native D3Scale ordinal() /*-{
@@ -43,7 +43,7 @@ public class D3Scale extends JavaScriptObject {
     public final native D3Scale domain(JsArray<?> array) /*-{
         return this.domain(array);
     }-*/;
-    
+
     public final native D3Scale domain(int[] data) /*-{
     	return this.domain(data);
     }-*/;

@@ -36,7 +36,7 @@ import org.snmp4j.smi.Variable;
 import org.snmp4j.smi.VariableBinding;
 
 /**
- * Represents a MapSubAgent 
+ * Represents a MapSubAgent
  *
  * @author brozow
  */
@@ -51,24 +51,24 @@ public class MapSubAgent implements SubAgent {
     public MapSubAgent(String baseOID) {
         m_base = new OID(baseOID);
     }
-    
+
     @Override
     public OID getBaseOID() {
         return new OID(m_base);
     }
-    
+
     public void put(String oid, Variable value) {
         OID oidKey = new OID(m_base);
         oidKey.append(oid);
         m_values.put(oidKey, value);
     }
-    
+
     private OID nextOID(OID requested) {
         OID next = new OID(requested);
         next.append(0);
         return next;
     }
-    
+
     @Override
     public VariableBinding getNext(OID requested) {
         OID successor = nextOID(requested);
@@ -76,23 +76,23 @@ public class MapSubAgent implements SubAgent {
         if (tailMap.isEmpty()) {
             return null;
         }
-        
+
         OID next = tailMap.firstKey();
         Variable value = tailMap.get(next);
         return new VariableBinding(next, value);
-        
+
     }
-    
+
     @Override
     public VariableBinding get(OID requested) {
         if (!m_values.containsKey(requested)) {
             return null;
         }
-        
+
         OID response = new OID(requested);
         Variable value = m_values.get(response);
         return new VariableBinding(response, value);
-            
+
     }
 
 }

@@ -70,5 +70,5 @@ public class Pop3Detector extends AsyncLineOrientedDetectorMinaImpl {
         expectBanner(startsWith("+OK"));
         send(request("QUIT"), startsWith("+OK"));
     }
-   
+
 }

@@ -47,28 +47,28 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class Task {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Task.class);
-    
+
     private static enum State {
         NEW,
         SCHEDULED,
-        SUBMITTED, 
+        SUBMITTED,
         COMPLETED
     }
-    
+
     private final DefaultTaskCoordinator m_coordinator;
     private final AtomicReference<State> m_state = new AtomicReference<State>(State.NEW);
-    
+
     private final AtomicBoolean m_scheduleCalled = new AtomicBoolean(false);
     private final CountDownLatch m_latch = new CountDownLatch(1);
-    
+
     private final AtomicInteger m_pendingPrereqs = new AtomicInteger(0);
     private final Set<Task> m_dependents = new HashSet<Task>();
     private final Set<Task> m_prerequisites = new HashSet<Task>();
-    
+
     private final TaskMonitor m_monitor;
-    
+
     /**
      * <p>Constructor for Task.</p>
      *
@@ -77,12 +77,12 @@ public abstract class Task {
      */
     public Task(DefaultTaskCoordinator coordinator, ContainerTask<?> parent) {
         m_coordinator = coordinator;
-        m_monitor = parent != null 
-            ? parent.getMonitor().getChildTaskMonitor(parent, this) 
+        m_monitor = parent != null
+            ? parent.getMonitor().getChildTaskMonitor(parent, this)
             : new DefaultTaskMonitor(this);
-        
+
     }
-    
+
     /**
      * <p>getCoordinator</p>
      *
@@ -91,7 +91,7 @@ public abstract class Task {
     public DefaultTaskCoordinator getCoordinator() {
         return m_coordinator;
     }
-    
+
     /**
      * <p>getMonitor</p>
      *
@@ -100,7 +100,7 @@ public abstract class Task {
     public TaskMonitor getMonitor() {
         return m_monitor;
     }
-    
+
     /**
      * These are final and package protected because they should ONLY be accessed by the TaskCoordinator
      * This is for thread safety and efficiency.  use 'addDependency' to update these.
@@ -108,13 +108,13 @@ public abstract class Task {
     final Set<Task> getDependents() {
         return m_dependents;
     }
-    
+
     final void doAddDependent(final Task dependent) {
         if (!isFinished()) {
             m_dependents.add(dependent);
         }
     }
-    
+
     /**
      * These are final and package protected because they should ONLY be accessed by the TAskCoordinator
      * This is for thread safety and efficiency.  use 'addDependency' to update these
@@ -122,7 +122,7 @@ public abstract class Task {
     final Set<Task> getPrerequisites() {
         return m_prerequisites;
     }
-    
+
     final void doAddPrerequisite(final Task prereq) {
         if (!prereq.isFinished()) {
             m_prerequisites.add(prereq);
@@ -137,7 +137,7 @@ public abstract class Task {
             m_monitor.monitorException(t);
         }
     }
-    
+
     private void notifyPrerequisteCompleted(final Task prereq) {
         try {
             m_monitor.prerequisiteCompleted(this, prereq);
@@ -145,7 +145,7 @@ public abstract class Task {
             m_monitor.monitorException(t);
         }
     }
-    
+
     private void notifyScheduled() {
         try {
             m_monitor.scheduled(this);
@@ -161,7 +161,7 @@ public abstract class Task {
             m_monitor.monitorException(t);
         }
     }
-    
+
     private void notifyCompleted() {
         try {
             m_monitor.completed(this);
@@ -169,22 +169,22 @@ public abstract class Task {
             m_monitor.monitorException(t);
         }
     }
-        
+
     final void doCompletePrerequisite(final Task prereq) {
         m_prerequisites.remove(prereq);
         notifyPrerequisteCompleted(prereq);
     }
-    
+
     final void clearDependents() {
         m_dependents.clear();
     }
 
- 
+
     final void scheduled() {
         setState(State.NEW, State.SCHEDULED);
         notifyScheduled();
     }
-    
+
     private final void setState(final State oldState, final State newState) {
         if (!m_state.compareAndSet(oldState, newState)) {
         	LOG.debug("Attempted to move to state {} with state not {} (actual value {})", newState, oldState, m_state.get());
@@ -192,7 +192,7 @@ public abstract class Task {
         	LOG.trace("Set state to {}", newState);
         }
     }
-    
+
     void submitIfReady() {
         if (isReady()) {
             doSubmit();
@@ -221,12 +221,12 @@ public abstract class Task {
     protected void completeSubmit() {
     }
 
-    
+
     final void completed() {
         m_state.compareAndSet(State.SUBMITTED, State.COMPLETED);
         notifyCompleted();
     }
-    
+
     /**
      * These are final and package protected because they should ONLY be accessed by the TaskCoordinator
      * This is for thread safety and efficiency.  use 'addDependency' to update these
@@ -242,7 +242,7 @@ public abstract class Task {
     private boolean isInReadyState() {
         return m_state.get() == State.SCHEDULED;
     }
-    
+
     final void incrPendingPrereqCount() {
         m_pendingPrereqs.incrementAndGet();
     }
@@ -259,7 +259,7 @@ public abstract class Task {
         completed();
         m_latch.countDown();
     }
-    
+
 
     /**
      * This is called to add the task to the queue of tasks that can be considered to be runnable
@@ -270,7 +270,7 @@ public abstract class Task {
         getCoordinator().schedule(this);
         postSchedule();
     }
-        
+
     /**
      * <p>preSchedule</p>
      */
@@ -291,7 +291,7 @@ public abstract class Task {
     public boolean isFinished() {
         return m_state.get() == State.COMPLETED;
     }
-    
+
     /**
      * This task has be sent to the TaskCoordinator to be run
      *
@@ -300,7 +300,7 @@ public abstract class Task {
     public boolean isScheduled() {
         return m_state.get() != State.NEW || m_scheduleCalled.get();
     }
-    
+
     /**
      * Add's prereq as a Prerequisite of this task. In other words... this taks cannot run
      * until prereq was been complted.
@@ -310,7 +310,7 @@ public abstract class Task {
     public void addPrerequisite(final Task prereq) {
         getCoordinator().addDependency(prereq, this);
     }
-    
+
     /**
      * Adds dependent as a dependent of this task.  So dependent will not be able to run
      * until this task has been completed.
@@ -341,7 +341,7 @@ public abstract class Task {
     public void waitFor(final long timeout, final TimeUnit unit) throws InterruptedException {
         m_latch.await(timeout, unit);
     }
-    
+
     /**
      * <p>markTaskAsCompleted</p>
      */
@@ -358,7 +358,7 @@ public abstract class Task {
     protected void submitRunnable(Runnable runnable, String preferredExecutor) {
         getCoordinator().submitToExecutor(preferredExecutor, runnable, this);
     }
-    
+
     /**
      * <p>toString</p>
      *

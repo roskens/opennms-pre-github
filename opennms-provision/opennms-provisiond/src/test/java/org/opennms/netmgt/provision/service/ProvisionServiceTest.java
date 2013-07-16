@@ -247,24 +247,24 @@ public class ProvisionServiceTest implements InitializingBean {
     public void testLifeCycle() throws Exception {
 
 //        ProcessBuilder bldr = new ProcessBuilder();
-//        
+//
 //        bldr.sequence("import") {
 //            SpecFile file = phase("validateFile", validateFile(url))
 //            UpdatePlan plan = phase("createUpdatePlan", createUpdatePlan(file))
 //            batch("updateNodes") {
 //                forEach(node : plan.nodesToDelete) task("deleteNode", node);
-//                
+//
 //                for(node : plan.nodesToUpdate) sequence {
 //                    phase("detectAgents" ,detectAgents());
 //                    phase("discoverResources", discoverResources())
 //                    phase("updatedNode")
 //                }
-//                
+//
 //                for(node : plan.nodesToInsert) sequence {
 //                    phase("detectAgents" ,detectAgents());
 //                    phase("discoverResources", discoverResources())
 //                    phase("insertNode") {
-//                        
+//
 //                    }
 //                }
 //            }

@@ -47,7 +47,7 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org">OpenNMS </a>
  */
 public abstract class SocketUtils {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(SocketUtils.class);
 
     public static Socket wrapSocketInSslContext(Socket socket) throws IOException {

@@ -41,7 +41,7 @@ import org.joda.time.Period;
  * @version $Id: $
  */
 public class StringIntervalPropertyEditor extends PropertyEditorSupport implements PropertyEditor {
-    
+
     /** {@inheritDoc} */
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
@@ -57,5 +57,5 @@ public class StringIntervalPropertyEditor extends PropertyEditorSupport implemen
     public String getAsText() {
         Period p = ((Duration)getValue()).toPeriod().normalizedStandard();
         return StringIntervalAdapter.DEFAULT_PERIOD_FORMATTER.print(p);
-    } 
+    }
 }

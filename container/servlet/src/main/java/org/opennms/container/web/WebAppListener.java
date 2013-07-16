@@ -31,12 +31,12 @@ public class WebAppListener implements ServletContextListener {
     private ServletContext m_servletContext;
     private BundleContext m_framework;
     private OnmsOSGiBridgeActivator m_bridge = new OnmsOSGiBridgeActivator();
-    
+
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
         try {
-            
+
             m_servletContext = sce.getServletContext();
 
             File karafRoot = new File(m_servletContext.getRealPath("/") + "/WEB-INF/karaf");
@@ -76,14 +76,14 @@ public class WebAppListener implements ServletContextListener {
             System.setProperty("karaf.lock", "false");
             main = new Main(new String[0]);
             main.launch();
-            
+
             // get bundle context for registering service
             m_framework = main.getFramework().getBundleContext();
-            
+
             // add bundle context to servlet context for Proxy Servlet
             m_servletContext.setAttribute(BundleContext.class.getName(), m_framework);
 
-            
+
             m_bridge.start(m_framework);
 
         } catch (final Throwable e) {
@@ -95,10 +95,10 @@ public class WebAppListener implements ServletContextListener {
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
         try {
-            
+
             m_bridge.stop(m_framework);
             // TODO unregister services form both registries with the osgi container stops
-            
+
             m_servletContext.log("contextDestroyed");
             if (main != null) {
                 main.destroy();

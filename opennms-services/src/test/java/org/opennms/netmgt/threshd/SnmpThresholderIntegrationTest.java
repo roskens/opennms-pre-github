@@ -41,33 +41,33 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        
+
         MockLogAppender.setupLogging();
-        
+
         setupDatabase();
-        
+
         createMockRrd();
 
         setupEventManager();
-        
+
         replayMocks();
-       
+
         String rrdRepository = "target/threshd-test";
         String fileName = "cpuUtilization"+RrdUtils.getExtension();
         int nodeId = 1;
         String ipAddress = "192.168.1.1";
         String serviceName = "SNMP";
         String groupName = "default-snmp";
-        
+
         setupThresholdConfig(rrdRepository+File.separator+nodeId, fileName, nodeId, ipAddress, serviceName, groupName);
 
-        
+
         m_thresholder = new SnmpThresholder();
         m_thresholder.initialize(m_serviceParameters);
         m_thresholder.initialize(m_iface, m_parameters);
-        
+
         verifyMocks();
-        
+
         expectRrdStrategyCalls();
 
     }
@@ -79,28 +79,28 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
         MockLogAppender.assertNoWarningsOrGreater();
         super.tearDown();
     }
-    
+
     public void testNormalValue() throws Exception {
-        
+
         setupFetchSequence("cpuUtilization", 69.0, 79.0, 74.0, 74.0);
-        
-        
+
+
         replayMocks();
         ensureNoEventAfterFetches("cpuUtilization", 4);
         verifyMocks();
-        
+
     }
-    
+
     public void testBigValue() throws Exception {
-        
+
         setupFetchSequence("cpuUtilization", 99.0, 98.0, 97.0, 96.0, 95.0);
-        
+
         replayMocks();
         ensureExceededAfterFetches("cpuUtilization", 3);
         ensureNoEventAfterFetches("cpuUtilization", 2);
         verifyMocks();
     }
-    
+
     public void testRearm() throws Exception {
         double values[] = {
                 99.0,
@@ -112,9 +112,9 @@ public class SnmpThresholderIntegrationTest extends ThresholderTestCase {
                 98.0,
                 98.0 // expect exceeded
         };
-        
+
         setupFetchSequence("cpuUtilization", values);
-        
+
         replayMocks();
         ensureExceededAfterFetches("cpuUtilization", 3);
         ensureRearmedAfterFetches("cpuUtilization", 2);

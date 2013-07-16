@@ -37,9 +37,9 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class PingRequestId {
-    
+
     private String m_destination;
-    
+
     /**
      * <p>Constructor for PingRequestId.</p>
      *
@@ -49,7 +49,7 @@ public class PingRequestId {
         Assert.notNull(destination);
         m_destination = destination.startsWith("+") ? destination.substring(1) : destination;
     }
-    
+
     /**
      * <p>getDestination</p>
      *

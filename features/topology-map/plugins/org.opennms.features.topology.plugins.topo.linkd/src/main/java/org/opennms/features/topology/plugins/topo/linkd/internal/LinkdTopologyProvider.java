@@ -64,24 +64,24 @@ import org.opennms.netmgt.model.OnmsSnmpInterface;
 import org.slf4j.LoggerFactory;
 
 public class LinkdTopologyProvider extends AbstractTopologyProvider implements GraphProvider {
-    
+
     private class LinkStateMachine {
         LinkState m_upState;
         LinkState m_downState;
         LinkState m_unknownState;
         LinkState m_state;
-        
+
         public LinkStateMachine() {
             m_upState = new LinkUpState(this);
             m_downState = new LinkDownState(this);
             m_unknownState = new LinkUnknownState(this);
             m_state = m_upState;
         }
-        
+
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             m_state.setParentInterfaces(sourceInterface, targetInterface);
         }
-        
+
         public String getLinkStatus() {
             return m_state.getLinkStatus();
         }
@@ -102,25 +102,25 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             m_state = state;
         }
     }
-    
+
     private interface LinkState{
         void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface);
         String getLinkStatus();
     }
-    
+
     private abstract class AbstractLinkState implements LinkState {
-        
+
         private LinkStateMachine m_linkStateMachine;
 
         public AbstractLinkState(LinkStateMachine linkStateMachine) {
             m_linkStateMachine = linkStateMachine;
         }
-        
+
         protected LinkStateMachine getLinkStateMachine() {
             return m_linkStateMachine;
         }
     }
-    
+
     private class LinkUpState extends AbstractLinkState{
 
         public LinkUpState(LinkStateMachine linkStateMachine) {
@@ -134,24 +134,24 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                     getLinkStateMachine().setState( getLinkStateMachine().getDownState() );
                 }
             }
-            
+
             if(targetInterface != null && targetInterface.getIfOperStatus() != null) {
                 if(targetInterface.getIfOperStatus() != 1) {
                     getLinkStateMachine().setState( getLinkStateMachine().getDownState() );
                 }
             }
-            
+
             if(sourceInterface == null && targetInterface == null) {
                 getLinkStateMachine().setState( getLinkStateMachine().getUnknownState() );
             }
-            
+
         }
 
         @Override
         public String getLinkStatus() {
             return OPER_ADMIN_STATUS[1];
         }
-        
+
     }
     private class LinkDownState extends AbstractLinkState {
 
@@ -178,7 +178,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
 
     }
-    
+
     private class LinkUnknownState extends AbstractLinkState{
 
 
@@ -186,7 +186,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             super(linkStateMachine);
         }
 
-        
+
         @Override
         public void setParentInterfaces(OnmsSnmpInterface sourceInterface, OnmsSnmpInterface targetInterface) {
             if(targetInterface != null && targetInterface.getIfOperStatus() != null) {
@@ -198,7 +198,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                     }
                 }
             }
-            
+
         }
 
         @Override
@@ -207,11 +207,11 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
 
     }
-    
+
     public static final String TOPOLOGY_NAMESPACE_LINKD = "nodes";
     public static final String GROUP_ICON_KEY = "linkd:group";
     public static final String SERVER_ICON_KEY = "linkd:system";
-    
+
     private static final String HTML_TOOLTIP_TAG_OPEN = "<p>";
     private static final String HTML_TOOLTIP_TAG_END  = "</p>";
     /**
@@ -219,14 +219,14 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
      * and at most three digits after the decimal point.
      */
     private static final DecimalFormat s_oneDigitAfterDecimal = new DecimalFormat("0.0##");
-    
+
     /**
      * Print no digits after the decimal point (heh, nor a decimal point).
      */
     private static final DecimalFormat s_noDigitsAfterDecimal = new DecimalFormat("0");
 
     /**
-     * Do not use directly. Call {@link #getNodeStatusMap 
+     * Do not use directly. Call {@link #getNodeStatusMap
      * getInterfaceStatusMap} instead.
      */
     private static final Map<Character, String> m_nodeStatusMap;
@@ -235,9 +235,9 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         m_nodeStatusMap = new HashMap<Character, String>();
         m_nodeStatusMap.put('A', "Active");
         m_nodeStatusMap.put(' ', "Unknown");
-        m_nodeStatusMap.put('D', "Deleted");                        
+        m_nodeStatusMap.put('D', "Deleted");
     }
-    
+
      static final String[] OPER_ADMIN_STATUS = new String[] {
         "&nbsp;",          //0 (not supported)
         "Up",              //1
@@ -250,11 +250,11 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
       };
 
     private boolean addNodeWithoutLink = false;
-    
+
     private DataLinkInterfaceDao m_dataLinkInterfaceDao;
-    
+
     private NodeDao m_nodeDao;
-    
+
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
     private IpInterfaceDao m_ipInterfaceDao;
@@ -284,7 +284,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     public boolean isAddNodeWithoutLink() {
         return addNodeWithoutLink;
     }
@@ -303,14 +303,14 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
     /**
      * Used as an init-method in the OSGi blueprint
-     * @throws JAXBException 
-     * @throws MalformedURLException 
+     * @throws JAXBException
+     * @throws MalformedURLException
      */
     public void onInit() throws MalformedURLException, JAXBException {
         log("init: loading topology v1.3");
         load(null);
     }
-    
+
     public LinkdTopologyProvider() {
     	super(TOPOLOGY_NAMESPACE_LINKD);
     }
@@ -362,13 +362,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                 target = getVertex(parentNode);
                 addVertices(target);
             }
-            
+
             // Create a new edge that connects the vertices
             // TODO: Make sure that all properties are set on this object
-            AbstractEdge edge = connectVertices(link.getDataLinkInterfaceId(), source, target); 
+            AbstractEdge edge = connectVertices(link.getDataLinkInterfaceId(), source, target);
             edge.setTooltipText(getEdgeTooltipText(link, source, target));
         }
-        
+
         log("loadtopology: adding nodes without links: " + isAddNodeWithoutLink());
         if (isAddNodeWithoutLink()) {
             for (OnmsNode onmsnode: m_nodeDao.findAll()) {
@@ -379,7 +379,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                 }
             }
         }
-        
+
         File configFile = new File(m_configurationFile);
         if (configFile.exists() && configFile.canRead()) {
             log("loadtopology: loading topology from configuration file: " + m_configurationFile);
@@ -392,7 +392,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
                     if (eachVertexInFile.namespace == null) {
                         eachVertexInFile.namespace = getVertexNamespace();
                         LoggerFactory.getLogger(this.getClass()).warn("Setting namespace on vertex to default: {}", eachVertexInFile);
-                    } 
+                    }
                     if (eachVertexInFile.id == null) {
                         LoggerFactory.getLogger(this.getClass()).warn("Invalid vertex unmarshalled from {}: {}", m_configurationFile, eachVertexInFile);
                     }
@@ -428,7 +428,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         } else {
             log("loadtopology: could not load topology configFile:" + m_configurationFile);
         }
-        log("Found " + getGroups().size() + " groups");        
+        log("Found " + getGroups().size() + " groups");
         log("Found " + getVerticesWithoutGroups().size() + " vertices");
         log("Found " + getEdges().size() + " edges");
     }
@@ -456,7 +456,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
         return ip;
     }
-    
+
 
     private String getEdgeTooltipText(DataLinkInterface link,
             Vertex source, Vertex target) {
@@ -464,10 +464,10 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
         OnmsSnmpInterface sourceInterface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(Integer.parseInt(source.getId()), link.getIfIndex());
         OnmsSnmpInterface targetInterface = m_snmpInterfaceDao.findByNodeIdAndIfIndex(Integer.parseInt(target.getId()), link.getParentIfIndex());
-        
+
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         if (sourceInterface != null && targetInterface != null
-         && sourceInterface.getNetMask() != null && !sourceInterface.getNetMask().isLoopbackAddress() 
+         && sourceInterface.getNetMask() != null && !sourceInterface.getNetMask().isLoopbackAddress()
          && targetInterface.getNetMask() != null && !targetInterface.getNetMask().isLoopbackAddress()) {
             tooltipText.append("Type of Link: Layer3/Layer2");
         } else {
@@ -477,21 +477,21 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
 
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append( "Name: &lt;endpoint1 " + source.getLabel());
-        if (sourceInterface != null ) 
+        if (sourceInterface != null )
             tooltipText.append( ":"+sourceInterface.getIfName());
         tooltipText.append( " ---- endpoint2 " + target.getLabel());
-        if (targetInterface != null) 
+        if (targetInterface != null)
             tooltipText.append( ":"+targetInterface.getIfName());
         tooltipText.append("&gt;");
         tooltipText.append(HTML_TOOLTIP_TAG_END);
-        
+
         LinkStateMachine stateMachine = new LinkStateMachine();
         stateMachine.setParentInterfaces(sourceInterface, targetInterface);
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append("Link status: " + stateMachine.getLinkStatus());
         tooltipText.append(HTML_TOOLTIP_TAG_END);
-        
-        
+
+
         if ( targetInterface != null) {
             if (targetInterface.getIfSpeed() != null) {
                 tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
@@ -509,7 +509,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append( "End Point 1: " + source.getLabel() + ", " + source.getIpAddress());
         tooltipText.append(HTML_TOOLTIP_TAG_END);
-        
+
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append( "End Point 2: " + target.getLabel() + ", " + target.getIpAddress());
         tooltipText.append(HTML_TOOLTIP_TAG_END);
@@ -532,13 +532,13 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append( "Management IP and Name: " + vertex.getIpAddress() + " (" + vertex.getLabel() + ")");
         tooltipText.append(HTML_TOOLTIP_TAG_END);
-        
+
         if (node.getSysLocation() != null && node.getSysLocation().length() >0) {
             tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
             tooltipText.append("Location: " + node.getSysLocation());
             tooltipText.append(HTML_TOOLTIP_TAG_END);
         }
-        
+
         tooltipText.append(HTML_TOOLTIP_TAG_OPEN);
         tooltipText.append( "Status: " +getNodeStatusString(node.getType().charAt(0)));
         if (ip != null && ip.isManaged()) {
@@ -549,15 +549,15 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         tooltipText.append(HTML_TOOLTIP_TAG_END);
 
         log("getNodeTooltipText:\n" + tooltipText);
-        
+
         return tooltipText.toString();
 
     }
-    
+
     public static String getIconName(OnmsNode node) {
         return node.getSysObjectId() == null ? "linkd:system" : "linkd:system:snmp:"+node.getSysObjectId();
     }
-    
+
     @Override
     public void save() {
         List<WrappedVertex> vertices = new ArrayList<WrappedVertex>();
@@ -575,7 +575,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         }
 
         WrappedGraph graph = new WrappedGraph(getEdgeNamespace(), vertices, edges);
-        
+
         JAXB.marshal(graph, new File(m_configurationFile));
     }
 
@@ -586,7 +586,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
               return "Unknown (" + ifStatusNum + ")";
           }
       }
-      
+
     /**
      * Return the human-readable name for a interface status character, may be
      * null.
@@ -597,7 +597,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
     private static String getNodeStatusString(char c) {
         return m_nodeStatusMap.get(c);
     }
-    
+
     /**
      * Method used to convert an integer bits-per-second value to a more
      * readable vale using commonly recognized abbreviation for network
@@ -614,7 +614,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
         DecimalFormat formatter;
         double displaySpeed;
         String units;
-        
+
         if (ifSpeed >= 1000000000L) {
             if ((ifSpeed % 1000000000L) == 0) {
                 formatter = s_noDigitsAfterDecimal;
@@ -644,7 +644,7 @@ public class LinkdTopologyProvider extends AbstractTopologyProvider implements G
             displaySpeed = (double) ifSpeed;
             units = "bps";
         }
-        
+
         return formatter.format(displaySpeed) + " " + units;
     }
 

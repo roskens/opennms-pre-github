@@ -38,16 +38,16 @@ import org.slf4j.LoggerFactory;
  * @author ranger
  */
 public abstract class AbstractDetector implements ServiceDetector {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractDetector.class);
-    
+
     private static final int DEFAULT_TIMEOUT = 2000;
     private static final int DEFAULT_RETRIES = 1;
     private int m_port;
     private int m_retries;
     private int m_timeout;
     private String m_serviceName;
-    
+
     /**
      * <p>Constructor for AbstractDetector.</p>
      *
@@ -83,18 +83,18 @@ public abstract class AbstractDetector implements ServiceDetector {
         }
         onInit();
     }
-    
+
     /**
      * <p>onInit</p>
      */
     abstract protected void onInit();
-    
+
     /**
      * <p>dispose</p>
      */
     @Override
     abstract public void dispose();
-    
+
     /**
      * <p>setPort</p>
      *

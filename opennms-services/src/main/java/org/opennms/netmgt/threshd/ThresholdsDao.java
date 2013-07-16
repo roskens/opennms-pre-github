@@ -40,7 +40,7 @@ import org.opennms.netmgt.config.ThresholdingConfigFactory;
  * @version $Id: $
  */
 public interface ThresholdsDao {
-	
+
     /**
      * <p>get</p>
      *

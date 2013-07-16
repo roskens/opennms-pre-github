@@ -50,7 +50,7 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     public DefaultProvisiondConfigurationDao() {
         super(ProvisiondConfiguration.class, "Provisiond Configuration");
     }
-    
+
     /**
      * <p>getConfig</p>
      *
@@ -161,5 +161,5 @@ public class DefaultProvisiondConfigurationDao extends AbstractCastorConfigDao<P
     public Integer getWriteThreads() {
         return Integer.valueOf((int)getConfig().getWriteThreads());
     }
-    
+
 }

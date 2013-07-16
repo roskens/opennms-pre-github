@@ -234,7 +234,7 @@ public class EventMaskValueList extends ArrayList<String> {
      * <p>
      * Handling the mask values ending with '%' is a pain since the hashcodes
      * will need to work in reverse!
-     * 
+     *
      * <p>
      * For e.g. consider mask values '.1.3.6.1.4.1.9%' and '.1.3.6.1.4.1.%'
      * normal hashcodes will mean '.1.3.6.1.4.1.9%' will have a larger hashcode.

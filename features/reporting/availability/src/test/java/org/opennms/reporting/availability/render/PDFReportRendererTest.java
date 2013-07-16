@@ -38,12 +38,12 @@ public class PDFReportRendererTest extends TestCase {
         new PDFReportRenderer().render(
                 new InputStreamReader(
                         // This is a freely-licensed sample XSL-FO document from IBM developerWorks
-                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/currency.fo"), 
+                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/currency.fo"),
                         "UTF-8"
                 ),
                 new FileOutputStream("target/sampleDocument.pdf"),
                 new InputStreamReader(
-                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/identity.xsl"), 
+                        Thread.currentThread().getContextClassLoader().getResourceAsStream("org/opennms/reporting/availability/render/identity.xsl"),
                         "UTF-8"
                 )
         );

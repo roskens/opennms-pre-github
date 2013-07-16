@@ -54,7 +54,7 @@ import org.springframework.orm.ObjectRetrievalFailureException;
 public class SiteStatusViewController extends AbstractController {
 
     private static final int FIVE_MINUTES = 5*60;
-    
+
     private static SiteStatusViewService m_service;
 
     /**
@@ -64,7 +64,7 @@ public class SiteStatusViewController extends AbstractController {
         setSupportedMethods(new String[] {METHOD_GET});
         setCacheSeconds(FIVE_MINUTES);
     }
-    
+
     /**
      * <p>setService</p>
      *
@@ -73,7 +73,7 @@ public class SiteStatusViewController extends AbstractController {
     public void setService(SiteStatusViewService svc) {
         m_service = svc;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest req, HttpServletResponse resp) throws Exception {
@@ -90,7 +90,7 @@ public class SiteStatusViewController extends AbstractController {
         }
 
         Collection<AggregateStatus> aggrStati;
-        
+
         if (nodeId != null && WebSecurityUtils.safeParseInt(nodeId) > 0) {
             aggrStati = m_service.createAggregateStatusesUsingNodeId(WebSecurityUtils.safeParseInt(nodeId), statusView);
         } else if (statusSite == null) {
@@ -100,7 +100,7 @@ public class SiteStatusViewController extends AbstractController {
             //Don't persist this, convenience for display only.
             view.setColumnValue(statusSite);
         }
-        
+
         mav.addObject("view", view);
         mav.addObject("stati", aggrStati);
         return mav;

@@ -103,7 +103,7 @@ class InsSession extends InsAbstractSession {
 	private final int DATAFLOW_STATUS = 3;
 
 	private int status = STARTING_SESSION_STATUS;
-	
+
 	private List<Event> m_events = new ArrayList<Event>();
 
 	InsSession(Socket server) throws IOException {
@@ -116,7 +116,7 @@ class InsSession extends InsAbstractSession {
 
 		InputStreamReader isr = null;
 		BufferedReader in = null;
-		
+
 		try {
 			// Get input from the client
 			isr = new InputStreamReader(server.getInputStream());
@@ -171,14 +171,14 @@ class InsSession extends InsAbstractSession {
 	                         final StringWriter sw = getOutput();
   		                     if (sw != null) {
    		                        final String output = sw.toString();
-								LOG.info("String Writer: {}", output); 
+								LOG.info("String Writer: {}", output);
 		                        streamToClient.print(output);
 		                     } else {
 		                        LOG.error("String Writer is null");
 		                     }
                              streamToClient.println(ACTIVE_ALARM_END);
                              continue readingFromClient;
-							
+
 						}
 					} else {
 						if (line.equalsIgnoreCase(STOP_ALARM_REQUEST)) {
@@ -216,9 +216,9 @@ class InsSession extends InsAbstractSession {
 		final List<Event> events = getEvents();
         if (events != null) {
         	for (final Event xmlEvent : events) {
-        		LOG.info("Marshal Event with id: {}", xmlEvent.getDbid()); 
+			LOG.info("Marshal Event with id: {}", xmlEvent.getDbid());
                 JaxbUtils.marshal(xmlEvent, sw);
-                LOG.debug("Flushing Event with id: {}", xmlEvent.getDbid()); 
+                LOG.debug("Flushing Event with id: {}", xmlEvent.getDbid());
                 sw.flush();
             }
         }
@@ -229,15 +229,15 @@ class InsSession extends InsAbstractSession {
 	private Event getXMLEvent(final OnmsEvent ev) {
 		final Integer id = ev.getId();
 
-		LOG.info("Working on XML Event for id: {}", id); 
-		LOG.debug("Setting Event id: {}", id); 
+		LOG.info("Working on XML Event for id: {}", id);
+		LOG.debug("Setting Event id: {}", id);
 		final Event e = new Event();
         e.setDbid(id);
 
         //UEI
         final String uei = ev.getEventUei();
 		if (uei != null) {
-            LOG.debug("Setting Event uei: {}", uei); 
+            LOG.debug("Setting Event uei: {}", uei);
             e.setUei(uei);
         } else {
         	LOG.warn("No Event uei found: skipping event....");
@@ -247,19 +247,19 @@ class InsSession extends InsAbstractSession {
         // Source
         final String source = ev.getEventSource();
 		if (source != null) {
-        	LOG.debug("Setting Event source: {}", source); 
+		LOG.debug("Setting Event source: {}", source);
             e.setSource(source);
         } else {
-        	LOG.info("No Event source found."); 
+		LOG.info("No Event source found.");
         }
 
         //nodeid
         final Integer nodeid = ev.getNode().getId();
 		if (ev.getNode() != null && nodeid != null) {
-            LOG.debug("Setting Event nodeid: {}", nodeid); 
+            LOG.debug("Setting Event nodeid: {}", nodeid);
             e.setNodeid(nodeid.longValue());
         } else {
-            LOG.info("No Event node found."); 
+            LOG.info("No Event node found.");
         }
 
         // timestamp
@@ -268,9 +268,9 @@ class InsSession extends InsAbstractSession {
             LOG.debug("Setting event date timestamp to (GMT): {}", time);
             e.setTime(EventConstants.formatToString(time));
         } else {
-        	LOG.info("No Event time found."); 
+		LOG.info("No Event time found.");
         }
-        
+
         // host
         final String host = ev.getEventHost();
 		if (host != null) {
@@ -279,7 +279,7 @@ class InsSession extends InsAbstractSession {
         } else {
         	LOG.info("No Event host found.");
         }
-        
+
         // interface
         final InetAddress ipAddr = ev.getIpAddr();
 		if (ipAddr != null) {
@@ -288,7 +288,7 @@ class InsSession extends InsAbstractSession {
         } else {
             LOG.info("No Event ip address found.");
         }
-        
+
         // Service Name
         if (ev.getServiceType() != null) {
             final String serviceName = ev.getServiceType().getName();
@@ -306,7 +306,7 @@ class InsSession extends InsAbstractSession {
         } else {
             LOG.info("No Event ip address found.");
         }
-        
+
         // Log message
         final String logmsg = ev.getEventLogMsg();
 		if (logmsg != null) {
@@ -336,7 +336,7 @@ class InsSession extends InsAbstractSession {
               e.setIfAlias("-1");
           }
 
-        
+
         // operator Instruction
         final String operInstruct = ev.getEventOperInstruct();
 		if (operInstruct != null) {
@@ -371,7 +371,7 @@ class InsSession extends InsAbstractSession {
         LOG.info("Returning event with id: {}", id);
         return e;
     }
-	
+
     private void getEventsByCriteria() {
     	LOG.debug("clearing events");
 
@@ -386,10 +386,10 @@ class InsSession extends InsAbstractSession {
                 	LOG.debug("Entering transaction call back: selection with criteria: {}", criteriaRestriction);
                     final OnmsCriteria criteria = new OnmsCriteria(OnmsEvent.class);
                     criteria.add(Restrictions.sqlRestriction(criteriaRestriction));
-                    
+
                     final List<OnmsEvent> events = eventDao.findMatching(criteria);
                     LOG.info("Found {} event(s) with criteria: {}", events.size(), criteriaRestriction);
-                    
+
                     for (final OnmsEvent onmsEvent : events) {
                     	final Event xmlEvent = getXMLEvent(onmsEvent);
                         if (xmlEvent != null) addEvent(xmlEvent);
@@ -397,29 +397,29 @@ class InsSession extends InsAbstractSession {
                 }
 
             });
-        
+
         } catch (final RuntimeException e) {
             LOG.error("Error while getting events.", e);
         }
-        
+
     }
-	
+
 	private void addEvent(final Event event) {
-	    m_events.add(event);	    
+	    m_events.add(event);
 	}
-	
+
     private void clearEvents() {
         m_events.clear();
-        
+
     }
 
     private List<Event> getEvents() {
-        return m_events;      
+        return m_events;
     }
-    
+
     final static char MULTIPLE_VAL_DELIM = ';';
     final static char NAME_VAL_DELIM = '=';
     final static char DB_ATTRIB_DELIM = ',';
-    
- 
+
+
 }

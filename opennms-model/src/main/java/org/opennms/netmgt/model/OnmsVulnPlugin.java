@@ -39,7 +39,7 @@ import org.springframework.core.style.ToStringCreator;
 public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 6665164524726559523L;
 
@@ -112,7 +112,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
      */
     public OnmsVulnPlugin() {
     }
-    
+
     /**
      * Unique identifier for ipInterface.
      *
@@ -123,7 +123,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
     public Integer getId() {
         return m_id;
     }
-    
+
     /**
      * <p>setId</p>
      *
@@ -133,7 +133,7 @@ public class OnmsVulnPlugin extends OnmsEntity implements Serializable {
         m_id = id;
     }
 
-    
+
 
     /**
      * <p>getPluginId</p>

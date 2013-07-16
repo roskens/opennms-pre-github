@@ -42,7 +42,7 @@ import org.opennms.netmgt.config.DestinationPathManager;
  */
 
 public class MockDestinationPathManager extends DestinationPathManager {
-    
+
     public MockDestinationPathManager(String xmlString) throws MarshalException, ValidationException, UnsupportedEncodingException {
         InputStream reader = new ByteArrayInputStream(xmlString.getBytes("UTF-8"));
         parseXML(reader);

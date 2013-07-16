@@ -41,15 +41,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- * 
+ *
  */
 class UdpReceiver implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(UdpReceiver.class);
-    
+
     /**
      * The list of incoming events.
      */
@@ -117,7 +117,7 @@ class UdpReceiver implements Runnable {
 
         // Get a log instance
         Logging.putPrefix(m_logPrefix);
-        
+
         if (m_stop) {
             LOG.debug("Stop flag set before thread started, exiting");
             return;

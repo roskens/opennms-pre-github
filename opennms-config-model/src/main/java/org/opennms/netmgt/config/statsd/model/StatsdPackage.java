@@ -43,7 +43,7 @@ public class StatsdPackage {
     private String m_name;
     private String m_filter;
     private List<PackageReport> m_reports = new ArrayList<PackageReport>();
-    
+
     /**
      * <p>getFilter</p>
      *

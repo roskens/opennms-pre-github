@@ -41,14 +41,14 @@ import org.opennms.netmgt.provision.persist.requisition.Requisition;
  * @since 1.8.1
  */
 public interface ManualProvisioningService {
-    
+
     /**
      * <p>getProvisioningGroupNames</p>
      *
      * @return a {@link java.util.Collection} object.
      */
     Collection<String> getProvisioningGroupNames();
-    
+
     /**
      * <p>getProvisioningGroup</p>
      *
@@ -56,7 +56,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition getProvisioningGroup(String name);
-    
+
     /**
      * <p>createProvisioningGroup</p>
      *
@@ -81,7 +81,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition saveProvisioningGroup(String groupName, Requisition groupData);
-    
+
     /**
      * <p>addNewNodeToGroup</p>
      *
@@ -90,7 +90,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition addNewNodeToGroup(String groupName, String nodeLabel);
-    
+
     /**
      * <p>addCategoryToNode</p>
      *
@@ -100,7 +100,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition addCategoryToNode(String groupName, String pathToNode, String categoryName);
-    
+
     /**
      * <p>addAssetFieldToNode</p>
      *
@@ -111,7 +111,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition addAssetFieldToNode(String groupName, String pathToNode, String fieldName, String fieldValue);
-    
+
     /**
      * <p>addInterfaceToNode</p>
      *
@@ -121,7 +121,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition addInterfaceToNode(String groupName, String pathToNode, String ipAddr);
-    
+
     /**
      * <p>addServiceToInterface</p>
      *
@@ -131,7 +131,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition addServiceToInterface(String groupName, String pathToInterface, String serviceName);
-    
+
     /**
      * <p>deletePath</p>
      *
@@ -140,7 +140,7 @@ public interface ManualProvisioningService {
      * @return a {@link org.opennms.netmgt.provision.persist.requisition.Requisition} object.
      */
     Requisition deletePath(String groupName, String pathToDelete);
-    
+
     /**
      * <p>importProvisioningGroup</p>
      *

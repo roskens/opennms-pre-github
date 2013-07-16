@@ -82,7 +82,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
 
             if(lang==null) lang = BSFManager.getLangFromFilename(fileName);
 
-            // Declare some beans that can be used inside the script                    
+            // Declare some beans that can be used inside the script
             HashMap<String,String> results = new HashMap<String,String>();
             bsfManager.declareBean("results", results, HashMap.class);
             declareBeans(bsfManager);
@@ -91,7 +91,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
                 BSFManager.registerScriptingEngine(lang, engine, extensions);
             }
 
-            if(scriptFile.exists() && scriptFile.canRead()){   
+            if(scriptFile.exists() && scriptFile.canRead()){
                 String code = IOUtils.getStringFromReader(new InputStreamReader(new FileInputStream(scriptFile), "UTF-8"));
 
                 // Check foot before firing
@@ -125,7 +125,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
             // Catch any RuntimeException throws
             LOG.warn("Execution of script '{}' failed with unexpected throwable: {}", scriptFile, e.getMessage(), e);
             returnCode = -1;
-        } finally { 
+        } finally {
             bsfManager.terminate();
         }
 
@@ -160,7 +160,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
         }
 
         bsfManager.declareBean("bsf_notif_strategy", this, BSFNotificationStrategy.class);
-        
+
         retrieveParams();
         bsfManager.declareBean("notif_params", m_notifParams, Map.class);
 
@@ -203,7 +203,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
 
         return value;
     }
-    
+
     private String getSwitchSubstitution(String argSwitch) {
         String value = null;
         for (Argument arg : m_arguments) {
@@ -243,7 +243,7 @@ public class BSFNotificationStrategy implements NotificationStrategy {
 
     private void retrieveParams() {
         for (Argument arg : m_arguments) {
-            m_notifParams.put(arg.getSwitch(), arg.getValue()); 
+            m_notifParams.put(arg.getSwitch(), arg.getValue());
         }
     }
 

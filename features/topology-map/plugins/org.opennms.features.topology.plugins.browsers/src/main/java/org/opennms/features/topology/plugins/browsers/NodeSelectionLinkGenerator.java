@@ -100,12 +100,12 @@ public class NodeSelectionLinkGenerator implements ColumnGenerator, SelectionNot
 			m_selectionListeners.add(listener);
 		}
 	}
-	
+
 	@Override
 	public void setSelectionListeners(Set<SelectionListener> listeners) {
 		m_selectionListeners = listeners;
 	}
-	
+
 	@Override
 	public void removeSelectionListener(SelectionListener listener) {
 		m_selectionListeners.remove(listener);

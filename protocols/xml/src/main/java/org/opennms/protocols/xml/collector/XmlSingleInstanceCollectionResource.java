@@ -32,7 +32,7 @@ import org.opennms.netmgt.collectd.CollectionAgent;
 
 /**
  * The Class XmlSingleInstanceCollectionResource.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlSingleInstanceCollectionResource extends XmlCollectionResource {

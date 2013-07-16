@@ -41,7 +41,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
  * <p>
  * Service class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @XmlType(name = "service")

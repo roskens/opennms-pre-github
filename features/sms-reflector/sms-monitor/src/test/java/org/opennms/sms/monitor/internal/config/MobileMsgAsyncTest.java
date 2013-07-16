@@ -56,12 +56,12 @@ import org.smslib.USSDSessionStatus;
  * @author brozow
  */
 public class MobileMsgAsyncTest {
-    
+
 	private static final String PHONE_NUMBER = "+19195551212";
     public static final String TMOBILE_RESPONSE = "37.28 received on 08/31/09. For continued service through 10/28/09, please pay 79.56 by 09/28/09.    ";
     public static final String TMOBILE_USSD_MATCH = "^.*[\\d\\.]+ received on \\d\\d/\\d\\d/\\d\\d. For continued service through \\d\\d/\\d\\d/\\d\\d, please pay [\\d\\.]+ by \\d\\d/\\d\\d/\\d\\d.*$";
 
-    
+
     private final class LatencyResponseHandler implements MobileMsgResponseHandler {
         private final MobileSequenceSession m_session;
         private final MobileSequenceTransaction m_transaction;
@@ -72,7 +72,7 @@ public class MobileMsgAsyncTest {
         private final AtomicLong m_end = new AtomicLong();
         private final AtomicBoolean m_timedOut = new AtomicBoolean(false);
         private final AtomicBoolean m_failed = new AtomicBoolean(false);
-        
+
         public LatencyResponseHandler(MobileSequenceSession session, MobileSequenceTransaction transaction) {
             m_session = session;
             m_transaction = transaction;
@@ -102,12 +102,12 @@ public class MobileMsgAsyncTest {
         public boolean matches(MobileMsgRequest request, MobileMsgResponse response) {
             return m_transaction.matchesResponse(m_session, request, response);
         }
-        
+
         public boolean failed() throws InterruptedException {
             m_latch.await();
             return m_failed.get();
         }
-        
+
         public boolean timedOut() throws InterruptedException {
             m_latch.await();
             return m_timedOut.get();
@@ -117,19 +117,19 @@ public class MobileMsgAsyncTest {
             m_latch.await();
             return m_end.get() - m_start.get();
         }
-        
+
      }
-    
+
 	TestMessenger m_messenger;
     MobileMsgTrackerImpl m_tracker;
 	DefaultTaskCoordinator m_coordinator;
-    
+
     @Before
     public void setUp() throws Exception {
         m_messenger = new TestMessenger();
         m_tracker = new MobileMsgTrackerImpl("test", m_messenger);
         m_tracker.start();
-        
+
         m_coordinator = new DefaultTaskCoordinator("MobileMsgAsyncTest", Executors.newSingleThreadExecutor(
             new LogPreservingThreadFactory("MobileMsgAsyncTest", 1, false)
         ));
@@ -139,26 +139,26 @@ public class MobileMsgAsyncTest {
 
     @Test
     public void testRawSmsPing() throws Exception {
-        
+
         MobileSequenceSession session = new MobileSequenceSession(m_tracker);
         session.setTimeout(1000L);
         session.setRetries(0);
-        
+
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
 
         MobileSequenceTransactionBuilder smsTransBldr = bldr.smsRequest("SMS ping", "*", PHONE_NUMBER, "ping");
         smsTransBldr.expectSmsResponse().matching("^[Pp]ong$");
-        
+
         MobileSequenceTransaction transaction = smsTransBldr.getTransaction();
-        
+
         LatencyResponseHandler handler = new LatencyResponseHandler(session, transaction);
 
         transaction.sendRequest(session, handler);
-        
+
         Thread.sleep(500);
 
         m_messenger.sendTestResponse(PHONE_NUMBER, "pong");
-   
+
         assertFalse(handler.failed());
         assertFalse(handler.timedOut());
         assertTrue(handler.getLatency() > 400);
@@ -168,13 +168,13 @@ public class MobileMsgAsyncTest {
     @Test
     public void testRawUssdMessage() throws Exception {
         final String gatewayId = "G";
-        
+
         MobileSequenceSession session = new MobileSequenceSession(m_tracker);
         session.setTimeout(3000L);
         session.setRetries(0);
 
         MobileSequenceConfigBuilder bldr = new MobileSequenceConfigBuilder();
-        
+
         MobileSequenceTransactionBuilder transBldr = bldr.ussdRequest("USSD request", "*", "#225#");
         transBldr.expectUssdResponse().matching(TMOBILE_USSD_MATCH);
 
@@ -187,12 +187,12 @@ public class MobileMsgAsyncTest {
         Thread.sleep(500);
 
         m_messenger.sendTestResponse(gatewayId, TMOBILE_RESPONSE, USSDSessionStatus.NO_FURTHER_ACTION_REQUIRED);
-        
+
         assertFalse(handler.failed());
         assertFalse(handler.timedOut());
         assertTrue(handler.getLatency() > 400);
         System.err.println("testRawUssdMessage(): latency = " + handler.getLatency());
     }
-    
+
 
 }

@@ -48,12 +48,12 @@ public class NoClosePipedInputStreamTest {
     byte[] testByte = {1,2,3,4};
 
 
-    @Before 
+    @Before
     public void setup() {
         in = new NoClosePipedInputStream();
         out = new NoClosePipedOutputStream();
         byte b = 10;
-        for(int i = 0; i < 10; i++) {            
+        for(int i = 0; i < 10; i++) {
             in.buffer[i] = b;
             b++;
 
@@ -89,7 +89,7 @@ public class NoClosePipedInputStreamTest {
         assertEquals(NoClosePipedInputStream.PIPE_SIZE, definedSource.buffer.length);
     }
 
-    @Test 
+    @Test
     public void testCreatePipeWithDefinedPipeSizeAndSource() throws IOException {
         definedPipeAndSource = new NoClosePipedInputStream(out, 64);
         assertEquals(64, definedPipeAndSource.buffer.length);
@@ -113,11 +113,11 @@ public class NoClosePipedInputStreamTest {
         } catch (IOException e) {
             assertEquals("Pipe not connected", e.getMessage());
             return; // The pipes are not connected, and therefore this exception should be thrown;
-        } 
+        }
         fail("This test should have thrown a IOException due to not connected pipes");
     }
 
-    @Test 
+    @Test
     public void testAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
@@ -137,7 +137,7 @@ public class NoClosePipedInputStreamTest {
                     latch.countDown();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
 
@@ -147,12 +147,12 @@ public class NoClosePipedInputStreamTest {
 
     }
 
-    @Test 
+    @Test
     public void testBreakOutAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -179,12 +179,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
 
-    @Test 
+    @Test
     public void testInterruptedAwaitSpaceIntReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -281,12 +281,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(15,in.buffer[5]);
     }
 
-    @Test 
+    @Test
     public void testAwaitSpaceByteReceive() throws IOException, InterruptedException{
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -305,19 +305,19 @@ public class NoClosePipedInputStreamTest {
                     latch.countDown();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
         thread.start();
         assertEquals(false, latch.await(1, TimeUnit.SECONDS));
     }
 
-    @Test 
+    @Test
     public void testBreakOutAwaitSpaceByteReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -335,7 +335,7 @@ public class NoClosePipedInputStreamTest {
                     Thread.currentThread().interrupt();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
 
@@ -344,12 +344,12 @@ public class NoClosePipedInputStreamTest {
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
 
-    @Test 
+    @Test
     public void testInterruptedAwaitSpaceByteReceive() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -365,7 +365,7 @@ public class NoClosePipedInputStreamTest {
                     Thread.currentThread().interrupt();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
         long endTime = System.currentTimeMillis();
@@ -426,7 +426,7 @@ public class NoClosePipedInputStreamTest {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -443,7 +443,7 @@ public class NoClosePipedInputStreamTest {
                     latch.countDown();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
 
@@ -457,7 +457,7 @@ public class NoClosePipedInputStreamTest {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -475,7 +475,7 @@ public class NoClosePipedInputStreamTest {
                     Thread.currentThread().interrupt();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
 
@@ -483,13 +483,13 @@ public class NoClosePipedInputStreamTest {
         in.in++;
         assertEquals(true, latch.await(2, TimeUnit.SECONDS));
     }
-    
+
     @Test
     public void testInterruptedAwaitSpaceIntRead() throws IOException, InterruptedException {
         // This test creates a thread to test the waiting that the buffer
         // performs when it is either full or empty. This test gets into the
         // awaitSpace() method because the read position and write position are
-        // the same, and should time out due to the fact that neither the 
+        // the same, and should time out due to the fact that neither the
         // read position nor the write position change. The timeout will cause
         // this test to pass.
 
@@ -507,7 +507,7 @@ public class NoClosePipedInputStreamTest {
                     Thread.currentThread().interrupt();
                 } catch (IOException e) {
                     e.printStackTrace();
-                } 
+                }
             }
         });
 
@@ -583,8 +583,8 @@ public class NoClosePipedInputStreamTest {
             //A negative offset should throw this exception
             return;
         }
-        //This test should not complete successfully 
-        fail("This test should have thrown an IndexOutOfBoundsException");       
+        //This test should not complete successfully
+        fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
     @Test
@@ -600,8 +600,8 @@ public class NoClosePipedInputStreamTest {
             //A negative read length should throw this exception
             return;
         }
-        //This test should not complete successfully 
-        fail("This test should have thrown an IndexOutOfBoundsException");       
+        //This test should not complete successfully
+        fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
     @Test
@@ -617,8 +617,8 @@ public class NoClosePipedInputStreamTest {
             //A read length longer than the byte array should throw this error
             return;
         }
-        //This test should not complete successfully 
-        fail("This test should have thrown an IndexOutOfBoundsException");       
+        //This test should not complete successfully
+        fail("This test should have thrown an IndexOutOfBoundsException");
     }
 
     @Test
@@ -634,9 +634,9 @@ public class NoClosePipedInputStreamTest {
     public void testMultipleCharacterByteRead() throws IOException {
         in.connect(out);
         in.out=1;
-        in.in= 1;    
+        in.in= 1;
         //returns 2 because 2 bytes have been read
-        assertEquals(2,in.read(testByte, 0, 2)); 
+        assertEquals(2,in.read(testByte, 0, 2));
     }
 
     @Test
@@ -646,18 +646,18 @@ public class NoClosePipedInputStreamTest {
         in.in= 3;
 
         // Should read 2 bytes since it is a normal byte write
-        assertEquals(2,in.read(testByte, 0, 2)); 
+        assertEquals(2,in.read(testByte, 0, 2));
 
     }
 
     @Test
-    public void testOutEqualToBufferLengthByteRead() throws IOException { 
+    public void testOutEqualToBufferLengthByteRead() throws IOException {
         in.connect(out);
         in.out=1022;
         in.in= 1;
 
         // Should read 2 bytes since it is a normal byte write
-        assertEquals(2,in.read(testByte, 0, 2)); 
+        assertEquals(2,in.read(testByte, 0, 2));
 
         // The out value should have been reset to zero since it was larger than the buffer size
         assertEquals(0, in.out);

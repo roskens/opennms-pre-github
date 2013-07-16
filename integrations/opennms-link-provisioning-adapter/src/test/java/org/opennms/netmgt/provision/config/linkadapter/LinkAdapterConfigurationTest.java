@@ -83,11 +83,11 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
 
     static private class TestOutputResolver extends SchemaOutputResolver {
         private final File m_schemaFile;
-        
+
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
-        
+
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
@@ -96,7 +96,7 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
 
     @Autowired
     private DefaultLinkAdapterConfigurationDao m_linkConfigDao;
-    
+
     private FileAnticipator m_fileAnticipator;
 
     private JAXBContext m_context;
@@ -119,7 +119,7 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         m_marshaller = m_context.createMarshaller();
         m_marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         m_marshaller.setProperty("com.sun.xml.bind.namespacePrefixMapper", new DefaultNamespacePrefixMapper("http://xmlns.opennms.org/xsd/config/map-link-adapter"));
-        
+
         m_unmarshaller = m_context.createUnmarshaller();
         m_unmarshaller.setSchema(null);
 
@@ -129,14 +129,14 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         props.setProperty("log4j.logger.org.opennms", "DEBUG");
         props.setProperty("log4j.logger.org.opennms.netmgt.dao.castor", "WARN");
         MockLogAppender.setupLogging(props);
-        
+
         XMLUnit.setIgnoreComments(true);
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setNormalize(true);
 
     }
-    
+
     private void printFile(File file) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
         StringBuilder sb = new StringBuilder();
@@ -166,20 +166,20 @@ public class LinkAdapterConfigurationTest implements InitializingBean {
         m_marshaller.marshal(config, objectXML);
         System.err.println(objectXML.toString());
     }
-    
+
     @Test(expected=Exception.class)
     @Ignore("I can't find a way to get JAXB to set minOccurs=1 with annotations...")
     public void testRequireLinkTag() throws Exception {
         ValidationEventHandler handler = new DefaultValidationEventHandler();
         m_unmarshaller.setEventHandler(handler);
 
-        String testXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" + 
-        		"<link-adapter-configuration xmlns=\"http://xmlns.opennms.org/xsd/config/map-link-adapter\">\n" + 
-        		"    <for match=\"foo-(.*?)-baz\">\n" + 
-        		"    </for>\n" + 
-        		"    <for match=\"before-(.*?)-after\">\n" + 
-        		"        <link>middle-was-$1</link>\n" + 
-        		"    </for>\n" + 
+        String testXml = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n" +
+			"<link-adapter-configuration xmlns=\"http://xmlns.opennms.org/xsd/config/map-link-adapter\">\n" +
+			"    <for match=\"foo-(.*?)-baz\">\n" +
+			"    </for>\n" +
+			"    <for match=\"before-(.*?)-after\">\n" +
+			"        <link>middle-was-$1</link>\n" +
+			"    </for>\n" +
         		"</link-adapter-configuration>";
 
         StringReader xmlReader = new StringReader(testXml);

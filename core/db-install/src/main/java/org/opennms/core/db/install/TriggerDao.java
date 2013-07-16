@@ -65,19 +65,19 @@ public class TriggerDao {
                                                + lowerName
                                                + "' already exists.");
         }
-        
+
         m_nameMap.put(lowerName, t);
-        
+
         getTriggersForTableCreateIfEmpty(t.getTable().toLowerCase()).add(t);
     }
-    
+
     private List<Trigger> getTriggersForTableCreateIfEmpty(String table) {
         if (!m_tableMap.containsKey(table)) {
             m_tableMap.put(table, new LinkedList<Trigger>());
         }
         return m_tableMap.get(table);
     }
-    
+
     /**
      * <p>getTriggersForTable</p>
      *

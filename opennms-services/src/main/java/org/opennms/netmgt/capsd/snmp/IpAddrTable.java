@@ -53,8 +53,8 @@ import org.slf4j.LoggerFactory;
  * @see <A HREF="http://www.ietf.org/rfc/rfc1213.txt">RFC1213 </A>
  */
 public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(IpAddrTable.class);
 
     /**
@@ -139,14 +139,14 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
         if (index == -1) {
             return null;
         }
-        
+
         List<InetAddress> addresses = new ArrayList<InetAddress>();
-        
+
         for(IpAddrTableEntry entry : this) {
 
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null && ndx.intValue() == index) {
-                
+
                 InetAddress ifAddr = entry.getIpAdEntAddr();
                 if (ifAddr != null) {
                     addresses.add(ifAddr);
@@ -165,17 +165,17 @@ public class IpAddrTable extends SnmpTable<IpAddrTableEntry> {
      */
     public List<InetAddress> getIpAddresses() {
         List <InetAddress>addresses = new ArrayList<InetAddress>();
-        
+
         for(IpAddrTableEntry entry : this) {
 
             Integer ndx = entry.getIpAdEntIfIndex();
             if (ndx != null) {
-        
+
                 InetAddress ifAddr = entry.getIpAdEntAddr();
                 if (ifAddr != null) {
                     addresses.add(ifAddr);
                 }
-        
+
             }
         }
         return addresses;

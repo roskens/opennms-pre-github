@@ -131,7 +131,7 @@ public final class IfTableEntry extends SnmpTableEntry {
 
     /** Constant <code>IF_SPECIFIC="ifSpecific"</code> */
     public final static String IF_SPECIFIC = "ifSpecific";
-    
+
     /** Constant <code>ms_elemList</code> */
     public static NamedSnmpVar[] ms_elemList = null;
 
@@ -213,7 +213,7 @@ public final class IfTableEntry extends SnmpTableEntry {
     public Integer getIfType() {
         return getInt32(IfTableEntry.IF_TYPE);
     }
-    
+
     /**
      * <p>getIfAdminStatus</p>
      *
@@ -245,11 +245,11 @@ public final class IfTableEntry extends SnmpTableEntry {
             if (hexString != null && hexString.length() == 12) {
                 // If the hex string is 12 characters long, than the agent is kinda weird and
                 // is returning the value as a raw binary value that is 6 bytes in length.
-                // But that's OK, as long as we can convert it into a string, that's fine. 
+                // But that's OK, as long as we can convert it into a string, that's fine.
                 return hexString;
             } else {
-                // This is the normal case that most agents conform to: the value is an ASCII 
-                // string representing the colon-separated MAC address. We just need to reformat 
+                // This is the normal case that most agents conform to: the value is an ASCII
+                // string representing the colon-separated MAC address. We just need to reformat
                 // it to remove the colons and convert it into a 12-character string.
                 return normalizeMacAddress(getDisplayString(IfTableEntry.IF_PHYS_ADDR));
             }

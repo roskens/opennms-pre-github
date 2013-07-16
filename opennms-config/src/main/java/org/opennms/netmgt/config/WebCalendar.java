@@ -38,28 +38,28 @@ import java.util.Date;
  * @since 1.8.1
  */
 public interface WebCalendar {
-    
+
     /**
      * <p>getMonthAndYear</p>
      *
      * @return a {@link java.lang.String} object.
      */
-    public String getMonthAndYear(); 
-    
+    public String getMonthAndYear();
+
     /**
      * <p>getPreviousMonth</p>
      *
      * @return a java$util$Date object.
      */
     public Date getPreviousMonth();
-    
+
     /**
      * <p>getNextMonth</p>
      *
      * @return a java$util$Date object.
      */
     public Date getNextMonth();
-    
+
     /**
      * <p>getWeeks</p>
      *

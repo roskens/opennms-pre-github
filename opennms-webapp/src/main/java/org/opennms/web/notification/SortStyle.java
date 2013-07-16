@@ -184,7 +184,7 @@ public enum SortStyle {
         default:
             throw new IllegalArgumentException("Unknown SortStyle: " + getName());
         }
-        
+
         return clause;
     }
 

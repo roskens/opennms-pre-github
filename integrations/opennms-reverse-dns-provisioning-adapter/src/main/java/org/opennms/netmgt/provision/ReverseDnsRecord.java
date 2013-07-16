@@ -14,7 +14,7 @@ public class ReverseDnsRecord {
     String m_hostname;
     String m_zone;
     InetAddress m_ip;
-    
+
     public ReverseDnsRecord(OnmsIpInterface ipInterface) {
 
         OnmsSnmpInterface snmpInterface = ipInterface.getSnmpInterface();
@@ -30,7 +30,7 @@ public class ReverseDnsRecord {
             m_hostname=AlphaNumeric.parseAndReplace(snmpInterface.getIfDescr(),'-')+"-"+ipInterface.getNode().getLabel()+".";
         } else {
             LOG.debug("Constructor: SnmpInterface found: ifindex: {}", snmpInterface.getIfDescr());
-            m_hostname="ifindex-"+snmpInterface.getIfIndex()+"-"+ipInterface.getNode().getLabel()+".";            
+            m_hostname="ifindex-"+snmpInterface.getIfIndex()+"-"+ipInterface.getNode().getLabel()+".";
         }
         LOG.debug("Constructor: set hostname: {}", m_hostname);
 
@@ -52,12 +52,12 @@ public class ReverseDnsRecord {
     public InetAddress getIp() {
         return m_ip;
     }
-    
+
     public static String thirdLevelZonefromInet4Address(byte[] addr ) {
         if (addr.length != 4 && addr.length != 16)
             throw new IllegalArgumentException("array must contain " +
                                          "4 or 16 elements");
-              
+
       StringBuffer sb = new StringBuffer();
       if (addr.length == 4) {
           for (int i = addr.length - 2; i >= 0; i--) {

@@ -44,9 +44,9 @@ import org.slf4j.LoggerFactory;
  */
 public class NumericAttributeType extends SnmpAttributeType {
     private static final Logger LOG = LoggerFactory.getLogger(NumericAttributeType.class);
-    
+
     private static String[] s_supportedTypes = new String[] { "counter", "gauge", "timeticks", "integer", "octetstring" };
-    
+
     /**
      * <p>supportsType</p>
      *
@@ -76,10 +76,10 @@ public class NumericAttributeType extends SnmpAttributeType {
      */
     public NumericAttributeType(ResourceType resourceType, String collectionName, MibObject mibObj, AttributeGroupType groupType) {
         super(resourceType, collectionName, mibObj, groupType);
-        
+
             // Assign the data source object identifier and instance
             LOG.debug("buildDataSourceList: ds_name: {} ds_oid: {}.{}", getName(), getOid(), getInstance());
-            
+
             String alias = getAlias();
             if (alias.length() > PersistOperationBuilder.MAX_DS_NAME_LENGTH) {
                 logNameTooLong();
@@ -87,7 +87,7 @@ public class NumericAttributeType extends SnmpAttributeType {
 
 
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void storeAttribute(CollectionAttribute attribute, Persister persister) {

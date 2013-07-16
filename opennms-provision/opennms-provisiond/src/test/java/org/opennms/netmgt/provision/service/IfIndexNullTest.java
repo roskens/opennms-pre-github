@@ -72,22 +72,21 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment(systemProperties="org.opennms.provisiond.enableDiscovery=false")
 public class IfIndexNullTest extends ProvisioningTestCase implements InitializingBean {
-    
     @Autowired
     private Provisioner m_provisioner;
-    
+
     @Autowired
     private ResourceLoader m_resourceLoader;
-    
+
     @Autowired
     private IpInterfaceDao m_ipInterfaceDao;
-    
+
     @Autowired
     private NodeDao m_nodeDao;
 
     @Autowired
     private MockEventIpcManager m_eventSubscriber;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -117,24 +116,24 @@ public class IfIndexNullTest extends ProvisioningTestCase implements Initializin
 
         final List<OnmsNode> nodes = getNodeDao().findAll();
         final OnmsNode node = nodes.get(0);
-        
+
         eventRecieved.await();
-        
+
         final NodeScan scan = m_provisioner.createNodeScan(node.getId(), node.getForeignSource(), node.getForeignId());
         runScan(scan);
-        
+
         //Verify ipinterface count
         assertEquals(2, getInterfaceDao().countAll());
-        
+
     }
-    
+
     public void runScan(final NodeScan scan) throws InterruptedException, ExecutionException {
     	final Task t = scan.createTask();
         t.schedule();
         t.waitFor();
         waitForEverything();
     }
-    
+
     private NodeDao getNodeDao() {
         return m_nodeDao;
     }

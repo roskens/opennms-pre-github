@@ -75,7 +75,7 @@ public class CsvRequisitionParser {
     private static final String PROPERTY_CATEGORY_ADD_EXISTING = "category.add.existing";
     private static final String PROPERTY_SERVICE_LIST = "service.list";
     private static final String PROPERTY_ADD_ONLY = "add.only";
-	
+
 	private static FilesystemForeignSourceRepository m_fsr = null;
 	private static File m_csvFile = new File("/tmp/nodes.csv");
 	private static File m_repoPath = new File("/opt/opennms/imports");
@@ -95,7 +95,7 @@ public class CsvRequisitionParser {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		Runtime.getRuntime().addShutdownHook(createShutdownHook());
-		
+
 		if (args.length > 0) {
 			try {
 				usageReport();
@@ -104,7 +104,7 @@ public class CsvRequisitionParser {
 			}
 			System.exit(0);
 		}
-		
+
 		try {
 			if (!validateProperties()) {
 				usageReport();
@@ -114,8 +114,8 @@ public class CsvRequisitionParser {
 			e.printStackTrace();
 			System.exit(1);
 		}
-		
-		
+
+
 		if (System.getProperty("parse.db")!= null) {
 			try {
 				migrateDbNodes();
@@ -130,12 +130,12 @@ public class CsvRequisitionParser {
 			}
 		}
 
-		
+
 		System.out.println("Finished.");
 	}
-	
+
 	private static void migrateDbNodes() throws SQLException, UnknownHostException, ClassNotFoundException {
-		
+
 		String distinctNodesQueryStr = "  " +
 				"SELECT nodeId AS \"nodeid\"," +
 				"       nodeLabel AS \"nodelabel\"," +
@@ -148,7 +148,7 @@ public class CsvRequisitionParser {
 				"    FROM ipinterface " +
 				"   WHERE iplike(ipaddr, '"+m_iplikeQuery+"')) " +
 				"ORDER BY nodeid";
-		
+
 		if (m_addOnly) {
 			distinctNodesQueryStr = "  " +
 					"SELECT nodeId AS \"nodeid\"," +
@@ -164,7 +164,7 @@ public class CsvRequisitionParser {
 					"  AND foreignsource is NULL " +
 					"ORDER BY nodeid";
 		}
-		
+
 		Connection connection = null;
 		Statement distinctNodesStatement = null;
 		PoolingConnection pool = null;
@@ -235,7 +235,7 @@ public class CsvRequisitionParser {
 				continue;
 			}
 
-			
+
 			String foreignId = null;
 			if (m_useNodeId) {
 				foreignId = String.valueOf(nodeId);
@@ -252,7 +252,7 @@ public class CsvRequisitionParser {
 			System.out.println("Node updated.");
 
 			RequisitionData rd = new RequisitionData(label, primaryIp, m_foreignSource, foreignId);
-			
+
 			if (m_categoryAddExisting) {
 				String categoriesQueryString = "" +
 						"SELECT c.categoryname as \"categoryname\" " +
@@ -274,7 +274,7 @@ public class CsvRequisitionParser {
 				categoriesStatement.close();
 				rd.setCategories(categories);
 			}
-			
+
 			System.out.println("Updating requistion...");
 			createOrUpdateRequistion(rd);
 			System.out.println("Requistion updated!  Next...\n");
@@ -295,7 +295,7 @@ public class CsvRequisitionParser {
 
 		System.out.println(nodesMigrated+" Nodes migrated to foreign source "+m_foreignSource);
 
-		
+
 	}
 
 	private static Connection createConnection() throws ClassNotFoundException, SQLException {
@@ -307,20 +307,20 @@ public class CsvRequisitionParser {
 
 	//need to do some better exception handling here
 	private static boolean validateProperties() throws IOException, FileNotFoundException, IllegalArgumentException  {
-		
+
 		System.out.println("\n\nProperties:\n");
 		m_foreignSource = System.getProperty(PROPERTY_FOREIGN_SOURCE, m_foreignSource);
 		System.out.println("\t"+PROPERTY_FOREIGN_SOURCE+":"+m_foreignSource);
-		
+
 		m_parseDb = Boolean.valueOf(System.getProperty(PROPERTY_PARSE_DB, m_parseDb.toString()));
 		System.out.println("\t"+PROPERTY_PARSE_DB+":"+m_parseDb);
-		
-		
+
+
 		if (!m_parseDb.booleanValue()) {
 
 			String csvFileName = System.getProperty(PROPERTY_CSV_FILE, m_csvFile.getCanonicalPath());
 			System.out.println("\t"+PROPERTY_CSV_FILE+":"+m_csvFile);
-			
+
 			m_csvFile = new File(csvFileName);
 			if (!m_csvFile.exists()) {
 				throw new FileNotFoundException("CSV Input File: "+csvFileName+"; Not Found!");
@@ -331,42 +331,42 @@ public class CsvRequisitionParser {
 
 			m_dbName = System.getProperty(PROPERTY_DB_NAME, m_dbName);
 			System.out.println("\t"+PROPERTY_DB_NAME+":"+m_dbName);
-			
+
 			m_dbUser = System.getProperty(PROPERTY_DB_USER, m_dbUser);
 			System.out.println("\t"+PROPERTY_DB_USER+":"+m_dbUser);
-			
+
 			m_dbPass = System.getProperty(PROPERTY_DB_PW, m_dbPass);
 			System.out.println("\t"+PROPERTY_DB_PW+":"+m_dbPass);
-			
+
 			m_iplikeQuery = System.getProperty(PROPERTY_IPLIKE_QUERY, m_iplikeQuery);
 			System.out.println("\t"+PROPERTY_IPLIKE_QUERY+":"+m_iplikeQuery);
-			
+
 			m_useNodeId = Boolean.valueOf(System.getProperty(PROPERTY_USE_NODE_ID, m_useNodeId.toString()));
 			System.out.println("\t"+PROPERTY_USE_NODE_ID+":"+m_useNodeId);
-			
+
 			m_addOnly = Boolean.valueOf(System.getProperty(PROPERTY_ADD_ONLY, m_addOnly.toString()));
 			System.out.println("\t"+PROPERTY_ADD_ONLY+":"+m_addOnly);
-			
+
 			m_categoryAddExisting = Boolean.valueOf(System.getProperty(PROPERTY_CATEGORY_ADD_EXISTING, m_categoryAddExisting.toString()));
 			System.out.println("\t"+PROPERTY_CATEGORY_ADD_EXISTING+":"+m_categoryAddExisting);
-			
+
 		}
-		
+
 		String fsRepo = System.getProperty(PROPERTY_FS_REPO_PATH, m_repoPath.getCanonicalPath());
 		System.out.println("\t"+PROPERTY_FS_REPO_PATH+":"+fsRepo);
-		
+
 		m_repoPath = new File(fsRepo);
-		
+
 		if (!m_repoPath.exists() || !m_repoPath.isDirectory() || !m_repoPath.canWrite()) {
 			throw new IllegalArgumentException("The specified "+PROPERTY_FS_REPO_PATH+": "+m_repoPath.getCanonicalPath()+", either doesn't exist, isn't writable, or isn't a directory.");
 		} else {
 			m_fsr = new FilesystemForeignSourceRepository();
 			m_fsr.setRequisitionPath(m_repoPath.getCanonicalPath());
 		}
-		
+
 		m_resolveIps = Boolean.valueOf(System.getProperty(PROPERTY_RESOLVE_IPS, m_resolveIps.toString()));
 		System.out.println("\t"+PROPERTY_RESOLVE_IPS+":"+m_resolveIps.toString());
-		
+
 		String categories = System.getProperty(PROPERTY_CATEGORY_LIST);
 		if (categories != null) {
 			System.out.println("\t"+PROPERTY_CATEGORY_LIST+":"+categories);
@@ -376,7 +376,7 @@ public class CsvRequisitionParser {
 				m_categoryList.add(cat);
 			}
 		}
-		
+
 		String services = System.getProperty(PROPERTY_SERVICE_LIST);
 		if (categories != null) {
 			System.out.println("\t"+PROPERTY_SERVICE_LIST+":"+services);
@@ -391,7 +391,7 @@ public class CsvRequisitionParser {
 		return true;
 	}
 
-	private static void usageReport() throws IOException {		
+	private static void usageReport() throws IOException {
 		System.err.println("Usage: java CsvRequistionParser [<Property>...]\n" +
 				"\n" +
 				"Supported Properties:\n" +
@@ -442,7 +442,7 @@ public class CsvRequisitionParser {
 
 	protected static void parseCsv(File csv, File m_repo) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(csv)));
-		
+
 		String line = null;
 		int lineNum = 0;
 		while ((line = br.readLine()) != null) {
@@ -450,14 +450,14 @@ public class CsvRequisitionParser {
 			if (line != null && line.startsWith("#")) {
 				continue;
 			}
-			
+
 			String[] fields = line.split(",", 2);
 			int fieldCount = fields.length;
 			if (fieldCount != 2) {
 				System.err.println("Error on line: "+Integer.toString(lineNum)+". Found "+Integer.toString(fieldCount)+" fields and expected 2.");
 				continue;
 			}
-						
+
 			RequisitionData rd = new RequisitionData(fields[0], fields[1], m_foreignSource, null);
 			System.out.println("Line "+Integer.toString(lineNum)+":"+rd.toString());
 
@@ -465,27 +465,27 @@ public class CsvRequisitionParser {
 		}
 		br.close();
 	}
-	
+
 	private static void createOrUpdateRequistion(RequisitionData rd) throws UnknownHostException {
 		Requisition r = null;
 		RequisitionNode rn = new RequisitionNode();
 		String foreignSource = rd.getForeignSource();
-		
+
 		r = m_fsr.getRequisition(foreignSource);
-		
+
 		if (r == null) {
 			r = new Requisition(foreignSource);
 		}
-		
+
 		System.err.println("Creating/Updating requistion: "+foreignSource);
-		
+
 		r.updateDateStamp();
-		
+
 		RequisitionMonitoredServiceCollection services = new RequisitionMonitoredServiceCollection();
 		for (String svc : m_serviceList) {
 			services.add(new RequisitionMonitoredService(svc));
 		}
-		
+
 		RequisitionInterface iface = new RequisitionInterface();
 		iface.setDescr("mgmt-if");
 		iface.setIpAddr(rd.getPrimaryIp());
@@ -493,10 +493,10 @@ public class CsvRequisitionParser {
 		iface.setSnmpPrimary(PrimaryType.PRIMARY);
 		iface.setStatus(Integer.valueOf(1));
 		iface.setMonitoredServices(services);
-		
+
 		RequisitionInterfaceCollection ric = new RequisitionInterfaceCollection();
 		ric.add(iface);
-				
+
 		//add categories requisition level categories
 		RequisitionCategoryCollection rcc = null;
 		if (m_categoryList != null && m_categoryList.size() > 0) {
@@ -505,27 +505,27 @@ public class CsvRequisitionParser {
 				rcc.add(new RequisitionCategory(cat));
 			}
 		}
-		
+
 		//add categories already on the node to the requisition
 		if (rd.getCategories() != null) {
 			for (String cat : rd.getCategories()) {
 				rcc.add(new RequisitionCategory(cat));
 			}
 		}
-		
+
 		rn.setBuilding(foreignSource);
 		rn.setCategories(rcc);
 		rn.setForeignId(rd.getForeignId());
 		rn.setInterfaces(ric);
-		
+
 		String nodeLabel = rd.getNodeLabel();
 		if (m_resolveIps) {
 			InetAddress addr = InetAddress.getByName(rd.getPrimaryIp());
 			nodeLabel = addr.getCanonicalHostName();
 		}
-		
+
 		rn.setNodeLabel(nodeLabel);
-		
+
 		//r.insertNode(rn);
 		r.putNode(rn);
 		m_fsr.save(r);

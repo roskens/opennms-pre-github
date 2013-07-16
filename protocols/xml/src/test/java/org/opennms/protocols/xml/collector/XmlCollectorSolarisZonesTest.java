@@ -45,7 +45,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * The Test class for XML Collector for Solaris Zones Statistics
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
@@ -57,7 +57,7 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
     public String getXmlConfigFileName() {
         return "src/test/resources/solaris-zones-datacollection-config.xml";
     }
-    
+
     /* (non-Javadoc)
      * @see org.opennms.protocols.xml.collector.AbcstractXmlCollectorTest#getXmlSampleFileName()
      */
@@ -104,7 +104,7 @@ public class XmlCollectorSolarisZonesTest extends AbstractXmlCollectorTest {
         File file = new File("target/snmp/1/solarisZoneStats/global/solaris-zone-stats.jrb");
         String[] dsnames = new String[] { "nproc", "nlwp", "pr_size", "pr_rssize", "pctmem", "pctcpu" };
         Double[] dsvalues = new Double[] { 245.0, 1455.0, 2646864.0, 1851072.0, 0.7, 0.24 };
-        validateJrb(file, dsnames, dsvalues);      
+        validateJrb(file, dsnames, dsvalues);
     }
 
 }

@@ -25,7 +25,7 @@ import com.vaadin.ui.Component;
 import com.vaadin.ui.Tree;
 
 public class NCSViewContribution implements IViewContribution {
-	
+
 	private NCSComponentRepository m_ncsComponentRepository;
 	private NCSEdgeProvider m_ncsEdgeProvider;
     private NCSCriteriaServiceManager m_serviceManager;
@@ -34,10 +34,10 @@ public class NCSViewContribution implements IViewContribution {
     public void setNcsComponentRepository(NCSComponentRepository ncsComponentRepository) {
 		m_ncsComponentRepository = ncsComponentRepository;
 	}
-	
+
 	@Override
 	public Component getView(final WidgetContext widgetContext) {
-		
+
 		final Tree tree = new Tree("Services", new FilterableHierarchicalContainer(new NCSServiceContainer(m_ncsComponentRepository)));
 		tree.setMultiSelect(true);
 		tree.setImmediate(true);
@@ -46,12 +46,12 @@ public class NCSViewContribution implements IViewContribution {
 		tree.addValueChangeListener(new ValueChangeListener() {
 
 			private static final long serialVersionUID = -7443836886894714291L;
-			
+
 			public void valueChange(ValueChangeEvent event) {
 				Collection<Long> selectedIds = new HashSet<Long>( (Collection<Long>) event.getProperty().getValue() );
-				
+
 				Collection<Long> nonSelectableIds = new ArrayList<Long>();
-				
+
 				for(Long id : selectedIds) {
 				    boolean isRoot = (Boolean) tree.getItem(id).getItemProperty("isRoot").getValue();
 				    if(id < 0 && isRoot) {
@@ -62,9 +62,9 @@ public class NCSViewContribution implements IViewContribution {
 				for(Long id : nonSelectableIds) {
 				    tree.unselect(id);
 				}
-				
+
 				Criteria criteria = NCSEdgeProvider.createCriteria(selectedIds);
-				
+
 				m_serviceManager.registerCriteria(criteria, widgetContext.getGraphContainer().getSessionId());
                 if(m_serviceManager.isCriteriaRegistered("ncsPath", widgetContext.getGraphContainer().getSessionId())) {
                     m_serviceManager.unregisterCriteria("ncsPath", widgetContext.getGraphContainer().getSessionId());
@@ -72,9 +72,9 @@ public class NCSViewContribution implements IViewContribution {
 				selectVerticesForEdge(criteria, widgetContext.getGraphContainer().getSelectionManager());
 			}
 		});
-		
-		
-		
+
+
+
 		m_serviceManager.addCriteriaServiceListener(new ServiceListener() {
 
             @Override
@@ -83,9 +83,9 @@ public class NCSViewContribution implements IViewContribution {
                     //tree.setValue( tree.getNullSelectionItemId() );
                 }
             }
-            
+
 		}, widgetContext.getGraphContainer().getSessionId(), "ncs");
-		
+
 		return tree;
 	}
 
@@ -97,7 +97,7 @@ public class NCSViewContribution implements IViewContribution {
 	        vertexRefs.add(ncsEdge.getTarget().getVertex());
 	    }
 	    selectionManager.setSelectedVertexRefs(vertexRefs);
-	    
+
     }
 
     @Override
@@ -109,11 +109,11 @@ public class NCSViewContribution implements IViewContribution {
 	public Resource getIcon() {
 		return null;
 	}
-	
+
 	public void setNcsEdgeProvider(NCSEdgeProvider ncsEdgeProvider) {
         m_ncsEdgeProvider = ncsEdgeProvider;
     }
-	
+
 	public void setNcsCriteriaServiceManager(NCSCriteriaServiceManager manager) {
 	    m_serviceManager = manager;
 	}

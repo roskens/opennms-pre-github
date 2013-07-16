@@ -44,7 +44,7 @@ import org.w3c.dom.Document;
 
 /**
  * The default implementation of the interface XmlCollectionHandler based on AbstractXmlCollectionHandler.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class DefaultXmlCollectionHandler extends AbstractXmlCollectionHandler {

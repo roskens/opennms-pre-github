@@ -46,7 +46,7 @@ import org.opennms.protocols.xml.config.XmlSource;
 
 /**
  * The default implementation of the interface XmlCollectionHandler based on AbstractJsonCollectionHandler.
- * 
+ *
  * @author <a href="mailto:ronald.roskens@gmail.com">Ronald Roskens</a>
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */

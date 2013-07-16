@@ -36,9 +36,9 @@ import org.aspcfs.utils.CRMConnection;
 import org.aspcfs.apps.transfer.DataRecord;
 
 public class CentricAPITest extends TestCase {
-    
+
     public void testCreateLead() {
-       
+
 
         CRMConnection crm = createConnection();
 
@@ -68,11 +68,11 @@ public class CentricAPITest extends TestCase {
         email.addField("enteredBy", 0);
         email.addField("modifiedBy", 0);
         assertTrue(crm.save(email));
-        
-        
+
+
         commit(crm);
-        
-        
+
+
     }
 
     private void commit(CRMConnection crm) {
@@ -96,7 +96,7 @@ public class CentricAPITest extends TestCase {
         crm.setAutoCommit(false);
         return crm;
     }
-    
+
     public static class RecordLocator {
         private String m_id;
 
@@ -107,24 +107,24 @@ public class CentricAPITest extends TestCase {
         public void setId(String id) {
             m_id = id;
         }
-        
+
         public int getIdAsInt() {
             return Integer.parseInt(m_id);
         }
-        
+
 
     }
-    
-    
+
+
 	public void testCreateTicket() {
-        
+
         CRMConnection crm = createConnection();
-        
+
         ArrayList<String> sucky = new ArrayList<String>();
         sucky.add("id");
         crm.setTransactionMeta(sucky);
-        
-        
+
+
         DataRecord email = new DataRecord();
         email.setName("ticket");
         email.setAction(DataRecord.INSERT);
@@ -135,21 +135,21 @@ public class CentricAPITest extends TestCase {
         email.addField("enteredBy", 0);
         email.addField("modifiedBy", 0);
 
-        
+
         crm.save(email);
-        
+
         commit(crm);
-        
+
         assertEquals(1, crm.getRecordCount());
-        
+
         @SuppressWarnings("unchecked")
         List<RecordLocator> results = crm.getRecords(RecordLocator.class.getName());
-        
+
         assertEquals(1, results.size());
-        
+
         RecordLocator record = results.get(0);
         assertTrue(0 < record.getIdAsInt());
-        
+
 
 /*
         <map class="org.aspcfs.modules.troubletickets.base.Ticket" id="ticket">
@@ -176,7 +176,7 @@ public class CentricAPITest extends TestCase {
         <property lookup="ticketSeverity">severityCode</property>
         <!-- REMOVE: critical -->
         <!-- REMOVE: notified -->
-        <!-- REMOVE: custom_data -->    
+        <!-- REMOVE: custom_data -->
         <property>location</property>
         <property>assignedDate</property>
         <property>estimatedResolutionDate</property>
@@ -204,24 +204,24 @@ public class CentricAPITest extends TestCase {
         <property>stateId</property>
         <property>siteId</property>
       </map>
-      
+
 */
     }
-    
+
     public void testUpdateTicket() {
-  
+
        // Client ID must already exist in target CRM system and is created
         // under Admin -> Configure System -> HTTP-XML API Client Manager
         int clientId = 1;
-        
+
         // Establish connectivity as a client
         CRMConnection crm = new CRMConnection();
         crm.setUrl("http://localhost:8080/centric");
         crm.setId("localhost");
         crm.setCode("opennms");
         crm.setClientId(clientId);
-        
-        
+
+
         ArrayList<String> returnFields = new ArrayList<String>();
         returnFields.add("id");
         returnFields.add("modified");
@@ -231,17 +231,17 @@ public class CentricAPITest extends TestCase {
         query.setAction(DataRecord.SELECT);
         query.setName("ticketList");
         query.addField("id", 91);
-        
+
         crm.load(query);
-        
+
         String modified = crm.getResponseValue("modified");
-        
+
         // Start a new transaction
         crm.setAutoCommit(false);
-        
-        
-        
-        
+
+
+
+
         DataRecord ticket = new DataRecord();
         ticket.setName("ticket");
         ticket.setAction(DataRecord.UPDATE);
@@ -254,13 +254,13 @@ public class CentricAPITest extends TestCase {
         ticket.addField("stateId", 6);
         ticket.addField("severityCode", 2);
         ticket.addField("modified", modified);
-        
+
         crm.save(ticket);
-        
+
         boolean result = crm.commit();
         assertTrue(crm.getLastResponse(), result);
-        
- 
+
+
     }
 
 }

@@ -40,7 +40,7 @@ public class OutagesTest extends XmlTest<Outages> {
     public OutagesTest(final Outages sampleObject, final String sampleXml, final String schemaFile) {
         super(sampleObject, sampleXml, schemaFile);
     }
-    
+
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         final Outage outage = new Outage();

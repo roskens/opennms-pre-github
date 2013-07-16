@@ -54,13 +54,13 @@ import com.vaadin.ui.UI;
 public class ConnectOperationTest {
 
     private static class TestOperationContext implements OperationContext {
-        
+
         private GraphContainer m_graphContainer;
 
         public TestOperationContext(GraphContainer graphContainer) {
             m_graphContainer = graphContainer;
         }
-        
+
         @Override
         public UI getMainWindow() {
             return EasyMock.createMock(UI.class);
@@ -81,7 +81,7 @@ public class ConnectOperationTest {
 		public DisplayLocation getDisplayLocation() {
 			return DisplayLocation.MENUBAR;
 		}
-        
+
     }
 
     private static TestOperationContext getOperationContext(GraphContainer mockedContainer) {
@@ -99,12 +99,12 @@ public class ConnectOperationTest {
         if(m_topologyProvider == null) {
             m_topologyProvider = new SimpleGraphProvider();
         }
-        
+
 		m_topologyProvider.resetContainer();
-		
+
 		MockLogAppender.setupLogging();
     }
-    
+
     @After
     public void tearDown() {
         if(m_topologyProvider != null) {
@@ -114,28 +114,28 @@ public class ConnectOperationTest {
 
     @Test
     public void testConnectVerticesOperation() {
-    	
+
 		m_topologyProvider.resetContainer();
 
         VertexRef vertexId1 = addVertexToTopr();
         VertexRef vertexId2 = addVertexToTopr();
-        
+
         GraphContainer graphContainer = EasyMock.createMock(GraphContainer.class);
 
         EasyMock.expect(graphContainer.getBaseTopology()).andReturn(m_topologyProvider).anyTimes();
 
         EasyMock.replay(graphContainer);
-        
+
         List<VertexRef> targets = new ArrayList<VertexRef>();
         targets.add(vertexId1);
         targets.add(vertexId2);
-        
+
         ConnectOperation connectOperation = new ConnectOperation();
         connectOperation.execute(targets, getOperationContext(graphContainer));
-        
+
         Collection<? extends Edge> edgeIds = m_topologyProvider.getEdges();
         assertEquals(1, edgeIds.size());
-        
+
         for(Edge edgeId : edgeIds) {
             SimpleLeafVertex source = (SimpleLeafVertex) edgeId.getSource().getVertex();
             SimpleLeafVertex target = (SimpleLeafVertex) edgeId.getTarget().getVertex();
@@ -144,7 +144,7 @@ public class ConnectOperationTest {
             assertEquals(vertexId1.getId(), source.getId());
             assertEquals(vertexId2.getId(), target.getId());
         }
-        
+
         EasyMock.verify(graphContainer);
     }
 }

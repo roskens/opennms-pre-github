@@ -37,10 +37,10 @@ import org.osgi.service.blueprint.container.BlueprintContainer;
 import com.vaadin.ui.UI;
 
 public class TopologyWidgetTestApplicationFactory extends AbstractApplicationFactory {
-    
+
 	private final BlueprintContainer m_blueprintContainer;
 	private final String m_beanName;
-	
+
 	public TopologyWidgetTestApplicationFactory(BlueprintContainer container, String beanName) {
 		m_blueprintContainer = container;
 		m_beanName = beanName;

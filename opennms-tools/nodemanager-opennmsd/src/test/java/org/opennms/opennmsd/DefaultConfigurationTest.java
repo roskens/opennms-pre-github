@@ -35,7 +35,7 @@ import java.io.IOException;
 import junit.framework.TestCase;
 
 public class DefaultConfigurationTest extends TestCase {
-    
+
     public void testFileDoesntExist() {
         DefaultConfiguration config = new DefaultConfiguration();
         config.setConfigFile(new File("doesntexist"));
@@ -43,27 +43,27 @@ public class DefaultConfigurationTest extends TestCase {
             config.load();
             fail("should have thrown a FileNotFoundException");
         } catch (FileNotFoundException e) {
-            
+
         } catch(Throwable t) {
             fail("did not expect exception "+t);
         }
-        
+
     }
-    
+
     public void testLoadFile() throws IOException {
         File confFile = getTestConfFile("loadTest-opennmsd.conf");
-        
+
         DefaultConfiguration config = new DefaultConfiguration();
         config.setConfigFile(confFile);
         config.load();
-        
+
 	//        assertNotNull(config.getFilterChain());
     }
-    
+
 
     private File getTestConfFile(String fileName) {
         File resourcesDir = new File(new File(new File("src"), "test"), "resources");
         return new File(resourcesDir, fileName);
     }
-    
+
 }

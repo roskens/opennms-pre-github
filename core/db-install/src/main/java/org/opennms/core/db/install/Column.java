@@ -43,7 +43,7 @@ public class Column {
     private int m_size = 0;
 
     private boolean m_notNull = false;
-    
+
     private String m_defaultValue = null;
 
     /** {@inheritDoc} */
@@ -181,7 +181,7 @@ public class Column {
     public void setType(String type) {
         m_type = type;
     }
-    
+
     /**
      * <p>getDefaultValue</p>
      *
@@ -190,7 +190,7 @@ public class Column {
     public String getDefaultValue() {
         return m_defaultValue;
     }
-    
+
     /**
      * <p>hasDefaultValue</p>
      *
@@ -283,7 +283,7 @@ public class Column {
         	} catch (Throwable e) {
         		throw new Exception("Could not determine size for column " + getName() + ".  Chained: " + e.getMessage(), e);
         	}
-        	
+
         }
     }
 

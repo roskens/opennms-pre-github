@@ -40,7 +40,7 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Transactional(readOnly=true)
 public interface RrdSummaryService {
-	
+
 	/**
 	 * <p>getSummary</p>
 	 *

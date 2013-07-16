@@ -36,10 +36,10 @@
  *
  * snmpfactotum@yahoo.com
  */
- 
+
 public class Version {
     // the version naming convention is "major.minor"
-    
+
     /**
      * This version has the base functionality implemented to parse
      * MIBS and output XML.
@@ -48,7 +48,7 @@ public class Version {
      * output in the XML.
      */
     static public final String versionString = "1.0";
-    
+
     /**
      * This version has (describe your changes)+
      */

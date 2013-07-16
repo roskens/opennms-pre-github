@@ -57,13 +57,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class LoadDefaultMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(LoadDefaultMapController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -85,8 +85,8 @@ public class LoadDefaultMapController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		
+
+
 		String user = request.getRemoteUser();
 
 	    LOG.debug("Loading Default Map for user: {}", user);

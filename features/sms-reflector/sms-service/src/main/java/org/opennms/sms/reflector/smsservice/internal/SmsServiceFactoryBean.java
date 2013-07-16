@@ -50,7 +50,7 @@ public class SmsServiceFactoryBean implements FactoryBean<SmsService>, Initializ
 	public void setSmsServiceList(SmsService[] serviceList) {
 		m_serviceList = serviceList;
 	}
-	
+
 	/**
 	 * <p>getObject</p>
 	 *

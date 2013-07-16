@@ -46,21 +46,21 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DhcpClient.class);
 
-    
+
     private int m_retries;
     private int m_timeout;
     private InetAddress m_address;
     private long m_responseTime;
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
-        
+
     }
 
     /** {@inheritDoc} */
@@ -68,7 +68,7 @@ public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
         m_address = address;
         m_timeout = timeout;
-        
+
     }
 
     /**
@@ -98,7 +98,7 @@ public class DhcpClient implements Client<DhcpRequest, DhcpResponse> {
     public DhcpResponse sendRequest(DhcpRequest request) throws IOException, Exception {
         return null;
     }
-    
+
     /**
      * <p>setRetries</p>
      *

@@ -43,12 +43,12 @@ public abstract class SIUtils {
      * and at most three digits after the decimal point.
      */
     private static final DecimalFormat s_oneDigitAfterDecimal = new DecimalFormat("0.0##");
-    
+
     /**
      * Print no digits after the decimal point (heh, nor a decimal point).
      */
     private static final DecimalFormat s_noDigitsAfterDecimal = new DecimalFormat("0");
-    
+
     /**
      * Method used to convert an integer bits-per-second value to a more
      * readable vale using commonly recognized abbreviation for network
@@ -65,7 +65,7 @@ public abstract class SIUtils {
         DecimalFormat formatter;
         double displaySpeed;
         String units;
-        
+
         if (ifSpeed >= 1000000000L) {
             if ((ifSpeed % 1000000000L) == 0) {
                 formatter = s_noDigitsAfterDecimal;
@@ -95,7 +95,7 @@ public abstract class SIUtils {
             displaySpeed = (double) ifSpeed;
             units = "bps";
         }
-        
+
         return formatter.format(displaySpeed) + " " + units;
     }
 }

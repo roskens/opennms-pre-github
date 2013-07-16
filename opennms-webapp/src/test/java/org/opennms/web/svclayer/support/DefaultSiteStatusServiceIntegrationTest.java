@@ -159,7 +159,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         m_eventDao.save(outageEvent);
         m_eventDao.flush();
 
-        OnmsOutage outage = new OnmsOutage(new Date(), outageEvent, monSvc); 
+        OnmsOutage outage = new OnmsOutage(new Date(), outageEvent, monSvc);
         m_outageDao.save(outage);
         m_outageDao.flush();
     }
@@ -177,7 +177,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
         AggregateStatusDefinition definition;
         definition = new AggregateStatusDefinition("Routers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Routers") })));
-        defs.add(definition);        
+        defs.add(definition);
         definition = new AggregateStatusDefinition("Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Switches") })));
         defs.add(definition);
         definition = new AggregateStatusDefinition("Servers", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("Servers") })));
@@ -185,7 +185,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
 
         //        AggregateStatusDefinition definition;
         //        definition = new AggregateStatusDefinition("LB/Router", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_ROUTER"), new OnmsCategory("DEV_LOADBAL") })));
-        //        defs.add(definition);        
+        //        defs.add(definition);
         //        definition = new AggregateStatusDefinition("Access Controller", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_AC") })));
         //        defs.add(definition);
         //        definition = new AggregateStatusDefinition("Switches", new HashSet<OnmsCategory>(Arrays.asList(new OnmsCategory[]{ new OnmsCategory("DEV_SWITCH") })));
@@ -216,7 +216,7 @@ public class DefaultSiteStatusServiceIntegrationTest implements InitializingBean
         //        status = aggrStati.get(3);
         //        assertEquals(status.getStatus(), AggregateStatus.NODES_ARE_DOWN);
         //        assertEquals(new Integer(6), status.getDownEntityCount());
-        //        
+        //
         //        status = aggrStati.get(4);
         //        assertEquals(status.getStatus(), AggregateStatus.ALL_NODES_UP);
 

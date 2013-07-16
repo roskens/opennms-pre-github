@@ -40,17 +40,17 @@ import java.util.concurrent.TimeUnit;
  * @author brozow
  */
 public class Main {
-    
+
     public static void main(String[] args) throws Exception {
         System.exit(new Main().execute(args));
     }
-    
+
     public int execute(String[] args) throws Exception {
         if (args.length < 1) {
             System.err.println("java -jar jna-jicmp-VERSION.jar <hostname or ip address>");
             return 1;
         }
-        
+
         InetAddress addr = InetAddress.getByName(args[0]);
 
         PingReplyMetric metric;
@@ -64,10 +64,10 @@ public class Main {
             System.err.println("Unrecognized address type " + addr.getClass());
             return 1;
         }
-        
+
         metric.await();
         System.err.println(metric.getSummary(TimeUnit.MILLISECONDS));
-        
+
         return 0;
     }
 

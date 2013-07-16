@@ -44,11 +44,11 @@ import org.opennms.netmgt.provision.detector.simple.response.MultilineOrientedRe
  * @version $Id: $
  */
 public class MultiLineDecoder extends CumulativeProtocolDecoder {
-    
+
     private final String m_multilineIndicator;
     private Charset m_charset;
     protected String CURRENT_RESPONSE = "CURRENT_RESPONSE";
-    
+
     /**
      * <p>Constructor for MultiLineDecoder.</p>
      *
@@ -59,7 +59,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
         setCharset(charset);
         m_multilineIndicator = multilineIndicator;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected boolean doDecode(final IoSession session, final IoBuffer in, final ProtocolDecoderOutput out) throws Exception {
@@ -70,12 +70,12 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
         }
         // Remember the initial position.
         final int start = in.position();
-        
+
         // Now find the first CRLF in the buffer.
         byte previous = 0;
         while (in.hasRemaining()) {
             final byte current = in.get();
-            
+
             if (previous == '\r' && current == '\n') {
                 // Remember the current position and limit.
                 final int position = in.position();
@@ -88,7 +88,7 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
 
                     // If the multiline indicator is on this line then add the line to
                     // the response object and continue to process the next line
-                    if(checkIndicator(in.slice())) { 
+                    if(checkIndicator(in.slice())) {
                         response.addLine(in.getString(getCharset().newDecoder()));
                     } else {
                         // Otherwise, add the current line and then submit the response
@@ -112,18 +112,18 @@ public class MultiLineDecoder extends CumulativeProtocolDecoder {
                 // return true until there are no more lines in the
                 // buffer.
                 return true;
-                
+
                 }
-            
+
             previous = current;
         }
         // Could not find CRLF in the buffer. Reset the initial
         // position to the one we recorded above.
         in.position(start);
-        
+
         return false;
     }
-    
+
     /**
      * <p>checkIndicator</p>
      *

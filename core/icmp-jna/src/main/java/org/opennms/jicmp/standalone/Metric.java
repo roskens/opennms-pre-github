@@ -36,13 +36,13 @@ import java.util.concurrent.TimeUnit;
  * @author brozow
  */
 public class Metric {
-    
+
     private int m_count = 0;
     private double m_sumOfSquaresOfDifferences = 0.0;
     private double m_average = 0.0;
     private long m_min = Long.MAX_VALUE;
     private long m_max = Long.MIN_VALUE;
-  
+
     /**
      * @return the count
      */
@@ -98,12 +98,12 @@ public class Metric {
     }
 
     public String getSummary(TimeUnit unit) {
-        double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit); 
+        double nanosPerUnit = TimeUnit.NANOSECONDS.convert(1, unit);
         return String.format("cnt/min/avg/max/stddev = %d/%.3f/%.3f/%.3f/%.3f",
                 getCount(),
-                getMinimum()/nanosPerUnit, 
+                getMinimum()/nanosPerUnit,
                 getAverage()/nanosPerUnit,
-                getMaximum()/nanosPerUnit, 
+                getMaximum()/nanosPerUnit,
                 getStandardDeviation()/nanosPerUnit);
     }
 

@@ -57,7 +57,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
     public Collection<Category> getCategories() {
         return m_categoryConfigDao.findAll();
     }
-    
+
     /**
      * <p>getCategoriesList</p>
      *
@@ -72,7 +72,7 @@ public class DefaultCategoryConfigService implements CategoryConfigService {
             categories.add(i.next().getLabel());
         }
         return categories;
-        
+
     }
 
     /**

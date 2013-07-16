@@ -74,7 +74,7 @@ public class OnmsServiceCategoryRequisition {
     public String getName() {
         return m_category.getName();
     }
-    
-    
+
+
 
 }

@@ -37,5 +37,5 @@ import org.opennms.netmgt.daemon.BaseOnmsMBean;
  * @version $Id: $
  */
 public interface StatsdMBean extends BaseOnmsMBean {
-    
+
 }

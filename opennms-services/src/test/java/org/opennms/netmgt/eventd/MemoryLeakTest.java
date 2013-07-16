@@ -44,7 +44,7 @@ import org.opennms.netmgt.utils.TcpEventProxy;
  * @author brozow
  */
 public class MemoryLeakTest {
-    
+
     private static final long MINS = 8*60*60*1000L;
 
     @Test
@@ -52,7 +52,7 @@ public class MemoryLeakTest {
     public void testMemory() throws Exception {
         EventProxy proxy = new TcpEventProxy(new InetSocketAddress("127.0.0.1", OpenNMSTestCase.PROXY_PORT));
         double eventRate = 20.0 / 1000.0;
-        
+
         long start = System.currentTimeMillis();
         long count = 0;
         while(System.currentTimeMillis() - start < MINS) {
@@ -65,21 +65,21 @@ public class MemoryLeakTest {
             Thread.sleep(30);
             System.err.println(String.format("Expected Rate: %f Actual Rate: %f Events Sent: %d", eventRate, actualRate, count));
         }
-        
+
     }
 
     private void sendEvent(EventProxy proxy, long count) throws Exception {
         EventBuilder bldr = new EventBuilder("uei.opennms.org/internal/authentication/successfulLogin", "MemoryLeakTest");
         bldr.addParam("user", "brozow");
-        
+
         proxy.send(bldr.getEvent());
 
         long free = Runtime.getRuntime().freeMemory();
         long max = Runtime.getRuntime().maxMemory();
-        
+
         double pct = ((double)free)/((double)max);
         System.err.println("% Free Memory is "+pct);
-        
+
         if (pct < 0.01) {
             throw new IllegalStateException("Memory Used up!");
         }

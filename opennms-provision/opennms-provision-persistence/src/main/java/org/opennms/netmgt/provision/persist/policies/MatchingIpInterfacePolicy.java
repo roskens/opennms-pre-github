@@ -50,11 +50,11 @@ import org.springframework.stereotype.Component;
 @Policy("Match IP Interface")
 public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> implements IpInterfacePolicy {
     private static final Logger LOG = LoggerFactory.getLogger(MatchingIpInterfacePolicy.class);
-    
-    
+
+
 
     public static enum Action { MANAGE, UNMANAGE, DO_NOT_PERSIST, ENABLE_SNMP_POLL,DISABLE_SNMP_POLL, ENABLE_COLLECTION, DISABLE_COLLECTION };
-    
+
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
@@ -66,7 +66,7 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
     public String getAction() {
         return m_action.toString();
     }
-    
+
     /**
      * <p>setAction</p>
      *
@@ -89,13 +89,13 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
             m_action = Action.DO_NOT_PERSIST;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public OnmsIpInterface act(OnmsIpInterface iface) {
         OnmsSnmpInterface snmpiface = iface.getSnmpInterface();
         switch (m_action) {
-        case DO_NOT_PERSIST: 
+        case DO_NOT_PERSIST:
             LOG.debug("NOT Persisting {} according to policy", iface);
             return null;
         case MANAGE:
@@ -127,10 +127,10 @@ public class MatchingIpInterfacePolicy extends BasePolicy<OnmsIpInterface> imple
             iface.setSnmpInterface(snmpiface);
             return iface;
         default:
-            return iface;    
+            return iface;
         }
     }
-    
+
     /**
      * <p>setIpAddress</p>
      *

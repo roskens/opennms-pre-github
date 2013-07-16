@@ -44,7 +44,7 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
     public OnmsGroupList() {
         super();
     }
-    
+
     public OnmsGroupList(final Collection<? extends OnmsGroup> c) {
         super(c);
     }
@@ -53,13 +53,13 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
     public List<OnmsGroup> getGroups() {
         return this;
     }
-    
+
     public void setGroups(final List<OnmsGroup> groups) {
         if (groups == this) return;
         clear();
         addAll(groups);
     }
-    
+
     @XmlAttribute(name="count")
     public int getCount() {
         return this.size();
@@ -73,7 +73,7 @@ public class OnmsGroupList extends LinkedList<OnmsGroup> {
     public int getTotalCount() {
         return m_totalCount;
     }
-    
+
     /**
      * <p>setTotalCount</p>
      *

@@ -54,11 +54,11 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
      */
     public IpInterfaceDaoHibernate() {
         super(OnmsIpInterface.class);
-        
-        
-        m_findByServiceTypeQuery = System.getProperty("org.opennms.dao.ipinterface.findByServiceType", 
+
+
+        m_findByServiceTypeQuery = System.getProperty("org.opennms.dao.ipinterface.findByServiceType",
                                                       "select distinct ipInterface from OnmsIpInterface as ipInterface join ipInterface.monitoredServices as monSvc where monSvc.serviceType.name = ?");
-        
+
     }
 
     /** {@inheritDoc} */
@@ -72,7 +72,7 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
     public List<OnmsIpInterface> findByIpAddress(String ipAddress) {
         return find("from OnmsIpInterface ipInterface where ipInterface.ipAddress = ?", ipAddress);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsIpInterface> findByNodeId(Integer nodeId) {
@@ -83,26 +83,26 @@ public class IpInterfaceDaoHibernate extends AbstractDaoHibernate<OnmsIpInterfac
     /** {@inheritDoc} */
     @Override
     public OnmsIpInterface findByNodeIdAndIpAddress(Integer nodeId, String ipAddress) {
-        return findUnique("select ipInterface from OnmsIpInterface as ipInterface where ipInterface.node.id = ? and ipInterface.ipAddress = ?", 
-                          nodeId, 
+        return findUnique("select ipInterface from OnmsIpInterface as ipInterface where ipInterface.node.id = ? and ipInterface.ipAddress = ?",
+                          nodeId,
                           ipAddress);
-        
+
     }
 
     /** {@inheritDoc} */
     @Override
     public OnmsIpInterface findByForeignKeyAndIpAddress(String foreignSource, String foreignId, String ipAddress) {
-        return findUnique("select ipInterface from OnmsIpInterface as ipInterface join ipInterface.node as node where node.foreignSource = ? and node.foreignId = ? and ipInterface.ipAddress = ?", 
-                          foreignSource, 
-                          foreignId, 
+        return findUnique("select ipInterface from OnmsIpInterface as ipInterface join ipInterface.node as node where node.foreignSource = ? and node.foreignId = ? and ipInterface.ipAddress = ?",
+                          foreignSource,
+                          foreignId,
                           ipAddress);
-        
+
     }
 
     /** {@inheritDoc} */
     @Override
     public List<OnmsIpInterface> findByServiceType(String svcName) {
-        
+
         return find(m_findByServiceTypeQuery, svcName);
     }
 

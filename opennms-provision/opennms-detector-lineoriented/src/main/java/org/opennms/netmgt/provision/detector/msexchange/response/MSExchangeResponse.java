@@ -36,15 +36,15 @@ package org.opennms.netmgt.provision.detector.msexchange.response;
  * @version $Id: $
  */
 public class MSExchangeResponse {
-    
+
     private String m_pop3Response;
     private String m_imapResponse;
-    
+
     /**
      * <p>Constructor for MSExchangeResponse.</p>
      */
     public MSExchangeResponse() {}
-    
+
     /**
      * <p>contains</p>
      *

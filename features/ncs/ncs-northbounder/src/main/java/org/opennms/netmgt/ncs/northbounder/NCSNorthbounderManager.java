@@ -35,19 +35,19 @@ import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class NCSNorthbounderManager implements InitializingBean, DisposableBean {
-	
+
 	@Autowired
 	private ServiceRegistry m_serviceRegistry;
 
 	@Autowired
 	private NCSNorthbounderConfigDao m_configDao;
-	
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		NCSNorthbounderConfig config = m_configDao.getConfig();
 
 		NCSNorthbounder northbounder = new NCSNorthbounder(config);
-		
+
 		m_serviceRegistry.register(northbounder, Northbounder.class);
 
 	}

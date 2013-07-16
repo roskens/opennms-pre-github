@@ -63,14 +63,14 @@ public interface CapsdDbSyncer {
      * events most likely exist which refer to the service.
      */
     void syncServices();
-    
+
     /**
      * Synchronize configured services list with the database.
      *
      * @return a {@link java.util.List} object.
      */
     List<String> syncServicesTable();
-    
+
     /**
      * Responsible for syncing up the 'isManaged' field of the ipInterface table
      * and the 'status' field of the ifServices table based on the capsd and
@@ -95,7 +95,7 @@ public interface CapsdDbSyncer {
      *                Thrown if an error occurs while syncing the database.
      */
     void syncManagementState();
-    
+
     /**
      * Responsible for syncing up the 'isPrimarySnmp' field of the ipInterface
      * table based on the capsd and collectd configurations. Note that the
@@ -106,7 +106,7 @@ public interface CapsdDbSyncer {
      *                Thrown if an error occurs while syncing the database.
      */
     void syncSnmpPrimaryState();
-    
+
     /**
      * <p>isInterfaceInDB</p>
      *
@@ -114,7 +114,7 @@ public interface CapsdDbSyncer {
      * @return a boolean.
      */
     boolean isInterfaceInDB(InetAddress ifAddress);
-    
+
     /**
      * <p>isInterfaceInDB</p>
      *
@@ -126,7 +126,7 @@ public interface CapsdDbSyncer {
     boolean isInterfaceInDB(Connection dbConn,
             InetAddress ifAddress) throws SQLException;
 
-    
+
     /**
      * Returns the service ID from the service table that was loaded
      * during class initialization for the specified name.

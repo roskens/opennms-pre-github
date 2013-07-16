@@ -68,9 +68,9 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable(DistributionContext.DAEMON)
 public class SnmpMonitor extends SnmpMonitorStrategy {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(SnmpMonitor.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -271,7 +271,7 @@ public class SnmpMonitor extends SnmpMonitorStrategy {
                 if (result != null) {
                     svcParams.setProperty("observedValue", getStringValue(result));
                     LOG.debug("poll: SNMP poll succeeded, addr={} oid={} value={}", hostAddress, oid, result);
-                    
+
                     if (meetsCriteria(result, operator, operand)) {
                         status = PollStatus.available();
                     } else {

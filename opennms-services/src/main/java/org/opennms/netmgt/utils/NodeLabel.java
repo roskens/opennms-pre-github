@@ -68,9 +68,9 @@ import org.slf4j.LoggerFactory;
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
 public class NodeLabel {
-	
+
 	private final static Logger LOG = LoggerFactory.getLogger(NodeLabel.class);
-	
+
     /**
      * The SQL statement to update the 'nodelabel' and 'nodelabelsource' fields
      * of 'node' table
@@ -236,7 +236,7 @@ public class NodeLabel {
      *            Unique identifier of the node to be updated.
      * @return Object containing label and source values.
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID) throws SQLException {
@@ -263,7 +263,7 @@ public class NodeLabel {
      *            SQL database connection
      * @return object initialized with node label & source flag
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Use a {@link NodeDao#load(Integer)} method call instead
      */
     public static NodeLabel retrieveLabel(int nodeID, Connection dbConnection) throws SQLException {
@@ -314,7 +314,7 @@ public class NodeLabel {
      * @param nodeLabel
      *            Object containing label and source values.
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
      */
     public static void assignLabel(int nodeID, NodeLabel nodeLabel) throws SQLException {
@@ -341,7 +341,7 @@ public class NodeLabel {
      * @param dbConnection
      *            SQL database connection
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Use a {@link NodeDao#update(org.opennms.netmgt.model.OnmsNode)} method call instead
      */
     public static void assignLabel(int nodeID, NodeLabel nodeLabel, Connection dbConnection) throws SQLException {
@@ -396,7 +396,7 @@ public class NodeLabel {
      *            Unique identifier of the node to be updated.
      * @return NodeLabel Object containing label and source values
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID) throws SQLException {
@@ -436,7 +436,7 @@ public class NodeLabel {
      * @return NodeLabel Object containing label and source values or null if
      *         node does not have a primary interface.
      * @throws java.sql.SQLException if any.
-     * 
+     *
      * @deprecated Update this to use modern DAO methods instead of raw SQL
      */
     public static NodeLabel computeLabel(int nodeID, Connection dbConnection) throws SQLException {
@@ -466,7 +466,7 @@ public class NodeLabel {
                 }
 
                 LOG.debug("NodeLabel.computeLabel: returning NetBIOS name as nodeLabel: {}", netbiosName);
-                    
+
                 NodeLabel nodeLabel = new NodeLabel(netbiosName, SOURCE_NETBIOS);
                 return nodeLabel;
             }
@@ -595,14 +595,14 @@ public class NodeLabel {
     /**
      * Utility method for loading the address and host name lists from a result
      * set retrieved from the 'ipInterface' table of the database.
-     * 
+     *
      * @param rs
      *            Database result set
      * @param ipv4AddrList
      *            List of InetAddress objects representing the node's interfaces
      * @param ipHostNameList
      *            List of IP host names associated with the node's interfaces.
-     * 
+     *
      * @throws SQLException
      *             if there is any problem processing the information in the
      *             result set.
@@ -633,13 +633,13 @@ public class NodeLabel {
     /**
      * Returns the primary interface from a list of addresses based on the
      * specified selection method.
-     * 
+     *
      * @param ipv4AddrList
      *            List of addresses from which to select the primary interface.
      * @param method
      *            String (either "min" or "max") which indicates how the primary
      *            interface is to be selected.
-     * 
+     *
      * @return The InetAddress object from the address list which has been
      *         selected as the primary interface.
      */

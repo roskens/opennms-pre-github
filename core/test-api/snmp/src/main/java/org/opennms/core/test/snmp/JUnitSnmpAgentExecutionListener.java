@@ -61,9 +61,9 @@ import org.springframework.test.context.support.AbstractTestExecutionListener;
  * and uses attributes on it to launch a mock SNMP agent for use during unit testing.
  */
 public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(JUnitSnmpAgentExecutionListener.class);
-	
+
     private static final Boolean useMockSnmpStrategyDefault = false;
 
     private static final String USE_STRATEGY_PROPERTY = "org.opennms.core.test-api.snmp.useMockSnmpStrategy";
@@ -158,14 +158,14 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
              * by including the <code>classpath:/META-INF/opennms/applicationContext-proxy-snmp.xml</code>
              * Spring context, you probably won't need to deal with this. It will override the
              * SnmpPeerFactory with the correct values.
-             * 
+             *
              * Linux: 127.0.0.1
              * Mac OS: primary external interface
              */
             host = InetAddressUtils.getLocalHostAddressAsString();
             //host = "127.0.0.1";
         }
-        
+
         final ResourceLoader loader = new DefaultResourceLoader();
         final Resource resource = loader.getResource(config.resource());
 
@@ -173,7 +173,7 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
     	final InetAddress hostAddress = addr(host);
         final int port = config.port();
         final SnmpAgentAddress agentAddress = new SnmpAgentAddress(hostAddress, port);
-    	
+
     	final InetAddress localHost = InetAddress.getLocalHost();
     	final SnmpAgentConfigProxyMapper mapper = SnmpAgentConfigProxyMapper.getInstance();
 
@@ -261,7 +261,7 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
         public void resetData() {
             MockSnmpStrategy.resetData();
         }
-        
+
         @Override
         public String toString() {
             return "MockSnmpStrategyDataProvider[]";
@@ -298,7 +298,7 @@ public class JUnitSnmpAgentExecutionListener extends AbstractTestExecutionListen
             }
             m_agents.clear();
         }
-        
+
         @Override
         public String toString() {
             return "MockSnmpAgentDataProvider[" + (m_agents == null? "" : (m_agents.size() + " agents")) + "]";

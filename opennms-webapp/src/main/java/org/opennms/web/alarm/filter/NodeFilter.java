@@ -64,11 +64,11 @@ public class NodeFilter extends EqualsFilter<Integer> {
     @Override
     public String getTextDescription() {
         String nodeName = NetworkElementFactory.getInstance(m_servletContext).getNodeLabel(getValue());
-        
+
         if(nodeName == null) {
             nodeName = Integer.toString(getValue());
         }
-            
+
         return (TYPE + "=" + nodeName);
     }
 

@@ -52,29 +52,29 @@ import org.slf4j.LoggerFactory;
  */
 public class OutageAnticipator implements EventListener {
     private static final Logger LOG = LoggerFactory.getLogger(OutageAnticipator.class);
-    
+
     private final MockDatabase m_db;
     private int m_expectedOpenCount;
     private int m_expectedOutageCount;
-    
+
     private final Map<EventWrapper, List<Outage>> m_pendingOpens = new HashMap<EventWrapper, List<Outage>>();
     private final Map<EventWrapper, List<Outage>> m_pendingCloses = new HashMap<EventWrapper, List<Outage>>();
     private final Set<Outage> m_expectedOutages = new HashSet<Outage>();
-    
+
     public OutageAnticipator(MockDatabase db) {
         m_db = db;
         reset();
     }
 
     /**
-     * 
+     *
      */
     public synchronized void reset() {
         m_expectedOpenCount = m_db.countOpenOutages();
         m_expectedOutageCount = m_db.countOutages();
         m_expectedOutages.clear();
         m_expectedOutages.addAll(m_db.getOutages());
-       
+
     }
 
     /**
@@ -130,7 +130,7 @@ public class OutageAnticipator implements EventListener {
         }
         list.add(outage);
     }
-    
+
     protected synchronized void removeFromOutageList(Map<EventWrapper, List<Outage>> outageMap, Event outageEvent, Outage outage) {
         EventWrapper w = new EventWrapper(outageEvent);
         List<Outage> list = outageMap.get(w);
@@ -138,11 +138,11 @@ public class OutageAnticipator implements EventListener {
             return;
         }
         list.remove(outage);
-        
+
     }
 
 
-    
+
     public synchronized void deanticipateOutageClosed(MockElement element, final Event regainService) {
         MockVisitor outageCounter = new MockVisitorAdapter() {
             @Override
@@ -150,7 +150,7 @@ public class OutageAnticipator implements EventListener {
                 if (anticipatesClose(svc)) {
                     // Decrease the open ones.. leave the total the same
                     m_expectedOpenCount++;
-                    
+
                     for (Outage outage : m_db.getOpenOutages(svc)) {
                         MockUtil.println("Deanticipating outage closed: "+outage);
 
@@ -160,7 +160,7 @@ public class OutageAnticipator implements EventListener {
             }
         };
         element.visit(outageCounter);
-        
+
     }
 
     public synchronized void anticipateOutageClosed(MockElement element, final Event regainService) {
@@ -170,7 +170,7 @@ public class OutageAnticipator implements EventListener {
                 if ((m_db.hasOpenOutage(svc) || anticipatesOpen(svc)) && !anticipatesClose(svc)) {
                     // Decrease the open ones.. leave the total the same
                     m_expectedOpenCount--;
-                    
+
                     for (Outage outage : m_db.getOpenOutages(svc)) {
                         MockUtil.println("Anticipating outage closed: "+outage);
 
@@ -181,7 +181,7 @@ public class OutageAnticipator implements EventListener {
         };
         element.visit(outageCounter);
     }
-    
+
     /**
      * @param svc
      * @return
@@ -193,15 +193,15 @@ public class OutageAnticipator implements EventListener {
     public int getExpectedOpens() {
         return m_expectedOpenCount;
     }
-    
+
     public int getActualOpens() {
         return m_db.countOpenOutages();
     }
-    
+
     public int getExpectedOutages() {
         return m_expectedOutageCount;
     }
-    
+
     public int getActualOutages() {
         return m_db.countOutages();
     }
@@ -209,15 +209,15 @@ public class OutageAnticipator implements EventListener {
     public synchronized boolean checkAnticipated() {
         int openCount = m_db.countOpenOutages();
         int outageCount = m_db.countOutages();
-        
+
         if (openCount != m_expectedOpenCount || outageCount != m_expectedOutageCount) {
             return false;
-        } 
-        
+        }
+
         if (m_pendingOpens.size() != 0 || m_pendingCloses.size() != 0) {
             return false;
         }
-        
+
         Set<Outage> currentOutages = new HashSet<Outage>(m_db.getOutages());
         if (!m_expectedOutages.equals(currentOutages)) {
             for (Outage expectedOutage : m_expectedOutages) {
@@ -253,7 +253,7 @@ public class OutageAnticipator implements EventListener {
             m_expectedOutages.add(outage);
         }
         clearOutageList(m_pendingOpens, e);
-        
+
         for (Outage outage : getOutageList(m_pendingCloses, e)) {
             closeExpectedOutages(e, outage);
         }
@@ -286,7 +286,7 @@ public class OutageAnticipator implements EventListener {
         if (pending.containsKey(w)) {
             return pending.get(w);
         }
-        
+
         return new ArrayList<Outage>(0);
     }
 
@@ -296,6 +296,6 @@ public class OutageAnticipator implements EventListener {
      * @param nodeId2
      */
     public void anticipateReparent(String ipAddr, int nodeId, int nodeId2) {
-        
+
     }
 }

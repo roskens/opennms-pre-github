@@ -107,7 +107,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
     private String m_testHostName;
 
-    private final static String TEST_NODE_LABEL = "TestNode"; 
+    private final static String TEST_NODE_LABEL = "TestNode";
 
     private CollectionSpecification m_collectionSpecification;
 
@@ -172,7 +172,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
 
     @Test
     @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", 
+            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml",
             datacollectionType = "snmp",
             anticipateFiles = {
                     "1",
@@ -233,7 +233,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-persistTest-config.xml", 
+            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-persistTest-config.xml",
             datacollectionType = "snmp",
             anticipateFiles = {
                     "1",
@@ -291,7 +291,7 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml", 
+            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-config.xml",
             datacollectionType = "snmp",
             anticipateRrds = { "test" }
     )
@@ -326,9 +326,9 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-            datacollectionConfig="/org/opennms/netmgt/config/datacollection-brocade-config.xml", 
+            datacollectionConfig="/org/opennms/netmgt/config/datacollection-brocade-config.xml",
             datacollectionType="snmp",
-            anticipateRrds={ 
+            anticipateRrds={
                     "1/brocadeFCPortIndex/1/swFCPortTxWords",
                     "1/brocadeFCPortIndex/1/swFCPortRxWords",
                     "1/brocadeFCPortIndex/2/swFCPortTxWords",
@@ -345,8 +345,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
                     "1/brocadeFCPortIndex/7/swFCPortRxWords",
                     "1/brocadeFCPortIndex/8/swFCPortTxWords",
                     "1/brocadeFCPortIndex/8/swFCPortRxWords"
-            }, 
-            anticipateFiles={ 
+            },
+            anticipateFiles={
                     "1",
                     "1/brocadeFCPortIndex",
                     "1/brocadeFCPortIndex/1/strings.properties",
@@ -398,9 +398,9 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
     @Test
     @Transactional
     @JUnitCollector(
-            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-no-ifaces-config.xml", 
+            datacollectionConfig = "/org/opennms/netmgt/config/datacollection-brocade-no-ifaces-config.xml",
             datacollectionType = "snmp",
-            anticipateRrds={ 
+            anticipateRrds={
                     "1/brocadeFCPortIndex/1/swFCPortTxWords",
                     "1/brocadeFCPortIndex/1/swFCPortRxWords",
                     "1/brocadeFCPortIndex/2/swFCPortTxWords",
@@ -417,8 +417,8 @@ public class SnmpCollectorTest implements InitializingBean, TestContextAware {
                     "1/brocadeFCPortIndex/7/swFCPortRxWords",
                     "1/brocadeFCPortIndex/8/swFCPortTxWords",
                     "1/brocadeFCPortIndex/8/swFCPortRxWords"
-            }, 
-            anticipateFiles={ 
+            },
+            anticipateFiles={
                     "1",
                     "1/brocadeFCPortIndex",
                     "1/brocadeFCPortIndex/1/strings.properties",

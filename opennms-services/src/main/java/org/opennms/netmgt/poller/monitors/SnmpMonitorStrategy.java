@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpMonitorStrategy.class);
 
     /**
@@ -65,7 +65,7 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
     protected static final String NOT_EQUAL = "!=";
     /** Constant <code>MATCHES="~"</code> */
     protected static final String MATCHES = "~";
-    
+
     boolean hex = false;
     /*
      * TODO: Use it or loose it.
@@ -76,7 +76,7 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
     /** {@inheritDoc} */
     @Override
     abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);
-    
+
 
     public String getStringValue(SnmpValue result) {
     	if (hex)
@@ -95,17 +95,17 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
     public boolean meetsCriteria(SnmpValue result, String operator, String operand) {
 
         Boolean retVal = null;
-        
+
         retVal = isCriteriaNull(result, operator, operand);
-        
+
         if (retVal == null) {
         	String value = getStringValue(result);
             retVal = checkStringCriteria(operator, operand, value);
-            
+
             if (retVal == null) {
-                
+
                 BigInteger val = BigInteger.valueOf(result.toLong());
-                
+
                 BigInteger intOperand = new BigInteger(operand);
                 if (LESS_THAN.equals(operator)) {
                     return val.compareTo(intOperand) < 0;
@@ -122,7 +122,7 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
         } else if (retVal.booleanValue()) {
             return true;
         }
-        
+
         return retVal.booleanValue();
     }
 
@@ -135,19 +135,19 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
      */
     private Boolean checkStringCriteria(final String operator, String operand, String value) {
         Boolean retVal = null;
-        
+
         if (value == null) {
             value = "";
         } else if (value.startsWith(".")) {
             value = value.substring(1);
         }
-        
+
         // Bug 2178 -- if this is a regex match, a leading "." in the operand
         // should not be stripped
         if (operand.startsWith(".") && !MATCHES.equals(operator)) {
             operand = operand.substring(1);
         }
-        
+
         if (EQUALS.equals(operator))
             retVal = Boolean.valueOf(operand.equals(value));
         else if (NOT_EQUAL.equals(operator))
@@ -165,7 +165,7 @@ abstract public class SnmpMonitorStrategy extends AbstractServiceMonitor {
      * @return
      */
     private Boolean isCriteriaNull(Object result, String operator, String operand) {
-        
+
         if (result == null)
             return Boolean.FALSE;
         if (operator == null || operand == null) {

@@ -98,7 +98,7 @@ public class FieldSetListBox extends AbstractFieldSet implements FieldSet {
 	/**
 	 * Takes a ArraList of Strings as options. Options will be shown at the
 	 * list.
-	 * 
+	 *
 	 * @param ArrayList
 	 *            <String> options
 	 */

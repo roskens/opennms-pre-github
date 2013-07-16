@@ -35,9 +35,9 @@ public class SpringLayoutOperation extends LayoutOperation {
 
 	public SpringLayoutOperation() {
 		super(new LayoutFactory() {
-		    
+
 		    private final SpringLayoutAlgorithm m_layoutAlgorithm = new SpringLayoutAlgorithm();
-		    
+
 			@Override
 			public LayoutAlgorithm getLayoutAlgorithm() {
 				return m_layoutAlgorithm;

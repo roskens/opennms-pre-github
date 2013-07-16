@@ -42,7 +42,7 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class DominoIIOPDetector extends LineOrientedDetector {
-    
+
     /**
      * Default port of where to find the IOR via HTTP
      */
@@ -54,9 +54,9 @@ public class DominoIIOPDetector extends LineOrientedDetector {
     private static final int DEFAULT_PORT = 63148;
 
     private static final String DEFAULT_SERVICE_NAME = "DominoIIOP";
-    
+
     private int m_iorPort = DEFAULT_IORPORT;
-    
+
     /**
      * Default constructor
      */
@@ -80,9 +80,9 @@ public class DominoIIOPDetector extends LineOrientedDetector {
         // Empty on init method, everything for this detector is done in the Client
         // It does a preconnect to check for the diiop_ior.txt if that file is found it will
         // attempt to connect to the port that you set it to connect or the default port 63148
-        
+
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected DominoIIOPClient getClient() {
@@ -108,7 +108,7 @@ public class DominoIIOPDetector extends LineOrientedDetector {
     public int getIorPort() {
         return m_iorPort;
     }
-    
-    
-    
+
+
+
 }

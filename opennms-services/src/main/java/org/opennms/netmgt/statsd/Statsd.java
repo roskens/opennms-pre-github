@@ -63,7 +63,7 @@ import org.springframework.util.Assert;
  */
 @EventListener(name="OpenNMS:Statsd", logPrefix="statsd")
 public class Statsd implements SpringServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Statsd.class);
 
     private static final String LOG4J_CATEGORY = "statsd";
@@ -85,7 +85,7 @@ public class Statsd implements SpringServiceDaemon {
      */
     @EventHandler(uei=EventConstants.RELOAD_DAEMON_CONFIG_UEI)
     public void handleReloadConfigEvent(Event e) {
-        
+
         if (isReloadConfigEventTarget(e)) {
             LOG.info("handleReloadConfigEvent: reloading configuration...");
             EventBuilder ebldr = null;
@@ -114,12 +114,12 @@ public class Statsd implements SpringServiceDaemon {
             }
             LOG.debug("handleReloadConfigEvent: lock released.");
         }
-        
+
     }
-    
+
     private boolean isReloadConfigEventTarget(Event event) {
         boolean isTarget = false;
-        
+
         List<Parm> parmCollection = event.getParmCollection();
 
         for (Parm parm : parmCollection) {
@@ -128,7 +128,7 @@ public class Statsd implements SpringServiceDaemon {
                 break;
             }
         }
-        
+
         LOG.debug("isReloadConfigEventTarget: Statsd was target of reload event: {}", isTarget);
         return isTarget;
     }
@@ -173,19 +173,19 @@ public class Statsd implements SpringServiceDaemon {
      * @throws java.lang.Exception if any.
      */
     public void unscheduleReports() throws Exception {
-        
+
         synchronized (m_scheduler) {
             for (ReportDefinition reportDef : m_reportDefinitionBuilder.buildReportDefinitions()) {
                 m_scheduler.deleteJob(reportDef.getDescription(), Scheduler.DEFAULT_GROUP);
             }
         }
     }
-    
+
     private void scheduleReport(ReportDefinition reportDef) throws ClassNotFoundException, NoSuchMethodException, ParseException, SchedulerException, Exception {
-        
+
         //this is most likely reentrant since the method is private and called from start via plural version.
         synchronized (m_scheduler) {
-            
+
             MethodInvokingJobDetailFactoryBean jobFactory = new MethodInvokingJobDetailFactoryBean();
             jobFactory.setTargetObject(this);
             jobFactory.setTargetMethod("runReport");
@@ -194,16 +194,16 @@ public class Statsd implements SpringServiceDaemon {
             jobFactory.setBeanName(reportDef.getDescription());
             jobFactory.afterPropertiesSet();
             JobDetail jobDetail = (JobDetail) jobFactory.getObject();
-            
+
             CronTriggerBean cronReportTrigger = new CronTriggerBean();
             cronReportTrigger.setBeanName(reportDef.getDescription());
             cronReportTrigger.setJobDetail(jobDetail);
             cronReportTrigger.setCronExpression(reportDef.getCronExpression());
             cronReportTrigger.afterPropertiesSet();
-            
+
             m_scheduler.scheduleJob(cronReportTrigger.getJobDetail(), cronReportTrigger);
             LOG.debug("Schedule report {}", cronReportTrigger);
-            
+
         }
     }
 
@@ -221,21 +221,21 @@ public class Statsd implements SpringServiceDaemon {
             LOG.error("Could not create a report instance for report definition {}", reportDef, t);
             throw t;
         }
-        
+
         getTransactionTemplate().execute(new TransactionCallbackWithoutResult() {
             @Override
             public void doInTransactionWithoutResult(TransactionStatus status) {
                 LOG.debug("Starting report {}", report);
                 report.walk();
                 LOG.debug("Completed report {}", report);
-                
+
                 m_reportPersister.persist(report);
                 LOG.debug("Report {} persisted", report);
             }
         });
     }
 
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -321,7 +321,7 @@ public class Statsd implements SpringServiceDaemon {
     public void setTransactionTemplate(TransactionTemplate transactionTemplate) {
         m_transactionTemplate = transactionTemplate;
     }
-    
+
     /**
      * <p>getReportPersister</p>
      *

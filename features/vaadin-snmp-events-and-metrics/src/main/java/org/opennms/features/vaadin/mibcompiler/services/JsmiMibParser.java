@@ -76,8 +76,8 @@ import org.opennms.netmgt.xml.eventconf.Varbindsdecode;
 
 /**
  * JSMIParser implementation of the interface MibParser.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class JsmiMibParser implements MibParser, Serializable {
@@ -423,7 +423,7 @@ public class JsmiMibParser implements MibParser, Serializable {
      * <p>This should be consistent with NumericAttributeType and StringAttributeType.</p>
      * <p>For this reason the valid types are: counter, gauge, timeticks, integer, octetstring, string.</p>
      * <p>Any derivative is also valid, for example: Counter32, Integer64, etc...</p>
-     * 
+     *
      * @param type the type
      * @return the type
      */
@@ -468,7 +468,7 @@ public class JsmiMibParser implements MibParser, Serializable {
 
     /*
      * Event processing methods
-     * 
+     *
      */
 
     /**
@@ -662,17 +662,17 @@ public class JsmiMibParser implements MibParser, Serializable {
      */
     private String getTrapEnterprise(Notification trap) {
         String trapOid = getMatcherForOid(getTrapOid(trap)).group(1);
-        
+
         /* RFC3584 sec 3.2 (1) bullet 2 sub-bullet 1 states:
-         * 
+         *
          * "If the next-to-last sub-identifier of the snmpTrapOID value
          * is zero, then the SNMPv1 enterprise SHALL be the SNMPv2
          * snmpTrapOID value with the last 2 sub-identifiers removed..."
-         * 
+         *
          * Issue SPC-592 boils down to the fact that we were not doing the above.
-         * 
+         *
          */
-        
+
         if (trapOid.endsWith(".0")) {
             trapOid = trapOid.substring(0, trapOid.length() - 2);
         }

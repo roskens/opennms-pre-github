@@ -72,10 +72,10 @@ import org.springframework.core.style.ToStringCreator;
 @Filter(name=FilterManager.AUTH_FILTER_NAME, condition="exists (select distinct x.nodeid from node x join category_node cn on x.nodeid = cn.nodeid join category_group cg on cn.categoryId = cg.categoryId where x.nodeid = nodeid and cg.groupId in (:userGroups))")
 public class OnmsAlarm implements Acknowledgeable, Serializable {
     private static final long serialVersionUID = 7275548439687562161L;
-    
+
     /** Constant <code>PROBLEM_TYPE=1</code> */
     public static final int PROBLEM_TYPE = 1;
-    
+
     /** Constant <code>RESOLUTION_TYPE=2</code> */
     public static final int RESOLUTION_TYPE = 2;
 
@@ -114,13 +114,13 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
 
     /** persistent field */
     private Date m_firstEventTime;
-    
+
     /** persistent field */
     private Date m_lastEventTime;
 
     /** persistent field */
     private Date m_firstAutomationTime;
-    
+
     /** persistent field */
     private Date m_lastAutomationTime;
 
@@ -135,7 +135,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
 
     /** nullable persistent field */
     private String m_tTicketId;
-    
+
     /** nullable persistent field */
     private TroubleTicketState m_tTicketState;
 
@@ -162,16 +162,16 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
 
     /** persistent field */
     private OnmsEvent m_lastEvent;
-    
+
     /** persistent field */
     private String m_eventParms;
 
     /** persistent field */
     private String m_managedObjectInstance;
-    
+
     /** persistent field */
     private String m_managedObjectType;
-    
+
     /** persistent field */
     private String m_applicationDN;
 
@@ -182,13 +182,13 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     private String m_qosAlarmState;
 
     private int m_x733ProbableCause = 0;
-    
+
     private Map<String, String> m_details;
 
     private OnmsMemo m_stickyMemo;
-    
+
     private OnmsReductionKeyMemo m_reductionKeyMemo;
-    
+
     /**
      * default constructor
      */
@@ -223,7 +223,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
      */
     @Id
     @SequenceGenerator(name="alarmSequence", sequenceName="alarmsNxtId")
-    @GeneratedValue(generator="alarmSequence")    
+    @GeneratedValue(generator="alarmSequence")
     @Column(name="alarmId", nullable=false)
     @XmlAttribute(name="id")
     public Integer getId() {
@@ -438,7 +438,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setSeverityLabel(final String label) {
         m_severity = OnmsSeverity.get(label);
     }
-    
+
     /**
      * <p>getSeverity</p>
      *
@@ -460,7 +460,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setSeverity(final OnmsSeverity severity) {
         m_severity = severity;
     }
-    
+
     /**
      * <p>getSeverityId</p>
      *
@@ -480,7 +480,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setSeverityId(final Integer severity) {
         this.m_severity = OnmsSeverity.get(severity);
     }
-    
+
     /**
      * <p>getFirstEventTime</p>
      *
@@ -829,7 +829,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setLastEventTime(Date lastEventTime) {
         m_lastEventTime = lastEventTime;
     }
-    
+
     /**
      * <p>getApplicationDN</p>
      *
@@ -897,7 +897,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public String getOssPrimaryKey() {
         return m_ossPrimaryKey;
     }
-    
+
     /**
      * <p>setOssPrimaryKey</p>
      *
@@ -906,7 +906,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setOssPrimaryKey(String key) {
         m_ossPrimaryKey = key;
     }
-    
+
     /**
      * <p>getX733AlarmType</p>
      *
@@ -916,7 +916,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public String getX733AlarmType() {
         return m_x733AlarmType;
     }
-    
+
     /**
      * <p>setX733AlarmType</p>
      *
@@ -925,7 +925,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setX733AlarmType(String alarmType) {
         m_x733AlarmType = alarmType;
     }
-    
+
     /**
      * <p>getX733ProbableCause</p>
      *
@@ -935,7 +935,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public int getX733ProbableCause() {
         return m_x733ProbableCause;
     }
-    
+
     /**
      * <p>setX733ProbableCause</p>
      *
@@ -944,7 +944,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setX733ProbableCause(int cause) {
         m_x733ProbableCause = cause;
     }
-    
+
     /**
      * <p>getQosAlarmState</p>
      *
@@ -953,7 +953,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     @Column(name="qosAlarmState", length=31)
     public String getQosAlarmState() {
         return m_qosAlarmState;
-        
+
     }
     /**
      * <p>setQosAlarmState</p>
@@ -1005,7 +1005,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setLastAutomationTime(Date lastAutomationTime) {
         m_lastAutomationTime = lastAutomationTime;
     }
-    
+
     /**
      * <p>getDetails</p>
      *
@@ -1019,7 +1019,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public Map<String, String> getDetails() {
         return m_details;
     }
-    
+
     /**
      * <p>setDetails</p>
      *
@@ -1048,7 +1048,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setIfIndex(Integer ifIndex) {
         m_ifIndex = ifIndex;
     }
-    
+
     @ManyToOne
     @JoinColumn(name="reductionKey", referencedColumnName="reductionkey", updatable=false, insertable=false)
     @XmlElement(name="reductionKeyMemo")
@@ -1070,7 +1070,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public void setStickyMemo(OnmsMemo stickyMemo) {
         this.m_stickyMemo = stickyMemo;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void acknowledge(String user) {
@@ -1079,20 +1079,20 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
             m_alarmAckUser = user;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void unacknowledge(String ackUser) {
         m_alarmAckTime = null;
         m_alarmAckUser = null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void clear(String ackUser) {
         m_severity = OnmsSeverity.CLEARED;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void escalate(String ackUser) {
@@ -1111,7 +1111,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public AckType getType() {
         return AckType.ALARM;
     }
-    
+
     /**
      * <p>getAckId</p>
      *
@@ -1122,7 +1122,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public Integer getAckId() {
         return m_id;
     }
-    
+
     /**
      * <p>getAckUser</p>
      *
@@ -1133,7 +1133,7 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public String getAckUser() {
         return m_alarmAckUser;
     }
-    
+
     /**
      * <p>getAckTime</p>
      *
@@ -1144,5 +1144,5 @@ public class OnmsAlarm implements Acknowledgeable, Serializable {
     public Date getAckTime() {
         return m_alarmAckTime;
     }
-    
+
 }

@@ -58,9 +58,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SnmpAttributeType implements AttributeDefinition, CollectionAttributeType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SnmpAttributeType.class);
-    
+
     private MibObject m_mibObj;
     private String m_collectionName;
     private ResourceType m_resourceType;
@@ -84,7 +84,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     private MibObject getMibObj() {
         return m_mibObj;
     }
-    
+
     /**
      * <p>getCollectionName</p>
      *
@@ -93,7 +93,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     protected String getCollectionName() { return m_collectionName; }
 
     // FIXME: CollectionAttribute should be a tracker of its own
-    // Also these should be created directly by the DAO rather 
+    // Also these should be created directly by the DAO rather
     // than MibObject.
     /**
      * <p>getCollectionTrackers</p>
@@ -106,10 +106,10 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         for (SnmpAttributeType attrType : objList) {
             trackers.add(attrType.getCollectionTracker());
         }
-        
+
         return trackers;
     }
-    
+
     private CollectionTracker getCollectionTracker() {
         SnmpInstId[] instances = m_resourceType.getCollectionInstances();
         if (instances != null && Boolean.getBoolean("org.opennms.netmgt.collectd.SnmpCollector.limitCollectionToInstances")) {
@@ -118,7 +118,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
             return getMibObj().getCollectionTracker();
         }
     }
-    
+
 
     /**
      * <p>create</p>
@@ -136,10 +136,10 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         if (StringAttributeType.supportsType(mibObj.getType())) {
             return new StringAttributeType(resourceType, collectionName, mibObj, groupType);
         }
-        
+
         throw new IllegalArgumentException("No support exists for AttributeType '" + mibObj.getType() + "' for MIB object: "+ mibObj);
     }
-    
+
     /**
      * <p>getResourceType</p>
      *
@@ -148,7 +148,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     public ResourceType getResourceType() {
         return m_resourceType;
     }
-    
+
     /**
      * <p>getGroupType</p>
      *
@@ -156,9 +156,9 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
      */
     @Override
     public AttributeGroupType getGroupType() {
-        return m_groupType;        
+        return m_groupType;
     }
-    
+
     /**
      * <p>getGroupName</p>
      *
@@ -167,12 +167,12 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     public String getGroupName() {
         return m_groupType.getName();
     }
-    
-    
+
+
     public String getMaxval() {
         return m_mibObj.getMaxval();
     }
-    
+
     public String getMinval() {
         return m_mibObj.getMinval();
     }
@@ -185,7 +185,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     public String getAlias() {
         return m_mibObj.getAlias();
     }
-    
+
     /**
      * <p>getOid</p>
      *
@@ -237,7 +237,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     /** {@inheritDoc} */
     @Override
     public abstract void storeAttribute(CollectionAttribute attribute, Persister persister);
-    
+
     /**
      * <p>storeResult</p>
      *
@@ -289,7 +289,7 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
     public int hashCode() {
         return getAlias().hashCode();
     }
-    
+
     /**
      * <p>getGroupIfType</p>
      *
@@ -310,10 +310,10 @@ public abstract class SnmpAttributeType implements AttributeDefinition, Collecti
         if (!base.equals(getSnmpObjId())) {
         	return false;
         }
-        
+
         if (getInstance().equals(MibObject.INSTANCE_IFINDEX) || m_mibObj.getResourceType() != null) {
             return true;
-        } else { 
+        } else {
             return getInstance().equals(inst.toString());
         }
     }

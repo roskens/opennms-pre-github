@@ -44,15 +44,15 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
 
     private static final long serialVersionUID = 143526958273169546L;
-    
+
     @XmlAttribute(name="step")
     private Integer m_step;
-    
+
     @XmlElement(name="rra")
     private List<String> m_jdbcRras = new ArrayList<String>();
-    
+
     public JdbcRrd() {
-        
+
     }
 
     @XmlTransient
@@ -72,15 +72,15 @@ public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
     public void setJdbcRras(List<String> jdbcRras) {
         m_jdbcRras = jdbcRras;
     }
-    
+
     public void addRra(String rra) {
         m_jdbcRras.add(rra);
     }
-    
+
     public void removeRra(String rra) {
         m_jdbcRras.remove(rra);
     }
-    
+
     @Override
     public int compareTo(JdbcRrd obj) {
         return new CompareToBuilder()
@@ -88,7 +88,7 @@ public class JdbcRrd implements Serializable, Comparable<JdbcRrd> {
             .append(getJdbcRras().toArray(), obj.getJdbcRras().toArray())
             .toComparison();
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof JdbcRrd) {

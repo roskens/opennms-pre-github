@@ -6,35 +6,35 @@ import java.util.List;
 import org.opennms.features.topology.app.internal.gwt.client.service.Filter;
 
 public class FilterParser {
-    
+
     private class Lexer {
         private String m_input;
         private int m_ptr;
         private String m_peekedToken;
-        
+
         Lexer(String input) {
             m_input = input;
             m_ptr = 0;
             m_peekedToken = null;
         }
-        
+
         Character nextChar() {
             if (m_ptr >= m_input.length()) {
                 return null;
             }
-            
+
             return m_input.charAt(m_ptr++);
-            
+
         }
-        
+
         Character peekChar() {
             if (m_ptr >= m_input.length()) {
                 return null;
             }
-            
+
             return m_input.charAt(m_ptr);
         }
-        
+
         /*
          * TOKENS:
          * '('
@@ -47,9 +47,9 @@ public class FilterParser {
          * '>='
          * '<='
          * text == '[^()&|!=<>*]|\[()&|!=<>*\]'
-         * 
+         *
          */
-        
+
         boolean isTokenStart(Character ch) {
             if (ch == null) {
                 return true;
@@ -68,7 +68,7 @@ public class FilterParser {
             default:
                 return false;
             }
-            
+
         }
 
         String readText() {
@@ -89,7 +89,7 @@ public class FilterParser {
             }
             return bldr.toString();
         }
-        
+
         String peekToken() {
             if (m_peekedToken == null) {
                 m_peekedToken = nextToken();
@@ -133,43 +133,43 @@ public class FilterParser {
                 bldr.append(readText());
                 return bldr.toString();
             }
-            
+
         }
-        
+
         String charsTil(char token) {
             if (m_peekedToken != null) {
                 throw new IllegalStateException("Cannot compute charTil while a peeked token exists.");
             }
-            
+
             StringBuilder buf = new StringBuilder();
             boolean escaped = false;
-            
+
             Character ch = peekChar();
             while (ch != null && (ch != token || escaped) ) {
                 buf.append(nextChar()); // use next char to move ptr forward
                 escaped = ch == '\\' ? !escaped : false;
                 ch = peekChar();
-            } 
+            }
 
             return buf.toString();
 
         }
-        
-        
+
+
     }
 
-    
+
     private Lexer m_lexer;
     public FilterParser() {
-        
+
     }
-    
-    
+
+
     public Filter parse(String filterString) {
         m_lexer = new Lexer(filterString);
         return filter();
     }
-    
+
     private Filter filter() {
         skipWhitespace();
         match("(");
@@ -178,7 +178,7 @@ public class FilterParser {
         match(")");
         return filter;
     }
-    
+
     private Filter filterComp() {
         skipWhitespace();
         String token = m_lexer.peekToken();
@@ -192,7 +192,7 @@ public class FilterParser {
             return operation();
         }
     }
-    
+
     private Filter and() {
         match("&");
         List<Filter> filters = filterList();
@@ -223,9 +223,9 @@ public class FilterParser {
     }
 
     private Filter operation() {
-        
+
         String attribute = matchAttribute();
-        
+
         skipWhitespace();
         String operation = m_lexer.peekToken();
         if (">=".equals(operation)) {
@@ -243,22 +243,22 @@ public class FilterParser {
 
     private Filter eq(String attribute) {
         match("=");
-        
-        
+
+
         String value = m_lexer.charsTil(')');
-        
+
         // a presence filter
         if ("*".equals(value.trim())) {
             return new PresenceFilter(attribute);
         }
-        
+
         // a simple equals filter
         if (!value.replace("\\*", "").contains("*")) {
             return new EqFilter(attribute, value.replaceAll("\\\\(.)", "$1"));
         }
-        
+
         return new PatternMatchingFilter(attribute, value);
-        
+
     }
 
 
@@ -267,27 +267,27 @@ public class FilterParser {
             parseError("Unexpected end of input. " + msg);
         }
     }
-    
+
     private Filter lessThan(String attribute) {
         match("<=");
-        
+
         String value = m_lexer.nextToken();
-        
+
         assertNotEnd(value, "Expected a value following <=");
-        
+
         return new LessThanFilter(attribute, value);
     }
-    
-    
+
+
 
 
     private Filter greaterThan(String attribute) {
         match(">=");
-        
+
         String value = m_lexer.nextToken();
 
         assertNotEnd(value, "Expected a value following >=");
-        
+
         return new GreaterThanFilter(attribute, value);
     }
 
@@ -299,7 +299,7 @@ public class FilterParser {
         ensureAttrDoesNotContain(attr, "()&|!*=<>~");
         return attr;
     }
-    
+
     private void ensureAttrDoesNotContain(String attr, String invalidChars) {
         for(int i = 0; i < invalidChars.length(); i++) {
             char ch = invalidChars.charAt(i);
@@ -308,7 +308,7 @@ public class FilterParser {
             }
         }
     }
-    
+
     private String match(String expected) {
         String actual = m_lexer.nextToken();
         assertNotEnd(actual, "Expected " + expected);
@@ -327,12 +327,12 @@ public class FilterParser {
             token = m_lexer.peekToken();
         }
     }
-    
+
 
     void parseError(String msg) {
         throw new IllegalArgumentException(msg);
     }
-    
 
-    
+
+
 }

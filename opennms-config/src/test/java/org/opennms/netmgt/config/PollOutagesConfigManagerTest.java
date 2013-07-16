@@ -51,39 +51,39 @@ public class PollOutagesConfigManagerTest extends TestCase {
     @Override
     protected void setUp() throws Exception {
         MockLogAppender.setupLogging();
-        
-        String xml = "<?xml version=\"1.0\"?>\n" + 
-                "<outages>\n" + 
-                "   <outage name=\"one\" type=\"weekly\">\n" + 
-                "       <time day=\"sunday\" begins=\"12:30:00\" ends=\"12:45:00\"/>\n" + 
-                "       <time day=\"sunday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" + 
-                "       <time day=\"monday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" + 
-                "       <time day=\"tuesday\" begins=\"13:00:00\" ends=\"14:45:00\"/>\n" + 
-                "       <interface address=\"192.168.0.1\"/>\n" + 
-                "       <interface address=\"192.168.0.36\"/>\n" + 
-                "       <interface address=\"192.168.0.38\"/>\n" + 
-                "   </outage>\n" + 
-                "\n" + 
-                "   <outage name=\"two\" type=\"monthly\">\n" + 
-                "       <time day=\"1\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" + 
-                "       <time day=\"15\" begins=\"21:30:00\" ends=\"21:45:00\"/>\n" + 
-                "       <time day=\"15\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" + 
-                "       <interface address=\"192.168.100.254\"/>\n" + 
-                "       <interface address=\"192.168.101.254\"/>\n" + 
-                "       <interface address=\"192.168.102.254\"/>\n" + 
-                "       <interface address=\"192.168.103.254\"/>\n" + 
-                "       <interface address=\"192.168.104.254\"/>\n" + 
-                "       <interface address=\"192.168.105.254\"/>\n" + 
-                "       <interface address=\"192.168.106.254\"/>\n" + 
-                "       <interface address=\"192.168.107.254\"/>\n" + 
-                "   </outage>\n" + 
-                "\n" + 
-                "   <outage name=\"three\" type=\"specific\">\n" + 
-                "       <time begins=\"21-Feb-2005 05:30:00\" ends=\"21-Feb-2005 15:00:00\"/>\n" + 
-                "       <interface address=\"192.168.0.1\"/>\n" + 
-                "   </outage>\n" + 
+
+        String xml = "<?xml version=\"1.0\"?>\n" +
+                "<outages>\n" +
+                "   <outage name=\"one\" type=\"weekly\">\n" +
+                "       <time day=\"sunday\" begins=\"12:30:00\" ends=\"12:45:00\"/>\n" +
+                "       <time day=\"sunday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" +
+                "       <time day=\"monday\" begins=\"13:30:00\" ends=\"14:45:00\"/>\n" +
+                "       <time day=\"tuesday\" begins=\"13:00:00\" ends=\"14:45:00\"/>\n" +
+                "       <interface address=\"192.168.0.1\"/>\n" +
+                "       <interface address=\"192.168.0.36\"/>\n" +
+                "       <interface address=\"192.168.0.38\"/>\n" +
+                "   </outage>\n" +
+                "\n" +
+                "   <outage name=\"two\" type=\"monthly\">\n" +
+                "       <time day=\"1\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" +
+                "       <time day=\"15\" begins=\"21:30:00\" ends=\"21:45:00\"/>\n" +
+                "       <time day=\"15\" begins=\"23:30:00\" ends=\"23:45:00\"/>\n" +
+                "       <interface address=\"192.168.100.254\"/>\n" +
+                "       <interface address=\"192.168.101.254\"/>\n" +
+                "       <interface address=\"192.168.102.254\"/>\n" +
+                "       <interface address=\"192.168.103.254\"/>\n" +
+                "       <interface address=\"192.168.104.254\"/>\n" +
+                "       <interface address=\"192.168.105.254\"/>\n" +
+                "       <interface address=\"192.168.106.254\"/>\n" +
+                "       <interface address=\"192.168.107.254\"/>\n" +
+                "   </outage>\n" +
+                "\n" +
+                "   <outage name=\"three\" type=\"specific\">\n" +
+                "       <time begins=\"21-Feb-2005 05:30:00\" ends=\"21-Feb-2005 15:00:00\"/>\n" +
+                "       <interface address=\"192.168.0.1\"/>\n" +
+                "   </outage>\n" +
                 "</outages>\n";
-        
+
         m_manager = new PollOutagesConfigManager() {
             @Override
             public void update() throws IOException, MarshalException, ValidationException {}
@@ -97,32 +97,32 @@ public class PollOutagesConfigManagerTest extends TestCase {
     protected void tearDown() throws Exception {
         MockLogAppender.assertNoWarningsOrGreater();
     }
-    
+
     private long getTime(String timeString) throws ParseException {
         Date date = new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").parse(timeString);
         return date.getTime();
-        
+
     }
-    
+
     public void testIsTimeInOutageWeekly() throws Exception {
 
         assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "one"));
         assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "two"));
         assertTrue(m_manager.isTimeInOutage(getTime("21-FEB-2005 14:00:00"), "three"));
-        
+
         assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "one"));
         assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "two"));
         assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 14:00:00"), "three"));
-        
+
         assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "one"));
         assertTrue(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "two"));
         assertFalse(m_manager.isTimeInOutage(getTime("15-FEB-2005 23:37:00"), "three"));
-        
+
         assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "one"));
         assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "two"));
         assertFalse(m_manager.isTimeInOutage(getTime("21-FEB-2005 16:00:00"), "three"));
-        
-        
+
+
     }
 
 

@@ -87,7 +87,7 @@ public class RequisitionCollection extends LinkedList<Requisition> {
         clear();
         addAll(requisitions);
     }
-    
+
     /**
      * <p>getCount</p>
      *

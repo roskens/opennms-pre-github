@@ -44,7 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 public abstract class BaseAcknowledgeServlet extends HttpServlet {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 4059726823978789453L;
 
@@ -72,9 +72,9 @@ public abstract class BaseAcknowledgeServlet extends HttpServlet {
         @Override
 	public void init() throws ServletException {
 	    ServletConfig config = this.getServletConfig();
-	
+
 	    this.redirectSuccess = config.getInitParameter("redirect.success");
-	
+
 	    if (this.redirectSuccess == null) {
 	        throw new UnavailableException("Require a redirect.success init parameter.");
 	    }
@@ -89,21 +89,21 @@ public abstract class BaseAcknowledgeServlet extends HttpServlet {
 	 */
 	protected String getRedirectString(HttpServletRequest request) {
 	    String redirectValue = request.getParameter("redirect");
-	
+
 	    if (redirectValue != null) {
 	        return (redirectValue);
 	    }
-	
+
 	    redirectValue = this.redirectSuccess;
 	    String redirectParms = request.getParameter("redirectParms");
-	
+
 	    if (redirectParms != null) {
 	        StringBuffer buffer = new StringBuffer(this.redirectSuccess);
 	        buffer.append("?");
 	        buffer.append(redirectParms);
 	        redirectValue = buffer.toString();
 	    }
-	
+
 	    return (redirectValue);
 	}
 

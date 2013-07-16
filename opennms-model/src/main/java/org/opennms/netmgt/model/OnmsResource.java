@@ -53,7 +53,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
     private OnmsEntity m_entity;
     private List<OnmsResource> m_resources;
     private OnmsResource m_parent = null;
-    
+
     /**
      * <p>Constructor for OnmsResource.</p>
      *
@@ -66,7 +66,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
             OnmsResourceType resourceType, Set<OnmsAttribute> attributes) {
         this(name, label, resourceType, attributes, new ArrayList<OnmsResource>(0));
     }
-    
+
     /**
      * <p>Constructor for OnmsResource.</p>
      *
@@ -84,13 +84,13 @@ public class OnmsResource implements Comparable<OnmsResource> {
         Assert.notNull(resourceType, "resourceType argument must not be null");
         Assert.notNull(attributes, "attributes argument must not be null");
         Assert.notNull(resources, "resources argument must not be null");
-        
+
         m_name = name;
         m_label = label;
         m_resourceType = resourceType;
         m_attributes = attributes;
         m_resources = resources;
-        
+
         for (OnmsAttribute attribute : m_attributes) {
             attribute.setResource(this);
         }
@@ -131,7 +131,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
     public Set<OnmsAttribute> getAttributes() {
         return m_attributes;
     }
-    
+
     /**
      * <p>getChildResources</p>
      *
@@ -151,7 +151,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
     public int compareTo(OnmsResource o) {
         return getLabel().compareTo(o.getLabel());
     }
-    
+
     /**
      * Sorts the List of Resources and returns a new List of the
      * generic type Resource.
@@ -163,7 +163,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
      */
     public static List<OnmsResource> sortIntoResourceList(List<OnmsResource> resources) {
         Collections.sort(resources);
-        
+
         ArrayList<OnmsResource> outputResources =
             new ArrayList<OnmsResource>(resources.size());
         for (OnmsResource resource : resources) {
@@ -181,7 +181,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
     public void setParent(OnmsResource parent) {
         m_parent = parent;
     }
-    
+
     /**
      * <p>getParent</p>
      *
@@ -190,7 +190,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
     public OnmsResource getParent() {
         return m_parent;
     }
-    
+
     /**
      * <p>getId</p>
      *
@@ -227,7 +227,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
         m_link = link;
     }
 
-    
+
     /**
      * <p>createResourceId</p>
      *
@@ -238,13 +238,13 @@ public class OnmsResource implements Comparable<OnmsResource> {
         if ((resources.length % 2) != 0) {
             throw new IllegalArgumentException("Values passed as resources parameter must be in pairs");
         }
-        
+
         StringBuffer buf = new StringBuffer();
         for (int i = 0; i < (resources.length / 2); i++) {
             if (buf.length() > 0) {
                 buf.append(".");
             }
-            
+
             buf.append(resources[i * 2]);
             buf.append("[");
             buf.append(encode(resources[(i * 2) + 1]));
@@ -266,7 +266,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
                 attributes.put(graphAttribute.getName(), graphAttribute);
             }
         }
-        
+
         return attributes;
     }
 
@@ -283,10 +283,10 @@ public class OnmsResource implements Comparable<OnmsResource> {
                 properties.put(stringAttribute.getName(), stringAttribute.getValue());
             }
         }
-        
+
         return properties;
     }
-    
+
     /**
      * Get the external value attributes for this resource, if any.
      *
@@ -300,10 +300,10 @@ public class OnmsResource implements Comparable<OnmsResource> {
                 properties.put(externalValueAttribute.getName(), externalValueAttribute.getValue());
             }
         }
-        
+
         return properties;
     }
-    
+
     private static String encode(String string) {
         if (string == null) return null;
         try {
@@ -313,7 +313,7 @@ public class OnmsResource implements Comparable<OnmsResource> {
             throw new UndeclaredThrowableException(e);
         }
     }
-    
+
     /**
      * <p>toString</p>
      *

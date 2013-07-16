@@ -69,7 +69,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class HTTP Collection Handler.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
@@ -166,7 +166,7 @@ public class HttpCollectionHandler extends AbstractXmlCollectionHandler {
 
     /**
      * Gets the time stamp.
-     * 
+     *
      * @param document the JSoup document
      * @param group the group
      * @return the time stamp

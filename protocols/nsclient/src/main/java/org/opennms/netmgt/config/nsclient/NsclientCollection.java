@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -45,8 +45,8 @@ import org.exolab.castor.xml.Unmarshaller;
 /**
  * A grouping of Nsclient related RRD parms and Nsclient
  *  object groups
- *  
- * 
+ *
+ *
  * @version $Revision$ $Date$
  */
 
@@ -88,7 +88,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -97,27 +97,27 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof NsclientCollection) {
-        
+
             NsclientCollection temp = (NsclientCollection)obj;
             if (this._name != null) {
                 if (temp._name == null) return false;
-                else if (!(this._name.equals(temp._name))) 
+                else if (!(this._name.equals(temp._name)))
                     return false;
             }
             else if (temp._name != null)
                 return false;
             if (this._rrd != null) {
                 if (temp._rrd == null) return false;
-                else if (!(this._rrd.equals(temp._rrd))) 
+                else if (!(this._rrd.equals(temp._rrd)))
                     return false;
             }
             else if (temp._rrd != null)
                 return false;
             if (this._wpms != null) {
                 if (temp._wpms == null) return false;
-                else if (!(this._wpms.equals(temp._wpms))) 
+                else if (!(this._wpms.equals(temp._wpms)))
                     return false;
             }
             else if (temp._wpms != null)
@@ -129,7 +129,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Returns the value of field 'name'.
-     * 
+     *
      * @return the value of field 'Name'.
      */
     public java.lang.String getName(
@@ -140,7 +140,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
-     * 
+     *
      * @return the value of field 'Rrd'.
      */
     public org.opennms.netmgt.config.nsclient.Rrd getRrd(
@@ -151,7 +151,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Returns the value of field 'wpms'. The field 'wpms' has the
      * following description: Nsclient object groups
-     * 
+     *
      * @return the value of field 'Wpms'.
      */
     public org.opennms.netmgt.config.nsclient.Wpms getWpms(
@@ -164,14 +164,14 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_name != null) {
            result = 37 * result + _name.hashCode();
@@ -182,13 +182,13 @@ import org.exolab.castor.xml.Unmarshaller;
         if (_wpms != null) {
            result = 37 * result + _wpms.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     public boolean isValid(
@@ -202,8 +202,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -217,8 +217,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -235,7 +235,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Sets the value of field 'name'.
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(
@@ -246,7 +246,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'rrd'. The field 'rrd' has the
      * following description: RRD parms
-     * 
+     *
      * @param rrd the value of field 'rrd'.
      */
     public void setRrd(
@@ -257,7 +257,7 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of field 'wpms'. The field 'wpms' has the
      * following description: Nsclient object groups
-     * 
+     *
      * @param wpms the value of field 'wpms'.
      */
     public void setWpms(
@@ -267,7 +267,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -283,8 +283,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

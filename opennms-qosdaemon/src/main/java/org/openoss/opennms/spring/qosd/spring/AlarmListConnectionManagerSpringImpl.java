@@ -54,12 +54,12 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
     private static final Logger LOG = LoggerFactory.getLogger(AlarmListConnectionManagerSpringImpl.class);
 
 	boolean init=false; // set true if init called
-	int status = DISCONNECTED; //  this changes to CONNECTED when the bean is instantiated 
-	
+	int status = DISCONNECTED; //  this changes to CONNECTED when the bean is instantiated
+
 	// ************************
     // Spring DAO setters
     // ************************
-	
+
 	AlarmMonitorDao alarmMonitorDao; // j2ee alarmMonitorDao - to be encapsulated in spring
 
 	/**
@@ -70,7 +70,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 	public void setAlarmMonitorDao(AlarmMonitorDao alarmMonitorDao) {
 		this.alarmMonitorDao = alarmMonitorDao;
 	}
-	
+
 	/**
 	 * used to hold a local reference to the application context from which this bean was started
 	 */
@@ -85,11 +85,11 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 	public  void setApplicationContext(ClassPathXmlApplicationContext m_context){
 		this.m_context = m_context;
 	}
-	
+
 	// ************************
     // Constructor and methods
     // ************************
-	
+
 	/**
 	 * The AlarmListConnectionManagerSpringImpl instantiates the AlarmMonitorBean within OpenNMS without Jboss
 	 * This is an alternative to contacting the bean in jboss. This only deals with XML alarms
@@ -107,7 +107,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 	 */
         @Override
 	public int getStatus() {
-		
+
 		return status;
 	}
 
@@ -121,15 +121,15 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 			LOG.debug("AlarmListConnectionManagerSpringImpl.init() initialising AlarmMonitorDao. Setting alarmMonitorDao.setLogName to:{}", LOG.getName());
 			alarmMonitorDao.setLogName(LOG.getName());
 			alarmMonitorDao.init();
-			
+
 		}
 		catch (Throwable ex) {
 			LOG.error("AlarmListConnectionManagerSpringImpl.init() problem creating AlarmMonitorDao", ex);
 		}
-		init = true;		//inform the thread that it has been initialised 
+		init = true;		//inform the thread that it has been initialised
 							//and can execute the run() method.
 		status = CONNECTED;
-		
+
 	}
 
 	/* (non-Javadoc)
@@ -170,7 +170,7 @@ public class AlarmListConnectionManagerSpringImpl implements AlarmListConnection
 	public void run() throws IllegalStateException {
 		if(!init)
 			throw new IllegalStateException("AlarmListSpringConnectionManagerThread - You must call init() before calling run()");
-		
+
 	}
 
 	/* (non-Javadoc)

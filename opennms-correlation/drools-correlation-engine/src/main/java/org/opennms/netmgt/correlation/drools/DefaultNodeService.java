@@ -39,7 +39,7 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultNodeService implements NodeService {
-    
+
     private NodeDao m_nodeDao;
 
     /** {@inheritDoc} */
@@ -47,7 +47,7 @@ public class DefaultNodeService implements NodeService {
     public Long getParentNode(final Long nodeid) {
     	final OnmsNode node = m_nodeDao.get(nodeid.intValue());
         Assert.notNull(node, "Unable to find node with id "+nodeid);
-        
+
         final OnmsNode parent = node.getParent();
         return (parent == null ? null : new Long(parent.getId().longValue()));
     }

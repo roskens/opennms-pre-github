@@ -38,15 +38,15 @@ import java.util.Date;
  * @since 1.8.1
  */
 public abstract class AbstractWebCalendar implements WebCalendar {
-    
+
     /**
      * <p>getMonthAndYear</p>
      *
      * @return a {@link java.lang.String} object.
      */
     @Override
-    abstract public String getMonthAndYear(); 
-    
+    abstract public String getMonthAndYear();
+
     /**
      * <p>getPreviousMonth</p>
      *
@@ -54,7 +54,7 @@ public abstract class AbstractWebCalendar implements WebCalendar {
      */
     @Override
     abstract public Date getPreviousMonth();
-    
+
     /**
      * <p>getNextMonth</p>
      *
@@ -62,7 +62,7 @@ public abstract class AbstractWebCalendar implements WebCalendar {
      */
     @Override
     abstract public Date getNextMonth();
-    
+
     /**
      * <p>getWeeks</p>
      *

@@ -82,15 +82,15 @@ public abstract class CollectorTestUtils {
     public static void collectNTimes(CollectionSpecification spec, CollectionAgent agent, int numUpdates)
     throws InterruptedException, CollectionException {
         for(int i = 0; i < numUpdates; i++) {
-    
+
             // now do the actual collection
             CollectionSet collectionSet = spec.collect(agent);
             assertEquals("collection status", ServiceCollector.COLLECTION_SUCCEEDED, collectionSet.getStatus());
-            
+
             persistCollectionSet(spec, collectionSet);
-        
+
             System.err.println("COLLECTION "+i+" FINISHED");
-        
+
             //need a one second time elapse to update the RRD
             Thread.sleep(1010);
         }

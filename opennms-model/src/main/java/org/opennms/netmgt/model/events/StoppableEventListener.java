@@ -35,7 +35,7 @@ package org.opennms.netmgt.model.events;
  * @version $Id: $
  */
 public interface StoppableEventListener extends EventListener {
-    
+
     /**
      * <p>stop</p>
      */

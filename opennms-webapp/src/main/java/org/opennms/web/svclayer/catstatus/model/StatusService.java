@@ -40,8 +40,8 @@ public class StatusService {
 	private String m_name;
 	private Boolean m_outagestatus;
 	private long m_outagetime;
-	
-	
+
+
 	/**
 	 * <p>getName</p>
 	 *
@@ -90,5 +90,5 @@ public class StatusService {
 	public void setOutageTime(long m_outagetime) {
 		this.m_outagetime = m_outagetime;
 	}
-	
+
 }

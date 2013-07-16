@@ -54,10 +54,10 @@ import org.xbill.DNS.Type;
  */
 @Distributable
 public class DNSResolutionMonitor extends AbstractServiceMonitor {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(DNSResolutionMonitor.class);
-    
+
     public static final String RESOLUTION_TYPE_PARM = "resolution-type";
     public static final String RT_V4 = "v4";
     public static final String RT_V6 = "v6";
@@ -69,11 +69,11 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
 
         String nodeLabel = svc.getNodeLabel();
-        
+
         String resolutionType = ParameterMap.getKeyedString(parameters, RESOLUTION_TYPE_PARM, RESOLUTION_TYPE_DEFAULT);
         boolean requireV4 = RT_V4.equalsIgnoreCase(resolutionType) || RT_BOTH.equals(resolutionType);
         boolean requireV6 = RT_V6.equalsIgnoreCase(resolutionType) || RT_BOTH.equals(resolutionType);
-        
+
 
         try {
             long start = System.currentTimeMillis();
@@ -95,7 +95,7 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
                 String reason = "Unable to resolve " + nodeLabel;
                 LOG.debug(reason);
                 return PollStatus.unavailable(reason);
-            } 
+            }
             if (requireV4 && !v4found) {
                 String reason = nodeLabel + " could only be resolved to an IPv6 address";
                 LOG.debug(reason);
@@ -116,26 +116,26 @@ public class DNSResolutionMonitor extends AbstractServiceMonitor {
         }
 
     }
-    
+
     InetAddress[] resolve(String hostname) throws TextParseException {
         Record[] aaaaRecords = new Lookup(hostname, Type.AAAA).run();
         Record[] aRecords = new Lookup(hostname, Type.A).run();
-        
+
         InetAddress[] addrs = new InetAddress[(aaaaRecords == null ? 0 : aaaaRecords.length)+(aRecords == null ? 0 : aRecords.length)];
-        
+
         int index = 0;
         if (aaaaRecords != null) {
             for(Record r : aaaaRecords) {
                 addrs[index++] = ((AAAARecord)r).getAddress();
             }
         }
-        
+
         if (aRecords != null) {
             for(Record r : aRecords) {
                 addrs[index++] = ((ARecord)r).getAddress();
             }
         }
-        
+
         return addrs;
     }
 

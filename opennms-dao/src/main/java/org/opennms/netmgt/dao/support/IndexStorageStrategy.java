@@ -39,9 +39,9 @@ import org.opennms.netmgt.config.collector.CollectionResource;
 import org.opennms.netmgt.config.datacollection.Parameter;
 
 public class IndexStorageStrategy implements StorageStrategy {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IndexStorageStrategy.class);
-    
+
     private String m_resourceTypeName;
     protected StorageStrategyService m_storageStrategyService;
 

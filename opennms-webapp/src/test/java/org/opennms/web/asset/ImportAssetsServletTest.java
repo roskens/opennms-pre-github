@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * <p>
  * ImportAssetsServletTest.java
  * </p>
- * 
+ *
  * @author <a href="mailto:markus@opennms.com">Markus Neumann</a>
  * @version $Id: $
  */

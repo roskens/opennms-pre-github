@@ -17,7 +17,7 @@ public class DefaultReverseDnsProvisioningAdapterService implements
     private NodeDao m_nodeDao;
     private IpInterfaceDao m_ipInterfaceDao;
     private TransactionTemplate m_template;
-    
+
     /**
      * <p>setTemplate</p>
      *
@@ -59,12 +59,12 @@ public class DefaultReverseDnsProvisioningAdapterService implements
     public void setNodeDao(NodeDao dao) {
         m_nodeDao = dao;
     }
-    
+
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_nodeDao, "ReverseDnsProvisioner requires a NodeDao which is not null.");
         Assert.notNull(m_ipInterfaceDao, "ReverseDnsProvisioner requires an IpInterfaceDao which is not null.");
     }
-    
+
     @Override
     public List<ReverseDnsRecord> get(final Integer nodeid) {
         final List<ReverseDnsRecord> records = new ArrayList<ReverseDnsRecord>();

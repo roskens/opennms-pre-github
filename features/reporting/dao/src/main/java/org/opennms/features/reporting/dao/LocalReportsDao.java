@@ -40,14 +40,14 @@ public interface LocalReportsDao {
      * @return a {@link java.util.List} object
      */
     List <BasicReportDefinition> getReports();
-    
+
     /**
      * <p>getOnlineReports</p>
      *
      * @return a {@link java.util.List} object
      */
     List <BasicReportDefinition> getOnlineReports();
-    
+
     /**
      * <p>getReportService</p>
      *
@@ -55,7 +55,7 @@ public interface LocalReportsDao {
      * @return a {@link java.lang.String} object
      */
     String getReportService(String id);
-    
+
     /**
      * <p>getDisplayName</p>
      *
@@ -73,16 +73,16 @@ public interface LocalReportsDao {
 
     /**
      * <p>setLocalReportConfigResource</p>
-     * 
+     *
      * Set local report config resource for DAO
-     * 
+     *
      * @param configResource a {@link org.springframework.core.io.Resource} object
      */
     void setConfigResource (Resource configResource);
 
     /**
      * <p>getConfigResource</p>
-     * 
+     *
      * Get local report configuration resource for DAO
      * @return a {@link org.springframework.core.io.Resource} object
      */

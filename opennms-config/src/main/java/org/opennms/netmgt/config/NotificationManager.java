@@ -91,7 +91,7 @@ public abstract class NotificationManager {
      */
     public Notifications m_notifications;
     /**
-     * 
+     *
      */
     private Header oldHeader;
     /** Constant <code>PARAM_TYPE="-t"</code> */
@@ -132,10 +132,10 @@ public abstract class NotificationManager {
     public static final String PARAM_TUI_PIN = "-tuipin";
     /** Constant <code>PARAM_MICROBLOG_USERNAME="-ublog"</code> */
     public static final String PARAM_MICROBLOG_USERNAME = "-ublog";
-    
+
     NotifdConfigManager m_configManager;
     private DataSource m_dataSource;
-    
+
     /**
      * A regular expression for matching an expansion parameter delimited by
      * percent signs.
@@ -240,7 +240,7 @@ public abstract class NotificationManager {
      */
     public boolean hasUei(final String uei) throws IOException, MarshalException, ValidationException {
         update();
-    
+
         for (Notification notif : m_notifications.getNotificationCollection()) {
             if (uei.equals(notif.getUei()) || "MATCH-ANY-UEI".equals(notif.getUei())) {
                  return true;
@@ -248,13 +248,13 @@ public abstract class NotificationManager {
                if (uei.matches(notif.getUei().substring(1))) {
                        return true;
                }
-    
+
             }
         }
-    
+
         return false;
     }
-    
+
     /**
      * <p>getNotifForEvent</p>
      *
@@ -268,7 +268,7 @@ public abstract class NotificationManager {
         update();
         List<Notification> notifList = new ArrayList<Notification>();
         boolean matchAll = getConfigManager().getNotificationMatch();
-  
+
         // This if statement will check to see if notification should be suppressed for this event.
 
         if (event == null) {
@@ -279,11 +279,11 @@ public abstract class NotificationManager {
             LOG.debug("Event {} is configured to suppress notifications.", event.getUei());
             return null;
         }
-    
+
         for (Notification curNotif : m_notifications.getNotificationCollection()) {
 
             LOG.debug("Checking {} against {}", curNotif.getUei(), event.getUei());
- 
+
             if (event.getUei().equals(curNotif.getUei()) || "MATCH-ANY-UEI".equals(curNotif.getUei())) {
                // Match!
             } else if (curNotif.getUei().charAt(0) == '~') {
@@ -315,9 +315,9 @@ public abstract class NotificationManager {
                 LOG.debug("Event severity: {} did not match notification severity: {}", curNotif.getEventSeverity(), event.getSeverity());
                 continue;
             }
-           
+
             // The notice has to be "on"
-            // The notice has to match a severity if configured - currHasSeverity should be true if there is no severity rule 
+            // The notice has to match a severity if configured - currHasSeverity should be true if there is no severity rule
             // The notice has to match the UEI of the event or MATCH-ANY-UEI
             // If all those things are true:
             // Then the service has to match if configured, the interface if configured, and the node if configured.
@@ -325,7 +325,7 @@ public abstract class NotificationManager {
             if (curNotif.getStatus().equals("on")) {
                 if (nodeInterfaceServiceValid(curNotif, event)) {
                     boolean parmsmatched = getConfigManager().matchNotificationParameters(event, curNotif);
-    
+
                     if (!parmsmatched) {
 
                         LOG.debug("Event {} did not match parameters for notice {}", curNotif.getName(), event.getUei());
@@ -333,10 +333,10 @@ public abstract class NotificationManager {
                     }
                     // Add this notification to the return value
                     notifList.add(curNotif);
-    
+
 
                     LOG.debug("Event {} matched notice {}", curNotif.getName(), event.getUei());
-                    
+
                     if (!matchAll)
                         break;
                 } else {
@@ -348,7 +348,7 @@ public abstract class NotificationManager {
                 LOG.debug("Current notification is turned off.");
             }
         }
-    
+
         if (!notifList.isEmpty()) {
             return notifList.toArray(new Notification[0]);
         } else {
@@ -364,7 +364,7 @@ public abstract class NotificationManager {
     protected NotifdConfigManager getConfigManager() {
         return m_configManager;
     }
-    
+
     /**
      * <p>nodeInterfaceServiceValid</p>
      *
@@ -376,7 +376,7 @@ public abstract class NotificationManager {
         Assert.notNull(notif, "notif argument must not be null");
         Assert.notNull(event, "event argument must not be null");
         Assert.notNull(notif.getRule(), "getRule() on notif argument must not return null");
-        
+
         /*
          *  If the event doesn't have a nodeId, interface, or service,
          *  return true since there is nothing on which to filter.
@@ -398,7 +398,7 @@ public abstract class NotificationManager {
         if (event.getNodeid() != 0) {
             constraints.append(" & (nodeId == " + event.getNodeid() + ")");
         }
-        
+
         if (event.getInterface() != null
                 && !"0.0.0.0".equals(event.getInterface())) {
             constraints.append(" & (ipAddr == '" + event.getInterface() + "')");
@@ -406,12 +406,12 @@ public abstract class NotificationManager {
                 constraints.append(" & (serviceName == '" + event.getService() + "')");
             }
         }
-        
+
         String rule = "((" + notif.getRule() + ")" + constraints + ")";
 
         return isRuleMatchingFilter(notif, rule);
     }
-    
+
     private boolean isRuleMatchingFilter(final Notification notif, final String rule) {
         try {
             return FilterDaoFactory.getInstance().isRuleMatching(rule);
@@ -464,11 +464,11 @@ public abstract class NotificationManager {
             connection = getConnection();
             Statement stmt = connection.createStatement();
             ResultSet results = stmt.executeQuery(sql);
-    
+
             results.next();
-    
+
             id = results.getInt(1);
-    
+
             stmt.close();
             results.close();
         } finally {
@@ -493,7 +493,7 @@ public abstract class NotificationManager {
      */
     public boolean noticeOutstanding(final int noticeId) throws IOException, MarshalException, ValidationException {
         boolean outstanding = false;
-    
+
         Connection connection = null;
         final DBUtils d = new DBUtils(getClass());
         try {
@@ -501,12 +501,12 @@ public abstract class NotificationManager {
             d.watch(connection);
             final PreparedStatement statement = connection.prepareStatement(getConfigManager().getConfiguration().getOutstandingNoticesSql());
             d.watch(statement);
-    
+
             statement.setInt(1, noticeId);
-    
+
             ResultSet results = statement.executeQuery();
             d.watch(results);
-    
+
             // count how many rows were returned, if there is even one then the
             // page
             // has been responded too.
@@ -514,7 +514,7 @@ public abstract class NotificationManager {
             while (results.next()) {
                 count++;
             }
-    
+
             if (count == 0) {
                 outstanding = true;
             }
@@ -523,7 +523,7 @@ public abstract class NotificationManager {
         } finally {
             d.cleanUp();
         }
-    
+
         return outstanding;
     }
     /**
@@ -544,7 +544,7 @@ public abstract class NotificationManager {
         final DBUtils d = new DBUtils(getClass());
 
         try {
-            // First get most recent event ID from notifications 
+            // First get most recent event ID from notifications
             // that match the matchList, then get all notifications
             // with this event ID
             connection = getConnection();
@@ -559,21 +559,21 @@ public abstract class NotificationManager {
             PreparedStatement statement = connection.prepareStatement(sql.toString());
             d.watch(statement);
             statement.setString(1, uei);
-    
+
             for (int i = 0; i < matchList.length; i++) {
                 if (matchList[i].equals("nodeid")) {
                     statement.setLong(i + 2, event.getNodeid());
                 }
-    
+
                 if (matchList[i].equals("interfaceid")) {
                     statement.setString(i + 2, event.getInterface());
                 }
-    
+
                 if (matchList[i].equals("serviceid")) {
                     statement.setInt(i + 2, getServiceId(event.getService()));
                 }
             }
-    
+
             ResultSet results = statement.executeQuery();
             d.watch(results);
             if (results != null && results.next()) {
@@ -583,12 +583,12 @@ public abstract class NotificationManager {
 
 
                 sql = new StringBuffer("SELECT notifyid, answeredby, respondtime FROM notifications WHERE eventID=?");
-    
+
                 statement = connection.prepareStatement(sql.toString());
                 statement.setInt(1, eventID);
-    
+
                 results = statement.executeQuery();
-    
+
                 if (results != null) {
                     while (results.next()) {
                         int notifID = results.getInt(1);
@@ -609,11 +609,11 @@ public abstract class NotificationManager {
                         LOG.debug("Matching DOWN notifyID = {}, was acked by user = {}, ansBy = {}", ansBy, notifID, wasAcked);
                         final PreparedStatement update = connection.prepareStatement(getConfigManager().getConfiguration().getAcknowledgeUpdateSql());
                         d.watch(update);
-    
+
                         update.setString(1, ansBy);
                         update.setTimestamp(2, ts);
                         update.setInt(3, notifID);
-    
+
                         update.executeUpdate();
                         update.close();
                         if(wasAcked) {
@@ -640,7 +640,7 @@ public abstract class NotificationManager {
      */
     public List<Integer> getActiveNodes() throws SQLException {
         String NODE_QUERY = "SELECT   n.nodeid " + "FROM     node n " + "WHERE    n.nodetype != 'D' " + "ORDER BY n.nodelabel";
-    
+
         java.sql.Connection connection = null;
         final List<Integer> allNodes = new ArrayList<Integer>();
         final DBUtils d = new DBUtils(getClass());
@@ -648,17 +648,17 @@ public abstract class NotificationManager {
         try {
             connection = getConnection();
             d.watch(connection);
-    
+
             final Statement stmt = connection.createStatement();
             d.watch(stmt);
             final ResultSet rset = stmt.executeQuery(NODE_QUERY);
             d.watch(rset);
-    
+
             if (rset != null) {
                 // Iterate through the result and build the array list
                 while (rset.next()) {
                     int nodeID = rset.getInt(1);
-    
+
                     allNodes.add(nodeID);
                 }
             }
@@ -678,7 +678,7 @@ public abstract class NotificationManager {
      */
     public String getServiceNoticeStatus(final String nodeID, final String ipaddr, final String service) throws SQLException {
         String notify = "Y";
-    
+
         final String query = "SELECT notify FROM ifservices, service WHERE nodeid=? AND ipaddr=? AND ifservices.serviceid=service.serviceid AND service.servicename=?";
         java.sql.Connection connection = null;
         final DBUtils d = new DBUtils(getClass());
@@ -686,16 +686,16 @@ public abstract class NotificationManager {
         try {
             connection = getConnection();
             d.watch(connection);
-    
+
             final PreparedStatement statement = connection.prepareStatement(query);
             d.watch(statement);
             statement.setInt(1, Integer.parseInt(nodeID));
             statement.setString(2, ipaddr);
             statement.setString(3, service);
-    
+
             final ResultSet rs = statement.executeQuery();
             d.watch(rs);
-    
+
             if (rs.next() && rs.getString("notify") != null) {
                 notify = rs.getString("notify");
                 if (notify == null)
@@ -730,17 +730,17 @@ public abstract class NotificationManager {
             d.watch(connection);
             final PreparedStatement insert = connection.prepareStatement("INSERT INTO usersNotified (id, userid, notifyid, notifytime, media, contactinfo, autonotify) values (?,?,?,?,?,?,?)");
             d.watch(insert);
-    
+
             insert.setInt(1, userNotifId);
             insert.setString(2, userId);
             insert.setInt(3, noticeId);
-    
+
             insert.setTimestamp(4, new Timestamp((new Date()).getTime()));
-    
+
             insert.setString(5, media);
             insert.setString(6, contactInfo);
             insert.setString(7, autoNotify);
-    
+
             insert.executeUpdate();
         } finally {
             d.cleanUp();
@@ -766,7 +766,7 @@ public abstract class NotificationManager {
                     "textmsg, numericmsg, notifyid, pagetime, nodeid, interfaceid, serviceid, eventid, " +
                     "eventuei, subject, queueID, notifConfigName) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             d.watch(statement);
-    
+
             // notifications textMsg field
             String textMsg = params.get(NotificationManager.PARAM_TEXT_MSG);
             if (textMsg != null && textMsg.length() > 4000) {
@@ -774,7 +774,7 @@ public abstract class NotificationManager {
                 textMsg = textMsg.substring(0, 4000);
             }
             statement.setString(1, textMsg);
-    
+
             // notifications numericMsg field
             String numMsg = params.get(NotificationManager.PARAM_NUM_MSG);
             if (numMsg != null && numMsg.length() > 256) {
@@ -782,13 +782,13 @@ public abstract class NotificationManager {
                 numMsg = numMsg.substring(0, 256);
             }
             statement.setString(2, numMsg);
-    
+
             // notifications notifyID field
             statement.setInt(3, notifyId);
-    
+
             // notifications pageTime field
             statement.setTimestamp(4, new Timestamp((new Date()).getTime()));
-    
+
             // notifications nodeID field
             String node = params.get(NotificationManager.PARAM_NODE);
             if (node != null && !node.trim().equals("") && !node.equalsIgnoreCase("null") && !node.equalsIgnoreCase("%nodeid%")) {
@@ -796,7 +796,7 @@ public abstract class NotificationManager {
             } else {
                 statement.setNull(5, Types.INTEGER);
             }
-    
+
             // notifications interfaceID field
             String ipaddr = params.get(NotificationManager.PARAM_INTERFACE);
             if (ipaddr != null && !ipaddr.trim().equals("") && !ipaddr.equalsIgnoreCase("null") && !ipaddr.equalsIgnoreCase("%interface%")) {
@@ -804,7 +804,7 @@ public abstract class NotificationManager {
             } else {
                 statement.setString(6, null);
             }
-    
+
             // notifications serviceID field
             String service = params.get(NotificationManager.PARAM_SERVICE);
             if (service != null && !service.trim().equals("") && !service.equalsIgnoreCase("null") && !service.equalsIgnoreCase("%service%")) {
@@ -812,21 +812,21 @@ public abstract class NotificationManager {
             } else {
                 statement.setNull(7, Types.INTEGER);
             }
-    
+
             // eventID field
             final String eventID = params.get("eventID");
             statement.setInt(8, Integer.parseInt(eventID));
-    
+
             statement.setString(9, params.get("eventUEI"));
-            
+
             // notifications subject field
             statement.setString(10, params.get(NotificationManager.PARAM_SUBJECT));
-            
+
             // the queue this will be sent on
             statement.setString(11, queueID);
-            
+
             statement.setString(12, notification.getName());
-    
+
             statement.executeUpdate();
         } finally {
             d.cleanUp();
@@ -835,30 +835,30 @@ public abstract class NotificationManager {
     /**
      * This method queries the database in search of a service id for a given
      * serivice name
-     * 
+     *
      * @param service
      *            the name of the service
      * @return the serviceID of the service
      */
     private int getServiceId(final String service) throws SQLException {
         int serviceID = 0;
-    
+
         Connection connection = null;
         final DBUtils d = new DBUtils(getClass());
         try {
             connection = getConnection();
             d.watch(connection);
-    
+
             final PreparedStatement statement = connection.prepareStatement("SELECT serviceID from service where serviceName = ?");
             d.watch(statement);
             statement.setString(1, service);
-    
+
             final ResultSet results = statement.executeQuery();
             d.watch(results);
             results.next();
-    
+
             serviceID = results.getInt(1);
-    
+
             return serviceID;
         } finally {
             d.cleanUp();
@@ -874,14 +874,14 @@ public abstract class NotificationManager {
      */
     public Map<String, Notification> getNotifications() throws IOException, MarshalException, ValidationException {
         update();
-    
+
         Map<String, Notification> newMap = new HashMap<String, Notification>();
-    
+
         Notification notices[] = m_notifications.getNotification();
         for (int i = 0; i < notices.length; i++) {
             newMap.put(notices[i].getName(), notices[i]);
         }
-    
+
         return Collections.unmodifiableMap(newMap);
     }
     /**
@@ -895,7 +895,7 @@ public abstract class NotificationManager {
         List<String> services = new ArrayList<String>();
         try {
             connection = getConnection();
-    
+
             Statement stmt = connection.createStatement();
             ResultSet rset = stmt.executeQuery("SELECT servicename FROM service");
             if (rset != null) {
@@ -912,7 +912,7 @@ public abstract class NotificationManager {
                 }
             }
         }
-    
+
         return services;
     }
     /**
@@ -926,7 +926,7 @@ public abstract class NotificationManager {
      */
     public Notification getNotification(final String name) throws IOException, MarshalException, ValidationException {
         update();
-    
+
         return getNotifications().get(name);
     }
     /**
@@ -939,13 +939,13 @@ public abstract class NotificationManager {
      */
     public List<String> getNotificationNames() throws IOException, MarshalException, ValidationException {
         update();
-    
+
         List<String> notificationNames = new ArrayList<String>();
-    
+
         for (Notification curNotif : m_notifications.getNotificationCollection()) {
             notificationNames.add(curNotif.getName());
         }
-    
+
         return notificationNames;
     }
     /**
@@ -974,7 +974,7 @@ public abstract class NotificationManager {
     public synchronized void addNotification(final Notification notice) throws MarshalException, ValidationException, IOException, ClassNotFoundException {
         // remove any existing notice with the same name
         m_notifications.removeNotification(getNotification(notice.getName()));
-    
+
         m_notifications.addNotification(notice);
         saveCurrent();
     }
@@ -1005,7 +1005,7 @@ public abstract class NotificationManager {
 	        notice.setNumericMessage(newNotice.getNumericMessage());
 	        notice.setStatus(newNotice.getStatus());
 	        notice.setVarbind(newNotice.getVarbind());
-           
+
 	        Parameter parameters[] = newNotice.getParameter();
 	        for (int i = 0; i < parameters.length; i++) {
 		            Parameter newParam = new Parameter();
@@ -1013,10 +1013,10 @@ public abstract class NotificationManager {
 		            newParam.setValue(parameters[i].getValue());
 
 		            notice.addParameter(newParam);
-	        } 
+	        }
                 saveCurrent();
 	}
-	else	
+	else
         	addNotification(newNotice);
      }
 
@@ -1037,7 +1037,7 @@ public abstract class NotificationManager {
         if ("on".equals(status) || "off".equals(status)) {
             Notification notice = getNotification(name);
             notice.setStatus(status);
-    
+
             saveCurrent();
         } else
             throw new IllegalArgumentException("Status must be on|off, not " + status);
@@ -1052,7 +1052,7 @@ public abstract class NotificationManager {
      */
     public synchronized void saveCurrent() throws MarshalException, ValidationException, IOException, ClassNotFoundException {
         m_notifications.setHeader(rebuildHeader());
-    
+
         // Marshal to a string first, then write the string to the file. This
         // way the original configuration
         // isn't lost if the XML from the marshal is hosed.
@@ -1060,7 +1060,7 @@ public abstract class NotificationManager {
         Marshaller.marshal(m_notifications, stringWriter);
         String xmlString = stringWriter.toString();
         saveXML(xmlString);
-    
+
         update();
     }
     /**
@@ -1070,15 +1070,15 @@ public abstract class NotificationManager {
      * @throws java.io.IOException if any.
      */
     protected abstract void saveXML(String xmlString) throws IOException;
-    
+
     /**
-     * 
+     *
      */
     private Header rebuildHeader() {
         Header header = oldHeader;
-    
+
         header.setCreated(EventConstants.formatToString(new Date()));
-    
+
         return header;
     }
     /**
@@ -1104,7 +1104,7 @@ public abstract class NotificationManager {
         Querier querier = new Querier(m_dataSource, "select notifications.*, service.* from notifications left outer join service on notifications.serviceID = service.serviceID  where notifyId = ?") {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
-                
+
                 /*
                  * Note, getString on results is valid for any SQL data type except the new SQL types:
                  *    Blog, Clob, Array, Struct, Ref
@@ -1112,30 +1112,30 @@ public abstract class NotificationManager {
                  * to correctly align with annotated types in the map.
                  */
                 parmMap.put(
-                    NotificationManager.PARAM_TEXT_MSG, 
+                    NotificationManager.PARAM_TEXT_MSG,
                     expandNotifParms(
-                        resolutionPrefix, 
+                        resolutionPrefix,
                         Collections.singletonMap("noticeid", String.valueOf(notifId))
                     ) + rs.getString("textMsg")
                 );
                 if (skipNumericPrefix) {
                     parmMap.put(
-                        NotificationManager.PARAM_NUM_MSG, 
+                        NotificationManager.PARAM_NUM_MSG,
                         rs.getString("numericMsg")
                     );
                 } else {
                     parmMap.put(
-                        NotificationManager.PARAM_NUM_MSG, 
+                        NotificationManager.PARAM_NUM_MSG,
                         expandNotifParms(
-                            resolutionPrefix, 
+                            resolutionPrefix,
                             Collections.singletonMap("noticeid", String.valueOf(notifId))
                         ) + rs.getString("numericMsg")
                     );
                 }
                 parmMap.put(
-                    NotificationManager.PARAM_SUBJECT, 
+                    NotificationManager.PARAM_SUBJECT,
                     expandNotifParms(
-                        resolutionPrefix, 
+                        resolutionPrefix,
                         Collections.singletonMap("noticeid", String.valueOf(notifId))
                     ) + rs.getString("subject")
                 );
@@ -1145,7 +1145,7 @@ public abstract class NotificationManager {
                 parmMap.put("noticeid", rs.getString("notifyID"));
                 parmMap.put("eventID", rs.getString("eventID"));
                 parmMap.put("eventUEI", rs.getString("eventUEI"));
-                
+
                 Notification notification = null;
                 try {
                     notification = getNotification(rs.getObject("notifConfigName").toString());
@@ -1153,7 +1153,7 @@ public abstract class NotificationManager {
                 } catch (ValidationException e) {
                 } catch (IOException e) {
                 }
-                
+
                 if (notification != null) {
                     addNotificationParams(parmMap, notification);
                 }
@@ -1172,7 +1172,7 @@ public abstract class NotificationManager {
      */
     public static void addNotificationParams(final Map<String, String> paramMap, final Notification notification) {
         Collection<Parameter> parameters = notification.getParameterCollection();
-        
+
         for (Parameter parameter : parameters) {
             paramMap.put(parameter.getName(), parameter.getValue());
         }
@@ -1200,7 +1200,7 @@ public abstract class NotificationManager {
         querier.execute(notifId);
         return (String)querier.getResult();
     }
-    
+
     /**
      * <p>expandMapValues</p>
      *
@@ -1258,7 +1258,7 @@ public abstract class NotificationManager {
                 SingleResultQuerier querier = new SingleResultQuerier(m_dataSource, "select servicename from service where serviceid = ?");
                 return (String)querier.getResult();
             }
-            
+
         });
         querier.execute(eventid);
         return event;

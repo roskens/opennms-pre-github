@@ -46,7 +46,7 @@ import org.opennms.web.api.Util;
  */
 public class Interface {
     int m_id;
-    
+
     int m_nodeId;
 
     int m_ifIndex;
@@ -78,21 +78,21 @@ public class Interface {
     long m_snmpIfSpeed;
 
     int m_snmpIfAdminStatus;
-    
+
     String m_snmpIfAlias;
 
     String m_isSnmpPrimary;
-    
+
     char m_isSnmpPoll;
-    
+
     String m_snmpLastSnmpPoll;
 
     String m_snmpLastCapsdPoll;
-    	
+
     List<String> ipaddresses=null;
 
     Interface () {
-        
+
     }
 
     Interface (OnmsSnmpInterface snmpIface) {
@@ -104,13 +104,13 @@ public class Interface {
         if(snmpIface.getNode() != null) {
             m_nodeId = snmpIface.getNode().getId();
         }
-        
+
         m_snmpIfIndex = snmpIface.getIfIndex();
         m_snmpIpAdEntNetMask = str(snmpIface.getNetMask());
         m_snmpPhysAddr = snmpIface.getPhysAddr();
         m_snmpIfDescr = snmpIface.getIfDescr();
         m_snmpIfName = snmpIface.getIfName();
-        
+
         if(snmpIface.getIfType() != null) {
             m_snmpIfType = snmpIface.getIfType();
         }
@@ -124,7 +124,7 @@ public class Interface {
             m_snmpIfAdminStatus = snmpIface.getIfAdminStatus();
         }
             m_snmpIfAlias = snmpIface.getIfAlias();
-        
+
         Object element = snmpIface.getPoll();
         if (element != null) {
             m_isSnmpPoll = ((String) element).charAt(0);
@@ -138,8 +138,8 @@ public class Interface {
             m_snmpLastSnmpPoll = Util.formatDateToUIString(snmpIface.getLastSnmpPoll());
         }
     }
-    
-    Interface (OnmsIpInterface ipIface) {        
+
+    Interface (OnmsIpInterface ipIface) {
         m_id = ipIface.getId();
         createIpInterface(ipIface);
     }
@@ -148,7 +148,7 @@ public class Interface {
         if(ipIface.getNode() != null) {
             m_nodeId = ipIface.getNode().getId();
         }
-        
+
         if(ipIface.getSnmpInterface() != null) {
             m_ifIndex = ipIface.getIfIndex();
         }
@@ -167,11 +167,11 @@ public class Interface {
 	public void setIpaddresses(List<String> ipaddresses) {
 		this.ipaddresses = ipaddresses;
 	}
-		
+
 	public boolean hasIpAddresses() {
 		return !(ipaddresses == null);
 	}
-    	    
+
 
     /**
      * <p>getId</p>
@@ -334,7 +334,7 @@ public class Interface {
     public char isSnmpPollChar() {
         return m_isSnmpPoll;
     }
-    
+
     /**
      * <p>getSnmpLastSnmpPoll</p>
      *

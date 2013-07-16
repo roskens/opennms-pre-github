@@ -47,11 +47,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
  * <p>AuthFilterEnabler class.</p>
  */
 public class AuthFilterEnabler implements Filter {
-    
+
     private FilterManager m_filterManager;
-    
+
     private GroupDao m_groupDao;
-    
+
     /**
      * <p>setFilterManager</p>
      *
@@ -60,7 +60,7 @@ public class AuthFilterEnabler implements Filter {
     public void setFilterManager(FilterManager filterManager) {
         m_filterManager = filterManager;
     }
-    
+
     /**
      * <p>setGroupDao</p>
      *
@@ -76,7 +76,7 @@ public class AuthFilterEnabler implements Filter {
     /** {@inheritDoc} */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        
+
         boolean shouldFilter = AclUtils.shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
 
         try {
@@ -103,7 +103,7 @@ public class AuthFilterEnabler implements Filter {
             }
         }
 
-        
+
     }
 
     @Override

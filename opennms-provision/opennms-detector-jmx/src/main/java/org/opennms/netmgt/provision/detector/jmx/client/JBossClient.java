@@ -43,7 +43,7 @@ import org.opennms.netmgt.provision.support.jmx.connectors.JBossConnectionFactor
  * @version $Id: $
  */
 public class JBossClient extends JMXClient {
-    
+
     /** {@inheritDoc} */
     @Override
     protected ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {

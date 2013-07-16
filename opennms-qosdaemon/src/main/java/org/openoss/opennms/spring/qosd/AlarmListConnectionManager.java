@@ -114,12 +114,12 @@ public interface AlarmListConnectionManager {
 	 * @return a int.
 	 */
 	public abstract int getStatus();
-	
+
 	/**
 	 * Causes the thread supporting the connection Manager to start
 	 */
 	public void start();
-	
+
 	/**
 	 * Makes a new empty alarm value object
 	 * NOTE THIS IS A PATCH to proxy for JVTAlarmMonitorSession.makeAlarmValue()

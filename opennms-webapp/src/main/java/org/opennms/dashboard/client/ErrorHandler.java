@@ -36,7 +36,7 @@ package org.opennms.dashboard.client;
  * @since 1.8.1
  */
 public interface ErrorHandler {
-    
+
     /**
      * <p>error</p>
      *

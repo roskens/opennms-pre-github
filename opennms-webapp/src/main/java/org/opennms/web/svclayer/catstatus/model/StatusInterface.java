@@ -39,29 +39,29 @@ import java.util.ArrayList;
  * @since 1.8.1
  */
 public class StatusInterface {
-	
+
 	private String m_ipaddress;
 	private String m_interfacename;
 	private Collection<StatusService> m_services;
-	
+
 	/**
 	 * <p>Constructor for StatusInterface.</p>
 	 */
 	public StatusInterface(){
-		
+
 		m_services = new ArrayList<StatusService>();
-		
+
 	}
-	
+
 	/**
 	 * <p>addService</p>
 	 *
 	 * @param service a {@link org.opennms.web.svclayer.catstatus.model.StatusService} object.
 	 */
-	public void addService ( StatusService service ) {	
+	public void addService ( StatusService service ) {
 		m_services.add(service);
 	}
-	
+
 	/**
 	 * <p>getServices</p>
 	 *
@@ -70,7 +70,7 @@ public class StatusInterface {
 	public Collection<StatusService> getServices(){
 		return m_services;
 	}
-	
+
 	/**
 	 * <p>getInterfacename</p>
 	 *
@@ -79,7 +79,7 @@ public class StatusInterface {
 	public String getInterfacename() {
 		return m_interfacename;
 	}
-	
+
 	/**
 	 * <p>setInterfacename</p>
 	 *
@@ -88,7 +88,7 @@ public class StatusInterface {
 	public void setInterfacename(String m_interfacename) {
 		this.m_interfacename = m_interfacename;
 	}
-	
+
 	/**
 	 * <p>getIpAddress</p>
 	 *
@@ -97,7 +97,7 @@ public class StatusInterface {
 	public String getIpAddress() {
 		return m_ipaddress;
 	}
-	
+
 	/**
 	 * <p>setIpAddress</p>
 	 *
@@ -106,7 +106,7 @@ public class StatusInterface {
 	public void setIpAddress(String m_ipaddress) {
 		this.m_ipaddress = m_ipaddress;
 	}
-	
-	
+
+
 
 }

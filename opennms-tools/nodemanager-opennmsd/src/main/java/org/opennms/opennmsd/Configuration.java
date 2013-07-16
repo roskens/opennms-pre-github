@@ -29,7 +29,7 @@
 package org.opennms.opennmsd;
 
 public interface Configuration {
-    
+
     public FilterChain getFilterChain();
 
 }

@@ -71,7 +71,7 @@ public class OnmsMonitoredService extends OnmsEntity implements Serializable,
 Comparable<OnmsMonitoredService> {
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -7106081378757872886L;
 
@@ -99,7 +99,7 @@ Comparable<OnmsMonitoredService> {
      * to make this work.  In this case, the Set size
      * will always be 1 or empty because there can only
      * be one outage at a time on a service.
-     * 
+     *
      * With distributed monitoring, there will probably
      * be a model change were one service can be represented
      * by more than one outage.
@@ -109,7 +109,7 @@ Comparable<OnmsMonitoredService> {
     private Set<OnmsApplication> m_applications = new LinkedHashSet<OnmsApplication>();
 
 	private static final Map<String, String> STATUS_MAP;
-	
+
 	static {
         STATUS_MAP = new HashMap<String, String>();
         STATUS_MAP.put("A", "Managed");
@@ -150,7 +150,7 @@ Comparable<OnmsMonitoredService> {
     @Column(nullable=false)
     @XmlAttribute(name="id")
     @SequenceGenerator(name="opennmsSequence", sequenceName="opennmsNxtId")
-    @GeneratedValue(generator="opennmsSequence")    
+    @GeneratedValue(generator="opennmsSequence")
     public Integer getId() {
         return m_id;
     }
@@ -179,7 +179,7 @@ Comparable<OnmsMonitoredService> {
      * <p>getIpAddress</p>
      *
      * @return a {@link java.lang.String} object.
-     * 
+     *
      * @deprecated
      */
     @XmlTransient
@@ -277,7 +277,7 @@ Comparable<OnmsMonitoredService> {
     public void setStatus(String status) {
         m_status = status;
     }
-    
+
     @Transient
     public String getStatusLong() {
     	return STATUS_MAP.get(getStatus());
@@ -548,7 +548,7 @@ Comparable<OnmsMonitoredService> {
         if (hasNewStatusValue(scanned.getStatus(), getStatus())) {
             setStatus(scanned.getStatus());
         }
-        
+
         if (hasNewValue(scanned.getSource(), getSource())) {
             setSource(scanned.getSource());
         }
@@ -559,7 +559,7 @@ Comparable<OnmsMonitoredService> {
 
     }
 
-	private boolean hasNewStatusValue(String newStatus, String oldStatus) 
+	private boolean hasNewStatusValue(String newStatus, String oldStatus)
 	{
 		/*
 		 * Don't overwrite the 'Not Monitored' in the database when provisioning the

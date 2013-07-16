@@ -41,7 +41,7 @@ import org.easymock.EasyMock;
  */
 public class EasyMockUtils {
     private List<Object> m_mocks;
-    
+
     /**
      * <p>Constructor for EasyMockUtils.</p>
      */
@@ -61,7 +61,7 @@ public class EasyMockUtils {
         m_mocks.add(object);
         return object;
     }
-    
+
     /**
      * <p>replayAll</p>
      */
@@ -70,7 +70,7 @@ public class EasyMockUtils {
             EasyMock.replay(o);
         }
     }
-    
+
     /**
      * <p>verifyAll</p>
      */

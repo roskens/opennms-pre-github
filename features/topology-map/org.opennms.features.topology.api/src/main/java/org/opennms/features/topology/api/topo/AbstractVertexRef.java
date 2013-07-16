@@ -53,8 +53,8 @@ public class AbstractVertexRef extends AbstractRef implements VertexRef {
 		return false;
 	}
 
-	
+
 	@Override
-	public String toString() { return "VertexRef:"+getNamespace()+":"+getId(); } 
+	public String toString() { return "VertexRef:"+getNamespace()+":"+getId(); }
 
 }

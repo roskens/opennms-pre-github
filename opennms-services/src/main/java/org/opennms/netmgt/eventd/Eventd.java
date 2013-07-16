@@ -72,9 +72,9 @@ import org.springframework.util.Assert;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public final class Eventd extends AbstractServiceDaemon {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Eventd.class);
-    
+
     /**
      * The log4j category used to log debug messsages and statements.
      */
@@ -111,7 +111,7 @@ public final class Eventd extends AbstractServiceDaemon {
         Assert.state(m_eventdServiceManager != null, "property eventdServiceManager must be set");
         Assert.state(m_eventReceivers != null, "property eventReceivers must be set");
         Assert.state(m_receiver != null, "property receiver must be set");
-        
+
         m_eventdServiceManager.dataSourceSync();
     }
 
@@ -123,7 +123,7 @@ public final class Eventd extends AbstractServiceDaemon {
         for (EventReceiver eventReceiver : m_eventReceivers) {
             eventReceiver.start();
         }
-        
+
         LOG.debug("Listener threads started");
 
         LOG.debug("Eventd running");

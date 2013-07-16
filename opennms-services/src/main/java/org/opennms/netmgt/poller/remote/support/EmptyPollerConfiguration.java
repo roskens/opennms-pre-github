@@ -35,7 +35,7 @@ import org.opennms.netmgt.poller.remote.PolledService;
 import org.opennms.netmgt.poller.remote.PollerConfiguration;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class EmptyPollerConfiguration implements PollerConfiguration, Serializable {
@@ -66,5 +66,5 @@ class EmptyPollerConfiguration implements PollerConfiguration, Serializable {
     public long getServerTime() {
         return 0;
     }
-    
+
 }

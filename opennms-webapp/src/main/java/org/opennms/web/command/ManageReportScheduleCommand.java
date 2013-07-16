@@ -36,7 +36,7 @@ package org.opennms.web.command;
  * @since 1.8.1
  */
 public class ManageReportScheduleCommand {
-    
+
     private String[] m_triggerNames;
 
     /**

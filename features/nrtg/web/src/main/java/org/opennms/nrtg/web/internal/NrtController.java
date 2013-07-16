@@ -268,7 +268,7 @@ public class NrtController {
                 reqAttributes.put(attrName, attributes.get(attrName));
             }
         }
-        
+
         return reqAttributes;
     }
 
@@ -282,7 +282,7 @@ public class NrtController {
                 reqAttributes.put(attrName, attributes.get(attrName));
             }
         }
-        
+
         return reqAttributes;
     }
 
@@ -294,7 +294,7 @@ public class NrtController {
         }
         return rrdGraphAttributesToMetricIds;
     }
-    
+
     private Map<String, String> getMetaDataForReport(final Set<RrdGraphAttribute> rrdGraphAttributes) {
         Map<String, String> metaData = new HashMap<String, String>();
 
@@ -318,13 +318,13 @@ public class NrtController {
                 }
             };
         }
-        
+
         return metaData;
     }
 
     private final String PROTOCOLDELIMITER = "_";
     private final String METRICID_DELIMITER = "=";
-    
+
     private String getProtocolFromMetaDataLine(String metaDataLine) {
         String protocol = metaDataLine.substring(0, metaDataLine.indexOf(PROTOCOLDELIMITER));
         return protocol;

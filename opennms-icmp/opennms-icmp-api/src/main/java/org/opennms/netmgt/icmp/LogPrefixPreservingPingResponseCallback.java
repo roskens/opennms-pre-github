@@ -38,18 +38,18 @@ import org.slf4j.MDC;
 
 public class LogPrefixPreservingPingResponseCallback implements PingResponseCallback {
     private static final Logger LOG = LoggerFactory.getLogger(LogPrefixPreservingPingResponseCallback.class);
-	
+
     private final PingResponseCallback m_cb;
     private final Map m_mdc = getCopyOfContextMap();
-    
+
     public LogPrefixPreservingPingResponseCallback(PingResponseCallback cb) {
         m_cb = cb;
     }
-    
+
     private static Map getCopyOfContextMap() {
         return MDC.getCopyOfContextMap();
     }
-    
+
     private static void setContextMap(Map map) {
         if (map == null) {
             MDC.clear();
@@ -60,7 +60,7 @@ public class LogPrefixPreservingPingResponseCallback implements PingResponseCall
 
     @Override
     public void handleError(InetAddress address, EchoPacket request, Throwable t) {
-    	
+
     	Map mdc = getCopyOfContextMap();
         try {
             setContextMap(m_mdc);

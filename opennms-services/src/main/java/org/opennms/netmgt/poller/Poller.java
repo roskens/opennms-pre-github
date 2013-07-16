@@ -70,7 +70,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Poller extends AbstractServiceDaemon {
-    
+
     private final static Logger LOG = LoggerFactory.getLogger(Poller.class);
 
     private final static String LOG4J_CATEGORY = "poller";
@@ -165,7 +165,7 @@ public class Poller extends AbstractServiceDaemon {
     public void setNetwork(PollableNetwork network) {
         m_network = network;
     }
-    
+
     /**
      * <p>setQueryManager</p>
      *
@@ -183,7 +183,7 @@ public class Poller extends AbstractServiceDaemon {
     public QueryManager getQueryManager() {
         return m_queryManager;
     }
-    
+
     /**
      * <p>getPollerConfig</p>
      *
@@ -243,20 +243,20 @@ public class Poller extends AbstractServiceDaemon {
      */
     @Override
     protected void onInit() {
-        
+
         // serviceUnresponsive behavior enabled/disabled?
         LOG.debug("init: serviceUnresponsive behavior: {}", (getPollerConfig().isServiceUnresponsiveEnabled() ? "enabled" : "disabled"));
 
         createScheduler();
-        
+
         try {
             LOG.debug("init: Closing outages for unmanaged services");
-            
+
             closeOutagesForUnmanagedServices();
         } catch (Throwable e) {
             LOG.error("init: Failed to close ouates for unmanage services", e);
         }
-        
+
 
         // Schedule the interfaces currently in the database
         //
@@ -287,7 +287,7 @@ public class Poller extends AbstractServiceDaemon {
     }
 
     /**
-     * 
+     *
      */
     private void closeOutagesForUnmanagedServices() {
         Timestamp closeTime = new Timestamp((new java.util.Date()).getTime());
@@ -295,15 +295,15 @@ public class Poller extends AbstractServiceDaemon {
         final String DB_CLOSE_OUTAGES_FOR_UNMANAGED_SERVICES = "UPDATE outages set ifregainedservice = ? where outageid in (select outages.outageid from outages, ifservices where ((outages.nodeid = ifservices.nodeid) AND (outages.ipaddr = ifservices.ipaddr) AND (outages.serviceid = ifservices.serviceid) AND ((ifservices.status = 'D') OR (ifservices.status = 'F') OR (ifservices.status = 'U')) AND (outages.ifregainedservice IS NULL)))";
         Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_UNMANAGED_SERVICES);
         svcUpdater.execute(closeTime);
-        
+
         final String DB_CLOSE_OUTAGES_FOR_UNMANAGED_INTERFACES = "UPDATE outages set ifregainedservice = ? where outageid in (select outages.outageid from outages, ipinterface where ((outages.nodeid = ipinterface.nodeid) AND (outages.ipaddr = ipinterface.ipaddr) AND ((ipinterface.ismanaged = 'F') OR (ipinterface.ismanaged = 'U')) AND (outages.ifregainedservice IS NULL)))";
         Updater ifUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_UNMANAGED_INTERFACES);
         ifUpdater.execute(closeTime);
-        
+
 
 
     }
-    
+
     /**
      * <p>closeOutagesForNode</p>
      *
@@ -317,7 +317,7 @@ public class Poller extends AbstractServiceDaemon {
         Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_NODE);
         svcUpdater.execute(closeTime, Integer.valueOf(eventId), Integer.valueOf(nodeId));
     }
-    
+
     /**
      * <p>closeOutagesForInterface</p>
      *
@@ -332,7 +332,7 @@ public class Poller extends AbstractServiceDaemon {
         Updater svcUpdater = new Updater(m_dataSource, DB_CLOSE_OUTAGES_FOR_IFACE);
         svcUpdater.execute(closeTime, Integer.valueOf(eventId), Integer.valueOf(nodeId), ipAddr);
     }
-    
+
     /**
      * <p>closeOutagesForService</p>
      *
@@ -439,21 +439,21 @@ public class Poller extends AbstractServiceDaemon {
 
     private void scheduleExistingServices() throws Exception {
         scheduleMatchingServices(null);
-        
+
         getNetwork().recalculateStatus();
         getNetwork().propagateInitialCause();
         getNetwork().resetStatusChanged();
-        
-        
+
+
         // Debug dump pollable network
         //
         LOG.debug("scheduleExistingServices: dumping content of pollable network: ");
         getNetwork().dump();
 
-        
+
 
     }
-    
+
     /**
      * <p>scheduleService</p>
      *
@@ -496,7 +496,7 @@ public class Poller extends AbstractServiceDaemon {
             LOG.error("Unable to schedule service {}/{}/{}", nodeId, normalizedAddress, svcName);
         }
     }
-    
+
     private int scheduleMatchingServices(String criteria) {
         String sql = "SELECT ifServices.nodeId AS nodeId, node.nodeLabel AS nodeLabel, ifServices.ipAddr AS ipAddr, " +
                 "ifServices.serviceId AS serviceId, service.serviceName AS serviceName, ifServices.status as status, " +
@@ -513,35 +513,35 @@ public class Poller extends AbstractServiceDaemon {
         "LEFT OUTER JOIN events ON outages.svcLostEventId = events.eventid " +
         "WHERE ifServices.status in ('A','N')" +
         (criteria == null ? "" : " AND "+criteria);
-       
-        
+
+
         final AtomicInteger count = new AtomicInteger(0);
-        
+
         Querier querier = new Querier(m_dataSource, sql) {
             @Override
             public void processRow(ResultSet rs) throws SQLException {
-                if (scheduleService(rs.getInt("nodeId"), rs.getString("nodeLabel"), rs.getString("ipAddr"), rs.getString("serviceName"), 
-                                "A".equals(rs.getString("status")), (Number)rs.getObject("svcLostEventId"), rs.getTimestamp("ifLostService"), 
+                if (scheduleService(rs.getInt("nodeId"), rs.getString("nodeLabel"), rs.getString("ipAddr"), rs.getString("serviceName"),
+                                "A".equals(rs.getString("status")), (Number)rs.getObject("svcLostEventId"), rs.getTimestamp("ifLostService"),
                                 rs.getString("svcLostEventUei"))) {
                     count.incrementAndGet();
                 }
             }
         };
         querier.execute();
-        
-        
+
+
         return count.get();
 
     }
-    
+
     private void updateServiceStatus(int nodeId, String ipAddr, String serviceName, String status) {
         final String sql = "UPDATE ifservices SET status = ? WHERE id " +
         		" IN (SELECT ifs.id FROM ifservices AS ifs JOIN service AS svc ON ifs.serviceid = svc.serviceid " +
-        		" WHERE ifs.nodeId = ? AND ifs.ipAddr = ? AND svc.servicename = ?)"; 
+			" WHERE ifs.nodeId = ? AND ifs.ipAddr = ? AND svc.servicename = ?)";
 
         Updater updater = new Updater(m_dataSource, sql);
         updater.execute(status, nodeId, ipAddr, serviceName);
-        
+
     }
 
     private boolean scheduleService(int nodeId, String nodeLabel, String ipAddr, String serviceName, boolean active, Number svcLostEventId, Date date, String svcLostUei) {
@@ -566,14 +566,14 @@ public class Poller extends AbstractServiceDaemon {
             LOG.info("Could not find service monitor associated with service {}", serviceName);
             return false;
         }
-        
+
         InetAddress addr;
         addr = InetAddressUtils.addr(ipAddr);
         if (addr == null) {
             LOG.error("Could not convert {} as an InetAddress {}", ipAddr, ipAddr);
             return false;
         }
-        
+
         PollableService svc = getNetwork().createService(nodeId, nodeLabel, addr, serviceName);
         PollableServiceConfig pollConfig = new PollableServiceConfig(svc, m_pollerConfig, m_pollOutagesConfig, pkg, getScheduler());
         svc.setPollConfig(pollConfig);
@@ -583,9 +583,9 @@ public class Poller extends AbstractServiceDaemon {
                 svc.setSchedule(schedule);
             }
         }
-        
-        
-        if (svcLostEventId == null) 
+
+
+        if (svcLostEventId == null)
             if (svc.getParent().getStatus().isUnknown()) {
                 svc.updateStatus(PollStatus.up());
             } else {
@@ -593,15 +593,15 @@ public class Poller extends AbstractServiceDaemon {
             }
         else {
             svc.updateStatus(PollStatus.down());
-            
+
             PollEvent cause = new DbPollEvent(svcLostEventId.intValue(), svcLostUei, date);
 
             svc.setCause(cause);
 
         }
-        
+
         svc.schedule();
-        
+
         return true;
 
     }
@@ -609,7 +609,7 @@ public class Poller extends AbstractServiceDaemon {
     private Package findPackageForService(String ipAddr, String serviceName) {
         Enumeration<Package> en = m_pollerConfig.enumeratePackage();
         Package lastPkg = null;
-        
+
         while (en.hasMoreElements()) {
             Package pkg = (Package)en.nextElement();
             if (pollableServiceInPackage(ipAddr, serviceName, pkg))
@@ -617,7 +617,7 @@ public class Poller extends AbstractServiceDaemon {
         }
         return lastPkg;
     }
-    
+
     /**
      * <p>pollableServiceInPackage</p>
      *
@@ -627,26 +627,26 @@ public class Poller extends AbstractServiceDaemon {
      * @return a boolean.
      */
     protected boolean pollableServiceInPackage(String ipAddr, String serviceName, Package pkg) {
-        
+
         if (pkg.getRemote()) {
             LOG.debug("pollableServiceInPackage: this package: {}, is a remote monitor package.", pkg.getName());
             return false;
         }
-        
+
         if (!m_pollerConfig.isServiceInPackageAndEnabled(serviceName, pkg)) return false;
-        
+
         boolean inPkg = m_pollerConfig.isInterfaceInPackage(ipAddr, pkg);
-        
+
         if (inPkg) return true;
-        
+
         if (m_initialized) {
             m_pollerConfig.rebuildPackageIpListMap();
             return m_pollerConfig.isInterfaceInPackage(ipAddr, pkg);
         }
-        
+
         return false;
     }
-    
+
     /**
      * <p>packageIncludesIfAndSvc</p>
      *
@@ -708,4 +708,4 @@ public class Poller extends AbstractServiceDaemon {
     public static String getLoggingCategory() {
         return LOG4J_CATEGORY;
 	}
-}    
+}

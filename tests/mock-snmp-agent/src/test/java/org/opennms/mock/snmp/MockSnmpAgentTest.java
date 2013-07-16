@@ -173,7 +173,7 @@ public class MockSnmpAgentTest  {
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -185,7 +185,7 @@ public class MockSnmpAgentTest  {
      * MockSnmpAgent tears itself down properly. In particular, we want to make
      * sure that the UDP listener gets torn down so listening port is free for
      * later instances of the agent.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -272,7 +272,7 @@ public class MockSnmpAgentTest  {
         doSet();
 
         // request new value and expect 17
-        request(oid).andExpect(oid, SMIConstants.SYNTAX_INTEGER, new Integer32(17)); 
+        request(oid).andExpect(oid, SMIConstants.SYNTAX_INTEGER, new Integer32(17));
         doGet();
 
     }
@@ -442,7 +442,7 @@ public class MockSnmpAgentTest  {
             response = e.getResponse();
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally { 
+        } finally {
             if (snmp != null) {
                 try {
                     snmp.close();
@@ -491,7 +491,7 @@ public class MockSnmpAgentTest  {
             response = e.getResponse();
         } catch (final IOException e) {
             e.printStackTrace();
-        } finally { 
+        } finally {
             if (snmp != null) {
                 try {
                     snmp.close();

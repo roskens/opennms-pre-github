@@ -50,11 +50,11 @@ public class DefaultOtrsConfigDao {
 
 	/**
 	 * Retrieves the properties defined in the otrs.properties file.
-	 * 
+	 *
 	 * @param otrsTicketerPlugin
 	 * @return a
 	 *         <code>java.util.Properties object containing otrs plugin defined properties
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	private Configuration getProperties() {
 		Configuration config = new PropertiesConfiguration();
@@ -80,108 +80,107 @@ public class DefaultOtrsConfigDao {
 		return getProperties().getString("otrs.username");
 	}
 
-	
 	public String getPassword() {
 		return getProperties().getString("otrs.password");
 	}
-	
+
 	public String getEndpoint() {
 		return getProperties().getString("otrs.endpoint");
 	}
-	
+
 	public String getState() {
 		return getProperties().getString("otrs.state");
 	}
-	
+
 	public Integer getOwnerID() {
 		return getProperties().getInteger("otrs.ownerid", 1);
 	}
-	
+
 	public String getPriority() {
 		return getProperties().getString("otrs.priority");
 	}
-	
+
 	public String getLock() {
 		return getProperties().getString("otrs.lock");
 	}
-	
+
 	public String getQueue() {
 		return getProperties().getString("otrs.queue");
 	}
-	
+
 	public String getArticleFrom() {
 		return getProperties().getString("otrs.articlefrom");
 	}
-	
+
 	public String getArticleType() {
 		return getProperties().getString("otrs.articletype");
 	}
-	
+
 	public String getArticleSenderType() {
 		return getProperties().getString("otrs.articlesendertype");
 	}
-	
+
 	public String getArticleContentType() {
 		return getProperties().getString("otrs.articlecontenttype");
 	}
-	
+
 	public String getArticleHistoryComment() {
 		return getProperties().getString("otrs.articlehistorycomment");
 	}
-	
+
 	public String getArticleHistoryType() {
 		return getProperties().getString("otrs.articlehistorytype");
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Integer> getValidClosedStateId() {
-		
+
 		List<String> closedStateId = getProperties().getList("otrs.validclosedstateid");
 		return stringToInt(closedStateId);
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Integer> getValidOpenStateId() {
-		
+
 		List<String> openStateId = getProperties().getList("otrs.validopenstateid");
 		return stringToInt(openStateId);
-		
+
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	public List<Integer> getValidCancelledStateId() {
-		
+
 		List<String> cancelledStateId = getProperties().getList("otrs.validcancelledstateid");
 		return stringToInt(cancelledStateId);
-		
+
 	}
-	
+
 	public Integer getOpenStateId() {
 		return getProperties().getInteger("otrs.openstateid", 1);
 	}
-	
+
 	public Integer getClosedStateId() {
 		LOG.debug("getting closed state ID: {}", getProperties().getInteger("otrs.closedstateid", 2));
 		return getProperties().getInteger("otrs.closedstateid", 2);
 	}
-	
+
 	public Integer getCancelledStateId() {
 		return getProperties().getInteger("otrs.cancelledstateid", 5);
 	}
-	
+
 	public String getDefaultUser() {
 		return getProperties().getString("otrs.defaultuser");
 	}
-	
+
 	private List<Integer> stringToInt(List<String> strings) {
-		
+
 		List<Integer> intList = new ArrayList<Integer>();
-		
+
 		for (String string : strings) {
 			intList.add( Integer.parseInt(string));
 		}
-		
+
 		return intList;
 	}
 

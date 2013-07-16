@@ -44,7 +44,7 @@ import org.xml.sax.InputSource;
  * <p>
  * AccessPointMonitorConfigFactory class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class AccessPointMonitorConfigFactory {

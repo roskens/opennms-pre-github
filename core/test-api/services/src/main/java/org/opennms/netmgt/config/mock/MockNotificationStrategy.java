@@ -41,15 +41,15 @@ import org.opennms.test.mock.MockUtil;
  * @author david
  */
 public class MockNotificationStrategy implements NotificationStrategy {
-    
+
     private static NotificationAnticipator s_anticipator = null;
-    
+
     static {
         MockUtil.println("Static initializer on "+ MockNotificationStrategy.class.getName());
     }
-    
+
     public MockNotificationStrategy(){
-        MockUtil.println("Created a "+ MockNotificationStrategy.class.getName());        
+        MockUtil.println("Created a "+ MockNotificationStrategy.class.getName());
     }
 
     /* (non-Javadoc)
@@ -58,7 +58,7 @@ public class MockNotificationStrategy implements NotificationStrategy {
     @Override
     public int send(List<Argument> arguments) {
         MockUtil.println("Message sent with arguments:"+arguments);
-        
+
         MockNotification notification = new MockNotification();
         Iterator<Argument> it = arguments.iterator();
         while (it.hasNext()) {
@@ -74,7 +74,7 @@ public class MockNotificationStrategy implements NotificationStrategy {
         notification.setExpectedTime(System.currentTimeMillis());
 
         NotificationAnticipator anticipator = getAnticipator();
-        
+
         if (anticipator != null) {
             anticipator.notificationReceived(notification);
         } else {
@@ -82,7 +82,7 @@ public class MockNotificationStrategy implements NotificationStrategy {
         }
 
         return 0;
-        
+
     }
 
     public static NotificationAnticipator getAnticipator() {

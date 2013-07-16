@@ -44,13 +44,13 @@ import org.springframework.web.servlet.mvc.UrlFilenameViewController;
  * @since 1.8.1
  */
 public class OutageResolvedController extends UrlFilenameViewController {
-    
+
         private String m_successView;
 
         private OutageService m_outageService ;
-        
+
         private OutageTable m_outageTable = new OutageTable();
-        
+
         /**
          * <p>setOutageService</p>
          *
@@ -60,20 +60,20 @@ public class OutageResolvedController extends UrlFilenameViewController {
                 m_outageService = service;
         }
 
-        
+
         /** {@inheritDoc} */
         @Override
         protected ModelAndView handleRequestInternal(HttpServletRequest request,
                 HttpServletResponse reply) {
-            
-            
+
+
           return new ModelAndView(getSuccessView(),
                                   m_outageTable.getResolvedOutageTable(request, reply,m_outageService));
 //          return new ModelAndView("displayResolvedOutages" + getSuffix(),
 //          m_outageTable.getResolvedOutageTable(request, reply,m_outageService));
-            
+
         }
-        
+
         /**
          * <p>setSuccessView</p>
          *

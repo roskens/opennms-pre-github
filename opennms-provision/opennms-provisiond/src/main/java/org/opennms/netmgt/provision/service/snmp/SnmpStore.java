@@ -38,7 +38,7 @@ import org.opennms.netmgt.snmp.SnmpValueType;
 
 public class SnmpStore extends AbstractSnmpStore {
     private static final Logger LOG = LoggerFactory.getLogger(SnmpStore.class);
-    
+
     /**
      * <P>
      * The keys that will be supported by default from the TreeMap base class.
@@ -78,7 +78,7 @@ public class SnmpStore extends AbstractSnmpStore {
     public NamedSnmpVar[] getElements() {
         return ms_elemList;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void storeResult(SnmpResult res) {
@@ -97,7 +97,7 @@ public class SnmpStore extends AbstractSnmpStore {
             }
         }
     }
-    
+
     private String toLogString(SnmpValue val) {
         if (val.getType() == SnmpValue.SNMP_OCTET_STRING) {
             return val.toDisplayString() + " (" + val.toHexString() + ")";

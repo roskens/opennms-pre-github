@@ -76,7 +76,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     @XmlElementWrapper(name="detectors")
     @XmlElement(name="detector")
     private List<PluginConfig> m_detectors = new ArrayList<PluginConfig>();
-    
+
     @XmlElementWrapper(name="policies")
     @XmlElement(name="policy")
     private List<PluginConfig> m_policies = new ArrayList<PluginConfig>();
@@ -89,7 +89,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public ForeignSource() {
         updateDateStamp();
     }
-    
+
     /**
      * <p>Constructor for ForeignSource.</p>
      *
@@ -99,7 +99,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         updateDateStamp();
         setName(name);
     }
-    
+
     /**
      * <p>getName</p>
      *
@@ -187,7 +187,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public void setDetectors(final List<PluginConfig> detectors) {
         m_detectors = detectors;
     }
-    
+
     @XmlTransient
     public List<String> getDetectorNames() {
         List<String> names = new ArrayList<String>(m_detectors.size());
@@ -196,7 +196,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
         }
         return names;
     }
-    
+
     /**
      * <p>getPolicies</p>
      *
@@ -206,7 +206,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public List<PluginConfig> getPolicies() {
         return m_policies;
     }
-    
+
     /**
      * <p>setPolicies</p>
      *
@@ -215,7 +215,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public void setPolicies(final List<PluginConfig> policies) {
         m_policies = policies;
     }
-    
+
     /**
      * <p>addDetector</p>
      *
@@ -283,7 +283,7 @@ public class ForeignSource implements Serializable, Comparable<ForeignSource> {
     public void deletePolicies(final PluginConfig policy) {
         m_policies.remove(policy);
     }
-    
+
     /**
      * <p>isDefault</p>
      *

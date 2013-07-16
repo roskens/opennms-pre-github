@@ -41,8 +41,8 @@ import com.vaadin.ui.themes.Reindeer;
 
 /**
  * The Class MIB Compiler Application.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 @Title("MIB Compiler Application")

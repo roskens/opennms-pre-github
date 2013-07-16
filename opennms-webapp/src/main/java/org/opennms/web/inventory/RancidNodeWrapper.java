@@ -38,7 +38,7 @@ import java.util.Date;
  * @since 1.8.1
  */
 public class RancidNodeWrapper {
-    
+
     private String deviceName;
     private String group;
     private String deviceType;
@@ -47,7 +47,7 @@ public class RancidNodeWrapper {
     private int totalRevisions;
     private Date creationDate;
     private String rootConfigurationUrl;
-    
+
     /**
      * <p>Constructor for RancidNodeWrapper.</p>
      *
@@ -71,7 +71,7 @@ public class RancidNodeWrapper {
          creationDate=_expirationDate;
          rootConfigurationUrl=_rootConfigurationUrl;
     }
-            
+
     /**
      * <p>Getter for the field <code>deviceName</code>.</p>
      *

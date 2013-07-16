@@ -41,7 +41,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
  * @since 1.8.1
  */
 public class NotificationDashlet extends Dashlet {
-    
+
     /*
     - Transient
     - Don't need to be able to acknowledge them
@@ -58,14 +58,14 @@ public class NotificationDashlet extends Dashlet {
     - Ideally be able to sort by any column
 
      */
-    
+
     private NotificationView m_view = new NotificationView(this);
     private NotificationLoader m_loader = new NotificationLoader();
-    
+
     class NotificationLoader extends DashletLoader implements AsyncCallback<Notification[]> {
-        
+
         private SurveillanceServiceAsync m_suveillanceService;
-        
+
         public void load(final SurveillanceSet surveillanceSet) {
             try {
                 loading();
@@ -74,7 +74,7 @@ public class NotificationDashlet extends Dashlet {
                 onFailure(e);
             }
         }
-        
+
         public void onDataLoaded(Notification[] notifications) {
             try {
                 m_view.setNotifications(notifications);
@@ -97,22 +97,22 @@ public class NotificationDashlet extends Dashlet {
         public void onSuccess(Notification[] result) {
             onDataLoaded(result);
         }
-        
+
     }
-    
+
     NotificationDashlet(Dashboard dashboard) {
         super(dashboard, "Notifications");
         setLoader(m_loader);
         setView(m_view);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setSurveillanceSet(SurveillanceSet set) {
         m_loader.load(set);
     }
 
-    
+
     /**
      * <p>setSurveillanceService</p>
      *

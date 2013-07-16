@@ -42,68 +42,68 @@ import org.opennms.netmgt.config.datacollection.ResourceType;
 import org.opennms.netmgt.model.RrdRepository;
 
 public class MockDataCollectionConfig implements DataCollectionConfigDao {
-    
+
     public static final String initalMibObjects[][] = {
         {
             "sysLocation", ".1.3.6.1.2.1.1.6", "0", "string"
         },
-    
+
         {
             "sysName",     ".1.3.6.1.2.1.1.5", "0", "string"
         },
-    
+
         {
             "sysContact",  ".1.3.6.1.2.1.1.4", "0", "string"
         },
-    
+
         {
             "sysUptime",   ".1.3.6.1.2.1.1.3", "0", "timeTicks"
         },
-    
+
         {
             "sysOid",      ".1.3.6.1.2.1.1.2", "0", "string"
         },
-    
+
         {
             "sysDescr", ".1.3.6.1.2.1.1.1", "0", "string"
         },
-        
-        { 
-            "ifNumber",    ".1.3.6.1.2.1.2.1", "0", "integer" 
+
+        {
+            "ifNumber",    ".1.3.6.1.2.1.2.1", "0", "integer"
         },
-        
+
         {
             "ifInDiscards", ".1.3.6.1.2.1.2.2.1.13", "ifIndex", "counter"
         },
-    
+
         {
             "ifOutErrors", ".1.3.6.1.2.1.2.2.1.20", "ifIndex", "counter"
         },
-    
+
         {
             "ifInErrors", ".1.3.6.1.2.1.2.2.1.14", "ifIndex", "counter"
         },
-    
+
         {
             "ifOutOctets", ".1.3.6.1.2.1.2.2.1.16", "ifIndex", "counter"
         },
-    
+
         {
             "ifInOctets", ".1.3.6.1.2.1.2.2.1.10", "ifIndex", "counter"
         },
-    
+
         {
             "ifSpeed", ".1.3.6.1.2.1.2.2.1.5", "ifIndex", "gauge"
         },
-        
-    
+
+
     };
-    
+
     private List<MibObject> m_attrList;
     private Map<String, MibObject> m_attrMap;
 
-    
-    
+
+
     public MockDataCollectionConfig() {
         setAttrList(new ArrayList<MibObject>());
         setAttrMap(new TreeMap<String, MibObject>());
@@ -125,7 +125,7 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
     public Map<String, MibObject> getAttrMap() {
         return m_attrMap;
     }
-    
+
     private MibObject createMibObject(String alias, String oid, String instance, String type) {
         MibObject mibObj = new MibObject();
         mibObj.setGroupName("test");
@@ -150,7 +150,7 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         for (int i = 0; i < MockDataCollectionConfig.initalMibObjects.length; i++) {
             String[] mibData = MockDataCollectionConfig.initalMibObjects[i];
             defineAttributeType(mibData[0], mibData[1], mibData[2], mibData[3]);
-            
+
         }
     }
 
@@ -158,7 +158,7 @@ public class MockDataCollectionConfig implements DataCollectionConfigDao {
         MibObject attrType = getAttributeType(alias);
         if (attrType != null) return attrType;
         return defineAttributeType(alias, oid, inst, type);
-        
+
     }
 
     public MibObject getAttributeType(String aliasOrOid) {

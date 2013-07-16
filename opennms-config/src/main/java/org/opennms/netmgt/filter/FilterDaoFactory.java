@@ -57,7 +57,7 @@ public class FilterDaoFactory {
         if (m_filterDao == null) {
             init();
         }
-        
+
         return m_filterDao;
     }
 
@@ -78,25 +78,25 @@ public class FilterDaoFactory {
         if (m_filterDao != null) {
             return;
         }
-        
+
         JdbcFilterDao jdbcFilterDao = new JdbcFilterDao();
-        
+
         try {
             DataSourceFactory.init();
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Could not initialize DataSourceFactory: " + e, e);
         }
         jdbcFilterDao.setDataSource(DataSourceFactory.getInstance());
-        
+
         try {
             DatabaseSchemaConfigFactory.init();
         } catch (Throwable e) {
             throw new DataAccessResourceFailureException("Could not initialize DatabaseSchemaConfigFactory: " + e, e);
         }
         jdbcFilterDao.setDatabaseSchemaConfigFactory(DatabaseSchemaConfigFactory.getInstance());
-        
+
         jdbcFilterDao.afterPropertiesSet();
-        
+
         setInstance(jdbcFilterDao);
     }
 

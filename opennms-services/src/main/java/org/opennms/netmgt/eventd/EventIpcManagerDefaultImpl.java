@@ -68,8 +68,8 @@ import org.springframework.util.StringUtils;
  * @author <A HREF="http://www.opennms.org">OpenNMS.org </A>
  */
 public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroadcaster, InitializingBean {
-    
-    
+
+
     private static final Logger LOG = LoggerFactory.getLogger(EventIpcManagerDefaultImpl.class);
 
     public static class DiscardTrapsAndSyslogEvents implements RejectedExecutionHandler {
@@ -118,7 +118,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     private EventHandler m_eventHandler;
 
     private Integer m_handlerPoolSize;
-    
+
     private Integer m_handlerQueueLength;
 
     private EventIpcManagerProxy m_eventIpcManagerProxy;
@@ -293,7 +293,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
                     }
                 }
             }
-            
+
             // Try wild cards: Find / before last character
             int i = uei.lastIndexOf("/", uei.length() - 2);
             if (i > 0) {
@@ -304,7 +304,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
                 break;
             }
         }
-        
+
         if (sentToListeners.isEmpty()) {
             LOG.debug("No listener interested in event ID {}: {}", event.getDbid(), event.getUei());
         }
@@ -371,7 +371,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     public synchronized void addEventListener(EventListener listener, String uei) {
         Assert.notNull(listener, "listener argument cannot be null");
         Assert.notNull(uei, "uei argument cannot be null");
-        
+
         addEventListener(listener, Collections.singletonList(uei));
     }
 
@@ -425,7 +425,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
     @Override
     public synchronized void removeEventListener(EventListener listener) {
         Assert.notNull(listener, "listener argument cannot be null");
-        
+
         removeMatchAllForListener(listener);
 
         for (String uei : m_ueiListeners.keySet()) {
@@ -448,7 +448,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
         if (m_listenerThreads.containsKey(listener.getName())) {
             return;
         }
-        
+
         EventListenerExecutor listenerThread = new EventListenerExecutor(listener, m_handlerQueueLength);
         m_listenerThreads.put(listener.getName(), listenerThread);
     }
@@ -461,7 +461,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
         if (!m_ueiListeners.containsKey(uei)) {
             m_ueiListeners.put(uei, new ArrayList<EventListener>());
         }
-        
+
         List<EventListener> listenersList = m_ueiListeners.get(uei);
         if (!listenersList.contains(listener)) {
             listenersList.add(listener);
@@ -500,7 +500,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
 
         Assert.state(m_eventHandler != null, "eventHandler not set");
         Assert.state(m_handlerPoolSize != null, "handlerPoolSize not set");
-        
+
         Logging.withPrefix(Eventd.LOG4J_CATEGORY, new Runnable() {
 
             @Override
@@ -519,7 +519,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
                     new LogPreservingThreadFactory(EventIpcManagerDefaultImpl.class.getSimpleName(), m_handlerPoolSize, true)
                 );
             }
-            
+
         });
 
         // If the proxy is set, make this class its delegate.
@@ -562,7 +562,7 @@ public class EventIpcManagerDefaultImpl implements EventIpcManager, EventIpcBroa
      */
     public void setHandlerPoolSize(int handlerPoolSize) {
         Assert.state(m_eventHandlerPool == null, "handlerPoolSize property cannot be set after afterPropertiesSet() is called");
-        
+
         m_handlerPoolSize = handlerPoolSize;
     }
 

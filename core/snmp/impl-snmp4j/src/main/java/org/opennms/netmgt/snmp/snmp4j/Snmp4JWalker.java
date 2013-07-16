@@ -46,17 +46,17 @@ import org.snmp4j.smi.OID;
 import org.snmp4j.smi.VariableBinding;
 
 public class Snmp4JWalker extends SnmpWalker {
-	
+
 	private static final transient Logger LOG = LoggerFactory.getLogger(Snmp4JWalker.class);
-	
+
 	public static abstract class Snmp4JPduBuilder extends WalkerPduBuilder {
         public Snmp4JPduBuilder(int maxVarsPerPdu) {
             super(maxVarsPerPdu);
         }
-        
+
         public abstract PDU getPdu();
     }
-    
+
     public class GetNextBuilder extends Snmp4JPduBuilder {
 
         private PDU m_nextPdu = null;
@@ -65,7 +65,7 @@ public class Snmp4JWalker extends SnmpWalker {
             super(maxVarsPerPdu);
             reset();
         }
-        
+
         @Override
         public void reset() {
             m_nextPdu = m_agentConfig.createPdu(PDU.GETNEXT);
@@ -75,7 +75,7 @@ public class Snmp4JWalker extends SnmpWalker {
         public PDU getPdu() {
             return m_nextPdu;
         }
-        
+
         @Override
         public void addOid(SnmpObjId snmpObjId) {
             VariableBinding varBind = new VariableBinding(new OID(snmpObjId.getIds()));
@@ -89,9 +89,9 @@ public class Snmp4JWalker extends SnmpWalker {
         @Override
         public void setMaxRepetitions(int maxRepititions) {
         }
-        
+
     }
-    
+
     public class GetBulkBuilder extends Snmp4JPduBuilder {
 
         private PDU m_bulkPdu;
@@ -100,7 +100,7 @@ public class Snmp4JWalker extends SnmpWalker {
             super(maxVarsPerPdu);
             reset();
         }
-        
+
         @Override
         public void reset() {
             m_bulkPdu = m_agentConfig.createPdu(PDU.GETBULK);
@@ -126,7 +126,7 @@ public class Snmp4JWalker extends SnmpWalker {
         public void setMaxRepetitions(int maxRepetitions) {
             m_bulkPdu.setMaxRepetitions(maxRepetitions);
         }
-        
+
     }
 
     /**
@@ -173,12 +173,12 @@ public class Snmp4JWalker extends SnmpWalker {
             } else {
                 processResponse(responseEvent.getResponse());
             }
-            
+
         }
-        
-        
+
+
     }
-    
+
     private Snmp m_session;
     private final Target m_tgt;
     private final ResponseListener m_listener;
@@ -186,25 +186,25 @@ public class Snmp4JWalker extends SnmpWalker {
 
     public Snmp4JWalker(Snmp4JAgentConfig agentConfig, String name, CollectionTracker tracker) {
         super(agentConfig.getInetAddress(), name, agentConfig.getMaxVarsPerPdu(), agentConfig.getMaxRepetitions(), tracker);
-        
+
         m_agentConfig = agentConfig;
-        
+
         m_tgt = agentConfig.getTarget();
         m_listener = new Snmp4JResponseListener();
     }
-    
+
         @Override
     public void start() {
-        
+
         LOG.info("Walking {} for {} using version {} with config: {}", getName(), getAddress(), m_agentConfig.getVersionString(), m_agentConfig);
-            
+
         super.start();
     }
 
         @Override
     protected WalkerPduBuilder createPduBuilder(int maxVarsPerPdu) {
-        return (getVersion() == SnmpConstants.version1 
-                ? (WalkerPduBuilder)new GetNextBuilder(maxVarsPerPdu) 
+        return (getVersion() == SnmpConstants.version1
+                ? (WalkerPduBuilder)new GetNextBuilder(maxVarsPerPdu)
                 : (WalkerPduBuilder)new GetBulkBuilder(maxVarsPerPdu));
     }
 
@@ -215,11 +215,11 @@ public class Snmp4JWalker extends SnmpWalker {
             m_session = m_agentConfig.createSnmpSession();
             m_session.listen();
         }
-        
+
         LOG.debug("Sending tracker pdu of size {}", snmp4JPduBuilder.getPdu().size());
         m_session.send(snmp4JPduBuilder.getPdu(), m_tgt, null, m_listener);
     }
-    
+
     protected int getVersion() {
         return m_tgt.getVersion();
     }

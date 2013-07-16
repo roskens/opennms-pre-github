@@ -113,7 +113,7 @@ public final class IcmpPlugin extends AbstractPlugin {
     	} catch (Throwable e) {
 			LOG.warn("Pinger failed to ping {}", address, e);
         }
-    	
+
     	return false;
     }
 }

@@ -44,7 +44,7 @@ public class ThresholdConfigWrapper extends BaseThresholdDefConfigWrapper {
 
     private Threshold m_threshold;
     private Collection<String> m_dataSources;
-    
+
     /**
      * <p>Constructor for ThresholdConfigWrapper.</p>
      *
@@ -61,7 +61,7 @@ public class ThresholdConfigWrapper extends BaseThresholdDefConfigWrapper {
     @Override
     public String getDatasourceExpression() {
         return m_threshold.getDsName();
-        
+
     }
 
     /** {@inheritDoc} */

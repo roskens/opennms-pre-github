@@ -63,7 +63,7 @@ public interface AvailabilityCalculator {
      */
     void writeXML(String outputFileName)
             throws AvailabilityCalculationException;
-    
+
     /**
      * <p>writeXML</p>
      *

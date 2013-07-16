@@ -60,6 +60,6 @@ public abstract class CreateIfNecessaryTemplate<T, D extends OnmsDao<T, ?>> exte
 
     @Override
     abstract protected T doInsert();
-    
+
 
 }

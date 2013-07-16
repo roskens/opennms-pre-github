@@ -35,7 +35,7 @@ package org.opennms.netmgt.collectd;
  * @version $Id: $
  */
 public interface CollectdInstrumentation {
-    
+
     /**
      * <p>beginScheduleExistingInterfaces</p>
      */
@@ -174,6 +174,6 @@ public interface CollectdInstrumentation {
      * @param e a {@link org.opennms.netmgt.collectd.CollectionException} object.
      */
     public void reportCollectionException(int nodeid, String ipAddress, String svcName, CollectionException e);
-    
+
 
 }

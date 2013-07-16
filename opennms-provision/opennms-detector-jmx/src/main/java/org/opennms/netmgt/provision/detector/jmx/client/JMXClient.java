@@ -42,9 +42,9 @@ import org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper;
  * @version $Id: $
  */
 public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
-    
+
     private ConnectionWrapper m_connection;
-    
+
     /**
      * <p>close</p>
      */
@@ -53,9 +53,9 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
         if(m_connection != null) {
             m_connection.close();
         }
-        
+
     }
-    
+
     /**
      * <p>getMBeanServerConnection</p>
      *
@@ -64,7 +64,7 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * @return a {@link org.opennms.netmgt.provision.support.jmx.connectors.ConnectionWrapper} object.
      */
     protected abstract ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address);
-    
+
     /**
      * <p>generateMap</p>
      *
@@ -73,7 +73,7 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
      * @return a {@link java.util.Map} object.
      */
     protected abstract Map<String, Object> generateMap(int port, int timeout);
-    
+
     /** {@inheritDoc} */
     @Override
     public void connect(InetAddress address, int port, int timeout) throws IOException, Exception {
@@ -108,7 +108,7 @@ public abstract class JMXClient implements Client<ConnectionWrapper, Integer> {
     public Integer sendRequest(ConnectionWrapper request) throws IOException, Exception {
         return receiveResponse();
     }
-    
+
     private Integer receiveResponse() throws IOException {
         return null;
     }

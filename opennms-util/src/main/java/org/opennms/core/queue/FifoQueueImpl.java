@@ -84,7 +84,7 @@ public class FifoQueueImpl<T> implements FifoQueue<T> {
      * implementation limit and the <code>
      * timeout</code> expires, then a false
      * value is returned to the caller.
-     * 
+     *
      * @throws java.lang.InterruptedException
      *                Thrown if the thread is interrupted.
      */

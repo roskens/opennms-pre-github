@@ -68,31 +68,31 @@ import org.springframework.util.Assert;
  */
 public class DefaultNodeLinkService implements NodeLinkService, InitializingBean {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultNodeLinkService.class);
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private DataLinkInterfaceDao m_dataLinkDao;
-    
+
     @Autowired
     private MonitoredServiceDao m_monitoredServiceDao;
-    
+
     @Autowired
     private EndPointConfigurationDao m_endPointConfigDao;
-    
+
     @Autowired
     private LinkStateDao m_linkStateDao;
-    
+
     @Autowired
     @Qualifier("transactionAware")
     private EventForwarder m_eventForwarder;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -101,7 +101,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         m_linkStateDao.saveOrUpdate(state);
         m_linkStateDao.flush();
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -109,18 +109,18 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         LOG.info("adding link between node: {} and node: {}", nodeParentId, nodeId);
         final OnmsNode parentNode = m_nodeDao.get(nodeParentId);
         Assert.notNull(parentNode, "node with id: " + nodeParentId + " does not exist");
-        
+
         final OnmsNode node = m_nodeDao.get(nodeId);
         Assert.notNull(node, "node with id: " + nodeId + " does not exist");
-        
+
         final OnmsCriteria criteria = new OnmsCriteria(DataLinkInterface.class);
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.eq("nodeParentId", nodeParentId));
-        
+
         final Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
         DataLinkInterface dli = null;
-        
+
         if (dataLinkInterface.size() > 1) {
             LOG.warn("more than one data link interface exists for nodes {} and {}", nodeParentId, nodeId);
             return;
@@ -144,7 +144,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
             onmsLinkState = new OnmsLinkState();
         }
         onmsLinkState.setDataLinkInterface(dli);
-        
+
         Boolean nodeParentEndPoint = getEndPointStatus(nodeParentId);
         Boolean nodeEndPoint =  getEndPointStatus(nodeId);
 
@@ -163,16 +163,16 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
 		}
 		dli.setStatus(StatusType.get(state.getDataLinkInterfaceStateType()));
 		onmsLinkState.setLinkState(state);
-		
+
         dli.setLastPollTime(new Date());
         dli.setLinkTypeId(777);
-        
+
         m_dataLinkDao.save(dli);
         m_linkStateDao.save(onmsLinkState);
         m_dataLinkDao.flush();
         m_linkStateDao.flush();
     }
-    
+
     private int getPrimaryIfIndexForNode(OnmsNode node) {
         if(node.getPrimaryInterface() != null && node.getPrimaryInterface().getIfIndex() != null){
             return node.getPrimaryInterface().getIfIndex();
@@ -186,7 +186,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     @Override
     public Integer getNodeId(String endPoint) {
         Collection<OnmsNode> nodes = m_nodeDao.findByLabel(endPoint);
-        
+
         if(nodes.size() > 0){
             return nodes.iterator().next().getId();
         }
@@ -199,7 +199,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     public String getNodeLabel(int nodeId) {
         OnmsNode node = m_nodeDao.get(nodeId);
         if(node != null){
-            return node.getLabel(); 
+            return node.getLabel();
         }
         return null;
     }
@@ -214,7 +214,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
             Restrictions.eq("node.id", nodeId),
             Restrictions.eq("nodeParentId", nodeId)
         ));
-        
+
         return m_dataLinkDao.findMatching(criteria);
     }
 
@@ -224,7 +224,7 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
     public OnmsLinkState getLinkStateForInterface(DataLinkInterface dataLinkInterface) {
         return m_linkStateDao.findByDataLinkInterfaceId(dataLinkInterface.getId());
     }
-    
+
     /** {@inheritDoc} */
     @Transactional
     @Override
@@ -233,13 +233,13 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
         criteria.createAlias("node", "node", OnmsCriteria.LEFT_JOIN);
         criteria.add(Restrictions.eq("node.id", nodeId));
         criteria.add(Restrictions.eq("nodeParentId", nodeParentId));
-        
+
         Collection<DataLinkInterface> dataLinkInterface = m_dataLinkDao.findMatching(criteria);
-        
+
         if(dataLinkInterface.size() > 0){
             DataLinkInterface dataLink = dataLinkInterface.iterator().next();
             dataLink.setStatus(StatusType.get(status));
-            
+
             m_dataLinkDao.update(dataLink);
             m_dataLinkDao.flush();
         }
@@ -256,15 +256,15 @@ public class DefaultNodeLinkService implements NodeLinkService, InitializingBean
                 return InetAddressUtils.str(primaryInterface.getIpAddress());
             }
         }
-        
+
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Transactional(readOnly=true)
     @Override
     public boolean nodeHasEndPointService(int nodeId) {
-        
+
         OnmsMonitoredService endPointService = m_monitoredServiceDao.getPrimaryService(nodeId, m_endPointConfigDao.getValidator().getServiceName());
 
         return endPointService == null ? false : true;

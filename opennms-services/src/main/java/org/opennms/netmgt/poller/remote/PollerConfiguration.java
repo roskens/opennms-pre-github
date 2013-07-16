@@ -37,21 +37,21 @@ import java.util.Date;
  * @version $Id: $
  */
 public interface PollerConfiguration {
-    
+
     /**
-     * This is the time on the server just before it is sent to the configuration 
-     * to the client in millis since the epoch UTC. 
+     * This is the time on the server just before it is sent to the configuration
+     * to the client in millis since the epoch UTC.
      * (Same as returned by System.currentTimeMillis())
      */
     long getServerTime();
-    
+
     /**
      * <p>getConfigurationTimestamp</p>
      *
      * @return a {@link java.util.Date} object.
      */
     Date getConfigurationTimestamp();
-	
+
     /**
      * <p>getPolledServices</p>
      *

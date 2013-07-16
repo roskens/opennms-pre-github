@@ -40,7 +40,7 @@ import java.util.Map;
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  */
 public class Ticket {
-    
+
     /**
      * Enumeration for representation of a Ticket's state.
      * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
@@ -60,7 +60,7 @@ public class Ticket {
          */
         CLOSED
     }
-    
+
     private String m_id;
     private Integer m_alarmId;
     private Integer m_nodeId;
@@ -71,7 +71,7 @@ public class Ticket {
     private String m_user;
     private String m_modificationTimestamp;
     private Map<String, String> m_attributes;
-    
+
     /**
      * <p>getAttributes</p>
      *
@@ -81,7 +81,7 @@ public class Ticket {
     public Map<String, String> getAttributes() {
         return m_attributes;
     }
-    
+
     /**
      * Store a list of free form attributes in the Ticket.  Typically, from
      * the OnmsAlarm attributes.
@@ -91,7 +91,7 @@ public class Ticket {
     public void setAttributes(Map<String, String> attributes) {
         m_attributes = attributes;
     }
-    
+
     /**
      * Adds a single free form attribute to the Ticket.
      *
@@ -104,7 +104,7 @@ public class Ticket {
         }
         m_attributes.put(key, value);
     }
-    
+
     /**
      * Gets a single free form attribute from a Ticket.
      *
@@ -117,7 +117,7 @@ public class Ticket {
         }
         return m_attributes.get(key);
     }
-    
+
     /**
      * Returns a simple high level summary about the ticket that is generated
      * from the Alarm logmsg.
@@ -127,7 +127,7 @@ public class Ticket {
     public String getSummary() {
         return m_summary;
     }
-    
+
     /**
      * Set a summary into the ticket.  Typically the alarm's logmsg.
      *
@@ -136,7 +136,7 @@ public class Ticket {
     public void setSummary(String summary) {
         m_summary = summary;
     }
-    
+
     /**
      * TODO: This should probably turn into a collection of comments.
      *
@@ -153,7 +153,7 @@ public class Ticket {
     public void setDetails(String details) {
         m_details = details;
     }
-    
+
     /**
      * This should be the ticket ID assigned by the HelpDesk system.
      *
@@ -162,7 +162,7 @@ public class Ticket {
     public String getId() {
         return m_id;
     }
-    
+
     /**
      * The TicketerPlugin should set the ID.
      *
@@ -171,7 +171,7 @@ public class Ticket {
     public void setId(String id) {
         m_id = id;
     }
-    
+
     /**
      * User name owning/createing the ticket.  Will be set initially to
      * the user name set in the parameter of the create ticket event.
@@ -181,7 +181,7 @@ public class Ticket {
     public String getUser() {
         return m_user;
     }
-    
+
     /**
      * Set the user name owning the ticket.  Typically set by the TicketerServiceLayer
      * implemenation as the user name parameter from the create ticket event.
@@ -191,7 +191,7 @@ public class Ticket {
     public void setUser(String user) {
         m_user = user;
     }
-    
+
     /**
      * Returns the current <code>Ticket.State</code>
      *
@@ -200,7 +200,7 @@ public class Ticket {
     public State getState() {
         return m_state;
     }
-    
+
     /**
      * Sets the Ticket state to one of the <code>Ticket.State</code> Enums.
      *
@@ -281,5 +281,5 @@ public class Ticket {
     public void setIpAddress(InetAddress ipAddress) {
         this.m_ipAddress = ipAddress;
     }
-    
+
 }

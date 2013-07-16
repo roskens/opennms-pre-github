@@ -35,7 +35,7 @@ package org.opennms.netmgt.provision.service;
  * @version $Id: $
  */
 public interface ScanProgress {
-    
+
     /**
      * <p>abort</p>
      *

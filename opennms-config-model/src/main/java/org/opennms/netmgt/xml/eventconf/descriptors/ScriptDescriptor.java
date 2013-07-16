@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.eventconf.Script;
 
 /**
  * Class ScriptDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -96,14 +96,14 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Script target = (Script) object;
                 return target.getContent();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -121,7 +121,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setSchemaType("string");
         desc.setHandler(handler);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _content
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -132,20 +132,20 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         }
         desc.setValidator(fieldValidator);
         //-- initialize attribute descriptors
-        
+
         //-- _language
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_language", "language", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Script target = (Script) object;
                 return target.getLanguage();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -165,7 +165,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         desc.setRequired(true);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _language
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         fieldValidator.setMinOccurs(1);
@@ -177,7 +177,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -187,7 +187,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -198,7 +198,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -210,7 +210,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -221,7 +221,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -232,7 +232,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -244,7 +244,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -256,7 +256,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -267,7 +267,7 @@ public class ScriptDescriptor extends org.exolab.castor.xml.util.XMLClassDescrip
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

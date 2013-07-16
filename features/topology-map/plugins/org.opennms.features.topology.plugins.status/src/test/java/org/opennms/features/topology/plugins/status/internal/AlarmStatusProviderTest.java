@@ -22,7 +22,7 @@ import com.vaadin.data.Item;
 import org.opennms.netmgt.model.alarm.AlarmSummary;
 
 public class AlarmStatusProviderTest {
-    
+
     private class TestVertex extends AbstractRef implements Vertex {
 
         public TestVertex() {
@@ -96,33 +96,33 @@ public class AlarmStatusProviderTest {
         public Integer getNodeID() {
             return 1;
         }
-        
+
     }
-    
+
     private AlarmDao m_alarmDao;
     private AlarmStatusProvider m_statusProvider;
-    
+
     @Before
     public void setUp() {
         m_alarmDao = EasyMock.createMock(AlarmDao.class);
         m_statusProvider = new AlarmStatusProvider();
         m_statusProvider.setAlarmDao(m_alarmDao);
     }
-    
-    
+
+
     @Test
     public void testGetAlarmStatus() {
         Vertex vertex = new TestVertex();
-        
-        
+
+
         EasyMock.expect(m_alarmDao.getNodeAlarmSummaries(EasyMock.anyInt())).andReturn(createNormalAlarmSummaryList());
-        
+
         EasyMock.replay(m_alarmDao);
-        
+
         Status vertexStatus = m_statusProvider.getStatusForVertex(vertex);
         String computeStatus = vertexStatus.computeStatus();
         assertTrue(computeStatus.equals("indeterminate"));
-        
+
         EasyMock.verify(m_alarmDao);
     }
 

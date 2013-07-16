@@ -42,7 +42,7 @@ public class AttributeGroupType {
 
     private String m_name;
     private String m_ifType;
-    
+
     private SortedSet<AttributeDefinition> m_attributeTypes = new TreeSet<AttributeDefinition>(new ByNameComparator());
 
     /**
@@ -58,7 +58,7 @@ public class AttributeGroupType {
         if (groupIfType == null) {
         	throw new NullPointerException("groupIfType cannot be null");
         }
-        
+
         m_name = groupName;
         m_ifType = groupIfType;
     }
@@ -100,7 +100,7 @@ public class AttributeGroupType {
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>addAttributeType</p>
      *
@@ -109,7 +109,7 @@ public class AttributeGroupType {
     public void addAttributeType(AttributeDefinition attrType) {
         m_attributeTypes.add(attrType);
     }
-    
+
     /**
      * <p>getAttributeTypes</p>
      *
@@ -128,7 +128,7 @@ public class AttributeGroupType {
     public String toString() {
         return "AttrGroupType[name="+m_name+", ifType="+m_ifType+']' ;
     }
-    
-    
+
+
 
 }

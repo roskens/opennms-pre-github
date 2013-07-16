@@ -38,11 +38,11 @@ import org.slf4j.LoggerFactory;
 
 /**
  * The Class XmlMultiInstanceCollectionResource.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlMultiInstanceCollectionResource extends XmlCollectionResource {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(XmlMultiInstanceCollectionResource.class);
 
 

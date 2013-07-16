@@ -57,7 +57,7 @@ import org.opennms.xmlns.xsd.config.jmx_datacollection.Mbean;
 
 /**
  * Controls the "MbeansView".
- * 
+ *
  * @author Markus von Rüden
  */
 public class MBeansController implements ModelChangeNotifier, ViewStateChangedListener, ModelChangeListener<UiModel>,
@@ -71,13 +71,13 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	 * attributes. Each attribute is selectable. The MBean's attributes are
 	 * shown in a table. The problem is, that we must store the "is selected"
 	 * state of each AttributeItem. So we have two choices:<br/>
-	 * 
+	 *
 	 * 1. add ALL attributes from ALL MBeans to the container of the table and
 	 * show only the one belonging to the selected Mbean.<br/>
-	 * 
+	 *
 	 * 2. only add selected MBean's attributes to the container and save the
 	 * container for later use.<br/>
-	 * 
+	 *
 	 * We stick to 2. So at the beginning this class simply maps each MBean to
 	 * its container. But further on we realized that there are more scenarios
 	 * where we have a parent object which has a list of attributes. So the
@@ -85,12 +85,12 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	 * ATTRIBUTETYPE defines the type of the attribute (e.g. {@link Attrib} to
 	 * stick with the MBeans example) and the PARENTTYPE defines the type of the
 	 * parent object (e.g. {@link Mbean} to stick with the MBeans example).
-	 * 
+	 *
 	 * @param <ATTRIBUTETYPE>
 	 *            The type of the parent object's attributes.
 	 * @param <PARENTTYPE>
 	 *            The type of the parent object which holds the attributes.
-	 * 
+	 *
 	 * @author Markus von Rüden
 	 */
 	public static class AttributesContainerCache<ATTRIBUTETYPE, PARENTTYPE> {
@@ -125,7 +125,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 		/**
 		 * Gets the container of the given bean. If there is no container a new
 		 * one is created, otherwise the earlier used container is returned.
-		 * 
+		 *
 		 * @param bean
 		 * @return
 		 */
@@ -151,9 +151,9 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 		/**
 		 * The AttributeCollector retrieves all attributes from the parent's
 		 * object.
-		 * 
+		 *
 		 * @author Markus von Rüden
-		 * 
+		 *
 		 * @param <ATTRIBUTETYPE>
 		 *            The type of the attributes.
 		 * @param <PARENTTYPE>
@@ -164,7 +164,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 			/**
 			 * Retrieves all attributes from the parent's object. Usually should
 			 * do something like <code>return parent.getChildren()</code>
-			 * 
+			 *
 			 * @param parent
 			 *            The parent object.
 			 * @return all attributes from the parent's object.
@@ -243,7 +243,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	 * (in detail: change the view to list mbean details of new mbean). And of
 	 * course set a new ViewState (e.g. a non Mbean was selected and now a Mbean
 	 * is selected)
-	 * 
+	 *
 	 * @param event
 	 */
 	protected void updateView(ItemClickEvent event) {
@@ -256,7 +256,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 
 	/**
 	 * Gets the next ViewState of the view.
-	 * 
+	 *
 	 * @param itemId
 	 * @return ViewState.Init if itemId is null, otherwise
 	 *         ViewState.LeafSelected on Mbean selection and NonLeafSelected on
@@ -390,7 +390,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	 * loaded at the beginning. After that we remove all
 	 * MBeans/Attribs/CompMembers/CompAttribs and add them manually with the
 	 * changes made in the gui.
-	 * 
+	 *
 	 * @param controller
 	 *            the MBeansController of the MbeansView (is needed to determine
 	 *            the changes made in gui)
@@ -452,7 +452,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 
 	/**
 	 * Returns all mbeans which are selected.
-	 * 
+	 *
 	 * @return all mbeans which are selected.
 	 */
 	protected Iterable<Mbean> getSelectedMbeans() {
@@ -462,7 +462,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	/**
 	 * Returns all selected Attributes for the given mbean. The mbean should be
 	 * also selected. There is no check if that is the case.
-	 * 
+	 *
 	 * @param mbean
 	 *            The mbean to get all selected attributes from. The mbean
 	 *            should be also selected. There is no check if that is the
@@ -476,7 +476,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	/**
 	 * Returns all selected composite attributes for the given mbean. The mbean
 	 * should be also selected. There is no check if that is the case.
-	 * 
+	 *
 	 * @param mbean
 	 *            The mbean to get all selected composite attributes from. The
 	 *            mbean should be also selected. There is no check if that is
@@ -491,7 +491,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	 * Returns all selected composite members for the given composite attribute.
 	 * The composite attribute should be also selected. There is no check if
 	 * that is the case.
-	 * 
+	 *
 	 * @param mbean
 	 *            The composite attribute to get all selected composite members
 	 *            from. The composite attribute should be also selected. There
@@ -521,7 +521,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mbean
 	 * @param compAttribContainer
 	 * @return all CompAttrib elements which are selected
@@ -540,7 +540,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	}
 
 	/**
-	 * 
+	 *
 	 * @param compAtt
 	 * @param compMemberContainer
 	 * @return all <code>CompMember</code>s which are selected.
@@ -559,7 +559,7 @@ public class MBeansController implements ModelChangeNotifier, ViewStateChangedLi
 	}
 
 	/**
-	 * 
+	 *
 	 * @param mbean
 	 * @param attributesContainer
 	 * @return all Attributes which are selected.

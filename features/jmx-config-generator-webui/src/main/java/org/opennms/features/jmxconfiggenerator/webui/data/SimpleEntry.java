@@ -34,7 +34,7 @@ import java.util.Map.Entry;
 /**
  * Straight forward implementation of {@link java.util.Map.Entry}.<br/>
  * <b>Note:</b> Does not support null keys.
- * 
+ *
  * @author Markus von Rüden
  */
 public class SimpleEntry<T> implements Entry<T, T> {
@@ -78,7 +78,7 @@ public class SimpleEntry<T> implements Entry<T, T> {
 	/**
 	 * Returns the result of
 	 * <code>this.key.equals(that.key) && this.value.equals(that.value)</code>.
-	 * 
+	 *
 	 * @param obj
 	 * @return true if both keys and values are equal, false otherwise. False is
 	 *         also returned if <codE>obj</code> does not inherit/implement

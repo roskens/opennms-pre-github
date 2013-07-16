@@ -50,7 +50,7 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * The Class TcaDataTest.
- * 
+ *
  * @author Alejandro Galue <agalue@opennms.org>
  */
 @RunWith(OpenNMSJUnit4ClassRunner.class)

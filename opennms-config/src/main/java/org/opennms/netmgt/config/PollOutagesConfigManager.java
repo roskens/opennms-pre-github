@@ -52,7 +52,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
     public PollOutagesConfigManager() {
         super(Outages.class, "poll outage configuration");
     }
@@ -60,7 +60,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -74,7 +74,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
          * programmaticStoreConfigResource (if needed).
          */
         Assert.state(getConfigResource() != null, "property configResource must be set and be non-null");
-        
+
         super.afterPropertiesSet();
     }
 
@@ -82,7 +82,7 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
     protected Outages translateConfig(final Outages outages) {
         return outages;
     }
-    
+
 
     /**
      * <p>getConfig</p>
@@ -312,9 +312,9 @@ abstract public class PollOutagesConfigManager extends AbstractJaxbConfigDao<Out
 
     /*
      * <p>Return the nodes for specified outage</p>
-     * 
+     *
      * @param name the outage that is to be looked up
-     * 
+     *
      * @return the nodes for the specified outage, null if not found
      */
     /**

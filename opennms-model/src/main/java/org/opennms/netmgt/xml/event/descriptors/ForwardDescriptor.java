@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -43,7 +43,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
 /**
  * Class ForwardDescriptor.
- * 
+ *
  * @version $Revision$ $Date$
  */
 @SuppressWarnings("all") public class ForwardDescriptor extends org.exolab.castor.xml.util.XMLClassDescriptorImpl {
@@ -96,14 +96,14 @@ import org.opennms.netmgt.xml.event.Forward;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Forward target = (Forward) object;
                 return target.getContent();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -122,7 +122,7 @@ import org.opennms.netmgt.xml.event.Forward;
         desc.setSchemaType("string");
         desc.setHandler(handler);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _content
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -133,20 +133,20 @@ import org.opennms.netmgt.xml.event.Forward;
         }
         desc.setValidator(fieldValidator);
         //-- initialize attribute descriptors
-        
+
         //-- _state
         desc = new org.exolab.castor.xml.util.XMLFieldDescriptorImpl(java.lang.String.class, "_state", "state", org.exolab.castor.xml.NodeType.Attribute);
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Forward target = (Forward) object;
                 return target.getState();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -166,7 +166,7 @@ import org.opennms.netmgt.xml.event.Forward;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _state
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -182,14 +182,14 @@ import org.opennms.netmgt.xml.event.Forward;
         desc.setImmutable(true);
         handler = new org.exolab.castor.xml.XMLFieldHandler() {
             @Override
-            public java.lang.Object getValue( java.lang.Object object ) 
+            public java.lang.Object getValue( java.lang.Object object )
                 throws IllegalStateException
             {
                 Forward target = (Forward) object;
                 return target.getMechanism();
             }
             @Override
-            public void setValue( java.lang.Object object, java.lang.Object value) 
+            public void setValue( java.lang.Object object, java.lang.Object value)
                 throws IllegalStateException, IllegalArgumentException
             {
                 try {
@@ -209,7 +209,7 @@ import org.opennms.netmgt.xml.event.Forward;
         desc.setHandler(handler);
         desc.setMultivalued(false);
         addFieldDescriptor(desc);
-        
+
         //-- validation code for: _mechanism
         fieldValidator = new org.exolab.castor.xml.FieldValidator();
         { //-- local scope
@@ -221,7 +221,7 @@ import org.opennms.netmgt.xml.event.Forward;
         }
         desc.setValidator(fieldValidator);
         //-- initialize element descriptors
-        
+
     }
 
 
@@ -231,7 +231,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getAccessMode.
-     * 
+     *
      * @return the access mode specified for this class.
      */
     @Override()
@@ -242,7 +242,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getIdentity.
-     * 
+     *
      * @return the identity field, null if this class has no
      * identity.
      */
@@ -254,7 +254,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getJavaClass.
-     * 
+     *
      * @return the Java class represented by this descriptor.
      */
     @Override()
@@ -265,7 +265,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getNameSpacePrefix.
-     * 
+     *
      * @return the namespace prefix to use when marshaling as XML.
      */
     @Override()
@@ -276,7 +276,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getNameSpaceURI.
-     * 
+     *
      * @return the namespace URI used when marshaling and
      * unmarshaling as XML.
      */
@@ -288,7 +288,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getValidator.
-     * 
+     *
      * @return a specific validator for the class described by this
      * ClassDescriptor.
      */
@@ -300,7 +300,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method getXMLName.
-     * 
+     *
      * @return the XML Name for the Class being described.
      */
     @Override()
@@ -311,7 +311,7 @@ import org.opennms.netmgt.xml.event.Forward;
 
     /**
      * Method isElementDefinition.
-     * 
+     *
      * @return true if XML schema definition of this Class is that
      * of a global
      * element or element with anonymous type definition.

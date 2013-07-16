@@ -41,17 +41,17 @@ import org.opennms.web.filter.Filter;
  * @since 1.8.1
  */
 public class AlarmCriteria {
-    
+
     public static final int NO_LIMIT = -1;
     public static final int NO_OFFSET = -1;
-    
+
     public static interface AlarmCriteriaVisitor<E extends Exception> {
-        public void visitAckType(AcknowledgeType ackType) throws E; 
+        public void visitAckType(AcknowledgeType ackType) throws E;
         public void visitFilter(Filter filter) throws E;
         public void visitSortStyle(SortStyle sortStyle) throws E;
         public void visitLimit(int limit, int offset) throws E;
     }
-    
+
     public static class BaseAlarmCriteriaVisitor<E extends Exception> implements AlarmCriteriaVisitor<E> {
         @Override
         public void visitAckType(AcknowledgeType ackType) throws E { }
@@ -62,13 +62,13 @@ public class AlarmCriteria {
         @Override
         public void visitSortStyle(SortStyle sortStyle) throws E { }
     }
-    
+
     Filter[] m_filters = null;
     SortStyle m_sortStyle = SortStyle.LASTEVENTTIME;
     AcknowledgeType m_ackType = AcknowledgeType.UNACKNOWLEDGED;
     int m_limit = NO_LIMIT;
     int m_offset = NO_OFFSET;
-    
+
     /**
      * <p>Constructor for AlarmCriteria.</p>
      *
@@ -77,7 +77,7 @@ public class AlarmCriteria {
     public AlarmCriteria(Filter... filters) {
         this(filters, null, null, NO_LIMIT, NO_OFFSET);
     }
-    
+
     /**
      * <p>Constructor for AlarmCriteria.</p>
      *
@@ -87,7 +87,7 @@ public class AlarmCriteria {
     public AlarmCriteria(AcknowledgeType ackType, Filter[] filters) {
         this(filters, null, ackType, NO_LIMIT, NO_OFFSET);
     }
-    
+
     /**
      * <p>Constructor for AlarmCriteria.</p>
      *
@@ -104,8 +104,8 @@ public class AlarmCriteria {
         m_limit = limit;
         m_offset = offset;
     }
-    
-    
+
+
     /**
      * <p>visit</p>
      *

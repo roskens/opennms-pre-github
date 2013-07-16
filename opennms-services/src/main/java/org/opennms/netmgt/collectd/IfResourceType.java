@@ -47,9 +47,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class IfResourceType extends ResourceType {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(IfResourceType.class);
-    
+
     private TreeMap<Integer, IfInfo> m_ifMap;
 
     /**
@@ -63,7 +63,7 @@ public class IfResourceType extends ResourceType {
         m_ifMap = new TreeMap<Integer, IfInfo>();
         addKnownIfResources();
     }
-    
+
     private Map<Integer, IfInfo> getIfMap() {
         return m_ifMap;
     }
@@ -74,12 +74,12 @@ public class IfResourceType extends ResourceType {
 
     private void addKnownIfResources() {
     	Set<IfInfo> ifInfos = getAgent().getSnmpInterfaceInfo(this);
-        
+
         for(IfInfo ifInfo : ifInfos) {
             addIfInfo(ifInfo);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public SnmpInstId[] getCollectionInstances() {
@@ -122,6 +122,6 @@ public class IfResourceType extends ResourceType {
     protected Collection<SnmpAttributeType> loadAttributeTypes() {
         return Collections.unmodifiableCollection(getCollection().getIndexedAttributeTypesForResourceType(getAgent(), this));
     }
-    
-    
+
+
 }

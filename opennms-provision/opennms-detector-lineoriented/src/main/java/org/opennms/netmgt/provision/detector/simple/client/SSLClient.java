@@ -49,9 +49,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SSLClient extends MultilineOrientedClient implements Client<LineOrientedRequest, MultilineOrientedResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SSLClient.class);
-    
+
 
     /** {@inheritDoc} */
     @Override
@@ -60,7 +60,7 @@ public class SSLClient extends MultilineOrientedClient implements Client<LineOri
         setOutput(m_socket.getOutputStream());
         setInput(new BufferedReader(new InputStreamReader(m_socket.getInputStream())));
     }
-    
+
     /**
      * <p>getWrappedSocket</p>
      *

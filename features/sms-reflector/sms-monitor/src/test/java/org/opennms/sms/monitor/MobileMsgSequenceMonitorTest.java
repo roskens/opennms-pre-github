@@ -50,7 +50,7 @@ public class MobileMsgSequenceMonitorTest {
 
 	private MonitoredService m_service;
 	private MobileMsgSequenceMonitor m_monitor;
-	
+
 	@Before
 	public void setUp() {
 		m_service = new MonitoredService() {
@@ -89,13 +89,13 @@ public class MobileMsgSequenceMonitorTest {
 			    return null;
 			}
 		};
-		
+
 		m_monitor = createAndInitializeMonitor();
 	}
-	
+
 	@Test
 	public void testBrokenConfiguration() throws Exception {
-		
+
 		assertUnavailable("<mobile-sequence xmlns=\"http://xmlns.opennms.org/xsd/config/mobile-sequence\">" +
 				"   <octagon sides=\"8\" />" +
 				"</mobile-sequence>");
@@ -104,7 +104,7 @@ public class MobileMsgSequenceMonitorTest {
 
 	@Test
 	public void testInlineSequence() throws Exception {
-		
+
 		assertAvailable("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
 				"<mobile-sequence xmlns=\"http://xmlns.opennms.org/xsd/config/mobile-sequence\">\n" +
 				"<transaction label=\"sms-ping\">\n" +
@@ -117,7 +117,7 @@ public class MobileMsgSequenceMonitorTest {
 				"</mobile-sequence>");
 
 	}
-	
+
 	@Test
 	public void handleNullToInit() {
 	    MobileMsgSequenceMonitor m = new MobileMsgSequenceMonitor();
@@ -134,7 +134,7 @@ public class MobileMsgSequenceMonitorTest {
 
 	@Test
 	public void testSimpleSequence() throws Exception {
-		
+
 		PollStatus s = assertAvailable(getXmlBuffer("sms-ping-sequence.xml"));
 		assertTrue(s.getProperty("sms-ping").longValue() > 10);
 
@@ -163,12 +163,12 @@ public class MobileMsgSequenceMonitorTest {
 	private MobileMsgSequenceMonitor createAndInitializeMonitor() {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(MobileMsgSequenceMonitor.CONTEXT_KEY, "testMobileMessagePollerContext");
-		
+
 		MobileMsgSequenceMonitor m = new MobileMsgSequenceMonitor();
 		m.initialize(params);
 		return m;
 	}
-	
+
 	private Map<String, Object> createConfigParameters(String mobileConfig) {
 		Map<String, Object> parameters = new HashMap<String, Object>();
 		parameters.put("retry", "0");
@@ -176,7 +176,7 @@ public class MobileMsgSequenceMonitorTest {
 		parameters.put("sequence", mobileConfig);
 		return parameters;
 	}
-	
+
     private String getXmlBuffer(String fileName) throws IOException {
         File xmlFile = new File(ClassLoader.getSystemResource(fileName).getFile());
         assertTrue("xml file is readable", xmlFile.canRead());

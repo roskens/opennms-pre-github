@@ -60,13 +60,13 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends AsyncBasicDetector<Request, Response> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(AsyncBasicDetectorMinaImpl.class);
-    
+
     private BaseDetectorHandler<Request, Response> m_detectorHandler = new BaseDetectorHandler<Request, Response>();
     private IoFilterAdapter m_filterLogging = null;
     private ProtocolCodecFilter m_protocolCodecFilter = new ProtocolCodecFilter(new TextLineCodecFactory(CHARSET_UTF8));
-    
+
     private final ConnectionFactory m_connectionFactory;
 
     private static class SlightlyMoreVerboseLoggingFilter extends LoggingFilter {
@@ -105,7 +105,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
         super(serviceName, port);
         m_connectionFactory = ConnectionFactory.getFactory(getTimeout());
     }
-    
+
     /**
      * <p>Constructor for AsyncBasicDetector.</p>
      *
@@ -118,7 +118,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
         super(serviceName, port, timeout, retries);
         m_connectionFactory = ConnectionFactory.getFactory(getTimeout());
     }
-    
+
     /**
      * <p>dispose</p>
      */
@@ -127,7 +127,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
         LOG.debug("calling dispose on detector {}", getServiceName());
         ConnectionFactory.dispose(m_connectionFactory);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public final DetectFuture isServiceDetected(final InetAddress address) {
@@ -184,8 +184,8 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
 
     /**
      * @return
-     * @throws NoSuchAlgorithmException 
-     * @throws KeyManagementException 
+     * @throws NoSuchAlgorithmException
+     * @throws KeyManagementException
      */
     private static final SSLContext createClientSSLContext() throws NoSuchAlgorithmException, KeyManagementException {
         final TrustManager[] tm = { new RelaxedX509TrustManager() };
@@ -195,9 +195,9 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
     }
 
     /**
-     * Handles the retry attempts. Listens to see when the ConnectFuture is finished and checks if there was 
+     * Handles the retry attempts. Listens to see when the ConnectFuture is finished and checks if there was
      * an exception thrown. If so, it then attempts a retry if there are more retries.
-     * 
+     *
      * @param connector
      * @param detectFuture
      * @param address
@@ -210,7 +210,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
             @Override
             public void operationComplete(ConnectFuture future) {
                 final Throwable cause = future.getException();
-               
+
                 if (cause instanceof IOException) {
                     if(retryAttempt == 0) {
                         LOG.info("Service {} detected false: {}: {}",getServiceName(), cause.getClass().getName(), cause.getMessage());
@@ -225,7 +225,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
                     detectFuture.setServiceDetected(false);
                 }
             }
-            
+
         };
     }
 
@@ -237,7 +237,7 @@ public abstract class AsyncBasicDetectorMinaImpl<Request, Response> extends Asyn
     protected final void setDetectorHandler(final BaseDetectorHandler<Request, Response> detectorHandler) {
         m_detectorHandler = detectorHandler;
     }
-    
+
     /**
      * <p>createDetectorHandler</p>
      *

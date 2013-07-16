@@ -79,12 +79,12 @@ import org.springframework.orm.ObjectRetrievalFailureException;
  * @since 1.8.1
  */
 public class DefaultSiteStatusViewService implements SiteStatusViewService {
-    
+
     private NodeDao m_nodeDao;
     private CategoryDao m_categoryDao;
     private SiteStatusViewConfigDao m_siteStatusViewConfigDao;
-    
-    
+
+
     /**
      * {@inheritDoc}
      *
@@ -96,14 +96,14 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     public AggregateStatusView createAggregateStatusView(String statusViewName) {
         AggregateStatusView statusView = new AggregateStatusView();
         statusViewName = (statusViewName == null ? m_siteStatusViewConfigDao.getDefaultView().getName() : statusViewName);
-        
+
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
-        
+
         statusView.setName(statusViewName);
         statusView.setColumnName(view.getColumnName());
         statusView.setColumnValue(view.getColumnValue());
         statusView.setTableName(view.getTableName());
-        
+
         Set<AggregateStatusDefinition> statusDefs =
             getAggregateStatusDefinitionsForView(view);
         statusView.setStatusDefinitions(statusDefs);
@@ -114,13 +114,13 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     private Set<AggregateStatusDefinition> getAggregateStatusDefinitionsForView(View view) {
         Set<AggregateStatusDefinition> statusDefs = new LinkedHashSet<AggregateStatusDefinition>();
         List<RowDef> rowDefs = view.getRows().getRowDefCollection();
-        
+
         //Loop over the defined site status rows
         for (RowDef rowDef : rowDefs) {
             AggregateStatusDefinition def = new AggregateStatusDefinition();
             def.setName(rowDef.getLabel());
             def.setReportCategory(rowDef.getReportCategory());
-            
+
             Set<OnmsCategory> categories = getCategoriesForRowDef(rowDef);
             def.setCategories(categories);
             statusDefs.add(def);
@@ -131,16 +131,16 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
 
     private Set<OnmsCategory> getCategoriesForRowDef(RowDef rowDef) {
         Set<OnmsCategory> categories = new LinkedHashSet<OnmsCategory>();
-        
+
         //Loop over the defined categories and create model categories (OnmsCategory)
         List<Category> cats = rowDef.getCategoryCollection();
         for (Category cat : cats) {
             OnmsCategory category = m_categoryDao.findByName(cat.getName());
-            
+
             if (category == null) {
                 throw new ObjectRetrievalFailureException(OnmsCategory.class, cat.getName(), "Unable to locate OnmsCategory named: "+cat.getName()+" as specified in the site status view configuration file", null);
             }
-            
+
             categories.add(category);
         }
         return categories;
@@ -159,7 +159,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     public Collection<AggregateStatus> createAggregateStatusesUsingNodeId(int nodeId, String viewName) {
 
         OnmsNode node = m_nodeDao.load(nodeId);
-        
+
         //TODO this is a hack.  need to use reflection to get the right column instead of building.
         return createAggregateStatuses(createAggregateStatusView(viewName), node.getAssetRecord().getBuilding());
     }
@@ -182,7 +182,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         return createAggregateStatusUsingAssetColumn(statusView);
     }
 
-    
+
     /**
      * <p>createAggregateStatusUsingAssetColumn</p>
      *
@@ -190,17 +190,17 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
      * @return a {@link java.util.Collection} object.
      */
     public Collection<AggregateStatus> createAggregateStatusUsingAssetColumn(AggregateStatusView statusView) {
-        
+
         if (statusView == null) {
             throw new IllegalArgumentException("statusView argument cannot be null");
         }
-        
+
         /*
          * We'll return this collection populated with all the aggregated statuss for the
          * devices in the building (site) by for each group of categories.
          */
         Collection<AggregateStatus> stati = new ArrayList<AggregateStatus>();
-        
+
         /*
          * Iterate over the status definitions and create aggregated statuss
          */
@@ -208,16 +208,16 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
             Collection<OnmsNode> nodes = m_nodeDao.findAllByVarCharAssetColumnCategoryList(statusView.getColumnName(), statusView.getColumnValue(), statusDef.getCategories());
             AggregateStatus status = new AggregateStatus(new HashSet<OnmsNode>(nodes));
             status.setLabel(statusDef.getName());
-            
+
             status.setLink(createNodePageUrl(statusView, status));
             stati.add(status);
         }
-        
+
         return stati;
     }
-    
+
     private String createNodePageUrl(AggregateStatusView statusView, AggregateStatus status) {
-        
+
         if (status.getDownEntityCount() == 0) {
             StringBuffer buf = new StringBuffer("element/nodeList.htm?");
             buf.append("statusViewName=");
@@ -249,9 +249,9 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
             buf.append("nodesWithDownAggregateStatus");
             return buf.toString();
         }
-        
+
     }
-    
+
     /**
      * <p>getNodeDao</p>
      *
@@ -269,7 +269,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     public void setNodeDao(NodeDao nodeDao) {
         m_nodeDao = nodeDao;
     }
-    
+
     /**
      * <p>setCategoryDao</p>
      *
@@ -278,7 +278,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     public void setCategoryDao(CategoryDao dao) {
         m_categoryDao = dao;
     }
-    
+
     /**
      * <p>setSiteStatusViewConfigDao</p>
      *
@@ -301,10 +301,10 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
     /** {@inheritDoc} */
     @Override
     public AggregateStatus getAggregateStatus(String statusViewName, String statusSite, String rowLabel) {
-        
+
         AggregateStatusView statusView = createAggregateStatusView(statusViewName);
         Collection<AggregateStatus> stati = createAggregateStatuses(statusView, statusSite);
-        
+
         for (AggregateStatus status : stati) {
             if (status.getLabel().equals(rowLabel)) {
                 return status;
@@ -320,11 +320,11 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
         if (statusViewName == null) {
             statusViewName = m_siteStatusViewConfigDao.getDefaultView().getName();
         }
-        
+
         View view = m_siteStatusViewConfigDao.getView(statusViewName);
         RowDef rowDef = getRowDef(view, rowLabel);
         Set<OnmsCategory> categories = getCategoriesForRowDef(rowDef);
-        
+
         return m_nodeDao.findAllByVarCharAssetColumnCategoryList(view.getColumnName(), statusSite, categories);
     }
 
@@ -337,7 +337,7 @@ public class DefaultSiteStatusViewService implements SiteStatusViewService {
                 return rowDef;
             }
         }
-        
+
         throw new DataRetrievalFailureException("Unable to locate row: "+rowLabel+" for status view: "+view.getName());
     }
 

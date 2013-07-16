@@ -31,7 +31,7 @@ package org.opennms.netmgt.snmp;
 import java.util.StringTokenizer;
 
 public class SnmpInstId extends SnmpObjId {
-    
+
     public static final SnmpInstId INST_ZERO = new SnmpInstId(0);
 
     public SnmpInstId(int[] instanceIds) {
@@ -41,7 +41,7 @@ public class SnmpInstId extends SnmpObjId {
     public SnmpInstId(String instance) {
         super(instance);
     }
-    
+
     public SnmpInstId(SnmpObjId instance) {
         super(instance);
     }
@@ -49,7 +49,7 @@ public class SnmpInstId extends SnmpObjId {
     public SnmpInstId(int instance) {
         super(new int[] { instance }, false);
     }
-    
+
     @Override
     protected boolean addPrefixDotInToString() {
         return false;
@@ -71,9 +71,9 @@ public class SnmpInstId extends SnmpObjId {
     public int toInt() {
         if (this.length() != 1)
             throw new IllegalArgumentException("Cannot convert "+this+" to an int");
-        
+
         return getLastSubId();
     }
-    
-    
+
+
 }

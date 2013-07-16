@@ -79,13 +79,13 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitTemporaryDatabase
 public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implements InitializingBean {
 
-    
+
     @Autowired
     private IpInterfaceDao m_interfaceDao;
 
     @Autowired
     private Capsd m_capsd;
-    
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -97,9 +97,9 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
         p.setProperty("log4j.logger.org.hibernate.SQL", "WARN");
 
         super.setIpInterfaceDao(m_interfaceDao);
-        
+
         MockLogAppender.setupLogging(p);
-        assertTrue("Capsd must not be null", m_capsd != null);        
+        assertTrue("Capsd must not be null", m_capsd != null);
     }
 
     @Test
@@ -132,11 +132,11 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
         printNode(CISCO2691_IP ,"CISCO2691");
         printNode(CISCO1700_IP ,"CISCO1700");
         printNode(CISCO3600_IP ,"CISCO3600");
-        
+
         m_capsd.stop();
 
-        
-    }       
+
+    }
     @Test
     @JUnitSnmpAgents(value={
             @JUnitSnmpAgent(host=CISCO1700B_IP, port=161, resource="classpath:linkd/nms101/cisco1700b.properties")
@@ -149,10 +149,10 @@ public class Nms101CapsdNetworkBuilderTest extends Nms101NetworkBuilder implemen
         m_capsd.scanSuspectInterface(CISCO1700B_IP);
 
         printNode(CISCO1700B_IP,"CISCO1700B");
-        
+
         m_capsd.stop();
 
-        
-    }       
+
+    }
 
 }

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -51,7 +51,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * The event correlation information
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -120,8 +120,8 @@ public class Correlation implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCuei
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -133,8 +133,8 @@ public class Correlation implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCuei
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -149,7 +149,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method enumerateCuei.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -161,7 +161,7 @@ public class Correlation implements Serializable {
     /**
      * Returns the value of field 'cmax'. The field 'cmax' has the
      * following description: The maximum count for this event
-     * 
+     *
      * @return the value of field 'Cmax'.
      */
     public java.lang.String getCmax(
@@ -172,7 +172,7 @@ public class Correlation implements Serializable {
     /**
      * Returns the value of field 'cmin'. The field 'cmin' has the
      * following description: The minimum count for this event
-     * 
+     *
      * @return the value of field 'Cmin'.
      */
     public java.lang.String getCmin(
@@ -184,7 +184,7 @@ public class Correlation implements Serializable {
      * Returns the value of field 'ctime'. The field 'ctime' has
      * the following description: The correlation time for this
      * event
-     * 
+     *
      * @return the value of field 'Ctime'.
      */
     public java.lang.String getCtime(
@@ -194,7 +194,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method getCuei.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -207,7 +207,7 @@ public class Correlation implements Serializable {
         if (index < 0 || index >= this._cueiList.size()) {
             throw new IndexOutOfBoundsException("getCuei: Index value '" + index + "' not in range [0.." + (this._cueiList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _cueiList.get(index);
     }
 
@@ -217,7 +217,7 @@ public class Correlation implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getCuei(
@@ -230,7 +230,7 @@ public class Correlation implements Serializable {
      * Method getCueiCollection.Returns a reference to '_cueiList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getCueiCollection(
@@ -240,7 +240,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method getCueiCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getCueiCount(
@@ -250,7 +250,7 @@ public class Correlation implements Serializable {
 
     /**
      * Returns the value of field 'path'.
-     * 
+     *
      * @return the value of field 'Path'.
      */
     public java.lang.String getPath(
@@ -262,7 +262,7 @@ public class Correlation implements Serializable {
      * Returns the value of field 'state'. The field 'state' has
      * the following description: The state determines if event is
      *  correlated
-     * 
+     *
      * @return the value of field 'State'.
      */
     public java.lang.String getState(
@@ -272,7 +272,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method iterateCuei.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -290,7 +290,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method removeCuei.
-     * 
+     *
      * @param vCuei
      * @return true if the object was removed from the collection.
      */
@@ -302,7 +302,7 @@ public class Correlation implements Serializable {
 
     /**
      * Method removeCueiAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -315,7 +315,7 @@ public class Correlation implements Serializable {
     /**
      * Sets the value of field 'cmax'. The field 'cmax' has the
      * following description: The maximum count for this event
-     * 
+     *
      * @param cmax the value of field 'cmax'.
      */
     public void setCmax(
@@ -326,7 +326,7 @@ public class Correlation implements Serializable {
     /**
      * Sets the value of field 'cmin'. The field 'cmin' has the
      * following description: The minimum count for this event
-     * 
+     *
      * @param cmin the value of field 'cmin'.
      */
     public void setCmin(
@@ -337,7 +337,7 @@ public class Correlation implements Serializable {
     /**
      * Sets the value of field 'ctime'. The field 'ctime' has the
      * following description: The correlation time for this event
-     * 
+     *
      * @param ctime the value of field 'ctime'.
      */
     public void setCtime(
@@ -346,8 +346,8 @@ public class Correlation implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vCuei
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -361,20 +361,20 @@ public class Correlation implements Serializable {
         if (index < 0 || index >= this._cueiList.size()) {
             throw new IndexOutOfBoundsException("setCuei: Index value '" + index + "' not in range [0.." + (this._cueiList.size() - 1) + "]");
         }
-        
+
         this._cueiList.set(index, vCuei);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vCueiArray
      */
     public void setCuei(
             final java.lang.String[] vCueiArray) {
         //-- copy array
         _cueiList.clear();
-        
+
         for (int i = 0; i < vCueiArray.length; i++) {
                 this._cueiList.add(vCueiArray[i]);
         }
@@ -383,14 +383,14 @@ public class Correlation implements Serializable {
     /**
      * Sets the value of '_cueiList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vCueiList the Vector to copy.
      */
     public void setCuei(
             final java.util.List<java.lang.String> vCueiList) {
         // copy vector
         this._cueiList.clear();
-        
+
         this._cueiList.addAll(vCueiList);
     }
 
@@ -398,7 +398,7 @@ public class Correlation implements Serializable {
      * Sets the value of '_cueiList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param cueiList the Vector to set.
      */
     public void setCueiCollection(
@@ -408,7 +408,7 @@ public class Correlation implements Serializable {
 
     /**
      * Sets the value of field 'path'.
-     * 
+     *
      * @param path the value of field 'path'.
      */
     public void setPath(
@@ -420,7 +420,7 @@ public class Correlation implements Serializable {
      * Sets the value of field 'state'. The field 'state' has the
      * following description: The state determines if event is
      *  correlated
-     * 
+     *
      * @param state the value of field 'state'.
      */
     public void setState(

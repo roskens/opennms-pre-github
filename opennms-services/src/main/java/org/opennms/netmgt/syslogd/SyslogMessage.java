@@ -70,7 +70,7 @@ public class SyslogMessage {
     private String m_message;
     private String m_matchedMessage;
     private String m_fullText;
-    
+
     public SyslogMessage() {
     }
 
@@ -115,7 +115,7 @@ public class SyslogMessage {
     public Date getDate() {
         return m_date;
     }
-    
+
     public void setDate(final Date date) {
         m_fullText = null;
         m_date = date;
@@ -124,7 +124,7 @@ public class SyslogMessage {
     public String getHostName() {
         return m_hostname;
     }
-    
+
     public void setHostName(final String hostname) {
         m_fullText = null;
         m_hostname = hostname;
@@ -146,7 +146,7 @@ public class SyslogMessage {
     public String getProcessName() {
         return m_processName;
     }
-    
+
     public void setProcessName(final String processName) {
         m_fullText = null;
         m_processName = processName;
@@ -155,7 +155,7 @@ public class SyslogMessage {
     public Integer getProcessId() {
         return m_processId;
     }
-    
+
     public void setProcessId(final Integer processId) {
         m_fullText = null;
         m_processId = processId;

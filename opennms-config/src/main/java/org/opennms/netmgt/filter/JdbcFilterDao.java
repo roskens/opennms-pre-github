@@ -552,7 +552,7 @@ public class JdbcFilterDao implements FilterDao, InitializingBean {
     private String parseRule(final List<Table> tables, final String rule) throws FilterParseException {
         if (rule != null && rule.length() > 0) {
         	final List<String> extractedStrings = new ArrayList<String>();
-        	
+
         	String sqlRule = rule;
 
             // Extract quoted strings from rule and convert double-quoted strings to single-quoted strings

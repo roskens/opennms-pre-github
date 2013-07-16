@@ -52,9 +52,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class Main {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
-    
+
     public static String OPENNMS_HOME;
 
     @SuppressWarnings({ "static-access", "deprecation" })
@@ -81,7 +81,7 @@ public final class Main {
         } catch (Throwable e) {
             LOG.warn("An error occurred trying to parse the command-line.", e);
         }
-        
+
         System.out.println("- using " + OPENNMS_HOME + "/etc for configuration files");
         System.setProperty("opennms.home", OPENNMS_HOME);
 

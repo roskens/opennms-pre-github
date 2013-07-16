@@ -49,9 +49,9 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
 
     private final OnmsNode m_node;
     private OnmsIpInterface m_currentInterface;
-    
+
     private ScanManager m_scanManager;
-    
+
     /**
      * <p>Constructor for SaveOrUpdateOperation.</p>
      *
@@ -79,7 +79,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
 	 */
 	public SaveOrUpdateOperation(Integer nodeId, String foreignSource, String foreignId, String nodeLabel, String building, String city, ProvisionService provisionService) {
 	    super(provisionService);
-	    
+
         m_node = new OnmsNode();
         m_node.setId(nodeId);
 		m_node.setLabel(nodeLabel);
@@ -90,7 +90,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
         m_node.getAssetRecord().setBuilding(building);
         m_node.getAssetRecord().setCity(city);
 	}
-	
+
 	/**
 	 * <p>getScanManager</p>
 	 *
@@ -110,7 +110,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
 	 * @param status a int.
 	 */
 	public void foundInterface(String ipAddr, Object descr, final PrimaryType primaryType, boolean managed, int status) {
-		
+
 		if (ipAddr == null || "".equals(ipAddr.trim())) {
 		    LOG.error(String.format("Found interface on node {} with an empty ipaddr! Ignoring!", m_node.getLabel()));
 			return;
@@ -119,7 +119,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
         m_currentInterface = new OnmsIpInterface(ipAddr, m_node);
         m_currentInterface.setIsManaged(status == 3 ? "U" : "M");
         m_currentInterface.setIsSnmpPrimary(primaryType);
-        
+
         if (PrimaryType.PRIMARY.equals(primaryType)) {
         	final InetAddress addr = InetAddressUtils.addr(ipAddr);
         	if (addr == null) {
@@ -128,12 +128,12 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
         		m_scanManager = new ScanManager(addr);
         	}
         }
-        
+
         //FIXME: verify this doesn't conflict with constructor.  The constructor already adds this
         //interface to the node.
         m_node.addIpInterface(m_currentInterface);
     }
-	
+
     /**
      * <p>scan</p>
      */
@@ -141,7 +141,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
     public void scan() {
     	updateSnmpData();
 	}
-	
+
     /**
      * <p>updateSnmpData</p>
      */
@@ -164,7 +164,7 @@ public abstract class SaveOrUpdateOperation extends ImportOperation {
             service.setStatus("A"); // DbIfServiceEntry.STATUS_ACTIVE
             m_currentInterface.getMonitoredServices().add(service);
         }
-    
+
     }
 
     /**

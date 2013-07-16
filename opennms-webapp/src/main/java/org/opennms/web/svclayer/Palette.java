@@ -40,17 +40,17 @@ import java.util.List;
  * @since 1.8.1
  */
 public class Palette {
-	
+
 	private String m_label;
 	private List<PaletteCategory> m_categories = new LinkedList<PaletteCategory>();
-	
+
 	/**
 	 * <p>Constructor for Palette.</p>
 	 */
 	public Palette() {
 		this(null);
 	}
-	
+
 	/**
 	 * <p>Constructor for Palette.</p>
 	 *
@@ -68,7 +68,7 @@ public class Palette {
 	public String getLabel() {
 		return m_label;
 	}
-	
+
 	/**
 	 * <p>setLabel</p>
 	 *
@@ -77,7 +77,7 @@ public class Palette {
 	public void setLabel(String label) {
 		m_label = label;
 	}
-	
+
 	/**
 	 * <p>getCategories</p>
 	 *
@@ -86,7 +86,7 @@ public class Palette {
 	public List<PaletteCategory> getCategories() {
 		return Collections.unmodifiableList(m_categories);
 	}
-	
+
 	/**
 	 * <p>addCategory</p>
 	 *
@@ -95,6 +95,6 @@ public class Palette {
 	public void addCategory(PaletteCategory category) {
 		m_categories.add(category);
 	}
-	
-	
+
+
 }

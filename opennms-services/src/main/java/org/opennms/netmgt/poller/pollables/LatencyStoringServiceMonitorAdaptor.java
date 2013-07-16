@@ -64,16 +64,16 @@ import org.slf4j.LoggerFactory;
  */
 public class LatencyStoringServiceMonitorAdaptor implements ServiceMonitor {
 
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LatencyStoringServiceMonitorAdaptor.class);
-    
+
     /** Constant <code>DEFAULT_BASENAME="response-time"</code> */
     public static final String DEFAULT_BASENAME = "response-time";
 
     private ServiceMonitor m_serviceMonitor;
     private PollerConfig m_pollerConfig;
     private Package m_pkg;
-    
+
     private LatencyThresholdingSet m_thresholdingSet;
 
     /**

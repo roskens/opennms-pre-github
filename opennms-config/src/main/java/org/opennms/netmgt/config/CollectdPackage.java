@@ -52,8 +52,8 @@ public class CollectdPackage {
 	private Package m_pkg;
 	private List<InetAddress> m_ipList;
 	private List<IncludeURL> m_includeURLs;
-	
-	
+
+
 	/**
 	 * <p>Constructor for CollectdPackage.</p>
 	 *
@@ -63,13 +63,13 @@ public class CollectdPackage {
 	 */
 	public CollectdPackage(Package pkg, String localServer, boolean verifyServer) {
 		m_pkg = pkg;
-		
+
 		m_includeURLs = new LinkedList<IncludeURL>();
-		
+
 		createIpList(localServer, verifyServer);
-		
+
 		createIncludeURLs(pkg);
-		
+
 	}
 
 	private void createIncludeURLs(Package pkg) {
@@ -78,7 +78,7 @@ public class CollectdPackage {
 			m_includeURLs.add(new IncludeURL(urlEnum.nextElement()));
 		}
 	}
-	
+
 	/**
 	 * <p>getPackage</p>
 	 *
@@ -100,7 +100,7 @@ public class CollectdPackage {
 	public boolean serviceInPackageAndEnabled(String svcName) {
 		Package pkg = getPackage();
 		boolean result = false;
-	
+
 		Enumeration<Service> esvcs = pkg.enumerateService();
 		while (result == false && esvcs.hasMoreElements()) {
 			Service tsvc = esvcs.nextElement();
@@ -185,7 +185,7 @@ public class CollectdPackage {
 		final InetAddress ifaceAddress = addr(iface);
 
 		boolean filterPassed = false;
-	
+
 		// get list of IPs in this package
 		List<InetAddress> ipList = getIpList();
 		if (ipList != null && ipList.size() > 0) {
@@ -193,7 +193,7 @@ public class CollectdPackage {
 		} else {
 			LOG.debug("interfaceInFilter: ipList contains no data");
 		}
-	
+
 		if (!filterPassed)
 			LOG.debug("interfaceInFilter: Interface {} passed filter for package {}?: false", iface, getName());
 		return filterPassed;
@@ -232,23 +232,23 @@ public class CollectdPackage {
 	 */
 	public boolean interfaceInPackage(final String iface) {
 		boolean filterPassed = interfaceInFilter(iface);
-	
+
 		if (!filterPassed)
 			return false;
-	
+
 		//
 		// Ensure that the interface is in the specific list or
 		// that it is in the include range and is not excluded
 		//
-	
+
 		byte[] addr = toIpAddrBytes(iface);
-	
+
 		boolean has_range_include = hasIncludeRange(iface);
 		boolean has_specific = hasSpecific(addr);
-	
+
 		has_specific = hasSpecificUrl(iface, has_specific);
 		boolean has_range_exclude = hasExcludeRange(iface, has_specific);
-	
+
 		boolean packagePassed = has_specific
 				|| (has_range_include && !has_range_exclude);
                 if(packagePassed) {
@@ -263,7 +263,7 @@ public class CollectdPackage {
 		Package pkg = getPackage();
 		String filter = pkg.getFilter().getContent();
 		StringBuffer filterRules = new StringBuffer(filter);
-	
+
 		if (verifyServer) {
 			filterRules.append(" & (serverName == ");
 			filterRules.append('\"');
@@ -281,7 +281,7 @@ public class CollectdPackage {
 		// database and populate the package, IP list map.
 		//
 		String filterRules = getFilterRule(localServer, verifyServer);
-	
+
 		LOG.debug("createPackageIpMap: package is {}. filer rules are {}", pkg.getName(), filterRules);
 		try {
             putIpList(FilterDaoFactory.getInstance().getActiveIPAddressList(filterRules));
@@ -298,7 +298,7 @@ public class CollectdPackage {
 	 */
 	public Service getService(final String svcName) {
         final List<Service> pkgSvcs = m_pkg.getServiceCollection();
-        
+
         for (Service svc : pkgSvcs) {
             if (svc.getName().equalsIgnoreCase(svcName))
                 return svc;
@@ -350,5 +350,5 @@ public class CollectdPackage {
 	public String storeByNodeId() {
 		return getPackage().getStoreByNodeID();
 	}
-	
+
 }

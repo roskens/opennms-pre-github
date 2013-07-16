@@ -56,14 +56,14 @@ import org.slf4j.MDC;
  */
 public class DefaultReportStoreService implements ReportStoreService {
     private static final Logger LOG = LoggerFactory.getLogger(DefaultReportStoreService.class);
-    
+
     private ReportCatalogDao m_reportCatalogDao;
     private ReportServiceLocator m_reportServiceLocator;
-    
+
     private GlobalReportRepository m_globalReportRepository;
-    
+
     private static final String LOG4J_CATEGORY = "reports";
-    
+
     /**
      * <p>Constructor for DefaultReportStoreService.</p>
      */
@@ -80,10 +80,10 @@ public class DefaultReportStoreService implements ReportStoreService {
     @Override
     public void delete(Integer[] ids) {
         for (Integer id : ids) {
-            delete(id); 
+            delete(id);
         }
     }
-    
+
     /**
      * <p>delete</p>
      *
@@ -112,7 +112,7 @@ public class DefaultReportStoreService implements ReportStoreService {
         onmsCrit.addOrder(Order.desc("date"));
         return m_reportCatalogDao.findMatching(onmsCrit);
     }
-    
+
     /**
      * <p>getFormatMap</p>
      *
@@ -134,7 +134,7 @@ public class DefaultReportStoreService implements ReportStoreService {
         }
         return formatMap;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void render(Integer id, ReportFormat format, OutputStream outputStream) {
@@ -148,7 +148,7 @@ public class DefaultReportStoreService implements ReportStoreService {
             LOG.error("unable to render report", e);
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void save(final ReportCatalogEntry reportCatalogEntry) {
@@ -161,7 +161,7 @@ public class DefaultReportStoreService implements ReportStoreService {
     public void setReportCatalogDao(ReportCatalogDao reportCatalogDao) {
         m_reportCatalogDao = reportCatalogDao;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setReportServiceLocator(ReportServiceLocator reportServiceLocator) {
@@ -170,10 +170,10 @@ public class DefaultReportStoreService implements ReportStoreService {
 
     /**
      * <p>setGlobalReportRepository</p>
-     * 
-     * Set the global report repository which implements a local report for Community reports and remote 
+     *
+     * Set the global report repository which implements a local report for Community reports and remote
      * OpenNMS CONNECT repositories
-     * 
+     *
      * @param globalReportRepository a {@link org.opennms.features.reporting.repository.global.GlobalReportRepository} object
      */
     public void setGlobalReportRepository(GlobalReportRepository globalReportRepository) {

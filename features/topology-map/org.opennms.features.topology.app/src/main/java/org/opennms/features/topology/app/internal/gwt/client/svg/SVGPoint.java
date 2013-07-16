@@ -31,7 +31,7 @@ package org.opennms.features.topology.app.internal.gwt.client.svg;
 import com.google.gwt.core.client.JavaScriptObject;
 
 public class SVGPoint extends JavaScriptObject {
-    
+
     protected SVGPoint() {}
 
     public final native void setX(int x) /*-{
@@ -49,9 +49,9 @@ public class SVGPoint extends JavaScriptObject {
     public final native double getX() /*-{
         return this.x;
     }-*/;
-    
+
     public final native double getY() /*-{
         return this.y;
     }-*/;
-    
+
 }

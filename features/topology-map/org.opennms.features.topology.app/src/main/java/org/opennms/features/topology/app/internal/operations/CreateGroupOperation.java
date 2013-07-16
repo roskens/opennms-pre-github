@@ -88,7 +88,7 @@ public class CreateGroupOperation implements Constants, Operation {
 				if (value != null) return value.trim();
 				return value;
 			}
-		});		    
+		});
 
 		final Form promptForm = new Form() {
 
@@ -120,7 +120,7 @@ public class CreateGroupOperation implements Constants, Operation {
 					if (parentGroup == null) {
 						parentGroup = parent;
 					} else if (!parentGroup.equals(parent)) {
-						// If there are multiple parents present then attach the new group 
+						// If there are multiple parents present then attach the new group
 						// to the top level of the hierarchy
 						parentGroup = null;
 						break;

@@ -39,11 +39,11 @@ import net.sf.jasperreports.engine.util.JRProperties;
 import org.opennms.core.utils.RrdLabelUtils;
 
 public class JRobinDirectoryUtil {
-    
+
     public boolean isStoreByGroup() {
         return JRProperties.getBooleanProperty("org.opennms.rrd.storeByGroup") || Boolean.getBoolean("org.opennms.rrd.storeByGroup");
     }
-    
+
     public String getIfInOctetsDataSource(String rrdDirectory, String nodeId, String iFace) throws IOException {
         StringBuffer directory = new StringBuffer();
         directory.append(rrdDirectory)
@@ -51,7 +51,7 @@ public class JRobinDirectoryUtil {
             .append(nodeId)
             .append(File.separator)
             .append(iFace);
-        
+
         if(!isStoreByGroup()) {
             if(checkIfHCExists("ifHCInOctets", directory.toString())) {
                 return "ifHCInOctets";
@@ -66,7 +66,7 @@ public class JRobinDirectoryUtil {
             }
         }
     }
-    
+
     public String getIfOutOctetsDataSource(String rrdDirectory, String nodeId,String iFace) throws IOException {
         StringBuffer directory = new StringBuffer();
         directory.append(rrdDirectory)
@@ -74,17 +74,17 @@ public class JRobinDirectoryUtil {
             .append(nodeId)
             .append(File.separator)
             .append(iFace);
-        
+
         if(!isStoreByGroup()) {
-            
+
             if(checkIfHCExists("ifHCOutOctets", directory.toString())) {
                 return "ifHCOutOctets";
             }else {
                 return "ifOutOctets";
             }
-            
+
         }else {
-           
+
             if(checkDsPropertyFileFor("ifHCOutOctets", directory.toString())) {
                 return "ifHCOutOctets";
             }else {
@@ -92,7 +92,7 @@ public class JRobinDirectoryUtil {
             }
         }
     }
-    
+
     private boolean checkDsPropertyFileFor(String ifOctetsDS, String directory) throws IOException {
         File f = new File(directory.toString() + "" + File.separator + "ds.properties");
         if(f.exists()) {
@@ -100,18 +100,18 @@ public class JRobinDirectoryUtil {
             FileInputStream fis = new FileInputStream(f);
             prop.load(fis);
             fis.close();
-            
+
             return prop.get(ifOctetsDS) != null ? true : false;
         }else {
             return false;
         }
-        
+
     }
 
     public String getIfInOctetsJrb(String rrdDirectory, String nodeId,String iFace) throws FileNotFoundException, IOException {
         return getOctetsFile(rrdDirectory, nodeId, iFace, "ifHCInOctets", "ifInOctets");
     }
-    
+
     public String getIfOutOctetsJrb(String rrdDirectory, String nodeId,String iFace) throws FileNotFoundException, IOException {
         return getOctetsFile(rrdDirectory, nodeId, iFace, "ifHCOutOctets", "ifOutOctets");
     }
@@ -123,18 +123,18 @@ public class JRobinDirectoryUtil {
             .append(nodeId)
             .append(File.separator)
             .append(iFace);
-        
+
         if(isStoreByGroup()) {
             appendStoreByGroup(directory);
         }else {
-            
+
             if(checkIfHCExists(ifHCFilename, directory.toString())) {
                 directory.append(File.separator).append(ifHCFilename).append(getExtension());
             }else {
                 directory.append(File.separator).append(ifFilename).append(getExtension());
             }
         }
-        
+
         return  directory.toString();
     }
 
@@ -142,7 +142,7 @@ public class JRobinDirectoryUtil {
         File ifOctets = new File(dir + "" + File.separator + ifHCFilename + getExtension());
         return ifOctets.exists();
     }
-    
+
     private String getExtension() {
         if(JRProperties.getProperty("org.opennms.rrd.fileExtension") != null) {
             return JRProperties.getProperty("org.opennms.rrd.fileExtension");
@@ -154,7 +154,7 @@ public class JRobinDirectoryUtil {
             }
             return ".jrb";
         }
-        
+
     }
 
     private void appendStoreByGroup(StringBuffer directory) throws FileNotFoundException, IOException {
@@ -164,13 +164,13 @@ public class JRobinDirectoryUtil {
             FileInputStream fis = new FileInputStream(f);
             prop.load(fis);
             fis.close();
-            
+
             if(prop.get("ifHCInOctets") != null) {
                 directory.append(File.separator).append((String) prop.get("ifHCInOctets")).append(getExtension());
             }else {
                 directory.append(File.separator).append((String) prop.get("ifInOctets")).append(getExtension());
             }
-            
+
         }
     }
 

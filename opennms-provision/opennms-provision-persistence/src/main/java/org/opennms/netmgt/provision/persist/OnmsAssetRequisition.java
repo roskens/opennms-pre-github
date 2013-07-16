@@ -39,7 +39,7 @@ import org.opennms.netmgt.provision.persist.requisition.RequisitionAsset;
 public class OnmsAssetRequisition {
 
     private RequisitionAsset m_asset;
-    
+
     /**
      * <p>Constructor for OnmsAssetRequisition.</p>
      *
@@ -48,7 +48,7 @@ public class OnmsAssetRequisition {
     public OnmsAssetRequisition(RequisitionAsset asset) {
         m_asset = asset;
     }
-    
+
     RequisitionAsset getAsset() {
         return m_asset;
     }
@@ -80,7 +80,7 @@ public class OnmsAssetRequisition {
     public String getValue() {
         return m_asset.getValue();
     }
-    
-    
+
+
 
 }

@@ -47,7 +47,7 @@ public interface ScanContext {
      * @return the InetAddress for the agent or null if no such agent exists
      */
     public InetAddress getAgentAddress(String agentType);
-    
+
     /**
      * <p>updateSysObjectId</p>
      *

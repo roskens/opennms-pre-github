@@ -34,20 +34,20 @@ import org.opennms.netmgt.snmp.SnmpValue;
 public class TestVarBind {
     private SnmpObjId m_oid;
     private SnmpValue m_val;
-    
+
     public TestVarBind(SnmpObjId oid) {
         this(oid, null);
     }
-    
+
     public TestVarBind(SnmpObjId oid, SnmpValue val) {
         m_oid = oid;
         m_val = val;
-        
+
     }
     public SnmpObjId getObjId() {
         return m_oid;
     }
-    
+
     public SnmpValue getValue() {
         return m_val;
     }

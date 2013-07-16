@@ -62,7 +62,7 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
     private final ReadWriteLock m_globalLock = new ReentrantReadWriteLock();
     private final Lock m_readLock = m_globalLock.readLock();
     private final Lock m_writeLock = m_globalLock.writeLock();
-    
+
 	private long m_lastModified;
 
     /**
@@ -95,7 +95,7 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     @Override
     public Lock getWriteLock() {
         return m_writeLock;
@@ -159,15 +159,15 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
 
 	/**
 	 * Returns all {@link AssetField} objects that are in packages that match the specified
-	 * sysoid precisely based on the <sysoid> tag or by starting with the content of the 
+	 * sysoid precisely based on the <sysoid> tag or by starting with the content of the
 	 * <sysoidMask> tag.
-	 * 
+	 *
 	 * TODO: Support matching based on IP address
 	 */
     @Override
 	public AssetField[] getAssetFieldsForAddress(final InetAddress address, final String sysoid) {
 	    getReadLock().lock();
-	    
+
 	    try {
     		if (sysoid == null) {
     			// If the sysoid is null, we won't be able to fetch any SNMP attributes;
@@ -175,7 +175,7 @@ public class SnmpAssetAdapterConfigManager implements SnmpAssetAdapterConfig {
     		    LOG.debug("getAssetFieldsForAddress: SNMP sysoid was null for address {}, returning empty list", InetAddressUtils.str(address));
     			return new AssetField[0];
     		}
-    
+
     		final List<AssetField> retval = new ArrayList<AssetField>();
     		for (final org.opennms.netmgt.config.snmpAsset.adapter.Package pkg : m_config.getPackageCollection()) {
     		    final String pkgSysoid = pkg.getPackageChoice().getSysoid();

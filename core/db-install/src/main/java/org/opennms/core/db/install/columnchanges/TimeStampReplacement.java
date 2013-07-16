@@ -44,7 +44,7 @@ import org.opennms.core.db.install.ColumnChangeReplacement;
 
 public class TimeStampReplacement implements ColumnChangeReplacement {
     private final Date m_replacement;
-    
+
     /**
      * <p>Constructor for TimeStampReplacement.</p>
      *
@@ -59,7 +59,7 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
     public Object getColumnReplacement(ResultSet rs, Map<String, ColumnChange> columnChanges) throws SQLException {
         return m_replacement;
     }
-    
+
     /**
      * <p>addColumnIfColumnIsNew</p>
      *
@@ -69,7 +69,7 @@ public class TimeStampReplacement implements ColumnChangeReplacement {
     public boolean addColumnIfColumnIsNew() {
         return true;
     }
-    
+
     /**
      * <p>close</p>
      */

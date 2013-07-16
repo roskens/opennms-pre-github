@@ -55,7 +55,7 @@ public final class ThreeComVlanTableEntry extends Vlan {
 	public final static String VLAN_IFINFO = "a3ComVlanIfInfo";
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the dot1dbasetable. Objects
 	 * in this list should be used by multiple instances of
@@ -91,7 +91,7 @@ public final class ThreeComVlanTableEntry extends Vlan {
 	public ThreeComVlanTableEntry() {
 		super(threeComVlan_elemList);
 	}
-	
+
 	@Override
 	protected boolean hasVlanIndexOid() {
 		return true;

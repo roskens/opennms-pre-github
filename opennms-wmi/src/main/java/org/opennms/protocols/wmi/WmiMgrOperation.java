@@ -176,7 +176,7 @@ public enum WmiMgrOperation {
 		case LT:
 			return !(bool1.equals(bool2));
 		}
-		
+
 		// TODO maybe throwing an exception would be more useful?
 		return false;
 	}

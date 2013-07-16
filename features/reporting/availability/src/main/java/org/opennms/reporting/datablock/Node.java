@@ -445,7 +445,7 @@ public class Node extends StandardNamedObject {
                 }
 			}
         }
-        
+
         if (serviceCount > 0) {
             m_downTime = outage;
             m_totalWindow = rollingWindow * serviceCount;
@@ -478,7 +478,7 @@ public class Node extends StandardNamedObject {
                 serviceCount += intf.getServiceCount();
             }
 		}
-        
+
         if (serviceCount > 0) {
             m_serviceCount = serviceCount;
         }
@@ -512,7 +512,7 @@ public class Node extends StandardNamedObject {
 				}
             }
 		}
-        
+
         return retVal.toString();
     }
 }

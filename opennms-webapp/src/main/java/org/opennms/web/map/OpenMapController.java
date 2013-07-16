@@ -61,13 +61,13 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class OpenMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OpenMapController.class);
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -89,7 +89,7 @@ public class OpenMapController extends MapsLoggingController {
 	/** {@inheritDoc} */
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
+
 
 		LOG.debug(request.getQueryString());
 		String mapIdStr = request.getParameter("MapId");
@@ -100,23 +100,23 @@ public class OpenMapController extends MapsLoggingController {
         LOG.debug("MapHeight={}", mapHeightStr);
         String adminModeStr = request.getParameter("adminMode");
         LOG.debug("adminMode={}", adminModeStr);
-		
+
 		String user = request.getRemoteUser();
-		
+
 		if ((request.isUserInRole(org.opennms.web.springframework.security.Authentication.ROLE_ADMIN))) {
 			LOG.info("{} has Admin admin Role", user);
-		}					
+		}
 
 		float widthFactor = 1;
 		float heightFactor =1;
-		
+
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 
 		try {
 			int mapWidth = WebSecurityUtils.safeParseInt(mapWidthStr);
 			int mapHeight = WebSecurityUtils.safeParseInt(mapHeightStr);
-			
+
 			LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
 			VMap map = null;
 			if(mapIdStr!=null){
@@ -132,7 +132,7 @@ public class OpenMapController extends MapsLoggingController {
 				    map = manager.openMap();
 				}
 			}
-			 
+
 
 			if(map != null){
 				int dbMapWidth = map.getWidth();
@@ -144,16 +144,16 @@ public class OpenMapController extends MapsLoggingController {
 				LOG.debug("widthFactor={}", widthFactor);
 				LOG.debug("heightFactor={}", heightFactor);
 				LOG.debug("Setting new width and height to the session map");
-				
+
 				map.setHeight(mapHeight);
 				map.setWidth(mapWidth);
-				
+
 				for (VElement ve : map.getElements().values()) {
 				    ve.setX((int) (ve.getX() * widthFactor));
                     ve.setY((int) (ve.getY() * heightFactor));
 				}
 			}
-			
+
 			bw.write(ResponseAssembler.getMapResponse(map));
 
 		} catch (Throwable e) {

@@ -72,9 +72,9 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      * object.
      */
     static final String SNMP_AGENTCONFIG_KEY = "org.opennms.netmgt.snmp.SnmpAgentConfig";
-    
+
     private String m_serviceToDetect;
-    
+
     private String m_serviceNameOid;
     /**
      * <p>Constructor for HostResourceSWRunDetector.</p>
@@ -95,7 +95,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
      */
     @Override
     public boolean isServiceDetected(InetAddress address) {
-        
+
         boolean status = false;
 
         // Retrieve this interface's SNMP peer object
@@ -105,9 +105,9 @@ public class HostResourceSWRunDetector extends SnmpDetector {
 
         // Get configuration parameters
         //
-        
+
         // This is the string that represents the service name to be monitored.
-        String serviceName = getServiceToDetect(); 
+        String serviceName = getServiceToDetect();
 
         // set timeout and retries on SNMP peer object
         //
@@ -150,7 +150,7 @@ public class HostResourceSWRunDetector extends SnmpDetector {
         }
 
         return status;
-        
+
     }
 
     private boolean match(String expectedText, String currentText) {

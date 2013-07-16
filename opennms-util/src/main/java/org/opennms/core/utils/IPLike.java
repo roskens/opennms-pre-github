@@ -59,7 +59,7 @@ public abstract class IPLike {
     public static boolean matches(final InetAddress address, final String pattern) {
     	return matches(InetAddressUtils.str(address), pattern);
     }
-    
+
     /**
      * <p>matches</p>
      *

@@ -87,9 +87,9 @@ public class ThreshdIntegrationTest extends ThresholderTestCase {
         threshd.setThreshdConfig(config);
         threshd.init();
         threshd.start();
-        
+
         Thread.sleep(5000);
-        
+
         threshd.stop();
     }
 }

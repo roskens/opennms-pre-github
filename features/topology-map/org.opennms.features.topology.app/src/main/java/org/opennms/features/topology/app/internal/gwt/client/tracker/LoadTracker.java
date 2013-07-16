@@ -43,7 +43,7 @@ import com.google.gwt.user.client.EventListener;
 import com.google.gwt.user.client.ui.Image;
 
 public class LoadTracker {
-    
+
     public class ImageTracker{
 
         private List<LoadTrackerHandler> m_handlerList = new ArrayList<LoadTrackerHandler>();
@@ -60,11 +60,11 @@ public class LoadTracker {
                         callHandlers();
                         m_loadComplete = true;
                     }
-                    
+
                 }
-                
+
             });
-            
+
             Element div = Document.get().getElementById(m_trackerDivId);
             div.appendChild(m_image.getElement());
             //Document.get().getBody().appendChild(m_image.getElement());
@@ -83,18 +83,18 @@ public class LoadTracker {
                 handler.onImageLoad(m_image);
             }
         }
-        
+
     }
-    
+
     public interface LoadTrackerHandler{
 
         public void onImageLoad(Image img);
-        
+
     }
-    
+
     private static LoadTracker m_instance = null;
     private static String m_trackerDivId = "loadTracker";
-    
+
     protected LoadTracker() {
         if(Document.get().getElementById(m_trackerDivId) == null) {
             Element div = DOM.createDiv();
@@ -106,17 +106,17 @@ public class LoadTracker {
             Document.get().getBody().appendChild(div);
         }
     }
-    
+
     public static LoadTracker get() {
         if(m_instance == null) {
             m_instance = new LoadTracker();
         }
-        
+
         return m_instance;
     }
-    
+
     Map<String, ImageTracker> m_trackerList = new HashMap<String, ImageTracker>();
-    
+
     public void trackImageLoad(String imageUrl, LoadTrackerHandler handler) {
         if(!m_trackerList.containsKey(imageUrl)) {
             ImageTracker imgTracker = new ImageTracker(imageUrl);

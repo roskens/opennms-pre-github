@@ -35,7 +35,7 @@ import java.net.URLStreamHandler;
 
 /**
  * The class for handling SFTP+3GPP URL Connection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class Sftp3gppUrlHandler extends URLStreamHandler {

@@ -66,7 +66,7 @@ public class SequenceParameterList {
 	public List<SequenceParameter> getParameters() {
 		return m_parameters;
 	}
-	
+
 	/**
 	 * <p>setParameters</p>
 	 *

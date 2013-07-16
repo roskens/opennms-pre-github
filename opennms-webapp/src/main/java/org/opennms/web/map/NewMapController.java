@@ -57,14 +57,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class NewMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(NewMapController.class);
 
-	
+
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -87,7 +87,7 @@ public class NewMapController extends MapsLoggingController {
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		
+
 
 		int mapWidth = WebSecurityUtils.safeParseInt(request
 				.getParameter("MapWidth"));
@@ -95,17 +95,17 @@ public class NewMapController extends MapsLoggingController {
 					.getParameter("MapHeight"));
 
 		LOG.debug("Current mapWidth={} and MapHeight={}", mapWidth, mapHeight);
-			
+
 
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 
-		try {				
+		try {
 			LOG.info("New Map in admin mode: creating new map");
 			VMap map = manager.newMap(request
 						.getRemoteUser(), request.getRemoteUser(),
 						mapWidth, mapHeight);
-			bw.write(ResponseAssembler.getMapResponse(map));				
+			bw.write(ResponseAssembler.getMapResponse(map));
 		} catch (Throwable e) {
 			LOG.error("Error while creating new map for user:{}", request.getRemoteUser(),e);
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.NEWMAP_ACTION));

@@ -43,23 +43,23 @@ public class OnmsNodeTest {
      */
     @Test
     public void testGetPrimaryInterface() {
-        
+
         OnmsNode node = new OnmsNode();
         OnmsIpInterface iface = new OnmsIpInterface();
         PrimaryType primary1 = PrimaryType.PRIMARY;
         iface.setIsSnmpPrimary(primary1);
         node.addIpInterface(iface);
-        
+
         OnmsIpInterface iface2 = new OnmsIpInterface();
         PrimaryType not_eligible1 = PrimaryType.NOT_ELIGIBLE;
         iface2.setIsSnmpPrimary(not_eligible1);
         node.addIpInterface(iface2);
-        
-        
+
+
         Object o = node.getPrimaryInterface();
-        
+
         Assert.assertSame(o, iface);
-        
+
     }
 
 }

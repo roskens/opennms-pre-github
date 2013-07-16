@@ -35,13 +35,13 @@ import java.util.HashSet;
 import org.junit.Test;
 
 /**
- * 
+ *
  * <p>
  * WebSecurityUtilsTest class.
  * </p>
- * 
+ *
  * @author <a href="mailto:MarkusNeumannMarkus@gmail.com">Markus Neumann</a>
- * 
+ *
  */
 public class WebSecurityUtilsTest {
 

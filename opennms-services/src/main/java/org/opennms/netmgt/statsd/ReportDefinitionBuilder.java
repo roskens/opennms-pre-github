@@ -53,11 +53,11 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class ReportDefinitionBuilder implements InitializingBean {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ReportDefinitionBuilder.class);
-    
+
     private StatisticsDaemonConfigDao m_statsdConfigDao;
-    
+
     /**
      * <p>reload</p>
      *
@@ -65,7 +65,7 @@ public class ReportDefinitionBuilder implements InitializingBean {
      */
     public void reload() throws DataAccessResourceFailureException {
         m_statsdConfigDao.reloadConfiguration();
-        
+
     }
 
     /**
@@ -77,7 +77,7 @@ public class ReportDefinitionBuilder implements InitializingBean {
      */
     public Collection<ReportDefinition> buildReportDefinitions() throws Exception {
         Set<ReportDefinition> reportDefinitions = new HashSet<ReportDefinition>();
-        
+
         for (StatsdPackage pkg : m_statsdConfigDao.getPackages()) {
             for (PackageReport packageReport : pkg.getReports()) {
                 Report report = packageReport.getReport();
@@ -85,33 +85,33 @@ public class ReportDefinitionBuilder implements InitializingBean {
                 if (!packageReport.isEnabled()) {
                     LOG.debug("skipping report '{}' in package '{}' because the report is not enabled", report.getName(), pkg.getName());
                 }
-                
+
                 Class<? extends AttributeStatisticVisitorWithResults> clazz;
                 try {
                     clazz = createClassForReport(report);
                 } catch (ClassNotFoundException e) {
                     throw new DataAccessResourceFailureException("Could not find class '" + report.getClassName() + "'; nested exception: " + e, e);
                 }
-                
+
                 Assert.isAssignable(AttributeStatisticVisitorWithResults.class, clazz, "the class specified by class-name in the '" + report.getName() + "' report does not implement the interface " + AttributeStatisticVisitorWithResults.class.getName() + "; ");
-                
+
                 ReportDefinition reportDef = new ReportDefinition();
                 reportDef.setReport(packageReport);
                 reportDef.setReportClass(clazz);
-                
+
                 BeanWrapper bw = PropertyAccessorFactory.forBeanPropertyAccess(reportDef);
                 try {
                     bw.setPropertyValues(packageReport.getAggregateParameters());
                 } catch (BeansException e) {
                     LOG.error("Could not set properties on report definition: {}", e.getMessage(), e);
                 }
-                
+
                 reportDef.afterPropertiesSet();
 
                 reportDefinitions.add(reportDef);
             }
         }
-        
+
         return reportDefinitions;
     }
 

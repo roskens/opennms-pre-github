@@ -55,15 +55,15 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class CloseMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(CloseMapController.class);
 
-	
+
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -86,13 +86,12 @@ public class CloseMapController extends MapsLoggingController {
         @Override
 	protected ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		
-		
+
 		BufferedWriter  bw = new BufferedWriter(new OutputStreamWriter(response
 				.getOutputStream(), "UTF-8"));
 
 		try {
-			
+
 			manager.closeMap();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLOSEMAP_ACTION));
 		} catch (Throwable e) {
@@ -101,8 +100,8 @@ public class CloseMapController extends MapsLoggingController {
 		} finally {
 			bw.close();
 		}
-		
-		
+
+
 		return null;
 	}
 

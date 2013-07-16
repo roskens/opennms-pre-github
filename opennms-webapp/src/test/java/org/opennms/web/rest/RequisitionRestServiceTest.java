@@ -57,7 +57,7 @@ import org.springframework.test.context.ContextConfiguration;
 })
 @JUnitConfigurationEnvironment
 public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase {
-    
+
     @Test
     public void testRequisition() throws Exception {
         createRequisition();
@@ -100,13 +100,13 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml.contains("<node "));
         assertTrue(xml.contains("node-label="));
         assertTrue(xml.contains("count=\"2\""));
-        
+
         // get individual node
         url = "/requisitions/test/nodes/4243";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("parent-node-label=\"apknd\""));
         assertTrue(xml.contains("node-label=\"apknd\""));
-        
+
         // set attributes
         sendPut(url, "node-label=homo+sapien", 303, "/nodes/4243");
         xml = sendRequest(GET, url, 200);
@@ -131,16 +131,16 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         assertTrue(xml.contains("<node "));
         assertTrue(xml.contains("node-label="));
         assertTrue("Expected only 1 node", xml.contains("count=\"1\""));
-        
+
     }
 
     @Test
     public void testNodeInterfaces() throws Exception {
         createRequisition();
-        
+
         String base = "/requisitions/test/nodes/4243/interfaces";
         String xml;
-        
+
         // create an interface
         sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Monkey\"><monitored-service service-name=\"ICMP\"/></interface>", 303, "/nodes/4243/interfaces/172.20.1.254");
         sendPost(base, "<interface xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" status=\"1\" snmp-primary=\"S\" ip-addr=\"172.20.1.254\" descr=\"Blah\"><monitored-service service-name=\"ICMP\"/></interface>", 303, "/nodes/4243/interfaces/172.20.1.254");
@@ -164,7 +164,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(GET, url, 200);
         assertTrue(xml, xml.contains("descr=\"Total Crap\""));
         assertTrue(xml, xml.contains("snmp-primary=\"P\""));
- 
+
         // delete interface
         xml = sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 404);
@@ -177,9 +177,9 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     @Test
     public void testNodeInterfaceServices() throws Exception {
         createRequisition();
-        
+
         String base = "/requisitions/test/nodes/4243/interfaces/172.20.1.204/services";
-        
+
         // create a service
         sendPost(base, "<monitored-service xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" service-name=\"MONKEY\" />", 303, "/interfaces/172.20.1.204/services/MONKEY");
 
@@ -201,7 +201,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         xml = sendRequest(GET, base, 200);
         assertTrue(xml.contains("count=\"2\""));
     }
-    
+
     @Test
     public void testNodeCategories() throws Exception {
         createRequisition();
@@ -216,16 +216,16 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("count=\"4\""));
         assertTrue(xml.contains("name=\"low\""));
-        
+
         // get individual category
         url = "/requisitions/test/nodes/4243/categories/low";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml.contains("name=\"low\""));
-        
+
         // delete category
         xml = sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 404);
-        
+
         // confirm there are less categories
         xml = sendRequest(GET, "/requisitions/test/nodes/4243/categories", 200);
         assertTrue(xml.contains("count=\"3\""));
@@ -233,15 +233,15 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         // create a category on a node that is not in the requisition
         base = "/requisitions/test/nodes/4244/categories";
         // create a category
-        
+
         sendPost(base, "<category xmlns=\"http://xmlns.opennms.org/xsd/config/model-import\" name=\"New Category\" />", 303, "/nodes/4244/categories/New%20Category");
         xml = sendRequest(GET, base + "/New%20Category", 404);
     }
-    
+
     @Test
     public void testNodeAssets() throws Exception {
         createRequisition();
-        
+
         String base = "/requisitions/test/nodes/4243/assets";
 
         // create an asset
@@ -252,16 +252,16 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
         String xml = sendRequest(GET, url, 200);
         assertTrue(xml, xml.contains("count=\"3\""));
         assertTrue(xml, xml.contains("Windows Pi"));
-        
+
         // get individual asset parameter
         url = "/requisitions/test/nodes/4243/assets/operatingSystem";
         xml = sendRequest(GET, url, 200);
         assertTrue(xml, xml.contains("value=\"Windows Pi\""));
-        
+
         // delete asset parameter
         xml = sendRequest(DELETE, url, 200);
         xml = sendRequest(GET, url, 404);
-        
+
         // confirm there are less assets
         xml = sendRequest(GET, "/requisitions/test/nodes/4243/assets", 200);
         assertTrue(xml, xml.contains("count=\"2\""));
@@ -329,7 +329,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     @Test
     public void testImport() throws Exception {
         createRequisition();
-        
+
         final MockEventProxy eventProxy = getEventProxy();
         eventProxy.resetEvents();
 
@@ -341,7 +341,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
     @Test
     public void testImportNoRescan() throws Exception {
         createRequisition();
-        
+
         final MockEventProxy eventProxy = getEventProxy();
         eventProxy.resetEvents();
 
@@ -375,7 +375,7 @@ public class RequisitionRestServiceTest extends AbstractSpringJerseyRestTestCase
                 "</node>" +
             "</model-import>";
 
-        
+
         sendPost("/requisitions", req, 303, "/requisitions/test");
     }
 

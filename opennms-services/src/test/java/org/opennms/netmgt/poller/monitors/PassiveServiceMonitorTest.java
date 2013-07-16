@@ -49,12 +49,12 @@ public class PassiveServiceMonitorTest extends PassiveStatusKeeperTest {
 
     // inherit from PassiveStatusKeeperTest so we can inherit all the proper initialization
     public void testPoll() throws UnknownHostException {
-        
+
         PassiveStatusKeeper psk = PassiveStatusKeeper.getInstance();
         psk.setStatus("localhost", "127.0.0.1", "my-passive-service", PollStatus.get(PollStatus.SERVICE_UNAVAILABLE, "testing failure"));
-        
+
         ServiceMonitor sm = new PassiveServiceMonitor();
-        
+
         MonitoredService ms = createMonitoredService(1, "localhost", "127.0.0.1", "my-passive-service");
         PollStatus ps = sm.poll(ms, new HashMap<String, Object>());
         assertEquals(PollStatus.down(), ps);

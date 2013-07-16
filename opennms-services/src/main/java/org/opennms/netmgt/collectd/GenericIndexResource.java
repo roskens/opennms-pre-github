@@ -104,7 +104,7 @@ public class GenericIndexResource extends SnmpCollectionResource {
     public String getResourceTypeName() {
         return m_name;
     }
-    
+
     /**
      * <p>getInstance</p>
      *

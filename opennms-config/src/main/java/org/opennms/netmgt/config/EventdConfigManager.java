@@ -69,7 +69,7 @@ public class EventdConfigManager {
         m_config = CastorUtils.unmarshal(EventdConfiguration.class, stream);
 
     }
-    
+
     /**
      * <p>Constructor for EventdConfigManager.</p>
      *
@@ -93,7 +93,7 @@ public class EventdConfigManager {
     public Lock getReadLock() {
         return m_readLock;
     }
-    
+
     public Lock getWriteLock() {
         return m_writeLock;
     }
@@ -111,7 +111,7 @@ public class EventdConfigManager {
             getReadLock().unlock();
         }
     }
-    
+
     /**
      * Return the port on which eventd listens for TCP connections.
      *

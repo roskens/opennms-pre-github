@@ -48,60 +48,60 @@ import org.opennms.core.soa.support.MultivaluedMapImpl;
  * @author brozow
  */
 public class MultivaluedMapTest {
-    
+
     private MultivaluedMap<String, String> map = new MultivaluedMapImpl<String, String>();
-    
+
     @Test
     public void testAddRemove() {
-        
+
         String key = "key";
         String value1 = "value1";
         String value2 = "value2";
-        
+
         assertNull(map.get(key));
 
         map.add(key, value1);
         map.add(key, value2);
-        
+
         assertNotNull(map.get(key));
-        
+
         assertEquals(2, map.get(key).size());
-        
+
         assertTrue(map.get(key).contains(value1));
         assertTrue(map.get(key).contains(value2));
-        
+
         assertTrue(map.remove(key, value1));
-        
+
         assertEquals(1, map.get(key).size());
-        
+
         assertFalse(map.get(key).contains(value1));
         assertTrue(map.get(key).contains(value2));
-        
+
         assertTrue(map.remove(key, value2));
 
         assertNull(map.get(key));
-        
-        
+
+
     }
-    
+
     @Test
     public void testGetCopy() {
-        
+
         String key = "key";
         String value1 = "value1";
         String value2 = "value2";
-        
+
         assertNull(map.get(key));
 
         map.add(key, value1);
         map.add(key, value2);
 
         Set<String> copy = map.getCopy(key);
-        
+
         assertNotSame(copy, map.get(key));
         assertEquals(copy, map.get(key));
-        
-        
+
+
     }
 
 }

@@ -54,7 +54,7 @@ public interface GraphDao {
      * @return a {@link org.opennms.netmgt.model.AdhocGraphType} object.
      */
     public AdhocGraphType findAdhocGraphTypeByName(String name);
-    
+
     /**
      * <p>getAllPrefabGraphs</p>
      *
@@ -69,7 +69,7 @@ public interface GraphDao {
      * @return a {@link org.opennms.netmgt.model.PrefabGraph} object.
      */
     public PrefabGraph getPrefabGraph(String name);
-    
+
     /**
      * <p>getPrefabGraphsForResource</p>
      *

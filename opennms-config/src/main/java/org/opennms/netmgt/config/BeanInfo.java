@@ -31,7 +31,7 @@ package org.opennms.netmgt.config;
 import java.util.*;
 
 /*
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -49,13 +49,13 @@ public class BeanInfo {
     private String keyField;
 
     private String excludes;
-    
+
     private String keyAlias;
-    
+
     private ArrayList<Object> operations;
-    
+
     private List<String> attributes;
-    
+
     private List<String> compositeAttributes;
 
     /**
@@ -205,7 +205,7 @@ public class BeanInfo {
     public String getKeyAlias() {
         return keyAlias;
     }
-    
+
     /**
      * <p>Setter for the field <code>keyAlias</code>.</p>
      *

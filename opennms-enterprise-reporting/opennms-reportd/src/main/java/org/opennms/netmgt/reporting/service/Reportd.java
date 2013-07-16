@@ -61,13 +61,13 @@ public class Reportd implements SpringServiceDaemon {
 
     /** Constant <code>NAME="Reportd"</code> */
     public static final String NAME = "reportd";
-    
+
     private volatile EventForwarder m_eventForwarder;
     private ReportScheduler m_reportScheduler;
     private ReportService m_reportService;
     private ReportDeliveryService m_reportDeliveryService;
     private ReportdConfigurationDao m_reportConfigurationDao;
-    
+
     private String reportDirectory;
 
     /**
@@ -89,22 +89,22 @@ public class Reportd implements SpringServiceDaemon {
     public void destroy() throws Exception {
           m_reportScheduler.destroy();
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
      * @throws java.lang.Exception if any.
      */
     @Override
-    public void afterPropertiesSet() throws Exception {    
+    public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_eventForwarder, "No Event Forwarder Set");
         Assert.notNull(m_reportScheduler, "No Report Scheduler Set");
         Assert.notNull(m_reportService,"No Report service set");
         Assert.notNull(m_reportDeliveryService,"No Delivery service set");
         Assert.notNull(m_reportConfigurationDao,"NoConfiguration DAO Defined");
     }
-   
-    
+
+
     /**
      * <p>runReport</p>
      *
@@ -114,7 +114,7 @@ public class Reportd implements SpringServiceDaemon {
         LOG.info("Running report by name: ({}).", reportName);
         runReport(m_reportConfigurationDao.getReport(reportName));
     }
-      
+
     /**
      * <p>runReport</p>
      *
@@ -137,28 +137,28 @@ public class Reportd implements SpringServiceDaemon {
             createAndSendReportingEvent(EventConstants.REPORT_RUN_FAILED_UEI, report.getReportName(), e.getMessage());
         } catch (ReportDeliveryException e) {
             createAndSendReportingEvent(EventConstants.REPORT_DELIVERY_FAILED_UEI, report.getReportName(), e.getMessage());
-        } finally {        
+        } finally {
         	Logging.setContextMap(mdc);
         }
     }
-    
+
     /**
      * <p>createAndSendReportingEvent
-     * 
+     *
      * @param uei the UEI of the event to send
      * @param reportName the name of the report in question
      * @param reason an explanation of why this event was sent
      */
     private void createAndSendReportingEvent(String uei, String reportName, String reason) {
         LOG.debug("Crafting reporting event with UEI '{}' for report '{}' with reason '{}'", uei, reportName, reason);
-        
+
         EventBuilder bldr = new EventBuilder(uei, NAME);
         bldr.addParam(EventConstants.PARM_REPORT_NAME, reportName);
         bldr.addParam(EventConstants.PARM_REASON, reason);
         m_eventForwarder.sendNow(bldr.getEvent());
     }
- 
-    
+
+
     /**
      * <p>handleRunReportEvent</p>
      *
@@ -167,28 +167,28 @@ public class Reportd implements SpringServiceDaemon {
     @EventHandler(uei = EventConstants.REPORTD_RUN_REPORT)
     public void handleRunReportEvent(Event e){
        String reportName = new String();
-       
+
        for(Parm parm : e.getParmCollection()){
-       
+
            if(EventConstants.PARM_REPORT_NAME.equals(parm.getParmName()))
                reportName = parm.getValue().getContent();
-           
-           else 
+
+           else
                LOG.info("Unknown Event Constant: {}",parm.getParmName());
-               
+
            }
-           
+
            if (reportName != ""){
               LOG.debug("running report {}", reportName);
               runReport(reportName);
-               
+
            }
            else {
                LOG.error("Can not run report -- reportName not specified");
            }
        }
- 
-    
+
+
     /**
      * <p>handleReloadConfigEvent</p>
      *
@@ -202,9 +202,9 @@ public class Reportd implements SpringServiceDaemon {
             EventBuilder ebldr = null;
 
             try {
-                
+
                 reportDirectory = m_reportConfigurationDao.getStorageDirectory();
-                
+
                 LOG.debug("handleReloadConfigEvent: lock acquired, unscheduling current reports...");
 
                 m_reportScheduler.rebuildReportSchedule();
@@ -246,7 +246,7 @@ public class Reportd implements SpringServiceDaemon {
         LOG.debug("isReloadConfigEventTarget: Reportd was target of reload event: {}", isTarget);
         return isTarget;
     }
-  
+
     /**
      * <p>setEventForwarder</p>
      *
@@ -336,6 +336,6 @@ public class Reportd implements SpringServiceDaemon {
             ReportdConfigurationDao reportConfigurationDao) {
         m_reportConfigurationDao = reportConfigurationDao;
     }
-   
-    
+
+
 }

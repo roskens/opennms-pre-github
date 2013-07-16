@@ -46,7 +46,7 @@ public class AssetPage implements EntryPoint {
 		AssetServiceAsync rpcService = getAssetService();
 		HandlerManager eventBus = new HandlerManager(null);
 		AppController appViewer = new AppController(rpcService, eventBus);
-		
+
 		if (RootPanel.get("opennms-assetNodePage") != null) {
 			appViewer.go(RootPanel.get("opennms-assetNodePage"));
 		}

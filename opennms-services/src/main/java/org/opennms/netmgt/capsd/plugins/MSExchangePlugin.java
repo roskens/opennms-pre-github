@@ -177,14 +177,14 @@ public final class MSExchangePlugin extends AbstractPlugin {
      * text "Microsoft Exchange" then this method will return true. Otherwise a
      * false value is returned to the caller.
      * </P>
-     * 
+     *
      * @param host
      *            The remote host to test.
      * @param ports
      *            The remote ports to test. Port value of -1 indicates that all
      *            ports should be tested, otherwise only the specified
      *            port/protocol will be tested..
-     * 
+     *
      * @return The array of supported protocols by the exchange server The
      *         values are in the order POP3, IMAP, MAPI in the returned array.
      */

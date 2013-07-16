@@ -34,11 +34,11 @@ import org.opennms.netmgt.snmp.SnmpInstId;
 import org.opennms.netmgt.snmp.SnmpObjId;
 
 public class LldpLocTable extends SnmpTable<LldpLocTableEntry>{
-    
+
     public LldpLocTable(InetAddress address) {
         super(address, "lldplocTable",LldpLocTableEntry.lldploctable_elemList);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected LldpLocTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

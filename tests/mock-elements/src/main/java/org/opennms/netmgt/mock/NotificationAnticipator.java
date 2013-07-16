@@ -62,7 +62,7 @@ public class NotificationAnticipator {
     }
 
     /**
-     * 
+     *
      * @return
      */
     public long getExpectedDifference() {
@@ -71,7 +71,7 @@ public class NotificationAnticipator {
 
     /**
      * @param event
-     *  
+     *
      */
     public void anticipateNotification(MockNotification mn) {
         MockUtil.println("Anticipating notification: " + mn);

@@ -51,7 +51,7 @@ import org.opennms.netmgt.snmp.SnmpResult;
  */
 public final class Dot1dStpGroup extends AggregateTracker {
     private static final Logger LOG = LoggerFactory.getLogger(Dot1dStpGroup.class);
-    
+
     //
 	// Lookup strings for specific table entries
 	//
@@ -98,7 +98,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 //	public final static String STP_BRDG_FORW_DELAY = "dot1dStpBridgeForwardDelay";
 
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the SNMP Interface table. Objects
 	 * in this list should be used by multiple instances of
@@ -123,7 +123,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 		 *  long) Bridge ID. The other (last) 6 octets of the
 		 *  Bridge ID are given by the value of
 		 *  dot1dBaseBridgeAddress.</P>
-		 * 
+		 *
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_PRIORITY, ".1.3.6.1.2.1.17.2.2"),
 
@@ -140,7 +140,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 		 *  reset or initialized.</P>
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPCOUNTER32, STP_TOP_CHANGES, ".1.3.6.1.2.1.17.2.4"),
-	
+
 		/**
 		 * <P>The bridge identifier of the root of the spanning
 		 *  tree as determined by the Spanning Tree Protocol
@@ -149,19 +149,19 @@ public final class Dot1dStpGroup extends AggregateTracker {
 		 *  Bridge PDUs originated by this node.</P>
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPOCTETSTRING, STP_DESIGNATED_ROOT, ".1.3.6.1.2.1.17.2.5"),
-	
+
 		/**
 		 * <P>The cost of the path to the root as seen from
          * this bridge.</P>
-		 * 
+		 *
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_ROOT_COST, ".1.3.6.1.2.1.17.2.6"),
-	
+
 		/**
 		 * <P>The port number of the port which offers the
 		 * lowest cost path from this bridge to the root
  		 * bridge.</P>
-		 * 
+		 *
 		 */
 		new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_ROOT_PORT, ".1.3.6.1.2.1.17.2.7"),
 
@@ -171,7 +171,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 		 * before it is discarded, in units of hundredths of
 		 * a second. This is the actual value that this
 		 * bridge is currently using.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_MAX_AGE, ".1.3.6.1.2.1.17.2.8"),
 
@@ -182,16 +182,16 @@ public final class Dot1dStpGroup extends AggregateTracker {
  		 * to become so, in units of hundredths of a second.
  		 * This is the actual value that this bridge is
  		 * currently using.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_HELLO_TIME, ".1.3.6.1.2.1.17.2.9"),
-		
+
 		/**
 		 * <P>This time value determines the interval length
  		 * during which no more than two Configuration bridge
  		 * PDUs shall be transmitted by this node, in units
  		 * of hundredths of a second.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_HOLD_TIME, ".1.3.6.1.2.1.17.2.10"),
 
@@ -210,7 +210,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
  		 * dot1dStpBridgeForwardDelay which is the value that
  		 * this bridge and all others would start using
  		 * if/when this bridge were to become the root.]</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_FORW_DELAY, ".1.3.6.1.2.1.17.2.11"),
 
@@ -224,7 +224,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
  		 * An agent may return a badValue error if a set is
  		 * attempted to a value which is not a whole number
  		 * of seconds.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_BRDG_MAX_AGE, ".1.3.6.1.2.1.17.2.12"),
 
@@ -235,10 +235,10 @@ public final class Dot1dStpGroup extends AggregateTracker {
  		 * 1990 to be 1 second. An agent may return a
  		 * badValue error if a set is attempted to a value
  		 * which is not a whole number of seconds.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_BRDG_HELLO_TIME, ".1.3.6.1.2.1.17.2.13"),
-		
+
 		/**
 		 * <P>The value that all bridges use for ForwardDelay
 		 *  when this bridge is acting as the root. Note that
@@ -249,7 +249,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
  		 * An agent may return a badValue error if a set is
  		 * attempted to a value which is not a whole number
  		 * of seconds.</P>
-		 * 
+		 *
 		 */
 		//new NamedSnmpVar(NamedSnmpVar.SNMPINT32, STP_BRDG_FORW_DELAY, ".1.3.6.1.2.1.17.2.14")
 	};
@@ -258,7 +258,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 	 * <P>The SYSTEM_OID is the object identifier that represents the
 	 * root of the system information in the MIB forest. Each of the
 	 * system elements can be retrieved by adding their specific index
-	 * to the string, and an additional Zero(0) to signify the single 
+	 * to the string, and an additional Zero(0) to signify the single
 	 * instance item.</P>
 	 */
 	public static final String SYSTEM_OID = ".1.3.6.1.2.1.17.2";
@@ -278,9 +278,9 @@ public final class Dot1dStpGroup extends AggregateTracker {
 	public Dot1dStpGroup(InetAddress address) {
         super(NamedSnmpVar.getTrackersFor(ms_elemList));
         m_address = address;
-        m_store = new SnmpStore(ms_elemList); 
+        m_store = new SnmpStore(ms_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected void storeResult(SnmpResult res) {
@@ -307,7 +307,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
     public int getStpProtocolSpecification(){
     	return (m_store.getValue(STP_PROTOCOL_SPEC) == null) ? -1 : m_store.getInt32(STP_PROTOCOL_SPEC);
     }
-	
+
     /**
      * <p>getStpPriority</p>
      *
@@ -343,14 +343,14 @@ public final class Dot1dStpGroup extends AggregateTracker {
     public String getStpDesignatedRoot(){
     	return m_store.getHexString(STP_DESIGNATED_ROOT);
     }
-    
+
     /**
      * <p>getStpRootCost</p>
      *
      * @return a int.
      */
     public int getStpRootCost(){
-    	return (m_store.getValue(STP_ROOT_COST) == null) ? -1 :  m_store.getInt32(STP_ROOT_COST); 
+	return (m_store.getValue(STP_ROOT_COST) == null) ? -1 :  m_store.getInt32(STP_ROOT_COST);
     }
 
     /**
@@ -381,7 +381,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * @return a int.
      */
     //public int getStpHelloTime(){
-    //	Integer stpHelloTime = m_store.getInt32(STP_HELLO_TIME); 
+    //	Integer stpHelloTime = m_store.getInt32(STP_HELLO_TIME);
     //	if (stpHelloTime == null) {
     //        return -1;
     //   }
@@ -394,7 +394,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
      * @return a int.
      */
     //public int getStpHoldTime(){
-    //	Integer stpHoldTime = m_store.getInt32(STP_HOLD_TIME); 
+    //	Integer stpHoldTime = m_store.getInt32(STP_HOLD_TIME);
     //	if (stpHoldTime == null) {
     //        return -1;
     //    }
@@ -456,7 +456,7 @@ public final class Dot1dStpGroup extends AggregateTracker {
 
     public OnmsStpNode getOnmsStpNode(OnmsStpNode node) {
     	if (getStpDesignatedRoot() == null
-    			|| getStpProtocolSpecification() == -1) 
+			|| getStpProtocolSpecification() == -1)
     		return node;
     	node.setStpDesignatedRoot(getStpDesignatedRoot());
     	node.setStpProtocolSpecification(StpProtocolSpecification.get(getStpProtocolSpecification()));

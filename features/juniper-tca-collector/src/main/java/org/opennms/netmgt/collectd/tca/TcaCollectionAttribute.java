@@ -36,7 +36,7 @@ import org.opennms.netmgt.config.collector.ServiceParameters;
 
 /**
  * The Class TcaCollectionAttribute.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class TcaCollectionAttribute extends AbstractCollectionAttribute implements CollectionAttribute {
@@ -83,7 +83,7 @@ public class TcaCollectionAttribute extends AbstractCollectionAttribute implemen
 	public String getName() {
 		return m_name;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org.opennms.netmgt.collectd.AbstractCollectionAttribute#getNumericValue()
 	 */

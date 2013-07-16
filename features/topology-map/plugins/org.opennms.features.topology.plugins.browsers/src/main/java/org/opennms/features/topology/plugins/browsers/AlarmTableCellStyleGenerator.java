@@ -36,8 +36,8 @@ public class AlarmTableCellStyleGenerator implements CellStyleGenerator {
                 acknowledged = (Boolean) prop.getValue();
             }
             return renderer.getStyle(severity, acknowledged.booleanValue());
-        } else if ("severity".equals(propertyId)) { 
-            return "bright"; 
+        } else if ("severity".equals(propertyId)) {
+            return "bright";
         }
         return null;
     }

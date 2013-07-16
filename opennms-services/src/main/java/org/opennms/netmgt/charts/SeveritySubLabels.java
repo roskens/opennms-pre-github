@@ -39,9 +39,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class SeveritySubLabels extends ExtendedCategoryAxis {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SeveritySubLabels.class);
-    
+
     private static final long serialVersionUID = 4985544589299368239L;
 
     /**
@@ -69,12 +69,12 @@ public class SeveritySubLabels extends ExtendedCategoryAxis {
     public void addSubLabel(@SuppressWarnings("unchecked") Comparable category, String label) {
         super.addSubLabel(category, convertLabel(label));
     }
-    
+
     private static String convertLabel(String severity) {
 
         int sev = 0;
         String converted = "Unk";
-        
+
         try {
             sev = Integer.parseInt(severity);
         } catch (NumberFormatException e) {

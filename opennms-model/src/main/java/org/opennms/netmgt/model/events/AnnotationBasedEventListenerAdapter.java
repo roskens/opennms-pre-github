@@ -62,8 +62,8 @@ import org.springframework.util.ClassUtils;
  * @version $Id: $
  */
 public class AnnotationBasedEventListenerAdapter implements StoppableEventListener, InitializingBean, DisposableBean {
-    
-	
+
+
 	private static final Logger LOG = LoggerFactory.getLogger(AnnotationBasedEventListenerAdapter.class);
 
     private volatile String m_name = null;
@@ -75,7 +75,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     private final List<Method> m_eventPreProcessors = new LinkedList<Method>();
     private final List<Method> m_eventPostProcessors = new LinkedList<Method>();
     private final SortedSet<Method> m_exceptionHandlers = new TreeSet<Method>(createExceptionHandlerComparator());
-    
+
     /**
      * <p>Constructor for AnnotationBasedEventListenerAdapter.</p>
      *
@@ -89,7 +89,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         m_subscriptionService = subscriptionService;
         afterPropertiesSet();
     }
-    
+
     /**
      * <p>Constructor for AnnotationBasedEventListenerAdapter.</p>
      *
@@ -99,12 +99,12 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     public AnnotationBasedEventListenerAdapter(Object annotatedListener, EventSubscriptionService subscriptionService) {
         this(null, annotatedListener, subscriptionService);
     }
-    
+
     /**
      * <p>Constructor for AnnotationBasedEventListenerAdapter.</p>
      */
     public AnnotationBasedEventListenerAdapter() {
-        // this is here to support dependency injection style 
+        // this is here to support dependency injection style
     }
 
     /* (non-Javadoc)
@@ -119,7 +119,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     public String getName() {
         return m_name;
     }
-    
+
     /**
      * <p>setName</p>
      *
@@ -128,7 +128,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     public void setName(String name) {
         m_name = name;
     }
-    
+
     /**
      * <p>getLogPrefix</p>
      *
@@ -156,10 +156,10 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         if (event.getUei() == null) {
             return;
         }
-        
-        
+
+
         Method m = m_ueiToHandlerMap.get(event.getUei());
-        
+
         if (m == null) {
             // Try to get a catch-all event handler
             m = m_ueiToHandlerMap.get(EventHandler.ALL_UEIS);
@@ -167,19 +167,19 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                 throw new IllegalArgumentException("Received an event for which we have no handler!");
             }
         }
-        
+
         final Method method = m;
-        
-         
+
+
         Logging.withPrefix(m_logPrefix, new Runnable() {
 
             @Override
             public void run() {
                 try {
                     preprocessEvent(event);
-                    
+
                     processEvent(event, method);
-                    
+
                     postprocessEvent(event);
                 } catch (IllegalArgumentException e) {
                     throw e;
@@ -189,7 +189,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                     handleException(event, e.getCause());
                 }
             }
-            
+
         });
     }
 
@@ -233,8 +233,8 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
             processEvent(event, m);
         }
     }
-    
-    
+
+
 
     /**
      * <p>handleException</p>
@@ -243,12 +243,12 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      * @param cause a {@link java.lang.Throwable} object.
      */
     protected void handleException(Event event, Throwable cause) {
-        
+
         for(Method method : m_exceptionHandlers) {
             if (ClassUtils.isAssignableValue(method.getParameterTypes()[1], cause)) {
                 try {
                     method.invoke(m_annotatedListener, event, cause);
-                    
+
                     // we found the correct handler to we are done
                     return;
                 } catch (Throwable e) {
@@ -256,7 +256,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                 }
             }
         }
-        
+
         LOG.debug("Caught an unhandled exception while processing event {}, for listener {}. Add EventExceptionHandler annotation to the listener", event.getUei(), m_annotatedListener, cause);
     }
 
@@ -274,18 +274,18 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
      */
     @Override
     public void afterPropertiesSet() {
-        Assert.state(m_subscriptionService != null, "subscriptionService must be set");        
+        Assert.state(m_subscriptionService != null, "subscriptionService must be set");
         Assert.state(m_annotatedListener != null, "must set the annotatedListener property");
-        
+
         EventListener listenerInfo = findEventListenerAnnotation(m_annotatedListener);
-        
+
         Assert.state(listenerInfo != null, "value of annotatedListener property of class "+m_annotatedListener.getClass()+" must be annotated as "+EventListener.class.getName());
-        
-        
+
+
         if (m_name == null) {
             m_name = listenerInfo.name();
         }
-        
+
         if (m_logPrefix == null) {
             if (listenerInfo.logPrefix() != null && !"".equals(listenerInfo.logPrefix())) {
                 m_logPrefix = listenerInfo.logPrefix();
@@ -293,13 +293,13 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                 m_logPrefix = m_name;
             }
         }
-        
+
         populatePreProcessorList();
-        
+
         populateUeiToHandlerMap();
-        
+
         populatePostProcessorList();
-        
+
         populateExceptionHandlersSet();
 
         // If we only have one EventHandler that is intended to be used as a handler for any UEI, then
@@ -316,7 +316,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     }
 
     private void populateExceptionHandlersSet() {
-        
+
         Method[] methods = m_annotatedListener.getClass().getMethods();
         for(Method method : methods) {
             if (method.isAnnotationPresent(EventExceptionHandler.class)) {
@@ -324,10 +324,10 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
                 m_exceptionHandlers.add(method);
             }
         }
-        
+
 
     }
-    
+
     private static void validateMethodAsEventExceptionHandler(Method method) {
         Assert.state(method.getParameterTypes().length == 2, "Invalid number of paremeters. EventExceptionHandler methods must take 2 arguments with types (Event, ? extends Throwable)");
         Assert.state(ClassUtils.isAssignable(Event.class, method.getParameterTypes()[0]), "First parameter of incorrect type. EventExceptionHandler first paramenter must be of type Event");
@@ -343,32 +343,32 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
 
     private Comparator<Method> createExceptionHandlerComparator() {
         final ClassComparator<Throwable> classComparator = new ClassComparator<Throwable>();
-        
+
         Comparator<Method> comparator = new Comparator<Method>() {
 
             @Override
             public int compare(Method left, Method right) {
                 Class<? extends Throwable> lhsType = left.getParameterTypes()[1].asSubclass(Throwable.class);
                 Class<? extends Throwable> rhsType = right.getParameterTypes()[1].asSubclass(Throwable.class);
-                
+
                 EventExceptionHandler leftHandlerInfo = AnnotationUtils.findAnnotation(left, EventExceptionHandler.class);
                 EventExceptionHandler rightHandlerInfo = AnnotationUtils.findAnnotation(right, EventExceptionHandler.class);
-                
+
                 if (leftHandlerInfo.order() == rightHandlerInfo.order()) {
                     return classComparator.compare(lhsType, rhsType);
                 } else {
                     return leftHandlerInfo.order() - rightHandlerInfo.order();
                 }
             }
-            
+
         };
-        
+
         return comparator;
 
     }
 
     private void populatePostProcessorList() {
-        
+
         Method[] methods = m_annotatedListener.getClass().getMethods();
         for(Method method : methods) {
             if (method.isAnnotationPresent(EventPostProcessor.class)) {
@@ -379,7 +379,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
     }
 
     private void populatePreProcessorList() {
-        
+
         Method[] methods = m_annotatedListener.getClass().getMethods();
         for(Method method : methods) {
             EventPreProcessor ann = AnnotationUtils.findAnnotation(method, EventPreProcessor.class);
@@ -392,7 +392,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
 
     private void populateUeiToHandlerMap() {
         Method[] methods = m_annotatedListener.getClass().getMethods();
-        
+
         for(Method method : methods) {
             EventHandler handlerInfo = AnnotationUtils.findAnnotation(method, EventHandler.class);
             if (handlerInfo != null) {
@@ -411,7 +411,7 @@ public class AnnotationBasedEventListenerAdapter implements StoppableEventListen
         Assert.state(method.getParameterTypes().length == 1, "Invalid number of paremeters for method "+method+". EventHandler methods must take a single event argument");
         Assert.state(method.getParameterTypes()[0].isAssignableFrom(Event.class), "Parameter of incorrent type for method "+method+". EventHandler methods must take a single event argument");
     }
-    
+
     /**
      * <p>stop</p>
      */

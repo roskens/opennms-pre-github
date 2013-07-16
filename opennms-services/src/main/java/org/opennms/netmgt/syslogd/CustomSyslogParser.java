@@ -103,13 +103,13 @@ public class CustomSyslogParser extends SyslogParser {
         }
 
         LOG.trace("message = {}", message);
-        
+
         Matcher oldDateMatcher = m_oldDatePattern.matcher(message);
         if (!oldDateMatcher.find()) {
             oldDateMatcher = null;
         }
         LOG.trace("stdMsg = {}", Boolean.toString(oldDateMatcher != null));
-        
+
         if (!this.find()) {
             if (traceEnabled()) {
                 LOG.trace("Lenient Syslog pattern '{}' did not match '{}'", getPattern(), getText());
@@ -140,7 +140,7 @@ public class CustomSyslogParser extends SyslogParser {
 
         LOG.trace("timestamp = {}", timestamp);
         syslogMessage.setDate(parseDate(timestamp));
-        
+
         // These 2 debugs will aid in analyzing the regexes as syslog seems
         // to differ a lot depending on implementation or message structure.
 
@@ -175,7 +175,7 @@ public class CustomSyslogParser extends SyslogParser {
             LOG.trace("Found message '{}'", matchedMessage);
 
             syslogMessage.setHostName(m.group(m_matchingGroupHost));
-            
+
             message = matchedMessage;
         } else {
             LOG.debug("Regexp not matched: {}", message);

@@ -53,30 +53,30 @@ import org.slf4j.LoggerFactory;
  * Suggested usage is one per CollectableService; this object holds the current state of thresholds
  * for this interface/service combination
  * (so perhaps needs a better name than ThresholdingVisitor)
- * 
+ *
  * Assumes and requires that the any visitation start at CollectionSet level, so that the collection timestamp can
- * be recorded. 
+ * be recorded.
  *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  * @author <a href="mailto:craig@opennms.org">Craig Miskell</a>
  * @version $Id: $
  */
 public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingVisitor.class);
 
 	/**
      * Holds thresholds configuration for a node/interface/service
      */
     final CollectorThresholdingSet m_thresholdingSet;
-    
+
     /**
      * Holds required attribute from CollectionResource to evaluate thresholds.
      */
     final Map<String, CollectionAttribute> m_attributesMap = new HashMap<String, CollectionAttribute>();
 
 	private Date m_collectionTimestamp;
-    
+
     /**
      * Static method create must be used to create new ThresholdingVisitor instance.
      * Is static because successful creation depends on thresholding-enabled parameter.
@@ -113,11 +113,11 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
         m_thresholdingSet = thresholdingSet;
         m_collectionTimestamp = new Date();
     }
-    
+
     public boolean hasThresholds() {
         return m_thresholdingSet.hasThresholds();
     }
-    
+
     /**
      * Get a list of thresholds groups (for junit only at this time)
      *
@@ -126,7 +126,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     public List<ThresholdGroup> getThresholdGroups() {
         return m_thresholdingSet.m_thresholdGroups;
     }
-    
+
     @Override
 	public void visitCollectionSet(CollectionSet set) {
     	m_collectionTimestamp = set.getCollectionTimestamp();
@@ -160,7 +160,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
      * (The way to get attribute is against {@link AttributeGroup} object contained on {@link CollectionResource}
      * implementations).
      */
-    @Override    
+    @Override
     public void visitAttribute(CollectionAttribute attribute) {
         if (m_thresholdingSet.hasThresholds(attribute)) {
             String name = attribute.getName();
@@ -187,7 +187,7 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
         proxy.add(eventList);
         proxy.sendAllEvents();
     }
-    
+
     /*
      * Return the collection timestamp passed in at construct time.  Typically used by tests, but might be  useful elsewhere
      */
@@ -200,5 +200,5 @@ public class ThresholdingVisitor extends AbstractCollectionSetVisitor {
     public String toString() {
         return "ThresholdingVisitor for " + m_thresholdingSet;
     }
-    
+
 }

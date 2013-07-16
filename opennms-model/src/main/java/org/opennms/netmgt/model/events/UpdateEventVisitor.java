@@ -44,10 +44,10 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class UpdateEventVisitor extends AbstractEntityVisitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(UpdateEventVisitor.class);
 
-    
+
     private static final String m_eventSource = "Provisiond";
     private EventForwarder m_eventForwarder;
 
@@ -59,7 +59,7 @@ public class UpdateEventVisitor extends AbstractEntityVisitor {
     public UpdateEventVisitor(EventForwarder eventForwarder) {
         m_eventForwarder = eventForwarder;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visitNode(OnmsNode node) {
@@ -78,7 +78,7 @@ public class UpdateEventVisitor extends AbstractEntityVisitor {
     public void visitMonitoredService(OnmsMonitoredService monSvc) {
         //TODO decide what to do here and when to do it
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void visitSnmpInterface(org.opennms.netmgt.model.OnmsEntity snmpIface) {
@@ -93,7 +93,7 @@ public class UpdateEventVisitor extends AbstractEntityVisitor {
     private Event createIpInterfaceUpdatedEvent(OnmsIpInterface iface) {
         return null;
     }
-    
+
     @SuppressWarnings("unused")
     private Event createSnmpInterfaceUpdatedEvent(OnmsSnmpInterface iface) {
         return null;

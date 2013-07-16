@@ -55,9 +55,9 @@ import org.springframework.web.servlet.view.RedirectView;
  */
 public class AcknowledgeAlarmController extends AbstractController implements InitializingBean {
     private AlarmRepository m_webAlarmRepository;
-    
+
     private String m_redirectView;
-    
+
     /**
      * <p>setRedirectView</p>
      *
@@ -66,7 +66,7 @@ public class AcknowledgeAlarmController extends AbstractController implements In
     public void setRedirectView(String redirectView) {
         m_redirectView = redirectView;
     }
-    
+
     /**
      * <p>setWebAlarmRepository</p>
      *
@@ -107,8 +107,8 @@ public class AcknowledgeAlarmController extends AbstractController implements In
         if (action == null) {
             throw new MissingParameterException("actionCode", new String[] { "alarm", "actionCode" });
         }
-        
-        
+
+
         // convert the alarm id strings to ints
         int[] alarmIds = new int[alarmIdStrings.length];
         for (int i = 0; i < alarmIds.length; i++) {
@@ -123,8 +123,8 @@ public class AcknowledgeAlarmController extends AbstractController implements In
             throw new ServletException("Unknown acknowledge action: " + action);
         }
 
-        
-        
+
+
         String redirectParms = request.getParameter("redirectParms");
         String redirect = request.getParameter("redirect");
         String viewName;

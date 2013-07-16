@@ -67,7 +67,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      * the old style Enumeration to allow the developer freedom of choice when
      * cycling over ranges.
      * </P>
-     * 
+     *
      * @see java.util.Iterator
      * @see java.util.Enumeration
      */
@@ -83,7 +83,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * <P>
          * Creates a poll range generator object.
          * </P>
-         * 
+         *
          * @param en
          *            The Enumeration to use for address generation.
          */
@@ -106,7 +106,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * <P>
          * Returns the next IPPollAddress in the enumeration.
          * </P>
-         * 
+         *
          * @exception java.util.NoSuchElementException
          *                Thrown if there are no more elements in the iteration.
          */
@@ -131,7 +131,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * Returns the next object in the iteration and increments the internal
          * pointer.
          * </P>
-         * 
+         *
          * @exception java.util.NoSuchElementException
          *                Thrown if there are no more elements in the iteration.
          */
@@ -144,7 +144,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
          * The remove method is part of the Iterator interface and is optional.
          * Since it is not implemnted it will always throw an
          * UnsupportedOperationException.
-         * 
+         *
          * @exception java.lang.UnsupportedOperationException
          *                Always thrown by this method.
          */
@@ -188,7 +188,7 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      * values of timeout and retry are set in each generated IPPollAddress
      * object.
      * </P>
-     * 
+     *
      * @param start
      *            The start of the address range to cycle over.
      * @param end
@@ -197,10 +197,10 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      *            The timeout for each generated IPPollAddress.
      * @param retries
      *            The number of retries for generated addresses.
-     * 
+     *
      * @see IPPollAddress
      * @see IPAddrRange
-     * 
+     *
      */
     IPPollRange(InetAddress start, InetAddress end, long timeout, int retries) {
         m_range = new IPAddrRange(start, end);
@@ -215,16 +215,16 @@ public class IPPollRange implements Iterable<IPPollAddress> {
      * values of timeout and retry are set in each generated IPPollAddress
      * object.
      * </P>
-     * 
+     *
      * @param range
      *            The address range to cycle over.
      * @param timeout
      *            The timeout for each generated IPPollAddress.
      * @param retries
      *            The number of retries for generated addresses.
-     * 
+     *
      * @see IPPollAddress
-     * 
+     *
      */
     IPPollRange(IPAddrRange range, long timeout, int retries) {
         m_range = range;

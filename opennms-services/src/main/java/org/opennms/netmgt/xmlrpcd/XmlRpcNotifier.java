@@ -160,7 +160,7 @@ public final class XmlRpcNotifier {
      * The host NMS server name
      */
     private String m_localServer;
-    
+
     //private ExternalEventRecipient m_recipient;
 
     /**
@@ -182,20 +182,20 @@ public final class XmlRpcNotifier {
         if (m_verifyServer) {
             m_localServer = localServer;
         }
-        
+
 //
 //        // These are here temporarily until I can put in the spring xmlrpc event recipient stuff
 //        InvocationHandler handler = new InvocationHandler() {
-//            
+//
 //            public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 //                return Boolean.TRUE;
 //            }
 //        };
-//        m_recipient = (ExternalEventRecipient)Proxy.newProxyInstance(ExternalEventRecipient.class.getClassLoader(), 
-//                                                                     new Class[] { ExternalEventRecipient.class }, 
+//        m_recipient = (ExternalEventRecipient)Proxy.newProxyInstance(ExternalEventRecipient.class.getClassLoader(),
+//                                                                     new Class[] { ExternalEventRecipient.class },
 //                                                                     handler);
     }
-    
+
 
     /**
      * <p>
@@ -212,16 +212,16 @@ public final class XmlRpcNotifier {
     public boolean notifySuccess(final long txNo, final String uei, final String message) {
         Assert.notNull(uei, "uei must not be null");
         Assert.notNull(message, "message must not be null");
-        
+
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.notifySuccess(txNo, uei, message);
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(txNo));
         params.addElement(uei);
         params.addElement(message);
-        
+
         return sendXmlrpcRequest(XMLRPC_SERVER_SUCCESS_COMMAND, params);
     }
 
@@ -245,13 +245,13 @@ public final class XmlRpcNotifier {
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.notifyFailure(txNo, uei, reason);
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(txNo));
         params.addElement(uei);
         params.addElement(reason);
-        
+
         return sendXmlrpcRequest(XMLRPC_SERVER_FAILURE_COMMAND, params);
     }
 
@@ -279,7 +279,7 @@ public final class XmlRpcNotifier {
         params.addElement(String.valueOf(txNo));
         params.addElement(uei);
         params.addElement(message);
-        
+
         return sendXmlrpcRequest(XMLRPC_SERVER_RECEIVE_EVENT_COMMAND, params);
     }
 
@@ -293,10 +293,10 @@ public final class XmlRpcNotifier {
      */
     public boolean sendServiceDownEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
-        
+
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendServiceDownEvent(getLabelForEventNode(event), event.getInterface(), event.getService(), "Not Available", getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(getLabelForEventNode(event)));
@@ -305,7 +305,7 @@ public final class XmlRpcNotifier {
         params.addElement(String.valueOf("Not Available"));
         params.addElement(String.valueOf(getEventHost(event)));
         params.addElement(String.valueOf(event.getTime()));
-        
+
         return sendXmlrpcRequest(XMLRPC_SERVICE_DOWN_COMMAND, params);
     }
 
@@ -335,7 +335,7 @@ public final class XmlRpcNotifier {
         params.addElement(String.valueOf("Not Available"));
         params.addElement(String.valueOf(getEventHost(event)));
         params.addElement(String.valueOf(event.getTime()));
-        
+
         return sendXmlrpcRequest(XMLRPC_SERVICE_UP_COMMAND, params);
     }
 
@@ -352,7 +352,7 @@ public final class XmlRpcNotifier {
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendInterfaceDownEvent(getLabelForEventNode(event), event.getInterface(), getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(getLabelForEventNode(event)));
@@ -376,7 +376,7 @@ public final class XmlRpcNotifier {
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendInterfaceUpEvent(getLabelForEventNode(event), event.getInterface(), getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(getLabelForEventNode(event)));
@@ -384,7 +384,7 @@ public final class XmlRpcNotifier {
         params.addElement(String.valueOf(event.getHost()));
         params.addElement(String.valueOf(getEventHost(event)));
         params.addElement(String.valueOf(event.getTime()));
-        
+
         return sendXmlrpcRequest(XMLRPC_INTERFACE_UP_COMMAND, params);
     }
 
@@ -400,13 +400,13 @@ public final class XmlRpcNotifier {
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendNodeDownEvent(getLabelForEventNode(event), getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(getLabelForEventNode(event)));
         params.addElement(String.valueOf(getEventHost(event)));
         params.addElement(String.valueOf(event.getTime()));
-        
+
         return sendXmlrpcRequest(XMLRPC_NODE_DOWN_COMMAND, params);
     }
 
@@ -422,13 +422,13 @@ public final class XmlRpcNotifier {
 
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode(event), getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         params.addElement(String.valueOf(getLabelForEventNode(event)));
         params.addElement(String.valueOf(getEventHost(event)));
         params.addElement(String.valueOf(event.getTime()));
-        
+
         return sendXmlrpcRequest(XMLRPC_NODE_UP_COMMAND, params);
     }
 
@@ -444,10 +444,10 @@ public final class XmlRpcNotifier {
      */
     public boolean sendEvent(final Event event) {
         Assert.notNull(event, "event object must not be null");
-        
+
         // FIXME: This is unused and is intended for Spring xmlrpc integration
         //Object o = m_recipient.sendNodeUpEvent(getLabelForEventNode3event), getEventHost(event), event.getTime());
-        
+
         // Create the request parameters list
         final Vector<Object> params = new Vector<Object>();
         final Hashtable<String, String> table = new Hashtable<String, String>();
@@ -457,17 +457,17 @@ public final class XmlRpcNotifier {
 		if (source != null) {
             table.put("source", source);
         }
-        
+
         final String label = getLabelForEventNode(event);
         if (label != null) {
             table.put("nodeLabel", label);
         }
-        
+
         final String host = getEventHost(event);
         if (host != null) {
             table.put("host", host);
         }
-        
+
         table.put("time", String.valueOf(event.getTime()));
         table.put("uei", String.valueOf(event.getUei()));
         table.put("nodeId", Long.toString(event.getNodeid()));
@@ -486,7 +486,7 @@ public final class XmlRpcNotifier {
         if (descr != null) {
             table.put("description", descr);
         }
-        
+
         final String severity = event.getSeverity();
         if (severity != null) {
             table.put("severity", event.getSeverity());
@@ -538,7 +538,7 @@ public final class XmlRpcNotifier {
      * <p>
      * This method retrieves the nodeLable from the database for a given nodeId.
      * </p>
-     * 
+     *
      * @param nodeId
      *            the nodeId to retrieve the node label for.
      */
@@ -579,7 +579,7 @@ public final class XmlRpcNotifier {
      * This method sends an xmlrpc request to an external xmlrpc server and gets
      * the response from the xmlrpc server as a String.
      * </p>
-     * 
+     *
      * @param command
      *            The server command to process the request.
      * @param params
@@ -607,7 +607,7 @@ public final class XmlRpcNotifier {
             } catch (final Throwable t) {
 		LOG.error("Received unknown error.", t);
             }
-            
+
             if (success) {
                 break;
             }

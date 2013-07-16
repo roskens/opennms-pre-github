@@ -38,7 +38,7 @@ import org.opennms.netmgt.xml.event.Log;
  * @version $Id: $
  */
 public interface EventForwarder {
-    
+
     /**
      * Called by a service to send an event to eventd
      *

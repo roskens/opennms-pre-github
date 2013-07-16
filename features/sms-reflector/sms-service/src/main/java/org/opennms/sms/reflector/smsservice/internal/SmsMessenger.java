@@ -59,13 +59,13 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgResponse>, OnmsInboundMessageNotification, IUSSDNotification, InitializingBean {
-    
+
     Logger log = LoggerFactory.getLogger(getClass());
-    
+
     private SmsService m_smsService;
-    
+
     private Queue<MobileMsgResponse> m_replyQueue;
-    
+
     /**
      * <p>setSmsService</p>
      *
@@ -74,7 +74,7 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     public void setSmsService(SmsService smsService) {
         m_smsService = smsService;
     }
-    
+
     /**
      * <p>afterPropertiesSet</p>
      *
@@ -84,7 +84,7 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     public void afterPropertiesSet() throws Exception {
         Assert.notNull(m_smsService, "the smsService must not be null");
     }
-    
+
     /**
      * <p>sendRequest</p>
      *
@@ -94,7 +94,7 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     @Override
     public void sendRequest(MobileMsgRequest request) throws Exception {
     	request.setSendTimestamp(System.currentTimeMillis());
-    	
+
     	if (request instanceof SmsRequest) {
     	    SmsRequest smsRequest = (SmsRequest)request;
             debugf("SmsMessenger.send sms message %s", smsRequest);
@@ -108,11 +108,11 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
             if (!m_smsService.sendUSSDRequest(ussdRequest.getMessage(), ussdRequest.getGatewayId())) {
                 throw new IOException("Unable to send ussd message");
             }
-    	} 
+	}
     	else {
     	    throw new IOException("Unrecognized type of request: " + request);
     	}
-    	
+
 
     }
 
@@ -127,9 +127,9 @@ public class SmsMessenger implements Messenger<MobileMsgRequest, MobileMsgRespon
     @Override
     public void process(AGateway gateway, MessageTypes msgType, InboundMessage msg) {
         long receiveTime = System.currentTimeMillis();
-        
+
         debugf("SmsMessenger.processInboundMessage");
-        
+
         if (m_replyQueue != null) {
             m_replyQueue.add(new SmsResponse(msg, receiveTime));
         }

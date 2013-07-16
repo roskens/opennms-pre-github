@@ -33,7 +33,7 @@ import org.opennms.netmgt.dao.support.IndexStorageStrategy;
 
 /**
  * The Class XML StorageStrategy.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class XmlStorageStrategy extends IndexStorageStrategy {

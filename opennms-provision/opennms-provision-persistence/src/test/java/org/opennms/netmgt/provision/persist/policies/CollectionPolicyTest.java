@@ -65,10 +65,10 @@ import org.springframework.transaction.annotation.Transactional;
 })
 @JUnitConfigurationEnvironment
 public class CollectionPolicyTest implements InitializingBean {
-    
+
     @Autowired
     private NodeDao m_nodeDao;
-    
+
     @Autowired
     private SnmpInterfaceDao m_snmpInterfaceDao;
 
@@ -88,7 +88,7 @@ public class CollectionPolicyTest implements InitializingBean {
         m_populator.populateDatabase();
         m_interfaces = m_snmpInterfaceDao.findAll();
     }
-    
+
     @After
     public void tearDown() {
         m_populator.resetDatabase();
@@ -126,27 +126,27 @@ public class CollectionPolicyTest implements InitializingBean {
 
         matchPolicy(m_interfaces, p, addr("192.168.1.2"));
     }
-    
+
     @Test
     @Transactional
     public void testCategoryAssignment() {
-        final String TEST_CATEGORY = "TestCategory"; 
+        final String TEST_CATEGORY = "TestCategory";
         NodeCategorySettingPolicy policy = new NodeCategorySettingPolicy();
         policy.setCategory(TEST_CATEGORY);
         policy.setLabel("~n.*2");
-        
+
         OnmsNode node1 = m_nodeDao.get(m_populator.getNode1().getId());
         assertNotNull(node1);
         assertEquals("node1", node1.getLabel());
-        
+
         OnmsNode node2 = m_nodeDao.get(m_populator.getNode2().getId());
         assertNotNull(node2);
         assertEquals("node2", node2.getLabel());
-        
+
         node1 = policy.apply(node1);
         assertNotNull(node1);
         assertFalse(node1.hasCategory(TEST_CATEGORY));
-        
+
         node2 = policy.apply(node2);
         assertNotNull(node1);
         assertTrue(node2.hasCategory(TEST_CATEGORY));
@@ -156,7 +156,7 @@ public class CollectionPolicyTest implements InitializingBean {
         OnmsSnmpInterface o;
         List<OnmsSnmpInterface> populatedInterfaces = new ArrayList<OnmsSnmpInterface>();
         List<OnmsSnmpInterface> matchedInterfaces = new ArrayList<OnmsSnmpInterface>();
-        
+
         for (OnmsSnmpInterface iface : interfaces) {
             System.err.println(iface);
             o = p.apply(iface);
@@ -169,7 +169,7 @@ public class CollectionPolicyTest implements InitializingBean {
                 }
             }
         }
-        
+
         assertEquals(populatedInterfaces, matchedInterfaces);
     }
 

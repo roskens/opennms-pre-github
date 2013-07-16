@@ -51,7 +51,7 @@ public class SnmpV2InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
 		} catch (SnmpTrapHelperException e) {
 			e.printStackTrace();
 		}
-		}		
+		}
 	}
 
         @Override
@@ -75,7 +75,7 @@ public class SnmpV2InformAlarmForwarder extends SnmpTrapForwarderHelper implemen
 
         @Override
 	public void sendEndSync() {
-		super.sendV2EndSyncInform();		
+		super.sendV2EndSyncInform();
 	}
-	
+
 }

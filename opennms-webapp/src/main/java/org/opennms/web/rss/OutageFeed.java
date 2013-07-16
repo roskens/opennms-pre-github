@@ -50,7 +50,7 @@ import com.sun.syndication.feed.synd.SyndFeedImpl;
  * @since 1.8.1
  */
 public class OutageFeed extends AbstractFeed {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(OutageFeed.class);
 
 
@@ -62,7 +62,7 @@ public class OutageFeed extends AbstractFeed {
         // date-based
         setMaxEntries(Integer.MAX_VALUE);
     }
-    
+
     /**
      * <p>Constructor for OutageFeed.</p>
      *
@@ -73,7 +73,7 @@ public class OutageFeed extends AbstractFeed {
         // date-based
         setMaxEntries(Integer.MAX_VALUE);
     }
-    
+
     /**
      * <p>getFeed</p>
      *
@@ -90,13 +90,13 @@ public class OutageFeed extends AbstractFeed {
         ArrayList<SyndEntry> entries = new ArrayList<SyndEntry>();
 
         try {
-            OutageModel model = new OutageModel();    
+            OutageModel model = new OutageModel();
             Date date = new Date();
             date.setTime(date.getTime() - (1000 * 60 * 60 * 24));
             OutageSummary[] summaries = model.getAllOutageSummaries(date);
 
             SyndEntry entry;
-            
+
             int count = 0;
             for (OutageSummary summary : summaries) {
                 if (count++ == this.getMaxEntries()) {
@@ -106,7 +106,7 @@ public class OutageFeed extends AbstractFeed {
 
                 entry = new SyndEntryImpl();
                 entry.setPublishedDate(summary.getTimeDown());
-                
+
                 if (summary.getTimeUp() == null) {
                     entry.setTitle(sanitizeTitle(summary.getNodeLabel()));
                     entry.setUpdatedDate(summary.getTimeDown());
@@ -115,13 +115,13 @@ public class OutageFeed extends AbstractFeed {
                     entry.setUpdatedDate(summary.getTimeUp());
                 }
                 entry.setLink(link);
-                
+
                 entries.add(entry);
             }
         } catch (SQLException e) {
             LOG.warn("unable to get current outages", e);
         }
-        
+
         feed.setEntries(entries);
         return feed;
     }

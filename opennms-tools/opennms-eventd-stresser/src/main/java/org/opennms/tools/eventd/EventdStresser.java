@@ -56,13 +56,13 @@ public class EventdStresser {
     private static String m_dbName = "opennms";
     private static String m_dbUser = "opennms";
     private static String m_dbPass = "opennms";
-    
+
     @SuppressWarnings("unused")
     private static long m_sleepMillis = 0;
 
     /**
      * EventdStresser Main
-     * 
+     *
      * @param args
      */
     public static void main(String[] args) {
@@ -220,27 +220,27 @@ public class EventdStresser {
 
         m_batchCount = m_trapCount.intValue() / m_batchSize.intValue();
         System.out.println("Using batch count: " + m_batchCount);
-        
+
         property = System.getProperty(PROPERTY_DB_SVR);
         if (property != null) {
         	m_dbSvr = property;
         }
-        
+
         property = System.getProperty(PROPERTY_DB_NAME);
         if (property != null) {
         	m_dbName = property;
         }
-        
+
         property = System.getProperty(PROPERTY_DB_USER);
         if (property != null) {
         	m_dbUser = property;
         }
-        
+
         property = System.getProperty(PROPERTY_DB_PW);
         if (property != null) {
         	m_dbPass = property;
         }
-        
+
 
     }
 

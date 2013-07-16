@@ -45,12 +45,12 @@ public interface AttributeDefinition {
 
     /**
      * <p>getName</p>
-     * 
+     *
      * Human readable name for the attribute.
      * @return a {@link java.lang.String} object.
      */
     public abstract String getName();
-    
+
     /**
      * <p>equals</p>
      *
@@ -59,7 +59,7 @@ public interface AttributeDefinition {
      */
     @Override
     public abstract boolean equals(Object o);
-    
+
     /**
      * <p>hashCode</p>
      *

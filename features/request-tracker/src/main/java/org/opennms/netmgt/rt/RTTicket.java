@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 public class RTTicket implements Serializable {
     private static final Logger LOG = LoggerFactory.getLogger(RTTicket.class);
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 445141747501076112L;
     private static Pattern m_trim = Pattern.compile("\\s*\\n*$");

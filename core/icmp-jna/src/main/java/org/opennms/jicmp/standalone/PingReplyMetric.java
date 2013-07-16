@@ -38,11 +38,11 @@ import java.util.concurrent.TimeUnit;
  * @author brozow
  */
 public class PingReplyMetric extends Metric implements PingReplyListener {
-    
+
     CountDownLatch m_latch;
     int m_count;
     long m_interval;
-    
+
     public PingReplyMetric(int count, long interval) {
         m_latch = new CountDownLatch(count);
         m_count = count;

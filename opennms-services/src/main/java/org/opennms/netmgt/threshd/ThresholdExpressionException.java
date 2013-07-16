@@ -36,7 +36,7 @@ package org.opennms.netmgt.threshd;
  */
 public class ThresholdExpressionException extends Exception {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -6699551250959285584L;
 
@@ -48,7 +48,7 @@ public class ThresholdExpressionException extends Exception {
     public ThresholdExpressionException(String message) {
         super(message);
     }
-    
+
     /**
      * <p>Constructor for ThresholdExpressionException.</p>
      *

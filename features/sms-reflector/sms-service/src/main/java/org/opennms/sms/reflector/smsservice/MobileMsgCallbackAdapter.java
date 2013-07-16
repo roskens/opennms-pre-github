@@ -43,7 +43,7 @@ public class MobileMsgCallbackAdapter implements MobileMsgResponseCallback {
 	public MobileMsgCallbackAdapter(Callback<MobileMsgResponse> cb) {
 		this.cb = cb;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>cb</code>.</p>
 	 *
@@ -71,7 +71,7 @@ public class MobileMsgCallbackAdapter implements MobileMsgResponseCallback {
 	public void handleTimeout(final MobileMsgRequest request) {
 		getCb().handleException(new SocketTimeoutException("timed out processing request " + request));
 	}
-	
+
         @Override
 	public String toString() {
 	    return new ToStringBuilder(this)

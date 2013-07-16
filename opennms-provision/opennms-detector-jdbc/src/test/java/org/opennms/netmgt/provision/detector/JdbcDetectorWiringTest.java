@@ -51,9 +51,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"classpath:/META-INF/opennms/detectors.xml"})
 public class JdbcDetectorWiringTest implements ApplicationContextAware {
-    
+
     private ApplicationContext m_applicationContext;
-    
+
     @Before
     public void setUp() {
         MockLogAppender.setupLogging();
@@ -64,16 +64,16 @@ public class JdbcDetectorWiringTest implements ApplicationContextAware {
         assertNotNull(bean);
         assertTrue(detectorClass.isInstance(bean));
     }
-    
+
     @Test
     public void testJdbcDetectorWiring() {
         testWiredDetector(JdbcDetector.class);
     }
-    
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         m_applicationContext = applicationContext;
-        
+
     }
 
 }

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 public class ServicePathTestServlet extends HttpServlet {
-    
+
     private String m_responsePath1 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
     		"<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" +
     		"<ServiceResource>" +
@@ -50,7 +50,7 @@ public class ServicePathTestServlet extends HttpServlet {
     		"<Message>Operation Successful</Message>" +
     		"</Status>" +
     		"</Data>";
-    
+
     private String m_responsePath2 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
             "<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" +
             "<ServiceResource>" +
@@ -95,14 +95,14 @@ public class ServicePathTestServlet extends HttpServlet {
             "</LSPNode>" +
             "</LSPPath>" +
             "</ServicePath>" +
-            
+
             "</ServiceResource>" +
             "<Status>" +
             "<Code>200</Code>" +
             "<Message>Operation Successful</Message>" +
             "</Status>" +
             "</Data>";
-    
+
     private String m_responseString3 = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" +
     		"<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" +
     		"<ServiceResource>" +
@@ -186,7 +186,7 @@ public class ServicePathTestServlet extends HttpServlet {
     		"<Message>Operation Successful</Message>" +
     		"</Status>" +
     		"</Data>";
-    
+
     private String m_responseErrorString = "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> " +
     		"<Data xmlns=\"services.schema.networkapi.jmp.juniper.net\">" +
     		"<ServiceResource>" +
@@ -196,12 +196,12 @@ public class ServicePathTestServlet extends HttpServlet {
     		"<Code>500</Code>" +
     		"</Status>" +
     		"</Data> ";
-    
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         PrintWriter out = resp.getWriter();
         resp.setContentType("text/xml");
-        
+
         if(req.getQueryString().equals("deviceA=131103&deviceZ=688141")) {
             out.write(m_responsePath1);
         } else if(req.getQueryString().equals("deviceA=688141&deviceZ=131103")) {
@@ -211,7 +211,7 @@ public class ServicePathTestServlet extends HttpServlet {
         } else {
             out.write(m_responseString3);
         }
-        
+
     }
 
 }

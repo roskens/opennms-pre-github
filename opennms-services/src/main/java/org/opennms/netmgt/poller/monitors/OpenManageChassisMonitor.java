@@ -62,10 +62,10 @@ import org.slf4j.LoggerFactory;
  */
 @Distributable(DistributionContext.DAEMON)
 final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
-    
-    
+
+
     public static final Logger LOG = LoggerFactory.getLogger(OpenManageChassisMonitor.class);
-    
+
     /**
      * Name of monitored service.
      */
@@ -308,7 +308,7 @@ final public class OpenManageChassisMonitor extends SnmpMonitorStrategy {
 
     /**
      * Method to resolve a given Dell status to human readable string.
-     * 
+     *
      * @param sc
      *            Dell status code
      * @return Human readable Dell status

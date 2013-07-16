@@ -45,7 +45,7 @@ import org.opennms.netmgt.config.ViewFactory;
  */
 public class RenameViewServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -2211626861486132823L;
 

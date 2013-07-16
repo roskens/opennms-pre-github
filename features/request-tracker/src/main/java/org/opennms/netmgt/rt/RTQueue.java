@@ -34,7 +34,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class RTQueue implements Serializable {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 875365658091878358L;
 	private long m_id;
@@ -47,23 +47,23 @@ public class RTQueue implements Serializable {
         m_id = id;
         m_name = name;
     }
-    
+
     public long getId() {
         return m_id;
     }
-    
+
     public void setId(final long id) {
         m_id = id;
     }
-    
+
     public String getName() {
         return m_name;
     }
-    
+
     public void setName(final String name) {
         m_name = name;
     }
-    
+
     public boolean isAccessible() {
         return true;
     }

@@ -51,7 +51,7 @@ public class ImapDetector extends AsyncLineOrientedDetectorMinaImpl {
     public ImapDetector() {
         super(DEFAULT_SERVICE_NAME, DEFAULT_PORT);
     }
-    
+
     /**
      * Constructor for creating a non-default service based on this protocol
      *
@@ -61,7 +61,7 @@ public class ImapDetector extends AsyncLineOrientedDetectorMinaImpl {
     public ImapDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>onInit</p>
      */

@@ -81,8 +81,8 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 	private SnmpAssetAdapterConfig m_config;
 	private SnmpAgentConfigFactory m_snmpConfigDao;
 
-	/** 
-	 * Constant <code>NAME="SnmpAssetProvisioningAdapter"</code> 
+	/**
+	 * Constant <code>NAME="SnmpAssetProvisioningAdapter"</code>
 	 */
 	public static final String NAME = "SnmpAssetProvisioningAdapter";
 
@@ -112,7 +112,7 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 	public boolean isNodeReady(AdapterOperation op) {
 		boolean readyState = false;
 		OnmsNode node = m_nodeDao.get(op.getNodeId());
-		
+
 		if (node != null && node.getSysObjectId() != null) {
 			readyState = true;
 		}
@@ -375,17 +375,17 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 			final Set<OnmsIpInterface> ipInterfaces = node.getIpInterfaces();
 			for (final OnmsIpInterface onmsIpInterface : ipInterfaces) {
 				LOG.debug("getIpForNode: trying Interface with id: {}", onmsIpInterface.getId());
-				if (InetAddressUtils.str(onmsIpInterface.getIpAddress()) != null) 
+				if (InetAddressUtils.str(onmsIpInterface.getIpAddress()) != null)
 					ipaddr = onmsIpInterface.getIpAddress();
-				else 
+				else
 					LOG.debug("getIpForNode: found null ip address on Interface with id: {}", onmsIpInterface.getId());
 
 			}
-		} else {        
+		} else {
 			LOG.debug("getIpForNode: found SNMP Primary Interface");
 			if (InetAddressUtils.str(primaryInterface.getIpAddress()) != null )
 				ipaddr = primaryInterface.getIpAddress();
-			else 
+			else
 				LOG.debug("getIpForNode: found null ip address on Primary Interface");
 		}
 		return ipaddr;
@@ -425,6 +425,6 @@ public class SnmpAssetProvisioningAdapter extends SimplerQueuedProvisioningAdapt
 	@Override
 	public void afterPropertiesSet() throws Exception {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -37,7 +37,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 public class CustomField implements Serializable {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 4640559401699963154L;
     private String m_name;

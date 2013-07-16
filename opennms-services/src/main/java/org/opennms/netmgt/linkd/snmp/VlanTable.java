@@ -22,5 +22,5 @@ public interface VlanTable {
 	public static final VlanStatus DEFAULT_VLAN_STATUS = VlanStatus.CISCOVTP_OPERATIONAL;
 
 	public List<OnmsVlan> getVlansForSnmpCollection();
-	
+
 }

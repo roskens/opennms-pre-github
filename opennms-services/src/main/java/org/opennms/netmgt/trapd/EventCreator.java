@@ -51,19 +51,19 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class EventCreator implements TrapProcessor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(EventCreator.class);
-    
+
     private EventBuilder m_eventBuilder;
     private TrapdIpMgr m_trapdIpMgr;
 
-    
+
     public EventCreator(TrapdIpMgr trapdIpMgr) {
         m_trapdIpMgr = trapdIpMgr;
-        
+
         m_eventBuilder = new EventBuilder(null, "trapd");
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void setCommunity(String community) {
@@ -126,7 +126,7 @@ public class EventCreator implements TrapProcessor {
         setGeneric(trapIdentity.getGeneric());
         setSpecific(trapIdentity.getSpecific());
         setEnterpriseId(trapIdentity.getEnterpriseId().toString());
-    
+
         LOG.debug("setTrapIdentity: SNMP trap {}", trapIdentity);
     }
 

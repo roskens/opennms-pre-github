@@ -45,12 +45,12 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Conversation {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(Conversation.class);
-    
+
     public static class ErrorExchange implements Exchange{
         private static final String ERROR_STRING = "DEFAULT ERROR STRING: YOU HAVE NOT IMPLEMENTED AN ERROR EXCHANGE";
-        
+
         @Override
         public boolean matchResponseByString(String response) {
             return false;
@@ -66,21 +66,21 @@ public class Conversation {
             out.write(String.format("%s\r\n", ERROR_STRING).getBytes());
             return true;
         }
-        
+
     }
-    
+
     private final List<Exchange> m_conversation = new ArrayList<Exchange>();
     private Exchange m_errorExchange = new ErrorExchange();
-    
+
     /**
      * <p>addExchange</p>
      *
      * @param exchange a {@link org.opennms.netmgt.provision.server.exchange.Exchange} object.
      */
     public void addExchange(Exchange exchange) {
-        m_conversation.add(exchange); 
+        m_conversation.add(exchange);
     }
-    
+
     /**
      * <p>addErrorExchange</p>
      *
@@ -89,7 +89,7 @@ public class Conversation {
     public void addErrorExchange(Exchange ex) {
         m_errorExchange = ex;
     }
-    
+
     /**
      * <p>attemptServerConversation</p>
      *
@@ -101,17 +101,17 @@ public class Conversation {
         boolean isFinished = false;
 
         while(!isFinished) {
-           try { 
+           try {
                 if(m_conversation.size() == 0) { return; }
                 String line  = in.readLine();
                 LOG.debug("Server line read: {}", line);
-                
+
                 if(line == null) {
                     return;
                 }
-                
+
                 Exchange ex = findMatchingExchange(line);
-                
+
                 if(ex == null) {
                     m_errorExchange.sendRequest(out);
                 }else {
@@ -124,11 +124,11 @@ public class Conversation {
                Object[] args = {};
                LOG.info("SimpleServer conversation attempt failed", args, e);
            }
-            
+
         }
-        
+
     }
-    
+
     /**
      * <p>attemptClientConversation</p>
      *
@@ -138,12 +138,12 @@ public class Conversation {
      * @throws java.io.IOException if any.
      */
     public boolean attemptClientConversation(BufferedReader in, OutputStream out) throws IOException {
-        
+
         for(Iterator<Exchange> it = m_conversation.iterator(); it.hasNext();) {
             Exchange ex = it.next();
-            
+
             if(!ex.processResponse(in)) {
-               return false; 
+               return false;
             }
             LOG.debug("processed response successfully");
             if(!ex.sendRequest(out)) {
@@ -151,23 +151,23 @@ public class Conversation {
             }
             LOG.debug("send request if there was a request");
         }
-        
+
         return true;
-        
+
     }
-    
+
     private Exchange findMatchingExchange(String input) throws IOException {
-        
+
         for(Exchange ex : m_conversation) {
-            
+
             if(ex.matchResponseByString(input)) {
-                return ex; 
+                return ex;
             }
-            
+
         }
         return null;
     }
-    
+
     /**
      * <p>startsWith</p>
      *
@@ -179,12 +179,12 @@ public class Conversation {
 
             @Override
             public boolean matches(String input) {
-                return input.startsWith(response);      
+                return input.startsWith(response);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>contains</p>
      *
@@ -198,10 +198,10 @@ public class Conversation {
             public boolean matches(String input) {
                return input.contains(response);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>regexpMatches</p>
      *
@@ -215,7 +215,7 @@ public class Conversation {
             public boolean matches(String input) {
                return input.matches(response);
             }
-            
+
         };
     }
 }

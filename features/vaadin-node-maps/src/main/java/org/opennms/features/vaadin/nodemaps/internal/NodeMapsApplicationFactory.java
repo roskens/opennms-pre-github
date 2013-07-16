@@ -35,16 +35,16 @@ import com.vaadin.ui.UI;
 
 /**
  * A factory for creating NodeMapsApplication objects.
- * 
+ *
  * TODO: Refactor into a common class
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class NodeMapsApplicationFactory extends AbstractApplicationFactory {
 
 	private final BlueprintContainer m_blueprintContainer;
 	private final String m_beanName;
-	
+
 	public NodeMapsApplicationFactory(BlueprintContainer container, String beanName) {
 		m_blueprintContainer = container;
 		m_beanName = beanName;

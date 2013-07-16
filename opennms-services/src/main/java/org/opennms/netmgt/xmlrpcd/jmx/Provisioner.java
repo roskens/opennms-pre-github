@@ -43,12 +43,12 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  * @version $Id: $
  */
 public class Provisioner implements ProvisionerMBean {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Provisioner.class);
 
     private ClassPathXmlApplicationContext m_context;
     int m_status = Fiber.START_PENDING;
-    
+
     // used only for testing
     ApplicationContext getContext() {
         return m_context;
@@ -81,8 +81,8 @@ public class Provisioner implements ProvisionerMBean {
     public void stop() {
         m_status = Fiber.STOP_PENDING;
         m_context.close();
-        
-        
+
+
         m_status = Fiber.STOPPED;
     }
 

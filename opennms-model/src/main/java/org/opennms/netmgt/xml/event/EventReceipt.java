@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -50,7 +50,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 /**
  * Class EventReceipt.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -86,8 +86,8 @@ public class EventReceipt implements Serializable {
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vUuid
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -99,8 +99,8 @@ public class EventReceipt implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vUuid
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -115,7 +115,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method enumerateUuid.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -126,7 +126,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method getUuid.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -139,7 +139,7 @@ public class EventReceipt implements Serializable {
         if (index < 0 || index >= this._uuidList.size()) {
             throw new IndexOutOfBoundsException("getUuid: Index value '" + index + "' not in range [0.." + (this._uuidList.size() - 1) + "]");
         }
-        
+
         return (java.lang.String) _uuidList.get(index);
     }
 
@@ -149,7 +149,7 @@ public class EventReceipt implements Serializable {
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public java.lang.String[] getUuid(
@@ -162,7 +162,7 @@ public class EventReceipt implements Serializable {
      * Method getUuidCollection.Returns a reference to '_uuidList'.
      * No type checking is performed on any modifications to the
      * Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<java.lang.String> getUuidCollection(
@@ -172,7 +172,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method getUuidCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getUuidCount(
@@ -182,7 +182,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method iterateUuid.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -200,7 +200,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method removeUuid.
-     * 
+     *
      * @param vUuid
      * @return true if the object was removed from the collection.
      */
@@ -212,7 +212,7 @@ public class EventReceipt implements Serializable {
 
     /**
      * Method removeUuidAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -223,8 +223,8 @@ public class EventReceipt implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vUuid
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -238,20 +238,20 @@ public class EventReceipt implements Serializable {
         if (index < 0 || index >= this._uuidList.size()) {
             throw new IndexOutOfBoundsException("setUuid: Index value '" + index + "' not in range [0.." + (this._uuidList.size() - 1) + "]");
         }
-        
+
         this._uuidList.set(index, vUuid);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vUuidArray
      */
     public void setUuid(
             final java.lang.String[] vUuidArray) {
         //-- copy array
         _uuidList.clear();
-        
+
         for (int i = 0; i < vUuidArray.length; i++) {
                 this._uuidList.add(vUuidArray[i]);
         }
@@ -260,14 +260,14 @@ public class EventReceipt implements Serializable {
     /**
      * Sets the value of '_uuidList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vUuidList the Vector to copy.
      */
     public void setUuid(
             final java.util.List<java.lang.String> vUuidList) {
         // copy vector
         this._uuidList.clear();
-        
+
         this._uuidList.addAll(vUuidList);
     }
 
@@ -275,7 +275,7 @@ public class EventReceipt implements Serializable {
      * Sets the value of '_uuidList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param uuidList the Vector to set.
      */
     public void setUuidCollection(

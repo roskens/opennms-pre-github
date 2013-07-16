@@ -44,11 +44,11 @@ public class SetSequenceChange extends AbstractChange {
 	public SetSequenceChange() {
         super("setSequence", "Set Sequence", ChangeMetaData.PRIORITY_DEFAULT);
     }
-    
+
 	public void setSequenceName(final String sequenceName) {
 		m_sequenceName = sequenceName;
 	}
-	
+
 	public String getSequenceName() {
 		return m_sequenceName;
 	}

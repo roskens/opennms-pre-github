@@ -37,7 +37,7 @@ import org.opennms.netmgt.xml.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 public class AddEventVisitor extends AbstractEntityVisitor {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(AddEventVisitor.class);
 
     private static final String m_eventSource = "Provisiond";
@@ -107,6 +107,6 @@ public class AddEventVisitor extends AbstractEntityVisitor {
 		LOG.debug("node = {}", node);
 		return EventUtils.createNodeGainedServiceEvent(m_eventSource, monSvc.getNodeId(), iface.getIpAddress(), monSvc.getServiceType().getName(), node.getLabel(), node.getLabelSource(), node.getSysName(), node.getSysDescription());
     }
-	
+
 
 }

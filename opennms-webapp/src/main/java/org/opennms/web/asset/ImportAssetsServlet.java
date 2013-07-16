@@ -80,7 +80,7 @@ public class ImportAssetsServlet extends HttpServlet {
 	    }
 
     }
-    
+
     /** The URL to redirect the client to in case of success. */
     protected String redirectSuccess;
 
@@ -145,14 +145,14 @@ public class ImportAssetsServlet extends HttpServlet {
                 messageText.append("s");
             }
             messageText.append(".");
-            
+
             if (errors.size() > 0) {
                 messageText.append("  ").append(errors.size()).append(" non-fatal errors occurred:");
                 for (String error : errors) {
                     messageText.append("<br />").append(error);
                 }
             }
-            
+
             request.getSession().setAttribute("message", messageText.toString());
             response.sendRedirect(response.encodeRedirectURL(this.redirectSuccess + "&showMessage=true"));
         } catch (AssetException e) {
@@ -184,7 +184,7 @@ public class ImportAssetsServlet extends HttpServlet {
         String[] line;
         List<Asset> list = new ArrayList<Asset>();
         text = text.trim();
-        
+
         int count = 0;
 
         try {
@@ -205,7 +205,7 @@ public class ImportAssetsServlet extends HttpServlet {
                         logger.debug("line was header. line:'{}'", (Object)line);
                         continue;
                     }
-                    
+
                     final Asset asset = new Asset();
 
                     asset.setNodeId(WebSecurityUtils.safeParseInt(line[1]));
@@ -244,7 +244,7 @@ public class ImportAssetsServlet extends HttpServlet {
                     asset.setDisplayCategory(Util.decode(line[34]));
                     asset.setNotifyCategory(Util.decode(line[35]));
                     asset.setPollerCategory(Util.decode(line[36]));
-                    
+
                     if (line.length > 37) {
                         asset.setThresholdCategory(Util.decode(line[37]));
                         asset.setUsername(Util.decode(line[38]));
@@ -265,10 +265,10 @@ public class ImportAssetsServlet extends HttpServlet {
                         asset.setHdd4(Util.decode(line[50]));
                         asset.setHdd5(Util.decode(line[51]));
                         asset.setHdd6(Util.decode(line[52]));
-    
+
                         asset.setNumpowersupplies(Util.decode(line[53]));
                         asset.setInputpower(Util.decode(line[54]));
-    
+
                         asset.setAdditionalhardware(Util.decode(line[55]));
                         asset.setAdmin(Util.decode(line[56]));
                         asset.setSnmpcommunity(Util.decode(line[57]));

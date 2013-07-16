@@ -40,7 +40,7 @@ public class NoClosePipedOutputStreamTest {
     NoClosePipedOutputStream definedSource;
     NoClosePipedOutputStream nullSource;
     NoClosePipedOutputStream out;
-    NoClosePipedInputStream in; 
+    NoClosePipedInputStream in;
     int testValue = 25;
     byte[] testByte = {1,2,3,4};
     byte[] emptyByte = new byte[0];
@@ -49,7 +49,7 @@ public class NoClosePipedOutputStreamTest {
     public void setup() {
         out = new NoClosePipedOutputStream();
         nullSource = null;
-        in = new NoClosePipedInputStream(); 
+        in = new NoClosePipedInputStream();
     }
 
     @Test
@@ -57,7 +57,7 @@ public class NoClosePipedOutputStreamTest {
             definedSource = new NoClosePipedOutputStream(in);
             assertEquals(true, in.connected);
     }
-    
+
     @Test
     public void testConnectToNullSource() {
 
@@ -136,7 +136,7 @@ public class NoClosePipedOutputStreamTest {
         } catch (IndexOutOfBoundsException e) {
             fail ("The offset or write length is invalid"); // Should not be thrown in this test case
         }
-        fail("This test should have caught an IOException"); // It should not be possible for this test to reach the end 
+        fail("This test should have caught an IOException"); // It should not be possible for this test to reach the end
     }
 
     @Test
@@ -152,7 +152,7 @@ public class NoClosePipedOutputStreamTest {
         } catch (IndexOutOfBoundsException e) {
             fail ("The offset or write length is invalid"); // Should not be thrown in this test case
         }
-        fail("This test should have caught a NullPointerException"); // It should not be possible for this test to reach the end 
+        fail("This test should have caught a NullPointerException"); // It should not be possible for this test to reach the end
     }
 
     @Test
@@ -168,15 +168,15 @@ public class NoClosePipedOutputStreamTest {
         } catch (IndexOutOfBoundsException e) {
             return; // This should be thrown due to the fact that the Index referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end 
+        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
     }
 
     @Test
     public void testNormalByteWrite () throws IOException {
         out.connect(in);
-        
+
         out.write(testByte, 1, 1);
-        assertEquals("2", java.lang.Byte.valueOf(in.buffer[0]).toString());     
+        assertEquals("2", java.lang.Byte.valueOf(in.buffer[0]).toString());
     }
 
     @Test
@@ -192,11 +192,11 @@ public class NoClosePipedOutputStreamTest {
         } catch (IndexOutOfBoundsException e) {
             return; // This should be thrown due to the fact that the Index referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end 
+        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
     }
 
     @Test
-    public void testSumOfOffsetAndLengthLargerThanArrayByteWrite() {  
+    public void testSumOfOffsetAndLengthLargerThanArrayByteWrite() {
         try {
             out.connect(in);
             out.write(testByte, 3, 3);
@@ -208,7 +208,7 @@ public class NoClosePipedOutputStreamTest {
         } catch (IndexOutOfBoundsException e) {
             return; // This should be thrown due to the fact that the Index referenced is larger than the array
         }
-        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end 
+        fail("This test should have caught an IndexOutOfBoundsException"); // It should not be possible for this test to reach the end
     }
 
     @Test

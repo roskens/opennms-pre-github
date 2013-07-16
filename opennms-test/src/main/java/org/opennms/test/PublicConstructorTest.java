@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class PublicConstructorTest {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(PublicConstructorTest.class);
 
 	/**

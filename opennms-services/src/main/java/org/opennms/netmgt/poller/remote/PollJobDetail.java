@@ -37,12 +37,12 @@ import org.quartz.JobDetail;
  * @version $Id: $
  */
 public class PollJobDetail extends JobDetail {
-    
+
     /** Constant <code>GROUP="pollJobGroup"</code> */
     public static final String GROUP = "pollJobGroup";
 
 	private static final long serialVersionUID = -6499411861193543030L;
-	
+
 	/**
 	 * <p>Constructor for PollJobDetail.</p>
 	 *
@@ -52,7 +52,7 @@ public class PollJobDetail extends JobDetail {
 	public PollJobDetail(String name, Class<?> jobClass) {
 		super(name, GROUP, jobClass);
 	}
-	
+
 	/**
 	 * <p>setPollService</p>
 	 *
@@ -61,7 +61,7 @@ public class PollJobDetail extends JobDetail {
 	public void setPollService(PollService pollService) {
 		getJobDataMap().put("pollService", pollService);
 	}
-	
+
 	/**
 	 * <p>setPolledService</p>
 	 *
@@ -70,7 +70,7 @@ public class PollJobDetail extends JobDetail {
 	public void setPolledService(PolledService polledService) {
 		getJobDataMap().put("polledService", polledService);
 	}
-	
+
 	/**
 	 * <p>setPollerFrontEnd</p>
 	 *
@@ -79,5 +79,5 @@ public class PollJobDetail extends JobDetail {
 	public void setPollerFrontEnd(PollerFrontEnd pollerFrontEnd) {
 		getJobDataMap().put("pollerFrontEnd", pollerFrontEnd);
 	}
-	
+
 }

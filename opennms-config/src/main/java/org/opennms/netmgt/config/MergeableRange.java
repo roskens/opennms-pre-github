@@ -48,7 +48,7 @@ final class MergeableRange implements Comparable<Range> {
     private static final RangeComparator m_comparator = new RangeComparator();
     private final MergeableSpecific m_first;
     private final MergeableSpecific m_last;
-    
+
     /**
      * <p>Constructor for MergeableRange.</p>
      *
@@ -59,7 +59,7 @@ final class MergeableRange implements Comparable<Range> {
         m_first = new MergeableSpecific(range.getBegin());
         m_last = new MergeableSpecific(range.getEnd());
     }
-    
+
     /*
      * Compares two snmp-config.xml ranges
      * (non-Javadoc)
@@ -75,12 +75,12 @@ final class MergeableRange implements Comparable<Range> {
     public int compareTo(final Range range) {
         return m_comparator.compare(getRange(), range);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean equals(Object obj) {
         boolean equals = false;
-        
+
         if (obj == null) {
             equals = false;
         } else if (obj instanceof Range ) {
@@ -107,13 +107,13 @@ final class MergeableRange implements Comparable<Range> {
      */
     private boolean equalsMergeableRange(MergeableRange range) {
         boolean equals = false;
-        
+
         if (getFirst() == range.getFirst() && getLast() == range.getLast()) {
             equals = true;
         }
         return equals;
     }
-    
+
     /**
      * <p>equals</p>
      *
@@ -123,7 +123,7 @@ final class MergeableRange implements Comparable<Range> {
     private boolean equalsRange(Range range) {
         return equalsMergeableRange(new MergeableRange(range));
     }
-    
+
     /**
      * <p>getRange</p>
      *
@@ -132,9 +132,9 @@ final class MergeableRange implements Comparable<Range> {
     public Range getRange() {
         synchronized (m_range) {
             return m_range;
-        }        
+        }
     }
-    
+
     /**
      * <p>coversSpecific</p>
      *
@@ -143,7 +143,7 @@ final class MergeableRange implements Comparable<Range> {
      */
     public boolean coversSpecific(String spec) {
         boolean covers = false;
-        
+
         if (getFirst().compareTo(spec) <= 0 && getLast().compareTo(spec) >= 0) {
             covers = true;
         }
@@ -158,14 +158,14 @@ final class MergeableRange implements Comparable<Range> {
      */
     public boolean overlapsBegin(Range rng) {
         boolean overlaps = false;
-        if (m_first.compareTo(rng.getBegin()) < 0 
-                && m_last.compareTo(rng.getBegin()) >=0 
+        if (m_first.compareTo(rng.getBegin()) < 0
+                && m_last.compareTo(rng.getBegin()) >=0
                 && m_last.compareTo(rng.getEnd()) <= 0 ) {
             overlaps = true;
         }
         return overlaps;
     }
-    
+
     /**
      * <p>withInRange</p>
      *
@@ -174,13 +174,13 @@ final class MergeableRange implements Comparable<Range> {
      */
     public boolean withInRange(Range rng) {
         boolean within = false;
-        
+
         if (m_first.compareTo(rng.getBegin()) >= 0 && m_last.compareTo(rng.getEnd()) <= 0) {
             within = true;
         }
         return within;
     }
-    
+
     /**
      * <p>overlapsEnd</p>
      *
@@ -189,9 +189,9 @@ final class MergeableRange implements Comparable<Range> {
      */
     public boolean overlapsEnd(Range rng) {
         boolean overlaps = false;
-        
-        if (m_first.compareTo(rng.getBegin()) >=0 
-                && m_first.compareTo(rng.getEnd()) <= 0 
+
+        if (m_first.compareTo(rng.getBegin()) >=0
+                && m_first.compareTo(rng.getEnd()) <= 0
                 && m_last.compareTo(rng.getEnd()) > 0) {
             overlaps = true;
         }
@@ -206,7 +206,7 @@ final class MergeableRange implements Comparable<Range> {
      */
     public boolean eclipses(Range rng) {
         boolean eclipses = false;
-        
+
         if (m_first.compareTo(rng.getBegin()) <= 0 && m_last.compareTo(rng.getEnd()) >= 0) {
             eclipses = true;
         }
@@ -222,7 +222,7 @@ final class MergeableRange implements Comparable<Range> {
     public boolean isAdjacentToBegin(Range nextRange) {
         return new BigInteger("-1").equals(InetAddressUtils.difference(m_last.getSpecific(), nextRange.getBegin()));
     }
-    
+
     /**
      * <p>isAdjacentToEnd</p>
      *
@@ -232,7 +232,7 @@ final class MergeableRange implements Comparable<Range> {
     public boolean isAdjacentToEnd(Range nextRange) {
         return new BigInteger("-1").equals(InetAddressUtils.difference(m_first.getSpecific(), nextRange.getEnd()));
     }
-    
+
     /**
      * Changes the current Range by moving the end before the specific and
      * creates a new range to the right of the specific ending with the
@@ -242,14 +242,14 @@ final class MergeableRange implements Comparable<Range> {
      * @param spec a {@link java.lang.String} object.
      */
     protected Range removeSpecificFromRange(final String spec) {
-        
+
         if (!coversSpecific(spec))
             throw new IllegalArgumentException("Specific: "+spec+", doesn't affect range: ");
 
         MergeableSpecific specific = new MergeableSpecific(spec);
-        
+
         Range newRange = null;
-        
+
         ByteArrayComparator comparator = new ByteArrayComparator();
         try {
             if (comparator.compare(specific.getValue(), getFirst().getValue()) == 0) {

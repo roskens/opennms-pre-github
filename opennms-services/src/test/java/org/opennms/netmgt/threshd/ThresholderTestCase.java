@@ -66,7 +66,7 @@ import org.springframework.core.io.Resource;
 public class ThresholderTestCase extends TestCase {
 
     private EasyMockUtils m_easyMockUtils = new EasyMockUtils();
-    
+
 	private EventAnticipator m_anticipator;
     private RrdStrategy<?,?> m_rrdStrategy;
 	protected Map<Object, Object> m_serviceParameters;
@@ -108,7 +108,7 @@ public class ThresholderTestCase extends TestCase {
 		m_parameters.put("thresholding-group", groupName);
         m_ipAddress = ipAddress;
         m_serviceName = serviceName;
-		
+
 		Resource config = new ClassPathResource("/test-thresholds.xml");
 		ThresholdingConfigFactory.setInstance(new ThresholdingConfigFactory(config.getInputStream()));
 		ThresholdingConfigFactory.getInstance().getGroup(groupName).setRrdRepository(dir.getParentFile().getAbsolutePath());
@@ -130,7 +130,7 @@ public class ThresholderTestCase extends TestCase {
         expectRrdStrategyCalls();
         RrdUtils.setStrategy(m_rrdStrategy);
     }
-    
+
 	protected void expectRrdStrategyCalls() throws Exception {
         expect(m_rrdStrategy.getDefaultFileExtension()).andReturn(".mockRrd").anyTimes();
 	}
@@ -209,11 +209,11 @@ public class ThresholderTestCase extends TestCase {
 	        // do nothing
         }
 	}
-    
+
     public void replayMocks() {
         m_easyMockUtils.replayAll();
     }
-    
+
     public void verifyMocks() {
         m_easyMockUtils.verifyAll();
     }
@@ -223,21 +223,21 @@ public class ThresholderTestCase extends TestCase {
          * Generated serial version ID.
          */
         private static final long serialVersionUID = 8363288174688092210L;
-        
+
         private int m_nodeId;
-        
+
         public ThresholdNetworkInterfaceImpl(int nodeId, InetAddress inetAddress) {
             super(inetAddress);
             m_nodeId = nodeId;
         }
-        
+
         @Override
         public int getNodeId() {
             return m_nodeId;
         }
 
     }
-    
+
     //Avoid unnecessary warnings from Junit
     public void testDoNothing() {}
 }

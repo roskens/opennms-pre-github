@@ -51,7 +51,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
     protected MultilineOrientedDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /**
      * <p>Constructor for MultilineOrientedDetector.</p>
      *
@@ -63,7 +63,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
     protected MultilineOrientedDetector(final String serviceName, final int port, final int timeout, final int retries) {
         super(serviceName, port, timeout, retries);
     }
-    
+
     /**
      * <p>request</p>
      *
@@ -73,15 +73,15 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
     protected LineOrientedRequest request(final String command) {
         return new LineOrientedRequest(command);
     }
-    
+
     /**
      * <p>expectClose</p>
      */
     protected void expectClose() {
         send(LineOrientedRequest.Null, equals(null));
-        
+
     }
-    
+
     /**
      * <p>equals</p>
      *
@@ -90,15 +90,15 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
      */
     public static ResponseValidator<MultilineOrientedResponse> equals(final String pattern) {
         return new ResponseValidator<MultilineOrientedResponse>() {
-            
+
             @Override
             public boolean validate(final MultilineOrientedResponse response) {
                 return response.equals(pattern);
             }
-            
+
         };
     }
-    
+
     /**
      * <p>startsWith</p>
      *
@@ -112,7 +112,7 @@ public abstract class MultilineOrientedDetector extends BasicDetector<LineOrient
             public boolean validate(final MultilineOrientedResponse response) {
                 return response.startsWith(pattern);
             }
-            
+
         };
     }
 

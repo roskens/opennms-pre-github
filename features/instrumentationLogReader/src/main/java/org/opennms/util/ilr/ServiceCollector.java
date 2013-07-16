@@ -47,7 +47,7 @@ public class ServiceCollector {
     private long m_lastErrorBegin = 0;
     private long m_lastEnd = 0;
     private long m_lastPersistBegin = 0;
-    
+
     public ServiceCollector(String serviceID) {
         m_serviceID = serviceID;
     }
@@ -56,8 +56,8 @@ public class ServiceCollector {
         return m_serviceID;
     }
 
-    public final String m_regex = "(\\d+)/(\\d+.\\d+.\\d+.\\d+)/(\\w+)"; 
-    public final Pattern m_pattern = Pattern.compile(m_regex);	
+    public final String m_regex = "(\\d+)/(\\d+.\\d+.\\d+.\\d+)/(\\w+)";
+    public final Pattern m_pattern = Pattern.compile(m_regex);
 
     public void addMessage(LogMessage msg) {
         if (!m_serviceID.equals(msg.getServiceID())) {
@@ -158,7 +158,7 @@ public class ServiceCollector {
         if(getCollectionCount() == 0) {
             return -1;
         } else {
-            return getSuccessfulCollectionCount()*100.0/getCollectionCount();	
+            return getSuccessfulCollectionCount()*100.0/getCollectionCount();
         }
     }
 

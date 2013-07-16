@@ -38,63 +38,63 @@ import org.opennms.protocols.snmp.asn1.AsnEncodingException;
  * pdu, it's sending parameters, the number of times send, and the last time
  * sent.
  * </P>
- * 
+ *
  * <P>
  * The SnmpRequest implements the Runnable interface and its run method is
  * invoked by the corresponding SnmpTimer when the request effectively expires.
  * The member m_expires refers the the expiretion of the request and pdu, not to
  * the failed response.
  * </P>
- * 
+ *
  * @author <A HREF="mailto:weave@oculan.com">Brian Weaver </A>
  * @author <A HERF="http://www.opennms.org">OpenNMS </A>
- * 
+ *
  * @version 1.1.1.1
- * 
+ *
  */
 class SnmpRequest implements Runnable {
     /**
      * The session that created this request
-     * 
+     *
      */
     SnmpSession m_session; // the seesion who sent it
 
     /**
      * The pdu transemited to the SnmpPeer.
-     * 
+     *
      */
     SnmpSyntax m_pdu; // the PDU
 
     /**
      * The SnmpHandler to invoke for this request
-     * 
+     *
      */
     SnmpHandler m_handler;
 
     /**
      * The number of times this request has been transmitted.
-     * 
+     *
      */
     int m_timesSent; // number of times sent
 
     /**
      * When set the request as a whole has expired and should no longer be
      * process by any methods. It is effectively waiting for garbage collection.
-     * 
+     *
      */
     boolean m_expired; // when set DO NOT PROCESS
 
     /**
      * Used to create an SnmpRequest object. This constructor sets the fields to
      * their default value along with the passed parameters.
-     * 
+     *
      * @param session
      *            The sending session
      * @param pdu
      *            The pdu to send to the remote
      * @param handler
      *            The handler to invoke!
-     * 
+     *
      */
     SnmpRequest(SnmpSession session, SnmpPduPacket pdu, SnmpHandler handler) {
         super();
@@ -108,14 +108,14 @@ class SnmpRequest implements Runnable {
     /**
      * Used to create an SnmpRequest object. This constructor sets the fields to
      * their default value along with the passed parameters.
-     * 
+     *
      * @param session
      *            The sending session
      * @param pdu
      *            The pdu to send to the remote
      * @param handler
      *            The handler to invoke!
-     * 
+     *
      */
     SnmpRequest(SnmpSession session, SnmpPduTrap pdu, SnmpHandler handler) {
         super();
@@ -133,7 +133,7 @@ class SnmpRequest implements Runnable {
      * then the SnmpHandler's snmpTimeoutError() method is invoked. If an error
      * occurs transmiting the pdu then the snmpInternalError() method is
      * invoked.
-     * 
+     *
      * @see SnmpHandler
      * @see SnmpPduRequest
      * @see SnmpSession

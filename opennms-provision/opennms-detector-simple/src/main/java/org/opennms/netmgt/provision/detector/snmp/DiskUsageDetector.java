@@ -67,9 +67,9 @@ public class DiskUsageDetector extends SnmpDetector {
      */
     private static final String DEFAULT_OID = ".1.3.6.1.2.1.1.2.0";
 
-    
+
     private static final String hrStorageDescr = ".1.3.6.1.2.1.25.2.3.1.3";
-    
+
     /**
      * The available match-types for this detector
      */
@@ -77,11 +77,11 @@ public class DiskUsageDetector extends SnmpDetector {
     private static final int MATCH_TYPE_STARTSWITH = 1;
     private static final int MATCH_TYPE_ENDSWITH = 2;
     private static final int MATCH_TYPE_REGEX = 3;
-    
+
     private String m_matchType = "";
     private String m_disk;
     private String m_hrStorageDescr;
-    
+
     /**
      * <p>Constructor for DiskUsageDetector.</p>
      */
@@ -90,7 +90,7 @@ public class DiskUsageDetector extends SnmpDetector {
         setOid(DEFAULT_OID);
         setHrStorageDescr(hrStorageDescr);
     }
-    
+
     /**
      * Returns the name of the protocol that this plugin checks on the target
      * system for support.
@@ -117,7 +117,7 @@ public class DiskUsageDetector extends SnmpDetector {
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
     }
 
     /**
@@ -136,22 +136,22 @@ public class DiskUsageDetector extends SnmpDetector {
         try {
 
             SnmpAgentConfig agentConfig = getAgentConfigFactory().getAgentConfig(address);
-            
+
             if (getPort() > 0) {
                 agentConfig.setPort(getPort());
             }
-            
+
             if (getTimeout() > 0) {
                 agentConfig.setTimeout(getTimeout());
             }
-            
+
             if (getRetries() > -1) {
                 agentConfig.setRetries(getRetries());
             }
-            
+
             if (getForceVersion() != null) {
                 String version = getForceVersion();
-                
+
                 if (version.equalsIgnoreCase("snmpv1")) {
                     agentConfig.setVersion(SnmpAgentConfig.VERSION1);
                 } else if (version.equalsIgnoreCase("snmpv2") || version.equalsIgnoreCase("snmpv2c")) {
@@ -160,13 +160,13 @@ public class DiskUsageDetector extends SnmpDetector {
                     agentConfig.setVersion(SnmpAgentConfig.VERSION3);
                 }
             }
-                
+
             // "match-type" parm
             //
             if (!"".equals(getMatchType())) {
                 String matchTypeStr = getMatchType();
                 if (matchTypeStr.equalsIgnoreCase("exact")) {
-                    matchType = MATCH_TYPE_EXACT; 
+                    matchType = MATCH_TYPE_EXACT;
                 } else if (matchTypeStr.equalsIgnoreCase("startswith")) {
                     matchType = MATCH_TYPE_STARTSWITH;
                 } else if (matchTypeStr.equalsIgnoreCase("endswith")) {
@@ -179,32 +179,32 @@ public class DiskUsageDetector extends SnmpDetector {
             }
 
             SnmpObjId hrStorageDescrSnmpObject = SnmpObjId.get(getHrStorageDescr());
-            
+
             Map<SnmpInstId, SnmpValue> descrResults = SnmpUtils.getOidValues(agentConfig, "DiskUsagePoller", hrStorageDescrSnmpObject);
-            
+
             if(descrResults.size() == 0) {
                 return false;
             }
 
-            for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) { 
+            for (Map.Entry<SnmpInstId, SnmpValue> e : descrResults.entrySet()) {
                 LOG.debug("capsd: SNMPwalk succeeded, addr={} oid={} instance={} value={}", InetAddressUtils.str(address), hrStorageDescrSnmpObject, e.getKey(), e.getValue());
-              
+
                 if (isMatch(e.getValue().toString(), getDisk(), matchType)) {
                     LOG.debug("Found disk '{}' (matching hrStorageDescr was '{}')", getDisk(), e.getValue());
                     return true;
-                        
+
                 }
-                 
+
             }
-            
+
             return false;
-        
+
         } catch (Throwable t) {
             throw new UndeclaredThrowableException(t);
         }
-        
+
     }
-    
+
     private boolean isMatch(String candidate, String target, int matchType) {
         boolean matches = false;
         LOG.debug("isMessage: candidate is '{}', matching against target '{}'", candidate, target);
@@ -224,7 +224,7 @@ public class DiskUsageDetector extends SnmpDetector {
         LOG.debug("isMatch: Match is positive");
         return matches;
     }
-    
+
     /**
      * <p>setMatchType</p>
      *

@@ -43,7 +43,7 @@ import java.util.TimeZone;
 /**
  * The TimestampFormat class implements the code necessary to format and parse
  * syslog timestamps, which come in the flavor of 'Sep 14 15:43:06'.
- * 
+ *
  * @author Timothy Gerard Endres, <a href="mailto:time@ice.com">time@ice.com</a>.
  */
 public class SyslogTimeStamp extends Format {

@@ -50,9 +50,9 @@ import org.springframework.stereotype.Component;
 @Policy("Match SNMP Interface")
 public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> implements SnmpInterfacePolicy {
     private static final Logger LOG = LoggerFactory.getLogger(MatchingSnmpInterfacePolicy.class);
-    
+
     public static enum Action { ENABLE_COLLECTION, DISABLE_COLLECTION, DO_NOT_PERSIST, ENABLE_POLLING, DISABLE_POLLING };
-    
+
     private Action m_action = Action.DO_NOT_PERSIST;
 
     /**
@@ -64,7 +64,7 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     public String getAction() {
         return m_action.toString();
     }
-    
+
     /**
      * <p>setAction</p>
      *
@@ -83,12 +83,12 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
             m_action = Action.DO_NOT_PERSIST;
         }
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public OnmsSnmpInterface act(OnmsSnmpInterface iface) {
         switch (m_action) {
-        case DO_NOT_PERSIST: 
+        case DO_NOT_PERSIST:
             LOG.debug("NOT Persisting {} according to policy", iface);
             return null;
         case DISABLE_COLLECTION:
@@ -108,10 +108,10 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
             LOG.debug("Disabled polling for {} according to policy", iface);
             return iface;
         default:
-            return iface;    
+            return iface;
         }
     }
-    
+
     /**
      * <p>getIfDescr</p>
      *
@@ -273,6 +273,6 @@ public class MatchingSnmpInterfacePolicy extends BasePolicy<OnmsSnmpInterface> i
     public void setIfAlias(String ifAlias) {
         putCriteria("ifAlias", ifAlias);
     }
-    
-    
+
+
 }

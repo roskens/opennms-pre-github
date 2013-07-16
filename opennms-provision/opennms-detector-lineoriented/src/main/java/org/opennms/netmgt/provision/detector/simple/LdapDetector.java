@@ -47,7 +47,7 @@ import com.novell.ldap.LDAPConnection;
 @Component
 @Scope("prototype")
 public class LdapDetector extends LineOrientedDetector {
-    
+
     private static final String DEFAULT_SERVICE_NAME = "LDAP";
     /**
      * <P>
@@ -73,18 +73,18 @@ public class LdapDetector extends LineOrientedDetector {
     protected LdapDetector(final String serviceName, final int port) {
         super(serviceName, port);
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected void onInit() {
         //expectClose();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     protected Client<LineOrientedRequest, LineOrientedResponse> getClient(){
         return new LdapDetectorClient();
-        
+
     }
 
 }

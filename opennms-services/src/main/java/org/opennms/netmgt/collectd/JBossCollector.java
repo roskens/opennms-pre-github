@@ -35,10 +35,10 @@ import org.opennms.protocols.jmx.connectors.ConnectionWrapper;
 import org.opennms.protocols.jmx.connectors.JBossConnectionFactory;
 
 /*
- * The JBossCollector class manages the querying and storage of data into RRD files.  The list of 
+ * The JBossCollector class manages the querying and storage of data into RRD files.  The list of
  * MBeans to be queried is read from the jmx-datacollection-config.xml file using the "jboss" service name.
  * The super class, JMXCollector, performs all the work.
- * 
+ *
  * @author <A HREF="mailto:mike@opennms.org">Mike Jamison </A>
  * @author <A HREF="http://www.opennms.org/">OpenNMS </A>
  */
@@ -59,7 +59,7 @@ public class JBossCollector  extends JMXCollector {
     }
 
     /* Returns the CollectionWrapper object from the factory using the parameterMap and ip address.
-     * 
+     *
      * @see org.opennms.netmgt.collectd.JMXCollector#getMBeanServer(java.util.Map)
      */
     /** {@inheritDoc} */
@@ -67,5 +67,5 @@ public class JBossCollector  extends JMXCollector {
     public ConnectionWrapper getMBeanServerConnection(Map<String, Object> parameterMap, InetAddress address) {
         return  JBossConnectionFactory.getMBeanServerConnection(parameterMap, address);
     }
-    
+
 }

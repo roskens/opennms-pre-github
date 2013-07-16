@@ -69,7 +69,7 @@ public class StatsdConfig {
             }
             m_reports.add(r);
         }
-        
+
         for (org.opennms.netmgt.config.statsd.Package pkg : getCastorPackages()) {
             StatsdPackage p = new StatsdPackage();
             p.setName(pkg.getName());
@@ -94,7 +94,7 @@ public class StatsdConfig {
             m_packages.add(p);
         }
     }
-    
+
     /**
      * <p>getReports</p>
      *
@@ -119,7 +119,7 @@ public class StatsdConfig {
                 return report;
             }
         }
-        
+
         throw new ObjectRetrievalFailureException("There is no report definition named '" + name + "'", name);
     }
 

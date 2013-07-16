@@ -41,13 +41,13 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public class Cause {
-    
+
     public enum Type {
         POSSIBLE,
         IMPACT,
         ROOT
     }
-    
+
     private Type m_type;
     private Long m_cause;
     private Event m_symptom;
@@ -68,7 +68,7 @@ public class Cause {
         m_symptom = symptom;
         m_timerId = timerId;
     }
-    
+
     /**
      * <p>Constructor for Cause.</p>
      *
@@ -79,7 +79,7 @@ public class Cause {
     public Cause(final Type type, final Long cause, final Event symptom) {
         this(type, cause, symptom, null);
     }
-    
+
     /**
      * <p>getType</p>
      *
@@ -88,7 +88,7 @@ public class Cause {
     public Type getType() {
         return m_type;
     }
-    
+
     /**
      * <p>setType</p>
      *
@@ -133,7 +133,7 @@ public class Cause {
     public void setSymptom(final Event symptomEvent) {
         m_symptom = symptomEvent;
     }
-    
+
     /**
      * <p>getImpacted</p>
      *
@@ -142,7 +142,7 @@ public class Cause {
     public Set<Cause> getImpacted() {
         return m_impacted;
     }
-    
+
     /**
      * <p>addImpacted</p>
      *
@@ -151,7 +151,7 @@ public class Cause {
     public void addImpacted(final Cause cause) {
         m_impacted.add(cause);
     }
-    
+
     /**
      * <p>toString</p>
      *

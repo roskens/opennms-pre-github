@@ -41,7 +41,7 @@ import org.opennms.core.utils.TimeInterval;
 import org.opennms.core.utils.TimeIntervalSequence;
 
 public class TimeIntervalSequenceTest extends IntervalTestCase {
-    
+
     @Test
     public void testPreceeds() throws Exception {
         TimeInterval first = new TimeInterval(new Date(0), date("18-08-2005 00:00:00"));
@@ -49,7 +49,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         assertTrue(first.preceeds(second));
         assertFalse(second.preceeds(first));
     }
-    
+
     @Test
     public void testFollows() throws Exception {
         TimeInterval first = new TimeInterval(new Date(0), date("18-08-2005 00:00:00"));
@@ -64,7 +64,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence of no intervals
         assertTimeIntervalSequence(new TimeInterval[0], seq);
     }
-    
+
     @Test
     public void testSingletonSeq() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18));
@@ -72,26 +72,26 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         assertTimeIntervalSequence(new TimeInterval[] { aug(18) }, seq);
     }
 
-    
+
     @Test
     public void testAddToEmptySeq() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence();
         seq.addInterval(aug(18));
-        
+
         // expect a sequence containing the added interval
         assertTimeIntervalSequence(new TimeInterval[] { aug(18) }, seq);
     }
-    
+
     @Test
     public void testAddNonOverlappingLater() throws Exception {
-        
+
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18));
         seq.addInterval(aug(19, 11, 12));
         // expect a sequence containing the original followed by the added
         assertTimeIntervalSequence(new TimeInterval[] { aug(18), aug(19, 11, 12) }, seq);
-        
+
     }
-    
+
     @Test
     public void testAddNonOverlappingEarlier() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18));
@@ -99,7 +99,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing the added followed by the original
         assertTimeIntervalSequence(new TimeInterval[] {aug(17, 11, 12), aug(18) }, seq);
     }
-    
+
     @Test
     public void testAddEquals() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -107,32 +107,32 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 17) }, seq);
     }
-    
+
     @Test
     public void testAddOverlappingCentered() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
         seq.addInterval(aug(18, 11, 12));
         // expect a sequence containing non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] {aug(18, 8, 11), aug(18, 11, 12), aug(18, 12, 17) }, seq);
-        
+
     }
-    
+
     @Test
     public void testAddOverlappingLater() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
         seq.addInterval(aug(18, 11, 20));
         // expect a sequence containing non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] {aug(18, 8, 11), aug(18, 11, 17), aug(18, 17, 20) }, seq);
-        
+
     }
-    
+
     @Test
     public void testAddOverlappingEarlier() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
         seq.addInterval(aug(18, 3, 12));
         // expect a sequence containing non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] {aug(18, 3, 8), aug(18, 8, 12), aug(18, 12, 17) }, seq);
-        
+
     }
 
     @Test
@@ -141,9 +141,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         seq.addInterval(aug(18, 3, 20));
         // expect a sequence containing non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] {aug(18, 3, 8), aug(18, 8, 17), aug(18, 17, 20) }, seq);
-        
+
     }
-    
+
     @Test
     public void testAddOverlappingFirstSegmentEmpty() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -151,7 +151,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 17), aug(18, 17, 20) }, seq);
     }
-    
+
     @Test
     public void testAddOverlappingLastSegmentEmpty() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -159,17 +159,17 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 3, 8), aug(18, 8, 17) }, seq);
     }
-    
+
     @Test
     public void testAddOverlappingMany() throws Exception {
         // seg with three entryies 8-5 on aug 18, aug 19 and aug 20
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
         seq.addInterval(aug(19, 8, 17));
         seq.addInterval(aug(20, 8, 17));
-        
+
         // now add interval from aug 18 0 to aug 20 24)
         seq.addInterval(aug(18, 0, 20, 24));
-        
+
         // expect a sequence containing non overlapping segments
         TimeInterval[] expected = {
                 aug(18, 0, 8),
@@ -181,9 +181,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 aug(20, 17, 24)
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
     }
-    
+
     @Test
     public void testRemoveOnlyInterval() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -191,7 +191,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[0], seq);
     }
-    
+
     @Test
     public void testRemoveFirstEntireInterval() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -201,7 +201,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(19, 11, 12) }, seq);
     }
-    
+
     @Test
     public void testRemoveMiddleEntireInterval() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -223,7 +223,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two non overlapping segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 17) }, seq);
     }
-    
+
     @Test
     public void testRemoveCenteredOverlappingInterval() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -232,7 +232,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         // expect a sequence containing only two surrounding segments
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 11), aug(18, 12, 17) }, seq);
     }
-    
+
     @Test
     public void testRemoveOverlappingLater() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -240,7 +240,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         // expect a sequence containing only one preceeding segment
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 11) }, seq);
-        
+
     }
 
     @Test
@@ -250,9 +250,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         // expect a sequence containing only one trailing segment
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 12, 17) }, seq);
-        
+
     }
-    
+
     @Test
     public void testRemoveOverlappingStraddle() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -260,7 +260,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         // expect a sequence containing no remaining intervals
         assertTimeIntervalSequence(new TimeInterval[] { }, seq);
-        
+
     }
 
     @Test
@@ -270,7 +270,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         // expect a sequence containing only the suffix
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 12, 17) }, seq);
-        
+
     }
 
     @Test
@@ -280,9 +280,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         // expect a sequence containing only the prefix
         assertTimeIntervalSequence(new TimeInterval[] { aug(18, 8, 12) }, seq);
-        
+
     }
-    
+
     @Test
     public void testRemoveOverlappingMany() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -290,10 +290,10 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         seq.addInterval(aug(20, 8, 17));
         seq.addInterval(aug(21, 8, 17));
         seq.addInterval(aug(22, 8, 17));
-        
+
         // remove a large interval
         seq.removeInterval(aug(19, 12, 21, 12));
-        
+
         // expect a sequence containing non overlapping segments
         TimeInterval[] expected = {
                 aug(18, 8, 17),
@@ -302,21 +302,21 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 aug(22, 8, 17)
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
     }
-    
+
     @Test
     public void testBound() throws Exception {
-        
+
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
         seq.addInterval(aug(19, 8, 17));
         seq.addInterval(aug(20, 8, 17));
         seq.addInterval(aug(21, 8, 17));
         seq.addInterval(aug(22, 8, 17));
-        
+
         // bound the sequence to the interval aug19 noon to aug 21 noon
         seq.bound(aug(19, 12, 21, 12));
-        
+
         // expect a sequence containing non overlapping segments
         TimeInterval[] expected = {
                 aug(19, 12, 17),
@@ -324,9 +324,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 aug(21, 8, 12)
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
     }
-    
+
     @Test
     public void testGetBounds() throws Exception {
         TimeIntervalSequence seq = new TimeIntervalSequence(aug(18, 8, 17));
@@ -337,17 +337,17 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         assertEquals(aug(18, 8, 22, 17), seq.getBounds());
     }
-    
+
     @Test
     public void testExtensionAdd() throws Exception {
         // seg with three entryies 8-5 on aug 18, aug 19 and aug 20
         OwnedIntervalSequence seq = new OwnedIntervalSequence(ownedOne(aug(18, 8, 17)));
         seq.addInterval(ownedOne(aug(19, 8, 17)));
         seq.addInterval(ownedOne(aug(20, 8, 17)));
-        
+
         // now add interval from aug 18 12 to aug 20 24)
         seq.addInterval(ownedTwo(aug(18, 12, 20, 24)));
-        
+
         // expect a sequence containing non overlapping segments
         OwnedInterval[] expected = {
                 ownedOne(aug(18, 8, 12)),
@@ -359,9 +359,9 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 ownedTwo(aug(20, 17, 24))
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
     }
-    
+
     @Test
     public void testExtensionRemoveWrongOwner() throws Exception {
 
@@ -369,10 +369,10 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         OwnedIntervalSequence seq = new OwnedIntervalSequence(ownedOne(aug(18, 8, 17)));
         seq.addInterval(ownedOne(aug(19, 8, 17)));
         seq.addInterval(ownedOne(aug(20, 8, 17)));
-        
+
         // now add interval from aug 18 12 to aug 20 24)
         seq.removeInterval(ownedTwo(aug(18, 12, 20, 24)));
-        
+
         // expect a sequence containing non overlapping segments
         OwnedInterval[] expected = {
                 ownedOne(aug(18, 8, 17)),
@@ -380,7 +380,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 ownedOne(aug(20, 8, 17)),
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
 
     }
 
@@ -391,10 +391,10 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         OwnedIntervalSequence seq = new OwnedIntervalSequence(ownedOneAndTwo(aug(18, 8, 17)));
         seq.addInterval(ownedOneAndTwo(aug(19, 8, 17)));
         seq.addInterval(ownedOneAndTwo(aug(20, 8, 17)));
-        
+
         // now add interval from aug 18 12 to aug 20 24)
         seq.removeInterval(ownedTwo(aug(18, 12, 20, 13)));
-        
+
         // expect a sequence containing non overlapping segments
         OwnedInterval[] expected = {
                 ownedOneAndTwo(aug(18, 8, 12)),
@@ -404,7 +404,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
                 ownedOneAndTwo(aug(20, 13, 17)),
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
 
     }
 
@@ -415,23 +415,23 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         OwnedIntervalSequence seq = new OwnedIntervalSequence(ownedOneAndTwo(aug(18, 8, 17)));
         seq.addInterval(ownedOneAndTwo(aug(19, 8, 17)));
         seq.addInterval(ownedOneAndTwo(aug(20, 8, 17)));
-        
+
         // now add interval from aug 18 12 to aug 20 24)
         seq.removeInterval(ownedOneAndTwo(aug(18, 12, 20, 13)));
-        
+
         // expect a sequence containing non overlapping segments
         OwnedInterval[] expected = {
                 ownedOneAndTwo(aug(18, 8, 12)),
                 ownedOneAndTwo(aug(20, 13, 17)),
         };
         assertTimeIntervalSequence(expected, seq);
-        
+
 
     }
-    
+
     @Test
     public void testExtensionUnscheduled() throws Exception {
-        
+
         // seg with three entryies 8-5 on aug 18, aug 19 and aug 20
         OwnedIntervalSequence seq = new OwnedIntervalSequence(ownedOneAndTwo(aug(18, 8, 17)));
         seq.addInterval(ownedOneAndTwo(aug(19, 8, 17)));
@@ -439,7 +439,7 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
 
         OwnedIntervalSequence unscheduled = new OwnedIntervalSequence(owned(aug(18)));
         unscheduled.removeAll(seq);
-        
+
         OwnedInterval[] expected = {
                 owned(aug(18, 0, 8)),
                 owned(aug(18, 17, 24))
@@ -447,6 +447,6 @@ public class TimeIntervalSequenceTest extends IntervalTestCase {
         assertTimeIntervalSequence(expected, unscheduled);
 
     }
-    
+
 
 }

@@ -150,9 +150,9 @@ public class DutySchedule {
     public DutySchedule(List<Boolean> schedule, int start, int end) {
         Assert.notNull(schedule, "argument schedule must not be null");
         Assert.isTrue(schedule.size() == 7, "argument schedule must contain exactly seven Boolean objects");
-        
+
         m_days = new BitSet(7);
-        
+
         for (int i = 0; i < 7; i++) {
             m_days.set(i, schedule.get(i).booleanValue());
         }
@@ -198,7 +198,7 @@ public class DutySchedule {
 
     /**
      * This method returns the index value of a day abbreviation
-     * 
+     *
      * @param aDay
      *            the day abbreviation
      * @return The index associated with this abbreviation.
@@ -487,7 +487,7 @@ public class DutySchedule {
         cal.setTime(time);
         return isInSchedule(cal);
     }
-    
+
     /**
      * <p>hasDay</p>
      *

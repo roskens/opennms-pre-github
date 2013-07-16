@@ -56,14 +56,14 @@ import org.springframework.web.servlet.ModelAndView;
  * @since 1.8.1
  */
 public class ClearMapController extends MapsLoggingController {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ClearMapController.class);
 
 
 
 	private Manager manager;
-	
-	
+
+
 	/**
 	 * <p>Getter for the field <code>manager</code>.</p>
 	 *
@@ -89,7 +89,7 @@ public class ClearMapController extends MapsLoggingController {
 		LOG.info("Clearing map.");
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(response
 					.getOutputStream(), "UTF-8"));
-	
+
 		try {
 			manager.clearMap();
 			bw.write(ResponseAssembler.getActionOKMapResponse(MapsConstants.CLEAR_ACTION));
@@ -98,8 +98,8 @@ public class ClearMapController extends MapsLoggingController {
 			bw.write(ResponseAssembler.getMapErrorResponse(MapsConstants.CLEAR_ACTION));
 		} finally {
 			bw.close();
-		} 
-			
+		}
+
 		return null;
 	}
 

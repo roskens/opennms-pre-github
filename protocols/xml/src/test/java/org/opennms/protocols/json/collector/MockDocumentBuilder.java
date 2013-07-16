@@ -59,7 +59,7 @@ public class MockDocumentBuilder {
         if (m_jsonFileName == null)
             return null;
         JSONObject json = null;
-        
+
         FileInputStream inputStream = null;
         try {
             inputStream = new FileInputStream(m_jsonFileName);
@@ -70,7 +70,7 @@ public class MockDocumentBuilder {
             if (inputStream != null)
             IOUtils.closeQuietly(inputStream);
         }
-        
+
         return json;
     }
 

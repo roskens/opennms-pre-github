@@ -69,7 +69,7 @@ public class StpInterface
                 m_bridgeport = stpinterf.getBridgePort();
 				m_ifindex = stpinterf.getIfIndex();
 				m_stpvlan = stpinterf.getVlan();
-				m_lastPollTime = Util.formatDateToUIString(stpinterf.getLastPollTime()); 
+				m_lastPollTime = Util.formatDateToUIString(stpinterf.getLastPollTime());
                 m_status = StatusType.getStatusString(stpinterf.getStatus().getCharCode());
 				if (stpinterf.getStpPortState() != null)
 					m_stpportstate = StpPortStatus.getStpPortStatusString(stpinterf.getStpPortState().getIntCode());
@@ -88,7 +88,7 @@ public class StpInterface
         public void setStpRootNodeid(Integer stprootnodeid) {
         m_stprootnodeid = stprootnodeid;
         }
-        
+
         public void setStpBridgeNodeid(Integer stpbridgenodeid) {
             m_stpbridgenodeid = stpbridgenodeid;
         }
@@ -219,7 +219,7 @@ public class StpInterface
 		public String getStpPortState() {
 			return m_stpportstate;
 		}
-			
+
 		/**
 		 * <p>get_stpvlan</p>
 		 *
@@ -253,7 +253,7 @@ public class StpInterface
 		public String get_ipaddr() {
 			return m_ipaddr;
 		}
-		
+
 	    /**
 	     * <p>getStatusString</p>
 	     *

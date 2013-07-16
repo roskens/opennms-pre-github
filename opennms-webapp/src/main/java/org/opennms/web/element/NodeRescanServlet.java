@@ -54,7 +54,7 @@ import org.opennms.web.servlet.MissingParameterException;
  */
 public class NodeRescanServlet extends HttpServlet {
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = -3183139374532183137L;
     protected EventProxy proxy;

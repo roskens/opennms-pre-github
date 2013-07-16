@@ -33,9 +33,9 @@ public class BoundingBox{
     private int m_top = Integer.MAX_VALUE;
     private int m_right = Integer.MIN_VALUE;
     private int m_bottom = Integer.MIN_VALUE;
-    
+
     public BoundingBox() {
-        
+
     }
 
     public BoundingBox(int x, int y, int width, int height) {
@@ -44,7 +44,7 @@ public class BoundingBox{
         m_right = x + width;
         m_bottom = y + height;
     }
-    
+
     public BoundingBox(Point center, int width, int height) {
         m_left = center.getX() - width /2 ;
         m_top = center.getY() - height /2;
@@ -74,17 +74,17 @@ public class BoundingBox{
         m_top = Math.min(m_top,  location.getY());
         m_bottom = Math.max(m_bottom, location.getY());
     }
-    
+
     public Point getCenter() {
         Point p = new Point(getX() + (getWidth()/2), getY() + (getHeight()/2));
         return p;
     }
-    
+
     public void setCenter(Point center) {
         m_left = center.getX() - getWidth()/2;
-        m_top = center.getY() - getHeight()/2; 
+        m_top = center.getY() - getHeight()/2;
     }
-    
+
     public BoundingBox computeWithAspectRatio(double R) {
         double r = getAspectRatio();
         int width =  (int) (r < R ? Math.round(getHeight() * R ): getWidth());
@@ -98,12 +98,12 @@ public class BoundingBox{
     private double getAspectRatio() {
         return getHeight() == 0 ? 0 : (double)getWidth()/(double)getHeight();
     }
-    
+
     @Override
     public String toString() {
         return "x: " + getX() + " y: " + getY() + " width: " + getWidth() + " height: " + getHeight();
     }
-    
+
     public String fragment() {
         return "(" + getX() + "," + getY() + "," + getWidth() + "," + getHeight() + ")";
     }
@@ -113,7 +113,7 @@ public class BoundingBox{
         m_right = Math.max(m_right, box.m_right);
         m_top = Math.min(m_top, box.m_top);
         m_bottom = Math.max(m_bottom, box.m_bottom);
-        
+
     }
 
     @Override
@@ -146,8 +146,8 @@ public class BoundingBox{
             return false;
         return true;
     }
-    
-    
-    
-    
+
+
+
+
 }

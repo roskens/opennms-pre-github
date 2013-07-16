@@ -80,13 +80,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationMonitorDaoHibernateTest implements InitializingBean {
 	@Autowired
 	private LocationMonitorDao m_locationMonitorDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     @Override
     public void afterPropertiesSet() throws Exception {
         BeanUtils.assertAutowiring(this);
@@ -98,15 +98,15 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
     	Map <String, String> pollerDetails = new HashMap<String, String>();
     	pollerDetails.put("os.name", "BogOS");
     	pollerDetails.put("os.version", "sqrt(-1)");
-    	
+
     	OnmsLocationMonitor mon = new OnmsLocationMonitor();
     	mon.setStatus(MonitorStatus.STARTED);
     	mon.setLastCheckInTime(new Date());
     	mon.setDetails(pollerDetails);
     	mon.setDefinitionName("RDU");
-    	
+
     	m_locationMonitorDao.save(mon);
-    	
+
     	m_locationMonitorDao.flush();
     	m_locationMonitorDao.clear();
 
@@ -117,28 +117,28 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
     	assertEquals(mon.getDefinitionName(), mon2.getDefinitionName());
     	assertEquals(mon.getDetails(), mon2.getDetails());
     }
-    
-    
-    
+
+
+
     @Test
 	@Transactional
 	public void testSetConfigResourceProduction() throws FileNotFoundException {
         ((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("monitoring-locations.xml")));
     }
-    
+
 	@Test
 	@Transactional
     public void testSetConfigResourceExample() throws FileNotFoundException {
     	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new InputStreamResource(ConfigurationTestUtils.getInputStreamForConfigFile("examples/monitoring-locations.xml")));
     }
-    
+
 	@Test
 	@Transactional
     public void testSetConfigResourceNoLocations() throws FileNotFoundException {
     	((LocationMonitorDaoHibernate)m_locationMonitorDao).setMonitoringLocationConfigResource(new FileSystemResource("src/test/resources/monitoring-locations-no-locations.xml"));
     }
 
-    
+
 	@Test
 	@Transactional
     public void testBogusConfig() {
@@ -165,7 +165,7 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         }
         ta.verifyAnticipated();
     }
-    
+
 	@Test
 	@Transactional
     public void testFindMonitoringLocationDefinitionBogus() throws FileNotFoundException {
@@ -174,12 +174,12 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
                    + "should have returned null",
                    m_locationMonitorDao.findMonitoringLocationDefinition("bogus"));
     }
-    
+
 	@Test
 	@Transactional
     public void testFindStatusChangesForNodeForUniqueMonitorAndInterface() {
 		m_databasePopulator.populateDatabase();
-		
+
         OnmsLocationMonitor monitor1 = new OnmsLocationMonitor();
         monitor1.setDefinitionName("Outer Space");
         m_locationMonitorDao.save(monitor1);
@@ -193,25 +193,25 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
 
         OnmsNode node2 = m_nodeDao.get(2);
         assertNotNull("node 2 should not be null", node2);
-        
+
         // Add node1/192.168.1.1 on monitor1
         addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
-        
+
         // Add node1/192.168.1.2 on monitor1
         addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.2").getMonitoredServices());
-        
+
         // Add node1/192.168.1.1 on monitor2
         addStatusChangesForMonitorAndService(monitor2, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
-        
+
         // Add node1/fe80:0000:0000:0000:aaaa:bbbb:cccc:dddd%5 on monitor1
         addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("fe80::aaaa:bbbb:cccc:dddd%5").getMonitoredServices());
-        
+
         // Add node2/192.168.2.1 on monitor1 to test filtering on a specific node (this shouldn't show up in the results)
         addStatusChangesForMonitorAndService(monitor1, node2.getIpInterfaceByIpAddress("192.168.2.1").getMonitoredServices());
 
         // Add another copy for node1/192.168.1.1 on monitor1 to test distinct
         addStatusChangesForMonitorAndService(monitor1, node1.getIpInterfaceByIpAddress("192.168.1.1").getMonitoredServices());
-        
+
         Collection<LocationMonitorIpInterface> statuses = m_locationMonitorDao.findStatusChangesForNodeForUniqueMonitorAndInterface(1);
         assertEquals("number of statuses found", 4, statuses.size());
 
@@ -219,7 +219,7 @@ public class LocationMonitorDaoHibernateTest implements InitializingBean {
         for (LocationMonitorIpInterface status : statuses) {
             OnmsLocationMonitor m = status.getLocationMonitor();
             OnmsIpInterface i = status.getIpInterface();
-            
+
             System.err.println("monitor " + m.getId() + " " + m.getDefinitionName() + ", IP " + i.getIpAddress());
         }
         */

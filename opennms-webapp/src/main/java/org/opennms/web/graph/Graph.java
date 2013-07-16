@@ -50,7 +50,7 @@ public class Graph implements Comparable<Graph> {
     private OnmsResource m_resource;
     private Date m_start = null;
     private Date m_end = null;
-    
+
     /**
      * <p>Constructor for Graph.</p>
      *
@@ -102,7 +102,7 @@ public class Graph implements Comparable<Graph> {
     public String getName() {
         return m_graph.getName();
     }
-    
+
     /**
      * <p>getTitle</p>
      *
@@ -144,7 +144,7 @@ public class Graph implements Comparable<Graph> {
     public Integer getGraphHeight() {
         return m_graph.getGraphHeight();
     }
-    
+
     /**
      * <p>getPrefabGraph</p>
      *
@@ -153,7 +153,7 @@ public class Graph implements Comparable<Graph> {
     public PrefabGraph getPrefabGraph() {
         return m_graph;
     }
-    
+
     /**
      * <p>getReport</p>
      *
@@ -162,7 +162,7 @@ public class Graph implements Comparable<Graph> {
     public String getReport() {
         return m_graph.getName();
     }
-    
+
     /**
      * <p>getRequiredRrGraphdAttributes</p>
      *

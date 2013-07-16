@@ -37,7 +37,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /*
  * ContainerTask
  * @author brozow
- * 
+ *
  * TODO derive directly from Task
  */
 /**
@@ -72,7 +72,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     protected final Task m_triggerTask;
     private final List<Task> m_children = Collections.synchronizedList(new ArrayList<Task>());
     private final TaskBuilder<T> m_builder;
-    
+
     /**
      * <p>Constructor for ContainerTask.</p>
      *
@@ -92,9 +92,9 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     private TaskBuilder<T> createBuilder() {
         return new TaskBuilder<T>((T)this);
     }
-    
-    
-    
+
+
+
     /**
      * <p>getBuilder</p>
      *
@@ -103,14 +103,14 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     public TaskBuilder<T> getBuilder() {
         return m_builder;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void addPrerequisite(Task task) {
         super.addPrerequisite(task);
         m_triggerTask.addPrerequisite(task);
     }
-    
+
     AtomicInteger m_child = new AtomicInteger(0);
 
     /** {@inheritDoc} */
@@ -122,12 +122,12 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
             children = new ArrayList<Task>(m_children);
             m_children.clear();
         }
-        
+
         for(Task task : children) {
             task.schedule();
         }
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -149,9 +149,9 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         if (scheduleChild) {
             task.schedule();
         }
-        
+
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -160,7 +160,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     public void add(RunInBatch runInBatch) {
         getBuilder().add(runInBatch);
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -192,9 +192,9 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
 //            }
 //        }
 //    }
-    
-    
-    
+
+
+
     /** {@inheritDoc} */
     @Override
     protected void completeSubmit() {
@@ -212,7 +212,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         add(task);
         return task;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -225,7 +225,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         add(task);
         return task;
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -239,7 +239,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
         add(task);
         return task;
     }
-    
+
     /**
      * <p>addSequence</p>
      *
@@ -250,7 +250,7 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     public SequenceTask addSequence(Runnable... tasks) {
         return getCoordinator().createSequence(this, tasks);
     }
-    
+
 
     private SyncTask createTask(Runnable runnable) {
         return getCoordinator().createTask(this, runnable);
@@ -259,8 +259,8 @@ public abstract class ContainerTask<T extends ContainerTask<?>> extends Task {
     private SyncTask createTask(Runnable runnable, String schedulingHint) {
         return getCoordinator().createTask(this, runnable, schedulingHint);
     }
-    
-    
+
+
     private <S> AsyncTask<S> createTask(Async<S> async, Callback<S> cb) {
         return getCoordinator().createTask(this, async, cb);
     }

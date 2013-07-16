@@ -29,7 +29,7 @@
 package org.opennms.netmgt.model;
 
 public class MockServiceDaemon implements MockServiceDaemonMBean {
-	
+
 	private boolean startCalled = false;
 	private String statusStr = "UNDEFINED";
 	private String name;
@@ -77,7 +77,7 @@ public class MockServiceDaemon implements MockServiceDaemonMBean {
 	public boolean getStartCalled() {
 		return startCalled;
 	}
-	
+
         @Override
 	public void stop() {
 		// TODO Auto-generated method stub

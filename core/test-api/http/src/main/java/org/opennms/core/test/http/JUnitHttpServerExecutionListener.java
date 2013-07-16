@@ -46,7 +46,7 @@ public class JUnitHttpServerExecutionListener extends OpenNMSAbstractTestExecuti
     @Override
     public void beforeTestMethod(final TestContext testContext) throws Exception {
         super.beforeTestMethod(testContext);
-        
+
         final JUnitHttpServer config = findTestAnnotation(JUnitHttpServer.class, testContext);
         if (config == null) return;
 

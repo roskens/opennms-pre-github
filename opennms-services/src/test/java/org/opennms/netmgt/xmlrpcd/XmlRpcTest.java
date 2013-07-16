@@ -45,7 +45,7 @@ import org.opennms.spring.xmlrpc.XmlRpcWebServerFactoryBean;
 import org.opennms.test.mock.EasyMockUtils;
 
 /**
- * Represents a XmlRpcTest 
+ * Represents a XmlRpcTest
  *
  * @author brozow
  */
@@ -58,26 +58,26 @@ public class XmlRpcTest  {
     private XmlRpcServiceExporter m_exporter;
 
     private EasyMockUtils m_mocks = new EasyMockUtils();
-    
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging();
-        
+
         m_provisioner = m_mocks.createMock(Provisioner.class);
         m_proxy = createRemoteProxy(m_provisioner);
     }
-    
+
     private Provisioner createRemoteProxy(Provisioner bean) throws Exception {
         setUpWebServer();
-        
+
         m_exporter = new XmlRpcServiceExporter();
         m_exporter.setServiceInterface(Provisioner.class);
         m_exporter.setService(bean);
         m_exporter.setWebServer(m_webServer);
         m_exporter.afterPropertiesSet();
-        
+
         Thread.sleep(1000);
-        
+
         return createRemoteProxy("http://localhost:9192/RPC2");
     }
 
@@ -100,7 +100,7 @@ public class XmlRpcTest  {
             Thread.sleep(1000);
         }
     }
-    
+
     @After
     public void tearDown() throws Exception {
         if (m_exporter != null) {
@@ -170,7 +170,7 @@ public class XmlRpcTest  {
         }
         return urlException;
     }
-    
+
     @Test
     public void testAddServiceHTTPS() throws MalformedURLException {
         String url = "https://www.opennms.org";

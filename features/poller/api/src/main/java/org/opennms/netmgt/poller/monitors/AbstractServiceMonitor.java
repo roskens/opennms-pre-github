@@ -50,9 +50,9 @@ import org.springframework.util.ClassUtils;
  * @author <A HREF="http://www.opennms.org/">OpenNMS</A>
  */
 abstract public class AbstractServiceMonitor implements ServiceMonitor {
-	
+
     private static final Logger LOG = LoggerFactory.getLogger(AbstractServiceMonitor.class);
-	
+
     /**
      * {@inheritDoc}
      *
@@ -143,7 +143,7 @@ abstract public class AbstractServiceMonitor implements ServiceMonitor {
     @Override
     public void release(MonitoredService svc) {
     }
-    
+
     /** {@inheritDoc} */
     @Override
     abstract public PollStatus poll(MonitoredService svc, Map<String, Object> parameters);

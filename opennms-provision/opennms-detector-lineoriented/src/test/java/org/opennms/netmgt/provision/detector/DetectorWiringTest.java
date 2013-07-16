@@ -59,43 +59,43 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"classpath:/META-INF/opennms/detectors.xml"})
 public class DetectorWiringTest implements InitializingBean {
-    
+
     @Autowired
     @Qualifier(value="org.opennms.netmgt.provision.detector.simple.HttpDetector")
     @SuppressWarnings("unused")
     private HttpDetector m_httpDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private Pop3Detector m_pop3Detector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private CitrixDetector m_citrixDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private DominoIIOPDetector m_dominoIIOPDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private FtpDetector m_ftpDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private HttpsDetector m_httpsDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private ImapDetector m_imapDetector;
-    @Autowired 
+    @Autowired
     @Qualifier(value="org.opennms.netmgt.provision.detector.simple.LdapDetector")
     @SuppressWarnings("unused")
     private LdapDetector m_ldapDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private LdapsDetector m_ldapsDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private NrpeDetector m_nrpeDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private SmtpDetector m_smtpDetector;
-    @Autowired 
+    @Autowired
     @SuppressWarnings("unused")
     private TcpDetector m_tcpDetector;
 

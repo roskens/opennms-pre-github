@@ -46,7 +46,7 @@ public class DetectFutureFailedImpl implements DetectFuture {
      * <p>Constructor for DefaultDetectFuture.</p>
      *
      * @param detector a {@link org.opennms.netmgt.provision.AsyncServiceDetector} object.
-     * @param e 
+     * @param e
      */
     public DetectFutureFailedImpl(final AsyncServiceDetector detector, Throwable e) {
         m_detector = detector;

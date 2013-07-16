@@ -46,10 +46,10 @@ import org.opennms.netmgt.model.OnmsCriteria;
 public abstract class ConditionalFilter implements Filter {
     /** Constant <code>TYPE="conditionalFilter"</code> */
     public static final String TYPE = "conditionalFilter";
-    
+
     private String m_conditionType;
     private Filter[] m_filters;
-    
+
     /**
      * <p>Constructor for ConditionalFilter.</p>
      *
@@ -63,7 +63,7 @@ public abstract class ConditionalFilter implements Filter {
         m_conditionType = conditionType;
         m_filters = filters;
     }
-    
+
     /**
      * <p>getFilters</p>
      *
@@ -72,7 +72,7 @@ public abstract class ConditionalFilter implements Filter {
     public Filter[] getFilters() {
         return m_filters;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public int bindParam(PreparedStatement ps, int parameterIndex) throws SQLException {
@@ -93,7 +93,7 @@ public abstract class ConditionalFilter implements Filter {
         if (m_filters.length == 1) {
             return m_filters[0].getDescription();
         }
-        
+
         StringBuilder buf = new StringBuilder(TYPE);
         buf.append("=");
         buf.append(m_conditionType);
@@ -115,7 +115,7 @@ public abstract class ConditionalFilter implements Filter {
         if (m_filters.length == 1) {
             return m_filters[0].getParamSql();
         }
-        
+
         StringBuilder buf = new StringBuilder("( ");
         for(int i = 0; i < m_filters.length; i++){
             if (i != 0) {
@@ -138,7 +138,7 @@ public abstract class ConditionalFilter implements Filter {
         if (m_filters.length == 1) {
             return m_filters[0].getSql();
         }
-        
+
         StringBuilder buf = new StringBuilder("( ");
         for(int i = 0; i < m_filters.length; i++){
             if (i != 0) {
@@ -161,7 +161,7 @@ public abstract class ConditionalFilter implements Filter {
         if (m_filters.length == 1) {
             return m_filters[0].getTextDescription();
         }
-        
+
         StringBuilder buf = new StringBuilder("( ");
         for(int i = 0; i < m_filters.length; i++){
             if (i != 0) {
@@ -183,7 +183,7 @@ public abstract class ConditionalFilter implements Filter {
     public void applyCriteria(OnmsCriteria criteria) {
         criteria.add(getCriterion());
     }
-    
+
     /**
      * <p>getCriterion</p>
      *
@@ -192,7 +192,7 @@ public abstract class ConditionalFilter implements Filter {
     @Override
     abstract public Criterion getCriterion();
 
-    
+
     /**
      * <p>toString</p>
      *

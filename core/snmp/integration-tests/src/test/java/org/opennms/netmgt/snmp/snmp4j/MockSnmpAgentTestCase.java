@@ -46,7 +46,7 @@ public abstract class MockSnmpAgentTestCase {
     private InetAddress m_agentAddress;
     private int m_agentPort = 1691;
     private ClassPathResource m_propertiesResource = new ClassPathResource("loadSnmpDataTest.properties");
-    
+
     private MockSnmpAgent m_agent;
 
     public MockSnmpAgentTestCase() {
@@ -78,7 +78,7 @@ public abstract class MockSnmpAgentTestCase {
     public void tearDown() throws Exception {
 
         agentCleanup();
-    
+
         //MockLogAppender.assertNoWarningsOrGreater();
 
         MockUtil.println("------------ End Test --------------------------");
@@ -90,7 +90,7 @@ public abstract class MockSnmpAgentTestCase {
 		if (m_agent != null) {
 			m_agent.shutDownAndWait();
 		}
-		
+
 	}
 
     protected SnmpAgentConfig getAgentConfig() {

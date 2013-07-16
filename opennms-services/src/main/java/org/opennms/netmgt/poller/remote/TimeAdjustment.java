@@ -36,11 +36,11 @@ import java.util.Date;
  * @author brozow
  */
 public interface TimeAdjustment {
-    
+
     public void setMasterTime(long timeInMillis);
-    
+
     public long adjustTimeToMasterTime(long localTime);
-    
+
     public Date adjustDateToMasterDate(Date localDate);
-    
+
 }

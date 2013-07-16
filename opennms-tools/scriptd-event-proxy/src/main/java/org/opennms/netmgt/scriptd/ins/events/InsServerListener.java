@@ -45,8 +45,8 @@ import org.slf4j.LoggerFactory;
 /**
  * The InsServerListener will accept input from a socket, create a InsSession in
  * which communicate with an InsClient for the alarm synchronization.
- * 
- * @see main method for usage example 
+ *
+ * @see main method for usage example
  */
 
 public class InsServerListener extends InsServerAbstractListener {
@@ -98,7 +98,7 @@ public class InsServerListener extends InsServerAbstractListener {
 		super.interrupt();
 		LOG.info("InsServerListener Interrupted!");
 	}
-	
+
 	private synchronized void cleanActiveSessions() {
 		synchronized (m_activeSessions) {
 			final Iterator<InsSession> it = m_activeSessions.iterator();
@@ -121,7 +121,7 @@ public class InsServerListener extends InsServerAbstractListener {
 		LOG.debug("Flushing uei: {}", event.getUei());
 		LOG.debug("Flushing ifindex: {}", event.getIfIndex());
 		LOG.debug("Flushing ifAlias: {}", event.getIfAlias());
-	      
+
 		synchronized (m_activeSessions) {
 			cleanActiveSessions();
 			final Iterator<InsSession> it = m_activeSessions.iterator();
@@ -150,8 +150,8 @@ public class InsServerListener extends InsServerAbstractListener {
 
 		isl.setCriteriaRestriction("eventuei is not null");
 		//required properties
-		
-		
+
+
 		isl.start();
 
 	}

@@ -42,9 +42,9 @@ import org.slf4j.LoggerFactory;
  * <p>ProcessExec class.</p>
  */
 public class ProcessExec {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ProcessExec.class);
-	
+
     PrintStream m_out = null;
 
     PrintStream m_err = null;

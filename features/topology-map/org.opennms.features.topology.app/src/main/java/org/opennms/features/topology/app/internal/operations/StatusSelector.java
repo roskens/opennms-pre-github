@@ -96,7 +96,7 @@ public class StatusSelector {
 
         m_registrations.put(statusProvider, reg);
     }
-    
+
     public synchronized void removeStatusProvider(StatusProvider statusProvider, Map<?,?> metaData) {
         try {
             LoggerFactory.getLogger(getClass()).debug("Removing status provider: {}", statusProvider);

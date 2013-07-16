@@ -47,8 +47,8 @@ import com.vaadin.ui.themes.Runo;
 
 /**
  * The Class ResourceTypePanel.
- * 
- * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a> 
+ *
+ * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @SuppressWarnings("serial")
 public class ResourceTypePanel extends VerticalLayout {

@@ -69,7 +69,7 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
                 public void visitAttribute(CollectionAttribute attribute) {
                     visitAttribute((SnmpAttribute)attribute);
                 }
-                
+
 		public void visitAttribute(SnmpAttribute attribute) {
 			attributeCount++;
 		    assertMibObjectPresent(attribute, list);
@@ -80,23 +80,23 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
 	}
 
     public MockDataCollectionConfig m_config;
-    
+
     protected SnmpObjId m_sysNameOid;
     protected SnmpObjId m_ifDescr;
     protected SnmpObjId m_ifOutOctets;
     protected SnmpObjId m_invalid;
-    
+
     protected OnmsNode m_node;
     protected OnmsIpInterface m_iface;
-    
+
     protected CollectionAgent m_agent;
     private SnmpWalker m_walker;
     protected SnmpCollectionSet m_collectionSet;
-    
+
     protected MockSnmpAgent m_mockAgent;
     protected IpInterfaceDao m_ifaceDao;
     protected EasyMockUtils m_easyMockUtils;
-    
+
     @Override
     public void setVersion(int version) {
         super.setVersion(version);
@@ -106,22 +106,22 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
     protected void setUp() throws Exception {
         setStartEventd(false);
         super.setUp();
-        
+
         m_mockAgent = MockSnmpAgent.createAgentAndRun(new ClassPathResource("org/opennms/netmgt/snmp/snmpTestData1.properties").getURL(), InetAddressUtils.str(myLocalHost()) + "/9161");
-        
+
         m_config = new MockDataCollectionConfig();
         DataCollectionConfigFactory.setInstance(m_config);
-        
+
         m_sysNameOid = SnmpObjId.get(".1.3.6.1.2.1.1.5");
         m_ifOutOctets = SnmpObjId.get("..1.3.6.1.2.1.2.2.1.16");
         m_invalid = SnmpObjId.get(".1.5.6.1.2.1.1.5");
         m_ifDescr = SnmpObjId.get(".1.3.6.1.2.1.2.2.1.2");
-        
+
         m_easyMockUtils = new EasyMockUtils();
         m_ifaceDao = m_easyMockUtils.createMock(IpInterfaceDao.class);
 
         createAgent(1, PrimaryType.PRIMARY);
-        
+
     }
 
     @Override
@@ -129,10 +129,10 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
         m_mockAgent.shutDownAndWait();
         super.tearDown();
     }
-    
+
     protected void assertMibObjectsPresent(CollectionResource resource, final List<MibObject> attrList) {
         assertNotNull(resource);
-        
+
         AttributeVerifier attributeVerifier = new AttributeVerifier(attrList);
 		resource.visit(attributeVerifier);
 		assertEquals("Unexpected number of attributes", attrList.size(), attributeVerifier.attributeCount);
@@ -195,20 +195,20 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
         addIfOutErrors();
         addIfInDiscards();
     }
-    
+
     protected void addIpAddrTable() {
         addIpAdEntAddr();
         addIpAdEntIfIndex();
         addIpAdEntNetMask();
         addIpAdEntBcastAddr();
     }
-    
+
     protected void addInvalid() {
         addAttribute("invalid", ".1.5.6.1.2.1.4.20.1.4", "ifIndex", "counter");
-        
+
     }
-    
-    
+
+
 
     protected void addIpAdEntBcastAddr() {
         // .1.3.6.1.2.1.4.20.1.4
@@ -219,19 +219,19 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
     protected void addIpAdEntNetMask() {
         // .1.3.6.1.2.1.4.20.1.3
         addAttribute("addIpAdEntNetMask", ".1.3.6.1.2.1.4.20.1.3", "ifIndex", "ipAddress");
-        
+
     }
 
     protected void addIpAdEntIfIndex() {
         // .1.3.6.1.2.1.4.20.1.2
         addAttribute("addIpAdEntIfIndex", ".1.3.6.1.2.1.4.20.1.2", "ifIndex", "integer");
-        
+
     }
 
     protected void addIpAdEntAddr() {
         // .1.3.6.1.2.1.4.20.1.1
         addAttribute("addIpAdEntAddr", ".1.3.6.1.2.1.4.20.1.1", "ifIndex", "ipAddress");
-        
+
     }
 
     protected void addIfInDiscards() {
@@ -257,7 +257,7 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
     protected void addIfSpeed() {
         addAttribute("ifSpeed", ".1.3.6.1.2.1.2.2.1.5", "ifIndex", "gauge");
     }
-    
+
     @Override
     public void testDoNothing() {}
 
@@ -268,32 +268,32 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
     protected void createAgent(int ifIndex, PrimaryType ifCollType) {
         m_node = new OnmsNode();
         m_node.setSysObjectId(".1.2.3.4.5.6.7");
-        
+
         OnmsSnmpInterface snmpIface = new OnmsSnmpInterface(m_node, ifIndex);
-    
+
     	m_iface = new OnmsIpInterface();
         m_iface.setId(123);
         m_iface.setIpAddress(myLocalHost());
     	m_iface.setIsSnmpPrimary(ifCollType);
     	m_iface.setSnmpInterface(snmpIface);
     	m_node.addIpInterface(m_iface);
-        
+
 
     	EasyMock.expect(m_ifaceDao.load(m_iface.getId())).andReturn(m_iface).anyTimes();
-        
+
         m_easyMockUtils.replayAll();
-        
+
         m_agent = DefaultCollectionAgent.create(m_iface.getId(), m_ifaceDao, new MockPlatformTransactionManager());
-        
+
     }
-    
+
     protected void initializeAgent() throws CollectionInitializationException {
         ServiceParameters params = new ServiceParameters(new HashMap<String, Object>());
         OnmsSnmpCollection snmpCollection = new OnmsSnmpCollection(m_agent, params);
         m_collectionSet = snmpCollection.createCollectionSet(m_agent);
         m_agent.validateAgent();
     }
-    
+
     protected SnmpCollectionSet getCollectionSet() {
         return m_collectionSet;
     }
@@ -306,7 +306,7 @@ public class SnmpCollectorTestCase extends OpenNMSTestCase {
     protected void waitForSignal() throws InterruptedException {
         m_walker.waitFor();
     }
-    
-    
+
+
 
 }

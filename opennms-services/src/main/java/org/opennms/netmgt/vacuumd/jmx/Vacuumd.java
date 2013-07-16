@@ -42,7 +42,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#init()
      */
     /**
@@ -60,7 +60,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#start()
      */
     /**
@@ -73,7 +73,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#stop()
      */
     /**
@@ -86,7 +86,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#getStatus()
      */
     /**
@@ -101,7 +101,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#status()
      */
     /**
@@ -116,7 +116,7 @@ public class Vacuumd implements VacuumdMBean {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.opennms.netmgt.vacuumd.jmx.VacuumdMBean#getStatusText()
      */
     /**

@@ -73,15 +73,15 @@ import com.sun.jersey.spi.resource.PerRequest;
 @Path("users")
 @Transactional
 public class UserRestService extends OnmsRestService {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(UserRestService.class);
 
     @Autowired
     private UserManager m_userManager;
 
-    @Context 
+    @Context
     UriInfo m_uriInfo;
-    
+
     @Context
     ResourceContext m_context;
 
@@ -137,7 +137,7 @@ public class UserRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     @PUT
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Path("{userCriteria}")
@@ -172,7 +172,7 @@ public class UserRestService extends OnmsRestService {
             writeUnlock();
         }
     }
-    
+
     @DELETE
     @Path("{userCriteria}")
     public Response deleteUser(@PathParam("userCriteria") final String userCriteria) {

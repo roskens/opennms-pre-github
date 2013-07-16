@@ -34,7 +34,7 @@ public class ComponentEvent {
 
 	protected Component m_component;
 	protected Event m_event;
-	
+
 	protected ComponentEvent(Component component, Event event) {
 		m_component = component;
 		m_event = event;
@@ -59,7 +59,7 @@ public class ComponentEvent {
 	@Override
 	public String toString() {
 		return getClass().getSimpleName() + " [" +
-				"component=" + m_component + 
+				"component=" + m_component +
 				", event=" + m_event.getUei() + "(" + m_event.getDbid() + ")" +
 				"]";
 	}
@@ -82,14 +82,14 @@ public class ComponentEvent {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		
+
 		ComponentEvent other = (ComponentEvent) obj;
 		if (m_component == null) {
 			if (other.m_component != null)
 				return false;
 		} else if (!m_component.equals(other.m_component))
 			return false;
-		
+
 //		if (m_event == null) {
 //			if (other.m_event != null)
 //				return false;

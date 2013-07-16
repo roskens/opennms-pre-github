@@ -48,7 +48,7 @@ public class RrdDatabaseWriter {
         m_rrd = rrd;
         m_step = m_rrd.getHeader().getStep();
     }
-    
+
     public void write(final RrdEntry entry) throws IOException, RrdException {
         final Sample s = m_rrd.createSample(entry.getTimestamp());
         final double[] values = new double[entry.getDsNames().size()];
@@ -90,7 +90,7 @@ public class RrdDatabaseWriter {
         if (LogUtils.isTraceEnabled(this)) LogUtils.tracef(this, "getLastValue(%s) = %f", dsName, lastValue);
         return lastValue;
     }
-    
+
     private void setLastValue(final String dsName, final Double value) {
         if (value != null && !Double.isNaN(value)) {
             m_lastValue.put(dsName, value);

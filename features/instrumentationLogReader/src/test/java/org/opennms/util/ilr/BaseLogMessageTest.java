@@ -63,37 +63,37 @@ public class BaseLogMessageTest {
     @Parameters
     public static Collection<Object[]> data() throws ParseException {
         return Arrays.asList(new Object[][] {
-                { 
+                {
                     true,
                     timestamp("2010-05-26 12:12:40,785"),
                     "CollectdScheduler-50 Pool-fiber4",
                     MsgType.BEGIN_COLLECTION,
                     "7/172.20.1.12/SNMP",
                     "2010-05-26 12:12:40,785 DEBUG [CollectdScheduler-50 Pool-fiber4] Collectd: collector.collect: begin:7/172.20.1.12/SNMP"
-                }, 
-                { 
+                },
+                {
                     true,
-                    timestamp("2010-05-26 12:12:47,672"), 
+                    timestamp("2010-05-26 12:12:47,672"),
                     "CollectdScheduler-50 Pool-fiber12",
                     MsgType.END_COLLECTION,
                     "83/172.20.1.15/SNMP",
                     "2010-05-26 12:12:47,672 DEBUG [CollectdScheduler-50 Pool-fiber12] Collectd: collector.collect: end:83/172.20.1.15/SNMP"
-                }, 
-                { 
+                },
+                {
                     true,
                     timestamp("2010-05-26 12:12:47,776"),
                     "CollectdScheduler-50 Pool-fiber4",
                     MsgType.ERROR,
                     "7/172.20.1.12/SNMP",
-                    "2010-05-26 12:12:47,776 DEBUG [CollectdScheduler-50 Pool-fiber4] Collectd: collector.collect: error: 7/172.20.1.12/SNMP: org.opennms.netmgt.collectd.CollectionTimedOut: Timeout retrieving SnmpCollectors for 172.20.1.12 for kenny.internal.opennms.com/172.20.1.12: SnmpCollectors for 172.20.1.12: snmpTimeoutError for: kenny.internal.opennms.com/172.20.1.12" 
-                }, 
+                    "2010-05-26 12:12:47,776 DEBUG [CollectdScheduler-50 Pool-fiber4] Collectd: collector.collect: error: 7/172.20.1.12/SNMP: org.opennms.netmgt.collectd.CollectionTimedOut: Timeout retrieving SnmpCollectors for 172.20.1.12 for kenny.internal.opennms.com/172.20.1.12: SnmpCollectors for 172.20.1.12: snmpTimeoutError for: kenny.internal.opennms.com/172.20.1.12"
+                },
                 {
                     true,
                     timestamp("2010-05-26 12:12:48,027"),
                     "CollectdScheduler-50 Pool-fiber11",
                     MsgType.BEGIN_PERSIST,
                     "24/216.216.217.254/SNMP",
-                    "2010-05-26 12:12:48,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: persistDataQueueing: begin: 24/216.216.217.254/SNMP"  
+                    "2010-05-26 12:12:48,027 DEBUG [CollectdScheduler-50 Pool-fiber11] Collectd: collector.collect: persistDataQueueing: begin: 24/216.216.217.254/SNMP"
                 },
                 {
                     true,

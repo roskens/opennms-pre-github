@@ -90,7 +90,7 @@ public final class DnsPlugin extends AbstractPlugin {
     private final static String DEFAULT_LOOKUP = "localhost";
 
     /**
-     * 
+     *
      * @param nserver
      *            The address for the name server test.
      * @param port
@@ -99,7 +99,7 @@ public final class DnsPlugin extends AbstractPlugin {
      *            Timeout in milliseconds
      * @param lookup
      *            Host name to be used in DNS lookup packet
-     * 
+     *
      * @return True if server, false if not.
      */
     private boolean isServer(InetAddress nserver, int port, int retries, int timeout, String lookup) {

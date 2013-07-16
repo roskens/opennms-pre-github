@@ -54,7 +54,7 @@ public class AtInterface
 				m_ifindex = iface.getIfIndex();
                 m_ipaddr = iface.getIpAddress();
                 m_physaddr = iface.getPhysAddr();
-                m_lastPollTime = iface.getLastPoll().toString(); 
+                m_lastPollTime = iface.getLastPoll().toString();
                 m_status = StatusType.getStatusString(iface.getStatus().getCharCode());
         }
 

@@ -50,7 +50,7 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.Assert;
 
 public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<LinkAdapterConfiguration, LinkAdapterConfiguration> implements LinkAdapterConfigurationDao {
-    private static final Logger LOG = LoggerFactory.getLogger(DefaultLinkAdapterConfigurationDao.class);    
+    private static final Logger LOG = LoggerFactory.getLogger(DefaultLinkAdapterConfigurationDao.class);
 
     /**
      * <p>Constructor for DefaultLinkAdapterConfigurationDao.</p>
@@ -58,7 +58,7 @@ public class DefaultLinkAdapterConfigurationDao extends AbstractJaxbConfigDao<Li
     public DefaultLinkAdapterConfigurationDao() {
         super(LinkAdapterConfiguration.class, "Map Link Adapter Configuration");
     }
-    
+
     /**
      * <p>Constructor for DefaultLinkAdapterConfigurationDao.</p>
      *

@@ -73,7 +73,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
  * The Test Class for HTTP Data Collection.
- * 
+ *
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 @RunWith(SpringJUnit4ClassRunner.class)

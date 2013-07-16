@@ -42,11 +42,11 @@ import org.slf4j.LoggerFactory;
  * @author brozow
  */
 public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>, PingReplyListener {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory
 			.getLogger(JnaIcmpMessenger.class);
-	
+
 	private V4Pinger m_v4;
 	private V6Pinger m_v6;
     private Queue<JnaPingReply> pendingReplies = null;
@@ -61,7 +61,7 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
 	        error = t;
 	        m_v4 = null;
 	    }
-	    
+
 	    try {
 	        m_v6 = new V6Pinger(pingerId);
 	        m_v6.addPingReplyListener(this);
@@ -70,14 +70,14 @@ public class JnaIcmpMessenger implements Messenger<JnaPingRequest, JnaPingReply>
 	        if (error == null) error = t;
 	        m_v6 = null;
 	    }
-	    
+
 	    if (m_v4 == null && m_v6 == null) {
 	        final IcmpMessengerIOException exception = new IcmpMessengerIOException("IPv4 and IPv6 are not available.", error);
 	        LOG.warn("Unable to initialize JNA ICMP messenger", exception);
 	        throw exception;
 	    }
 	}
-	
+
     public boolean isV4Available() {
         if (m_v4 != null) {
             return true;

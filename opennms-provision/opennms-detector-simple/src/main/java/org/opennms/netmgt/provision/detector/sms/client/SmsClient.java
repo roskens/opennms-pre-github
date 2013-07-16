@@ -42,15 +42,15 @@ import org.opennms.netmgt.provision.support.Client;
  * @version $Id: $
  */
 public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
-    
+
     private boolean m_isSupported = false;
-    
+
     /**
      * <p>close</p>
      */
     @Override
     public void close() {
-        
+
     }
 
     /** {@inheritDoc} */
@@ -82,7 +82,7 @@ public class SmsClient implements Client<LineOrientedRequest, SmsResponse> {
     public SmsResponse sendRequest(LineOrientedRequest request) throws IOException, Exception {
         return null;
     }
-    
+
     private SmsResponse receiveResponse() {
         SmsResponse smsResponse = new SmsResponse();
         return smsResponse;

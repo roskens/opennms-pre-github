@@ -60,12 +60,12 @@ public class GroupFactory extends GroupManager {
     private static boolean s_initialized = false;
 
     /**
-     * 
+     *
      */
     private File m_groupsConfFile;
 
     /**
-     * 
+     *
      */
     private long m_lastModified;
 
@@ -108,7 +108,7 @@ public class GroupFactory extends GroupManager {
     public static synchronized GroupManager getInstance() {
         return s_instance;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

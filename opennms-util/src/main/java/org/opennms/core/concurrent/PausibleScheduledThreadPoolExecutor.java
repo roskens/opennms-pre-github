@@ -42,7 +42,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class PausibleScheduledThreadPoolExecutor extends
         ScheduledThreadPoolExecutor {
-    
+
     private AtomicBoolean isPaused = new AtomicBoolean(false);
     private ReentrantLock pauseLock = new ReentrantLock();
     private Condition unpaused = pauseLock.newCondition();
@@ -50,11 +50,11 @@ public class PausibleScheduledThreadPoolExecutor extends
     public PausibleScheduledThreadPoolExecutor(final int corePoolSize) {
         super(corePoolSize);
     }
-    
+
     public PausibleScheduledThreadPoolExecutor(final int corePoolSize, final ThreadFactory threadFactory) {
         super(corePoolSize, threadFactory);
     }
-    
+
     /**
      * <p>isPaused</p>
      *
@@ -77,7 +77,7 @@ public class PausibleScheduledThreadPoolExecutor extends
         pauseLock.unlock();
       }
     }
-  
+
     /**
      * <p>pause</p>
      */
@@ -89,7 +89,7 @@ public class PausibleScheduledThreadPoolExecutor extends
         pauseLock.unlock();
       }
     }
-  
+
     /**
      * <p>resume</p>
      */

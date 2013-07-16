@@ -43,15 +43,15 @@ import org.slf4j.LoggerFactory;
  * This class encapsulates the execution context for processing events received
  * via UDP from remote agents. This is a separate event context to allow the
  * event receiver to do minimum work to avoid dropping packets from the agents.
- * 
+ *
  * @author <a href="mailto:weave@oculan.com">Brian Weaver </a>
  * @author <a href="http://www.oculan.com">Oculan Corporation </a>
- * 
+ *
  */
 final class UdpProcessor implements Runnable {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(UdpProcessor.class);
-    
+
     /**
      * The UDP receiver thread.
      */

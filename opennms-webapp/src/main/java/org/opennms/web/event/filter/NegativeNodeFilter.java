@@ -57,7 +57,7 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_servletContext = servletContext;
     }
-    
+
     public NegativeNodeFilter(int nodeId, ApplicationContext appContext) {
         super(TYPE, SQLType.INT, "EVENTS.NODEID", "node.id", nodeId);
         m_appContext = appContext;
@@ -70,8 +70,8 @@ public class NegativeNodeFilter extends NotEqualOrNullFilter<Integer> {
      */
     @Override
     public String getTextDescription() {
-        String nodeName = getNodeLabel(); 
-        
+        String nodeName = getNodeLabel();
+
         if(nodeName == null) {
             nodeName = Integer.toString(getValue());
         }

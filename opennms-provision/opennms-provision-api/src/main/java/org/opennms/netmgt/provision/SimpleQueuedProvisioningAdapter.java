@@ -69,13 +69,13 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAdapter {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(SimpleQueuedProvisioningAdapter.class);
-    
+
     private final AdapterOperationQueue m_operationQueue = new AdapterOperationQueue();
-    
+
     private volatile PausibleScheduledThreadPoolExecutor m_executorService;
-    
+
     /**
      * <p>Constructor for SimpleQueuedProvisioningAdapter.</p>
      *
@@ -84,7 +84,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     protected SimpleQueuedProvisioningAdapter(PausibleScheduledThreadPoolExecutor executorService) {
         m_executorService = executorService;
     }
-    
+
     /**
      * <p>Constructor for SimpleQueuedProvisioningAdapter.</p>
      */
@@ -95,7 +95,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     //final for now
     private final static PausibleScheduledThreadPoolExecutor createDefaultSchedulerService() {
         PausibleScheduledThreadPoolExecutor executorService = new PausibleScheduledThreadPoolExecutor(1);
-        
+
         return executorService;
     }
 
@@ -110,7 +110,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
      */
     @Override
     public abstract String getName();
-    
+
     /**
      * Adapters extending this class must implement this method.
      *
@@ -125,7 +125,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
      *         implementing adapter.
      */
     public abstract boolean isNodeReady(AdapterOperation op);
-    
+
     /**
      * The class implements the API and therefore the concrete class implements this method to handle
      * dequeued operations. The concrete implementation should check the operation type to derive the
@@ -135,32 +135,32 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
      * @throws org.opennms.netmgt.provision.ProvisioningAdapterException if any.
      */
     protected abstract void processPendingOperationForNode(AdapterOperation op) throws ProvisioningAdapterException;
-    
+
 
     /**
      * Override this method to change the default schedule
-     * @param adapterOperationType 
+     * @param adapterOperationType
      * @return
      */
     AdapterOperationSchedule createScheduleForNode(int nodeId, AdapterOperationType adapterOperationType) {
         return new AdapterOperationSchedule(adapterOperationType);
     }
-    
+
     final List<AdapterOperation> removeOperationsForNode(Integer nodeId) {
         return m_operationQueue.dequeueOperationsForNode(nodeId);
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.opennms.netmgt.provision.ProvisioningAdapter#addNode(int)
      */
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @return */
     @Override
     public final ScheduledFuture<?> addNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.ADD, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.ADD,
                                                    createScheduleForNode(nodeId, AdapterOperationType.ADD));
-        
+
         if (m_operationQueue.enqueOperation(nodeId, op)) {
             return op.schedule(m_executorService, true);
         } else {
@@ -176,7 +176,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> updateNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.UPDATE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.UPDATE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.UPDATE));
         if (m_operationQueue.enqueOperation(nodeId, op)) {
             return op.schedule(m_executorService, true);
@@ -185,7 +185,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         }
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.opennms.netmgt.provision.ProvisioningAdapter#deleteNode(int)
@@ -193,7 +193,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> deleteNode(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.DELETE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.DELETE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.DELETE));
         if (m_operationQueue.enqueOperation(nodeId, op)) {
             op.schedule(m_executorService, true);
@@ -202,7 +202,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         }
         return null;
     }
-    
+
     /*
      * (non-Javadoc)
      * @see org.opennms.netmgt.provision.ProvisioningAdapter#nodeConfigChanged(int)
@@ -210,7 +210,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
     /** {@inheritDoc} */
     @Override
     public final ScheduledFuture<?> nodeConfigChanged(int nodeId) {
-        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.CONFIG_CHANGE, 
+        AdapterOperation op = new AdapterOperation(Integer.valueOf(nodeId), AdapterOperationType.CONFIG_CHANGE,
                                                    createScheduleForNode(nodeId, AdapterOperationType.CONFIG_CHANGE));
         if (m_operationQueue.enqueOperation(nodeId, op)) {
             op.schedule(m_executorService, true);
@@ -219,7 +219,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         }
         return null;
     }
-    
+
     /**
      * (non-Javadoc)
      *
@@ -229,27 +229,27 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
      */
     @Override
     public void init() {
-        
+
     }
-    
-    
+
+
     public static class AdapterOperationQueue {
-        
+
         private final List<AdapterOperationQueueListener> m_listeners = new ArrayList<AdapterOperationQueueListener>();
-        
+
         private final ConcurrentHashMap<Integer,LinkedBlockingQueue<AdapterOperation>> m_mappedQueue;
-        
+
         public AdapterOperationQueue() {
             m_mappedQueue = new ConcurrentHashMap<Integer, LinkedBlockingQueue<AdapterOperation>>();
         }
-        
+
         public synchronized boolean enqueOperation(Integer nodeId, AdapterOperation op) {
-            
+
             //TODO: should implement some logic here about what is currently pending in the queue and whether
             //or not to enqueue.  For example, if an update arrives and an add is still in the queue,
             //perhaps we should just drop the update.  Same consideration for delete, but should remove all
             //operations for the node like nothing ever happened.
-            
+
             if (m_mappedQueue.containsKey(nodeId) && m_mappedQueue.get(nodeId).contains(op)) {
                 return false;
             } else {
@@ -268,13 +268,13 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
                 return true;
             }
         }
-        
+
         public synchronized void enqueOperations(Integer nodeId, Collection<AdapterOperation> ops) {
             for (AdapterOperation op : ops) {
                 enqueOperation(nodeId, op);
             }
         }
-        
+
         public synchronized List<AdapterOperation> dequeueOperationsForNode(Integer nodeId) {
             List<AdapterOperation> ops = new ArrayList<AdapterOperation>();
             m_mappedQueue.get(nodeId).drainTo(ops);
@@ -287,9 +287,9 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
             }
             return ops;
         }
-        
+
         public synchronized boolean dequeueOperationForNode(Integer nodeId, AdapterOperation op) {
-            boolean retval = m_mappedQueue.get(nodeId).remove(op); 
+            boolean retval = m_mappedQueue.get(nodeId).remove(op);
             synchronized(m_listeners) {
                 for (AdapterOperationQueueListener listener : m_listeners) {
                     listener.onDequeueOperation(op);
@@ -297,23 +297,23 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
             }
             return retval;
         }
-        
+
         public synchronized LinkedBlockingQueue<AdapterOperation> getOperationQueueForNode(Integer nodeId) {
             return m_mappedQueue.get(nodeId);
         }
-        
+
         public void addListener(AdapterOperationQueueListener listener) {
             synchronized(m_listeners) {
                 m_listeners.add(listener);
             }
         }
-        
+
         public void removeListener(AdapterOperationQueueListener listener) {
             synchronized(m_listeners) {
                 m_listeners.add(listener);
             }
         }
-        
+
         public List<AdapterOperationQueueListener> getListeners() {
             synchronized(m_listeners) {
                 List<AdapterOperationQueueListener> retval = new ArrayList<AdapterOperationQueueListener>();
@@ -332,43 +332,43 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
 
     /**
      * Represents a node operation to be queued and scheduled.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      *
      */
     class AdapterOperation implements Runnable {
-        
+
         private final Integer m_nodeId;
         private final AdapterOperationType m_type;
         private AdapterOperationSchedule m_schedule;
         private final Date m_createTime;
-        
+
         public AdapterOperation(Integer nodeId, AdapterOperationType type, AdapterOperationSchedule schedule) {
             m_nodeId = nodeId;
             m_type = type;
             m_schedule = schedule;
             m_createTime = new Date();
         }
-        
+
         public Integer getNodeId() {
             return m_nodeId;
         }
-        
+
         public Date getCreateTime() {
             return m_createTime;
         }
-        
+
         public AdapterOperationType getType() {
             return m_type;
         }
-        
+
         public AdapterOperationSchedule getSchedule() {
             return m_schedule;
         }
-        
+
         /**
          * Schedules this operation
-         * 
+         *
          * @param executor
          * @param reduceAttempts
          * @return
@@ -385,32 +385,32 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
             }
             return future;
         }
-        
+
         //TODO: Test this behavior with Unit Tests, for sure!
         @Override
         public boolean equals(Object operation) {
             boolean equals = false;
-            
+
             if (this == operation) {
                 equals = true;
             }
-            
+
             if (operation == null || (operation.getClass() != this.getClass())) {
                 throw new IllegalArgumentException("the Operation Object passed is either null or of the wrong class");
             }
-            
+
             if (m_nodeId == ((AdapterOperation)operation).getNodeId() &&
                 m_type == ((AdapterOperation)operation).getType()) {
                 equals = true;
             }
             return equals;
         }
-        
+
         @Override
         public String toString() {
             return "Operation: "+m_type+" on Node: "+m_nodeId;
         }
-        
+
         @Override
         public void run() {
             try {
@@ -438,10 +438,10 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         }
     }
 
-    
+
     /**
      * Simple class for handling the scheduling bits for an AdapterOperation
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      */
     static class AdapterOperationSchedule {
@@ -452,23 +452,23 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         long m_interval;
         int m_attemptsRemaining;  //never set this to 0, it will never schedule
         TimeUnit m_unit;
-        
+
         public AdapterOperationSchedule(long initialDelay, long interval, int attempts, TimeUnit unit) {
 
             if (attempts < 1) {
                 attempts = 1;
             }
-            
+
             m_initialDelay = initialDelay;
             m_interval = interval;
             m_attemptsRemaining = attempts;
             m_unit = unit;
         }
-        
+
         public AdapterOperationSchedule() {
             this(DEFAULT_INITIAL_DELAY, DEFAULT_INTERVAL, DEFAULT_ATTEMPTS, TimeUnit.SECONDS);
         }
-        
+
         /**
          * This constructor changes the initial delay for configuration change events to 1 hour
          * @param type
@@ -480,28 +480,28 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
                 m_interval = 600;
             }
         }
-        
+
         public long getInitialDelay() {
             return m_initialDelay;
         }
-        
+
         public long getInterval() {
             return m_interval;
         }
-        
+
         public TimeUnit getUnit() {
             return m_unit;
         }
-        
+
         public int getAttemptsRemaining() {
             return m_attemptsRemaining;
         }
-        
+
         public int getAttemptsRemainingAndDecrement() {
             int currentAttemptsRemaining = m_attemptsRemaining--;
             return currentAttemptsRemaining;
         }
-        
+
         @Override
         public String toString() {
         	StringBuilder sb = new StringBuilder();
@@ -517,7 +517,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
      * Since the operations are queued, we need a way of identifying type of provisioning action
      * happened to create the operation.  The adapters will need to know what is the appropriate
      * action to take.
-     * 
+     *
      * @author <a href="mailto:david@opennms.org">David Hustace</a>
      */
     static enum AdapterOperationType {
@@ -525,14 +525,14 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         UPDATE(2, "Update"),
         DELETE(3, "Delete"),
         CONFIG_CHANGE(4, "Configuration Change");
-        
-        private static final Map<Integer, AdapterOperationType> m_idMap; 
+
+        private static final Map<Integer, AdapterOperationType> m_idMap;
         private static final List<Integer> m_ids;
 
-        
+
         private int m_id;
         private String m_label;
-        
+
         static {
             m_ids = new ArrayList<Integer>(values().length);
             m_idMap = new HashMap<Integer, AdapterOperationType>(values().length);
@@ -555,7 +555,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         public String toString() {
             return m_label;
         }
-        
+
         public static AdapterOperationType get(int id) {
             if (m_idMap.containsKey(id)) {
                 return m_idMap.get(id);
@@ -565,7 +565,7 @@ public abstract class SimpleQueuedProvisioningAdapter implements ProvisioningAda
         }
     }
 
-    
+
     PausibleScheduledThreadPoolExecutor getExecutorService() {
         return m_executorService;
     }

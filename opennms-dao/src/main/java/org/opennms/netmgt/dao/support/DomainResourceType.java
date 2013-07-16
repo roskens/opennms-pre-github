@@ -56,7 +56,7 @@ public class DomainResourceType implements OnmsResourceType {
     public DomainResourceType(ResourceDao resourceDao) {
         m_resourceDao = resourceDao;
     }
-    
+
     /**
      * <p>getLabel</p>
      *
@@ -88,7 +88,7 @@ public class DomainResourceType implements OnmsResourceType {
     public List<OnmsResource> getResourcesForNode(int nodeId) {
         return null;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public List<OnmsResource> getResourcesForNodeSource(String nodeSource, int nodeId) {
@@ -106,7 +106,7 @@ public class DomainResourceType implements OnmsResourceType {
     public boolean isResourceTypeOnNode(int nodeId) {
         return false;
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public boolean isResourceTypeOnNodeSource(String nodeSource, int nodeId) {
@@ -120,7 +120,7 @@ public class DomainResourceType implements OnmsResourceType {
         // Just return null for now
         return null;
     }
-    
+
     /**
      * <p>createChildResource</p>
      *
@@ -131,18 +131,18 @@ public class DomainResourceType implements OnmsResourceType {
         DomainChildResourceLoader loader = new DomainChildResourceLoader(domain);
         OnmsResource resource = new OnmsResource(domain, domain, this, s_emptyAttributeSet, new LazyList<OnmsResource>(loader));
         loader.setParent(resource);
-        
+
         return resource;
     }
-    
+
     public class DomainChildResourceLoader implements LazyList.Loader<OnmsResource> {
         private String m_domain;
         private OnmsResource m_parent;
-        
+
         public DomainChildResourceLoader(String domain) {
             m_domain = domain;
         }
-        
+
         public void setParent(OnmsResource parent) {
             m_parent = parent;
         }
@@ -160,7 +160,7 @@ public class DomainResourceType implements OnmsResourceType {
 
             return children;
         }
-        
+
         private Collection<OnmsResourceType> getResourceTypesForDomain(String domain) {
             Collection<OnmsResourceType> resourceTypes = new LinkedList<OnmsResourceType>();
             for (OnmsResourceType resourceType : m_resourceDao.getResourceTypes()) {

@@ -69,13 +69,13 @@ public class EventFilterController extends AbstractController implements Initial
     private Integer m_defaultShortLimit;
 
     private Integer m_defaultLongLimit;
-    
+
     private AcknowledgeType m_defaultEventType = AcknowledgeType.UNACKNOWLEDGED;
 
     private SortStyle m_defaultSortStyle = SortStyle.ID;
 
     private WebEventRepository m_webEventRepository;
-    
+
     private boolean m_showEventCount = false;
 
     /**
@@ -166,7 +166,7 @@ public class EventFilterController extends AbstractController implements Initial
         }
 
         Filter[] filters = filterList.toArray(new Filter[0]);
-        
+
         EventQueryParms parms = new EventQueryParms();
         parms.ackType = ackType;
         parms.display = display;
@@ -174,15 +174,15 @@ public class EventFilterController extends AbstractController implements Initial
         parms.limit = limit;
         parms.multiple =  multiple;
         parms.sortStyle = sortStyle;
-        
+
         EventCriteria queryCriteria = new EventCriteria(filters, sortStyle, ackType, limit, limit * multiple);
 
         Event[] events = m_webEventRepository.getMatchingEvents(queryCriteria);
-        
+
         ModelAndView modelAndView = new ModelAndView(getSuccessView());
         modelAndView.addObject("events", events);
         modelAndView.addObject("parms", parms);
-        
+
         if (m_showEventCount) {
             EventCriteria countCriteria = new EventCriteria(ackType, filters);
             modelAndView.addObject("eventCount", m_webEventRepository.countMatchingEvents(countCriteria));
@@ -232,7 +232,7 @@ public class EventFilterController extends AbstractController implements Initial
     public void setSuccessView(String successView) {
         m_successView = successView;
     }
-    
+
     /**
      * <p>setWebEventRepository</p>
      *

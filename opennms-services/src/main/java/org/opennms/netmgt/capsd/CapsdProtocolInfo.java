@@ -40,27 +40,27 @@ import java.util.Map;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class CapsdProtocolInfo {
-    public enum Action { 
+    public enum Action {
         /**
          * This is used to represent the protocol scan
          * configuration. If this value is used the the plugin should be used to
          * scan the address.
          */
         SCAN,
-        
+
         /**
          * This is used to represent that the protocol plugin should
          * not be used to scan the interface.
          */
         SKIP,
-        
+
         /**
          * This is used to represent the state when the protocol
          * should be automatically set, with any status checks.
          */
         AUTO_SET
     };
-    
+
     /**
      * The plugin used to poll the interface
      */

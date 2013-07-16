@@ -77,7 +77,7 @@ public class EventConfData extends Object {
 
     /**
      * Check whether the event matches the passed key
-     * 
+     *
      * @return true if the event matches the passed key
      */
     private boolean eventMatchesKey(EventKey eventKey, org.opennms.netmgt.xml.event.Event event) {

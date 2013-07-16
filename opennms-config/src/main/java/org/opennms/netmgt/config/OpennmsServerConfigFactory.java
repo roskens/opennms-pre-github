@@ -132,7 +132,7 @@ public final class OpennmsServerConfigFactory extends OpennmsServerConfigManager
 
         return m_singleton;
     }
-    
+
     /**
      * <p>setInstance</p>
      *

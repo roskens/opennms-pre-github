@@ -39,7 +39,7 @@ import org.hibernate.criterion.Restrictions;
  * @since 1.8.1
  */
 public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
-    
+
     /**
      * <p>Constructor for BetweenFilter.</p>
      *
@@ -67,18 +67,18 @@ public abstract class BetweenFilter<T> extends MultiArgFilter<T> {
      * @return a T object.
      */
     public T getLast() { return getValues()[1]; }
-    
+
     /** {@inheritDoc} */
     @Override
     public Criterion getCriterion() {
         return Restrictions.between(getPropertyName(), getFirst(), getLast());
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public String getSQLTemplate() {
         return " "+getSQLFieldName() + " BETWEEN %s AND %s ";
     }
 
-    
+
 }

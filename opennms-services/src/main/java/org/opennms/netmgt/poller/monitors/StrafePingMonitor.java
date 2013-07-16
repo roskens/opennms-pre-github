@@ -111,7 +111,7 @@ final public class StrafePingMonitor extends AbstractServiceMonitor {
             int count = ParameterMap.getKeyedInteger(parameters, "ping-count", DEFAULT_MULTI_PING_COUNT);
             long pingInterval = ParameterMap.getKeyedLong(parameters, "wait-interval", DEFAULT_PING_INTERVAL);
             int failurePingCount = ParameterMap.getKeyedInteger(parameters, "failure-ping-count", DEFAULT_FAILURE_PING_COUNT);
-            
+
             responseTimes = new ArrayList<Number>(PingerFactory.getInstance().parallelPing(host, count, timeout, pingInterval));
 
             if (CollectionMath.countNull(responseTimes) >= failurePingCount) {
@@ -120,7 +120,7 @@ final public class StrafePingMonitor extends AbstractServiceMonitor {
             } else {
             	serviceStatus = PollStatus.available();
             }
-            
+
             Collections.sort(responseTimes, new Comparator<Number>() {
 
                 @Override

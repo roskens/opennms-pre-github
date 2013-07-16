@@ -85,12 +85,12 @@ final public class NrpeMonitor extends AbstractServiceMonitor {
      */
     private static final int DEFAULT_TIMEOUT = 3000; // 3 second timeout on
                                                         // read()
-    
+
     /**
      * Whether to use SSL by default
      */
     private static final boolean DEFAULT_USE_SSL = true;
-    
+
     /**
      * List of cipher suites to use when talking SSL to NRPE, which uses anonymous DH
      */
@@ -110,7 +110,7 @@ final public class NrpeMonitor extends AbstractServiceMonitor {
     @Override
     public PollStatus poll(MonitoredService svc, Map<String, Object> parameters) {
         NetworkInterface<InetAddress> iface = svc.getNetInterface();
-		
+
 		String reason = null;
 
         //
@@ -164,7 +164,7 @@ final public class NrpeMonitor extends AbstractServiceMonitor {
                 socket.connect(new InetSocketAddress(ipv4Addr, port), tracker.getConnectionTimeout());
                 socket.setSoTimeout(tracker.getSoTimeout());
                 LOG.debug("NrpeMonitor: connected to host: {} on port: {}", port, ipv4Addr);
-                
+
             	reason = "Perhaps check the value of 'usessl' for this monitor against the NRPE daemon configuration";
                 socket = wrapSocket(socket, useSsl);
 
@@ -272,7 +272,7 @@ final public class NrpeMonitor extends AbstractServiceMonitor {
             return PollStatus.get(serviceStatus, reason);
         }
     }
-    
+
     /**
      * <p>wrapSocket</p>
      *
@@ -289,6 +289,6 @@ final public class NrpeMonitor extends AbstractServiceMonitor {
     	    // benefits of SSL, but it's how NRPE rolls so we have to play along.
     	    return SocketUtils.wrapSocketInSslContext(socket, ADH_CIPHER_SUITES);
     	}
-    	
+
     }
 }

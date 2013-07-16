@@ -42,15 +42,15 @@ import org.slf4j.LoggerFactory;
  * <p>MockLogAppender class. If you do not specify the log level specifically, the level
  * will default to DEBUG and you can control the level by setting the <code>mock.logLevel</code>
  * system property.</p>
- * 
+ *
  * Used in unit tests to check that the level of logging produced by a test was suitable.
  * In some cases, the test will be that no messages were logged at a higher priority than
  * specified, e.g. Error messages logged when only Notice were expected.
- * 
+ *
  * Some other tests may wish to ensure that an Error or Warn message was indeed logged as expected
- * 
+ *
  * Remember: "Greater" in regards to level relates to priority; the higher the level, the less should
- * usually be logged (e.g. Errors (highest) should be only the highest priority messages about really bad things, 
+ * usually be logged (e.g. Errors (highest) should be only the highest priority messages about really bad things,
  * as compared to Debug (lowest) which is any old rubbish that might be interesting to a developer)
  *
  * @author brozow
@@ -110,7 +110,7 @@ public class MockLogAppender {
      * <p>getEventsAtLevel</p>
      *
      * Returns events that were logged at the specified level
-     * 
+     *
      */
     public static LoggingEvent[] getEventsAtLevel(final Level level) {
         final LinkedList<LoggingEvent> matching = new LinkedList<LoggingEvent>();
@@ -309,8 +309,8 @@ public class MockLogAppender {
     /**
      * <p>assertLogAtLevel</p>
      * Asserts that a message was logged at the requested level.
-     * 
-     * Useful for testing code that *should* have logged an error message 
+     *
+     * Useful for testing code that *should* have logged an error message
      * (or a notice or some other special case)
      *
      * @throws junit.framework.AssertionFailedError if any.

@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /**
- * 
+ *
  */
 package org.opennms.netmgt.util.spikehunter;
 
@@ -57,10 +57,10 @@ import org.jrobin.core.RrdException;
  */
 public class SpikeHunter {
 	static RrdDb m_rrdFile;
-	
+
 	static String m_rrdFileName;		// RRD file to open
 	static String m_dsNames;			// Data source names, e.g. "ifInOctets,ifOutOctets"
-	
+
 	static int m_analysisStrategy;	// Maps into ANALYSIS_STRATEGIES enum
 	static List<Double> m_operands;	// Passed into the chosen analysis strategy
 	static int m_replacementStrategy;	// Maps into REPLACEMENT_STRATEGIES enum
@@ -68,22 +68,22 @@ public class SpikeHunter {
 	static boolean m_dumpContents;
 	static boolean m_quiet;
 	static boolean m_verbose;
-	
+
 	protected static Options m_options = new Options();
 	protected static CommandLine m_commandLine;
 	private static PrintStream m_out;
-	
+
 	private static enum ANALYSIS_STRATEGIES {
 		PERCENTILE_STRATEGY
 	}
-	
+
 	private static enum REPLACEMENT_STRATEGIES {
 		NAN_STRATEGY,
 		PREVIOUS_STRATEGY,
 		NEXT_STRATEGY
 	}
 
-	
+
 	/**
 	 * @param args
 	 */
@@ -110,7 +110,7 @@ public class SpikeHunter {
 		doReplacement();
 		closeRrd();
 	}
-	
+
 	public static void parseCmdLine(String[] argv) throws Exception {
 		m_options.addOption("h", "help", false, "This help text");
 		m_options.addOption("f", "file", true, "JRobin disk file on which to operate");
@@ -122,33 +122,33 @@ public class SpikeHunter {
 		m_options.addOption("p", "dump-contents", false, "Just dump the DSes and RRAs in the JRobin disk file.");
 		m_options.addOption("q", "quiet", false, "Do not print any informational output");
 		m_options.addOption("v", "verbose", false, "Print plenty of informational output");
-		
+
 		CommandLineParser parser = new PosixParser();
         m_commandLine = parser.parse(m_options, argv);
         if (m_commandLine.hasOption("h")) {
         	usage(m_options, m_commandLine);
         	System.exit(0);
         }
-        
+
         Map<String,Integer> analysisStrategies = new HashMap<String,Integer>();
         analysisStrategies.put("percentile", ANALYSIS_STRATEGIES.PERCENTILE_STRATEGY.ordinal());
-        
+
         Map<String,Integer> replacementStrategies = new HashMap<String,Integer>();
         replacementStrategies.put("nan", REPLACEMENT_STRATEGIES.NAN_STRATEGY.ordinal());
         replacementStrategies.put("previous", REPLACEMENT_STRATEGIES.PREVIOUS_STRATEGY.ordinal());
         replacementStrategies.put("next", REPLACEMENT_STRATEGIES.NEXT_STRATEGY.ordinal());
-        
+
         m_rrdFileName = m_commandLine.getOptionValue("f");
         m_dsNames = m_commandLine.getOptionValue("d", null);
-        
+
         m_operands = new ArrayList<Double>();
         for (String operandStr : m_commandLine.getOptionValue("o", "95,5").split(",")) {
         	m_operands.add(Double.parseDouble(operandStr));
         }
-        
+
         m_analysisStrategy = analysisStrategies.get(m_commandLine.getOptionValue("l", "percentile").toLowerCase());
         m_replacementStrategy = replacementStrategies.get(m_commandLine.getOptionValue("r", "nan").toLowerCase());
-        
+
         m_dryRun = m_commandLine.hasOption("n");
         m_dumpContents = m_commandLine.hasOption("p");
         m_quiet = m_commandLine.hasOption("q");
@@ -173,23 +173,23 @@ public class SpikeHunter {
             pw.println(e.getMessage());
             e.printStackTrace(pw);
         }
-        
+
         pw.close();
-        
+
         System.exit(0);
     }
-    
+
     public static void printToUser(String msg) {
     	if (m_quiet) {
     		return;
     	}
     	m_out.println(msg);
     }
-    
+
 	private static RrdDb openRrd() throws IOException, RrdException {
 		return new RrdDb(m_rrdFileName, m_dryRun);
 	}
-	
+
 	private static void closeRrd() {
 		try {
 			m_rrdFile.close();
@@ -197,7 +197,7 @@ public class SpikeHunter {
 			System.out.println("IO Exception trying to close RRD file: " + ioe.getMessage());
 		}
 	}
-    
+
     private static void dumpContents() {
     	System.out.println("Number of archives: " + m_rrdFile.getArcCount());
     	for (int i = 0; i < m_rrdFile.getArcCount(); i++) {
@@ -227,12 +227,12 @@ public class SpikeHunter {
 			System.out.println("IO Exception trying to enumerate data source names: " + e.getMessage());
 		}
     }
-    
+
     private static DataAnalyzer getDataAnalyzer() {
     	DataAnalyzer analyzer = new PercentileDataAnalyzer(m_operands);
     	return analyzer;
     }
-    
+
     private static DataReplacer getDataReplacer() {
     	DataReplacer replacer;
     	if (m_replacementStrategy == REPLACEMENT_STRATEGIES.PREVIOUS_STRATEGY.ordinal()) {
@@ -244,7 +244,7 @@ public class SpikeHunter {
     	}
     	return replacer;
     }
-    
+
     private static void doReplacement() {
 		if (m_dryRun) {
 			printToUser("Running in dry-run mode, no modifications will be made to the specified file");
@@ -255,7 +255,7 @@ public class SpikeHunter {
     		replaceInArchive(thisArc);
     	}
     }
-    	
+
 	private static void replaceInArchive(org.jrobin.core.Archive arc) {
 		String consolFun = "";
 		int arcSteps = 0;
@@ -284,18 +284,18 @@ public class SpikeHunter {
 			System.out.println("IO Exception trying to create fetch request: " + ioe.getMessage());
 			System.exit(-1);
 		}
-		
+
 		String[] dsNames;
 		if (m_dsNames == null) {
 			dsNames = data.getDsNames();
 		} else {
-			dsNames = m_dsNames.split(","); 
+			dsNames = m_dsNames.split(",");
 		}
 		for (String dsName : dsNames) {
 			replaceInDs(arc, data, dsName);
 		}
 	}
-	
+
 	private static void replaceInDs(Archive arc, FetchData data, String dsName) {
 		printToUser(" Operating on DS " + dsName);
 		double[] origValues = null;
@@ -320,7 +320,7 @@ public class SpikeHunter {
 			replaceInFile(arc, data, dsName, newValues, violatorIndices);
 		}
 	}
-	
+
 	private static void printReplacementsToUser(FetchData data, String dsName, double[] newValues, List<Integer> violatorIndices) {
 		long timestamps[] = data.getTimestamps();
 		double origValues[] = null;
@@ -334,7 +334,7 @@ public class SpikeHunter {
 			printToUser("   Sample with timestamp " + sampleDate + " and value " + origValues[i] + " replaced by value " + newValues[i]);
 		}
 	}
-	
+
 	private static void replaceInFile(Archive arc, FetchData data, String dsName, double[] newValues, List<Integer> violatorIndices) {
 		Robin robin = null;
 		try {

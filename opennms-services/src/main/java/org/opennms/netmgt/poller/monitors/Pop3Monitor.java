@@ -65,7 +65,7 @@ import org.slf4j.LoggerFactory;
 
 @Distributable
 final public class Pop3Monitor extends AbstractServiceMonitor {
-    
+
     public static final Logger LOG = LoggerFactory.getLogger(Pop3Monitor.class);
 
     /**
@@ -178,24 +178,24 @@ final public class Pop3Monitor extends AbstractServiceMonitor {
                     serviceStatus = PollStatus.unavailable();
                 }
             } catch (NoRouteToHostException e) {
-            	
+
             	String reason = "No route to host exception for address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
-                
+
             } catch (InterruptedIOException e) {
-            	
+
             	String reason = "did not connect to host with " + tracker;
                 LOG.debug(reason);
                 serviceStatus = PollStatus.unavailable(reason);
-            	
+
             } catch (ConnectException e) {
-            	
+
             	String reason = "Connection exception for address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);
             } catch (IOException e) {
-            	
+
             	String reason = "IOException while polling address " + hostAddress;
                 LOG.debug(reason, e);
                 serviceStatus = PollStatus.unavailable(reason);

@@ -56,7 +56,7 @@ public class WmiManagerTest extends TestCase {
 	/*
 	 * Create a placeholder mock object. We will reset() this in each test
 	 * so that we can reuse it.
-	 * 
+	 *
 	 * @see junit.framework.TestCase#setUp()
 	 */
         @Override
@@ -69,7 +69,7 @@ public class WmiManagerTest extends TestCase {
 
 	/*
 	 * Tear down simply resets the mock object.
-	 * 
+	 *
 	 * @see junit.framework.TestCase#tearDown()
 	 */
         @Override
@@ -82,7 +82,7 @@ public class WmiManagerTest extends TestCase {
 	/**
 	 * Test that the isValidMatchType object works for the expected values of
 	 * "all", "none", "some" and "one" but does not work for other arbitrary values.
-	 * 
+	 *
 	 * Test method for
 	 * {@link org.opennms.protocols.wmi.WmiManager#isValidMatchType(java.lang.String)}.
 	 */
@@ -98,7 +98,7 @@ public class WmiManagerTest extends TestCase {
 	/**
 	 * Test that the isValidOpType only returns true for valid operation types such
 	 * as "EQ", "GT", "LT" and "NEQ" but not for arbitrary strings.
-	 * 
+	 *
 	 * Test method for
 	 * {@link org.opennms.protocols.wmi.WmiManager#isValidOpType(java.lang.String)}.
 	 */
@@ -113,7 +113,7 @@ public class WmiManagerTest extends TestCase {
 
 	/**
 	 * Test a standard client connect.
-	 * 
+	 *
 	 * Test method for {@link org.opennms.protocols.wmi.WmiManager#init()}.
      *
      * @throws WmiException if there are any problems with the WmiManager
@@ -135,7 +135,7 @@ public class WmiManagerTest extends TestCase {
 	/**
 	 * Test that the WMI manager properly handles invalid host exceptions
 	 * from the WMI client.
-	 * 
+	 *
 	 * Test method for {@link org.opennms.protocols.wmi.WmiManager#init()}.
      *
      * @throws WmiException if there is a problem with the mock object.
@@ -170,7 +170,7 @@ public class WmiManagerTest extends TestCase {
 	/**
 	 * Test that the WMI manager handles invalid username or password exceptions
 	 * properly from the WMI client.
-	 * 
+	 *
 	 * Test method for {@link org.opennms.protocols.wmi.WmiManager#init()}.
      *
      * @throws WmiException if there is a problem with the mock object.
@@ -206,7 +206,7 @@ public class WmiManagerTest extends TestCase {
 
 	/**
 	 * Test that a normal, standard close functions properly.
-	 * 
+	 *
 	 * Test method for {@link org.opennms.protocols.wmi.WmiManager#close()}.
      *
      * @throws WmiException if there is unexpected behavior.
@@ -236,7 +236,7 @@ public class WmiManagerTest extends TestCase {
 	 * Test an attempt to close the client before the client has been
 	 * initialized. This should throw a new exception stating that WmiClient
 	 * hasn't been properly initialized.
-	 * 
+	 *
 	 * Test method for {@link org.opennms.protocols.wmi.WmiManager#close()}.
      *
      * @throws WmiException if there is a problem with the mock object.
@@ -266,7 +266,7 @@ public class WmiManagerTest extends TestCase {
 
 	/**
 	 * Test the performOp method with an invalid WMI class and valid WMI object.
-	 * 
+	 *
 	 * Test method for
 	 * {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}.
      *
@@ -281,7 +281,7 @@ public class WmiManagerTest extends TestCase {
 		// 2) Throw a new WmiException indictating a bad hostname.
 		m_WmiMock.connect("127.0.0.1", "Administrator", "password");
         m_WmiMock.performInstanceOf("Win32_BISO");
-        
+
         expectLastCall()
 				.andThrow(
 						new WmiException(
@@ -313,7 +313,7 @@ public class WmiManagerTest extends TestCase {
 
 	/**
 	 * Test the performOp method with an valid WMI class and invalid WMI object.
-	 * 
+	 *
 	 * Test method for
 	 * {@link org.opennms.protocols.wmi.WmiManager#performOp(org.opennms.protocols.wmi.WmiParams)}.
      *
@@ -335,7 +335,7 @@ public class WmiManagerTest extends TestCase {
                         )
                 )
         );
-        
+
         m_WmiMock.connect("127.0.0.1", "Administrator", "password");
         expect(m_WmiMock.performInstanceOf("Win32_BIOS")).andReturn(wos);
 		replay(m_WmiMock);
@@ -397,7 +397,7 @@ public class WmiManagerTest extends TestCase {
 			wmiManager.init(m_WmiMock);
 
 			// Perform an operation.
-			// WmiResult res = 
+			// WmiResult res =
 			        wmiManager.performOp(params);
             //assertTrue(res)
 

@@ -49,24 +49,24 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class LineOrientedClient implements Client<LineOrientedRequest, LineOrientedResponse> {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(LineOrientedClient.class);
     protected Socket m_socket;
     private OutputStream m_out;
     private BufferedReader m_in;
-    
+
     /** {@inheritDoc} */
     @Override
-    public void connect(final InetAddress host, final int port, final int timeout) throws IOException, Exception {        
+    public void connect(final InetAddress host, final int port, final int timeout) throws IOException, Exception {
         final Socket socket = new Socket();
         socket.connect(new InetSocketAddress(host, port), timeout);
         socket.setSoTimeout(timeout);
         setInput(new BufferedReader(new InputStreamReader(socket.getInputStream())));
         setOutput(socket.getOutputStream());
         m_socket = socket;
-        
+
     }
-    
+
     /**
      * <p>sendRequest</p>
      *
@@ -89,8 +89,8 @@ public class LineOrientedClient implements Client<LineOrientedRequest, LineOrien
         response.receive(getInput());
         return response;
     }
-    
-    
+
+
     /**
      * <p>receiveBanner</p>
      *

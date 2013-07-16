@@ -63,6 +63,6 @@ public interface PluginRegistry {
      */
     public abstract <T> T getPluginInstance(Class<T> pluginClass,
             PluginConfig pluginConfig);
-    
+
 
 }

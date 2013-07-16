@@ -60,7 +60,7 @@ public interface AdminCategoryService {
      * @return a {@link java.util.List} object.
      */
     public List<OnmsNode> findAllNodes();
-    
+
     /**
      * <p>findCategoryAndAllNodes</p>
      *

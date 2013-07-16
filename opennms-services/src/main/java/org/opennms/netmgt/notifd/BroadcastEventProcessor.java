@@ -79,9 +79,9 @@ import org.slf4j.LoggerFactory;
  * @author <a href="http://www.opennms.org/">OpenNMS </a>
  */
 public final class BroadcastEventProcessor implements EventListener {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(BroadcastEventProcessor.class);
-    
+
     /**
      */
     private volatile Map<String, NoticeQueue> m_noticeQueues;
@@ -107,11 +107,11 @@ public final class BroadcastEventProcessor implements EventListener {
      */
     protected void init() {
         assertPropertiesSet();
-        
+
         // start to listen for events
         getEventManager().addEventListener(this);
     }
-    
+
     private void assertPropertiesSet() {
         if (m_noticeQueues == null) {
             throw new IllegalStateException("property noticeQueues not set");
@@ -218,7 +218,7 @@ public final class BroadcastEventProcessor implements EventListener {
      */
     public boolean computeNullSafeStatus() {
         String notificationStatus = null;
-        
+
         try {
             notificationStatus = getNotifdConfigManager().getNotificationStatus();
         } catch (MarshalException e) {
@@ -282,7 +282,7 @@ public final class BroadcastEventProcessor implements EventListener {
                 if (curAck.getUei().equals(event.getUei())) {
                     try {
                         LOG.debug("Acknowledging event {} {}:{}:{}", curAck.getAcknowledge(), event.getNodeid(), event.getInterface(), event.getService());
-                        
+
                         Collection<Integer> notifIDs = getNotificationManager().acknowledgeNotice(event, curAck.getAcknowledge(), curAck.getMatch());
                         try {
                             // only send resolution notifications if notifications are globally turned on
@@ -303,7 +303,7 @@ public final class BroadcastEventProcessor implements EventListener {
         }
     }
 
-    private void sendResolvedNotifications(Collection<Integer> notifIDs, Event event, String acknowledge, 
+    private void sendResolvedNotifications(Collection<Integer> notifIDs, Event event, String acknowledge,
             String[] match, String resolutionPrefix, boolean skipNumericPrefix) throws Exception {
         for (int notifId : notifIDs) {
             boolean wa = false;
@@ -314,10 +314,10 @@ public final class BroadcastEventProcessor implements EventListener {
             }
             final boolean wasAcked = wa;
             final Map<String, String> parmMap = rebuildParameterMap(notifId, resolutionPrefix, skipNumericPrefix);
-            
-            NotificationManager.expandMapValues(parmMap, 
+
+            NotificationManager.expandMapValues(parmMap,
                     getNotificationManager().getEvent(Integer.parseInt(parmMap.get("eventID"))));
-            
+
             String queueID = getNotificationManager().getQueueForNotification(notifId);
 
             final Map<String, List<String>> userNotifications = new HashMap<String, List<String>>();
@@ -595,7 +595,7 @@ public final class BroadcastEventProcessor implements EventListener {
      * Detemines the number of users assigned to a list of Target and Escalate
      * lists. Group names may be specified in these objects and the users will
      * have to be extracted from those groups
-     * 
+     *
      * @param targets
      *            the list of Target objects
      * @param escalations
@@ -621,7 +621,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * 
+     *
      */
     private int getUsersInTarget(Target target) throws IOException, MarshalException, ValidationException {
         int count = 0;
@@ -643,17 +643,17 @@ public final class BroadcastEventProcessor implements EventListener {
 
     /**
      * Sends and event related to a notification
-     * 
+     *
      * @param uei
      *            the UEI for the event
      */
     private void sendNotifEvent(String uei, String logMessage, String description) {
         try {
-            
+
             EventBuilder bldr = new EventBuilder(uei, "notifd");
             bldr.setLogMessage(logMessage);
             bldr.setDescription(description);
-            
+
             getEventManager().sendNow(bldr.getEvent());
         } catch (Throwable t) {
             LOG.error("Could not send event {}", uei, t);
@@ -661,13 +661,13 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * 
+     *
      */
     static Map<String, String> buildParameterMap(Notification notification, Event event, int noticeId) {
         Map<String, String> paramMap = new HashMap<String, String>();
-        
+
         NotificationManager.addNotificationParams(paramMap, notification);
-        
+
         // expand the event parameters for the messages
         // call the notif expansion method before the event expansion because
         // event expansion will
@@ -678,7 +678,7 @@ public final class BroadcastEventProcessor implements EventListener {
         String textMessage = NotificationManager.expandNotifParms((nullSafeTextMsg(notification)), paramMap);
         String numericMessage = NotificationManager.expandNotifParms((nullSafeNumerMsg(notification, noticeId)), paramMap);
         String subjectLine = NotificationManager.expandNotifParms((nullSafeSubj(notification, noticeId)), paramMap);
-        
+
         nullSafeExpandedPut(NotificationManager.PARAM_TEXT_MSG, textMessage, event, paramMap);
         nullSafeExpandedPut(NotificationManager.PARAM_NUM_MSG, numericMessage, event, paramMap);
         nullSafeExpandedPut(NotificationManager.PARAM_SUBJECT, subjectLine, event, paramMap);
@@ -691,7 +691,7 @@ public final class BroadcastEventProcessor implements EventListener {
         NotificationManager.expandMapValues(paramMap, event);
 
         return Collections.unmodifiableMap(paramMap);
-        
+
     }
 
     private static void nullSafeExpandedPut(final String key, final String value, final Event event, Map<String, String> paramMap) {
@@ -712,7 +712,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * 
+     *
      */
     private void processTargets(Target[] targets, List<NotificationTask> targetSiblings, NoticeQueue noticeQueue, long startTime, Map<String, String> params, int noticeId) throws IOException, MarshalException, ValidationException {
         for (int i = 0; i < targets.length; i++) {
@@ -732,9 +732,9 @@ public final class BroadcastEventProcessor implements EventListener {
                 autoNotify = "C";
             }
             LOG.debug("Processing target {}:{}", targetName, interval);
-            
+
             NotificationTask[] tasks = null;
-            
+
             if (getGroupManager().hasGroup((targetName))) {
                 tasks = makeGroupTasks(startTime, params, noticeId, targetName, targets[i].getCommand(), targetSiblings, autoNotify, TimeConverter.convertToMillis(interval));
             } else if (getUserManager().hasRole(targetName)) {
@@ -748,7 +748,7 @@ public final class BroadcastEventProcessor implements EventListener {
                 NotificationTask[] emailTasks = { makeEmailTask(startTime, params, noticeId, targetName, emailCommands, targetSiblings, autoNotify) };
                 tasks = emailTasks;
             }
-             
+
             if (tasks != null) {
                 for (int index = 0; index < tasks.length; index++) {
                     NotificationTask task = tasks[index];
@@ -771,7 +771,7 @@ public final class BroadcastEventProcessor implements EventListener {
         Calendar startCal = Calendar.getInstance();
         startCal.setTimeInMillis(startTime);
         long next = getGroupManager().groupNextOnDuty(group.getName(), startCal);
-        
+
         // it the group is not on duty
         if (next < 0) {
             LOG.debug("The group {} is not scheduled to come back on duty. No notification will be sent to this group.", group.getName());
@@ -780,7 +780,7 @@ public final class BroadcastEventProcessor implements EventListener {
 
         LOG.debug("The group {} is on duty in {} millisec.", group.getName(), next);
         String[] users = group.getUser();
-        
+
         // There are no users in the group
         if (users == null || users.length == 0) {
             LOG.debug("Not sending notice, no users specified for group {}", group.getName());
@@ -798,30 +798,30 @@ public final class BroadcastEventProcessor implements EventListener {
 
             if (newTask != null) {
                 taskList.add(newTask);
-                curSendTime += interval; 
+                curSendTime += interval;
             }
         }
         return taskList.toArray(new NotificationTask[taskList.size()]);
     }
-    
-    
+
+
     NotificationTask[] makeRoleTasks(long startTime, Map<String, String> params, int noticeId, String targetName, String[] command, List<NotificationTask> targetSiblings, String autoNotify, long interval) throws MarshalException, ValidationException, IOException {
         String[] users = getUserManager().getUsersScheduledForRole(targetName, new Date(startTime));
-        
+
         // There are no users in the group
         if (users == null || users.length == 0) {
             LOG.debug("Not sending notice, no users scheduled for role {}", targetName);
             return null;
         }
-        
+
         return constructTasksFromUserList(users, startTime, 0, params, noticeId, command, targetSiblings, autoNotify, interval);
 
-       
+
     }
 
 
     /**
-     * 
+     *
      */
     private void processEscalations(Escalate[] escalations, List<NotificationTask> targetSiblings, NoticeQueue noticeQueue, long startTime, Map<String, String> params, int noticeId) throws IOException, MarshalException, ValidationException {
         for (int i = 0; i < escalations.length; i++) {
@@ -832,7 +832,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * 
+     *
      */
     NotificationTask makeUserTask(long sendTime, Map<String, String> parameters, int noticeId, String targetName, String[] commandList, List<NotificationTask> siblings, String autoNotify) throws IOException, MarshalException, ValidationException {
         NotificationTask task = null;
@@ -862,7 +862,7 @@ public final class BroadcastEventProcessor implements EventListener {
     }
 
     /**
-     * 
+     *
      */
     NotificationTask makeEmailTask(long sendTime, Map<String, String> parameters, int noticeId, String address, String[] commandList, List<NotificationTask> siblings, String autoNotify) throws IOException, MarshalException, ValidationException {
         NotificationTask task = null;
@@ -968,7 +968,7 @@ public final class BroadcastEventProcessor implements EventListener {
      */
     private void createPathOutageEvent(int nodeid, String nodeLabel, String intfc, String svc, boolean noticeSupressed) {
         LOG.debug("nodeid = {}, nodeLabel = {}, noticeSupressed = {}", nodeid, nodeLabel, noticeSupressed);
-        
+
         EventBuilder bldr = new EventBuilder(EventConstants.PATH_OUTAGE_EVENT_UEI, "OpenNMS.notifd");
         bldr.setNodeid(nodeid);
         bldr.addParam(EventConstants.PARM_NODE_LABEL, nodeLabel == null ? "" : nodeLabel);
@@ -978,7 +978,7 @@ public final class BroadcastEventProcessor implements EventListener {
 
         // Send the event
         LOG.debug("Creating pathOutageEvent for nodeid: {}", nodeid);
-        
+
 	try {
             EventIpcManagerFactory.getIpcManager().sendNow(bldr.getEvent());
         } catch (Throwable t) {

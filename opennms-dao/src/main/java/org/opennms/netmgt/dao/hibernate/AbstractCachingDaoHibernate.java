@@ -61,7 +61,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         super(entityClass);
         m_dbKeyMatchesCacheKey = dbKeyMatchesCacheKey;
     }
-    
+
     /**
      * <p>getKey</p>
      *
@@ -76,7 +76,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         m_cache.remove();
         super.clear();
     }
-    
+
     /** {@inheritDoc} */
     @Override
     public void deleteAll(Collection<T> entities) throws DataAccessException {
@@ -87,9 +87,9 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
                 ids.add(getKey(t));
             }
         }
-        
+
         super.deleteAll(entities);
-        
+
         if (m_cache.get() != null) {
             for(CacheKey id : ids) {
                 m_cache.get().remove(id);
@@ -111,24 +111,24 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
     @Override
     public List<T> findAll() throws DataAccessException {
         List<T> entities = super.findAll();
-        
+
         HashMap<CacheKey, T> map = new HashMap<CacheKey, T>();
         for(T t : entities) {
             map.put(getKey(t), t);
         }
         m_cache.set(map);
-        
+
         return entities;
     }
 
     /** {@inheritDoc} */
     @Override
     public T get(DbKey id) throws DataAccessException {
-        
+
         if (m_cache.get() == null) {
             m_cache.set(new HashMap<CacheKey, T>());
         }
-        
+
         if (m_dbKeyMatchesCacheKey) {
             T t = m_cache.get().get(id);
             if (t != null) {
@@ -141,9 +141,9 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         if (t != null) {
             m_cache.get().put(getKey(t), t);
         }
-        
+
         return t;
-        
+
     }
 
     /** {@inheritDoc} */
@@ -152,7 +152,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         if (m_cache.get() == null) {
             m_cache.set(new HashMap<CacheKey, T>());
         }
-        
+
         if (m_dbKeyMatchesCacheKey) {
             T t = m_cache.get().get(id);
             if (t != null) {
@@ -165,7 +165,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
         if (t != null) {
             m_cache.get().put(getKey(t), t);
         }
-        
+
         return t;
 
     }
@@ -205,7 +205,7 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
             m_cache.get().put(getKey(entity), entity);
         }
     }
-    
+
     /**
      * <p>findByCacheKey</p>
      *
@@ -221,17 +221,17 @@ public abstract class AbstractCachingDaoHibernate<T, DbKey extends Serializable,
                 return t;
             }
         }
-        
+
         t = findUnique(queryString, key);
-        
+
         if (t != null) {
             if (m_cache.get() == null) {
                 m_cache.set(new HashMap<CacheKey, T>());
             }
             m_cache.get().put(key, t);
         }
-        
+
         return t;
     }
-    
+
 }

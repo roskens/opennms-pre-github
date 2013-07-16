@@ -39,7 +39,7 @@ import org.opennms.web.filter.SQLType;
 public class NotificationIdFilter extends EqualsFilter<Integer> {
     /** Constant <code>TYPE="notificationIdFilter"</code> */
     public static final String TYPE = "notificationIdFilter";
-    
+
     /**
      * <p>Constructor for NotificationIdFilter.</p>
      *

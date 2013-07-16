@@ -43,7 +43,7 @@ import org.opennms.netmgt.model.RrdRepository;
  * @version $Id: $
  */
 public class LatencyCollectionResource implements CollectionResource {
-    
+
     private String m_serviceName;
     private String m_ipAddress;
 
@@ -68,7 +68,7 @@ public class LatencyCollectionResource implements CollectionResource {
     public String getInstance() {
         return m_ipAddress + "[" + m_serviceName + "]";
     }
-    
+
     /**
      * <p>getServiceName</p>
      *

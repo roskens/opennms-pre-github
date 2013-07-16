@@ -78,10 +78,10 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext=false)
 public class AlarmDaoTest implements InitializingBean {
-    
+
 	@Autowired
     private DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	private EventDao m_eventDao;
 
@@ -93,7 +93,7 @@ public class AlarmDaoTest implements InitializingBean {
 
 	@Autowired
 	private DatabasePopulator m_databasePopulator;
-	
+
     private static boolean m_populated = false;
 
     @Override
@@ -127,11 +127,11 @@ public class AlarmDaoTest implements InitializingBean {
         event.setEventUei("uei://org/opennms/test/EventDaoTest");
         event.setEventSource("test");
         m_eventDao.save(event);
-        
+
         OnmsNode node = m_nodeDao.findAll().iterator().next();
 
         OnmsAlarm alarm = new OnmsAlarm();
-        
+
         alarm.setNode(node);
         alarm.setUei(event.getEventUei());
         alarm.setSeverity(OnmsSeverity.get(event.getEventSeverity()));
@@ -140,28 +140,28 @@ public class AlarmDaoTest implements InitializingBean {
         alarm.setLastEvent(event);
         alarm.setCounter(1);
         alarm.setDistPoller(m_distPollerDao.load("localhost"));
-        
+
         m_alarmDao.save(alarm);
-        
+
         OnmsAlarm newAlarm = m_alarmDao.load(alarm.getId());
         assertEquals("uei://org/opennms/test/EventDaoTest", newAlarm.getUei());
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
-        
+
         assertEquals(OnmsSeverity.MAJOR, newAlarm.getSeverity());
-        
+
         newAlarm.escalate("admin");
         assertEquals(OnmsSeverity.CRITICAL, newAlarm.getSeverity());
-        
+
         newAlarm.clear("admin");
         assertEquals(OnmsSeverity.CLEARED, newAlarm.getSeverity());
-        
+
         newAlarm.unacknowledge("admin");
         assertNull(newAlarm.getAckUser());
         assertNull(newAlarm.getAlarmAckTime());
-        
+
     }
-    
-    
+
+
     @Test
 	@Transactional
 	public void testSave() {
@@ -175,11 +175,11 @@ public class AlarmDaoTest implements InitializingBean {
         event.setEventUei("uei://org/opennms/test/EventDaoTest");
         event.setEventSource("test");
         m_eventDao.save(event);
-        
+
         OnmsNode node = m_nodeDao.findAll().iterator().next();
 
         OnmsAlarm alarm = new OnmsAlarm();
-        
+
         alarm.setNode(node);
         alarm.setUei(event.getEventUei());
         alarm.setSeverityId(event.getEventSeverity());
@@ -187,14 +187,14 @@ public class AlarmDaoTest implements InitializingBean {
         alarm.setLastEvent(event);
         alarm.setCounter(1);
         alarm.setDistPoller(m_distPollerDao.load("localhost"));
-        
+
         m_alarmDao.save(alarm);
         // It works we're so smart! hehe
-        
+
         OnmsAlarm newAlarm = m_alarmDao.load(alarm.getId());
         assertEquals("uei://org/opennms/test/EventDaoTest", newAlarm.getUei());
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
-        
+
         Collection<OnmsAlarm> alarms;
         Criteria criteria = new Criteria(OnmsAlarm.class);
         criteria.addRestriction(new EqRestriction("node.id", node.getId()));
@@ -204,7 +204,7 @@ public class AlarmDaoTest implements InitializingBean {
         assertEquals("uei://org/opennms/test/EventDaoTest", newAlarm.getUei());
         assertEquals(alarm.getLastEvent().getId(), newAlarm.getLastEvent().getId());
     }
-    
+
 	@Test
 	@Transactional
     public void testWithoutDistPoller() {
@@ -218,27 +218,27 @@ public class AlarmDaoTest implements InitializingBean {
         event.setEventUei("uei://org/opennms/test/EventDaoTest");
         event.setEventSource("test");
         m_eventDao.save(event);
-        
+
         OnmsNode node = m_nodeDao.findAll().iterator().next();
 
         OnmsAlarm alarm = new OnmsAlarm();
-        
+
         alarm.setNode(node);
         alarm.setUei(event.getEventUei());
         alarm.setSeverityId(event.getEventSeverity());
         alarm.setFirstEventTime(event.getEventTime());
         alarm.setLastEvent(event);
         alarm.setCounter(1);
-        
+
         ThrowableAnticipator ta = new ThrowableAnticipator();
         ta.anticipate(new DataIntegrityViolationException("not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller; nested exception is org.hibernate.PropertyValueException: not-null property references a null or transient value: org.opennms.netmgt.model.OnmsAlarm.distPoller"));
-        
+
         try {
             m_alarmDao.save(alarm);
         } catch (Throwable t) {
             ta.throwableReceived(t);
         }
-        
+
         ta.verifyAnticipated();
     }
 

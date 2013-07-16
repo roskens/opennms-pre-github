@@ -121,7 +121,7 @@ public final class SyslogHandler implements Fiber {
         m_MatchingGroupHost = m_syslogdConfig.getMatchingGroupHost();
 
         m_MatchingGroupMessage = m_syslogdConfig.getMatchingGroupMessage();
-        
+
         m_DiscardUei = m_syslogdConfig.getDiscardUei();
 
         m_UeiList = m_syslogdConfig.getUeiList();
@@ -279,7 +279,7 @@ public final class SyslogHandler implements Fiber {
     public void setIpAddress(final String ipAddress) {
         m_dgIp = ipAddress;
     }
-    
+
     /**
      * <p>getIpAddress</p>
      *

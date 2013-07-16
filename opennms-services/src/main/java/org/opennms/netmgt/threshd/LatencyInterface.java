@@ -51,9 +51,9 @@ import org.slf4j.LoggerFactory;
  */
 public class LatencyInterface {
 
-        
+
         private static final Logger LOG = LoggerFactory.getLogger(LatencyInterface.class);
-        
+
         private NetworkInterface<InetAddress> m_iface;
 	private String m_serviceName;
 
@@ -101,7 +101,7 @@ public class LatencyInterface {
 
 	int getNodeId() throws ThresholdingException {
 	    NetworkInterface<InetAddress> iface = getNetworkInterface();
-	
+
 		int nodeId = -1;
 	    Integer tmp = iface.getAttribute(LatencyThresholder.NODE_ID_KEY);
 	    if (tmp != null)
@@ -134,7 +134,7 @@ public class LatencyInterface {
 	    }
 	    return latencyDir;
 	}
-	
+
 	/**
 	 * Creates a new threshold event from the specified parms.
 	 * @param dsValue
@@ -151,33 +151,33 @@ public class LatencyInterface {
 	 *            IP address of the affected interface
 	 * @param thresholder TODO
 	 * @return new threshold event to be sent to Eventd
-	 * @throws ThresholdingException 
+	 * @throws ThresholdingException
 	 */
 	Event createEvent(double dsValue, Threshold threshold, String uei, Date date) throws ThresholdingException {
 		int nodeId = getNodeId();
 		InetAddress ipAddr = getInetAddress();
-		
+
 		if (threshold == null)
 	        throw new IllegalArgumentException("threshold cannot be null.");
-	
+
 	    LOG.debug("createEvent: ds={} uei={}", threshold.getDsName(), uei);
-	
+
 	    // create the event to be sent
 	    EventBuilder bldr = new EventBuilder(uei, "OpenNMS.Threshd:" + threshold.getDsName(), date);
 	    bldr.setNodeid(nodeId);
 	    bldr.setInterface(ipAddr);
 	    bldr.setService(getServiceName());
-	
-	
+
+
 	    // Set event host
         bldr.setHost(InetAddressUtils.getLocalHostName());
-	    
+
 	    bldr.addParam("ds", threshold.getDsName());
 	    bldr.addParam("value", dsValue);
 	    bldr.addParam("threshold", threshold.getValue());
 	    bldr.addParam("trigger", threshold.getTrigger());
 	    bldr.addParam("rearm", threshold.getRearm());
-	
+
 	    return bldr.getEvent();
 	}
 }

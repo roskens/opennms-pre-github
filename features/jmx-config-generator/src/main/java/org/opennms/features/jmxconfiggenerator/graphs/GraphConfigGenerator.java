@@ -98,16 +98,16 @@ public class GraphConfigGenerator {
         if (templateInputStream == null) {
             throw new IOException(String.format("Template file '%s' doesn't exist.", jarInternTemplate));
         }
-        
+
         // create reader and writer for template extraction from jar
         StringWriter templateWriter = new StringWriter();
-        Reader templateReader = new InputStreamReader(templateInputStream); 
+        Reader templateReader = new InputStreamReader(templateInputStream);
 
         // create context
         VelocityContext context = new VelocityContext();
         context.put("reportsList", reports.iterator());
         context.put("reportsBody", reports.iterator());
-        
+
         // get template
         Velocity.evaluate(context, templateWriter, jarInternTemplate, templateReader);
         return templateWriter.toString();

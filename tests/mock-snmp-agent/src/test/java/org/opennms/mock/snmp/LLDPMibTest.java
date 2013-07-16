@@ -71,7 +71,7 @@ import org.snmp4j.transport.DefaultUdpTransportMapping;
 
 @RunWith(Parameterized.class)
 public class LLDPMibTest  {
-	
+
     @Parameters
     public static Collection<Object[]> versions() {
     	return Arrays.asList(new Object[][] {
@@ -86,24 +86,24 @@ public class LLDPMibTest  {
 	private ArrayList<AnticipatedRequest> m_requestedVarbinds;
 	private int m_version;
 	private long m_timeout = -1; // -1 means use the default
-	
+
 	public LLDPMibTest(int version) {
 		m_version = version;
 	}
-	
+
     private class AnticipatedRequest {
     	private String m_requestedOid;
     	private Variable m_requestedValue;
     	private String m_expectedOid;
     	private int m_expectedSyntax;
     	private Variable m_expectedValue;
-    	
+
     	public AnticipatedRequest(String requestedOid, Variable requestedValue) {
     		m_requestedOid = requestedOid;
     		m_requestedValue = requestedValue;
     	}
 
-    	
+
     	public void andExpect(String expectedOid, int expectedSyntax, Variable expectedValue) {
     		m_expectedOid = expectedOid;
     		m_expectedSyntax = expectedSyntax;
@@ -127,9 +127,9 @@ public class LLDPMibTest  {
 	        assertEquals("syntax", m_expectedSyntax, vb.getSyntax());
 	        assertEquals("value", m_expectedValue, val);
 		}
-    	
+
     }
-    
+
 
     @Before
     public void setUp() throws Exception {
@@ -138,11 +138,11 @@ public class LLDPMibTest  {
         m_usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
         SecurityModels.getInstance().addSecurityModel(m_usm);
 
-        m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("penrose-lldp-mib.properties"), "127.0.0.1/1691");	
-        
+        m_agent = MockSnmpAgent.createAgentAndRun(classPathResource("penrose-lldp-mib.properties"), "127.0.0.1/1691");
+
         m_requestedVarbinds = new ArrayList<AnticipatedRequest>();
     }
-    
+
     @After
     public void tearDown() throws Exception {
     	if (m_agent != null) {
@@ -155,11 +155,11 @@ public class LLDPMibTest  {
     	m_requestedVarbinds.add(r);
     	return r;
     }
-    
+
     public AnticipatedRequest request(String requestOid) {
     	return request(requestOid, null);
     }
-    
+
     public void reset() {
     	m_requestedVarbinds.clear();
     }
@@ -167,7 +167,7 @@ public class LLDPMibTest  {
 
     /**
      * Make sure that we can setUp() and tearDown() the agent.
-     * @throws InterruptedException 
+     * @throws InterruptedException
      */
     @Test
     public void testAgentSetup() {
@@ -179,7 +179,7 @@ public class LLDPMibTest  {
      * MockSnmpAgent tears itself down properly. In particular, we want to make
      * sure that the UDP listener gets torn down so listening port is free for
      * later instances of the agent.
-     * 
+     *
      * @throws Exception
      */
     @Test
@@ -192,27 +192,27 @@ public class LLDPMibTest  {
 
     @Test
     public void testGetNext() throws Exception {
-    	
+
     	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
-    	
+
     	doGetNext();
-    	
+
     }
 
     @Test
     public void testGetNextMultipleVarbinds() throws Exception {
-    	
+
     	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
 
     	doGetNext();
 
     	m_agent.getUsm().setEngineBoots(15);
-    	
+
     	byte[] hexString = new byte[] {  (byte)0x80, (byte)0x71, (byte)0x1F, (byte)0x8F, (byte)0xAF, (byte)0xC0 };
     	request(".1.0.8802.1.1.2.1.3.1").andExpect(".1.0.8802.1.1.2.1.3.1.0", SMIConstants.SYNTAX_INTEGER32, new Integer32(4));
     	request(".1.0.8802.1.1.2.1.3.2").andExpect(".1.0.8802.1.1.2.1.3.2.0", SMIConstants.SYNTAX_OCTET_STRING, new OctetString(hexString));
     	request(".1.0.8802.1.1.2.1.3.3").andExpect(".1.0.8802.1.1.2.1.3.3.0", SMIConstants.SYNTAX_OCTET_STRING, new OctetString("penrose-mx480".getBytes()));
-    	
+
     	doGetNext();
 
         // This statement breaks the internal state of the SNMP4J agent
@@ -224,37 +224,37 @@ public class LLDPMibTest  {
     	doGetNext();
 
     }
-    
+
     private void doGetNext() throws Exception {
     	requestAndVerifyResponse(PDU.GETNEXT, m_version);
     }
-    
+
     private void requestAndVerifyResponse(int pduType, int version) throws Exception {
     	PDU pdu = createPDU(version);
-    	
+
     	for(AnticipatedRequest a : m_requestedVarbinds) {
     		pdu.add(a.getRequestVarbind());
     	}
     	pdu.setType(pduType);
-    	
+
     	PDU response = sendRequest(pdu, version);
-        
+
         assertNotNull("request timed out", response);
         System.err.println("Response is: "+response);
         assertTrue("unexpected report pdu: " + ((VariableBinding)response.getVariableBindings().get(0)).getOid(), response.getType() != PDU.REPORT);
-        
+
         assertEquals("Unexpected number of varbinds returned.", m_requestedVarbinds.size(), response.getVariableBindings().size());
-        
+
         for(int i = 0; i < m_requestedVarbinds.size(); i++) {
         	AnticipatedRequest a = m_requestedVarbinds.get(i);
         	VariableBinding vb = response.get(i);
         	a.verify(vb);
         }
-        
+
         reset();
-        
+
     }
-    
+
     private PDU createPDU(int version) {
     	if (version == SnmpConstants.version3) {
     		return new ScopedPDU();
@@ -262,7 +262,7 @@ public class LLDPMibTest  {
     		return new PDU();
     	}
     }
-   
+
     private PDU sendRequest(PDU pdu, int version) throws Exception {
     	if (version == SnmpConstants.version3) {
     		return sendRequestV3(pdu);
@@ -277,7 +277,7 @@ public class LLDPMibTest  {
         target.setCommunity(new OctetString("public"));
         target.setAddress(new UdpAddress(InetAddress.getByName("127.0.0.1"), 1691));
 		target.setVersion(version);
-		if (m_timeout > 0) { 
+		if (m_timeout > 0) {
 			target.setTimeout(m_timeout);
 		}
 
@@ -289,7 +289,7 @@ public class LLDPMibTest  {
 
             ResponseEvent e = snmp.send(pdu, target);
             response = e.getResponse();
-        } finally { 
+        } finally {
             if (transport != null) {
                 transport.close();
             }
@@ -299,7 +299,7 @@ public class LLDPMibTest  {
 
 	private PDU sendRequestV3(PDU pdu) throws IOException {
 		PDU response;
-    	
+
         OctetString userId = new OctetString("opennmsUser");
         OctetString pw = new OctetString("0p3nNMSv3");
 
@@ -308,12 +308,12 @@ public class LLDPMibTest  {
         target.setSecurityName(userId);
         target.setAddress(new UdpAddress(InetAddress.getByName("127.0.0.1"), 1691));
         target.setVersion(SnmpConstants.version3);
-		if (m_timeout > 0) { 
+		if (m_timeout > 0) {
 			target.setTimeout(m_timeout);
-		} else { 
+		} else {
 			target.setTimeout(5000);
 		}
-        
+
         TransportMapping transport = null;
         try {
             USM usm = new USM(SecurityProtocols.getInstance(), new OctetString(MPv3.createLocalEngineID()), 0);
@@ -325,17 +325,17 @@ public class LLDPMibTest  {
             snmp.getUSM().addUser(userId, user);
 
             transport.listen();
-            
+
             ResponseEvent e = snmp.send(pdu, target);
             response = e.getResponse();
-        } finally { 
+        } finally {
             if (transport != null) {
                 transport.close();
             }
         }
 		return response;
 	}
-	
+
 	private URL classPathResource(String path) {
 		return getClass().getClassLoader().getResource(path);
 	}

@@ -30,7 +30,7 @@ package org.opennms.netmgt.snmp.mock;
 
 public class AgentTooBigException extends RuntimeException {
     /**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = -4063252176547849393L;
 

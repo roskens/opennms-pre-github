@@ -70,16 +70,16 @@ import org.springframework.util.Assert;
  * @version $Id: $
  */
 public class DefaultReportService implements ReportService,InitializingBean {
-	
-	
+
+
 	private static final Logger LOG = LoggerFactory
 			.getLogger(DefaultReportService.class);
-    
+
     private enum Format { pdf,html,xml,xls,csv };
 
     private ReportCatalogDao m_reportCatalogDao;
 
-    /** {@inheritDoc} 
+    /** {@inheritDoc}
      * @throws ReportRunException */
     @Override
     public synchronized String runReport(Report report,String reportDirectory) throws ReportRunException {
@@ -88,20 +88,20 @@ public class DefaultReportService implements ReportService,InitializingBean {
         try {
             outputFile = generateReportName(reportDirectory,report.getReportName(), report.getReportFormat());
             JasperPrint print = runAndRender(report);
-            outputFile = saveReport(print,report,outputFile);    
-            
+            outputFile = saveReport(print,report,outputFile);
+
         } catch (JRException e) {
             LOG.error("Error running report: {}", e.getMessage(), e);
             throw new ReportRunException("Caught JRException: " + e.getMessage());
         }  catch (Throwable e){
             LOG.error("Unexpected exception: {}", e.getMessage(), e);
             throw new ReportRunException("Caught unexpected " + e.getClass().getName() + ": " + e.getMessage());
-        }        
- 
+        }
+
         return outputFile;
-    
+
     }
- 
+
     /**
      * <p>getReportCatalogDao</p>
      *
@@ -144,11 +144,11 @@ public class DefaultReportService implements ReportService,InitializingBean {
         return  reportDirectory + reportName + sdf.format(new Date())  + "." + reportFormat;
     }
 
-    
+
     private String saveReport(JasperPrint jasperPrint, Report report, String destFileName) throws JRException, Exception{
         createReportCatalogEntry(jasperPrint, report, destFileName);
         String reportName=null;
-        switch(Format.valueOf(report.getReportFormat())){    
+        switch(Format.valueOf(report.getReportFormat())){
         case pdf:
             JasperExportManager.exportReportToPdfFile(jasperPrint, destFileName);
             reportName = destFileName;
@@ -170,22 +170,22 @@ public class DefaultReportService implements ReportService,InitializingBean {
             break;
         default:
             LOG.error("Error Running Report: Unknown Format: {}", report.getReportFormat());
-        }    
-        
+        }
+
         return reportName;
-        
+
     }
-        
-    
+
+
     private JasperPrint runAndRender(Report report) throws Exception, JRException {
         JasperPrint jasperPrint = new JasperPrint();
-        
+
         JasperReport jasperReport = JasperCompileManager.compileReport(
-                                                                       System.getProperty("opennms.home") + 
+                                                                       System.getProperty("opennms.home") +
                                                                        File.separator + "etc" +
-                                                                       File.separator + "report-templates" + 
+                                                                       File.separator + "report-templates" +
                                                                        File.separator + report.getReportTemplate() );
-        
+
         if(report.getReportEngine().equals("jdbc")){
             Connection connection = DataSourceFactory.getDataSource().getConnection();
             jasperPrint = JasperFillManager.fillReport(jasperReport,
@@ -193,7 +193,7 @@ public class DefaultReportService implements ReportService,InitializingBean {
                                                        connection );
             connection.close();
         }
- 
+
 
         else if(report.getReportEngine().equals("opennms")){
             LOG.error("Sorry the OpenNMS Data source engine is not yet available");
@@ -203,19 +203,19 @@ public class DefaultReportService implements ReportService,InitializingBean {
             LOG.error("Unknown report engine: {} ", report.getReportEngine());
             jasperPrint = null;
         }
-        
+
         return jasperPrint;
-        
+
     }
 
-    
+
     private String createZip(String baseFileName) {
         File reportResourceDirectory = new File(baseFileName + "_files");
         String zipFile = baseFileName + ".zip";
-        
+
         if (reportResourceDirectory.exists() && reportResourceDirectory.isDirectory()){
             ZipOutputStream reportArchive;
-        
+
             try {
                 reportArchive = new ZipOutputStream(new FileOutputStream(zipFile));
                 addFileToArchive(reportArchive,baseFileName);
@@ -239,7 +239,7 @@ public class DefaultReportService implements ReportService,InitializingBean {
     throws FileNotFoundException, IOException {
         FileInputStream asf = new FileInputStream(file);
         reportArchive.putNextEntry(new ZipEntry(file));
-        byte[] buffer = new byte[18024]; 
+        byte[] buffer = new byte[18024];
         int len;
         while ((len = asf.read(buffer)) > 0){
             reportArchive.write(buffer, 0, len);
@@ -248,14 +248,14 @@ public class DefaultReportService implements ReportService,InitializingBean {
         asf.close();
         reportArchive.closeEntry();
     }
-    
-    
+
+
     private Map<String,String> paramListToMap(List<Parameter> parameters){
         Map<String,String> parmMap = new HashMap<String, String>();
 
         for(Parameter parm : parameters)
             parmMap.put(parm.getName(), parm.getValue());
-        
+
         return Collections.unmodifiableMap(parmMap);
     }
 

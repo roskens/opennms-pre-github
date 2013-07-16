@@ -43,7 +43,7 @@ public class RedRow implements RowInterceptor {
     /** {@inheritDoc} */
     @Override
     public void addRowAttributes(TableModel tableModel, Row row) {
-    } 
+    }
 
     /** {@inheritDoc} */
     @Override

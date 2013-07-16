@@ -52,5 +52,5 @@ public class ServiceNameComparator implements Comparator<Service> {
 
 //  public boolean equals(Service s1, Service s2) {
 //      return s1.getServiceName().equals(s2.getServiceName());
-//  }        
+//  }
 }

@@ -37,26 +37,26 @@ import java.util.List;
 import java.util.Properties;
 
 public class ResourcePathFileTraversal{
-    
+
     private final File m_file;
     private List<String> m_dataSourceFilterList = new ArrayList<String>();
-    
+
     public ResourcePathFileTraversal(File f) {
         m_file = f;
         if(!m_file.exists()) {
             System.err.println("Directory does not exist: " + f.getAbsolutePath());
         }
     }
-    
+
     public List<String> traverseDirectory() {
         List<String> paths = new ArrayList<String>();
-        
+
         addTopLevelIfNecessary(paths);
-        
+
         traverseDirectory(m_file, paths);
         return paths;
     }
-    
+
     private void addTopLevelIfNecessary(List<String> paths) {
         File[] fList = m_file.listFiles();
         if(fList != null) {
@@ -67,25 +67,25 @@ public class ResourcePathFileTraversal{
                 }
             }
         }
-        
-        
+
+
     }
 
     private void traverseDirectory(File f, List<String> dirPaths) {
         if(f.isDirectory()) {
-            
+
             final File[] children = f.listFiles();
-            
+
             for(File child : children) {
                 if(child.isDirectory()) {
                     onDirectory(child, dirPaths);
                     traverseDirectory(child, dirPaths);
                 }
-                
+
             }
             return;
         }
-        
+
         onFile(f);
     }
 
@@ -100,15 +100,15 @@ public class ResourcePathFileTraversal{
                     dirPaths.add(f.getAbsolutePath());
                 }
             }catch(IOException ioException) {
-                
+
             }
         }else {
             if(validateFiles(f)) {
                 dirPaths.add(f.getAbsolutePath());
             }
         }
-        
-        
+
+
     }
 
     private boolean validateDataSource(File f) throws IOException {
@@ -119,22 +119,22 @@ public class ResourcePathFileTraversal{
                 return name.equals("ds.properties");
             }
         };
-            
+
         if(f.list(dsFilenameFilter).length > 0) {
             Properties prop = new Properties();
             FileInputStream fis = new FileInputStream(f.getAbsolutePath() + "/ds.properties");
             prop.load(fis);
             fis.close();
-            
+
             for(String datasource : m_dataSourceFilterList) {
                 if(prop.get(datasource) == null) {
                     return false;
                 }
             }
-            
+
         }
-        
-        
+
+
         return true;
     }
 
@@ -146,9 +146,9 @@ public class ResourcePathFileTraversal{
                 return false;
             }
         }
-        
+
         return true;
-        
+
     }
 
     private List<FilenameFilter> getFilenameFilters() {
@@ -158,7 +158,7 @@ public class ResourcePathFileTraversal{
 
                 @Override
                 public boolean accept(File dir, String name) {
-                    
+
                     return name.contains(dsName);
                 }
             });
@@ -167,18 +167,18 @@ public class ResourcePathFileTraversal{
     }
 
     public void addDatasourceFilters(String[] dsNames) {
-        
+
         if(dsNames != null) {
             for(String dsName : dsNames) {
                 m_dataSourceFilterList.add(dsName);
             }
         }
-        
-        
+
+
     }
 
     public void addDatasourceFilter(String dataSource) {
         m_dataSourceFilterList.add(dataSource);
     }
-    
+
 }

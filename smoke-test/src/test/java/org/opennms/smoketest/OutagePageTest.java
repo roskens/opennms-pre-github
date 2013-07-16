@@ -46,7 +46,7 @@ public class OutagePageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isTextPresent("Outages and Service Level Availability"));
         assertTrue(selenium.isTextPresent("Outage ID"));
         assertTrue(selenium.isTextPresent("create notifications"));
-    }  
+    }
 
     @Test
     public void testAllLinksArePresent() {
@@ -58,7 +58,7 @@ public class OutagePageTest extends OpenNMSSeleniumTestCase {
     public void testAllFormsArePresent() {
         assertEquals("Get details", selenium.getValue("css=input[type='submit']"));
     }
-    
+
     @Test
     public void testAllLinks() {
         selenium.click("link=Current outages");

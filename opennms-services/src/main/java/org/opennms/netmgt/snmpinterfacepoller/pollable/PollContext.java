@@ -43,21 +43,21 @@ import org.opennms.netmgt.xml.event.Event;
  * @version $Id: $
  */
 public interface PollContext {
-    
+
     /**
      * <p>getServiceName</p>
      *
      * @return a {@link java.lang.String} object.
      */
     public String getServiceName();
-    
+
     /**
      * <p>setServiceName</p>
      *
      * @param serviceName a {@link java.lang.String} object.
      */
     public void setServiceName(String serviceName);
-    
+
     /**
      * <p>sendEvent</p>
      *
@@ -76,7 +76,7 @@ public interface PollContext {
      * @param snmpinterface a {@link org.opennms.netmgt.model.OnmsSnmpInterface} object.
      */
     public Event createEvent(String uei, int nodeId, String address, Date date, OnmsSnmpInterface snmpinterface);
-    
+
     /**
      * <p>get</p>
      *

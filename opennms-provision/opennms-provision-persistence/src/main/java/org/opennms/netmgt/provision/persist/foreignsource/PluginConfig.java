@@ -75,7 +75,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
      */
     public PluginConfig() {
     }
-    
+
     /**
      * Creates a plugin configuration with the given name and class.
      *
@@ -86,7 +86,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         setName(name);
         setPluginClass(clazz);
     }
-    
+
     /**
      * <p>Constructor for PluginConfig.</p>
      *
@@ -141,7 +141,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         }
         return m_parameters;
     }
-    
+
     /**
      * <p>setParameters</p>
      *
@@ -153,7 +153,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         }
         m_parameters = list;
     }
-    
+
     /**
      * <p>getParameterMap</p>
      *
@@ -166,7 +166,7 @@ public class PluginConfig implements Serializable, Comparable<PluginConfig> {
         }
         return Collections.unmodifiableMap(parms);
     }
-    
+
     /**
      * <p>setParameterMap</p>
      *

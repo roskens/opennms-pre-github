@@ -65,7 +65,7 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
 
 	private boolean hasFdbAddressFromBase = false;
 	/**
-	 * <P>The keys that will be supported by default from the 
+	 * <P>The keys that will be supported by default from the
 	 * TreeMap base class. Each of the elements in the list
 	 * are an instance of the Dot1dTpFbTable. Objects
 	 * in this list should be used by multiple instances of
@@ -155,12 +155,12 @@ public final class QBridgeDot1dTpFdbTableEntry extends SnmpStore {
                     sb.append("0").append(Integer.toHexString(identifiers[i]));
                 }
             }
-			super.storeResult(new SnmpResult(SnmpObjId.get(FDB_ADDRESS_OID), res.getInstance(), 
+			super.storeResult(new SnmpResult(SnmpObjId.get(FDB_ADDRESS_OID), res.getInstance(),
 						SnmpUtils.getValueFactory().getOctetString(sb.toString().getBytes())));
 			hasFdbAddressFromBase = true;
 		}
 	}
-	
+
 	/**
 	 * <p>getQBridgeDot1dTpFdbAddress</p>
 	 *

@@ -19,20 +19,20 @@ public class VertexSelectionTree extends Tree implements SelectionListener {
     public VertexSelectionTree(String title, GraphContainer graphContainer) {
         super(null, new GCFilterableContainer(graphContainer));
         m_title = title;
-        
+
         m_graphContainer = graphContainer;
-        
+
         this.addValueChangeListener(new ValueChangeListener() {
-            
+
             @Override
             public void valueChange(com.vaadin.data.Property.ValueChangeEvent event) {
 
             	@SuppressWarnings("unchecked")
 				Collection<VertexRef> refs = (Collection<VertexRef>)event.getProperty().getValue();
-            	
+
             	Collection<VertexRef> vertices = m_graphContainer.getVertexRefForest(refs);
             	m_graphContainer.getSelectionManager().setSelectedVertexRefs(vertices);
-            	
+
             }
         });
 

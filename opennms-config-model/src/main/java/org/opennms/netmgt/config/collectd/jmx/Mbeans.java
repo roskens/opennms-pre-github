@@ -27,7 +27,7 @@
  *******************************************************************************/
 
 /*
- * This class was automatically generated with 
+ * This class was automatically generated with
  * <a href="http://www.castor.org">Castor 1.1.2.1</a>, using an XML
  * Schema.
  * $Id$
@@ -49,7 +49,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
 /**
  * Class Mbeans.
- * 
+ *
  * @version $Revision$ $Date$
  */
 
@@ -84,8 +84,8 @@ import org.exolab.castor.xml.Unmarshaller;
     //-----------/
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -97,8 +97,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -113,7 +113,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method enumerateMbean.
-     * 
+     *
      * @return an Enumeration over all possible elements of this
      * collection
      */
@@ -124,7 +124,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -133,13 +133,13 @@ import org.exolab.castor.xml.Unmarshaller;
             final java.lang.Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof Mbeans) {
-        
+
             Mbeans temp = (Mbeans)obj;
             if (this._mbeanList != null) {
                 if (temp._mbeanList == null) return false;
-                else if (!(this._mbeanList.equals(temp._mbeanList))) 
+                else if (!(this._mbeanList.equals(temp._mbeanList)))
                     return false;
             }
             else if (temp._mbeanList != null)
@@ -151,7 +151,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getMbean.
-     * 
+     *
      * @param index
      * @throws java.lang.IndexOutOfBoundsException if the index
      * given is outside the bounds of the collection
@@ -165,7 +165,7 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._mbeanList.size()) {
             throw new IndexOutOfBoundsException("getMbean: Index value '" + index + "' not in range [0.." + (this._mbeanList.size() - 1) + "]");
         }
-        
+
         return (Mbean) _mbeanList.get(index);
     }
 
@@ -175,7 +175,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * changing in another thread, we pass a 0-length Array of the
      * correct type into the API call.  This way we <i>know</i>
      * that the Array returned is of exactly the correct length.
-     * 
+     *
      * @return this collection as an Array
      */
     public Mbean[] getMbean(
@@ -188,7 +188,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Method getMbeanCollection.Returns a reference to
      * '_mbeanList'. No type checking is performed on any
      * modifications to the Vector.
-     * 
+     *
      * @return a reference to the Vector backing this class
      */
     public java.util.List<Mbean> getMbeanCollection(
@@ -198,7 +198,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method getMbeanCount.
-     * 
+     *
      * @return the size of this collection
      */
     public int getMbeanCount(
@@ -211,25 +211,25 @@ import org.exolab.castor.xml.Unmarshaller;
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode(
     ) {
         int result = 17;
-        
+
         long tmp;
         if (_mbeanList != null) {
            result = 37 * result + _mbeanList.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -245,7 +245,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method iterateMbean.
-     * 
+     *
      * @return an Iterator over all possible elements in this
      * collection
      */
@@ -255,8 +255,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -271,8 +271,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -297,7 +297,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeMbean.
-     * 
+     *
      * @param vMbean
      * @return true if the object was removed from the collection.
      */
@@ -309,7 +309,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method removeMbeanAt.
-     * 
+     *
      * @param index
      * @return the element removed from the collection
      */
@@ -320,8 +320,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param index
      * @param vMbean
      * @throws java.lang.IndexOutOfBoundsException if the index
@@ -335,20 +335,20 @@ import org.exolab.castor.xml.Unmarshaller;
         if (index < 0 || index >= this._mbeanList.size()) {
             throw new IndexOutOfBoundsException("setMbean: Index value '" + index + "' not in range [0.." + (this._mbeanList.size() - 1) + "]");
         }
-        
+
         this._mbeanList.set(index, vMbean);
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param vMbeanArray
      */
     public void setMbean(
             final Mbean[] vMbeanArray) {
         //-- copy array
         _mbeanList.clear();
-        
+
         for (int i = 0; i < vMbeanArray.length; i++) {
                 this._mbeanList.add(vMbeanArray[i]);
         }
@@ -357,14 +357,14 @@ import org.exolab.castor.xml.Unmarshaller;
     /**
      * Sets the value of '_mbeanList' by copying the given Vector.
      * All elements will be checked for type safety.
-     * 
+     *
      * @param vMbeanList the Vector to copy.
      */
     public void setMbean(
             final java.util.List<Mbean> vMbeanList) {
         // copy vector
         this._mbeanList.clear();
-        
+
         this._mbeanList.addAll(vMbeanList);
     }
 
@@ -372,7 +372,7 @@ import org.exolab.castor.xml.Unmarshaller;
      * Sets the value of '_mbeanList' by setting it to the given
      * Vector. No type checking is performed.
      * @deprecated
-     * 
+     *
      * @param mbeanList the Vector to set.
      */
     public void setMbeanCollection(
@@ -382,7 +382,7 @@ import org.exolab.castor.xml.Unmarshaller;
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws org.exolab.castor.xml.MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -399,8 +399,8 @@ import org.exolab.castor.xml.Unmarshaller;
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws org.exolab.castor.xml.ValidationException if this
      * object is an invalid instance according to the schema
      */

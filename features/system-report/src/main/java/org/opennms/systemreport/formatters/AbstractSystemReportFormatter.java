@@ -104,9 +104,9 @@ public abstract class AbstractSystemReportFormatter implements SystemReportForma
     @Override
     public void end() {
     }
-    
+
     @Override
-    public final int compareTo(final SystemReportFormatter o) { 
+    public final int compareTo(final SystemReportFormatter o) {
         return new CompareToBuilder()
             .append(this.getName(), (o == null? null:o.getName()))
             .append(this.getDescription(), (o == null? null:o.getDescription()))

@@ -58,7 +58,7 @@ import com.vaadin.ui.Button.ClickEvent;
 /**
  * Represents the result view. It shows all generated configurations (including
  * some description texts) to the user.
- * 
+ *
  * @author Markus von Rüden <mvr@opennms.com>
  */
 public class ConfigResultView extends CustomComponent implements ModelChangeListener<UiModel>, Button.ClickListener {
@@ -121,7 +121,7 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
 	/**
 	 * Initiates the download of the String data shown in the currently selected
 	 * tab.
-	 * 
+	 *
 	 * @param event
 	 *            The ClickEvent which indicates the download action.
 	 */
@@ -144,7 +144,7 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
 	/**
 	 * Removes all directory-entries if there are any and simply returns the
 	 * filename.
-	 * 
+	 *
 	 * @param filename
 	 *            The path to the file including the filename (e.g.
 	 *            /descriptions/abc.txt)
@@ -168,14 +168,14 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
 	 * Represents a downloadable Resource. If opened in the Application Window a
 	 * download via the browser is initiated. Usually a "save or open"-dialogue
 	 * shows up.
-	 * 
+	 *
 	 * @author Markus von Rüden <mvr@opennms.com>
-	 * 
+	 *
 	 */
 	private static class DownloadResource extends StreamResource {
 
 		/**
-		 * 
+		 *
 		 * @param zipContentMap
 		 *            key: Filename, value: File content
 		 * @param application
@@ -213,7 +213,7 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
 		 * zipContentMap in zipped form. The files are defined by the given Map.
 		 * The key of the map defines the name in the zip archive. The value of
 		 * the map defines file's content.
-		 * 
+		 *
 		 * @param zipContentMap
 		 *            The map which contains the filenames and file contents for
 		 *            the zip archive to create.
@@ -271,7 +271,7 @@ public class ConfigResultView extends CustomComponent implements ModelChangeList
 
 		/**
 		 * Sets the content of the {@linkplain #configTextArea}.
-		 * 
+		 *
 		 * @param newConfigContent The new configuration content.
 		 */
 		public void setConfigContent(String newConfigContent) {

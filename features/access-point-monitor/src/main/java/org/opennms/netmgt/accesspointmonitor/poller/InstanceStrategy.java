@@ -27,7 +27,7 @@ import org.slf4j.LoggerFactory;
  * and uses the instance variable as the AP MAC address. 2) Verifies the
  * returned value against the configured criteria to determine if the AP is
  * ONLINE or NOT.
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 public class InstanceStrategy implements AccessPointPoller {
@@ -200,7 +200,7 @@ public class InstanceStrategy implements AccessPointPoller {
     /**
      * Verifies that the result of the SNMP query meets the criteria specified
      * by the operator and the operand from the configuration file.
-     * 
+     *
      * @param result
      *            a {@link org.opennms.netmgt.snmp.SnmpValue} object.
      * @param operator

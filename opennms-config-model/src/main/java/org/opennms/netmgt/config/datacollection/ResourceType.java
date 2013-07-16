@@ -89,7 +89,7 @@ public class ResourceType implements Serializable {
 
     /**
      * Overrides the java.lang.Object.equals method.
-     * 
+     *
      * @param obj
      * @return true if the objects are equal.
      */
@@ -97,41 +97,41 @@ public class ResourceType implements Serializable {
     public boolean equals(final Object obj) {
         if ( this == obj )
             return true;
-        
+
         if (obj instanceof ResourceType) {
-        
+
             final ResourceType temp = (ResourceType)obj;
             if (m_name != null) {
                 if (temp.m_name == null) return false;
-                else if (!(m_name.equals(temp.m_name))) 
+                else if (!(m_name.equals(temp.m_name)))
                     return false;
             }
             else if (temp.m_name != null)
                 return false;
             if (m_label != null) {
                 if (temp.m_label == null) return false;
-                else if (!(m_label.equals(temp.m_label))) 
+                else if (!(m_label.equals(temp.m_label)))
                     return false;
             }
             else if (temp.m_label != null)
                 return false;
             if (m_resourceLabel != null) {
                 if (temp.m_resourceLabel == null) return false;
-                else if (!(m_resourceLabel.equals(temp.m_resourceLabel))) 
+                else if (!(m_resourceLabel.equals(temp.m_resourceLabel)))
                     return false;
             }
             else if (temp.m_resourceLabel != null)
                 return false;
             if (m_persistenceSelectorStrategy != null) {
                 if (temp.m_persistenceSelectorStrategy == null) return false;
-                else if (!(m_persistenceSelectorStrategy.equals(temp.m_persistenceSelectorStrategy))) 
+                else if (!(m_persistenceSelectorStrategy.equals(temp.m_persistenceSelectorStrategy)))
                     return false;
             }
             else if (temp.m_persistenceSelectorStrategy != null)
                 return false;
             if (m_storageStrategy != null) {
                 if (temp.m_storageStrategy == null) return false;
-                else if (!(m_storageStrategy.equals(temp.m_storageStrategy))) 
+                else if (!(m_storageStrategy.equals(temp.m_storageStrategy)))
                     return false;
             }
             else if (temp.m_storageStrategy != null)
@@ -145,7 +145,7 @@ public class ResourceType implements Serializable {
      * Returns the value of field 'label'. The field 'label' has
      * the following description: resource type label (this is what
      * users see in the webUI)
-     * 
+     *
      * @return the value of field 'Label'.
      */
     @XmlAttribute(name="label", required=true)
@@ -156,7 +156,7 @@ public class ResourceType implements Serializable {
     /**
      * Returns the value of field 'name'. The field 'name' has the
      * following description: resource type name
-     * 
+     *
      * @return the value of field 'Name'.
      */
     @XmlAttribute(name="name", required=true)
@@ -169,7 +169,7 @@ public class ResourceType implements Serializable {
      * The field 'persistenceSelectorStrategy' has the following
      * description: Selects a PersistenceSelectorStrategy that
      * decides which data is persisted and which is not.
-     * 
+     *
      * @return the value of field 'PersistenceSelectorStrategy'.
      */
     @XmlElement(name="persistenceSelectorStrategy")
@@ -182,7 +182,7 @@ public class ResourceType implements Serializable {
      * 'resourceLabel' has the following description: resource
      * label expression (this is what users see in the webUI for
      * each resource of this type)
-     * 
+     *
      * @return the value of field 'ResourceLabel'.
      */
     @XmlAttribute(name="resourceLabel")
@@ -194,7 +194,7 @@ public class ResourceType implements Serializable {
      * Returns the value of field 'storageStrategy'. The field
      * 'storageStrategy' has the following description: Selects a
      * StorageStrategy that decides where data is stored.
-     * 
+     *
      * @return the value of field 'StorageStrategy'.
      */
     @XmlElement(name="storageStrategy")
@@ -207,13 +207,13 @@ public class ResourceType implements Serializable {
      * <p>
      * The following steps came from <b>Effective Java Programming
      * Language Guide</b> by Joshua Bloch, Chapter 3
-     * 
+     *
      * @return a hash code value for the object.
      */
     @Override
     public int hashCode() {
         int result = 17;
-        
+
         if (m_name != null) {
            result = 37 * result + m_name.hashCode();
         }
@@ -229,13 +229,13 @@ public class ResourceType implements Serializable {
         if (m_storageStrategy != null) {
            result = 37 * result + m_storageStrategy.hashCode();
         }
-        
+
         return result;
     }
 
     /**
      * Method isValid.
-     * 
+     *
      * @return true if this object is valid according to the schema
      */
     @Deprecated
@@ -249,8 +249,8 @@ public class ResourceType implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param out
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -263,8 +263,8 @@ public class ResourceType implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @param handler
      * @throws java.io.IOException if an IOException occurs during
      * marshaling
@@ -282,7 +282,7 @@ public class ResourceType implements Serializable {
      * Sets the value of field 'label'. The field 'label' has the
      * following description: resource type label (this is what
      * users see in the webUI)
-     * 
+     *
      * @param label the value of field 'label'.
      */
     public void setLabel(final String label) {
@@ -292,7 +292,7 @@ public class ResourceType implements Serializable {
     /**
      * Sets the value of field 'name'. The field 'name' has the
      * following description: resource type name
-     * 
+     *
      * @param name the value of field 'name'.
      */
     public void setName(final String name) {
@@ -304,7 +304,7 @@ public class ResourceType implements Serializable {
      * field 'persistenceSelectorStrategy' has the following
      * description: Selects a PersistenceSelectorStrategy that
      * decides which data is persisted and which is not.
-     * 
+     *
      * @param strategy the value of field
      * 'persistenceSelectorStrategy'.
      */
@@ -317,7 +317,7 @@ public class ResourceType implements Serializable {
      * 'resourceLabel' has the following description: resource
      * label expression (this is what users see in the webUI for
      * each resource of this type)
-     * 
+     *
      * @param resourceLabel the value of field 'resourceLabel'.
      */
     public void setResourceLabel(final String resourceLabel) {
@@ -328,7 +328,7 @@ public class ResourceType implements Serializable {
      * Sets the value of field 'storageStrategy'. The field
      * 'storageStrategy' has the following description: Selects a
      * StorageStrategy that decides where data is stored.
-     * 
+     *
      * @param strategy the value of field 'storageStrategy'.
      */
     public void setStorageStrategy(final StorageStrategy strategy) {
@@ -337,7 +337,7 @@ public class ResourceType implements Serializable {
 
     /**
      * Method unmarshal.
-     * 
+     *
      * @param reader
      * @throws MarshalException if object is
      * null or if any SAXException is thrown during marshaling
@@ -352,8 +352,8 @@ public class ResourceType implements Serializable {
     }
 
     /**
-     * 
-     * 
+     *
+     *
      * @throws ValidationException if this
      * object is an invalid instance according to the schema
      */

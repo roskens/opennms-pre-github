@@ -52,15 +52,15 @@ public interface SnmpValue {
     public final static int SNMP_OPAQUE = (0x44);
 
     public final static int SNMP_COUNTER64 = (0x46);
-    
+
     public final static int SNMP_NO_SUCH_OBJECT = (0x80);
-    
+
     public final static int SNMP_NO_SUCH_INSTANCE = (0x81);
 
     public final static int SNMP_END_OF_MIB = (0x82); // 8*16 + 2 = 130
-    
+
     boolean isEndOfMib();
-    
+
     boolean isError();
 
     boolean isNull();
@@ -76,13 +76,13 @@ public interface SnmpValue {
     InetAddress toInetAddress();
 
     long toLong();
-    
+
     BigInteger toBigInteger();
 
     String toHexString();
-    
+
     int getType();
-    
+
     byte[] getBytes();
 
     SnmpObjId toSnmpObjId();

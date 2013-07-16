@@ -77,7 +77,7 @@ final public class VMapInfo {
 	public String getName() {
 		return name;
 	}
-	
+
 	/**
 	 * <p>Getter for the field <code>owner</code>.</p>
 	 *
@@ -86,7 +86,7 @@ final public class VMapInfo {
 	public String getOwner() {
 		return owner;
 	}
-	
+
 	/** {@inheritDoc} */
     @Override
 	public boolean equals(Object obj){

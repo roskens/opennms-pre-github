@@ -50,29 +50,29 @@ public class StatisticsReportModel {
     public static class Datum implements Comparable<Datum> {
         private Double m_value;
         private OnmsResource m_resource;
-    
+
         @Override
         public int compareTo(Datum o) {
             return m_value.compareTo(o.getValue());
         }
-    
+
         public OnmsResource getResource() {
             return m_resource;
         }
-        
+
         public OnmsResource getPrettyResource() {
         	return new PrettyOnmsResource(m_resource);
         }
-    
+
         public void setResource(OnmsResource resource) {
             m_resource = resource;
         }
-        
+
         public String getResourceParentLabel() {
             Assert.notNull(m_resource, "the resource must be set before calling this method");
-            
+
             StringBuffer buffer = new StringBuffer();
-            
+
             OnmsResource parent = m_resource.getParent();
             while (parent != null) {
                 if (buffer.length() > 0) {
@@ -81,58 +81,58 @@ public class StatisticsReportModel {
                 buffer.append(parent.getResourceType().getLabel());
                 buffer.append(": ");
                 buffer.append(parent.getLabel());
-                
+
                 parent = parent.getParent();
             }
-            
+
             return buffer.toString();
         }
-        
+
         public List<OnmsResource> getResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
             }
-            
+
             List<OnmsResource> resources = new ArrayList<OnmsResource>();
-            
+
             OnmsResource parent = m_resource.getParent();
             while (parent != null) {
                 resources.add(0, parent);
                 parent = parent.getParent();
             }
-            
+
             return resources;
         }
-        
+
         public List<OnmsResource> getPrettyResourceParentsReversed() {
             if (m_resource == null) {
                 return new ArrayList<OnmsResource>(0);
             }
-            
+
             List<OnmsResource> resources = new ArrayList<OnmsResource>();
-            
+
             OnmsResource parent = new PrettyOnmsResource(m_resource.getParent());
             while (parent != null) {
                 resources.add(0, new PrettyOnmsResource(parent));
                 parent = parent.getParent();
             }
-            
+
             return resources;
         }
-        
+
         public Double getValue() {
             return m_value;
         }
-    
+
         public void setValue(Double value) {
             m_value = value;
         }
     }
-    
+
     private BindException m_errors;
     private StatisticsReport m_report;
     private SortedSet<Datum> m_data = new TreeSet<Datum>();
-    
+
     /**
      * <p>getData</p>
      *
@@ -189,5 +189,5 @@ public class StatisticsReportModel {
     public void setReport(StatisticsReport report) {
         m_report = report;
     }
-    
+
 }

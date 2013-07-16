@@ -71,11 +71,11 @@ public class PersistenceSerializationTest {
 
     static private class TestOutputResolver extends SchemaOutputResolver {
         private final File m_schemaFile;
-        
+
         public TestOutputResolver(File schemaFile) {
             m_schemaFile = schemaFile;
         }
-        
+
         @Override
         public Result createOutput(String namespaceUri, String suggestedFileName) throws IOException {
             return new StreamResult(m_schemaFile);
@@ -123,7 +123,7 @@ public class PersistenceSerializationTest {
         fsw = new ForeignSourceCollection(fsr.getForeignSources());
         c = JAXBContext.newInstance(ForeignSourceCollection.class, ForeignSource.class);
         m = c.createMarshaller();
-        
+
         XMLUnit.setIgnoreWhitespace(true);
         XMLUnit.setIgnoreAttributeOrder(true);
         XMLUnit.setNormalize(true);
@@ -142,7 +142,7 @@ public class PersistenceSerializationTest {
             fa.deleteExpected();
         }
     }
-    
+
     @Test
     public void generateXML() throws Exception {
         // Marshal the test object to an XML string

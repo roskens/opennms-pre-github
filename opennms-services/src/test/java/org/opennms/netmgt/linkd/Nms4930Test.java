@@ -106,9 +106,9 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
         super.setNodeDao(m_nodeDao);
         super.setSnmpInterfaceDao(m_snmpInterfaceDao);
- 
+
         buildNetwork4005();
-        
+
     }
 
 	@Before
@@ -136,7 +136,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
      * Also there is no At interface information
      * c2007db90010 --> 10.1.1.2  ---nothing in the bridge forwarding table...
      * no way to get links...
-     * 
+     *
      */
     @Test
     @JUnitSnmpAgents(value={
@@ -154,7 +154,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
 
         example1.setSaveRouteTable(false);
         example1.setEnableVlanDiscovery(false);
-        
+
     	final OnmsNode cisco1 = m_nodeDao.findByForeignId("linkd", "cisco1");
         final OnmsNode cisco2 = m_nodeDao.findByForeignId("linkd", "cisco2");
 
@@ -170,7 +170,7 @@ public class Nms4930Test extends Nms4930NetworkBuilder implements InitializingBe
         for (final DataLinkInterface link: ifaces) {
             printLink(link);
         }
-        
+
         // Note By AR: I've inspected the snmp file, only the bridge mib are there
         //             and no link is found
         assertEquals("we should have found no links", 0, ifaces.size());

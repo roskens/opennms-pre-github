@@ -55,7 +55,7 @@ public class DateSqlType implements SQLType<Date> {
     public void bindParam(PreparedStatement ps, int parameterIndex, Date value) throws SQLException {
         ps.setTimestamp(parameterIndex, new java.sql.Timestamp(value.getTime()));
     }
-    
+
     /**
      * <p>getValueAsString</p>
      *

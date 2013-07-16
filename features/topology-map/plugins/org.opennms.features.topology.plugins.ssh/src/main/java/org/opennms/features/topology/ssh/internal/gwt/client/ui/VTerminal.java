@@ -33,8 +33,8 @@ import com.vaadin.client.Paintable;
 import com.vaadin.client.UIDL;
 
 /**
- * The VTerminal class is associated with the GwtTerminal widget and handles all of the communication 
- * from the client and sends it to the server.  It also listens for responses from the server and 
+ * The VTerminal class is associated with the GwtTerminal widget and handles all of the communication
+ * from the client and sends it to the server.  It also listens for responses from the server and
  * updates the client side view.
  * @author Leonardo Bell
  * @author Philip Grenon
@@ -62,7 +62,7 @@ public class VTerminal extends GwtTerminal implements Paintable {
 	}
 
 	/**
-	 * The update method is used by the server whenever it requests an update from 
+	 * The update method is used by the server whenever it requests an update from
 	 * the TermHandler in order to receive the current key presses from the client.
 	 */
 	public void update() {
@@ -81,14 +81,14 @@ public class VTerminal extends GwtTerminal implements Paintable {
 		if (client.updateComponent(this, uidl, true)) {
 			return;
 		}
-		
+
 		// Save reference to server connection object to be able to send
 		// user interaction later
 		this.client = client;
-		
+
 		// Save the UIDL identifier for the component
 		this.uidlId = uidl.getId();
-		
+
 		// Check if the server wants the TermHandler to close, if so, send a
 		// response back to the server that it was closed successfully
 		if (uidl.getBooleanVariable("closeClient")) {
@@ -96,14 +96,14 @@ public class VTerminal extends GwtTerminal implements Paintable {
 			isClosed = true;
 			sendBytes("");
 		}
-		
+
 		// Check if the server wants the TermHandler to update manually
 		if (uidl.getBooleanVariable("update")) update();
 		if (uidl.getBooleanVariable("focus")) {
 			super.focus();
 			isFocused = true;
 		}
-		
+
 		// Take the current representation of the Terminal from the server
 		// and set the Inner HTML of the widget
 		dump(uidl.getStringVariable("fromSSH"));
@@ -113,16 +113,16 @@ public class VTerminal extends GwtTerminal implements Paintable {
 
 		// Send the server the current state of the TermHandler
 		client.updateVariable(uidlId, "isClosed", isClosed, true);
-		
+
 
 		// Send the server the current KeyBuffer from the client
 		if (!isClosed) {
 			client.updateVariable(uidlId, "toSSH", inputKeys, true);
 		}
-		
+
 		// Tell the server if the widget is focused or not
 		client.updateVariable(uidlId, "isFocused", isFocused, true);
-		
+
 	}
 
 }

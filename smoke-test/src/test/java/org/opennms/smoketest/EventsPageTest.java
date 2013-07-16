@@ -40,7 +40,7 @@ public class EventsPageTest extends OpenNMSSeleniumTestCase {
     }
 
     @Test
-    public void testAllTextIsPresent() throws Exception {       
+    public void testAllTextIsPresent() throws Exception {
         assertTrue(selenium.isTextPresent("Event Queries"));
         assertTrue(selenium.isTextPresent("Outstanding and acknowledged events"));
         assertTrue(selenium.isTextPresent("hit [Enter]"));
@@ -54,7 +54,7 @@ public class EventsPageTest extends OpenNMSSeleniumTestCase {
         assertTrue(selenium.isElementPresent("link=Advanced Search"));
     }
 
-    @Test 
+    @Test
     public void testAllLinks() {
         selenium.click("link=All events");
         waitForPageToLoad();

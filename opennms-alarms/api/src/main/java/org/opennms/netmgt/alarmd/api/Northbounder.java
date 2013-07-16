@@ -33,7 +33,7 @@ package org.opennms.netmgt.alarmd.api;
 
 /**
  * North bound Interface API
- * 
+ *
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @version $Id: $
  */
@@ -41,11 +41,11 @@ package org.opennms.netmgt.alarmd.api;
 public interface Northbounder {
 
     public void start() throws NorthbounderException;
-    
+
     public void onAlarm(NorthboundAlarm alarm) throws NorthbounderException;
-    
+
     public void stop() throws NorthbounderException;
-    
+
     public String getName();
-    
+
 }

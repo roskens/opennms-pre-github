@@ -89,7 +89,7 @@ public class KSCResourceAddGraph implements EntryPoint {
                         Window.alert("Error occurred retrieving list of KSC reports: " + exception.getLocalizedMessage());
                     }
                 }
-                
+
                 public void handleResponseText(final NodeList<Element> nodes, final String responseText) {
                     final List<KscReport> reports = KscReportRestResponseMapper.translate(responseText);
                     for (int i = 0; i < nodes.getLength(); i++) {

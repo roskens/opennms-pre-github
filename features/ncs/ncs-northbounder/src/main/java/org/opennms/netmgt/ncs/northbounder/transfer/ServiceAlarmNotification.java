@@ -41,7 +41,7 @@ public class ServiceAlarmNotification {
 
 	@XmlElement(name="ServiceAlarm")
 	List<ServiceAlarm> m_serviceAlarms;
-	
+
 	public ServiceAlarmNotification() {
 	}
 
@@ -56,6 +56,6 @@ public class ServiceAlarmNotification {
 	public void setServiceAlarms(List<ServiceAlarm> serviceAlarms) {
 		m_serviceAlarms = serviceAlarms;
 	}
-	
+
 
 }

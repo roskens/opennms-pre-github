@@ -51,41 +51,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 
 public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
-	
+
 	@Autowired
 	private NCSComponentRepository m_repository;
-	
+
 	@Autowired
 	private DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
 	private DroolsCorrelationEngine m_engine;
-	
+
 	private List<Object> m_anticipatedWorkingMemory = new ArrayList<Object>();
-	
+
 	@Before
 	public void setUp() {
-		
+
 		OnmsDistPoller distPoller = new OnmsDistPoller("localhost", "127.0.0.1");
-		
+
 		m_distPollerDao.save(distPoller);
-		
-		
+
+
 		NetworkBuilder bldr = new NetworkBuilder(distPoller);
 		bldr.addNode("PE1").setForeignSource("space").setForeignId("1111-PE1");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 		//m_pe1NodeId = bldr.getCurrentNode().getId();
-		
+
 		bldr.addNode("PE2").setForeignSource("space").setForeignId("2222-PE2");
-		
+
 		m_nodeDao.save(bldr.getCurrentNode());
-		
+
 	//	m_pe2NodeId = bldr.getCurrentNode().getId();
-		
+
 		NCSComponent svc = new NCSBuilder("Service", "NA-Service", "123")
 		.setName("CokeP2P")
 		.pushComponent("ServiceElement", "NA-ServiceElement", "8765")
@@ -173,30 +173,30 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 			.popComponent()
 		.popComponent()
 		.get();
-		
+
 		m_repository.save(svc);
-		
+
 //		m_pwCompId = svc.getSubcomponent("NA-ServiceElement", "9876")
 //		                 .getSubcomponent("NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)")
 //		                 .getId();
-		
+
 		// Get engine
         m_engine = findEngineByName("dependencyLoadingRules");
 
 
 	}
-	
+
 	@Test
 	@DirtiesContext
 	public void testSingleRequestToLoadDependenciesOfTypeAll() {
-        
+
         resetFacts();
-        
+
         // nothing anticipated
         verifyFacts();
-        
+
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
@@ -205,144 +205,144 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
 
         anticipateFacts(b, dependenciesNeeded, new DependsOn(a, b));
-        
+
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-        
+
 	}
 
 	@Test
 	@DirtiesContext
 	public void testSingleRequestToLoadDependenciesOfTypeAllAndWithdrawn() {
-		
+
 		resetFacts();
 
         // expect empty memory to start with
         verifyFacts();
-        
+
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
 
         // this component depends on b
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
-        
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		FactHandle depsNeededHandle = insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
 		// simulate other rules retracting the dep
 		retractFactAndFireRules(depsNeededHandle);
 
 		// nothing anticipated... everything cleaned up
 		verifyFacts();
-        
+
 	}
-	
+
 	@Test
 	@DirtiesContext
 	public void testSingleRequestToLoadDependenciesOfTypeAllAndWithdrawnTwice() {
-		
+
 		resetFacts();
 
         // expect empty memory to start with
         verifyFacts();
-        
+
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
 
         // this component depends on b
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
-        
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		FactHandle depsNeededHandle = insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
 		// simulate other rules retracting the dep
 		retractFactAndFireRules(depsNeededHandle);
 
 		// nothing anticipated... everything cleaned up
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
-        
+
 		depsNeededHandle = insertFactAndFireRules(dependenciesNeeded);
-        
+
         verifyFacts();
-        
+
         // Clean up facts
         resetFacts();
-        
+
         // Expecting empty list
         anticipateFacts();
-        
+
 		// simulate retracting the dep
 		retractFactAndFireRules(depsNeededHandle);
-        
+
         verifyFacts();
-		
-		
-        
+
+
+
 	}
-    
+
 
 	@Test
 	@DirtiesContext
 	public void testMultipleRequestsToLoadDependenciesOfTypeAll() {
-		
+
 		resetFacts();
 		// verify empty memory
 		verifyFacts();
 
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
 
         // this component depends on b
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
-        
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-        
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
-        
+
 		DependenciesNeeded dependenciesNeeded2 = new DependenciesNeeded(b, "requestor2");
-		
+
 		// don't expect any further dependencies to be added
 		anticipateFacts(dependenciesNeeded2);
-		
+
 		insertFactAndFireRules(dependenciesNeeded2);
 
 		verifyFacts();
 	}
-    
+
 
 	@Test
 	@DirtiesContext
@@ -353,43 +353,43 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 		verifyFacts();
 
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
 
         // this component depends on b
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
-        
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		FactHandle depsNeededHandle = insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-        
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
-        
+
 		DependenciesNeeded dependenciesNeeded2 = new DependenciesNeeded(b, "requestor2");
-		
+
 		// don't expect any further dependencies to be added
 		anticipateFacts(dependenciesNeeded2);
-		
+
 		insertFactAndFireRules(dependenciesNeeded2);
 
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded2, b, new DependsOn(a, b));
 
         retractFactAndFireRules(depsNeededHandle);
-		
+
 		verifyFacts();
 	}
-    
+
 
 	@Test
 	@DirtiesContext
@@ -400,44 +400,44 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 		verifyFacts();
 
         resetFacts();
-        
+
         // component to request dependencies for
         Component b = createComponent("ServiceElementComponent", "NA-SvcElemComp", "9876,jnxVpnPw-vcid(50)");
         DependenciesNeeded dependenciesNeeded = new DependenciesNeeded(b, "requestor1");
 
         // this component depends on b
         Component a = createComponent("ServiceElement", "NA-ServiceElement", "9876");
-        
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
 
         // pretend to be a using rule that inserts the DependenciesNeeded fact
 		FactHandle depsNeededHandle = insertFactAndFireRules(dependenciesNeeded);
-        
+
 		verifyFacts();
-        
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded, b, new DependsOn(a, b));
-        
+
 		DependenciesNeeded dependenciesNeeded2 = new DependenciesNeeded(b, "requestor2");
-		
+
 		// don't expect any further dependencies to be added
 		anticipateFacts(dependenciesNeeded2);
-		
+
 		FactHandle depsNeeded2Handle = insertFactAndFireRules(dependenciesNeeded2);
 
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
         anticipateFacts(dependenciesNeeded2, b, new DependsOn(a, b));
 
         retractFactAndFireRules(depsNeededHandle);
-		
+
 		verifyFacts();
-		
+
 		resetFacts();
-		
+
 		retractFactAndFireRules(depsNeeded2Handle);
 
 		// expect everything to be clean up
@@ -452,54 +452,54 @@ public class DependencyLoadingRulesTest extends CorrelationRulesTestCase {
 
 	// two kinds of needs... DependentsNeeded meaning I need to ensure the things that depend on
     // component A are loaded
-    
+
     // also need a DependenciesNeeded meaning I need to ensure that the things that component A
     // depends on are loaded.
-    
+
     // to imagine the use cases...
     // 1.  component A is down so ensure that DependentsNeeded is asserted for that component so
     // that all the necessary components are loaded.  After this is asserted then other rules
     // based on DependsOn with that component as a target can fire
-	
+
 	private Component createComponent(String type, String foreignSource, String foreignId) {
 		NCSComponent ncsComp = m_repository.findByTypeAndForeignIdentity(type, foreignSource, foreignId);
 		return new Component(ncsComp);
 	}
-	
+
 	private void resetFacts() {
 		m_anticipatedWorkingMemory.clear();
 	}
-	
-	
+
+
 	private void anticipateFacts(Object... facts) {
 		m_anticipatedWorkingMemory.addAll(Arrays.asList(facts));
 	}
-	
+
 	private FactHandle insertFactAndFireRules(Object fact) {
 		FactHandle handle = m_engine.getWorkingMemory().insert( fact );
         m_engine.getWorkingMemory().fireAllRules();
 		return handle;
 	}
-	
+
 	private void retractFactAndFireRules(FactHandle fact) {
 		m_engine.getWorkingMemory().retract( fact );
 		m_engine.getWorkingMemory().fireAllRules();
 	}
-    
-	
+
+
 	private void verifyFacts() {
 		List<Object> memObjects = m_engine.getMemoryObjects();
-		
+
 		String memContents = memObjects.toString();
-		
+
 		for(Object anticipated : m_anticipatedWorkingMemory) {
 			assertTrue("Expected "+anticipated+" in memory but memory was "+memContents, memObjects.contains(anticipated));
 			memObjects.remove(anticipated);
 		}
-		
+
 		assertEquals("Unexpected objects in working memory " + memObjects, 0, memObjects.size());
-		
+
 	}
-    
-    
+
+
 }

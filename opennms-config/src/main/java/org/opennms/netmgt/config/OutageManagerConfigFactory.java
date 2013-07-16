@@ -68,7 +68,7 @@ public final class OutageManagerConfigFactory implements OutageManagerConfig {
 
     /**
      * Private constructor
-     * 
+     *
      * @exception java.io.IOException
      *                Thrown if the specified config file cannot be read
      * @exception org.exolab.castor.xml.MarshalException

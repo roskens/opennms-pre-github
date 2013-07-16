@@ -48,27 +48,27 @@ import org.opennms.protocols.dhcp.capsd.DhcpPlugin;
  *
  */
 public class DhcpPluginTest {
-    
+
     private Dhcpd m_dhcpd;
-    
+
     @Before
     public void setup() throws Exception{
         m_dhcpd = Dhcpd.getInstance();
         m_dhcpd.init();
         m_dhcpd.start();
-        
+
     }
-    
+
     @After
     public void tearDown(){
         m_dhcpd.stop();
     }
-    
+
     @Ignore
     @Test
     public void testPlugin() throws MarshalException, ValidationException, IOException {
         DhcpPlugin plugin = new DhcpPlugin();
         assertTrue(plugin.isProtocolSupported(InetAddressUtils.addr("172.20.1.1")));
     }
-    
+
 }

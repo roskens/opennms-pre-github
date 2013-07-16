@@ -154,9 +154,9 @@ public class DefaultRemoteRepository implements ReportRepository {
                 logger.error("Error requesting online reports. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
-            
+
             logger.debug("getOnlineReports got '{}' RemoteReportSDOs from uri '{}'", webCallResult.size(), m_webResource.getURI());
-            
+
             resultReports = this.mapSDOListToBasicReportList(webCallResult);
         }
         return resultReports;
@@ -197,9 +197,9 @@ public class DefaultRemoteRepository implements ReportRepository {
                 logger.error("Error requesting display name by report id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
-            
+
             logger.debug("getDisplayName for id / result: '{}' URI was: '{}' ", reportId + " / " + result, m_webResource.getURI());
-            
+
         }
         return result;
     }
@@ -219,9 +219,9 @@ public class DefaultRemoteRepository implements ReportRepository {
                 logger.error("Error requesting engine by id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
-            
+
             logger.debug("getEngine for id / result: '{}' URI was: '{}' ", reportId + " / " + result, m_webResource.getURI());
-            
+
         }
         return result;
     }
@@ -241,9 +241,9 @@ public class DefaultRemoteRepository implements ReportRepository {
                 logger.error("Error requesting template stream by id. Error message: '{}' URI was: '{}'", e.getMessage(), m_webResource.getURI());
                 e.printStackTrace();
             }
-            
+
             logger.debug("getTemplateStream for id / inputstream: '{}' URI was: '{}' ", reportId + " / " + templateStreamResult, m_webResource.getURI());
-            
+
         }
         return templateStreamResult;
     }

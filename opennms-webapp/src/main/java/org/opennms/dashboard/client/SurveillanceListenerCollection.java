@@ -55,7 +55,7 @@ public class SurveillanceListenerCollection extends Vector<SurveillanceListener>
             listener.onAllClicked(viewer);
           }
     }
-    
+
     /**
      * <p>fireSurveillanceGroupClicked</p>
      *
@@ -68,7 +68,7 @@ public class SurveillanceListenerCollection extends Vector<SurveillanceListener>
             listener.onSurveillanceGroupClicked(viewer, group);
           }
     }
-    
+
     /**
      * <p>fireIntersectionClicked</p>
      *

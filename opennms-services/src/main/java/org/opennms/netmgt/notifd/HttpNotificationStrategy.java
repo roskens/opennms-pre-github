@@ -74,19 +74,19 @@ public class HttpNotificationStrategy implements NotificationStrategy {
     /** {@inheritDoc} */
     @Override
     public int send(List<Argument> arguments) {
-        
+
         m_arguments = arguments;
-        
+
         String url = getUrl();
         if (url == null) {
 			LOG.warn("send: url argument is null, HttpNotification requires a URL");
         		return 1;
         }
-        
+
         DefaultHttpClient client = new DefaultHttpClient();
         HttpUriRequest method = null;
         List<NameValuePair> posts = getPostArguments();
-                
+
         if (posts == null) {
             method = new HttpGet(url);
             LOG.info("send: No \"post-\" arguments..., continuing with an HTTP GET using URL: {}", url);
@@ -118,9 +118,9 @@ public class HttpNotificationStrategy implements NotificationStrategy {
             // Do we need to do any cleanup?
             // method.releaseConnection();
         }
-        
+
         doSql(contents);
-        
+
         return statusCode;
     }
 
@@ -202,7 +202,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
                 return getNotificationValue(NotificationManager.PARAM_WORK_PHONE);
         if (argValue.equals(NotificationManager.PARAM_XMPP_ADDRESS))
                 return getNotificationValue(NotificationManager.PARAM_XMPP_ADDRESS);
-  
+
         return argValue;
       }
 
@@ -227,7 +227,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         }
         return args;
     }
-    
+
     private String getSql() {
         return getSwitchValue("sql");
     }
@@ -240,7 +240,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
     }
 
     private String getUrlAsPrefix() {
-       	String url = null; 
+	String url = null;
     	for (Argument arg: getArgsByPrefix("url")) {
 		LOG.debug("Found url switch: {} with value: {}", arg.getValue(), arg.getSwitch());
     		url = arg.getValue();
@@ -263,7 +263,7 @@ public class HttpNotificationStrategy implements NotificationStrategy {
         }
         if (value != null && value.equals(""))
             value = null;
-        
+
         return value;
     }
 }

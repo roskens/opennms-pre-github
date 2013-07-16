@@ -43,7 +43,7 @@ import org.apache.commons.io.IOUtils;
  * @version $Id: $
  */
 public class PropertyPhonebook implements Phonebook {
-    
+
     private String m_propertyFile;
     private long m_lastModified = 0;
     private Properties m_lastProperties = null;
@@ -71,7 +71,7 @@ public class PropertyPhonebook implements Phonebook {
     /**
      * Get the current properties map.  If it exists as a file (rather than a resource)
      * it will check the last modified time and only bother reading it if it's changed.
-     * 
+     *
      * @return the @{link Properties} object from the property file.  Can return a null
      * @throws PhonebookException
      */
@@ -130,11 +130,11 @@ public class PropertyPhonebook implements Phonebook {
     public String getTargetForAddress(String address) throws PhonebookException {
         Properties p = getProperties();
         String property = p.getProperty(address);
-        
+
         if (property == null) {
             throw new PhonebookException("address: "+address+" not found in properties file");
         }
-        
+
         return property;
     }
 }

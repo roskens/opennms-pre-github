@@ -123,7 +123,7 @@ public class WebDetectorTest implements InitializingBean {
         }
         MockLogAppender.assertNoWarningsOrGreater();
     }
-    
+
     @Test(timeout=90000)
     public void testRegexMatch() {
         System.err.println(notFoundResponse);
@@ -146,7 +146,7 @@ public class WebDetectorTest implements InitializingBean {
     }
 
     @Test(timeout=90000)
-    public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {        
+    public void testDetectorFailNotFoundResponseMaxRetCode399() throws Exception {
         m_server = createServer(notFoundResponse);
         m_detector.setPath("/blog");
         m_detector.setResponseRange("100-301");

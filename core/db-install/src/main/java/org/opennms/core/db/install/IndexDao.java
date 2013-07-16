@@ -46,7 +46,7 @@ public class IndexDao {
     public IndexDao() {
         reset();
     }
-    
+
     /**
      * <p>reset</p>
      */
@@ -54,7 +54,7 @@ public class IndexDao {
         m_nameMap = new LinkedHashMap<String, Index>();
         m_tableMap = new HashMap<String, List<Index>>();
     }
-    
+
     /**
      * <p>add</p>
      *
@@ -67,19 +67,19 @@ public class IndexDao {
                                                + lowerName
                                                + "' already exists.");
         }
-        
+
         m_nameMap.put(lowerName, i);
-        
+
         getIndexesForTableCreateIfEmpty(i.getTable().toLowerCase()).add(i);
     }
-    
+
     private List<Index> getIndexesForTableCreateIfEmpty(String table) {
         if (!m_tableMap.containsKey(table)) {
             m_tableMap.put(table, new LinkedList<Index>());
         }
         return m_tableMap.get(table);
     }
-    
+
     /**
      * <p>getIndexesForTable</p>
      *
@@ -93,7 +93,7 @@ public class IndexDao {
         }
         return m_tableMap.get(lowerName);
     }
-    
+
     /**
      * <p>getAllIndexes</p>
      *
@@ -102,7 +102,7 @@ public class IndexDao {
     public Collection<Index> getAllIndexes() {
         return Collections.unmodifiableCollection(m_nameMap.values());
     }
-    
+
     /**
      * <p>remove</p>
      *
@@ -110,14 +110,14 @@ public class IndexDao {
      */
     public void remove(String indexName) {
         String lowerName = indexName.toLowerCase();
-        
+
         Index index = m_nameMap.remove(lowerName);
         if (index == null) {
             throw new IllegalArgumentException("Index with name of '"
                                                + lowerName
                                                + "' does not exist.");
         }
-        
+
         for (List<Index> indexes : m_tableMap.values()) {
             for (Index i : indexes) {
                 if (index.equals(i)) {

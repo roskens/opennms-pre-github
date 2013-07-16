@@ -50,10 +50,10 @@ public interface AlarmDao extends OnmsDao<OnmsAlarm, Integer> {
      * <p>Get the list of current alarms per node with severity greater than normal,
      * reflecting the max severity, the minimum last event time and alarm count;
      * ordered by the oldest.</p>
-     * 
+     *
      * @return A list of alarm summaries.
      * @param nodeIds If you want to restrict the NodeAlarmSummaries to specific nodes (optional)
      */
     List<AlarmSummary> getNodeAlarmSummaries(Integer... nodeIds);
-    
+
 }

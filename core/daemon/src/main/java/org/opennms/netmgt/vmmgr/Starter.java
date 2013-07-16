@@ -85,9 +85,9 @@ import org.slf4j.LoggerFactory;
  * @version $Id: $
  */
 public class Starter {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(Starter.class);
-	
+
     /**
      * The log4j category used to log debug messsages and statements.
      */
@@ -117,10 +117,10 @@ public class Starter {
     		die("Exception during startup: " + e.getMessage(), e);
     	}
     }
-    
-    
+
+
     private static class Mx4jSlf4JLogger extends mx4j.log.Logger {
-    	
+
     	Logger m_slf4jLogger;
 
 		@Override
@@ -146,13 +146,13 @@ public class Starter {
 			super.setCategory(category);
 			m_slf4jLogger = LoggerFactory.getLogger(category);
 		}
-    	
+
     }
 
     private void setupMx4jLogger() {
         mx4j.log.Log.redirectTo(new Mx4jSlf4JLogger());
     }
-    
+
     private void configureLog4j() {
 
     }
@@ -184,13 +184,13 @@ public class Starter {
         for (Entry<Object, Object> entry : sortedProps.entrySet()) {
             LOG.debug("System property '{}' already set to value '{}'.", entry.getKey(), entry.getValue());
         }
-        
+
         File propertiesFile = getPropertiesFile();
         if (!propertiesFile.exists()) {
             // don't require the file
             return;
         }
-        
+
         Properties props = new Properties();
         InputStream in = null;
         try {
@@ -211,7 +211,7 @@ public class Starter {
                 System.setProperty(entry.getKey().toString(), entry.getValue().toString());
             }
         }
-        
+
         if (props.containsKey("networkaddress.cache.ttl")) {
             java.security.Security.setProperty("networkaddress.cache.ttl", props.getProperty("networkaddress.cache.ttl"));
         } else {
@@ -222,7 +222,7 @@ public class Starter {
     /**
      * Print out a message and stack trace and then exit.
      * This method does not return.
-     * 
+     *
      * @param message message to print to System.err
      * @param t Throwable for which to print a stack trace
      */
@@ -246,7 +246,7 @@ public class Starter {
         LOG.debug("Beginning startup");
 
         MBeanServer server = ManagementFactory.getPlatformMBeanServer();
-        
+
         Invoker invoker = new Invoker();
         invoker.setServer(server);
         invoker.setAtType(InvokeAtType.START);
@@ -278,7 +278,7 @@ public class Starter {
                 return;
             }
         }
-        
+
         LOG.debug("Startup complete");
     }
 }

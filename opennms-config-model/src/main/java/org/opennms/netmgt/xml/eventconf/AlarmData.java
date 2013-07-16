@@ -79,7 +79,7 @@ public class AlarmData implements Serializable {
 
     @XmlAttribute(name="x733-probable-cause")
     private Integer m_x733ProbableCause;
-    
+
     @XmlElement(name="update-field", required=false)
     private List<UpdateField> m_updateFields = new ArrayList<UpdateField>();
 
@@ -201,7 +201,7 @@ public class AlarmData implements Serializable {
     	m_updateFields.clear();
     	m_updateFields.addAll(updateFields);
     }
-    
+
     public void deleteUpdateFieldList() {
         m_updateFields.clear();
     }
@@ -264,5 +264,5 @@ public class AlarmData implements Serializable {
 		return true;
 	}
 
-    
+
 }

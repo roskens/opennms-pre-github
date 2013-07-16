@@ -39,7 +39,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
 public class DefaultOnmsReportDaoTest {
-    
+
     private static final String ID = "defaultCalendarReport";
     private static final String ALTERNATE_ID = "defaultClassicReport";
     private static final String TYPE = "calendar";
@@ -52,7 +52,7 @@ public class DefaultOnmsReportDaoTest {
     private static final String STRING_NAME = "offenderCount";
     private static final String STRING_DISPLAY_NAME = "top offender count";
     private static DefaultOnmsReportConfigDao m_dao;
-    
+
 
     @BeforeClass
     public static void setUp() throws Exception {
@@ -61,7 +61,7 @@ public class DefaultOnmsReportDaoTest {
         m_dao.setConfigResource(resource);
         m_dao.afterPropertiesSet();
     }
-    
+
     @Test
     public void testGetRenderParms() throws Exception {
 
@@ -73,10 +73,10 @@ public class DefaultOnmsReportDaoTest {
         // test to see if missing parameters return null
         assertNull(m_dao.getSvgStylesheetLocation(ALTERNATE_ID));
     }
-    
+
     @Test
     public void testGetReportParms() throws Exception {
-        
+
         DateParm[] dates = m_dao.getDateParms(ID);
         assertEquals(1, dates.length);
         assertEquals(DATE_NAME,dates[0].getName());
@@ -86,13 +86,13 @@ public class DefaultOnmsReportDaoTest {
         assertEquals("day",dates[0].getDefaultInterval());
         assertEquals(23,dates[0].getDefaultTime().getHours());
         assertEquals(59,dates[0].getDefaultTime().getMinutes());
-        
+
         IntParm[] integers = m_dao.getIntParms(ID);
         assertEquals(1,integers.length);
         assertEquals(STRING_NAME,integers[0].getName());
         assertEquals(STRING_DISPLAY_NAME,integers[0].getDisplayName());
         assertEquals(20,integers[0].getDefault());
-        
+
     }
 
 }

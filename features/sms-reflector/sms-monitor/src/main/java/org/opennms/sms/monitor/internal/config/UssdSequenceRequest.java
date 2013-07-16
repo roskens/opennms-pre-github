@@ -48,7 +48,7 @@ public class UssdSequenceRequest extends MobileSequenceRequest {
 	public UssdSequenceRequest() {
 		super();
 	}
-	
+
 	/**
 	 * <p>Constructor for UssdSequenceRequest.</p>
 	 *

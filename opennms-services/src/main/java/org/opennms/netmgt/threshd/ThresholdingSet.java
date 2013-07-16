@@ -60,19 +60,19 @@ import org.slf4j.LoggerFactory;
  * @author <a href="mailto:agalue@opennms.org">Alejandro Galue</a>
  */
 public class ThresholdingSet {
-    
+
     private static final Logger LOG = LoggerFactory.getLogger(ThresholdingSet.class);
-    
+
     protected final int m_nodeId;
     protected final String m_hostAddress;
     protected final String m_serviceName;
     protected final RrdRepository m_repository;
-    
+
     protected ThresholdsDao m_thresholdsDao;
-    
+
     protected boolean m_initialized = false;
     protected boolean m_hasThresholds = false;
-    
+
     protected List<ThresholdGroup> m_thresholdGroups = new LinkedList<ThresholdGroup>();
     protected final List<String> m_scheduledOutages = new ArrayList<String>();
 
@@ -93,7 +93,7 @@ public class ThresholdingSet {
         initThresholdsDao();
         initialize();
     }
-    
+
     /**
      * <p>initialize</p>
      */
@@ -131,7 +131,7 @@ public class ThresholdingSet {
 
     /*
      * Used to reload merge new thresholds configuration with current.
-     * 
+     *
      * Extract thresholdEvaluatorStates Map from each ThresholdEntity, then copy this to new thresholdEntity.
      */
     /**
@@ -291,7 +291,7 @@ public class ThresholdingSet {
         }
         return eventsList;
     }
-    
+
     /**
      * <p>passedThresholdFilters</p>
      *
@@ -339,7 +339,7 @@ public class ThresholdingSet {
             return true;
         return false;
     }
-    
+
     /**
      * <p>initThresholdsDao</p>
      */
@@ -365,10 +365,10 @@ public class ThresholdingSet {
             m_thresholdsDao = defaultThresholdsDao;
         }
     }
-    
+
     /*
      * The next code was extracted from Threshd.scheduleService.
-     * 
+     *
      * - Search for packages defined on threshd-configuration.xml.
      * - Compare interface/service pair against each Threshd package.
      * - For each match, create new ThresholdableService object and schedule it for collection
@@ -405,7 +405,7 @@ public class ThresholdingSet {
                 }
             }
         }
-        
+
         return groupNameList;
     }
 
@@ -429,7 +429,7 @@ public class ThresholdingSet {
             }
         }
     }
-    
+
     private static Map<String, Set<ThresholdEntity>> getEntityMap(ThresholdGroup thresholdGroup, String resourceType) {
         LOG.trace("getEntityMap: checking if the resourceType '{}' exists on threshold group {}", resourceType, thresholdGroup);
         Map<String, Set<ThresholdEntity>> entityMap = null;

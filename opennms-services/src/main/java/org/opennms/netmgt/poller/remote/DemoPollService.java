@@ -34,11 +34,11 @@ import org.opennms.netmgt.model.PollStatus;
 import org.opennms.netmgt.poller.ServiceMonitorLocator;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  */
 class DemoPollService implements PollService {
-	
+
 	private int m_repetitions;
 	private int m_pollCount;
 	private PollStatus m_currentStatus;
@@ -53,7 +53,7 @@ class DemoPollService implements PollService {
 		m_repetitions = repetitions;
 		m_currentStatus = initialStatus;
 	}
-	
+
 	/**
 	 * <p>Constructor for DemoPollService.</p>
 	 *
@@ -62,7 +62,7 @@ class DemoPollService implements PollService {
 	public DemoPollService(int repetitions) {
 		this(repetitions, PollStatus.up());
 	}
-	
+
 	/**
 	 * <p>Constructor for DemoPollService.</p>
 	 */
@@ -74,12 +74,12 @@ class DemoPollService implements PollService {
         @Override
 	public PollStatus poll(PolledService polledService) {
         PollStatus status = m_currentStatus;
-        
+
         m_pollCount++;
         if (m_pollCount % m_repetitions == 0) {
         	m_currentStatus = (m_currentStatus.isDown() ? PollStatus.up(100.0+m_pollCount) : PollStatus.down("pollCount is "+m_pollCount));
         }
-        
+
         return status;
     }
 
@@ -87,21 +87,21 @@ class DemoPollService implements PollService {
         @Override
     public void initialize(PolledService polledService) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /** {@inheritDoc} */
         @Override
     public void release(PolledService polledService) {
         // TODO Auto-generated method stub
-        
+
     }
 
     /** {@inheritDoc} */
         @Override
     public void setServiceMonitorLocators(Collection<ServiceMonitorLocator> locators) {
         // TODO Auto-generated method stub
-        
+
     }
-	
+
 }

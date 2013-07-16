@@ -55,7 +55,7 @@ public class Dot1qStaticVlanTable extends VlanTableBasic implements VlanTable {
 	public Dot1qStaticVlanTable(InetAddress address) {
         super(address, "Dot1dStaticVlanTable", Dot1qStaticVlanTableEntry.hpVlan_elemList);
     }
-    
+
     /** {@inheritDoc} */
         @Override
     protected Dot1qStaticVlanTableEntry createTableEntry(SnmpObjId base, SnmpInstId inst, Object val) {

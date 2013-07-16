@@ -38,7 +38,7 @@ package org.opennms.netmgt.config;
  */
 public class WebRoleContext {
     private static WebRoleManagerImpl s_manager = null;
-    
+
     /**
      * <p>init</p>
      *
@@ -48,15 +48,15 @@ public class WebRoleContext {
         GroupFactory.init();
         UserFactory.init();
     }
-    
+
     private static WebRoleManagerImpl getManager() {
         if (s_manager == null) {
             s_manager = new WebRoleManagerImpl(GroupFactory.getInstance(), UserFactory.getInstance());
         }
-        
+
         return s_manager;
     }
-    
+
     /**
      * <p>getWebRoleManager</p>
      *
@@ -74,7 +74,7 @@ public class WebRoleContext {
     public static WebUserManager getWebUserManager() {
         return getManager();
     }
-    
+
     /**
      * <p>getWebGroupManager</p>
      *

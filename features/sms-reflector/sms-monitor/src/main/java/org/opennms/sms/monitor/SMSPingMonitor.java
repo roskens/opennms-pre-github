@@ -70,7 +70,7 @@ final public class SMSPingMonitor extends AbstractServiceMonitor {
         int retries = ParameterMap.getKeyedInteger(parameters, "retry", PingConstants.DEFAULT_RETRIES);
         long timeout = ParameterMap.getKeyedLong(parameters, "timeout", PingConstants.DEFAULT_TIMEOUT);
         Long rtt = null;
-        
+
 		String phoneNumber = null;
 		try {
 			phoneNumber = phonebook.getTargetForAddress(svc.getIpAddr());

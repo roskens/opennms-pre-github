@@ -41,7 +41,7 @@ public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
     public BaseRrdDataSource(final List<String> dsNames) {
         setDsNames(dsNames);
     }
-    
+
     public BaseRrdDataSource() {
     }
 
@@ -51,11 +51,11 @@ public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
             m_dsNameMapping.put(dsNames.get(i), i);
         }
     }
-    
+
     public List<String> getDsNames() throws IOException {
         return m_dsNames;
     }
-    
+
     protected Integer getDsIndex(final String dsName) {
         return m_dsNameMapping.get(dsName);
     }
@@ -91,5 +91,5 @@ public abstract class BaseRrdDataSource implements TimeSeriesDataSource {
     public abstract RrdEntry getDataAt(long timestamp) throws IOException;
     public abstract List<RrdEntry> getData(long step) throws IOException;
     */
-    
+
 }

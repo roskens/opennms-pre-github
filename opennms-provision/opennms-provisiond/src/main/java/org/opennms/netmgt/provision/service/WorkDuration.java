@@ -39,7 +39,7 @@ public class WorkDuration {
 	private String m_name = null;
 	private long m_start = -1L;
 	private long m_end = -1L;
-	
+
 	/**
 	 * <p>Constructor for WorkDuration.</p>
 	 */
@@ -55,7 +55,7 @@ public class WorkDuration {
 	public WorkDuration(String name) {
 		m_name = name;
 	}
-	
+
 	/**
 	 * <p>setName</p>
 	 *
@@ -78,7 +78,7 @@ public class WorkDuration {
 	public void end() {
 		m_end = System.currentTimeMillis();
 	}
-	
+
 	/**
 	 * <p>getLength</p>
 	 *

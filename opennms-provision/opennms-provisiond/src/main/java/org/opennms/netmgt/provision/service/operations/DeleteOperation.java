@@ -31,9 +31,9 @@ package org.opennms.netmgt.provision.service.operations;
 import org.opennms.netmgt.provision.service.ProvisionService;
 
 public class DeleteOperation extends ImportOperation {
-    
+
     private Integer m_nodeId;
-    
+
     /**
      * <p>Constructor for DeleteOperation.</p>
      *

@@ -64,10 +64,10 @@ import org.springframework.transaction.annotation.Transactional;
 @JUnitConfigurationEnvironment
 @JUnitTemporaryDatabase(dirtiesContext=false)
 public class AssetRecordDaoTest implements InitializingBean {
-    
+
 	@Autowired
 	private DistPollerDao m_distPollerDao;
-	
+
 	@Autowired
 	private NodeDao m_nodeDao;
 
@@ -83,7 +83,7 @@ public class AssetRecordDaoTest implements InitializingBean {
     }
 
     private static boolean m_populated = false;
-    
+
     @BeforeTransaction
     public void setUp() {
         try {
@@ -111,7 +111,7 @@ public class AssetRecordDaoTest implements InitializingBean {
         //Test findAll method
         Collection<OnmsAssetRecord> assetRecords = m_assetRecordDao.findAll();
         assertEquals(7, assetRecords.size());
-        
+
         //Test countAll method
         assertEquals(7, m_assetRecordDao.countAll());
 
@@ -141,7 +141,7 @@ public class AssetRecordDaoTest implements InitializingBean {
         assertEquals(assetRecord.getConnection(), assetRecordFromDb.getConnection());
 
     }
-    
+
 	@Test
     @Transactional
     public void testAddAutoenable() {

@@ -40,7 +40,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * <p>
  * OnmsAccessPointCollection class.
  * </p>
- * 
+ *
  * @author <a href="mailto:jwhite@datavalet.com">Jesse White</a>
  */
 @XmlRootElement(name = "accesspoints")
@@ -63,7 +63,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * Constructor for OnmsAccessPointCollection.
      * </p>
-     * 
+     *
      * @param c
      *            a {@link java.util.Collection} object.
      */
@@ -75,7 +75,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getAccessPoints
      * </p>
-     * 
+     *
      * @return a {@link java.util.List} object.
      */
     @XmlElement(name = "accesspoint")
@@ -87,7 +87,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * setAccessPoints
      * </p>
-     * 
+     *
      * @param accesspoints
      *            a {@link java.util.List} object.
      */
@@ -101,7 +101,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getCount
      * </p>
-     * 
+     *
      * @return a {@link java.lang.Integer} object.
      */
     @XmlAttribute(name = "count")
@@ -113,7 +113,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * getTotalCount
      * </p>
-     * 
+     *
      * @return a int.
      */
     @XmlAttribute(name = "totalCount")
@@ -125,7 +125,7 @@ public class OnmsAccessPointCollection extends LinkedList<OnmsAccessPoint> {
      * <p>
      * setTotalCount
      * </p>
-     * 
+     *
      * @param count
      *            a int.
      */

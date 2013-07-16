@@ -70,7 +70,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcTemplate;
  *
  * Values for the ' <parms>' block are loaded with each parm name and parm value
  * delimited with the NAME_VAL_DELIM.
- * 
+ *
  * @deprecated Replace with a Hibernate implementation. See bug NMS-3033. Actually
  * it doesn't have any details. :P
  * http://issues.opennms.org:8280/browse/NMS-3033
@@ -152,7 +152,7 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
 
     /**
      * Insert values into the EVENTS table
-     * 
+     *
      * @exception java.sql.SQLException
      *                Thrown if there is an error adding the event to the
      *                database.
@@ -221,7 +221,7 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
 
             // eventParms
 
-            // Replace any null bytes with a space, otherwise postgres will complain about encoding in UNICODE 
+            // Replace any null bytes with a space, otherwise postgres will complain about encoding in UNICODE
             final String parametersString=Parameter.format(event);
             set(insStmt, 11, Constants.format(parametersString, 0));
 
@@ -345,7 +345,7 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
             } else {
                 insStmt.setNull(34, Types.INTEGER);
             }
-            
+
             // execute
             insStmt.executeUpdate();
         } finally {
@@ -363,17 +363,17 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
      * @param nodeId TODO
      * @param hostip
      *            The event host
-     * 
+     *
      * @return The hostname
-     * 
+     *
      * @exception java.sql.SQLException
      *                Thrown if there is an error accessing the stored data or
      *                the SQL text is malformed.
-     * 
+     *
      * @see EventdConstants#SQL_DB_HOSTIP_TO_HOSTNAME
-     * 
+     *
      */
-    
+
     String getHostName(final int nodeId, final String hostip) throws SQLException {
         try {
             final String hostname = new SimpleJdbcTemplate(getDataSource()).queryForObject(EventdConstants.SQL_DB_HOSTIP_TO_HOSTNAME, String.class, new Object[] { nodeId, hostip });
@@ -392,7 +392,7 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
         if (event.getService() == null) {
             return -1;
         }
-        
+
         try {
             return getServiceID(event.getService());
         } catch (final Throwable t) {
@@ -412,12 +412,12 @@ public final class JdbcEventWriter extends AbstractJdbcPersister implements Even
         if (event.getHost() == null) {
             return null;
         }
-        
+
         // If the event doesn't have a node ID, we can't lookup the IP address and be sure we have the right one since we don't know what node it is on
         if (!event.hasNodeid()) {
             return event.getHost();
         }
-        
+
         try {
             return getHostName(event.getNodeid().intValue(), event.getHost());
         } catch (final Throwable t) {

@@ -37,11 +37,11 @@ public class AgentIndexException extends RuntimeException {
         m_errorStatus = errorStatus;
         m_errorIndex = errorIndex;
     }
-    
+
     public int getErrorStatus() {
         return m_errorStatus;
     }
-    
+
     public int getErrorIndex() {
         return m_errorIndex;
     }

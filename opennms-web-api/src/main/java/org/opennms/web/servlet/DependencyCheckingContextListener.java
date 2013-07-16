@@ -42,12 +42,12 @@ import org.slf4j.LoggerFactory;
  * @author <a href="dj@opennms.org">DJ Gregor</a>
  */
 public class DependencyCheckingContextListener implements ServletContextListener {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(DependencyCheckingContextListener.class);
 
     private static final String IGNORE_ERRORS_PROPERTY = "dontBlameOpenNMS";
     private static final String IGNORE_ERRORS_MESSAGE = "but don't blame OpenNMS for any errors that occur without switching back to a supported JVM and setting the property back to 'false', first.";
-    
+
     /** {@inheritDoc} */
     @Override
     public void contextDestroyed(ServletContextEvent event) {
@@ -65,7 +65,7 @@ public class DependencyCheckingContextListener implements ServletContextListener
     private void checkJvmName(ServletContext context) {
         final String systemProperty = "java.vm.name";
         final String[] acceptableProperties = { "HotSpot(TM)", "BEA JRockit", "OpenJDK" };
-        
+
         String vmName = System.getProperty(systemProperty);
         if (vmName == null) {
             logAndOrDie(context, "System property '" + systemProperty + "' is not set so we can't figure out if this version of Java is supported");
@@ -87,7 +87,7 @@ public class DependencyCheckingContextListener implements ServletContextListener
 
     private void logAndOrDie(ServletContext context, String message) {
         String webXmlPath = context.getRealPath("/WEB-INF/web.xml");
-        
+
         if (Boolean.parseBoolean(context.getInitParameter(IGNORE_ERRORS_PROPERTY))) {
             LOG.warn(message);
             LOG.warn("Context parameter '{}' is set in {}, so the above warning is not fatal,  {}", IGNORE_ERRORS_PROPERTY, webXmlPath, IGNORE_ERRORS_MESSAGE);
@@ -96,7 +96,7 @@ public class DependencyCheckingContextListener implements ServletContextListener
 
             LOG.error(message);
             LOG.error(howToFixMessage);
-            
+
             throw new RuntimeException(message + "  " + howToFixMessage);
         }
     }

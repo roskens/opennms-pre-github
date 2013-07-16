@@ -43,14 +43,14 @@ import org.opennms.features.poller.remote.gwt.client.events.LocationManagerIniti
  * @since 1.8.1
  */
 public interface LocationManager {
-    
+
     /**
      * <p>initialize</p>
-     * @param statuses 
-     * @param application 
+     * @param statuses
+     * @param application
      */
     public abstract void initialize(Set<Status> statuses);
-	
+
 	/**
 	 * <p>addLocationManagerInitializationCompleteEventHandler</p>
 	 *

@@ -83,7 +83,7 @@ public class EventRestService extends OnmsRestService {
      * <p>
      * getEvent
      * </p>
-     * 
+     *
      * @param eventId
      *            a {@link java.lang.String} object.
      * @return a {@link org.opennms.netmgt.model.OnmsEvent} object.
@@ -103,7 +103,7 @@ public class EventRestService extends OnmsRestService {
 
     /**
      * returns a plaintext string being the number of events
-     * 
+     *
      * @return a {@link java.lang.String} object.
      */
     @GET
@@ -122,7 +122,7 @@ public class EventRestService extends OnmsRestService {
     /**
      * Returns all the events which match the filter/query in the query
      * parameters
-     * 
+     *
      * @return Collection of OnmsEvents (ready to be XML-ified)
      * @throws java.text.ParseException
      *             if any.
@@ -150,7 +150,7 @@ public class EventRestService extends OnmsRestService {
     /**
      * Returns all the events which match the filter/query in the query
      * parameters
-     * 
+     *
      * @return Collection of OnmsEvents (ready to be XML-ified)
      * @throws java.text.ParseException
      *             if any.
@@ -217,7 +217,7 @@ public class EventRestService extends OnmsRestService {
      * Updates the event with id "eventid" If the "ack" parameter is "true",
      * then acks the events as the current logged in user, otherwise unacks
      * the events
-     * 
+     *
      * @param eventId
      *            a {@link java.lang.String} object.
      * @param ack
@@ -246,7 +246,7 @@ public class EventRestService extends OnmsRestService {
      * Updates all the events that match any filter/query supplied in the
      * form. If the "ack" parameter is "true", then acks the events as the
      * current logged in user, otherwise unacks the events
-     * 
+     *
      * @param formProperties
      *            Map of the parameters passed in by form encoding
      */

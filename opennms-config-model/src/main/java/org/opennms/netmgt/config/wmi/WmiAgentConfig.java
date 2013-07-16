@@ -47,15 +47,15 @@ public class WmiAgentConfig {
     public static final String DEFAULT_USERNAME="Administrator";
     /** Constant <code>DEFAULT_DOMAIN="WORKGROUP"</code> */
     public static final String DEFAULT_DOMAIN="WORKGROUP";
-    
+
     private InetAddress m_Address;
     private int m_Timeout;
     private int m_Retries;
     private String m_Username;
     private String m_Domain;
     private String m_Password;
-    
-    
+
+
 	String user = "";
 	String pass = "";
 	String domain = "";
@@ -70,7 +70,7 @@ public class WmiAgentConfig {
     public WmiAgentConfig() {
         setDefaults();
     }
-    
+
     /**
      * <p>Constructor for WmiAgentConfig.</p>
      *
@@ -85,7 +85,7 @@ public class WmiAgentConfig {
         m_Timeout = DEFAULT_TIMEOUT;
         m_Retries = DEFAULT_RETRIES;
     }
-    
+
     /**
      * <p>toString</p>
      *
@@ -184,7 +184,7 @@ public class WmiAgentConfig {
     public String getUsername() {
         return m_Username;
     }
-    
+
     /**
      * <p>setUsername</p>
      *
@@ -202,7 +202,7 @@ public class WmiAgentConfig {
     public String getDomain() {
         return m_Domain;
     }
-    
+
     /**
      * <p>Setter for the field <code>domain</code>.</p>
      *
@@ -211,5 +211,5 @@ public class WmiAgentConfig {
     public void setDomain(String domain) {
     	m_Domain = domain;
     }
-    
+
 }

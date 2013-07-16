@@ -155,7 +155,7 @@ public class NodeRtc implements IsSerializable {
     public void setAvailabilityStyle(String availabilityStyle) {
         m_availabilityStyle = availabilityStyle;
     }
-    
+
     /**
      * <p>setIsDashboardRole</p>
      *
@@ -173,7 +173,7 @@ public class NodeRtc implements IsSerializable {
     public boolean getIsDashboardRole() {
         return m_isDashboardRole;
     }
-    
+
     /**
      * <p>setNodeId</p>
      *
@@ -182,7 +182,7 @@ public class NodeRtc implements IsSerializable {
     public void setNodeId(String nodeId) {
         m_nodeId = nodeId;
     }
-    
+
     /**
      * <p>getNodeId</p>
      *

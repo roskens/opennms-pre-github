@@ -53,7 +53,7 @@ public class JniIcmpMessenger implements Messenger<JniPingRequest, JniPingRespon
 
     /**
      * <p>Constructor for JniIcmpMessenger.</p>
-     * @param pingerId 
+     * @param pingerId
      *
      * @throws java.io.IOException if any.
      */

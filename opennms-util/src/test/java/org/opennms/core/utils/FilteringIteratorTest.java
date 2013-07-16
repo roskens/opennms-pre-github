@@ -37,7 +37,7 @@ import java.util.NoSuchElementException;
 import junit.framework.TestCase;
 
 public class FilteringIteratorTest extends TestCase {
-    
+
     public List<Integer> list(Integer...integers) {
         ArrayList<Integer> list = new ArrayList<Integer>();
         Collections.addAll(list, integers);
@@ -51,17 +51,17 @@ public class FilteringIteratorTest extends TestCase {
             protected boolean matches(Integer item) {
                 return (item % 2) != 0;
             }
-            
+
         };
     }
-    
+
     public void testEmptyList() {
 
         Iterator<Integer> it = createOddOnlyIterator(list());
 
         assertFalse(it.hasNext());
     }
-    
+
     public void testSingletonMatches() {
 
         Iterator<Integer> it = createOddOnlyIterator(list(1));
@@ -69,14 +69,14 @@ public class FilteringIteratorTest extends TestCase {
         assertTrue(it.hasNext());
         assertEquals(Integer.valueOf(1), it.next());
     }
-    
+
     public void testSingleDoesntMatch() {
 
         Iterator<Integer> it = createOddOnlyIterator(list(2));
 
         assertFalse(it.hasNext());
     }
-    
+
     public void testAllMatchButFirst() {
 
         Iterator<Integer> it = createOddOnlyIterator(list(2, 3, 5));
@@ -118,21 +118,21 @@ public class FilteringIteratorTest extends TestCase {
     }
 
     public void testMiddleMatches() {
-        
+
         Iterator<Integer> it = createOddOnlyIterator(list(2, 3, 4));
 
         assertTrue(it.hasNext());
         assertEquals(Integer.valueOf(3), it.next());
         assertFalse(it.hasNext());
     }
-    
+
     public void testNextWithoutHasNextReturnsValue() {
 
         Iterator<Integer> it = createOddOnlyIterator(list(2, 3, 4));
 
         assertEquals(Integer.valueOf(3), it.next());
         assertFalse(it.hasNext());
-        
+
     }
 
     public void testNextWithoutHasNextNoValues() {
@@ -145,11 +145,11 @@ public class FilteringIteratorTest extends TestCase {
             // expected this
         }
     }
-    
+
     public void testRemoveFirstElement() {
-        
+
         List<Integer> items = list(1, 2, 4);
-        
+
         Iterator<Integer> it = createOddOnlyIterator(items);
 
         assertTrue(it.hasNext());
@@ -160,9 +160,9 @@ public class FilteringIteratorTest extends TestCase {
     }
 
     public void testRemoveMiddleElement() {
-        
+
         List<Integer> items = list(2, 3, 4);
-        
+
         Iterator<Integer> it = createOddOnlyIterator(items);
 
         assertTrue(it.hasNext());
@@ -173,9 +173,9 @@ public class FilteringIteratorTest extends TestCase {
     }
 
     public void testRemoveLastElement() {
-        
+
         List<Integer> items = list(2, 4, 5);
-        
+
         Iterator<Integer> it = createOddOnlyIterator(items);
 
         assertTrue(it.hasNext());
@@ -185,6 +185,6 @@ public class FilteringIteratorTest extends TestCase {
         assertEquals(list(2, 4), items);
     }
 
-    
+
 
 }

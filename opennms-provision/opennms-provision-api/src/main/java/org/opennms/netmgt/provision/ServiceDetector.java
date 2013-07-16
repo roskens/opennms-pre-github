@@ -30,7 +30,7 @@ package org.opennms.netmgt.provision;
 
 /**
  * ServiceDetector
- * 
+ *
  * Note: the isServiceDetected method is not defined here because there is
  * a synchronous version of the method and an asynchronous one that are defined
  * in sub interfaces.  This interface is used for the configuration so all service
@@ -41,12 +41,12 @@ package org.opennms.netmgt.provision;
  * @version $Id: $
  */
 public interface ServiceDetector {
-    
+
     /**
      * Perform any necessary initialization after construction and before detecting.
      */
     void init();
-    
+
     /**
      * Requires that all implementations of this API return a service name.
      *
