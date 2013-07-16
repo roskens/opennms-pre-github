@@ -76,7 +76,7 @@ body {
 	padding: 2px 0px 5px 0px;
 }
 .navbar ul
-{ 
+{
 	list-style: none;
 	display: inline;
 	margin: 0;
@@ -84,7 +84,7 @@ body {
 }
 
 .navbar li
-{ 
+{
 	padding: 0 10px 5px 0;
 	list-style: none;
 	display: inline;
@@ -97,14 +97,14 @@ body {
 }
 
 #linkbar ul
-{ 
+{
 	list-style: none;
 	display: inline;
 	padding: 0 0 0 0;
 }
 
 #linkbar li
-{ 
+{
 	list-style: none;
 	display: inline;
 	padding-right: 0.75em;

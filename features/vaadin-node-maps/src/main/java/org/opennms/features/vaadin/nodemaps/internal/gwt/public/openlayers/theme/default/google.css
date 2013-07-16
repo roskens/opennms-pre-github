@@ -1,7 +1,7 @@
 .olLayerGoogleCopyright {
     right: 3px;
     bottom: 2px;
-    left: auto;  
+    left: auto;
 }
 .olLayerGoogleV3.olLayerGoogleCopyright {
     bottom: 0px;
@@ -9,7 +9,7 @@
 }
 .olLayerGooglePoweredBy {
     left: 2px;
-    bottom: 2px;   
+    bottom: 2px;
 }
 .olLayerGoogleV3.olLayerGooglePoweredBy {
     bottom: 0px !important;

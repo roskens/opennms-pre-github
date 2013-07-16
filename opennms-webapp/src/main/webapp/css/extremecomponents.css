@@ -2,7 +2,7 @@
 	margin: 0;
 	padding:
 	}
-	
+
 
 
 .eXtremeTable select {
@@ -35,7 +35,7 @@
 }
 
 .eXtremeTable .titleRow {
-	
+
 	background-color: #F4F4F4;
 }
 
@@ -150,7 +150,7 @@
 
 .eXtremeTable .compactToolbar {
 	background-color: #F4F4F4;
-	
+
 }
 
 .eXtremeTable .toolbar {
@@ -188,7 +188,7 @@ padding-top: 2px;
         padding-right: 2px;
         padding-bottom: 2px;
         padding-left: 2px;
-	
+
 }
 
 .eXtremeTable .filterButtons {

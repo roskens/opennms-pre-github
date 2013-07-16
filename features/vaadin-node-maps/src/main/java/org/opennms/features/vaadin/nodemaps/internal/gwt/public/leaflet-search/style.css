@@ -28,7 +28,7 @@ h2, h3, h4 {
 	box-shadow: 0 0 8px #999;
 	float:left;
 	width:600px;
-	height:400px;	
+	height:400px;
 }
 ul {
 	font-size:.85em;
@@ -56,22 +56,22 @@ li {
 	color:#00c;
 	background:#fff;
 	border-radius:.5em;
-	box-shadow: 0 0 6px #888;	
+	box-shadow: 0 0 6px #888;
 	padding:1em .5em .25em .5em;
 	z-index:4000;
 	font-size:small;
 	filter: alpha(opacity=70);
 	-khtml-opacity: .7;
 	-moz-opacity: .7;
-	opacity: .7;		
+	opacity: .7;
 }
 #content {
 	float:left;
-	margin:0 3em 3em 0;	
+	margin:0 3em 3em 0;
 }
 #refs {
 	float:left;
-	margin:0 3em 3em 0;	
+	margin:0 3em 3em 0;
 }
 #comments {
 	clear:both;

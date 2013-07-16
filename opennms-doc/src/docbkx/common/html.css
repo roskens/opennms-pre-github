@@ -73,17 +73,17 @@ pre.programlisting
 }
 
 .title a {
-	color: #ffffff; 
+	color: #ffffff;
 	text-decoration: none;
 }
 
 .title a:active {
-	color: #ffffff; 
+	color: #ffffff;
 	text-decoration: none;
 }
 
 .title a:visited {
-	color: #ffffff; 
+	color: #ffffff;
 	text-decoration: none;
 }
 
@@ -134,14 +134,14 @@ table.important
 	font-style: italic;
 	border: solid 2px #ff0000;
 	width: 70%;
-	margin-left: 15%;       
+	margin-left: 15%;
 }
 table.caution
 {
 	font-style: italic;
 	border: ridge 2px #ffff00;
 	width: 70%;
-	margin-left: 15%;       
+	margin-left: 15%;
 }
 
 table.note
@@ -149,14 +149,14 @@ table.note
 	font-style: italic;
 	border: solid 1px #000000;
 	width: 70%;
-	margin-left: 15%;       
+	margin-left: 15%;
 }
 table.tip
 {
 	font-style: italic;
 	border: solid 1px #000000;
 	width: 70%;
-	margin-left: 15%;       
+	margin-left: 15%;
 }
 
 table.warning
@@ -164,9 +164,9 @@ table.warning
 	font-style: italic;
 	font-weight: bold;
 	border: ridge 4px #ff0000;
-	
+
 	width: 70%;
-	margin-left: 15%;       
+	margin-left: 15%;
 }
 
 div.variablelist {

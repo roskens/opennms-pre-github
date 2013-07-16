@@ -20,11 +20,11 @@
         color:#FFF;
         text-decoration: none;
     }
-    
+
     #header a:hover{
-        text-decoration: underline;   
+        text-decoration: underline;
     }
-    
+
     h1#headerlogo {
         position: absolute;
         z-index: 2;
@@ -43,20 +43,20 @@
         margin: 0;
         font-size: 13px;
     }
-    
+
     #headerinfo p{
         margin-top: 0px;
         font-size: 11px;
     }
-    
+
     .onmsheader .v-panel-content{
-         border: 0px;   
+         border: 0px;
     }
-    
+
     .onmsheader .v-panel-captionwrap{
         height: 0px;
     }
-    
+
     #notificationOff{
         color: #ef2929;
     }
@@ -64,17 +64,17 @@
     #notificationOn{
         color: #73d216;
     }
-    
+
     /*  --------------------------------------------------
     :: Navigation
     -------------------------------------------------- */
     /*Top Level Nav in the Grey Header area */
-    .navbar ul{ 
+    .navbar ul{
         list-style: none;
         display: inline;
     }
-        
-    .navbar li{ 
+
+    .navbar li{
         padding: 0 10px 5px 0;
         list-style: none;
         display: inline;
@@ -82,15 +82,15 @@
         font-size: 11px;
         line-height: 1.25em;
     }
-    
+
     .navbar a{
         text-decoration: none;
     }
-    
+
     #linkbar{ padding: 0 0 1em 0; }
     #linkbar ul{ list-style: none; display: inline; padding: 0 0 0 0; }
     #linkbar li{ list-style: none; display: inline; padding-right: 0.75em; }
-    
+
     #headernavbarright {
         /*
         position: relative;
@@ -145,7 +145,7 @@
 	.navbar li:hover > div.nav-dropdown > ul {
 		left: 0;
 	}
-	
+
 
 	.navbar li > div.nav-dropdown > ul > li > a {
 		white-space: nowrap;
@@ -154,4 +154,3 @@
 	div.onmsheader, .v-absolutelayout-wrapper, .v-panel-content-onmsheader, .v-panel-content-onmsheader .v-customlayout {
 		overflow: visible !important;
 	}
-	
