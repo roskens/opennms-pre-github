@@ -14,17 +14,17 @@ BEGIN
   -- This usually happens when a new record is written by our JDBC code (non-Hibernate DAO) for the old JDBC style
   -- code has no knowledge of the new keys
   --
-  IF NEW.ifServiceId IS NULL 
+  IF NEW.ifServiceId IS NULL
   THEN
      SELECT ifsvc.id INTO NEW.ifserviceid
        FROM ifservices ifsvc
        WHERE (ifsvc.nodeid = NEW.nodeid AND ifsvc.ipAddr = NEW.ipAddr AND ifsvc.serviceid = NEW.serviceid);
-       
-     IF NOT FOUND 
+
+     IF NOT FOUND
      THEN
         RAISE EXCEPTION ''Outages Trigger Exception, Condition 1: No service found for... nodeid: %  ipaddr: %  serviceid: %'', NEW.nodeid, NEW.ipAddr, NEW.serviceid USING ERRCODE = ''23NMS'';
      END IF;
-  
+
   --
   -- (Used with Trigger Insert with new style foreign key)
   -- This condition keeps the composite foreign key of nodeid, ipaddr, serviceid inSync with the ifserviceid
@@ -36,13 +36,13 @@ BEGIN
      SELECT ifsvc.nodeId, ifsvc.ipAddr, ifsvc.serviceId INTO NEW.nodeId, NEW.ipAddr, NEW.serviceId
        FROM ifservices ifsvc
       WHERE (ifsvc.id = NEW.ifServiceId);
-      
+
       IF NOT FOUND THEN
          RAISE EXCEPTION ''Outages Trigger Exception, Condition 2: No service found for serviceID: %'', NEW.ifServiceId USING ERRCODE = ''23NMS'';
       END IF;
 
   END IF;
-  
+
   RETURN NEW;
 END;
 ' LANGUAGE 'plpgsql';

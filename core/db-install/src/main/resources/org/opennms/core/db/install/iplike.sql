@@ -32,7 +32,7 @@ create or replace function iplike(i_ipaddress text, i_rule text) returns boolean
         while i < 4 loop
             if (strpos(c_addrwork, '.') > 0) then
                 c_i := to_number(substr(c_addrwork, 0, strpos(c_addrwork, '.')), '999');
-            else 
+            else
                 c_i := to_number(c_addrwork, '999');
             end if;
 
@@ -66,7 +66,7 @@ create or replace function iplike(i_ipaddress text, i_rule text) returns boolean
         while i < 8 loop
             if (strpos(c_addrwork, ':') > 0) then
                 c_addrtemp = substr(c_addrwork, 0, strpos(c_addrwork, ':'));
-            else 
+            else
                 c_addrtemp = c_addrwork;
             end if;
             if (strpos(c_addrtemp, '%') > 0) then
@@ -101,7 +101,7 @@ create or replace function iplike(i_ipaddress text, i_rule text) returns boolean
         end loop;
     else
         return 'f';
-    end if;	
+    end if;
 
   return 't';
 end;

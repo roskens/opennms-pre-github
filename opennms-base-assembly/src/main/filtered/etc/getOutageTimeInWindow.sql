@@ -27,14 +27,14 @@
 -- @author Sowmya Nataraj <sowmya@opennms.org>
 --
 -- Dependencies: outages table from etc/create.sql
--- 
+--
 -- $1	The node identifier
 -- $2	The ipAddress
 -- $3	The service identifier
 -- $4	X time. This is the time that is closest to current
 -- $5	Y time. This is the time that is furtherest from current.
 --
--- In time:  Now >= X >= Y 
+-- In time:  Now >= X >= Y
 -- (X -Y) is the window for which outage is calculated
 --
 --
@@ -74,7 +74,7 @@ CREATE FUNCTION getOutageTimeInWindow(integer,varchar(16),integer,timestamp with
 		--
 		IF xtime > lostTime THEN
 		 --
-		 -- for any outage to be in window of 
+		 -- for any outage to be in window of
 		 -- opportunity the lost time must ALWAYS be
 		 -- less that the x time.
 		 --
@@ -97,7 +97,7 @@ CREATE FUNCTION getOutageTimeInWindow(integer,varchar(16),integer,timestamp with
 		     downtime := downtime + EXTRACT (EPOCH FROM (gainTime - ytime));
 		    ELSE
 		     downtime := downtime + EXTRACT (EPOCH FROM (gainTime - lostTime));
-		    END IF; 
+		    END IF;
 		  ELSE
 		   IF gainTime > xtime THEN
 		   --

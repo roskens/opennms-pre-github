@@ -17,26 +17,26 @@
 --
 -- --------------------------------------------------------------------------
 --
--- The following PL/PgSQL function is used to calculate the percentage 
--- availability of a (Node, IP Address, Service) tuple between two dates. 
+-- The following PL/PgSQL function is used to calculate the percentage
+-- availability of a (Node, IP Address, Service) tuple between two dates.
 -- The X date is the time closest to the current time. The Y date must
 -- be older than the X date. The downtime between the two dates are
--- calculated based on all matching tuples using the already written 
--- getOutageTimeInWindow. These function return the percentage availability 
--- of the tuple during the time frame. Percentage Availability returned will 
+-- calculated based on all matching tuples using the already written
+-- getOutageTimeInWindow. These function return the percentage availability
+-- of the tuple during the time frame. Percentage Availability returned will
 -- be 100%, if the X < Y, since getOutageTimeInWindow returns 0.
 --
 -- @author Jacinta Remedios <jacinta@opennms.org>
 --
 -- Dependencies: getOutageTimeInWindow() that gets the outage time for the tuple.
--- 
+--
 -- $1	The node identifier
 -- $2	The ipAddress
 -- $3	The service identifier
 -- $4	X time. This is the time that is closest to current
 -- $5	Y time. This is the time that is furtherest from current.
 --
--- In time:  Now >= X >= Y 
+-- In time:  Now >= X >= Y
 -- (X - Y) is the window for which outage is calculated
 --
 --

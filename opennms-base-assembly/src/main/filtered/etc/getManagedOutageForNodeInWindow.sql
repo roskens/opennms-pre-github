@@ -19,20 +19,20 @@
 --
 -- The following PL/PgSQL function is used to calculate the downtime
 -- of all managed services on node between two dates. This function
--- looks for all managed services tuples. The X date is the time 
--- closest to the current time. The Y date must be older than the X date. 
+-- looks for all managed services tuples. The X date is the time
+-- closest to the current time. The Y date must be older than the X date.
 -- The downtime between the two dates are calculated based on all matching tuples.
 --
 -- @author Jacinta Remedios <jacinta@opennms.org>
 --
 -- Dependencies: ipinterface and ifservices table from etc/create.sql
 -- 		 getOutageTimeInWindow to compute the outage time for a tuple.
--- 
+--
 -- $1	The node identifier
 -- $2	X time. This is the time that is closest to current
 -- $3	Y time. This is the time that is furtherest from current.
 --
--- In time:  Now >= X >= Y 
+-- In time:  Now >= X >= Y
 -- (X - Y) is the window for which outage is calculated
 --
 --

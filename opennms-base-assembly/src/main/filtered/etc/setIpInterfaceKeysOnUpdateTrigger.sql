@@ -20,16 +20,16 @@ BEGIN
   -- This usually happens when a record is being updated by old JDBC code (non-Hibernate DAOs) and has changed
   -- one or more of the composite key values, the ipInterfaceId needs to be updated
   --
-  IF (NEW.ipInterfaceId = OLD.ipInterfaceId) AND (NEW.nodeId != OLD.nodeId OR NEW.ipAddr != OLD.ipAddr) 
+  IF (NEW.ipInterfaceId = OLD.ipInterfaceId) AND (NEW.nodeId != OLD.nodeId OR NEW.ipAddr != OLD.ipAddr)
   THEN
      SELECT ipif.id INTO NEW.ipInterfaceId
        FROM ipinterface ipif
        WHERE (ipif.nodeid = NEW.nodeid AND ipif.ipAddr = NEW.ipAddr AND ipif.ipAddr != ''0.0.0.0'');
-       
+
      IF NOT FOUND THEN
         RAISE EXCEPTION ''IfServices Trigger Exception, Condition 3: No IpInterface found for... nodeid: %  ipaddr: % '', NEW.nodeid, NEW.ipAddr USING ERRCODE = ''23NMS'';
      END IF;
-     
+
   --
   -- (Used with Trigger Update with new style foreign key)
   -- This condition keeps the composite foreign key of nodeid, ipaddr, ifindex inSync with the ipinterfaceid
@@ -41,11 +41,11 @@ BEGIN
      SELECT ipif.nodeId, ipif.ipAddr, ipif.ifIndex INTO NEW.nodeId, NEW.ipAddr, NEW.ifIndex
        FROM ipinterface ipif
       WHERE (ipif.id = NEW.ipInterfaceId);
-      
+
       IF NOT FOUND THEN
          RAISE EXCEPTION ''IfServices Trigger Exception, Condition 4: No IpInterface found for ipInterfaceId: %'', NEW.ipInterfaceId USING ERRCODE = ''23NMS'';
       END IF;
-      
+
       IF NEW.ipAddr = ''0.0.0.0''
       THEN
          RAISE EXCEPTION ''IfServices Trigger Exception, Condition 5: IpInterface found for ipInterfaceId: % has 0.0.0.0 ipAddr'', NEW.ipInterfaceId USING ERRCODE = ''22NMS'';

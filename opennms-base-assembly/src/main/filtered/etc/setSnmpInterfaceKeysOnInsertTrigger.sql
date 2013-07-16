@@ -14,20 +14,20 @@ BEGIN
   -- This usually happens when a new record is written by our JDBC code (non-Hibernate DAO) for the old JDBC style
   -- code has no knowledge of the new keys
   --
-  IF NEW.snmpInterfaceId IS NULL 
+  IF NEW.snmpInterfaceId IS NULL
   THEN
      IF NEW.ifIndex IS NOT NULL
      THEN
        SELECT snmpif.id INTO NEW.snmpInterfaceId
          FROM snmpinterface snmpif
          WHERE (snmpif.nodeid = NEW.nodeid AND snmpif.snmpIfIndex = NEW.ifIndex);
-       
-       IF NOT FOUND 
+
+       IF NOT FOUND
        THEN
          RAISE EXCEPTION ''IpInterface Trigger Notice, Condition 1: No SnmpInterface found for... nodeid: % ifindex: %'', NEW.nodeid, NEW.ifIndex USING ERRCODE = ''23NMS'';
        END IF;
      END IF;
-       
+
   --
   -- (Used for Insert with new style foreign key)
   -- This condition keeps the composite foreign key of nodeid, ipaddr, ifindex inSync with the SnmpInterfaceId
@@ -40,7 +40,7 @@ BEGIN
      SELECT snmpif.nodeid, snmpif.snmpIfIndex INTO NEW.nodeid, NEW.ifIndex
        FROM snmpinterface snmpif
       WHERE (snmpif.id = NEW.snmpInterfaceId);
-      
+
       IF NOT FOUND
       THEN
          RAISE EXCEPTION ''IpInterface Trigger Notice: No SnmpInterface found for snmpInterfaceId: %'', NEW.snmpInterfaceId USING ERRCODE = ''23NMS'';

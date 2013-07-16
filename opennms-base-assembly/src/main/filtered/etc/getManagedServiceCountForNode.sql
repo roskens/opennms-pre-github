@@ -17,14 +17,14 @@
 --
 -- --------------------------------------------------------------------------
 --
--- The following PL/PgSQL function is used to calculate the number 
--- of all managed services on node. This function looks for all managed services 
--- tuples and returns their count. 
+-- The following PL/PgSQL function is used to calculate the number
+-- of all managed services on node. This function looks for all managed services
+-- tuples and returns their count.
 --
 -- @author Jacinta Remedios <jacinta@opennms.org>
 --
 -- Dependencies: ipinterface and ifservices table from etc/create.sql
--- 
+--
 -- $1	The node identifier
 -- $2	X time. This is the time that is closest to current
 -- $3	Y time. This is the time that is furtherest from current.

@@ -29,7 +29,7 @@ SET default_with_oids = false;
 --
 -- TOC entry 1478 (class 1259 OID 18826)
 -- Dependencies: 6
--- Name: authentication; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: authentication; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE authentication (
@@ -45,7 +45,7 @@ ALTER TABLE public.authentication OWNER TO postgres;
 --
 -- TOC entry 1479 (class 1259 OID 18832)
 -- Dependencies: 1755 6
--- Name: authorities; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: authorities; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE authorities (
@@ -61,7 +61,7 @@ ALTER TABLE public.authorities OWNER TO postgres;
 --
 -- TOC entry 1486 (class 1259 OID 19147)
 -- Dependencies: 6
--- Name: authorities_categories; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: authorities_categories; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE authorities_categories (
@@ -76,7 +76,7 @@ ALTER TABLE public.authorities_categories OWNER TO postgres;
 --
 -- TOC entry 1482 (class 1259 OID 18928)
 -- Dependencies: 6
--- Name: group_members; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: group_members; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE group_members (
@@ -91,7 +91,7 @@ ALTER TABLE public.group_members OWNER TO postgres;
 --
 -- TOC entry 1481 (class 1259 OID 18922)
 -- Dependencies: 6
--- Name: groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: groups; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE groups (
@@ -307,7 +307,7 @@ INSERT INTO groups (group_name, id) VALUES ('GROUP_ADMIN', 1);
 --
 -- TOC entry 1769 (class 2606 OID 19158)
 -- Dependencies: 1486 1486
--- Name: authorities_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: authorities_categories_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY authorities_categories
@@ -317,7 +317,7 @@ ALTER TABLE ONLY authorities_categories
 --
 -- TOC entry 1767 (class 2606 OID 19146)
 -- Dependencies: 1482 1482
--- Name: group_members_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: group_members_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY group_members
@@ -327,7 +327,7 @@ ALTER TABLE ONLY group_members
 --
 -- TOC entry 1765 (class 2606 OID 18932)
 -- Dependencies: 1481 1481
--- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY groups
@@ -337,7 +337,7 @@ ALTER TABLE ONLY groups
 --
 -- TOC entry 1763 (class 2606 OID 18878)
 -- Dependencies: 1479 1479
--- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: roles_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY authorities
@@ -347,7 +347,7 @@ ALTER TABLE ONLY authorities
 --
 -- TOC entry 1759 (class 2606 OID 18888)
 -- Dependencies: 1478 1478
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY authentication
@@ -357,7 +357,7 @@ ALTER TABLE ONLY authentication
 --
 -- TOC entry 1761 (class 2606 OID 18890)
 -- Dependencies: 1478 1478
--- Name: users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: users_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY authentication
@@ -367,7 +367,7 @@ ALTER TABLE ONLY authentication
 --
 -- TOC entry 1757 (class 1259 OID 18891)
 -- Dependencies: 1478
--- Name: index_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: index_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX index_id ON authentication USING btree (id);

@@ -18,9 +18,9 @@
 -- --------------------------------------------------------------------------
 --
 -- The following PL/PgSQL function is used to calculate the percentage
--- availability for all managed services on an interface between two dates. 
--- This function looks for all managed services tuples. The X date is the time 
--- closest to the current time. The Y date must be older than the X date. 
+-- availability for all managed services on an interface between two dates.
+-- This function looks for all managed services tuples. The X date is the time
+-- closest to the current time. The Y date must be older than the X date.
 -- The downtime between the two dates are calculated based on all matching tuples.
 --
 -- @author Lawrence Karnowski <larry@opennms.org>
@@ -28,12 +28,12 @@
 --
 -- Dependencies: getManagedOutageForNodeInWindow to compute the outage time for a node.
 -- 		 getManagedServiceCountForNode to compute the number of managed services on a node.
--- 
+--
 -- $1	The node identifier
 -- $2	X time. This is the time that is closest to current
 -- $3	Y time. This is the time that is furtherest from current.
 --
--- In time:  Now >= X >= Y 
+-- In time:  Now >= X >= Y
 -- (X - Y) is the window for which outage is calculated
 --
 --
@@ -71,6 +71,6 @@ CREATE FUNCTION getManagePercentAvailIntfWindow(integer,varchar(16),timestamp wi
                 ELSE
                         RETURN -1;
                 END IF;
-	END IF;    
+	END IF;
    END;
 ' LANGUAGE 'plpgsql';

@@ -14,12 +14,12 @@ BEGIN
   -- This usually happens when a record is being updated by old JDBC code (non-Hibernate DAOs) and has changed
   -- one or more of the composite key values, the ifServiceId needs to be updated
   --
-  IF (NEW.ifserviceID = OLD.ifServiceId) AND (NEW.nodeId != OLD.nodeId OR NEW.ipAddr != OLD.ipAddr OR NEW.serviceId != OLD.serviceID) 
+  IF (NEW.ifserviceID = OLD.ifServiceId) AND (NEW.nodeId != OLD.nodeId OR NEW.ipAddr != OLD.ipAddr OR NEW.serviceId != OLD.serviceID)
   THEN
      SELECT ifsvc.id INTO NEW.ifserviceid
        FROM ifservices ifsvc
        WHERE (ifsvc.nodeid = NEW.nodeid AND ifsvc.ipAddr = NEW.ipAddr AND ifsvc.serviceid = NEW.serviceid);
-       
+
      IF NOT FOUND THEN
         RAISE EXCEPTION ''Outages Trigger Exception, Condition 3: No service found for... nodeid: %  ipaddr: %  serviceid: %'', NEW.nodeid, NEW.ipAddr, NEW.serviceid USING ERRCODE = ''23NMS'';
      END IF;
@@ -34,7 +34,7 @@ BEGIN
      SELECT ifsvc.nodeId, ifsvc.ipAddr, ifsvc.serviceId INTO NEW.nodeId, NEW.ipAddr, NEW.serviceId
        FROM ifservices ifsvc
       WHERE (ifsvc.id = NEW.ifServiceId);
-      
+
       IF NOT FOUND THEN
          RAISE EXCEPTION ''Outages Trigger Exception, Condition 4: No service found for serviceID: %'', NEW.ifServiceId USING ERRCODE = ''23NMS'';
       END IF;
