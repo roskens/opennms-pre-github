@@ -11,7 +11,7 @@ AC_DEFUN([ONMS_RRD_HOME_FROM_RRDTOOL],
   ]
 )
 
-AC_DEFUN([_RRDHOME_VALIDATE], 
+AC_DEFUN([_RRDHOME_VALIDATE],
   [
     AS_IF([test "x$RRDHOME" == "xno"], [AC_MSG_ERROR([a valid directory must be passed to --with-rrd.  --without-rrd is not supported.])])
     AS_IF([test "x$RRDHOME" == "xyes"], [AC_MSG_ERROR([a valid directory must be passed to --with-rrd.])])
@@ -19,7 +19,7 @@ AC_DEFUN([_RRDHOME_VALIDATE],
   ]
 )
 
-AC_DEFUN([ONMS_FIND_RRDHOME], 
+AC_DEFUN([ONMS_FIND_RRDHOME],
   [
     RRDHOME=
     AC_ARG_WITH([rrd],

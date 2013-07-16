@@ -2,7 +2,7 @@
 #   $Id$
 #
 # Copyright (c) 1999, 2008 Daniel J. Gregor, Jr., All rights reserved.
-# 
+#
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions
 # are met:
@@ -11,7 +11,7 @@
 # 2. Redistributions in binary form must reproduce the above copyright
 #    notice, this list of conditions and the following disclaimer in the
 #    documentation and/or other materials provided with the distribution.
-# 
+#
 # THIS SOFTWARE IS PROVIDED BY DANIEL J. GREGOR, JR. ``AS IS'' AND
 # ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
 # IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
@@ -44,13 +44,13 @@ REVISIONDASH= if [ x"${REVISION}" = x"" -o x"`echo ${SRCVERSIONSHORT} | grep SNA
 SRCVERSION  = ${SRCVERSIONSHORT}${REVISIONDASH:sh}
 BUILDDIR    = untar
 
-DESTDIR     = ${TOPDIR}/pkg 
+DESTDIR     = ${TOPDIR}/pkg
 
 BASEDIR     = /opt/opennms
 #ETCDIR      = /etc/opt/opennms
 BASEDIREXISTS=/opt
 
-CONFOPTS    = 
+CONFOPTS    =
 
 PKGNAME     = opennms
 NAME        = OpenNMS
@@ -153,7 +153,7 @@ ${DESTDIR}/prototype: .package-installed.${SRCVERSION} ${INSTALLFILES}
 ${DESTDIR}/install: ${DESTDIR}
 	mkdir $@
 
-${DESTDIR}/install/pkginfo: ${DESTDIR}/install 
+${DESTDIR}/install/pkginfo: ${DESTDIR}/install
 	rm -f $@
 	@echo "PKG=\"${PKGNAME}\"" >> $@
 	@echo "NAME=\"${NAME}\"" >> $@
@@ -244,7 +244,7 @@ clean:
 .configured.${SRCVERSION}: .untarred.${SRCVERSION}
 #	cd ${BUILDDIR} ; ./configure --prefix=${BASEDIR} \
 #		--sysconfdir=${ETCDIR} --sbindir=${BASEDIR}/sbin
-#		${CONFOPTS} 
+#		${CONFOPTS}
 	touch $@
 
 veryclean:
@@ -253,5 +253,5 @@ veryclean:
 		.revision ${SPOOLDIR}/${PKGNAME} ${SRCVERSION}.pkg
 
 ${DESTDIR}${BASEDIR}/docs: ${DESTDIR}${BASEDIR}
-	mkdir -p ${DESTDIR}${BASEDIR}/docs 
+	mkdir -p ${DESTDIR}${BASEDIR}/docs
 

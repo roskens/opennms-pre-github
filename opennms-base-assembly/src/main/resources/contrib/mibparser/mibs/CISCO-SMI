@@ -171,9 +171,9 @@ ciscoPartnerProducts OBJECT-IDENTITY
         STATUS  current
         DESCRIPTION
 		" ciscoPartnerProducts is the root OBJECT IDENTIFIER from
-		which partner sysObjectID values may be assigned. Such 
+		which partner sysObjectID values may be assigned. Such
 		sysObjectID values are composed of the ciscoPartnerProducts
-		prefix, followed by a single identifier that is unique for 
+		prefix, followed by a single identifier that is unique for
 		each partner, followed by the value of sysObjectID of the
 		Cisco product from which partner product is derived.  Note
 		that the chassisPartner MIB object defines the value of the
@@ -242,7 +242,7 @@ ciscoChipSets OBJECT-IDENTITY
 	DESCRIPTION
 		" Numerous media-specific MIBS have an object, defined as
 		an OBJECT IDENTIFIER, which is the identity of the chipset
-		realizing the interface.  Cisco-specific chipsets have their 
+		realizing the interface.  Cisco-specific chipsets have their
 		OBJECT IDENTIFIERS assigned under this subtree."
 	::= { ciscoAdmin 3 }
 

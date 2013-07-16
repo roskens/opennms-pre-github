@@ -1089,7 +1089,7 @@ snaNodeLinkAdminIndex OBJECT-TYPE
           ::= { snaNodeLinkAdminEntry 1 }
 
 snaNodeLinkAdminSpecific OBJECT-TYPE
-          SYNTAX  
+          SYNTAX
                 -- InstancePointer
                 RowPointer
           MAX-ACCESS  read-create
@@ -1211,7 +1211,7 @@ SnaNodeLinkOperEntry ::= SEQUENCE {
           }
 
 snaNodeLinkOperSpecific OBJECT-TYPE
-          SYNTAX  
+          SYNTAX
                 -- InstancePointer
                 RowPointer
           MAX-ACCESS  read-only

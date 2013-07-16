@@ -24,7 +24,7 @@
             <c:url var="interfaceLink" value="element/interface.jsp">
               <c:param name="ipinterfaceid" value="${interface.id}"/>
             </c:url>
-            
+
             <li>
               <c:choose>
                 <c:when test="${isMaclikeSearch && interface.snmpInterface.physAddr != null}">
@@ -50,7 +50,7 @@
                       <c:choose>
                         <c:when test="${interface.snmpInterface.ifName != null}">
                           <a href="${interfaceLink}">${interface.snmpInterface.ifName}</a> : ${interface.snmpInterface.ifAlias}
-                        </c:when>   
+                        </c:when>
                         <c:when test="${interface.snmpInterface.ifDescr != null}">
                           <a href="${interfaceLink}">${interface.snmpInterface.ifDescr}</a> : ${interface.snmpInterface.ifAlias}
                         </c:when>
@@ -63,7 +63,7 @@
                       <a href="${interfaceLink}">${interface.ipAddressAsString}</a> : ${interface.snmpInterface.ifAlias}
                     </c:otherwise>
                   </c:choose>
-                </c:when>        
+                </c:when>
                 <c:when test="${snmpParm == ('ifName')}">
                   <c:choose>
                     <c:when test="${interface.ipAddressAsString == '0.0.0.0'}">
@@ -77,14 +77,14 @@
                       <a href="${interfaceLink}">${interface.ipAddressAsString}</a> : ${interface.snmpInterface.ifName}
                     </c:otherwise>
                   </c:choose>
-                </c:when>   
+                </c:when>
                  <c:when test="${snmpParm == ('ifDescr')}">
                   <c:choose>
                     <c:when test="${interface.ipAddressAsString == '0.0.0.0'}">
                       <c:choose>
                         <c:when test="${interface.snmpInterface.ifName != null}">
                           <a href="${interfaceLink}">${interface.snmpInterface.ifName}</a> : ${interface.snmpInterface.ifDescr}
-                        </c:when>                  
+                        </c:when>
                         <c:when test="${interface.snmpInterface.ifDescr != null}">
                           <a href="${interfaceLink}">${interface.snmpInterface.ifDescr}</a>
                         </c:when>
@@ -160,7 +160,7 @@
                       <c:choose>
                         <c:when test="${snmpInterface.ifName != null}">
                           <a href="${snmpinterfaceLink}">${snmpInterface.ifName}</a> : ${snmpInterface.ifAlias}
-                        </c:when>   
+                        </c:when>
                         <c:when test="${snmpInterface.ifDescr != null}">
                           <a href="${snmpinterfaceLink}">${snmpInterface.ifDescr}</a> : ${snmpInterface.ifAlias}
                         </c:when>
@@ -169,7 +169,7 @@
                         </c:otherwise>
                       </c:choose>
                   </c:if>
-                </c:when>        
+                </c:when>
                 <c:when test="${snmpParm == ('ifName')}">
                   <c:set var="notFound" value="true"/>
                   <c:forEach var="ipInterface" items="${nodeModel.node.ipInterfaces}">
@@ -185,7 +185,7 @@
                         </c:when>
                       </c:choose>
                   </c:if>
-                </c:when>   
+                </c:when>
                 <c:when test="${snmpParm == ('ifDescr')}">
                   <c:set var="notFound" value="true"/>
                   <c:forEach var="ipInterface" items="${nodeModel.node.ipInterfaces}">
@@ -198,7 +198,7 @@
                       <c:choose>
                         <c:when test="${snmpInterface.ifName != null}">
                           <a href="${snmpinterfaceLink}">${snmpInterface.ifName}</a> : ${snmpInterface.ifDescr}
-                        </c:when>                  
+                        </c:when>
                         <c:when test="${snmpInterface.ifDescr != null}">
                           <a href="${snmpinterfaceLink}">${snmpInterface.ifDescr}</a>
                         </c:when>

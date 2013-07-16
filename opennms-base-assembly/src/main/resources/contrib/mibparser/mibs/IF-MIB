@@ -5,11 +5,11 @@
 --
 -- Copyright (c) 1994 - 1996 by cisco Systems, Inc.
 -- All rights reserved.
--- 
+--
 -- *****************************************************************
 --
 --  extracted from draft-ietf-ifmib-mib-03.txt
---  major differences with RFC1573 - 
+--  major differences with RFC1573 -
 --    Added InterfaceIndexOrZero textual convention.
 --    Added notPresent state for ifOperStatus.
 --    Added the ifAlias, ifStackLastChange and ifTableLastChange objects.
@@ -1300,7 +1300,7 @@ ifStackLastChange OBJECT-TYPE
 
        MODULE  -- this module
            MANDATORY-GROUPS { ifGeneralInformationGroup, ifStackGroup2 }
-   
+
            GROUP       ifFixedLengthGroup
            DESCRIPTION
                "This group is mandatory for all network interfaces

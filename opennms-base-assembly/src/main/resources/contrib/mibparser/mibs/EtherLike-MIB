@@ -18,7 +18,7 @@
 -- !! NOTE: improper modifications were done to table dot3CollTable
 --      One result is that object group etherCollisionTableGroup
 --      contains the now "non-accessible" object dot3CollCount
---      
+--
 -- dperkins@scruznet.com
 
 

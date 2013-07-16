@@ -16,6 +16,6 @@
     <form:input path="${property}" size="${inputSize}"/>
   </c:when>
   <c:otherwise>
-    <form:input cssStyle="border:0; background: lightgrey" path="${property}" readonly="true" size="${inputSize}"/> 
+    <form:input cssStyle="border:0; background: lightgrey" path="${property}" readonly="true" size="${inputSize}"/>
   </c:otherwise>
 </c:choose>

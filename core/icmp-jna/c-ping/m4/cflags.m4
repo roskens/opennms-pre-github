@@ -10,17 +10,17 @@ AC_DEFUN([ONMS_SET_CC_ARCH_CFLAGS],
         32)
           SUNCC_ARCH_FLAGS="-xarch=generic"
         ;;
-    
+
         64)
           SUNCC_ARCH_FLAGS="-xarch=generic64"
         ;;
-    
+
         *)
           SUNCC_ARCH_FLAGS=""
           AC_MSG_NOTICE([WARNING: not sure how to tell the Sun CC compiler to generate ${JAVA_ARCH}-bit binaries with this compiler])
         ;;
       esac
-    
+
       CFLAGS="$CFLAGS $SUNCC_ARCH_FLAGS"
     else
       AC_MSG_NOTICE([WARNING: not sure how to make sure you're generating ${JAVA_ARCH}-bit binaries with this compiler: $CC])

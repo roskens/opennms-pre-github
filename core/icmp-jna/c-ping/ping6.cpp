@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -41,12 +41,12 @@ void doReceive(onms_socket sock) {
 
   inet_ntop(AF_INET6, &(addr.sin6_addr), addrStr, INET6_ADDRSTRLEN);
   printf("%d bytes from %s: icmp6_id=%d icmp6_seq=%d\n", n, addrStr, pkt->icmp6_id, pkt->icmp6_seq);
-  
+
 
   close(sock);
   exit(0);
 }
- 
+
 void doSend(onms_socket sock, const char* dest) {
 
   sockaddr_in6 addr;
@@ -60,7 +60,7 @@ void doSend(onms_socket sock, const char* dest) {
   }
 
   addr.sin6_family = AF_INET6;
-  
+
   if (inet_pton(AF_INET6, dest, &(addr.sin6_addr)) < 0) {
     perror("main: error converting localhost to addr");
     exit(2);
@@ -81,7 +81,7 @@ void doSend(onms_socket sock, const char* dest) {
     printf("%02x", addr.sin6_addr.s6_addr[i]);
   }
   printf("\n");
-  
+
 }
 
 
@@ -102,5 +102,4 @@ int main(int argc, char** argv)
   doSend(sock, argv[1]);
   doReceive(sock);
 }
-  
 

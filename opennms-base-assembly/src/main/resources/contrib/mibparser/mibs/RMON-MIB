@@ -11,7 +11,7 @@
                   TimeTicks,
                   Counter                FROM RFC1155-SMI
 --                  DisplayString          FROM RFC1158-MIB
-                  DisplayString,        
+                  DisplayString,
                   mib-2                  FROM RFC1213-MIB
                   OBJECT-TYPE            FROM RFC-1212
                   TRAP-TYPE              FROM RFC-1215;

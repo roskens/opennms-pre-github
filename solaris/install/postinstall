@@ -3,7 +3,7 @@
 BASEDIR=/opt/opennms
 INSTUSER=opennms
 INSTGROUP=opennms
-FMRI=svc:/application/opennms:default 
+FMRI=svc:/application/opennms:default
 
 rm -f $BASEDIR/etc/configured
 

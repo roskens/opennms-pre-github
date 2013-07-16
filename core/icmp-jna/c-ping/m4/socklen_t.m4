@@ -47,15 +47,15 @@ AC_DEFUN([ONMS_CHECK_SOCKLEN_T],
 					#ifdef HAVE_SYS_TYPES_H
 					#include <sys/types.h>
 					#endif
-		
+
 					#ifdef HAVE_SYS_SOCKET_H
 					#include <sys/socket.h>
 					#endif
-		
+
 					#ifdef HAVE_WINSOCK2_H
 					#include <winsock2.h>
 					#endif
-		
+
 					#ifdef HAVE_WS2TCPIP_H
 					#include <ws2tcpip.h>
 					#endif

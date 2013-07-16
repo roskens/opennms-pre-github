@@ -4,7 +4,7 @@
 -- Monday, November 03, 2003 at 17:27:57
 
 -- HTML group index:
--- RMON2-MIB, RFC1155-SMI, RFC1213-MIB, RMON-MIB, SNMPv2-SMI, 
+-- RMON2-MIB, RFC1155-SMI, RFC1213-MIB, RMON-MIB, SNMPv2-SMI,
 -- SNMPv2-TC, TOKEN-RING-RMON-MIB.
 --
 
@@ -113,7 +113,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"A value which indicates the set of services that
 			this entity primarily offers.
-			
+
 			The value is a sum.  This sum initially takes the
 			value zero, Then, for each layer, L, in the range
 			1 through 7, that this node performs transactions
@@ -125,14 +125,14 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			(2^(4-1) + 2^(7-1)).  Note that in the context of
 			the Internet suite of protocols, values should be
 			calculated accordingly:
-			
+
 			     layer  functionality
 			         1  physical (e.g., repeaters)
 			         2  datalink/subnetwork (e.g., bridges)
 			         3  internet (e.g., IP gateways)
 			         4  end-to-end  (e.g., IP hosts)
 			         7  applications (e.g., mail relays)
-			
+
 			For systems including OSI protocols, layers 5 and
 			6 may also be counted."
 	::= { system 7 }
@@ -169,7 +169,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			"An interface entry containing objects at the
 			subnetwork layer and below for a particular
 			interface."
-		INDEX { ifIndex } 
+		INDEX { ifIndex }
 	::= { ifTable 1 }
 
 
@@ -536,7 +536,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"Each entry contains one NetworkAddress to
 			`physical' address equivalence."
-		INDEX { atIfIndex, atNetAddress } 
+		INDEX { atIfIndex, atNetAddress }
 	::= { atTable 1 }
 
 
@@ -567,7 +567,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		STATUS deprecated
 		DESCRIPTION
 			"The media-dependent `physical' address.
-			
+
 			Setting this object to a null string (one of zero
 			length) has the effect of invaliding the
 			corresponding entry in the atTable object.  That
@@ -612,7 +612,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			datagrams received by, but not addressed to, this
 			entity.  IP gateways forward datagrams.  IP hosts
 			do not (except those source-routed via the host).
-			
+
 			Note that for some managed nodes, this object may
 			take on only a subset of the values possible.
 			Accordingly, it is appropriate for an agent to
@@ -865,7 +865,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"The addressing information for one of this
 			entity's IP addresses."
-		INDEX { ipAdEntAddr } 
+		INDEX { ipAdEntAddr }
 	::= { ipAddrTable 1 }
 
 
@@ -956,7 +956,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		STATUS mandatory
 		DESCRIPTION
 			"A route to a particular destination."
-		INDEX { ipRouteDest } 
+		INDEX { ipRouteDest }
 	::= { ipRouteTable 1 }
 
 
@@ -1087,7 +1087,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			direct(3) and indirect(4) refer to the notion of
 			direct and indirect routing in the IP
 			architecture.
-			
+
 			Setting this object to the value invalid(2) has
 			the effect of invalidating the corresponding entry
 			in the ipRouteTable object.  That is, it
@@ -1158,12 +1158,12 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			determining whether the value of the correspondent
 			ipRouteDest field belong to a class-A, B, or C
 			network, and then using one of:
-			
+
 			     mask           network
 			     255.0.0.0      class-A
 			     255.255.0.0    class-B
 			     255.255.255.0  class-C
-			
+
 			If the value of the ipRouteDest is 0.0.0.0 (a
 			default route), then the mask value is also
 			0.0.0.0.  It should be noted that all IP routing
@@ -1218,7 +1218,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"Each entry contains one IpAddress to `physical'
 			address equivalence."
-		INDEX { ipNetToMediaIfIndex, ipNetToMediaNetAddress } 
+		INDEX { ipNetToMediaIfIndex, ipNetToMediaNetAddress }
 	::= { ipNetToMediaTable 1 }
 
 
@@ -1275,7 +1275,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		STATUS mandatory
 		DESCRIPTION
 			"The type of mapping.
-			
+
 			Setting this object to the value invalid(2) has
 			the effect of invalidating the corresponding entry
 			in the ipNetToMediaTable.  That is, it effectively
@@ -1748,8 +1748,8 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			in that it ceases to exist when (or soon after)
 			the connection makes the transition to the CLOSED
 			state."
-		INDEX { tcpConnLocalAddress, tcpConnLocalPort, tcpConnRemAddress, 
-		tcpConnRemPort } 
+		INDEX { tcpConnLocalAddress, tcpConnLocalPort, tcpConnRemAddress,
+		tcpConnRemPort }
 	::= { tcpConnTable 1 }
 
 
@@ -1783,20 +1783,20 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		STATUS mandatory
 		DESCRIPTION
 			"The state of this TCP connection.
-			
+
 			The only value which may be set by a management
 			station is deleteTCB(12).  Accordingly, it is
 			appropriate for an agent to return a `badValue'
 			response if a management station attempts to set
 			this object to any other value.
-			
+
 			If a management station sets this object to the
 			value deleteTCB(12), then this has the effect of
 			deleting the TCB (as defined in RFC 793) of the
 			corresponding connection on the managed node,
 			resulting in immediate termination of the
 			connection.
-			
+
 			As an implementation-specific option, a RST
 			segment may be sent from the managed node to the
 			other TCP endpoint (note however that RST segments
@@ -1925,7 +1925,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"Information about a particular current UDP
 			listener."
-		INDEX { udpLocalAddress, udpLocalPort } 
+		INDEX { udpLocalAddress, udpLocalPort }
 	::= { udpTable 1 }
 
 
@@ -2017,7 +2017,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 		DESCRIPTION
 			"Information about this entity's relationship with
 			a particular EGP neighbor."
-		INDEX { egpNeighAddr } 
+		INDEX { egpNeighAddr }
 	::= { egpNeighTable 1 }
 
 
@@ -2216,7 +2216,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			been set since the last initialization of the
 			network management subsystem on the node, it
 			returns a value of `stop'.
-			
+
 			When set, this variable causes a Start or Stop
 			event on the specified neighbor, as specified on
 			pages 8-10 of RFC 904.  Briefly, a Start event
@@ -2567,7 +2567,7 @@ RFC1213-MIB DEFINITIONS ::= BEGIN
 			configuration information; as such, it provides a
 			means whereby all authentication-failure traps may
 			be disabled.
-			
+
 			Note that it is strongly recommended that this
 			object be stored in non-volatile memory so that it
 			remains constant between re-initializations of the

@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -55,14 +55,14 @@ int main(int argc, char** argv)
   close(sock);
   exit(0);
 }
- 
+
 void doSend() {
 
   const char* localhost = "127.0.0.1";
   sockaddr_in addr;
 
   addr.sin_family = AF_INET;
-  
+
   if (inet_aton(localhost, &(addr.sin_addr)) < 0) {
     perror("main: error converting localhost to addr");
     exit(2);
@@ -71,6 +71,6 @@ void doSend() {
   printf("%x\n", addr.sin_addr.s_addr);
   printf("%s\n", inet_ntoa(addr.sin_addr));
 
-  
+
 }
 

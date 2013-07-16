@@ -10,7 +10,7 @@
 -- dperkins@scruznet.com
 
           RFC1232-MIB DEFINITIONS ::= BEGIN
-                 
+
           -- RFC1232
           -- May 91
 

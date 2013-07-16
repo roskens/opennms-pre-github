@@ -23,7 +23,7 @@ SNA-NAU-MIB DEFINITIONS ::= BEGIN
 
 
 IMPORTS
-        DisplayString, RowStatus, TimeStamp, 
+        DisplayString, RowStatus, TimeStamp,
         -- InstancePointer
         RowPointer
                 FROM SNMPv2-TC
@@ -1087,7 +1087,7 @@ snaNodeLinkAdminIndex OBJECT-TYPE
           ::= { snaNodeLinkAdminEntry 1 }
 
 snaNodeLinkAdminSpecific OBJECT-TYPE
-          SYNTAX  
+          SYNTAX
                 -- InstancePointer
                 RowPointer
           MAX-ACCESS  read-create
@@ -1207,7 +1207,7 @@ SnaNodeLinkOperEntry ::= SEQUENCE {
           }
 
 snaNodeLinkOperSpecific OBJECT-TYPE
-          SYNTAX  
+          SYNTAX
                 -- InstancePointer
                 RowPointer
           MAX-ACCESS  read-only

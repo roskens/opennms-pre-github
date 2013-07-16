@@ -11,7 +11,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib tagdir="/WEB-INF/tags/springx" prefix="springx" %>
 
-<c:set var="node" value="${empty root ? parent : root}" /> 
+<c:set var="node" value="${empty root ? parent : root}" />
 <c:set var="children" value="${node[childProperty]}" />
 
 <ul>

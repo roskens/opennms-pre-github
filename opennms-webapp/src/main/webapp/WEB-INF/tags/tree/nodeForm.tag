@@ -11,7 +11,7 @@
     <spring:bind ignoreNestedPath="true" path="${treeFormName}.currentNode">
 	    <input type="hidden" name="${status.expression}" value="${treeFormModel.currentNode}" />
     </spring:bind>
-    <jsp:doBody /> 
+    <jsp:doBody />
     <input type="button" value="Save" onclick="javascript:submitTreeForm('${treeFormName}', '${nestedPathSansDot}', 'save')"/>
     <input type="button" value="Cancel" onclick="javascript:submitTreeForm('${treeFormName}', '${nestedPathSansDot}', 'cancel')"/>
   </c:when>
@@ -20,9 +20,9 @@
 	<c:if test="${empty showDelete || showDelete == true}">
       <a href="javascript:submitTreeForm('${treeFormName}', '${nestedPathSansDot}', 'delete')"><img src="images/trash.gif"/></a>
     </c:if>
-    
+
     <a href="javascript:submitTreeForm('${treeFormName}', '${nestedPathSansDot}', 'edit')"><img src="images/modify.gif"/></a>
-    
-    <jsp:doBody /> 
-  </c:otherwise> 
+
+    <jsp:doBody />
+  </c:otherwise>
 </c:choose>

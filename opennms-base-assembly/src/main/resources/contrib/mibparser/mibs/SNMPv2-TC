@@ -15,7 +15,7 @@ DisplayString ::= TEXTUAL-CONVENTION
 
 
 McCloghrie, et al.          Standards Track                     [Page 3]
-
+
 
 
 
@@ -171,7 +171,7 @@ RowStatus ::= TEXTUAL-CONVENTION
 
 
 McCloghrie, et al.          Standards Track                     [Page 6]
-
+
 
 
 
@@ -230,7 +230,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                     [Page 7]
-
+
 
 
 
@@ -289,7 +289,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                     [Page 8]
-
+
 
 
 
@@ -348,7 +348,7 @@ value         |              |      see 1|          ->C|          ->D
 
 
 McCloghrie, et al.          Standards Track                     [Page 9]
-
+
 
 
 
@@ -407,7 +407,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 10]
-
+
 
 
 
@@ -466,7 +466,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 11]
-
+
 
 
 
@@ -525,7 +525,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 12]
-
+
 
 
 
@@ -584,7 +584,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 13]
-
+
 
 
 
@@ -643,7 +643,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 14]
-
+
 
 
 
@@ -702,7 +702,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 15]
-
+
 
 
 
@@ -761,7 +761,7 @@ RFC 2579             Textual Conventions for SMIv2            April 1999
 
 
 McCloghrie, et al.          Standards Track                    [Page 16]
-
+
 
 
 
@@ -820,7 +820,7 @@ TimeStamp ::= TEXTUAL-CONVENTION
 
 
 McCloghrie, et al.          Standards Track                    [Page 17]
-
+
 
 
 
@@ -879,7 +879,7 @@ DateAndTime ::= TEXTUAL-CONVENTION
 
 
 McCloghrie, et al.          Standards Track                    [Page 18]
-
+
 
 
 

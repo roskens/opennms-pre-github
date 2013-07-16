@@ -1,6 +1,6 @@
 #!/bin/sh -
 
-BASEDIR=/opt/opennms 
+BASEDIR=/opt/opennms
 INSTUSER=opennms
 INSTGROUP=opennms
 

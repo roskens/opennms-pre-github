@@ -6,6 +6,6 @@
  # The default setting is true (use the JNI code)
 -#org.opennms.rrd.usejni=true
 +org.opennms.rrd.usejni=false
- 
+
  #
- # This property defines whether or not to use the write queuing system.  
+ # This property defines whether or not to use the write queuing system.

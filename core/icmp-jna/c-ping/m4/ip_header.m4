@@ -151,7 +151,7 @@ AC_DEFUN([ONMS_CHECK_IP_STRUCT_ENTRY],
 				#elif defined(HAVE_STRUCT_IPHDR)
 				struct iphdr ip;
 				#endif
-			
+
 				ip.$2 = 0;
 			],
 			[
@@ -179,7 +179,7 @@ AC_DEFUN([ONMS_CHECK_ICMP_STRUCT_ENTRY],
 				#elif defined(HAVE_STRUCT_ICMPHDR)
 				struct icmphdr icmp;
 				#endif
-			
+
 				icmp.$2 = 0;
 			],
 			[

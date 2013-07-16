@@ -2,18 +2,18 @@
 /*
  * Leaflet Search Plugin
  * https://github.com/stefanocudini/leaflet-search
- * https://bitbucket.org/zakis_/leaflet-search 
+ * https://bitbucket.org/zakis_/leaflet-search
  * http://labs.easyblog.it/maps/leaflet-search
  *
  * Copyright 2013, Stefano Cudini - stefano.cudini@gmail.com
  * Licensed under the MIT license.
- 
+
  What's:
 	 php code for convert cities15000.txt in cities15000.json, used in ajax-bulk example
 
   using geonames database:
   	http://download.geonames.org/export/dump/
- 
+
 */
 
 $data = array();

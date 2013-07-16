@@ -16,7 +16,7 @@
        MODULE-IDENTITY, OBJECT-TYPE,
        Counter32, Integer32, Gauge32, TimeTicks
            FROM SNMPv2-SMI
-       AutonomousType, 
+       AutonomousType,
 --       InstancePointer,
        DisplayString, TEXTUAL-CONVENTION
            FROM SNMPv2-TC
@@ -488,7 +488,7 @@
                Counter32,
            charSessConnectionId
 --               InstancePointer,
-               OBJECT IDENTIFIER, 
+               OBJECT IDENTIFIER,
            charSessStartTime
                TimeTicks
        }

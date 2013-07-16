@@ -2,8 +2,8 @@ ACLOCAL_AMFLAGS = -I m4
 AM_CPPFLAGS = -I$(top_srcdir) -I$(top_builddir)
 
 COMMON_SRCS = stdhdr.h
-PING_SRCS = 
-TEST_SRCS = PingTest.cpp 
+PING_SRCS =
+TEST_SRCS = PingTest.cpp
 TESTS = tester
 check_PROGRAMS = $(TESTS)
 

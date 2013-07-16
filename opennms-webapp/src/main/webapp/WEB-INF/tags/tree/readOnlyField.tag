@@ -9,4 +9,4 @@
 
 <form:label path="${property}">${label}</form:label>
 <c:set var="nestedPathSansDot" value="${fn:substring(nestedPath, 0, fn:length(nestedPath)-1)}" scope="page" />
-<form:input cssStyle="border:0; background: lightgrey" path="${property}" readonly="true" /> 
+<form:input cssStyle="border:0; background: lightgrey" path="${property}" readonly="true" />

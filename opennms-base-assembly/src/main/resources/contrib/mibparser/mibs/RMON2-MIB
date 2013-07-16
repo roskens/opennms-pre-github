@@ -2,7 +2,7 @@ RMON2-MIB DEFINITIONS ::= BEGIN
 IMPORTS
     MODULE-COMPLIANCE, OBJECT-GROUP FROM SNMPv2-CONF
     mib-2, ifIndex                  FROM RFC1213-MIB
-    OwnerString, statistics, history, hosts, 
+    OwnerString, statistics, history, hosts,
     matrix, filter, etherStatsEntry, historyControlEntry,
     hostControlEntry, matrixControlEntry, filterEntry,
     channelEntry                    FROM RFC1271-MIB

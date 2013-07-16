@@ -1,5 +1,5 @@
 ################################################################################
-# shUnit 
+# shUnit
 # original by Vera Peeters & Rik Tytgat
 # $Source: /cvsroot/shunit/ShUnit/shUnit,v $
 # $Id: shUnit,v 1.32 2008/09/19 11:39:41 lacton Exp $
@@ -89,13 +89,13 @@ shuStart() {
   fi
 
   SHU_TOTAL_NR_OF_TESTS=`echo ${SHU_STR_ALL_TESTS} | wc -w | sed -e 's/ *//'`
-  
+
   if [ "$SHU_TOTAL_NR_OF_TESTS" -eq 0 ]
   then
     echo 'shUnit: No tests to run' >&2
     return $SHU_ERROR_EXIT_CODE
   fi
-  
+
   shuSuiteStart ${SHU_TOTAL_NR_OF_TESTS}
 
   SHU_TOTAL_NR_SUCCEEDED=0
@@ -109,7 +109,7 @@ shuStart() {
     shuTestEnd
 
     if test -n "${SHU_STR_FAILED}"
-    then 
+    then
 
       OLD_IFS="${IFS}"
       IFS="^"
@@ -117,15 +117,15 @@ shuStart() {
       IFS="${OLD_IFS}"
       while [ ${#} -gt 0 ]
       do
-        printf "      \"%s\" failed.\n" "${1}" 
-        shift 
+        printf "      \"%s\" failed.\n" "${1}"
+        shift
       done
     fi
   done
 
   shuFailedTestCount=`expr ${shuTestNbr} - ${SHU_TOTAL_NR_SUCCEEDED}`
   shuSuiteEnd $shuFailedTestCount
-  
+
   if [ $shuFailedTestCount -lt $SHU_ERROR_EXIT_CODE ]
   then
     return $shuFailedTestCount
@@ -177,14 +177,14 @@ shuRunOneTest() {
 
 shuFmtNbrTests() {
     n="${1}"
-    if [ ${n} -eq 0 ] 
+    if [ ${n} -eq 0 ]
     then
         shuRetFmtNbrTests="No tests"
-    elif [ ${n} -eq 1 ] 
+    elif [ ${n} -eq 1 ]
     then
-        shuRetFmtNbrTests="1 test" 
+        shuRetFmtNbrTests="1 test"
     else
-        shuRetFmtNbrTests="${n} tests" 
+        shuRetFmtNbrTests="${n} tests"
     fi
 }
 

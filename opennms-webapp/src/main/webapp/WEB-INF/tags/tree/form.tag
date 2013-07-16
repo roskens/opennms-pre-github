@@ -15,17 +15,17 @@
 </script>
 
 
-<form:form commandName="${commandName}" name="${commandName}"> 
-  
+<form:form commandName="${commandName}" name="${commandName}">
+
   <c:set var="treeFormName" value="${commandName}" scope="request" />
   <c:set var="treeFormModel" value="${requestScope[commandName]}" scope="request" />
-  
+
   <form:hidden path="formPath"/>
   <form:hidden path="action" />
 
   <spring:nestedPath path="formData">
 
     <jsp:doBody />
-  
+
   </spring:nestedPath>
 </form:form>

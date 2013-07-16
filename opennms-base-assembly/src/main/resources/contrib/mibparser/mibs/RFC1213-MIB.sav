@@ -76,7 +76,7 @@
               SYNTAX  DisplayString (SIZE (0..255))
               ACCESS  read-only
               STATUS  mandatory
-              DEFVAL  "Test Agent Simulator"  
+              DEFVAL  "Test Agent Simulator"
               DESCRIPTION
                       "A textual description of the entity.  This value
                       should include the full name and version

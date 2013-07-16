@@ -16,7 +16,7 @@
 
           IMPORTS
                   Counter                       FROM RFC1155-SMI
-                  mib-2, DisplayString, PhysAddress    
+                  mib-2, DisplayString, PhysAddress
                                                 FROM RFC1213-MIB
                   OBJECT-TYPE                   FROM RFC-1212;
 

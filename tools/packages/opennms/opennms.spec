@@ -10,7 +10,7 @@
 %{!?instprefix:%define instprefix /opt/opennms}
 # I think this is the directory where the package will be built
 %{!?packagedir:%define packagedir opennms-%version-%{releasenumber}}
-# This is where the OPENNMS_HOME variable will be set on the remote 
+# This is where the OPENNMS_HOME variable will be set on the remote
 # operating system. Not sure this is needed anymore.
 %{!?profiledir:%define profiledir /etc/profile.d}
 # This is where the "share" directory will link on RPM-based systems

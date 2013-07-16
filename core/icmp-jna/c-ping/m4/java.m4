@@ -12,7 +12,7 @@ AC_DEFUN([ONMS_CHECK_JDK],
 
     AS_IF([test "x$with_java" = "xno"], [AC_MSG_ERROR([the path to a JDK is required to build jrrd])])
     AS_IF([test "x$with_java" = "xyes"], [AC_MSG_ERROR([the argument to --with-java must specify a JDK])])
-    AS_IF([test "x$with_java" = "xcheck"], 
+    AS_IF([test "x$with_java" = "xcheck"],
           [ONMS_FIND_JDK([$1], [$with_jvm_arch])],
           [ONMS_VALIDATE_JDK([$with_java], [$1], [$with_jvm_arch])]
     )
@@ -46,9 +46,9 @@ AC_DEFUN([ONMS_CHECK_JDK],
 AC_DEFUN([ONMS_FIND_JDK],
   [
     AC_MSG_NOTICE([searching for a $1 JDK])
-    
+
     HAS_JDK=no
-    AS_IF([test "x$JAVA_HOME" != "x"], 
+    AS_IF([test "x$JAVA_HOME" != "x"],
       [_ONMS_TRY_JAVA_DIR([$JAVA_HOME], [$1], [AC_MSG_NOTICE([trying the value in JAVA_HOME])], [$2])]
     )
 
@@ -78,13 +78,13 @@ AC_DEFUN([ONMS_FIND_JDK],
     done
 
     _ONMS_TRY_JAVA_DIR([/usr/local/java], [$1], [], [$2])
-    
+
   ]
 )
 
 AC_DEFUN([_ONMS_TRY_JAVA_DIR],
   [
-    AS_IF([test "$HAS_JDK" = no && test -d "$1"], 
+    AS_IF([test "$HAS_JDK" = no && test -d "$1"],
       [
         $3
         ONMS_VALIDATE_JDK([$1], [$2], [$4])
@@ -108,13 +108,13 @@ AC_DEFUN([ONMS_VALIDATE_JDK],
       dnl the following so HAS_JDK of they fail to pass the check
       _ONMS_CHECK_FOR_JAVA($1)
       _ONMS_CHECK_FOR_JAVAC($1)
-      _ONMS_CHECK_FOR_JAR($1)   
+      _ONMS_CHECK_FOR_JAR($1)
       _ONMS_CHECK_FOR_JAVAH($1)
       _ONMS_CHECK_JAVA_VERSION($2)
       _ONMS_CHECK_JAVA_ARCH($3)
       _ONMS_CHECK_FOR_JNI_HEADERS($1)
 
-      AS_IF([test "$HAS_JDK" != yes], 
+      AS_IF([test "$HAS_JDK" != yes],
             [AC_MSG_NOTICE([no valid JDK found at $1])],
             [AC_MSG_NOTICE([found a valid JDK. setting JAVA_HOME to $1]); JAVA_HOME="$1"]
       )
@@ -193,7 +193,7 @@ AC_DEFUN([_ONMS_CHECK_JAVA_ARCH],
           JAVA_ARCH=`"$JAVA" -cp tmp-classes getarch`
           rm -rf tmp-classes
           rm -f getarch.java
-  
+
           AS_IF([test "x$1" != "xnone" && test "$JAVA_ARCH" != "$1"],
             [
               AC_MSG_CHECKING([if java architecture meets requirements with -d$1])
@@ -202,7 +202,7 @@ AC_DEFUN([_ONMS_CHECK_JAVA_ARCH],
               JAVA_ARCH=`"$JAVA" -d$1 -cp tmp-classes getarch`
               rm -rf tmp-classes
               rm -f getarch.java
-  
+
               AS_IF([test "x$1" != "xnone" && test "$JAVA_ARCH" != "$1"],
                 [
                   HAS_VALID_JAVA_ARCH=no
@@ -273,5 +273,4 @@ AC_DEFUN([_ONMS_CHECK_FOR_JAVA_PROG],
 )
 
 AC_DEFUN([HAS_VAR], [HAS_@&t@m4_toupper($1)])
-    
 

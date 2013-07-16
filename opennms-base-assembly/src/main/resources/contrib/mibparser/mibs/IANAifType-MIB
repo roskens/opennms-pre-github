@@ -9,7 +9,7 @@
 
    IMPORTS
        MODULE-IDENTITY                     FROM SNMPv2-SMI
-       mib-2                               FROM RFC1213-MIB 
+       mib-2                               FROM RFC1213-MIB
        TEXTUAL-CONVENTION                  FROM SNMPv2-TC;
 
    ianaifType MODULE-IDENTITY
