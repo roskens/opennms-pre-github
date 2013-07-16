@@ -214,7 +214,7 @@
     <body-content>JSP</body-content>
     <description>
         Like &lt;%= ... &gt;, but for expressions.
-    </description> 
+    </description>
     <attribute>
         <name>value</name>
         <required>true</required>
