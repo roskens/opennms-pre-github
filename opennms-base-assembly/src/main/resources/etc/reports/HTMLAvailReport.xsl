@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<xsl:stylesheet version="1.0" 
+<xsl:stylesheet version="1.0"
     xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
     xmlns="http://www.w3.org/1999/xhtml">
 <xsl:output method="html"/>
-    
+
 
 <xsl:template match="report">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -49,13 +49,13 @@ table.data th { color:#666; text-align:left; padding:5px }
     <xsl:apply-templates select="viewComments"/>
 
     <p>Generated on:
-        <xsl:value-of select="/report/created/@month"/>/ 
-        <xsl:value-of select="/report/created/@day"/>/ 
+        <xsl:value-of select="/report/created/@month"/>/
+        <xsl:value-of select="/report/created/@day"/>/
         <xsl:value-of select="/report/created/@year"/>.
     </p>
     <p>For period:
 	<xsl:value-of select="/report/created/@period"/>
-    </p> 
+    </p>
     </div>
 
 </xsl:template>
@@ -178,7 +178,7 @@ table.data th { color:#666; text-align:left; padding:5px }
           </th>
          </xsl:for-each>
 </xsl:template>
-                                                                                                                             
+
 <xsl:template match="week">
         <tr>
         <xsl:apply-templates select="day"/>

@@ -42,7 +42,7 @@ h3 {
         margin-bottom: 4px;
         font-size: 70%;
         padding: 6px;
-} 
+}
 
 a {
         color: #366903;
@@ -50,9 +50,9 @@ a {
 }
 
 select { font-size: small; }
-		
+
 		</STYLE>
-		
+
 			<STYLE TYPE="text/css" MEDIA="screen">
 				/*
 				Modifications:
@@ -152,7 +152,7 @@ h3 {
 	margin-top: 7px;
 	font-size: 70%;
 	padding: 6px;
-} 
+}
 p h3, td h3 {
 	font-size: 100%;
 }
@@ -164,7 +164,7 @@ ul.plain {
 	margin:0;
 	padding:0px;
 }
-ul.plain li { 
+ul.plain li {
 	line-height:1.6em;
 }
 ul.error {
@@ -172,11 +172,11 @@ ul.error {
 	margin:0;
 	padding:0px;
 }
-ul.error li { 
+ul.error li {
 	line-height:1.6em;
 	color: #F00;
 }
-span.error { 
+span.error {
 	color: #F00;
 }
 div.boxWrapper {
@@ -191,15 +191,15 @@ div.boxWrapper div.col {
 	width: 50%;
 }
 div.formOnly {
-	width:250px; 
-	text-align:right; 
-	margin:0 50px; 
+	width:250px;
+	text-align:right;
+	margin:0 50px;
 	padding:50px 0;
 }
 td div.clip {
-	margin:0; 
-	padding:0; 
-	height:1.5em; 
+	margin:0;
+	padding:0;
+	height:1.5em;
 	overflow:hidden;
 }
 
@@ -248,15 +248,15 @@ div.TwoColRAdmin {
 /* Widget Box Body */
 .widget-box
 {
-	background: #cccccc;    
+	background: #cccccc;
 }
 
 /*
- * value in a widget-box that serves as the fieldname for the value to its right 
+ * value in a widget-box that serves as the fieldname for the value to its right
  */
 .widget-box-fieldname
 {
-	background: #999999; 
+	background: #999999;
 }
 
 #nav, #nav ul	/* all lists */
@@ -276,7 +276,7 @@ div.TwoColRAdmin {
 	margin-bottom: -1px;
 	width: 11em;
 }
-	
+
 #nav li ul/* second-level lists */
 {
 	position: absolute;
@@ -312,7 +312,7 @@ div.TwoColRAdmin {
 {
 	left: -999em;
 }
-	
+
 #nav li:hover ul, #nav li li:hover ul, #nav li li li:hover ul, #nav li.sfhover ul, #nav li li.sfhover ul, #nav li li li.sfhover ul	/* lists nested under hovered list items */
 {
 	left: auto;
@@ -328,14 +328,14 @@ div.TwoColRAdmin {
 }
 
 .navbar ul
-{ 
+{
 	list-style: none;
 	display: inline;
 }
 
 
 .navbar li
-{ 
+{
 	padding: 0 10px 5px 0;
 	list-style: none;
 	display: inline;
@@ -348,14 +348,14 @@ div.TwoColRAdmin {
 }
 
 #linkbar ul
-{ 
+{
 	list-style: none;
 	display: inline;
 	padding: 0 0 0 0;
 }
 
 #linkbar li
-{ 
+{
 	list-style: none;
 	display: inline;
 	padding-right: 0.75em;
@@ -439,7 +439,7 @@ td td, td p {
 	padding: 0px;
 }
 
-table.wdth600 { 
+table.wdth600 {
 	width: 600px;
 }
 
@@ -464,7 +464,7 @@ td.status1 {
 
 
 #nodelist table
-{ 
+{
         width: 100%;
         border: 0;
 }
@@ -546,20 +546,20 @@ td.availcrit
 }
 
 #include-charts
-{ 
+{
 	text-align: center;
 	clear: both;
 }
 
 #graph-results
-{ 
+{
 	text-align: center;
 }
 
 /*#graph-results-periods td */
 
 #graph-results .periods td
-{ 
+{
   width: 80px;
   text-align: center;
 }
@@ -649,8 +649,8 @@ img {
 	float: left;
 }
 p.pager span {
-	display:block; 
-	float:right; 
+	display:block;
+	float:right;
 	position:relative;
 }
 p.key {
@@ -659,7 +659,7 @@ p.key {
 }
 p.key img {
 	position: relative;
-	float:right; 
+	float:right;
 	margin-left:5px;
 }
 
@@ -742,49 +742,49 @@ tr.CellStatus td {
 
 tr.CellStatus td.Critical
 {
-	background-color: #F5CDCD; 
+	background-color: #F5CDCD;
 	border-top: 2px solid #CC0000 !important;
 	background-image: url(../images/bgCritical.png);
 }
 
 tr.CellStatus td.Major
 {
-	background-color: #FFD7CD; 
+	background-color: #FFD7CD;
 	border-top: 2px solid #FF3300 !important;
 	background-image: url(../images/bgMajor.png);
 }
 
 tr.CellStatus td.Minor
 {
-	background-color: #FFEBCD; 
+	background-color: #FFEBCD;
 	border-top: 2px solid #FF9900 !important;
 	background-image: url(../images/bgMinor.png);
 }
 
 tr.CellStatus td.Warning
 {
-	background-color: #FFF5CD; 
+	background-color: #FFF5CD;
 	border-top: 2px solid #FFCC00 !important;
 	background-image: url(../images/bgWarning.png);
 }
 
 tr.CellStatus td.Indeterminate
 {
-	background-color: #EBEBCD; 
+	background-color: #EBEBCD;
 	border-top: 2px solid #999000 !important;
 	background-image: url(../images/bgIndeterminate.png);
 }
 
 tr.CellStatus td.Normal
 {
-	background-color: #D7E1CD; 
+	background-color: #D7E1CD;
 	border-top: 2px solid #336600 !important;
 	background-image: url(../images/bgNormal.png);
 }
 
 tr.CellStatus td.Cleared
 {
-	background-color: #EEE; 
+	background-color: #EEE;
 	border-top: 2px solid #999 !important;
 	background-image: url(../images/bgCleared.png);
 }
@@ -846,20 +846,20 @@ li.pagination {
 					<tr>
 						<th align="left">
 								Request By User:
-								<xsl:value-of select="rws-nbinventoryreport/user"/> 
-								on 
+								<xsl:value-of select="rws-nbinventoryreport/user"/>
+								on
 								<xsl:value-of select="rws-nbinventoryreport/reportRequestDate"/>
 						</th>
 					</tr>
 					<tr>
 						<th align="left">
 								Inventory Match Regular Expression:
-						<xsl:value-of select="rws-nbinventoryreport/theField"/></th>	
+						<xsl:value-of select="rws-nbinventoryreport/theField"/></th>
 					</tr>
 					<tr>
 						<th align="left">
 								Groups in repository:
-						<xsl:value-of select="rws-nbinventoryreport/totalGroups"/></th>	
+						<xsl:value-of select="rws-nbinventoryreport/totalGroups"/></th>
 					</tr>
 					<tr>
 						<th align="left">
@@ -889,7 +889,7 @@ li.pagination {
 					<tr>
 						<th align="left">
 								Total number of Nodes:
-						<xsl:value-of select="totalNodes"/></th>	
+						<xsl:value-of select="totalNodes"/></th>
 					</tr>
 					<tr>
 						<th align="left">
@@ -927,7 +927,7 @@ li.pagination {
 								<xsl:value-of select="version" />
 							</td>
 						<tr>
-						</tr>						
+						</tr>
 					</table>
 							<xsl:for-each select="inventoryElement2RP">
 							<h3> Inventory Element: <xsl:value-of select="name" /></h3>
@@ -942,7 +942,7 @@ li.pagination {
 										</td>
 									</tr>
 								</xsl:for-each>
-								
+
 								<xsl:choose>
 									<xsl:when test="inventoryMemoryRP/type">
 										<tr>
@@ -961,7 +961,7 @@ li.pagination {
 										</xsl:for-each>
 									</xsl:when>
 								</xsl:choose>
-								
+
 								<xsl:choose>
 									<xsl:when test="inventorySoftwareRP/type">
 										<tr>
@@ -990,7 +990,7 @@ li.pagination {
             OpenNMS is a registered trademark of
         <a href="http://www.opennms.com">The OpenNMS Group, Inc.</a>
           </center></p>
-				
+
 			</body>
 		</html>
 	</xsl:template>

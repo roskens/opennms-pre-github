@@ -59,7 +59,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format">
                                 margin-top="0.1in" extent="0.25in"/>
                         </fo:simple-page-master>
                 </fo:layout-master-set>
-                                                                                                                             
+
                 <!-- Cover Page -->
                 <fo:page-sequence master-reference="cover">
                         <fo:flow flow-name="xsl-region-body">
@@ -69,7 +69,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format">
                                 </fo:block>
                         </fo:flow>
                 </fo:page-sequence>
-                                                                                                                             
+
                 <!-- rest of doc -->
                 <fo:page-sequence master-reference="rest">
                         <fo:static-content flow-name="xsl-region-after">
@@ -146,7 +146,7 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format">
         <xsl:value-of select="."/>
 </xsl:template>
 
-                                                                                                                             
+
 <!-- Category Area -->
 <xsl:template match="categories">
         <xsl:for-each select="category">
@@ -184,9 +184,9 @@ xmlns:fo="http://www.w3.org/1999/XSL/Format">
 </xsl:template>
 
 <xsl:template match="catSections">
-  <xsl:apply-templates select="section"/> 
+  <xsl:apply-templates select="section"/>
 </xsl:template>
-                                                                                                                             
+
 <xsl:template match="calendarTable">
        <xsl:value-of select="@month"/>
   <fo:table width="105mm">

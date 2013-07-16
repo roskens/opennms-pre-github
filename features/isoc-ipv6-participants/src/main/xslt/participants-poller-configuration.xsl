@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsl:stylesheet xmlns="http://xmlns.opennms.org/xsd/config/model-import" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:java="http://xml.apache.org/xalan/java" version="1.0"> 
+<xsl:stylesheet xmlns="http://xmlns.opennms.org/xsd/config/model-import" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" xmlns:java="http://xml.apache.org/xalan/java" version="1.0">
 
-  <xsl:output method="xml"/> 
+  <xsl:output method="xml"/>
 
   <xsl:param name="rrdDirectory"/>
 
@@ -25,15 +25,15 @@
 
   <!--
   <xsl:template match="/participants">
-	<xsl:if test="participant"> 
+	<xsl:if test="participant">
         <xsl:apply-templates/>
 	</xsl:if>
-  </xsl:template> 
+  </xsl:template>
   -->
 
   <xsl:template match="/participants/participant">
-    <!-- 
-      I tried all permutations of creating a primitive boolean with Xalan... 
+    <!--
+      I tried all permutations of creating a primitive boolean with Xalan...
       this seems to be the only one that works.
     -->
     <xsl:variable name="javaTrue" select="java:java.lang.Boolean.parseBoolean('true')"/>
