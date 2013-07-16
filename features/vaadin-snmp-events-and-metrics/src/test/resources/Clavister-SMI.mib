@@ -6,25 +6,25 @@ IMPORTS
 
 clavisterSmiMibModule MODULE-IDENTITY
     LAST-UPDATED "201206270900Z"
-    ORGANIZATION 
+    ORGANIZATION
         "Clavister AB"
-    CONTACT-INFO 
+    CONTACT-INFO
         "Clavister Support
-         
-         Clavister AB 
+
+         Clavister AB
          Sjogatan 6J
          SE-891 60 ORNSKOLDSVIK
          SWEDEN
-         
+
          Tel: +46-660-299200
          http://www.clavister.com"
-    DESCRIPTION 
+    DESCRIPTION
         "Smi Mib"
     REVISION    "201206270900Z"
-    DESCRIPTION 
+    DESCRIPTION
         "Updated with regards to name change."
     REVISION    "200605190900Z"
-    DESCRIPTION 
+    DESCRIPTION
         "Initial version."
     ::= { clavister 0 }
 
@@ -56,4 +56,3 @@ clavisterSystemTrapInfo OBJECT IDENTIFIER ::= { clavisterSystem 1 }
 clavisterSystemStats OBJECT IDENTIFIER ::= { clavisterSystem 2 }
 
 END -- end of module CLAVISTER-SMI.
-

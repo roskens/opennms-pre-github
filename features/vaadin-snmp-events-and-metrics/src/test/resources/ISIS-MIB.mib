@@ -476,7 +476,7 @@ isisNotification OBJECT IDENTIFIER ::= { isisObjects 10 }
              configured to store.  This should be at least
              as big as the maximum isisSysLevelOrigLSPBuffSize
              supported by the system.
-             
+
              If resources allow, we will store and flood LSPs
              larger than isisSysReceiveLSPBufferSize, as this
              can help avoid problems in networks with different

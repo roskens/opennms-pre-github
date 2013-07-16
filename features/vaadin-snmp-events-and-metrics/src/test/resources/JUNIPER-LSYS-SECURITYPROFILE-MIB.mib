@@ -1,6 +1,6 @@
 --
 -- Juniper Enterprise Specific MIB: Structure of Management Information
--- 
+--
 -- Copyright (c) 2010-2011, Juniper Networks, Inc.
 -- All rights reserved.
 --
@@ -19,7 +19,7 @@ JUNIPER-LSYS-SECURITYPROFILE-MIB DEFINITIONS ::= BEGIN
 
 --
 -- next level object identifiers under jnxLsysSecurityProfile
--- 
+--
 jnxLsysSpZone               OBJECT IDENTIFIER ::= { jnxLsysSecurityProfile 1 }
 jnxLsysSpScheduler          OBJECT IDENTIFIER ::= { jnxLsysSecurityProfile 2 }
 jnxLsysSpPolicy             OBJECT IDENTIFIER ::= { jnxLsysSecurityProfile 3 }

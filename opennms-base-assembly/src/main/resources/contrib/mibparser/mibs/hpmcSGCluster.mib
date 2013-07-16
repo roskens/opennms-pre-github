@@ -6,7 +6,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                FROM SNMPv2-SMI
 	   DisplayString, TruthValue, DateAndTime, MacAddress,
 	 	       FROM SNMPv2-TC
-			hpmcClusterState, hpmcClusterName, 
+			hpmcClusterState, hpmcClusterName,
 			hpmcClusterIndex, hpmcNodeName, hpmcNodeID
                FROM HP-MCCLUSTER;
 
@@ -26,9 +26,9 @@ HP-MCSG DEFINITIONS ::= BEGIN
                           General Systems Division"
             CONTACT-INFO
                     "       Miha Wang
-                            Kevin Watkins 
-                            Carol Ann Krug 
-       
+                            Kevin Watkins
+                            Carol Ann Krug
+
                     Postal: Hewlett Packard Company
                             19411 Pruneridge Ave, MS44UA
                             Cupertino, CA 95014
@@ -36,8 +36,8 @@ HP-MCSG DEFINITIONS ::= BEGIN
                     Tel:    +1 408 447 2339 (MW)
                             +1 408 447 5795 (KW)
                             +1 408 447 3477 (CK)
-                    Fax:    +1 408 447 1345 
-       
+                    Fax:    +1 408 447 1345
+
                     E-mail: miha@cup.hp.com
                             kevin@cup.hp.com
                             carolann@cup.hp.com"
@@ -46,19 +46,19 @@ HP-MCSG DEFINITIONS ::= BEGIN
                     "This MIB module describes an HP private MIB
                     for the management of ServiceGuard Clusters.
                     The MIB is intended to support specific ServiceGuard
-				    cluster attributes." 
+				    cluster attributes."
             ::= { hpmcTypeSpecific 1 }
 
        --
        -- MacAddress
        -- DateAndTime - defined here for benefit of SNMP Research code which
-       --  does not have this built in for 12.2.0.2 release.  When they are 
+       --  does not have this built in for 12.2.0.2 release.  When they are
        --  available they should be removed from the MIB definitions and
-       --  "DateAndTime" and "MacAddress" should be added back into the 
+       --  "DateAndTime" and "MacAddress" should be added back into the
        --  IMPORTS list.
        --
-       --       DateAndTime specification: 
-       --       
+       --       DateAndTime specification:
+       --
        --             field  octets  contents                  range
        --             =====  ======  ========                  =====
        --               1      1-2   year                      0..65536
@@ -90,17 +90,17 @@ HP-MCSG DEFINITIONS ::= BEGIN
        -- ServiceGuard Specific Information
        --
        --   The following groups are specific to ServiceGuard, and will
-       --  not exist on nodes which do not have the ServiceGuard 
+       --  not exist on nodes which do not have the ServiceGuard
        --  product installed.
        --
 
-       -- 
+       --
        -- The SG Cluster Information Group
-       -- 
+       --
        --   This group contains cluster-wide information configured
        --  for a particular instance of a service guard cluster to
        --  which this node belongs.
-       -- 
+       --
 
        hpmcSGTraps         OBJECT IDENTIFIER ::= { hpmcSGCluster 0 }
        hpmcSGObjects       OBJECT IDENTIFIER ::= { hpmcSGCluster 1 }
@@ -124,7 +124,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    other information about the Service Guard cluster (such
 		    as membership and general state information)."
            ::= { hpmcSGGenInfo 1 }
-       
+
        hpmcSGClusterID OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
@@ -133,7 +133,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "The unique ID assigned to this cluster configuration
 		    by the MC/ServiceGuard configuration daemon."
            ::= { hpmcSGGenInfo 2 }
-       
+
        hpmcSGHeartbeatInterval OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "microseconds"
@@ -143,18 +143,18 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "The interval between the sending of heartbeat messages.
 		    The value is expressed in microseconds."
            ::= { hpmcSGGenInfo 3 }
-       
+
        hpmcSGNodeTimeout OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "microseconds"
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The maximum amount of time allowed between receipt of 
+                   "The maximum amount of time allowed between receipt of
 		    heartbeats, before marking a node as down.  The value
                     is expressed in microseconds."
            ::= { hpmcSGGenInfo 4 }
-       
+
        hpmcSGAutoStartTimeout OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "microseconds"
@@ -164,18 +164,18 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "The number of microseconds to wait for all nodes to join
 		    the cluster when nodes are booting up."
            ::= { hpmcSGGenInfo 5 }
-       
+
        hpmcSGNetworkPollingInterval OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "microseconds"
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The frequency at which LAN cards send a message to 
+                   "The frequency at which LAN cards send a message to
 		    another LAN card in order to verify its health.  The
                     value is expressed in microseconds."
            ::= { hpmcSGGenInfo 6 }
-       
+
 
        --
        -- The SG Lock Table
@@ -194,7 +194,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A table describing the volume groups which are used
 		    as locks for the ServiceGuard cluster."
            ::= { hpmcSGLockInfo 1 }
-       
+
        hpmcSGLockEntry OBJECT-TYPE
            SYNTAX      HpmcSGLockEntry
            MAX-ACCESS  not-accessible
@@ -204,13 +204,13 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    used for locking the ServiceGuard cluster."
            INDEX      { hpmcSGVolumeIndex }
            ::= { hpmcSGLockTable 1 }
-       
+
        HpmcSGLockEntry ::=
            SEQUENCE {
 	       hpmcSGVolumeIndex             Integer32,
 	       hpmcSGPhysicalVolume          DisplayString
            }
-       
+
        --
        -- May have tie in with Host Resources MIB in future.
        --
@@ -227,11 +227,11 @@ HP-MCSG DEFINITIONS ::= BEGIN
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "Device path used to access the disk device used for 
+                   "Device path used to access the disk device used for
 		    locking."
            ::= { hpmcSGLockEntry 2 }
-       
-       
+
+
        --
        -- The SG Network Interface Table
        --
@@ -257,7 +257,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A table describing the network interfaces in which SG
 		    has an active interest."
            ::= { hpmcSGIfInfo 1 }
-       
+
        hpmcSGNetEntry OBJECT-TYPE
            SYNTAX      HpmcSGNetEntry
            MAX-ACCESS  not-accessible
@@ -267,7 +267,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    interface of interest to the ServiceGuard cluster."
            INDEX      { hpmcSGNetIfIndex }
            ::= { hpmcSGNetTable 1 }
-       
+
        HpmcSGNetEntry ::=
            SEQUENCE {
 	       hpmcSGNetIfIndex           Integer32,
@@ -278,7 +278,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	       hpmcSGNetLastEventTime     DateAndTime,
 	       hpmcSGNetIfHwPath          DisplayString
            }
-       
+
        hpmcSGNetIfIndex OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
@@ -297,7 +297,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "This is the concise name of the network interface, which
                     is used in local system management operations.  It may
-                    differ from the MIB II object ifDescr, in that the 
+                    differ from the MIB II object ifDescr, in that the
                     latter can contain additional information."
            ::= { hpmcSGNetEntry 2 }
 
@@ -320,18 +320,18 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "An integer whose value represents a bitstring.  These
 		    bit values indicate flag settings for this interface
-		    as well as status information.  Note that the MIB-II 
+		    as well as status information.  Note that the MIB-II
 		    interface group also contains status information, but
 		    this is relative to IP (if IP is not enabled on the card,
-		    it is marked as down).  The value is determined by 
+		    it is marked as down).  The value is determined by
 		    summing the following:
 			1 - Heartbeat
-			2 - Primary 
+			2 - Primary
 			4 - Active
 			8 - HW Failure Detected
 			16 - Connectivity Failure Detected"
            ::= { hpmcSGNetEntry 4 }
-       
+
        hpmcSGNetLastEvent OBJECT-TYPE
            SYNTAX      INTEGER{
                          none(0),
@@ -344,7 +344,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "An event code which indicates the last event which
 		    resulted in reaching the current status of the interface."
            ::= { hpmcSGNetEntry 5 }
-       
+
        hpmcSGNetLastEventTime OBJECT-TYPE
            SYNTAX      DateAndTime
            MAX-ACCESS  read-only
@@ -354,7 +354,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    hpmcSGNetLastEvent occured.  A value of 0 indicates
                     that the time is unknown."
            ::= { hpmcSGNetEntry 6 }
-       
+
        --
        -- Note:  this information is contained in the Host Resources MIB,
        -- and could be derived by matching the ifIndex with a Device Table
@@ -367,10 +367,10 @@ HP-MCSG DEFINITIONS ::= BEGIN
            STATUS      current
            DESCRIPTION
                    "Describes the HW location of the interface card.  This
-		    information can be useful in locating the physical 
+		    information can be useful in locating the physical
 		    position of a faulty card."
            ::= { hpmcSGNetEntry 7 }
-       
+
 
 
        --
@@ -400,7 +400,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A table describing the packages which are currently
 		    configured for the ServiceGuard cluster."
            ::= { hpmcSGPkgInfo 1 }
-       
+
        hpmcSGPkgEntry OBJECT-TYPE
            SYNTAX      HpmcSGPkgEntry
            MAX-ACCESS  not-accessible
@@ -409,7 +409,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "An entry providing information about a specific package."
            INDEX      { hpmcSGPkgIndex }
            ::= { hpmcSGPkgTable 1 }
-       
+
        HpmcSGPkgEntry ::=
            SEQUENCE {
 	       hpmcSGPkgIndex                Integer32,
@@ -424,7 +424,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	       hpmcSGPkgRunScriptTimeout     Integer32,
 	       hpmcSGPkgHaltScriptTimeout    Integer32
            }
-       
+
        hpmcSGPkgIndex OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  not-accessible
@@ -435,7 +435,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    the same SG Cluster.  More specifically, these indices
                     should match the cluster-wide pkgid assigned by SG."
            ::= { hpmcSGPkgEntry 1 }
-       
+
        hpmcSGPkgName OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -443,16 +443,16 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "The name configured for this package."
            ::= { hpmcSGPkgEntry 2 }
-       
+
        hpmcSGPkgDescr OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "Explanatory text provided by the user to further 
+                   "Explanatory text provided by the user to further
 		    clarify the function of this package."
            ::= { hpmcSGPkgEntry 3 }
-       
+
        hpmcSGPkgStatus OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
@@ -465,8 +465,8 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    which are applicable:
 
                        1   - Up
-                       2   - Moving 
-                       4   - Valid package status 
+                       2   - Moving
+                       4   - Valid package status
                        8   - PackageSwitchingEnabled
                        16  - NetSwitchingEnabled
                        32  - NodeFailFastEnabled
@@ -483,7 +483,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "Name of the node where the package is executing.  This
                     string will be empty if the package is currently unowned."
            ::= { hpmcSGPkgEntry 5 }
-       
+
        hpmcSGPkgLastEvent OBJECT-TYPE
            SYNTAX      INTEGER{
                          none(0),
@@ -498,10 +498,10 @@ HP-MCSG DEFINITIONS ::= BEGIN
            STATUS      current
            DESCRIPTION
                    "An event code which indicates the last event which
-		    resulted in reacing the status described by 
+		    resulted in reacing the status described by
 		    hpmcSGPkgStatus."
            ::= { hpmcSGPkgEntry 6 }
-       
+
        hpmcSGPkgLastEventTime OBJECT-TYPE
            SYNTAX      DateAndTime
            MAX-ACCESS  read-only
@@ -511,26 +511,26 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    described by hpmcSGPkgStatus.  A value of 0 indicates
                     that the time is unknown."
            ::= { hpmcSGPkgEntry 7 }
-       
+
        hpmcSGPkgRunScriptPath OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The name of the file which is invoked in order to 
+                   "The name of the file which is invoked in order to
 		    launch the package."
            ::= { hpmcSGPkgEntry 8 }
-       
+
        hpmcSGPkgHaltScriptPath OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The name of the file which is invoked in order to 
+                   "The name of the file which is invoked in order to
 		    shutdown the package.  This is often the same as
 		    the Run Script."
            ::= { hpmcSGPkgEntry 9 }
-       
+
        hpmcSGPkgRunScriptTimeout OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "seconds"
@@ -540,7 +540,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "The maximum amount of time allowed for the Run Script
 		    to complete.  The value is expressed in seconds."
            ::= { hpmcSGPkgEntry 10 }
-       
+
        hpmcSGPkgHaltScriptTimeout OBJECT-TYPE
            SYNTAX      Integer32
            UNITS       "seconds"
@@ -550,12 +550,12 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "The maximum amount of time allowed for the Run Script
 		    to complete.  The value is expressed in seconds."
            ::= { hpmcSGPkgEntry 11 }
-       
+
 
        --
        -- The SG Package Dependent Subnet Table
        --
-       --  A Service Guard package can specify subnets upon which it 
+       --  A Service Guard package can specify subnets upon which it
        -- has a dependency.  In the event of the failure of this subnet
        -- the package will be migrated to another node.
        --
@@ -564,10 +564,10 @@ HP-MCSG DEFINITIONS ::= BEGIN
            MAX-ACCESS  not-accessible
            STATUS      current
            DESCRIPTION
-                   "A table describing the subnets upon which this package 
+                   "A table describing the subnets upon which this package
 		    has a dependency."
            ::= { hpmcSGPkgInfo 2 }
-       
+
        hpmcSGPkgSubnetEntry OBJECT-TYPE
            SYNTAX      HpmcSGPkgSubnetEntry
            MAX-ACCESS  not-accessible
@@ -576,14 +576,14 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "An entry describes a single subnet dependency."
            INDEX      { hpmcSGPkgIndex, hpmcSGPkgSubnet }
            ::= { hpmcSGPkgSubnetTable 1 }
-       
+
        HpmcSGPkgSubnetEntry ::=
            SEQUENCE {
 	       hpmcSGPkgSubnet                IpAddress,
                hpmcSGPkgSubnetStatus          INTEGER,
 	       hpmcSGPkgOverrideMACAddr       OCTET STRING
            }
-       
+
        hpmcSGPkgSubnet OBJECT-TYPE
            SYNTAX      IpAddress
            MAX-ACCESS  read-only
@@ -611,10 +611,10 @@ HP-MCSG DEFINITIONS ::= BEGIN
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "A MAC address which will be used to override the 
-		    default MAC address on the interface card associated 
+                   "A MAC address which will be used to override the
+		    default MAC address on the interface card associated
 		    with the given Subnet.  In particular this will allow
-		    DLPI applications to continue servicing clients on 
+		    DLPI applications to continue servicing clients on
 		    the same address after failover.  In the event
 		    that no override MAC address is used, this object
 		    shall be assigned the value 0x000000000000."
@@ -626,7 +626,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
        --
        --  A Service Guard package can define zero or more IP addresses
        -- which are "owned" by the package.  Normally, when a package
-       -- is migrated to another node, these addresses are migrated 
+       -- is migrated to another node, these addresses are migrated
        -- along with it.  Sometimes the addresses may persist on the
        -- node after a failover.
        --
@@ -640,10 +640,10 @@ HP-MCSG DEFINITIONS ::= BEGIN
            MAX-ACCESS  not-accessible
            STATUS      current
            DESCRIPTION
-                   "A table describing the movable IP addresses which are 
+                   "A table describing the movable IP addresses which are
                     usually associated with active packages on this node."
            ::= { hpmcSGPkgInfo 3 }
-       
+
        hpmcSGPkgAddrEntry OBJECT-TYPE
            SYNTAX      HpmcSGPkgAddrEntry
            MAX-ACCESS  not-accessible
@@ -653,13 +653,13 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    package."
            INDEX      { hpmcSGPkgAddr }
            ::= { hpmcSGPkgAddrTable 1 }
-       
+
        HpmcSGPkgAddrEntry ::=
            SEQUENCE {
 	       hpmcSGPkgAddr                 IpAddress,
                hpmcSGPkgID                   Integer32
            }
-       
+
        hpmcSGPkgAddr OBJECT-TYPE
            SYNTAX      IpAddress
            MAX-ACCESS  read-only
@@ -668,16 +668,16 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A migratable address which is currently active for
 		    this package."
            ::= { hpmcSGPkgAddrEntry 1 }
-       
+
        hpmcSGPkgID OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The hpmcSGPkgIndex value for the owning package.  
+                   "The hpmcSGPkgIndex value for the owning package.
 		    A value of 0 indicates no owning package."
            ::= { hpmcSGPkgAddrEntry 2 }
-       
+
 
        --
        -- The SG Package Service Table
@@ -687,7 +687,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
        -- Guard will parent and monitor the service process in addition
        -- to other dependencies the package and cluster overall require.
        --
-       --  The information about the Package services is only available 
+       --  The information about the Package services is only available
        -- to the node which has that package active.  Certainly information
        -- such as PIDs are meaningless unless the package is active.  Hence
        -- this is a sparse table.
@@ -700,7 +700,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A table describing the services or applications which
                     are associated with active packages on this node."
            ::= { hpmcSGPkgInfo 4 }
-       
+
        hpmcSGPkgSvcEntry OBJECT-TYPE
            SYNTAX      HpmcSGPkgSvcEntry
            MAX-ACCESS  not-accessible
@@ -710,7 +710,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    package."
            INDEX      { hpmcSGPkgIndex, hpmcSGPkgSvcIndex }
            ::= { hpmcSGPkgSvcTable 1 }
-       
+
        HpmcSGPkgSvcEntry ::=
            SEQUENCE {
 	       hpmcSGPkgSvcIndex             Integer32,
@@ -721,7 +721,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	       hpmcSGPkgSvcMaxRestarts       Integer32,
 	       hpmcSGPkgSvcRestartCount      Integer32
 	       }
-       
+
        hpmcSGPkgSvcIndex OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  not-accessible
@@ -730,7 +730,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
                    "A unique value which identifies this service in the
 		    context of the package."
            ::= { hpmcSGPkgSvcEntry 1 }
-       
+
        hpmcSGPkgSvcName OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -738,7 +738,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "The name of this service."
            ::= { hpmcSGPkgSvcEntry 2 }
-       
+
        hpmcSGPkgSvcStatus OBJECT-TYPE
            SYNTAX    INTEGER{
                        unknown(0),
@@ -750,7 +750,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "The current state of the service."
            ::= { hpmcSGPkgSvcEntry 3 }
-       
+
        hpmcSGPkgSvcFlags OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
@@ -758,11 +758,11 @@ HP-MCSG DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "An integer whose value represents a bitstring.  These
 		    bit values indicate flag settings for this service.
-		    Currently there is only one flag available.  The 
+		    Currently there is only one flag available.  The
 		    value is determined by summing the following:
 			8 - FailFastSwitch"
            ::= { hpmcSGPkgSvcEntry 4 }
-       
+
        hpmcSGPkgSvcHaltTimeout OBJECT-TYPE
            SYNTAX      Integer32
 	   UNITS       "seconds"
@@ -784,22 +784,22 @@ HP-MCSG DEFINITIONS ::= BEGIN
 		    A value of 0 indicates that the service may not be
 		    restarted, a value of -1 indicates no limit."
            ::= { hpmcSGPkgSvcEntry 6 }
-       
+
        hpmcSGPkgSvcRestartCount OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "The current number of times this service has been 
-		    restarted." 
+                   "The current number of times this service has been
+		    restarted."
            ::= { hpmcSGPkgSvcEntry 7 }
-       
+
 
        --
        -- The SG Package Dependent Node Table
        --
        --  A Service Guard package can specify an ordered list of nodes
-       --  that it will run on.  This table represents that list for a 
+       --  that it will run on.  This table represents that list for a
        --  given package.
        --
        hpmcSGPkgNodeTable OBJECT-TYPE
@@ -854,7 +854,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
-                   "A binary value that represents the status of the LOCAL 
+                   "A binary value that represents the status of the LOCAL
                     switch capability for the respective package on the
                     particular node."
            ::= { hpmcSGPkgNodeEntry 3 }
@@ -906,7 +906,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	   OBJECTS     { hpmcSGPkgIndex, hpmcNodeID, hpmcSGPkgName, hpmcNodeName, hpmcSGPkgStatus }
            STATUS      current
            DESCRIPTION
-                   "Sent from the coordinator of the cluster when a package 
+                   "Sent from the coordinator of the cluster when a package
                     run script has been started on a cluster node."
            ::= { hpmcSGTraps 6 }
 
@@ -914,7 +914,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	   OBJECTS     { hpmcSGPkgIndex, hpmcNodeID, hpmcSGPkgName, hpmcNodeName, hpmcSGPkgStatus }
            STATUS      current
            DESCRIPTION
-                   "Sent from the coordinator of the cluster when a package 
+                   "Sent from the coordinator of the cluster when a package
                     run script has completed successfully on a cluster node."
            ::= { hpmcSGTraps 7 }
 
@@ -922,7 +922,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	   OBJECTS     { hpmcSGPkgIndex, hpmcNodeID, hpmcSGPkgName, hpmcNodeName, hpmcSGPkgStatus }
            STATUS      current
            DESCRIPTION
-                   "Sent from the coordinator of the cluster when a package 
+                   "Sent from the coordinator of the cluster when a package
                     halt script has been started on a cluster node."
            ::= { hpmcSGTraps 8 }
 
@@ -946,7 +946,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	   OBJECTS     { hpmcSGPkgIndex, hpmcSGPkgStatus, hpmcSGPkgName }
            STATUS      current
            DESCRIPTION
-                   "Sent from the coordinator of the cluster when a package's 
+                   "Sent from the coordinator of the cluster when a package's
                     global or local switch enable has been toggled."
            ::= { hpmcSGTraps 11 }
 
@@ -984,7 +984,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
 	   OBJECTS     { hpmcSGPkgSubnet }
 	   STATUS      current
            DESCRIPTION
-                   "Sent when ServiceGuard detects that a previously 
+                   "Sent when ServiceGuard detects that a previously
                     operational subnet is now down."
            ::= { hpmcSGTraps 16 }
 
@@ -997,7 +997,7 @@ HP-MCSG DEFINITIONS ::= BEGIN
        hpmcSGNodeHalted NOTIFICATION-TYPE
            STATUS      current
            DESCRIPTION
-                   "Sent when a cluster node is halted by a system 
+                   "Sent when a cluster node is halted by a system
                     administrator."
            ::= { hpmcSGTraps 18 }
 

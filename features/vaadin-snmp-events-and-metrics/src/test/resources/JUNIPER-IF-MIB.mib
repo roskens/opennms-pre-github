@@ -1,6 +1,6 @@
 --
 -- Juniper Enterprise Specific MIB: Interface MIB Extension
--- 
+--
 -- Copyright (c) 1999-2003, 2007, Juniper Networks, Inc.
 -- All rights reserved.
 --
@@ -17,7 +17,7 @@ IMPORTS
     ifEntry,ifIndex
         FROM IF-MIB
     TimeStamp
-        FROM SNMPv2-TC    
+        FROM SNMPv2-TC
     jnxMibs
         FROM JUNIPER-SMI;
 
@@ -33,22 +33,22 @@ ifJnx MODULE-IDENTITY
 
     DESCRIPTION
             "The MIB modules extends the ifTable as
-             defined in IF-MIB."     
+             defined in IF-MIB."
     REVISION     "200706050000Z"       -- 05 June, 2007
     DESCRIPTION
-            "New Time Domain Reflectometery Added" 
+            "New Time Domain Reflectometery Added"
     REVISION     "200210310000Z"         -- 31 Oct, 2002
     DESCRIPTION
-            "New error counters added to ifJnxTable" 
+            "New error counters added to ifJnxTable"
     REVISION     "200106210000Z"         -- 21 June, 2001
     DESCRIPTION
-            "New objects ifHCIn1SecRate and 
-             ifHCOut1SecRate added" 
-    REVISION     "200103150000Z"         -- 15 March, 2001 
+            "New objects ifHCIn1SecRate and
+             ifHCOut1SecRate added"
+    REVISION     "200103150000Z"         -- 15 March, 2001
     DESCRIPTION
             "Initial Version"
-            
-            
+
+
     ::= { jnxMibs 3 }
 
 
@@ -120,7 +120,7 @@ ifJnx MODULE-IDENTITY
 	MAX-ACCESS  read-only
 	STATUS      current
 	DESCRIPTION
-		"The number of bits per second (bps), delivered by 
+		"The number of bits per second (bps), delivered by
 		this (sub-)layer to its next higher (sub-)layer."
 	::= { ifJnxEntry 1 }
 
@@ -129,7 +129,7 @@ ifJnx MODULE-IDENTITY
 	MAX-ACCESS  read-only
 	STATUS      current
 	DESCRIPTION
-		"The number of octets per second (Bps, Bytes per 
+		"The number of octets per second (Bps, Bytes per
 		second), delivered by this (sub-)layer to its next
 		higher (sub-)layer."
 	::= { ifJnxEntry 2 }
@@ -170,13 +170,13 @@ ifJnx MODULE-IDENTITY
 		"The number of packets per second (pps), delivered
 		by this (sub-)layer to its next lower (sub-)layer."
 	::= { ifJnxEntry 6 }
-	
+
     ifHCIn1SecRate OBJECT-TYPE
 	SYNTAX      CounterBasedGauge64
 	MAX-ACCESS  read-only
 	STATUS      current
 	DESCRIPTION
-		"The number of bits per second (bps), delivered by 
+		"The number of bits per second (bps), delivered by
 		this (sub-)layer to its next higher (sub-)layer.
 		This object is a 64 bit version of ifIn1SecRate."
 	::= { ifJnxEntry 7 }
@@ -204,7 +204,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "Framing Errors: The number of input packets which were 
+                "Framing Errors: The number of input packets which were
                 misaligned."
     ::= { ifJnxEntry 10 }
 
@@ -213,7 +213,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "Drops: The number of packets dropped by the input queue of 
+                "Drops: The number of packets dropped by the input queue of
                 the I/O Manager ASIC."
     ::= { ifJnxEntry 11 }
 
@@ -222,7 +222,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "Runts: Frames received that are smaller than the runt 
+                "Runts: Frames received that are smaller than the runt
                 threshold."
     ::= { ifJnxEntry 12 }
 
@@ -231,7 +231,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "Giants: Frames received that are larger than the giant 
+                "Giants: Frames received that are larger than the giant
                 threshold."
     ::= { ifJnxEntry 13 }
 
@@ -240,7 +240,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "Policed Discards: Frames that the incoming packet match code 
+                "Policed Discards: Frames that the incoming packet match code
                 discarded because they were not recognized or of interest."
     ::= { ifJnxEntry 14 }
 
@@ -249,8 +249,8 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "HS Link CRC Errors: The number of CRC errors on the 
-                high-speed links between the ASICs responsible for handling 
+                "HS Link CRC Errors: The number of CRC errors on the
+                high-speed links between the ASICs responsible for handling
                 the router interfaces while receiving packets."
     ::= { ifJnxEntry 15 }
 
@@ -278,7 +278,7 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "L2 channel errors: the number of incoming packets for which 
+                "L2 channel errors: the number of incoming packets for which
                 the sofware could not find a valid logical interface."
     ::= { ifJnxEntry 18 }
 
@@ -397,8 +397,8 @@ ifJnx MODULE-IDENTITY
         MAX-ACCESS  read-only
         STATUS      current
         DESCRIPTION
-                "HS Link CRC Errors: The number of CRC errors on the 
-                high-speed links between the ASICs responsible for handling 
+                "HS Link CRC Errors: The number of CRC errors on the
+                high-speed links between the ASICs responsible for handling
                 the router interfaces while transmitting packets."
     ::= { ifJnxEntry 31 }
 
@@ -447,11 +447,11 @@ ifJnx MODULE-IDENTITY
 	STATUS      current
 	DESCRIPTION
 		"The number of the FPC card on which the interface
-		is located in the chassis.  It is the chassis slot 
-		in which the FPC card is installed for the specified 
-		interface.  
+		is located in the chassis.  It is the chassis slot
+		in which the FPC card is installed for the specified
+		interface.
 
-		Although the number is labeled from 0 and up in the 
+		Although the number is labeled from 0 and up in the
 		chassis, the return value for this object always starts
 		from 1 according to Network Management convention.
 		Therefore, a value of zero means there is no real or
@@ -464,10 +464,10 @@ ifJnx MODULE-IDENTITY
 	STATUS      current
 	DESCRIPTION
 		"The number of the PIC card on which the interface
-		is located in the chassis.  It is the PIC location 
+		is located in the chassis.  It is the PIC location
 		on the FPC card for the specified interface.
 
-		Although the number is labeled from 0 and up in the 
+		Although the number is labeled from 0 and up in the
 		chassis, the return value for this object always starts
 		from 1 according to Network Management convention.
 		Therefore, a value of zero means there is no real or
@@ -479,11 +479,11 @@ ifJnx MODULE-IDENTITY
 	MAX-ACCESS  read-only
 	STATUS      current
 	DESCRIPTION
-		"The number of the port on the PIC card on which the 
-		interface is located in the chassis.  It is the port 
+		"The number of the port on the PIC card on which the
+		interface is located in the chassis.  It is the port
 		number on the PIC card for the specified interface.
 
-		Although the number is labeled from 0 and up in the 
+		Although the number is labeled from 0 and up in the
 		chassis, the return value for this object always starts
 		from 1 according to Network Management convention.
 		Therefore, a value of zero means there is no real or
@@ -497,11 +497,11 @@ ifJnx MODULE-IDENTITY
 	DESCRIPTION
 		"The channel identifier for the specified interface
 		if and only if it is part of a channelized interface.
-		
-		Although the channel is numbered from 0 and up in the 
-		interface naming, the return value for this object 
-		always starts from 1 according to Network Management 
-		convention.  For the interface which could not be 
+
+		Although the channel is numbered from 0 and up in the
+		interface naming, the return value for this object
+		always starts from 1 according to Network Management
+		convention.  For the interface which could not be
 		channelized, this object returns zero."
 	::= { ifChassisEntry 4 }
 
@@ -512,13 +512,13 @@ ifJnx MODULE-IDENTITY
 	STATUS      current
 	DESCRIPTION
 		"The logical unit number of the specified interface.
-		It is the logical part of the interface that is 
+		It is the logical part of the interface that is
 		configured on the physical or channel part if any.
 
 		Although the logical unit number is numbered from 0 and
-		up in the interface naming, the return value for this 
-		object always starts from 1 according to Network 
-		Management convention.  For the interface which is 
+		up in the interface naming, the return value for this
+		object always starts from 1 according to Network
+		Management convention.  For the interface which is
 		really a physical device, this value returns zero."
 	::= { ifChassisEntry 5 }
 
@@ -528,11 +528,11 @@ ifJnx MODULE-IDENTITY
 	STATUS      current
 	DESCRIPTION
 		"The index or indices for the Chassis MIB tables.
-		This is the instance index which keys into the 
+		This is the instance index which keys into the
 		jnxContentsTable in Chassis MIB.
 
 		For example, it could return an octet string of
-		'8.1.2.0' - meaning a PIC ('8', first digit) 
+		'8.1.2.0' - meaning a PIC ('8', first digit)
 		at FPC slot 0 ('1-1', second digit minus one if nonzero)
 		PIC number 1 ('2-1', third digit minus one if nonzero)
 		port number whatever (fourth digit currently unused)
@@ -541,10 +541,10 @@ ifJnx MODULE-IDENTITY
 		'jnxContentsDescr.8.1.2.0', so NMS could get that
 		PIC object for the specified interface.
 
-		This object is valid only for those interfaces having 
-		real and physical PIC cards.  Otherwise, it returns 
+		This object is valid only for those interfaces having
+		real and physical PIC cards.  Otherwise, it returns
 		an octet string	of four zeros '0.0.0.0.'"
 	::= { ifChassisEntry 6 }
-      
+
 
 END

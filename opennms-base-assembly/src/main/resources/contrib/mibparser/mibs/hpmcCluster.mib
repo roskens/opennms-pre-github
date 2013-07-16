@@ -17,7 +17,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
        system             OBJECT IDENTIFIER ::= { nm 3 }
        general            OBJECT IDENTIFIER ::= { system 1 }
 
-       
+
        hpmcCluster MODULE-IDENTITY
             LAST-UPDATED "9710030000Z"
             ORGANIZATION "Hewlett Packard Company,
@@ -26,7 +26,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     "       Miha Wang
                             Kevin Watkins
                             Carol Ann Krug
-       
+
                     Postal: Hewlett Packard Company
                             19411 Pruneridge Ave, MS44UA
                             Cupertino, CA 95014
@@ -48,7 +48,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     specific products should be done in separate
                     product-specific MIBs."
             ::= { general 6 }
-       
+
 
        --
        -- DateAndTime - defined here for benefit of SNMP Research code which
@@ -69,13 +69,13 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
        hpmcGenInfo          OBJECT IDENTIFIER ::= { hpmcClusterObjects 1 }
        hpmcMemberInfo       OBJECT IDENTIFIER ::= { hpmcClusterObjects 2 }
 
-       
-       -- 
+
+       --
        -- Cluster Types
-       -- 
-       --  These object IDs are used to uniquely identify HP 
+       --
+       --  These object IDs are used to uniquely identify HP
        --  Multicomputer Clustering products.
-       -- 
+       --
 
        hpmcServiceGuard OBJECT-IDENTITY
             STATUS     current
@@ -113,13 +113,13 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
 
        -- others ...
 
-       -- 
+       --
        -- The General Cluster Information Group
-       -- 
+       --
        --   This group contains general information (i.e. information
        --  pertinent to most types of clusters) about the clusters to
        --  which this node belongs.
-       -- 
+       --
 
        hpmcNumClusters OBJECT-TYPE
            SYNTAX      Integer32
@@ -128,7 +128,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "This variable is obsolete."
            ::= { hpmcGenInfo 1 }
-       
+
 
        --
        -- The Cluster Information Table
@@ -148,7 +148,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "A table containing general information about
                     the various clusters to which this node belongs."
            ::= { hpmcGenInfo 2 }
-       
+
        hpmcClusterEntry OBJECT-TYPE
            SYNTAX      HpmcClusterEntry
            MAX-ACCESS  not-accessible
@@ -158,7 +158,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     to which this node belongs."
            INDEX      { hpmcClusterIndex }
            ::= { hpmcClusterTable 1 }
-       
+
        HpmcClusterEntry ::=
            SEQUENCE {
                hpmcClusterIndex            Integer32,
@@ -175,7 +175,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                hpmcNodeLastEventTime       DateAndTime,
                hpmcClusterUpTime           TimeTicks
            }
-       
+
        hpmcClusterIndex OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  not-accessible
@@ -188,7 +188,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     value left 16 bits) and adding a 16 bit value
                     (ranging from 0 to 2^16-1) for the cluster instance."
            ::= { hpmcClusterEntry 1 }
-       
+
        hpmcClusterName OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -199,17 +199,17 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     type.  No two clusters of the same type on a
                     single node may have the same name."
            ::= { hpmcClusterEntry 2 }
-       
+
        hpmcClusterType OBJECT-TYPE
            SYNTAX      OBJECT IDENTIFIER
            MAX-ACCESS  read-only
            STATUS      current
            DESCRIPTION
                    "An unambiguous identifier of the cluster type.  These
-                    values should be taken from the Object ID tree rooted 
+                    values should be taken from the Object ID tree rooted
                     below hpmcClusterTypes."
            ::= { hpmcClusterEntry 3 }
-       
+
        hpmcClusterDescr OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -217,13 +217,13 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
            DESCRIPTION
                    "A description of the cluster.  By default this might
                     simply be a textual description of the cluster type,
-                    such as `MC Service Guard'.  However it may be 
+                    such as `MC Service Guard'.  However it may be
                     desirable to allow the enduser to override this
-                    description through configuration to describe the 
+                    description through configuration to describe the
                     actual purpose being served by the cluster.  For
                     example `HA Customer Database Cluster'."
            ::= { hpmcClusterEntry 4 }
-       
+
        hpmcClusterSWVersion OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -232,7 +232,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "Versioning information describing the SW component(s),
                     residing on this node, which comprise this cluster type."
            ::= { hpmcClusterEntry 5 }
-       
+
        hpmcClusterState OBJECT-TYPE
            SYNTAX      INTEGER{
                          unknown(-1),
@@ -249,7 +249,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     of date.  In this case the unknown state should be
                     used."
            ::= { hpmcClusterEntry 6 }
-       
+
        hpmcClusterLastStateChange OBJECT-TYPE
            SYNTAX      DateAndTime
            MAX-ACCESS  read-only
@@ -258,7 +258,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "Indicates at what time the node entered the state
                     described by hpmcClusterState."
            ::= { hpmcClusterEntry 7 }
-       
+
        hpmcClusterLastReconfig OBJECT-TYPE
            SYNTAX      DateAndTime
            MAX-ACCESS  read-only
@@ -267,7 +267,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "Indicates when the configuration for this cluster
                     was last changed."
            ::= { hpmcClusterEntry 8 }
-       
+
        hpmcClusterPrimaryNode OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -279,7 +279,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     cluster.  A value of ' ' (single blank character)
                     indicates an unknown or nonexistent primary node."
            ::= { hpmcClusterEntry 9 }
-       
+
        hpmcNodeStatus OBJECT-TYPE
            SYNTAX      INTEGER{
                          invalid(0),
@@ -297,7 +297,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "The current state of the node relative to the cluster
                     in this row."
            ::= { hpmcClusterEntry 10 }
-       
+
        hpmcNodeLastEvent OBJECT-TYPE
            SYNTAX      INTEGER{
                          none(0),
@@ -317,7 +317,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     hpmcNodeStatus.  For cluster types that do not use
                     events, the value is none (0)."
            ::= { hpmcClusterEntry 11 }
-       
+
        hpmcNodeLastEventTime OBJECT-TYPE
            SYNTAX      DateAndTime
            MAX-ACCESS  read-only
@@ -328,7 +328,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     indicates that the time is unknown or inapplicable
                     (such as when the hpmcNodeLastEvent is none (0))."
            ::= { hpmcClusterEntry 12 }
-       
+
        hpmcClusterUpTime OBJECT-TYPE
            SYNTAX      TimeTicks
            MAX-ACCESS  read-only
@@ -340,19 +340,19 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    cluster does not reset the cluster uptime.  A value
                    of 0 indicates that the time is unknown by this node."
            ::= { hpmcClusterEntry 13 }
-       
 
-       -- 
+
+       --
        -- The Cluster Membership Group
-       -- 
+       --
        --   This group contains information related to cluster membership.
-       -- 
-       -- 
+       --
+       --
        -- The Cluster Node Table
-       -- 
+       --
        --   This table describes the members of the clusters to which
        --  the node belongs.
-       -- 
+       --
 
        hpmcCNodeTable OBJECT-TYPE
            SYNTAX      SEQUENCE OF HpmcCNodeEntry
@@ -362,7 +362,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "A table containing an entry for each node which
                     is a member of the cluster."
            ::= { hpmcMemberInfo 1}
-       
+
        hpmcCNodeEntry OBJECT-TYPE
            SYNTAX      HpmcCNodeEntry
            MAX-ACCESS  not-accessible
@@ -373,14 +373,14 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     Cluster Index and nodeID of the member node."
            INDEX      { hpmcClusterIndex, hpmcNodeID }
            ::= { hpmcCNodeTable 1 }
-       
+
        HpmcCNodeEntry ::=
            SEQUENCE {
                hpmcNodeID                  Integer32,
                hpmcNodeName                DisplayString,
                hpmcNodeRole                INTEGER
            }
-       
+
        hpmcNodeID OBJECT-TYPE
            SYNTAX      Integer32
            MAX-ACCESS  read-only
@@ -391,7 +391,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     values for each of the different clusters it
                     belongs to."
            ::= { hpmcCNodeEntry 1 }
-       
+
        hpmcNodeName OBJECT-TYPE
            SYNTAX      DisplayString
            MAX-ACCESS  read-only
@@ -401,7 +401,7 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                     but may be a cluster specific name for identifying
                     each member."
            ::= { hpmcCNodeEntry 2 }
-       
+
        hpmcNodeRole OBJECT-TYPE
            SYNTAX      INTEGER{
                          undefined   (0),
@@ -416,6 +416,6 @@ HP-MCCLUSTER DEFINITIONS ::= BEGIN
                    "Indicates this node's role in the cluster.  A cluster
                     does not need to have a member fulfilling each role."
            ::= { hpmcCNodeEntry 3 }
-       
+
 
 END
