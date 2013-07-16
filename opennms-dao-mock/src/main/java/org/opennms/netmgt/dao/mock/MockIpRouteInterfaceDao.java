@@ -54,7 +54,7 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
         for (final OnmsIpRouteInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)) {
                 iface.setStatus(action);
             }
         }
@@ -63,8 +63,8 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeId, final Integer ifIndex, final StatusType action) {
         for (final OnmsIpRouteInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId
-                    && iface.getRouteIfIndex() == ifIndex) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)
+                    && iface.getRouteIfIndex().equals(ifIndex)) {
                 iface.setStatus(action);
             }
         }
@@ -73,7 +73,7 @@ public class MockIpRouteInterfaceDao extends AbstractMockDao<OnmsIpRouteInterfac
     @Override
     public OnmsIpRouteInterface findByNodeAndDest(final Integer nodeId, final String routeDest) {
         for (final OnmsIpRouteInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId && routeDest.equals(iface.getRouteDest())) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId) && routeDest.equals(iface.getRouteDest())) {
                 return iface;
             }
         }

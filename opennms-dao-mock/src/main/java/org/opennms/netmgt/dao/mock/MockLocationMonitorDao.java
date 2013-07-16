@@ -106,7 +106,7 @@ public class MockLocationMonitorDao extends AbstractMockDao<OnmsLocationMonitor,
         final Iterator<OnmsLocationSpecificStatus> it = new LinkedList<OnmsLocationSpecificStatus>(m_statuses).descendingIterator();
         while (it.hasNext()) {
             OnmsLocationSpecificStatus stat = it.next();
-            if (locationMonitor.getId() == stat.getLocationMonitor().getId() && monSvc.getId() == stat.getMonitoredService().getId()) {
+            if (locationMonitor.getId().equals(stat.getLocationMonitor().getId()) && monSvc.getId().equals(stat.getMonitoredService().getId())) {
                 return stat;
             }
         }

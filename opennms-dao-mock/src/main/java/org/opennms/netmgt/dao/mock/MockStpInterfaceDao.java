@@ -53,7 +53,7 @@ public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Intege
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
         for (final OnmsStpInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)) {
                 iface.setStatus(action);
             }
         }
@@ -62,8 +62,8 @@ public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Intege
     @Override
     public void setStatusForNodeAndIfIndex(final Integer nodeId, final Integer ifIndex, final StatusType action) {
         for (final OnmsStpInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId) {
-                if (iface.getIfIndex() == ifIndex) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)) {
+                if (iface.getIfIndex().equals(ifIndex)) {
                     iface.setStatus(action);
                 }
             }
@@ -73,8 +73,8 @@ public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Intege
     @Override
     public OnmsStpInterface findByNodeAndVlan(final Integer nodeId, final Integer bridgePort, final Integer vlan) {
         for (final OnmsStpInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() == nodeId) {
-                if (iface.getBridgePort() == bridgePort && iface.getVlan() == vlan) {
+            if (iface.getNode() != null && iface.getNode().getId().equals(nodeId)) {
+                if (iface.getBridgePort().equals(bridgePort) && iface.getVlan().equals(vlan)) {
                     return iface;
                 }
             }
@@ -86,7 +86,7 @@ public class MockStpInterfaceDao extends AbstractMockDao<OnmsStpInterface,Intege
     private List<OnmsStpInterface> getStpInterfacesForNodeIdIfOlderThan(final int nodeId, final Date scanTime) {
         final List<OnmsStpInterface> ifaces = new ArrayList<OnmsStpInterface>();
         for (final OnmsStpInterface iface : findAll()) {
-            if (iface.getNode() != null && iface.getNode().getId() != nodeId) continue;
+            if (iface.getNode() != null && iface.getNode().getId().intValue() != nodeId) continue;
             if (iface.getLastPollTime() != null || iface.getLastPollTime().before(scanTime)) {
                 ifaces.add(iface);
             }

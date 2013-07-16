@@ -60,7 +60,7 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final String ipAddr, final Integer ifIndex, final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId() == nodeId && svc.getIpAddress().equals(addr(ipAddr)) && ifIndex == svc.getIfIndex() && serviceId == svc.getId()) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(addr(ipAddr)) && svc.getIfIndex().equals(ifIndex) && svc.getId().equals(serviceId)) {
                 return svc;
             }
         }
@@ -70,7 +70,7 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final String ipAddr, final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId() == nodeId && svc.getIpAddress().equals(ipAddr) && serviceId == svc.getId()) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr) && svc.getId() == serviceId.intValue()) {
                 return svc;
             }
         }
@@ -80,7 +80,7 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final InetAddress ipAddr, final Integer ifIndex, final Integer serviceId) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId() == nodeId && svc.getIpAddress().equals(ipAddr) && ifIndex == svc.getIfIndex() && serviceId == svc.getId()) {
+            if (svc.getNodeId().equals(nodeId) && svc.getIpAddress().equals(ipAddr) && svc.getIfIndex().equals(ifIndex) && svc.getId().equals(serviceId)) {
                 return svc;
             }
         }
@@ -90,7 +90,7 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService get(final Integer nodeId, final InetAddress ipAddress, final String svcName) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (nodeId.equals(svc.getNodeId()) && ipAddress.equals(svc.getIpAddress()) && svcName.equals(svc.getServiceName())) {
+            if (svc.getNodeId().equals(nodeId) && ipAddress.equals(svc.getIpAddress()) && svcName.equals(svc.getServiceName())) {
                 return svc;
             }
         }
@@ -127,7 +127,7 @@ public class MockMonitoredServiceDao extends AbstractMockDao<OnmsMonitoredServic
     @Override
     public OnmsMonitoredService getPrimaryService(final Integer nodeId, final String svcName) {
         for (final OnmsMonitoredService svc : findAll()) {
-            if (svc.getNodeId() == nodeId && svcName.equals(svc.getServiceName()) && svc.getIpInterface().isPrimary()) {
+            if (svc.getNodeId().equals(nodeId) && svcName.equals(svc.getServiceName()) && svc.getIpInterface().isPrimary()) {
                 return svc;
             }
         }

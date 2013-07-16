@@ -54,7 +54,7 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> impleme
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
         for (final OnmsStpNode node : findAll()) {
-            if (node.getNode() != null && node.getNode().getId() == nodeId) {
+            if (node.getNode() != null && node.getNode().getId().equals(nodeId)) {
                 node.setStatus(action);
             }
         }
@@ -63,8 +63,8 @@ public class MockStpNodeDao extends AbstractMockDao<OnmsStpNode,Integer> impleme
     @Override
     public OnmsStpNode findByNodeAndVlan(final Integer nodeId, final Integer baseVlan) {
         for (final OnmsStpNode node : findAll()) {
-            if (node.getNode() != null && node.getNode().getId() == nodeId) {
-                if (node.getBaseVlan() == baseVlan) return node;
+            if (node.getNode() != null && node.getNode().getId().equals(nodeId)) {
+                if (node.getBaseVlan().equals(baseVlan)) return node;
             }
         }
         return null;

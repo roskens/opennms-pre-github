@@ -53,7 +53,7 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan,Integer> implements Vl
     @Override
     public void setStatusForNode(final Integer nodeId, final StatusType action) {
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && vlan.getNode().getId() == nodeId) {
+            if (vlan.getNode() != null && vlan.getNode().getId().equals(nodeId)) {
                 vlan.setStatus(action);
             }
         }
@@ -73,8 +73,8 @@ public class MockVlanDao extends AbstractMockDao<OnmsVlan,Integer> implements Vl
     @Override
     public OnmsVlan findByNodeAndVlan(final Integer nodeId, final Integer vlanId) {
         for (final OnmsVlan vlan : findAll()) {
-            if (vlan.getNode() != null && vlan.getNode().getId() != nodeId) continue;
-            if (vlan.getVlanId() == vlanId) {
+            if (vlan.getNode() != null && !vlan.getNode().getId().equals(nodeId)) continue;
+            if (vlan.getVlanId().equals(vlanId)) {
                 return vlan;
             }
         }

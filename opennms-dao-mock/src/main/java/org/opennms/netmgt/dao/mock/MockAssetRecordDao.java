@@ -24,7 +24,7 @@ public class MockAssetRecordDao extends AbstractMockDao<OnmsAssetRecord, Integer
     @Override
     public OnmsAssetRecord findByNodeId(final Integer id) {
         for (final OnmsAssetRecord asset : findAll()) {
-            if (asset.getNode().getId() == id) {
+            if (asset.getNode().getId().equals(id)) {
                 return asset;
             }
         }
