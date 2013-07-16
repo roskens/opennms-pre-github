@@ -48,7 +48,7 @@ ciscoCcmMIB  MODULE-IDENTITY
         "The MIB Module for the management of a Cisco CallManager (CCM)
         application running with a Cisco Communication Network (CCN)
         System. Cisco CallManager is an IP-PBX which controls the call
-        processing of a Voice Over IP (VoIP) network. A CCN system 
+        processing of a Voice Over IP (VoIP) network. A CCN system
         comprises multiple regions, with each region consisting of
         several CallManager groups with multiple CallManagers. The MIB
         can be used by the CallManager Application to present provision
@@ -65,56 +65,56 @@ ciscoCcmMIB  MODULE-IDENTITY
                  noError;
              (2) Added ccmH323DeviceInfo and ccmVoiceMailDeviceInfo
                  objects;
-             (3) Updated ccmRegionAvailableBandwidth definition to 
+             (3) Updated ccmRegionAvailableBandwidth definition to
                  include two more bandwidth types bwGSM and bwWideband;
-             (4) Deprecated ccmTimeZoneOffset object; 
-             (5) Added ccmTimeZoneOffsetHours and 
+             (4) Deprecated ccmTimeZoneOffset object;
+             (5) Added ccmTimeZoneOffsetHours and
                  ccmTimeZoneOffsetMinutes to ccmTimeZoneTable;
-             (6) Added ccmPhoneStatusUpdateReason object to 
+             (6) Added ccmPhoneStatusUpdateReason object to
                  ccmPhoneStatusUpdate table;
-             (7) Added ccmGatewayProductId, ccmGatewayStatusReason, 
+             (7) Added ccmGatewayProductId, ccmGatewayStatusReason,
                  ccmGatewayTimeLastStatusUpdt,
                  ccmGatewayTimeLastRegistered, ccmGatewayDChannelStatus
-                 and ccmGatewayDChannelNumber objects to 
+                 and ccmGatewayDChannelNumber objects to
                  ccmGatewayTable;
              (8) Added new types to ccmGatewayType;
              (9) Added rejected status to ccmGatewayStatus;
-             (10)Obsoleted the ccmGatewayTrunkInfo (this was never 
+             (10)Obsoleted the ccmGatewayTrunkInfo (this was never
                  supported);
-             (11)Added ccmMediaDeviceStatusReason, 
-                 ccmMediaDeviceTimeLastStatusUpdt and 
-                 ccmMediaDeviceTimeLastRegistered to 
+             (11)Added ccmMediaDeviceStatusReason,
+                 ccmMediaDeviceTimeLastStatusUpdt and
+                 ccmMediaDeviceTimeLastRegistered to
                  ccmMediaDeviceTable;
              (12)Added more types to ccmMediaDeviceType;
              (13)Added rejected status to ccmMediaDeviceStatus;
              (14)Deprecated the ccmGatekeeperTable definition;
              (15)Added rejected status to ccmGatekeeperstatus;
-             (16)Added ccmCTIDeviceStatusReason, 
+             (16)Added ccmCTIDeviceStatusReason,
                  ccmCTIDeviceTimeLastStatusUpdt and
                  ccmCTIDeviceTimeLastRegistered to ccmCTIDeviceTable;
              (17)Added rejected status to ccmCTIDeviceStatus;
              (18)Added more objects to the ccmGlobalInfo;
-             (19)Added ccmPhoneStatusReason, ccmPhoneTimeLastStatusUpdt 
+             (19)Added ccmPhoneStatusReason, ccmPhoneTimeLastStatusUpdt
                  to ccmPhoneTable;
              (20)Added rejected status to ccmPhoneStatus;
-             (21)Deprecated ccmPhoneFailedName and added 
+             (21)Deprecated ccmPhoneFailedName and added
                  ccmPhoneMacAddress to ccmPhoneFailedTable;
-             (22)Deprecated ccmPhoneLastError and ccmPhoneTimeLastError 
+             (22)Deprecated ccmPhoneLastError and ccmPhoneTimeLastError
                  in ccmPhoneTable;
              (23)Deprecated ccmCTIDeviceAppInfo in ccmCTIDeviceTable;
-             (24)Defined CcmDeviceProductId and CcmDeviceStatus textual 
+             (24)Defined CcmDeviceProductId and CcmDeviceStatus textual
                  conventions;
              (25)Added ccmPhoneExtnTable, ccmPhStatUpdtTblLastAddedIndex
-                 and ccmPhFailedTblLastAddedIndex. Deprecated 
+                 and ccmPhFailedTblLastAddedIndex. Deprecated
                  ccmPhoneExtensionTable.
-             (26)Changed the default value of 
+             (26)Changed the default value of
                  ccmCallManagerAlarmEnable, ccmGatewayAlarmEnable,
-                 ccmPhoneFailedStorePeriod and 
+                 ccmPhoneFailedStorePeriod and
                  ccmPhoneStatusUpdateStorePeriod objects. Also
                  changed the minimum value of ccmPhoneFailedStorePeriod
                  and ccmPhoneStatusUpdateStorePeriod objects.
              (27)Updated ccmMIBCompliance statements;
-             (28)Added this revision clause."    
+             (28)Added this revision clause."
     REVISION      "200012010000Z"
     DESCRIPTION
             "(1) Add ccmMediaDeviceInfo, ccmGatekeeperInfo,
@@ -175,9 +175,9 @@ CcmDevFailCauseCode ::= TEXTUAL-CONVENTION
           initializationError:          Indicates an error occured when
                                         the CallManager tries to
                                         initialize the device
-          deviceInitiatedReset:         Indicates that the error was 
+          deviceInitiatedReset:         Indicates that the error was
                                         due to device initiated reset
-          callManagerReset:             Indicates that the error was 
+          callManagerReset:             Indicates that the error was
                                         due to call manager reset."
     SYNTAX      INTEGER {
         noError(0),
@@ -195,18 +195,18 @@ CcmDevFailCauseCode ::= TEXTUAL-CONVENTION
 CcmDeviceStatus ::= TEXTUAL-CONVENTION
     STATUS       current
     DESCRIPTION
-        "This syntax is used to identify the registration status of a 
+        "This syntax is used to identify the registration status of a
         device with the local call manager.
-          unknown:                      The registration status of the 
+          unknown:                      The registration status of the
                                         the device is unknown
-          registered:                   The device has successfully 
-                                        registered with the local call 
-                                        manager
-          unregistered:                 The device is no longer 
+          registered:                   The device has successfully
                                         registered with the local call
                                         manager
-          rejected:                     Registration request from the 
-                                        device was rejected by the 
+          unregistered:                 The device is no longer
+                                        registered with the local call
+                                        manager
+          rejected:                     Registration request from the
+                                        device was rejected by the
                                         local call manager."
     SYNTAX      INTEGER {
         unknown(1),
@@ -218,14 +218,14 @@ CcmDeviceStatus ::= TEXTUAL-CONVENTION
 CcmDeviceProductId ::= TEXTUAL-CONVENTION
     STATUS       current
     DESCRIPTION
-        "This syntax is used to identify the product id of a device. 
-          gwyCiscoCat6KT1(1):                     Cisco Catalyst 6000 
+        "This syntax is used to identify the product id of a device.
+          gwyCiscoCat6KT1(1):                     Cisco Catalyst 6000
                                                   T1 VOIP Gateway
-          gwyCiscoCat6KE1(2):                     Cisco Catalyst 6000 
+          gwyCiscoCat6KE1(2):                     Cisco Catalyst 6000
                                                   E1 VOIP Gateway
-          gwyCiscoCat6KFXS(3):                    Cisco Catalyst 6000 
+          gwyCiscoCat6KFXS(3):                    Cisco Catalyst 6000
                                                   24 Port FXS Gateway
-          gwyCiscoCat6KFXO(4):                    Cisco Catalyst 6000 
+          gwyCiscoCat6KFXO(4):                    Cisco Catalyst 6000
                                                   12 Port FXO Gateway
           gwyCiscoDT24Plus(7):                    Cisco DT-24+ Gateway
           gwyCiscoDT30Plus(8):                    Cisco DT-30+ Gateway
@@ -236,18 +236,18 @@ CcmDeviceProductId ::= TEXTUAL-CONVENTION
           gwyCiscoAS2(13):                        Cisco AS2 Gateway
           gwyCiscoAS4(14):                        Cisco AS4 Gateway
           gwyCiscoAS8(15):                        Cisco AS8 Gateway
-          gwyCiscoMGCPFXOPort(18):                Cisco MGCP FXO Port	
+          gwyCiscoMGCPFXOPort(18):                Cisco MGCP FXO Port
           gwyCiscoMGCPFXSPort(19):                Cisco MGCP FXS Port
-          gwyCiscoVG200(43):                      Cisco VG200 
+          gwyCiscoVG200(43):                      Cisco VG200
           gwyCisco26XX(44):                       Cisco 26XX
           gwyCisco362X(45):                       Cisco 362X
           gwyCisco364X(46):                       Cisco 364X
           gwyCisco366X(47):                       Cisco 366X
           gwyCiscoMGCPT1Port(52):                 Cisco MGCP T1 Port
           gwyCiscoMGCPE1Port(55):                 Cisco MGCP E1 Port
-          gwyCiscoCat4224VoiceGwySwitch(58):      Cisco CAT 4224 
+          gwyCiscoCat4224VoiceGwySwitch(58):      Cisco CAT 4224
                                                   Voice Gateway Switch
-          gwyCiscoCat4000AccessGwyModule(59):     Cisco CAT 4000 
+          gwyCiscoCat4000AccessGwyModule(59):     Cisco CAT 4000
                                                   Access Gateway Module
           gwyCiscoIAD2400(62):                    Cisco IAD2400
           gwyCiscoVGCEndPoint(65):                Cisco VGC PHONE
@@ -265,13 +265,13 @@ CcmDeviceProductId ::= TEXTUAL-CONVENTION
           gwyCiscoWSSVCCMMMS(10001):              Cisco WS-SVC-CMM-MS
           gwyCisco3745(20000):                    Cisco 3745
           gwyCisco3725(20002):                    Cisco 3725
-          gwyCiscoICS77XXMRP3XX(30004):           Cisco ICS77XX 
+          gwyCiscoICS77XXMRP3XX(30004):           Cisco ICS77XX
                                                   MRP3XX
-          gwyCiscoICS77XXMRP38FXS(30005):         Cisco ICS77XX 
+          gwyCiscoICS77XXMRP38FXS(30005):         Cisco ICS77XX
                                                   MRP3 8FXS
-          gwyCiscoICS77XXMRP316FXS(30006):        Cisco ICS77XX 
+          gwyCiscoICS77XXMRP316FXS(30006):        Cisco ICS77XX
                                                   MRP3 16FXS
-          gwyCiscoICS77XXMRP38FXOM1(30007):       Cisco ICS77XX 
+          gwyCiscoICS77XXMRP38FXOM1(30007):       Cisco ICS77XX
                                                   MRP3 8FXO M1
           gwyCisco269X(30011):                    Cisco 269X
           gwyCisco1760(30019):                    Cisco 1760
@@ -280,9 +280,9 @@ CcmDeviceProductId ::= TEXTUAL-CONVENTION
           h323Trunk(17):                          H323 Trunk
           h323AnonymousGateway(49):               H323 Anonymous Gateway
           voiceMailUOnePort(27):                  Uone Port
-          unknown(-1):                            Unknown Device 
+          unknown(-1):                            Unknown Device
                                                   Product Id
-          other(-2):                              Unidentified Device 
+          other(-2):                              Unidentified Device
                                                   Product Id."
 
     SYNTAX      INTEGER {
@@ -374,10 +374,10 @@ ccmGroupEntry OBJECT-TYPE
     DESCRIPTION
         "An entry (conceptual row) in the CallManager Group table,
         containing the information about a CallManager group in a
-        call manager cluster. An entry is created to represent a 
-        CallManager Group. New entries to the CallManager Group table 
-        in the database are created when the User inserts a new 
-        CallManager Group via the CallManager Web Admin pages. 
+        call manager cluster. An entry is created to represent a
+        CallManager Group. New entries to the CallManager Group table
+        in the database are created when the User inserts a new
+        CallManager Group via the CallManager Web Admin pages.
         This entry is subsequently picked up by the CCM SNMP Agent."
     INDEX  { ccmGroupIndex }
     ::= { ccmGroupTable 1 }
@@ -422,7 +422,7 @@ ccmTable OBJECT-TYPE
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
-        "The table containing information of all the CallManagers in a 
+        "The table containing information of all the CallManagers in a
         call manager cluster that the local call manager knows about.
         When the local call manager is down, this table will be empty."
     ::= { ccmGeneralInfo 2 }
@@ -441,7 +441,7 @@ CcmEntry ::= SEQUENCE {
     ccmIndex            CcmIndex,
     ccmName             SnmpAdminString,
     ccmDescription      SnmpAdminString,
-    ccmVersion          SnmpAdminString, 
+    ccmVersion          SnmpAdminString,
     ccmStatus           INTEGER,
     ccmInetAddressType  InetAddressType,
     ccmInetAddress      InetAddress,
@@ -493,7 +493,7 @@ ccmStatus OBJECT-TYPE
     DESCRIPTION
         "The current status of the CallManager. A CallManager
         is up if the SNMP Agent received a system up event
-        from the local CCM 
+        from the local CCM
             unknown:    Current status of the CallManager is
                         Unknown
             up:         CallManager is running & is able to
@@ -539,7 +539,7 @@ ccmGroupMappingTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing the list of all CallManager to
-        group mappings in a call manager cluster. When the 
+        group mappings in a call manager cluster. When the
         local call manager is down, this table will be empty."
     ::= { ccmGeneralInfo 3 }
 
@@ -576,7 +576,7 @@ ccmRegionTable OBJECT-TYPE
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
-        "The table containing the list of all geographically 
+        "The table containing the list of all geographically
         separated regions in a CCN system."
     ::= { ccmGeneralInfo 4 }
 
@@ -622,7 +622,7 @@ ccmRegionPairTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing the list of all geographical
-        region pairs defined for a call manager cluster. The pair 
+        region pairs defined for a call manager cluster. The pair
         consists of the Source region and Destination region."
     ::= { ccmGeneralInfo 5 }
 
@@ -672,7 +672,7 @@ ccmRegionAvailableBandWidth OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The maximum available bandwidth between the two given 
+        "The maximum available bandwidth between the two given
         regions.
             unknown:    Unknown Bandwidth
             other:      Unidentified Bandwidth
@@ -711,7 +711,7 @@ CcmTimeZoneEntry ::= SEQUENCE {
     ccmTimeZoneIndex            CcmIndex,
     ccmTimeZoneName             SnmpAdminString,
     ccmTimeZoneOffset           Integer32,
-    ccmTimeZoneOffsetHours      Integer32, 
+    ccmTimeZoneOffsetHours      Integer32,
     ccmTimeZoneOffsetMinutes    Integer32
 }
 
@@ -747,7 +747,7 @@ ccmTimeZoneOffsetHours OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The offset hours of the time zone group's time zone 
+        "The offset hours of the time zone group's time zone
         from GMT."
     ::= { ccmTimeZoneEntry 4 }
 
@@ -755,8 +755,8 @@ ccmTimeZoneOffsetMinutes OBJECT-TYPE
     SYNTAX	Integer32 (-59..59)
     MAX-ACCESS 	read-only
     STATUS 	current
-    DESCRIPTION	
-    	"The offset minutes of the time zone group's time zone 
+    DESCRIPTION
+	"The offset minutes of the time zone group's time zone
         from GMT."
     ::= { ccmTimeZoneEntry 5 }
 
@@ -857,7 +857,7 @@ ccmPhoneTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing the list of all IP Phone devices
-        which have tried to register with the local call manager 
+        which have tried to register with the local call manager
         at least once."
     ::= { ccmPhoneInfo 1 }
 
@@ -866,7 +866,7 @@ ccmPhoneEntry OBJECT-TYPE
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
-        "An entry (conceptual row) in the phone Table, 
+        "An entry (conceptual row) in the phone Table,
         containing information about a particular phone device."
     INDEX  { ccmPhoneIndex }
     ::= { ccmPhoneTable 1 }
@@ -886,7 +886,7 @@ CcmPhoneEntry ::= SEQUENCE {
     ccmPhoneTimeLastError               DateAndTime,
     ccmPhoneDevicePoolIndex             CcmIndexOrZero,
     ccmPhoneInetAddressType             InetAddressType,
-    ccmPhoneInetAddress                 InetAddress, 
+    ccmPhoneInetAddress                 InetAddress,
     ccmPhoneStatusReason                CcmDevFailCauseCode,
     ccmPhoneTimeLastStatusUpdt          DateAndTime
 }
@@ -1011,7 +1011,7 @@ ccmPhoneLoadID OBJECT-TYPE
 ccmPhoneLastError OBJECT-TYPE
     SYNTAX      Integer32 (-1..65535)
     MAX-ACCESS  read-only
-    STATUS      deprecated -- this was never supported 
+    STATUS      deprecated -- this was never supported
     DESCRIPTION
         "A positive value or 0 indicates the last error
         reported by the phone. A value of -1 indicates
@@ -1021,7 +1021,7 @@ ccmPhoneLastError OBJECT-TYPE
 ccmPhoneTimeLastError OBJECT-TYPE
     SYNTAX      DateAndTime
     MAX-ACCESS  read-only
-    STATUS      deprecated -- this was never supported 
+    STATUS      deprecated -- this was never supported
     DESCRIPTION
         "The amount of time elapsed since the last phone error
         occured. The reference point for this time is the time
@@ -1044,7 +1044,7 @@ ccmPhoneInetAddressType OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "Represents the type of address stored in 
+        "Represents the type of address stored in
         ccmPhoneInetAddress."
     ::= { ccmPhoneEntry 14 }
 
@@ -1071,7 +1071,7 @@ ccmPhoneTimeLastStatusUpdt OBJECT-TYPE
     DESCRIPTION
         "The time the status of the phone changed."
     ::= { ccmPhoneEntry 17 }
-     
+
 --
 --    THE PHONE EXTENSION TABLE
 --
@@ -1082,7 +1082,7 @@ ccmPhoneExtensionTable OBJECT-TYPE
     STATUS      deprecated -- replaced by ccmPhoneExtnTable
     DESCRIPTION
         "The table containing the list of all phone extensions
-        associated with the registered and unregistered phones 
+        associated with the registered and unregistered phones
         in the ccmPhoneTable."
     ::= { ccmPhoneInfo 2 }
 
@@ -1166,11 +1166,11 @@ ccmPhoneFailedTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing the list of all phones which attempted
-        to register with the local call manager and failed. Each entry 
-        of this table is stored at least for the duration specified 
-        in the ccmPhoneFailedStorePeriod object, after that it will 
-        be deleted. Reasons for these failures could be due to 
-        configuration error, maximum number of phones has been 
+        to register with the local call manager and failed. Each entry
+        of this table is stored at least for the duration specified
+        in the ccmPhoneFailedStorePeriod object, after that it will
+        be deleted. Reasons for these failures could be due to
+        configuration error, maximum number of phones has been
         reached, lost contact, etc."
     ::= { ccmPhoneInfo 3 }
 
@@ -1270,10 +1270,10 @@ ccmPhoneStatusUpdateTable OBJECT-TYPE
     DESCRIPTION
         "The table containing the list of all phone status updates
         with respect to the local call manager. This table will only
-        have registration and unregistration status updates. The 
-        rejected phones are stored in the ccmPhoneFailedTable. Each 
-        entry of this table is stored at least for the duration 
-        specified in the ccmPhoneStatusUpdateStorePeriod object, 
+        have registration and unregistration status updates. The
+        rejected phones are stored in the ccmPhoneFailedTable. Each
+        entry of this table is stored at least for the duration
+        specified in the ccmPhoneStatusUpdateStorePeriod object,
         after that it will be deleted."
     ::= { ccmPhoneInfo 4 }
 
@@ -1335,9 +1335,9 @@ ccmPhoneStatusUpdateType OBJECT-TYPE
     DESCRIPTION
         "States the type of phone status change.
            unknown:            Unknown status
-           phoneRegistered:    Phone has registered with the 
+           phoneRegistered:    Phone has registered with the
                                Callmanager
-           phoneUnregistered:  Phone is no longer registered 
+           phoneUnregistered:  Phone is no longer registered
                                with the callmanager."
     ::= { ccmPhoneStatusUpdateEntry 4 }
 
@@ -1350,7 +1350,7 @@ ccmPhoneStatusUpdateReason OBJECT-TYPE
     ::= { ccmPhoneStatusUpdateEntry 5 }
 
 --
---    THE ENHANCED PHONE EXTENSION TABLE 
+--    THE ENHANCED PHONE EXTENSION TABLE
 --    WITH COMBINATION INDEX
 --
 
@@ -1360,8 +1360,8 @@ ccmPhoneExtnTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing the list of all phone extensions
-        associated with the registered and unregistered phones 
-        in the ccmPhoneTable. This table has combination index 
+        associated with the registered and unregistered phones
+        in the ccmPhoneTable. This table has combination index
         ccmPhoneIndex, ccmPhoneExtnIndex so the ccmPhoneTable
         and the ccmPhoneExtnTable entries can be related."
     ::= { ccmPhoneInfo 5 }
@@ -1541,27 +1541,27 @@ ccmGatewayType OBJECT-TYPE
     DESCRIPTION
         "The type of the gateway device.
         unknown(1):                             Unknown Gateway type
-        other(2):                               Unidentified Gateway 
+        other(2):                               Unidentified Gateway
                                                 type
         ciscoAnalogAccess(3):                   Analog Access
         ciscoDigitalAccessPRI(4):               Digital Access PRI
         ciscoDigitalAccessT1(5):                Digital Access T1
-        ciscoDigitalAccessPRIPlus(6):           Digital Access 
+        ciscoDigitalAccessPRIPlus(6):           Digital Access
                                                 PRI Plus
-        ciscoDigitalAccessWSX6608E1(7):         Cat 6000 Digital 
+        ciscoDigitalAccessWSX6608E1(7):         Cat 6000 Digital
                                                 Access E1
-        ciscoDigitalAccessWSX6608T1(8):         Cat 6000 Digital 
+        ciscoDigitalAccessWSX6608T1(8):         Cat 6000 Digital
                                                 Access T1
-        ciscoAnalogAccessWSX6624(9):            Cat 6000 Analog 
+        ciscoAnalogAccessWSX6624(9):            Cat 6000 Analog
                                                 Access FXS
         ciscoMGCPStation(10):                   MGCP Gateway
-        ciscoDigitalAccessE1Plus(11):           Digital Access 
+        ciscoDigitalAccessE1Plus(11):           Digital Access
                                                 E1 Plus
-        ciscoDigitalAccessT1Plus(12):           Digital Access 
+        ciscoDigitalAccessT1Plus(12):           Digital Access
                                                 T1 Plus
-        ciscoDigitalAccessWSX6608PRI(13):       Cat 6000 Digital 
+        ciscoDigitalAccessWSX6608PRI(13):       Cat 6000 Digital
                                                 Access PRI
-        ciscoAnalogAccessWSX6612(14):           Cat 6000 Analog 
+        ciscoAnalogAccessWSX6612(14):           Cat 6000 Analog
                                                 Access FXO
         ciscoMGCPTrunk(15):                     MGCP Trunk
         ciscoVG200(16):                         VG200
@@ -1569,9 +1569,9 @@ ccmGatewayType OBJECT-TYPE
         cisco362X(18):                          362X
         cisco364X(19):                          364X
         cisco366X(20):                          366X
-        ciscoCat4224VoiceGatewaySwitch(21):     Cisco Catalyst 4224 
+        ciscoCat4224VoiceGatewaySwitch(21):     Cisco Catalyst 4224
                                                 Voice Gateway Switch
-        ciscoCat4000AccessGatewayModule(22):    Cisco Catalyst 4000 
+        ciscoCat4000AccessGatewayModule(22):    Cisco Catalyst 4000
                                                 Access Gateway Module
         ciscoIAD2400(23):                       Cisco IAD2400
         ciscoVGCEndPoint(24):                   Cisco VGC Phone
@@ -1588,13 +1588,13 @@ ccmGatewayType OBJECT-TYPE
         ciscoWSSVCCMMMS(34):                    Cisco WS-SVC-CMM-MS
         cisco3745(35):                          Cisco 3745
         cisco3725(36):                          Cisco 3725
-        ciscoICS77XXMRP3XX(37):                 Cisco ICS77XX 
+        ciscoICS77XXMRP3XX(37):                 Cisco ICS77XX
                                                 MRP3XX
-        ciscoICS77XXMRP38FXS(38):               Cisco ICS77XX 
+        ciscoICS77XXMRP38FXS(38):               Cisco ICS77XX
                                                 MRP3 8FXS
-        ciscoICS77XXMRP316FXS(39):              Cisco ICS77XX 
+        ciscoICS77XXMRP316FXS(39):              Cisco ICS77XX
                                                 MRP3 16FXS
-        ciscoICS77XXMRP38FXOM1(40):             Cisco ICS77XX 
+        ciscoICS77XXMRP38FXOM1(40):             Cisco ICS77XX
                                                 MRP3 8FXO M1
         cisco269X(41):                          Cisco 269X
         cisco1760(42):                          Cisco 1760
@@ -1650,7 +1650,7 @@ ccmGatewayInetAddress OBJECT-TYPE
     ::= { ccmGatewayEntry 8 }
 
 ccmGatewayProductId OBJECT-TYPE
-    SYNTAX      CcmDeviceProductId 
+    SYNTAX      CcmDeviceProductId
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -1674,8 +1674,8 @@ ccmGatewayTimeLastStatusUpdt OBJECT-TYPE
     ::= { ccmGatewayEntry 11 }
 
 ccmGatewayTimeLastRegistered OBJECT-TYPE
-    SYNTAX      DateAndTime 
-    MAX-ACCESS  read-only 
+    SYNTAX      DateAndTime
+    MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
         "The time the gateway last registered with the call manager."
@@ -1696,7 +1696,7 @@ ccmGatewayDChannelStatus OBJECT-TYPE
          inActive(1):           The D-Channel is down
          unknown(3):            The D-Channel status is unknown
          notApplicable(4):      The D-channel status is not applicable
-                                for this gateway."	
+                                for this gateway."
     ::= { ccmGatewayEntry 13 }
 
 ccmGatewayDChannelNumber OBJECT-TYPE
@@ -1704,7 +1704,7 @@ ccmGatewayDChannelNumber OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The D-Channel number of the gateway. A value of -1 in this 
+        "The D-Channel number of the gateway. A value of -1 in this
         field indicates that the DChannel number is not applicable
         for this gateway."
    ::= { ccmGatewayEntry 14 }
@@ -1716,7 +1716,7 @@ ccmGatewayDChannelNumber OBJECT-TYPE
 ccmGatewayTrunkTable OBJECT-TYPE
     SYNTAX      SEQUENCE OF CcmGatewayTrunkEntry
     MAX-ACCESS  not-accessible
-    STATUS      obsolete -- this table was never supported 
+    STATUS      obsolete -- this table was never supported
     DESCRIPTION
         "The table containing the list of all gateway trunks
         in a CCN system."
@@ -1782,7 +1782,7 @@ ccmGatewayTrunkType OBJECT-TYPE
          trunkEM3:          E&M Type 3
          trunkEM4:          E&M Type 4
          trunkEM5:          E&M Type 5
-         analog:            Analog 
+         analog:            Analog
          pri:               PRI
          bri:               BRI."
     ::= { ccmGatewayTrunkEntry 2 }
@@ -1829,7 +1829,7 @@ ccmGatewayTrunkStatus OBJECT-TYPE
 
 ccmActivePhones OBJECT-TYPE
     SYNTAX      Counter32
-    MAX-ACCESS  read-only 
+    MAX-ACCESS  read-only
     STATUS      deprecated -- replaced by ccmRegisteredPhones
     DESCRIPTION
         "The number of phones connected to this CM and actively
@@ -1875,7 +1875,7 @@ ccmRegisteredPhones OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of phones that are registered and actively in 
+        "The number of phones that are registered and actively in
         communication with the local call manager."
     ::= { ccmGlobalInfo 5 }
 
@@ -1884,16 +1884,16 @@ ccmUnregisteredPhones OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of phone that are unregistered or have lost 
+        "The number of phone that are unregistered or have lost
         contact with the local call manager."
     ::= { ccmGlobalInfo 6 }
 
 ccmRejectedPhones OBJECT-TYPE
     SYNTAX      Counter32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
-        "The number of phones whose registration requests were 
+        "The number of phones whose registration requests were
         rejected by the local call manager."
     ::= { ccmGlobalInfo 7 }
 
@@ -1902,7 +1902,7 @@ ccmRegisteredGateways OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of gateways that are registered and actively in 
+        "The number of gateways that are registered and actively in
         communication with the local call manager."
     ::= { ccmGlobalInfo 8 }
 
@@ -1911,8 +1911,8 @@ ccmUnregisteredGateways OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of gateways that are unregistered or have lost 
-        contact with the local call manager." 
+        "The number of gateways that are unregistered or have lost
+        contact with the local call manager."
     ::= { ccmGlobalInfo 9 }
 
 ccmRejectedGateways OBJECT-TYPE
@@ -1920,7 +1920,7 @@ ccmRejectedGateways OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of gateways whose registration requests were 
+        "The number of gateways whose registration requests were
         rejected by the local call manager."
     ::= { ccmGlobalInfo 10 }
 
@@ -1929,7 +1929,7 @@ ccmRegisteredMediaDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of media devices that are registered and actively 
+        "The number of media devices that are registered and actively
         in communication with the local call manager."
     ::= { ccmGlobalInfo 11 }
 
@@ -1938,7 +1938,7 @@ ccmUnregisteredMediaDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of media devices that are unregistered or have 
+        "The number of media devices that are unregistered or have
         lost contact with the local call manager."
     ::= { ccmGlobalInfo 12 }
 
@@ -1947,7 +1947,7 @@ ccmRejectedMediaDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of media devices whose registration requests were 
+        "The number of media devices whose registration requests were
         rejected by the local call manager."
     ::= { ccmGlobalInfo 13 }
 
@@ -1956,7 +1956,7 @@ ccmRegisteredCTIDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of CTI devices that are registered and actively 
+        "The number of CTI devices that are registered and actively
         in communication with the local call manager."
     ::= { ccmGlobalInfo 14 }
 
@@ -1965,7 +1965,7 @@ ccmUnregisteredCTIDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of CTI devices that are unregistered or have 
+        "The number of CTI devices that are unregistered or have
         lost contact with the local call manager."
     ::= { ccmGlobalInfo 15 }
 
@@ -1974,7 +1974,7 @@ ccmRejectedCTIDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of CTI devices whose registration requests were 
+        "The number of CTI devices whose registration requests were
         rejected by the local call manager."
     ::= { ccmGlobalInfo 16 }
 
@@ -1983,7 +1983,7 @@ ccmRegisteredVoiceMailDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of voice mail devices that are registered and 
+        "The number of voice mail devices that are registered and
         actively in communication with the local call manager."
     ::= { ccmGlobalInfo 17 }
 
@@ -1992,7 +1992,7 @@ ccmUnregisteredVoiceMailDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of voice mail devices that are unregistered or 
+        "The number of voice mail devices that are unregistered or
         have lost contact with the local call manager."
     ::= { ccmGlobalInfo 18 }
 
@@ -2001,7 +2001,7 @@ ccmRejectedVoiceMailDevices OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The number of voice mail devices whose registration requests 
+        "The number of voice mail devices whose registration requests
         were rejected by the local call manager."
     ::= { ccmGlobalInfo 19 }
 
@@ -2010,31 +2010,31 @@ ccmCallManagerStartTime OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The last time the local call manager service started. This is 
+        "The last time the local call manager service started. This is
         available only when the local call manager is up and running."
     ::= { ccmGlobalInfo 20 }
 
 ccmPhoneTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
-        "The current state of ccmPhoneTable. The initial value of this 
+        "The current state of ccmPhoneTable. The initial value of this
         object is 0 and it will be incremented everytime when there is
         a change (addition/deletion/modification) to the ccmPhoneTable.
         This value and ccmCallManagerStartTime should be used together
-        to find if the table has changed or not. When the call manager 
+        to find if the table has changed or not. When the call manager
         is restarted, this will be reset to 0."
     ::= { ccmGlobalInfo 21 }
 
 ccmPhoneExtensionTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
         "The current state of ccmPhoneExtensionTable. The initial value
-        of this object is 0 and it will be incremented everytime when 
-        there is a change (addition/deletion/modification) to the 
+        of this object is 0 and it will be incremented everytime when
+        there is a change (addition/deletion/modification) to the
         ccmPhoneExtensionTable. This value and ccmCallManagerStartTime
         should be used together to find if the table has changed or not.
         When the call manager is restarted, this will be reset to 0."
@@ -2043,40 +2043,40 @@ ccmPhoneExtensionTableStateId OBJECT-TYPE
 ccmPhoneStatusUpdateTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
-        "The current state of ccmPhoneStatusUpdateTable. The initial 
-        value of this object is 0 and it will be incremented everytime 
+        "The current state of ccmPhoneStatusUpdateTable. The initial
+        value of this object is 0 and it will be incremented everytime
         when there is a change (addition/deletion/modification) to the
-        ccmPhoneStatusUpdateTable. This value and 
-        ccmCallManagerStartTime should be used together to find if the 
-        table has changed or not. When the call manager is restarted, 
+        ccmPhoneStatusUpdateTable. This value and
+        ccmCallManagerStartTime should be used together to find if the
+        table has changed or not. When the call manager is restarted,
         this will be reset to 0."
     ::= { ccmGlobalInfo 23 }
 
 ccmGatewayTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
         "The current state of ccmGatewayTable. The initial value of
-        this object is 0 and it will be incremented everytime when 
-        there is a change (addition/deletion/modification) to the 
+        this object is 0 and it will be incremented everytime when
+        there is a change (addition/deletion/modification) to the
         ccmGatewayTable. This value and ccmCallManagerStartTime should
-        be used together to find if the table has changed or not. 
+        be used together to find if the table has changed or not.
         When the call manager is restarted, this will be reset to 0."
     ::= { ccmGlobalInfo 24 }
 
 ccmCTIDeviceTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
         "The current state of ccmCTIDeviceTable. The initial value of
-        this object is 0 and it will be incremented everytime when 
-        there is a change (addition/deletion/modification) to the 
-        ccmCTIDeviceTable. This value and ccmCallManagerStartTime 
-        should be used together to find if the table has changed or 
+        this object is 0 and it will be incremented everytime when
+        there is a change (addition/deletion/modification) to the
+        ccmCTIDeviceTable. This value and ccmCallManagerStartTime
+        should be used together to find if the table has changed or
         not. When the call manager is restarted, this will be reset
         to 0."
     ::= { ccmGlobalInfo 25 }
@@ -2084,11 +2084,11 @@ ccmCTIDeviceTableStateId OBJECT-TYPE
 ccmCTIDeviceDirNumTableStateId OBJECT-TYPE
     SYNTAX      Integer32
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
-        "The current state of ccmCTIDeviceDirNumTable. The initial 
-        value of this object is 0 and it will be incremented everytime 
-        when there is a change (addition/deletion/modification) to the 
+        "The current state of ccmCTIDeviceDirNumTable. The initial
+        value of this object is 0 and it will be incremented everytime
+        when there is a change (addition/deletion/modification) to the
         ccmCTIDeviceDirNumTable. This value and ccmCallManagerStartTime
         should be used together to find if the table has changed or not.
         When the call manager is restarted, this will be reset to 0."
@@ -2097,30 +2097,30 @@ ccmCTIDeviceDirNumTableStateId OBJECT-TYPE
 ccmPhStatUpdtTblLastAddedIndex OBJECT-TYPE
     SYNTAX      CcmIndex
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
         "The ccmPhoneStatusUpdateIndex value of the last entry that
         was added to the ccmPhoneStatusUpdateTable. This value can
-        be used by the manager applications to identify the new 
+        be used by the manager applications to identify the new
         entries in the ccmPhoneStatusUpdateTable since their last poll.
-        This value need not be the same as the highest index in the 
+        This value need not be the same as the highest index in the
         ccmPhoneStatusUpdateTable as the index could have wrapped
         around."
-    ::= { ccmGlobalInfo 27 }  
- 
+    ::= { ccmGlobalInfo 27 }
+
 ccmPhFailedTblLastAddedIndex OBJECT-TYPE
     SYNTAX      CcmIndex
     MAX-ACCESS  read-only
-    STATUS      current 
+    STATUS      current
     DESCRIPTION
         "The ccmPhoneFailedIndex value of the last entry that
         was added to the ccmPhoneFailedTable. This value can
-        be used by the manager applications to identify the new 
+        be used by the manager applications to identify the new
         entries in the ccmPhoneFailedTable since their last poll.
-        This value need not be the same as the highest index in the 
+        This value need not be the same as the highest index in the
         ccmPhoneFailedTable as the index could have wrapped
         around."
-    ::= { ccmGlobalInfo 28 }  
+    ::= { ccmGlobalInfo 28 }
 
 --
 --    THE MEDIA DEVICE TABLE
@@ -2193,13 +2193,13 @@ ccmMediaDeviceType OBJECT-TYPE
     DESCRIPTION
         "The type of Media Device.
         unknown(1):                         Unknown Media Device
-        ciscoMediaTerminPointWSX6608(2):    Hardware based 
+        ciscoMediaTerminPointWSX6608(2):    Hardware based
                                             Media Termination Point
-        ciscoConfBridgeWSX6608(3):          Hardware based 
+        ciscoConfBridgeWSX6608(3):          Hardware based
                                             Conference Bridge
-        ciscoSwMediaTerminationPoint(4):    Sofware based 
+        ciscoSwMediaTerminationPoint(4):    Sofware based
                                             Media Termination Point
-        ciscoSwConfBridge(5):               Software based 
+        ciscoSwConfBridge(5):               Software based
                                             Conference Bridge
         ciscoMusicOnHold(6):                Music on Hold Server."
     ::= { ccmMediaDeviceEntry 3 }
@@ -2258,7 +2258,7 @@ ccmMediaDeviceStatusReason OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The reason code associated with the media device status 
+        "The reason code associated with the media device status
         change."
     ::= { ccmMediaDeviceEntry 9 }
 
@@ -2275,7 +2275,7 @@ ccmMediaDeviceTimeLastRegistered OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The time the media device last registered with the 
+        "The time the media device last registered with the
         call manager."
     ::= { ccmMediaDeviceEntry 11 }
 
@@ -2342,7 +2342,7 @@ ccmGatekeeperType OBJECT-TYPE
         gateway(4)
     }
     MAX-ACCESS  read-only
-    STATUS      deprecated 
+    STATUS      deprecated
     DESCRIPTION
         "The type of Gatekeeper.
             unknown:                  Unknown Gatekeeper
@@ -2371,15 +2371,15 @@ ccmGatekeeperStatus OBJECT-TYPE
     STATUS      deprecated
     DESCRIPTION
         "The local call manager registration status with the Gatekeeper.
-        The status changes from unknown to registered when the local 
+        The status changes from unknown to registered when the local
         call manager successfully registers itself with the gatekeeper.
-            unknown:        The registration status of the call manager 
+            unknown:        The registration status of the call manager
                             with the gatekeeper is unknown
             registered:     The local call manager has registered with
                             the gatekeeper successfully
             unregistered:   The local call manager is no longer
                             registered with the gatekeeper
-            rejected:       Registration request from the local call 
+            rejected:       Registration request from the local call
                             manager was rejected by the gatekeeper."
     ::= { ccmGatekeeperEntry 5 }
 
@@ -2539,7 +2539,7 @@ ccmCTIDeviceInetAddress OBJECT-TYPE
 ccmCTIDeviceAppInfo OBJECT-TYPE
     SYNTAX      SnmpAdminString (SIZE(0..64))
     MAX-ACCESS  read-only
-    STATUS      deprecated -- this was never supported 
+    STATUS      deprecated -- this was never supported
     DESCRIPTION
         "The appinfo string indicates the application name/
         type that uses this CTI Device."
@@ -2550,7 +2550,7 @@ ccmCTIDeviceStatusReason OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The reason code associated with the CTI Device status 
+        "The reason code associated with the CTI Device status
         change."
     ::= { ccmCTIDeviceEntry 10 }
 
@@ -2567,7 +2567,7 @@ ccmCTIDeviceTimeLastRegistered OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The time the CTI Device last registered with the call 
+        "The time the CTI Device last registered with the call
         manager."
     ::= { ccmCTIDeviceEntry 12 }
 
@@ -2639,7 +2639,7 @@ ccmCallManagerAlarmEnable OBJECT-TYPE
                        ccmMediaResourceListExhausted, and
                        ccmRouteListExhausted. This is the
                        default value.
-            false(2):  Disabling this object will stop the 
+            false(2):  Disabling this object will stop the
                        generation of the following alarms
                        by the CCM agent -
                        ccmCallManagerFailure
@@ -2674,7 +2674,7 @@ ccmPhoneFailedStorePeriod OBJECT-TYPE
     MAX-ACCESS  read-write
     STATUS      current
     DESCRIPTION
-        "The time duration for storing each entry in the 
+        "The time duration for storing each entry in the
         ccmPhoneFailedTable. The entries which have been kept
         at least this period will be deleted. This value should
         ideally be set to a higher value than the
@@ -2694,7 +2694,7 @@ ccmPhoneStatusUpdateAlarmInterv OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The minimum interval between sending of the
-        ccmPhoneStatusUpdate notification in seconds. 
+        ccmPhoneStatusUpdate notification in seconds.
         The ccmPhoneStatusUpdate notification is only sent when
         there is at least one entry in the ccmPhoneStatusUpdateTable
         and the notification has not been sent for the last
@@ -2710,7 +2710,7 @@ ccmPhoneStatusUpdateStorePeriod OBJECT-TYPE
     MAX-ACCESS  read-write
     STATUS      current
     DESCRIPTION
-        "The time duration for storing each entry in the 
+        "The time duration for storing each entry in the
         ccmPhoneStatusUpdateTable. The entries which have been
         kept at least this period will be deleted. This value
         should ideally be set to a higher value than the
@@ -2918,7 +2918,7 @@ ccmH323DeviceTable OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The table containing a list of all H323 devices
-        in the call manager cluster which the local 
+        in the call manager cluster which the local
         call manager is aware of."
     ::= { ccmH323DeviceInfo 1 }
 
@@ -2979,13 +2979,13 @@ ccmH323DevName OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The device name assigned to the H323 Device. 
+        "The device name assigned to the H323 Device.
          This name is assigned when a new H323 device is added to
          the CallManager."
     ::= { ccmH323DeviceEntry 2 }
 
 ccmH323DevProductId OBJECT-TYPE
-    SYNTAX      CcmDeviceProductId 
+    SYNTAX      CcmDeviceProductId
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -3034,8 +3034,8 @@ ccmH323DevCnfgGKInetAddress OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The configured gatekeeper DNS name or ip address for this
-        H323 device. This is applicable only for H323 devices with 
-        gatekeepers configured. When there is no gatekeeper 
+        H323 device. This is applicable only for H323 devices with
+        gatekeepers configured. When there is no gatekeeper
         configured, this will be NULL."
     ::= { ccmH323DeviceEntry 8 }
 
@@ -3053,7 +3053,7 @@ ccmH323DevAltGK1InetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The first alternate gatekeeper DNS name or ip address for 
+        "The first alternate gatekeeper DNS name or ip address for
         this H323 device. This is applicable only for H323 devices
         with gatekeepers configured. When there is no first alternate
         gatekeeper, this will be NULL."
@@ -3073,8 +3073,8 @@ ccmH323DevAltGK2InetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The second alternate gatekeeper DNS name or ip address for 
-        this H323 device. This is applicable only for H323 devices 
+        "The second alternate gatekeeper DNS name or ip address for
+        this H323 device. This is applicable only for H323 devices
         with gatekeepers configured. When there is no second alternate
         gatekeeper, this will be NULL."
     ::= { ccmH323DeviceEntry 12 }
@@ -3134,7 +3134,7 @@ ccmH323DevAltGK5InetAddress OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The fifth alternate gatekeeper DNS name or ip address for
-        this H323 device. This is applicable only for H323 devices 
+        this H323 device. This is applicable only for H323 devices
         with gatekeepers configured. When there is no fifth alternate
         gatekeeper, this will be NULL."
     ::= { ccmH323DeviceEntry 18 }
@@ -3153,9 +3153,9 @@ ccmH323DevActGKInetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The active gatekeeper DNS name or ip address that the H323 
-        device has last tried to register with. This is applicable only 
-        for H323 devices with gatekeepers configured. When there is no 
+        "The active gatekeeper DNS name or ip address that the H323
+        device has last tried to register with. This is applicable only
+        for H323 devices with gatekeepers configured. When there is no
         gatekeeper configured this will be NULL."
     ::= { ccmH323DeviceEntry 20 }
 
@@ -3174,10 +3174,10 @@ ccmH323DevStatus OBJECT-TYPE
         The status changes from unknown to registered when the H323
         device successfully registers itself with the gatekeeper.
             notApplicable:  The registration status is not applicable
-                            for this H323 device 
-            unknown:        The registration status of the H323 device 
+                            for this H323 device
+            unknown:        The registration status of the H323 device
                             with the gatekeeper is unknown
-            registered:     The H323 device has registered with the 
+            registered:     The H323 device has registered with the
                             gatekeeper successfully
             unregistered:   The H323 device is no longer registered
                             with the gatekeeper
@@ -3191,7 +3191,7 @@ ccmH323DevStatusReason OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The reason code associated with ccmH233DevStatus change.
-        This is applicable only for H323 devices with gatekeepers 
+        This is applicable only for H323 devices with gatekeepers
         configured."
     ::= { ccmH323DeviceEntry 22 }
 
@@ -3201,7 +3201,7 @@ ccmH323DevTimeLastStatusUpdt OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The time the registration status with the gatekeeper changed.
-        This is applicable only for H323 devices with gatekeepers 
+        This is applicable only for H323 devices with gatekeepers
         configured."
     ::= { ccmH323DeviceEntry 23 }
 
@@ -3211,7 +3211,7 @@ ccmH323DevTimeLastRegistered OBJECT-TYPE
     STATUS      current
     DESCRIPTION
         "The time when the H323 device last registered with the
-        gatekeeper. This is applicable only for H323 devices with 
+        gatekeeper. This is applicable only for H323 devices with
         gatekeepers configured."
     ::= { ccmH323DeviceEntry 24 }
 
@@ -3229,8 +3229,8 @@ ccmH323DevRmtCM1InetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The first remote call manager DNS name or ip address 
-        configured for this H323 device. When there is no first 
+        "The first remote call manager DNS name or ip address
+        configured for this H323 device. When there is no first
         remote call manager configured, this will be NULL."
     ::= { ccmH323DeviceEntry 26 }
 
@@ -3248,8 +3248,8 @@ ccmH323DevRmtCM2InetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The second remote call manager DNS name or ip address 
-        configured for this H323 device. When there is no second 
+        "The second remote call manager DNS name or ip address
+        configured for this H323 device. When there is no second
         remote call manager configured, this will be NULL."
     ::= { ccmH323DeviceEntry 28 }
 
@@ -3267,8 +3267,8 @@ ccmH323DevRmtCM3InetAddress OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The third remote call manager DNS name or ip address 
-        configured for this H323 device. When there is no third 
+        "The third remote call manager DNS name or ip address
+        configured for this H323 device. When there is no third
         remote call manager configured, this will be NULL."
     ::= { ccmH323DeviceEntry 30 }
 
@@ -3281,8 +3281,8 @@ ccmVoiceMailDeviceTable OBJECT-TYPE
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
-        "The table containing a list of all voice mail devices 
-        which have tried to register with the local call manager 
+        "The table containing a list of all voice mail devices
+        which have tried to register with the local call manager
         at least once."
     ::= { ccmVoiceMailDeviceInfo 1 }
 
@@ -3324,13 +3324,13 @@ ccmVMailDevName OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The name of the Voice Mail Device. This name is assigned 
-        to the Voice Mail Device when it is added to the 
+        "The name of the Voice Mail Device. This name is assigned
+        to the Voice Mail Device when it is added to the
         CallManager."
     ::= { ccmVoiceMailDeviceEntry 2 }
 
 ccmVMailDevProductId OBJECT-TYPE
-    SYNTAX      CcmDeviceProductId 
+    SYNTAX      CcmDeviceProductId
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
@@ -3351,8 +3351,8 @@ ccmVMailDevStatus OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The status of the Voice Mail Device. The Voice Mail Device 
-        status changes from unknown to registered when it registers 
+        "The status of the Voice Mail Device. The Voice Mail Device
+        status changes from unknown to registered when it registers
         itself with the local CCM."
     ::= { ccmVoiceMailDeviceEntry 5 }
 
@@ -3379,7 +3379,7 @@ ccmVMailDevStatusReason OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The reason code associated with the Voice Mail Device 
+        "The reason code associated with the Voice Mail Device
         status change."
     ::= { ccmVoiceMailDeviceEntry 8 }
 
@@ -3396,7 +3396,7 @@ ccmVMailDevTimeLastRegistered OBJECT-TYPE
     MAX-ACCESS  read-only
     STATUS      current
     DESCRIPTION
-        "The time the Voice Mail Device has last registered 
+        "The time the Voice Mail Device has last registered
         with the call manager."
     ::= { ccmVoiceMailDeviceEntry 10 }
 
@@ -3411,7 +3411,7 @@ ccmVoiceMailDeviceDirNumTable OBJECT-TYPE
     DESCRIPTION
         "The table containing a list of directory numbers
         that are assigned to all of the registered and
-        unregistered Voice Mail Devices in the 
+        unregistered Voice Mail Devices in the
         ccmVoiceMailDeviceTable."
     ::= { ccmVoiceMailDeviceInfo 2 }
 
@@ -3420,7 +3420,7 @@ ccmVoiceMailDeviceDirNumEntry OBJECT-TYPE
     MAX-ACCESS  not-accessible
     STATUS      current
     DESCRIPTION
-        "An entry (conceptual row) in the VoiceMailDirNum Table, has the 
+        "An entry (conceptual row) in the VoiceMailDirNum Table, has the
         associated directory number for a Voice Mail Device."
     INDEX  { ccmVMailDevIndex, ccmVMailDevDirNumIndex }
     ::= { ccmVoiceMailDeviceDirNumTable 1 }
@@ -3473,8 +3473,8 @@ ccmPhoneFailed NOTIFICATION-TYPE
     }
     STATUS      current
     DESCRIPTION
-        "This Notification will be generated in the intervals 
-        specified in ccmPhoneFailedAlarmInterval if there is 
+        "This Notification will be generated in the intervals
+        specified in ccmPhoneFailedAlarmInterval if there is
         at least one entry in the ccmPhoneFailedTable."
     ::= { ccmMIBNotifications 2 }
 
@@ -3485,8 +3485,8 @@ ccmPhoneStatusUpdate NOTIFICATION-TYPE
     }
     STATUS      current
     DESCRIPTION
-        "This Notification will be generated in the intervals 
-        specified in ccmPhoneStatusUpdateInterv if there is 
+        "This Notification will be generated in the intervals
+        specified in ccmPhoneStatusUpdateInterv if there is
         at least one entry in the ccmPhoneStatusUpdateTable."
     ::= { ccmMIBNotifications 3 }
 
@@ -3543,7 +3543,7 @@ ccmGatewayLayer2Change NOTIFICATION-TYPE
         interface in a skinny gateway that has registered with the
         CallManager changes state."
     ::= { ccmMIBNotifications 7 }
- 
+
 --
 --        MIB Conformance Statements
 --
@@ -3770,7 +3770,7 @@ ccmMediaDeviceInfoGroup OBJECT-GROUP
         ccmMediaDeviceInetAddressType,
         ccmMediaDeviceInetAddress
     }
-    STATUS          deprecated -- replaced by 
+    STATUS          deprecated -- replaced by
                                -- ccmMediaDeviceInfoGroupRev1
     DESCRIPTION
         "A collection of objects which provide info about all
@@ -3842,7 +3842,7 @@ ccmNotificationsInfoGroup OBJECT-GROUP
         ccmGatewayPhysIfIndex,
         ccmGatewayPhysIfL2Status
     }
-    STATUS          deprecated -- replaced by 
+    STATUS          deprecated -- replaced by
                                -- ccmNotificationsInfoGroupRev1
     DESCRIPTION
         "A collection of objects which provide info about
@@ -3886,7 +3886,7 @@ ccmInfoGroupRev2 OBJECT-GROUP
         ccmDevicePoolRegionIndex,
         ccmDevicePoolTimeZoneIndex,
         ccmDevicePoolGroupIndex,
-        ccmCallManagerStartTime 
+        ccmCallManagerStartTime
     }
     STATUS          current
     DESCRIPTION
@@ -3917,9 +3917,9 @@ ccmPhoneInfoGroupRev2 OBJECT-GROUP
         ccmPhoneExtnInetAddress,
         ccmRegisteredPhones,
         ccmUnregisteredPhones,
-        ccmRejectedPhones, 
+        ccmRejectedPhones,
         ccmPhoneTableStateId,
-        ccmPhoneExtensionTableStateId 
+        ccmPhoneExtensionTableStateId
     }
     STATUS          current
     DESCRIPTION
@@ -4063,7 +4063,7 @@ ccmVoiceMailDeviceInfoGroup OBJECT-GROUP
     STATUS          current
     DESCRIPTION
         "A collection of objects which provide info about
-        all Voice Mail Devices within the scope of the local 
+        all Voice Mail Devices within the scope of the local
         CallManager. It comprises of the ccmVoiceMailDevice and
         ccmVoiceMailDirNum tables."
     ::= { ciscoCcmMIBGroups 18 }

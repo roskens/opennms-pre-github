@@ -1,11 +1,11 @@
 -- *****************************************************************
 -- CISCO-SMI.my:  Cisco Enterprise Structure of Management Information
---   
+--
 -- April 1994, Jeffrey T. Johnson
---   
+--
 -- Copyright (c) 1994-1997, 2001, 2009 by cisco Systems Inc.
 -- All rights reserved.
---   
+--
 -- ****************************************************************
 
 CISCO-SMI DEFINITIONS ::= BEGIN
@@ -218,9 +218,9 @@ ciscoPartnerProducts OBJECT-IDENTITY
     STATUS          current
     DESCRIPTION
         "ciscoPartnerProducts is the root OBJECT IDENTIFIER from
-        which partner sysObjectID values may be assigned. Such 
+        which partner sysObjectID values may be assigned. Such
         sysObjectID values are composed of the ciscoPartnerProducts
-        prefix, followed by a single identifier that is unique for 
+        prefix, followed by a single identifier that is unique for
         each partner, followed by the value of sysObjectID of the
         Cisco product from which partner product is derived.  Note
         that the chassisPartner MIB object defines the value of the
@@ -391,7 +391,7 @@ ciscoChipSets OBJECT-IDENTITY
     DESCRIPTION
         "Numerous media-specific MIBS have an object, defined as
         an OBJECT IDENTIFIER, which is the identity of the chipset
-        realizing the interface.  Cisco-specific chipsets have their 
+        realizing the interface.  Cisco-specific chipsets have their
         OBJECT IDENTIFIERS assigned under this subtree."
     ::= { ciscoAdmin 3 }
 
@@ -428,7 +428,7 @@ ciscoChipSetSaint4 OBJECT-IDENTITY
     ::= { ciscoChipSets 4 }
 
 -- Transport protocol domains
---   
+--
 -- The textual conventions for these domains are defined in CISCO-TM.
 
 ciscoTDomains  OBJECT IDENTIFIER
