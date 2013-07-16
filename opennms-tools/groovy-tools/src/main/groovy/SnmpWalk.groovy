@@ -9,11 +9,11 @@ class MyTracker extends ColumnTracker {
 		super(base)
 		processor = c;
 	}
-	
+
     protected void storeResult(SnmpObjId base, SnmpInstId inst, SnmpValue val) {
     	processor.call(base, inst, val);
     }
-    
+
 }
 
 //System.setProperty("org.opennms.snmp.strategyClass","org.opennms.netmgt.snmp.joesnmp.JoeSnmpStrategy");

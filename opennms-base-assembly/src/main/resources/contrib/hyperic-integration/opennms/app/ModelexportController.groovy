@@ -26,7 +26,7 @@
  *      http://www.opennms.org/
  *      http://www.opennms.com/
  */
- 
+
 /*
  * This script has the following bindings:
  *    org.hyperic.hq.events.AlertDefinitionInterface alertDef
@@ -42,7 +42,7 @@ import org.hyperic.hibernate.PageInfo
 import org.hyperic.hq.authz.server.session.ResourceSortField
 import org.hyperic.hq.appdef.server.session.PlatformManagerEJBImpl as PlatformManager
 
-class ModelexportController 
+class ModelexportController
     extends BaseController
 {
     def ModelexportController() {
@@ -54,7 +54,7 @@ class ModelexportController
         def platforms = resourceHelper.findPlatforms(new PageInfo(ResourceSortField.NAME, true));
         def man = PlatformManager.one
         xml.'model-import'('xmlns':'http://xmlns.opennms.org/xsd/config/model-import', 'foreign-source':'HQ', 'date-stamp':formatter.format(new Date())) {
-            platforms.each { res ->   
+            platforms.each { res ->
                 def p = man.findPlatformById(res.instanceId)
 
                 node('node-label':p.fqdn, 'foreign-id':p.id) {

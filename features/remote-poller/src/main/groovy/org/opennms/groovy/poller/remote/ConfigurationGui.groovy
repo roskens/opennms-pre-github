@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -46,10 +46,10 @@ class ConfigurationGui implements GroovyGui {
 	def swing = new SwingBuilder();
 	def gui;
 	CountDownLatch m_latch = new CountDownLatch(1);
-	
+
 	JTextField m_userTextField;
 	JPasswordField m_passwordTextField;
-	
+
 	public AuthenticationBean getAuthenticationBean() {
 		m_latch.await();
 		return m_authenticationBean;
@@ -77,11 +77,11 @@ class ConfigurationGui implements GroovyGui {
 		}
 		gui.show();
 	}
-	
+
 	public String toString() {
 		return "Username = " + m_authenticationBean.getUsername() + ", Password = " + m_authenticationBean.getPassword();
 	}
-	
+
 	public static void main(String[] args) {
 		def configGui = new ConfigurationGui();
 		configGui.createAndShowGui();

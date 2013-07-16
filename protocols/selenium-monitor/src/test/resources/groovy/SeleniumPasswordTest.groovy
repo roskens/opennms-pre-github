@@ -21,16 +21,16 @@ public class SeleniumPasswordTest {
 
     @Test
     public void testSeleniumPassword() throws Exception {
-        // open | / | 
+        // open | / |
         driver.get("/");
-        // click | link=sign in | 
+        // click | link=sign in |
         driver.findElement(By.linkText("sign in")).click();
-        // click | link=exact:Forgotten your password? | 
+        // click | link=exact:Forgotten your password? |
         driver.findElement(By.linkText("exact:Forgotten your password?")).click();
         // type | id=ctl00__objContent__txtEmail | pjukolo2@papajohnsdatacenter.com
         driver.findElement(By.id("ctl00__objContent__txtEmail")).clear();
         driver.findElement(By.id("ctl00__objContent__txtEmail")).sendKeys("pjukolo2@papajohnsdatacenter.com");
-        // click | id=ctl00__objContent__btnForgottenPassword | 
+        // click | id=ctl00__objContent__btnForgottenPassword |
         driver.findElement(By.id("ctl00__objContent__btnForgottenPassword")).click();
         // assertText | id=ctl00__objContent__pnlError | Your password has been emailed to you
         assertEquals("Your password has been emailed to you", driver.findElement(By.id("ctl00__objContent__pnlError")).getText());

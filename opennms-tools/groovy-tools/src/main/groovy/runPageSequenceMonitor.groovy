@@ -62,7 +62,7 @@ public class runPageSequenceMonitor implements MonitoredService {
 
 
     public static void main(String[] args) {
-        
+
         if (args.length != 2) {
             System.err.println "usage runPageSequenceMonitor <ip-address> <page-sequence-file>"
             System.exit(1);
@@ -70,14 +70,14 @@ public class runPageSequenceMonitor implements MonitoredService {
 
         String ipAddr = args[0];
         println ipAddr;
-        MonitoredService monSvc = new runPageSequenceMonitor(ipAddr:ipAddr);	  
+        MonitoredService monSvc = new runPageSequenceMonitor(ipAddr:ipAddr);
         String pageSequenceConfig = new File(args[1]).getText();
         println pageSequenceConfig;
-    
+
         Map parms = [retry:'1', timeout:'20000', 'page-sequence':pageSequenceConfig];
-	  
+
         PageSequenceMonitor monitor = new PageSequenceMonitor();
-	  
+
         monitor.initialize(parms);
         monitor.initialize(monSvc);
         PollStatus status = monitor.poll(monSvc, parms);

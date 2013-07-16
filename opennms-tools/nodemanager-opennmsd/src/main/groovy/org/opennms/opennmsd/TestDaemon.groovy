@@ -31,44 +31,44 @@
 package org.opennms.opennmsd;
 
 public class TestDaemon implements Runnable {
-    
+
     OpenNMSDaemon m_daemon;
     DefaultConfiguration m_config;
     DefaultEventForwarder m_forwarder;
-    
+
     public TestDaemon() {
         m_daemon = new OpenNMSDaemon();
         m_config = new DefaultConfiguration();
-        
+
         m_forwarder = new DefaultEventForwarder();
         m_forwarder.setOpenNmsHost("127.0.0.1");
-      
+
         m_daemon.setConfiguration(m_config);
         m_daemon.setEventForwarder(m_forwarder);
         m_daemon.onInit();
-        
+
     }
 
     private void addShutdownHook() {
-        
-        Runnable r = { 
+
+        Runnable r = {
                 println "Stopping!"
                 m_daemon.onStop();
         } as Runnable;
-        
+
         Runtime.getRuntime().addShutdownHook(new Thread(r));
-        
+
     }
-    
+
     public void run() {
         for(i in 1..10) {
             NNMEvent e = TestNNMEvent.createEvent("category${i}", getSeverity(i), "event${i}", "192.168.1.${i}");
             m_daemon.onEvent(e);
             Thread.sleep(10000);
         }
-        
+
     }
-    
+
     public String getSeverity(int i) {
         if (i % 2) {
             return "Warning"
@@ -76,13 +76,13 @@ public class TestDaemon implements Runnable {
             return "Normal"
         }
     }
-    
+
 
     public static void main(String[] args) {
-        
+
         TestDaemon daemon = new TestDaemon();
         daemon.addShutdownHook();
-        
+
         daemon.run();
     }
 

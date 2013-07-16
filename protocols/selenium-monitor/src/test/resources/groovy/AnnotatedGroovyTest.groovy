@@ -19,7 +19,7 @@ class AnnotatedGroovyTest {
         m_baseUrl = baseUrl;
         m_timeout = timeoutInSeconds;
     }
-    
+
     @Test
     public void testBaseUrl() {
         assertTrue("Base Url must be http://www.papajohns.co.uk", m_baseUrl.equals("http://www.papajohns.co.uk"));

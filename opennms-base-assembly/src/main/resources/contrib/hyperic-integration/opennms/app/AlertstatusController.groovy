@@ -77,8 +77,8 @@ class AlertstatusController
 
     private def getAlertAttribs(alert) {
         def attribs = [:]
-        if (alert.respondsTo("getId").size > 0) { 
-            attribs["id"] = alert.id 
+        if (alert.respondsTo("getId").size > 0) {
+            attribs["id"] = alert.id
         } else {
             throw new IllegalArgumentException("Alert without ID found, must be a type mismatch: " + alert.class)
         }

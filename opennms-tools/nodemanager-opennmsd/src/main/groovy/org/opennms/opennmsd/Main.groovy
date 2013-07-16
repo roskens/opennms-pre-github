@@ -3,7 +3,7 @@ package org.opennms.opennmsd;
 import org.apache.log4j.Logger;
 
 public class Main {
-    
+
     private static Logger log = Logger.getLogger(Main.class);
 
     /**
@@ -20,9 +20,9 @@ public class Main {
             log.error("Exception executing opennmsd", e);
             System.exit(27);
         }
-        
+
         System.exit(0);
-        
+
     }
 
 }

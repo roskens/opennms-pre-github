@@ -12,17 +12,17 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.firefox.FirefoxDriver
 
 class OpennmsSeleniumExample  {
-    
+
     private WebDriver driver;
     private String baseUrl="http://www.papajohns.co.uk/";
     private int timeout = 30;
     private StringBuffer verificationErrors = new StringBuffer();
-    
+
     public OpennmsSeleniumExample(String url, int timeoutInSeconds) {
         baseUrl = url;
         timeout = timeoutInSeconds;
     }
-    
+
     @Before
     public void setUp() throws Exception {
         driver = new FirefoxDriver();
@@ -35,7 +35,7 @@ class OpennmsSeleniumExample  {
         driver.get(baseUrl);
         // click | link=Our Story |
         driver.findElement(By.linkText("Our Story")).click();
-        
+
         // assertText | link=Contact Us | Contact Us
         //assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
         assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
@@ -49,6 +49,6 @@ class OpennmsSeleniumExample  {
             fail(verificationErrorString);
         }
     }
-    
-    
+
+
 }

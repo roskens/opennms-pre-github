@@ -13,18 +13,18 @@ import org.openqa.selenium.WebDriver
 import org.openqa.selenium.htmlunit.HtmlUnitDriver
 
 class SeleniumGroovyTest  {
-    
+
     private WebDriver driver;
     private String baseUrl="http://www.papajohns.co.uk/";
     private int timeout = 30;
     private StringBuffer verificationErrors = new StringBuffer();
-    
+
     public SeleniumGroovyTest(String url, int timeoutInSeconds) {
         System.err.println("URL: " + url);
         baseUrl = url;
         timeout = timeoutInSeconds;
     }
-    
+
     @Before
     public void setUp() throws Exception {
         MockLogAppender.setupLogging(true, "DEBUG");
@@ -36,7 +36,7 @@ class SeleniumGroovyTest  {
     public void testSelenium() throws Exception {
         // open | / |
         driver.get(baseUrl + "/opennms/index.html");
-        
+
         // assertText | link=Contact Us | Contact Us
         //assertEquals("Contact Us", driver.findElement(By.linkText("Contact Us")).getText());
         assertEquals("Testing Testing", driver.findElement(By.tagName("h2")).getText());
@@ -50,5 +50,5 @@ class SeleniumGroovyTest  {
             fail(verificationErrorString);
         }
     }
-    
+
 }

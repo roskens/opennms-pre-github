@@ -20,7 +20,7 @@ class InTransaction implements TransactionCallback {
 
 }
 
-  
+
 
 System.setProperty("rrd.base.dir", new File(".").getAbsolutePath());
 System.setProperty("rrd.binary", "/usr/bin/rrdtool");

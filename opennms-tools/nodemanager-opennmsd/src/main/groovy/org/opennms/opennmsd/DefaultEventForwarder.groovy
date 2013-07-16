@@ -35,16 +35,16 @@ import org.opennms.opennmsd.AbstractEventForwarder
 import groovy.xml.MarkupBuilder
 
 class DefaultEventForwarder extends AbstractEventForwarder {
-    
+
     String host = InetAddress.getLocalHost().hostName;
     String openNmsHost;
-    
+
     protected void forwardEvents(List eventsToFoward) {
-        
+
         System.err.println("openNmsHost is ${openNmsHost}")
         Socket socket = new Socket(openNmsHost, 5817);
         socket.outputStream.withWriter { out ->
-        
+
           def xml = new MarkupBuilder(out);
           xml.log {
               events {
@@ -60,7 +60,7 @@ class DefaultEventForwarder extends AbstractEventForwarder {
               }
           }
         }
-        
+
     }
 
 }

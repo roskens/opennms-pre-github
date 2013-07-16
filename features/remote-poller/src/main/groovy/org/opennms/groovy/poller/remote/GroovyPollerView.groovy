@@ -17,7 +17,7 @@
  * You should have received a copy of the GNU General Public License
  *     along with OpenNMS(R).  If not, see <http://www.gnu.org/licenses/>.
  *
- * For more information contact: 
+ * For more information contact:
  *     OpenNMS(R) Licensing <license@opennms.org>
  *     http://www.opennms.org/
  *     http://www.opennms.com/
@@ -45,7 +45,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
 
 /**
- * 
+ *
  * @author <a href="mailto:brozow@opennms.org">Mathew Brozowski</a>
  * @author <a href="mailto:david@opennms.org">David Hustace</a>
  * @author <a href="mailto:dj@opennms.org">DJ Gregor</a>
@@ -56,8 +56,8 @@ class GroovyPollerView implements InitializingBean {
     private static final String REGISTRATION = "registration";
     private static final String STATUS = "status";
 
-   def m_frontEnd; 
-    
+   def m_frontEnd;
+
    def swing = new SwingBuilder();
    def m_table;
    def m_frame;
@@ -66,7 +66,7 @@ class GroovyPollerView implements InitializingBean {
    def m_idLabel;
    def m_statusLabel;
    SimpleDateFormat m_dateFormat;
-   
+
    public void setPollerFrontEnd(PollerFrontEnd pollerFrontEnd) {
 	   m_frontEnd = pollerFrontEnd;
    }
@@ -74,14 +74,14 @@ class GroovyPollerView implements InitializingBean {
    public void afterPropertiesSet() {
        SwingUtilities.invokeLater( { createAndShowGui() } );
    }
-   
+
    private void createAndShowGui() {
-       
+
        m_dateFormat = new SimpleDateFormat("K:mm:ss a");
-		
+
 		m_table = swing.table(model:createTableModel())
-		
-		
+
+
 		def frame = swing.frame(title:'OpenNMS Remote Poller', location:[100,100], size:[900,500], defaultCloseOperation:JFrame.EXIT_ON_CLOSE) {
 		    m_cardPanel = panel(layout:new CardLayout(), constraints:BorderLayout.CENTER) {
 		        panel(constraints:REGISTRATION) {
@@ -121,17 +121,17 @@ class GroovyPollerView implements InitializingBean {
 		    }
 		    */
 		}
-		
+
 		updateCurrentPanel();
-		
+
 		m_frontEnd.pollStateChange = { updateTable() }
 		m_frontEnd.propertyChange = { updateCurrentPanel(); m_idLabel.text = 'Monitor: '+m_frontEnd.getMonitorName(); m_statusLabel.text = m_frontEnd.getStatus() }
 		m_frontEnd.configurationChanged = { updateTableModel(); m_idLabel.text = m_frontEnd.getMonitorName() }
 
-		frame.show()	
+		frame.show()
 
    }
-   
+
    private void doRegistration() {
        String loc = m_monLocation?.selectedItem?.name;
        if (loc == null) {
@@ -141,7 +141,7 @@ class GroovyPollerView implements InitializingBean {
           m_frontEnd.register(loc);
        }
    }
-   
+
    private List getCurrentMonitoringLocations() {
 	   try {
 		   return m_frontEnd.getMonitoringLocations();
@@ -150,25 +150,25 @@ class GroovyPollerView implements InitializingBean {
            System.exit(1);
 	   }
    }
-   
+
    private void updateCurrentPanel() {
 		SwingUtilities.invokeLater({ setCurrentPanel(m_frontEnd.started ? STATUS : REGISTRATION) });
    }
-   
+
    private void setCurrentPanel(String panelName) {
        m_cardPanel.layout.show(m_cardPanel, panelName);
    }
-   
+
    private void updateTable() {
        //System.err.println("Updating Table (status Change)")
        SwingUtilities.invokeLater({ m_table.model.fireTableDataChanged() })
    }
-   
+
    private void updateTableModel() {
        //System.err.println("Updating Table Model (config Change)")
        SwingUtilities.invokeLater({ m_table.model = createTableModel(); m_table.model.fireTableDataChanged() })
    }
-   
+
    private TableModel createTableModel() {
        List rows = Collections.EMPTY_LIST;
        if (m_frontEnd.registered)
@@ -184,11 +184,11 @@ class GroovyPollerView implements InitializingBean {
 			closureColumn(header:'Last Poll', read: { pollState -> formatPollTime(pollState.lastPollTime) })
 			closureColumn(header:'Next Poll', read: { pollState -> formatPollTime(pollState.nextPollTime) })
 		}
-		
-		
-       
+
+
+
    }
-   
+
    private String reasonResponse(PollStatus lastPoll) {
        if (lastPoll == null)
            return '-';
@@ -198,11 +198,11 @@ class GroovyPollerView implements InitializingBean {
            return lastPoll.reason
        return '-';
    }
-   
+
    private String formatPollTime(Date pollTime) {
        if (pollTime == null) return "-";
-       
+
        return m_dateFormat.format(pollTime);
    }
-   
+
 }

@@ -18,12 +18,12 @@ class sendEvent {
          openNmsHost = args[1];
       }
 
-      
+
 
       Socket socket = new Socket(openNmsHost, 5817);
       socket.outputStream.withWriter { out ->
 //              System.out.withWriter { out ->
-      
+
               def xml = new MarkupBuilder(out);
               xml.log {
                   events {
@@ -37,9 +37,9 @@ class sendEvent {
                   }
               }
 
-      
+
      }
-      
+
   }
 
 }

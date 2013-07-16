@@ -24,15 +24,15 @@ public class OpennmsSeleniumExample {
 		driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(timeout, TimeUnit.SECONDS);
 	}
-    
-    
+
+
 	@Test
 	public void test() throws Exception {
-		// open | / | 
+		// open | / |
 		driver.get(baseUrl);
-		// click | link=About OpenNMS | 
+		// click | link=About OpenNMS |
 		driver.findElement(By.linkText("About OpenNMS")).click();
-		//assertTextPresent | OpenNMS is an award winning network management application platform | 
+		//assertTextPresent | OpenNMS is an award winning network management application platform |
 		// ERROR: Caught exception [ERROR: Unsupported command [isTextPresent]]
 	}
 
@@ -53,5 +53,5 @@ public class OpennmsSeleniumExample {
 			return false;
 		}
 	}
-    
+
 }
