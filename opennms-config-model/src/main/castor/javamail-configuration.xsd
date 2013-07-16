@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-        targetNamespace="http://xmlns.opennms.org/xsd/config/javamail-configuration" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://xmlns.opennms.org/xsd/config/javamail-configuration"
         xmlns:this="http://xmlns.opennms.org/xsd/config/javamail-configuration"
         elementFormDefault="qualified">
-        
+
   <element name="javamail-configuration" >
     <annotation>
       <documentation>
@@ -20,7 +20,7 @@
       <attribute name="default-read-config-name" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <element name="end2end-mail-config" >
     <annotation>
       <documentation>
@@ -37,12 +37,12 @@
   <element name="sendmail-config" >
     <annotation>
       <documentation>
-      
+
         This entity defines the test for sending mail.  Attributes are used to
         derive values of java mail properties, or, they can be specified directly
-        as key value pairs.  Attributes will are easier to read but there isn't 
+        as key value pairs.  Attributes will are easier to read but there isn't
         an attribute for every javamail property possible (some are fairly obscure).
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -60,15 +60,15 @@
       <attribute name="name" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <element name="sendmail-message" >
-  
+
     <annotation>
       <documentation>
-      
+
         Define the To, From, Subject, and body of a message.  If not defined, one will be defined
         for your benefit (or confusion ;-)
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -78,13 +78,13 @@
       <attribute name="body" type="string" use="optional" default="This is an OpenNMS test message." />
     </complexType>
   </element>
-  
+
   <element name="sendmail-protocol" >
     <annotation>
       <documentation>
-      
+
         Basically attributes that help setup the javamailer's confusion set of properties.
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -98,13 +98,13 @@
       <attribute name="start-tls" type="boolean" use="optional" default="false" />
     </complexType>
   </element>
-  
+
   <element name="sendmail-host" >
     <annotation>
       <documentation>
-      
+
         Configuration for a sendmail host
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -112,14 +112,14 @@
       <attribute name="port" type="integer" use="optional" default="25" />
     </complexType>
   </element>
-  
-  
+
+
   <element name="readmail-config" >
     <annotation>
       <documentation>
-      
+
         Configuration container for configuration all settings for reading email
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -139,9 +139,9 @@
   <element name="readmail-host" >
     <annotation>
       <documentation>
-      
+
         Define the host and port of a service for reading email.
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -152,13 +152,13 @@
       <attribute name="port" type="integer" use="optional" default="110" />
     </complexType>
   </element>
-  
+
   <element name="readmail-protocol" >
     <annotation>
       <documentation>
-      
+
         Basically any attributes that help setup the javamailer's confusing set of properties.
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -171,9 +171,9 @@
   <element name="user-auth" >
     <annotation>
       <documentation>
-      
+
         Configure user based authentication.
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -185,28 +185,28 @@
   <simpleType name="read-mail-protocol" >
     <annotation>
       <documentation>
-      
+
         Don't allow poorly configured read protocols.  These are case sensitive.
-        
+
       </documentation>
     </annotation>
     <restriction base="string" >
       <pattern value="pop3|pop3s|imap|imaps" />
     </restriction>
   </simpleType>
-  
+
   <simpleType name="transport-types" >
     <restriction base="string" >
       <pattern value="smtp|smtps" />
     </restriction>
   </simpleType>
-  
+
   <element name="javamail-property">
     <annotation>
       <documentation>
-      
+
         Use these name value pairs to configure free-form properties from the JavaMail class.
-        
+
       </documentation>
     </annotation>
     <complexType>
@@ -214,5 +214,5 @@
       <attribute name="value" type ="string" use="required" />
     </complexType>
   </element>
-  
+
 </schema>

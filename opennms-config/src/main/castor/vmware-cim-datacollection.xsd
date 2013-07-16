@@ -145,7 +145,7 @@
 		</annotation>
 		<complexType>
 			<attribute name="name" type="string" use="required"/>
-			<attribute name="alias" type="string" use="required"/>			
+			<attribute name="alias" type="string" use="required"/>
 			<attribute name="type" use="required">
 				<simpleType>
 					<restriction base="string">

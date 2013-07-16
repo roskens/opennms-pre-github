@@ -22,7 +22,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="meta" >
     <complexType>
       <sequence>
@@ -35,7 +35,7 @@
       </sequence>
     </complexType>
   </element>
- 
+
   <element name="data" >
     <complexType>
       <sequence>
@@ -43,7 +43,7 @@
       </sequence>
     </complexType>
   </element>
- 
+
   <element name="start" >
     <complexType>
       <simpleContent>
@@ -91,7 +91,7 @@
       </sequence>
     </complexType>
   </element>
- 
+
   <element name="entry" >
     <complexType>
       <simpleContent>
@@ -108,7 +108,7 @@
       </sequence>
     </complexType>
   </element>
- 
+
   <element name="t" >
     <complexType>
       <simpleContent>

@@ -30,7 +30,7 @@
       <sequence>
         <element maxOccurs="unbounded" minOccurs="0" ref="this:Graph"/>
       </sequence>
-      
+
       <attribute name="id" type="int" use="optional"/>
 
       <attribute name="title" type="string" use="required"/>
@@ -46,7 +46,7 @@
           </restriction>
         </simpleType>
       </attribute>
-  
+
 
     </complexType>
   </element>
@@ -56,7 +56,7 @@
       <attribute name="title" type="string" use="required"/>
 
       <attribute name="resourceId" type="string" use="optional"/>
-      
+
       <attribute name="nodeId" type="string" use="optional"/>
 
       <attribute name="nodeSource" type="string" use="optional"/>

@@ -11,14 +11,14 @@
 		</complexType>
 	</element>
 	<!-- a grouping of JMX related RRD parms, JMX object groups and sysoid based
-		 system definitions. 
+		 system definitions.
 	-->
 	<element name="jmx-collection">
 		<complexType>
 			<sequence>
 				<!-- RRD parms -->
 				<element ref="this:rrd" minOccurs="1" maxOccurs="1"/>
-				
+
 				<!-- JMX object groups -->
 				<element ref="this:mbeans" minOccurs="1" maxOccurs="1"/>
 
@@ -27,7 +27,7 @@
 			</sequence>
 			<!-- collector name -->
 			<attribute name="name" type="string" use="required"/>
-			
+
 			<attribute name="maxVarsPerPdu" type="int" use="optional">
 				<annotation>
 					<documentation>DEPRECATED</documentation>
@@ -49,7 +49,7 @@
 					</simpleType>
 				</element>
 			</sequence>
-			
+
 			<!-- step size for the RRD -->
 			<attribute name="step" type="int" use="required"/>
 		</complexType>
@@ -92,9 +92,9 @@
 	<element name="attrib">
 		<complexType>
 			<attribute name="name" type="string" use="required"/>
-			
+
 			<attribute name="alias" type="string" use="required"/>
-			
+
 			<attribute name="type" use="required">
                                 <simpleType>
 					<restriction base="string">
@@ -102,23 +102,23 @@
 					</restriction>
 				</simpleType>
 			</attribute>
-			
+
 			<attribute name="maxval" type="string" use="optional"/>
 			<attribute name="minval" type="string" use="optional"/>
 		</complexType>
-	</element>	
-	
+	</element>
+
 	<!-- a composite attribute object -->
 	<element name="comp-attrib">
 		<complexType>
 			<sequence>
 						<element ref="this:comp-member" maxOccurs="unbounded" minOccurs="0"></element>
 			</sequence>
-		
+
 			<attribute name="name" type="string" use="required"/>
-			
+
 			<attribute name="alias" type="string" use="optional"/>
-			
+
 			<attribute name="type" use="required">
 				<simpleType>
 					<restriction base="string">
@@ -127,15 +127,15 @@
 				</simpleType>
 			</attribute>
 		</complexType>
-	</element>	
-	
+	</element>
+
 	<!-- a composite attribute member object -->
 	<element name="comp-member">
 		<complexType>
 			<attribute name="name" type="string" use="required"/>
-			
+
 			<attribute name="alias" type="string" use="optional"/>
-			
+
 			<attribute name="type" use="required">
 				<simpleType>
 					<restriction base="string">
@@ -148,7 +148,7 @@
 
 			<attribute name="minval" type="string" use="optional"/>
 		</complexType>
-	</element>	
+	</element>
 
 	<!--jmx-systems>
 
@@ -162,7 +162,7 @@
 
 	<element name="jmx-systemDef">
 		<complexType>
-			<sequence>	
+			<sequence>
 				<choice>
 					<element name="sysoid" type="string" minOccurs="1" maxOccurs="1"/>
 					<element name="sysoidMask" type="string" minOccurs="1" maxOccurs="1"/>
@@ -170,7 +170,7 @@
 				<element ref="ipList" minOccurs="0" maxOccurs="1"/>
 				<element ref="jmx-collect" minOccurs="1" maxOccurs="1"/>
 			</sequence>
-			<attribute name="name" type="string" use="required"/>	
+			<attribute name="name" type="string" use="required"/>
 		</complexType>
 	</element>
 

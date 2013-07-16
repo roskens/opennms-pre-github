@@ -16,7 +16,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="resource">
     <complexType>
       <sequence>
@@ -26,7 +26,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="attribute">
     <complexType>
       <sequence>
@@ -37,10 +37,10 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="name" type="string" />
   <element name="min" type="double" />
   <element name="average" type="double" />
   <element name="max" type="double" />
-  
+
 </schema>

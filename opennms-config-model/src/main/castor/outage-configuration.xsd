@@ -24,7 +24,7 @@
           <documentation>Maximum number of threads reading the events and
           updating the database.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>

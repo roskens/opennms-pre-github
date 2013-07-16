@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-        targetNamespace="http://xmlns.opennms.org/xsd/config/reportd-configuration" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://xmlns.opennms.org/xsd/config/reportd-configuration"
         xmlns:this="http://xmlns.opennms.org/xsd/config/reportd-configuration"
         elementFormDefault="qualified">
-        
+
   <element name="reportd-configuration" >
     <annotation>
       <documentation>
@@ -31,13 +31,13 @@
     </attribute>
     </complexType>
   </element>
-  
+
   <element name="report"  >
     <annotation>
       <documentation>
-      
+
       Defines an report schedule with a cron expression
-        
+
         http://quartz.sourceforge.net/javadoc/org/quartz/CronTrigger.html
           Field Name     Allowed Values      Allowed Special Characters
           Seconds        0-59                , - * /
@@ -61,7 +61,7 @@
       <attribute name="report-format" use="optional" default="pdf">
         <simpleType>
           <restriction base="string">
-            <pattern value="(pdf|csv|html)"/> 
+            <pattern value="(pdf|csv|html)"/>
           </restriction>
         </simpleType>
       </attribute>
@@ -74,7 +74,7 @@
       </attribute>
     </complexType>
   </element>
-  
+
   <element name="parameter">
     <complexType>
       <sequence>
@@ -84,5 +84,5 @@
       <attribute name="value" type="string" use="required" />
     </complexType>
   </element>
- 
+
 </schema>

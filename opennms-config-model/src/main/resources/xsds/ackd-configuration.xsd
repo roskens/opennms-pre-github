@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-        targetNamespace="http://xmlns.opennms.org/xsd/config/ackd-configuration" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://xmlns.opennms.org/xsd/config/ackd-configuration"
         xmlns:this="http://xmlns.opennms.org/xsd/config/ackd-configuration"
         elementFormDefault="qualified">
-        
+
   <element name="ackd-configuration" >
     <annotation>
       <documentation>
@@ -23,21 +23,21 @@
       <attribute name="alarmid-match-expression" type="string" use="optional" default="~.*Re:.*Alarm #([0-9]+).*" />
     </complexType>
   </element>
-  
+
   <element name="readers" >
     <annotation>
       <documentation>
         Location for user to define readers and they're schedules.
       </documentation>
     </annotation>
-    
+
     <complexType>
       <sequence>
         <element ref="this:reader" minOccurs="0" maxOccurs="unbounded" />
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="reader">
     <complexType>
       <sequence>
@@ -55,7 +55,7 @@
       <attribute name="enabled" type="boolean" use="optional" default="true" />
     </complexType>
   </element>
-  
+
   <element name="reader-schedule">
     <annotation>
       <documentation>
@@ -78,7 +78,7 @@
       <pattern value="d|h|m|s|ms" />
     </restriction>
   </simpleType>
-  
+
   <element name="parameter">
     <annotation>
       <documentation>Parameters to be used for collecting this service.
@@ -91,6 +91,6 @@
       <attribute name="value" type="string" use="required"/>
     </complexType>
   </element>
-  
-  
+
+
 </schema>

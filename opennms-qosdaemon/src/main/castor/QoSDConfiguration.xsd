@@ -12,14 +12,14 @@
 			</sequence>
 		</complexType>
 	</element>
-	
+
 	<element name="setting">
 		<complexType>
 			<attribute name="name" type="string" use="required"/>
 			<attribute name="value" type="string" use="required"/>
 		</complexType>
 	</element>
-	
+
 	<element name="eventlist">
 		<complexType>
 			<sequence>

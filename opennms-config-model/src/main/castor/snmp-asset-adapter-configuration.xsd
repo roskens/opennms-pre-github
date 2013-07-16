@@ -42,7 +42,7 @@
       <attribute name="name" type="string" use="required"/>
     </complexType>
   </element>
-  
+
   <element name="sysoid" type="string"/>
   <element name="sysoidMask" type="string"/>
 

@@ -39,7 +39,7 @@
                     <minInclusive value="1"/>
                     <maxInclusive value="65535"/>
                   </restriction>
-                </simpleType>      
+                </simpleType>
             </attribute>
             <attribute name="new-suspect-on-message" type="boolean" use="optional" default="false" >
                 <annotation>
@@ -229,7 +229,7 @@
                         <documentation>UEI</documentation>
                     </annotation>
                 </element>
-                
+
                 <element maxOccurs="unbounded" minOccurs="0" name="parameter-assignment">
                 	<annotation>
                 		<documentation>For regex matches, assign the value of a matching group

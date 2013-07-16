@@ -28,7 +28,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
       <attribute name="default-view" type="string" use="optional" default="WebConsoleView" />
     </complexType>

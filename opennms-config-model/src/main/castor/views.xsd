@@ -43,7 +43,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="viewinfo">
     <annotation>
       <documentation>Top-level element for the views.xml configuration

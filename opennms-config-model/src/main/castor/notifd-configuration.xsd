@@ -48,7 +48,7 @@
       <attribute name="acknowledge-update-sql" type="string" use="optional" default="UPDATE notifications SET answeredby=?, respondtime=? WHERE notifyId=?"/>
 
       <attribute name="match-all" type="boolean" use="required"/>
-      
+
       <attribute name="email-address-command" type="string" use="optional" default="javaEmail"/>
 
 		<attribute name="numeric-skip-resolution-prefix" type="boolean" use="optional" default="false"/>

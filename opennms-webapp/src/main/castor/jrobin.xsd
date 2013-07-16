@@ -47,7 +47,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType> 
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -71,7 +71,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -122,7 +122,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
 
       <element maxOccurs="1" minOccurs="1" name="maj_grid_time_unit"
@@ -133,7 +133,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
 
       <element maxOccurs="1" minOccurs="1" name="date_format" type="string">
@@ -157,7 +157,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
 
       <element maxOccurs="1" minOccurs="1" name="label_step">
@@ -165,7 +165,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -217,7 +217,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
 
       <element maxOccurs="1" minOccurs="1" name="label_step">
@@ -225,7 +225,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -251,7 +251,7 @@
           <restriction base="int">
             <minInclusive value="0"/>
           </restriction>
-        </simpleType>            
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -269,7 +269,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -287,7 +287,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -305,7 +305,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </element>
     </sequence>
   </complexType>
@@ -389,7 +389,7 @@
             <restriction base="int">
               <minInclusive value="1"/>
             </restriction>
-          </simpleType>      
+          </simpleType>
         </element>
 
         <element maxOccurs="1" minOccurs="0" name="canvas" type="this:color"/>
@@ -399,7 +399,7 @@
             <restriction base="int">
               <minInclusive value="0"/>
             </restriction>
-          </simpleType>      
+          </simpleType>
         </element>
 
         <element maxOccurs="1" minOccurs="0" name="default_font"
@@ -467,7 +467,7 @@
             <restriction base="int">
               <minInclusive value="1"/>
             </restriction>
-          </simpleType>      
+          </simpleType>
         </element>
 
         <element maxOccurs="1" minOccurs="0" name="value_axis"

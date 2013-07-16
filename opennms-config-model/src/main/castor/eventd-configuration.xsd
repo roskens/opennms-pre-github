@@ -26,7 +26,7 @@
           address is 127.0.0.1.</documentation>
         </annotation>
       </attribute>
-      
+
       <attribute name="TCPPort" use="required">
         <annotation>
           <documentation>The port on which eventd listens for TCP connections.
@@ -53,7 +53,7 @@
           <documentation>The port on which eventd listens for UDP packets. The
           default port is 5817.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -67,7 +67,7 @@
           <documentation>The maximum number of threads used for reading and
           processing of incoming events.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -77,10 +77,10 @@
 
       <attribute name="queueLength" use="optional">
         <annotation>
-          <documentation>The maximum number of incoming events that can be 
+          <documentation>The maximum number of incoming events that can be
           queued inside eventd for processing.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -111,7 +111,7 @@
           eventd's sockets if socketSoTimeoutRequired is set to
           'yes'.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>

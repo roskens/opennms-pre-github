@@ -456,7 +456,7 @@
       <sequence>
         <any id="configuration" minOccurs="0" maxOccurs="1" />
       </sequence>
-      
+
       <attribute name="key" type="string" use="required"/>
 
       <attribute name="value" type="string" use="optional"/>

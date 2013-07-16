@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://xmlns.opennms.org/xsd/config/site-status-views"
-        xmlns:this="http://xmlns.opennms.org/xsd/config/site-status-views" 
+        xmlns:this="http://xmlns.opennms.org/xsd/config/site-status-views"
 		  xmlns:tns="http://www.opennms.org/site-status-views"
 		  elementFormDefault="qualified">
-        
+
   <element name="site-status-view-configuration">
     <annotation><documentation>Level element containing surveillance view definitions</documentation></annotation>
     <complexType>
@@ -20,7 +20,7 @@
       <attribute name="default-view" type="string" use="optional" default="default"/>
     </complexType>
   </element>
-  
+
   <element name="view">
     <complexType>
       <sequence>
@@ -33,7 +33,7 @@
       <attribute name="column-value" type="string" use="optional" />
     </complexType>
   </element>
-  
+
   <element name="rows" >
     <complexType>
       <sequence>
@@ -41,7 +41,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="row-def">
     <complexType>
       <sequence>
@@ -51,7 +51,7 @@
       <attribute name="report-category" type="string" use="optional" default="Network Interfaces"/>
     </complexType>
   </element>
-  
+
   <element name="category">
     <annotation>
       <documentation>

@@ -83,7 +83,7 @@
           <documentation>Maximum number of threads available for processing
           'newSuspect' events from discovery.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -96,7 +96,7 @@
           <documentation>Maximum number of threads available for rescanning
           managed interfaces.</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -212,7 +212,7 @@
       </attribute>
 
       <attribute name="user-defined" use="optional" default="false">
-      
+
         <annotation>
           <documentation>Specifies if the protocol was added by the user via
           the UI.</documentation>

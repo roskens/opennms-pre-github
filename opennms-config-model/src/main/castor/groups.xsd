@@ -84,7 +84,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
     <element name="roles">
     <complexType>
       <sequence>
@@ -112,7 +112,7 @@
       </complexContent>
     </complexType>
   </element>
-  
+
   <complexType name="basicSchedule">
     <sequence>
       <element maxOccurs="unbounded" minOccurs="1" ref="this:time">
@@ -147,7 +147,7 @@
     </annotation>
 
     <complexType>
-    
+
       <attribute name="id" use="optional" type="string">
         <annotation>
           <documentation>
@@ -156,7 +156,7 @@
           </documentation>
         </annotation>
       </attribute>
-          	
+
       <attribute name="day" use="optional">
 
         <simpleType>

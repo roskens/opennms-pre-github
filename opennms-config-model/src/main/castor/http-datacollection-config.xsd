@@ -10,7 +10,7 @@
   <annotation>
     <documentation>
       XML Schema for the http-datacollection-config.xml configuration file.
-      
+
       Collections:
       - As in SNMP data collection, multiple collections can be defined
       - RRD definition is defined here, by as with the other data collection
@@ -21,7 +21,7 @@
       - Initial use case for this collector's configuration is to support multiple schemes (i.e. http,
       (ftp, file, etc.) but initial use will be for http only and is configured by default.
       - URLs have many attributes (authority, scheme, user-agent, virtual-host, etc.)
-      - URLs support query strings as well as post fields. 
+      - URLs support query strings as well as post fields.
     </documentation>
   </annotation>
 
@@ -42,7 +42,7 @@
       </attribute>
     </complexType>
   </element>
-  
+
   <element name="http-collection" >
     <complexType>
       <sequence>
@@ -52,7 +52,7 @@
       <attribute name="name" type="string" use="optional" default="default" />
     </complexType>
   </element>
-  
+
   <element name="uris" >
     <complexType>
       <sequence>
@@ -61,7 +61,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="uri" >
     <complexType>
       <sequence>
@@ -71,7 +71,7 @@
       <attribute name="name" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <element name="attributes" >
     <complexType>
       <sequence>
@@ -79,7 +79,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="url" >
     <complexType>
       <sequence>
@@ -116,19 +116,19 @@
       <attribute name="unix-lines" type="boolean" use="optional" default="false" />
     </complexType>
   </element>
-  
+
   <simpleType name="allowed-versions" >
     <restriction base="string" >
       <pattern value="1\.0|1\.1" />
     </restriction>
   </simpleType>
-  
+
   <simpleType name="allowed-methods" >
     <restriction base="string" >
       <pattern value="GET|POST" />
     </restriction>
   </simpleType>
-  
+
   <element name="parameters" >
     <complexType>
       <sequence>
@@ -136,7 +136,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="attrib" >
     <complexType>
       <attribute name="alias" type="string" use="required" />
@@ -188,7 +188,7 @@
         <annotation>
           <documentation>step size for the RRD</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -197,14 +197,14 @@
       </attribute>
     </complexType>
   </element>
-  
+
   <element name="post" >
     <complexType>
       <attribute name="parm" type="string" use="required" />
       <attribute name="value" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <element name="parameter">
     <annotation>
       <documentation>Parameters to be used for configuration this strategy.</documentation>
@@ -214,5 +214,5 @@
       <attribute name="value" type="string" use="required"/>
     </complexType>
   </element>
-  
+
 </schema>

@@ -49,7 +49,7 @@
             				(retries, timeouts...)</documentation>
           			</annotation>
         		</element>
-      		</sequence>		
+		</sequence>
 			<attribute name="timeout" type="int" use="optional">
 				<annotation>
 					<documentation>

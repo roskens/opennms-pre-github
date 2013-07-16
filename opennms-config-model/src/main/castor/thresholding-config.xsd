@@ -151,7 +151,7 @@
         <restriction base="int">
           <minInclusive value="1"/>
         </restriction>
-      </simpleType>      
+      </simpleType>
     </attribute>
 
     <attribute name="ds-label" type="string" use="optional">
@@ -162,7 +162,7 @@
         </documentation>
       </annotation>
     </attribute>
-    
+
     <attribute name="triggeredUEI" type="string" use="optional">
       <annotation>
         <documentation>
@@ -171,7 +171,7 @@
         </documentation>
       </annotation>
     </attribute>
-    
+
     <attribute name="rearmedUEI" type="string" use="optional">
       <annotation>
         <documentation>
@@ -180,7 +180,7 @@
         </documentation>
       </annotation>
     </attribute>
-    
+
     <attribute name="filterOperator" use="optional" default="or">
       <annotation>
         <documentation>
@@ -195,7 +195,7 @@
         </restriction>
       </simpleType>
     </attribute>
-    
+
   </complexType>
 
   <element name="resource-filter">
@@ -207,7 +207,7 @@
       </simpleContent>
     </complexType>
   </element>
-  
+
   <element name="threshold">
     <annotation>
       <documentation>Threshold definition</documentation>
@@ -227,7 +227,7 @@
       </complexContent>
     </complexType>
   </element>
-  
+
   <element name="expression">
     <annotation>
       <documentation>Threshold definition</documentation>

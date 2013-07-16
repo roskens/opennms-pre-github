@@ -123,7 +123,7 @@
 
         <element maxOccurs="unbounded" minOccurs="0" ref="this:varbindsdecode">
           <annotation>
-            <documentation>The varbind decoding tag used to decode value 
+            <documentation>The varbind decoding tag used to decode value
             into a string</documentation>
           </annotation>
         </element>
@@ -191,7 +191,7 @@
         </element>
 
       </choice>
-      
+
     </complexType>
   </element>
 
@@ -544,7 +544,7 @@
 
   <element name="varbindsdecode">
     <annotation>
-      <documentation>This element is used for converting event 
+      <documentation>This element is used for converting event
       varbind value in static decoded string.</documentation>
     </annotation>
     <complexType mixed="true">
@@ -555,20 +555,20 @@
             decoded
             </documentation>
           </annotation>
-        </element>     
+        </element>
         <element maxOccurs="unbounded" minOccurs="1" ref="this:decode">
           <annotation>
             <documentation>The value to string decoding map
             </documentation>
           </annotation>
-        </element>     
+        </element>
       </choice>
     </complexType>
    </element>
 
   <element name="decode">
     <annotation>
-      <documentation>This element is used for converting event 
+      <documentation>This element is used for converting event
       varbind value in static decoded string.</documentation>
     </annotation>
     <complexType>
@@ -606,7 +606,7 @@
       <attribute name="update-on-reduction" type="boolean" use="optional" default="true" />
     </complexType>
   </element>
-  
+
   <simpleType name="x733-alarm-type">
     <restriction base="string" >
       <pattern value="CommunicationsAlarm|ProcessingErrorAlarm|EnvironmentalAlarm|QualityOfServiceAlarm|EquipmentAlarm|IntegrityViolation|SecurityViolation|TimeDomainViolation|OperationalViolation|PhysicalViolation" />

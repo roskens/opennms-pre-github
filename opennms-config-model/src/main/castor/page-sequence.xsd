@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-            targetNamespace="http://xmlns.opennms.org/xsd/page-sequence" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://xmlns.opennms.org/xsd/page-sequence"
 				xmlns:this="http://xmlns.opennms.org/xsd/page-sequence"
 				elementFormDefault="qualified">
 
   <element name="page-sequence" >
     <annotation>
       <documentation>
-      
+
         Use this container to list the page in the order they are to be accessed for monitoring
         or (soon) datacollection.
-      
+
       </documentation>
     </annotation>
     <complexType>
@@ -23,19 +23,19 @@
   <element name="page" >
     <annotation>
       <documentation>
-      
+
         This element specifies all the possible attributes in as fine grained detail as possible.  All that
         is really required (as you can see below) is the "path" attribute.  From that one attribute,
         the IP address passed in through the ServiceMonitor and ServiceCollector interface, the URL will be
         fully generated using the supplied defaults in this config.  Configure attributes these attributes to
         the level of detail you need to fully control the behavior.
-        
+
         A little bit of indirection is possible here with the host attribute.  If the host attribute is anything
         other than the default, that value will be used instead of the IP address passed in through the API (Interface).
-        
+
       </documentation>
     </annotation>
-  
+
     <complexType>
       <sequence>
         <element ref="this:parameter" minOccurs="0" maxOccurs="unbounded" />
@@ -76,7 +76,7 @@
       <attribute name="ds-name" type="string" use="optional" />
     </complexType>
   </element>
-  
+
   <element name="parameter">
     <annotation>
       <documentation>Currently only used for HTTP form parameters.</documentation>
@@ -86,7 +86,7 @@
       <attribute name="value" type="string" use="required"/>
     </complexType>
   </element>
-  
+
   <element name="session-variable">
     <annotation>
       <documentation>Assign the value of a regex match group to a
@@ -105,19 +105,19 @@
       <attribute name="name" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <simpleType name="allowed-methods" >
     <restriction base="string" >
       <pattern value="GET|POST" />
     </restriction>
   </simpleType>
-  
+
   <simpleType name="allowed-versions" >
     <restriction base="string" >
       <pattern value="1\.0|1\.1" />
     </restriction>
   </simpleType>
-  
+
   <simpleType name="response-range">
     <restriction base="string">
       <pattern value="[1-5][0-9][0-9](-[1-5][0-9][0-9])?" />

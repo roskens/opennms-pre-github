@@ -29,7 +29,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="senders" use="required">
@@ -42,7 +42,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="rollingWindow" type="string" use="required">

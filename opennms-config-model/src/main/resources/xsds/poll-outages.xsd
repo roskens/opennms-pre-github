@@ -122,7 +122,7 @@
     </annotation>
 
     <complexType>
-    
+
       <attribute name="id" use="optional" type="string">
         <annotation>
           <documentation>
@@ -131,7 +131,7 @@
           </documentation>
         </annotation>
       </attribute>
-          	
+
       <attribute name="day" use="optional">
 
         <simpleType>

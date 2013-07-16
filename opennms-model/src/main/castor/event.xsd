@@ -644,7 +644,7 @@
       </simpleContent>
     </complexType>
   </element>
-  
+
   <element name="alarm-data">
     <annotation>
       <documentation>This element is used for converting events into alarms.</documentation>

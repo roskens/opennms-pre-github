@@ -100,7 +100,7 @@
           <restriction base="string">
             <pattern value="(RO|RW|RWRO)"/>
           </restriction>
-        </simpleType>        
+        </simpleType>
       </attribute>
 
       <attribute name="mapBG" type="string" use="optional" default="ffffff">
@@ -127,7 +127,7 @@
     </complexType>
 
   </element>
-  
+
   <element name="csubmap">
   	<complexType>
   	      <attribute name="name" type="string" use="required">
@@ -176,14 +176,14 @@
 		</attribute>
   	</complexType>
   </element>
-  
+
 
   <element name="celement">
     <annotation>
       <documentation>A Rule for adding elements to the map automatically</documentation>
     </annotation>
     <complexType>
-    	
+
      <attribute name="icon" type="string" default="unspecified">
         <annotation>
           <documentation>The icon of the element to add
@@ -197,10 +197,10 @@
           </documentation>
         </annotation>
       </attribute>
-    	
+
     </complexType>
   </element>
-  
+
   <element name="package">
     <annotation>
       <documentation>Package encapsulating addresses, services to be polled
@@ -313,5 +313,5 @@
       </attribute>
     </complexType>
   </element>
-   
+
 </schema>

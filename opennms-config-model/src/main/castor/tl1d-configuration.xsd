@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-        targetNamespace="http://xmlns.opennms.org/xsd/config/tl1d-configuration" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://xmlns.opennms.org/xsd/config/tl1d-configuration"
         xmlns:this="http://xmlns.opennms.org/xsd/config/tl1d-configuration" elementFormDefault="qualified">
- 
+
   <element name="tl1d-configuration">
     <complexType>
       <sequence>
@@ -11,7 +11,7 @@
     </complexType>
   </element>
 
-  
+
   <element name="tl1-element"  >
     <complexType>
       <attribute name="host" type="string" use="required"/>

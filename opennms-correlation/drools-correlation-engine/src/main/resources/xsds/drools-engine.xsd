@@ -35,7 +35,7 @@
       </attribute>
     </complexType>
   </element>
-  
+
   <element name="app-context" type="string" />
   <element name="rule-file" type="string" />
   <element name="event" type="string" />
@@ -48,8 +48,8 @@
     	<attribute name="type" type="string" use="optional">
     	  <annotation>
     	    <documentation>
-    	  	This is the type that is defined in the rules file.  
-    	  	If a value is given then a propertyEditor for this type 
+		This is the type that is defined in the rules file.
+		If a value is given then a propertyEditor for this type
     	  	is used to convert the string value to a value of the type
     	  	defined here and the result is set a the global in the rules
     	  	file.  If a value is not given the the 'ref' must be specified

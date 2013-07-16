@@ -45,7 +45,7 @@
       <attribute name="maxSize" type="int" use="optional" default="500">
         <annotation><documentation>The maximum number of connections that can be created.</documentation></annotation>
       </attribute>
-      
+
     </complexType>
   </element>
   <element name="jdbc-data-source" >

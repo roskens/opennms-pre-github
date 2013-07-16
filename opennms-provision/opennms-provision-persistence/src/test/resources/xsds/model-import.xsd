@@ -140,7 +140,7 @@
       <documentation>
         This element is used to specify OpenNMS specific categories.  Note: currently, these categories are defined in a separate configuration file and
         are related directly to monitored services. I have separated out this element so that it can be referenced by other entities (nodes, interfaces, etc.)
-        however, they will be ignored until the domain model is changed and the service layer is adapted for this behavior. 
+        however, they will be ignored until the domain model is changed and the service layer is adapted for this behavior.
       </documentation>
     </annotation>
     <complexType>

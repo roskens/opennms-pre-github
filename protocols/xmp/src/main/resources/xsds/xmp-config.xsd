@@ -29,7 +29,7 @@
             <minInclusive value="1"/>
             <maxInclusive value="65535"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="retry" type="int" use="optional">

@@ -73,7 +73,7 @@
             </sequence>
           </complexType>
         </element>
-        
+
       </sequence>
 
       <attribute name="period" use="required">
@@ -86,7 +86,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
     </complexType>
   </element>
@@ -223,7 +223,7 @@
       </simpleContent>
     </complexType>
   </element>
-  
+
   <element name="action-event">
     <complexType>
       <sequence>
@@ -234,7 +234,7 @@
       <attribute name="add-all-parms" type="boolean" use="optional" default="false" />
     </complexType>
   </element>
-  
+
   <element name="assignment">
     <complexType>
       <attribute name="type" type="string" use="required" />
@@ -242,7 +242,7 @@
       <attribute name="value" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <element name="statement">
     <annotation>
       <documentation>Just a generic string used for SQL

@@ -27,7 +27,7 @@
       </sequence>
       </complexType>
       </element>
-  
+
     <element name = "groupXSet">
     <complexType>
     <sequence>
@@ -36,11 +36,11 @@
       <element name="nodesMatching" type="int" minOccurs="0"/>
       <element name="nodesWithoutconfigurationAtAll" type="int" minOccurs="0"/>
       <element name="nodesWithoutconfigurationAtReportDate" type="int" minOccurs="0"/>
-      <element ref="this:nodeSet" minOccurs="0" maxOccurs="unbounded"/>    
+      <element ref="this:nodeSet" minOccurs="0" maxOccurs="unbounded"/>
     </sequence>
     </complexType>
     </element>
-    
+
     <element name = "nodeSet">
     <complexType>
     <sequence>

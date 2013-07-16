@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://xmlns.opennms.org/xsd/config/surveillance-views"
-        xmlns:this="http://xmlns.opennms.org/xsd/config/surveillance-views" 
+        xmlns:this="http://xmlns.opennms.org/xsd/config/surveillance-views"
 		  xmlns:tns="http://www.opennms.org/surveillance-views"
 		  elementFormDefault="qualified">
-        
+
   <element name="surveillance-view-configuration">
     <annotation><documentation>Level element containing surveillance view definitions</documentation></annotation>
     <complexType>
@@ -20,7 +20,7 @@
       <attribute name="default-view" type="string" use="optional" default="default"/>
     </complexType>
   </element>
-  
+
   <element name="view">
     <complexType>
       <sequence>
@@ -31,7 +31,7 @@
       <attribute name="refresh-seconds" type="string" use="optional" default="300" />
     </complexType>
   </element>
-  
+
   <element name="rows" >
     <complexType>
       <sequence>
@@ -39,7 +39,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="columns" >
     <complexType>
       <sequence>
@@ -47,7 +47,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="row-def">
     <complexType>
       <sequence>
@@ -57,7 +57,7 @@
       <attribute name="report-category" type="string" use="optional" />
     </complexType>
   </element>
-  
+
   <element name="column-def">
     <complexType>
       <sequence>
@@ -67,7 +67,7 @@
       <attribute name="report-category" type="string" use="optional" />
     </complexType>
   </element>
-  
+
   <element name="category">
     <annotation>
       <documentation>

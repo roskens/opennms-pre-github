@@ -7,7 +7,7 @@
 	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
 		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd
 	">
-	
+
 	<element name="setSequence">
 		<complexType>
 			<sequence>
@@ -17,7 +17,7 @@
 			<attribute name="value" type="int" use="optional" />
 		</complexType>
 	</element>
-	
+
 	<element name="table">
 		<complexType>
 			<attribute name="name" type="string" />

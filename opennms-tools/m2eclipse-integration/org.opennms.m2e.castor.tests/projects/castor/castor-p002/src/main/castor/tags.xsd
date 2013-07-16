@@ -11,7 +11,7 @@
     <annotation>
       <documentation>An collection of tags.</documentation>
     </annotation>
-    
+
     <complexType>
       <sequence>
         <element minOccurs="0" maxOccurs="unbounded" ref="this:tag" />

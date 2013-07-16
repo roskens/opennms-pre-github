@@ -62,7 +62,7 @@
           <documentation>the number of threads to be used for
           discovery</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>
@@ -75,7 +75,7 @@
           <documentation>the total number of ping packets sent per second from
           OpenNMS for discovery</documentation>
         </annotation>
-        
+
         <simpleType>
           <restriction base="int">
             <minInclusive value="1"/>

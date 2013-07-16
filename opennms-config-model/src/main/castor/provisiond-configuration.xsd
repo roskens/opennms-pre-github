@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" 
-        targetNamespace="http://xmlns.opennms.org/xsd/config/provisiond-configuration" 
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://xmlns.opennms.org/xsd/config/provisiond-configuration"
         xmlns:this="http://xmlns.opennms.org/xsd/config/provisiond-configuration"
         elementFormDefault="qualified">
-        
+
   <element name="provisiond-configuration" >
     <annotation>
       <documentation>
@@ -22,13 +22,13 @@
       <attribute name="foreign-source-dir" type="string" use="optional" default="${install.dir}/etc/foreign-sources" />
     </complexType>
   </element>
-  
+
   <element name="requisition-def"  >
     <annotation>
       <documentation>
-      
+
       Defines an import job with a cron expression
-        
+
         http://quartz.sourceforge.net/javadoc/org/quartz/CronTrigger.html
           Field Name     Allowed Values      Allowed Special Characters
           Seconds        0-59                , - * /
@@ -48,7 +48,7 @@
       <attribute name="import-name" type="string" use="required" />
     </complexType>
   </element>
-  
+
   <simpleType name="supported-protocols" >
     <annotation>
       <documentation>
@@ -62,5 +62,5 @@
       </pattern>
     </restriction>
   </simpleType>
-  
+
 </schema>

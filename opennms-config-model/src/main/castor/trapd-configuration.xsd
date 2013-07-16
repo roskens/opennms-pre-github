@@ -44,7 +44,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="new-suspect-on-trap" type="boolean" use="required">

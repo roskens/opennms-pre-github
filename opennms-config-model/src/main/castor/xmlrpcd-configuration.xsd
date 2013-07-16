@@ -29,7 +29,7 @@
 
         <element maxOccurs="unbounded" minOccurs="1" ref="this:subscription">
           <annotation>
-            <documentation>Group of events that can be subscribed by 
+            <documentation>Group of events that can be subscribed by
                 XMLRPC servers</documentation>
           </annotation>
         </element>
@@ -44,7 +44,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="generic-msgs" type="boolean" default="false">
@@ -58,8 +58,8 @@
 
   <element name="external-servers">
     <annotation>
-      <documentation>Defines a primary XMLRPC server (and optional 
-      backup servers) and the sets of events to which it subscribes 
+      <documentation>Defines a primary XMLRPC server (and optional
+      backup servers) and the sets of events to which it subscribes
       </documentation>
     </annotation>
 
@@ -68,11 +68,11 @@
         <element maxOccurs="unbounded" minOccurs="1" ref="this:xmlrpc-server">
           <annotation>
             <documentation>Configuration of xmlrpc servers - these servers are
-            serially redundant - ie. OpenNMS will connect to one, and if it 
+            serially redundant - ie. OpenNMS will connect to one, and if it
             goes down will connect to another</documentation>
           </annotation>
         </element>
-        <element name="serverSubscription" maxOccurs="unbounded" 
+        <element name="serverSubscription" maxOccurs="unbounded"
                                                     minOccurs="0" type="string">
           <annotation>
             <documentation>
@@ -92,7 +92,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
 
       <attribute name="elapse-time" use="required">
@@ -104,7 +104,7 @@
           <restriction base="int">
             <minInclusive value="1"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
     </complexType>
   </element>
@@ -156,7 +156,7 @@
           <restriction base="int">
             <minInclusive value="0"/>
           </restriction>
-        </simpleType>      
+        </simpleType>
       </attribute>
     </complexType>
   </element>

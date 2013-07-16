@@ -42,7 +42,7 @@
       </sequence>
     </complexType>
   </element>
-  
+
   <element name="userinfo">
     <annotation>
       <documentation>The top-level element of the users.xml configuration
