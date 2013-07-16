@@ -38,15 +38,15 @@
 
 <%
     CategoryNotFoundException cnfe = null;
-    
+
     if( exception instanceof CategoryNotFoundException ) {
         cnfe = (CategoryNotFoundException)exception;
     } else if( exception instanceof ServletException ) {
         cnfe = (CategoryNotFoundException)((ServletException)exception).getRootCause();
     } else {
         throw new ServletException( "This error page does not handle this exception type.", exception );
-    }    
-    
+    }
+
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -63,7 +63,7 @@
   No information is currently available for the
   <strong><%=cnfe.getCategory()%></strong> category.
   Either the category does not exist, or its information is still being
-  calculated.  
+  calculated.
 </p>
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

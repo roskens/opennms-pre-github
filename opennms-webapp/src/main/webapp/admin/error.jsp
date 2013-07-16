@@ -65,12 +65,12 @@
 </jsp:include>
 
 <h3>
-<% 
+<%
 	switch(errorcode)
 	{
 		case 0:	%>
 				Missing parameter <%= name %> in the poller configuration file
-			
+
 	<%		break;
 		case 1: %>
 				The <%= name %> poller already exists

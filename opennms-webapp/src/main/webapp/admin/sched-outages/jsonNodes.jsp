@@ -77,7 +77,7 @@ public static class AutocompleteRecord {
 List<OnmsNode> items = NetworkElementFactory.getInstance(getServletContext()).getAllNodes();
 %>
 [
-<% 
+<%
 boolean printedFirst = false;
 int recordCounter = 1;
 final int recordLimit = 200;
@@ -85,8 +85,8 @@ for (OnmsNode item : items) {
 	String autocomplete = request.getParameter("term");
 	// Check to see if the item matches the search term
 	if (
-		autocomplete == null || 
-		"".equals(autocomplete) || 
+		autocomplete == null ||
+		"".equals(autocomplete) ||
 		item.getLabel().contains(autocomplete)
 	) {
 		String label = item.getLabel() + " (Node ID " + item.getId() + ")";

@@ -49,7 +49,7 @@
             <td><spring:message code="ui.user.username" />:</td>
             <td><springf:input path="username" maxlength="45"/></td>
             <td><springf:errors path="username" /></td>
-        </tr>    
+        </tr>
         <tr>
         <c:choose>
         <c:when test="${user.username eq null}">
@@ -64,8 +64,8 @@
         </tr>
         <tr>
             <td colspan="3">
-                <input type="submit" value="<spring:message code="ui.action.save"/>"/> 
-                <input type="hidden" id="id" name="id" value="${user.id}"/> 
+                <input type="submit" value="<spring:message code="ui.action.save"/>"/>
+                <input type="hidden" id="id" name="id" value="${user.id}"/>
                 <input type="button" onclick="location.href = 'user.list.page'" value="<spring:message code="user.list"/>"/>
             </td>
         </tr>

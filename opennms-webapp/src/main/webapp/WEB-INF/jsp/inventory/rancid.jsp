@@ -68,7 +68,7 @@
 		<tr>
 			<th>Device Name</th>
 			<td>${model.id}</td>
-		</tr>	
+		</tr>
 		<tr>
 			<th>Device Type</th>
 			<td>${model.devicetype}</td>
@@ -88,7 +88,7 @@
 <div class="TwoColRight">
 <!-- Inventory info box -->
 	<h3>Inventory Elements</h3>
-	
+
 	<table class="o-box">
 	<tr>
 		<th>Group</th>
@@ -115,7 +115,7 @@
 
 <!-- Software image box -->
 	<h3>Software Images Stored</h3>
-	
+
 	<table class="o-box">
 	<tr>
 		<th>Name</th>

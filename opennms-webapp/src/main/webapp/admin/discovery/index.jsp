@@ -31,7 +31,7 @@
 
 <%@page language="java"
 	contentType="text/html"
-	session="true" 
+	session="true"
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -52,13 +52,13 @@
 			<a href="admin/discovery/modifyDiscoveryConfig">Modify Configuration</a>
 		</p>
   </div>
-      
+
   	<div class="TwoColRAdmin">
       <h3>Configuration</h3>
         <p>The place to configure the Discovery service.
         After you have added, removed specific IP addresses or ranges, you can save the configuration and restart
         the service.
-        </p>       
+        </p>
   </div>
   <hr />
 

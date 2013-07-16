@@ -38,7 +38,7 @@
 
 <%
     StatisticsReportIdNotFoundException e = null;
-    
+
     if( exception instanceof StatisticsReportIdNotFoundException ) {
         e = (StatisticsReportIdNotFoundException)exception;
     }
@@ -58,7 +58,7 @@
 </jsp:include>
 
 <h1>Statistics Report ID Not Found</h1>
-    
+
 <p>
   A statistics report could not be found for the identifier <%=e.getBadID()%>.
 </p>

@@ -38,7 +38,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/springx" prefix="springx" %>
 
 <jsp:include page="/includes/header.jsp" flush="false">
-	<jsp:param name="title" value="Provisioning Requisitions" /> 
+	<jsp:param name="title" value="Provisioning Requisitions" />
 	<jsp:param name="headTitle" value="Provisioning Requisitions" />
 	<jsp:param name="breadcrumb" value="<a href='admin/index.jsp'>Admin</a>" />
 	<jsp:param name="breadcrumb" value="<a href='admin/provisioningGroups.htm'>Provisioning Requisitions</a>" />
@@ -47,10 +47,10 @@
 
 <h3>Requisitioned Nodes for Group: ${fn:escapeXml(nodeEditForm.groupName)}</h3>
 
- <tree:form commandName="nodeEditForm"> 
+ <tree:form commandName="nodeEditForm">
 
-  <input type="hidden" id="groupName" name="groupName" value="${fn:escapeXml(nodeEditForm.groupName)}"/> 
- 
+  <input type="hidden" id="groupName" name="groupName" value="${fn:escapeXml(nodeEditForm.groupName)}"/>
+
  <p>
  <c:choose>
   <c:when test="${freeFormEditing == true}">
@@ -62,7 +62,7 @@
  </c:choose>
  </p>
  <tree:actionButton label="Done" action="done" />
- <tree:actionButton label="Add Node" action="addNode"/> 
+ <tree:actionButton label="Add Node" action="addNode"/>
 
   <!-- FIXME: I have no idea how to get the errors from BindException.reject() to bubble up to here -->
 
@@ -76,25 +76,25 @@
       <tree:action label="[Add Interface]" action="addInterface" />
       <tree:action label="[Add Node Category]" action="addCategory" />
       <tree:action label="[Add Node Asset]" action="addAssetField" />
-    </tree:nodeForm> 
-    
+    </tree:nodeForm>
+
     <!--  Tree of interface under the node -->
     <tree:tree root="${node}" childProperty="interface" var="ipInterface" varStatus="ipIter">
-    
+
       <!-- Form for editing an interface -->
       <tree:nodeForm>
         <tree:field label="IP Interface" property="ipAddr" size="36"/>
         <tree:field label="Description" property="descr" />
-        
+
         <tree:select label="SNMP Primary" property="snmpPrimary" items="${snmpPrimaryChoices}" fieldSize="10" />
         <tree:action label="Add Service" action="addService" />
       </tree:nodeForm>
 
       <!-- Tree of services under the interface -->
       <tree:tree root="${ipInterface}" childProperty="monitoredService" var="svc" varStatus="svcIter">
-      
+
         <!--  Form for editing a service -->
-        <tree:nodeForm>  
+        <tree:nodeForm>
             <c:choose>
               <c:when test="${freeFormEditing == true}">
                 <tree:field label="Service" property="serviceName" size="48" />
@@ -107,10 +107,10 @@
       </tree:tree>
 
     </tree:tree>
-    
+
     <!--  Tree of categories for a node -->
     <tree:tree root="${node}" childProperty="category" var="category" varStatus="catIter">
-    
+
       <!--  Form for editing a category -->
       <tree:nodeForm>
         <c:choose>
@@ -122,21 +122,21 @@
           </c:otherwise>
         </c:choose>
       </tree:nodeForm>
-      
+
     </tree:tree>
-    
+
     <!--  Tree of assets for a node -->
     <tree:tree root="${node}" childProperty="asset" var="asset" varStatus="assetIter">
-    
+
       <!--  Form for editing a category -->
       <tree:nodeForm>
       	<tree:select label="asset" property="name" items="${assetFields}"/>
         <tree:field label="" property="value" />
       </tree:nodeForm>
-      
+
     </tree:tree>
-    
+
  </tree:tree>
 
-</tree:form> 
+</tree:form>
 <jsp:include page="/includes/footer.jsp" flush="false"/>

@@ -101,13 +101,13 @@
           view of your service level metrics for the current
           month-to-date, previous month, and last twelve months by categories.
       </p>
-      
+
 <% if ("true".equalsIgnoreCase(Vault.getProperty("opennms.rancidIntegrationEnabled"))) {%>
-      <p><b>Inventory Reports</b> provide html or XML report list of 
+      <p><b>Inventory Reports</b> provide html or XML report list of
        nodes inventories and rancid devices matching at a specific date using
        a search matching criteria .
       </p>
-<% } %> 
+<% } %>
       <p><b>Statistics Reports</b> provide regularly scheduled statistical
           reports on collected numerical data (response time, SNMP performance
           data, etc.).

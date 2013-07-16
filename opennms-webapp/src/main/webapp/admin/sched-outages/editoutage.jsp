@@ -78,7 +78,7 @@
 			// same here
 		}
 	}
-	
+
 	private static void addInterface(Outage theOutage, org.opennms.netmgt.config.poller.Interface newInterface) throws ValidationException {
 		if (!theOutage.getInterfaceCollection().contains(newInterface)) {
 			newInterface.validate();
@@ -108,7 +108,7 @@
 
 		return sb.toString();
 	}
-	
+
 	private static String getMonthSelectField(String name, int month) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("<select name=\"").append(name).append("\">");
@@ -121,10 +121,10 @@
 			sb.append(">").append(longDF.format(tempDate)).append("</option>");
 		}
 		sb.append("</select>");
-		
+
 		return sb.toString();
 	}
-	
+
 	private static final String GET_DEPENDENCY_NODES_BY_NODEID="select po.nodeid from pathoutage po left join ipinterface intf on po.criticalpathip=intf.ipaddr where intf.nodeid=?";
 
     private static final String GET_NODES_IN_PATH = "SELECT DISTINCT pathoutage.nodeid FROM pathoutage, ipinterface WHERE pathoutage.criticalpathip=? AND pathoutage.nodeid=ipinterface.nodeid AND ipinterface.ismanaged!='D' ORDER BY nodeid";
@@ -140,9 +140,9 @@
 	        allPathNodes.addAll(nextIterationNodes);
 	        currentNodes=nextIterationNodes;
 	    }
-	    return allPathNodes;        
+	    return allPathNodes;
     }
-    
+
 
     private static Set<Integer> getDependencyNodesByCriticalPath(String criticalpathip) throws SQLException {
 	    Connection conn = Vault.getDbConnection();
@@ -161,9 +161,9 @@
             Vault.releaseDbConnection(conn);
         }
 	    return pathNodes;
-        
+
     }
-    
+
 	private static Set<Integer> getAllDependencyNodesByNodeid(int nodeid) throws SQLException {
 	    Set<Integer> allPathNodes = getDependencyNodesByNodeid(nodeid);
 	    Set<Integer> currentNodes=allPathNodes;
@@ -177,7 +177,7 @@
 	    }
 	    return allPathNodes;
 	}
-	
+
 	private static Set<Integer> getDependencyNodesByNodeid(int nodeid) throws SQLException {
 	    Connection conn = Vault.getDbConnection();
 	    Set<Integer> pathNodes = new TreeSet<Integer>();
@@ -194,10 +194,10 @@
         } finally {
             Vault.releaseDbConnection(conn);
         }
-	    
+
 	    return pathNodes;
 	}
-	
+
 	public void sendOutagesChangedEvent() throws ServletException {
 		Event event = new Event();
 		event.setSource("Web UI");
@@ -215,7 +215,7 @@
 			throw new ServletException("Could not send event " + event.getUei(), e);
 		}
 	}
-	
+
 %>
 <%
 	NotifdConfigFactory.init(); //Must do this early on - if it fails, then just throw the exception to the web gui
@@ -293,7 +293,7 @@
 
 		//Nuke whitespace - it messes with all sorts of things
 		theOutage.setName(request.getParameter("newName").trim());
-		
+
 		request.getSession().setAttribute("opennms.editoutage", theOutage);
 		request.getSession().removeAttribute("opennms.editoutage.origname");
 		if (nodes != null) {
@@ -311,7 +311,7 @@
 			}
 		}
 	} else {
-		//Neither starting the edit, nor adding a new outage.  
+		//Neither starting the edit, nor adding a new outage.
 		theOutage = (Outage) request.getSession().getAttribute("opennms.editoutage");
 		if (theOutage == null) {
 			//No name, and no outage in the session.  Give up
@@ -378,23 +378,23 @@ Could not find an outage to edit because no outage name parameter was specified 
 			theOutage.setType(request.getParameter("outageType"));
 	    }
 	}
-	
+
 	String isFormSubmission = request.getParameter("formSubmission");
 	if ("true".equals(isFormSubmission)) {
 
 		pollFactory.getWriteLock().lock();
-		
+
 		try {
 
 			//Process the form submission - yeah, this should be a servlet, but this is a quick and dirty hack for now
 			//It can be tidied up later -- of course, it's been what, almost 3 years?  "later" means 2.0 + rewrite  ;)
 			//First, process any changes to the editable inputs
-	
+
 			//Now handle any buttons that were clicked.  There should be only one
 			//If there is more than one, we use the first and ignore the rest.
 			if (request.getParameter("saveButton") != null) {
-				//Save was clicked - save 
-	
+				//Save was clicked - save
+
 				//Process the notifications status.  NB: we keep an in-memory copy initially, and only save when the save button is clicked
 				if ("on".equals(request.getParameter("notifications"))) {
 					//Want to turn it on.
@@ -403,7 +403,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 					//Want to turn off (missing, or set to something other than "on")
 					enabledOutages.remove("notifications");
 				}
-	
+
 				for (org.opennms.netmgt.config.poller.Package thisKey : pollingOutages.keySet()) {
 					String name = "polling-" + thisKey.getName();
 					System.out.println("Checking " + name);
@@ -414,7 +414,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						enabledOutages.remove(name);
 					}
 				}
-	
+
 				for (org.opennms.netmgt.config.threshd.Package thisKey : thresholdOutages.keySet()) {
 					String name = "threshold-" + thisKey.getName();
 					System.out.println("Checking " + name);
@@ -424,7 +424,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						enabledOutages.remove(name);
 					}
 				}
-	
+
 				for (org.opennms.netmgt.config.collectd.Package thisKey : collectionOutages.keySet()) {
 					String name = "collect-" + thisKey.getName();
 					System.out.println("Checking " + name);
@@ -434,7 +434,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						enabledOutages.remove(name);
 					}
 				}
-	
+
 				//Check if the outage is a new one, or an edited old one
 				String origname = (String) request.getSession().getAttribute("opennms.editoutage.origname");
 				if (origname == null) {
@@ -455,7 +455,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						NotifdConfigFactory.getInstance().getConfiguration().removeOutageCalendar(theOutage.getName());
 					}
 				}
-	
+
 				for (org.opennms.netmgt.config.poller.Package thisKey : pollingOutages.keySet()) {
 					Collection<String> pollingPackage = pollingOutages.get(thisKey);
 					String name = "polling-" + thisKey.getName();
@@ -469,7 +469,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						}
 					}
 				}
-	
+
 				for (org.opennms.netmgt.config.threshd.Package thisKey : thresholdOutages.keySet()) {
 					Collection<String> thresholdPackage = thresholdOutages.get(thisKey);
 					String name = "threshold-" + thisKey.getName();
@@ -483,7 +483,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 						}
 					}
 				}
-	
+
 				for (org.opennms.netmgt.config.collectd.Package thisKey : collectionOutages.keySet()) {
 					Collection<String> collectPackage = collectionOutages.get(thisKey);
 					String name = "collect-" + thisKey.getName();
@@ -497,15 +497,15 @@ Could not find an outage to edit because no outage name parameter was specified 
 						}
 					}
 				}
-	
-				//Save to disk	
+
+				//Save to disk
 				pollFactory.saveCurrent();
 				NotifdConfigFactory.getInstance().saveCurrent();
 				ThreshdConfigFactory.getInstance().saveCurrent();
 				CollectdConfigFactory.getInstance().saveCurrent();
 				PollerConfigFactory.getInstance().save();
 				sendOutagesChangedEvent();
-	
+
 				//forward the request for proper display
 				// RequestDispatcher dispatcher = this.getServletContext().getRequestDispatcher("/admin/sched-outages/index.jsp");
 				response.sendRedirect("index.jsp");
@@ -547,7 +547,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 			} else if (request.getParameter("addOutage") != null && theOutage.getType() != null) {
 				if (theOutage.getType().equalsIgnoreCase("specific")) {
 					org.opennms.netmgt.config.poller.Time newTime = new org.opennms.netmgt.config.poller.Time();
-	
+
 					StringBuffer timeBuffer = new StringBuffer(17);
 					timeBuffer.append(request.getParameter("chooseStartDay"));
 					timeBuffer.append("-");
@@ -561,7 +561,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 					timeBuffer.append(":");
 					timeBuffer.append(request.getParameter("chooseStartSecond"));
 					newTime.setBegins(timeBuffer.toString());
-	
+
 					timeBuffer = new StringBuffer(17);
 					timeBuffer.append(request.getParameter("chooseFinishDay"));
 					timeBuffer.append("-");
@@ -575,17 +575,17 @@ Could not find an outage to edit because no outage name parameter was specified 
 					timeBuffer.append(":");
 					timeBuffer.append(request.getParameter("chooseFinishSecond"));
 					newTime.setEnds(timeBuffer.toString());
-	
+
 					theOutage.addTime(newTime);
 				} else {
 					org.opennms.netmgt.config.poller.Time newTime = new org.opennms.netmgt.config.poller.Time();
-	
+
 					if (theOutage.getType().equalsIgnoreCase("monthly")) {
 						newTime.setDay(request.getParameter("chooseDayOfMonth"));
 					} else if (theOutage.getType().equalsIgnoreCase("weekly")) {
 						newTime.setDay(request.getParameter("chooseDayOfWeek"));
 					}
-	
+
 					StringBuffer timeBuffer = new StringBuffer(8);
 					timeBuffer.append(request.getParameter("chooseStartHour"));
 					timeBuffer.append(":");
@@ -593,7 +593,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 					timeBuffer.append(":");
 					timeBuffer.append(request.getParameter("chooseStartSecond"));
 					newTime.setBegins(timeBuffer.toString());
-					
+
 					timeBuffer = new StringBuffer(8);
 					timeBuffer.append(request.getParameter("chooseFinishHour"));
 					timeBuffer.append(":");
@@ -601,7 +601,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 					timeBuffer.append(":");
 					timeBuffer.append(request.getParameter("chooseFinishSecond"));
 					newTime.setEnds(timeBuffer.toString());
-					
+
 					theOutage.addTime(newTime);
 				}
 			} else {
@@ -679,7 +679,7 @@ Could not find an outage to edit because no outage name parameter was specified 
 <style type="text/css">
 	/* TODO shouldn't be necessary */
 	.ui-button { margin-left: -1px; }
-	.ui-button-icon-only .ui-button-text { padding: 0em; } 
+	.ui-button-icon-only .ui-button-text { padding: 0em; }
 	.ui-autocomplete-input { margin: 0; padding: 0.12em 0 0.12em 0.20em; }
 </style>
 
@@ -699,7 +699,7 @@ P
 	margin: 0px;
 }
 
-LABEL 
+LABEL
 {
 	font-weight: bold;
 	font-size: small;
@@ -719,7 +719,7 @@ function updateOutageTypeDisplay(selectElement) {
 	var isDaily=selectElement.options[selectElement.selectedIndex].value=="daily";
 	var isWeekly=selectElement.options[selectElement.selectedIndex].value=="weekly";
 	var isMonthly=selectElement.options[selectElement.selectedIndex].value=="monthly";
-	
+
 	if (isDaily) {
 		enabledIds = new Array("chooseStartSpan", "chooseStartTime", "chooseFinishSpan", "chooseFinishTime");
 		disabledIds = new Array("chooseStartDate", "chooseFinishDate", "chooseDay", "chooseDayOfMonth", "chooseDayOfWeek");
@@ -767,7 +767,7 @@ function updateOutageTypeDisplay(selectElement) {
 							self._trigger("selected", event, {
 								item: select.find("[value='" + ui.item.id + "']")
 							});
-							
+
 						},
 						blur: function(event, ui) {
 							if (this("widget").is(":visible")) {
@@ -850,7 +850,7 @@ function updateOutageTypeDisplay(selectElement) {
 							%>
 							<p><i>All nodes</i></p>
 							<%
-						} else { 
+						} else {
 							org.opennms.netmgt.config.poller.Node[] outageNodes = theOutage.getNode();
 
 							if (outageNodes.length > 0) {

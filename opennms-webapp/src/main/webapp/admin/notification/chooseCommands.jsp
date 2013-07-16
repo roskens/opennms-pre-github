@@ -72,18 +72,18 @@
 
 <script type="text/javascript" >
 
-    function next() 
+    function next()
     {
         var missingCommands=false;
         for (i=0; i<document.commands.length; i++)
         {
-            if (document.commands.elements[i].type=="select-multiple" && 
+            if (document.commands.elements[i].type=="select-multiple" &&
                 document.commands.elements[i].selectedIndex==-1)
             {
                 missingCommands=true;
             }
         }
-        
+
         if (missingCommands)
         {
             alert("Please choose at least command for each user and group.");
@@ -131,12 +131,12 @@ choose the desired behavior for automatic notification on "UP" events.</h3>
     {
         StringBuffer buffer = new StringBuffer();
         buffer.append("<table cellspacing=\"2\" cellpadding=\"2\" border=\"0\">");
-        
+
         Target targets[] = null;
-        
+
         try {
           targets = DestinationPathFactory.getInstance().getTargetList(index, path);
-        
+
         for (int i = 0; i < targets.length; i++)
         {
             buffer.append("<tr><td>").append(targets[i].getName()).append("</td>");
@@ -156,23 +156,23 @@ choose the desired behavior for automatic notification on "UP" events.</h3>
         {
             throw new ServletException("couldn't get list of targets for path " + path.getName(), e);
         }
-        
+
         buffer.append("</table>");
         return buffer.toString();
     }
-    
+
     public String buildCommandSelect(Path path, int index, String name)
       throws ServletException
     {
         StringBuffer buffer = new StringBuffer("<select multiple size=\"3\" NAME=\"" + name + "Commands\">");
-        
+
         TreeMap<String, Command> commands = null;
         Collection<String> selectedOptions = null;
-        
+
         try {
           selectedOptions = DestinationPathFactory.getInstance().getTargetCommands(path, index, name);
           commands = new TreeMap<String, Command>(NotificationCommandFactory.getInstance().getCommands());
-        
+
         if (selectedOptions==null || selectedOptions.size()==0)
         {
             selectedOptions = new ArrayList<String>();
@@ -193,9 +193,9 @@ choose the desired behavior for automatic notification on "UP" events.</h3>
         {
             throw new ServletException("couldn't get list of commands for path/target " + path.getName()+"/"+name, e);
         }
-        
+
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
 
@@ -204,7 +204,7 @@ choose the desired behavior for automatic notification on "UP" events.</h3>
           String values[] = {"off", "auto", "on"};
           StringBuffer buffer = new StringBuffer("<select size=\"3\" NAME=\"" + name  + "AutoNotify\">");
           String defaultOption = "on";
- 
+
           if(currValue == null || currValue.equals("")) {
               currValue = defaultOption;
           }
@@ -220,7 +220,7 @@ choose the desired behavior for automatic notification on "UP" events.</h3>
              }
           }
           buffer.append("</select>");
-          
+
           return buffer.toString();
     }
 %>

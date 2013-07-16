@@ -54,8 +54,8 @@
 <c:forEach var="resourceType" items="${model.resourceTypes}">
    <c:set var="totalRecords" value="${fn:length(resourceType.value) + totalRecords}"/>
 </c:forEach>
-    
-<script type="text/javascript"> 
+
+<script type="text/javascript">
   var data = {total:"${totalRecords}", records:[
 	<c:set var="first" value="true"/>
 	<c:forEach var="resourceType" items="${model.resourceTypes}">
@@ -76,7 +76,7 @@
     </c:forEach>
   		]};
 
-	
+
 </script>
   <script type="text/javascript" >
 	  function removeGraphStringIfIE(modelUrl){
@@ -89,13 +89,13 @@
 		  }else{
 			return modelUrl;
 		  }
-		
+
 	  }
-  	  
+
       function isSomethingSelected(node) {
          return recursiveIsSomethingSelected(node, 5);
       }
-      
+
       function recursiveIsSomethingSelected(node, depth) {
          if (node.nodeName && (node.nodeName.toUpperCase() == "SELECT") && node.selectedIndex != -1) {
                return true;
@@ -115,10 +115,10 @@
                   }
               }
           }
-          
+
           return false;
       }
-  
+
       function submitForm(selectNode, itemName) {
           if (isSomethingSelected(selectNode)) {
               return true;
@@ -127,11 +127,11 @@
               return false;
           }
       }
-      
+
       function selectAll(name, selected) {
           recursiveSelectAll(document.getElementsByName(name), selected, 5);
       }
-      
+
       function recursiveSelectAll(node, selected, depth) {
           for (var i = 0; i < node.length; i++) {
               if (node[i].nodeName.toUpperCase() == "SELECT") {
@@ -147,7 +147,7 @@
               }
           }
       }
-      
+
       function selectIfOnlyOneResource(name) {
           return recursiveSelectIfOnlyOneResource(document.getElementsByName(name), 5);
       }
@@ -169,7 +169,7 @@
   <div class="onms">
   <h2>
     ${model.resource.resourceType.label}: <a href="<c:url value='${model.resource.link}'/>">${model.resource.label}</a>
-  </h2> 
+  </h2>
   </div>
   <c:choose>
   <c:when test="${empty model.resourceTypes}">
@@ -177,7 +177,7 @@
       No resources are available to graph.
       </p>
   </c:when>
-  
+
   <c:otherwise>
   <div>
     <h3 class="o-box">Node Resources</h3>
@@ -197,7 +197,7 @@
 
       <form method="get" name="report" action="${model.endUrl}" onsubmit="return submitForm(document.report.resourceId, 'resource');">
         <%=Util.makeHiddenTags(request, new String[] { "parentResourceId", "parentResourceType", "parentResource", "endUrl" })%>
-  
+
         <c:set var="num" value="0"/>
         <c:forEach var="resourceType" items="${model.resourceTypes}">
           <h3 class="o-box">${resourceType.key.label}</h3>
@@ -206,12 +206,12 @@
             <c:when test="${fn:length(resourceType.value) < 10}">
               <c:set var="selectSize" value="${resource.count}"/>
             </c:when>
-            
+
             <c:otherwise>
               <c:set var="selectSize" value="10"/>
             </c:otherwise>
           </c:choose>
-        
+
           <select name="resourceId" id="resource-select-${num}" size="${selectSize}" multiple>
             <c:forEach var="resource" items="${resourceType.value}">
               <option value="${resource.id}">
@@ -219,21 +219,21 @@
               </option>
             </c:forEach>
           </select>
-        
+
           <c:set var="num" value="${num + 1}"/>
         </c:forEach>
-      
+
         <br/>
         <br/>
         <input type="submit" value="Submit" />
         <input type="button" value="Select All" onclick="selectAll('resourceId', true)" />
         <input type="button" value="Unselect All" onclick="selectAll('resourceId', false)" />
       </form>
-      
+
       <script type="text/javascript">
           selectIfOnlyOneResource("resourceId");
       </script>--%>
-      
+
   </c:otherwise>
   </c:choose>
   <c:if test="${showFootnote1 == true}">

@@ -41,7 +41,7 @@
     if( exception instanceof ServletException ) {
         e = (SecurityException)((ServletException)exception).getRootCause();
     }
-    else { 
+    else {
         e = (SecurityException)exception;
     }
 
@@ -61,7 +61,7 @@
 
 <p>
   Some of the Java Archive files (jar files) in the Tomcat install
-  are out of date.  Please replace them by going to this      
+  are out of date.  Please replace them by going to this
   <a href="http://faq.opennms.org/fom-serve/cache/55.html">OpenNMS FAQ
   entry</a> and following the directions there.  Otherwise, your OpenNMS
   Web system will not work correctly, and you will get undefined results.

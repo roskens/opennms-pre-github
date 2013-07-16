@@ -46,44 +46,44 @@
 <h3>Edit Surveillance Category ${model.category.name}</h3>
 
 <p>
-Category '${model.category.name}' has ${fn:length(model.sortedMemberNodes)} nodes  
+Category '${model.category.name}' has ${fn:length(model.sortedMemberNodes)} nodes
 </p>
 
 <form action="admin/categories.htm" method="get">
   <input type="hidden" name="categoryid" value="${model.category.id}"/>
   <input type="hidden" name="edit" value=""/>
-  
+
   <table class="normal">
     <tr>
       <td class="normal" align="center">
 		Available nodes
       </td>
-      
-      <td class="normal">  
+
+      <td class="normal">
       </td>
 
       <td class="normal" align="center">
       	Nodes on category
       </td>
     </tr>
-      
+
     <tr>
-      <td class="normal">  
+      <td class="normal">
     <select name="toAdd" size="20" multiple>
 	  <c:forEach items="${model.nodes}" var="node">
 	    <option value="${node.id}">${node.label}</option>
 	  </c:forEach>
     </select>
       </td>
-      
-      <td class="normal" style="text-align:center; vertical-align:middle;">  
+
+      <td class="normal" style="text-align:center; vertical-align:middle;">
         <input type="submit" name="action" value="Add &#155;&#155;"/>
         <br/>
         <br/>
         <input type="submit" name="action" value="&#139;&#139; Remove"/>
       </td>
-    
-      <td class="normal">  
+
+      <td class="normal">
     <select name="toDelete" size="20" multiple>
 	  <c:forEach items="${model.sortedMemberNodes}" var="node">
 	    <option value="${node.id}">${node.label}</option>

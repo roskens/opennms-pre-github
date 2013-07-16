@@ -65,9 +65,9 @@
   <h3>Exporting Asset Information</h3>
 
   <p>
-    All the nodes with asset information will be exported to a 
-    comma-separated value file (.csv), which is suitable for use in a 
-    spreadsheet application. 
+    All the nodes with asset information will be exported to a
+    comma-separated value file (.csv), which is suitable for use in a
+    spreadsheet application.
   </p>
 </div>
 

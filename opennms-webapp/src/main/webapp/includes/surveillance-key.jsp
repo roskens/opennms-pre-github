@@ -41,14 +41,14 @@ padding:5px;
 border-collapse:collapse;
 width:45px;
 height:15px;
-margin:0px 
+margin:0px
 }
 .keytable TBODY TR TD {
 margin:0px;
 padding:0px;
 width:12px;
 height:12px;
-border:1px solid #666666  
+border:1px solid #666666
 }
 </style>
 

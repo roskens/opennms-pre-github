@@ -38,7 +38,7 @@
   <jsp:param name="title" value="Outages" />
   <jsp:param name="headTitle" value="Outages" />
   <jsp:param name="location" value="outage" />
-  <jsp:param name="breadcrumb" value="Outages" />  
+  <jsp:param name="breadcrumb" value="Outages" />
 </jsp:include>
 
 <script type="text/javascript">
@@ -54,7 +54,7 @@ function validateId() {
 </script>
 
   <div class="TwoColLeft">
-      <h3>Outage Menu</h3>    
+      <h3>Outage Menu</h3>
 		<div class="boxWrapper">
         <form name="outageIdForm" method="get" action="outage/detail.htm" onsubmit="return validateId();">
           <p align="right">Outage ID:
@@ -72,9 +72,9 @@ function validateId() {
 		<div class="boxWrapper">
 			<p>Outages are tracked by OpenNMS by polling services that have been
 			provisioned.  If the service does not respond to the poll, a service outage
-			is created and service availability levels are impacted.  Service 
+			is created and service availability levels are impacted.  Service
 			outages create notifications.</p>
 		</div>
   </div>
-  <hr />                                   
+  <hr />
 <jsp:include page="/includes/footer.jsp" flush="false" />

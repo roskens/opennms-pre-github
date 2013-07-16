@@ -57,11 +57,11 @@
 	String resourceId = request.getParameter( "resourceId" );
 
     WebApplicationContext webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
-    
+
     ResourceService resourceService = (ResourceService)webAppContext.getBean("resourceService", ResourceService.class);
-    
+
     resourceService.promoteGraphAttributesForResource(resourceId);
-    
+
 
     String title = request.getParameter( "title" );
     String style = request.getParameter( "style" );
@@ -77,7 +77,7 @@
     String endYear  = request.getParameter( "endYear" );
     String endHour  = request.getParameter( "endHour" );
 
-    
+
     if( resourceId == null ) {
         throw new MissingParameterException( "resourceId", REQUIRED_PARAMS );
     }
@@ -139,14 +139,14 @@
     //gather information for displaying around the image
     String startPretty = new Date( WebSecurityUtils.safeParseLong( start )).toString();
     String endPretty   = new Date( WebSecurityUtils.safeParseLong( end )).toString();
-    
-    
+
+
     String[] ignores = new String[] { "startMonth", "startYear", "startDate", "startHour","endMonth", "endYear", "endDate", "endHour" };
     Map additions = new HashMap();
     additions.put( "start", start );
     additions.put( "end", end );
     additions.put( "adhoc", "true" );
-     
+
     String queryString = Util.makeQueryString( request, additions, ignores );
 %>
 

@@ -46,7 +46,7 @@
 	if (feedName != null) {
 	    String className = feedName.toLowerCase();
         className = "org.opennms.web.rss." + Character.toUpperCase(className.charAt(0)) + className.substring(1) + "Feed";
-    	
+
         try {
             feed = (Feed)Class.forName(className).newInstance();
             String urlBase = request.getRequestURL().toString();

@@ -72,7 +72,7 @@
     A destination path describes what users or groups will receive
     notifications, how the notifications will be sent, and who to notify
     if escalation is needed. This wizard will walk you through setting up
-    a resuable list of who to contact and how to contact them, 
+    a resuable list of who to contact and how to contact them,
     which are used in the event configuration.
   </p>
 

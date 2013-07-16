@@ -53,11 +53,11 @@
     } catch (NumberFormatException numE)  {
         throw new ServletException(numE);
     }
-    
+
     if (nodeId < 0) {
         throw new ServletException("Invalid node ID.");
     }
-        
+
     //get the database node info
     OnmsNode node_db = NetworkElementFactory.getInstance(getServletContext()).getNode(nodeId);
     if (node_db == null) {
@@ -113,7 +113,7 @@ LABEL
       document.setCriticalPath.submit();
 
   }
-  
+
   function cancel()
   {
       document.setCriticalPath.action="admin/nodemanagement/index.jsp?node=<%=nodeId%>";
@@ -136,11 +136,11 @@ LABEL
   respond, the node down notifications will be suppressed. The critical path
   service is typically ICMP, and at this time ICMP is the only critical path
   service supported.
-  
+
 </p>
 
-<br/> 
-  
+<br/>
+
 <form method="post" name="setCriticalPath" action="admin/setCriticalPath" onsubmit="return verifyIpAddress();">
 
 <input name="node" value=<%=nodeId%> type="hidden"/>

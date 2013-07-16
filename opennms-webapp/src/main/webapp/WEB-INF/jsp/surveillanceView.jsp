@@ -60,7 +60,7 @@
     </th>
   </c:forEach>
   </tr>
-  
+
   <c:forEach items="${webTable.rows}" var="row">
     <tr class="CellStatus">
       <c:forEach items="${row}" var="cell">
@@ -83,7 +83,7 @@
   <script type="text/javascript">
     function validateChooseViewNameChosen() {
       var selectedViewName = false
-      
+
       for (i = 0; i < document.chooseViewNameList.viewName.length; i++) {
         // make sure something is checked before proceeding
         if (document.chooseViewNameList.viewName[i].selected) {
@@ -91,10 +91,10 @@
           break;
         }
       }
-      
+
       return selectedViewName;
     }
-    
+
     function goChooseViewNameChange() {
       var viewNameChosen = validateChooseViewNameChosen();
       if (viewNameChosen != false) {
@@ -107,28 +107,28 @@
   <form method="get" name="chooseViewNameForm" action="${relativeRequestPath}" >
     <input type="hidden" name="viewName" value="node" />
   </form>
-        
+
   <form name="chooseViewNameList">
 
     <p>
       Choose another view:
-      
+
       <select name="viewName" onchange="goChooseViewNameChange();">
         <c:forEach var="viewName" items="${viewNames}">
           <c:choose>
             <c:when test="${viewName == webTable.title}">
               <c:set var="selected">selected="selected"</c:set>
             </c:when>
-            
+
             <c:otherwise>
               <c:set var="selected" value=""/>
-            </c:otherwise> 
+            </c:otherwise>
           </c:choose>
           <option ${selected}>${viewName}</option>
         </c:forEach>
       </select>
     </p>
-    
+
   </form>
 </c:if>
 

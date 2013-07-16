@@ -40,11 +40,11 @@
   2005 Sep 30: Hacked up to use CSS for layout. -- DJ Gregor
 
 --%>
-<%-- 
-  This page is included by other JSPs to create a uniform footer. 
+<%--
+  This page is included by other JSPs to create a uniform footer.
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
-  
+
   This include JSP takes one parameter:
     location (optional): used to "dull out" the item in the menu bar
       that has a link to the location given  (for example, on the

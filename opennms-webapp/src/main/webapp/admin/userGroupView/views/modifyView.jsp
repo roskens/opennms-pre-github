@@ -42,7 +42,7 @@
 <%
 	HttpSession userSession = request.getSession(false);
 	View view = null;
-  
+
 	if (userSession != null) {
 		view = (View)userSession.getAttribute("view.modifyView.jsp");
   	}
@@ -67,142 +67,142 @@
 
 
 <script type="text/javascript" >
-    
+
     function validate()
     {
         return true;
     }
-    
-    function addUsers() 
+
+    function addUsers()
     {
         m1len = m1.length ;
         for ( i=0; i<m1len ; i++)
         {
-            if (m1.options[i].selected == true ) 
+            if (m1.options[i].selected == true )
             {
                 m2len = m2.length;
                 m2.options[m2len]= new Option(m1.options[i].text);
             }
         }
-        
+
         for ( i = (m1len -1); i>=0; i--)
         {
-            if (m1.options[i].selected == true ) 
+            if (m1.options[i].selected == true )
             {
                 m1.options[i] = null;
             }
         }
     }
-    
-    function removeUsers() 
+
+    function removeUsers()
     {
         m2len = m2.length ;
         for ( i=0; i<m2len ; i++)
         {
-            if (m2.options[i].selected == true ) 
+            if (m2.options[i].selected == true )
             {
                 m1len = m1.length;
                 m1.options[m1len]= new Option(m2.options[i].text);
             }
         }
-        for ( i=(m2len-1); i>=0; i--) 
+        for ( i=(m2len-1); i>=0; i--)
         {
-            if (m2.options[i].selected == true ) 
+            if (m2.options[i].selected == true )
             {
                 m2.options[i] = null;
             }
         }
     }
-    
-    function addGroups() 
+
+    function addGroups()
     {
         m3len = m3.length ;
         for ( i=0; i<m3len ; i++)
         {
-            if (m3.options[i].selected == true ) 
+            if (m3.options[i].selected == true )
             {
                 m4len = m4.length;
                 m4.options[m4len]= new Option(m3.options[i].text);
             }
         }
-        
+
         for ( i = (m3len -1); i>=0; i--)
         {
-            if (m3.options[i].selected == true ) 
+            if (m3.options[i].selected == true )
             {
                 m3.options[i] = null;
             }
         }
     }
-    
-    function removeGroups() 
+
+    function removeGroups()
     {
         m4len = m4.length ;
         for ( i=0; i<m4len ; i++)
         {
-            if (m4.options[i].selected == true ) 
+            if (m4.options[i].selected == true )
             {
                 m3len = m3.length;
                 m3.options[m3len]= new Option(m4.options[i].text);
             }
         }
-        for ( i=(m4len-1); i>=0; i--) 
+        for ( i=(m4len-1); i>=0; i--)
         {
-            if (m4.options[i].selected == true ) 
+            if (m4.options[i].selected == true )
             {
                 m4.options[i] = null;
             }
         }
     }
-    
+
     function selectAllAvailableUsers()
     {
-        for (i=0; i < m1.length; i++) 
+        for (i=0; i < m1.length; i++)
         {
             m1.options[i].selected = true;
         }
     }
-    
+
     function selectAllSelectedUsers()
     {
-        for (i=0; i < m2.length; i++) 
+        for (i=0; i < m2.length; i++)
         {
             m2.options[i].selected = true;
         }
     }
-    
+
     function selectAllAvailableGroups()
     {
-        for (i=0; i < m3.length; i++) 
+        for (i=0; i < m3.length; i++)
         {
             m3.options[i].selected = true;
         }
     }
-    
+
     function selectAllSelectedGroups()
     {
-        for (i=0; i < m4.length; i++) 
+        for (i=0; i < m4.length; i++)
         {
             m4.options[i].selected = true;
         }
     }
-    
+
     function saveView()
     {
         var ok = validate();
-        
+
         if(ok)
         {
             //we need to select all the users and groups
             selectAllSelectedUsers();
             selectAllSelectedGroups();
-            
+
             document.modifyView.redirect.value="/admin/userGroupView/views/saveView";
             document.modifyView.action="admin/userGroupView/views/updateView";
             document.modifyView.submit();
         }
     }
-    
+
     function cancelView()
     {
         document.modifyView.action="admin/userGroupView/views/list.jsp";
@@ -250,7 +250,7 @@
             </table>
           </td>
         </tr>
-        
+
         <tr>
           <td align="left">
             <table bgcolor="white" border="1" cellpadding="5" cellspacing="2">
@@ -278,7 +278,7 @@
             </table>
           </td>
         </tr>
-        
+
       </table>
 
 <!-- finish and discard buttons -->
@@ -316,7 +316,7 @@
     private String getUsersList(View view)
     {
         StringBuffer buffer = new StringBuffer("<select WIDTH=\"200\" STYLE=\"width: 200px\" multiple name=\"selectedUsers\" size=\"10\">");
-        
+
         Membership membership = view.getMembership();
         if(membership != null)
         {
@@ -335,7 +335,7 @@
             }
         }
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
 
@@ -343,7 +343,7 @@
         throws ServletException
     {
         StringBuffer buffer = new StringBuffer("<select  WIDTH=\"200\" STYLE=\"width: 200px\" multiple name=\"availableUsers\" size=\"10\">");
-        
+
         List users = new ArrayList();
         Membership membership = view.getMembership();
         if(membership != null)
@@ -362,19 +362,19 @@
                 }
             }
         }
-        
+
         try
         {
             UserFactory.init();
             UserManager userFactory = UserFactory.getInstance();
             List userNames = userFactory.getUserNames();
-            
+
             if(userNames != null)
             {
                 for (int i = 0; i < userNames.size(); i++)
                 {
                     String curUser = (String)userNames.get(i);
-                    
+
                     if (!users.contains(curUser))
                     {
                         buffer.append("<option>" + curUser + "</option>");
@@ -386,16 +386,16 @@
         {
             throw new ServletException("Couldn't open UserFactory", e);
         }
-        
+
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
-    
+
     private String getGroupsList(View view)
     {
         StringBuffer buffer = new StringBuffer("<select WIDTH=\"200\" STYLE=\"width: 200px\" multiple name=\"selectedGroups\" size=\"10\">");
-        
+
         List groups = new ArrayList();
         Membership membership = view.getMembership();
         if(membership != null)
@@ -410,22 +410,22 @@
                 	        groups.add((String)member.getContent());
                 	}
             }
-        }                                                    
-        
+        }
+
         for (int i = 0; i < groups.size(); i++)
         {
             buffer.append("<option>" + (String)groups.get(i) + "</option>");
         }
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
-    
+
     private String getAllGroupsMinusInView(View view)
         throws ServletException
     {
         StringBuffer buffer = new StringBuffer("<select  WIDTH=\"200\" STYLE=\"width: 200px\" multiple name=\"availableGroups\" size=\"10\">");
-        
+
         List groups = new ArrayList();
         Membership membership = view.getMembership();
         if(membership != null)
@@ -448,17 +448,17 @@
         {
             System.out.println("groups are null in view");
         }
-        
+
         try
         {
             GroupFactory.init();
             GroupManager groupFactory = GroupFactory.getInstance();
             List groupNames = groupFactory.getGroupNames();
-            
+
             for (int i = 0; i < groupNames.size(); i++)
             {
                  String curGroup = (String)groupNames.get(i);
-                 
+
                  if (!groups.contains(curGroup))
                  {
                      buffer.append("<option>" + curGroup + "</option>");
@@ -469,9 +469,9 @@
         {
             throw new ServletException("Couldn't open GroupFactory", e);
         }
-        
+
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
 %>

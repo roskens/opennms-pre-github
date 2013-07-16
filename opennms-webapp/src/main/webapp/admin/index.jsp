@@ -126,7 +126,7 @@
 <div class="TwoColLeft">
     <h3>OpenNMS System</h3>
     <div class="boxWrapper">
-        <ul class="plain">  
+        <ul class="plain">
             <li><a href="admin/userGroupView/index.jsp">Configure Users, Groups and On-Call Roles</a></li>
             <li><a href="admin/sysconfig.jsp">System Information</a></li>
             <li><a href="admin/nodemanagement/instrumentationLogReader.jsp">Instrumentation Log Reader</a></li>
@@ -136,17 +136,17 @@
     <h3>Operations</h3>
 
     <div class="boxWrapper">
-        <ul class="plain">  
+        <ul class="plain">
             <li><a href="admin/discovery/modifyDiscoveryConfig">Configure Discovery</a></li>
             <li><a href="javascript:snmpConfigPost()">Configure SNMP Community Names by IP</a></li>
             <li><a href="javascript:snmpManagePost()">Configure SNMP Data Collection per Interface</a></li>
             <!-- Removed this - see bug 586
             <li><a href="admin/pollerConfig/index.jsp">Configure Pollers</a></li>
-            -->        
+            -->
             <li><a href="javascript:submitPost()">Manage and Unmanage Interfaces and Services</a></li>
             <li><a href="admin/thresholds/index.htm">Manage Thresholds</a></li>
-            <!-- Secret function 
-                    <a href="admin/eventconf/list.jsp">Configure Events</a> 
+            <!-- Secret function
+                    <a href="admin/eventconf/list.jsp">Configure Events</a>
             -->
             <li><a href="admin/sendevent.jsp">Send Event</a></li>
             <li><a href="admin/notification/index.jsp">Configure Notifications</a></li>
@@ -173,11 +173,11 @@
                 <input type="submit" value="Update" />
             </p>
         </form>
-    </div>    
+    </div>
 
     <h3>Node Provisioning</h3>
     <div class="boxWrapper">
-        <ul class="plain">  
+        <ul class="plain">
             <li><a href="javascript:addInterfacePost()">Add Interface for Scanning</a></li>
             <li><a href="admin/provisioningGroups.htm">Manage Provisioning Requisitions</a></li>
             <li><a href="admin/asset/index.jsp">Import and Export Asset Information</a></li>
@@ -188,7 +188,7 @@
 
     <h3>Distributed Monitoring</h3>
     <div class="boxWrapper">
-        <ul class="plain">  
+        <ul class="plain">
             <li><a href="admin/applications.htm">Manage Applications</a></li>
             <li><a href="distributed/locationMonitorList.htm">Manage Location Monitors</a></li>
         </ul>
@@ -223,7 +223,7 @@
         <P><B>Configure SNMP Community Names by IP</b>:Configure the Community String used in SNMP Data Collection and other SNMP operations. OpenNMS is shipped with a community string of "public".
             If you have set a different <em>read</em> community on your devices you must put it here to be able to collect data from
             these devices.
-        </P>           
+        </P>
 
         <P><B>Configure SNMP Data Collection per Interface</b>: This interface will allow you
             to configure which IP and non-IP interfaces are used in SNMP Data Collection.
@@ -243,16 +243,16 @@
 
         <p><b>Configure Notifications</b>: Create and manage notification escalation
             plans, called <em>destination paths</em>. A destination path is associated to
-            an OpenNMS event.  Each path can have any arbitrary number of escalations or 
-            targets (users, groups, on-call roles) and can send notices through email, pagers, et cetera.  
-            Each destination path can be triggered by any number of OpenNMS events and may 
-            further be associated with specific interfaces or services.   
+            an OpenNMS event.  Each path can have any arbitrary number of escalations or
+            targets (users, groups, on-call roles) and can send notices through email, pagers, et cetera.
+            Each destination path can be triggered by any number of OpenNMS events and may
+            further be associated with specific interfaces or services.
         </p>
 
 
-        <p><b>Scheduled Outages</b>: Add and edit scheduled 
-            outages. You can pause notifications, polling, thresholding and data collection 
-            (or any combination of the four) for any interface/node for any time.  
+        <p><b>Scheduled Outages</b>: Add and edit scheduled
+            outages. You can pause notifications, polling, thresholding and data collection
+            (or any combination of the four) for any interface/node for any time.
         </p>
 
         <p><b>SNMP MIB Compiler</b>: Compile MIBs in order to generate events definitions from traps or
@@ -263,8 +263,8 @@
         <p><b>Manage SNMP Collections and Data Collection Groups</b>: Manage SNMP Collections and the content
             of the files for data collection groups.</p>
 
-        <p><b>Add Interface for Scanning</b>: Trigger a scan of an IPv4 or IPv6 interface. If the 
-            IP address of the interface is contained in the IP address tables of an existing node, 
+        <p><b>Add Interface for Scanning</b>: Trigger a scan of an IPv4 or IPv6 interface. If the
+            IP address of the interface is contained in the IP address tables of an existing node,
             the interface will be added into the node. Otherwise, a new node will be created.
         </p>
 
@@ -273,7 +273,7 @@
             as a Provisioning Group) rather than strictly by having OpenNMS discover the network.
         </p>
 
-        <p><b>Import and Export Asset Information</b>: Export and import data into OpenNMS's asset inventory.             
+        <p><b>Import and Export Asset Information</b>: Export and import data into OpenNMS's asset inventory.
             The comma-delimited file format is supported by most spreadsheet and
             database applications. Details for using the Import and Export
             functionalities can be found through this link as well.
@@ -286,10 +286,10 @@
         <p><b>Delete Nodes</b>: Permanently delete nodes from the database.
         </p>
         <!--
-                <p><b>Configure Pollers</b> provides an easy way to modify the polling status of 
+                <p><b>Configure Pollers</b> provides an easy way to modify the polling status of
                     standard services.  It also enables the user to add and delete custom services.
                 </p>
-        -->        
+        -->
 
 
 

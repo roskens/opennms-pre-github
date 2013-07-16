@@ -38,7 +38,7 @@
 
 <%
      ElementNotFoundException enfe = null;
-    
+
     if( exception instanceof ElementNotFoundException ) {
         enfe = (ElementNotFoundException)exception;
     }
@@ -48,7 +48,7 @@
     else {
         throw new ServletException( "This error page does not handle this exception type.", exception );
     }
-    
+
 %>
 
 
@@ -77,7 +77,7 @@
   </p>
   </form>
   <% } %>
-  
+
   <% if (enfe.getBrowseUri() != null) { %>
   <p>
   To find the <%=enfe.getElemType()%> you are looking for, you can

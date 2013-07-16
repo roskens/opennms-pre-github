@@ -39,13 +39,13 @@
   <jsp:param name="title" value="Database Reports" />
   <jsp:param name="headTitle" value="Database Reports" />
   <jsp:param name="breadcrumb" value="<a href='report/index.jsp'>Reports</a>" />
-  <jsp:param name="breadcrumb" 
+  <jsp:param name="breadcrumb"
 		value="<a href='report/database/index.htm'>Database</a>" />
   <jsp:param name="breadcrumb" value="Run"/>
 </jsp:include>
 
 <h3>Report Error</h3>
-      
+
 <form:form cssClass="stdform">
 	<p><span class="indent">
     	An error has occurred and it has not been possible to run or schedule your report.

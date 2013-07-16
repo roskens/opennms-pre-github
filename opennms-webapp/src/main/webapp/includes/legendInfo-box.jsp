@@ -36,29 +36,29 @@
 <html xmlns='http://www.w3.org/1999/xhtml' xml:lang='en' lang='en' xmlns:opennms='xsds/coreweb.xsd'>
 <head>
   <title>
-    
+
     OpenNMS Web Console
   </title>
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css"/>
   <meta http-equiv="Content-Script-Type" content="text/javascript"/>
 
-  
-  
-    
+
+
+
         <base href="http://localhost:8980/opennms/" />
-    
-  
+
+
   <!--   -->
-  
-    
+
+
         <link rel="stylesheet" type="text/css" href="http://localhost:8980/opennms/css/styles.css" media="screen" />
         <link rel="stylesheet" type="text/css" href="http://localhost:8980/opennms/css/print.css" media="print" />
-        
-        	
+
+
   <script type="text/javascript" src="http://localhost:8980/opennms/js/global.js"></script>
 
-    
+
         <script type="text/javascript" src="http://localhost:8980/opennms/coreweb/coreweb.nocache.js"></script>
 
 

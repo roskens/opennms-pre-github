@@ -60,7 +60,7 @@
 	  		<th>RWS status</th>
 	  		<td>${model.RWSStatus}</td>
 	  	</tr>
-	  	
+
 	</table>
 
 	<h3>Rancid Info</h3>
@@ -75,14 +75,14 @@
 		<tr>
 			<th width="50%">Device Name</th>
 			<td>${model.id}</td>
-		</tr>		 
+		</tr>
 		<tr>
 			<th>Group</th>
 			<td>${model.groupname}</td>
-		</tr>	
+		</tr>
 		<tr>
 			<th>Device Type</th>
-			<td>					
+			<td>
 			<select name="deviceTypeName" size="1">
 			 <option value="${model.devicetype}">${model.devicetype}</option>
 			<c:forEach items="${model.devicetypelist}" var="devicetypelem">
@@ -95,13 +95,13 @@
 			<th>Comment</th>
 			<td><input id="comment" type="text" name="comment" value="${model.comment}"/></td>
 		</tr>
-		
+
 		<tr>
 			<th>Status</th>
 			<td><em>
 			<select name="statusName" size="1" onChange="switchStatus()">
 			<option value="${model.status}">${model.status}</option>
-			<c:choose> 
+			<c:choose>
   				<c:when test="${model.status == 'up'}" >
   			<option value="down">down</option>
   				</c:when>
@@ -128,14 +128,14 @@
 		<tr>
 			<th width="50%">Device Name</th>
 			<td>${model.id}</td>
-		</tr>		 
+		</tr>
 		<tr>
 			<th>Group</th>
 			<td>${model.groupname}</td>
-		</tr>	
+		</tr>
 		<tr>
 			<th>Device Type</th>
-			<td>					
+			<td>
 			<select name="deviceTypeName" size="1">
 			 <option value="${model.devicetype}">${model.devicetype}</option>
 			<c:forEach items="${model.devicetypelist}" var="devicetypelem">
@@ -148,7 +148,7 @@
 			<th>Comment</th>
 			<td><input id="comment" type="text" name="comment" value="${model.comment}"/></td>
 		</tr>
-		
+
 		<tr>
 			<th>Status</th>
 			<td><em>
@@ -165,7 +165,7 @@
 </form>
 		</th>
 		</tr>
-				
+
 	</c:otherwise>
 	</c:choose>
 	</c:when>
@@ -177,7 +177,7 @@
 		<tr>
 		<th>Group</th>
 		<td>${model.groupname}</td>
-		</tr>	
+		</tr>
 
 		<tr>
 			<th>Device Type</th>
@@ -187,13 +187,13 @@
 			<th>Comment</th>
 			<td>${model.comment}</td>
 		</tr>
-	
+
 		<tr>
 			<th>Status</th>
 			<td>
-			 <c:if test="${!empty model.status}">			
+			 <c:if test="${!empty model.status}">
 			<em>${model.status}</em>
-	<form id="newUserForm2" method="post" name="newUserForm2" onsubmit="return validateFormInputStatus();">	
+	<form id="newUserForm2" method="post" name="newUserForm2" onsubmit="return validateFormInputStatus();">
 	<input name="newStatus" id="doOKStatus" type="submit" value="Switch"/>
 	<input type="hidden" name="statusName" value="${model.status}"/>
 	<input type="hidden" name="groupName" value="${model.groupname}"/>
@@ -204,21 +204,21 @@
 		</tr>
 		</c:otherwise>
 		</c:choose>
-	</table> 
-	
+	</table>
+
 
 	<c:choose>
     <c:when test="${model.permitModifyClogin}">
 	<h3>Clogin Info</h3>
 	<form id="newUserForm" method="post" name="newUserForm" onsubmit="return validateFormInput();">
-		 <input type="hidden" name="groupName" value="${model.groupname}"> 
-		 <input type="hidden" name="deviceName" value="${model.id}"> 
+		 <input type="hidden" name="groupName" value="${model.groupname}">
+		 <input type="hidden" name="deviceName" value="${model.id}">
 		<table class="o-box">
 			<tr>
 			    <th width="50%"><label id="userIDLabel" for="userID">Username:</label></th>
 			    <td><input id="userID" type="text" name="userID" value="${model.cloginuser}"/></td>
 			 </tr>
-		
+
 			 <tr>
 			 	<th><label id="pass1Label" for="password">Password:</label></th>
 			 	<td><input id="pass" type="text" name="pass" value="${model.cloginpassword}"/></td>
@@ -247,14 +247,14 @@
 				  </select>
 				</td>
 			 </tr>
-		
+
 			 <tr>
 			 	<th></th>
 			 	<th><input id="doCancel" type="button" value="Cancel" onclick="cancelUser()"/>
 			 		<input id="doOK" type="submit" value="OK"/>
 			 		<input id="doDelete" type="button" value="Delete" onclick="deleteCloginInfo()"/>
 			 	</th>
-			 </tr>	
+			 </tr>
 		 </table>
 	 </form>
 	 </c:when>
@@ -272,7 +272,7 @@
 			    <th><label id="userIDLabel" for="userID">Username:</label></th>
 			    <td>${model.cloginuser}</td>
 			 </tr>
-		
+
 			 <tr>
 			 	<th><label id="pass1Label" for="password">Password:</label></th>
 			 	<td>${model.cloginpassword}</td>
@@ -289,9 +289,9 @@
 			 	<th><label id="autoEnableLabel" for="autoEnable">AutoEnable:</label></th>
 			 	<td>${model.cloginautoenable}</td>
 			 </tr>
-		
+
 		 </table>
-	 
+
 	 </c:otherwise>
 	 </c:choose>
 
@@ -300,44 +300,44 @@
 	<tr>
 	<th>Group</th>
 	</tr>
-	<c:forEach items="${model.grouplist}" var="groupelem">	
+	<c:forEach items="${model.grouplist}" var="groupelem">
 	<tr><td><a href="admin/rancid/rancidAdmin.htm?node=${model.db_id}&group=${groupelem}">${groupelem}</a></td></tr>
 	</c:forEach>
 	</table>
 
 </div>
 
-  
+
 
   <div class="TwoColRight">
       <h3>Descriptions</h3>
       <div class="boxWrapper">
-      <p> 
-          Set to <em>true</em> the opennms.rancidIntegrationUseOnlyRancidAdapter property in <em>opennms.properties</em> 
+      <p>
+          Set to <em>true</em> the opennms.rancidIntegrationUseOnlyRancidAdapter property in <em>opennms.properties</em>
           if you want use only the RancidAdapter to provision nodes to Rancid.
       </p>
       <p>Detailed Documentation on all options can be found on <a title="The OpenNMS Project wiki" href="http://www.opennms.org" target="new">the OpenNMS wiki</a>.
       </p>
         <p><b>Select Group </b>: select the <em>Rancid group</em> to work on</p>
-      
+
         <p><b>Rancid Info</b>: Switch the Rancid status from <em>up</em> to <em>down</em> or from <em>down</em> to <em>up</em>
         	for selected group.
-        	You are able to create, delete and modify the node data in rancid.db by default unless the opennms.rancidIntegrationUseOnlyRancidAdapter 
+		You are able to create, delete and modify the node data in rancid.db by default unless the opennms.rancidIntegrationUseOnlyRancidAdapter
           property is set to <em>true</em> in opennms.properties.
         </p>
-        
+
        <p><b>Clogin Info</b>:  Modify the data according to the authentication information.
-        	Click <b>OK</b> to commit changes to Rancid. 
-            Also you are able to override the clogin data in .cloginrc by default unless the opennms.rancidIntegrationUseOnlyRancidAdapter 
+		Click <b>OK</b> to commit changes to Rancid.
+            Also you are able to override the clogin data in .cloginrc by default unless the opennms.rancidIntegrationUseOnlyRancidAdapter
             property is set to <em>true</em> in opennms.properties.
         	In the case the node was requisitioned the <b>Clogin</b> box shows the name of the
             requisition under which the node was added.
             Click on the asset page or edit the requisition to modify asset information for the node.
             You must re-synchronize the requisition to modify the Clogin information in Rancid.
         </p>
-                
 
- 
+
+
       </div>
   </div>
   <hr />
@@ -347,12 +347,12 @@
 <script type="text/javascript">
 function deleteCloginInfo() {
 	  document.newUserForm.action="admin/rancid/rancidDeleteClogin.htm?node=${model.db_id}";
-	  document.newUserForm.submit();	
+	  document.newUserForm.submit();
 }
 
-function validateFormInput() 
+function validateFormInput()
 {
-	  
+
   if (document.newUserForm.userID.value == "") {
 	  alert("The user field cannot be empty");
 	  return false;
@@ -367,7 +367,7 @@ function validateFormInput()
   }
   document.newUserForm.action="admin/rancid/rancidClogin.htm?node=${model.db_id}";
   return true;
-}    
+}
 function cancelUser()
 {
     document.newUserForm.action="admin/rancid/rancidAdmin.htm?node=${model.db_id}";
@@ -393,13 +393,13 @@ function validateFormCreate() {
 		  alert("The Status field cannot be empty");
 		  return false;
 	  }
-	  
+
 	  document.createForm.action="admin/rancid/rancidCreate.htm?node=${model.db_id}";
 	  return true;
 }
 
 function validateFormDelete() {
-	
+
 	  document.updateForm.action="admin/rancid/rancidDelete.htm?node=${model.db_id}";
 	  document.updateForm.submit();
 }

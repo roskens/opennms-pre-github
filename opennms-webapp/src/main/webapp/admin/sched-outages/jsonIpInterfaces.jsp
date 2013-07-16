@@ -97,7 +97,7 @@ for (int i = 0; i < 50000; i++) {
 --%>
 
 [
-<% 
+<%
 boolean printedFirst = false;
 int recordCounter = 1;
 final int recordLimit = 200;
@@ -105,14 +105,14 @@ for (org.opennms.web.element.Interface item : items) {
 	String autocomplete = request.getParameter("term");
 	// Check to see if the interface matches the search term
 	if (
-		autocomplete == null || 
-		"".equals(autocomplete) || 
-		item.getName().contains(autocomplete) || 
+		autocomplete == null ||
+		"".equals(autocomplete) ||
+		item.getName().contains(autocomplete) ||
 		item.getIpAddress().contains(autocomplete)
 	) {
 		String hostnameClause = (
-			item.getName() == null || 
-			"".equals(item.getName())) || 
+			item.getName() == null ||
+			"".equals(item.getName())) ||
 			item.getName().equals(item.getIpAddress()
 		) ? "" : " (" + item.getName() + ")";
 

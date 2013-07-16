@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of outages.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -64,7 +64,7 @@
           <li><a href="${nodeLink}">${summary.nodeLabel}</a> (${summary.fuzzyTimeDown})</li>
         </c:forEach>
       </ul>
-    
+
       <c:if test="${moreCount > 0}">
         <p class="noBottomMargin" align="right">
           <c:url var="moreLink" value="outage/list.htm"/>

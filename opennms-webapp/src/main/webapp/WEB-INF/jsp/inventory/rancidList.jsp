@@ -44,7 +44,7 @@
   <jsp:param name="breadcrumb" value="<a href='element/node.jsp?node=${model.db_id}'>Node</a>" />
   <jsp:param name="breadcrumb" value="<a href='inventory/rancid.htm?node=${model.db_id}'>Rancid</a>" />
   <jsp:param name="breadcrumb" value="Inventory List" />
-  
+
 </jsp:include>
 
 <h2> Node: ${model.id} </h2>

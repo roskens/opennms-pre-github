@@ -39,7 +39,7 @@
     protected static final int DEFAULT_MULTIPLE = 0;
 
     protected static final int LOWER_OFFSET = 5;
-    protected static final int UPPER_OFFSET = 4;    
+    protected static final int UPPER_OFFSET = 4;
 %>
 
 <%
@@ -48,17 +48,17 @@
     if( countString == null ) {
         throw new MissingParameterException("count", new String[] {"count", "baseurl"});
     }
-    
-    //required parameter baseurl    
+
+    //required parameter baseurl
     String baseUrl = request.getParameter("baseurl");
     if( baseUrl == null ) {
         throw new MissingParameterException("baseurl", new String[] {"count", "baseurl"});
     }
 
-    //optional parameter limit    
+    //optional parameter limit
     String limitString = request.getParameter("limit");
 
-    //optional parameter multiple    
+    //optional parameter multiple
     String multipleString = request.getParameter("multiple");
 
     //optional parameter, limitname
@@ -73,9 +73,9 @@
         multipleName = DEFAULT_MULTIPLE_PARAM_NAME;
     }
 
-    //get the count    
+    //get the count
     long count = WebSecurityUtils.safeParseLong(countString);
-    
+
     //get the limit, use the default if not set in the request
     int limit    = (limitString != null) ? WebSecurityUtils.safeParseInt(limitString) : DEFAULT_LIMIT;
     if (limit < 1) {
@@ -89,39 +89,39 @@
     if( baseUrl.indexOf("?") < 0 ) {
         //does not contain a "?", so append one
         baseUrl = baseUrl + "?";
-    }    
+    }
 
     //calculate the start and end numbers of the results that we are showing
     long startResult = (multiple==0) ? 1 : multiple*limit;
-    long endResult = (multiple+1)*limit;    
+    long endResult = (multiple+1)*limit;
     endResult = (endResult < count) ? endResult : count;
 
     //this is the total number of pages, each showing <limit> number of results,
     //that it would take to display the entire result set with <count> results
-    int highestPossibleIndex = (int)Math.ceil(count/(float)limit)-1; 
-        
+    int highestPossibleIndex = (int)Math.ceil(count/(float)limit)-1;
+
     //calculate the start and end number of the page indices that we are showing
-    int startIndex = multiple-LOWER_OFFSET; 
+    int startIndex = multiple-LOWER_OFFSET;
     startIndex = (startIndex < 0) ? 0 : startIndex;
-    
+
     int endIndex = multiple+UPPER_OFFSET;
-    endIndex = (endIndex > highestPossibleIndex) ? highestPossibleIndex : endIndex;    
+    endIndex = (endIndex > highestPossibleIndex) ? highestPossibleIndex : endIndex;
 %>
 
 <p class="pager">
- <% if (limit > 0 ) { %> 
+ <% if (limit > 0 ) { %>
   Results: (<%=startResult%>-<%=endResult%> of <%=count%>)
  <% } else { %>
   All Results
- <% } %> 
-	
-  <% if( count > limit ) { %>  
+ <% } %>
+
+  <% if( count > limit ) { %>
     <span>
 <% if( multiple > 0 ) { %>
-      <a href="<%=baseUrl%>&amp;<%=multipleName%>=0&amp;<%=limitName%>=<%=limit%>">First</a>&nbsp;  
-      <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple-1%>&amp;<%=limitName%>=<%=limit%>">Previous</a>&nbsp;  
+      <a href="<%=baseUrl%>&amp;<%=multipleName%>=0&amp;<%=limitName%>=<%=limit%>">First</a>&nbsp;
+      <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple-1%>&amp;<%=limitName%>=<%=limit%>">Previous</a>&nbsp;
     <% } %>
-    
+
     <% for( int i=startIndex; i <= endIndex; i++ ) { %>
       <% if( multiple == i ) { %>
          <strong><%=i+1%></strong>
@@ -130,12 +130,12 @@
       <% } %>
       &nbsp;
     <% } %>
-      
+
     <% if( multiple < highestPossibleIndex ) { %>
       <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple+1%>&amp;<%=limitName%>=<%=limit%>">Next</a>&nbsp;
       <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=highestPossibleIndex%>&amp;<%=limitName%>=<%=limit%>">Last</a>
     <% } %>
 		</span>
-   <% } %>      
+   <% } %>
 </p>
 

@@ -69,7 +69,7 @@
                         return true;
                 }
         }
-    
+
         function cancel()
         {
                 document.newIpForm.action="admin/index.jsp";

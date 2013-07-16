@@ -55,38 +55,38 @@ of node <a href="<c:url value='element/node.jsp?node=${model.service.ipInterface
 <form action="admin/applications.htm" method="get">
   <input type="hidden" name="ifserviceid" value="${model.service.id}"/>
   <input type="hidden" name="edit" value=""/>
-  
+
   <table class="normal">
     <tr>
       <td class="normal" align="center">
 		Available applications
       </td>
-      
-      <td class="normal">  
+
+      <td class="normal">
       </td>
 
       <td class="normal" align="center">
       	Applications on service
       </td>
     </tr>
-      
+
     <tr>
-      <td class="normal">  
+      <td class="normal">
     <select name="toAdd" size="20" multiple>
 	  <c:forEach items="${model.applications}" var="application">
 	    <option value="${application.id}">${fn:escapeXml(application.name)}</option>
 	  </c:forEach>
     </select>
       </td>
-      
-      <td class="normal" style="text-align:center; vertical-align:middle;">  
+
+      <td class="normal" style="text-align:center; vertical-align:middle;">
         <input type="submit" name="action" value="Add &#155;&#155;"/>
         <br/>
         <br/>
         <input type="submit" name="action" value="&#139;&#139; Remove"/>
       </td>
-    
-      <td class="normal">  
+
+      <td class="normal">
     <select name="toDelete" size="20" multiple>
 	  <c:forEach items="${model.sortedApplications}" var="application">
 	    <option value="${application.id}">${fn:escapeXml(application.name)}</option>

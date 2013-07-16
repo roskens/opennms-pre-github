@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of outages.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -81,7 +81,7 @@
       <% if( outages[i].getRegainedServiceTime() == null ) { %>
         <td class="divider bright"><b>DOWN</b></td>
       <% } else { %>
-        <td class="divider bright"><fmt:formatDate value="${outage.regainedServiceTime}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${outage.regainedServiceTime}" type="time" pattern="HH:mm:ss"/></td>      
+        <td class="divider bright"><fmt:formatDate value="${outage.regainedServiceTime}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${outage.regainedServiceTime}" type="time" pattern="HH:mm:ss"/></td>
       <% } %>
       <td class="divider"><a href="outage/detail.htm?id=<%=outages[i].getId()%>"><%=outages[i].getId()%></a></td>
     </tr>

@@ -155,7 +155,7 @@
 			<tr>
 				<td>Device Password:</td>
 				<td><input type="text" name="devicePassword" /></td>
-				
+
 				<td>Enable Password:</td>
 				<td><input type="text" name="enablePassword" /></td>
 			</tr>
@@ -167,7 +167,7 @@
 					<option value="rsh">RSH</option>
 					<option value="ssh">SSH</option>
 					<option value="telnet">Telnet</option>
-					</select>  
+					</select>
 				</td>
 				<td><label for="autoEnableControl">Auto Enable:</label></td>
 				<td>

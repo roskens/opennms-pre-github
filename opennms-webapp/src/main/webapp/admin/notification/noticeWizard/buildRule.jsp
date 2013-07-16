@@ -64,7 +64,7 @@
         document.rule.nextPage.value="<%=NotificationWizardServlet.SOURCE_PAGE_VALIDATE%>";
         document.rule.submit();
     }
-    
+
     function skipVerification()
     {
         document.rule.nextPage.value="<%=NotificationWizardServlet.SOURCE_PAGE_PATH%>";
@@ -98,7 +98,7 @@
             <p>The following examples are all valid and yield the set of addresses from
 	       192.168.0.0 through 192.168.3.255.
             </p>
-            
+
                <ul>
                   <li>192.168.0-3.*
                   <li>192.168.0-3.0-255
@@ -159,7 +159,7 @@
     {
         List services = NotificationFactory.getInstance().getServiceNames();
         StringBuffer buffer = new StringBuffer();
-        
+
         for (int i = 0; i < services.size(); i++)
         {
             int serviceIndex = rule.indexOf((String)services.get(i));
@@ -173,7 +173,7 @@
                 buffer.append("<option VALUE='" + services.get(i) + "'>" + services.get(i) + "</option>");
             }
         }
-        
+
         return buffer.toString();
     }
 
@@ -182,7 +182,7 @@
     {
         List services = NotificationFactory.getInstance().getServiceNames();
         StringBuffer buffer = new StringBuffer();
-        
+
         for (int i = 0; i < services.size(); i++)
         {
             //find services in the rule, but start looking after the first "!" (not), to avoid
@@ -198,7 +198,7 @@
                 buffer.append("<option VALUE='" + services.get(i) + "'>" + services.get(i) + "</option>");
             }
         }
-        
+
         return buffer.toString();
     }
 
@@ -207,12 +207,12 @@
     {
         org.apache.regexp.RE dirRegEx = null;
         dirRegEx = new org.apache.regexp.RE( ".+\\..+\\..+\\..+");
-        
+
         if (dirRegEx == null)
         {
             return "*.*.*.*";
         }
-        
+
         StringTokenizer tokens = new StringTokenizer(rule, " ");
         while(tokens.hasMoreTokens())
         {
@@ -222,7 +222,7 @@
                 return nextToken;
             }
         }
-        
+
         return "*.*.*.*";
     }
 %>

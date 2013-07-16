@@ -45,7 +45,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <%
-	
+
     String nodeIdString = request.getParameter( "node" );
     String ipAddr = request.getParameter( "intf" );
     String ifIndexString = request.getParameter("ifindex");
@@ -67,7 +67,7 @@
         //throw new WrongParameterDataTypeException
         throw new ServletException( "Wrong data type, should be integer but got '"+nodeIdString+"'", e );
     }
-    
+
     int ifIndex = -1;
     if (ifIndexString != null && ifIndexString.length() != 0) {
         try {
@@ -78,7 +78,7 @@
             throw new ServletException( "Wrong data type, should be integer but got '"+ifIndexString+"'", e );
         }
     }
-	
+
 %>
 
 <c:url var="nodeLink" value="element/node.jsp">

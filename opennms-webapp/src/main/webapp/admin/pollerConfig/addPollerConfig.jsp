@@ -53,11 +53,11 @@
         if( homeDir == null ) {
             throw new IllegalArgumentException( "Cannot take null parameters." );
         }
- 
+
         props.load( new FileInputStream( ConfigFileConstants.getFile( ConfigFileConstants.POLLER_CONF_FILE_NAME )));
         protoMap = getQueries();
         String[] protocols = BundleLists.parseBundleList( this.props.getProperty( "services" ));
- 
+
 	java.util.List polledPlugins = new ArrayList();
 	PollerConfig pollerFactory = null;
 	PollerConfiguration pollerConfig = null;

@@ -38,7 +38,7 @@
 	<!-- Middle Column -->
 		<jsp:include page="/outage/servicesdown-box.htm" flush="false" />
 
-		<!-- notification box -->    
+		<!-- notification box -->
 		<jsp:include page="/includes/notification-box.jsp" flush="false" />
 		<hr />
 

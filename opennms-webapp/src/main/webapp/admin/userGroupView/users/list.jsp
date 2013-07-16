@@ -40,7 +40,7 @@
 <%
 	UserManager userFactory;
   	Map users = null;
-	
+
 	try
     	{
 		UserFactory.init();
@@ -69,34 +69,34 @@
     {
         document.allUsers.action="admin/userGroupView/users/newUser.jsp?action=new";
         document.allUsers.submit();
-        
+
     }
-    
+
     function detailUser(userID)
     {
         document.allUsers.action="admin/userGroupView/users/userDetail.jsp?userID=" + userID;
         document.allUsers.submit();
     }
-    
+
     function deleteUser(userID)
     {
         document.allUsers.action="admin/userGroupView/users/deleteUser";
         document.allUsers.userID.value=userID;
         document.allUsers.submit();
     }
-    
+
     function modifyUser(userID)
     {
         document.allUsers.action="admin/userGroupView/users/modifyUser";
         document.allUsers.userID.value=userID;
         document.allUsers.submit();
     }
-    
+
     function renameUser(userID)
     {
         document.allUsers.userID.value=userID;
         var newID = prompt("Enter new name for user.", userID);
-        
+
         if (newID != null && newID != "")
         {
           document.allUsers.newID.value = newID;
@@ -104,7 +104,7 @@
           document.allUsers.submit();
         }
     }
-    
+
 </script>
 
 
@@ -147,7 +147,7 @@
         </tr>
         <% Iterator i = users.keySet().iterator();
            int row = 0;
-           while(i.hasNext()) 
+           while(i.hasNext())
            {
               User curUser = (User)users.get(i.next());
 	      String userid = curUser.getUserId();
@@ -161,9 +161,9 @@
          %>
          <tr bgcolor=<%=row%2==0 ? "#ffffff" : "#cccccc"%>>
           <% if (!curUser.getUserId().equals("admin")) { %>
-          <td width="5%" rowspan="2" align="center"> 
-            <a id="<%= "users("+curUser.getUserId()+").doDelete" %>" href="javascript:deleteUser('<%=curUser.getUserId()%>')" onclick="return confirm('Are you sure you want to delete the user <%=curUser.getUserId()%>?')"><img src="images/trash.gif" alt="<%="Delete " + curUser.getUserId()%>"></a> 
-            
+          <td width="5%" rowspan="2" align="center">
+            <a id="<%= "users("+curUser.getUserId()+").doDelete" %>" href="javascript:deleteUser('<%=curUser.getUserId()%>')" onclick="return confirm('Are you sure you want to delete the user <%=curUser.getUserId()%>?')"><img src="images/trash.gif" alt="<%="Delete " + curUser.getUserId()%>"></a>
+
           </td>
           <% } else { %>
           <td width="5%" rowspan="2" align="center">
@@ -233,7 +233,7 @@
              <div id="<%= "users("+curUser.getUserId()+").userComments" %>">
 	      <% if(curUser.getUserComments() != null){ %>
 		      <%= (curUser.getUserComments().equals("") ? "No Comments" : curUser.getUserComments()) %>
-		   
+
 	      <% } %>
 	        </div>
             </td>

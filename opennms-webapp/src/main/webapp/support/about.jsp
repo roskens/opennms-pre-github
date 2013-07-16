@@ -42,7 +42,7 @@
 
 <%
     boolean role = request.isUserInRole(Authentication.ROLE_ADMIN);
-    
+
     final DBUtils d = new DBUtils();
     String dbName;
     String dbVersion;
@@ -57,7 +57,7 @@
    	} finally {
    	  d.cleanUp();
    	}
-%> 
+%>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="About" />
@@ -85,7 +85,7 @@
   <tr>
     <td class="standardheader">Java Version:</td>
     <td class="standard"><%=System.getProperty( "java.version" )%> <%=System.getProperty( "java.vendor" )%></td>
-  </tr>  
+  </tr>
   <tr>
     <td class="standardheader">Java Virtual Machine:</td>
     <td class="standard"><%=System.getProperty( "java.vm.version" )%> <%=System.getProperty( "java.vm.vendor" )%></td>
@@ -133,14 +133,14 @@
   </ul>
 <p>
   This program is free software; you can redistribute it and/or
-  modify it under the terms of the 
+  modify it under the terms of the
   <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a>
   as published by the
   <a href="http://www.gnu.org/">Free Software Foundation</a>; either version 3
   of the License, or (at your option) any later version.
 </p>
 
-<p>        
+<p>
   This program is distributed in the hope that it will be useful,
   but <strong>without any warranty</strong>; without even the implied
   warranty of <strong>merchantability</strong> or <strong>fitness for
@@ -148,7 +148,7 @@
   <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a>
   for more details.
 </p>
-        
+
 <p>
   You should have received a copy of the
   <a href="http://www.gnu.org/copyleft/gpl.html">GNU General Public License</a>
@@ -172,7 +172,7 @@
 
 	<table>
 	   <tr>
-      
+
       	   <td style="border-right: none;">
 		<p align="center">
         	Powered By Jetty<br/>
@@ -185,22 +185,22 @@
 		Support for Tobi Oetiker's RRDTool<br/>
         	<a href="http://www.rrdtool.org/" target="_new"><img src="images/rrdtool-logo-dark.png" hspace="0" vspace="0" width="121" height="48"
            	border="0" alt="www.rrdtool.org" align="center"></a>
-      		</p>      
+		</p>
 	   </td>
            <td style="border-left: none;">
 		<p align="center">
 		PostgreSQL Powered<br/>
         	<a href="http://www.postgresql.org/" target="_new"><img src="images/pg-power_95x51_4.gif" hspace="0" vspace="0" width="95" height="51"
            	border="0" alt="www.postgresql.org" align="center"></a>
-      		</p>      
+		</p>
 	   </td>
 	   </tr>
 	</table>
- 
-                                   
+
+
 
 <jsp:include page="/includes/bookmarkAll.jsp" flush="false" >
-  <jsp:param name="adminrole" 
+  <jsp:param name="adminrole"
    value="<%= role %>" />
 </jsp:include>
 

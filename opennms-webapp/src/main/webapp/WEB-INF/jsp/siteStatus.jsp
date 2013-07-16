@@ -66,7 +66,7 @@
       </tr>
     </c:forEach>
   </table>
-  
+
 <h3>Site outages</h3>
 <div class="boxWrapper">
   <c:url var="outagesLink" value="outage/list.htm">

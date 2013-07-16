@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of links.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -45,47 +45,47 @@
 <%
     String requestNode = request.getParameter("node");
     String requestIfindex = request.getParameter("ifindex");
-	
+
     int nodeId = -1;
-	int ifIndex = -1;    
-	
+	int ifIndex = -1;
+
 	if ( requestNode != null && requestIfindex != null ) {
 		nodeId = WebSecurityUtils.safeParseInt(requestNode);
 		ifIndex = WebSecurityUtils.safeParseInt(requestIfindex);
 	}
 
-	NetworkElementFactoryInterface factory = NetworkElementFactory.getInstance(getServletContext());    
+	NetworkElementFactoryInterface factory = NetworkElementFactory.getInstance(getServletContext());
 
 %>
-	
+
 <h3>Links on Interface</h3>
 		<!-- Link box -->
 		<table class="standard">
-		
+
 		<thead>
 			<tr>
 			<th>Linked to <%=nodeId%> and <%=ifIndex%></th>
 			<th width="10%">Status</th>
 			<th>Last Scan</th>
-			 
+
 <%--
 			// TODO - turning this off until the SET is verified.
-			<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %> 
-			<th width="10%">Set Admin Status</th> 
+			<% if( request.isUserInRole( Authentication.ROLE_ADMIN )) { %>
+			<th width="10%">Set Admin Status</th>
 			<% } %>
 --%>
 
 			</tr>
 		</thead>
-				
+
 		<% for( LinkInterface linkInterface: factory.getDataLinksOnInterface(nodeId, ifIndex)) { %>
 		    <tr>
 			<td class="standard" style="font-size:70%" width="35%">
 		       	<a href="element/linkednode.jsp?node=<%=linkInterface.getLinkedNodeId()%>"><%=factory.getNodeLabel(linkInterface.getLinkedNodeId())%></a>
 		       	&nbsp;
 		       	<%	if (linkInterface.hasLinkedInterface()) { %>
-		       	on 
-                
+			on
+
                 <% if (linkInterface.getLinkedInterface().getSnmpIfName() != null && !linkInterface.getLinkedInterface().getSnmpIfName().equals("")) { %>
             	<a href="element/snmpinterface.jsp?node=<%=linkInterface.getLinkedNodeId()%>&ifindex=<%=linkInterface.getLinkedInterface().getSnmpIfIndex()%>">
                     <%=linkInterface.getLinkedInterface().getSnmpIfName()%>
@@ -97,22 +97,22 @@
     	        	<c:param name="intf" value="<%=ipaddress%>"/>
         			</c:url>
                 	<a href="<c:out value="${interfaceLink}"/>"> <%=ipaddress%> </a> &nbsp;
-    	    		<% } %>                 
-                <% } else { %> 
+			<% } %>
+                <% } else { %>
                  	&nbsp;
-    			<% } %> 
+			<% } %>
             	(ifindex <%=linkInterface.getLinkedIfindex()%>)
-                
+
                 <% if (linkInterface.getLinkedInterface().getSnmpIfAlias() != null && !linkInterface.getLinkedInterface().getSnmpIfAlias().equals("")) { %>
                     ifAlias <%=linkInterface.getLinkedInterface().getSnmpIfAlias()%>"
-                <% } else { %> 
+                <% } else { %>
                  	&nbsp;
-    			<% } %> 
-    			    			
+			<% } %>
+
 			<% } else { %>
                  <c:out value="with No Interface Associated"/>
             <% } %>
-		       	
+
 			</td>
 
 		    <td class="standard">
@@ -130,8 +130,8 @@
      			&nbsp;
 		    <% } %>
 		    </td>
-					
+
 		    </tr>
 	    <% } %>
-		    
+
 	    </table>

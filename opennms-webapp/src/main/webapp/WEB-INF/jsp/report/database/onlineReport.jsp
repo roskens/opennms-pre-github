@@ -47,7 +47,7 @@
 <h3>Run Online Report</h3>
 
 <form:form commandName="parameters" cssClass="stdform">
-	
+
 		<%-- // string parameters --%>
 		<c:forEach items="${parameters.stringParms}" var="stringParm" varStatus="stringParmRow">
 			<p><form:label path="stringParms[${stringParmRow.index}].value" cssClass="label" >
@@ -55,12 +55,12 @@
 			</form:label>
                 <c:choose>
 	                <c:when test="${stringParm.inputType == 'reportCategorySelector'}">
-	                	<form:select path="stringParms[${stringParmRow.index}].value"> 
+				<form:select path="stringParms[${stringParmRow.index}].value">
 		                <form:options items="${categories}"/>
 		                </form:select>
 	                </c:when>
 					<c:when test="${stringParm.inputType == 'onmsCategorySelector'}">
-	                	<form:select path="stringParms[${stringParmRow.index}].value"> 
+				<form:select path="stringParms[${stringParmRow.index}].value">
 		                <form:options items="${onmsCategories}"/>
 		                </form:select>
 	                </c:when>
@@ -113,14 +113,14 @@
 					</form:select></p>
 		</c:forEach>
 				<p><form:label path="format" cssClass="label">Report Format</form:label>
-				<form:select path="format"> 
+				<form:select path="format">
 					<form:options items="${formats}"/>
 				</form:select></p>
 	<span class="indent">
 	 	<input type="submit" value="run report" id="run"/>&#160;
 	</span>
-	
+
  </form:form>
-  
+
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

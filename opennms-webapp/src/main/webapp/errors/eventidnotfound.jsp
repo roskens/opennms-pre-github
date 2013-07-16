@@ -38,7 +38,7 @@
 
 <%
      EventIdNotFoundException einfe = null;
-    
+
     if( exception instanceof EventIdNotFoundException ) {
         einfe = (EventIdNotFoundException)exception;
     }

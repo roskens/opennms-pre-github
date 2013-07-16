@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
-  This page is included by other JSPs to create a box containing a tree of 
+<%--
+  This page is included by other JSPs to create a box containing a tree of
   service level availability information for the services of a given interface.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -51,14 +51,14 @@
 
 <%!
     protected CategoryModel model;
-    
+
     protected double normalThreshold;
-    protected double warningThreshold; 
-    
+    protected double warningThreshold;
+
     public void init() throws ServletException {
         try {
             this.model = CategoryModel.getInstance();
-            
+
             this.normalThreshold = this.model.getCategoryNormalThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
             this.warningThreshold = this.model.getCategoryWarningThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
         }
@@ -70,7 +70,7 @@
         }
         catch( org.exolab.castor.xml.ValidationException e ) {
             throw new ServletException("Could not instantiate the CategoryModel", e);
-        }        
+        }
     }
 %>
 
@@ -81,7 +81,7 @@
 	String overallStatus = "Indeterminate";
 
 	int nodeId = -1;
-	
+
 	if ( requestNode != null ) {
 		nodeId = WebSecurityUtils.safeParseInt(requestNode);
 	}
@@ -113,7 +113,7 @@
     <% Service service = services[i]; %>
     <% double svcValue = 0; %>
     <% if( service.isManaged() ) { %>
-      <% svcValue = this.model.getServiceAvailability(nodeId, ipAddr, service.getServiceId()); %>     
+      <% svcValue = this.model.getServiceAvailability(nodeId, ipAddr, service.getServiceId()); %>
       <tr class="<%=CategoryUtil.getCategoryClass(this.normalThreshold, this.warningThreshold, svcValue)%>">
     <% } else { %>
       <tr class="Indeterminate">
@@ -133,5 +133,5 @@
   <% } %>
   <tr>
     <td colspan="2" style="text-align: right;">Percentage over last 24 hours</td> <%-- next iteration, read this from same properties file that sets up for RTCVCM --%>
-  </tr>   
-</table>   
+  </tr>
+</table>

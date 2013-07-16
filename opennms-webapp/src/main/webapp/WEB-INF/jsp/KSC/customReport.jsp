@@ -57,37 +57,37 @@
 <script type="text/javascript">
     function saveReport()
     {
-        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.Save.toString()%>"/>"; 
+        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.Save.toString()%>"/>";
         document.customize_form.submit();
     }
- 
+
     function addNewGraph()
     {
-        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.AddGraph.toString()%>"/>"; 
+        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.AddGraph.toString()%>"/>";
         document.customize_form.submit();
     }
- 
+
     function modifyGraph(graph_index)
     {
-        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.ModGraph.toString()%>"/>"; 
-        document.customize_form.graph_index.value = graph_index; 
+        document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.ModGraph.toString()%>"/>";
+        document.customize_form.graph_index.value = graph_index;
         document.customize_form.submit();
     }
- 
+
     function deleteGraph(graph_index)
     {
         document.customize_form.action.value = "<c:out value="<%=FormProcReportController.Actions.DelGraph.toString()%>"/>";
-        document.customize_form.graph_index.value = graph_index; 
+        document.customize_form.graph_index.value = graph_index;
         document.customize_form.submit();
     }
- 
+
     function cancelReport()
     {
         if (confirm("Do you really want to cancel configuration changes?")) {
             setLocation("index.jsp");
         }
     }
-    
+
 </script>
 
 
@@ -98,7 +98,7 @@
         <input type="hidden" name="<%=FormProcReportController.Parameters.graph_index%>" value="-1"/>
 
         <p>
-          Title: 
+          Title:
           <input type="text" name="<%=FormProcReportController.Parameters.report_title%>" value="${title}" size="80" maxlength="80"/>
         </p>
 
@@ -127,7 +127,7 @@
                                 </c:choose>
                                 <br />
                               </c:if>
-                          
+
                               ${resultSet.resource.resourceType.label}:
                               <c:choose>
                                 <c:when test="${!empty resultSet.resource.link}">
@@ -144,7 +144,7 @@
                             <br/>
                             To: ${resultSet.end}
                         </td>
-              
+
                         <td align="left">
                           <c:url var="graphUrl" value="${baseHref}graph/graph.png">
                             <c:param name="resourceId" value="${resultSet.resource.id}"/>
@@ -153,13 +153,13 @@
                             <c:param name="end" value="${resultSet.end.time}"/>
                             <c:param name="zoom" value="true"/>
                           </c:url>
-                        
+
                           <img src="${graphUrl}" alt="Resource graph: ${resultSet.prefabGraph.title}" />
                         </td>
                     </tr>
                   </c:forEach>
                 </c:if>
-            </table>  
+            </table>
 
         <p>
             <input type="button" value="Add New Graph" onclick="addNewGraph()" alt="Add a new graph to the report"/>
@@ -172,7 +172,7 @@
                        <c:when test="${showTimeSpan}">
                          <c:set var="checked" value="checked"/>
                        </c:when>
-                       
+
                        <c:otherwise>
                          <c:set var="checked" value=""/>
                        </c:otherwise>
@@ -189,7 +189,7 @@
                        <c:when test="${showGraphType}">
                          <c:set var="checked" value="checked"/>
                        </c:when>
-                       
+
                        <c:otherwise>
                          <c:set var="checked" value=""/>
                        </c:otherwise>
@@ -266,7 +266,7 @@
                  </td>
              </tr>
 
-        </table> 
+        </table>
 
         <p>
                 <input type="button" value="Save" onclick="saveReport()" alt="Save the Report to File"/>

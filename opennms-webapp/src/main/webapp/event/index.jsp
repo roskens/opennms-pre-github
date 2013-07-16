@@ -37,7 +37,7 @@
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Events" />
   <jsp:param name="headTitle" value="Events" />
-  <jsp:param name="location" value="event" />  
+  <jsp:param name="location" value="event" />
   <jsp:param name="breadcrumb" value="Events" />
 </jsp:include>
 
@@ -46,18 +46,18 @@
       <div class="boxWrapper">
       <%--<jsp:include page="/includes/event-querypanel.jsp" flush="false" />--%>
 			<form action="event/detail.jsp" method="get">
-				<p align="right">Event ID:          
+				<p align="right">Event ID:
 					<input type="text" name="id" />
-					<input type="submit" value="Get details"/></p>               
+					<input type="submit" value="Get details"/></p>
 			</form>
-			
+
 			<ul class="plain">
 				<li><a href="event/list" title="View all outstanding events">All events</a></li>
 				<li><a href="event/advsearch.jsp" title="More advanced searching and sorting options">Advanced Search</a></li>
 			</ul>
 		</div>
   </div>
-      
+
   <div class="TwoColRight">
       <h3>Outstanding and acknowledged events</h3>
 		<div class="boxWrapper">
@@ -68,12 +68,12 @@
         or systems-related issue.  Any event that has not been acknowledged is
         active in all users' browsers and is considered <em>outstanding</em>.
       </p>
-            
-      <p>If an event has been acknowledged in error, you can select the 
+
+      <p>If an event has been acknowledged in error, you can select the
         <em>View all acknowledged events</em> link, find the event, and <em>unacknowledge</em> it,
         making it available again to all users' views.
       </p>
-        
+
       <p>If you have a specific event identifier for which you want a detailed event
         description, type the identifier into the <em>Get details for Event ID</em> box and
         hit <b>[Enter]</b>.  You will then go to the appropriate details page.

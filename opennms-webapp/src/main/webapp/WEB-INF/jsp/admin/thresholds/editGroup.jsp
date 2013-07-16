@@ -137,7 +137,7 @@
 </form>
 <h3>Help</h3>
 <p>
-The upper section is Basic Thresholds (thresholds on a  single datasource).  The threshold details are displayed to edit the threshold, click on the "Edit" link on same line as the threshold line.  
+The upper section is Basic Thresholds (thresholds on a  single datasource).  The threshold details are displayed to edit the threshold, click on the "Edit" link on same line as the threshold line.
 To delete the threshold, click on "Delete" on the same line as the threshold you want to delete.<br/>
 To create a new threshold, click on the "Create New Threshold" link<br/>
 The lower section is for Expression-based Thresholds, where the value being checked is a mathematical expression including one or more data sources.  Functionality is identical to that for the Basic Thresholds section

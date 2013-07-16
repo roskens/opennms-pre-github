@@ -30,7 +30,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.netmgt.config.discovery.*, org.opennms.web.admin.discovery.ActionDiscoveryServlet" %>
-<% 
+<%
 	response.setDateHeader("Expires", 0);
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -85,20 +85,20 @@ function addExcludeRange(){
 		document.getElementById("end").focus();
 		return;
 	}
-	
+
 	if(!checkIpRange(document.getElementById("begin").value, document.getElementById("end").value)){
 		alert("Address Range not valid.");
 		document.getElementById("end").focus();
 		return;
 	}
-	
+
 	opener.document.getElementById("erbegin").value=document.getElementById("begin").value;
 	opener.document.getElementById("erend").value=document.getElementById("end").value;
 	opener.document.getElementById("modifyDiscoveryConfig").action=opener.document.getElementById("modifyDiscoveryConfig").action+"?action=<%=ActionDiscoveryServlet.addExcludeRangeAction%>";
 	opener.document.getElementById("modifyDiscoveryConfig").submit();
 	window.close();
 	opener.document.focus();
-	
+
 }
 
 </script>

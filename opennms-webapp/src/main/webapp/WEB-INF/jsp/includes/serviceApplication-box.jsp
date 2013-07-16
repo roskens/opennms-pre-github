@@ -51,7 +51,7 @@
       <td>This service is not a member of any applications</td>
     </tr>
   </c:if>
-  
+
   <c:forEach items="${applications}" var="application">
     <tr>
       <td>${application.name}</td>

@@ -60,19 +60,19 @@
 </jsp:include>
 
 <script type="text/javascript" >
-  
+
   function next()
   {
       document.addresses.userAction.value="next";
       document.addresses.submit();
   }
-  
+
   function rebuild()
   {
       document.addresses.userAction.value="rebuild";
       document.addresses.submit();
   }
-  
+
 </script>
 
 

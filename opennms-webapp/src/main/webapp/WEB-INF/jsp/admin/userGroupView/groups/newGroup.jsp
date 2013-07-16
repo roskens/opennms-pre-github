@@ -43,7 +43,7 @@
 </jsp:include>
 
 <script type="text/javascript">
-  function validateFormInput() 
+  function validateFormInput()
   {
     var id = new String(document.newGroupForm.groupName.value);
     if (id.toLowerCase()=="admin")
@@ -51,11 +51,11 @@
         alert("The group ID '" + document.newGroupForm.groupName.value + "' cannot be used. It may be confused with the administration group ID 'Admin'.");
         return false;
     }
-    
+
     document.newGroupForm.action="admin/userGroupView/groups/modifyGroup";
     document.newGroupForm.operation.value="addGroup";
     return true;
-  }    
+  }
   function cancelGroup()
   {
       document.newGroupForm.action="admin/userGroupView/groups/modifyGroup";

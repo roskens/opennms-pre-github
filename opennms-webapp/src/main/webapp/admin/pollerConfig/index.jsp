@@ -55,11 +55,11 @@
         if( homeDir == null ) {
             throw new IllegalArgumentException( "Cannot take null parameters." );
         }
- 
+
         props.load( new FileInputStream( ConfigFileConstants.getFile(ConfigFileConstants.POLLER_CONF_FILE_NAME )));
 	protoMap = getQueries();
         String[] protocols = BundleLists.parseBundleList( this.props.getProperty( "services" ));
- 
+
 	java.util.List polledPlugins = new ArrayList();
 	PollerConfig pollerFactory = null;
 	PollerConfiguration pollerConfig = null;
@@ -132,14 +132,14 @@
             		String[] protocols = BundleLists.parseBundleList( this.props.getProperty( "services" ));
 			sortedProtocols = new String[protocols.length];
             		this.protoMap = new TreeMap();
- 
+
 			TreeMap sortTmp = new TreeMap();
             		for( int i = 0; i < protocols.length; i++ )
             		{
                 		this.protoMap.put(this.props.getProperty( "service." + protocols[i] + ".protocol" ), protocols[i]);
 				sortTmp.put(protocols[i], "service." + protocols[i] + ".protocol");
-            		}	
-				
+			}
+
 			Set keys = sortTmp.keySet();
 			Iterator sortIter = keys.iterator();
 			int i = 0;
@@ -149,7 +149,7 @@
 				sortedProtocols[i++] = key;
 			}
         	}
- 
+
         	return( queries );
     	}
 
@@ -184,7 +184,7 @@
 </jsp:include>
 
 <script type="text/javascript" >
- 
+
   function modifyPoller()
   {
       document.poller.redirect.value="finishPollerConfig.jsp";
@@ -197,7 +197,7 @@
       document.poller.redirect.value="addPollerConfig.jsp";
       document.poller.action="admin/pollerConfig/pollerConfig";
       document.poller.submit();
-  }   
+  }
 </script>
 
 <div id="contentleft">
@@ -317,7 +317,7 @@
 				checked
                 <%      } %>
                         name="activate" value="<%= servicename %>" ></td>
-			
+
                         <td class="standard"><%= servicename %></td>
                         <td class="standard"><% if(getProtocol(servicename) == null){ %>
                                 <%= servicename %>

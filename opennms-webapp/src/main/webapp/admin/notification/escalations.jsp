@@ -50,7 +50,7 @@
             throw new ServletException( "Cannot load configuration file", e );
         }
     }
-    
+
     String pathName = null;
     Path path = null;
     String times[] = {"0m", "1m", "2m", "5m", "10m", "15m", "30m", "1h", "2h", "3h", "6h", "12h", "1d"};
@@ -73,7 +73,7 @@
 
 <script type="text/javascript" >
 
-    function next() 
+    function next()
     {
         document.targets.submit();
     }
@@ -115,30 +115,30 @@
     {
         if (users==null)
             return "";
-            
+
         StringBuffer buffer = new StringBuffer("<h2>Initial Targets</h2>");
         buffer.append("<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">");
-        
+
         for (int i = 0; i < users.length; i++)
         {
             buffer.append("<tr><td>").append(users[i]).append("</td>").append("</tr>");
         }
-        
+
         for (int i = 0; i < groups.length; i++)
         {
             buffer.append("<tr><td>").append(groups[i]).append("</td>").append("</tr>");
         }
-        
+
         buffer.append("</table>");
         return buffer.toString();
     }
-    
+
     public String displayEscalations()
     {
-        
+
         StringBuffer buffer = new StringBuffer("<h2>Escalation Targets</h2>");
         buffer.append("<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">");
-        
+
         buffer.append("</table>");
         return buffer.toString();
     }

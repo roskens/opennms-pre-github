@@ -48,23 +48,23 @@
     <!-- general info box -->
     <h3>Report in progress</h3>
     <table class="o-box">
-		<tr> 
+		<tr>
 		<th>Report Type</th>
         <td>${type}</td>
 		</tr>
-		<tr> 
+		<tr>
 		<th>Report Date</th>
         <td>${date}</td>
 		</tr>
-		<tr> 
+		<tr>
 		<th>Search field</th>
         <td>${searchfield}</td>
 		</tr>
-		<tr> 
+		<tr>
 		<th>File format</th>
         <td>${reportformat}</td>
 		</tr>
-		
+
 </table>
 </div>
 
@@ -73,7 +73,7 @@
     <div class="boxWrapper">
     <p>
     OpenNMS is processing the report in background because it can take a while.
-    An email with the report attached will be send to the specified user when finished. 
+    An email with the report attached will be send to the specified user when finished.
     </p>
 </div>
 </div>

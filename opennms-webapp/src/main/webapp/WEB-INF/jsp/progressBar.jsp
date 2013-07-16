@@ -46,7 +46,7 @@ response.setDateHeader("Date", startTime);
 response.setDateHeader("Expires", startTime);
 
 %>
- 
+
 <jsp:include page="/includes/header.jsp" flush="false">
 	<jsp:param name="title" value="Progress" />
 	<jsp:param name="headTitle" value="Progress" />
@@ -65,7 +65,7 @@ response.setDateHeader("Expires", startTime);
     <div style="width: 400px; height: 25px; border-size: 1px; border-style: ridge; background-color: white;">
       <div style="float: left; width: ${percentage}%; height: 25px; background-color: green;">&nbsp;</div>
     </div>
-    
+
     <p>
       ${percentage}% completed
     </p>

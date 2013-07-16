@@ -57,10 +57,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of last active inventories.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -80,18 +80,18 @@
     if( nodeIdString == null ) {
         throw new org.opennms.web.servlet.MissingParameterException("node");
     }
-        
+
     final int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
-    
+
     //gets active route entry on node
-    
+
     final NetworkElementFactoryInterface factory = NetworkElementFactory.getInstance(getServletContext());
    	final IpRouteInterface[] iproutes = ElementUtil.getIpRouteByParams(request,getServletContext());
 
 %>
 
 <table width="50%">
-  
+
 
 
 <% if (iproutes == null || iproutes.length == 0) { %>

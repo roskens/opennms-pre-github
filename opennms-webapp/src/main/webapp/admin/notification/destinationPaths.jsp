@@ -60,7 +60,7 @@
 
 <script type="text/javascript" >
 
-    function editPath() 
+    function editPath()
     {
         if (document.path.paths.selectedIndex==-1)
         {
@@ -72,13 +72,13 @@
             document.path.submit();
         }
     }
-    
+
     function newPath()
     {
         document.path.userAction.value="new";
         return true;
     }
-    
+
     function deletePath()
     {
         if (document.path.paths.selectedIndex==-1)
@@ -95,7 +95,7 @@
             }
         }
     }
-    
+
 </script>
 
 
@@ -110,7 +110,7 @@
   <input type="submit" value="New Path"/>
 
   <h4>Existing Paths</h4>
- 
+
   <select NAME="paths" SIZE="10">
     <% Map<String, Path> pathsMap = new TreeMap<String, Path>(DestinationPathFactory.getInstance().getPaths());
        for (String key : pathsMap.keySet()) {
@@ -124,5 +124,5 @@
   <input type="button" value="Edit" onclick="editPath()"/>
   <input type="button" value="Delete" onclick="deletePath()"/>
 </form>
-    
+
 <jsp:include page="/includes/footer.jsp" flush="false" />

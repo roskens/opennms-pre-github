@@ -51,9 +51,9 @@
     String noticeIdString = request.getParameter("notice");
 
     String eventSeverity;
-    
+
     int noticeID = -1;
-    
+
     try {
         noticeID = WebSecurityUtils.safeParseInt( noticeIdString );
     }
@@ -61,9 +61,9 @@
         throw new NoticeIdNotFoundException("The notice id must be an integer.",
 					     noticeIdString );
     }
-    
+
     Notification notice = this.model.getNoticeInfo(noticeID);
-    
+
     if( notice == null ) {
         throw new NoticeIdNotFoundException("An notice with this id was not found.", String.valueOf(noticeID));
     }
@@ -84,12 +84,12 @@
   <jsp:param name="breadcrumb" value="Detail" />
 </jsp:include>
 
-<h3>Notice #<%=notice.getId()%> 
+<h3>Notice #<%=notice.getId()%>
   <% if ( NoticeFactory.canDisplayEvent(notice.getEventId()) ) { %>
     from event #<a href="event/detail.jsp?id=<%=notice.getEventId()%>"><%=notice.getEventId()%></a>
   <% } %>
 </h3>
-      
+
 <table>
   <tr class="<%=eventSeverity%>">
     <td width="15%">Notification Time</td>
@@ -124,7 +124,7 @@
         &nbsp;
       <% } %>
     </td>
-          
+
     <td width="15%">Service</td>
 
     <td width="17%">
@@ -154,7 +154,7 @@
     </tr>
   <% } %>
 </table>
-      
+
 <% if (notice.getNumericMessage() != null || notice.getTextMessage() != null) { %>
   <table>
     <% if (notice.getNumericMessage()!=null) { %>
@@ -166,7 +166,7 @@
         <td><%=notice.getNumericMessage()%></td>
       </tr>
     <% } %>
-          
+
     <% if (notice.getTextMessage() != null) { %>
       <tr class="<%=eventSeverity%>">
         <td width="10%">Text Message</td>
@@ -178,7 +178,7 @@
     <% } %>
   </table>
 <% } %>
-      
+
 <table>
   <thead>
     <tr>
@@ -188,7 +188,7 @@
       <th>Contact Info</th>
     </tr>
   </thead>
-  
+
   <%  for (NoticeSentTo sentTo : notice.getSentTo()) { %>
 
     <tr class="<%=eventSeverity%>">
@@ -225,5 +225,5 @@
     <input type="submit" value="Acknowledge" />
   </form>
 <% } %>
-      
+
 <jsp:include page="/includes/footer.jsp" flush="false" />

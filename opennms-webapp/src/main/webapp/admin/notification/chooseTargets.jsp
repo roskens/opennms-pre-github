@@ -75,14 +75,14 @@
 
 <script type="text/javascript" >
 
-    function next() 
+    function next()
     {
         if (document.targets.groups.selectedIndex >= 0)
         {
             selectAllEmails();
             document.targets.nextPage.value="groupIntervals.jsp";
             document.targets.submit();
-        } 
+        }
         else if (document.targets.users.selectedIndex >= 0)
         {
             selectAllEmails();
@@ -107,20 +107,20 @@
             alert("Please choose at least one user, group, or email address as a target.");
         }
     }
-    
+
     function selectAllEmails()
     {
         //select all emails to they get sent to the servlet
-        for (i=0; i < document.targets.emails.length; i++) 
+        for (i=0; i < document.targets.emails.length; i++)
         {
             document.targets.emails.options[i].selected = true;
         }
     }
-    
+
     function addAddress()
     {
         var address = prompt("Please type in an email address.");
-        
+
         if (address!="")
         {
             if(address.indexOf("@",0)==-1)
@@ -133,14 +133,14 @@
             }
         }
     }
-    
+
     function removeAddress()
     {
         if (document.targets.emails.selectedIndex >=0)
         {
-            for ( i=(document.targets.emails.length-1); i>=0; i--) 
+            for ( i=(document.targets.emails.length-1); i>=0; i--)
             {
-                if (document.targets.emails.options[i].selected == true ) 
+                if (document.targets.emails.options[i].selected == true )
                 {
                     document.targets.emails.options[i] = null;
                 }
@@ -269,7 +269,7 @@ action="admin/notification/destinationWizard" >
             <br/>
             <input type="button" value="Remove Address" onclick="javascript:removeAddress()"/>
             </td>
-            
+
         </tr>
         <tr>
           <td colspan="2">
@@ -297,7 +297,7 @@ public Map getUsers(Collection targets) throws ServletException {
                 }
 
             });
-            
+
             Collection targetNames = getTargetNames(targets);
             for (String key : UserFactory.getInstance().getUserNames()) {
                 allUsers.put(key, targetNames.contains(key));
@@ -319,7 +319,7 @@ public Map getUsers(Collection targets) throws ServletException {
                 allGroups.put(key, targetNames.contains(key));
             }
             return allGroups;
-            
+
         } catch (Throwable e) {
             throw new ServletException("could not get list of all groups.", e);
         }

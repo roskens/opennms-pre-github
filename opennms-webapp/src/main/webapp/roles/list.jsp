@@ -42,7 +42,7 @@
   	Map users = null;
 	HashMap usersHash = new HashMap();
 	String curUserName = null;
-	
+
 	try
     	{
 		UserFactory.init();
@@ -77,7 +77,7 @@
 		document.roleForm.role.value=role;
 		document.roleForm.submit();
 	}
-	
+
 	function doView(role) {
 		doOperation("view", role);
 	}
@@ -103,7 +103,7 @@
           <td><b>Description</b></td>
 			<c:forEach var="role" items="${roleManager.roles}">
 				<c:set var="viewUrl" value="javascript:doView('${role.name}')" />
-				
+
 				<tr>
 				<td><a href="<c:out value='${viewUrl}'/>"><c:out value="${role.name}"/></a></td>
 				<td><c:set var="supervisorUser"><c:out value="${role.defaultUser}"/></c:set><c:set var="fullName"><%= usersHash.get(pageContext.getAttribute("supervisorUser").toString()) %></c:set><span title="<c:out value="${fullName}"/>"><c:out value="${role.defaultUser}"/></span></td>
@@ -111,7 +111,7 @@
 					<c:forEach var="scheduledUser" items="${role.currentUsers}">
 						<c:set var="fullName"><%= usersHash.get(pageContext.getAttribute("scheduledUser").toString()) %></c:set>
 						<span title="<c:out value="${fullName}"/>"><c:out value="${scheduledUser}"/></span>
-					</c:forEach>	
+					</c:forEach>
 				</td>
 				<td><c:out value="${role.membershipGroup}"/></td>
 				<td><c:out value="${role.description}"/></td>

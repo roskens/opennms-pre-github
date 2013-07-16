@@ -47,7 +47,7 @@
     Map serviceNameMap = new TreeMap(NetworkElementFactory.getInstance(getServletContext()).getServiceNameToIdMap());
     Set serviceNameSet = serviceNameMap.keySet();
     Iterator serviceNameIterator = serviceNameSet.iterator();
- 
+
     //get the current time values
     Calendar now = Calendar.getInstance();
     int nowHour = now.get(Calendar.HOUR); //gets the hour as a value between 1-12

@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of alarms.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -60,7 +60,7 @@
           <c:url var="nodeLink" value="element/node.jsp">
             <c:param name="node" value="${summary.nodeId}"/>
           </c:url>
-          <tr class="${summary.maxSeverity.label}"><td class="bright"><a href="${nodeLink}">${summary.nodeLabel}</a> has 
+          <tr class="${summary.maxSeverity.label}"><td class="bright"><a href="${nodeLink}">${summary.nodeLabel}</a> has
               <a href="alarm/list.htm?sortby=id&acktype=unack&limit=20&display=short&filter=node%3D${summary.nodeId}">${summary.alarmCount} alarms</a> (${summary.fuzzyTimeDown})</td></tr>
         </c:forEach>
       </table>

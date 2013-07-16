@@ -45,11 +45,11 @@
           </tr>
           <c:forEach items="${daemons}" var="daemon">
             <tr>
-            
+
               <td> <form:checkbox path="values" value="${daemon.serviceName}"/> </td>
               <td><c:out value="${daemon.serviceName}"> </c:out></td>
               <td><c:out value="${daemon.serviceStatus}"> </c:out> </td>
-           
+
             </tr>
           </c:forEach>
           <tr>
@@ -61,7 +61,7 @@
             </td>
           </tr>
         </table>
-        
-    </form:form>  
+
+    </form:form>
   </body>
 </html>

@@ -100,7 +100,7 @@
                         </c:choose>
                         <option value="${hour.key}" ${selected}>${hour.value}</option>
                     </c:forEach>
-                </select>          
+                </select>
 
                 <br/>
 
@@ -135,7 +135,7 @@
                         </c:choose>
                         <option value="${hour.key}" ${selected}>${hour.value}</option>
                     </c:forEach>
-                </select>          
+                </select>
 
             </p>
             <input type="submit" value="Apply Custom Time Period"/>
@@ -228,7 +228,7 @@
                 </div>
             </c:when>
 
-            <c:when test="${!empty resultSet.graphs}"> 
+            <c:when test="${!empty resultSet.graphs}">
                 <c:forEach var="graph" items="${resultSet.graphs}">
                     <c:url var="zoomUrl" value="${requestScope.relativeRequestPath}">
                         <c:param name="zoom" value="true"/>
@@ -294,11 +294,11 @@
                     document.getElementById("customTimeForm").style.display = "block";
                 } else {
                     goRelativeTime(value);
-                }  
+                }
             }
         }
     }
-  
+
     /*
      * This is used by the relative time form to reload the page with a new
      * time period.
@@ -330,7 +330,7 @@
         }
     </script>
 
-    <script src="graph/cropper/lib/prototype.js" type="text/javascript"></script>      
+    <script src="graph/cropper/lib/prototype.js" type="text/javascript"></script>
     <script src="graph/cropper/lib/scriptaculous.js" type="text/javascript"></script>
     <script src="graph/cropper/cropper.js" type="text/javascript"></script>
     <script src="graph/cropper/zoom.js" type="text/javascript"></script>

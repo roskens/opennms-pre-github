@@ -42,7 +42,7 @@
   	Map users = null;
 	HashMap usersHash = new HashMap();
 	String curUserName = null;
-	
+
 	try
     	{
 		UserFactory.init();
@@ -98,21 +98,21 @@
 	function changeDisplay() {
 		document.displayForm.submit();
 	}
-	
+
 	function prevMonth() {
 		document.prevMonthForm.submit();
 	}
-	
+
 	function nextMonth() {
 		document.nextMonthForm.submit();
 	}
-	
+
 	function addEntry(date) {
 		document.addEntryForm.date.value = date;
 		document.addEntryForm.submit();
-		
+
 	}
-	
+
 	function editEntry(schedIndex, timeIndex) {
 		document.editEntryForm.schedIndex.value = schedIndex;
 		document.editEntryForm.timeIndex.value = timeIndex;
@@ -132,10 +132,10 @@
 	  <c:forEach var="scheduledUser" items="${role.currentUsers}">
 		<c:set var="fullName"><%= usersHash.get(pageContext.getAttribute("scheduledUser").toString()) %></c:set>
 		<span title="${fullName}">${scheduledUser}</span>
-	  </c:forEach>	
+	  </c:forEach>
 	</td>
   </tr>
-  
+
   <tr>
     <th>Supervisor</th>
 	<td>
@@ -145,7 +145,7 @@
     <th>Membership Group</th>
 	<td>${role.membershipGroup}</td>
   </tr>
-  
+
   <tr>
     <th>Description</th>
 	<td colspan="3">${role.description}</td>

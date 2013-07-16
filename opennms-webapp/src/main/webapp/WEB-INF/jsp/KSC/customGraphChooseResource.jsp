@@ -66,7 +66,7 @@
 </script>
   <%--
   <script type="text/javascript" >
-  
+
       function validateResource()
       {
           var isChecked = false
@@ -76,14 +76,14 @@
                   isChecked=true;
               }
           }
-  
+
           if (!isChecked) {
               alert("Please check the resource that you would like to report on.");
           }
           return isChecked;
       }
-      
-      
+
+
       function validateResourceSelect()
       {
           var isChecked = false
@@ -94,19 +94,19 @@
                   isChecked=true;
               }
           }
-  
+
           if (!isChecked) {
               alert("Please check the resource that you would like to report on.");
           }
           return isChecked;
       }
-  
+
       function submitForm() {
           if (validateResource()) {
               document.report.submit();
           }
       }
-      
+
       function submitFormSelect() {
           if (validateResourceSelect()) {
               document.reportSelect.submit();
@@ -120,7 +120,7 @@
     <c:when test="${empty parentResource}">
       Top-level
     </c:when>
-    
+
     <c:otherwise>
       <c:if test="${!empty parentResource.parent}">
         ${parentResource.parent.resourceType.label}:
@@ -134,7 +134,7 @@
         </c:choose>
         <br />
       </c:if>
-      
+
       ${parentResource.resourceType.label}:
       <c:choose>
         <c:when test="${!empty parentResource.link}">
@@ -176,7 +176,7 @@
             <li>${prefabGraph.name}</li>
           </c:forEach>
         </ul>
-        
+
         <form method="get" name="resourceSelected" action="<%= org.opennms.web.api.Util.calculateUrlBase( request, "KSC/customGraphEditDetails.htm" ) %>" >
           <input type="hidden" name="<%=CustomGraphEditDetailsController.Parameters.resourceId%>" value="${parentResource.id}"/>
           <input type="submit" value="Choose this resource"/>
@@ -193,7 +193,7 @@
           No child resources found on this resource.
         </p>
       </c:when>
-      
+
       <c:otherwise>
       	<opennms:kscChooseResourceList id="resourceList" dataObject="data" ></opennms:kscChooseResourceList>
       	<div name="opennms-kscChooseResourceList" id="resourceList-ie" dataObject="data" ></div>
@@ -212,7 +212,7 @@
           <br/>
           <input type="button" value="View child resource" onclick="submitForm()" />
         </form>
-        
+
         <form method="get" name="reportSelect" action="<%= org.opennms.web.api.Util.calculateUrlBase( request, "KSC/customGraphEditDetails.htm" ) %>" >
           <input type="hidden" name="resourceId" value="" />
           <input type="button" value="Choose child resource" onclick="submitFormSelect()" />
@@ -229,19 +229,19 @@
           This resource has no parent.  You are looking at the top-level resources.
         </p>
       </c:when>
-      
+
       <c:when test="${empty parentResource.parent}">
         <p>
           This resource has no parent.  You can use the "View top-level resources"
           button to see all top-level resources.
         </p>
-        
+
         <form method="get" name="viewTopLevel" action="<%= org.opennms.web.api.Util.calculateUrlBase( request, "KSC/customGraphChooseParentResource.htm" ) %>" >
           <input type="hidden" name="<%=CustomGraphChooseParentResourceController.Parameters.selectedResourceId%>" value="${param.selectedResourceId}" />
           <input type="submit" value="View top-level resources" />
         </form>
       </c:when>
-    
+
       <c:otherwise>
         <form method="get" name="viewParent" action="<%= org.opennms.web.api.Util.calculateUrlBase( request, "KSC/customGraphChooseResource.htm" ) %>" >
           <input type="hidden" name="<%=CustomGraphChooseResourceController.Parameters.selectedResourceId%>" value="${param.selectedResourceId}"/>
@@ -264,14 +264,14 @@
       interface-level or generic indexed data), response time data, or
       distributed response time data.
     </p>
-    
+
     <p>
       These resources are organized first by top-level resources, such as
       nodes or domains (if enabled), and then by child resources under the
       top-level resources, like SNMP node-level data, response time data,
       etc..
     </p>
-    
+
     <p>
       The resource you are currently looking at (if any) is shown just below
       the menu-bar on the left side of the page.
@@ -280,7 +280,7 @@
       "Choose this resource" button which will take you to the graph
       customization page.
     </p>
-    
+
     <p>
       If the current resource has child resources (or if you are at the
       top-level) a list of available child resources will be shown in the
@@ -292,7 +292,7 @@
       straight to the graph customization page by clicking "Choose child
       resource".
     </p>
-    
+
     <p>
       The <b>View the parent resource</b> box lets you see the parent resource
       of the current resource (or see all top-level resources).

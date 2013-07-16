@@ -51,19 +51,19 @@
     public ResourceService m_resourceService;
 
     public static final Map<Integer, String[]> s_colors = new LinkedHashMap<Integer, String[]>();
-    
+
     static {
         s_colors.put(0, new String[] { "Red", "ff0000" });
         s_colors.put(1, new String[] { "Green", "00ff00" });
         s_colors.put(2, new String[] { "Blue", "ff00ff" });
         s_colors.put(3, new String[] { "Black", "000000" });
     }
-    
+
     public void init() throws ServletException {
 	    WebApplicationContext webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         m_resourceService = (ResourceService) webAppContext.getBean("resourceService", ResourceService.class);
     }%>
- 
+
 <%
     String[] requiredParameters = new String[] {
         "resourceId"
@@ -86,8 +86,8 @@
         pageContext.setAttribute("resource", resource);
         pageContext.setAttribute("colors", s_colors);
     }
-    
-    
+
+
 
 %>
 
@@ -105,7 +105,7 @@
 <c:choose>
   <c:when test="${tooManyResourceIds}">
     <h2>Error</h2>
-    
+
     <h3>Only one resource supported</h3>
 
     <p>
@@ -113,10 +113,10 @@
       graphs.  Please go back and choose a single resource.
     </p>
   </c:when>
-  
+
   <c:otherwise>
     <c:set var="showFootnote1" value="false"/>
-    
+
     <h2>Step 2: Choose Data Sources</h2>
 
     <h3>
@@ -129,7 +129,7 @@
           ${resource.parent.label}
         </c:otherwise>
       </c:choose>
-  
+
       <c:if test="${!empty resource}">
         <br />
         <c:choose>
@@ -151,7 +151,7 @@
         </c:choose>
       </c:if>
     </h3>
-    
+
 
     <form method="get" action="graph/adhoc3.jsp" >
       <%=Util.makeHiddenTags(request)%>
@@ -159,7 +159,7 @@
       <table width="100%" cellspacing="2" cellpadding="2" border="0">
         <c:set var="anythingSelected" value="false"/>
         <c:forEach var="dsIndex" begin="0" end="3">
-          <!-- Data Source ${dsIndex} -->     
+          <!-- Data Source ${dsIndex} -->
           <tr>
             <td valign="top">
               Data Source ${dsIndex + 1}
@@ -171,7 +171,7 @@
                   (optional):
                 </c:otherwise>
               </c:choose>
-              
+
               <br/>
 
               <select name="ds" size="6">
@@ -200,8 +200,8 @@
                 </tr>
 
                 <tr>
-                  <td width="5%">Color:</td> 
-                  <td> 
+                  <td width="5%">Color:</td>
+                  <td>
                     <select name="color">
                       <c:forEach var="color" items="${colors}">
                         <c:choose>
@@ -212,7 +212,7 @@
                             <c:set var="selected" value=""/>
                           </c:otherwise>
                         </c:choose>
-                        
+
                         <option value="${color.value[1]}" ${selected}>${color.value[0]}</option>
                       </c:forEach>
                     </select>
@@ -220,8 +220,8 @@
                 </tr>
 
                 <tr>
-                  <td width="5%">Style:</td> 
-                  <td> 
+                  <td width="5%">Style:</td>
+                  <td>
                     <select name="style">
                       <option value="LINE1">Thin Line</option>
                       <option value="LINE2" selected="selected">Medium Line</option>
@@ -235,8 +235,8 @@
                 </tr>
 
                 <tr>
-                  <td width="5%">Value&nbsp;Type:</td> 
-                  <td> 
+                  <td width="5%">Value&nbsp;Type:</td>
+                  <td>
                     <select name="agfunction">
                       <option value="AVERAGE" selected="selected">Average</option>
                       <option value="MIN">Minimum</option>
@@ -250,7 +250,7 @@
 
           <tr><td colspan="2"><hr></td></tr>
         </c:forEach>
-      </table> 
+      </table>
 
       <input type="submit" value="Next"/>
       <input type="reset" />

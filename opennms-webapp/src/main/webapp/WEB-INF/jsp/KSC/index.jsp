@@ -52,10 +52,10 @@
     pageContext.setAttribute("match", match);
     final String baseHref = Util.calculateUrlBase(request);
 %>
-    
+
 <%!
     public ResourceService m_resourceService;
-    
+
     public void init() throws ServletException {
       WebApplicationContext m_webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
       m_resourceService = (ResourceService) m_webAppContext.getBean("resourceService", ResourceService.class);
@@ -72,7 +72,7 @@
 </jsp:include>
 
 <div class="TwoColLeft">
- 
+
   <h3 class="o-box">Customized Reports</h3>
 
   <div class="boxWrapper">
@@ -94,8 +94,8 @@
 											  </c:if>
 											</c:forEach>
 				                             ]};
-		
-		
+
+
 	</script>
     <opennms:kscCustomReportList id="kscReportList" dataObject="customData"></opennms:kscCustomReportList>
     <!-- For IE Only -->
@@ -161,7 +161,7 @@
         </c:when>
         <c:otherwise>
           allow users to view automatically generated reports for interfaces on
-          any node or domain.  
+          any node or domain.
         </c:otherwise>
       </c:choose>
 

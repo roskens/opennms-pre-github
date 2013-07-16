@@ -50,10 +50,10 @@
 
 <%!
     public CategoryModel model = null;
-    
+
     public void init() throws ServletException {
         try {
-            this.model = CategoryModel.getInstance();            
+            this.model = CategoryModel.getInstance();
         }
         catch( java.io.IOException e ) {
             throw new ServletException("Could not instantiate the CategoryModel", e);
@@ -63,7 +63,7 @@
         }
         catch( org.exolab.castor.xml.ValidationException e ) {
             throw new ServletException("Could not instantiate the CategoryModel", e);
-        }        
+        }
 
     }
 %>
@@ -82,13 +82,13 @@
     if (category == null) {
         throw new CategoryNotFoundException(categoryName);
     }
-    
+
     AclUtils.NodeAccessChecker accessChecker = AclUtils.getNodeAccessChecker(getServletContext());
 
     //put the nodes in a tree map to sort by name
     TreeMap<String,Node> nodeMap = new TreeMap<String,Node>();
     Enumeration<Node> nodeEnum = category.enumerateNode();
-    
+
     while (nodeEnum.hasMoreElements()) {
         Node node = nodeEnum.nextElement();
         int nodeId = (int)node.getNodeid();
@@ -106,7 +106,7 @@
             }
         }
     }
-    
+
     Set<String> keySet = nodeMap.keySet();
     Iterator<String> nameIterator = keySet.iterator();
 %>
@@ -132,7 +132,7 @@
     Show interfaces:
 	<% String showoutages = req.getParameter("showoutages"); %>
 
-        <%  
+        <%
         if(showoutages == null ) {
            showoutages = "avail";
         } %>
@@ -146,12 +146,12 @@
 
 
               <input type="radio" name="showout" <%=(showoutages.equals("avail") ? "checked" : "")%>
-               onclick="top.location = '<%= Util.calculateUrlBase( req , "rtc/category.jsp?category=" + Util.encode(category.getName()) + "&amp;showoutages=avail") %>'" ></input>With availability &lt; 100% 
+               onclick="top.location = '<%= Util.calculateUrlBase( req , "rtc/category.jsp?category=" + Util.encode(category.getName()) + "&amp;showoutages=avail") %>'" ></input>With availability &lt; 100%
 
   </p>
 </form>
 
-      <% if( category.getComment() != null ) { %>      
+      <% if( category.getComment() != null ) { %>
         <p><c:out value="<%=category.getComment()%>"/></p>
       <% } %>
       <% if( AclUtils.shouldFilter(SecurityContextHolder.getContext().getAuthentication().getAuthorities()) ) { %>
@@ -165,26 +165,26 @@
           <th>Outages</th>
           <th>24hr Availability</th>
         </tr>
-      
-        <%  
+
+        <%
 	    int valuecnt = 0;
 	    int outagecnt = 0;
 
             while( nameIterator.hasNext() ) {
                 String nodeLabel = nameIterator.next();
                 Node node = nodeMap.get(nodeLabel);
-                
+
                 double value = node.getNodevalue();
-        
+
                 if( value >= 0 ) {
-                    long serviceCount = node.getNodesvccount();        
+                    long serviceCount = node.getNodesvccount();
                     long serviceDownCount = node.getNodesvcdowncount();
                     double servicePercentage = 100.0;
-                
+
                     if( serviceCount > 0 ) {
                        servicePercentage = ((double)(serviceCount-serviceDownCount))/(double)serviceCount*100.0;
                     }
-                
+
                     String availClass = CategoryUtil.getCategoryClass( category, value );
                     String outageClass = CategoryUtil.getCategoryClass( category, servicePercentage );
 
@@ -195,7 +195,7 @@
                       <td class="<%=outageClass%>" align="right"><%=serviceDownCount%> of <%=serviceCount%></td>
                       <td class="<%=availClass%>" align="right" width="30%"><b><%=CategoryUtil.formatValue(value)%>%</b></td>
                     </tr>
-            	    <%  } 
+		    <%  }
 		    if (value < 100 )
 		        ++valuecnt;
 		    if (serviceDownCount > 0 )
@@ -219,7 +219,7 @@
 		  </td>
                 </tr>
         <%  } %>
-        
+
     </table>
 
 

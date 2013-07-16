@@ -30,7 +30,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.netmgt.config.discovery.*, org.opennms.web.admin.discovery.ActionDiscoveryServlet,org.opennms.protocols.snmp.SnmpPeer" %>
-<% 
+<%
 	response.setDateHeader("Expires", 0);
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -99,17 +99,17 @@ function addIncludeRange(){
 	if(isNaN(document.getElementById("timeout").value)){
 		alert("Timeout not valid.");
 		document.getElementById("timeout").focus();
-		return;		
+		return;
 	}
 
 	if(isNaN(document.getElementById("retries").value)){
 		alert("Retries field not valid.");
 		document.getElementById("retries").focus();
-		return;		
-	}	
+		return;
+	}
 
-	
-		
+
+
 	opener.document.getElementById("irbase").value=document.getElementById("base").value;
 	opener.document.getElementById("irend").value=document.getElementById("end").value;
 	opener.document.getElementById("irtimeout").value=document.getElementById("timeout").value;
@@ -118,7 +118,7 @@ function addIncludeRange(){
 	opener.document.getElementById("modifyDiscoveryConfig").submit();
 	window.close();
 	opener.document.focus();
-	
+
 }
 
 </script>
@@ -141,7 +141,7 @@ function addIncludeRange(){
   <td class="standard" align="center" width="20%">Timeout (ms):<input type="text" id="timeout" name="timeout" value='<%=currConfig.getTimeout()%>' size="5" /></td>
  </tr>
 </table>
-	
+
 
 <input type="button" name="addIncludeRange" id="addIncludeRange" value="Add" onclick="addIncludeRange();" />
 <input type="button" name="cancel" id="cancel" value="Cancel" onclick="window.close();opener.document.focus();" />

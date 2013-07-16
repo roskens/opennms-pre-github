@@ -41,7 +41,7 @@
 <%
 	ViewFactory viewFactory = null;
 	Map views = null;
-	
+
   	try {
 		ViewFactory.init();
 		viewFactory = ViewFactory.getInstance();
@@ -67,32 +67,32 @@
     {
         newUserWin = window.open("admin/userGroupView/views/newView.jsp", "", "fullscreen=no,toolbar=no,status=no,menubar=no,scrollbars=yes,resizable=yes,directories=no,location=no,width=500,height=300");
     }
-    
+
     function detailView(viewName)
     {
         document.allViews.action="admin/userGroupView/views/viewDetail.jsp?viewName=" + viewName;
         document.allViews.submit();
     }
-    
+
     function deleteView(viewName)
     {
         document.allViews.action="admin/userGroupView/views/deleteView";
         document.allViews.viewName.value=viewName;
         document.allViews.submit();
     }
-    
+
     function modifyView(viewName)
     {
         document.allViews.action="admin/userGroupView/views/modifyView";
         document.allViews.viewName.value=viewName;
         document.allViews.submit();
     }
-    
+
     function renameView(viewName)
     {
         document.allViews.viewName.value=viewName;
         var newName = prompt("Enter new name for view.", viewName);
-        
+
         if (newName != null && newName != "")
         {
           document.allViews.newName.value = newName;
@@ -100,7 +100,7 @@
           document.allViews.submit();
         }
     }
-    
+
 </script>
 
 <h3>View Configuration</h3>

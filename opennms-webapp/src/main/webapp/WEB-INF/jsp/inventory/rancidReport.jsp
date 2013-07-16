@@ -48,7 +48,7 @@
     <h3>Generate reports</h3>
     <table class="o-box">
 	</table>
-	
+
     <h3>Inventory</h3>
 	<form id="inventoryReport" method="post" name="inventoryReport">
 	<table class="o-box">
@@ -84,7 +84,7 @@
 		 	<th></th>
 		 	<th><input id="run" type="button" value="run" onClick="runInventory()">
 		 	</th>
-		 </tr>	
+		 </tr>
 		 </table>
 		 </form>
 </div>
@@ -93,7 +93,7 @@
     <h3>Descriptions</h3>
     <div class="boxWrapper">
           <p><b>Date</b> provide a date at which you want to get report.
-          If you leave it blank the report data is today. 
+          If you leave it blank the report data is today.
       </p>
 
           <p><b>Matching</b> provide a regular expression to match on. The report will only contain
@@ -103,18 +103,18 @@
       </p>
 
       <p><b>Report Type</b> Selecting <em>Rancid</em> you get a list of all the rancid
-            devices in router.db (for every rancid group) at a specified date. 
+            devices in router.db (for every rancid group) at a specified date.
             Selecting <em>Inventory</em> you get a list of all inventory items for each device
             that had inventory data at the specified data for matching string
       </p>
-      
+
       <p><b>Report Format</b> Selecting <em>HTML</em> you get an HTML report.
         Selecting <em>XML</em> you get an XML report.
       </p>
-      
+
       <p><b>Email</b> Sets the email address of the user that will receive the report.
       </p>
-    
+
 	</div>
   </div>
 
@@ -124,7 +124,7 @@
 
 function runInventory() {
 	  document.inventoryReport.action="inventory/rancidReportExec.htm";
-	  document.inventoryReport.submit();	
+	  document.inventoryReport.submit();
 }
 
 </script>

@@ -46,15 +46,15 @@
 </jsp:include>
 
 <script type="text/javascript">
-  function verifyGoForm() 
+  function verifyGoForm()
   {
-    if (document.goForm.pass1.value == document.goForm.pass2.value) 
+    if (document.goForm.pass1.value == document.goForm.pass2.value)
     {
       document.goForm.currentPassword.value=document.goForm.oldpass.value;
       document.goForm.newPassword.value=document.goForm.pass1.value;
       document.goForm.action="account/selfService/newPasswordAction";
       return true;
-    } 
+    }
     else
     {
       alert("The two new password fields do not match!");
@@ -91,7 +91,7 @@
       <input type="password" name="pass1">
     </td>
   </tr>
-  
+
   <tr>
     <td width="10%">
       Confirm Password:
@@ -100,7 +100,7 @@
       <input type="password" name="pass2">
     </td>
   </tr>
-  
+
   <tr>
     <td>
       <input type="submit" value="OK"/>

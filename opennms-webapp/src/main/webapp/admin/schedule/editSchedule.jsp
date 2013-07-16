@@ -41,7 +41,7 @@
 			<input id="<c:out value="${schedId}.name"/>" type="text" readonly="true" value="<c:out value="${currentSchedule.name}"/>"/>
 			<label for="<c:out value="${schedId}.type"/>">Type:</label>
 			<input id="<c:out value="${schedId}.type"/>" type="text" readonly="true" value="<c:out value="${currentSchedule.type}"/>"/>
-			
+
 		</form>
 	</body>
 </html>

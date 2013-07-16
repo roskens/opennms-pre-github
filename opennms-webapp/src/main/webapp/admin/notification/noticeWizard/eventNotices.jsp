@@ -81,7 +81,7 @@
         document.notices.notice.value=name;
         document.notices.submit();
     }
-    
+
     function deleteNotice(name)
     {
         if (confirm("Are you sure you want to delete the notification " + name + "?"))
@@ -91,20 +91,20 @@
           document.notices.submit();
         }
     }
-    
+
     function setStatus(name, status)
     {
         document.notices.userAction.value=status;
         document.notices.notice.value=name;
         document.notices.submit();
     }
-    
+
     function newNotice()
     {
         document.notices.userAction.value="new";
         document.notices.submit();
     }
-    
+
 </script>
 
 <h2>Event Notifications</h2>
@@ -181,12 +181,12 @@
   public String stripUei(String uei)
     {
         String leftover = uei;
-        
+
         for (int i = 0; i < 3; i++)
         {
             leftover = leftover.substring(leftover.indexOf('/')+1);
         }
-        
+
         return leftover;
      }
 %>

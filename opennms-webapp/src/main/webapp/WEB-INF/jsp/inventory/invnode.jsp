@@ -90,7 +90,7 @@
 	    <td>${model.creationdate}</td>
 	</tr>
    </table>
-	
+
 	 <h3>Configuration info</h3>
 
 	 <table class="o-box">

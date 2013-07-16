@@ -57,16 +57,16 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of last active inventories.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="
-  org.opennms.core.utils.WebSecurityUtils, 
+  org.opennms.core.utils.WebSecurityUtils,
   org.opennms.web.element.*,
   org.opennms.netmgt.model.OnmsNode
 "%>
@@ -79,33 +79,33 @@
     if( nodeIdString == null ) {
         throw new org.opennms.web.servlet.MissingParameterException("node");
     }
-        
+
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
-    
+
     //gets active route entry on node
-    
+
    	StpNode[] stpnodes = NetworkElementFactory.getInstance(getServletContext()).getStpNode(nodeId);
 
 %>
 
 
-  
+
 
 <h3>Node Bridge Info</h3>
 <% if(stpnodes.length == 0) { %>
-		
+
 	<table>
 		<tr>
 		<td>There have been no bridge info on this node.</td>
 		</tr>
 	</table>
-        
+
 <% } else { %>
 		<table>
 			<thead>
               <tr>
-                <th>VLAN ID</th>			  
-                <th>VLAN Name</th>			  
+                <th>VLAN ID</th>
+                <th>VLAN Name</th>
                 <th>Base Address</th>
                 <th>Type</th>
                 <th>STP Proto Spec</th>
@@ -120,14 +120,14 @@
              </thead>
               <% for (int i=0; i < stpnodes.length;i++) { %>
 			  <tr bgcolor="<%=stpnodes[i].getVlanColorIdentifier()%>">
-                <td><%=stpnodes[i].get_basevlan()%></td>			  
-                <td><%=stpnodes[i].getBaseVlanName()%></td>			  
+                <td><%=stpnodes[i].get_basevlan()%></td>
+                <td><%=stpnodes[i].getBaseVlanName()%></td>
                 <td><%=stpnodes[i].get_basebridgeaddress()%></td>
                 <td><%=stpnodes[i].getBaseType()%></td>
                 <td><%=stpnodes[i].getStpProtocolSpecification()%></td>
                 <td><%=stpnodes[i].get_basenumports()%></td>
                 <td><%=stpnodes[i].getStatusString()%></td>
-				<% if (stpnodes[i].get_stprootnodeid() != 0) { 
+				<% if (stpnodes[i].get_stprootnodeid() != 0) {
 					   	OnmsNode node = NetworkElementFactory.getInstance(getServletContext()).getNode(stpnodes[i].get_stprootnodeid());
 				%>
                 <td><a href="element/node.jsp?node=<%=stpnodes[i].get_stprootnodeid()%>"><%=node.getLabel()%></a><br/>(<strong><%=stpnodes[i].get_stpdesignatedroot()%></strong>)</td>
@@ -141,5 +141,5 @@
               </tr>
               <% } %>
        <% } %>
-                     
-</table>      
+
+</table>

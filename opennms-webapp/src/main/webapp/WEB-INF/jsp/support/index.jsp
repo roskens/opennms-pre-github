@@ -126,14 +126,14 @@ session="true"
           </table>
           <input type="hidden" name="operation" value="createTicket" />
         </form>
-        
+
         <hr />
 
         <p>
         	Your newest tickets are listed below.  For a complete list, log in to the
         	<a href="<c:out value="${results.RTUrl}" />">OpenNMS support portal</a>.
         </p>
-        
+
         <table>
         <c:forEach var="ticket" items="${results.latestTickets}">
           <tr>
@@ -146,7 +146,7 @@ session="true"
 
       <c:otherwise>
         <!-- no account session found, ask for login -->
-        
+
         <h3>Commercial Support</h3>
         <div class="boxWrapper">
 

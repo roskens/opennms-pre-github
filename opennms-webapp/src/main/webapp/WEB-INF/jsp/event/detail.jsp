@@ -56,7 +56,7 @@
 		Assert.isTrue(events.length == 1, "event detail filter should match only one event: event found:" + events.length);
 
     	event = events[0];
-    
+
 	    if (event.getAcknowledgeTime()==null)
 	    {
 	        buttonName = "Acknowledge";
@@ -69,7 +69,7 @@
 	    }
 
 		Pattern p = Pattern.compile("([^=]+)=(.*)\\((\\w+),(\\w+)\\)");
-	    
+
 	    if (event.getParms() != null) {
 			String[] parmStrings = event.getParms().split(";");
 			for (String parmString : parmStrings) {
@@ -79,11 +79,11 @@
 						+ parmString + "' in event ID " + event.getId());
 					continue;
 				}
-				
+
 				parms.put(m.group(1), m.group(2));
 			}
 	    }
-	}    
+	}
 
 %>
 
@@ -120,7 +120,7 @@
           <td class="divider" colspan="2">&nbsp;</td>
           <% } %>
         </tr>
-        
+
         <tr  class="<%= event.getSeverity().getLabel() %>">
           <th>Time</th>
           <td><%=org.opennms.web.api.Util.formatDateToUIString(event.getTime())%></td>
@@ -147,7 +147,7 @@
           <td colspan="2">&nbsp;</td>
           <% } %>
         </tr>
-        
+
         <tr class="<%= event.getSeverity().getLabel() %>">
           <th>Service</th>
           <td>
@@ -173,8 +173,8 @@
           <% } else { %>
             <td colspan="4">&nbsp;</td>
           <% } %>
-        </tr> 
-          
+        </tr>
+
         <tr class="<%= event.getSeverity().getLabel() %>">
           	<th>UEI</th>
                 <td>
@@ -205,7 +205,7 @@
           <td><%=event.getDescription()%></td>
         </tr>
       </table>
-      
+
       <table>
         <tr class="<%= event.getSeverity().getLabel() %>">
           <th>Operator&nbsp;Instructions</th>
@@ -221,7 +221,7 @@
         </tr>
       </table>
 
-      <% 
+      <%
       if( ( request.isUserInRole( org.opennms.web.springframework.security.Authentication.ROLE_ADMIN ) || !request.isUserInRole( org.opennms.web.springframework.security.Authentication.ROLE_READONLY ) ) && "true".equals(acknowledgeEvent)) { %>
         <form method="post" action="event/acknowledge">
           <input type="hidden" name="actionCode" value="<%=action%>" />
@@ -230,5 +230,5 @@
           <input type="submit" value="<%=buttonName%>"/>
         </form>
       <% } %>
-   <% } %>   
+   <% } %>
 <jsp:include page="/includes/footer.jsp" flush="false" />

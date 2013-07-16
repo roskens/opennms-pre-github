@@ -33,7 +33,7 @@
 
 <%
 
-        
+
     //required parameter node
     String nodeIdString = request.getParameter( "node" );
     if(nodeIdString == null) {
@@ -75,7 +75,7 @@ function checkIpAddress(ip){
 		return false;
 	if(ipArr[0]=="" || ipArr[1]=="" || ipArr[2]=="" || ipArr[3]=="")
 		return false;
-	if(isNaN(ipArr[0]) || isNaN(ipArr[1]) || isNaN(ipArr[2]) || isNaN(ipArr[3]) || 
+	if(isNaN(ipArr[0]) || isNaN(ipArr[1]) || isNaN(ipArr[2]) || isNaN(ipArr[3]) ||
 		ipArr[0]<0 || ipArr[0]>255 || ipArr[1]<0 || ipArr[1]>255 || ipArr[2]<0 || ipArr[2]>255 || ipArr[3]<0 || ipArr[3]>255)
 		return false;
 	return true;
@@ -86,7 +86,7 @@ function doCommand(){
 	 var command = document.getElementById("command").value;
      var url = baseUrl+ 'command=' + command;
 
-     var address = document.getElementById("address").value;     
+     var address = document.getElementById("address").value;
      if(!checkIpAddress(document.getElementById("address").value)){
              	alert("Invalid IP address");
              	document.getElementById("address").focus();
@@ -102,13 +102,13 @@ function doCommand(){
 		}
      	url=url+"&hopAddress="+document.getElementById("hopAddress").value;
     }
-    
+
     if(document.getElementById("numericOutput").checked){
 	     url = url+'&numericOutput=true';
     }
-	     
+
     xmlhttp.onreadystatechange=function() {
-  		
+
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
   			id=xmlhttp.responseText;
 
@@ -118,12 +118,12 @@ function doCommand(){
  				var newdiv1 = document.createElement('div');
 				newdiv1.setAttribute('id','bottomResponse');
 				newdiv1.innerHTML = '<h3><font face="courier,arial">Cannot Execute Command: too many commands running</h3>';
-				myDiv.appendChild(newdiv1);							
+				myDiv.appendChild(newdiv1);
 			} else if ( id == 'NOADDRESSINDATABASE' ) {
  				var newdiv2 = document.createElement('div');
 				newdiv2.setAttribute('id','bottomResponse');
 				newdiv2.innerHTML = '<h3><font face="courier,arial">Cannot Execute Command: ip address not in opennms database</h3>';
-				myDiv.appendChild(newdiv2);											
+				myDiv.appendChild(newdiv2);
 			} else {
 	    		t=setTimeout("doNextRequest()",300);
  				var newdiv = document.createElement('div');
@@ -131,20 +131,20 @@ function doCommand(){
 				newdiv.innerHTML = '<h3><font face="courier,arial">Executing '+command+ ' for the IP address '+address+'</h3>';
 				myDiv.appendChild(newdiv);
 			}
-	
+
 			var newdivb = document.createElement('div');
 			newdivb.setAttribute('id','clearButton');
    	    	newdivb.innerHTML = '<input type="button" value="Clear" onclick="doClear()"/>' ;
    	    	myDiv.appendChild(newdivb);
-    		
+
     	}
 	};
-	
+
 	xmlhttp.open("GET",url,true);
     xmlhttp.send();
-    
+
 }
-  	
+
 function doClear() {
 
   	clearTimeout(t);
@@ -152,35 +152,35 @@ function doClear() {
 	document.getElementById("myDiv").innerHTML="";
 
  }
-  	
+
 function doNextRequest() {
- 	t=setTimeout("doNextRequest()",300);  		
+	t=setTimeout("doNextRequest()",300);
   	var url=baseUrl+ 'id=' + id;
-    
+
     xmlhttp.onreadystatechange=function() {
-		
+
 		if (xmlhttp.readyState==4 && xmlhttp.status==200) {
 			var rT=xmlhttp.responseText;
 
  			var myDiv = document.getElementById("myDiv");
 
 			if ( rT == 'END' ) {
-				clearTimeout(t);			
+				clearTimeout(t);
  				var newdiv = document.createElement('div');
 				newdiv.setAttribute('id','bottomResponse');
 				newdiv.innerHTML = '<h3><font face="courier,arial">Command Successfull Run</h3>';
 				myDiv.appendChild(newdiv);
 				return;
 			}
-			
+
 			if ( rT == 'BLANCK') {
 				return;
 			}
-			
+
 			if ( rT == 'ERROR') {
-				rT = 'An error accurred during command execution'; 
+				rT = 'An error accurred during command execution';
 				clearTimeout(t);
-			}  			
+			}
 
  			var newdiv = document.createElement('div');
 			var divIdName = 'my'+num+'Div';
@@ -189,7 +189,7 @@ function doNextRequest() {
 			myDiv.appendChild(newdiv);
 			num++;
 		}
-	};	
+	};
 
     xmlhttp.open("GET",url,true);
     xmlhttp.send();
@@ -231,9 +231,9 @@ function doNextRequest() {
             <td>IP Address: </td>
 	    	<td><select id="address" name="address">
 	<%
-    String ipAddress = null;              
+    String ipAddress = null;
     Interface[] intfs = NetworkElementFactory.getInstance(getServletContext()).getActiveInterfacesOnNode( nodeId );
-    for( int i=0; i < intfs.length; i++ ) { 
+    for( int i=0; i < intfs.length; i++ ) {
       	if(intfs[i]!=null){
 		   ipAddress = intfs[i].getIpAddress();
 		   if(ipAddress.equals("0.0.0.0") || !intfs[i].isManaged())
@@ -242,11 +242,11 @@ function doNextRequest() {
 	%>
 	 	<option value="<%=ipAddress%>"><%=ipAddress%></option>
     <%
-		}                     	
+		}
  	}
     %>
             </select>
-        	</td>  
+		</td>
             <td>&nbsp;</td>
           </tr>
           <tr>
@@ -259,7 +259,7 @@ function doNextRequest() {
           <tr id="info" style="display:none">
 	    	<td colspan="3" align="right">Insert an IP address to force <br/> a route passing through it.</td>
 	  	  </tr>
-          
+
           <tr>
             <td align="left">
 		Numeric output:
@@ -267,12 +267,12 @@ function doNextRequest() {
             <td>
             	<input id="numericOutput" type="checkbox" />
             </td>
-          </tr>          
+          </tr>
           <tr>
-            <td colspan="3">&nbsp;</td>            
-          </tr>          
+            <td colspan="3">&nbsp;</td>
+          </tr>
           <tr>
-            <td>&nbsp;</td>          
+            <td>&nbsp;</td>
             <td align="right">
             	<input type="button" id="button1" value="Traceroute" onclick="doCommand()" />
             </td>

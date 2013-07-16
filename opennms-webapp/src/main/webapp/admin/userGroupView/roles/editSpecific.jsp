@@ -57,8 +57,8 @@
   <input type="hidden" name="operation" value="saveEntry"/>
   <input type="hidden" name="role" value="${role.name}"/>
   <input type="hidden" name="schedIndex" value="${schedIndex}"/>
-  <input type="hidden" name="timeIndex" value="${timeIndex}" /> 
-  
+  <input type="hidden" name="timeIndex" value="${timeIndex}" />
+
   <table>
 	         <tr>
     		    <th>Role</th>
@@ -77,7 +77,7 @@
           	</tr>
 	        <tr>
     		    <th>Start Date</th>
-				<td> 
+				<td>
 					<c:import url="/includes/dateControl.jsp">
 						<c:param name="prefix" value="start"/>
 						<c:param name="date"><fmt:formatDate value="${start}" pattern="dd-MM-yyyy"/></c:param>

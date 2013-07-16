@@ -41,7 +41,7 @@
   <jsp:param name="title" value="Manage Report Schedule" />
   <jsp:param name="headTitle" value="Manage Report Schedule" />
   <jsp:param name="breadcrumb" value="<a href='report/index.jsp'>Reports</a>" />
-  <jsp:param name="breadcrumb" 
+  <jsp:param name="breadcrumb"
 		value="<a href='report/database/index.htm'>Database</a>" />
   <jsp:param name="breadcrumb" value="Manage Report Schedule"/>
 </jsp:include>

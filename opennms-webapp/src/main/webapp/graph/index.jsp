@@ -45,7 +45,7 @@
 <%!
     public ResourceService m_resourceService;
 
-    public void init() throws ServletException { 
+    public void init() throws ServletException {
 	    WebApplicationContext m_webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
 	    m_resourceService = (ResourceService) m_webAppContext.getBean("resourceService", ResourceService.class);
     }
@@ -69,7 +69,7 @@
 
 
 <script type="text/javascript" >
-  
+
   function validateResource()
   {
       var isChecked = false
@@ -126,7 +126,7 @@
 
 </script>
 <div class="TwoColLeft">
-  
+
     <h3 class="o-box">Standard Resource<br/>Performance Reports</h3>
 	<div class="boxWrapper">
     <p>
@@ -146,7 +146,7 @@
 										    		,{id:"${resource.id}", value:"${resource.resourceType.label}: ${resource.label}", type:"${resource.resourceType.label}"}
 										    	</c:otherwise>
 									    	</c:choose>
-									    </c:if>  
+									    </c:if>
 									  </c:forEach>
 
 			                                          		]};
@@ -156,7 +156,7 @@
 	<!-- Div for IE -->
 	<div name="opennms-graphResourceList" id="resourceList-ie" dataObject="standardResourceData"></div>
   </div>
-  
+
 
     <h3 class="o-box">Custom Resource<br/>Performance Reports</h3>
 	<div class="boxWrapper">
@@ -177,11 +177,11 @@
                                                     ,{id:"${resource.id}", value:"${resource.resourceType.label}: ${resource.label}", type:"${resource.resourceType.label}"}
                                                   </c:otherwise>
                                                 </c:choose>
-                                              </c:if>  
+                                              </c:if>
                                             </c:forEach>
 
 			                                                                 		]};
-		
+
 	</script>
 	<opennms:graphResourceList id="resourceList2" dataObject="customResources"> </opennms:graphResourceList>
 	<div name="opennms-graphResourceList" id="resourceList2-ie" dataObject="customResources"></div>
@@ -189,7 +189,7 @@
 </div>
 
 <div class="TwoColRight">
-  
+
     <h3 class="o-box" align=center>Network Performance Data</h3>
 	<div class="boxWrapper">
     <p>

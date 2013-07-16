@@ -76,20 +76,20 @@
 				org.opennms.netmgt.config.threshd.Package thisPackage = thresholdingPackages[i];
 				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
 			}
-	
+
 			org.opennms.netmgt.config.poller.Package[] pollingPackages = PollerConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < pollingPackages.length; i++) {
 				org.opennms.netmgt.config.poller.Package thisPackage = pollingPackages[i];
 				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
 			}
-	
+
 			for (Iterator iter = CollectdConfigFactory.getInstance().getCollectdConfig().getPackages().iterator(); iter.hasNext();) {
 				org.opennms.netmgt.config.collectd.Package thisPackage = ((CollectdPackage) iter.next()).getPackage();
 				thisPackage.removeOutageCalendar(deleteName); //Will quietly do nothing if outage doesn't exist
 			}
-	
+
 			NotifdConfigFactory.getInstance().getConfiguration().removeOutageCalendar(deleteName);
-	
+
 			pollFactory.saveCurrent();
 			NotifdConfigFactory.getInstance().saveCurrent();
 			ThreshdConfigFactory.getInstance().saveCurrent();
@@ -156,32 +156,32 @@ div.nodeintbox {
 
 		try {
 			Outage[] outages = pollFactory.getOutages();
-	
+
 			Collection<String> notificationOutages = NotifdConfigFactory.getInstance().getConfiguration().getOutageCalendarCollection();
-	
+
 			PollerConfigFactory.init(); //Force init
-	
+
 			List<String> pollingOutages = new ArrayList<String>();
 			org.opennms.netmgt.config.poller.Package[] pollingPackages = PollerConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < pollingPackages.length; i++) {
 				pollingOutages.addAll(pollingPackages[i].getOutageCalendarCollection());
 			}
-	
+
 			ThreshdConfigFactory.init();
 			List<String> thresholdingOutages = new ArrayList<String>();
 			org.opennms.netmgt.config.threshd.Package[] thresholdingPackages = ThreshdConfigFactory.getInstance().getConfiguration().getPackage();
 			for (int i = 0; i < thresholdingPackages.length; i++) {
 				thresholdingOutages.addAll(thresholdingPackages[i].getOutageCalendarCollection());
 			}
-	
+
 			CollectdConfigFactory.init();
 			List<String> collectionOutages = new ArrayList<String>();
-	
+
 			for (Iterator iter = CollectdConfigFactory.getInstance().getCollectdConfig().getPackages().iterator(); iter.hasNext();) {
 				org.opennms.netmgt.config.collectd.Package thisPackage = ((CollectdPackage) iter.next()).getPackage();
 				collectionOutages.addAll(thisPackage.getOutageCalendarCollection());
 			}
-	
+
 			for (int i = 0; i < outages.length; i++) {
 				Outage thisOutage = outages[i];
 				String outageName = thisOutage.getName();
@@ -275,8 +275,8 @@ div.nodeintbox {
 	%>
 </table>
 <form action="admin/sched-outages/editoutage.jsp" method="post" >
-  <input type="text" value="New Name" size="40" name="newName" /> 
-  <input type="hidden" name="addNew" value="true" /> 
+  <input type="text" value="New Name" size="40" name="newName" />
+  <input type="hidden" name="addNew" value="true" />
   <input type="submit" name="newOutage" value="Add new outage" />
 </form>
 

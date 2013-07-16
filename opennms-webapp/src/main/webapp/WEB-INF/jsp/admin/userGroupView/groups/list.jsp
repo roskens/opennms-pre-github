@@ -49,7 +49,7 @@
         document.allGroups.operation.value="create";
         document.allGroups.submit();
     }
-    
+
     function detailGroup(groupName)
     {
         document.allGroups.action="admin/userGroupView/groups/modifyGroup";
@@ -57,7 +57,7 @@
         document.allGroups.groupName.value=groupName;
         document.allGroups.submit();
     }
-    
+
     function deleteGroup(groupName)
     {
         document.allGroups.action="admin/userGroupView/groups/modifyGroup";
@@ -65,7 +65,7 @@
         document.allGroups.groupName.value=groupName;
         document.allGroups.submit();
     }
-    
+
     function modifyGroup(groupName)
     {
         document.allGroups.action="admin/userGroupView/groups/modifyGroup";
@@ -113,7 +113,7 @@
           <td width="5%" align="center">
             <c:choose>
               <c:when test='${group.name != "Admin"}'>
-                <a href="javascript:deleteGroup('${group.name}')" onclick="return confirm('Are you sure you want to delete the group ${group.name}?')"><img src="images/trash.gif"></a>              
+                <a href="javascript:deleteGroup('${group.name}')" onclick="return confirm('Are you sure you want to delete the group ${group.name}?')"><img src="images/trash.gif"></a>
               </c:when>
               <c:otherwise>
                 <img src="images/trash.gif" title="Cannot delete ${group.name} group">
@@ -141,7 +141,7 @@
                 <c:when test="${!empty group.comments}">
                   ${group.comments}
                 </c:when>
-                
+
                 <c:otherwise>
                   No Comments
                 </c:otherwise>

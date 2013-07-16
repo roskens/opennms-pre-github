@@ -99,7 +99,7 @@
 %>
 
 <c:url var="eventUrl" value="event/list.htm">
-  <c:param name="filter" value="node= ${service.ipInterface.node.id}"/> 
+  <c:param name="filter" value="node= ${service.ipInterface.node.id}"/>
   <c:param name="filter" value="interface= ${service.ipInterface.ipAddress.hostAddress}"/>
   <c:param name="filter" value="service= ${service.serviceId}"/>
 </c:url>
@@ -119,8 +119,8 @@
   <jsp:param name="breadcrumb" value="<a href='${fn:escapeXml(interfaceLink)}'>Interface</a>" />
   <jsp:param name="breadcrumb" value="Service" />
 </jsp:include>
-  
-  
+
+
 <sec:authorize url="admin/deleteService">
 
 <script type="text/javascript" >
@@ -134,7 +134,7 @@ function doDelete() {
 </script>
 
 </sec:authorize>
-	
+
       <h2>${service.serviceName} service on ${service.ipAddress.hostAddress}</h2>
 
        <sec:authorize url="admin/deleteService">
@@ -144,20 +144,20 @@ function doDelete() {
          <input type="hidden" name="service" value="${service.serviceType.id}"/>
        </sec:authorize>
 
-        
+
       <p>
          <a href="${eventUrl}">View Events</a>
-         
- 	
+
+
        <sec:authorize url="admin/deleteService">
          &nbsp;&nbsp;&nbsp;<a href="admin/deleteService" onClick="return doDelete()">Delete</a>
        </sec:authorize>
 
-	
+
 
       </p>
- 
-          
+
+
 
       <sec:authorize url="admin/deleteService">
          </form>
@@ -177,11 +177,11 @@ function doDelete() {
               </tr>
               <tr>
                 <c:url var="interfaceLink" value="element/interface.jsp">
-                  <c:param name="ipinterfaceid" value="${service.ipInterface.id}"/> 
+                  <c:param name="ipinterfaceid" value="${service.ipInterface.id}"/>
                 </c:url>
-                <th>Interface</th> 
+                <th>Interface</th>
                 <td><a href="${fn:escapeXml(interfaceLink)}">${service.ipInterface.ipAddress.hostAddress}</a></td>
-              </tr>              
+              </tr>
               <tr>
                 <th>Polling Status</th>
                 <td>${service.statusLong}</td>
@@ -217,9 +217,9 @@ function doDelete() {
 
             <!-- Availability box -->
             <jsp:include page="/includes/serviceAvailability-box.jsp" flush="false" />
-            
+
             <jsp:include page="/includes/serviceApplication-box.htm" flush="false" />
-            
+
       </div> <!-- class="TwoColLeft" -->
 
       <div class="TwoColRight">
@@ -232,7 +232,7 @@ function doDelete() {
               <jsp:param name="header" value="<a href='${fn:escapeXml(eventUrl)}'>Recent Events</a>" />
               <jsp:param name="moreUrl" value="${fn:escapeXml(eventUrl)}" />
             </jsp:include>
-      
+
             <!-- Recent outages box -->
             <jsp:include page="/outage/serviceOutages-box.htm" flush="false" />
       </div> <!-- class="TwoColRight" -->

@@ -43,7 +43,7 @@
         <link media="screen" href="css/dashboard.css" type="text/css" rel="stylesheet">
 	  </jsp:attribute>
 	</jsp:param>
-	
+
 </jsp:include>
 
 <script type="text/javascript" language='javascript' src='dashboard/dashboard.nocache.js'></script>

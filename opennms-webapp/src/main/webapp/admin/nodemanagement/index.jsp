@@ -40,7 +40,7 @@
 
 <%
     int nodeId = -1;
-    
+
     String nodeIdString = request.getParameter("node");
 
     if (nodeIdString == null) {
@@ -55,7 +55,7 @@
     if (nodeId < -1) {
         throw new ServletException("Invalid node ID.");
     }
-        
+
     //get the database node info
     OnmsNode node_db = NetworkElementFactory.getInstance(getServletContext()).getNode(nodeId);
     if (node_db == null) {
@@ -117,12 +117,12 @@
     <a href="admin/nodemanagement/setPathOutage.jsp?node=<%=nodeId%>">
     Configure Path Outage</a>
   </p>
-  
+
       <% if ("true".equalsIgnoreCase(Vault.getProperty("opennms.rancidIntegrationEnabled"))) { %>
   <p>
     <a href="admin/rancid/rancidAdmin.htm?node=<%=nodeId%>">
     Configure Rancid Integration</a>
-  
+
   </p>
 
   <p>
@@ -132,20 +132,20 @@
 
   <% } %>
 </div>
-      
+
 <div class="TwoColRAdmin">
 
   <h3>Option Descriptions</h3>
 
   <p>
-    <b>Change Node Label</b> allows administrators either to specify a node 
+    <b>Change Node Label</b> allows administrators either to specify a node
     name, or let the system to automatically select the node name.
   </p>
 
   <p>
     When OpenNMS was first started, the nodes, interfaces, and services
     in the network were either <em>discovered</em> automatically or added
-    via one or more <em>requisitions</em>. As your network grows and changes, 
+    via one or more <em>requisitions</em>. As your network grows and changes,
     the TCP/IP ranges you want to manage, as well as the interfaces and
     services within those ranges, may change. For requisitioned nodes, it's
     usually better to make changes in the requisition rather than via the
@@ -158,7 +158,7 @@
     <b>Manage SNMP Data Collection per Interface</b> allows you
     to configure which non-IP interfaces are used in SNMP Data Collection.
   </p>
-        
+
   <p>
     <% if (node_db.getForeignSource() == null || node_db.getForeignSource().length() == 0) { %>
     <b>Delete Node</b> allows you to delete a current node permanently
@@ -169,12 +169,12 @@
     this interface. Otherwise, <b>Delete Node</b> would appear on this page.
     <% } %>
   </p>
-        
+
   <p>
     <b>Configure Path Outage</b> Set the critical path and service to test
     before sending Node Down notifications for this node.
   </p>
-  
+
         <% if ("true".equalsIgnoreCase(Vault.getProperty("opennms.rancidIntegrationEnabled"))) { %>
   <p>
     <b>Configure Rancid</b> Configure rancid group router.db files and rancid cloginrc
@@ -186,7 +186,7 @@
   </p>
 
   <% } %>
-  
+
 </div>
 
 <jsp:include page="/includes/footer.jsp" flush="false"/>

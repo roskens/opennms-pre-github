@@ -59,18 +59,18 @@
         document.crpth.nextPage.value="<%=NotificationWizardServlet.SOURCE_PAGE_VALIDATE_PATH_OUTAGE%>";
         document.crpth.submit();
     }
-    
+
 </script>
 
 <form method="post" name="crpth"
       action="admin/notification/noticeWizard/notificationWizard" >
-      
-      
+
+
     <% String mode = request.getParameter("mode");
        if (mode != null && mode.endsWith("failed")) { %>
-       
+
         <h3 style="color:red"><%=mode%>. Please check the entry for errors and re-submit.</h3>
-              
+
     <% } %>
 
     <h3>Define the Critical Path</h3>

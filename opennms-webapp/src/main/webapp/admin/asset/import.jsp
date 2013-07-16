@@ -46,7 +46,7 @@
 
 <p>
   Paste your comma-separated values into this text field to import
-  them into the assets database.  There is one line per record, and 
+  them into the assets database.  There is one line per record, and
   the fields are delimited by commas.
 </p>
 
@@ -128,7 +128,7 @@
                 <li> Comments
               </ol>
 	</div>
-	
+
 		<div style="width: 25%; position: relative; float: left">
               <ol start="45">
                 <li> (64) Cpu

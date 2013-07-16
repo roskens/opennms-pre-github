@@ -93,7 +93,7 @@
     if (alarm.getSeverity().isGreaterThanOrEqual(OnmsSeverity.NORMAL) && alarm.getSeverity().isLessThanOrEqual(OnmsSeverity.CRITICAL)) {
         showClear = true;
     }
-    
+
     List<OnmsAcknowledgment> acks = (List<OnmsAcknowledgment>) request.getAttribute("acknowledgments");
 %>
 
@@ -163,7 +163,7 @@
             &nbsp;
             <% }%>
         </td>
-    </tr> 
+    </tr>
     <tr class="<%=alarm.getSeverity().getLabel()%>">
         <th>Count</th>
         <td><%=alarm.getCounter()%></td>
@@ -181,14 +181,14 @@
         <td><% if (alarm.getTTicketId() == null) {%>
             &nbsp;
             <% } else {%>
-            <%= alarmTicketLink(alarm)%> 
+            <%= alarmTicketLink(alarm)%>
             <% }%>
         </td>
         <th>Ticket&nbsp;State</th>
         <td><% if (alarm.getTTicketState() == null) {%>
             &nbsp;
             <% } else {%>
-            <%= alarm.getTTicketState()%> 
+            <%= alarm.getTTicketState()%>
             <% }%>
         </td>
     </tr>
@@ -246,28 +246,28 @@
     </tr>
     <tr class="<%=alarm.getSeverity().getLabel()%>">
         <td colspan="3">
-	         <form method="post" action="alarm/saveStickyMemo.htm">        
+	         <form method="post" action="alarm/saveStickyMemo.htm">
 				<textarea style="width:99%" name="stickyMemoBody" ><%=(alarm.getStickyMemo() != null && alarm.getStickyMemo().getBody() != null) ? alarm.getStickyMemo().getBody() : ""%></textarea>
 	            <br/>
-				<input type="hidden" name="alarmId" value="<%=alarm.getId() %>"/>   
+				<input type="hidden" name="alarmId" value="<%=alarm.getId() %>"/>
 	            <form:input type="submit" value="Save" />
 	         </form>
-	         <form method="post" action="alarm/removeStickyMemo.htm">        
-				<input type="hidden" name="alarmId" value="<%=alarm.getId() %>"/>   
+	         <form method="post" action="alarm/removeStickyMemo.htm">
+				<input type="hidden" name="alarmId" value="<%=alarm.getId() %>"/>
 	            <form:input type="submit" value="Delete" />
 	         </form>
         </td>
 
-        <td colspan="3"> 
-            <form method="post" action="alarm/saveJournalMemo.htm">        
+        <td colspan="3">
+            <form method="post" action="alarm/saveJournalMemo.htm">
                 <textarea style="width:99%" name="journalMemoBody" ><%=(alarm.getReductionKeyMemo() != null && alarm.getReductionKeyMemo().getBody() != null) ? alarm.getReductionKeyMemo().getBody() : ""%></textarea>
                 <br/>
                 <input type="hidden" name="alarmId" value="<%=alarm.getId()%>"/>
-                <form:input type="submit" value="Save" />    
+                <form:input type="submit" value="Save" />
             </form>
             <form method="post" action="alarm/removeJournalMemo.htm">
                 <input type="hidden" name="alarmId" value="<%=alarm.getId()%>"/>
-                <form:input type="submit" value="Delete" />    
+                <form:input type="submit" value="Delete" />
             </form>
         </td>
     </tr>
@@ -283,7 +283,7 @@
         		<fmt:formatDate value="<%=alarm.getStickyMemo().getCreated()%>" type="BOTH" />
         	<%}%>
         </td>
-        
+
         <td><strong>Author:&nbsp;</strong><%=(alarm.getReductionKeyMemo() != null && alarm.getReductionKeyMemo().getAuthor() != null) ? alarm.getReductionKeyMemo().getAuthor() : ""%></td>
         <td><strong>Updated:</strong>&nbsp;
         	<%if (alarm.getReductionKeyMemo() != null) {%>
@@ -337,7 +337,7 @@
             <td>
                 <form method="post" action="alarm/changeSeverity">
                     <input type="hidden" name="alarm" value="<%=alarm.getId()%>"/>
-                    <input type="hidden" name="redirect" value="<%= "detail.htm" + "?" + request.getQueryString()%>" />	  
+                    <input type="hidden" name="redirect" value="<%= "detail.htm" + "?" + request.getQueryString()%>" />
                     <select name="actionCode">
                         <%if (showEscalate) {%>
                         <option value="<%=escalateAction%>">Escalate</option>
@@ -362,7 +362,7 @@
                 this alarm
             </td>
         </tr>
-        <% } // showEscalate || showClear %>      
+        <% } // showEscalate || showClear %>
     </tbody>
 </table>
 

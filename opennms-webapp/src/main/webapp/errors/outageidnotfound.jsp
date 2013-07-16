@@ -38,7 +38,7 @@
 
 <%
      OutageIdNotFoundException einfe = null;
-    
+
     if( exception instanceof OutageIdNotFoundException ) {
         einfe = (OutageIdNotFoundException)exception;
     }

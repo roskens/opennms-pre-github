@@ -53,11 +53,11 @@
     } catch (NumberFormatException numE)  {
         throw new ServletException(numE);
     }
-    
+
     if (nodeId < 0) {
         throw new ServletException("Invalid node ID.");
     }
-        
+
     //get the database node info
     OnmsNode node_db = NetworkElementFactory.getInstance(getServletContext()).getNode(nodeId);
     if (node_db == null) {
@@ -90,7 +90,7 @@
                         }
                 }
         }
-                
+
         if (hasCheckedItems)
         {
                 // Return true if we want the form to submit, false otherwise
@@ -111,7 +111,7 @@
 
 <p>
   To permanently delete a node (and all associated interfaces, services,
-  outages, events and notifications), check the "Node" box and select "Delete". 
+  outages, events and notifications), check the "Node" box and select "Delete".
 </p>
 
 <p>
@@ -130,8 +130,8 @@
   discovery range or unmanage the device instead of deleting it.
 </p>
 
-<hr/> 
-  
+<hr/>
+
 <form method="post" name="deleteNode" action="admin/deleteSelNodes" onSubmit="return applyChanges();">
 
 <h2>Node: <%=node_db.getLabel()%></h2>

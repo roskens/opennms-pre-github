@@ -51,28 +51,28 @@
       <th>Outages</th>
       <th>24hr Availability</th>
     </tr>
-    
+
     <c:forEach var="node" items="${model.nodeList}">
       <tr class="CellStatus">
         <c:url var="nodeLink" value="element/node.jsp">
           <c:param name="node" value="${node.node.id}"/>
         </c:url>
-        
+
         <c:choose>
           <c:when test="${node.downServiceCount == 0}">
             <c:set var="outageClass" value="Normal"/>
           </c:when>
-          
+
           <c:otherwise>
             <c:set var="outageClass" value="Critical"/>
           </c:otherwise>
         </c:choose>
-        
+
         <c:choose>
           <c:when test="${node.availability == 1.0}">
             <c:set var="availabilityClass" value="Normal"/>
           </c:when>
-          
+
           <c:otherwise>
             <c:set var="availabilityClass" value="Critical"/>
           </c:otherwise>
@@ -86,4 +86,3 @@
 </table>
 
 <jsp:include page="/includes/footer.jsp" flush="false" />
- 

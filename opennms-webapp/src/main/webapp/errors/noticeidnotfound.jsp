@@ -38,7 +38,7 @@
 
 <%
     NoticeIdNotFoundException ninfe = null;
-    
+
     if( exception instanceof NoticeIdNotFoundException ) {
         ninfe = (NoticeIdNotFoundException)exception;
     }

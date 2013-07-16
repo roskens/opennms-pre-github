@@ -56,18 +56,18 @@
 	<!-- Tooltip  Stuff -->
 	ttContent = null;
 	document.onmousemove = updateTT;
-	
+
 	<!-- shows the tool tip -->
 	function showTT(id) {
 		ttContent = document.getElementById(id);
 		if (ttContent != null) ttContent.style.display = "block"
 	}
-	 
+
 	<!-- hides the tool tip -->
 	function hideTT() {
 		if (ttContent != null) ttContent.style.display = "none";
 	}
-	
+
 	<!-- ensures that the tool tip moves with the mouse, but only if the tool tip is visible -->
 	function updateTT(event) {
 		if (ttContent != null && ttContent.style.display == 'block') {
@@ -77,7 +77,7 @@
 			ttContent.style.top  = (y + 20) + "px";
 		}
 	}
-	
+
 	<!-- Other Stuff -->
 	function verifySnmpConfig() {
 		var ipValue = new String("");
@@ -151,8 +151,8 @@
 			alert(maxRepetitions
 					+ " is not a valid Max Repetitions. Please enter a number greater than 0 or leave it empty.");
 			return false;
-		}		
-		
+		}
+
 		// validate save options (at least one must be selected)
 		var sendEventOption = document.snmpConfigForm.sendEventOption.checked;
 		var sendLocallyOption = document.snmpConfigForm.saveLocallyOption.checked;
@@ -160,10 +160,10 @@
 			alert("You must select either 'send Event' or 'save locally'. It is possible to select both options.");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 <%/*  checks if the given parameter is a number, so we assume it can be parsed as an integer*/%>
 	function isNumber(input) {
 		return !isNaN(input - 0) && input != null && input !== null
@@ -209,7 +209,7 @@
 		height: 16px;
 		background-position: -16px -144px;
 	}
-	
+
 	.tooltip {
 		position: absolute;
 		display: none;
@@ -218,14 +218,14 @@
 		z-index: 1000;
 		max-width: 250px;
 	}
-	
+
 	.ipAddress {
 		width: 200px;
 	}
-	
+
 	.required {
-		vertical-align:top; 
-		font-size:0.8em; 
+		vertical-align:top;
+		font-size:0.8em;
 		line-height:100%;
 		color: red;
 	}
@@ -288,7 +288,7 @@
 	String timeout = getValue(snmpInfo.getTimeout());
 	String retryCount = getValue(snmpInfo.getRetries());
 	String port = getValue(snmpInfo.getPort());
-	String proxyHost = getValue(snmpInfo.getProxyHost()); 
+	String proxyHost = getValue(snmpInfo.getProxyHost());
 	String maxRequestSize = getValue(snmpInfo.getMaxRequestSize());
 	String maxVarsPerPdu = getValue(snmpInfo.getMaxVarsPerPdu());
 	String maxRepetitions = getValue(snmpInfo.getMaxRepetitions());
@@ -317,7 +317,7 @@
 						<td width="25%">IP Address:</td>
 						<td width="50%">
 							<input type="text" name="ipAddress" class="ipAddress"/>
-							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('ipAddressLookupTT')" onMouseOut="hideTT()"/> 
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('ipAddressLookupTT')" onMouseOut="hideTT()"/>
 						</td>
 					</tr>
 					<tr>
@@ -360,7 +360,7 @@
 						<td width="50%">
 							<input name="lastIPAddress" class="ipAddress">
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('lastIpAddressTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 				</table>
@@ -368,15 +368,15 @@
 					<tr>
 						<td width="25%">Timeout:</td>
 						<td width="50%">
-							<input style="width:120px;" name="timeout" value="<%=timeout%>"> 
-							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('timeoutTT')" onMouseOut="hideTT()"/> 
+							<input style="width:120px;" name="timeout" value="<%=timeout%>">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('timeoutTT')" onMouseOut="hideTT()"/>
 							</td>
 					</tr>
 					<tr>
 						<td width="25%">Retries:</td>
 						<td width="50%">
-							<input style="width:120px;" name="retryCount" value="<%=retryCount%>"> 
-							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('retryCountTT')" onMouseOut="hideTT()"/> 
+							<input style="width:120px;" name="retryCount" value="<%=retryCount%>">
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('retryCountTT')" onMouseOut="hideTT()"/>
 						</td>
 					</tr>
 					<tr>
@@ -384,7 +384,7 @@
 						<td width="50%">
 							<input style="width:120px;" name="port" value="<%=port%>">
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('portTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -399,9 +399,9 @@
 					<tr>
 						<td width="25%">Max Request Size:</td>
 						<td width="50%">
-							<input style="width:120px;" name="maxRequestSize" value="<%=maxRequestSize%>" /> 
-							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxRequestSizeTT')" onMouseOut="hideTT()"/> 
-							
+							<input style="width:120px;" name="maxRequestSize" value="<%=maxRequestSize%>" />
+							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxRequestSizeTT')" onMouseOut="hideTT()"/>
+
 						</td>
 					</tr>
 					<tr>
@@ -409,7 +409,7 @@
 						<td width="50%">
 							<input style="width:120px;" name="maxVarsPerPdu" value="<%=maxVarsPerPdu%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('maxVarsPerPduTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -431,9 +431,9 @@
 					<tr>
 						<td width="25%">Read Community String:</td>
 						<td width="50%">
-							<input class="ipAddress" name="readCommunityString" value="<%=readCommunityString%>" /> 
+							<input class="ipAddress" name="readCommunityString" value="<%=readCommunityString%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('readCommunityStringTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -455,9 +455,9 @@
 					<tr>
 						<td width="25%">Security Name:</td>
 						<td width="50%">
-							<input style="width:120px;" name="securityName" value="<%=securityName%>" /> 
+							<input style="width:120px;" name="securityName" value="<%=securityName%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('securityNameTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -473,7 +473,7 @@
 									<%="3".equals(securityLevel) ? "selected" : ""%>>authPriv</option>
 							</select>
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('securityLevelTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 				</table>
@@ -483,7 +483,7 @@
 						<td width="50%">
 							<input style="width:120px;" name="authPassPhrase" value="<%=authPassPhrase%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('authPassPhraseTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -493,7 +493,7 @@
 								<%=getOptions(authProtocol, "", "", "MD5", "SHA")%>
 							</select>
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('authProtocolTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 				</table>
@@ -512,7 +512,7 @@
 								<%=getOptions(privProtocol, "", "", "DES", "AES", "AES192", "AES256")%>
 							</select>
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('privProtocolTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 				</table>
@@ -529,7 +529,7 @@
 						<td width="50%">
 							<input style="width:120px;" name="contextEngineId" value="<%=contextEngineId%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('contextEngineIdTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 					<tr>
@@ -542,9 +542,9 @@
 					<tr>
 						<td width="25%">Enterprise Id:</td>
 						<td width="50%">
-							<input style="width:120px;" name="enterpriseId" value="<%=enterpriseId%>" /> 
+							<input style="width:120px;" name="enterpriseId" value="<%=enterpriseId%>" />
 							<img src="css/images/ui-trans_1x1.png" class="info" onMouseOver="showTT('enterpriseIdTT')" onMouseOut="hideTT()"/>
-							
+
 						</td>
 					</tr>
 				</table>

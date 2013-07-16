@@ -47,9 +47,9 @@
     HttpSession userSession = request.getSession(false);
     List nodes = null;
     Integer lineItems= new Integer(0);
-    
+
     interfaceIndex = 0;
-    
+
     if (userSession == null) {
 	throw new ServletException("session is null");
     }
@@ -75,7 +75,7 @@
 
 <%
   int midNodeIndex = 1;
-  
+
   if (nodes.size() > 1)
   {
     midNodeIndex = nodes.size()/2;
@@ -105,7 +105,7 @@
   on the following page.
 </p>
 
-      
+
    <% if (nodes.size() > 0) { %>
 	<div id="contentleft">
           <table class="standardfirst">
@@ -114,11 +114,11 @@
               <td class="standardheader" width="10%" align="center">Node Label</td>
             </tr>
             <%=buildTableRows(nodes, 0, midNodeIndex)%>
-            
+
           </table>
 	</div>
           <% } /*end if*/ %>
-        
+
       <!--see if there is a second column to draw-->
       <% if (midNodeIndex < nodes.size()) { %>
 	<div id="contentright">
@@ -127,9 +127,9 @@
               <td class="standardheader" width="5%" align="center">Node ID</td>
               <td class="standardheader" width="10%" align="center">Node Label</td>
             </tr>
-            
+
             <%=buildTableRows(nodes, midNodeIndex, nodes.size())%>
-               
+
           </table>
 	</div>
         <% } /*end if */ %>
@@ -141,14 +141,14 @@
       	throws java.sql.SQLException
       {
           StringBuffer row = new StringBuffer();
-          
+
           for (int i = start; i < stop; i++)
           {
-                
+
                 SnmpManagedNode curNode = (SnmpManagedNode)nodes.get(i);
                 String nodelabel = NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(curNode.getNodeID());
 		int nodeid = curNode.getNodeID();
-                 
+
           row.append("<tr>\n");
           row.append("<td class=\"standard\" width=\"5%\" align=\"center\">");
 	  row.append(nodeid);
@@ -164,8 +164,8 @@
           row.append("</td>\n");
           row.append("</tr>\n");
           } /* end i for */
-          
+
           return row.toString();
       }
-      
+
 %>

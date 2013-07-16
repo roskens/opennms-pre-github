@@ -58,7 +58,7 @@
         }
         catch( Exception e ) {
             throw new ServletException( "Could not determine the Telnet service ID", e );
-        }        
+        }
 
         try {
             this.httpServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("HTTP");
@@ -78,19 +78,19 @@
     //find the telnet interfaces, if any
     String telnetIp = null;
     Service[] telnetServices = NetworkElementFactory.getInstance(getServletContext()).getServicesOnNode(nodeId, this.telnetServiceId);
-    
+
     if( telnetServices != null && telnetServices.length > 0 ) {
         ArrayList ips = new ArrayList();
         for( int i=0; i < telnetServices.length; i++ ) {
             ips.add(InetAddressUtils.addr(telnetServices[i].getIpAddress()));
         }
-        
+
         InetAddress lowest = InetAddressUtils.getLowestInetAddress(ips);
-        
+
         if( lowest != null ) {
             telnetIp = lowest.getHostAddress();
         }
-    }    
+    }
 
     //find the HTTP interfaces, if any
     String httpIp = null;
@@ -139,14 +139,14 @@
        	<li>
        		<a href="telnet://<%=telnetIp%>">Telnet</a>
         </li>
-        <% } %>        
+        <% } %>
         <% if( httpIp != null ) { %>
         <li>
           <a href="http://<%=httpIp%>">HTTP</a>
         </li>
         <% } %>
-        
-        
+
+
         <% if (m_resourceService.findNodeChildResources(nodeId).size() > 0) { %>
           <li>
             <c:url var="resourceGraphsUrl" value="graph/chooseresource.htm">
@@ -157,9 +157,9 @@
             <a href="${resourceGraphsUrl}">Resource Graphs</a>
 	      </li>
         <% } %>
-        
+
         <li>
-	        <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>    
+	        <a href="element/rescan.jsp?node=<%=nodeId%>">Rescan</a>
         </li>
       </ul>
       </div>
@@ -170,27 +170,27 @@
 
 			<div class="boxWrapper">
 			     <ul class="plain">
-		         
+
 		            <% if( isBridgeIP ) { %>
 		            <li>
 						<a href="element/bridgenode.jsp?node=<%=nodeId%>">View Node Bridge/STP Info</a>
 					</li>
-		            <% }%>				     
+		            <% }%>
 		            <li>
 		            	<a href="element/linkednode.jsp?node=<%=nodeId%>">View Node Link Detailed Info</a>
 		            </li>
-		         </ul>	     
+		         </ul>
 			</div>
 	</div>
 	<hr />
 <div>
 		<h3>Node IP Routes</h3>
-			
+
          <!-- general Route info box -->
             <jsp:include page="/includes/nodeRouteInfo-box.jsp" flush="false" >
               <jsp:param name="node" value="<%=nodeId%>" />
 			</jsp:include>
-			
+
 </div>
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

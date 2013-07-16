@@ -49,38 +49,38 @@
         throw new ServletException( "Missing the outage parms request attribute." );
     }
 
-    int length = parms.filters.size();    
+    int length = parms.filters.size();
 %>
 
 <!-- acknowledged/outstanding row -->
 
 <form action="outage/list.htm" method="get" name="outage_search_constraints_box_outtype_form">
   <%=Util.makeHiddenTags(req, new String[] {"outtype"})%>
-    
+
   <p>
     Outage type:
     <select name="outtype" size="1" onChange="javascript: document.outage_search_constraints_box_outtype_form.submit()">
       <option value="<%=OutageType.CURRENT.getShortName() %>" <%=(parms.outageType == OutageType.CURRENT) ? "selected=\"1\"" : ""%>>
         Current
       </option>
-      
+
       <option value="<%=OutageType.RESOLVED.getShortName()%>" <%=(parms.outageType == OutageType.RESOLVED) ? "selected=\"1\"" : ""%>>
         Resolved
       </option>
-      
+
       <option value="<%=OutageType.BOTH.getShortName()%>" <%=(parms.outageType == OutageType.BOTH) ? "selected=\"1\"" : ""%>>
         Both Current &amp; Resolved
       </option>
-    </select>        
-  </p> 
-</form>    
+    </select>
+  </p>
+</form>
 
 <% if( length > 0 ) { %>
-  <p>Search constraints: 
+  <p>Search constraints:
       <% for(int i=0; i < length; i++) { %>
-        <% Filter filter = (Filter)parms.filters.get(i); %> 
+        <% Filter filter = (Filter)parms.filters.get(i); %>
         &nbsp; <span class="filter"><%=WebSecurityUtils.sanitizeString(filter.getTextDescription())%> <a href="<%=OutageUtil.makeLink(req, parms, filter, false)%>">[-]</a></span>
-      <% } %>   
-  </p>    
-<% } %>  
+      <% } %>
+  </p>
+<% } %>
 

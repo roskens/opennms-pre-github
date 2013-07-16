@@ -79,7 +79,7 @@
 </jsp:include>
 
 <script type="text/javascript" >
-	
+
 	function applyChanges() {
 		if (confirm("Are you sure you want to proceed? This action can be undone by returning to this page.")) {
 			document.chooseSnmpNodes.submit();
@@ -152,7 +152,7 @@
 	<br/>
 	<%=listNodeName(nodeId, nodeLabel)%>
 	<br/>
-	
+
 	<opennms:snmpSelectList id="selectList"></opennms:snmpSelectList>
 	<!-- For IE -->
 	<div name="opennms-snmpSelectList" id="selectList-ie"></div>
@@ -178,7 +178,7 @@
 
 	<%--<br/>
 	<input type="button" value="Update Collection" onClick="applyChanges()" />
-	<input type="button" value="Cancel" onClick="cancel()" /> 
+	<input type="button" value="Cancel" onClick="cancel()" />
 	<input type="reset" />--%>
 </form>
 
@@ -291,5 +291,5 @@ public String buildTableRows(List<SnmpManagedInterface> interfaces, int intnodei
 
 	return row.toString();
 }
-      
+
 %>

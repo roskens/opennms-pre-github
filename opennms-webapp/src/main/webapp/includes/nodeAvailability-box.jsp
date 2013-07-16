@@ -29,11 +29,11 @@
 
 --%>
 
-<%-- 
-  This page is included by other JSPs to create a box containing a tree of 
+<%--
+  This page is included by other JSPs to create a box containing a tree of
   service level availability information for the interfaces and services of
   a given node.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -55,17 +55,17 @@
 
 <%!
     private CategoryModel m_model;
-    
+
     private double m_normalThreshold;
 	private double m_warningThreshold;
-      
+
     public void init() throws ServletException {
         try {
             m_model = CategoryModel.getInstance();
         } catch (Throwable e) {
             throw new ServletException("Could not instantiate the CategoryModel: " + e, e);
         }
-        
+
         m_normalThreshold = m_model.getCategoryNormalThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
         m_warningThreshold = m_model.getCategoryWarningThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
 
@@ -111,18 +111,18 @@
 
 <%  if (overallRtcValue >= 0) { %>
        <% Interface[] availIntfs = NetworkElementFactory.getInstance(getServletContext()).getActiveInterfacesOnNode(nodeId); %>
-           
+
         <% for( int i=0; i < availIntfs.length; i++ ) { %>
           <% Interface intf = availIntfs[i]; %>
           <% String ipAddr = intf.getIpAddress(); %>
-          
+
           <c:url var="interfaceLink" value="element/interface.jsp">
             <c:param name="node" value="<%=String.valueOf(nodeId)%>"/>
             <c:param name="intf" value="<%=ipAddr%>"/>
           </c:url>
           <% if( intf.isManaged() ) { %>
             <%-- interface is managed --%>
-            <% double intfValue = m_model.getInterfaceAvailability(nodeId, ipAddr); %>                              
+            <% double intfValue = m_model.getInterfaceAvailability(nodeId, ipAddr); %>
             <% Service[] svcs = ElementUtil.getServicesOnInterface(nodeId,ipAddr,getServletContext()); %>
 
             <tr class="CellStatus">
@@ -142,7 +142,7 @@
               <td class="<%= availClass %> nobright">Overall</td>
               <td class="<%= availClass %> bright"><%= availValue %></td>
             </tr>
-    
+
             <% for( int j=0; j < svcs.length; j++ ) { %>
               <%
                 Service service = svcs[j];
@@ -156,7 +156,7 @@
                   availValue = ElementUtil.getServiceStatusString(service);
                 }
               %>
-                       
+
                 <c:url var="serviceLink" value="element/service.jsp">
                   <c:param name="node" value="<%=String.valueOf(nodeId)%>"/>
                   <c:param name="intf" value="<%=ipAddr%>"/>
@@ -182,7 +182,7 @@
           <% } %>
         <% } %>
 <% } %>
-</table>   
+</table>
 
 </div>
 

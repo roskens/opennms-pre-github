@@ -59,7 +59,7 @@ Category '${fn:escapeXml(model.category.name)}' has ${fn:length(model.memberNode
   </tr>
   <c:forEach items="${model.memberNodes}" var="node">
     <tr>
-    	<td><a href="element/node.jsp?node=${node.id}">${fn:escapeXml(node.label)}</a></td> 
+	<td><a href="element/node.jsp?node=${node.id}">${fn:escapeXml(node.label)}</a></td>
     </tr>
   </c:forEach>
 </table>

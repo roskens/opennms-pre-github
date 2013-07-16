@@ -62,20 +62,20 @@
 	action="${pageContext.request.contextPath}/displaySuppressedOutages.htm"
 	filterable="false"
 	imagePath="${pageContext.request.contextPath}/images/table/compact/*.gif"
-	title="Suppressed Outages" 
+	title="Suppressed Outages"
 	retrieveRowsCallback="limit"
-	filterRowsCallback="limit" 
-	sortRowsCallback="limit" 
+	filterRowsCallback="limit"
+	sortRowsCallback="limit"
 	rowsDisplayed="25"
 	tableId="tabledata"
 	form="outageForm"
 	view="org.opennms.web.svclayer.etable.FixedRowCompact"
-	showExports="false" showStatusBar="true" 
+	showExports="false" showStatusBar="true"
 	autoIncludeParameters="false"
 	showPagination="true">
-	
+
 	<ec:row highlightRow="false">
-	
+
 
 		<ec:column property="nodeid" alias="Node"
 			cell="org.opennms.web.svclayer.outage.GroupCell">
@@ -95,18 +95,18 @@
 
 		<ec:column property="suppresstime" alias="Suppressed" cell="date"
 			format="MM-dd-yyyy hh:mm:ss" parse="yyyy-MM-dd" />
-		
+
 		<ec:column property="suppressedby" alias="User"  />
 
 		<ec:column property="iflostservice" alias="Down" cell="date"
 			format="MM-dd-yyyy hh:mm:ss" parse="yyyy-MM-dd" />
-		
+
 		<ec:column property="outageid" alias="ID">
 			<a href="outage/detail.htm?id=${tabledata.outageid}">${tabledata.outageid}</a>
 		</ec:column>
 
-		
-		
+
+
 
 		<ec:column alias="checkbox" title=" " width="5px" filterable="false"
 			sortable="false"
@@ -144,10 +144,10 @@
 
 <script type="text/javascript">
                         function setOutageState(chkbx) {
-                        		
+
                                 //make sure that always know the state of the checkbox
                                 if (chkbx.checked) {
-                                		
+
                                         eval('document.forms.outageForm.chkbx_' + chkbx.name).value='SELECTED';
                                 } else {
                                         eval('document.forms.outageForm.chkbx_' + chkbx.name).value='UNSELECTED';

@@ -56,9 +56,9 @@
   <c:otherwise>
     <!-- We need the </script>, otherwise IE7 breaks -->
     <script type="text/javascript" src="js/extremecomponents.js"></script>
-      
+
     <link rel="stylesheet" type="text/css" href="css/onms-extremecomponents.css"/>
-        
+
     <form id="form" action="${relativeRequestPath}" method="post">
       <ec:table items="model.data" var="row"
         action="${relativeRequestPath}?${pageContext.request.queryString}"
@@ -69,7 +69,7 @@
         form="form"
         rowsDisplayed="25"
         view="org.opennms.web.svclayer.etable.FixedRowCompact"
-        showExports="true" showStatusBar="true" 
+        showExports="true" showStatusBar="true"
         autoIncludeParameters="false"
         >
 
@@ -78,7 +78,7 @@
 				headerTitle="${model.report.description}, for period ${model.report.startDate} - ${model.report.endDate}" viewResolver="org.opennms.web.extremecomponent.view.resolver.OnmsPdfViewResolver"/>
 			<ec:exportXls fileName="${model.report.description} (${model.report.startDate} - ${model.report.endDate}.xls" tooltip="Export Excel" />
 
-      
+
         <ec:row highlightRow="false">
           <ec:column property="prettyResourceParentsReversed" title="Parent Resource(s)" sortable="false">
             <c:if test="${empty param.reportList_ev}"> <%-- We are in a web view --%>
@@ -93,7 +93,7 @@
 	                  <c:url var="resourceLink" value="${parentResource.link}"/>
 	                  <a href="${resourceLink}">${parentResource.label}</a>
 	                </c:when>
-	                
+
 	                <c:otherwise>
 	                  ${parentResource.label}
 	                </c:otherwise>
@@ -109,20 +109,20 @@
             	${row.prettyResource.label}
             </c:if>
           </ec:column>
-          
+
           <%--
           <ec:column property="resource" sortable="false">
             <c:choose>
               <c:when test="${!empty row.resourceThrowable}">
                 <span title="Exception: ${row.resourceThrowable}">Could not find resource: ${row.resourceThrowableId}</span>
               </c:when>
-              
+
               <c:when test="${!empty row.resource.link}">
                 ${row.resource.resourceType.label}:
                 <c:url var="resourceLink" value="${row.resource.link}"/>
                 <a href="${resourceLink}">${row.resource.label}</a>
               </c:when>
-                
+
               <c:otherwise>
                 ${row.resource.resourceType.label}:
                 ${row.resource.label}
@@ -130,9 +130,9 @@
             </c:choose>
           </ec:column>
           --%>
-      
+
           <ec:column property="value"/>
-          
+
           <c:if test="${empty param.reportList_ev}"> <%-- We are in a web view (exclude the Graphs column from PDF and XLS exports) --%>
 	          <ec:column property="resource.id" title="Graphs" sortable="false">
 	            <c:choose>
@@ -145,7 +145,7 @@
 	                </c:url>
 	                <a href="${graphUrl}">Resource graphs</a>
 	              </c:when>
-	              
+
 	              <c:otherwise>
 	                -
 	              </c:otherwise>

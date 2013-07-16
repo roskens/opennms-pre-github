@@ -81,9 +81,9 @@
                 <%=user.getFullName()%>
               </td>
             </tr>
-            
+
             <tr>
-              <td width="10%" valign="top"> 
+              <td width="10%" valign="top">
                 <b>Comments:</b>
               </td>
               <td width="90%" valign="top">
@@ -95,9 +95,9 @@
       </tr>
       <tr>
         <td>
-          
+
             <table width="100%" border="0" cellspacing="0" cellpadding="2" >
-              
+
               <tr>
                 <td>
                   <table>
@@ -114,7 +114,7 @@
                         <%=userFactory.getEmail(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>Pager Email:</b>
@@ -123,7 +123,7 @@
                         <%=userFactory.getPagerEmail(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>XMPP Address:</b>
@@ -141,7 +141,7 @@
                         <%=userFactory.getNumericPage(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>Numerical Pin:</b>
@@ -150,7 +150,7 @@
                         <%=userFactory.getNumericPin(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>Text Service:</b>
@@ -159,7 +159,7 @@
                         <%=userFactory.getTextPage(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>Text Pin:</b>
@@ -168,7 +168,7 @@
                         <%=userFactory.getTextPin(userID)%>
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td width="10%" valign="top">
                         <b>Work Phone:</b>
@@ -199,22 +199,22 @@
                   </table>
                 </td>
               </tr>
-              
+
               <tr>
                 <td>
                 <b>Duty Schedules:</b>
-                  
+
                       <table width="50%" border="1" cellspacing="0" cellpadding="2" >
 			<% Collection dutySchedules = user.getDutyScheduleCollection(); %>
                         <%
                                 int i =0;
                                 Iterator iter = dutySchedules.iterator();
                                 while(iter.hasNext())
-                                {  
+                                {
                                         DutySchedule tmp = new DutySchedule((String)iter.next());
-                                        Vector curSched = tmp.getAsVector();        
+                                        Vector curSched = tmp.getAsVector();
 					i++;
-                              
+
                         %>
                         <tr>
                            <% ChoiceFormat days = new ChoiceFormat("0#Mo|1#Tu|2#We|3#Th|4#Fr|5#Sa|6#Su");
@@ -237,9 +237,9 @@
                       </table>
                 </td>
               </tr>
-        
+
           </table>
       </table>
- 
+
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

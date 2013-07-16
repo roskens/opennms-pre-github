@@ -39,7 +39,7 @@
     protected static final int DEFAULT_MULTIPLE = 0;
 
     protected static final int LOWER_OFFSET = 5;
-    protected static final int UPPER_OFFSET = 4;    
+    protected static final int UPPER_OFFSET = 4;
 %>
 
 <%
@@ -48,17 +48,17 @@
     if( itemCountString == null ) {
         throw new MissingParameterException("itemCount", new String[] {"itemCount", "baseurl"});
     }
-    
-    //required parameter baseurl    
+
+    //required parameter baseurl
     String baseUrl = request.getParameter("baseurl");
     if( baseUrl == null ) {
         throw new MissingParameterException("baseurl", new String[] {"itemCount", "baseurl"});
     }
 
-    //optional parameter limit    
+    //optional parameter limit
     String limitString = request.getParameter("limit");
 
-    //optional parameter multiple    
+    //optional parameter multiple
     String multipleString = request.getParameter("multiple");
 
     //optional parameter, limitname
@@ -73,9 +73,9 @@
         multipleName = DEFAULT_MULTIPLE_PARAM_NAME;
     }
 
-    //get the count    
+    //get the count
     long itemCount = WebSecurityUtils.safeParseLong(itemCountString);
-    
+
     //get the limit, use the default if not set in the request
     int limit    = (limitString != null) ? WebSecurityUtils.safeParseInt(limitString) : DEFAULT_LIMIT;
     if (limit < 1) {
@@ -90,7 +90,7 @@
         //does not contain a "?", so append one
         baseUrl = baseUrl + "?";
     }
-    
+
     if ( baseUrl.indexOf(limitName) < 0) {
         baseUrl = baseUrl + "&amp;" + limitName + "=" + limit;
     }
@@ -102,23 +102,23 @@
 %>
 
 <p class="pager">
- <% if (limit > 0 ) { %> 
+ <% if (limit > 0 ) { %>
   Results: (<%=startResult%>-<%=endResult%>)
  <% } else { %>
   All Results
- <% } %> 
-	
-  <% if( itemCount >= limit || multiple > 0 ) { %>  
+ <% } %>
+
+  <% if( itemCount >= limit || multiple > 0 ) { %>
     <span>
 <% if( multiple > 0 ) { %>
-      <a href="<%=baseUrl%>&amp;<%=multipleName%>=0">First</a>&nbsp;  
-      <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple-1%>">Previous</a>&nbsp;  
+      <a href="<%=baseUrl%>&amp;<%=multipleName%>=0">First</a>&nbsp;
+      <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple-1%>">Previous</a>&nbsp;
     <% } %>
-    
+
     <% if( itemCount >= limit  ) { %>
       <a href="<%=baseUrl%>&amp;<%=multipleName%>=<%=multiple+1%>">Next</a>&nbsp;
     <% } %>
 		</span>
-   <% } %>      
+   <% } %>
 </p>
 

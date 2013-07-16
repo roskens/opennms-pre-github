@@ -51,7 +51,7 @@
 </jsp:include>
 
 <script type="text/javascript">
- 
+
     function saveGraph()
     {
         document.customize_graph.action.value="Save";
@@ -63,13 +63,13 @@
         document.customize_graph.action.value="ChooseResource";
         document.customize_graph.submit();
     }
-        
+
     function updateGraph()
     {
         document.customize_graph.action.value="Update";
         document.customize_graph.submit();
     }
-   
+
     function cancelGraph()
     {
         if (confirm("Do you really want to cancel graph configuration changes?")) {
@@ -77,7 +77,7 @@
             document.customize_graph.submit();
         }
     }
-  
+
 </script>
 
 <h2>Customized Report Graph Definition</h2>
@@ -92,11 +92,11 @@
           prefabricated graphs.
           Try selecting another resource.
           You can also check that the correct data is being collected and
-          that appropriate reports are defined.  
+          that appropriate reports are defined.
         </p>
       </div>
     </c:when>
-                
+
     <c:otherwise>
       <h3>Sample graph</h3>
       <div class="boxWrapper">
@@ -117,7 +117,7 @@
                                     </c:choose>
                                     <br />
                                   </c:if>
-                              
+
                                   ${resultSet.resource.resourceType.label}:
                                   <c:choose>
                                     <c:when test="${!empty resultSet.resource.link}">
@@ -133,7 +133,7 @@
                                 <br/>
                                 <b>To</b> ${resultSet.end}
                             </td>
-              
+
                             <td class="normal" align="left">
                               <c:url var="graphUrl" value="${baseHref}graph/graph.png">
                                 <c:param name="resourceId" value="${resultSet.resource.id}"/>
@@ -142,7 +142,7 @@
                                 <c:param name="end" value="${resultSet.end.time}"/>
                                 <c:param name="zoom" value="true"/>
                               </c:url>
-                              
+
                               <img src="${graphUrl}" alt="Resource graph: ${resultSet.prefabGraph.title}" />
                             </td>
                         </tr>
@@ -175,15 +175,15 @@
                                       <c:when test="${timeSpan == option.key}">
                                         <c:set var="timespanSelected">selected="selected"</c:set>
                                       </c:when>
-                                      
+
                                       <c:otherwise>
                                         <c:set var="timespanSelected" value=""/>
                                       </c:otherwise>
                                     </c:choose>
                                     <option value="${option.key}" ${timespanSelected}>${option.value}</option>
                                   </c:forEach>
-                                </select>  
-                                (This selects the relative start and stop times for the report) 
+                                </select>
+                                (This selects the relative start and stop times for the report)
                             </td>
                         </tr>
                         <tr>
@@ -197,21 +197,21 @@
                                       <c:when test="${resultSet.prefabGraph.name == prefabGraph.name}">
                                         <c:set var="prefabSelected">selected="selected"</c:set>
                                       </c:when>
-                                      
+
                                       <c:otherwise>
                                         <c:set var="prefabSelected" value=""/>
                                       </c:otherwise>
                                     </c:choose>
                                     <option value="${prefabGraph.name}" ${prefabSelected}>${prefabGraph.name}</option>
                                   </c:forEach>
-                                </select>  
-                                (This selects the prefabricated graph report to use) 
+                                </select>
+                                (This selects the prefabricated graph report to use)
                             </td>
                         </tr>
                         <tr>
                             <td class="normal">
                                 <!-- Select Graph Index -->
-                                Graph Index  
+                                Graph Index
                             </td>
                             <td class="normal">
                                 <select name="<%=FormProcGraphController.Parameters.graphindex%>">
@@ -220,15 +220,15 @@
                                       <c:when test="${index == (graphIndex + 1)}">
                                         <c:set var="indexSelected">selected="selected"</c:set>
                                       </c:when>
-                                      
+
                                       <c:otherwise>
                                         <c:set var="indexSelected" value=""/>
                                       </c:otherwise>
                                     </c:choose>
                                     <option value="${index}" ${indexSelected}>${index}</option>
                                   </c:forEach>
-                                </select>  
-                                (This selects the desired position in the report for the graph to be inserted) 
+                                </select>
+                                (This selects the desired position in the report for the graph to be inserted)
                             </td>
                         </tr>
                     </table>

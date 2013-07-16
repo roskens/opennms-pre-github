@@ -109,7 +109,7 @@
   </table>
   <input type="submit" name="submitAction" value="${saveButtonTitle}"/>
   <input type="submit" name="submitAction" value="${cancelButtonTitle}"/>
-  
+
 <input type="hidden" name="filterSelected" value="${filterSelected}"/>
 <h3>Resource Filters</h3>
 <table class="normal">
@@ -135,8 +135,8 @@
         <c:choose>
           <c:when test="${i.count==filterSelected}">
             <td><input type="text" name="updateFilterField" size="60" value="${filter.field}"/></td>
-            <td><input type="text" name="updateFilterRegexp" size="60" value="${filter.content}"/></td>          
-            <td><input type="submit" name="submitAction" value="${updateButtonTitle}" onClick="document.frm.filterSelected.value='${i.count}'"/></td>          
+            <td><input type="text" name="updateFilterRegexp" size="60" value="${filter.content}"/></td>
+            <td><input type="submit" name="submitAction" value="${updateButtonTitle}" onClick="document.frm.filterSelected.value='${i.count}'"/></td>
           </c:when>
           <c:otherwise>
             <td class="standard"><input type="text" disabled="true" size="60" value="${filter.field}"/></td>
@@ -156,7 +156,7 @@
         <td><input type="submit" name="submitAction" value="${addFilterButtonTitle}" onClick="setFilterAction('add')"/></td>
     </tr>
 </table>
-  
+
 </form>
 <h3>Help</h3>
 <p>

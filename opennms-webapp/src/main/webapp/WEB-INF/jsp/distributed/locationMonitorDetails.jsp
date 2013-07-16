@@ -53,10 +53,10 @@
       </ul>
     </div>
   </c:when>
-  
+
   <c:otherwise>
     <c:set var="monitor" value="${model.locationMonitors[0]}"/>
-    
+
     <h3><spring:message code="distributed.locationMonitorDetails.title"/></h3>
     <table>
       <tr>
@@ -91,15 +91,15 @@
               <fmt:formatDate value="${monitor.lastCheckInTime}" type="date" dateStyle="short"/>
               <fmt:formatDate value="${monitor.lastCheckInTime}" type="time" dateStyle="short"/>
             </c:when>
-          
+
             <c:otherwise>
               Never
             </c:otherwise>
           </c:choose>
         </td>
-      </tr> 
+      </tr>
     </table>
-    
+
     <h3><spring:message code="distributed.locationMonitorDetails.additionalTitle"/></h3>
     <table>
       <c:forEach items="${monitor.additionalDetails}" var="detail">
@@ -113,7 +113,7 @@
         </tr>
       </c:forEach>
     </table>
-    
+
     <c:if test="${isAdmin}">
       <script type="text/javascript" >
           function confirmDelete() {
@@ -122,14 +122,14 @@
               }
           }
       </script>
-      
+
       <h3>Manage Location Monitor</h3>
       <div class="boxWrapper">
         <form action="admin/distributed/locationMonitorDelete.htm" method="post" name="deleteForm">
           <input type="hidden" name="monitorId" value="${monitor.id}"/>
         </form>
         <input type="button" value="Delete" onClick="confirmDelete();"/>
-  
+
         <c:choose>
           <c:when test="${monitor.status != 'PAUSED'}">
             <form action="admin/distributed/locationMonitorPause.htm" method="post">
@@ -139,7 +139,7 @@
               </p>
             </form>
           </c:when>
-            
+
           <c:otherwise>
             <form action="admin/distributed/locationMonitorResume.htm" method="post">
               <p>
@@ -149,12 +149,12 @@
             </form>
           </c:otherwise>
         </c:choose>
-  
+
         <p>
           <b>Delete</b> will delete all database data for this location monitor
           and cause the location monitor to shutdown when it next checks in.
         </p>
-        
+
         <p>
           <b>Pause</b> will cause the location monitor to stop polling when it
           next checks in.  The location monitor can be unpaused to re-enable
@@ -162,7 +162,7 @@
         </p>
       </div>
     </c:if>
-  
+
   </c:otherwise>
 </c:choose>
 

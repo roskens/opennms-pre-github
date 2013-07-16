@@ -33,7 +33,7 @@
 
 <%
 
-        
+
     //required parameter node
     String nodeIdString = request.getParameter( "node" );
     if(nodeIdString == null) {
@@ -64,7 +64,7 @@ function checkIpAddress(ip){
 		return false;
 	if(ipArr[0]=="" || ipArr[1]=="" || ipArr[2]=="" || ipArr[3]=="")
 		return false;
-	if(isNaN(ipArr[0]) || isNaN(ipArr[1]) || isNaN(ipArr[2]) || isNaN(ipArr[3]) || 
+	if(isNaN(ipArr[0]) || isNaN(ipArr[1]) || isNaN(ipArr[2]) || isNaN(ipArr[3]) ||
 		ipArr[0]<0 || ipArr[0]>255 || ipArr[1]<0 || ipArr[1]>255 || ipArr[2]<0 || ipArr[2]>255 || ipArr[3]<0 || ipArr[3]>255)
 		return false;
 	return true;
@@ -74,14 +74,14 @@ function checkIpAddress(ip){
 function doCommand(){
      var url ='<%= Util.calculateUrlBase(request, "ExecCommand.map?command=") %>'+document.getElementById("command").value;
      var address = document.getElementById("address").value;
-     
+
      if(!checkIpAddress(document.getElementById("address").value)){
              	alert("Invalid IP address");
              	document.getElementById("address").focus();
              	return;
      }
      url = url+'&address='+address;
-     
+
      var timeOut = document.getElementById("timeOut").value;
      if(isNaN(timeOut)){
      	alert("Invalid timeout");
@@ -99,13 +99,13 @@ function doCommand(){
      	alert("Invalid request number");
      	document.getElementById("numberOfRequest").focus();
      	return;
-     }     
+     }
      if(numberOfRequest==""){
      	numberOfRequest="10";
      }
      url = url+'&numberOfRequest='+numberOfRequest;
-     
-     
+
+
      var packetSize = document.getElementById("packetSize").value;
      if(isNaN(packetSize)){
      	alert("Invalid packet size");
@@ -118,19 +118,19 @@ function doCommand(){
      	packetSize="56";
      }
      url = url+'&packetSize='+packetSize;
- 
-     
-     
+
+
+
      if(document.getElementById("numericOutput").checked){
 	     url = url+'&numericOutput=true';
      }
 	 var solaris = document.getElementById("solaris").value;
 	 if (solaris == 'true') {
- 		 url = url + '&solaris=true';        
-     } 
+		 url = url + '&solaris=true';
+     }
      window.close();
      window.open(url, 'Ping', 'toolbar,width='+self.screen.width-150+',height=300, left=0, top=0, scrollbars=1') ;
-     
+
 }
 </script>
 
@@ -170,9 +170,9 @@ function doCommand(){
             <td>IP Address: </td>
 	    <td><select id="address" name="address">
 	<%
-    String ipAddress = null;              
+    String ipAddress = null;
     Interface[] intfs = NetworkElementFactory.getInstance(getServletContext()).getActiveInterfacesOnNode( nodeId );
-    for( int i=0; i < intfs.length; i++ ) { 
+    for( int i=0; i < intfs.length; i++ ) {
       	if(intfs[i]!=null){
 		   ipAddress = intfs[i].getIpAddress();
 		   if(ipAddress.equals("0.0.0.0") || !intfs[i].isManaged())
@@ -181,17 +181,17 @@ function doCommand(){
 	%>
 	 	<option value="<%=ipAddress%>"><%=ipAddress%></option>
     <%
-		}                     	
+		}
  	}
     %>
             </select>
-        </td>  
+        </td>
             <td>&nbsp;</td>
           </tr>
           <tr>
             <td>&nbsp;</td>
             <td align="left">
-		Number of request: 
+		Number of request:
 	    </td>
             <td><input id="numberOfRequest" type="text" size="2" value="10" />
             </td>
@@ -216,7 +216,7 @@ function doCommand(){
             	<input id="packetSize" type="text" size="2" value="64" />
             </td>
             <td>&nbsp;</td>
-          </tr>  
+          </tr>
           <tr>
             <td>&nbsp;</td>
             <td align="left">
@@ -226,12 +226,12 @@ function doCommand(){
             	<input id="numericOutput" type="checkbox" />
             </td>
             <td>&nbsp;</td>
-          </tr>          
+          </tr>
           <tr>
-            <td colspan="4">&nbsp;</td>            
-          </tr>          
+            <td colspan="4">&nbsp;</td>
+          </tr>
           <tr>
-            <td colspan="2" >&nbsp;</td>          
+            <td colspan="2" >&nbsp;</td>
             <td align="right">
             	<input type="button" value="Ping" onclick="doCommand()" />
             </td>

@@ -51,13 +51,13 @@
       <td>This node is not a member of any categories.</td>
     </tr>
   </c:if>
-  
+
 
   <c:forEach items="${categories}" var="category">
     <tr>
       <td>${category.name}</td>
     </tr>
   </c:forEach>
-</table>   
+</table>
 
 </div>

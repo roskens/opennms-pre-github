@@ -56,7 +56,7 @@
     Path newPath = (Path)user.getAttribute("newPath");
     List<String> targetLinks = new ArrayList<String>();
     List<String> escalateDelays = new ArrayList<String>();
-    
+
     targetLinks.add( "Initial Targets" );
     String[] targets = new String[newPath.getEscalateCount()];
     for (int i = 0; i < targets.length; i++)
@@ -68,20 +68,20 @@
 
 <script type="text/javascript" >
 
-    function edit(index) 
+    function edit(index)
     {
         document.outline.userAction.value="edit";
         document.outline.index.value=index;
         document.outline.submit();
     }
-    
+
     function add(index)
     {
         document.outline.userAction.value="add";
         document.outline.index.value=index;
         document.outline.submit();
     }
-    
+
     function remove(index)
     {
         message = "Are you sure you want to remove escalation #" + (index+1);
@@ -92,8 +92,8 @@
             document.outline.submit();
         }
     }
-    
-    function trimString(str) 
+
+    function trimString(str)
     {
         while (str.charAt(0)==" ")
         {
@@ -105,7 +105,7 @@
         }
         return str;
     }
-    
+
     function finish()
     {
         trimmed = trimString(document.outline.name.value);
@@ -130,7 +130,7 @@
             return true;
         }
     }
-    
+
     function cancel()
     {
         document.outline.userAction.value="cancel";
@@ -162,7 +162,7 @@
   <input type="hidden" name="escalation" value="false"/>
   <table>
     <tr>
-      <td>Name: 
+      <td>Name:
       <% if (newPath.getName()==null) { %>
         <input type="text" name="name" value=""/>
       <% } else { %>
@@ -189,11 +189,11 @@
               <% } %>
               </b>
               <br/>
-              <% if (i > 0) { %>  
+              <% if (i > 0) { %>
                 Delay:
                 <%=buildDelaySelect(intervals, "escalate"+(i-1)+"Delay", newPath.getEscalate(i-1).getDelay())%><br/>
               <% } %>
-              <%=buildTargetList(i, newPath, "escalate"+i)%>  
+              <%=buildTargetList(i, newPath, "escalate"+i)%>
             </td>
             <td width="5%" valign="top">
                 <input type="button" value="Edit" onclick="javascript:edit(<%=i-1%>)"/>
@@ -232,7 +232,7 @@
     {
           boolean gotCurrValue = false;
           StringBuffer buffer = new StringBuffer("<select name=\"" + name  + "\">");
-                    
+
           for (int i = 0; i < intervals.length; i++)
           {
              if (intervals[i].equals(currValue))
@@ -250,15 +250,15 @@
               buffer.append("<option selected=\"selected\" value=\"" + currValue + "\">").append(currValue).append("</option>");
           }
           buffer.append("</select>");
-          
+
           return buffer.toString();
     }
-    
+
     public String buildTargetList(int index, Path path, String name)
     {
         StringBuffer buffer = new StringBuffer("<select width=\"200\" style=\"width: 200px\" name=\""+name+"\" size=\"4\">");
         Target[] targetList = new Target[0];
-        
+
         if (index == 0)
         {
             targetList = path.getTarget();
@@ -267,13 +267,13 @@
         {
             targetList = path.getEscalate()[index-1].getTarget();
         }
-        
+
         for (int i = 0; i < targetList.length; i++)
         {
             buffer.append("<option>").append( targetList[i].getName() ).append("</option>");
         }
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
 %>

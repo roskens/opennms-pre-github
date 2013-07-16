@@ -48,14 +48,14 @@
 
 
 <script type="text/javascript">
-  function verifyGoForm() 
+  function verifyGoForm()
   {
-    if (document.goForm.pass1.value == document.goForm.pass2.value) 
+    if (document.goForm.pass1.value == document.goForm.pass2.value)
     {
       window.opener.document.modifyUser.password.value=document.goForm.pass1.value;
-      
+
       window.close();
-    } 
+    }
     else
     {
       alert("The two password fields do not match!");
@@ -78,7 +78,7 @@
       <input type="password" name="pass1">
     </td>
   </tr>
-  
+
   <tr>
     <td width="10%">
       Confirm Password:
@@ -87,7 +87,7 @@
       <input type="password" name="pass2">
     </td>
   </tr>
-  
+
   <tr>
     <td>
       <input type="button" value="OK" onclick="verifyGoForm()">

@@ -39,13 +39,13 @@
   <jsp:param name="title" value="Database Reports" />
   <jsp:param name="headTitle" value="Database Reports" />
   <jsp:param name="breadcrumb" value="<a href='report/index.jsp'>Reports</a>" />
-  <jsp:param name="breadcrumb" 
+  <jsp:param name="breadcrumb"
 		value="<a href='report/database/index.htm'>Database</a>" />
   <jsp:param name="breadcrumb" value="Run"/>
 </jsp:include>
 
 <h3>Report Delivery Options</h3>
-  
+
 <form:form commandName="deliveryOptions" cssClass="stdform">
 
 	<p><form:label path="instanceId" cssClass="label">
@@ -59,7 +59,7 @@
 	<p><form:label path="format" cssClass="label">
 		format
 	</form:label>
-	<form:select path="format"> 
+	<form:select path="format">
 		<form:options items="${formats}"/>
 	</form:select></p>
 	<p><form:label path="mailTo" cssClass="label">
@@ -70,13 +70,13 @@
 		save a copy of this report
 	</form:label>
     <form:checkbox path="persist"/></p>
-    
+
     <span class="indent">
 	    <input type="submit" id="proceed" name="_eventId_proceed" value="Proceed"/>&#160;
 		<input type="submit" name="_eventId_revise" value="Revise"/>&#160;
 		<input type="submit" name="_eventId_cancel" value="Cancel"/>&#160;
 	</span>
-	
+
 </form:form>
-  
+
 <jsp:include page="/includes/footer.jsp" flush="false" />

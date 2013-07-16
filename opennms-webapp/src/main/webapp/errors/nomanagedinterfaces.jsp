@@ -38,7 +38,7 @@
 
 <%
      NoManagedInterfacesException nmie = null;
-    
+
     if( exception instanceof NoManagedInterfacesException ) {
         nmie = (NoManagedInterfacesException)exception;
     }
@@ -48,7 +48,7 @@
     else {
         throw new ServletException( "This error page does not handle this exception type.", exception );
     }
-    
+
 %>
 
 

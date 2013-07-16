@@ -30,7 +30,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.web.api.Util, org.opennms.netmgt.config.discovery.*, org.opennms.web.admin.discovery.ActionDiscoveryServlet,org.opennms.protocols.snmp.SnmpPeer" %>
-<% 
+<%
 	response.setDateHeader("Expires", 0);
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -58,19 +58,19 @@
 
 
 function addSpecific(){
-	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-specific.jsp" )%>', 'AddSpecific', 'toolbar=0,width=700 ,height=150, left=0, top=0, resizable=1, scrollbars=1') 
+	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-specific.jsp" )%>', 'AddSpecific', 'toolbar=0,width=700 ,height=150, left=0, top=0, resizable=1, scrollbars=1')
 }
 
 function addIncludeRange(){
-	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-ir.jsp" )%>', 'AddIncludeRange', 'toolbar=0,width=750 ,height=230, left=0, top=0, resizable=1, scrollbars=1') 
+	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-ir.jsp" )%>', 'AddIncludeRange', 'toolbar=0,width=750 ,height=230, left=0, top=0, resizable=1, scrollbars=1')
 }
 
 function addIncludeUrl(){
-	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-url.jsp" )%>', 'AddIncludeUrl', 'toolbar=0,width=750 ,height=150, left=0, top=0, resizable=1, scrollbars=1') 
+	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-url.jsp" )%>', 'AddIncludeUrl', 'toolbar=0,width=750 ,height=150, left=0, top=0, resizable=1, scrollbars=1')
 }
 
 function addExcludeRange(){
-	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-er.jsp" )%>', 'AddExcludeRange', 'toolbar=0,width=600 ,height=200, left=0, top=0, resizable=1, scrollbars=1') 
+	window.open('<%=org.opennms.web.api.Util.calculateUrlBase( request, "admin/discovery/add-er.jsp" )%>', 'AddExcludeRange', 'toolbar=0,width=600 ,height=200, left=0, top=0, resizable=1, scrollbars=1')
 }
 
 
@@ -147,11 +147,11 @@ if (currConfig == null) {
       <input type="submit" value="Save and Restart Discovery"/>
 
 <h3>General settings</h3>
-			    
+
 			    <table class="standard" width="100%">
 				 <tr align="left">
-			     
-					  <td class="standard" align="center" width="25%">Initial sleep time (sec.): 
+
+					  <td class="standard" align="center" width="25%">Initial sleep time (sec.):
 					  	<select id="initialsleeptime" name="initialsleeptime">
 					  		<option value="30000" <%if(currConfig.getInitialSleepTime()==30000) out.print("selected");%>>30</option>
 					  		<option value="60000" <%if(currConfig.getInitialSleepTime()==60000) out.print("selected");%>>60</option>
@@ -162,7 +162,7 @@ if (currConfig == null) {
 					  		<option value="600000" <%if(currConfig.getInitialSleepTime()==600000) out.print("selected");%>>600</option>
 					  	</select>
 					  </td>
-					  <td class="standard" align="center" width="25%">Restart sleep time (hours): 
+					  <td class="standard" align="center" width="25%">Restart sleep time (hours):
 					  	<select id="restartsleeptime" name="restartsleeptime">
 					  		<option value="3600000" <%if(currConfig.getRestartSleepTime()==3600000) out.print("selected");%>>1</option>
 					  		<option value="7200000" <%if(currConfig.getRestartSleepTime()==7200000) out.print("selected");%>>2</option>
@@ -176,7 +176,7 @@ if (currConfig == null) {
 					  		<option value="259200000" <%if(currConfig.getRestartSleepTime()==259200000) out.print("selected");%>>72</option>
 					  	</select>
 					  </td>
-					  <td  class="standard" align="center" width="17%">Threads: 
+					  <td  class="standard" align="center" width="17%">Threads:
 					  	<select id="threads" name="threads">
 					  		<option value="1" <%if(currConfig.getThreads()==1) out.print("selected");%>>1</option>
 					  		<option value="2" <%if(currConfig.getThreads()==2) out.print("selected");%>>2</option>
@@ -194,9 +194,9 @@ if (currConfig == null) {
 					  <td class="standard" align="center" width="17%">Retries: <input type="text" id="retries" name="retries" size="2" value="<%=((currConfig.getRetries()==0)?"3":""+currConfig.getRetries())%>"/></td>
 					  <td class="standard" align="center" width="17%">Timeout (ms.): <input type="text" id="timeout" name="timeout" size="4" value="<%=((currConfig.getTimeout()==0)?"800":""+currConfig.getTimeout())%>"/></td>
 				</tr>
-				
+
 			    </table>
-			    
+
 			<h3>Specifics</h3>
 		    <table class="standard">
 	    	<tr>
@@ -211,13 +211,13 @@ if (currConfig == null) {
 				      <tr>
 					<td class="standardheaderplain">
 					    <b>IP Address</b>
-					</td> 
+					</td>
 					<td class="standardheaderplain">
 					    <b>Timeout (ms.)</b>
-					</td>	
+					</td>
 					<td class="standardheaderplain">
 					    <b>Retries</b>
-					</td>			
+					</td>
 					<td class="standardheaderplain">
 					    <b>Action</b>
 					</td>
@@ -227,18 +227,18 @@ if (currConfig == null) {
 					  <td class="standard"  align="center"><%=specs[i].getContent()%></td>
 					  <td class="standard" align="center"><%=(specs[i].getTimeout()!=0)?""+specs[i].getTimeout():""+currConfig.getTimeout() %></td>
 					  <td class="standard" align="center"><%=(specs[i].getRetries()!=0)?""+specs[i].getRetries():""+currConfig.getRetries() %></td>
-					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteSpecific(<%=i%>);"/></td> 
-					</tr>		      	
+					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteSpecific(<%=i%>);"/></td>
+					</tr>
 				      <%} // end for%>
 
 				     </table>
-			  <%}else{ // end if currConfig.getSpecificsCount()>0  
+			  <%}else{ // end if currConfig.getSpecificsCount()>0
 			  	 out.print("No Specifics found.");
 			  	}
 			  %>
 			     </td>
 		  	   </tr>
-		       </table>			  
+		       </table>
 
 			<h3>Include URLs</h3>
 		    <table class="standard">
@@ -254,13 +254,13 @@ if (currConfig == null) {
 				      <tr>
 					<td class="standardheaderplain">
 					    <b>URL</b>
-					</td> 
+					</td>
 					<td class="standardheaderplain">
 					    <b>Timeout (ms.)</b>
-					</td>	
+					</td>
 					<td class="standardheaderplain">
 					    <b>Retries</b>
-					</td>			
+					</td>
 					<td class="standardheaderplain">
 					    <b>Action</b>
 					</td>
@@ -270,23 +270,23 @@ if (currConfig == null) {
 					  <td class="standard"  align="center"><%=urls[i].getContent()%></td>
 					  <td class="standard" align="center"><%=(urls[i].getTimeout()!=0)?""+urls[i].getTimeout():""+currConfig.getTimeout() %></td>
 					  <td class="standard" align="center"><%=(urls[i].getRetries()!=0)?""+urls[i].getRetries():""+currConfig.getRetries() %></td>
-					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteIncludeUrl(<%=i%>);"/></td> 
-					</tr>		      	
+					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteIncludeUrl(<%=i%>);"/></td>
+					</tr>
 				      <%} // end for%>
 
 				     </table>
-			  <%}else{ // end if currConfig.getIncludeUrlCount()>0  
+			  <%}else{ // end if currConfig.getIncludeUrlCount()>0
 			  	 out.print("No Include URLs found.");
 			  	}
 			  %>
 			     </td>
 		  	   </tr>
-		       </table>			  
+		       </table>
 
 		<h3>Include Ranges</h3>
 		    <table class="standard">
 		    	<tr>
-		    	  <td width="1%" class="standard" valign="top">		    
+			  <td width="1%" class="standard" valign="top">
 				    <input type="button" value="Add New" onclick="addIncludeRange();"/>
 			  </td>
 			  <td>
@@ -297,19 +297,19 @@ if (currConfig == null) {
 					      <tr>
 						<td class="standardheaderplan">
 						    <b>Begin Address</b>
-						</td> 
+						</td>
 						<td class="standardheaderplan">
 						    <b>End Address</b>
-						</td> 			
+						</td>
 						<td class="standardheaderplan">
 						    <b>Timeout (ms.)</b>
-						</td>	
+						</td>
 						<td class="standardheaderplan">
 						    <b>Retries</b>
-						</td>			
+						</td>
 						<td class="standardheaderplan">
 						    <b>Action</b>
-						</td>						
+						</td>
 
 					      </tr>
 					      <%for(int i=0; i<irange.length; i++){
@@ -320,25 +320,25 @@ if (currConfig == null) {
 						  <td class="standard" align="center"><%=irange[i].getEnd()%></td>
 						  <td class="standard" align="center"><%=(irange[i].getTimeout()!=0)?""+irange[i].getTimeout():""+currConfig.getTimeout() %></td>
 						  <td class="standard" align="center"><%=(irange[i].getRetries()!=0)?""+irange[i].getRetries():""+currConfig.getRetries() %></td>
-						  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteIR(<%=i%>);"/></td> 						  
+						  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteIR(<%=i%>);"/></td>
 						</tr>
 					      <%} // end for%>
 
 					     </table>
-				  <%}else{ // end if currConfig.getIncludeRangeCount()>0  
+				  <%}else{ // end if currConfig.getIncludeRangeCount()>0
 			  		  out.print("No include range defined.");
 			    	    }%>
 			     </td>
 		  	   </tr>
-		       </table>		          
-     
+		       </table>
+
 		<h3>Exclude Ranges</h3>
 		    <table class="standard">
 		    	<tr>
 		    	  <td width="1%" class="standard" valign="top">
 				    <input type="button" value="Add New" onclick="addExcludeRange();"/>
 			  </td>
-			  <td>		    
+			  <td>
 			    <%if(currConfig.getExcludeRangeCount()>0){
 				    ExcludeRange[] irange = currConfig.getExcludeRange();
 			    %>
@@ -346,10 +346,10 @@ if (currConfig == null) {
 				      <tr bgcolor="#999999">
 					<td class="standardheaderplan">
 					    <b>Begin</b>
-					</td> 
+					</td>
 					<td class="standardheaderplan">
 					    <b>End</b>
-					</td> 			
+					</td>
 					<td class="standardheaderplan">
 					    <b>Action</b>
 					</td>
@@ -360,18 +360,18 @@ if (currConfig == null) {
 					 <tr>
 					  <td class="standard" align="center"><%=irange[i].getBegin()%></td>
 					  <td class="standard" align="center"><%=irange[i].getEnd()%></td>
-					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteER(<%=i%>);"/></td> 
-					</tr>		      	
+					  <td class="standard" width="1%" align="center"><input type="button" value="Delete" onclick="deleteER(<%=i%>);"/></td>
+					</tr>
 				      <%} // end for%>
 
 				     </table>
-			  <%}else{ // end if currConfig.getExcludeRangeCount()>0  
+			  <%}else{ // end if currConfig.getExcludeRangeCount()>0
 			  	  out.print("No exclude range defined.");
 			    }%>
 			  </td>
 		  	</tr>
 		    </table>
-			
+
 			<input type="submit" value="Save and Restart Discovery"/>
 </form>
 

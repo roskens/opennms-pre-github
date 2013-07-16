@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a table containing
-  the service level availability for a particular service.  
-  
+  the service level availability for a particular service.
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -54,17 +54,17 @@
 
 <%!
     private CategoryModel m_model;
-    
+
     private double m_normalThreshold;
     private double m_warningThreshold;
-    
+
 
     public void init() throws ServletException {
         try {
             m_model = CategoryModel.getInstance();
-            
+
             m_normalThreshold  = m_model.getCategoryNormalThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
-            m_warningThreshold = m_model.getCategoryWarningThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);            
+            m_warningThreshold = m_model.getCategoryWarningThreshold(CategoryModel.OVERALL_AVAILABILITY_CATEGORY);
         } catch (IOException e) {
             throw new ServletException("Could not instantiate the CategoryModel", e);
         } catch (MarshalException e) {
@@ -77,7 +77,7 @@
 
 <%
     Service service = ElementUtil.getServiceByParams(request, getServletContext());
-    
+
     String styleClass;
     String statusContent;
 
@@ -87,7 +87,7 @@
             m_model.getServiceAvailability(service.getNodeId(),
 	                                       service.getIpAddress(),
                                            service.getServiceId());
-        
+
         styleClass = CategoryUtil.getCategoryClass(m_normalThreshold,
                                                    m_warningThreshold,
                                                    rtcValue);
@@ -96,7 +96,7 @@
         styleClass = "Indeterminate";
 		statusContent = ElementUtil.getServiceStatusString(service);
     }
-    
+
 %>
 
 <h3>Overall Availability</h3>

@@ -31,13 +31,13 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 
-<% 
+<%
    String breadcrumb1 = "Network Topology Maps";
 
    //avoid cache
    response.setHeader("Cache-Control","no-store");
    response.setHeader("Pragma","no-cache");
-   response.setHeader("Expires","0"); 
+   response.setHeader("Expires","0");
 %>
 		<jsp:include page="/includes/header.jsp" flush="false">
 		  <jsp:param name="title" value="Display Network Topology Maps" />
@@ -48,7 +48,7 @@
 <center>
 <div id="reloading">
 </div>
-</center>	
+</center>
 
 <script language="JavaScript" type="text/javascript" src="js/jquery/jquery.js"></script>
 <script language="JavaScript" type="text/javascript" src="js/jquery/jquery.history.js"></script>
@@ -61,7 +61,7 @@ var resizing=false;
 
 var $j = jQuery.noConflict();
 var $ = {};
-	
+
 function toggle(id)
 {
 	el = document.getElementById(id);
@@ -103,7 +103,7 @@ function setSvgWindowSize() {
 		svgMapWidth=document.body.clientWidth-20;
 		svgMapHeight=document.body.clientHeight;
 	}
-	
+
 	if (svgMapWidth < 1072)
 		svgMapWidth=1072;
 	if (svgMapHeight < 600)
@@ -124,4 +124,3 @@ emitSVG();
     <jsp:include page="/includes/footer.jsp" flush="false" >
       <jsp:param name="location" value="map" />
     </jsp:include>
-    

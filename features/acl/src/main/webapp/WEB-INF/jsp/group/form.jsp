@@ -52,8 +52,8 @@
         </tr>
         <tr>
           <td colspan="3">
-              <input type="submit" value="<spring:message code="ui.action.save"/>"/> 
-              <input type="hidden" id="id" name="id" value="${group.id}"/> 
+              <input type="submit" value="<spring:message code="ui.action.save"/>"/>
+              <input type="hidden" id="id" name="id" value="${group.id}"/>
               <input type="button" onclick="location.href = 'group.list.page'" value="<spring:message code="group.list"/>"/>
           </td>
         </tr>

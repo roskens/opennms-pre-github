@@ -32,7 +32,7 @@
 <%--
   This page is included by other JSPs to create a box containing an
   entry to the resource graph reporting system.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>

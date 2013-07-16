@@ -74,11 +74,11 @@
     <h3>Search Asset Information</h3>
     <div class="boxWrapper">
       <form action="asset/nodelist.jsp" method="get">
-        <p align="right">Assets in category: 
+        <p align="right">Assets in category:
         <input type="hidden" name="column" value="category" />
         <select name="searchvalue" size="1">
           <% for( int i=0; i < Asset.CATEGORIES.length; i++ ) { %>
-            <option><%=Asset.CATEGORIES[i]%></option> 
+            <option><%=Asset.CATEGORIES[i]%></option>
           <% } %>
         </select>
         <input type="submit" value="Search" />
@@ -92,12 +92,12 @@
   <div class="TwoColRight">
     <h3>Assets Inventory</h3>
     <div class="boxWrapper">
-        <p>The OpenNMS system provides a means for you to easily track and share 
-            important information about capital assets in your organization.  This 
-            data, when coupled with the information about your network that the 
-            OpenNMS system obtains during network discovery, can be a powerful tool not 
-            only for solving problems, but in tracking the current state of 
-            equipment repairs as well as network or system-related moves, additions, 
+        <p>The OpenNMS system provides a means for you to easily track and share
+            important information about capital assets in your organization.  This
+            data, when coupled with the information about your network that the
+            OpenNMS system obtains during network discovery, can be a powerful tool not
+            only for solving problems, but in tracking the current state of
+            equipment repairs as well as network or system-related moves, additions,
             or changes.
         </p>
         <p>There are two ways to add or modify the asset data stored in the OpenNMS system:</p>
@@ -105,15 +105,15 @@
           <li>Import the data from another source (Importing asset data is described on the <em>Admin</em> page)</li>
           <li>Enter the data by hand</li>
         </ul>
-          <p>Once you begin adding data to the OpenNMS system's assets inventory page, 
-            any node with an asset number (for example, bar code) will be displayed on the 
-            lower half of this page, providing you a one-click mechanism for 
-            tracking the current physical status of that device.  If you wish to 
-            search for particular assets by category, simply click the drop-down box 
-            labeled <b>Assets in category</b>, select the desired category, and click 
-            <b>[Search]</b> to retrieve a list of all assets associated with that category. 
-            And for a complete list of nodes, whether or not they have associated 
-            asset numbers, simply click on the <b>List all nodes with asset information</b> 
+          <p>Once you begin adding data to the OpenNMS system's assets inventory page,
+            any node with an asset number (for example, bar code) will be displayed on the
+            lower half of this page, providing you a one-click mechanism for
+            tracking the current physical status of that device.  If you wish to
+            search for particular assets by category, simply click the drop-down box
+            labeled <b>Assets in category</b>, select the desired category, and click
+            <b>[Search]</b> to retrieve a list of all assets associated with that category.
+            And for a complete list of nodes, whether or not they have associated
+            asset numbers, simply click on the <b>List all nodes with asset information</b>
             link.
         </p>
       </div>

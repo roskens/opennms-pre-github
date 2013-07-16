@@ -57,8 +57,8 @@
 		</tr>
 		<tr>
 		  <td colspan="3">
-	          <input type="submit" value="<spring:message code="ui.action.save"/>"/> 
-		      <input type="hidden" id="id" name="id" value="${authority.id}"/> 
+	          <input type="submit" value="<spring:message code="ui.action.save"/>"/>
+		      <input type="hidden" id="id" name="id" value="${authority.id}"/>
 			  <input type="button" onclick="location.href = 'authority.list.page'" value="<spring:message code="authority.list"/>"/>
 		  </td>
 		</tr>

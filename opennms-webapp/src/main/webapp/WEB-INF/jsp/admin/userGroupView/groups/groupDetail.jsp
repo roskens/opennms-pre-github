@@ -113,7 +113,7 @@
                 <% }
                 else { %>
                   <table width="50%" border="1" cellspacing="0" cellpadding="2" >
-                    <% 	Iterator usersIter = (Iterator)users.iterator(); 
+                    <% 	Iterator usersIter = (Iterator)users.iterator();
 			while (usersIter != null && usersIter.hasNext()) { %>
                       <tr>
                         <td>
@@ -159,7 +159,7 @@
                        <% } %>
                      </table>
                  </td>
-               </tr>      
+               </tr>
           </table>
         </td>
       </tr>

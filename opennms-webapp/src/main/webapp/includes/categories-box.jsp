@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing a
   table of categories and their outage and availability status.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -64,7 +64,7 @@
 		m_category_list.isDisconnected(earliestUpdate);
 %>
 <%	if (opennmsDisconnect) { %>
-	    <h3 class="o-box">OpenNMS Disconnect -- is the OpenNMS daemon running? - 
+	    <h3 class="o-box">OpenNMS Disconnect -- is the OpenNMS daemon running? -
 		Last update:
 <%=		(earliestUpdate > 0 ?
 			 new Date(earliestUpdate).toString() :
@@ -110,11 +110,11 @@
 		    title="Updated: <%= category.getLastUpdated() %>"><%= category.getOutageText() %>
 		</td>
 		<td class="<%= (opennmsDisconnect ? "Indeterminate" : category.getAvailClass()) %>"
-		    align="right" 
+		    align="right"
 		    title="Updated: <%= category.getLastUpdated() %>"><%= category.getAvailText() %>
 		</td>
 	</tr>
-	
+
 <%
 	    }
 	}

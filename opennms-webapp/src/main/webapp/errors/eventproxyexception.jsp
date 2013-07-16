@@ -53,8 +53,8 @@
     }
     else {
         throw new ServletException( "This error page does not handle this exception type.", exception );
-    }    
-    
+    }
+
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >

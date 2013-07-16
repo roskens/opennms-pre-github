@@ -67,13 +67,13 @@
             m_telnetServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("Telnet");
         } catch (Throwable e) {
             throw new ServletException("Could not determine the Telnet service ID", e);
-        }        
+        }
 
         try {
             m_sshServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("SSH");
         } catch (Throwable e) {
             throw new ServletException("Could not determine the SSH service ID", e);
-        } 
+        }
 
         try {
             m_httpServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("HTTP");
@@ -105,13 +105,13 @@
             return "Unknown";
         }
     }
-    
+
     public static String findServiceAddress(int nodeId, int serviceId, ServletContext servletContext) throws SQLException, UnknownHostException {
         Service[] services = NetworkElementFactory.getInstance(servletContext).getServicesOnNode(nodeId, serviceId);
         if (services == null || services.length == 0) {
             return null;
         }
-        
+
         List<InetAddress> ips = new ArrayList<InetAddress>();
         for (Service service : services) {
             ips.add(InetAddressUtils.addr(service.getIpAddress()));
@@ -125,13 +125,13 @@
             return null;
         }
     }
-    
+
     public static Collection<Map<String, String>> createLinkForService(int nodeId, int serviceId, String linkText, String linkPrefix, String linkSuffix, ServletContext servletContext) throws SQLException, UnknownHostException {
         String ip = findServiceAddress(nodeId, serviceId, servletContext);
         if (ip == null) {
             return new ArrayList<Map<String,String>>();
         }
-        
+
         Map<String, String> map = new HashMap<String, String>();
         map.put("text", linkText);
         map.put("url", linkPrefix + ip + linkSuffix);
@@ -142,7 +142,7 @@
 <%
     OnmsNode node_db = ElementUtil.getNodeByParams(request, getServletContext());
     int nodeId = node_db.getId();
-    
+
     Map<String, Object> nodeModel = new TreeMap<String, Object>();
     nodeModel.put("id", Integer.toString(nodeId));
     nodeModel.put("label", node_db.getLabel());
@@ -161,16 +161,16 @@
     if (asset != null && asset.getBuilding() != null && asset.getBuilding().length() > 0) {
         nodeModel.put("statusSite", asset.getBuilding());
     }
-    
+
     nodeModel.put("resources", m_resourceService.findNodeChildResources(nodeId));
     nodeModel.put("vlans", NetworkElementFactory.getInstance(getServletContext()).getVlansOnNode(nodeId));
     nodeModel.put("criticalPath", PathOutageFactory.getCriticalPath(nodeId));
     nodeModel.put("noCriticalPath", PathOutageFactory.NO_CRITICAL_PATH);
     nodeModel.put("admin", request.isUserInRole(Authentication.ROLE_ADMIN));
-    
+
     // get the child interfaces
     Interface[] intfs = NetworkElementFactory.getInstance(getServletContext()).getActiveInterfacesOnNode(nodeId);
-    if (intfs != null) { 
+    if (intfs != null) {
         nodeModel.put("intfs", intfs);
     } else {
         nodeModel.put("intfs", new Interface[0]);
@@ -185,14 +185,14 @@
             }
         }
     }
-    
+
     nodeModel.put("status", getStatusStringWithDefault(node_db));
     nodeModel.put("showIpRoute", NetworkElementFactory.getInstance(getServletContext()).isRouteInfoNode(nodeId));
     nodeModel.put("showBridge", NetworkElementFactory.getInstance(getServletContext()).isBridgeNode(nodeId));
     nodeModel.put("showRancid","true".equalsIgnoreCase(Vault.getProperty("opennms.rancidIntegrationEnabled")));
-    
+
     nodeModel.put("node", node_db);
-    
+
     if(!(node_db.getForeignSource() == null) && !(node_db.getForeignId() == null)) {
         nodeModel.put("parentRes", node_db.getForeignSource() + ":" + node_db.getForeignId());
         nodeModel.put("parentResType", "nodeSource");
@@ -221,7 +221,7 @@
 		        break;
 	    }
 	}
-	
+
 	pageContext.setAttribute("navEntries", renderedLinks);
 %>
 
@@ -259,14 +259,14 @@
     <li class="o-menuitem">
       <a href="<c:out value="${alarmLink}"/>">View Alarms</a>
     </li>
-    
+
     <c:url var="outageLink" value="outage/list.htm">
       <c:param name="filter" value="node=${model.id}"/>
     </c:url>
     <li class="o-menuitem">
       <a href="<c:out value="${outageLink}"/>">View Outages</a>
     </li>
-    
+
     <c:url var="assetLink" value="asset/modify.jsp">
       <c:param name="node" value="${model.id}"/>
     </c:url>
@@ -288,7 +288,7 @@
         <a href="<c:out value="${link.url}"/>">${link.text}</a>
       </li>
     </c:forEach>
-    
+
     <c:if test="${! empty model.resources}">
       <c:url var="resourceGraphsUrl" value="graph/chooseresource.htm">
         <c:param name="parentResourceType" value="${model.parentResType}"/>
@@ -299,7 +299,7 @@
         <a href="<c:out value="${resourceGraphsUrl}"/>">Resource Graphs</a>
       </li>
     </c:if>
-    
+
     <c:if test="${model.admin}">
       <c:url var="rescanLink" value="element/rescan.jsp">
         <c:param name="node" value="${model.id}"/>
@@ -307,7 +307,7 @@
       <li class="o-menuitem">
         <a href="<c:out value="${rescanLink}"/>">Rescan</a>
       </li>
-      
+
       <c:url var="adminLink" value="admin/nodemanagement/index.jsp">
         <c:param name="node" value="${model.id}"/>
       </c:url>
@@ -324,7 +324,7 @@
           <a href="<c:out value="${updateSnmpLink}"/>">Update SNMP</a>
         </li>
       </c:if>
-      
+
       <c:url var="createOutage" value="admin/sched-outages/editoutage.jsp">
 	<c:param name="newName" value="${model.label}"/>
 	<c:param name="addNew" value="true"/>
@@ -334,7 +334,7 @@
         <a href="<c:out value="${createOutage}"/>">Schedule Outage</a>
       </li>
     </c:if>
-    
+
     <c:forEach items="${navEntries}" var="entry">
       <li class="o-menuitem">
       	<c:out value="${entry}" escapeXml="false" />
@@ -348,10 +348,10 @@
 <jsp:include page="/includes/nodeStatus-box.jsp?nodeId=${model.id}" flush="false" />
 <% } %>
 <div class="TwoColLeft">
-  
-  
 
-  <!-- Asset box, if info available --> 
+
+
+  <!-- Asset box, if info available -->
   <c:if test="${! empty model.asset && (! empty model.asset.description || ! empty model.asset.comments)}">
     <h3 class="o-box">Asset Information</h3>
     <table class="o-box">
@@ -359,7 +359,7 @@
         <th>Description</th>
         <td>${model.asset.description}</td>
       </tr>
-      
+
       <tr>
         <th>Comments</th>
         <td>${model.asset.comments}</td>
@@ -402,14 +402,14 @@
         <li>
           ${model.criticalPath}
         </li>
-      </ul>           
-    </div>    
+      </ul>
+    </div>
   </c:if>
-	
+
 	<!-- Availability box -->
 	<c:if test="${fn:length( model.intfs ) < 10}">
     <jsp:include page="/includes/nodeAvailability-box.jsp" flush="false" />
-    </c:if> 
+    </c:if>
     <script type="text/javascript">
         var nodeId = ${model.id}
     </script>
@@ -418,7 +418,7 @@
     <opennms:interfacelist id="gwtnodeList"></opennms:interfacelist>
     <div name="opennms-interfacelist" id="gwtnodeList-ie"></div>
   </div>
-	
+
   <!-- Vlan box if available -->
   <c:if test="${! empty model.vlans}">
     <h3 class="o-box">VLAN Information</h3>
@@ -433,7 +433,7 @@
           <th>Last Poll Time</th>
         </tr>
       </thead>
-  
+
       <c:forEach items="${model.vlans}" var="vlan">
         <tr>
           <td>${vlan.vlanId}</td>
@@ -447,11 +447,11 @@
     </table>
   </c:if>
 
-  
+
 </div>
 
 <div class="TwoColRight">
-  
+
   <!-- general info box -->
   <h3 class="o-box">General (Status: ${model.status})</h3>
   <div class="boxWrapper">
@@ -473,7 +473,7 @@
           <a href="<c:out value="${ipRouteLink}"/>">View Node IP Route Info</a>
         </li>
       </c:if>
-     
+
       <c:if test="${model.showBridge}">
         <c:url var="bridgeLink" value="element/bridgenode.jsp">
           <c:param name="node" value="${model.id}"/>
@@ -489,17 +489,17 @@
       <li>
         <a href="<c:out value="${detailLink}"/>">View Node Link Detailed Info</a>
       </li>
-    </ul>	     
+    </ul>
   </div>
-  
+
   <!-- Category box -->
   <jsp:include page="/includes/nodeCategory-box.htm" flush="false" />
-  
+
   <!-- notification box -->
   <jsp:include page="/includes/notification-box.jsp" flush="false" >
     <jsp:param name="node" value="${model.id}" />
   </jsp:include>
-  
+
   <!-- events list  box -->
   <c:url var="eventListUrl" value="event/list">
     <c:param name="filter" value="node=${model.id}"/>
@@ -510,9 +510,9 @@
     <jsp:param name="header" value="<a href='${eventListUrl}'>Recent Events</a>" />
     <jsp:param name="moreUrl" value="${eventListUrl}" />
   </jsp:include>
-  
+
   <!-- Recent outages box -->
-  <jsp:include page="/outage/nodeOutages-box.htm" flush="false"> 
+  <jsp:include page="/outage/nodeOutages-box.htm" flush="false">
     <jsp:param name="node" value="${model.id}" />
   </jsp:include>
 </div>

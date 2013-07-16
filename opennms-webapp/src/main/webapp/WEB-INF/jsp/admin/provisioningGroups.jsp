@@ -40,7 +40,7 @@
 <%@ taglib tagdir="/WEB-INF/tags/js" prefix="js" %>
 
 <jsp:include page="/includes/header.jsp" flush="false">
-	<jsp:param name="title" value="Provisioning Requisitions" /> 
+	<jsp:param name="title" value="Provisioning Requisitions" />
 	<jsp:param name="headTitle" value="Provisioning Requisitions" />
 	<jsp:param name="breadcrumb" value="<a href='admin/index.jsp'>Admin</a>" />
 	<jsp:param name="breadcrumb" value="<a href='admin/provisioningGroups.htm'>Provisioning Requisitions</a>" />
@@ -83,7 +83,7 @@
     </c:if>
   </span>
   <br />
- 
+
   <table class="top" border="0">
   	<tr>
   	  <td>

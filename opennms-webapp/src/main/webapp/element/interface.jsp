@@ -56,10 +56,10 @@
     protected int httpServiceId;
     private WebApplicationContext m_webAppContext;
     private ResourceService m_resourceService;
-    
+
     public void init() throws ServletException {
         try {
-            this.telnetServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("Telnet");            
+            this.telnetServiceId = NetworkElementFactory.getInstance(getServletContext()).getServiceIdFromName("Telnet");
         }
         catch( Exception e ) {
             throw new ServletException( "Could not determine the Telnet service ID", e );
@@ -80,17 +80,17 @@
     Interface intf_db = ElementUtil.getInterfaceByParams(request, getServletContext());
     int nodeId = intf_db.getNodeId();
     String ipAddr = intf_db.getIpAddress();
-	int ifIndex = -1;    
+	int ifIndex = -1;
 	if (intf_db.getIfIndex() > 0) {
 		ifIndex = intf_db.getIfIndex();
 	}
 
     String telnetIp = null;
     Service telnetService = NetworkElementFactory.getInstance(getServletContext()).getService(nodeId, ipAddr, this.telnetServiceId);
-    
+
     if( telnetService != null  ) {
         telnetIp = ipAddr;
-    }    
+    }
 
     String httpIp = null;
     Service httpService = NetworkElementFactory.getInstance(getServletContext()).getService(nodeId, ipAddr, this.httpServiceId);
@@ -104,7 +104,7 @@
     PollerConfigFactory.init();
     PollerConfig pollerCfgFactory = PollerConfigFactory.getInstance();
     pollerCfgFactory.rebuildPackageIpListMap();
-    
+
 %>
 <c:url var="eventUrl1" value="event/list.htm">
     <c:param name="filter" value="<%="node=" + nodeId%>"/>
@@ -207,7 +207,7 @@ function doDelete() {
                       <li>
                           <a href="<c:out value="${graphLink}"/>"><c:out value="<%=resource.getResourceType().getLabel()%>"/> Graphs</a>
                       </li>
-                  <% 
+                  <%
               }
           }
         %>
@@ -235,7 +235,7 @@ function doDelete() {
               <c:param name="addNew" value="true"/>
               <c:param name="ipAddr" value="<%=ipAddr%>"/>
             </c:url>
-            <a href="<c:out value="${schedOutageUrl}"/>">Schedule Outage</a>      
+            <a href="<c:out value="${schedOutageUrl}"/>">Schedule Outage</a>
           </li>
         <% } %>
 
@@ -255,7 +255,7 @@ function doDelete() {
                 <th>Node</th>
                 <td><a href="element/node.jsp?node=<%=intf_db.getNodeId()%>"><%=NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(intf_db.getNodeId())%></a></td>
               </tr>
-              <tr> 
+              <tr>
                 <th>Polling Status</th>
                 <td><%=ElementUtil.getInterfaceStatusString(intf_db)%></td>
               </tr>
@@ -288,14 +288,14 @@ function doDelete() {
                   <% } %>
                 </td>
               </tr>
-              <tr> 
+              <tr>
                 <th>Last Service Scan</th>
                 <td><%=(intf_db.getLastCapsdPoll() == null) ? "&nbsp;" : intf_db.getLastCapsdPoll()%></td>
-              </tr>              
+              </tr>
             </table>
-            
+
             <% if (ifIndex > 0 ) { %>
-            
+
             <!-- Node Link box -->
             <jsp:include page="/includes/interfaceLink-box.jsp" flush="false">
                 <jsp:param name="node" value="<%=nodeId%>" />
@@ -311,12 +311,12 @@ function doDelete() {
             </jsp:include>
 
 </div>
-       
+
 
 <div id="contentright">
 
             <!-- interface desktop information box -->
-          
+
             <!-- events list box 1 using ipaddress-->
             <% if (!ipAddr.equals("0.0.0.0")) { %>
               <c:set var="eventHeader1">
@@ -347,7 +347,7 @@ function doDelete() {
             <jsp:include page="/outage/interfaceOutages-box.htm" flush="false">
                 <jsp:param name="node" value="<%=nodeId%>" />
                 <jsp:param name="ipAddr" value="<%=ipAddr%>" />
-            </jsp:include>         
+            </jsp:include>
 
 
 </div> <!-- id="contentright" -->

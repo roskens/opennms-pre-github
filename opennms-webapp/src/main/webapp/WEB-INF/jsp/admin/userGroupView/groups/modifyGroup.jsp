@@ -56,8 +56,8 @@
 	if (group == null) {
 		throw new ServletException("Could not get session attribute group");
 	}
-	
-	
+
+
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -72,7 +72,7 @@
 </jsp:include>
 
 <script type="text/javascript" >
-    
+
     function validate()
     {
         for (var c = 0; c < document.modifyGroup.dutySchedules.value; c++)
@@ -114,64 +114,64 @@
         }
         return true;
     }
-    
-    function addUsers() 
+
+    function addUsers()
     {
         m1len = m1.length ;
         for ( i=0; i<m1len ; i++)
         {
-            if (m1.options[i].selected == true ) 
+            if (m1.options[i].selected == true )
             {
                 m2len = m2.length;
                 m2.options[m2len]= new Option(m1.options[i].text);
             }
         }
-        
+
         for ( i = (m1len -1); i>=0; i--)
         {
-            if (m1.options[i].selected == true ) 
+            if (m1.options[i].selected == true )
             {
                 m1.options[i] = null;
             }
         }
     }
-    
-    function removeUsers() 
+
+    function removeUsers()
     {
         m2len = m2.length ;
         for ( i=0; i<m2len ; i++)
         {
-            if (m2.options[i].selected == true ) 
+            if (m2.options[i].selected == true )
             {
                 m1len = m1.length;
                 m1.options[m1len]= new Option(m2.options[i].text);
             }
         }
-        for ( i=(m2len-1); i>=0; i--) 
+        for ( i=(m2len-1); i>=0; i--)
         {
-            if (m2.options[i].selected == true ) 
+            if (m2.options[i].selected == true )
             {
                 m2.options[i] = null;
             }
         }
     }
-    
+
     function selectAllAvailable()
     {
-        for (i=0; i < m1.length; i++) 
+        for (i=0; i < m1.length; i++)
         {
             m1.options[i].selected = true;
         }
     }
-    
+
     function selectAllSelected()
     {
-        for (i=0; i < m2.length; i++) 
+        for (i=0; i < m2.length; i++)
         {
             m2.options[i].selected = true;
         }
     }
-    
+
     function move(incr)
     {
         var i = m2.selectedIndex;   // current selection
@@ -221,7 +221,7 @@
             document.modifyGroup.submit();
         }
     }
-    
+
     function saveGroup()
     {
         var ok = validate();
@@ -238,7 +238,7 @@
             return false;
         }
     }
-    
+
     function cancelGroup()
     {
         document.modifyGroup.operation.value="cancel";
@@ -250,16 +250,16 @@
     	m3len = m3.length ;
         for ( i=0; i<m3len ; i++)
         {
-            if (m3.options[i].selected == true ) 
+            if (m3.options[i].selected == true )
             {
                 m4len = m4.length;
                 m4.options[m4len]= new Option(m3.options[i].text);
             }
         }
-        
+
         for ( i = (m3len -1); i>=0; i--)
         {
-            if (m3.options[i].selected == true ) 
+            if (m3.options[i].selected == true )
             {
                 m3.options[i] = null;
             }
@@ -270,15 +270,15 @@
     	m4len = m4.length ;
         for ( i=0; i<m4len ; i++)
         {
-            if (m4.options[i].selected == true ) 
+            if (m4.options[i].selected == true )
             {
                 m3len = m3.length;
                 m3.options[m3len]= new Option(m4.options[i].text);
             }
         }
-        for ( i=(m4len-1); i>=0; i--) 
+        for ( i=(m4len-1); i>=0; i--)
         {
-            if (m4.options[i].selected == true ) 
+            if (m4.options[i].selected == true )
             {
                 m4.options[i] = null;
             }
@@ -315,17 +315,17 @@
           	<option selected><%=group.getDefaultMap()%></option>
           	<%
           	for (String mapname: allVisibleMaps) {
-          	    if (!mapname.equals(group.getDefaultMap())) { 
+		    if (!mapname.equals(group.getDefaultMap())) {
           	%>
           	<option><%=mapname%></option>
-          	<%    
+		<%
           	    }
           	}
           	%>
           </select>
           </td>
         </tr>
-        
+
         </table>
 
 
@@ -370,7 +370,7 @@
           </td>
         </tr>
 
-      
+
 	      <tr>
 	          <td align="left">
 	            <table bgcolor="white" border="1" cellpadding="5" cellspacing="2">
@@ -384,7 +384,7 @@
 	                  Available Categories <br/>
 	                  <%=createSelectList("availableCategories", categoryListNotInGroup)%><br/>
 	                  <p align="center">
-	                  
+
 	                  <input type="button" name="availableAll" onClick="selectAllAvailableCategories()" value="Select All"/><br/>
 	                  <input type="button" onClick="addCategories()" value="&nbsp;&#155;&#155;&nbsp;"/></p>
 	                </td>
@@ -404,7 +404,7 @@
 	          </td>
 	        </tr>
 	      </table>
-      
+
       <p><b>Duty Schedules</b></p>
       <table width="100%" border="1" cellspacing="0" cellpadding="2" >
         <tr bgcolor="#999999">
@@ -483,7 +483,7 @@
     </tr>
   </table>
 </form>
-  
+
 <script type="text/javascript">
   // shorthand for refering to menus
   // must run after document has been created
@@ -506,9 +506,9 @@
             buffer.append("<option>" + category + "</option>");
         }
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
-    
+
 %>
 

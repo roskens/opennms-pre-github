@@ -39,8 +39,8 @@
 		org.opennms.web.event.*
 		"
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib tagdir="/WEB-INF/tags/form" prefix="form" %>
 <%
     //get the service names, in alpha order
@@ -167,7 +167,7 @@
             <td>
               <select name="aftermonth" size="1">
                 <c:forEach var="month" items="${months}" varStatus="status">
-                  <form:option value="${status.index}" selected="${status.count == nowMonth}">${month}</form:option>                  
+                  <form:option value="${status.index}" selected="${status.count == nowMonth}">${month}</form:option>
                 </c:forEach>
               </select>
 
@@ -177,7 +177,7 @@
             <td>
               <select name="beforemonth" size="1">
                 <c:forEach var="month" items="${months}" varStatus="status">
-                  <form:option value="${status.index}" selected="${status.count == nowMonth}">${month}</form:option>                  
+                  <form:option value="${status.index}" selected="${status.count == nowMonth}">${month}</form:option>
                 </c:forEach>
               </select>
 

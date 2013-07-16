@@ -51,7 +51,7 @@
 
 <form name="chooseForm" action="distributedStatusHistory.htm">
   <input type="hidden" name="previousLocation" value="${historyModel.chosenLocation.name}"/>
-  
+
   <table class="normal">
     <tr>
       <td class="normal" align="right">Location</td>
@@ -70,7 +70,7 @@
         </select>
   	</td>
     </tr>
-  
+
     <tr>
       <td class="normal" align="right">Location monitor</td>
       <td class="normal">
@@ -78,7 +78,7 @@
           <c:when test="${empty historyModel.monitors}">
             No location monitors have registered for this location
           </c:when>
-          
+
     	  <c:otherwise>
             <select name="monitorId" id="monitor" onChange="document.chooseForm.submit();">
               <c:forEach items="${historyModel.monitors}" var="monitor">
@@ -92,17 +92,17 @@
                 </c:choose>
               </c:forEach>
             </select>
-            
+
             <c:url var="monitorLink" value="distributed/locationMonitorDetails.htm">
               <c:param name="monitorId" value="${historyModel.chosenMonitor.id}"/>
             </c:url>
-            
+
             <a href="${monitorLink}">View monitor details</a>
     	  </c:otherwise>
         </c:choose>
-      </td> 
+      </td>
     </tr>
-  
+
     <tr>
       <td class="normal" align="right">Application</td>
       <td class="normal">
@@ -120,7 +120,7 @@
         </select>
   	</td>
     </tr>
-  
+
     <tr>
       <td class="normal" align="right">Time Span</td>
   	<td class="normal">
@@ -138,7 +138,7 @@
         </select>
       </td>
     </tr>
-  
+
     <tr>
       <td class="normal"></td>
       <td class="normal">
@@ -147,12 +147,12 @@
     </tr>
   </table>
 </form>
-  
+
 <form action="distributedStatusDetails.htm" name="viewStatusDetails">
   <input type="hidden" name="location" value="${historyModel.chosenLocation.name}"/>
   <input type="hidden" name="application" value="${historyModel.chosenApplication.name}"/>
 </form>
-  
+
 <c:set var="errors" value="0"/>
 
 <c:forEach items="${historyModel.serviceGraphs}" var="graph">
@@ -160,11 +160,11 @@
     <c:if test="${errors == 0}">
       <c:out escapeXml="false" value="<span id='distributedStatusHistoryErroredServices' style='display: none;'>"/>
     </c:if>
-    
+
     <c:set var="errors" value="${errors + 1}"/>
   </c:if>
-  
-  
+
+
   <p style="text-align: center">
     <c:url var="nodeUrl" value="element/node.jsp?node=${graph.service.ipInterface.node.id}"/>
     <c:url var="interfaceUrl" value="element/interface.jsp?ipinterfaceid=${graph.service.ipInterface.id}"/>
@@ -181,7 +181,7 @@
         </c:forEach>
       </span>
     </c:if>
-    
+
     <c:if test="${!empty graph.url}">
       <img src="${graph.url}"/>
     </c:if>
@@ -197,13 +197,13 @@
     You can <a onClick="document.viewStatusDetails.submit();">view status details</a>
     for these services or <a onClick="hideErroredServices(0);">show all services</a>.
   </p>
-  
+
   <p id="distributedStatusHistoryErrorDisplay" style="display: none;">
     ${errors} services with no graphs are shown.
     You can <a onClick="document.viewStatusDetails.submit();">view status details</a>
     for these services or <a onClick="hideErroredServices(1);">hide these services</a>.
   </p>
-  
+
   <script type="text/javascript">
     function hideErroredServices(hide) {
       if (hide) {

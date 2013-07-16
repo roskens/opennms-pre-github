@@ -29,7 +29,7 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by certain other JSPs to create a footnote
   for resource types that are not interfaceSnmp, but get processed
   by code that normally deals with interfaceSnmp resources.

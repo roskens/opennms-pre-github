@@ -52,9 +52,9 @@
   This page is written to be the display (view) portion of the NotificationQueryServlet
   at the /notification/list URL.  It will not work by itself, as it requires two request
   attributes be set:
-  
+
   1) notices: the list of org.opennms.web.notification.Notification instances to display
-  2) parms: an org.opennms.web.notification.NoticeQueryParms object that holds all the 
+  2) parms: an org.opennms.web.notification.NoticeQueryParms object that holds all the
      parameters used to make this query
 --%>
 <%
@@ -94,7 +94,7 @@
 
 <script type="text/javascript" >
     function checkAllCheckboxes() {
-       if( document.acknowledge_form.notices.length ) {  
+       if( document.acknowledge_form.notices.length ) {
          for( i = 0; i < document.acknowledge_form.notices.length; i++ ) {
            document.acknowledge_form.notices[i].checked = true
          }
@@ -102,17 +102,17 @@
        else {
          document.acknowledge_form.notices.checked = true
        }
-         
+
     }
-    
+
     function submitAcknowledge()
     {
         var isChecked = false;
         var numChecked = 0;
-        
+
         if (document.acknowledge_form.notices.length)
         {
-            for( i = 0; i < document.acknowledge_form.notices.length; i++ ) 
+            for( i = 0; i < document.acknowledge_form.notices.length; i++ )
             {
               //make sure something is checked before proceeding
               if (document.acknowledge_form.notices[i].checked)
@@ -121,19 +121,19 @@
                   numChecked+=1;
               }
             }
-            
+
             if (isChecked && document.acknowledge_form.multiple)
             {
-              if (numChecked == parseInt(document.acknowledge_form.notices.length)) 
-              { 
+              if (numChecked == parseInt(document.acknowledge_form.notices.length))
+              {
                 var newPageNum = parseInt(document.acknowledge_form.multiple.value) - 1;
                 var findVal = "multiple=" + document.acknowledge_form.multiple.value;
                 var replaceWith = "multiple=" + newPageNum;
                 var tmpRedirect = document.acknowledge_form.redirectParms.value;
                 document.acknowledge_form.redirectParms.value = tmpRedirect.replace(findVal, replaceWith);
                 document.acknowledge_form.submit();
-              } 
-              else 
+              }
+              else
               {
                 document.acknowledge_form.submit();
               }
@@ -160,7 +160,7 @@
             }
         }
     }
-    
+
 </script>
 <!-- notification/browser.jsp -->
 <% if( parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) { %>
@@ -170,11 +170,11 @@
   </p>
 <% } else if( parms.ackType == AcknowledgeType.ACKNOWLEDGED ) { %>
   <p>
-    Currently showing only <strong>acknowledged</strong> notices.  
+    Currently showing only <strong>acknowledged</strong> notices.
     <a href="<%=this.makeLink(parms, AcknowledgeType.UNACKNOWLEDGED)%>" title="Show outstanding notices">[Show outstanding]</a>
   </p>
 <% } %>
-      
+
 <!-- JS - attempt to use common pager for event and notice -->
 
 <% if( noticeCount > 0 ) { %>
@@ -193,7 +193,7 @@
     Applied filters:
       <% for( int i = 0; i < length; i++ ) { %>
 		<span class="filter"><% Filter filter = (Filter)parms.filters.get(i); %>
-				<%=WebSecurityUtils.sanitizeString(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span> &nbsp; 
+				<%=WebSecurityUtils.sanitizeString(filter.getTextDescription())%> <a href="<%=this.makeLink( parms, filter, false)%>" title="Remove filter">[-]</a></span> &nbsp;
       <% } %>
     &mdash; <a href="<%=this.makeLink( parms, new ArrayList<Filter>())%>" title="Remove all filters">[Remove all]</a>
   </p>
@@ -211,14 +211,14 @@
           <th>Severity</th>
           <th><%=this.makeSortLink( parms, SortStyle.PAGETIME,    SortStyle.REVERSE_PAGETIME,    "pagetime",    "Sent Time"    )%></th>
           <th><%=this.makeSortLink( parms, SortStyle.RESPONDER,   SortStyle.REVERSE_RESPONDER,   "answeredby",  "Responder"    )%></th>
-          <th><%=this.makeSortLink( parms, SortStyle.RESPONDTIME, SortStyle.REVERSE_RESPONDTIME, "respondtime", "Respond Time" )%></th>  
+          <th><%=this.makeSortLink( parms, SortStyle.RESPONDTIME, SortStyle.REVERSE_RESPONDTIME, "respondtime", "Respond Time" )%></th>
           <th><%=this.makeSortLink( parms, SortStyle.NODE,        SortStyle.REVERSE_NODE,        "node",        "Node"         )%></th>
           <th><%=this.makeSortLink( parms, SortStyle.INTERFACE,   SortStyle.REVERSE_INTERFACE,   "interface",   "Interface"    )%></th>
           <th><%=this.makeSortLink( parms, SortStyle.SERVICE,     SortStyle.REVERSE_SERVICE,     "service",     "Service"      )%></th>
         </tr>
       </thead>
 
-      <% for( int i=0; i < notices.length; i++ ) { 
+      <% for( int i=0; i < notices.length; i++ ) {
     	final Notification notification = notices[i];
     	if (notification == null) continue;
         Event event = events.get(notification.getEventId());
@@ -228,10 +228,10 @@
         }
         %>
         <tr class="<%=eventSeverity%>">
-          <td class="divider noWrap" rowspan="2"><% if((parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) && 
+          <td class="divider noWrap" rowspan="2"><% if((parms.ackType == AcknowledgeType.UNACKNOWLEDGED ) &&
 		(request.isUserInRole( Authentication.ROLE_ADMIN ) || !request.isUserInRole( Authentication.ROLE_READONLY ))) { %>
             <input type="checkbox" name="notices" value="<%=notification.getId()%>" />
-          <% } %> 
+          <% } %>
 						<a href="notification/detail.jsp?notice=<%=notification.getId()%>"><%=notification.getId()%></a></td>
           <td class="divider" rowspan="2">
             <% if ( event != null && event.getEventDisplay() != null && event.getEventDisplay() ) { %>
@@ -243,7 +243,7 @@
           <td class="divider">
           <% final String responder = notification.getResponder(); %>
           <% if (responder != null) { %>
-            <% Filter responderFilter = new ResponderFilter(responder); %>      
+            <% Filter responderFilter = new ResponderFilter(responder); %>
               <%= responder %>
               <% if( !parms.filters.contains( responderFilter )) { %>
                 <a href="<%=this.makeLink( parms, responderFilter, true)%>" class="filterLink" title="Show only notices with this responder">${addPositiveFilter}</a>
@@ -304,7 +304,7 @@
           </td>
         </tr>
         <tr class="<%=eventSeverity%>">
-          <td colspan="6"><%=notification.getTextMessage()%></td> 
+          <td colspan="6"><%=notification.getTextMessage()%></td>
         </tr>
       <% } /*end for*/%>
       </table>
@@ -315,7 +315,7 @@
             <input TYPE="button" VALUE="Select All" onClick="checkAllCheckboxes()"/>
             <input type="button" value="Acknowledge Notices" onClick="submitAcknowledge()"/>
         <% } %>
-        
+
 	</p>
         </form>
 	<!--		<% if( noticeCount > 0 ) { %>
@@ -331,7 +331,7 @@
           <jsp:param name="multiple" value="<%=parms.multiple%>"   />
           </jsp:include>
          <% } %>
- 
+
 <jsp:include page="/includes/footer.jsp" flush="false" />
 
 
@@ -355,14 +355,14 @@
           buffer.append( title );
           buffer.append( " Descending Sort\"/>" );
           buffer.append( "&nbsp;<a href=\"" );
-          buffer.append( this.makeLink( parms, style )); 
+          buffer.append( this.makeLink( parms, style ));
           buffer.append( "\" title=\"Reverse the sort\">" );
       } else {
           buffer.append( "<a href=\"" );
           buffer.append( this.makeLink( parms, style ));
           buffer.append( "\" title=\"Sort by " );
           buffer.append( sortString );
-          buffer.append( "\">" );   
+          buffer.append( "\">" );
       }
 
       buffer.append( title );
@@ -393,7 +393,7 @@
         	  // ignore
           }
         }
-      }      
+      }
 
       return( buffer.toString() );
     }

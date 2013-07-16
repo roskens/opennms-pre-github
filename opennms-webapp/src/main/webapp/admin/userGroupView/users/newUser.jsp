@@ -48,7 +48,7 @@
 </jsp:include>
 
 <script type="text/javascript">
-  function validateFormInput() 
+  function validateFormInput()
   {
     var id = new String(document.newUserForm.userID.value);
     if (id.toLowerCase()=="admin")
@@ -56,12 +56,12 @@
         alert("The user ID '" + document.newUserForm.userID.value + "' cannot be used. It may be confused with the administration user ID 'admin'.");
         return false;
     }
-    
-    if (document.newUserForm.pass1.value == document.newUserForm.pass2.value) 
+
+    if (document.newUserForm.pass1.value == document.newUserForm.pass2.value)
     {
       document.newUserForm.action="admin/userGroupView/users/addNewUser";
       return true;
-    } 
+    }
     else
     {
       alert("The two password fields do not match!");
@@ -69,7 +69,7 @@
       document.newUserForm.pass2.value = "";
       return false;
     }
-  }    
+  }
   function cancelUser()
   {
       document.newUserForm.action="admin/userGroupView/users/list.jsp";

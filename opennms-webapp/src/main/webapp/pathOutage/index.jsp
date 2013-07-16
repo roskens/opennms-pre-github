@@ -45,7 +45,7 @@
 </jsp:include>
 
 <% OpennmsServerConfigFactory.init(); %>
-    
+
 
 <%
         List<String[]> testPaths = PathOutageFactory.getAllCriticalPaths();

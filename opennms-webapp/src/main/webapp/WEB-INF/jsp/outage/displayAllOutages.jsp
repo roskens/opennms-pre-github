@@ -78,7 +78,7 @@
 
 			<a href="element/node.jsp?node=${tabledata.nodeid}">${tabledata.node}</a>
 			&nbsp;
-			
+
 			<c:choose>
 				<c:when test='${suffix == null}'>
 					<a
@@ -102,9 +102,9 @@
 				<c:param name="intf" value="${tabledata.ipaddr}"/>
 			</c:url>
 			<a href="<c:out value="${interfaceLink}"/>">${tabledata.ipaddr}</a>
-			
+
 			&nbsp;
-			
+
 			<c:url var="withIpaddrLink" value="${pageContext.request.contextPath}/displayAllOutages.htm">
 				<c:param name="ipaddr" value="${tabledata.ipaddr}"/>
 			</c:url>
@@ -144,10 +144,10 @@
 		</ec:column>
 
 		<ec:column property="iflostservice" alias="Down">
-			
+
 			${tabledata.iflostservice}
 			&nbsp;
-			
+
 			<c:choose>
 				<c:when test='${suffix == null}'>
 					<a
@@ -173,7 +173,7 @@
 
 				${tabledata.ifregainedservice}
 				&nbsp;
-				
+
 			<c:if test='${tabledata.ifregainedservice ne null}'>
 
 				<c:choose>

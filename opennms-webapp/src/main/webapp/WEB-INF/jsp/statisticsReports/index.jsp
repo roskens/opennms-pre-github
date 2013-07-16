@@ -57,9 +57,9 @@
   <c:otherwise>
     <!-- We need the </script>, otherwise IE7 breaks -->
     <script type="text/javascript" src="js/extremecomponents.js"></script>
-      
+
     <link rel="stylesheet" type="text/css" href="css/onms-extremecomponents.css"/>
-        
+
     <form id="form" action="${relativeRequestPath}" method="post">
       <ec:table items="model" var="row"
         action="${relativeRequestPath}?${pageContext.request.queryString}"
@@ -70,15 +70,15 @@
         form="form"
         rowsDisplayed="25"
         view="org.opennms.web.svclayer.etable.FixedRowCompact"
-        showExports="true" showStatusBar="true" 
+        showExports="true" showStatusBar="true"
         autoIncludeParameters="false"
         >
-      
+
         <ec:exportPdf fileName="Statistics Report List.pdf" tooltip="Export PDF"
           headerColor="black" headerBackgroundColor="#b6c2da"
           headerTitle="Statistics Report List" />
         <ec:exportXls fileName="Statistics Report List.xls" tooltip="Export Excel" />
-      
+
         <ec:row highlightRow="false">
         <%--
           <ec:column property="name" interceptor="org.opennms.web.svclayer.outage.GroupColumnInterceptor"/>
@@ -96,8 +96,8 @@
 		  <ec:column property="duration" title="Enter Filter Text Above <br/> <br/> Run Interval">
             ${row.durationString}
           </ec:column>
-          
-          
+
+
         <%--
           <ec:column property="jobStartedDate" title="Enter Filter Text Above <br/> <br/> Job Started"  cell="date" format="MMM d, yyyy  HH:mm:ss"/>
           <ec:column property="jobCompletedDate" title="Enter Filter Text Above <br/> <br/> Job Completed"  cell="date" format="MMM d, yyyy  HH:mm:ss"/>

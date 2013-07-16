@@ -66,54 +66,54 @@
       <h3>Search for Nodes</h3>
 		<div class="boxWrapper">
             <form action="element/nodeList.htm" method="get">
-					<p align="right">Name containing:          
+					<p align="right">Name containing:
               <input type="hidden" name="listInterfaces" value="false"/>
               <input type="text" name="nodename" />
-              <input type="submit" value="Search"/></p>                
+              <input type="submit" value="Search"/></p>
             </form>
 
             <form action="element/nodeList.htm" method="get">
-					<p align="right">TCP/IP Address like:          
+					<p align="right">TCP/IP Address like:
               <input type="hidden" name="listInterfaces" value="false"/>
               <input type="text" name="iplike" value="*.*.*.*" />
-              <input type="submit" value="Search"/></p>                
+              <input type="submit" value="Search"/></p>
             </form>
 
             <form action="element/nodeList.htm" method="get">
 					<p align="right">
 					    <select name="snmpParm" size="1">
-                            <option>ifAlias</option> 
+                            <option>ifAlias</option>
                             <option>ifName</option>
                             <option>ifDescr</option>
                         </select>
                         <select name="snmpParmMatchType" size="1">
-                            <option>contains</option> 
+                            <option>contains</option>
                             <option>equals</option>
-                        </select>:        
+                        </select>:
 						<input type="hidden" name="listInterfaces" value="false"/>
 						<input type="text" name="snmpParmValue" />
-						<input type="submit" value="Search"/></p>                
+						<input type="submit" value="Search"/></p>
             </form>
 
             <form action="element/nodeList.htm" method="get">
-					<p align="right">Providing service:          
+					<p align="right">Providing service:
 						<input type="hidden" name="listInterfaces" value="false"/>
 						<select name="service" size="1">
 						  <% while( serviceNameIterator.hasNext() ) { %>
-						    <% String name = (String)serviceNameIterator.next(); %> 
+						    <% String name = (String)serviceNameIterator.next(); %>
 						    <option value="<%=serviceNameMap.get(name)%>"><%=name%></option>
-						  <% } %>          
+						  <% } %>
 						</select>
-						<input type="submit" value="Search"/></p>                
+						<input type="submit" value="Search"/></p>
             </form>
-            
+
             <form action="element/nodeList.htm" method="get">
-					<p align="right">MAC Address like:          
+					<p align="right">MAC Address like:
 						<input type="hidden" name="listInterfaces" value="false"/>
 						<input type="text" name="maclike" />
-						<input type="submit" value="Search"/></p>                
+						<input type="submit" value="Search"/></p>
             </form>
-            
+
             <form action="element/nodeList.htm" method="get">
                     <p align="right">Foreign Source name like:
                         <input type="hidden" name="listInterfaces" value="false"/>
@@ -121,28 +121,28 @@
                         <input type="submit" value="Search"/>
                     </p>
             </form>
-                        
+
 			<ul class="plain">
 				<li><a href="element/nodeList.htm">All nodes</a></li>
 				<li><a href="element/nodeList.htm?listInterfaces=true">All nodes and their interfaces</a></li>
 			</ul>
 		</div>
-		
+
 		<h3>Search Asset Information</h3>
 		<div class="boxWrapper">
         <%-- category --%>
         <form action="asset/nodelist.jsp" method="get">
-          <p align="right">Category: 
+          <p align="right">Category:
           <input type="hidden" name="column" value="category" />
           <select name="searchvalue" size="1">
             <% for( int i=0; i < Asset.CATEGORIES.length; i++ ) { %>
-              <option><%=Asset.CATEGORIES[i]%></option> 
+              <option><%=Asset.CATEGORIES[i]%></option>
             <% } %>
           </select>
           <input type="submit" value="Search" />
 			</p>
         </form>
-		
+
         <form action="asset/nodelist.jsp" method="get">
           <p align="right">Field:
 				<select name="column" size="1">
@@ -162,26 +162,26 @@
 
   <div class="TwoColRight">
       <h3>Search Options</h3>
-     <div class="boxWrapper"> 
+     <div class="boxWrapper">
       <p>Searching by name is a case-insensitive, inclusive search. For example,
-        searching on <em>serv</em> would find any of <em>serv</em>, <em>Service</em>, 
+        searching on <em>serv</em> would find any of <em>serv</em>, <em>Service</em>,
         <em>Reserved</em>, <em>NTSERV</em>, <em>UserVortex</em>, etc. The underscore
         character acts as a single character wildcard. The percent character acts as a multiple
         character wildcard.
       </p>
-        
+
       <p>Searching by TCP/IP address uses a very flexible search format, allowing you
         to separate the four octets (fields) of a TCP/IP address into specific
         searches.  An asterisk (*) in place of any octet matches any value for that
         octet. Ranges are indicated by two numbers separated by a dash (-), and
         commas are used for list demarcation.
       </p>
-        
+
       <p>For example, the following search fields are all valid and would each create
         the same result set--all TCP/IP addresses from 192.168.0.0 through
         192.168.255.255:
       </p>
-      
+
         <ul>
             <li>192.168.*.*
             <li>192.168.0-255.0-255

@@ -58,9 +58,9 @@
   This page is written to be the display (view) portion of the OutageFilterServlet
   at the /outage/list.htm URL.  It will not work by itself, as it requires two request
   attributes be set:
-  
+
   1) outages: the list of org.opennms.web.outage.Outage instances to display
-  2) parms: an org.opennms.web.outage.OutageQueryParms object that holds all the 
+  2) parms: an org.opennms.web.outage.OutageQueryParms object that holds all the
      parameters used to make this query
 --%>
 
@@ -70,7 +70,7 @@
     public static final String DISCARD_ICON = "[-]";
     public static final String BEFORE_ICON  = "[&gt;]";
     public static final String AFTER_ICON   = "[&lt;]";
-    
+
     public static final DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
 %>
 
@@ -102,7 +102,7 @@
         <jsp:param name="limit"    value="<%=parms.limit%>" />
         <jsp:param name="multiple" value="<%=parms.multiple%>" />
       </jsp:include>
-    <% } %>           
+    <% } %>
     <jsp:include page="/includes/search-constraints-box.jsp" />
     <table>
       <tr>
@@ -112,34 +112,34 @@
         <th><%=this.makeSortLink(request, parms, SortStyle.SERVICE,           SortStyle.REVERSE_SERVICE,           "service",                   "Service")%></th>
         <th><%=this.makeSortLink(request, parms, SortStyle.IFLOSTSERVICE,     SortStyle.REVERSE_IFLOSTSERVICE,     "time service was lost",     "Down")%></th>
         <th><%=this.makeSortLink(request, parms, SortStyle.IFREGAINEDSERVICE, SortStyle.REVERSE_IFREGAINEDSERVICE, "time service was regained", "Up")%></th>
-      </tr>      
-      
+      </tr>
+
       <%
         for( int i=0; i < outages.length; i++ ) {
         Outage outage = outages[i];
       	pageContext.setAttribute("outage", outage);
       %>
         <tr class="<%=OutageUtil.getStatusColor(outages[i])%>">
-        
+
           <!-- outage id -->
           <td>
             <a href="outage/detail.htm?id=<%=outages[i].getId()%>"><%=outages[i].getId()%></a>
           </td>
-          
+
           <!-- node -->
           <td class="noWrap">
-            <% if(outages[i].getNodeId() != 0 ) { %>             
+            <% if(outages[i].getNodeId() != 0 ) { %>
               <% String longLabel  = outages[i].getNodeLabel(); %>
               <% String shortLabel = ElementUtil.truncateLabel(longLabel, 32); %>
               <a href="element/node.jsp?node=<%=outages[i].getNodeId()%>" title="<%=longLabel%>"><%=shortLabel%></a>
               <% Filter nodeFilter = new NodeFilter(outages[i].getNodeId(), getServletContext()); %>
               <% if( !parms.filters.contains(nodeFilter) ) { %>
                   <a href="<%=OutageUtil.makeLink( request, parms, nodeFilter, true)%>" title="Show only outages on this node"><%=ZOOM_IN_ICON%></a>
-                  <a href="<%=OutageUtil.makeLink( request, parms, new NegativeNodeFilter(outages[i].getNodeId(), getServletContext()), true)%>" title="Do not show outages for this node"><%=DISCARD_ICON%></a>              
-              <% } %>                          
+                  <a href="<%=OutageUtil.makeLink( request, parms, new NegativeNodeFilter(outages[i].getNodeId(), getServletContext()), true)%>" title="Do not show outages for this node"><%=DISCARD_ICON%></a>
+              <% } %>
             <% } %>
           </td>
-          
+
           <!-- interface -->
           <td class="noWrap">
             <% if(outages[i].getIpAddress() != null ) { %>
@@ -152,15 +152,15 @@
               <% } else { %>
                  <%=outages[i].getIpAddress()%>
               <% } %>
-              
+
               <% Filter intfFilter = new InterfaceFilter(outages[i].getIpAddress()); %>
               <% if( !parms.filters.contains(intfFilter) ) { %>
                   <a href="<%=OutageUtil.makeLink( request, parms, intfFilter, true)%>" title="Show only outages on this IP address"><%=ZOOM_IN_ICON%></a>
-                  <a href="<%=OutageUtil.makeLink( request, parms, new NegativeInterfaceFilter(outages[i].getIpAddress()), true)%>" title="Do not show outages for this interface"><%=DISCARD_ICON%></a>                                            
-              <% } %>                          
+                  <a href="<%=OutageUtil.makeLink( request, parms, new NegativeInterfaceFilter(outages[i].getIpAddress()), true)%>" title="Do not show outages for this interface"><%=DISCARD_ICON%></a>
+              <% } %>
             <% } %>
           </td>
-          
+
           <!-- service -->
           <td class="noWrap">
             <% if(outages[i].getServiceName() != null) { %>
@@ -173,30 +173,30 @@
                 <a href="${serviceLink}" title="More info on this service"><c:out value="<%=outages[i].getServiceName()%>"/></a>
               <% } else { %>
                 <c:out value="<%=outages[i].getServiceName()%>"/>
-              <% } %>                
-              
+              <% } %>
+
               <% Filter serviceFilter = new ServiceFilter(outages[i].getServiceId()); %>
               <% if( !parms.filters.contains( serviceFilter )) { %>
                   <a href="<%=OutageUtil.makeLink( request, parms, serviceFilter, true)%>" title="Show only outages with this service type"><%=ZOOM_IN_ICON%></a>
                   <a href="<%=OutageUtil.makeLink( request, parms, new NegativeServiceFilter(outages[i].getServiceId()), true)%>" title="Do not show outages for this service"><%=DISCARD_ICON%></a>
-              <% } %>              
-            <% } %>          
+              <% } %>
+            <% } %>
           </td>
-            
+
           <!-- lost service time -->
           <td class="noWrap">
 	    <fmt:formatDate value="${outage.lostServiceTime}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${outage.lostServiceTime}" type="time" pattern="HH:mm:ss"/>
-              <a href="<%=OutageUtil.makeLink( request, parms, new LostServiceDateAfterFilter(outages[i].getLostServiceTime()), true)%>" title="Only show outages beginning after this one"><%=AFTER_ICON%></a>            
-              <a href="<%=OutageUtil.makeLink( request, parms, new LostServiceDateBeforeFilter(outages[i].getLostServiceTime()), true)%>" title="Only show outages beginning before this one"><%=BEFORE_ICON%></a>            
+              <a href="<%=OutageUtil.makeLink( request, parms, new LostServiceDateAfterFilter(outages[i].getLostServiceTime()), true)%>" title="Only show outages beginning after this one"><%=AFTER_ICON%></a>
+              <a href="<%=OutageUtil.makeLink( request, parms, new LostServiceDateBeforeFilter(outages[i].getLostServiceTime()), true)%>" title="Only show outages beginning before this one"><%=BEFORE_ICON%></a>
           </td>
-          
+
           <!-- regained service time -->
           <% Date regainedTime = outages[i].getRegainedServiceTime(); %>
           <% if(regainedTime != null ) { %>
             <td class="noWrap">
 	    <fmt:formatDate value="${outage.regainedServiceTime}" type="date" dateStyle="short"/>&nbsp;<fmt:formatDate value="${outage.regainedServiceTime}" type="time" pattern="HH:mm:ss"/>
-                <a href="<%=OutageUtil.makeLink( request, parms, new RegainedServiceDateAfterFilter(outages[i].getRegainedServiceTime()), true)%>" title="Only show outages resolving after this one"><%=AFTER_ICON%></a>            
-                <a href="<%=OutageUtil.makeLink( request, parms, new RegainedServiceDateBeforeFilter(outages[i].getRegainedServiceTime()), true)%>" title="Only show outages resolving before this one"><%=BEFORE_ICON%></a>            
+                <a href="<%=OutageUtil.makeLink( request, parms, new RegainedServiceDateAfterFilter(outages[i].getRegainedServiceTime()), true)%>" title="Only show outages resolving after this one"><%=AFTER_ICON%></a>
+                <a href="<%=OutageUtil.makeLink( request, parms, new RegainedServiceDateBeforeFilter(outages[i].getRegainedServiceTime()), true)%>" title="Only show outages resolving before this one"><%=BEFORE_ICON%></a>
             </td>
           <% } else { %>
             <td class="bright"><%=OutageUtil.getStatusLabel(outages[i])%></td>
@@ -204,7 +204,7 @@
         </tr>
       <% } %>
     </table>
- 
+
      <% if( outageCount > 0 ) { %>
        <% String baseUrl = OutageUtil.makeLink(request, parms); %>
        <jsp:include page="/includes/resultsIndex.jsp" flush="false" >
@@ -213,8 +213,8 @@
          <jsp:param name="limit"    value="<%=parms.limit%>" />
          <jsp:param name="multiple" value="<%=parms.multiple%>" />
        </jsp:include>
-     <% } %>           
- 
+     <% } %>
+
 
 <jsp:include page="/includes/bookmark.jsp" flush="false" />
 <jsp:include page="/includes/footer.jsp" flush="false" />
@@ -236,19 +236,19 @@
           buffer.append( title );
           buffer.append( " Descending Sort\"/>" );
           buffer.append( "&nbsp;<a href=\"" );
-          buffer.append( OutageUtil.makeLink(request, parms, style )); 
+          buffer.append( OutageUtil.makeLink(request, parms, style ));
           buffer.append( "\" title=\"Reverse the sort\">" );
       } else {
           buffer.append( "<a href=\"" );
           buffer.append( OutageUtil.makeLink(request, parms, style ));
           buffer.append( "\" title=\"Sort by " );
           buffer.append( sortString );
-          buffer.append( "\">" );   
+          buffer.append( "\">" );
       }
 
       buffer.append( title );
       buffer.append( "</a>" );
 
       return( buffer.toString() );
-    }  
+    }
 %>

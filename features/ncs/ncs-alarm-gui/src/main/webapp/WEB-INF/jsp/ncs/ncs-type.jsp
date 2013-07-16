@@ -52,11 +52,11 @@ String treeView = (String) req.getAttribute("treeView");
   <jsp:param name="breadcrumb" value="Component Hierarchy" />
 </jsp:include>
 <style type="text/css">
-.TreeView 
+.TreeView
 {
     font: Verdana;
     line-height: 20px;
-    cursor: pointer; 
+    cursor: pointer;
     font-style: normal;
 }
 
@@ -75,7 +75,7 @@ String treeView = (String) req.getAttribute("treeView");
     padding: 0;
 }
 
-LI.Expanded 
+LI.Expanded
 {
     background: url(/opennms/images/minus.gif) no-repeat left top;
 }
@@ -85,7 +85,7 @@ LI.Expanded ul
     display: block;
 }
 
-LI.Collapsed 
+LI.Collapsed
 {
     background: url(/opennms/images/plus.gif) no-repeat left top;
 }
@@ -113,11 +113,11 @@ Array.prototype.indexOf = IndexOf;
 function ToggleClass(element, firstClass, secondClass, event)
 {
     event.cancelBubble = true;
-    
+
     var classes = element.className.split(" ");
     var firstClassIndex = classes.indexOf(firstClass);
     var secondClassIndex = classes.indexOf(secondClass);
-    
+
     if (firstClassIndex == -1 && secondClassIndex == -1)
     {
         classes[classes.length] = firstClass;
@@ -130,27 +130,27 @@ function ToggleClass(element, firstClass, secondClass, event)
     {
         classes[secondClassIndex] = firstClass;
     }
-    
+
     element.className = classes.join(" ");
-    
+
 }
 
 //Finds the index of an item in an array
 function IndexOf(item)
 {
     for (var i=0; i < this.length; i++)
-    {        
+    {
         if (this[i] == item)
         {
             return i;
         }
     }
-    
+
     return -1;
 }
 
 //The toggle event handler for each expandable/collapsable node
-//- Note that this also exists to prevent any IE memory leaks 
+//- Note that this also exists to prevent any IE memory leaks
 //(due to circular references caused by this)
 function ToggleNodeStateHandler(event)
 {
@@ -169,16 +169,16 @@ function SetupTreeView(elementId)
 {
     var tree = document.getElementById(elementId);
     var treeElements = tree.getElementsByTagName("li");
-    
+
     for (var i=0; i < treeElements.length; i++)
     {
         if (treeElements[i].getElementsByTagName("ul").length > 0)
         {
-            treeElements[i].onclick = ToggleNodeStateHandler; 
+            treeElements[i].onclick = ToggleNodeStateHandler;
         }
         else
         {
-            treeElements[i].onclick = PreventBubbleHandler; 
+            treeElements[i].onclick = PreventBubbleHandler;
         }
     }
 }

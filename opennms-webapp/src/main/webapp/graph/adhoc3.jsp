@@ -35,7 +35,7 @@
 	import="java.util.*,org.opennms.web.api.Util"
 %>
 
-<%  
+<%
     Calendar now = Calendar.getInstance();
 
     Calendar yesterday = Calendar.getInstance();
@@ -56,7 +56,7 @@
   <%=Util.makeHiddenTags( request )%>
 
   <h3>Step 3: Choose the Title for the Graph</h3>
- 
+
   Title: <input type="text" name="title" value="Graph Title" />
 
   <h3>Step 4: Choose the Time Span of the Graph</h3>

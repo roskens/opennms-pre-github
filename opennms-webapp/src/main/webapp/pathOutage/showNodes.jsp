@@ -43,12 +43,12 @@
 
 </jsp:include>
 
-<% 
+<%
       String critIp = request.getParameter("critIp");
       String critSvc = request.getParameter("critSvc");
       String[] pthData = PathOutageFactory.getCriticalPathData(critIp, critSvc);
       List<String> nodeList = PathOutageFactory.getNodesInPath(critIp, critSvc); %>
-  
+
       <h3>Path Outage Node List</h3>
       <table>
           <tr>

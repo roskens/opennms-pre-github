@@ -149,7 +149,7 @@
 			return false;
 		}
 	}
-      
+
 </script>
 
 
@@ -172,14 +172,14 @@
 	</table>
 
 	<h3>Software Images Stored</h3>
-	
+
 	<table class="o-box">
 	<tr>
 		<th>Name</th>
 		<th>Size</th>
 		<th>Last Modified</th>
 	</tr>
-	
+
 	<c:forEach items="${model.bucketitems}" var="swimgelem">
 		<tr>
 			<td>${swimgelem.name}
@@ -194,7 +194,7 @@
 
 	<h3>Manage Images Stored</h3>
 	<table class="o-box">
-	<c:choose>		
+	<c:choose>
 	<c:when test="${model.bucketexist}">
 	<tr>
 	<th>
@@ -227,10 +227,10 @@
 			</form>
 		</th>
 	</tr>
-	
+
 	</c:otherwise>
-	
-	</c:choose>		
+
+	</c:choose>
 	</table>
 </div>
 
@@ -240,16 +240,16 @@
       <p>Detailed Documentation on all options can be found on <a title="The OpenNMS Project wiki" href="http://www.opennms.org" target="new">the OpenNMS wiki</a>.
       </p>
         <p><b>(Delete) Bucket Item</b>: Delete the specified image file from <em>bucket</em>.</p>
-      
+
        <p><b>Upload Bucket</b>:  Add a file to <em>bucket</em>.
         </p>
-        
+
        <p><b>Create Bucket</b>:  Create a <em>bucket</em> for storing image files.
         </p>
 
        <p><b>Delete Bucket</b>:  Delete <em>bucket</em> with all image files.
         </p>
-  
+
       </div>
   </div>
   <hr />

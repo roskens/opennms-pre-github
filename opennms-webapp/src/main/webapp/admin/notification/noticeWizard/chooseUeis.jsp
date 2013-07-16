@@ -127,7 +127,7 @@
     {
         List events = m_eventConfDao.getEventsByLabel();
         StringBuffer buffer = new StringBuffer();
-        
+
         List excludeList = getExcludeList();
 	TreeMap<String, String> sortedMap = new TreeMap<String, String>();
 
@@ -144,7 +144,7 @@
 
             String trimmedUei = stripUei(uei);
             //System.out.println(trimmedUei);
-            
+
             if (!excludeList.contains(trimmedUei)) {
 		sortedMap.put(label,uei);
             }
@@ -159,36 +159,36 @@
 			buffer.append("<option value=" + uei + ">" + label + "</option>");
 		}
         }
-        
+
         return buffer.toString();
     }
-    
+
     public String stripUei(String uei)
     {
         String leftover = uei;
-        
+
         for (int i = 0; i < 3; i++)
         {
             leftover = leftover.substring(leftover.indexOf('/')+1);
         }
-        
+
         return leftover;
      }
-     
+
      public List getExcludeList()
       throws IOException, FileNotFoundException
      {
         List<String> excludes = new ArrayList<String>();
-        
+
         Properties excludeProperties = new Properties();
 	excludeProperties.load( new FileInputStream( ConfigFileConstants.getFile(ConfigFileConstants.EXCLUDE_UEI_FILE_NAME )));
         String[] ueis = BundleLists.parseBundleList( excludeProperties.getProperty( "excludes" ));
-        
+
         for (int i = 0; i < ueis.length; i++)
         {
             excludes.add(ueis[i]);
         }
-        
+
         return excludes;
      }
 %>

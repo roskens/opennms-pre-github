@@ -60,20 +60,20 @@
 
 	<!-- Right Column -->
 	<div id="index-contentright">
-		<!-- notification box -->    
+		<!-- notification box -->
 		<jsp:include page="/includes/notification-box.jsp" flush="false" />
 		<hr />
-		<!-- Performance box -->    
+		<!-- Performance box -->
 		<jsp:include page="/includes/resourceGraphs-box.jsp" flush="false" />
 		<hr />
-		<!-- KSC Reports box -->    
+		<!-- KSC Reports box -->
 		<jsp:include page="/KSC/include-box.htm" flush="false" />
 		<hr />
 		<!-- Quick Search box -->
 		<jsp:include page="/includes/quicksearch-box.jsp" flush="false" />
 		<hr />
 		<%--
-		<!-- security box -->    
+		<!-- security box -->
 		Commenting out the security box include until it is functional
 		<jsp:include page="/includes/security-box.jsp" flush="false" />
 		--%>

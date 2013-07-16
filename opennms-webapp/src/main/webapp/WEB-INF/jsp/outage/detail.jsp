@@ -63,7 +63,7 @@
 
       <!-- page title -->
       <h3>Outage: <%=outage.getId()%></h3>
-          
+
       <table class="standardfirst">
         <tr>
           <td class="standardheader" width="10%">Node:</td>
@@ -74,13 +74,13 @@
               &nbsp;
             <% } %>
           </td>
-          
+
           <td class="standardheader" width="10%">Lost&nbsp;Service&nbsp;Time:</td>
           <td class="standard"><%=DATE_FORMAT.format(outage.getLostServiceTime())%></td>
-          
+
           <td class="standardheader" width="10%">Lost&nbsp;Service&nbsp;Event:</td>
-          <td class="standard"><a href="event/detail.jsp?id=<%=outage.getLostServiceEventId()%>"><%=outage.getLostServiceEventId()%></a></td>          
-          
+          <td class="standard"><a href="event/detail.jsp?id=<%=outage.getLostServiceEventId()%>"><%=outage.getLostServiceEventId()%></a></td>
+
         </tr>
         <tr>
           <td class="standardheader">Interface:</td>
@@ -99,15 +99,15 @@
               &nbsp;
             <% } %>
           </td>
-          
+
           <td class="standardheader">Regained&nbsp;Service:</td>
           <td class="standard">
             <% Date regainTime = outage.getRegainedServiceTime(); %>
-            
+
             <% if(regainTime != null) { %>
               <%=DATE_FORMAT.format(regainTime)%>
             <% } else { %>
-              <% String label = OutageUtil.getStatusLabel(outage); %>              
+              <% String label = OutageUtil.getStatusLabel(outage); %>
               <%=(label == null) ? "&nbsp;" : label %>
             <% } %>
           </td>
@@ -120,11 +120,11 @@
                 <%=regainedEventId%>
               </a>
             <% } else { %>
-              <% String label = OutageUtil.getStatusLabel(outage); %>              
+              <% String label = OutageUtil.getStatusLabel(outage); %>
               <%=(label == null) ? "&nbsp;" : label %>
             <% } %>
-          </td>          
-          
+          </td>
+
         </tr>
         <tr>
           <td class="standardheader">Service:</td>
@@ -136,7 +136,7 @@
                   <c:param name="intf" value="<%=outage.getIpAddress()%>"/>
                   <c:param name="service" value="<%=String.valueOf(outage.getServiceId())%>"/>
                 </c:url>
-                <a href="${serviceLink}"><c:out value="<%=outage.getServiceName()%>"/></a>              
+                <a href="${serviceLink}"><c:out value="<%=outage.getServiceName()%>"/></a>
               <% } else { %>
                 <c:out value="<%=outage.getServiceName()%>"/>
               <% } %>

@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of links.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -40,26 +40,26 @@
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.web.element.*,org.opennms.netmgt.model.OnmsNode, org.opennms.core.utils.WebSecurityUtils" %>
 
 <%
-    
+
     String requestNode = request.getParameter("node");
     String requestIfindex = request.getParameter("ifindex");
-	
+
     int nodeId = -1;
-	int ifIndex = -1;    
-	
+	int ifIndex = -1;
+
 	if ( requestNode != null && requestIfindex != null ) {
 		nodeId = WebSecurityUtils.safeParseInt(requestNode);
 		ifIndex = WebSecurityUtils.safeParseInt(requestIfindex);
 	}
-    
+
     StpInterface[] stpifs = NetworkElementFactory.getInstance(getServletContext()).getStpInterface(nodeId, ifIndex);
 
 
 %>
 <h3>Interface Spanning Tree Protocol Info</h3>
 <table>
-  
-  
+
+
 <% if(stpifs.length == 0) { %>
   <tr>
     <td colspan="11">No spanning tree information has been collected for this interface.</td>
@@ -67,9 +67,9 @@
 <% } else { %>
         <% for (int i=0; i < stpifs.length;i++) { %>
 	<tr>
-        <td>VlanIdentifier</td>			  
+        <td>VlanIdentifier</td>
 		<td bgcolor="<%=stpifs[i].getVlanColorIdentifier()%>"><%=stpifs[i].get_stpvlan()%>
-		</td>			  
+		</td>
 	</tr>
 	<tr>
         <td>STP Port Status</td>
@@ -81,7 +81,7 @@
 	</tr>
 	<tr>
         <td>Stp Root</td>
-	<% if (stpifs[i].get_stprootnodeid() != 0) { 
+	<% if (stpifs[i].get_stprootnodeid() != 0) {
 	OnmsNode node = NetworkElementFactory.getInstance(getServletContext()).getNode(stpifs[i].get_stprootnodeid());
 	%>
 	<td><a href="element/node.jsp?node=<%=stpifs[i].get_stprootnodeid()%>"><%=node.getLabel()%></a><br/>(<strong><%=stpifs[i].get_stpdesignatedroot()%></strong>)</td>
@@ -91,7 +91,7 @@
 	</tr>
 	<tr>
         <td>Designated Bridge</td>
-	<% if (stpifs[i].get_stpbridgenodeid() != 0) { 
+	<% if (stpifs[i].get_stpbridgenodeid() != 0) {
 	OnmsNode node = NetworkElementFactory.getInstance(getServletContext()).getNode(stpifs[i].get_stpbridgenodeid());
 	%>
 	<td><a href="element/node.jsp?node=<%=stpifs[i].get_stpbridgenodeid()%>"><%=node.getLabel()%></a><br/>(<strong><%=stpifs[i].get_stpdesignatedbridge()%></strong>)</td>
@@ -117,6 +117,6 @@
         </tr>
         <% } %>
 <% } %>
-                     
-</table>      
+
+</table>
 

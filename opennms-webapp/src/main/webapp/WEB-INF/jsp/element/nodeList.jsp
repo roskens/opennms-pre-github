@@ -50,7 +50,7 @@
   <c:when test="${command.listInterfaces}">
     <h3>Nodes and their interfaces</h3>
   </c:when>
-  
+
   <c:otherwise>
     <h3>Nodes</h3>
   </c:otherwise>
@@ -67,7 +67,7 @@
       <div class="TwoColLeft">
         <element:nodelist nodes="${model.nodesLeft}" snmpParm="${command.snmpParm}" isMaclikeSearch="${command.maclike != null}"/>
              </div>
-        
+
       <div class="TwoColRight">
         <element:nodelist nodes="${model.nodesRight}" snmpParm="${command.snmpParm}" isMaclikeSearch="${command.maclike != null}"/>
       </div>
@@ -81,27 +81,27 @@
     <c:when test="${model.nodeCount == 1}">
       <c:set var="nodePluralized" value="Node"/>
     </c:when>
-    
+
     <c:otherwise>
       <c:set var="nodePluralized" value="Nodes"/>
     </c:otherwise>
   </c:choose>
-  
+
   <c:choose>
     <c:when test="${model.interfaceCount == 1}">
       <c:set var="interfacePluralized" value="Interface"/>
     </c:when>
-    
+
     <c:otherwise>
       <c:set var="interfacePluralized" value="Interfaces"/>
     </c:otherwise>
   </c:choose>
-  
+
   <c:choose>
     <c:when test="${command.listInterfaces}">
       ${model.nodeCount} ${nodePluralized}, ${model.interfaceCount} ${interfacePluralized}
     </c:when>
-    
+
     <c:otherwise>
       ${model.nodeCount} ${nodePluralized}
     </c:otherwise>
@@ -157,7 +157,7 @@
       <c:param name="listInterfaces" value="${!command.listInterfaces}"/>
     </c:if>
   </c:url>
-  
+
   <c:choose>
     <c:when test="${!command.listInterfaces}">
     <a href="${thisURL}">Show interfaces</a>

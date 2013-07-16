@@ -58,7 +58,7 @@
     String varbindName="";
     String varbindValue="";
     if(varbind!=null) {
-        
+
         if(varbind.getVbname()!=null) {
             varbindName=varbind.getVbname();
 		}
@@ -78,8 +78,8 @@
 </jsp:include>
 
 <script language="JAVASCRIPT" >
-  
-    function trimString(str) 
+
+    function trimString(str)
     {
         while (str.charAt(0)==" ")
         {
@@ -91,7 +91,7 @@
         }
         return str;
     }
-    
+
     function finish()
     {
         trimmedName = trimString(document.info.name.value);
@@ -113,7 +113,7 @@
             document.info.submit();
         }
     }
-  
+
 </script>
 
 <h2><%=(newNotice.getName()!=null ? "Editing notice: " + newNotice.getName() + "<br/>" : "")%></h2>
@@ -194,7 +194,7 @@
               <tr>
                 <td>%noticeid% = Notification ID number</td>
                 <td>%time% = Time sent</td>
-                <td>%severity% = Event severity</td>                          
+                <td>%severity% = Event severity</td>
               </tr>
               <tr>
                 <td>%nodelabel% = May be IP address or empty</td>
@@ -209,12 +209,12 @@
 			  <tr>
 			    <td>%ifalias% = SNMP ifAlias of affected interface</td>
 			    <td>%interfaceresolve% = Reverse DNS name of interface IP address</td>
-               <td>%operinstruct% = Operator instructions from event definition</td>		     
+               <td>%operinstruct% = Operator instructions from event definition</td>
 			  </tr>
             </table>
           </td>
          </tr>
-         
+
         <tr>
           <td colspan="2">
             <a HREF="javascript:finish()">Finish</a>
@@ -230,14 +230,14 @@
       throws ServletException
     {
          StringBuffer buffer = new StringBuffer("<select NAME=\"path\">");
-         
+
          Map<String, Path> pathsMap = null;
-         
+
          try {
             pathsMap = new TreeMap<String, Path>(DestinationPathFactory.getInstance().getPaths());
          Iterator iterator = pathsMap.keySet().iterator();
          while(iterator.hasNext())
-         { 
+         {
                  String key = (String)iterator.next();
                  if (key.equals(currentPath))
                  {
@@ -253,7 +253,7 @@
             throw new ServletException("couldn't get destination path list.", e);
          }
          buffer.append("</select>");
-         
+
          return buffer.toString();
     }
 %>

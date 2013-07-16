@@ -71,7 +71,7 @@
 </jsp:include>
 
 <script type="text/javascript" >
-    
+
     function validate()
     {
         var minDurationMinsWarning = 5;
@@ -81,7 +81,7 @@
         {
             var beginName= "duty" + c + "Begin";
             var endName  = "duty" + c + "End";
-            
+
             var beginValue = new Number(document.modifyUser.elements[beginName].value);
             var endValue = new Number(document.modifyUser.elements[endName].value);
 
@@ -144,11 +144,11 @@
           document.modifyUser.submit();
         }
     }
-    
+
     function removeDutySchedules()
     {
         var ok = validate();
-        
+
         if(ok)
         {
           document.modifyUser.redirect.value="/admin/userGroupView/users/modifyUser.jsp";
@@ -156,7 +156,7 @@
           document.modifyUser.submit();
         }
     }
-    
+
     function saveUser()
     {
         var ok = validate();
@@ -170,13 +170,13 @@
         else
           document.modifyUser.redirect.value="/admin/userGroupView/users/modifyUser.jsp";
     }
-    
+
     function cancelUser()
     {
         document.modifyUser.action="<%= Util.calculateUrlBase(request, "admin/userGroupView/users/list.jsp") %>";
         document.modifyUser.submit();
     }
-    
+
 </script>
 
 
@@ -455,7 +455,7 @@
 Collection dutySchedules = user.getDutyScheduleCollection();
         %>
 				<input type="hidden" name="dutySchedules" value="<%=user.getDutyScheduleCount()%>"/>
-          
+
           <table width="100%" border="1" cellspacing="0" cellpadding="2" >
             <tr bgcolor="#999999">
               <td>&nbsp;</td>

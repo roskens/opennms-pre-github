@@ -37,10 +37,10 @@
 
 --%>
 <%--
-  This page is included by other JSPs to create a uniform header. 
+  This page is included by other JSPs to create a uniform header.
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
-  
+
   This include JSP takes two parameters:
     title (required): used in the middle of the header bar
     location (optional): used to "dull out" the item in the menu bar
@@ -140,7 +140,7 @@ final String baseHref = Util.calculateUrlBase( request );
   		<script type='text/javascript' src='<%= baseHref %>js/rwsStorage.js'></script>
 	</c:if>
 
-	<c:if test="${param.enableSpringDojo == 'true'}">	
+	<c:if test="${param.enableSpringDojo == 'true'}">
 		<script type="text/javascript" src='<%= baseHref %>resources/dojo/dojo.js'></script>
    		<script type="text/javascript" src='<%= baseHref %>resources/spring/Spring.js'></script>
                 <script type="text/javascript" src='<%= baseHref %>resources/spring/Spring-Dojo.js'></script>
@@ -177,7 +177,7 @@ final String baseHref = Util.calculateUrlBase( request );
 
 	<!-- Header -->
 	<div id="header">
-		<h1 id="headerlogo"><a href="<%= baseHref %>index.jsp"><img src="<%= baseHref %>images/logo.png" alt="OpenNMS Web Console Home"/></a></h1>  
+		<h1 id="headerlogo"><a href="<%= baseHref %>index.jsp"><img src="<%= baseHref %>images/logo.png" alt="OpenNMS Web Console Home"/></a></h1>
 		<div id="headerinfo">
 			<h2>${param.title}</h2>
 			<p align="right">
@@ -193,7 +193,7 @@ final String baseHref = Util.calculateUrlBase( request );
                 <jsp:useBean id="currentDate" class="java.util.Date" />
                 <fmt:formatDate value="${currentDate}" type="date" dateStyle="medium"/>
                 &nbsp;
-                <fmt:formatDate value="${currentDate}" type="time" pattern="HH:mm z"/> 
+                <fmt:formatDate value="${currentDate}" type="time" pattern="HH:mm z"/>
 			</p>
 		</div>
 		<hr />

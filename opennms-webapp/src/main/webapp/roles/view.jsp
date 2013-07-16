@@ -67,21 +67,21 @@
 	function changeDisplay() {
 		document.displayForm.submit();
 	}
-	
+
 	function prevMonth() {
 		document.prevMonthForm.submit();
 	}
-	
+
 	function nextMonth() {
 		document.nextMonthForm.submit();
 	}
-	
+
 	function addEntry(date) {
 		document.addEntryForm.date.value = date;
 		document.addEntryForm.submit();
-		
+
 	}
-	
+
 	function editEntry(schedIndex, timeIndex) {
 		document.editEntryForm.schedIndex.value = schedIndex;
 		document.editEntryForm.timeIndex.value = timeIndex;
@@ -100,7 +100,7 @@
 				<td>
 					<c:forEach var="scheduledUser" items="${role.currentUsers}">
 						<c:out value="${scheduledUser}"/>
-					</c:forEach>	
+					</c:forEach>
 				</td>
           	</tr>
 	         <tr>
@@ -160,7 +160,7 @@
 				</tr>
 				</c:forEach>
 			</table>
-		</td>				
+		</td>
 	</tr>
 	<tr align="right">
 		<td>&nbsp;</td>

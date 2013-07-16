@@ -60,12 +60,12 @@
           view of your service level metrics for the current
           month-to-date, previous month, and last twelve months by categories.
       </p>
-      
+
       <p>You may run or schedule a report for any of the report categories defined.
       You can have these reports mailed to you when they have been run. You can also
       chose to save these reports on the OpenNMS server so that they may be viewed later
       </p>
-            
+
       <p>You can view saved reports as HTML, PDF or PDF with embedded SVG graphics. You
       may also delete saved reports that are no longer needed.
       </p>

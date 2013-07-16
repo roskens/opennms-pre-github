@@ -51,7 +51,7 @@
 <%!
     private WebApplicationContext m_webAppContext;
     private ResourceService m_resourceService;
-    
+
     public void init() throws ServletException {
 
         m_webAppContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
@@ -62,15 +62,15 @@
     Interface intf_db = ElementUtil.getSnmpInterfaceByParams(request, getServletContext());
     int nodeId = intf_db.getNodeId();
     String ipAddr = intf_db.getIpAddress();
-	int ifIndex = -1;    
+	int ifIndex = -1;
 	if (intf_db.getSnmpIfIndex() > 0) {
 		ifIndex = intf_db.getSnmpIfIndex();
 	}
-    
+
 
 
     String eventUrl2 = "event/list.htm?filter=node%3D" + nodeId + "&filter=ifindex%3D" + ifIndex;
-    
+
 %>
 
 <%
@@ -118,7 +118,7 @@ function doDelete() {
 
       <div id="linkbar">
       <ul>
-		
+
         <%
         if (ifIndex > 0 ) {
         %>
@@ -126,7 +126,7 @@ function doDelete() {
         <a href="<%=eventUrl2%>">View Events by ifIndex</a>
 	</li>
 		<% } %>
-		
+
 
       <%
                           String ifLabel;
@@ -138,7 +138,7 @@ function doDelete() {
 
                           List<OnmsResource> resources = m_resourceService.findNodeChildResources(nodeId);
                           for (OnmsResource resource : resources) {
-                              if (resource.getName().equals(ipAddr) || resource.getName().equals(ifLabel)) { 
+                              if (resource.getName().equals(ipAddr) || resource.getName().equals(ifLabel)) {
                                   %>
                                       <c:url var="graphLink" value="graph/results.htm">
                                           <c:param name="reports" value="all"/>
@@ -147,7 +147,7 @@ function doDelete() {
                                       <li>
                                           <a href="<c:out value="${graphLink}"/>"><c:out value="<%=resource.getResourceType().getLabel()%>"/> Graphs</a>
                                       </li>
-                                  <% 
+                                  <%
                               }
                           }
       %>
@@ -156,7 +156,7 @@ function doDelete() {
          <a href="admin/deleteInterface" onClick="return doDelete()">Delete</a>
 	 </li>
          <% } %>
-         
+
       </ul>
       </div>
 
@@ -202,28 +202,28 @@ function doDelete() {
                   </td>
                 </tr>
               <% } %>
-                <tr> 
+                <tr>
 	          	  <th>Last Snmp Table Scan</th>
     	          <td><%=intf_db.getSnmpLastCapsdPoll()%></td>
         	  	</tr>
-              
+
 				<tr>
 	              <th>Snmp Polling Status</th>
 	              <td><%=ElementUtil.getSnmpInterfaceStatusString(intf_db)%></td>
-	            </tr>  
-                <tr> 
+	            </tr>
+                <tr>
 	          	  <th>Last Snmp Poll</th>
         	          <td><%=(intf_db.getSnmpLastSnmpPoll() == null) ? "&nbsp;" : intf_db.getSnmpLastSnmpPoll()%></td>
-        	  	</tr>              
+			</tr>
 
             </table>
-            
+
             <!-- Node Link box -->
             <jsp:include page="/includes/interfaceLink-box.jsp" flush="false">
                 <jsp:param name="node" value="<%=nodeId%>" />
                 <jsp:param name="ifindex" value="<%=ifIndex%>" />
             </jsp:include>
-                        
+
 
             <!-- SNMP box, if info available -->
               <h3>SNMP Attributes</h3>
@@ -232,7 +232,7 @@ function doDelete() {
                   <th>Interface Type</th>
                   <td><%=ElementUtil.getIfTypeString(intf_db.getSnmpIfType())%></td>
                 </tr>
-                <tr> 
+                <tr>
                   <th>Status (Adm/Op)</th>
                   <td>
                     <% if( intf_db.getSnmpIfAdminStatus() < 1 || intf_db.getSnmpIfOperStatus() < 1 ) { %>
@@ -246,7 +246,7 @@ function doDelete() {
                   <th>Speed</th>
                   <td><%=(intf_db.getSnmpIfSpeed() > 0) ? SIUtils.getHumanReadableIfSpeed(intf_db.getSnmpIfSpeed()) : "&nbsp;"%></td>
                 </tr>
-                <tr> 
+                <tr>
                   <th>Description</th>
                   <td><%=(intf_db.getSnmpIfDescription() == null) ? "&nbsp;" : intf_db.getSnmpIfDescription()%></td>
                 </tr>
@@ -259,12 +259,12 @@ function doDelete() {
 
 
 </div>
-       
+
 
 <div id="contentright">
 
             <!-- interface desktop information box -->
-          
+
             <!-- events list box 2 using ifindex -->
 			<% if (ifIndex > 0 ) { %>
             <% String eventHeader2 = "<a href='" + eventUrl2 + "'>Recent Events (Using Filter ifIndex = " + ifIndex + ")</a>"; %>
@@ -277,10 +277,10 @@ function doDelete() {
               <jsp:param name="ifIndex" value="<%=ifIndex%>" />
             </jsp:include>
             <% } %>
-            
+
             <!-- STP Info box -->
             <jsp:include page="/includes/interfaceSTP-box.jsp" flush="false" />
-         
+
 
 </div> <!-- id="contentright" -->
 

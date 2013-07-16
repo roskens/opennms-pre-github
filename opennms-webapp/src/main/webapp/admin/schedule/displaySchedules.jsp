@@ -38,7 +38,7 @@
 <html>
 	<head><title>Schedule Editor</title></head>
 	<body>
-	
+
 		<!--  Table of schedules -->
 		<table id="schedules" border="1">
 		<c:forEach var="sched" items="${schedMgr.schedule}" varStatus="schedStatus">
@@ -46,10 +46,10 @@
 			<tr>
 			  <!--  The name of the schedule -->
 			  <td id="<c:out value="${schedId}.name"/>"><c:out value="${sched.name}"/></td>
-			  
+
 			  <!--  The type of the schedule -->
 			  <td id="<c:out value="${schedId}.type"/>"><c:out value="${sched.type}"/></td>
-			  
+
 			  <!--  A cell containing a table of the times for this schedule -->
 			  <td id="<c:out value="${schedId}.times"/>">
 			  <table id="<c:out value="${schedId}.timesTable"/>">
@@ -95,7 +95,7 @@
 			    </form>
 			  </td>
 			</tr>
-			
+
 		</c:forEach>
 		</table>
 		<form id="newScheduleForm" method="get">
@@ -113,6 +113,6 @@
 			<td><input id="doNewSchedule" type="submit" name="submit" value="New Schedule"/></td>
 		</table>
 		</form>
-		
+
 	</body>
 </html>

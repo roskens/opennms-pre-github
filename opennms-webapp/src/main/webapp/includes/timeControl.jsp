@@ -35,7 +35,7 @@
 
 <fmt:parseDate var="morning" value="01-08-2005 03:00:00" pattern="dd-MM-yyyy HH:mm:ss"/>
 <fmt:parseDate var="evening" value="01-08-2005 16:00:00" pattern="dd-MM-yyyy HH:mm:ss"/>
-<c:set var="amPmList"><fmt:formatDate value="${morning}" pattern="a"/>,<fmt:formatDate value="${evening}" pattern="a"/></c:set> 
+<c:set var="amPmList"><fmt:formatDate value="${morning}" pattern="a"/>,<fmt:formatDate value="${evening}" pattern="a"/></c:set>
 
 <c:set var="prefix" value="${param.prefix}" />
 <fmt:parseDate var="time" value="${param.time}" pattern="HH:mm:ss" />

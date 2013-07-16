@@ -47,12 +47,12 @@
     HttpSession userSession = request.getSession(false);
     List interfaces = null;
     Integer lineItems= new Integer(0);
-    
+
     //EventConfFactory eventFactory = EventConfFactory.getInstance();
-    
+
     interfaceIndex = 0;
     serviceIndex = 0;
-    
+
     if (userSession == null) {
 	throw new ServletException("User session is null");
     }
@@ -87,36 +87,36 @@
   {
       return confirm("Are you sure you want to proceed? It may take several minutes to update the database based on the changes made.");
   }
-  
+
   function cancel()
   {
       document.manageAll.action="admin/nodemanagement/index.jsp";
       document.manageAll.submit();
   }
-  
+
   function checkAll()
   {
       for (var c = 0; c < document.manageAll.elements.length; c++)
-      {  
+      {
           if (document.manageAll.elements[c].type == "checkbox")
           {
               document.manageAll.elements[c].checked = true;
           }
       }
   }
-  
+
   function uncheckAll()
   {
       for (var c = 0; c < document.manageAll.elements.length; c++)
-      {  
+      {
           if (document.manageAll.elements[c].type == "checkbox")
           {
-              
+
               document.manageAll.elements[c].checked = false;
           }
       }
   }
-  
+
   function updateServices(interfaceIndex, serviceIndexes)
   {
       for (var i = 0; i < serviceIndexes.length; i++)
@@ -124,7 +124,7 @@
           document.manageAll.serviceCheck[serviceIndexes[i]].checked = document.manageAll.interfaceCheck[interfaceIndex].checked;
       }
   }
-  
+
   function verifyManagedInterface(interfaceIndex, serviceIndex)
   {
       //if the service is currently unmanged then the user is trying to manage it,
@@ -138,7 +138,7 @@
               return false;
           }
       }
-      
+
       return true;
   }
 
@@ -149,14 +149,14 @@
         int midCount = 0;
         int midInterfaceIndex = 0;
         String nodeLabel = null;
-  
+
         if (lineItems.intValue() > 0)
         {
                 ManagedInterface firstInterface = (ManagedInterface)interfaces.get(0);
                 nodeLabel = NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(firstInterface.getNodeid());
-    
+
                 if ( interfaces.size() == 1)
-                { 
+                {
                         midInterfaceIndex = 1;
                 }
                 else
@@ -170,7 +170,7 @@
                                         ManagedInterface curInterface = (ManagedInterface)interfaces.get(interfaceCount);
                                         midCount += curInterface.getServiceCount();
                                 }
-                                else 
+                                else
                                 {
                                         midInterfaceIndex = interfaceCount;
                                         break;
@@ -186,7 +186,7 @@
 <h2>Node: <%=nodeLabel%></h2>
 
 <hr/>
-    
+
 <form method="post" name="manageAll" action="admin/manageNode" onsubmit="return applyChanges();">
 
   <h3>Manage and Unmanage Interfaces and Services</h3>
@@ -226,11 +226,11 @@
         <td class="standardheader" align="center" width="10%">Interface</td>
         <td class="standardheader" align="center" width="10%">Service</td>
       </tr>
-            
+
       <%=buildManageTableRows(interfaces, 0, midInterfaceIndex)%>
     </table>
   <% } /*end if*/ %>
-        
+
   <%-- See if there is a second column to draw --%>
   <% if (midInterfaceIndex < interfaces.size()) { %>
     <table class="standard">
@@ -243,11 +243,11 @@
       <%=buildManageTableRows(interfaces, midInterfaceIndex, interfaces.size())%>
     </table>
   <% } /*end if */ %>
-      
+
   <br/>
 
   <input type="submit" value="Apply Changes"/>
-  <input type="button" value="Cancel" onclick="cancel()"/> 
+  <input type="button" value="Cancel" onclick="cancel()"/>
   <input type="button" value="Select All" onclick="checkAll()"/>
   <input type="button" value="Unselect All" onclick="uncheckAll()"/>
   <input type="reset"/>
@@ -261,10 +261,10 @@
       	throws java.sql.SQLException
       {
           StringBuffer rows = new StringBuffer();
-          
+
           for (int i = start; i < stop; i++)
           {
-                
+
                 ManagedInterface curInterface = (ManagedInterface)interfaces.get(i);
 		String intKey = curInterface.getNodeid() + "-" + curInterface.getAddress();
                 StringBuffer serviceArray = new StringBuffer("[");
@@ -275,16 +275,16 @@
                     prepend = ",";
                 }
                 serviceArray.append("]");
-                
-                rows.append(buildInterfaceRow(intKey, 
-                                              interfaceIndex, 
-                                              serviceArray.toString(), 
+
+                rows.append(buildInterfaceRow(intKey,
+                                              interfaceIndex,
+                                              serviceArray.toString(),
                                               (curInterface.getStatus().equals("managed") ? "checked" : ""),
                                               curInterface.getAddress()));
-                    
-                  
+
+
                 List interfaceServices = curInterface.getServices();
-                for (int k = 0; k < interfaceServices.size(); k++) 
+                for (int k = 0; k < interfaceServices.size(); k++)
                 {
                      ManagedService curService = (ManagedService)interfaceServices.get(k);
                      String serviceKey = curInterface.getNodeid() + "-" + curInterface.getAddress() + "-" + curService.getId();
@@ -295,20 +295,20 @@
                                                  curInterface.getAddress(),
                                                  curService.getName()));
                      serviceIndex++;
-                
+
                 } /*end k for */
-                
+
                 interfaceIndex++;
-                
+
           } /* end i for */
-          
+
           return rows.toString();
       }
-      
+
       public String buildInterfaceRow(String key, int interfaceIndex, String serviceArray, String status, String address)
       {
           StringBuffer row = new StringBuffer( "<tr>");
-          
+
           row.append("<td class=\"standardheaderplain\" width=\"5%\" align=\"center\">");
           row.append("<input type=\"checkbox\" name=\"interfaceCheck\" value=\"").append(key).append("\" onclick=\"javascript:updateServices(" + interfaceIndex + ", " + serviceArray + ")\" ").append(status).append(" >");
           row.append("</td>").append("\n");
@@ -317,20 +317,20 @@
           row.append(address);
           row.append("</td>").append("\n");
           row.append("<td class=\"standardheaderplain\" width=\"10%\" align=\"center\">").append("&nbsp;").append("</td></tr>").append("\n");
-          
+
           return row.toString();
       }
-      
+
       public String buildServiceRow(String key, int interfaceIndex, int serviceIndex, String status, String address, String service)
       {
           StringBuffer row = new StringBuffer( "<tr>");
-          
+
           row.append("<td class=\"standard\" width=\"5%\" align=\"center\">");
           row.append("<input type=\"checkbox\" name=\"serviceCheck\" value=\"").append(key).append("\" onclick=\"javascript:verifyManagedInterface(" + interfaceIndex + ", " + serviceIndex + ")\" ").append(status).append(" >");
           row.append("</td>").append("\n");
           row.append("<td class=\"standard\" width=\"10%\" align=\"center\">").append(address).append("</td>").append("\n");
           row.append("<td class=\"standard\" width=\"10%\" align=\"center\">").append(service).append("</td></tr>").append("\n");
-          
+
           return row.toString();
       }
 %>

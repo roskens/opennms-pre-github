@@ -32,7 +32,7 @@
 <%--
   This page is included by other JSPs to create a box containing an
   entry to the performance reporting system.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -51,9 +51,9 @@
         No KSC reports defined
       </p>
     </c:when>
-    
+
     <c:otherwise>
-      <script type="text/javascript">      
+      <script type="text/javascript">
       var kscComboData = [<c:set var="first" value="true"/>
                       <c:forEach var="report" items="${reports}" varStatus="reportCount">
                         <c:choose>
@@ -66,10 +66,10 @@
                           </c:otherwise>
                         </c:choose>
                       </c:forEach>];
-      
-      
+
+
       </script>
-      
+
     </c:otherwise>
   </c:choose>
   <opennms:kscReportCombobox id="kscReportCombobox"></opennms:kscReportCombobox>

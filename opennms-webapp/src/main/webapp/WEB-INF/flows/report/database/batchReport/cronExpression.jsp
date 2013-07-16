@@ -39,7 +39,7 @@
   <jsp:param name="title" value="Database Reports" />
   <jsp:param name="headTitle" value="Database Reports" />
   <jsp:param name="breadcrumb" value="<a href='report/index.jsp'>Reports</a>" />
-  <jsp:param name="breadcrumb" 
+  <jsp:param name="breadcrumb"
 		value="<a href='report/database/index.htm'>Database</a>" />
   <jsp:param name="breadcrumb" value="Run"/>
 </jsp:include>
@@ -47,20 +47,20 @@
 <h3>Cron Expression</h3>
   <p>We use Quartz Scheduler, for information on cron syntax used in Quartz Scheduler there is a great tutorial <a href="http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html" target="_blank">here</a></p>
 <form:form commandName="triggerDetails" cssClass="stdform">
-	
+
 	<p>
 		<form:label path="cronExpression" cssClass="label">
 			<c:out value="cron expression"/>
 		</form:label>
 		<form:input path="cronExpression"/>
-	</p>	   
+	</p>
 
 	<span class="indent">
 		<input type="submit" id="proceed" name="_eventId_proceed" value="Proceed" />&#160;
 		<input type="submit" name="_eventId_revise" value="Revise"/>&#160;
 		<input type="submit" name="_eventId_cancel" value="Cancel"/>&#160;
 	</span>
-		
+
 </form:form>
-  
+
 <jsp:include page="/includes/footer.jsp" flush="false" />

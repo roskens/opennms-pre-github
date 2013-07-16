@@ -41,5 +41,5 @@
 </jsp:include>
 
 <h1>Sorry, not implemented yet</h1>
-                                     
+
 <jsp:include page="/includes/footer.jsp" flush="false"/>

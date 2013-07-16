@@ -114,7 +114,7 @@ if (exception != null) {
   stBuilder.append("No exception to see here, please move along.");
 }
 
-String errorDetails = 
+String errorDetails =
 "System Details\n" +
 "--------------\n" +
 "OpenNMS Version: " + Vault.getProperty("version.display") + "\n" +
@@ -163,7 +163,7 @@ Please include the information below when reporting problems.
   <pre id="exceptionTrace">
 <%=stBuilder.toString()%>
   </pre>
-  
+
 <h3>Request Details</h3>
 <table class="standard">
   <tr>
@@ -206,7 +206,7 @@ Please include the information below when reporting problems.
     <td class="standardheader">Server Port</td>
     <td class="standard"><%=request.getServerPort()%></td>
   </tr>
-  
+
 </table>
 
 <h3>System Details</h3>
@@ -218,7 +218,7 @@ Please include the information below when reporting problems.
   <tr>
     <td class="standardheader">Java Version:</td>
     <td class="standard"><%=System.getProperty( "java.version" )%> <%=System.getProperty( "java.vendor" )%></td>
-  </tr>  
+  </tr>
   <tr>
     <td class="standardheader">Java Virtual Machine:</td>
     <td class="standard"><%=System.getProperty( "java.vm.version" )%> <%=System.getProperty( "java.vm.vendor" )%></td>
@@ -271,7 +271,7 @@ or support ticket, click
 <div class="boxWrapper">
 
 <textarea id="plainTextArea" style="width: 100%; height: 300px;">
-Please take a few moments to include a description of what you were doing when you encountered this problem. Without knowing the context of the error, it's often difficult for the person looking at the problem to narrow the range of possible causes. Bug reports that do not include any information on the context in which the problem occurred will receive a lower priority and may even be closed as invalid. 
+Please take a few moments to include a description of what you were doing when you encountered this problem. Without knowing the context of the error, it's often difficult for the person looking at the problem to narrow the range of possible causes. Bug reports that do not include any information on the context in which the problem occurred will receive a lower priority and may even be closed as invalid.
 
 <%= errorDetails %>
 

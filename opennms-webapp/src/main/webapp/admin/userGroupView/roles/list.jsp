@@ -41,7 +41,7 @@
 	UserManager userFactory;
   	Map users = null;
 	HashMap<String, String> usersHash = new HashMap<String, String>();
-	
+
 	try
     	{
 		UserFactory.init();
@@ -80,11 +80,11 @@
 		document.roleForm.role.value=role;
 		document.roleForm.submit();
 	}
-	
+
 	function doDelete(role) {
 		doOperation("delete", role);
 	}
-	
+
 	function doView(role) {
 		doOperation("view", role);
 	}
@@ -110,7 +110,7 @@
           <th>Membership Group</th>
           <th>Description</th>
         </tr>
-        
+
         <c:choose>
           <c:when test="${empty roleManager.roles}">
             <tr>
@@ -118,13 +118,13 @@
                 to add roles.</td>
             </tr>
 	 	  </c:when>
-	 	  
+
 	 	  <c:otherwise>
 			<c:forEach var="role" items="${roleManager.roles}">
 				<c:set var="deleteUrl" value="javascript:doDelete('${role.name}')" />
 				<c:set var="viewUrl" value="javascript:doView('${role.name}')" />
 				<c:set var="confirmScript" value="return confirm('Are you sure you want to delete the role ${role.name}?')"/>
-				
+
 				<tr>
 				<td><a href="${deleteUrl}" onclick="${confirmScript}"><img src="images/trash.gif" alt="Delete ${role.name}"></a></td>
 				<td><a href="${viewUrl}">${role.name}</a></td>
@@ -138,7 +138,7 @@
 						<c:set var="curUserName">${scheduledUser}</c:set>
 						<c:set var="fullName"><%= usersHash.get(pageContext.getAttribute("curUserName").toString()) %></c:set>
 						<span title="${fullName}">${scheduledUser}</span>
-					</c:forEach>	
+					</c:forEach>
 				</td>
 				<td>${role.membershipGroup}</td>
 				<td>${role.description}</td>
@@ -146,9 +146,9 @@
 			</c:forEach>
 	 	  </c:otherwise>
 	 	</c:choose>
-	 	
+
 		</table>
-		
+
 <br/>
 
 <form action="<c:url value='${reqUrl}'/>" method="post" name="newForm">

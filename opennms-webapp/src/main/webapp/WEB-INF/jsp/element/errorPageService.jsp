@@ -32,8 +32,8 @@
 <%@page language="java"
 	contentType="text/html"
 	session="true"
-	
-	
+
+
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -50,9 +50,9 @@
 <p>
   The service is invalid. No such service in database for node ${node}, interface ${intf}, service ID ${serviceId}
   <br/>
-  
-  
-  
+
+
+
 </p>
 
 

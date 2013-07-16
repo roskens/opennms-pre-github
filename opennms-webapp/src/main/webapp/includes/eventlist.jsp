@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a table containing
-  a row for each event passed in.  
-  
+  a row for each event passed in.
+
   This page has one required parameter: node, a node identifier.
   Without this parameter, this page will throw a ServletException.
 
@@ -62,11 +62,11 @@
    }
 
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
-    
+
     //optional parameters: ipAddr, service
     String ipAddr = request.getParameter("ipAddr");
     String serviceIdString = request.getParameter("service");
-    
+
     //optional parameter: throttle
    String throttleString = request.getParameter( "throttle" );
     int throttle = 0;  //less than one means no throttle
@@ -83,26 +83,26 @@
    if (ifIndexString != null ) {
 	   ifIndex= WebSecurityUtils.safeParseInt(ifIndexString);
    }
-    //optional parameter: header 
+    //optional parameter: header
    String header = request.getParameter( "header" );
    if( header == null ) {
         header = "Event List";
    }
 
    //optional parameter moreUrl, can be null
-   String moreUrl = request.getParameter( "moreUrl" );   
-    
+   String moreUrl = request.getParameter( "moreUrl" );
+
     Event[] events = new Event[0];
 
-    //sort by event id    
+    //sort by event id
     SortStyle sortStyle = SortStyle.ID;
-    
+
     //include only unacknowledged (outstanding) events
-    AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;    
-    
+    AcknowledgeType ackType = AcknowledgeType.UNACKNOWLEDGED;
+
     //throttle from the beginning of the result set
     int offset = 0;
-    
+
     if( ipAddr != null && ! ipAddr.equals("0.0.0.0")) {
         if( serviceIdString != null ) {
             int serviceId = WebSecurityUtils.safeParseInt(serviceIdString);
@@ -115,19 +115,19 @@
         events = EventFactory.getEventsForInterface(nodeId, ifIndex, sortStyle, ackType, throttle, offset, getServletContext());
     }
     else {
-        events = EventFactory.getEventsForNode(nodeId, sortStyle, ackType, throttle, offset, getServletContext());            
+        events = EventFactory.getEventsForNode(nodeId, sortStyle, ackType, throttle, offset, getServletContext());
     }
 %>
 
 <script type="text/javascript" >
-    
+
     function submitAck()
     {
         var isChecked = false
-        
+
         if (document.acknowledge_form.event.length)
         {
-            for( i = 0; i < document.acknowledge_form.event.length; i++ ) 
+            for( i = 0; i < document.acknowledge_form.event.length; i++ )
             {
               //make sure something is checked before proceeding
               if (document.acknowledge_form.event[i].checked)
@@ -135,7 +135,7 @@
                 isChecked=true;
               }
             }
-            
+
             if (isChecked)
             {
               document.acknowledge_form.submit();
@@ -204,11 +204,11 @@
          <% } %>
        </td>
 
-  <% if( moreUrl != null ) { %>     
+  <% if( moreUrl != null ) { %>
        <td class="standard" colspan="2"><a href="<c:out value="<%=moreUrl%>"/>">More...</a></td>
   <% } %>
      </tr>
-      
+
 </table>
 </form>
 

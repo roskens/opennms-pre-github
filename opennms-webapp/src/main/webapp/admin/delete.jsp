@@ -48,10 +48,10 @@
     HttpSession userSession = request.getSession(false);
     List nodes = null;
     Integer lineItems= new Integer(0);
-    
+
     interfaceIndex = 0;
     serviceIndex = 0;
-    
+
     if (userSession != null)
     {
   	nodes = (List)userSession.getAttribute("listAll.delete.jsp");
@@ -84,7 +84,7 @@
                         }
                 }
         }
-                
+
         if (hasCheckedItems)
         {
                 if (confirm("Are you sure you want to proceed? This action will permanently delete the checked nodes and cannot be undone."))
@@ -97,43 +97,43 @@
                 alert("No nodes and data items are selected!");
         }
   }
-  
+
   function cancel()
   {
       document.deleteAll.action="admin/index.jsp";
       document.deleteAll.submit();
   }
-  
+
   function checkAll()
   {
       for (var c = 0; c < document.deleteAll.elements.length; c++)
-      {  
+      {
           if (document.deleteAll.elements[c].type == "checkbox")
           {
               document.deleteAll.elements[c].checked = true;
           }
       }
   }
-  
+
   function uncheckAll()
   {
       for (var c = 0; c < document.deleteAll.elements.length; c++)
-      {  
+      {
           if (document.deleteAll.elements[c].type == "checkbox")
           {
-              
+
               document.deleteAll.elements[c].checked = false;
           }
       }
   }
-  
+
 </script>
 
 <form method="post" name="deleteAll" action="admin/deleteSelNodes">
 
 <%
   int midNodeIndex = 1;
-  
+
   if (nodes.size() > 1)
   {
     midNodeIndex = nodes.size()/2;
@@ -165,7 +165,7 @@
           <input type="reset"><br/>&nbsp;
 
 	<br/>
-      
+
    <% if (nodes.size() > 0) { %>
 	<div id="contentleft">
           <table class="standardfirst">
@@ -175,9 +175,9 @@
               <td class="standardheader" width="5%" align="center">Node ID</td>
               <td class="standardheader" width="10%" align="center">Node Label</td>
             </tr>
-            
+
             <%=buildTableRows(nodes, 0, midNodeIndex)%>
-            
+
           </table>
 	</div>
           <% } /*end if*/ %>
@@ -192,9 +192,9 @@
               <td class="standardheader" width="5%" align="center">Node ID</td>
               <td class="standardheader" width="10%" align="center">Node Label</td>
             </tr>
-            
+
             <%=buildTableRows(nodes, midNodeIndex, nodes.size())%>
-               
+
           </table>
 	</div>
         <% } /*end if */ %>
@@ -204,7 +204,7 @@
 	<br/>
 
           <input type="button" value="Delete Nodes" onClick="applyChanges()">
-          <input type="button" value="Cancel" onClick="cancel()"> 
+          <input type="button" value="Cancel" onClick="cancel()">
           <input type="button" value="Select All" onClick="checkAll()">
           <input type="button" value="Unselect All" onClick="uncheckAll()">
           <input type="reset">
@@ -218,14 +218,14 @@
       	throws java.sql.SQLException
       {
           StringBuffer row = new StringBuffer();
-          
+
           for (int i = start; i < stop; i++)
           {
-                
+
                 ManagedNode curNode = (ManagedNode)nodes.get(i);
                 String nodelabel = NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(curNode.getNodeID());
 		int nodeid = curNode.getNodeID();
-                 
+
           row.append("<tr>\n");
           row.append("<td class=\"standard\" width=\"5%\" align=\"center\">");
           row.append("<input type=\"checkbox\" name=\"nodeCheck\" value=\""+ nodeid +"\" >");
@@ -241,8 +241,8 @@
           row.append("</td>\n");
           row.append("</tr>\n");
           } /* end i for */
-          
+
           return row.toString();
       }
-      
+
 %>

@@ -48,7 +48,7 @@
 </jsp:include>
 
 <script type="text/javascript">
-    
+
         function cancel()
         {
                 document.snmpConfigForm.action="admin/index.jsp";
@@ -116,7 +116,7 @@
   <tr>
     <td class="standardheader">Java Version:</td>
     <td class="standard"><%=System.getProperty( "java.version" )%> <%=System.getProperty( "java.vendor" )%></td>
-  </tr>  
+  </tr>
   <tr>
     <td class="standardheader">Java Virtual Machine:</td>
     <td class="standard"><%=System.getProperty( "java.vm.version" )%> <%=System.getProperty( "java.vm.vendor" )%></td>
@@ -132,7 +132,7 @@
   <tr>
     <td class="standardheader">User Agent:</td>
     <td class="standard"><%=request.getHeader( "User-Agent" )%></td>
-  </tr>    
+  </tr>
 </table>
 </div>
   </div>

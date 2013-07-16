@@ -57,7 +57,7 @@
 <%
     String nodeIdString = request.getParameter( "node" );
 
-    
+
     if( nodeIdString == null ) {
         throw new MissingParameterException( "node" );
     }
@@ -91,7 +91,7 @@
 
 <p>
   You can either specify a name or allow the system to automatically
-  select the name.          
+  select the name.
 </p>
 
   <form action="admin/nodeLabelChange" method="post">

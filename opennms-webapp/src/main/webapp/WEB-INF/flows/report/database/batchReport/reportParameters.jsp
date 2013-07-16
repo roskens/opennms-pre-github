@@ -39,7 +39,7 @@
   <jsp:param name="title" value="Database Reports" />
   <jsp:param name="headTitle" value="Database Reports" />
   <jsp:param name="breadcrumb" value="<a href='report/index.jsp'>Reports</a>" />
-  <jsp:param name="breadcrumb" 
+  <jsp:param name="breadcrumb"
 		value="<a href='report/database/index.htm'>Database</a>" />
   <jsp:param name="breadcrumb" value="Run"/>
 </jsp:include>
@@ -47,8 +47,8 @@
 <h3>Report Parameters</h3>
 
 <form:form modelAttribute="parameters" cssClass="stdform">
-	
-	
+
+
 		<%-- // string parameters --%>
 		<c:forEach items="${parameters.stringParms}" var="stringParm" varStatus="stringParmRow">
 			<p><form:label path="stringParms[${stringParmRow.index}].value" cssClass="label">
@@ -56,12 +56,12 @@
 			</form:label>
             <c:choose>
                 <c:when test="${stringParm.inputType == 'reportCategorySelector'}">
-                	<form:select path="stringParms[${stringParmRow.index}].value"> 
+			<form:select path="stringParms[${stringParmRow.index}].value">
 	                <form:options items="${categories}"/>
 	                </form:select>
                 </c:when>
 				<c:when test="${stringParm.inputType == 'onmsCategorySelector'}">
-                	<form:select path="stringParms[${stringParmRow.index}].value"> 
+			<form:select path="stringParms[${stringParmRow.index}].value">
 	                <form:options items="${onmsCategories}"/>
 	                </form:select>
                 </c:when>
@@ -108,7 +108,7 @@
 							<form:option value="day">day</form:option>
 							<form:option value="month">month</form:option>
 							<form:option value="year">year</form:option>
-                	</form:select>	
+			</form:select>
 					ago, at
 				</c:when>
 				<c:otherwise>
@@ -131,13 +131,13 @@
 				</c:forEach>
 			</form:select></p>
 		</c:forEach>
-		
+
 	<span class="indent">
  		<input type="submit" id="proceed" name="_eventId_proceed" value="Proceed" />&#160;
 		<input type="submit" id="cancel" name="_eventId_cancel" value="Cancel"/>&#160;
 	</span>
-	
+
  </form:form>
-  
+
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

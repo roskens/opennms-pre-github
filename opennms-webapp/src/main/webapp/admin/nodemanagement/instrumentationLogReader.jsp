@@ -47,7 +47,7 @@
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Instrumentation Log Reader" />
   <jsp:param name="headTitle" value="Instrumentation Log Reader" />
-  <jsp:param name="location" value="Instrumentation Log Reader" />  
+  <jsp:param name="location" value="Instrumentation Log Reader" />
   <jsp:param name="breadcrumb" value="Instrumentation Log Reader" />
 </jsp:include>
 
@@ -196,7 +196,7 @@ the <em>log4j.properties</em> configuration file.
 	</c:when>
 	<c:otherwise>
 		<th><a href="admin/nodemanagement/instrumentationLogReader.jsp?sortColumn=AVGCOLLECTTIME&sortOrder=DESCENDING&&searchString=${searchString}">Average Collection Time v</a></th>
-	</c:otherwise>	
+	</c:otherwise>
 </c:choose>
 
 <c:choose>
@@ -257,9 +257,9 @@ the <em>log4j.properties</em> configuration file.
 	<c:otherwise>
 		<th><a href="admin/nodemanagement/instrumentationLogReader.jsp?sortColumn=TOTALUNSUCCESSCOLLECTS&sortOrder=DESCENDING&&searchString=${searchString}">Unsuccessful Collections v</a></th>
 	</c:otherwise>
-</c:choose>	
-	
-<c:choose>	
+</c:choose>
+
+<c:choose>
 	<c:when test="${sortColumn == 'UNSUCCESSPERCENTAGE' && sortOrder == 'DESCENDING'}">
 		<th><a href="admin/nodemanagement/instrumentationLogReader.jsp?sortColumn=UNSUCCESSPERCENTAGE&sortOrder=ASCENDING&&searchString=${searchString}">Unsuccessful Percentage ^</a></th>
 	</c:when>
@@ -338,7 +338,7 @@ the <em>log4j.properties</em> configuration file.
 </c:choose>
 <td align="right">${svcCollector.averageSuccessfulCollectionDuration}</td>
 <td align="right">${svcCollector.errorCollectionCount}</td>
-<c:choose>	
+<c:choose>
 	<c:when test="${svcCollector.errorPercentage == -1}">
 		<td align="right">No Collections</td>
 	</c:when>

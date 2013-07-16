@@ -30,7 +30,7 @@
 --%>
 
 <%@page language="java" contentType="text/html" session="true" import="org.opennms.netmgt.config.discovery.*, org.opennms.web.admin.discovery.ActionDiscoveryServlet" %>
-<% 
+<%
 	response.setDateHeader("Expires", 0);
 	response.setHeader("Pragma", "no-cache");
 	if (request.getProtocol().equals("HTTP/1.1")) {
@@ -65,17 +65,17 @@ function addSpecific(){
 	if(isNaN(document.getElementById("timeout").value)){
 		alert("Timeout not valid.");
 		document.getElementById("timeout").focus();
-		return;		
+		return;
 	}
 
 	if(isNaN(document.getElementById("retries").value)){
 		alert("Retries field not valid.");
 		document.getElementById("retries").focus();
-		return;		
-	}	
+		return;
+	}
 
 
-		
+
 	opener.document.getElementById("specificipaddress").value=document.getElementById("ipaddress").value;
 	opener.document.getElementById("specifictimeout").value=document.getElementById("timeout").value;
 	opener.document.getElementById("specificretries").value=document.getElementById("retries").value;
@@ -92,7 +92,7 @@ function addSpecific(){
 <!-- Body -->
 
     <h3>Add a specific IP address to discover</h3>
-										   
+
 
 <table class="standard">
  <tr>

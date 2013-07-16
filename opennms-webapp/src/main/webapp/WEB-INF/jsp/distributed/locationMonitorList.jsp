@@ -45,7 +45,7 @@
   <jsp:param name="breadcrumb" value="Distributed Poller Status" />
 </jsp:include>
 
-  
+
 <c:if test="${isAdmin}">
   <form action="admin/distributed/locationMonitorPauseAll.htm" method="post" style="display:inline;">
     <input type="submit" value="Pause All"/>
@@ -67,7 +67,7 @@
     <th><spring:message code="distributed.status"/></th>
     <th><spring:message code="distributed.lastCheckInTime"/></th>
   </tr>
-  
+
 
   <c:forEach items="${model.locationMonitors}" var="monitor">
     <spring:message var="statusClass" code="distributed.status.style.${monitor.status}" text="distributed.status.style._DEFAULT"/>
@@ -77,7 +77,7 @@
       <td class="divider">
         <c:url var="detailsUrl" value="distributed/locationMonitorDetails.htm">
           <c:param name="monitorId" value="${monitor.id}"/>
-        </c:url> 
+        </c:url>
         <a href="${detailsUrl}">${monitor.id}</a>
       </td>
       <td class="divider">${monitor.hostName}</td>
@@ -89,13 +89,13 @@
             <fmt:formatDate value="${monitor.lastCheckInTime}" type="date" dateStyle="short"/>
             <fmt:formatDate value="${monitor.lastCheckInTime}" type="time" dateStyle="short"/>
           </c:when>
-          
+
           <c:otherwise>
             Never
           </c:otherwise>
         </c:choose>
       </td>
-    </tr> 
+    </tr>
   </c:forEach>
 </table>
 

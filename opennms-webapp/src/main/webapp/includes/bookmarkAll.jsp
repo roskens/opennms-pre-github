@@ -64,7 +64,7 @@ function addbookmark()
 	else if(!document.all)
 	{
 		var msg = "Netscape users must bookmark the pages manually by hitting"
-		if(navigator.appName == "Netscape") 
+		if(navigator.appName == "Netscape")
 		{
 			msg += " <CTRL-D>";
 		}

@@ -52,12 +52,12 @@
       </ul>
     </div>
   </c:when>
-  
+
   <c:otherwise>
     <h3>${webTable.title}</h3>
-    
+
     <table>
-    
+
       <tr>
         <c:forEach items="${webTable.columnHeaders}" var="headerCell">
           <th class="${headerCell.styleClass}">
@@ -72,7 +72,7 @@
           </th>
         </c:forEach>
       </tr>
-      
+
       <c:forEach items="${webTable.rows}" var="row">
         <tr class="${row[0].styleClass}">
           <c:forEach items="${row}" var="cell">
@@ -90,7 +90,7 @@
         </tr>
       </c:forEach>
     </table>
-  
+
   </c:otherwise>
 </c:choose>
 

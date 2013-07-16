@@ -60,9 +60,9 @@ function Blank_TextField_Validator()
 			<option value="4">Last 12 hours</option>
 			<option value="5">Last day</option>
 			<option value="6">Last week</option>
-			<option value="7">Last month</option>                
+			<option value="7">Last month</option>
 		</select>
-		<input type="submit" value="Search" /></p>            
+		<input type="submit" value="Search" /></p>
 	</form>
 
 

@@ -36,8 +36,8 @@
 	import="org.opennms.web.servlet.MissingParameterException"
 %>
 
-<% 
-    MissingParameterException mpe = (MissingParameterException)exception;  
+<%
+    MissingParameterException mpe = (MissingParameterException)exception;
 %>
 
 <jsp:include page="/includes/header.jsp" flush="false" >
@@ -59,8 +59,8 @@
   The following parameters are required:
 </p>
   <ul>
-<%      
-        String[] params = mpe.getRequiredParameters();        
+<%
+        String[] params = mpe.getRequiredParameters();
 
         for( int i = 0; i < params.length; i++ ) {  %>
           <li> <%=params[i]%>

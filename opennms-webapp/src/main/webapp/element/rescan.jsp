@@ -45,11 +45,11 @@
 <%
     String nodeIdString = request.getParameter("node");
     String ipAddr = request.getParameter("ipaddr");
-    
+
     if( nodeIdString == null ) {
         throw new MissingParameterException("node");
     }
-    
+
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
     String nodeLabel = NetworkElementFactory.getInstance(getServletContext()).getNodeLabel(nodeId);
 %>
@@ -89,7 +89,7 @@
 
 <div class="TwoColLAdmin">
       <h3>Capability Rescan</h3>
-      
+
       <p>Are you sure you want to rescan the <nobr><%=nodeLabel%></nobr>
         <% if( ipAddr==null ) { %>
             node?
@@ -97,7 +97,7 @@
             interface <%=ipAddr%>?
         <% } %>
       </p>
-      
+
       <form method="post" action="element/rescan">
         <p>
           <input type="hidden" name="node" value="<%=nodeId%>" />
@@ -111,11 +111,11 @@
 
 <div class="TwoColRAdmin">
       <h3>Capability Scanning</h3>
-    
+
       <p>
         A <em>capability scan</em> is a suite of tests to determine what <em>capabilities</em>
         a node or interface has.  A capability is in most cases a service, like FTP or HTTP.
-      </p>      
+      </p>
   </div>
 
 <jsp:include page="/includes/footer.jsp" flush="false" />

@@ -77,8 +77,8 @@
       <table width="50%" cellspacing="2" cellpadding="2" border="0">
         <tr>
           <td valign="top" align="left">
-          <%=intervalTable(newPath, 
-                           request.getParameterValues("groups"), 
+          <%=intervalTable(newPath,
+                           request.getParameterValues("groups"),
                            WebSecurityUtils.safeParseInt(request.getParameter("targetIndex")),
                            intervals)%>
           </td>
@@ -102,24 +102,24 @@
     public String intervalTable(Path path, String[] groups, int index, String[] intervals)
     {
         StringBuffer buffer = new StringBuffer("<table width=\"100%\" cellspacing=\"2\" cellpadding=\"2\" border=\"0\">");
-        
+
         for (int i = 0; i < groups.length; i++)
         {
             buffer.append("<tr><td>").append(groups[i]).append("</td>");
             buffer.append("<td>").append(buildIntervalSelect(path, groups[i], index, intervals)).append("</td>");
             buffer.append("</tr>");
         }
-        
+
         buffer.append("</table>");
         return buffer.toString();
     }
-    
+
     public String buildIntervalSelect(Path path, String group, int index, String[] intervals)
     {
         StringBuffer buffer = new StringBuffer("<select NAME=\"" + group + "Interval\">");
-        
+
         String selectedOption = "0m";
-        
+
         for (int i = 0; i < intervals.length; i++)
         {
             if (path!=null && intervals[i].equals(getGroupInterval(path, group, index)) )
@@ -128,7 +128,7 @@
                 break;
             }
         }
-        
+
         for (int i = 0; i < intervals.length; i++)
         {
             if (intervals[i].equals(selectedOption))
@@ -141,14 +141,14 @@
             }
         }
         buffer.append("</select>");
-        
+
         return buffer.toString();
     }
-    
+
     public String getGroupInterval(Path path, String group, int index)
     {
         Target[] targets = null;
-        
+
         if (index==-1)
         {
             targets = path.getTarget();
@@ -157,13 +157,13 @@
         {
             targets = path.getEscalate(index).getTarget();
         }
-        
+
         for (int i = 0; i < targets.length; i++)
         {
             if (group.equals(targets[i].getName()))
                 return targets[i].getInterval();
         }
-        
+
         return null;
     }
 %>

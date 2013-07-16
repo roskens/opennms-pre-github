@@ -29,10 +29,10 @@
 
 --%>
 
-<%-- 
+<%--
   This page is included by other JSPs to create a box containing an
   abbreviated list of last active inventories.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -53,11 +53,11 @@
     if( nodeIdString == null ) {
         throw new org.opennms.web.servlet.MissingParameterException("node");
     }
-        
+
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
-    
+
     //gets active route entry on node
-    
+
    	StpInterface[] stpifs = NetworkElementFactory.getInstance(getServletContext()).getStpInterface(nodeId);
 
 %>
@@ -70,7 +70,7 @@
 <% } else { %>
 			<thead>
               <tr>
-                <th>VLAN Identifier</th>			  
+                <th>VLAN Identifier</th>
                 <th>Port/Ifindex</th>
                 <th>Port Status</th>
                 <th>Status</th>
@@ -84,7 +84,7 @@
              </thead>
               <% for (int i=0; i < stpifs.length;i++) { %>
 			  <tr bgcolor="<%=stpifs[i].getVlanColorIdentifier()%>">
-                <td><%=stpifs[i].get_stpvlan()%></td>		  
+                <td><%=stpifs[i].get_stpvlan()%></td>
 		<% if (stpifs[i].get_ipaddr() != null && !"0.0.0.0".equals(stpifs[i].get_ipaddr())) { %>
                 <c:url var="interfaceLink" value="element/interface.jsp">
                   <c:param name="node" value="<%=String.valueOf(nodeId)%>"/>
@@ -98,7 +98,7 @@
                 <td><%=stpifs[i].getStpPortState()%></td>
                 <td><%=stpifs[i].getStatusString()%></td>
                 <td><%=stpifs[i].get_stpportpathcost()%></td>
-				<% if (stpifs[i].get_stprootnodeid() != 0) { 
+				<% if (stpifs[i].get_stprootnodeid() != 0) {
 						OnmsNode node = NetworkElementFactory.getInstance(getServletContext()).getNode(stpifs[i].get_stprootnodeid());
 				%>
 				<td>
@@ -109,7 +109,7 @@
 				<% } else { %>
 				<td><%=stpifs[i].get_stpdesignatedroot()%></td>
 				<% } %>
-				<% if (stpifs[i].get_stpbridgenodeid() != 0) { 
+				<% if (stpifs[i].get_stpbridgenodeid() != 0) {
 						OnmsNode node = NetworkElementFactory.getInstance(getServletContext()).getNode(stpifs[i].get_stpbridgenodeid());
 				%>
 				<td>

@@ -42,7 +42,7 @@
 <jsp:include page="/includes/header.jsp" flush="false" >
   <jsp:param name="title" value="Alarms" />
   <jsp:param name="headTitle" value="Alarms" />
-  <jsp:param name="location" value="alarm" />  
+  <jsp:param name="location" value="alarm" />
   <jsp:param name="breadcrumb" value="Alarms" />
 </jsp:include>
 
@@ -51,16 +51,16 @@
       <div class="boxWrapper">
        <%-- <jsp:include page="/includes/alarm-querypanel.jsp" flush="false" />--%>
         <form action="alarm/detail.htm" method="get">
-          <p align="right">Alarm ID:          
+          <p align="right">Alarm ID:
             <input type="TEXT" NAME="id" />
-            <input type="submit" value="Get details"/></p>                
+            <input type="submit" value="Get details"/></p>
         </form>
         <ul class="plain">
           <li><a href="alarm/list.htm" title="Summary view of all outstanding alarms">All alarms (summary)</a></li>
           <li><a href="alarm/list.htm?display=long" title="Detailed view of all outstanding alarms">All alarms (detail)</a></li>
           <li><a href="alarm/advsearch.jsp" title="More advanced searching and sorting options">Advanced Search</a></li>
           <%=getAlarmPageNavItems() %>
-        </ul>  
+        </ul>
       </div>
   </div>
 
@@ -74,7 +74,7 @@
         or systems-related issue.  Any alarm that has not been acknowledged is
         active in the default alarms view of all users' browsers and is considered outstanding.
       </p>
-            
+
       <p>To view acknowledged alarms, go to the <em>All Alarms</em> (<em>summary</em> or <em>details</em>) list and
          click the minus sign next to the <em>alarm is outstanding</em> search constraint.
       </p>
@@ -82,7 +82,7 @@
       <p>If an alarm has been acknowledged in error, find the alarm and <em>unacknowledge</em>
          it, making it available again to all users' default alarm views.
       </p>
-        
+
       <p>If you have a specific alarm identifier for which you want a detailed alarm
         description, type the identifier into the <em>Get details for Alarm ID</em> box and
         hit <b>[Enter]</b>.  You will then go to the appropriate details page.
@@ -98,11 +98,11 @@
         WebApplicationContext webappContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         ServiceRegistry registry = webappContext.getBean(ServiceRegistry.class);
         Collection<PageNavEntry> navEntries = registry.findProviders(PageNavEntry.class, "(Page=alarms)");
-        
+
         for(PageNavEntry navEntry : navEntries){
             retVal += "<li><a href=\"" + navEntry.getUrl() + "\" >" + navEntry.getName() + "</a></li>";
         }
-        
+
         return retVal;
     }
 

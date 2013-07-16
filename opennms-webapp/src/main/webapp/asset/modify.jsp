@@ -47,7 +47,7 @@
         <link media="screen" href="../css/dashboard.css" type="text/css" rel="stylesheet">
 	  </jsp:attribute>
 	</jsp:param>
-	
+
 </jsp:include>
 
 <div id="opennms-assetNodePage"></div>

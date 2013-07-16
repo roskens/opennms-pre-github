@@ -69,14 +69,14 @@
   <jsp:param name="breadcrumb" value="View Detail" />
 </jsp:include>
 
-          <h2>Details for View: 
+          <h2>Details for View:
 		<% if(view != null){ %>
 		<%= view.getName() %>
 		<% } %>
 	  </h2>
           <table width="100%" border="0" cellspacing="0" cellpadding="2">
             <tr>
-              <td width="10%" valign="top"> 
+              <td width="10%" valign="top">
                 <b>Title:</b>
               </td>
               <td width="90%" valign="top">
@@ -86,7 +86,7 @@
               </td>
             </tr>
             <tr>
-              <td width="10%" valign="top"> 
+              <td width="10%" valign="top">
                 <b>Comments:</b>
               </td>
               <td width="90%" valign="top">
@@ -96,17 +96,17 @@
               </td>
             </tr>
             <tr>
-              <td width="10%" valign="top"> 
+              <td width="10%" valign="top">
                 <b>Common Rule:</b>
               </td>
               <td width="90%" valign="top">
 		<% if(view != null){ Common common = view.getCommon(); %>
                 <%= (common != null || common.getRule().equals(""))? "":common.getRule() %>
-                <% } %> 
+                <% } %>
               </td>
             </tr>
           </table>
-          
+
           <h2>User Members</h2>
           <table width="20%" border="1" cellspacing="0" cellpadding="2" >
             <%  Membership membership= view.getMembership();
@@ -119,7 +119,7 @@
         	                Member member = (Member)enummember.nextElement();
                 	        if(member.getType().equals("user"))
                         	        users.add(member.getContent());
-	                }  
+	                }
 			if(users != null){
 	               for (int i = 0; i < users.size(); i++) { %>
                <tr>
@@ -164,8 +164,8 @@
                   <% Categories categories = view.getCategories();
 		     Collection catcoll = categories.getCategoryCollection();
                      Iterator iter = catcoll.iterator();
-		     while (iter.hasNext()) 
-                     { 
+		     while (iter.hasNext())
+                     {
                         Category curCategory = (Category)iter.next();
                   %>
                     <tr>

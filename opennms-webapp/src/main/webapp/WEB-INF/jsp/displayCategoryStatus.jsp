@@ -32,7 +32,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-    
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -100,14 +100,14 @@ body {
         border-style: dashed;
         border-width:1px;
         margin: 4px 4px;
-        
+
 }
 
 .nodeHeading {
         background-color: #eee;
         padding-left: 4px;
         padding-top: 1px;
-        padding-bottom: 1px;    
+        padding-bottom: 1px;
 }
 
 .interfaces {

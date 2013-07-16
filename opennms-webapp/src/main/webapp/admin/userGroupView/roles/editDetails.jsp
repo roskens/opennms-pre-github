@@ -52,11 +52,11 @@
 	function changeDisplay() {
 		document.displayForm.submit();
 	}
-	
+
 	function prevMonth() {
 		document.prevMonthForm.submit();
 	}
-	
+
 	function nextMonth() {
 		document.nextMonthForm.submit();
 	}
@@ -68,7 +68,7 @@
 <form action="<c:url value='${reqUrl}'/>" method="post" name="editForm">
   <input type="hidden" name="operation" value="saveDetails"/>
   <input type="hidden" name="role" value="${role.name}"/>
-  
+
 		 <table>
 	         <tr>
     		    		<th>Name</th>
@@ -77,7 +77,7 @@
 				<td>
 					<c:forEach var="scheduledUser" items="${role.currentUsers}">
 						${scheduledUser}
-					</c:forEach>	
+					</c:forEach>
 				</td>
           	</tr>
 	         <tr>

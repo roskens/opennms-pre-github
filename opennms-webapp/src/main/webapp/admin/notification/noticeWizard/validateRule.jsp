@@ -74,19 +74,19 @@
 </jsp:include>
 
 <script type="text/javascript" >
-  
+
   function next()
   {
       document.addresses.userAction.value="next";
       document.addresses.submit();
   }
-  
+
   function rebuild()
   {
       document.addresses.userAction.value="rebuild";
       document.addresses.submit();
   }
-  
+
 </script>
 
 <h2><%=(newNotice.getName()!=null ? "Editing notice: " + newNotice.getName() + "<br/>" : "")%></h2>
@@ -117,7 +117,7 @@
           <%=buildInterfaceTable(newRule, services, notServices)%>
         </table>
         <table width="100%" cellspacing="2" cellpadding="2" border="0">
-         <tr> 
+         <tr>
           <td>
            <a HREF="javascript:rebuild()">&#139;&#139;&#139; Rebuild</a>&nbsp;&nbsp;&nbsp;
            <a HREF="javascript:next()">Next &#155;&#155;&#155;</a>
@@ -135,26 +135,26 @@
           StringBuffer buffer = new StringBuffer();
           // TODO: BUG 2009: Also list node names for each IP address that is selected by the
           // filter?
-          
+
           final Map<InetAddress, Set<String>> interfaces = FilterDaoFactory.getInstance().getIPAddressServiceMap(rule);
-          
+
           for (final InetAddress key : interfaces.keySet()) {
               buffer.append("<tr><td width=\"50%\" valign=\"top\">").append(InetAddressUtils.str(key)).append("</td>");
               buffer.append("<td width=\"50%\">");
-              
+
               if (serviceList.length!=0 || notServiceList.length!=0) {
-                  for (String service : interfaces.get(key)) { 
+                  for (String service : interfaces.get(key)) {
                       buffer.append(service).append("<br/>");
                   }
               } else {
                   buffer.append("All services");
               }
-              
+
               buffer.append("</td>");
-                  
+
               buffer.append("</tr>");
           }
-          
+
           return buffer.toString();
   }
 %>

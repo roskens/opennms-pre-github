@@ -37,10 +37,10 @@
 
 --%>
 <%--
-  This page is included by other JSPs to create a uniform header. 
+  This page is included by other JSPs to create a uniform header.
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
-  
+
   This include JSP takes two parameters:
     title (required): used in the middle of the header bar
     location (optional): used to "dull out" the item in the menu bar
@@ -132,7 +132,7 @@
                 <jsp:useBean id="currentDate" class="java.util.Date" />
                 <fmt:formatDate value="${currentDate}" type="date" dateStyle="medium"/>
                 &nbsp;
-                <fmt:formatDate value="${currentDate}" type="time" pattern="HH:mm z"/> 
+                <fmt:formatDate value="${currentDate}" type="time" pattern="HH:mm z"/>
 			</p>
 		</div>
 		<hr />
@@ -162,7 +162,7 @@
      footer), so we hide it in a JSP code fragment so the Eclipse HTML
      validator doesn't complain.  See bug #1728. --%>
 <%= "<div id=\"content\">" %>
-<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">	
+<c:if test="${(param.nonavbar != 'true') && (!empty pageContext.request.remoteUser)}">
    <h2><a href="index.jsp">Home</a>
    <c:forEach var="breadcrumb" items="${paramValues.breadcrumb}">
      <c:if test="${breadcrumb != ''}">

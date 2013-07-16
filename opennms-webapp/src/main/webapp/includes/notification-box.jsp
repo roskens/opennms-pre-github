@@ -32,7 +32,7 @@
 <%--
   This page is included by other JSPs to create a box containing a
   table that provides links for notification queries.
-  
+
   It expects that a <base> tag has been set in the including page
   that directs all URLs to be relative to the servlet context.
 --%>
@@ -62,7 +62,7 @@
 		try {
 				NotifdConfigFactory.init();
 				status = NotifdConfigFactory.getInstance().getPrettyStatus();
-		} catch (Throwable e) { 
+		} catch (Throwable e) {
 			// If factory can't be initialized, status is already 'Unknown'
 		}
 %>
@@ -85,9 +85,9 @@
 				(<a href="notification/browse?acktype=unack">Check</a>)</li>
 			<li><a href="roles">On-Call Schedule</a></li>
 		<% } else { %>
-			<li><strong>You: Outstanding</strong>: 
+			<li><strong>You: Outstanding</strong>:
 				(<a href="notification/browse?acktype=unack<%=nodeFilter%>&amp;filter=<%= java.net.URLEncoder.encode("user="+request.getRemoteUser()) %>">Check</a>)</li>
-			<li><strong>You: Acknowledged</strong>: 
+			<li><strong>You: Acknowledged</strong>:
 				(<a href="notification/browse?acktype=ack<%=nodeFilter%>&amp;filter=<%= java.net.URLEncoder.encode("user="+request.getRemoteUser()) %>">Check</a>)</li>
 		<% } %>
 	</ul>

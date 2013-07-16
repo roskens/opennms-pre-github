@@ -56,19 +56,19 @@
 <script type="text/javascript">
     function customizeReport()
     {
-        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Customize.toString()%>"/>"; 
+        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Customize.toString()%>"/>";
         document.view_form.submit();
     }
- 
+
     function updateReport()
     {
-        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Update.toString()%>"/>"; 
+        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Update.toString()%>"/>";
         document.view_form.submit();
     }
- 
+
     function exitReport()
     {
-        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Exit.toString()%>"/>"; 
+        document.view_form.action.value = "<c:out value="<%=FormProcViewController.Actions.Exit.toString()%>"/>";
         document.view_form.submit();
     }
 </script>
@@ -104,7 +104,7 @@
                     <%-- Since a row might not be full, check to see if we've run out of graphs --%>
                     <c:if test="${graphNum < fn:length(resultSets)}">
                       <c:set var="resultSet" value="${resultSets[graphNum]}"/>
-                      
+
                       <td align="center">
                         <table>
                           <tr>
@@ -113,7 +113,7 @@
                               From: ${resultSet.start} <br/>
                               To: ${resultSet.end}
                             </th>
-                            
+
                             <th>
                               <c:if test="${!empty resultSet.resource.parent}">
                                 ${resultSet.resource.parent.resourceType.label}:
@@ -127,7 +127,7 @@
                                 </c:choose>
                                 <br />
                               </c:if>
-                          
+
                               <c:choose>
                                 <c:when test="${fn:contains(resultSet.resource.label,'(*)')}">
                                   <c:set var="showFootnote1" value="true"/>
@@ -145,19 +145,19 @@
                                   ${resultSet.resource.label}
                                 </c:otherwise>
                               </c:choose>
-                              
+
                               <c:url var="detailUrl" value="${baseHref}graph/results.htm">
                                 <c:param name="resourceId" value="${resultSet.resource.id}"/>
                                 <c:param name="reports" value="all"/>
                                 <c:param name="start" value="${resultSet.start.time}"/>
                                 <c:param name="end" value="${resultSet.end.time}"/>
                               </c:url>
-  
-                              <a href="${detailUrl}">Detail</a>                            
+
+                              <a href="${detailUrl}">Detail</a>
                             </th>
                           </tr>
                         </table>
-  
+
                         <c:url var="zoomUrl" value="${baseHref}graph/results.htm">
                           <c:param name="resourceId" value="${resultSet.resource.id}"/>
                           <c:param name="reports" value="${resultSet.prefabGraph.name}"/>
@@ -165,7 +165,7 @@
                           <c:param name="end" value="${resultSet.end.time}"/>
                           <c:param name="zoom" value="true"/>
                         </c:url>
-  
+
                         <c:url var="graphUrl" value="${baseHref}graph/graph.png">
                           <c:param name="resourceId" value="${resultSet.resource.id}"/>
                           <c:param name="report" value="${resultSet.prefabGraph.name}"/>
@@ -173,23 +173,23 @@
                           <c:param name="end" value="${resultSet.end.time}"/>
                           <c:param name="zoom" value="true"/>
                         </c:url>
-                        
+
                         <a href="${zoomUrl}">
                           <img src="${graphUrl}" alt="Resource graph: ${resultSet.prefabGraph.title} (click to zoom)"/>
                         </a>
-                        
+
                       </td>
-                      
+
                       <c:set var="graphNum" value="${graphNum + 1}"/>
                     </c:if>
                   </c:forEach>
                 </tr>
               </c:forEach>
-            </table>  
+            </table>
 
 
             <table class="normal">
-              <!-- Select Timespan Input --> 
+              <!-- Select Timespan Input -->
               <c:if test="${!empty timeSpan}">
                 <tr>
                   <td class="normal">
@@ -202,21 +202,21 @@
                           <c:when test="${timeSpan == option.key}">
                             <c:set var="selected">selected="selected"</c:set>
                           </c:when>
-                          
+
                           <c:otherwise>
                             <c:set var="selected" value=""/>
                           </c:otherwise>
                         </c:choose>
                         <option value="${option.key}" ${selected}>${option.value}</option>
                       </c:forEach>
-                    </select>  
-                    
-                    (Press update button to reflect option changes to ALL graphs) 
+                    </select>
+
+                    (Press update button to reflect option changes to ALL graphs)
                   </td>
                 </tr>
               </c:if>
-  
-              <!-- Select Graph Type --> 
+
+              <!-- Select Graph Type -->
               <c:if test="${!empty graphType}">
                 <tr>
                   <td class="normal">
@@ -229,16 +229,16 @@
                           <c:when test="${graphType == option.key}">
                             <c:set var="selected">selected="selected"</c:set>
                           </c:when>
-                          
+
                           <c:otherwise>
                             <c:set var="selected" value=""/>
                           </c:otherwise>
                         </c:choose>
                         <option value="${option.key}" ${selected}>${option.value}</option>
                       </c:forEach>
-                    </select>  
-                    
-                    (Press update button to reflect option changes to ALL graphs) 
+                    </select>
+
+                    (Press update button to reflect option changes to ALL graphs)
                   </td>
                 </tr>
               </c:if>
@@ -249,7 +249,7 @@
               <c:if test="${!empty timeSpan || !empty graphType}">
                 <input type="button" value="Update Report View" onclick="updateReport()">
               </c:if>
-                
+
               <c:if test="${showCustomizeButton}">
                 <input type="button" value="Customize This Report" onclick="customizeReport()">
               </c:if>

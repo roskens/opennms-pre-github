@@ -65,11 +65,11 @@
     String nodeIdString = request.getParameter("node");
     String ipAddr = request.getParameter("ipaddr");
     String[] requiredParameters = new String[] { "node", "ipaddr" };
-    
+
     if (nodeIdString == null) {
         throw new MissingParameterException("node", requiredParameters);
     }
-    
+
     if (ipAddr == null) {
         throw new MissingParameterException("ipaddr", requiredParameters);
     }
@@ -77,8 +77,8 @@
     int nodeId = WebSecurityUtils.safeParseInt(nodeIdString);
 
     sendSNMPRestartEvent(nodeId, ipAddr);
-    
-        
+
+
 %>
 
 <c:url var="nodeLink" value="element/node.jsp">
@@ -100,7 +100,7 @@
 </jsp:include>
 
 <h3>Update SNMP Information</h3>
-      
+
 <p>
   The interface has had its SNMP information updated. This should cause any
   changes in SNMP community names or collection to take effect.
