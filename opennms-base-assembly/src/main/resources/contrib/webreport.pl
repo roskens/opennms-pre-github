@@ -32,10 +32,10 @@ die "$destlist is not a valid email address" unless ($destlist=~/[^\@]+\@([^\.]+
 $sendfile =~ s/\&/\\\&/g;
 
 $from_host=$ENV{HOSTNAME};
- 
+
 #get ip address as default $from_user
 $from_user="opennms";
- 
+
 #
 # Send it
 #

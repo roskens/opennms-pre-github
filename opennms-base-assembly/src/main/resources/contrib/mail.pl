@@ -20,7 +20,7 @@ $numargs = @ARGV;
 if ($numargs < 4) {
     print "Usage: mail.pl <to> <from> <subject> <server> [backupserver]\n";
     exit 1;
-} 
+}
 
 @body = <STDIN>;
 
@@ -39,7 +39,7 @@ sub sendmail {
         } else {
             die "Unable to send mail via specified mail server(s).";
         }
-    } 
+    }
 
     if (!$stop) {
         $smtp->mail($myfrom);
@@ -49,11 +49,11 @@ sub sendmail {
         $smtp->datasend("From: $myfrom\n");
         $smtp->datasend("Subject: $mysubject\n");
         $smtp->datasend("\n");
-   
+
         foreach $line (@body) {
             $smtp->datasend("$line");
         }
         $smtp->dataend();
         $smtp->quit;
-    } 
+    }
 }

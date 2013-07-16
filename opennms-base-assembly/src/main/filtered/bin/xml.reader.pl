@@ -13,7 +13,7 @@ if ($ARGV[0] eq '-w') {
 my $file=shift(@ARGV);
 
 open(READ, "<$file");
-while(<READ>) { 
+while(<READ>) {
 	chomp;
 	$_="$_ ";
 	s/\s*</</g;

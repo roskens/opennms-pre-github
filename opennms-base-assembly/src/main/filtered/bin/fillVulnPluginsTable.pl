@@ -81,7 +81,7 @@ if ($debug) {
 		"Inserting plugins into database now\n";
 	} else {
 		print "Plugins will be printed to stdout.  ";
-		print "This will be spammy!\n" 
+		print "This will be spammy!\n"
 	}
 }
 

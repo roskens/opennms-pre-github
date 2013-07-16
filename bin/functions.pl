@@ -182,7 +182,7 @@ $ENV{'MAVEN_OPTS'} = $MAVEN_OPTS;
 info("JAVA_HOME = $JAVA_HOME") if (defined $JAVA_HOME and $JAVA_HOME ne "");
 info("PATH = " . $ENV{'PATH'});
 info("MVN = $MVN");
-info("MAVEN_OPTS = $MAVEN_OPTS"); 
+info("MAVEN_OPTS = $MAVEN_OPTS");
 
 sub clean_git {
 	my @command = ($GIT, "clean", "-fdx", ".");

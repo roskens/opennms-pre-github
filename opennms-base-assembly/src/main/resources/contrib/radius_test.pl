@@ -15,7 +15,7 @@
 # Requires
 # "libauthen-radius-perl" debian package,  or Authen::Radius from CPAN
 #  Getopt::Long
-# 
+#
 # expects options --hostname and --timeout
 #
 # Optional arguments are user name and password.

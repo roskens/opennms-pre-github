@@ -34,7 +34,7 @@ $VERBOSE = 0;
 $ZONE    = 'GMT';
 
 @SEVERITIES = ( undef, 'Indeterminate', 'Cleared', 'Normal', 'Warning', 'Minor', 'Major', 'Critical' );
-	
+
 my $help = 0;
 my $version = 0;
 my $result = GetOptions("help|h" => \$help,
@@ -262,7 +262,7 @@ Options:
          --help, -h        this help message
 
          --timezone, -t    the time zone you are in
-         --service, -s     service name 
+         --service, -s     service name
          --nodeid, -n      node identifier (numeric)
          --interface, -i   IP address of the interface
          --descr, -d       a description for the event browser

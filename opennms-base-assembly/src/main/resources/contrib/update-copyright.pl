@@ -203,7 +203,7 @@ sub process_file {
 				next LOOP;
 			}
 		}
-		
+
 		print "3. in_comment = $in_comment\n" if ($debug);
 		print "4. in_header = $in_header\n"   if ($debug);
 		if (not defined $in_comment) {

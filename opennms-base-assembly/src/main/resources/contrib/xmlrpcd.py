@@ -13,13 +13,13 @@ class StringFunctions:
         # This function cannot be called through XML-RPC because it
         # starts with an '_'
         pass
-    
+
     def chop_in_half(self, astr):
         return astr[:len(astr)/2]
 
     def repeat(self, astr, times):
         return astr * times
-    
+
 class Events:
 	def notifySuccess(self, txid, uei, message):
 		print "notifySuccess: transaction id = " + txid + ", uei = " + uei + ", message = " + message + "\n"
