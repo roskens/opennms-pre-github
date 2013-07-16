@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title></title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="/leaflet/leaflet.css" />
 <link rel="stylesheet" href="../leaflet-search.css" />
 <link rel="stylesheet" href="../style.css" />
@@ -32,7 +32,7 @@ black, blue, cyan, darkblue, darkred, darkgray, gray, gree, red, yellow, white
 
 		var resultsraw = {},
 			results = {};
-	
+
 		$.ajax({
 			url: 'search.php',	//read comments in search.php for more information usage
 			async: false,		//must be syncronous request! or not return ajax results
@@ -44,7 +44,7 @@ black, blue, cyan, darkblue, darkred, darkgray, gray, gree, red, yellow, white
 					resultsraw = json;
 			}
 		});
-	
+
 		for(i in resultsraw)	//reformatting results in key,value
 			results[ resultsraw[i].title ] = resultsraw[i].loc;
 

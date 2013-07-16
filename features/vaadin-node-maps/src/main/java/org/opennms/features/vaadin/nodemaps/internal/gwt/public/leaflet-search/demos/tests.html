@@ -1,8 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
-<html xmlns="http://www.w3.org/1999/xhtml"> 
-<head> 
-<title></title> 
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="/leaflet/leaflet.css" />
 <link rel="stylesheet" href="../leaflet-search.css" />
 <link rel="stylesheet" href="../style.css" />
@@ -44,12 +44,12 @@ h4 {
 		{"loc":[41.507149,13.172994], "title":"chocolate"},
 		{"loc":[41.847149,14.132994], "title":"coral"},
 		{"loc":[41.219190,13.062145], "title":"cyan"},
-		{"loc":[41.344190,13.242145], "title":"darkblue"},	
+		{"loc":[41.344190,13.242145], "title":"darkblue"},
 		{"loc":[41.679190,13.122145], "title":"darkred"},
 		{"loc":[41.329190,13.192145], "title":"darkgray"},
 		{"loc":[41.379290,13.122545], "title":"dodgerblue"},
 		{"loc":[41.409190,13.362145], "title":"gray"},
-		{"loc":[41.794008,12.583884], "title":"green"},	
+		{"loc":[41.794008,12.583884], "title":"green"},
 		{"loc":[41.805008,12.982884], "title":"greenyellow"},
 		{"loc":[41.536175,13.273590], "title":"red"},
 		{"loc":[41.516175,13.373590], "title":"rosybrown"},
@@ -96,7 +96,7 @@ h4 {
 
 		var resultsraw = {},
 			results = {};
-	
+
 		$.ajax({
 			url: 'search.php',	//read comments in search.php for more information usage
 			async: false,		//must be syncronous request! or not return ajax results
@@ -142,29 +142,29 @@ h4 {
 
 	var map = new L.Map('map_filterjson', {zoom: 9, center: new L.latLng([41.575730,13.002411]) });
 	map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
-	
+
 	var jsonpurl = 'http://open.mapquestapi.com/nominatim/v1/search.php?json_callback={c}&q={s}'+
 				   '&format=json&osm_type=N&limit=100&addressdetails=0';
-	//third party jsonp service	
+	//third party jsonp service
 
 	function filterJSONCall(rawjson) {	//callback that remap fields name
 		var json = {},
 			key, loc, disp = [];
-			
+
 		for(var i in rawjson)
-		{	
-			disp = rawjson[i].display_name.split(',');	
+		{
+			disp = rawjson[i].display_name.split(',');
 
 			key = disp[0] +', '+ disp[1];
-			
+
 			loc = L.latLng( rawjson[i].lat, rawjson[i].lon );
-			
+
 			json[ key ]= loc;	//key,value format
 		}
-		
+
 		return json;
 	}
-	
+
 	var searchOpts = {
 			jsonpUrl: jsonpurl,
 			filterJSON: filterJSONCall,
@@ -174,7 +174,7 @@ h4 {
 			minLength: 2,
 			autoType: false
 		};
-		
+
 	map.addControl( new L.Control.Search(searchOpts) );
 
 </script>
@@ -193,7 +193,7 @@ h4 {
 
 		var resultsraw = {},
 			results = {};
-	
+
 		$.ajax({
 			url: 'search.php',	//read comments in search.php for more information usage
 			async: false,		//must be syncronous request! or not return ajax results
@@ -205,7 +205,7 @@ h4 {
 					resultsraw = json;
 			}
 		});
-	
+
 		for(i in resultsraw)	//reformatting results in key,value
 			results[ resultsraw[i].title ] = resultsraw[i].loc;
 
