@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -16,7 +16,7 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -28,7 +28,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         xlink: "http://www.w3.org/1999/xlink",
         xsi: "http://www.w3.org/2001/XMLSchema-instance"
     },
-    
+
     /**
      * Property: schemaLocation
      * {String} Schema location for a particular minor version.
@@ -55,7 +55,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return prefix;
     },
-    
+
     /**
      * Property: defaultPrefix
      */
@@ -66,19 +66,19 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      * {String} Prefix on the root node that maps to the context namespace URI.
      */
     rootPrefix: null,
-    
+
     /**
      * Property: defaultStyleName
      * {String} Style name used if layer has no style param.  Default is "".
      */
     defaultStyleName: "",
-    
+
     /**
      * Property: defaultStyleTitle
      * {String} Default style title.  Default is "Default".
      */
     defaultStyleTitle: "Default",
-    
+
     /**
      * Constructor: OpenLayers.Format.WMC.v1
      * Instances of this class are not created directly.  Use the
@@ -94,9 +94,9 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * Method: read
-     * Read capabilities data from a string, and return a list of layers. 
-     * 
-     * Parameters: 
+     * Read capabilities data from a string, and return a list of layers.
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -114,7 +114,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         this.runChildNodes(context, root);
         return context;
     },
-    
+
     /**
      * Method: runChildNodes
      */
@@ -133,14 +133,14 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             }
         }
     },
-    
+
     /**
      * Method: read_wmc_General
      */
     read_wmc_General: function(context, node) {
         this.runChildNodes(context, node);
     },
-    
+
     /**
      * Method: read_wmc_BoundingBox
      */
@@ -153,7 +153,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             parseFloat(node.getAttribute("maxy"))
         );
     },
-    
+
     /**
      * Method: read_wmc_LayerList
      */
@@ -162,7 +162,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         context.layersContext = [];
         this.runChildNodes(context, node);
     },
-    
+
     /**
      * Method: read_wmc_Layer
      */
@@ -178,7 +178,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         // set properties common to multiple objects on layer options/params
         context.layersContext.push(layerContext);
     },
-    
+
     /**
      * Method: read_wmc_Extension
      */
@@ -192,7 +192,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
     read_ol_units: function(layerContext, node) {
         layerContext.units = this.getChildValue(node);
     },
-    
+
     /**
      * Method: read_ol_maxExtent
      */
@@ -203,7 +203,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         );
         obj.maxExtent = bounds;
     },
-    
+
     /**
      * Method: read_ol_transparent
      */
@@ -239,7 +239,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         var obj = {"width": node.getAttribute("width"), "height": node.getAttribute("height")};
         layerContext.tileSize = obj;
     },
-    
+
     /**
      * Method: read_ol_isBaseLayer
      */
@@ -286,7 +286,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         layerContext.formats.push(format);
     },
-    
+
     /**
      * Method: read_wmc_StyleList
      */
@@ -305,7 +305,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         layerContext.styles.push(style);
     },
-    
+
     /**
      * Method: read_wmc_SLD
      */
@@ -313,7 +313,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         this.runChildNodes(style, node);
         // style either comes back with an href or a body property
     },
-    
+
     /**
      * Method: read_sld_StyledLayerDescriptor
      */
@@ -330,7 +330,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             node, this.namespaces.xlink, "href"
         );
     },
-    
+
     /**
      * Method: read_wmc_Name
      */
@@ -373,7 +373,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             obj["abstract"] = abst;
         }
     },
-    
+
     /**
      * Method: read_wmc_LegendURL
      */
@@ -388,7 +388,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         style.legend = legend;
     },
-    
+
     /**
      * Method: write
      *
@@ -407,13 +407,13 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                     options.id :
                     OpenLayers.Util.createUniqueID("OpenLayers_Context_")
         });
-        
+
         // add schemaLocation attribute
         this.setAttributeNS(
             root, this.namespaces.xsi,
             "xsi:schemaLocation", this.schemaLocation
         );
-        
+
         // required General element
         root.appendChild(this.write_wmc_General(context));
 
@@ -422,7 +422,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
 
         return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
     },
-    
+
     /**
      * Method: createElementDefaultNS
      * Shorthand for createElementNS with namespace from <defaultPrefix>.
@@ -449,7 +449,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return node;
     },
-    
+
     /**
      * Method: setAttributes
      * Set multiple attributes given key value pairs from an object.
@@ -495,7 +495,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
             ));
         }
-        
+
         // required BoundingBox element
         var bounds = context.bounds;
         node.appendChild(this.createElementDefaultNS(
@@ -513,19 +513,19 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         node.appendChild(this.createElementDefaultNS(
             "Title", context.title
         ));
-        
+
         // OpenLayers specific map properties
         node.appendChild(this.write_ol_MapExtension(context));
-        
+
         return node;
     },
-    
+
     /**
      * Method: write_ol_MapExtension
      */
     write_ol_MapExtension: function(context) {
         var node = this.createElementDefaultNS("Extension");
-        
+
         var bounds = context.maxExtent;
         if(bounds) {
             var maxExtent = this.createElementNS(
@@ -539,10 +539,10 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             });
             node.appendChild(maxExtent);
         }
-        
+
         return node;
     },
-    
+
     /**
      * Method: write_wmc_LayerList
      * Create a LayerList node given an context object.
@@ -555,11 +555,11 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      */
     write_wmc_LayerList: function(context) {
         var list = this.createElementDefaultNS("LayerList");
-        
+
         for(var i=0, len=context.layersContext.length; i<len; ++i) {
             list.appendChild(this.write_wmc_Layer(context.layersContext[i]));
         }
-        
+
         return list;
     },
 
@@ -580,7 +580,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 hidden: context.visibility ? "0" : "1"
             }
         );
-        
+
         // required Server element
         node.appendChild(this.write_wmc_Server(context));
 
@@ -588,7 +588,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         node.appendChild(this.createElementDefaultNS(
             "Name", context.name
         ));
-        
+
         // required Title element
         node.appendChild(this.createElementDefaultNS(
             "Title", context.title
@@ -598,10 +598,10 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         if (context.metadataURL) {
             node.appendChild(this.write_wmc_MetadataURL(context.metadataURL));
         }
-        
+
         return node;
     },
-    
+
     /**
      * Method: write_wmc_LayerExtension
      * Add OpenLayers specific layer parameters to an Extension element.
@@ -614,7 +614,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      */
     write_wmc_LayerExtension: function(context) {
         var node = this.createElementDefaultNS("Extension");
-        
+
         var bounds = context.maxExtent;
         var maxExtent = this.createElementNS(
             this.namespaces.ol, "ol:maxExtent"
@@ -626,7 +626,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             maxy: bounds.top.toPrecision(18)
         });
         node.appendChild(maxExtent);
-        
+
         if (context.tileSize && !context.singleTile) {
             var size = this.createElementNS(
                 this.namespaces.ol, "ol:tileSize"
@@ -634,7 +634,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             this.setAttributes(size, context.tileSize);
             node.appendChild(size);
         }
-        
+
         var properties = [
             "transparent", "numZoomLevels", "units", "isBaseLayer",
             "opacity", "displayInLayerSwitcher", "singleTile"
@@ -649,7 +649,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
 
         return node;
     },
-    
+
     /**
      * Method: createOLPropertyNode
      * Create a node representing an OpenLayers property.  If the property is
@@ -687,10 +687,10 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             service: "OGC:WMS",
             version: context.version
         });
-        
+
         // required OnlineResource element
         node.appendChild(this.write_wmc_OnlineResource(context.url));
-        
+
         return node;
     },
 
@@ -794,7 +794,7 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                     if (s.title) {
                         sld.appendChild(this.createElementDefaultNS("Title", s.title));
                     }
-                    style.appendChild(sld);            
+                    style.appendChild(sld);
                 } else { // [3]
                     // both Name and Title are required.
                     style.appendChild(this.createElementDefaultNS("Name", s.name));
@@ -830,6 +830,6 @@ OpenLayers.Format.WMC.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         return node;
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMC.v1" 
+    CLASS_NAME: "OpenLayers.Format.WMC.v1"
 
 });

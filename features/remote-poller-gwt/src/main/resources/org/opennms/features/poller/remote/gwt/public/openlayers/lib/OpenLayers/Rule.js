@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,25 +19,25 @@
  * This class represents an SLD Rule, as being used for rule-based SLD styling.
  */
 OpenLayers.Rule = OpenLayers.Class({
-    
+
     /**
      * Property: id
      * {String} A unique id for this session.
      */
     id: null,
-    
+
     /**
      * APIProperty: name
      * {String} name of this rule
      */
     name: null,
-    
+
     /**
      * Property: title
      * {String} Title of this rule (set if included in SLD)
      */
     title: null,
-    
+
     /**
      * Property: description
      * {String} Description of this rule (set if abstract is included in SLD)
@@ -51,7 +51,7 @@ OpenLayers.Rule = OpenLayers.Class({
      * be used.
      */
     context: null,
-    
+
     /**
      * Property: filter
      * {<OpenLayers.Filter>} Optional filter for the rule.
@@ -61,13 +61,13 @@ OpenLayers.Rule = OpenLayers.Class({
     /**
      * Property: elseFilter
      * {Boolean} Determines whether this rule is only to be applied only if
-     * no other rules match (ElseFilter according to the SLD specification). 
+     * no other rules match (ElseFilter according to the SLD specification).
      * Default is false.  For instances of OpenLayers.Rule, if elseFilter is
-     * false, the rule will always apply.  For subclasses, the else property is 
+     * false, the rule will always apply.  For subclasses, the else property is
      * ignored.
      */
     elseFilter: false,
-    
+
     /**
      * Property: symbolizer
      * {Object} Symbolizer or hash of symbolizers for this rule. If hash of
@@ -78,18 +78,18 @@ OpenLayers.Rule = OpenLayers.Class({
      * SLD.
      */
     symbolizer: null,
-    
+
     /**
      * Property: symbolizers
-     * {Array} Collection of symbolizers associated with this rule.  If 
+     * {Array} Collection of symbolizers associated with this rule.  If
      *     provided at construction, the symbolizers array has precedence
-     *     over the deprecated symbolizer property.  Note that multiple 
+     *     over the deprecated symbolizer property.  Note that multiple
      *     symbolizers are not currently supported by the vector renderers.
      *     Rules with multiple symbolizers are currently only useful for
      *     maintaining elements in an SLD document.
      */
     symbolizers: null,
-    
+
     /**
      * APIProperty: minScaleDenominator
      * {Number} or {String} minimum scale at which to draw the feature.
@@ -105,15 +105,15 @@ OpenLayers.Rule = OpenLayers.Class({
      * propertyNames in the form "literal ${propertyName}"
      */
     maxScaleDenominator: null,
-    
-    /** 
+
+    /**
      * Constructor: OpenLayers.Rule
      * Creates a Rule.
      *
      * Parameters:
      * options - {Object} An optional object with properties to set on the
      *           rule
-     * 
+     *
      * Returns:
      * {<OpenLayers.Rule>}
      */
@@ -126,7 +126,7 @@ OpenLayers.Rule = OpenLayers.Class({
         this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -137,14 +137,14 @@ OpenLayers.Rule = OpenLayers.Class({
         this.symbolizer = null;
         delete this.symbolizers;
     },
-    
+
     /**
      * APIMethod: evaluate
      * evaluates this rule for a specific feature
-     * 
+     *
      * Parameters:
      * feature - {<OpenLayers.Feature>} feature to apply the rule to.
-     * 
+     *
      * Returns:
      * {Boolean} true if the rule applies, false if it does not.
      * This rule is the default rule and always returns true.
@@ -156,7 +156,7 @@ OpenLayers.Rule = OpenLayers.Class({
         if (this.minScaleDenominator || this.maxScaleDenominator) {
             var scale = feature.layer.map.getScale();
         }
-        
+
         // check if within minScale/maxScale bounds
         if (this.minScaleDenominator) {
             applies = scale >= OpenLayers.Style.createLiteral(
@@ -166,7 +166,7 @@ OpenLayers.Rule = OpenLayers.Class({
             applies = scale < OpenLayers.Style.createLiteral(
                     this.maxScaleDenominator, context);
         }
-        
+
         // check if optional filter applies
         if(applies && this.filter) {
             // feature id filters get the feature, others get the context
@@ -179,11 +179,11 @@ OpenLayers.Rule = OpenLayers.Class({
 
         return applies;
     },
-    
+
     /**
      * Method: getContext
      * Gets the context for evaluating this rule
-     * 
+     *
      * Paramters:
      * feature - {<OpenLayers.Feature>} feature to take the context from if
      *           none is specified.
@@ -198,11 +198,11 @@ OpenLayers.Rule = OpenLayers.Class({
         }
         return context;
     },
-    
+
     /**
      * APIMethod: clone
      * Clones this rule.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Rule>} Clone of this rule.
      */
@@ -235,6 +235,6 @@ OpenLayers.Rule = OpenLayers.Class({
         options.context = this.context && OpenLayers.Util.extend({}, this.context);
         return new OpenLayers.Rule(options);
     },
-        
+
     CLASS_NAME: "OpenLayers.Rule"
 });

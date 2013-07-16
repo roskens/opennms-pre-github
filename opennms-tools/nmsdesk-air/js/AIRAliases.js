@@ -29,7 +29,7 @@
 
 
 var air;
-if (window.runtime) 
+if (window.runtime)
 {
     if (!air) air = {};
     // functions
@@ -62,7 +62,7 @@ if (window.runtime)
     air.StatusEvent = window.runtime.flash.events.StatusEvent;
     air.TimerEvent = window.runtime.flash.events.TimerEvent;
     air.ActivityEvent = window.runtime.flash.events.ActivityEvent;
-    
+
     // native window
     air.NativeWindow = window.runtime.flash.display.NativeWindow;
     air.NativeWindowDisplayState = window.runtime.flash.display.NativeWindowDisplayState;
@@ -81,7 +81,7 @@ if (window.runtime)
 
     // net
     air.FileFilter = window.runtime.flash.net.FileFilter;
-    
+
     air.LocalConnection = window.runtime.flash.net.LocalConnection;
     air.NetConnection = window.runtime.flash.net.NetConnection;
 
@@ -130,7 +130,7 @@ if (window.runtime)
     air.NativeMenu = window.runtime.flash.display.NativeMenu;
     air.NativeMenuItem = window.runtime.flash.display.NativeMenuItem;
     air.Screen = window.runtime.flash.display.Screen;
-    
+
     air.Loader  = window.runtime.flash.display.Loader;
     air.Bitmap = window.runtime.flash.display.Bitmap;
     air.BitmapData = window.runtime.flash.display.BitmapData;
@@ -149,7 +149,7 @@ if (window.runtime)
     air.XMLSignatureValidator = window.runtime.flash.security.XMLSignatureValidator;
 
     air.HTMLLoader = window.runtime.flash.html.HTMLLoader;
-    air.HTMLPDFCapability = window.runtime.flash.html.HTMLPDFCapability;    
+    air.HTMLPDFCapability = window.runtime.flash.html.HTMLPDFCapability;
 
     // media
     air.ID3Info = window.runtime.flash.media.ID3Info;

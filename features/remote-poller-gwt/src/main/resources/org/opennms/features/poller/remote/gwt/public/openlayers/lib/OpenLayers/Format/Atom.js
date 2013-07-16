@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,7 +18,7 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.  Properties
@@ -30,7 +30,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         atom: "http://www.w3.org/2005/Atom",
         georss: "http://www.georss.org/georss"
     },
-    
+
     /**
      * APIProperty: feedTitle
      * {String} Atom feed elements require a title.  Default is "untitled".
@@ -51,14 +51,14 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
      * Non-API and only created if necessary
      */
     gmlParser: null,
-    
+
     /**
      * APIProperty: xy
      * {Boolean} Order of the GML coordinate: true:(x,y) or false:(y,x)
      * For GeoRSS the default is (y,x), therefore: false
      */
     xy: false,
-    
+
     /**
      * Constructor: OpenLayers.Format.AtomEntry
      * Create a new parser for Atom.
@@ -70,11 +70,11 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
     initialize: function(options) {
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * APIMethod: read
      * Return a list of features from an Atom feed or entry document.
-     
+
      * Parameters:
      * doc - {Element} or {String}
      *
@@ -87,7 +87,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return this.parseFeatures(doc);
     },
-    
+
     /**
      * APIMethod: write
      * Serialize or more feature nodes to Atom documents.
@@ -118,7 +118,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return OpenLayers.Format.XML.prototype.write.apply(this, [doc]);
     },
-    
+
     /**
      * Method: buildContentNode
      *
@@ -164,7 +164,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return node;
     },
-    
+
     /**
      * Method: buildEntryNode
      * Build an Atom entry node from a feature object.
@@ -183,7 +183,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         var attrib = feature.attributes;
         var atomAttrib = attrib.atom || {};
         var entryNode = this.createElementNSPlus("atom:entry");
-        
+
         // atom:author
         if (atomAttrib.authors) {
             var authors = atomAttrib.authors instanceof Array ?
@@ -196,7 +196,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 );
             }
         }
-        
+
         // atom:category
         if (atomAttrib.categories) {
             var categories = atomAttrib.categories instanceof Array ?
@@ -215,12 +215,12 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 );
             }
         }
-        
+
         // atom:content
         if (atomAttrib.content) {
             entryNode.appendChild(this.buildContentNode(atomAttrib.content));
         }
-        
+
         // atom:contributor
         if (atomAttrib.contributors) {
             var contributors = atomAttrib.contributors instanceof Array ?
@@ -234,7 +234,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                     );
             }
         }
-        
+
         // atom:id
         if (feature.fid) {
             entryNode.appendChild(
@@ -243,7 +243,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 })
             );
         }
-        
+
         // atom:link
         if (atomAttrib.links) {
             var links = atomAttrib.links instanceof Array ?
@@ -265,7 +265,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 );
             }
         }
-        
+
         // atom:published
         if (atomAttrib.published) {
             entryNode.appendChild(
@@ -274,7 +274,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 })
             );
         }
-        
+
         // atom:rights
         if (atomAttrib.rights) {
             entryNode.appendChild(
@@ -283,9 +283,9 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 })
             );
         }
-        
+
         // atom:source not implemented
-        
+
         // atom:summary
         if (atomAttrib.summary || attrib.description) {
             entryNode.appendChild(
@@ -294,14 +294,14 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 })
             );
         }
-        
+
         // atom:title
         entryNode.appendChild(
             this.createElementNSPlus("atom:title", {
                 value: atomAttrib.title || attrib.title || this.defaultEntryTitle
             })
         );
-        
+
         // atom:updated
         if (atomAttrib.updated) {
             entryNode.appendChild(
@@ -310,7 +310,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 })
             );
         }
-        
+
         // georss:where
         if (feature.geometry) {
             var whereNode = this.createElementNSPlus("georss:where");
@@ -319,10 +319,10 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
             );
             entryNode.appendChild(whereNode);
         }
-        
+
         return entryNode;
     },
-    
+
     /**
      * Method: initGmlParser
      * Creates a GML parser.
@@ -335,7 +335,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
             externalProjection: this.externalProjection
         });
     },
-    
+
     /**
      * Method: buildGeometryNode
      * builds a GeoRSS node with a given geometry
@@ -353,7 +353,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         var node = this.gmlParser.writeNode("feature:_geometry", geometry);
         return node.firstChild;
     },
-    
+
     /**
      * Method: buildPersonConstructNode
      *
@@ -389,7 +389,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return personNode;
     },
-    
+
     /**
      * Method: getFirstChildValue
      *
@@ -413,7 +413,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return value;
     },
-    
+
     /**
      * Method: parseFeature
      * Parse feature from an Atom entry node..
@@ -430,10 +430,10 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         var nodes = null;
         var attval = null;
         var atomns = this.namespaces.atom;
-        
+
         // atomAuthor*
         this.parsePersonConstructs(node, "author", atomAttrib);
-        
+
         // atomCategory*
         nodes = this.getElementsByTagNameNS(node, atomns, "category");
         if (nodes.length > 0) {
@@ -448,7 +448,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
             if (attval) { value.label = attval; }
             atomAttrib.categories.push(value);
         }
-        
+
         // atomContent?
         nodes = this.getElementsByTagNameNS(node, atomns, "content");
         if (nodes.length > 0) {
@@ -461,8 +461,8 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
             if (attval) {
                 value.src = attval;
             } else {
-                if (value.type == "text" || 
-                    value.type == "html" || 
+                if (value.type == "text" ||
+                    value.type == "html" ||
                     value.type == null ) {
                     value.value = this.getFirstChildValue(
                                         node,
@@ -484,13 +484,13 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 atomAttrib.content = value;
             }
         }
-        
+
         // atomContributor*
         this.parsePersonConstructs(node, "contributor", atomAttrib);
-        
+
         // atomId
         atomAttrib.id = this.getFirstChildValue(node, atomns, "id", null);
-        
+
         // atomLink*
         nodes = this.getElementsByTagNameNS(node, atomns, "link");
         if (nodes.length > 0) {
@@ -508,37 +508,37 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             atomAttrib.links[i] = value;
         }
-        
+
         // atomPublished?
         value = this.getFirstChildValue(node, atomns, "published", null);
         if (value) {
             atomAttrib.published = value;
         }
-        
+
         // atomRights?
         value = this.getFirstChildValue(node, atomns, "rights", null);
         if (value) {
             atomAttrib.rights = value;
         }
-        
+
         // atomSource? -- not implemented
-        
+
         // atomSummary?
         value = this.getFirstChildValue(node, atomns, "summary", null);
         if (value) {
             atomAttrib.summary = value;
         }
-        
+
         // atomTitle
         atomAttrib.title = this.getFirstChildValue(
                                 node, atomns, "title", null
                                 );
-        
+
         // atomUpdated
         atomAttrib.updated = this.getFirstChildValue(
                                 node, atomns, "updated", null
                                 );
-        
+
         var featureAttrib = {
             title: atomAttrib.title,
             description: atomAttrib.summary,
@@ -549,7 +549,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         feature.fid = atomAttrib.id;
         return feature;
     },
-    
+
     /**
      * Method: parseFeatures
      * Return features from an Atom entry or feed.
@@ -573,7 +573,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return features;
     },
-    
+
     /**
      * Method: parseLocations
      * Parse the locations from an Atom entry or feed.
@@ -597,7 +597,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 this.gmlParser.readChildNodes(where[i], locations);
             }
         }
-        
+
         var components = locations.components;
         var point = this.getElementsByTagNameNS(node, georssns, "point");
         if (point && point.length > 0) {
@@ -640,7 +640,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                     new OpenLayers.Geometry.LineString(points)
                 );
             }
-        }        
+        }
 
         var polygon = this.getElementsByTagNameNS(node, georssns, "polygon");
         if (polygon && polygon.length > 0) {
@@ -666,7 +666,7 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 );
             }
         }
-        
+
         if (this.internalProjection && this.externalProjection) {
             for (var i=0, ii=components.length; i<ii; i++) {
                 if (components[i]) {
@@ -677,10 +677,10 @@ OpenLayers.Format.Atom = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
             }
         }
-        
+
         return components;
     },
-    
+
     /**
      * Method: parsePersonConstruct
      * Parse Atom person constructs from an Atom entry node.

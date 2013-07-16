@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,19 +10,19 @@
 /**
  * Class: OpenLayers.Format.WMSCapabilities/v1_1_1
  * Read WMS Capabilities version 1.1.1.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMSCapabilities.v1_1>
  */
 OpenLayers.Format.WMSCapabilities.v1_1_1 = OpenLayers.Class(
     OpenLayers.Format.WMSCapabilities.v1_1, {
-    
+
     /**
      * Property: version
      * {String} The specific parser version.
      */
     version: "1.1.1",
-    
+
     /**
      * Constructor: OpenLayers.Format.WMSCapabilities.v1_1_1
      * Create a new parser for WMS capabilities version 1.1.1.
@@ -53,6 +53,6 @@ OpenLayers.Format.WMSCapabilities.v1_1_1 = OpenLayers.Class(
         }, OpenLayers.Format.WMSCapabilities.v1_1.prototype.readers["wms"])
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_1_1" 
+    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_1_1"
 
 });

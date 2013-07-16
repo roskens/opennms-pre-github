@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,7 +19,7 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * Constant: DEFAULT_PARAMS
-     * {Object} Hashtable of default parameter key/value pairs 
+     * {Object} Hashtable of default parameter key/value pairs
      */
     DEFAULT_PARAMS: {
         mode: "map",
@@ -47,10 +47,10 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
             this.params, this.DEFAULT_PARAMS
         );
 
-        // unless explicitly set in options, if the layer is transparent, 
+        // unless explicitly set in options, if the layer is transparent,
         // it will be an overlay
         if (options == null || options.isBaseLayer == null) {
-            this.isBaseLayer = ((this.params.transparent != "true") && 
+            this.isBaseLayer = ((this.params.transparent != "true") &&
                                 (this.params.transparent != true));
         }
     },
@@ -79,41 +79,41 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * Method: addTile
-     * Creates a tile, initializes it, and adds it to the layer div. 
+     * Creates a tile, initializes it, and adds it to the layer div.
      *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Tile.Image>} The added OpenLayers.Tile.Image
      */
     addTile:function(bounds,position) {
-        return new OpenLayers.Tile.Image(this, position, bounds, 
+        return new OpenLayers.Tile.Image(this, position, bounds,
                                          null, this.tileSize);
     },
-    
+
     /**
      * Method: getURL
      * Return a query string for this layer
      *
      * Parameters:
-     * bounds - {<OpenLayers.Bounds>} A bounds representing the bbox 
+     * bounds - {<OpenLayers.Bounds>} A bounds representing the bbox
      *                                for the request
      *
      * Returns:
-     * {String} A string with the layer's url and parameters and also 
-     *          the passed-in bounds and appropriate tile size specified 
+     * {String} A string with the layer's url and parameters and also
+     *          the passed-in bounds and appropriate tile size specified
      *          as parameters.
      */
     getURL: function (bounds) {
         bounds = this.adjustBounds(bounds);
-        // Make a list, so that getFullRequestString uses literal "," 
+        // Make a list, so that getFullRequestString uses literal ","
         var extent = [bounds.left, bounds. bottom, bounds.right, bounds.top];
 
-        var imageSize = this.getImageSize(); 
-        
-        // make lists, so that literal ','s are used 
+        var imageSize = this.getImageSize();
+
+        // make lists, so that literal ','s are used
         var url = this.getFullRequestString(
                      {mapext:   extent,
                       imgext:   extent,
@@ -122,40 +122,40 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
                       imgy:     imageSize.h / 2,
                       imgxy:    [imageSize.w, imageSize.h]
                       });
-        
+
         return url;
     },
-    
-    /** 
+
+    /**
      * Method: getFullRequestString
-     * combine the layer's url with its params and these newParams. 
-     *   
+     * combine the layer's url with its params and these newParams.
+     *
      * Parameter:
-     * newParams - {Object} New parameters that should be added to the 
+     * newParams - {Object} New parameters that should be added to the
      *                      request string.
-     * altUrl - {String} (optional) Replace the URL in the full request  
+     * altUrl - {String} (optional) Replace the URL in the full request
      *                              string with the provided URL.
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {String} A string with the layer's url and parameters embedded in it.
      */
     getFullRequestString:function(newParams, altUrl) {
         // use layer's url unless altUrl passed in
         var url = (altUrl == null) ? this.url : altUrl;
-        
-        // create a new params hashtable with all the layer params and the 
+
+        // create a new params hashtable with all the layer params and the
         // new params together. then convert to string
         var allParams = OpenLayers.Util.extend({}, this.params);
         allParams = OpenLayers.Util.extend(allParams, newParams);
         var paramsString = OpenLayers.Util.getParameterString(allParams);
-        
-        // if url is not a string, it should be an array of strings, 
-        // in which case we will deterministically select one of them in 
+
+        // if url is not a string, it should be an array of strings,
+        // in which case we will deterministically select one of them in
         // order to evenly distribute requests to different urls.
         if (url instanceof Array) {
             url = this.selectUrl(paramsString, url);
-        }   
-        
+        }
+
         // ignore parameters that are already in the url search string
         var urlParams = OpenLayers.Util.upperCaseObject(
                             OpenLayers.Util.getParameters(url));
@@ -165,9 +165,9 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
             }
         }
         paramsString = OpenLayers.Util.getParameterString(allParams);
-        
+
         // requestString always starts with url
-        var requestString = url;        
+        var requestString = url;
 
         // MapServer needs '+' seperating things like bounds/height/width.
         //   Since typically this is URL encoded, we use a slight hack: we
@@ -177,7 +177,7 @@ OpenLayers.Layer.MapServer = OpenLayers.Class(OpenLayers.Layer.Grid, {
         //  to '+'
         //
         paramsString = paramsString.replace(/,/g, "+");
-        
+
         if (paramsString != "") {
             var lastServerChar = url.charAt(url.length - 1);
             if ((lastServerChar == "&") || (lastServerChar == "?")) {

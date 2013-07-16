@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,13 +19,13 @@
  *  - <OpenLayers.Handler.Point>
  */
 OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
-    
+
     /**
      * Property: line
      * {<OpenLayers.Feature.Vector>}
      */
     line: null,
-    
+
     /**
      * Property: freehand
      * {Boolean} In freehand mode, the handler starts the path on mouse down,
@@ -34,7 +34,7 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
      * click and double-click finishes the path.
      */
     freehand: false,
-    
+
     /**
      * Property: freehandToggle
      * {String} If set, freehandToggle is checked on mouse events and will set
@@ -69,7 +69,7 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
     initialize: function(control, callbacks, options) {
         OpenLayers.Handler.Point.prototype.initialize.apply(this, arguments);
     },
-        
+
     /**
      * Method: createFeature
      * Add temporary geometries
@@ -90,7 +90,7 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
         this.point.geometry.clearBounds();
         this.layer.addFeatures([this.line, this.point], {silent: true});
     },
-        
+
     /**
      * Method: destroyFeature
      * Destroy temporary geometries
@@ -109,7 +109,7 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
             this.layer.removeFeatures([this.point]);
         }
     },
-    
+
     /**
      * Method: addPoint
      * Add point to geometry.  Send the point index to override
@@ -131,7 +131,7 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
         this.callback("modify", [this.point.geometry, this.getSketch()]);
         this.drawFeature();
     },
-    
+
     /**
      * Method: freehandMode
      * Determine whether to behave in freehand mode or not.
@@ -201,11 +201,11 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
      * Method: mousedown
      * Handle mouse down.  Add a new point to the geometry and
      * render it. Return determines whether to propagate the event on the map.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mousedown: function(evt) {
@@ -231,15 +231,15 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
      * Method: mousemove
      * Handle mouse move.  Adjust the geometry and redraw.
      * Return determines whether to propagate the event on the map.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mousemove: function (evt) {
-        if(this.drawing) { 
+        if(this.drawing) {
             if(this.mouseDown && this.freehandMode(evt)) {
                 this.addPoint(evt.xy);
             } else {
@@ -248,16 +248,16 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
         }
         return true;
     },
-    
+
     /**
      * Method: mouseup
      * Handle mouse up.  Send the latest point in the geometry to
      * the control. Return determines whether to propagate the event on the map.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mouseup: function (evt) {
@@ -276,16 +276,16 @@ OpenLayers.Handler.Path = OpenLayers.Class(OpenLayers.Handler.Point, {
         }
         return true;
     },
-  
+
     /**
-     * Method: dblclick 
+     * Method: dblclick
      * Handle double-clicks.  Finish the geometry and send it back
      * to the control.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     dblclick: function(evt) {

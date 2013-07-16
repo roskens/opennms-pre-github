@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -16,7 +16,7 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -28,7 +28,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         gml: "http://www.opengis.net/gml",
         ogc: "http://www.opengis.net/ogc"
     },
-    
+
     /**
      * Property: defaultPrefix
      */
@@ -45,7 +45,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      * {String} Schema location for a particular minor version.
      */
     schemaLocations: null,
-    
+
     /**
      * APIProperty: srsName
      * {String} URI for spatial reference system.
@@ -57,12 +57,12 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Boolean} Extract attributes from GML.  Default is true.
      */
     extractAttributes: true,
-    
+
     /**
      * APIProperty: xy
      * {Boolean} Order of the GML coordinate true:(x,y) or false:(y,x)
      * Changing is not recommended, a new Format should be instantiated.
-     */ 
+     */
     xy: true,
 
     /**
@@ -89,7 +89,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         this.stateName[OpenLayers.State.DELETE] = "wfs:Delete";
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Method: getSrsName
      */
@@ -130,8 +130,8 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         OpenLayers.Util.applyDefaults(options, {
             output: "features"
         });
-        
-        if(typeof data == "string") { 
+
+        if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         if(data && data.nodeType == 9) {
@@ -146,7 +146,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return obj;
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -163,7 +163,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             }
         }
     },
-    
+
     /**
      * Method: write
      * Given an array of features, write a WFS transaction.  This assumes
@@ -186,7 +186,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return OpenLayers.Format.XML.prototype.write.apply(this, [node]);
     },
-    
+
     /**
      * Property: writers
      * As a compliment to the readers property, this structure contains public
@@ -208,10 +208,10 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 if (typeof this.featureType == "string") {
                     this.writeNode("Query", options, node);
                 } else {
-                    for (var i=0,len = this.featureType.length; i<len; i++) { 
-                        options.featureType = this.featureType[i]; 
-                        this.writeNode("Query", options, node); 
-                    } 
+                    for (var i=0,len = this.featureType.length; i<len; i++) {
+                        options.featureType = this.featureType[i];
+                        this.writeNode("Query", options, node);
+                    }
                 }
                 return node;
             },
@@ -250,14 +250,14 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 if(this.featureNS) {
                     node.setAttribute("xmlns:" + this.featurePrefix, this.featureNS);
                 }
-                
+
                 // add in geometry
                 if (this.geometryName !== null) {
                     this.writeNode(
                         "Property", {name: this.geometryName, value: feature}, node
                     );
                 }
-        
+
                 // add in attributes
                 for(var key in feature.attributes) {
                     if(feature.attributes[key] !== undefined) {
@@ -266,12 +266,12 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                         );
                     }
                 }
-                
+
                 // add feature id filter
                 this.writeNode("ogc:Filter", new OpenLayers.Filter.FeatureId({
                     fids: [feature.fid]
                 }), node);
-        
+
                 return node;
             },
             "Property": function(obj) {
@@ -293,7 +293,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                     var geom = this.writeNode("feature:_geometry", obj.geometry).firstChild;
                     node.appendChild(geom);
                 } else {
-                    node = this.createElementNSPlus("wfs:Value", {value: obj});                
+                    node = this.createElementNSPlus("wfs:Value", {value: obj});
                 }
                 return node;
             },
@@ -342,7 +342,7 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         var value = parts.join(" ") || undefined;
         return value;
     },
-    
+
     /**
      * Method: setFilterProperty
      * Set the property of each spatial filter.
@@ -363,6 +363,6 @@ OpenLayers.Format.WFST.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
     },
 
-    CLASS_NAME: "OpenLayers.Format.WFST.v1" 
+    CLASS_NAME: "OpenLayers.Format.WFST.v1"
 
 });

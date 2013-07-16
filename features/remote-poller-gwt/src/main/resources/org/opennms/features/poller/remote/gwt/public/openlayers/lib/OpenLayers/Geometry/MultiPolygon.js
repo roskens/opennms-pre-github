@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,7 +13,7 @@
  * MultiPolygon is a geometry with multiple <OpenLayers.Geometry.Polygon>
  * components.  Create a new instance with the <OpenLayers.Geometry.MultiPolygon>
  * constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Geometry.Collection>
  */
@@ -38,7 +38,7 @@ OpenLayers.Geometry.MultiPolygon = OpenLayers.Class(
      *
      */
     initialize: function(components) {
-        OpenLayers.Geometry.Collection.prototype.initialize.apply(this, 
+        OpenLayers.Geometry.Collection.prototype.initialize.apply(this,
                                                                   arguments);
     },
 

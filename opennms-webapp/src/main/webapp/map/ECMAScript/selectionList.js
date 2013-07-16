@@ -118,10 +118,10 @@ function selectionList(id,parentNode,elementsArray,width,xOffset,yOffset,cellHei
 		this.boxStyles = boxStyles; //array of literals containing presentation attributes for the sel box
 		if (!this.boxStyles["fill"]) {
 			this.boxStyles["fill"] = "white"; //this fill value is also used for boxes under indiv. text elements (unselected status)
-		}	
+		}
 		if (!this.boxStyles["stroke"]) {
 			this.boxStyles["stroke"] = "dimgray";
-		}	
+		}
 		if (!this.boxStyles["stroke-width"]) {
 			this.boxStyles["stroke-width"] = 1;
 		}
@@ -139,10 +139,10 @@ function selectionList(id,parentNode,elementsArray,width,xOffset,yOffset,cellHei
 		this.textPadding = textPadding; //this is relative to the left of the cell
 		this.textPaddingVertical = this.cellHeight - (this.cellHeight - this.textStyles["font-size"]) * 0.7; //this is relative to the top of the cell
 		this.scrollerMinHeight = this.cellHeight * 0.5; //minimal height of the scroller rect
-		
+
 		//references
 		this.scrollBar = undefined; //later a reference to the scrollbar rectangle
-	
+
 		//status variables
 		this.activeSelection = this.preSelect; //holds currently selected index value
 		this.listOpen = false; //status folded=false, open=true - previously been sLselectionVisible
@@ -169,7 +169,7 @@ function selectionList(id,parentNode,elementsArray,width,xOffset,yOffset,cellHei
 		this.createSelectionList();
 	}
 	else {
-		alert("Could not create selectionlist with id '"+id+"' due to errors in the constructor parameters");	
+		alert("Could not create selectionlist with id '"+id+"' due to errors in the constructor parameters");
 	}
 }
 
@@ -184,7 +184,7 @@ selectionList.prototype.createSelectionList = function() {
 			node.setAttributeNS(null,"height",this.cellHeight);
 			for (var attrib in this.boxStyles) {
 				node.setAttributeNS(null,attrib,this.boxStyles[attrib]);
-			}		
+			}
 			node.setAttributeNS(null,"id","selRect_"+this.id);
 			node.addEventListener("click", this, false);
 			this.parentGroup.appendChild(node);
@@ -199,7 +199,7 @@ selectionList.prototype.createSelectionList = function() {
 					value += "px";
 				}
 				this.selectedText.setAttributeNS(null,attrib,value);
-			}		
+			}
 			this.selectedText.setAttributeNS(null,"pointer-events","none");
 			var selectionText = document.createTextNode(this.elementsArray[this.activeSelection]);
 			this.selectedText.appendChild(selectionText);
@@ -212,7 +212,7 @@ selectionList.prototype.createSelectionList = function() {
 			node.setAttributeNS(null,"height",this.cellHeight);
 			for (var attrib in this.smallrectStyles) {
 				node.setAttributeNS(null,attrib,this.smallrectStyles[attrib]);
-			}		
+			}
 			node.setAttributeNS(null,"id","selPulldown_"+this.id);
 			node.addEventListener("click", this, false);
 			this.parentGroup.appendChild(node);
@@ -222,7 +222,7 @@ selectionList.prototype.createSelectionList = function() {
 			node.setAttributeNS(null,"d",myTrianglePath);
 			for (var attrib in this.triangleStyles) {
 				node.setAttributeNS(null,attrib,this.triangleStyles[attrib]);
-			}		
+			}
 			node.setAttributeNS(null,"id","selTriangle_"+this.id);
 			node.setAttributeNS(null,"pointer-events","none");
 			this.parentGroup.appendChild(node);
@@ -249,7 +249,7 @@ selectionList.prototype.createSelectionList = function() {
 		}
 		else {
 			alert("could not create or reference 'parentNode' of selectionList with id '"+this.id+"'");
-		}			
+		}
 }
 
 //test if parent group exists or create a new group at the end of the file
@@ -262,7 +262,7 @@ selectionList.prototype.testParent = function() {
     		nodeValid = true;
     	}
     }
-    else if (typeof(this.parentNode) == "string") { 
+    else if (typeof(this.parentNode) == "string") {
     	//first test if Windows group exists
     	if (!document.getElementById(this.parentNode)) {
         	this.parentGroup = document.createElementNS(svgNS,"g");
@@ -318,7 +318,7 @@ selectionList.prototype.handleEvent = function(evt) {
 			if (callerId.match(/\bselHighlightSelection_/)) {
 				for (var attrib in this.highlightStyles) {
 					el.setAttributeNS(null,attrib,this.highlightStyles[attrib]);
-				}		
+				}
 			}
 		}
 	}
@@ -359,7 +359,7 @@ selectionList.prototype.handleEvent = function(evt) {
 		}
 		if (el.nodeName == "svg" || el.nodeName == "svg:svg") {
 			document.documentElement.removeEventListener("mousemove",this,false);
-			document.documentElement.removeEventListener("mouseup",this,false);			
+			document.documentElement.removeEventListener("mouseup",this,false);
 			this.scrollBarMove(evt);
 		}
 	}
@@ -462,7 +462,7 @@ selectionList.prototype.unfoldList = function() {
 				value += "px";
 			}
 			node.setAttributeNS(null,attrib,value);
-		}		
+		}
 		var selectionText = document.createTextNode(this.elementsArray[this.curLowerIndex + i]);
 		node.appendChild(selectionText);
 		this.dynamicTextGroup.appendChild(node);
@@ -484,7 +484,7 @@ selectionList.prototype.unfoldList = function() {
 		this.scrollBar.setAttributeNS(null,"height",selectionHeight - this.cellHeight * 2);
 		for (var attrib in this.scrollbarStyles) {
 			this.scrollBar.setAttributeNS(null,attrib,this.scrollbarStyles[attrib]);
-		}		
+		}
 		this.scrollBar.setAttributeNS(null,"id","selScrollbarRect_"+this.id);
 		this.scrollBar.addEventListener("mousedown", this, false);
 		//node.addEventListener("mouseup", this, false);
@@ -499,7 +499,7 @@ selectionList.prototype.unfoldList = function() {
 		node.setAttributeNS(null,"height",this.cellHeight);
 		for (var attrib in this.smallrectStyles) {
 			node.setAttributeNS(null,attrib,this.smallrectStyles[attrib]);
-		}		
+		}
 		node.setAttributeNS(null,"id","selScrollUpperRect_"+this.id);
 		node.addEventListener("mousedown", this, false);
 		node.addEventListener("mouseup", this, false);
@@ -510,7 +510,7 @@ selectionList.prototype.unfoldList = function() {
 		node.setAttributeNS(null,"d",myPath);
 		for (var attrib in this.triangleStyles) {
 			node.setAttributeNS(null,attrib,this.triangleStyles[attrib]);
-		}		
+		}
 		node.setAttributeNS(null,"pointer-events","none");
 		this.dynamicTextGroup.appendChild(node);
 		//lower rectangle
@@ -521,7 +521,7 @@ selectionList.prototype.unfoldList = function() {
 		node.setAttributeNS(null,"height",this.cellHeight);
 		for (var attrib in this.smallrectStyles) {
 			node.setAttributeNS(null,attrib,this.smallrectStyles[attrib]);
-		}		
+		}
 		node.setAttributeNS(null,"id","selScrollLowerRect_" + this.id);
 		node.addEventListener("mousedown", this, false);
 		node.addEventListener("mouseup", this, false);
@@ -532,7 +532,7 @@ selectionList.prototype.unfoldList = function() {
 		node.setAttributeNS(null,"d",myPath);
 		for (var attrib in this.triangleStyles) {
 			node.setAttributeNS(null,attrib,this.triangleStyles[attrib]);
-		}		
+		}
 		node.setAttributeNS(null,"pointer-events","none");
 		this.dynamicTextGroup.appendChild(node);
 		//scrollerRect
@@ -543,7 +543,7 @@ selectionList.prototype.unfoldList = function() {
 		node.setAttributeNS(null,"height",this.scrollerHeight);
 		for (var attrib in this.smallrectStyles) {
 			node.setAttributeNS(null,attrib,this.smallrectStyles[attrib]);
-		}		
+		}
 		node.setAttributeNS(null,"pointer-events","none");
 		node.setAttributeNS(null,"id","selScroller_"+this.id);
 		this.dynamicTextGroup.appendChild(node);
@@ -643,7 +643,7 @@ selectionList.prototype.scroll = function(scrollDir,scrollNr,scrollBool) {
 						value += "px";
 					}
 					node.setAttributeNS(null,attrib,value);
-				}		
+				}
 				var selectionText = document.createTextNode(this.elementsArray[this.curLowerIndex + i]);
 				node.appendChild(selectionText);
 				this.dynamicTextGroup.appendChild(node);
@@ -710,7 +710,7 @@ selectionList.prototype.scroll = function(scrollDir,scrollNr,scrollBool) {
 						value += "px";
 					}
 					node.setAttributeNS(null,attrib,value);
-				}		
+				}
 				var selectionText = document.createTextNode(this.elementsArray[this.curLowerIndex + k]);
 				node.appendChild(selectionText);
 				this.dynamicTextGroup.appendChild(node);
@@ -760,7 +760,7 @@ selectionList.prototype.scroll = function(scrollDir,scrollNr,scrollBool) {
 						value += "px";
 					}
 					node.setAttributeNS(null,attrib,value);
-				}		
+				}
 				var selectionText = document.createTextNode(this.elementsArray[this.curLowerIndex + i]);
 				node.appendChild(selectionText);
 				this.dynamicTextGroup.appendChild(node);
@@ -783,7 +783,7 @@ selectionList.prototype.scrollBarMove = function(evt) {
 		this.panStatus = true;
 		for (var attrib in this.triangleStyles) {
 			scroller.setAttributeNS(null,attrib,this.triangleStyles[attrib]);
-		}		
+		}
 		var coordPoint = myMapApp.calcCoord(evt,this.scrollBar);
 		this.panY = coordPoint.y;
 		var oldY = parseFloat(scroller.getAttributeNS(null,"y"));
@@ -817,7 +817,7 @@ selectionList.prototype.scrollBarMove = function(evt) {
 			var newY = parseFloat(scroller.getAttributeNS(null,"y"));
 			for (var attrib in this.smallrectStyles) {
 				scroller.setAttributeNS(null,attrib,this.smallrectStyles[attrib]);
-			}		
+			}
 			scroller.setAttributeNS(null,"y",YOffset + this.cellHeight + this.scrollStep * this.curLowerIndex);
 		}
 		this.panStatus = false;
@@ -1042,7 +1042,7 @@ selectionList.prototype.moveTo = function(moveX,moveY) {
 	//reposition triangle
 	var triangle = document.getElementById("selTriangle_"+this.id);
 	var myTrianglePath = "M"+(this.xOffset + this.width - 3 * this.triangleFourth)+" "+(this.yOffset + this.triangleFourth)+" L"+(this.xOffset + this.width - this.triangleFourth)+" "+(this.yOffset + this.triangleFourth)+" L"+(this.xOffset + this.width - 2 * this.triangleFourth)+" "+(this.yOffset + 3 * this.triangleFourth)+" Z";
-	triangle.setAttributeNS(null,"d",myTrianglePath);	
+	triangle.setAttributeNS(null,"d",myTrianglePath);
 	//change positions of rectbox below and above
 	this.rectBelowBox.setAttributeNS(null,"x",this.xOffset);
 	this.rectBelowBox.setAttributeNS(null,"y",this.yOffset + this.cellHeight);
@@ -1061,7 +1061,7 @@ selectionList.prototype.resize = function(newWidth) {
 	//reposition triangle
 	var triangle = document.getElementById("selTriangle_"+this.id);
 	var myTrianglePath = "M"+(this.xOffset + this.width - 3 * this.triangleFourth)+" "+(this.yOffset + this.triangleFourth)+" L"+(this.xOffset + this.width - this.triangleFourth)+" "+(this.yOffset + this.triangleFourth)+" L"+(this.xOffset + this.width - 2 * this.triangleFourth)+" "+(this.yOffset + 3 * this.triangleFourth)+" Z";
-	triangle.setAttributeNS(null,"d",myTrianglePath);	
+	triangle.setAttributeNS(null,"d",myTrianglePath);
 	//change sizes of rectbox below and above
 	this.rectBelowBox.setAttributeNS(null,"width",this.width - this.cellHeight);
 	this.rectAboveBox.setAttributeNS(null,"width",this.width - this.cellHeight);

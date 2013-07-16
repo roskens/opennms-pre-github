@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,14 +14,14 @@
  * Create a vector layer by parsing a GML file. The GML file is
  *     passed in as a parameter.
  * *Deprecated*.  To be removed in 3.0.  Instead use OpenLayers.Layer.Vector
- *     with Protocol.HTTP and Strategy.Fixed. Provide the protocol with a 
+ *     with Protocol.HTTP and Strategy.Fixed. Provide the protocol with a
  *     format parameter to get the parser you want for your data.
  *
  * Inherits from:
  *  - <OpenLayers.Layer.Vector>
  */
 OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
-    
+
     /**
       * Property: loaded
       * {Boolean} Flag for whether the GML data has been loaded yet.
@@ -39,15 +39,15 @@ OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
      * {Object} Hash of options which should be passed to the format when it is
      * created. Must be passed in the constructor.
      */
-    formatOptions: null, 
-    
+    formatOptions: null,
+
     /**
      * Constructor: OpenLayers.Layer.GML
      * Load and parse a single file on the web, according to the format
-     * provided via the 'format' option, defaulting to GML. 
+     * provided via the 'format' option, defaulting to GML.
      *
      * Parameters:
-     * name - {String} 
+     * name - {String}
      * url - {String} URL of a GML file.
      * options - {Object} Hashtable of extra options to tag onto the layer.
      */
@@ -60,15 +60,15 @@ OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
 
     /**
      * APIMethod: setVisibility
-     * Set the visibility flag for the layer and hide/show&redraw accordingly. 
+     * Set the visibility flag for the layer and hide/show&redraw accordingly.
      * Fire event unless otherwise specified
      * GML will be loaded if the layer is being made visible for the first
      * time.
-     *  
+     *
      * Parameters:
-     * visible - {Boolean} Whether or not to display the layer 
+     * visible - {Boolean} Whether or not to display the layer
      *                          (if in range)
-     * noEvent - {Boolean} 
+     * noEvent - {Boolean}
      */
     setVisibility: function(visibility, noEvent) {
         OpenLayers.Layer.Vector.prototype.setVisibility.apply(this, arguments);
@@ -82,11 +82,11 @@ OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
      * Method: moveTo
      * If layer is visible and GML has not been loaded, load GML, then load GML
      * and call OpenLayers.Layer.Vector.moveTo() to redraw at the new location.
-     * 
+     *
      * Parameters:
-     * bounds - {Object} 
-     * zoomChanged - {Object} 
-     * minor - {Object} 
+     * bounds - {Object}
+     * zoomChanged - {Object}
+     * minor - {Object}
      */
     moveTo:function(bounds, zoomChanged, minor) {
         OpenLayers.Layer.Vector.prototype.moveTo.apply(this, arguments);
@@ -112,9 +112,9 @@ OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
                 scope: this
             });
             this.loaded = true;
-        }    
-    },    
-    
+        }
+    },
+
     /**
      * Method: setUrl
      * Change the URL and reload the GML
@@ -128,42 +128,42 @@ OpenLayers.Layer.GML = OpenLayers.Class(OpenLayers.Layer.Vector, {
         this.loaded = false;
         this.loadGML();
     },
-    
+
     /**
      * Method: requestSuccess
      * Process GML after it has been loaded.
      * Called by initialize() and loadUrl() after the GML has been loaded.
      *
      * Parameters:
-     * request - {String} 
+     * request - {String}
      */
     requestSuccess:function(request) {
         var doc = request.responseXML;
-        
+
         if (!doc || !doc.documentElement) {
             doc = request.responseText;
         }
-        
+
         var options = {};
-        
+
         OpenLayers.Util.extend(options, this.formatOptions);
         if (this.map && !this.projection.equals(this.map.getProjectionObject())) {
             options.externalProjection = this.projection;
             options.internalProjection = this.map.getProjectionObject();
-        }    
-        
+        }
+
         var gml = this.format ? new this.format(options) : new OpenLayers.Format.GML(options);
         this.addFeatures(gml.read(doc));
         this.events.triggerEvent("loadend");
     },
-    
+
     /**
      * Method: requestFailure
      * Process a failed loading of GML.
      * Called by initialize() and loadUrl() if there was a problem loading GML.
      *
      * Parameters:
-     * request - {String} 
+     * request - {String}
      */
     requestFailure: function(request) {
         OpenLayers.Console.userError(OpenLayers.i18n("errorLoadingGML", {'url':this.url}));

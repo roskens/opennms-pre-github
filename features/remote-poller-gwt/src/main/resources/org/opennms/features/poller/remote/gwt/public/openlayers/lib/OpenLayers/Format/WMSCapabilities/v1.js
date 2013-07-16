@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,13 +12,13 @@
  * Class: OpenLayers.Format.WMSCapabilities.v1
  * Abstract class not to be instantiated directly. Creates
  * the common parts for both WMS 1.1.X and WMS 1.3.X.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
     OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -33,7 +33,7 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
      * Property: defaultPrefix
      */
     defaultPrefix: "wms",
-    
+
     /**
      * Constructor: OpenLayers.Format.WMSCapabilities.v1
      * Create an instance of one of the subclasses.
@@ -48,9 +48,9 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
 
     /**
      * APIMethod: read
-     * Read capabilities data from a string, and return a list of layers. 
-     * 
-     * Parameters: 
+     * Read capabilities data from a string, and return a list of layers.
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -65,10 +65,10 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
         }
         var capabilities = {};
         this.readNode(data, capabilities);
-    
+
         // postprocess the layer list
         this.postProcessLayers(capabilities);
-    
+
         return capabilities;
     },
 
@@ -126,7 +126,7 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
                                "bbox",
                                "dimensions",
                                "authorityURLs"];
-            
+
             var key;
             for (var j=0; j<attributes.length; j++) {
                 key = attributes[j];
@@ -163,13 +163,13 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
             var childLayer = layer.nestedLayers[i];
             this.processLayer(capability, childLayer, layer);
         }
-        
+
         if (layer.name) {
             capability.layers.push(layer);
         }
-    
+
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -214,7 +214,7 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
                 return bbox;
             },
             "OnlineResource": function(node, obj) {
-                obj.href = this.getAttributeNS(node, this.namespaces.xlink, 
+                obj.href = this.getAttributeNS(node, this.namespaces.xlink,
                     "href");
             },
             "ContactInformation": function(node, obj) {
@@ -322,7 +322,7 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
             },
             "Layer": function(node, obj) {
                 var attrNode = node.getAttributeNode("queryable");
-                var queryable = (attrNode && attrNode.specified) ? 
+                var queryable = (attrNode && attrNode.specified) ?
                     node.getAttribute("queryable") : null;
                 attrNode = node.getAttributeNode("cascaded");
                 var cascaded = (attrNode && attrNode.specified) ?
@@ -333,19 +333,19 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
                 var noSubsets = node.getAttribute('noSubsets');
                 var fixedWidth = node.getAttribute('fixedWidth');
                 var fixedHeight = node.getAttribute('fixedHeight');
-                var layer = {nestedLayers: [], styles: [], srs: {}, 
+                var layer = {nestedLayers: [], styles: [], srs: {},
                     metadataURLs: [], bbox: {}, dimensions: {},
                     authorityURLs: {}, identifiers: {}, keywords: [],
-                    queryable: (queryable && queryable !== "") ? 
+                    queryable: (queryable && queryable !== "") ?
                         ( queryable === "1" || queryable === "true" ) : null,
                     cascaded: (cascaded !== null) ? parseInt(cascaded) : null,
-                    opaque: opaque ? 
+                    opaque: opaque ?
                         (opaque === "1" || opaque === "true" ) : null,
-                    noSubsets: (noSubsets !== null) ? 
+                    noSubsets: (noSubsets !== null) ?
                         ( noSubsets === "1" || noSubsets === "true" ) : null,
-                    fixedWidth: (fixedWidth != null) ? 
+                    fixedWidth: (fixedWidth != null) ?
                         parseInt(fixedWidth) : null,
-                    fixedHeight: (fixedHeight != null) ? 
+                    fixedHeight: (fixedHeight != null) ?
                         parseInt(fixedHeight) : null
                 };
                 obj.nestedLayers.push(layer);
@@ -413,6 +413,6 @@ OpenLayers.Format.WMSCapabilities.v1 = OpenLayers.Class(
         }
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1" 
+    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1"
 
 });

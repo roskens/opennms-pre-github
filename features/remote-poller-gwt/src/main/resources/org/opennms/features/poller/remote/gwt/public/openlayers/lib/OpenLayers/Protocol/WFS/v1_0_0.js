@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,13 +17,13 @@
  *  - <OpenLayers.Protocol.WFS.v1>
  */
 OpenLayers.Protocol.WFS.v1_0_0 = OpenLayers.Class(OpenLayers.Protocol.WFS.v1, {
-    
+
     /**
      * Property: version
      * {String} WFS version number.
      */
     version: "1.0.0",
-    
+
     /**
      * Constructor: OpenLayers.Protocol.WFS.v1_0_0
      * A class for giving layers WFS v1.0.0 protocol.
@@ -39,6 +39,6 @@ OpenLayers.Protocol.WFS.v1_0_0 = OpenLayers.Class(OpenLayers.Protocol.WFS.v1, {
      *     if featureNS is provided).  Default is 'feature'.
      * geometryName - {String} Name of geometry attribute.  Default is 'the_geom'.
      */
-   
-    CLASS_NAME: "OpenLayers.Protocol.WFS.v1_0_0" 
+
+    CLASS_NAME: "OpenLayers.Protocol.WFS.v1_0_0"
 });

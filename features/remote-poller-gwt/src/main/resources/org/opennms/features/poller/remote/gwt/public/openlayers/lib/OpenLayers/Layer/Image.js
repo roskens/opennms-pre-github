@@ -1,8 +1,8 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
- 
+
 /**
  * @requires OpenLayers/Layer.js
  * @requires OpenLayers/Tile/Image.js
@@ -22,7 +22,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
      * in the layer options
      */
     isBaseLayer: true,
-    
+
     /**
      * Property: url
      * {String} URL of the image to use
@@ -37,7 +37,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
      *     maxExtent property of the options argument (as with any other layer).
      */
     extent: null,
-    
+
     /**
      * Property: size
      * {<OpenLayers.Size>} The image size in pixels
@@ -77,7 +77,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
 
         this.aspectRatio = (this.extent.getHeight() / this.size.h) /
                            (this.extent.getWidth() / this.size.w);
-    },    
+    },
 
     /**
      * Method: destroy
@@ -91,7 +91,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         }
         OpenLayers.Layer.prototype.destroy.apply(this, arguments);
     },
-    
+
     /**
      * Method: clone
      * Create a clone of this layer
@@ -103,7 +103,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
      * {<OpenLayers.Layer.Image>} An exact copy of this layer
      */
     clone: function(obj) {
-        
+
         if(obj == null) {
             obj = new OpenLayers.Layer.Image(this.name,
                                                this.url,
@@ -118,11 +118,11 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         // copy/set any non-init, non-simple values here
 
         return obj;
-    },    
-    
+    },
+
     /**
      * APIMethod: setMap
-     * 
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -141,10 +141,10 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         OpenLayers.Layer.prototype.setMap.apply(this, arguments);
     },
 
-    /** 
+    /**
      * Method: moveTo
      * Create the tile for the image or resize it for the new resolution
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * zoomChanged - {Boolean}
@@ -166,7 +166,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
 
             if(firstRendering) {
                 //create the new tile
-                this.tile = new OpenLayers.Tile.Image(this, ulPx, this.extent, 
+                this.tile = new OpenLayers.Tile.Image(this, ulPx, this.extent,
                                                       null, this.tileSize);
                 this.addTileMonitoringHooks(this.tile);
             } else {
@@ -176,7 +176,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
             }
             this.tile.draw();
         }
-    }, 
+    },
 
     /**
      * Set the tile size based on the map size.
@@ -187,12 +187,12 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         this.tileSize = new OpenLayers.Size(tileWidth, tileHeight);
     },
 
-    /** 
+    /**
      * Method: addTileMonitoringHooks
-     * This function takes a tile as input and adds the appropriate hooks to 
+     * This function takes a tile as input and adds the appropriate hooks to
      *     the tile so that the layer can keep track of the loading tiles.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * tile - {<OpenLayers.Tile>}
      */
     addTileMonitoringHooks: function(tile) {
@@ -200,7 +200,7 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
             this.events.triggerEvent("loadstart");
         };
         tile.events.register("loadstart", this, tile.onLoadStart);
-      
+
         tile.onLoadEnd = function() {
             this.events.triggerEvent("loadend");
         };
@@ -208,12 +208,12 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         tile.events.register("unload", this, tile.onLoadEnd);
     },
 
-    /** 
+    /**
      * Method: removeTileMonitoringHooks
-     * This function takes a tile as input and removes the tile hooks 
+     * This function takes a tile as input and removes the tile hooks
      *     that were added in <addTileMonitoringHooks>.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * tile - {<OpenLayers.Tile>}
      */
     removeTileMonitoringHooks: function(tile) {
@@ -225,10 +225,10 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
             scope: this
         });
     },
-    
+
     /**
      * APIMethod: setUrl
-     * 
+     *
      * Parameters:
      * newUrl - {String}
      */
@@ -237,12 +237,12 @@ OpenLayers.Layer.Image = OpenLayers.Class(OpenLayers.Layer, {
         this.tile.draw();
     },
 
-    /** 
+    /**
      * APIMethod: getURL
      * The url we return is always the same (the image itself never changes)
-     *     so we can ignore the bounds parameter (it will always be the same, 
-     *     anyways) 
-     * 
+     *     so we can ignore the bounds parameter (it will always be the same,
+     *     anyways)
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      */

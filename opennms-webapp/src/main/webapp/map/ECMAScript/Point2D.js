@@ -63,7 +63,7 @@ Point2D.prototype.addEquals = function(that) {
 *   offset - used in dom_graph
 *
 *   This method is based on code written by Walter Korman
-*      http://www.go2net.com/internet/deep/1997/05/07/body.html 
+*      http://www.go2net.com/internet/deep/1997/05/07/body.html
 *   which is in turn based on an algorithm by Sven Moen
 *
 *****/

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,8 +13,8 @@
  *     and methods to set and get the current language.
  */
 OpenLayers.Lang = {
-    
-    /** 
+
+    /**
      * Property: code
      * {String}  Current language code to use in OpenLayers.  Use the
      *     <setCode> method to set this value and the <getCode> method to
@@ -22,13 +22,13 @@ OpenLayers.Lang = {
      */
     code: null,
 
-    /** 
+    /**
      * APIProperty: defaultCode
      * {String} Default language to use when a specific language can't be
      *     found.  Default is "en".
      */
     defaultCode: "en",
-        
+
     /**
      * APIFunction: getCode
      * Get the current language code.
@@ -42,7 +42,7 @@ OpenLayers.Lang = {
         }
         return OpenLayers.Lang.code;
     },
-    
+
     /**
      * APIFunction: setCode
      * Set the language code for string translation.  This code is used by
@@ -81,7 +81,7 @@ OpenLayers.Lang = {
             );
             lang = OpenLayers.Lang.defaultCode;
         }
-        
+
         OpenLayers.Lang.code = lang;
     },
 
@@ -95,7 +95,7 @@ OpenLayers.Lang = {
      * key - {String} The key for an i18n string value in the dictionary.
      * context - {Object} Optional context to be used with
      *     <OpenLayers.String.format>.
-     * 
+     *
      * Returns:
      * {String} A internationalized string.
      */
@@ -111,7 +111,7 @@ OpenLayers.Lang = {
         }
         return message;
     }
-    
+
 };
 
 
@@ -126,7 +126,7 @@ OpenLayers.Lang = {
  * key - {String} The key for an i18n string value in the dictionary.
  * context - {Object} Optional context to be used with
  *     <OpenLayers.String.format>.
- * 
+ *
  * Returns:
  * {String} A internationalized string.
  */

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,10 +12,10 @@
 
 /**
  * Class: OpenLayers.Protocol.SQL.Gears
- * This Protocol stores feature in the browser via the Gears Database module 
+ * This Protocol stores feature in the browser via the Gears Database module
  * <http://code.google.com/apis/gears/api_database.html>.
  *
- * The main advantage is that all the read, create, update and delete operations 
+ * The main advantage is that all the read, create, update and delete operations
  * can be done offline.
  *
  * Inherits from:
@@ -64,7 +64,7 @@ OpenLayers.Protocol.SQL.Gears = OpenLayers.Class(OpenLayers.Protocol.SQL, {
      * Property: saveFeatureState
      * {Boolean} Whether to save the feature state (<OpenLayers.State>)
      *      into the database, defaults to true.
-     */    
+     */
     saveFeatureState: true,
 
     /**
@@ -94,7 +94,7 @@ OpenLayers.Protocol.SQL.Gears = OpenLayers.Class(OpenLayers.Protocol.SQL, {
         this.fidRegExp = new RegExp('^' + this.FID_PREFIX);
         this.initializeDatabase();
 
-        
+
     },
 
     /**
@@ -308,13 +308,13 @@ OpenLayers.Protocol.SQL.Gears = OpenLayers.Class(OpenLayers.Protocol.SQL, {
 
         var i, len = features.length, feature;
         var insertedFeatures = new Array(len);
- 
+
         for (i = 0; i < len; i++) {
             feature = features[i];
             var params = this.freezeFeature(feature);
             this.db.execute(
-                "REPLACE INTO " + this.tableName + 
-                " (fid, geometry, properties, state)" + 
+                "REPLACE INTO " + this.tableName +
+                " (fid, geometry, properties, state)" +
                 " VALUES (?, ?, ?, ?)",
                 params);
 
@@ -408,7 +408,7 @@ OpenLayers.Protocol.SQL.Gears = OpenLayers.Class(OpenLayers.Protocol.SQL, {
             feature = features[i];
 
             // if saveFeatureState is set to true and if the feature wasn't created
-            // in offline mode we don't delete it in the database but just update 
+            // in offline mode we don't delete it in the database but just update
             // it state column
             if (this.saveFeatureState && !this.createdOffline(feature)) {
                 var toDelete = feature.clone();

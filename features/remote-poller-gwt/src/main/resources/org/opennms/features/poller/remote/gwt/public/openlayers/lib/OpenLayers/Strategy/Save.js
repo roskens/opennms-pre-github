@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,7 +18,7 @@
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * Constant: EVENT_TYPES
      * {Array(String)} Supported application event types.  Register a listener
@@ -30,17 +30,17 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
      *  - *start* Triggered before saving
      *  - *success* Triggered after a successful transaction
      *  - *fail* Triggered after a failed transaction
-     *      
+     *
      */
     EVENT_TYPES: ["start", "success", "fail"],
- 
-    /** 
+
+    /**
      * Property: events
      * {<OpenLayers.Events>} Events instance for triggering this protocol
      *    events.
      */
     events: null,
-    
+
     /**
      * APIProperty: auto
      * {Boolean | Number} Auto-save.  Default is false.  If true, features will be
@@ -49,7 +49,7 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
      *     saved on an interval provided by the value (in seconds).
      */
     auto: false,
-    
+
     /**
      * Property: timer
      * {Number} The id of the timer.
@@ -68,11 +68,11 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
         OpenLayers.Strategy.prototype.initialize.apply(this, [options]);
         this.events = new OpenLayers.Events(this, null, this.EVENT_TYPES);
     },
-   
+
     /**
      * APIMethod: activate
      * Activate the strategy.  Register any listeners, do appropriate setup.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully activated.
      */
@@ -96,12 +96,12 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the strategy.  Unregister any listeners, do appropriate
      *     tear-down.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully deactivated.
      */
@@ -122,7 +122,7 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: triggerSave
      * Registered as a listener.  Calls save if a feature has insert, update,
@@ -139,7 +139,7 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
             this.save([event.feature]);
         }
     },
-    
+
     /**
      * APIMethod: save
      * Tell the layer protocol to commit unsaved features.  If the layer
@@ -181,7 +181,7 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
             scope: this
         });
     },
-    
+
     /**
      * Method: onCommit
      * Called after protocol commit.
@@ -224,6 +224,6 @@ OpenLayers.Strategy.Save = OpenLayers.Class(OpenLayers.Strategy, {
             this.events.triggerEvent("fail", evt);
         }
     },
-   
-    CLASS_NAME: "OpenLayers.Strategy.Save" 
+
+    CLASS_NAME: "OpenLayers.Strategy.Save"
 });

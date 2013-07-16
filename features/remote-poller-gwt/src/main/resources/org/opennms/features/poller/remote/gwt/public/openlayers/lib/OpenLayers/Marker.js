@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,8 +11,8 @@
 
 /**
  * Class: OpenLayers.Marker
- * Instances of OpenLayers.Marker are a combination of a 
- * <OpenLayers.LonLat> and an <OpenLayers.Icon>.  
+ * Instances of OpenLayers.Marker are a combination of a
+ * <OpenLayers.LonLat> and an <OpenLayers.Icon>.
  *
  * Markers are generally added to a special layer called
  * <OpenLayers.Layer.Markers>.
@@ -36,32 +36,32 @@
  * markers using that same icon.
  */
 OpenLayers.Marker = OpenLayers.Class({
-    
-    /** 
-     * Property: icon 
+
+    /**
+     * Property: icon
      * {<OpenLayers.Icon>} The icon used by this marker.
      */
     icon: null,
 
-    /** 
-     * Property: lonlat 
+    /**
+     * Property: lonlat
      * {<OpenLayers.LonLat>} location of object
      */
     lonlat: null,
-    
-    /** 
-     * Property: events 
+
+    /**
+     * Property: events
      * {<OpenLayers.Events>} the event handler.
      */
     events: null,
-    
-    /** 
-     * Property: map 
+
+    /**
+     * Property: map
      * {<OpenLayers.Map>} the map this marker is attached to
      */
     map: null,
-    
-    /** 
+
+    /**
      * Constructor: OpenLayers.Marker
      * Parameters:
      * lonlat - {<OpenLayers.LonLat>} the position of this marker
@@ -69,7 +69,7 @@ OpenLayers.Marker = OpenLayers.Class({
      */
     initialize: function(lonlat, icon) {
         this.lonlat = lonlat;
-        
+
         var newIcon = (icon) ? icon : OpenLayers.Marker.defaultIcon();
         if (this.icon == null) {
             this.icon = newIcon;
@@ -81,10 +81,10 @@ OpenLayers.Marker = OpenLayers.Class({
         }
         this.events = new OpenLayers.Events(this, this.icon.imageDiv, null);
     },
-    
+
     /**
      * APIMethod: destroy
-     * Destroy the marker. You must first remove the marker from any 
+     * Destroy the marker. You must first remove the marker from any
      * layer which it has been added to, or you will get buggy behavior.
      * (This can not be done within the marker since the marker does not
      * know which layer it is attached to.)
@@ -103,23 +103,23 @@ OpenLayers.Marker = OpenLayers.Class({
             this.icon = null;
         }
     },
-    
-    /** 
+
+    /**
     * Method: draw
     * Calls draw on the icon, and returns that output.
-    * 
+    *
     * Parameters:
     * px - {<OpenLayers.Pixel>}
-    * 
+    *
     * Returns:
-    * {DOMElement} A new DOM Image with this marker's icon set at the 
+    * {DOMElement} A new DOM Image with this marker's icon set at the
     * location passed-in
     */
     draw: function(px) {
         return this.icon.draw(px);
-    }, 
+    },
 
-    /** 
+    /**
     * Method: erase
     * Erases any drawn elements for this marker.
     */
@@ -127,7 +127,7 @@ OpenLayers.Marker = OpenLayers.Class({
         if (this.icon != null) {
             this.icon.erase();
         }
-    }, 
+    },
 
     /**
     * Method: moveTo
@@ -139,19 +139,19 @@ OpenLayers.Marker = OpenLayers.Class({
     moveTo: function (px) {
         if ((px != null) && (this.icon != null)) {
             this.icon.moveTo(px);
-        }           
+        }
         this.lonlat = this.map.getLonLatFromLayerPx(px);
     },
 
     /**
      * APIMethod: isDrawn
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not the marker is drawn.
      */
     isDrawn: function() {
         var isDrawn = (this.icon && this.icon.isDrawn());
-        return isDrawn;   
+        return isDrawn;
     },
 
     /**
@@ -161,15 +161,15 @@ OpenLayers.Marker = OpenLayers.Class({
      * {Boolean} Whether or not the marker is currently visible on screen.
      */
     onScreen:function() {
-        
+
         var onScreen = false;
         if (this.map) {
             var screenBounds = this.map.getExtent();
             onScreen = screenBounds.containsLonLat(this.lonlat);
-        }    
+        }
         return onScreen;
     },
-    
+
     /**
      * Method: inflate
      * Englarges the markers icon by the specified ratio.
@@ -183,14 +183,14 @@ OpenLayers.Marker = OpenLayers.Class({
             var newSize = new OpenLayers.Size(this.icon.size.w * inflate,
                                               this.icon.size.h * inflate);
             this.icon.setSize(newSize);
-        }        
+        }
     },
-    
-    /** 
+
+    /**
      * Method: setOpacity
-     * Change the opacity of the marker by changin the opacity of 
+     * Change the opacity of the marker by changin the opacity of
      *   its icon
-     * 
+     *
      * Parameters:
      * opacity - {float}  Specified as fraction (0.4, etc)
      */
@@ -201,18 +201,18 @@ OpenLayers.Marker = OpenLayers.Class({
     /**
      * Method: setUrl
      * Change URL of the Icon Image.
-     * 
-     * url - {String} 
+     *
+     * url - {String}
      */
     setUrl: function(url) {
         this.icon.setUrl(url);
-    },    
+    },
 
-    /** 
+    /**
      * Method: display
      * Hide or show the icon
-     * 
-     * display - {Boolean} 
+     *
+     * display - {Boolean}
      */
     display: function(display) {
         this.icon.display(display);
@@ -225,7 +225,7 @@ OpenLayers.Marker = OpenLayers.Class({
 /**
  * Function: defaultIcon
  * Creates a default <OpenLayers.Icon>.
- * 
+ *
  * Returns:
  * {<OpenLayers.Icon>} A default OpenLayers.Icon to use for a marker
  */
@@ -236,7 +236,6 @@ OpenLayers.Marker.defaultIcon = function() {
                     return new OpenLayers.Pixel(-(size.w/2), -size.h);
                  };
 
-    return new OpenLayers.Icon(url, size, null, calculateOffset);        
+    return new OpenLayers.Icon(url, size, null, calculateOffset);
 };
-    
 

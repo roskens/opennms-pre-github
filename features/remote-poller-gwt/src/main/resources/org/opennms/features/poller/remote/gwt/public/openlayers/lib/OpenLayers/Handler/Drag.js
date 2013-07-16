@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -29,14 +29,14 @@
  *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
-  
-    /** 
+
+    /**
      * Property: started
      * {Boolean} When a mousedown event is received, we want to record it, but
-     *     not set 'dragging' until the mouse moves after starting. 
+     *     not set 'dragging' until the mouse moves after starting.
      */
     started: false,
-    
+
     /**
      * Property: stopDown
      * {Boolean} Stop propagation of mousedown events from getting to listeners
@@ -44,19 +44,19 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      */
     stopDown: true,
 
-    /** 
-     * Property: dragging 
-     * {Boolean} 
+    /**
+     * Property: dragging
+     * {Boolean}
      */
     dragging: false,
 
-    /** 
+    /**
      * Property: last
      * {<OpenLayers.Pixel>} The last pixel location of the drag.
      */
     last: null,
 
-    /** 
+    /**
      * Property: start
      * {<OpenLayers.Pixel>} The first pixel location of the drag.
      */
@@ -67,31 +67,31 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      * {Function}
      */
     oldOnselectstart: null,
-    
+
     /**
      * Property: interval
-     * {Integer} In order to increase performance, an interval (in 
-     *     milliseconds) can be set to reduce the number of drag events 
-     *     called. If set, a new drag event will not be set until the 
-     *     interval has passed. 
-     *     Defaults to 0, meaning no interval. 
+     * {Integer} In order to increase performance, an interval (in
+     *     milliseconds) can be set to reduce the number of drag events
+     *     called. If set, a new drag event will not be set until the
+     *     interval has passed.
+     *     Defaults to 0, meaning no interval.
      */
     interval: 0,
-    
+
     /**
      * Property: timeoutId
      * {String} The id of the timeout used for the mousedown interval.
      *     This is "private", and should be left alone.
      */
     timeoutId: null,
-    
+
     /**
      * APIProperty: documentDrag
      * {Boolean} If set to true, the handler will also handle mouse moves when
      *     the cursor has moved out of the map viewport. Default is false.
      */
     documentDrag: false,
-    
+
     /**
      * Property: documentEvents
      * {<OpenLayers.Events>} Event instance for observing document events. Will
@@ -102,7 +102,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
     /**
      * Constructor: OpenLayers.Handler.Drag
      * Returns OpenLayers.Handler.Drag
-     * 
+     *
      * Parameters:
      * control - {<OpenLayers.Control>} The control that is making use of
      *     this handler.  If a handler is being used without a control, the
@@ -113,17 +113,17 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      *     expect to recieve a single argument, the pixel location of the event.
      *     Callbacks for 'move' and 'done' are supported. You can also speficy
      *     callbacks for 'down', 'up', and 'out' to respond to those events.
-     * options - {Object} 
+     * options - {Object}
      */
     initialize: function(control, callbacks, options) {
         OpenLayers.Handler.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
      * The four methods below (down, move, up, and out) are used by subclasses
      *     to do their own processing related to these mouse events.
      */
-    
+
     /**
      * Method: down
      * This method is called during the handling of the mouse down event.
@@ -134,7 +134,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      */
     down: function(evt) {
     },
-    
+
     /**
      * Method: move
      * This method is called during the handling of the mouse move event.
@@ -180,7 +180,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      * Handle mousedown events
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean} Let the event propagate.
@@ -198,12 +198,12 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
             this.down(evt);
             this.callback("down", [evt.xy]);
             OpenLayers.Event.stop(evt);
-            
+
             if(!this.oldOnselectstart) {
                 this.oldOnselectstart = (document.onselectstart) ? document.onselectstart : OpenLayers.Function.True;
             }
             document.onselectstart = OpenLayers.Function.False;
-            
+
             propagate = !this.stopDown;
         } else {
             this.started = false;
@@ -218,7 +218,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      * Handle mousemove events
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean} Let the event propagate.
@@ -249,7 +249,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
         }
         return true;
     },
-    
+
     /**
      * Method: removeTimeout
      * Private. Called by mousemove() to remove the drag timeout.
@@ -263,7 +263,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      * Handle mouseup events
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean} Let the event propagate.
@@ -295,7 +295,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
      * Handle mouseout events
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean} Let the event propagate.
@@ -314,7 +314,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
                 );
             } else {
                 var dragged = (this.start != this.last);
-                this.started = false; 
+                this.started = false;
                 this.dragging = false;
                 OpenLayers.Element.removeClass(
                     this.map.viewPortDiv, "olDragDown"
@@ -335,12 +335,12 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
     /**
      * Method: click
      * The drag handler captures the click event.  If something else registers
-     *     for clicks on the same element, its listener will not be called 
+     *     for clicks on the same element, its listener will not be called
      *     after a drag.
-     * 
-     * Parameters: 
-     * evt - {Event} 
-     * 
+     *
+     * Parameters:
+     * evt - {Event}
+     *
      * Returns:
      * {Boolean} Let the event propagate.
      */
@@ -352,7 +352,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
     /**
      * Method: activate
      * Activate the handler.
-     * 
+     *
      * Returns:
      * {Boolean} The handler was successfully activated.
      */
@@ -366,9 +366,9 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
     },
 
     /**
-     * Method: deactivate 
+     * Method: deactivate
      * Deactivate the handler.
-     * 
+     *
      * Returns:
      * {Boolean} The handler was successfully deactivated.
      */
@@ -386,13 +386,13 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: adjustXY
      * Converts event coordinates that are relative to the document body to
      * ones that are relative to the map viewport. The latter is the default in
      * OpenLayers.
-     * 
+     *
      * Parameters:
      * evt - {Object}
      */
@@ -401,7 +401,7 @@ OpenLayers.Handler.Drag = OpenLayers.Class(OpenLayers.Handler, {
         evt.xy.x -= pos[0];
         evt.xy.y -= pos[1];
     },
-    
+
     /**
      * Method: destroyDocumentEvents
      * Destroys the events instance that gets added to the document body when

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,7 +12,7 @@
  * Read SLD WMS DescribeLayer response for WMS 1.1.X
  * WMS 1.1.X is tightly coupled to SLD 1.0.0
  *
- * Example DescribeLayer request: 
+ * Example DescribeLayer request:
  * http://demo.opengeo.org/geoserver/wms?request=DescribeLayer&version=1.1.1&layers=topp:states
  *
  * Inherits from:
@@ -20,7 +20,7 @@
  */
 OpenLayers.Format.WMSDescribeLayer.v1_1 = OpenLayers.Class(
     OpenLayers.Format.WMSDescribeLayer, {
-    
+
     /**
      * Constructor: OpenLayers.Format.WMSDescribeLayer
      * Create a new parser for WMS DescribeLayer responses.
@@ -30,17 +30,17 @@ OpenLayers.Format.WMSDescribeLayer.v1_1 = OpenLayers.Class(
      *     this instance.
      */
     initialize: function(options) {
-        OpenLayers.Format.WMSDescribeLayer.prototype.initialize.apply(this, 
+        OpenLayers.Format.WMSDescribeLayer.prototype.initialize.apply(this,
             [options]);
     },
 
     /**
      * APIMethod: read
-     * Read DescribeLayer data from a string, and return the response. 
+     * Read DescribeLayer data from a string, and return the response.
      * The OGC defines 2 formats which are allowed for output,
      * so we need to parse these 2 types for version 1.1.X
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -54,12 +54,12 @@ OpenLayers.Format.WMSDescribeLayer.v1_1 = OpenLayers.Class(
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         var root = data.documentElement;
-        var children = root.childNodes; 
+        var children = root.childNodes;
         var describelayer = [];
         var childNode, nodeName;
-        for(var i=0; i<children.length; ++i) { 
+        for(var i=0; i<children.length; ++i) {
             childNode = children[i];
-            nodeName = childNode.nodeName; 
+            nodeName = childNode.nodeName;
             if (nodeName == 'LayerDescription') {
                 var layerName = childNode.getAttribute('name');
                 var owsType = '';
@@ -88,13 +88,13 @@ OpenLayers.Format.WMSDescribeLayer.v1_1 = OpenLayers.Class(
                         typeName = query[0].getAttribute('typename');
                     }
                 }
-                describelayer.push({layerName: layerName, owsType: owsType, 
-                    owsURL: owsURL, typeName: typeName}); 
+                describelayer.push({layerName: layerName, owsType: owsType,
+                    owsURL: owsURL, typeName: typeName});
             }
         }
         return describelayer;
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WMSDescribeLayer.v1_1" 
+
+    CLASS_NAME: "OpenLayers.Format.WMSDescribeLayer.v1_1"
 
 });

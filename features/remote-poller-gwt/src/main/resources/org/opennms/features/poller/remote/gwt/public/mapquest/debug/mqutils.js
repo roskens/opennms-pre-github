@@ -19,10 +19,10 @@ var mqutils = 1;
  */
 if (!Array.prototype.push) Array.prototype.push = function() {
    var length = Array.push.arguments.length;
-   for (var i=0; i < length; i++) 
+   for (var i=0; i < length; i++)
       this[this.length] = Array.push.arguments[i];
-   return this.length;   
-}; 
+   return this.length;
+};
 
 function mq_ParamExists (varname) {
     var undef;
@@ -130,10 +130,10 @@ function mqXmlToStr(xmlDoc) {
       serializer = new window.XMLSerializer();
       strXml = serializer.serializeToString(xmlDoc);
    } else if (MQA.BrowserInfo.isIE) {
-      strXml = xmlDoc.xml;      
+      strXml = xmlDoc.xml;
    }
-   
-   if(MQA.BrowserInfo.isSafari)   
+
+   if(MQA.BrowserInfo.isSafari)
    {
       serializer = new window.XMLSerializer();
       strXml = serializer.serializeToString(xmlDoc);
@@ -160,7 +160,7 @@ function mqCreateNSManager(namespace) {
                   }
                 }
             }
-    return nsmgr; 
+    return nsmgr;
 }
 
 
@@ -171,7 +171,7 @@ function mqCreateNSManager(namespace) {
 //ie xml doc <location><address></address></location>
 //xpath expression /location/address
 //will return a pointer to the address node
-/** 
+/**
  * Crossbrowser wrapper used to return a node object given a specified xpath expression:
  * ie xml doc <location><address></address></location>
  * xpath expression /location/address will return a pointer to the address node
@@ -186,8 +186,8 @@ function mqGetNode(xmlDoc, strPath) {
 //Safari adaptation start--
    if (MQA.BrowserInfo.isSafari)
    {
-   		if (!xmlDoc.evaluate)
-   		{
+		if (!xmlDoc.evaluate)
+		{
 		        var names = new Array();
 		        names = strPath.split('/');
 		        if(names[names.length-1].indexOf('@') != -1)
@@ -209,7 +209,7 @@ function mqGetNode(xmlDoc, strPath) {
 		                 var nodes=(tree.hasChildNodes())?tree.childNodes.length:0;
 		                 for(var j=0; j<nodes; j++)
 		                 {
-		
+
 		                  if(tree.childNodes[j].tagName == names[i+1])
 		                  {
 		                   tree = tree.childNodes[j];
@@ -218,7 +218,7 @@ function mqGetNode(xmlDoc, strPath) {
 		                  }
 		                 }
 		               }
-		
+
 		               if (names[i+1] && names[i+1].indexOf('text()') != -1)
 		               {
 		                  isfound = true;
@@ -234,12 +234,12 @@ function mqGetNode(xmlDoc, strPath) {
 		         }
 		   node = (isfound==true)? tree: null;
 		   return node;
-   		}
-   		else
-   		{
+		}
+		else
+		{
          node = xmlDoc.evaluate(strPath, xmlDoc, null, 9, null);
          return node.singleNodeValue;
-   		}
+		}
    }
 //Safari adaptation stop--
    else if (MQA.BrowserInfo.isIE) {
@@ -260,7 +260,7 @@ function mqGetNode(xmlDoc, strPath) {
  * crossbrowser wrapper used to return the text of a given node
  * ie loop on all <request> nodes in xml to change text
  * document.getElementsByTagName("request");
- * @param Node domNode Node to extract the text from 
+ * @param Node domNode Node to extract the text from
  * @return Returns the text of the node.
  * @type String
  * @private
@@ -338,7 +338,7 @@ function mqGetXPathNodeText(xmlDoc, strPath) {
 // used by mqSetNodeText after it finds the node
 // using an XPath expr, so other funcs that have
 // a nodeList can set text on each node in a loop
-/** 
+/**
  * Used by mqSetNodeText after it finds the node
  * using an XPath expr, so other funcs that have
  * a nodeList can set text on each node in a loop
@@ -358,7 +358,7 @@ function mqReplaceNode(xmlDoc,node,strTxt) {
    }
 }
 
-/** 
+/**
  * Used by saveXml method to replace a node
  * using an XPath expr
  * @param Document xmlDoc Xml Document to be added to
@@ -371,13 +371,13 @@ function mqReplaceNode(xmlDoc,node,strTxt) {
 function mqReplaceElementNode(xmlDoc, nodeDoc, xpath) {
    var root = xmlDoc.documentElement;
    var newnode = nodeDoc.documentElement;
-   var oldnode = xmlDoc.getElementsByTagName(xpath).item(0); 
+   var oldnode = xmlDoc.getElementsByTagName(xpath).item(0);
    if(MQA.BrowserInfo.isIE)
       node = newnode
    else
       node = xmlDoc.importNode(newnode, true);
    if (oldnode){
-      root.replaceChild(node, oldnode); 
+      root.replaceChild(node, oldnode);
    } else {
       root.appendChild(node);
    }
@@ -389,7 +389,7 @@ function mqReplaceElementNode(xmlDoc, nodeDoc, xpath) {
 //if this function is given the xpath /location/address
 //it will add text to the address node if not present or replace
 //existing text. It will not add an address node.
-/** 
+/**
  * Used to replace/add text to an existing node
  * ie <location><address></address></location>
  * if this function is given the xpath /location/address
@@ -936,10 +936,10 @@ function mqLogTime(str)
      var logtext = mqGetElementById("mqTimeLogs");
      var mqTimeLogger = new Date();
      if( _mqLogStartTime == null) {
-     	logtext.value = "Time(ms) Difference\t Message\n";
-     	_mqLogStartTime = mqTimeLogger.getTime();
-     	_mqLogprevTime = _mqLogStartTime;
-     } 
+	logtext.value = "Time(ms) Difference\t Message\n";
+	_mqLogStartTime = mqTimeLogger.getTime();
+	_mqLogprevTime = _mqLogStartTime;
+     }
      _mqLogCurTime = mqTimeLogger.getTime();
 	 var diff = _mqLogCurTime - _mqLogStartTime;
 	 var del = _mqLogCurTime - _mqLogprevTime;
@@ -954,9 +954,9 @@ function mqResetTimeLogs()
     {
 	     var logtext = mqGetElementById("mqTimeLogs");
 	     var mqTimeLogger = new Date();
-	 	 logtext.value = "Time(ms) Difference\t Message\n";
-	 	 _mqLogStartTime = mqTimeLogger.getTime();
-	 	 _mqLogprevTime = _mqLogStartTime;
+		 logtext.value = "Time(ms) Difference\t Message\n";
+		 _mqLogStartTime = mqTimeLogger.getTime();
+		 _mqLogprevTime = _mqLogStartTime;
     }
 }
 
@@ -988,8 +988,8 @@ function mqPrepareMapUrl(strmapUrl) {
    mapUrl = mapUrl.replace(/iwebsys.aol.com:?\d*/,'iwebsys.aol.com');
    return mapUrl;
 }
-  
-  
+
+
 function display(pid, name, value, id , sClass) {
 
    if (mqGetElementById(pid)) {
@@ -1006,4 +1006,4 @@ function display(pid, name, value, id , sClass) {
       div.appendChild (document.createElement ('br'));
       div.appendChild (document.createElement ('br'));
    }
-}   
+}

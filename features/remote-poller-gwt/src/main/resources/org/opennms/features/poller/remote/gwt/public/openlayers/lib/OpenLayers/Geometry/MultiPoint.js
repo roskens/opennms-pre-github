@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -33,13 +33,13 @@ OpenLayers.Geometry.MultiPoint = OpenLayers.Class(
      * Create a new MultiPoint Geometry
      *
      * Parameters:
-     * components - {Array(<OpenLayers.Geometry.Point>)} 
+     * components - {Array(<OpenLayers.Geometry.Point>)}
      *
      * Returns:
      * {<OpenLayers.Geometry.MultiPoint>}
      */
     initialize: function(components) {
-        OpenLayers.Geometry.Collection.prototype.initialize.apply(this, 
+        OpenLayers.Geometry.Collection.prototype.initialize.apply(this,
                                                                   arguments);
     },
 
@@ -54,7 +54,7 @@ OpenLayers.Geometry.MultiPoint = OpenLayers.Class(
     addPoint: function(point, index) {
         this.addComponent(point, index);
     },
-    
+
     /**
      * APIMethod: removePoint
      * Wrapper for <OpenLayers.Geometry.Collection.removeComponent>

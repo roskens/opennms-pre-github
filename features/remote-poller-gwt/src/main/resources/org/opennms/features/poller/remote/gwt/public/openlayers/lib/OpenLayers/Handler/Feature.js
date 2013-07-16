@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,7 +9,7 @@
  */
 
 /**
- * Class: OpenLayers.Handler.Feature 
+ * Class: OpenLayers.Handler.Feature
  * Handler to respond to mouse events related to a drawn feature.  Callbacks
  *     with the following keys will be notified of the following events
  *     associated with features: click, clickout, over, out, and dblclick.
@@ -55,7 +55,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * {<OpenLayers.Pixel>} The location of the last mouseup.
      */
     up: null,
-    
+
     /**
      * Property: clickTolerance
      * {Number} The number of pixels the mouse can move between mousedown
@@ -69,7 +69,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * Property: geometryTypes
      * To restrict dragging to a limited set of geometry types, send a list
      * of strings corresponding to the geometry class names.
-     * 
+     *
      * @type Array(String)
      */
     geometryTypes: null,
@@ -100,17 +100,17 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      *      value of stopUp. Defaults to false.
      */
     stopUp: false,
-    
+
     /**
      * Constructor: OpenLayers.Handler.Feature
      *
      * Parameters:
-     * control - {<OpenLayers.Control>} 
+     * control - {<OpenLayers.Control>}
      * layer - {<OpenLayers.Layer.Vector>}
      * callbacks - {Object} An object with a 'over' property whos value is
-     *     a function to be called when the mouse is over a feature. The 
+     *     a function to be called when the mouse is over a feature. The
      *     callback should expect to recieve a single argument, the feature.
-     * options - {Object} 
+     * options - {Object}
      */
     initialize: function(control, layer, callbacks, options) {
         OpenLayers.Handler.prototype.initialize.apply(this, [control, callbacks, options]);
@@ -122,22 +122,22 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * Method: mousedown
      * Handle mouse down.  Stop propagation if a feature is targeted by this
      *     event (stops map dragging during feature selection).
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     mousedown: function(evt) {
         this.down = evt.xy;
         return this.handle(evt) ? !this.stopDown : true;
     },
-    
+
     /**
      * Method: mouseup
      * Handle mouse up.  Stop propagation if a feature is targeted by this
      *     event.
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     mouseup: function(evt) {
         this.up = evt.xy;
@@ -148,9 +148,9 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * Method: click
      * Handle click.  Call the "click" callback if click on a feature,
      *     or the "clickout" callback if click outside any feature.
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean}
@@ -158,14 +158,14 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
     click: function(evt) {
         return this.handle(evt) ? !this.stopClick : true;
     },
-        
+
     /**
      * Method: mousemove
      * Handle mouse moves.  Call the "over" callback if moving in to a feature,
      *     or the "out" callback if moving out of a feature.
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean}
@@ -173,17 +173,17 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
     mousemove: function(evt) {
         if (!this.callbacks['over'] && !this.callbacks['out']) {
             return true;
-        }     
+        }
         this.handle(evt);
         return true;
     },
-    
+
     /**
      * Method: dblclick
      * Handle dblclick.  Call the "dblclick" callback if dblclick on a feature.
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean}
@@ -272,7 +272,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
         }
         return handled;
     },
-    
+
     /**
      * Method: triggerCallback
      * Call the callback keyed in the event map with the supplied arguments.
@@ -300,7 +300,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
     },
 
     /**
-     * Method: activate 
+     * Method: activate
      * Turn on the handler.  Returns false if the handler was already active.
      *
      * Returns:
@@ -319,12 +319,12 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
         }
         return activated;
     },
-    
+
     /**
-     * Method: deactivate 
+     * Method: deactivate
      * Turn off the handler.  Returns false if the handler was already active.
      *
-     * Returns: 
+     * Returns:
      * {Boolean}
      */
     deactivate: function() {
@@ -344,10 +344,10 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method handleMapEvents
-     * 
+     *
      * Parameters:
      * evt - {Object}
      */
@@ -356,7 +356,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
             this.moveLayerToTop();
         }
     },
-    
+
     /**
      * Method: moveLayerToTop
      * Moves the layer for this handler to the top, so mouse events can reach
@@ -366,9 +366,9 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
         var index = Math.max(this.map.Z_INDEX_BASE['Feature'] - 1,
             this.layer.getZIndex()) + 1;
         this.layer.setZIndex(index);
-        
+
     },
-    
+
     /**
      * Method: moveLayerBack
      * Moves the layer back to the position determined by the map's layers

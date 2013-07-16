@@ -435,7 +435,7 @@ function MQExec ( strServerNameORmqeObj, strPathToServer, nServerPort,
    /**
     * Method to batch geocode a collection of locations. Geocode options supply
     * the QualityType and MatchType.
-    * 
+    *
     * @param {MQLocationCollection} mqlcLocations  The LocationCollection containing the
     * necessary info for the addresses to be geocode.
     * (Please Note:  This object will not be updated, it is simply used for the request.)
@@ -974,5 +974,3 @@ function MQExec ( strServerNameORmqeObj, strPathToServer, nServerPort,
       return xmlDoc;
 
    };
-
-

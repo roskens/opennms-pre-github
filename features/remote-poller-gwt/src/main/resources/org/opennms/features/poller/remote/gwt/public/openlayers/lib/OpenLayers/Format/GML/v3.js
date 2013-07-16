@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,7 +15,7 @@
  *  - <OpenLayers.Format.GML.Base>
  */
 OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
-    
+
     /**
      * Property: schemaLocation
      * {String} Schema location for a particular minor version.  The writers
@@ -32,7 +32,7 @@ OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
      *     instantiation).
      */
     curve: false,
-    
+
     /**
      * Property: multiCurve
      * {Boolean} Write gml:MultiCurve instead of gml:MultiLineString.  Since
@@ -42,7 +42,7 @@ OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
      *     instantiation).
      */
     multiCurve: true,
-    
+
     /**
      * Property: surface
      * {Boolean} Write gml:Surface instead of gml:Polygon elements.  This also
@@ -231,11 +231,11 @@ OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
                 this.readers.gml.pos.apply(this, [node, obj]);
                 container.points[1] = obj.points[0];
             }
-        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),            
+        }, OpenLayers.Format.GML.Base.prototype.readers["gml"]),
         "feature": OpenLayers.Format.GML.Base.prototype.readers["feature"],
         "wfs": OpenLayers.Format.GML.Base.prototype.readers["wfs"]
     },
-    
+
     /**
      * Method: write
      *
@@ -327,7 +327,7 @@ OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
                 }
                 return this.createElementNSPlus("gml:posList", {
                     value: parts.join(" ")
-                }); 
+                });
             },
             "Surface": function(geometry) {
                 var node = this.createElementNSPlus("gml:Surface");
@@ -456,7 +456,7 @@ OpenLayers.Format.GML.v3 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
             "OpenLayers.Geometry.Collection": "GeometryCollection"
         };
     },
-    
-    CLASS_NAME: "OpenLayers.Format.GML.v3" 
+
+    CLASS_NAME: "OpenLayers.Format.GML.v3"
 
 });

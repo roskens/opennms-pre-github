@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,13 +14,13 @@
  *     of OpenLayers.Format are expected to have read and write methods.
  */
 OpenLayers.Format = OpenLayers.Class({
-    
+
     /**
      * Property: options
      * {Object} A reference to options passed to the constructor.
      */
     options: null,
-    
+
     /**
      * APIProperty: externalProjection
      * {<OpenLayers.Projection>} When passed a externalProjection and
@@ -28,7 +28,7 @@ OpenLayers.Format = OpenLayers.Class({
      *     reads or writes. The externalProjection is the projection used by
      *     the content which is passed into read or which comes out of write.
      *     In order to reproject, a projection transformation function for the
-     *     specified projections must be available. This support may be 
+     *     specified projections must be available. This support may be
      *     provided via proj4js or via a custom transformation function. See
      *     {<OpenLayers.Projection.addTransform>} for more information on
      *     custom transformations.
@@ -82,7 +82,7 @@ OpenLayers.Format = OpenLayers.Class({
         OpenLayers.Util.extend(this, options);
         this.options = options;
     },
-    
+
     /**
      * APIMethod: destroy
      * Clean up.
@@ -93,8 +93,8 @@ OpenLayers.Format = OpenLayers.Class({
     /**
      * Method: read
      * Read data from a string, and return an object whose type depends on the
-     * subclass. 
-     * 
+     * subclass.
+     *
      * Parameters:
      * data - {string} Data to read/parse.
      *
@@ -104,10 +104,10 @@ OpenLayers.Format = OpenLayers.Class({
     read: function(data) {
         OpenLayers.Console.userError(OpenLayers.i18n("readNotImplemented"));
     },
-    
+
     /**
      * Method: write
-     * Accept an object, and return a string. 
+     * Accept an object, and return a string.
      *
      * Parameters:
      * object - {Object} Object to be serialized
@@ -120,4 +120,4 @@ OpenLayers.Format = OpenLayers.Class({
     },
 
     CLASS_NAME: "OpenLayers.Format"
-});     
+});

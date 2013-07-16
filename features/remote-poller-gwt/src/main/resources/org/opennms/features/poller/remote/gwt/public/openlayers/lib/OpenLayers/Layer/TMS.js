@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
 
 /**
  * Class: OpenLayers.Layer.TMS
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.Grid>
  */
@@ -37,7 +37,7 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * APIProperty: serverResolutions
-     * {Array} A list of all resolutions available on the server.  Only set this 
+     * {Array} A list of all resolutions available on the server.  Only set this
      *     property if the map resolutions differs from the server.
      */
     serverResolutions: null,
@@ -55,10 +55,10 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *     of the server resolutions.
      */
     zoomOffset: 0,
-    
+
     /**
      * Constructor: OpenLayers.Layer.TMS
-     * 
+     *
      * Parameters:
      * name - {String}
      * url - {String}
@@ -68,28 +68,28 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var newArguments = [];
         newArguments.push(name, url, {}, options);
         OpenLayers.Layer.Grid.prototype.initialize.apply(this, newArguments);
-    },    
+    },
 
     /**
      * APIMethod:destroy
      */
     destroy: function() {
-        // for now, nothing special to do here. 
-        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);  
+        // for now, nothing special to do here.
+        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);
     },
 
-    
+
     /**
      * APIMethod: clone
-     * 
+     *
      * Parameters:
      * obj - {Object}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Layer.TMS>} An exact clone of this <OpenLayers.Layer.TMS>
      */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer.TMS(this.name,
                                            this.url,
@@ -102,17 +102,17 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         // copy/set any non-init, non-simple values here
 
         return obj;
-    },    
-    
+    },
+
     /**
      * Method: getURL
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
-     * 
+     *
      * Returns:
-     * {String} A string with the layer's url and parameters and also the 
-     *          passed-in bounds and appropriate tile size specified as 
+     * {String} A string with the layer's url and parameters and also the
+     *          passed-in bounds and appropriate tile size specified as
      *          parameters
      */
     getURL: function (bounds) {
@@ -123,7 +123,7 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var z = this.serverResolutions != null ?
             OpenLayers.Util.indexOf(this.serverResolutions, res) :
             this.map.getZoom() + this.zoomOffset;
-        var path = this.serviceVersion + "/" + this.layername + "/" + z + "/" + x + "/" + y + "." + this.type; 
+        var path = this.serviceVersion + "/" + this.layername + "/" + z + "/" + x + "/" + y + "." + this.type;
         var url = this.url;
         if (url instanceof Array) {
             url = this.selectUrl(path, url);
@@ -133,34 +133,34 @@ OpenLayers.Layer.TMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * Method: addTile
-     * addTile creates a tile, initializes it, and adds it to the layer div. 
-     * 
+     * addTile creates a tile, initializes it, and adds it to the layer div.
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Tile.Image>} The added OpenLayers.Tile.Image
      */
     addTile:function(bounds,position) {
-        return new OpenLayers.Tile.Image(this, position, bounds, 
+        return new OpenLayers.Tile.Image(this, position, bounds,
                                          null, this.tileSize);
     },
 
-    /** 
+    /**
      * APIMethod: setMap
-     * When the layer is added to a map, then we can fetch our origin 
-     *    (if we don't have one.) 
-     * 
+     * When the layer is added to a map, then we can fetch our origin
+     *    (if we don't have one.)
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         OpenLayers.Layer.Grid.prototype.setMap.apply(this, arguments);
-        if (!this.tileOrigin) { 
+        if (!this.tileOrigin) {
             this.tileOrigin = new OpenLayers.LonLat(this.map.maxExtent.left,
                                                 this.map.maxExtent.bottom);
-        }                                       
+        }
     },
 
     CLASS_NAME: "OpenLayers.Layer.TMS"

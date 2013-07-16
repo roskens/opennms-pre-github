@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,14 +17,14 @@
  */
 OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control, {
 
-    /** 
+    /**
      * APIProperty: slideFactor
-     * {Integer} Number of pixels by which we'll pan the map in any direction 
+     * {Integer} Number of pixels by which we'll pan the map in any direction
      *     on clicking the arrow buttons, defaults to 50.
      */
     slideFactor: 50,
 
-    /** 
+    /**
      * Property: direction
      * {String} in {'North', 'South', 'East', 'West'}
      */
@@ -32,16 +32,16 @@ OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Property: type
-     * {String} The type of <OpenLayers.Control> -- When added to a 
-     *     <Control.Panel>, 'type' is used by the panel to determine how to 
+     * {String} The type of <OpenLayers.Control> -- When added to a
+     *     <Control.Panel>, 'type' is used by the panel to determine how to
      *     handle our events.
      */
     type: OpenLayers.Control.TYPE_BUTTON,
 
     /**
-     * Constructor: OpenLayers.Control.Pan 
+     * Constructor: OpenLayers.Control.Pan
      * Control which handles the panning (in any of the cardinal directions)
-     *     of the map by a set px distance. 
+     *     of the map by a set px distance.
      *
      * Parameters:
      * direction - {String} The direction this button should pan.
@@ -49,29 +49,29 @@ OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control, {
      *     to extend the control.
      */
     initialize: function(direction, options) {
-    
+
         this.direction = direction;
         this.CLASS_NAME += this.direction;
-        
+
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Method: trigger
      */
     trigger: function(){
-    
+
         switch (this.direction) {
-            case OpenLayers.Control.Pan.NORTH: 
+            case OpenLayers.Control.Pan.NORTH:
                 this.map.pan(0, -this.slideFactor);
                 break;
-            case OpenLayers.Control.Pan.SOUTH: 
+            case OpenLayers.Control.Pan.SOUTH:
                 this.map.pan(0, this.slideFactor);
                 break;
-            case OpenLayers.Control.Pan.WEST: 
+            case OpenLayers.Control.Pan.WEST:
                 this.map.pan(-this.slideFactor, 0);
                 break;
-            case OpenLayers.Control.Pan.EAST: 
+            case OpenLayers.Control.Pan.EAST:
                 this.map.pan(this.slideFactor, 0);
                 break;
         }

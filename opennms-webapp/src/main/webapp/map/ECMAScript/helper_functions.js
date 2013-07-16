@@ -1,6 +1,6 @@
 /**
  * @fileoverview
- * 
+ *
  * ECMAScript <a href="http://www.carto.net/papers/svg/resources/helper_functions.html">helper functions</a>, main purpose is to serve in SVG mapping or other SVG based web applications
  *
  * This ECMA script library is free software; you can redistribute it and/or
@@ -20,9 +20,9 @@
  * Please report bugs and send improvements to neumann@karto.baug.ethz.ch
  * If you use these scripts, please link to the original (http://www.carto.net/papers/svg/resources/helper_functions.html)
  * somewhere in the source-code-comment or the "about" of your project and give credits, thanks!
- * 
- * See <a href="js_docs_out/overview-summary-helper_functions.js.html">documentation</a>. 
- * 
+ *
+ * See <a href="js_docs_out/overview-summary-helper_functions.js.html">documentation</a>.
+ *
  * @author Andreas Neumann a.neumann@carto.net
  * @copyright LGPL 2.1 <a href="http://www.gnu.org/copyleft/lesser.txt">Gnu LGPL 2.1</a>
  * @credits Bruce Rindahl, numerous people on svgdevelopers@yahoogroups.com
@@ -169,7 +169,7 @@ function dd2dms(dd) {
             var degrees = Math.floor(dd);
         }
         else {
-            var degrees = Math.ceil(dd);       
+            var degrees = Math.ceil(dd);
         }
         return {deg:degrees,min:minutes,sec:seconds};
 }
@@ -232,7 +232,7 @@ function intBilinear(za,zb,zc,zd,xpos,ypos,ax,ay,cellsize) { //bilinear interpol
 	var wd = f * (1 - e);
 
 	var interpol_value = wa * zc + wb * zd + wc * za + wd * zb;
-	return interpol_value;	
+	return interpol_value;
 }
 
 /**
@@ -253,7 +253,7 @@ function leftOfTest(pointx,pointy,linex1,liney1,linex2,liney2) {
 		var leftof = 1; //case left of
 	}
 	else {
-		var leftof = 0; //case left of	
+		var leftof = 0; //case left of
 	}
 	return leftof;
 }
@@ -507,7 +507,7 @@ function hsv2rgb(hue,sat,val) {
 		if (i % 2 == 0) {
 			f = 1 - f;
 		}
-		var m = val * (1 - sat); 
+		var m = val * (1 - sat);
 		var n = val * (1 - sat * f);
 		switch(i) {
 			case 0:
@@ -629,11 +629,11 @@ function arrayPopulate(arrayKeys,arrayValues) {
 /**
  * Wrapper object for network requests, uses getURL or XMLHttpRequest depending on availability
  * The callBackFunction receives a XML or text node representing the rootElement
- * of the fragment received or the return text, depending on the returnFormat. 
+ * of the fragment received or the return text, depending on the returnFormat.
  * See also the following <a href="http://www.carto.net/papers/svg/network_requests/">documentation</a>.
  * @class this is a wrapper object to provide network request functionality (get|post)
  * @param {String} url												the URL/IRI of the network resource to be called
- * @param {Function|Object} callBackFunction						the callBack function or object that is called after the data was received, in case of an object, the method 'receiveData' is called; both the function and the object's 'receiveData' method get 2 return parameters: 'node.firstChild'|text (the root element of the XML or text resource), this.additionalParams (if defined) 
+ * @param {Function|Object} callBackFunction						the callBack function or object that is called after the data was received, in case of an object, the method 'receiveData' is called; both the function and the object's 'receiveData' method get 2 return parameters: 'node.firstChild'|text (the root element of the XML or text resource), this.additionalParams (if defined)
  * @param {String} returnFormat										the return format, either 'xml' or 'json' (or text)
  * @param {String} method											the method of the network request, either 'get' or 'post'
  * @param {String|Undefined} postText								the String containing the post text (optional) or Undefined (if not a 'post' request)
@@ -654,7 +654,7 @@ function getData(url,callBackFunction,returnFormat,method,postText,additionalPar
 	}
 	this.postText = postText;
 	this.xmlRequest = null; //@private reference to the XMLHttpRequest object
-} 
+}
 
 /**
  * triggers the network request defined in the constructor
@@ -705,7 +705,7 @@ getData.prototype.getData = function() {
 	//write an error message if neither method is available
 	else {
 		alert("your browser/svg viewer neither supports window.getURL nor window.XMLHttpRequest!");
-	}	
+	}
 }
 
 /**
@@ -733,7 +733,7 @@ getData.prototype.operationComplete = function(data) {
 			}
 			if (typeof(this.callBackFunction) == "object") {
 				this.callBackFunction.receiveData(data.content,this.additionalParams);
-			}			
+			}
 		}
 	}
 	else {
@@ -755,7 +755,7 @@ getData.prototype.handleEvent = function() {
 			}
 			if (typeof(this.callBackFunction) == "object") {
 				this.callBackFunction.receiveData(importedNode,this.additionalParams);
-			}			
+			}
 		}
 		if (this.returnFormat == "json") {
 			if (typeof(this.callBackFunction) == "function") {
@@ -763,13 +763,13 @@ getData.prototype.handleEvent = function() {
 			}
 			if (typeof(this.callBackFunction) == "object") {
 				this.callBackFunction.receiveData(this.xmlRequest.responseText,this.additionalParams);
-			}			
-		}		
-	}	
+			}
+		}
+	}
 }
 
 /**
- * Serializes an XML node and returns a string representation. Wrapper function to hide implementation differences. 
+ * Serializes an XML node and returns a string representation. Wrapper function to hide implementation differences.
  * This can be used for debugging purposes or to post data to a server or network resource.
  * @param {dom::Node} node		the DOM node reference
  * @return textRepresentation	the String representation of the XML node
@@ -805,8 +805,8 @@ function serializeNode(node) {
 }
 
 /**
- * Starts a SMIL animation element with the given id by triggering the '.beginElement()' method. 
- * This is a convenience (shortcut) function. 
+ * Starts a SMIL animation element with the given id by triggering the '.beginElement()' method.
+ * This is a convenience (shortcut) function.
  * @param {String} id		a valid id of a valid SMIL animation element
  * @version 1.0 (2007-05-01)
  */

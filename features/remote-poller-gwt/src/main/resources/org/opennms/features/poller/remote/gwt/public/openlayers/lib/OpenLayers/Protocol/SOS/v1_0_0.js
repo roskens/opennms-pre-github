@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -30,7 +30,7 @@
      *     this property can be used to extend the default format options.
      */
     formatOptions: null,
-   
+
     /**
      * Constructor: OpenLayers.Protocol.SOS
      * A class for giving layers an SOS protocol.
@@ -49,7 +49,7 @@
                 this.formatOptions);
         }
     },
-   
+
     /**
      * APIMethod: destroy
      * Clean up the protocol.
@@ -82,7 +82,7 @@
         });
         return response;
     },
-   
+
     /**
      * Method: handleRead
      * Deal with response from the read request.

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,9 +13,9 @@
  *      on the map that aren't DOM elements. For example one can use
  *      this handler to send WMS/GetFeatureInfo requests as the user
  *      moves the mouve over the map.
- * 
+ *
  * Inherits from:
- *  - <OpenLayers.Handler> 
+ *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Hover = OpenLayers.Class(OpenLayers.Handler, {
 
@@ -25,7 +25,7 @@ OpenLayers.Handler.Hover = OpenLayers.Class(OpenLayers.Handler, {
      *      the event is considered a hover. Default is 500.
      */
     delay: 500,
-    
+
     /**
      * APIProperty: pixelTolerance
      * {Integer} - Maximum number of pixels between mousemoves for
@@ -52,7 +52,7 @@ OpenLayers.Handler.Hover = OpenLayers.Class(OpenLayers.Handler, {
      * {Number} - The id of the timer.
      */
     timerId: null,
- 
+
     /**
      * Constructor: OpenLayers.Handler.Hover
      * Construct a hover handler.

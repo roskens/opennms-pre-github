@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
 /**
  * Class: OpenLayers.Filter.Logical
  * This class represents ogc:And, ogc:Or and ogc:Not rules.
- * 
+ *
  * Inherits from
  * - <OpenLayers.Filter>
  */
@@ -21,8 +21,8 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
      * APIProperty: filters
      * {Array(<OpenLayers.Filter>)} Child filters for this filter.
      */
-    filters: null, 
-     
+    filters: null,
+
     /**
      * APIProperty: type
      * {String} type of logical operator. Available types are:
@@ -32,14 +32,14 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
      */
     type: null,
 
-    /** 
+    /**
      * Constructor: OpenLayers.Filter.Logical
      * Creates a logical filter (And, Or, Not).
      *
      * Parameters:
      * options - {Object} An optional object with properties to set on the
      *     filter.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Logical>}
      */
@@ -47,8 +47,8 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
         this.filters = [];
         OpenLayers.Filter.prototype.initialize.apply(this, [options]);
     },
-    
-    /** 
+
+    /**
      * APIMethod: destroy
      * Remove reference to child filters.
      */
@@ -60,12 +60,12 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
     /**
      * APIMethod: evaluate
      * Evaluates this filter in a specific context.
-     * 
+     *
      * Parameters:
      * context - {Object} Context to use in evaluating the filter.  A vector
-     *     feature may also be provided to evaluate feature attributes in 
+     *     feature may also be provided to evaluate feature attributes in
      *     comparison filters or geometries in spatial filters.
-     * 
+     *
      * Returns:
      * {Boolean} The filter applies.
      */
@@ -78,7 +78,7 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
                     }
                 }
                 return true;
-                
+
             case OpenLayers.Filter.Logical.OR:
                 for (var i=0, len=this.filters.length; i<len; i++) {
                     if (this.filters[i].evaluate(context) == true) {
@@ -86,21 +86,21 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
                     }
                 }
                 return false;
-            
+
             case OpenLayers.Filter.Logical.NOT:
                 return (!this.filters[0].evaluate(context));
         }
     },
-    
+
     /**
      * APIMethod: clone
      * Clones this filter.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Logical>} Clone of this filter.
      */
     clone: function() {
-        var filters = [];        
+        var filters = [];
         for(var i=0, len=this.filters.length; i<len; ++i) {
             filters.push(this.filters[i].clone());
         }
@@ -109,7 +109,7 @@ OpenLayers.Filter.Logical = OpenLayers.Class(OpenLayers.Filter, {
             filters: filters
         });
     },
-    
+
     CLASS_NAME: "OpenLayers.Filter.Logical"
 });
 

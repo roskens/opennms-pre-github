@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -33,25 +33,25 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
      * Listeners will be called with a reference to an event object.  The
      *     properties of this event depends on exactly what happened.
      *
-     * Supported control event types (in addition to those from 
+     * Supported control event types (in addition to those from
      * <OpenLayers.Control>):
-     * selected - Triggered when a selection occurs.  Listeners receive an 
-     *     event with *filters* and *layer* properties.  Filters will be an 
-     *     array of OpenLayers.Filter objects created in order to perform 
+     * selected - Triggered when a selection occurs.  Listeners receive an
+     *     event with *filters* and *layer* properties.  Filters will be an
+     *     array of OpenLayers.Filter objects created in order to perform
      *     the particular selection.
      */
     EVENT_TYPES: ["selected"],
 
     /**
      * APIProperty: clearOnDeactivate
-     * {Boolean} Should the selection be cleared when the control is 
+     * {Boolean} Should the selection be cleared when the control is
      *     deactivated. Default value is false.
      */
     clearOnDeactivate: false,
 
     /**
      * APIProperty: layers
-     * {Array(<OpenLayers.Layer.WMS>)} The WMS layers this control will work 
+     * {Array(<OpenLayers.Layer.WMS>)} The WMS layers this control will work
      *     on.
      */
     layers: null,
@@ -92,7 +92,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
      * handler. The recommended way of styling the sketch layer, however, is
      * to configure an <OpenLayers.StyleMap> in the layerOptions of the
      * <handlerOptions>:
-     * 
+     *
      * (code)
      * new OpenLayers.Control.SLDSelect(OpenLayers.Handler.Path, {
      *     handlerOptions: {
@@ -154,7 +154,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
         );
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
 
-        this.callbacks = OpenLayers.Util.extend({done: this.select, 
+        this.callbacks = OpenLayers.Util.extend({done: this.select,
             click: this.select}, this.callbacks);
         this.handlerOptions = this.handlerOptions || {};
         this.layerOptions = OpenLayers.Util.applyDefaults(this.layerOptions, {
@@ -199,7 +199,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: createSelectionLayer
      * Creates a "clone" from the source layer in which the selection can
-     * be drawn. This ensures both the source layer and the selection are 
+     * be drawn. This ensures both the source layer and the selection are
      * visible and not only the selection.
      *
      * Parameters:
@@ -214,8 +214,8 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
         // check if we already have a selection layer for the source layer
         var selectionLayer;
         if (!this.layerCache[source.id]) {
-            selectionLayer = new OpenLayers.Layer.WMS.Post(source.name, 
-                source.url, source.params, 
+            selectionLayer = new OpenLayers.Layer.WMS.Post(source.name,
+                source.url, source.params,
                 OpenLayers.Util.applyDefaults(
                     this.layerOptions,
                     source.getOptions())
@@ -243,7 +243,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
      * Parameters:
      * layer - {<OpenLayers.Layer.WMS>}
      * filters - Array({<OpenLayers.Filter>}) The filters to be applied.
-     * geometryAttributes - Array({Object}) The geometry attributes of the 
+     * geometryAttributes - Array({Object}) The geometry attributes of the
      *     layer.
      *
      * Returns:
@@ -252,7 +252,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
     createSLD: function(layer, filters, geometryAttributes) {
         var sld = {version: "1.0.0", namedLayers: {}};
         var layerNames = [layer.params.LAYERS].join(",").split(",");
-        for (var i=0, len=layerNames.length; i<len; i++) { 
+        for (var i=0, len=layerNames.length; i<len; i++) {
             var name = layerNames[i];
             sld.namedLayers[name] = {name: name, userStyles: []};
             var symbolizer = this.selectionSymbolizer;
@@ -266,8 +266,8 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
             }
             var filter = filters[i];
             sld.namedLayers[name].userStyles.push({name: 'default', rules: [
-                new OpenLayers.Rule({symbolizer: symbolizer, 
-                    filter: filter, 
+                new OpenLayers.Rule({symbolizer: symbolizer,
+                    filter: filter,
                     maxScaleDenominator: layer.options.minScale})
             ]});
         }
@@ -325,12 +325,12 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
     * Look up the geometry attributes from the WFS DescribeFeatureType response
     *
     * Parameters:
-    * layer - {<OpenLayers.Layer.WMS>} The layer for which to look up the 
+    * layer - {<OpenLayers.Layer.WMS>} The layer for which to look up the
     *     geometry attributes.
     *
     * Returns:
     * Array({Object}) Array of geometry attributes
-    */ 
+    */
    getGeometryAttributes: function(layer) {
         var result = [];
         var cache = this.wfsCache[layer.id];
@@ -411,14 +411,14 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIMethod: setLayers
-     * Set the layers on which the selection should be performed.  Call the 
-     *     setLayers method if the layer(s) to be used change and the same 
+     * Set the layers on which the selection should be performed.  Call the
+     *     setLayers method if the layer(s) to be used change and the same
      *     control should be used on a new set of layers.
      *     If the control is already active, it will be active after the new
      *     set of layers is set.
      *
      * Parameters:
-     * layers - {Array(<OpenLayers.Layer.WMS>)}  The new set of layers on which 
+     * layers - {Array(<OpenLayers.Layer.WMS>)}  The new set of layers on which
      *     the selection should be performed.
      */
     setLayers: function(layers) {
@@ -436,7 +436,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
      * Create the filter to be used in the SLD.
      *
      * Parameters:
-     * geometryAttribute - {Object} Used to get the name of the geometry 
+     * geometryAttribute - {Object} Used to get the name of the geometry
      *     attribute which is needed for constructing the spatial filter.
      * geometry - {<OpenLayers.Geometry>} The geometry to use.
      *
@@ -520,7 +520,7 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
                 for (var j=0, lenj=geometryAttributes.length; j<lenj; j++) {
                     var geometryAttribute = geometryAttributes[j];
                     if (geometryAttribute !== null) {
-                        // from the click handler we will not get an actual 
+                        // from the click handler we will not get an actual
                         // geometry so transform
                         if (!(geometry instanceof OpenLayers.Geometry)) {
                             var point = this.map.getLonLatFromPixel(
@@ -535,22 +535,22 @@ OpenLayers.Control.SLDSelect = OpenLayers.Class(OpenLayers.Control, {
                         }
                     }
                 }
-    
+
                 var selectionLayer = this.createSelectionLayer(layer);
                 var sld = this.createSLD(layer, filters, geometryAttributes);
-    
+
                 this.events.triggerEvent("selected", {
                     layer: layer,
                     filters: filters
                 });
-    
+
                 selectionLayer.mergeNewParams({SLD_BODY: sld});
                 delete this._queue;
             }
         };
         this.applySelection();
     },
-    
+
     /**
      * Method: applySelection
      * Checks if all required wfs data is cached, and applies the selection

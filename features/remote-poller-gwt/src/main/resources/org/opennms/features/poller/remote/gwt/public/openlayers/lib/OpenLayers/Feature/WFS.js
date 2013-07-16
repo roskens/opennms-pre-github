@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,19 +12,19 @@
  * WFS handling class, for use as a featureClass on the WFS layer for handling
  * 'point' WFS types. Good for subclassing when creating a custom WFS like
  * XML application.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Feature>
  */
 OpenLayers.Feature.WFS = OpenLayers.Class(OpenLayers.Feature, {
-      
-    /** 
+
+    /**
      * Constructor: OpenLayers.Feature.WFS
      * Create a WFS feature.
      *
      * Parameters:
-     * layer - {<OpenLayers.Layer>} 
-     * xmlNode - {XMLNode} 
+     * layer - {<OpenLayers.Layer>}
+     * xmlNode - {XMLNode}
      */
     initialize: function(layer, xmlNode) {
         var newArguments = arguments;
@@ -34,14 +34,14 @@ OpenLayers.Feature.WFS = OpenLayers.Class(OpenLayers.Feature, {
         this.createMarker();
         this.layer.addMarker(this.marker);
     },
-    
-    /** 
+
+    /**
      * Method: destroy
      * nullify references to prevent circular references and memory leaks
      */
     destroy: function() {
         if (this.marker != null) {
-            this.layer.removeMarker(this.marker);  
+            this.layer.removeMarker(this.marker);
         }
         OpenLayers.Feature.prototype.destroy.apply(this, arguments);
     },
@@ -54,8 +54,8 @@ OpenLayers.Feature.WFS = OpenLayers.Class(OpenLayers.Feature, {
      * For subclasses of Feature.WFS, this is the feature to change.
      *
      * Parameters:
-     * xmlNode - {XMLNode} 
-     * 
+     * xmlNode - {XMLNode}
+     *
      * Returns:
      * {Object} Data Object with 'id', 'lonlat', and private properties set
      */
@@ -73,8 +73,4 @@ OpenLayers.Feature.WFS = OpenLayers.Class(OpenLayers.Feature, {
 
     CLASS_NAME: "OpenLayers.Feature.WFS"
 });
-  
-  
-  
-  
 

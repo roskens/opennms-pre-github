@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,10 +12,10 @@
  * Class: OpenLayers.Geometry.MultiLineString
  * A MultiLineString is a geometry with multiple <OpenLayers.Geometry.LineString>
  * components.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Geometry.Collection>
- *  - <OpenLayers.Geometry> 
+ *  - <OpenLayers.Geometry>
  */
 OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
   OpenLayers.Geometry.Collection, {
@@ -32,19 +32,19 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
      * Constructor: OpenLayers.Geometry.MultiLineString
      * Constructor for a MultiLineString Geometry.
      *
-     * Parameters: 
-     * components - {Array(<OpenLayers.Geometry.LineString>)} 
+     * Parameters:
+     * components - {Array(<OpenLayers.Geometry.LineString>)}
      *
      */
     initialize: function(components) {
-        OpenLayers.Geometry.Collection.prototype.initialize.apply(this, 
-                                                                  arguments);        
+        OpenLayers.Geometry.Collection.prototype.initialize.apply(this,
+                                                                  arguments);
     },
-    
+
     /**
      * Method: split
      * Use this geometry (the source) to attempt to split a target geometry.
-     * 
+     *
      * Parameters:
      * target - {<OpenLayers.Geometry>} The target geometry.
      * options - {Object} Properties of this object will be used to determine
@@ -59,7 +59,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
      * tolerance - {Number} If a non-null value is provided, intersections
      *     within the tolerance distance of an existing vertex on the source
      *     will be assumed to occur at the vertex.
-     * 
+     *
      * Returns:
      * {Array} A list of geometries (of this same type as the target) that
      *     result from splitting the target with the source geometry.  The
@@ -79,7 +79,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
         for(var i=0, len=this.components.length; i<len; ++i) {
             sourceLine = this.components[i];
             sourceSplit = false;
-            for(var j=0; j < targetParts.length; ++j) { 
+            for(var j=0; j < targetParts.length; ++j) {
                 splits = sourceLine.split(targetParts[j], options);
                 if(splits) {
                     if(mutual) {
@@ -144,7 +144,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
         }
         return results;
     },
-    
+
     /**
      * Method: splitWith
      * Split this geometry (the target) with the given geometry (the source).
@@ -164,7 +164,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
      * tolerance - {Number} If a non-null value is provided, intersections
      *     within the tolerance distance of an existing vertex on the source
      *     will be assumed to occur at the vertex.
-     * 
+     *
      * Returns:
      * {Array} A list of geometries (of this same type as the target) that
      *     result from splitting the target with the source geometry.  The
@@ -214,7 +214,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
                                 );
                             }
                         }
-                        targetSplit = true;                    
+                        targetSplit = true;
                     }
                 }
                 if(!targetSplit) {
@@ -232,7 +232,7 @@ OpenLayers.Geometry.MultiLineString = OpenLayers.Class(
                             ])
                         ];
                     }
-                    
+
                 }
             }
         } else {

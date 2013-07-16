@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,12 +9,12 @@
  */
 
 /**
- * Class: OpenLayers.Geometry.Polygon 
- * Polygon is a collection of Geometry.LinearRings. 
- * 
+ * Class: OpenLayers.Geometry.Polygon
+ * Polygon is a collection of Geometry.LinearRings.
+ *
  * Inherits from:
- *  - <OpenLayers.Geometry.Collection> 
- *  - <OpenLayers.Geometry> 
+ *  - <OpenLayers.Geometry.Collection>
+ *  - <OpenLayers.Geometry>
  */
 OpenLayers.Geometry.Polygon = OpenLayers.Class(
   OpenLayers.Geometry.Collection, {
@@ -29,24 +29,24 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
 
     /**
      * Constructor: OpenLayers.Geometry.Polygon
-     * Constructor for a Polygon geometry. 
-     * The first ring (this.component[0])is the outer bounds of the polygon and 
+     * Constructor for a Polygon geometry.
+     * The first ring (this.component[0])is the outer bounds of the polygon and
      * all subsequent rings (this.component[1-n]) are internal holes.
      *
      *
      * Parameters:
-     * components - {Array(<OpenLayers.Geometry.LinearRing>)} 
+     * components - {Array(<OpenLayers.Geometry.LinearRing>)}
      */
     initialize: function(components) {
-        OpenLayers.Geometry.Collection.prototype.initialize.apply(this, 
+        OpenLayers.Geometry.Collection.prototype.initialize.apply(this,
                                                                   arguments);
     },
-    
-    /** 
+
+    /**
      * APIMethod: getArea
-     * Calculated by subtracting the areas of the internal holes from the 
+     * Calculated by subtracting the areas of the internal holes from the
      *   area of the outer hole.
-     * 
+     *
      * Returns:
      * {float} The area of the geometry
      */
@@ -61,7 +61,7 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
         return area;
     },
 
-    /** 
+    /**
      * APIMethod: getGeodesicArea
      * Calculate the approximate area of the polygon were it projected onto
      *     the earth.
@@ -70,7 +70,7 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
      * projection - {<OpenLayers.Projection>} The spatial reference system
      *     for the geometry coordinates.  If not provided, Geographic/WGS84 is
      *     assumed.
-     * 
+     *
      * Reference:
      * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
      *     Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
@@ -121,7 +121,7 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
                             } else {
                                 // in hole
                                 contained = false;
-                            }                            
+                            }
                             break;
                         }
                     }
@@ -232,7 +232,7 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
 
 /**
  * APIMethod: createRegularPolygon
- * Create a regular polygon around a radius. Useful for creating circles 
+ * Create a regular polygon around a radius. Useful for creating circles
  * and the like.
  *
  * Parameters:
@@ -241,7 +241,7 @@ OpenLayers.Geometry.Polygon = OpenLayers.Class(
  * sides - {Integer} Number of sides. 20 approximates a circle.
  * rotation - {Float} original angle of rotation, in degrees.
  */
-OpenLayers.Geometry.Polygon.createRegularPolygon = function(origin, radius, sides, rotation) {  
+OpenLayers.Geometry.Polygon.createRegularPolygon = function(origin, radius, sides, rotation) {
     var angle = Math.PI * ((1/sides) - (1/2));
     if(rotation) {
         angle += (rotation / 180) * Math.PI;

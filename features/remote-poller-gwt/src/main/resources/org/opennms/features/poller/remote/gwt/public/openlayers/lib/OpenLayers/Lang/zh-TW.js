@@ -4,7 +4,7 @@
 
 /**
  * Namespace: OpenLayers.Lang["zh-TW"]
- * Dictionary for Traditional Chinese. (Used Mainly in Taiwan) 
+ * Dictionary for Traditional Chinese. (Used Mainly in Taiwan)
  * Keys for entries are used in calls to
  *     <OpenLayers.Lang.translate>.  Entry bodies are normal strings or
  *     strings formatted for use with <OpenLayers.String.format> calls.
@@ -87,7 +87,7 @@ OpenLayers.Lang["zh-TW"] = {
     'reprojectDeprecated':
         "你正使用 'reproject' 這個選項 " +
         "在 ${layerName} 層。這個選項已經不再使用:" +
-        "它的使用原本是設計用來支援在商業地圖上秀出資料，" + 
+        "它的使用原本是設計用來支援在商業地圖上秀出資料，" +
         "但這個功能已經被" +
         "Spherical Mercator所取代。更多的資訊可以在 " +
         "http://trac.openlayers.org/wiki/SphericalMercator 找到。",
@@ -112,6 +112,6 @@ OpenLayers.Lang["zh-TW"] = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition 失敗: id ${elemId} 的 element 可能被錯置。",
-                    
+
     'end': ''
 };

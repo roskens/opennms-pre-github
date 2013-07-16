@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,7 +18,7 @@
  *  - <OpenLayers.Tile.Image>
  */
 OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
-    
+
     /**
      * Property: layerAlphaHack
      * {Boolean} Always false for an instance.
@@ -27,19 +27,19 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
     /**
      * Constructor: OpenLayers.Tile.Image.IFrame
      * Constructor for a new <OpenLayers.Tile.Image.IFrame> instance.
-     * 
+     *
      * Parameters:
      * layer - {<OpenLayers.Layer>} layer that the tile will go in.
      * position - {<OpenLayers.Pixel>}
      * bounds - {<OpenLayers.Bounds>}
      * size - {<OpenLayers.Size>}
-     */   
+     */
     initialize: function(layer, position, bounds, url, size) {
         OpenLayers.Tile.Image.prototype.initialize.apply(this, arguments);
         this.layerAlphaHack = false;
     },
 
-    /** 
+    /**
      * Method: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -70,18 +70,18 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
      * obj - {<OpenLayers.Tile.Image.IFrame>} The tile to be cloned
      *
      * Returns:
-     * {<OpenLayers.Tile.Image.IFrame>} An exact clone of this 
+     * {<OpenLayers.Tile.Image.IFrame>} An exact clone of this
      * <OpenLayers.Tile.Image.IFrame>
      */
     clone: function (obj) {
         if (obj == null) {
             obj = new OpenLayers.Tile.Image.IFrame(
                 this.layer, this.position, this.bounds, this.url, this.size);
-        } 
-        
+        }
+
         //pick up properties from superclass
         obj = OpenLayers.Tile.Image.prototype.clone.apply(this, [obj]);
-        
+
         return obj;
     },
 
@@ -111,13 +111,13 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
             this.layer.getImageSize(), "relative");
         this.imgDiv.className = 'olTileImage';
 
-        this.frame.appendChild(this.imgDiv); 
-        this.layer.div.appendChild(this.frame); 
+        this.frame.appendChild(this.imgDiv);
+        this.layer.div.appendChild(this.frame);
 
         if(this.layer.opacity != null) {
-            
+
             OpenLayers.Util.modifyDOMElement(this.imgDiv, null, null, null,
-                                             null, null, null, 
+                                             null, null, null,
                                              this.layer.opacity);
         }
 
@@ -161,13 +161,13 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
         var id = this.id+'_iFrame';
         var iframe;
         if(OpenLayers.Util.getBrowserName() == "msie") {
-            // InternetExplorer does not set the name attribute of an iFrame 
+            // InternetExplorer does not set the name attribute of an iFrame
             // properly via DOM manipulation, so we need to do it on our own with
             // this hack.
             iframe = document.createElement('<iframe name="'+id+'">');
 
             // IFrames in InternetExplorer are not transparent, if you set the
-            // backgroundColor transparent. This is a workarround to get 
+            // backgroundColor transparent. This is a workarround to get
             // transparent iframes.
             iframe.style.backgroundColor = '#FFFFFF';
             iframe.style.filter          = 'chroma(color=#FFFFFF)';
@@ -175,21 +175,21 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
         else {
             iframe = document.createElement('iframe');
             iframe.style.backgroundColor = 'transparent';
-        
-            // iframe.name needs to be an unique id, otherwise it 
+
+            // iframe.name needs to be an unique id, otherwise it
             // could happen that other iframes are overwritten.
             iframe.name = id;
         }
         iframe.id = id;
 
-        // some special properties to avoid scaling the images and scrollbars 
+        // some special properties to avoid scaling the images and scrollbars
         // in the iframe
         iframe.scrolling             = 'no';
         iframe.marginWidth           = '0px';
         iframe.marginHeight          = '0px';
         iframe.frameBorder           = '0';
 
-        OpenLayers.Util.modifyDOMElement(iframe, id, 
+        OpenLayers.Util.modifyDOMElement(iframe, id,
             new OpenLayers.Pixel(0,0), this.layer.getImageSize(), "absolute");
 
         //bind a listener to the onload of the iframe so that we
@@ -211,15 +211,15 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
 
         return iframe;
     },
-    
+
     /**
      * Method: createRequestForm
-     * Create the html <form> element with width, height, bbox and all 
+     * Create the html <form> element with width, height, bbox and all
      * parameters specified in the layer params.
      *
-     * Returns: 
+     * Returns:
      * {DOMElement} The form element which sends the HTTP-POST request to the
-     *              WMS. 
+     *              WMS.
      */
     createRequestForm: function() {
         // creation of the form element
@@ -245,18 +245,18 @@ OpenLayers.Tile.Image.IFrame = OpenLayers.Class(OpenLayers.Tile.Image, {
                 "WIDTH": imageSize.w,
                 "HEIGHT": imageSize.h
             }, this.layer.params);
-            
+
         for(var par in params) {
             var field = document.createElement('input');
             field.type  = 'hidden';
             field.name  = par;
             field.value = params[par];
             form.appendChild(field);
-        }   
+        }
 
         return form;
     },
-    
+
     CLASS_NAME: "OpenLayers.Tile.Image.IFrame"
   }
 );

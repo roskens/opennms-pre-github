@@ -142,7 +142,7 @@ function textbox(id,parentNode,defaultVal,maxChars,x,y,boxWidth,boxHeight,textYO
 		this.createTextbox(); //method to initialize textbox
 	}
 	else {
-		alert("Could not create textbox with id '"+id+"' due to errors in the constructor parameters");		
+		alert("Could not create textbox with id '"+id+"' due to errors in the constructor parameters");
 	}
 }
 
@@ -153,7 +153,7 @@ textbox.prototype.createTextbox = function() {
 		//create a textbox parent group
 		this.textboxParent = document.createElementNS(svgNS,"g");
 		this.parentGroup.appendChild(this.textboxParent);
-		
+
 		//create background rect
 		this.textboxRect = document.createElementNS(svgNS,"rect");
 		this.textboxRect.setAttributeNS(null,"x",this.x);
@@ -165,7 +165,7 @@ textbox.prototype.createTextbox = function() {
 			this.textboxRect.setAttributeNS(null,attrib,this.boxStyles[attrib]);
 		}
 		this.textboxParent.appendChild(this.textboxRect);
-		
+
 		this.svg = document.createElementNS(svgNS,"svg");
 		this.svg.setAttributeNS(null,"x",this.x + this.textStyles["font-size"] / 4);
 		this.svg.setAttributeNS(null,"y",this.y + this.boxHeight * 0.02);
@@ -173,11 +173,11 @@ textbox.prototype.createTextbox = function() {
 		this.svg.setAttributeNS(null,"height",this.boxHeight * 0.96);
 		this.svg.setAttributeNS(null,"viewBox",(this.x + this.textStyles["font-size"] / 4)+" "+(this.y + this.boxHeight * 0.02)+" "+(this.boxWidth - (this.textStyles["font-size"]) / 2)+" "+(this.boxHeight * 0.96));
 		this.textboxParent.appendChild(this.svg);
-		
+
 		//create group to hold text, selectionRect and cursor
 		this.textboxTextGroup = document.createElementNS(svgNS,"g");
 		this.svg.appendChild(this.textboxTextGroup);
-		
+
 		//create text element
 		this.textboxText = document.createElementNS(svgNS,"text");
 		this.textboxText.setAttributeNS(null,"x",(this.x + this.textStyles["font-size"] / 3));
@@ -207,7 +207,7 @@ textbox.prototype.createTextbox = function() {
 		}
 		this.textboxText.appendChild(this.textboxTextContent);
 		this.textboxTextGroup.appendChild(this.textboxText);
-    	
+
 		//create selection rectangle
 		this.selectionRect = document.createElementNS(svgNS,"rect");
 		this.selectionRect.setAttributeNS(null,"x",(this.x + this.textStyles["font-size"] / 3));
@@ -219,7 +219,7 @@ textbox.prototype.createTextbox = function() {
 		}
 		this.selectionRect.setAttributeNS(null,"display","none");
 		this.textboxTextGroup.appendChild(this.selectionRect);
-			
+
 		//create cursor element
 		this.textboxCursor = document.createElementNS(svgNS,"line");
 		this.textboxCursor.setAttributeNS(null,"x1",this.x);
@@ -232,13 +232,13 @@ textbox.prototype.createTextbox = function() {
 		this.textboxCursor.setAttributeNS(null,"id",this.id+"Cursor");
 		this.textboxCursor.setAttributeNS(null,"visibility","hidden");
 		this.textboxTextGroup.appendChild(this.textboxCursor);
-    	
+
 		// add event listeners to the textbox group
 		this.textboxParent.addEventListener("mousedown",this,false);
 		this.textboxParent.addEventListener("mousemove",this,false);
 		this.textboxParent.addEventListener("mouseup",this,false);
 		this.textboxParent.setAttributeNS(null,"cursor","text");
-		
+
 		//test if the svgviewer supports getting geometries of individual characters
 		this.timer.setTimeout("testSupportsChar",this.timerMs);
 	}
@@ -254,7 +254,7 @@ textbox.prototype.testSupportsChar = function() {
 	if (this.textVal.length == 0) {
 		isEmpty = true;
 		this.textboxTextContent.nodeValue = " ";
-	}		
+	}
 	try {
 		var dummy = this.textboxText.getStartPositionOfChar(0).x;
 	}
@@ -276,7 +276,7 @@ textbox.prototype.testParent = function() {
     		nodeValid = true;
     	}
     }
-    else if (typeof(this.parentNode) == "string") { 
+    else if (typeof(this.parentNode) == "string") {
     	//first test if textbox group exists
     	if (!document.getElementById(this.parentNode)) {
         	this.parentGroup = document.createElementNS(svgNS,"g");
@@ -351,11 +351,11 @@ textbox.prototype.handleEvent = function(evt) {
 				if (this.cursorPosition + 1 != this.startOrigSelection) {
 					if (this.cursorPosition + 1 < this.startOrigSelection) {
 						this.endSelection = this.startOrigSelection;
-						this.startSelection = this.cursorPosition + 1;				
+						this.startSelection = this.cursorPosition + 1;
 					}
 					else {
 						this.startSelection = this.startOrigSelection;
-						this.endSelection = this.cursorPosition + 1;				
+						this.endSelection = this.cursorPosition + 1;
 					}
 					this.selectionRect.setAttributeNS(null,"display","inherit");
 					this.selectionRectVisible = true;
@@ -384,7 +384,7 @@ textbox.prototype.handleEvent = function(evt) {
 				this.mouseDown = false;
 		}
 	}
-	if (evt.type == "keypress") {			
+	if (evt.type == "keypress") {
         if (evt.keyCode) {
         	var charCode = evt.keyCode;
 		}
@@ -395,26 +395,26 @@ textbox.prototype.handleEvent = function(evt) {
 		var charCode = undefined;
 		this.changed = false; //this tracks if the text was actually changed (if the content was changed)
 		//alert("keyCode="+evt.keyCode+", charCode="+evt.charCode+", shiftKey"+evt.shiftKey);
-				
+
 		if (myMapApp.navigator != "Adobe") {
 			//note that Adobe SVG enters this method through the keydown event
 			this.specialCharacters(evt);
 		}
-		
+
 		if (myMapApp.navigator == "Opera") {
 			if (evt.keyCode > 31 && evt.keyCode != 35 && evt.keyCode != 36 && evt.keyCode != 37 && evt.keyCode != 39 && evt.keyCode != 46) {
 				evt.charCode = evt.keyCode;
 			}
 		}
-		
+
 		//all real characters
-		if (keyCode > 31 && keyCode != 127 && keyCode < 65535 && evt.charCode && evt.charCode < 65535) {			
+		if (keyCode > 31 && keyCode != 127 && keyCode < 65535 && evt.charCode && evt.charCode < 65535) {
 			var textChanged = false;
 			var keychar = String.fromCharCode(keyCode);
 			var result = 0;
 			if (this.RegExp) {
 				result = keychar.search(this.RegExp);
-			}			
+			}
 			if (result == 0) {
 				if (this.shiftDown && this.selectionRectVisible) {
 					var tempText = this.textVal.substring(0,this.startSelection) + keychar + this.textVal.substring(this.endSelection,this.textVal.length);
@@ -439,12 +439,12 @@ textbox.prototype.handleEvent = function(evt) {
 				else {
 					if (textChanged) {
 						if (this.cursorPosition < this.textVal.length) {
-							this.cursorPosition++;	
+							this.cursorPosition++;
 						}
 						else {
 							this.cursorPosition = this.textVal.length - 1;
 						}
-					}	
+					}
 				}
 				//make sure that the selections and shift key are resetted
 				this.startSelection = this.cursorPosition;
@@ -485,7 +485,7 @@ textbox.prototype.specialCharacters = function(evt) {
 		}
 		var keyCode = parseInt(charCode);
 		var charCode = undefined;
-		
+
 		//backspace key
 		if (keyCode == 8) {
 			//only do it if there is still text and cursor is not at start position
@@ -497,7 +497,7 @@ textbox.prototype.specialCharacters = function(evt) {
 					this.cursorPosition = this.startSelection - 1;
 					this.releaseShift();
 				}
-				else { 
+				else {
 					if (this.cursorPosition == this.textVal.length - 1) {
 						//cursor is at the end of textVal
 						this.textVal=this.textVal.substring(0,this.textVal.length-1);
@@ -574,7 +574,7 @@ textbox.prototype.specialCharacters = function(evt) {
 					var rectX = this.x + this.textStyles["font-size"] / 3;
 					var width = this.x + bbox.width + this.textStyles["font-size"] / 3;
 				}
-				this.selectionRect.setAttributeNS(null,"x",rectX);		
+				this.selectionRect.setAttributeNS(null,"x",rectX);
 				this.selectionRect.setAttributeNS(null,"width",width);
 			}
 			if (this.shiftDown && evt.shiftKey == false) {
@@ -614,8 +614,8 @@ textbox.prototype.specialCharacters = function(evt) {
 					var rectX = this.x + this.textStyles["font-size"] / 3;
 					var width = this.x + bbox.width + this.textStyles["font-size"] / 3;
 				}
-				this.selectionRect.setAttributeNS(null,"x",rectX);	
-				this.selectionRect.setAttributeNS(null,"width",width);			
+				this.selectionRect.setAttributeNS(null,"x",rectX);
+				this.selectionRect.setAttributeNS(null,"width",width);
 			}
 			if (this.shiftDown && evt.shiftKey == false) {
 					this.releaseShift();
@@ -731,7 +731,7 @@ textbox.prototype.setCursorPos = function() {
 				}
 				else {
 					var cursorPos = (this.x + this.textStyles["font-size"] / 3);
-				}	
+				}
 				this.textboxCursor.setAttributeNS(null,"x1",cursorPos);
 				this.textboxCursor.setAttributeNS(null,"x2",cursorPos);
 			}
@@ -777,7 +777,7 @@ textbox.prototype.fireFunction = function() {
 		this.functionToCall(this.id,this.textVal,changeType);
 	}
 	if (typeof(this.functionToCall) == "object") {
-		this.functionToCall.textboxChanged(this.id,this.textVal,changeType);	
+		this.functionToCall.textboxChanged(this.id,this.textVal,changeType);
 	}
 	if (typeof(this.functionToCall) == undefined) {
 		return;
@@ -786,7 +786,7 @@ textbox.prototype.fireFunction = function() {
 
 textbox.prototype.getValue = function() {
 	return this.textVal;
-}	
+}
 
 textbox.prototype.setValue = function(value,fireFunction) {
 	this.textVal = value.toString();
@@ -806,7 +806,7 @@ textbox.prototype.release = function() {
 	// remove event listeners
 	document.documentElement.removeEventListener("keypress",this,false);
 	if (myMapApp.navigator == "Adobe") {
-		document.documentElement.removeEventListener("keydown",this,false);			
+		document.documentElement.removeEventListener("keydown",this,false);
 	}
 	document.documentElement.removeEventListener("mousedown",this,false);
 	document.documentElement.removeEventListener("mousemove",this,false);
@@ -814,13 +814,13 @@ textbox.prototype.release = function() {
 	//set cursor and text selection to invisible
 	this.textboxCursor.setAttributeNS(null,"visibility","hidden");
 	this.releaseShift();
-	this.timer.setTimeout("fireFunction",this.timerMs);	
+	this.timer.setTimeout("fireFunction",this.timerMs);
 }
 
 textbox.prototype.releaseShift = function() {
 	this.selectionRect.setAttributeNS(null,"display","none");
 	this.selectionRectVisible = false;
-	this.shiftDown = false;	
+	this.shiftDown = false;
 }
 
 textbox.prototype.calcCursorPosFromMouseEvt = function(evt) {
@@ -866,8 +866,8 @@ textbox.prototype.calcCursorPosFromMouseEvt = function(evt) {
 	}
 	else {
 		//in case the text is empty
-		this.cursorPosition = -1;				
-	}	
+		this.cursorPosition = -1;
+	}
 }
 
 textbox.prototype.moveTo = function(moveX,moveY) {
@@ -893,7 +893,7 @@ textbox.prototype.moveTo = function(moveX,moveY) {
 	this.textboxCursor.setAttributeNS(null,"y2",(this.y + this.textYOffset - this.textStyles["font-size"] * 0.9));
 	//set the cursor to beginning and remove previous transforms
 	this.cursorPosition = -1;
-	this.setCursorPos();	
+	this.setCursorPos();
 }
 
 textbox.prototype.resize = function(newWidth) {
@@ -905,5 +905,5 @@ textbox.prototype.resize = function(newWidth) {
 	this.svg.setAttributeNS(null,"viewBox",(this.x + this.textStyles["font-size"] / 4)+" "+(this.y + this.boxHeight * 0.02)+" "+(this.boxWidth - (this.textStyles["font-size"]) / 2)+" "+(this.boxHeight * 0.96));
 	//set the cursor to beginning and remove previous transforms
 	this.cursorPosition = -1;
-	this.setCursorPos();	
+	this.setCursorPos();
 }

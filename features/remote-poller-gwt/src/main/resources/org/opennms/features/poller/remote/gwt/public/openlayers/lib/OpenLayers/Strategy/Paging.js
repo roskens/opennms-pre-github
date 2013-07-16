@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,25 +15,25 @@
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * Property: features
      * {Array(<OpenLayers.Feature.Vector>)} Cached features.
      */
     features: null,
-    
+
     /**
      * Property: length
      * {Integer} Number of features per page.  Default is 10.
      */
     length: 10,
-    
+
     /**
      * Property: num
      * {Integer} The currently displayed page number.
      */
     num: null,
-    
+
     /**
      * Property: paging
      * {Boolean} The strategy is currently changing pages.
@@ -51,11 +51,11 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
     initialize: function(options) {
         OpenLayers.Strategy.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * APIMethod: activate
      * Activate the strategy.  Register any listeners, do appropriate setup.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully activated.
      */
@@ -69,12 +69,12 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the strategy.  Unregister any listeners, do appropriate
      *     tear-down.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully deactivated.
      */
@@ -89,7 +89,7 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: cacheFeatures
      * Cache features before they are added to the layer.
@@ -105,7 +105,7 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
             this.pageNext(event);
         }
     },
-    
+
     /**
      * Method: clearCache
      * Clear out the cached features.  This destroys features, assuming
@@ -120,7 +120,7 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
         this.features = null;
         this.num = null;
     },
-    
+
     /**
      * APIMethod: pageCount
      * Get the total count of pages given the current cache of features.
@@ -198,7 +198,7 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return changed;
     },
-    
+
     /**
      * Method: page
      * Display the page starting at the given index from the cache.
@@ -231,6 +231,6 @@ OpenLayers.Strategy.Paging = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return changed;
     },
-    
-    CLASS_NAME: "OpenLayers.Strategy.Paging" 
+
+    CLASS_NAME: "OpenLayers.Strategy.Paging"
 });

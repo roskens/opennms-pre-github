@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,12 +12,12 @@
  * Class: OpenLayers.Format.WKT
  * Class for reading and writing Well-Known Text.  Create a new instance
  * with the <OpenLayers.Format.WKT> constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
-    
+
     /**
      * Constructor: OpenLayers.Format.WKT
      * Create a new parser for WKT
@@ -64,7 +64,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
                 features = this.parse[type].apply(this, [str]);
             }
             if (this.internalProjection && this.externalProjection) {
-                if (features && 
+                if (features &&
                     features.CLASS_NAME == "OpenLayers.Feature.Vector") {
                     features.geometry.transform(this.externalProjection,
                                                 this.internalProjection);
@@ -78,7 +78,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
                     }
                 }
             }
-        }    
+        }
         return features;
     },
 
@@ -117,9 +117,9 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
             }
             if (this.internalProjection && this.externalProjection) {
                 geometry = geometry.clone();
-                geometry.transform(this.internalProjection, 
+                geometry.transform(this.internalProjection,
                                    this.externalProjection);
-            }                       
+            }
             data = this.extract[type].apply(this, [geometry]);
             pieces.push(type.toUpperCase() + '(' + data + ')');
         }
@@ -128,7 +128,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
         }
         return pieces.join('');
     },
-    
+
     /**
      * Object with properties corresponding to the geometry types.
      * Property values are functions that do the actual data extraction.
@@ -158,7 +158,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
             }
             return array.join(',');
         },
-        
+
         /**
          * Return a comma delimited string of point coordinates from a line.
          * @param {<OpenLayers.Geometry.LineString>} linestring
@@ -188,7 +188,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
             }
             return array.join(',');
         },
-        
+
         /**
          * Return a comma delimited string of linear ring arrays from a polygon.
          * @param {<OpenLayers.Geometry.Polygon>} polygon
@@ -258,7 +258,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
                 new OpenLayers.Geometry.MultiPoint(components)
             );
         },
-        
+
         /**
          * Return a linestring feature given a linestring WKT fragment.
          * @param {String} A WKT fragment representing the linestring
@@ -294,7 +294,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
                 new OpenLayers.Geometry.MultiLineString(components)
             );
         },
-        
+
         /**
          * Return a polygon feature given a polygon WKT fragment.
          * @param {String} A WKT fragment representing the polygon
@@ -354,5 +354,5 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
 
     },
 
-    CLASS_NAME: "OpenLayers.Format.WKT" 
-});     
+    CLASS_NAME: "OpenLayers.Format.WKT"
+});

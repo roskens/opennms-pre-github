@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,7 +10,7 @@
 
 /**
  * Class: OpenLayers.Strategy.Filter
- * Strategy for limiting features that get added to a layer by 
+ * Strategy for limiting features that get added to a layer by
  *     evaluating a filter.  The strategy maintains a cache of
  *     all features until removeFeatures is called on the layer.
  *
@@ -18,34 +18,34 @@
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.Filter = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * APIProperty: filter
      * {<OpenLayers.Filter>}  Filter for limiting features sent to the layer.
      *     Use the <setFilter> method to update this filter after construction.
      */
     filter: null,
-    
+
     /**
      * Property: cache
      * {Array(<OpenLayers.Feature.Vector>)} List of currently cached
      *     features.
      */
     cache: null,
-    
+
     /**
      * Property: caching
      * {Boolean} The filter is currently caching features.
      */
     caching: false,
-    
+
     /**
      * Constructor: OpenLayers.Strategy.Filter
      * Create a new filter strategy.
      *
      * Parameters:
      * options - {Object} Optional object whose properties will be set on the
-     *     instance.  Strategy must be constructed with at least a <filter> 
+     *     instance.  Strategy must be constructed with at least a <filter>
      *     property.
      */
     initialize: function(options) {
@@ -77,7 +77,7 @@ OpenLayers.Strategy.Filter = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the strategy.  Clear the feature cache.
@@ -93,11 +93,11 @@ OpenLayers.Strategy.Filter = OpenLayers.Class(OpenLayers.Strategy, {
                 "beforefeaturesadded": this.handleAdd,
                 "beforefeaturesremoved": this.handleRemove,
                 scope: this
-            });            
+            });
         }
         return OpenLayers.Strategy.prototype.deactivate.apply(this, arguments);
     },
-    
+
     /**
      * Method: handleAdd
      */
@@ -116,7 +116,7 @@ OpenLayers.Strategy.Filter = OpenLayers.Class(OpenLayers.Strategy, {
             }
         }
     },
-    
+
     /**
      * Method: handleRemove
      */
@@ -126,7 +126,7 @@ OpenLayers.Strategy.Filter = OpenLayers.Class(OpenLayers.Strategy, {
         }
     },
 
-    /** 
+    /**
      * APIMethod: setFilter
      * Update the filter for this strategy.  This will re-evaluate
      *     any features on the layer and in the cache.  Only features

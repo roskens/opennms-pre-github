@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,19 +18,19 @@
  *        ogc:PropertyIsNotEqualelements.
  *  - writes matchCase attribute from comparison filters of type EQUAL_TO and
  *        type NOT_EQUAL_TO.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.Filter.v1>
  */
 OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
     OpenLayers.Format.GML.v3, OpenLayers.Format.Filter.v1, {
-    
+
     /**
      * Constant: VERSION
      * {String} 1.1.0
      */
     VERSION: "1.1.0",
-    
+
     /**
      * Property: schemaLocation
      * {String} http://www.opengis.net/ogc/filter/1.1.0/filter.xsd
@@ -93,7 +93,7 @@ OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
             }
         }, OpenLayers.Format.Filter.v1.prototype.readers["ogc"]),
         "gml": OpenLayers.Format.GML.v3.prototype.readers["gml"],
-        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]        
+        "feature": OpenLayers.Format.GML.v3.prototype.readers["feature"]
     },
 
     /**
@@ -141,10 +141,10 @@ OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
                 if(filter.projection) {
                     box.setAttribute("srsName", filter.projection);
                 }
-                node.appendChild(box); 
+                node.appendChild(box);
                 return node;
             }}, OpenLayers.Format.Filter.v1.prototype.writers["ogc"]),
-            
+
         "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
         "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"]
     },
@@ -177,6 +177,6 @@ OpenLayers.Format.Filter.v1_1_0 = OpenLayers.Class(
         return node;
     },
 
-    CLASS_NAME: "OpenLayers.Format.Filter.v1_1_0" 
+    CLASS_NAME: "OpenLayers.Format.Filter.v1_1_0"
 
 });

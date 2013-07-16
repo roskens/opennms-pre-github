@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,24 +10,24 @@
 /**
  * Class: OpenLayers.Format.WMSCapabilities
  * Read WMS Capabilities.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WMSCapabilities = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * APIProperty: defaultVersion
      * {String} Version number to assume if none found.  Default is "1.1.1".
      */
     defaultVersion: "1.1.1",
-    
+
     /**
      * APIProperty: version
      * {String} Specify a version string if one is known.
      */
     version: null,
-    
+
     /**
      * Property: parser
      * {<OpenLayers.Format>} A cached versioned format used for reading.
@@ -49,9 +49,9 @@ OpenLayers.Format.WMSCapabilities = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * APIMethod: read
-     * Read capabilities data from a string, and return a list of layers. 
-     * 
-     * Parameters: 
+     * Read capabilities data from a string, and return a list of layers.
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -76,7 +76,7 @@ OpenLayers.Format.WMSCapabilities = OpenLayers.Class(OpenLayers.Format.XML, {
         capabilities.version = version;
         return capabilities;
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WMSCapabilities" 
+
+    CLASS_NAME: "OpenLayers.Format.WMSCapabilities"
 
 });

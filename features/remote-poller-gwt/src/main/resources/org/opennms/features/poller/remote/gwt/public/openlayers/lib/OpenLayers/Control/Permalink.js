@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
 
 /**
  * Class: OpenLayers.Control.Permalink
- * The Permalink control is hyperlink that will return the user to the 
+ * The Permalink control is hyperlink that will return the user to the
  * current map view. By default it is drawn in the lower right corner of the
  * map. The href is updated as the map is zoomed, panned and whilst layers
  * are switched.
@@ -20,7 +20,7 @@
  *  - <OpenLayers.Control>
  */
 OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
-    
+
     /**
      * APIProperty: argParserClass
      * {Class} The ArgParser control class (not instance) to use with this
@@ -28,19 +28,19 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
      */
     argParserClass: OpenLayers.Control.ArgParser,
 
-    /** 
-     * Property: element 
+    /**
+     * Property: element
      * {DOMElement}
      */
     element: null,
-    
-    /** 
+
+    /**
      * APIProperty: base
      * {String}
      */
     base: '',
 
-    /** 
+    /**
      * APIProperty: displayProjection
      * {<OpenLayers.Projection>} Requires proj4js support.  Projection used
      *     when creating the coordinates in the link. This will reproject the
@@ -48,21 +48,21 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
      *     functionality, the permalink which is last added to the map will
      *     determine the coordinate type which is read from the URL, which
      *     means you should not add permalinks with different
-     *     displayProjections to the same map. 
+     *     displayProjections to the same map.
      */
-    displayProjection: null, 
+    displayProjection: null,
 
     /**
      * Constructor: OpenLayers.Control.Permalink
      *
-     * Parameters: 
-     * element - {DOMElement} 
-     * base - {String} 
-     * options - {Object} options to the control. 
+     * Parameters:
+     * element - {DOMElement}
+     * base - {String}
+     * options - {Object} options to the control.
      */
     initialize: function(element, base, options) {
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        this.element = OpenLayers.Util.getElement(element);        
+        this.element = OpenLayers.Util.getElement(element);
         this.base = base || document.location.href;
     },
 
@@ -77,15 +77,15 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
 
         this.map.events.unregister('moveend', this, this.updateLink);
 
-        OpenLayers.Control.prototype.destroy.apply(this, arguments); 
+        OpenLayers.Control.prototype.destroy.apply(this, arguments);
     },
 
     /**
      * Method: setMap
-     * Set the map property for the control. 
-     * 
+     * Set the map property for the control.
+     *
      * Parameters:
-     * map - {<OpenLayers.Map>} 
+     * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         OpenLayers.Control.prototype.setMap.apply(this, arguments);
@@ -94,20 +94,20 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
         for(var i=0, len=this.map.controls.length; i<len; i++) {
             var control = this.map.controls[i];
             if (control.CLASS_NAME == this.argParserClass.CLASS_NAME) {
-                
+
                 // If a permalink is added to the map, and an ArgParser already
                 // exists, we override the displayProjection to be the one
-                // on the permalink. 
+                // on the permalink.
                 if (control.displayProjection != this.displayProjection) {
                     this.displayProjection = control.displayProjection;
-                }    
-                
+                }
+
                 break;
             }
         }
         if (i == this.map.controls.length) {
             this.map.addControl(new this.argParserClass(
-                { 'displayProjection': this.displayProjection }));       
+                { 'displayProjection': this.displayProjection }));
         }
 
     },
@@ -117,10 +117,10 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
      *
      * Returns:
      * {DOMElement}
-     */    
+     */
     draw: function() {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
-          
+
         if (!this.element) {
             this.div.className = this.displayClass;
             this.element = document.createElement("a");
@@ -134,16 +134,16 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
             'changebaselayer': this.updateLink,
             scope: this
         });
-        
+
         // Make it so there is at least a link even though the map may not have
         // moved yet.
         this.updateLink();
-        
+
         return this.div;
     },
-   
+
     /**
-     * Method: updateLink 
+     * Method: updateLink
      */
     updateLink: function() {
         var href = this.base;
@@ -153,12 +153,12 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
 
         href += '?' + OpenLayers.Util.getParameterString(this.createParams());
         this.element.href = href;
-    }, 
-    
+    },
+
     /**
      * APIMethod: createParams
      * Creates the parameters that need to be encoded into the permalink url.
-     * 
+     *
      * Parameters:
      * center - {<OpenLayers.LonLat>} center to encode in the permalink.
      *     Defaults to the current map center.
@@ -166,55 +166,55 @@ OpenLayers.Control.Permalink = OpenLayers.Class(OpenLayers.Control, {
      *     current map zoom level.
      * layers - {Array(<OpenLayers.Layer>)} layers to encode in the permalink.
      *     Defaults to the current map layers.
-     * 
+     *
      * Returns:
      * {Object} Hash of parameters that will be url-encoded into the
      * permalink.
      */
     createParams: function(center, zoom, layers) {
         center = center || this.map.getCenter();
-          
+
         var params = OpenLayers.Util.getParameters(this.base);
-        
-        // If there's still no center, map is not initialized yet. 
+
+        // If there's still no center, map is not initialized yet.
         // Break out of this function, and simply return the params from the
         // base link.
-        if (center) { 
+        if (center) {
 
             //zoom
-            params.zoom = zoom || this.map.getZoom(); 
+            params.zoom = zoom || this.map.getZoom();
 
             //lon,lat
             var lat = center.lat;
             var lon = center.lon;
-            
+
             if (this.displayProjection) {
                 var mapPosition = OpenLayers.Projection.transform(
-                  { x: lon, y: lat }, 
-                  this.map.getProjectionObject(), 
+                  { x: lon, y: lat },
+                  this.map.getProjectionObject(),
                   this.displayProjection );
-                lon = mapPosition.x;  
-                lat = mapPosition.y;  
-            }       
+                lon = mapPosition.x;
+                lat = mapPosition.y;
+            }
             params.lat = Math.round(lat*100000)/100000;
             params.lon = Math.round(lon*100000)/100000;
-    
-            //layers        
-            layers = layers || this.map.layers;  
+
+            //layers
+            layers = layers || this.map.layers;
             params.layers = '';
             for (var i=0, len=layers.length; i<len; i++) {
                 var layer = layers[i];
-    
+
                 if (layer.isBaseLayer) {
                     params.layers += (layer == this.map.baseLayer) ? "B" : "0";
                 } else {
-                    params.layers += (layer.getVisibility()) ? "T" : "F";           
+                    params.layers += (layer.getVisibility()) ? "T" : "F";
                 }
             }
         }
 
         return params;
-    }, 
+    },
 
     CLASS_NAME: "OpenLayers.Control.Permalink"
 });

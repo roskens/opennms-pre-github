@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,7 +14,7 @@
  *     W3C compliant <OpenLayers.Request.XMLHttpRequest> class.
  */
 OpenLayers.Request = {
-    
+
     /**
      * Constant: DEFAULT_CONFIG
      * {Object} Default configuration for all requests.
@@ -34,17 +34,17 @@ OpenLayers.Request = {
         failure: null,
         scope: null
     },
-    
+
     /**
      * APIProperty: events
-     * {<OpenLayers.Events>} An events object that handles all 
+     * {<OpenLayers.Events>} An events object that handles all
      *     events on the {<OpenLayers.Request>} object.
      *
      * All event listeners will receive an event object with three properties:
      * request - {<OpenLayers.Request.XMLHttpRequest>} The request object.
      * config - {Object} The config object sent to the specific request method.
      * requestUrl - {String} The request url.
-     * 
+     *
      * Supported event types:
      * complete - Triggered when we have a response from the request, if a
      *     listener returns false, no further response processing will take
@@ -53,7 +53,7 @@ OpenLayers.Request = {
      * failure - Triggered when the HTTP response does not have a success code.
      */
     events: new OpenLayers.Events(this, null, ["complete", "success", "failure"]),
-    
+
     /**
      * APIMethod: issue
      * Create a new XMLHttpRequest object, open it, set any headers, bind
@@ -110,7 +110,7 @@ OpenLayers.Request = {
      * {XMLHttpRequest} Request object.  To abort the request before a response
      *     is received, call abort() on the request object.
      */
-    issue: function(config) {        
+    issue: function(config) {
         // apply default config - proxy host may have changed
         var defaultConfig = OpenLayers.Util.extend(
             this.DEFAULT_CONFIG,
@@ -147,7 +147,7 @@ OpenLayers.Request = {
         // we want to execute runCallbacks with "this" as the
         // execution scope
         var self = this;
-        
+
         request.onreadystatechange = function() {
             if(request.readyState == OpenLayers.Request.XMLHttpRequest.DONE) {
                 var proceed = events.triggerEvent(
@@ -161,7 +161,7 @@ OpenLayers.Request = {
                 }
             }
         };
-        
+
         // send request (optionally with data) and return
         // call in a timeout for asynchronous requests so the return is
         // available before readyState == 4 for cached docs
@@ -176,11 +176,11 @@ OpenLayers.Request = {
         }
         return request;
     },
-    
+
     /**
      * Method: runCallbacks
      * Calls the complete, success and failure callbacks. Application
-     *    can listen to the "complete" event, have the listener 
+     *    can listen to the "complete" event, have the listener
      *    display a confirm window and always return false, and
      *    execute OpenLayers.Request.runCallbacks if the user
      *    hits "yes" in the confirm window.
@@ -191,12 +191,12 @@ OpenLayers.Request = {
     runCallbacks: function(options) {
         var request = options.request;
         var config = options.config;
-        
+
         // bind callbacks to readyState 4 (done)
         var complete = (config.scope) ?
             OpenLayers.Function.bind(config.callback, config.scope) :
             config.callback;
-        
+
         // optional success callback
         var success;
         if(config.success) {
@@ -221,14 +221,14 @@ OpenLayers.Request = {
                 success(request);
             }
         }
-        if(request.status && (request.status < 200 || request.status >= 300)) {                    
+        if(request.status && (request.status < 200 || request.status >= 300)) {
             this.events.triggerEvent("failure", options);
             if(failure) {
                 failure(request);
             }
         }
     },
-    
+
     /**
      * APIMethod: GET
      * Send an HTTP GET request.  Additional configuration properties are
@@ -239,7 +239,7 @@ OpenLayers.Request = {
      * config - {Object} Object with properties for configuring the request.
      *     See the <issue> method for documentation of allowed properties.
      *     This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */
@@ -247,7 +247,7 @@ OpenLayers.Request = {
         config = OpenLayers.Util.extend(config, {method: "GET"});
         return OpenLayers.Request.issue(config);
     },
-    
+
     /**
      * APIMethod: POST
      * Send a POST request.  Additional configuration properties are
@@ -259,7 +259,7 @@ OpenLayers.Request = {
      *     See the <issue> method for documentation of allowed properties.  The
      *     default "Content-Type" header will be set to "application-xml" if
      *     none is provided.  This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */
@@ -272,7 +272,7 @@ OpenLayers.Request = {
         }
         return OpenLayers.Request.issue(config);
     },
-    
+
     /**
      * APIMethod: PUT
      * Send an HTTP PUT request.  Additional configuration properties are
@@ -284,7 +284,7 @@ OpenLayers.Request = {
      *     See the <issue> method for documentation of allowed properties.  The
      *     default "Content-Type" header will be set to "application-xml" if
      *     none is provided.  This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */
@@ -297,7 +297,7 @@ OpenLayers.Request = {
         }
         return OpenLayers.Request.issue(config);
     },
-    
+
     /**
      * APIMethod: DELETE
      * Send an HTTP DELETE request.  Additional configuration properties are
@@ -308,7 +308,7 @@ OpenLayers.Request = {
      * config - {Object} Object with properties for configuring the request.
      *     See the <issue> method for documentation of allowed properties.
      *     This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */
@@ -316,7 +316,7 @@ OpenLayers.Request = {
         config = OpenLayers.Util.extend(config, {method: "DELETE"});
         return OpenLayers.Request.issue(config);
     },
-  
+
     /**
      * APIMethod: HEAD
      * Send an HTTP HEAD request.  Additional configuration properties are
@@ -327,7 +327,7 @@ OpenLayers.Request = {
      * config - {Object} Object with properties for configuring the request.
      *     See the <issue> method for documentation of allowed properties.
      *     This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */
@@ -335,7 +335,7 @@ OpenLayers.Request = {
         config = OpenLayers.Util.extend(config, {method: "HEAD"});
         return OpenLayers.Request.issue(config);
     },
-    
+
     /**
      * APIMethod: OPTIONS
      * Send an HTTP OPTIONS request.  Additional configuration properties are
@@ -346,7 +346,7 @@ OpenLayers.Request = {
      * config - {Object} Object with properties for configuring the request.
      *     See the <issue> method for documentation of allowed properties.
      *     This object is modified and should not be reused.
-     * 
+     *
      * Returns:
      * {XMLHttpRequest} Request object.
      */

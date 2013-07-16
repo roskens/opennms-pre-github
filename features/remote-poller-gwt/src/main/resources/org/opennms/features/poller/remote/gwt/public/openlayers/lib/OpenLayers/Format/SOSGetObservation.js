@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,14 +11,14 @@
 
 /**
  * Class: OpenLayers.Format.SOSGetObservation
- * Read and write SOS GetObersation (to get the actual values from a sensor) 
+ * Read and write SOS GetObersation (to get the actual values from a sensor)
  *     version 1.0.0
  *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -74,8 +74,8 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * Method: read
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -110,7 +110,7 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
             "xsi:schemaLocation", this.schemaLocation
         );
         return OpenLayers.Format.XML.prototype.write.apply(this, [node]);
-    }, 
+    },
 
     /**
      * Property: readers
@@ -140,12 +140,12 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
                 this.readChildNodes(node, samplingTime);
             },
             "observedProperty": function(node, measurement) {
-                measurement.observedProperty = 
+                measurement.observedProperty =
                     this.getAttributeNS(node, this.namespaces.xlink, "href");
                 this.readChildNodes(node, measurement);
             },
             "procedure": function(node, measurement) {
-                measurement.procedure = 
+                measurement.procedure =
                     this.getAttributeNS(node, this.namespaces.xlink, "href");
                 this.readChildNodes(node, measurement);
             },
@@ -185,31 +185,31 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
                     attributes: {
                         version: this.VERSION,
                         service: 'SOS'
-                    } 
-                }); 
+                    }
+                });
                 this.writeNode("offering", options, node);
                 this.writeNode("eventTime", options, node);
                 this.writeNode("procedure", options, node);
                 this.writeNode("observedProperty", options, node);
                 this.writeNode("responseFormat", options, node);
-                this.writeNode("resultModel", options, node);                                
+                this.writeNode("resultModel", options, node);
                 this.writeNode("responseMode", options, node);
-                return node; 
+                return node;
             },
             "responseFormat": function(options) {
-                return this.createElementNSPlus("responseFormat", 
+                return this.createElementNSPlus("responseFormat",
                     {value: options.responseFormat});
             },
             "procedure": function(options) {
-                return this.createElementNSPlus("procedure", 
+                return this.createElementNSPlus("procedure",
                     {value: options.procedure});
             },
             "offering": function(options) {
-                return this.createElementNSPlus("offering", {value: 
+                return this.createElementNSPlus("offering", {value:
                     options.offering});
             },
             "observedProperty": function(options) {
-                return this.createElementNSPlus("observedProperty", 
+                return this.createElementNSPlus("observedProperty",
                     {value: options.observedProperty});
             },
             "eventTime": function(options) {
@@ -220,18 +220,18 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
                 return node;
             },
             "resultModel": function(options) {
-                return this.createElementNSPlus("resultModel", {value: 
+                return this.createElementNSPlus("resultModel", {value:
                     options.resultModel});
             },
             "responseMode": function(options) {
-                return this.createElementNSPlus("responseMode", {value: 
+                return this.createElementNSPlus("responseMode", {value:
                     options.responseMode});
             }
         },
         "ogc": {
             "TM_Equals": function(options) {
                 var node = this.createElementNSPlus("ogc:TM_Equals");
-                this.writeNode("ogc:PropertyName", {property: 
+                this.writeNode("ogc:PropertyName", {property:
                     "urn:ogc:data:time:iso8601"}, node);
                 if (options.eventTime === 'latest') {
                     this.writeNode("gml:TimeInstant", {value: 'latest'}, node);
@@ -239,7 +239,7 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
                 return node;
             },
             "PropertyName": function(options) {
-                return this.createElementNSPlus("ogc:PropertyName", 
+                return this.createElementNSPlus("ogc:PropertyName",
                     {value: options.property});
             }
         },
@@ -250,13 +250,13 @@ OpenLayers.Format.SOSGetObservation = OpenLayers.Class(OpenLayers.Format.XML, {
                 return node;
             },
             "timePosition": function(options) {
-                var node = this.createElementNSPlus("gml:timePosition", 
+                var node = this.createElementNSPlus("gml:timePosition",
                     {value: options.value});
                 return node;
             }
         }
     },
-    
-    CLASS_NAME: "OpenLayers.Format.SOSGetObservation" 
+
+    CLASS_NAME: "OpenLayers.Format.SOSGetObservation"
 
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,22 +12,22 @@
  * Class: OpenLayers.handler.Keyboard
  * A handler for keyboard events.  Create a new instance with the
  *     <OpenLayers.Handler.Keyboard> constructor.
- * 
+ *
  * Inherits from:
- *  - <OpenLayers.Handler> 
+ *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Keyboard = OpenLayers.Class(OpenLayers.Handler, {
 
     /* http://www.quirksmode.org/js/keys.html explains key x-browser
         key handling quirks in pretty nice detail */
 
-    /** 
+    /**
      * Constant: KEY_EVENTS
      * keydown, keypress, keyup
      */
     KEY_EVENTS: ["keydown", "keyup"],
 
-    /** 
+    /**
     * Property: eventListener
     * {Function}
     */
@@ -36,7 +36,7 @@ OpenLayers.Handler.Keyboard = OpenLayers.Class(OpenLayers.Handler, {
     /**
      * Constructor: OpenLayers.Handler.Keyboard
      * Returns a new keyboard handler.
-     * 
+     *
      * Parameters:
      * control - {<OpenLayers.Control>} The control that is making use of
      *     this handler.  If a handler is being used without a control, the
@@ -56,7 +56,7 @@ OpenLayers.Handler.Keyboard = OpenLayers.Class(OpenLayers.Handler, {
             this.handleKeyEvent, this
         );
     },
-    
+
     /**
      * Method: destroy
      */
@@ -97,7 +97,7 @@ OpenLayers.Handler.Keyboard = OpenLayers.Class(OpenLayers.Handler, {
     },
 
     /**
-     * Method: handleKeyEvent 
+     * Method: handleKeyEvent
      */
     handleKeyEvent: function (evt) {
         if (this.checkModifiers(evt)) {

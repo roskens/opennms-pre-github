@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,16 +12,16 @@
  * @requires OpenLayers/Projection.js
  */
 
-/**  
+/**
  * Class: OpenLayers.Format.OSM
- * OSM parser. Create a new instance with the 
+ * OSM parser. Create a new instance with the
  *     <OpenLayers.Format.OSM> constructor.
  *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * APIProperty: checkTags
      * {Boolean} Should tags be checked to determine whether something
@@ -36,16 +36,16 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
      * Must be set when creating the format. Will only be used if checkTags
      * is set.
      */
-    interestingTagsExclude: null, 
-    
+    interestingTagsExclude: null,
+
     /**
      * APIProperty: areaTags
-     * {Array} List of tags indicating that something is an area.  
-     * Must be set when creating the format. Will only be used if 
+     * {Array} List of tags indicating that something is an area.
+     * Must be set when creating the format. Will only be used if
      * checkTags is true.
      */
-    areaTags: null, 
-    
+    areaTags: null,
+
     /**
      * Constructor: OpenLayers.Format.OSM
      * Create a new parser for OSM.
@@ -56,20 +56,20 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
      */
     initialize: function(options) {
         var layer_defaults = {
-          'interestingTagsExclude': ['source', 'source_ref', 
+          'interestingTagsExclude': ['source', 'source_ref',
               'source:ref', 'history', 'attribution', 'created_by'],
           'areaTags': ['area', 'building', 'leisure', 'tourism', 'ruins',
-              'historic', 'landuse', 'military', 'natural', 'sport'] 
+              'historic', 'landuse', 'military', 'natural', 'sport']
         };
-          
+
         layer_defaults = OpenLayers.Util.extend(layer_defaults, options);
-        
+
         var interesting = {};
         for (var i = 0; i < layer_defaults.interestingTagsExclude.length; i++) {
             interesting[layer_defaults.interestingTagsExclude[i]] = true;
         }
         layer_defaults.interestingTagsExclude = interesting;
-        
+
         var area = {};
         for (var i = 0; i < layer_defaults.areaTags.length; i++) {
             area[layer_defaults.areaTags[i]] = true;
@@ -78,102 +78,102 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
 
         // OSM coordinates are always in longlat WGS84
         this.externalProjection = new OpenLayers.Projection("EPSG:4326");
-        
+
         OpenLayers.Format.XML.prototype.initialize.apply(this, [layer_defaults]);
     },
-    
+
     /**
      * APIMethod: read
      * Return a list of features from a OSM doc
-     
+
      * Parameters:
-     * data - {Element} 
+     * data - {Element}
      *
      * Returns:
      * An Array of <OpenLayers.Feature.Vector>s
      */
     read: function(doc) {
-        if (typeof doc == "string") { 
+        if (typeof doc == "string") {
             doc = OpenLayers.Format.XML.prototype.read.apply(this, [doc]);
         }
 
         var nodes = this.getNodes(doc);
         var ways = this.getWays(doc);
-        
+
         // Geoms will contain at least ways.length entries.
         var feat_list = new Array(ways.length);
-        
+
         for (var i = 0; i < ways.length; i++) {
             // We know the minimal of this one ahead of time. (Could be -1
             // due to areas/polygons)
             var point_list = new Array(ways[i].nodes.length);
-            
-            var poly = this.isWayArea(ways[i]) ? 1 : 0; 
+
+            var poly = this.isWayArea(ways[i]) ? 1 : 0;
             for (var j = 0; j < ways[i].nodes.length; j++) {
                var node = nodes[ways[i].nodes[j]];
-               
+
                var point = new OpenLayers.Geometry.Point(node.lon, node.lat);
-               
-               // Since OSM is topological, we stash the node ID internally. 
+
+               // Since OSM is topological, we stash the node ID internally.
                point.osm_id = parseInt(ways[i].nodes[j]);
                point_list[j] = point;
-               
-               // We don't display nodes if they're used inside other 
+
+               // We don't display nodes if they're used inside other
                // elements.
-               node.used = true; 
+               node.used = true;
             }
             var geometry = null;
-            if (poly) { 
+            if (poly) {
                 geometry = new OpenLayers.Geometry.Polygon(
                     new OpenLayers.Geometry.LinearRing(point_list));
-            } else {    
+            } else {
                 geometry = new OpenLayers.Geometry.LineString(point_list);
             }
             if (this.internalProjection && this.externalProjection) {
-                geometry.transform(this.externalProjection, 
+                geometry.transform(this.externalProjection,
                     this.internalProjection);
-            }        
+            }
             var feat = new OpenLayers.Feature.Vector(geometry,
                 ways[i].tags);
             feat.osm_id = parseInt(ways[i].id);
             feat.fid = "way." + feat.osm_id;
             feat_list[i] = feat;
-        } 
+        }
         for (var node_id in nodes) {
             var node = nodes[node_id];
             if (!node.used || this.checkTags) {
                 var tags = null;
-                
+
                 if (this.checkTags) {
                     var result = this.getTags(node.node, true);
                     if (node.used && !result[1]) {
                         continue;
                     }
                     tags = result[0];
-                } else { 
+                } else {
                     tags = this.getTags(node.node);
-                }    
-                
+                }
+
                 var feat = new OpenLayers.Feature.Vector(
                     new OpenLayers.Geometry.Point(node['lon'], node['lat']),
                     tags);
                 if (this.internalProjection && this.externalProjection) {
-                    feat.geometry.transform(this.externalProjection, 
+                    feat.geometry.transform(this.externalProjection,
                         this.internalProjection);
-                }        
-                feat.osm_id = parseInt(node_id); 
+                }
+                feat.osm_id = parseInt(node_id);
                 feat.fid = "node." + feat.osm_id;
                 feat_list.push(feat);
-            }   
+            }
             // Memory cleanup
             node.node = null;
-        }        
+        }
         return feat_list;
     },
 
     /**
      * Method: getNodes
-     * Return the node items from a doc.  
+     * Return the node items from a doc.
      *
      * Parameters:
      * node - {DOMElement} node to parse tags from
@@ -195,7 +195,7 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * Method: getWays
-     * Return the way items from a doc.  
+     * Return the way items from a doc.
      *
      * Parameters:
      * node - {DOMElement} node to parse tags from
@@ -208,22 +208,22 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
             var way_object = {
               id: way.getAttribute("id")
             };
-            
+
             way_object.tags = this.getTags(way);
-            
+
             var node_list = way.getElementsByTagName("nd");
-            
+
             way_object.nodes = new Array(node_list.length);
-            
+
             for (var j = 0; j < node_list.length; j++) {
                 way_object.nodes[j] = node_list[j].getAttribute("ref");
-            }  
+            }
             return_ways.push(way_object);
         }
-        return return_ways; 
-        
-    },  
-    
+        return return_ways;
+
+    },
+
     /**
      * Method: getTags
      * Return the tags list attached to a specific DOM element.
@@ -231,10 +231,10 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
      * Parameters:
      * node - {DOMElement} node to parse tags from
      * interesting_tags - {Boolean} whether the return from this function should
-     *    return a boolean indicating that it has 'interesting tags' -- 
+     *    return a boolean indicating that it has 'interesting tags' --
      *    tags like attribution and source are ignored. (To change the list
      *    of tags, see interestingTagsExclude)
-     * 
+     *
      * Returns:
      * tags - {Object} hash of tags
      * interesting - {Boolean} if interesting_tags is passed, returns
@@ -251,12 +251,12 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
                 if (!this.interestingTagsExclude[key]) {
                     interesting = true;
                 }
-            }    
-        }  
-        return interesting_tags ? [tags, interesting] : tags;     
+            }
+        }
+        return interesting_tags ? [tags, interesting] : tags;
     },
 
-    /** 
+    /**
      * Method: isWayArea
      * Given a way object from getWays, check whether the tags and geometry
      * indicate something is an area.
@@ -264,10 +264,10 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
      * Returns:
      * {Boolean}
      */
-    isWayArea: function(way) { 
+    isWayArea: function(way) {
         var poly_shaped = false;
         var poly_tags = false;
-        
+
         if (way.nodes[0] == way.nodes[way.nodes.length - 1]) {
             poly_shaped = true;
         }
@@ -278,36 +278,36 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
                     break;
                 }
             }
-        }    
-        return poly_shaped && (this.checkTags ? poly_tags : true);            
-    }, 
+        }
+        return poly_shaped && (this.checkTags ? poly_tags : true);
+    },
 
     /**
-     * APIMethod: write 
+     * APIMethod: write
      * Takes a list of features, returns a serialized OSM format file for use
      * in tools like JOSM.
      *
      * Parameters:
      * features - {Array(<OpenLayers.Feature.Vector>)}
      */
-    write: function(features) { 
+    write: function(features) {
         if (!(features instanceof Array)) {
             features = [features];
         }
-        
+
         this.osm_id = 1;
         this.created_nodes = {};
         var root_node = this.createElementNS(null, "osm");
         root_node.setAttribute("version", "0.5");
         root_node.setAttribute("generator", "OpenLayers "+ OpenLayers.VERSION_NUMBER);
 
-        // Loop backwards, because the deserializer puts nodes last, and 
+        // Loop backwards, because the deserializer puts nodes last, and
         // we want them first if possible
         for(var i = features.length - 1; i >= 0; i--) {
             var nodes = this.createFeatureNodes(features[i]);
             for (var j = 0; j < nodes.length; j++) {
                 root_node.appendChild(nodes[j]);
-            }    
+            }
         }
         return OpenLayers.Format.XML.prototype.write.apply(this, [root_node]);
     },
@@ -333,7 +333,7 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return nodes;
     },
-    
+
     /**
      * Method: createXML
      * Takes a feature, returns a list of nodes from size 0->n.
@@ -353,26 +353,26 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
                 id = point.osm_id;
                 if (this.created_nodes[id]) {
                     already_exists = true;
-                }    
+                }
             } else {
                id = -this.osm_id;
-               this.osm_id++; 
+               this.osm_id++;
             }
             if (already_exists) {
                 node = this.created_nodes[id];
-            } else {    
+            } else {
                 var node = this.createElementNS(null, "node");
             }
             this.created_nodes[id] = node;
             node.setAttribute("id", id);
-            node.setAttribute("lon", geometry.x); 
+            node.setAttribute("lon", geometry.x);
             node.setAttribute("lat", geometry.y);
             if (point.attributes) {
                 this.serializeTags(point, node);
             }
             this.setState(point, node);
             return already_exists ? [] : [node];
-        }, 
+        },
         linestring: function(feature) {
             var nodes = [];
             var geometry = feature.geometry;
@@ -380,7 +380,7 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
                 id = feature.osm_id;
             } else {
                id = -this.osm_id;
-               this.osm_id++; 
+               this.osm_id++;
             }
             var way = this.createElementNS(null, "way");
             way.setAttribute("id", id);
@@ -401,12 +401,12 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             this.serializeTags(feature, way);
             nodes.push(way);
-            
+
             return nodes;
         },
         polygon: function(feature) {
             var attrs = OpenLayers.Util.extend({'area':'yes'}, feature.attributes);
-            var feat = new OpenLayers.Feature.Vector(feature.geometry.components[0], attrs); 
+            var feat = new OpenLayers.Feature.Vector(feature.geometry.components[0], attrs);
             feat.osm_id = feature.osm_id;
             return this.createXML['linestring'].apply(this, [feat]);
         }
@@ -430,7 +430,7 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
     },
 
     /**
-     * Method: setState 
+     * Method: setState
      * OpenStreetMap has a convention that 'state' is stored for modification or deletion.
      * This allows the file to be uploaded via JOSM or the bulk uploader tool.
      *
@@ -450,8 +450,8 @@ OpenLayers.Format.OSM = OpenLayers.Class(OpenLayers.Format.XML, {
             if (state) {
                 node.setAttribute("action", state);
             }
-        }    
+        }
     },
 
-    CLASS_NAME: "OpenLayers.Format.OSM" 
-});     
+    CLASS_NAME: "OpenLayers.Format.OSM"
+});

@@ -59,7 +59,7 @@ if (cible=="rouge") {comp_rouge=compo};
 if (cible=="vert") {comp_vert=compo};
 if (cible=="bleu") {comp_bleu=compo};
 if (comp_rouge<16) {pick_color="#0"+comp_rouge.toString(16)} else {pick_color="#"+comp_rouge.toString(16);};
-if (comp_vert<16) {pick_color=pick_color+"0"+comp_vert.toString(16)} else {pick_color=pick_color+comp_vert.toString(16)}; 
+if (comp_vert<16) {pick_color=pick_color+"0"+comp_vert.toString(16)} else {pick_color=pick_color+comp_vert.toString(16)};
 if (comp_bleu<16) {pick_color=pick_color+"0"+comp_bleu.toString(16)} else {pick_color=pick_color+comp_bleu.toString(16)};
 obj=document.getElementById("test");
 obj.setAttributeNS(null,"style","fill:"+pick_color);

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -23,19 +23,19 @@ OpenLayers.Style2 = OpenLayers.Class({
      * {String} A unique id for this session.
      */
     id: null,
-    
+
     /**
      * APIProperty: name
      * {String} Style identifier.
      */
     name: null,
-    
+
     /**
      * APIProperty: title
      * {String} Title of this style.
      */
     title: null,
-    
+
     /**
      * APIProperty: description
      * {String} Description of this style.
@@ -48,25 +48,25 @@ OpenLayers.Style2 = OpenLayers.Class({
      *     according to the NamedLayer attribute of an SLD document.
      */
     layerName: null,
-    
+
     /**
      * APIProperty: isDefault
      * {Boolean}
      */
     isDefault: false,
-     
-    /** 
-     * APIProperty: rules 
+
+    /**
+     * APIProperty: rules
      * {Array(<OpenLayers.Rule>)} Collection of rendering rules.
      */
     rules: null,
-    
-    /** 
+
+    /**
      * Constructor: OpenLayers.Style2
      * Creates a style representing a collection of rendering rules.
      *
      * Parameters:
-     * config - {Object} An object containing properties to be set on the 
+     * config - {Object} An object containing properties to be set on the
      *     style.  Any documented properties may be set at construction.
      *
      * Return:
@@ -77,7 +77,7 @@ OpenLayers.Style2 = OpenLayers.Class({
         this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -91,7 +91,7 @@ OpenLayers.Style2 = OpenLayers.Class({
     /**
      * APIMethod: clone
      * Clones this style.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Style2>} Clone of this style.
      */
@@ -106,6 +106,6 @@ OpenLayers.Style2 = OpenLayers.Class({
         }
         return new OpenLayers.Style2(config);
     },
-    
+
     CLASS_NAME: "OpenLayers.Style2"
 });

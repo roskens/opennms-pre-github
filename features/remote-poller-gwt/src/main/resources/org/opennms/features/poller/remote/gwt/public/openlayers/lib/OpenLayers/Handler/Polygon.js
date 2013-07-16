@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,7 +19,7 @@
  *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Polygon = OpenLayers.Class(OpenLayers.Handler.Path, {
-    
+
     /**
      * Parameter: polygon
      * {<OpenLayers.Feature.Vector>}
@@ -51,7 +51,7 @@ OpenLayers.Handler.Polygon = OpenLayers.Class(OpenLayers.Handler.Path, {
     initialize: function(control, callbacks, options) {
         OpenLayers.Handler.Path.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
      * Method: createFeature
      * Add temporary geometries
@@ -93,7 +93,7 @@ OpenLayers.Handler.Polygon = OpenLayers.Class(OpenLayers.Handler.Path, {
         this.layer.drawFeature(this.polygon, this.style);
         this.layer.drawFeature(this.point, this.style);
     },
-    
+
     /**
      * Method: getSketch
      * Return the sketch feature.
@@ -125,9 +125,9 @@ OpenLayers.Handler.Polygon = OpenLayers.Class(OpenLayers.Handler.Path, {
      * Method: dblclick
      * Handle double-clicks.  Finish the geometry and send it back
      * to the control.
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     dblclick: function(evt) {
         if(!this.freehandMode(evt)) {

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,50 +19,50 @@
  * Class: OpenLayers.Format.GML
  * Read/Wite GML. Create a new instance with the <OpenLayers.Format.GML>
  *     constructor.  Supports the GML simple features profile.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /*
      * APIProperty: featureNS
      * {String} Namespace used for feature attributes.  Default is
      *     "http://mapserver.gis.umn.edu/mapserver".
      */
     featureNS: "http://mapserver.gis.umn.edu/mapserver",
-    
+
     /**
      * APIProperty: featurePrefix
      * {String} Namespace alias (or prefix) for feature nodes.  Default is
      *     "feature".
      */
     featurePrefix: "feature",
-    
+
     /*
      * APIProperty: featureName
      * {String} Element name for features. Default is "featureMember".
      */
-    featureName: "featureMember", 
-    
+    featureName: "featureMember",
+
     /*
      * APIProperty: layerName
      * {String} Name of data layer. Default is "features".
      */
     layerName: "features",
-    
+
     /**
      * APIProperty: geometryName
      * {String} Name of geometry element.  Defaults to "geometry".
      */
     geometryName: "geometry",
-    
-    /** 
+
+    /**
      * APIProperty: collectionName
      * {String} Name of featureCollection element.
      */
     collectionName: "FeatureCollection",
-    
+
     /**
      * APIProperty: gmlns
      * {String} GML Namespace.
@@ -74,14 +74,14 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Boolean} Extract attributes from GML.
      */
     extractAttributes: true,
-    
+
     /**
      * APIProperty: xy
      * {Boolean} Order of the GML coordinate true:(x,y) or false:(y,x)
      * Changing is not recommended, a new Format should be instantiated.
-     */ 
+     */
     xy: true,
-    
+
     /**
      * Constructor: OpenLayers.Format.GML
      * Create a new parser for GML.
@@ -103,8 +103,8 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * APIMethod: read
-     * Read data from a string, and return a list of features. 
-     * 
+     * Read data from a string, and return a list of features.
+     *
      * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
@@ -112,7 +112,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Array(<OpenLayers.Feature.Vector>)} An array of features.
      */
     read: function(data) {
-        if(typeof data == "string") { 
+        if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         var featureNodes = this.getElementsByTagNameNS(data.documentElement,
@@ -127,15 +127,15 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return features;
     },
-    
+
     /**
      * Method: parseFeature
      * This function is the core of the GML parsing code in OpenLayers.
      *    It creates the geometries that are then attached to the returned
      *    feature, and calls parseAttributes() to get attribute data out.
-     *    
+     *
      * Parameters:
-     * node - {DOMElement} A GML feature node. 
+     * node - {DOMElement} A GML feature node.
      */
     parseFeature: function(node) {
         // only accept one geometry per feature - look for highest "order"
@@ -154,9 +154,9 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                 if(parser) {
                     geometry = parser.apply(this, [nodeList[0]]);
                     if (this.internalProjection && this.externalProjection) {
-                        geometry.transform(this.externalProjection, 
-                                           this.internalProjection); 
-                    }                       
+                        geometry.transform(this.externalProjection,
+                                           this.internalProjection);
+                    }
                 } else {
                     OpenLayers.Console.error(OpenLayers.i18n(
                                 "unsupportedGeometryType", {'geomType':type}));
@@ -180,7 +180,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                 geometry = box.toGeometry();
             }
         }
-        
+
         // construct feature (optionally with attributes)
         var attributes;
         if(this.extractAttributes) {
@@ -188,13 +188,13 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         var feature = new OpenLayers.Feature.Vector(geometry, attributes);
         feature.bounds = bounds;
-        
+
         feature.gml = {
             featureType: node.firstChild.nodeName.split(":")[1],
             featureNS: node.firstChild.namespaceURI,
             featureNSPrefix: node.firstChild.prefix
         };
-                
+
         // assign fid - this can come from a "fid" or "id" attribute
         var childNode = node.firstChild;
         var fid;
@@ -211,14 +211,14 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         feature.fid = fid;
         return feature;
     },
-    
+
     /**
      * Property: parseGeometry
      * Properties of this object are the functions that parse geometries based
      *     on their type.
      */
     parseGeometry: {
-        
+
         /**
          * Method: parseGeometry.point
          * Given a GML node representing a point geometry, create an OpenLayers
@@ -275,12 +275,12 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                     }
                 }
             }
-                
+
             // preserve third dimension
             if(coords.length == 2) {
                 coords[2] = null;
             }
-            
+
             if (this.xy) {
                 return new OpenLayers.Geometry.Point(coords[0], coords[1],
                                                  coords[2]);
@@ -290,7 +290,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                                                  coords[2]);
             }
         },
-        
+
         /**
          * Method: parseGeometry.multipoint
          * Given a GML node representing a multipoint geometry, create an
@@ -317,7 +317,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return new OpenLayers.Geometry.MultiPoint(components);
         },
-        
+
         /**
          * Method: parseGeometry.linestring
          * Given a GML node representing a linestring geometry, create an
@@ -399,7 +399,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return line;
         },
-        
+
         /**
          * Method: parseGeometry.multilinestring
          * Given a GML node representing a multilinestring geometry, create an
@@ -427,7 +427,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return new OpenLayers.Geometry.MultiLineString(components);
         },
-        
+
         /**
          * Method: parseGeometry.polygon
          * Given a GML node representing a polygon geometry, create an
@@ -456,7 +456,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return new OpenLayers.Geometry.Polygon(components);
         },
-        
+
         /**
          * Method: parseGeometry.multipolygon
          * Given a GML node representing a multipolygon geometry, create an
@@ -484,22 +484,22 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return new OpenLayers.Geometry.MultiPolygon(components);
         },
-        
+
         envelope: function(node) {
             var components = [];
             var coordString;
             var envelope;
-            
+
             var lpoint = this.getElementsByTagNameNS(node, this.gmlns, "lowerCorner");
             if (lpoint.length > 0) {
                 var coords = [];
-                
+
                 if(lpoint.length > 0) {
                     coordString = lpoint[0].firstChild.nodeValue;
                     coordString = coordString.replace(this.regExes.trimSpace, "");
                     coords = coordString.split(this.regExes.splitSpace);
                 }
-                
+
                 if(coords.length == 2) {
                     coords[2] = null;
                 }
@@ -509,17 +509,17 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                     var lowerPoint = new OpenLayers.Geometry.Point(coords[1], coords[0],coords[2]);
                 }
             }
-            
+
             var upoint = this.getElementsByTagNameNS(node, this.gmlns, "upperCorner");
             if (upoint.length > 0) {
                 var coords = [];
-                
+
                 if(upoint.length > 0) {
                     coordString = upoint[0].firstChild.nodeValue;
                     coordString = coordString.replace(this.regExes.trimSpace, "");
                     coords = coordString.split(this.regExes.splitSpace);
                 }
-                
+
                 if(coords.length == 2) {
                     coords[2] = null;
                 }
@@ -529,18 +529,18 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                     var upperPoint = new OpenLayers.Geometry.Point(coords[1], coords[0],coords[2]);
                 }
             }
-            
+
             if (lowerPoint && upperPoint) {
                 components.push(new OpenLayers.Geometry.Point(lowerPoint.x, lowerPoint.y));
                 components.push(new OpenLayers.Geometry.Point(upperPoint.x, lowerPoint.y));
                 components.push(new OpenLayers.Geometry.Point(upperPoint.x, upperPoint.y));
                 components.push(new OpenLayers.Geometry.Point(lowerPoint.x, upperPoint.y));
                 components.push(new OpenLayers.Geometry.Point(lowerPoint.x, lowerPoint.y));
-                
+
                 var ring = new OpenLayers.Geometry.LinearRing(components);
                 envelope = new OpenLayers.Geometry.Polygon([ring]);
             }
-            return envelope; 
+            return envelope;
         },
 
         /**
@@ -574,9 +574,9 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                     parseFloat(endPoint[1]) );
             }
         }
-        
+
     },
-    
+
     /**
      * Method: parseAttributes
      *
@@ -625,11 +625,11 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return attributes;
     },
-    
+
     /**
      * APIMethod: write
-     * Generate a GML document string given a list of features. 
-     * 
+     * Generate a GML document string given a list of features.
+     *
      * Parameters:
      * features - {Array(<OpenLayers.Feature.Vector>)} List of features to
      *     serialize into a string.
@@ -649,7 +649,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         return OpenLayers.Format.XML.prototype.write.apply(this, [gml]);
     },
 
-    /** 
+    /**
      * Method: createFeatureXML
      * Accept an OpenLayers.Feature.Vector, and build a GML node for it.
      *
@@ -675,27 +675,27 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         featureContainer.setAttribute("fid", fid);
         featureContainer.appendChild(geomContainer);
         for(var attr in feature.attributes) {
-            var attrText = this.createTextNode(feature.attributes[attr]); 
+            var attrText = this.createTextNode(feature.attributes[attr]);
             var nodename = attr.substring(attr.lastIndexOf(":") + 1);
             var attrContainer = this.createElementNS(this.featureNS,
                                                      this.featurePrefix + ":" +
                                                      nodename);
             attrContainer.appendChild(attrText);
             featureContainer.appendChild(attrContainer);
-        }    
+        }
         featureNode.appendChild(featureContainer);
         return featureNode;
     },
-    
+
     /**
      * APIMethod: buildGeometryNode
      */
     buildGeometryNode: function(geometry) {
         if (this.externalProjection && this.internalProjection) {
             geometry = geometry.clone();
-            geometry.transform(this.internalProjection, 
+            geometry.transform(this.internalProjection,
                                this.externalProjection);
-        }    
+        }
         var className = geometry.CLASS_NAME;
         var type = className.substring(className.lastIndexOf(".") + 1);
         var builder = this.buildGeometry[type.toLowerCase()];
@@ -728,7 +728,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             gml.appendChild(this.buildCoordinatesNode(geometry));
             return gml;
         },
-        
+
         /**
          * Method: buildGeometry.multipoint
          * Given an OpenLayers multipoint geometry, create a GML multipoint.
@@ -743,7 +743,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             var gml = this.createElementNS(this.gmlns, "gml:MultiPoint");
             var points = geometry.components;
             var pointMember, pointGeom;
-            for(var i=0; i<points.length; i++) { 
+            for(var i=0; i<points.length; i++) {
                 pointMember = this.createElementNS(this.gmlns,
                                                    "gml:pointMember");
                 pointGeom = this.buildGeometry.point.apply(this,
@@ -751,9 +751,9 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
                 pointMember.appendChild(pointGeom);
                 gml.appendChild(pointMember);
             }
-            return gml;            
+            return gml;
         },
-        
+
         /**
          * Method: buildGeometry.linestring
          * Given an OpenLayers linestring geometry, create a GML linestring.
@@ -769,7 +769,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             gml.appendChild(this.buildCoordinatesNode(geometry));
             return gml;
         },
-        
+
         /**
          * Method: buildGeometry.multilinestring
          * Given an OpenLayers multilinestring geometry, create a GML
@@ -796,7 +796,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return gml;
         },
-        
+
         /**
          * Method: buildGeometry.linearring
          * Given an OpenLayers linearring geometry, create a GML linearring.
@@ -812,7 +812,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             gml.appendChild(this.buildCoordinatesNode(geometry));
             return gml;
         },
-        
+
         /**
          * Method: buildGeometry.polygon
          * Given an OpenLayers polygon geometry, create a GML polygon.
@@ -838,7 +838,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             }
             return gml;
         },
-        
+
         /**
          * Method: buildGeometry.multipolygon
          * Given an OpenLayers multipolygon geometry, create a GML multipolygon.
@@ -865,7 +865,7 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
             return gml;
 
         },
- 
+
         /**
          * Method: buildGeometry.bounds
          * Given an OpenLayers bounds, create a GML box.
@@ -889,8 +889,8 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
      * (code)
      * <gml:coordinates decimal="." cs="," ts=" ">...</gml:coordinates>
      * (end)
-     * Parameters: 
-     * geometry - {<OpenLayers.Geometry>} 
+     * Parameters:
+     * geometry - {<OpenLayers.Geometry>}
      *
      * Returns:
      * {XmlNode} created xmlNode
@@ -910,15 +910,15 @@ OpenLayers.Format.GML = OpenLayers.Class(OpenLayers.Format.XML, {
         } else {
             var points = (geometry.components) ? geometry.components : [geometry];
             for(var i=0; i<points.length; i++) {
-                parts.push(points[i].x + "," + points[i].y);                
-            }            
+                parts.push(points[i].x + "," + points[i].y);
+            }
         }
 
         var txtNode = this.createTextNode(parts.join(" "));
         coordinatesNode.appendChild(txtNode);
-        
+
         return coordinatesNode;
     },
 
-    CLASS_NAME: "OpenLayers.Format.GML" 
+    CLASS_NAME: "OpenLayers.Format.GML"
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,20 +17,20 @@
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * Property: bounds
      * {<OpenLayers.Bounds>} The current data bounds (in the same projection
      *     as the layer - not always the same projection as the map).
      */
     bounds: null,
-    
-    /** 
-     * Property: resolution 
-     * {Float} The current data resolution. 
-     */ 
-    resolution: null, 
-           
+
+    /**
+     * Property: resolution
+     * {Float} The current data resolution.
+     */
+    resolution: null,
+
     /**
      * APIProperty: ratio
      * {Float} The ratio of the data bounds to the viewport bounds (in each
@@ -38,9 +38,9 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
      */
     ratio: 2,
 
-    /** 
-     * Property: resFactor 
-     * {Float} Optional factor used to determine when previously requested 
+    /**
+     * Property: resFactor
+     * {Float} Optional factor used to determine when previously requested
      *     features are invalid.  If set, the resFactor will be compared to the
      *     resolution of the previous request to the current map resolution.
      *     If resFactor > (old / new) and 1/resFactor < (old / new).  If you
@@ -49,10 +49,10 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
      *     requested if the old resolution is 3 times the new, or if the new is
      *     3 times the old.  If the old bounds do not contain the new bounds
      *     new data will always be requested (with or without considering
-     *     resFactor). 
-     */ 
-    resFactor: null, 
-    
+     *     resFactor).
+     */
+    resFactor: null,
+
     /**
      * Property: response
      * {<OpenLayers.Protocol.Response>} The protocol response object returned
@@ -71,11 +71,11 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
     initialize: function(options) {
         OpenLayers.Strategy.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Method: activate
      * Set up strategy with regard to reading new batches of remote data.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully activated.
      */
@@ -93,11 +93,11 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * Method: deactivate
      * Tear down strategy with regard to reading new batches of remote data.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully deactivated.
      */
@@ -129,11 +129,11 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
         var mapBounds = this.getMapBounds();
         if ((options && options.force) || this.invalidBounds(mapBounds)) {
             this.calculateBounds(mapBounds);
-            this.resolution = this.layer.map.getResolution(); 
+            this.resolution = this.layer.map.getResolution();
             this.triggerRead();
         }
     },
-    
+
     /**
      * Method: getMapBounds
      * Get the map bounds expressed in the same projection as this layer.
@@ -153,9 +153,9 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
 
     /**
      * Method: invalidBounds
-     * Determine whether the previously requested set of features is invalid. 
-     *     This occurs when the new map bounds do not contain the previously 
-     *     requested bounds.  In addition, if <resFactor> is set, it will be 
+     * Determine whether the previously requested set of features is invalid.
+     *     This occurs when the new map bounds do not contain the previously
+     *     requested bounds.  In addition, if <resFactor> is set, it will be
      *     considered.
      *
      * Parameters:
@@ -163,7 +163,7 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
      *      retrieved from the map object if not provided
      *
      * Returns:
-     * {Boolean} 
+     * {Boolean}
      */
     invalidBounds: function(mapBounds) {
         if(!mapBounds) {
@@ -176,7 +176,7 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return invalid;
     },
- 
+
     /**
      * Method: calculateBounds
      *
@@ -198,7 +198,7 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
             center.lat + (dataHeight / 2)
         );
     },
-    
+
     /**
      * Method: triggerRead
      *
@@ -218,13 +218,13 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
             scope: this
         });
     },
- 
+
     /**
      * Method: createFilter
      * Creates a spatial BBOX filter. If the layer that this strategy belongs
-     * to has a filter property, this filter will be combined with the BBOX 
+     * to has a filter property, this filter will be combined with the BBOX
      * filter.
-     * 
+     *
      * Returns
      * {<OpenLayers.Filter>} The filter object.
      */
@@ -242,7 +242,7 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return filter;
     },
-   
+
     /**
      * Method: merge
      * Given a list of features, determine which ones to add to the layer.
@@ -273,6 +273,6 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
         this.response = null;
         this.layer.events.triggerEvent("loadend");
     },
-   
-    CLASS_NAME: "OpenLayers.Strategy.BBOX" 
+
+    CLASS_NAME: "OpenLayers.Strategy.BBOX"
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
 
 /**
  * Class: OpenLayers.Layer.Boxes
- * Draw divs as 'boxes' on the layer. 
+ * Draw divs as 'boxes' on the layer.
  *
  * Inherits from:
  *  - <OpenLayers.Layer.Markers>
@@ -22,20 +22,20 @@ OpenLayers.Layer.Boxes = OpenLayers.Class(OpenLayers.Layer.Markers, {
      * Constructor: OpenLayers.Layer.Boxes
      *
      * Parameters:
-     * name - {String} 
+     * name - {String}
      * options - {Object} Hashtable of extra options to tag onto the layer
      */
     initialize: function (name, options) {
         OpenLayers.Layer.Markers.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
-     * Method: drawMarker 
+     * Method: drawMarker
      * Calculate the pixel location for the marker, create it, and
      *    add it to the layer's div
      *
-     * Parameters: 
-     * marker - {<OpenLayers.Marker.Box>} 
+     * Parameters:
+     * marker - {<OpenLayers.Marker.Box>}
      */
     drawMarker: function(marker) {
         var bounds   = marker.bounds;
@@ -59,16 +59,16 @@ OpenLayers.Layer.Boxes = OpenLayers.Class(OpenLayers.Layer.Markers, {
 
 
     /**
-     * APIMethod: removeMarker 
-     * 
+     * APIMethod: removeMarker
+     *
      * Parameters:
-     * marker - {<OpenLayers.Marker.Box>} 
+     * marker - {<OpenLayers.Marker.Box>}
      */
     removeMarker: function(marker) {
         OpenLayers.Util.removeItem(this.markers, marker);
         if ((marker.div != null) &&
             (marker.div.parentNode == this.div) ) {
-            this.div.removeChild(marker.div);    
+            this.div.removeChild(marker.div);
         }
     },
 

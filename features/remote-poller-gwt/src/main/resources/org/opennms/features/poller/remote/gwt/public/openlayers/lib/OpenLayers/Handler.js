@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -22,7 +22,7 @@
  *     correspond to these abstract events - so instead of listening for
  *     individual browser events, they only listen for the abstract events
  *     defined by the handler.
- *     
+ *
  * Handlers are created by controls, which ultimately have the responsibility
  *     of making changes to the the state of the application.  Handlers
  *     themselves may make temporary changes, but in general are expected to
@@ -35,7 +35,7 @@ OpenLayers.Handler = OpenLayers.Class({
      * {String}
      */
     id: null,
-        
+
     /**
      * APIProperty: control
      * {<OpenLayers.Control>}. The control that initialized this handler.  The
@@ -74,7 +74,7 @@ OpenLayers.Handler = OpenLayers.Class({
      * {Boolean}
      */
     active: false,
-    
+
     /**
      * Property: evt
      * {Event} This property references the last event handled by the handler.
@@ -108,12 +108,12 @@ OpenLayers.Handler = OpenLayers.Class({
 
         var map = this.map || control.map;
         if (map) {
-            this.setMap(map); 
+            this.setMap(map);
         }
-        
+
         this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
     },
-    
+
     /**
      * Method: setMap
      */
@@ -139,7 +139,7 @@ OpenLayers.Handler = OpenLayers.Class({
             (evt.shiftKey ? OpenLayers.Handler.MOD_SHIFT : 0) |
             (evt.ctrlKey  ? OpenLayers.Handler.MOD_CTRL  : 0) |
             (evt.altKey   ? OpenLayers.Handler.MOD_ALT   : 0);
-    
+
         /* if it differs from the handler object's key mask,
            bail out of the event handler */
         return (keyModifiers == this.keyMask);
@@ -148,8 +148,8 @@ OpenLayers.Handler = OpenLayers.Class({
     /**
      * APIMethod: activate
      * Turn on the handler.  Returns false if the handler was already active.
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {Boolean} The handler was activated.
      */
     activate: function() {
@@ -160,17 +160,17 @@ OpenLayers.Handler = OpenLayers.Class({
         var events = OpenLayers.Events.prototype.BROWSER_EVENTS;
         for (var i=0, len=events.length; i<len; i++) {
             if (this[events[i]]) {
-                this.register(events[i], this[events[i]]); 
+                this.register(events[i], this[events[i]]);
             }
-        } 
+        }
         this.active = true;
         return true;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Turn off the handler.  Returns false if the handler was already inactive.
-     * 
+     *
      * Returns:
      * {Boolean} The handler was deactivated.
      */
@@ -182,9 +182,9 @@ OpenLayers.Handler = OpenLayers.Class({
         var events = OpenLayers.Events.prototype.BROWSER_EVENTS;
         for (var i=0, len=events.length; i<len; i++) {
             if (this[events[i]]) {
-                this.unregister(events[i], this[events[i]]); 
+                this.unregister(events[i], this[events[i]]);
             }
-        } 
+        }
         this.active = false;
         return true;
     },
@@ -196,7 +196,7 @@ OpenLayers.Handler = OpenLayers.Class({
     * Parameters:
     * name - {String} The key for the callback that is one of the properties
     *     of the handler's callbacks object.
-    * args - {Array(*)} An array of arguments (any type) with which to call 
+    * args - {Array(*)} An array of arguments (any type) with which to call
     *     the callback (defined by the control).
     */
     callback: function (name, args) {
@@ -220,10 +220,10 @@ OpenLayers.Handler = OpenLayers.Class({
     * unregister an event from the map
     */
     unregister: function (name, method) {
-        this.map.events.unregister(name, this, method);   
+        this.map.events.unregister(name, this, method);
         this.map.events.unregister(name, this, this.setEvent);
     },
-    
+
     /**
      * Method: setEvent
      * With each registered browser event, the handler sets its own evt
@@ -254,7 +254,7 @@ OpenLayers.Handler = OpenLayers.Class({
         // unregister event listeners
         this.deactivate();
         // eliminate circular references
-        this.control = this.map = null;        
+        this.control = this.map = null;
     },
 
     CLASS_NAME: "OpenLayers.Handler"

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,8 +17,8 @@
  *     constructor.  More detail on the REST API is available at
  *     http://sampleserver1.arcgisonline.com/ArcGIS/SDK/REST/index.html ;
  *     specifically, the URL provided to this layer should be an export service
- *     URL: http://sampleserver1.arcgisonline.com/ArcGIS/SDK/REST/export.html 
- * 
+ *     URL: http://sampleserver1.arcgisonline.com/ArcGIS/SDK/REST/export.html
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.Grid>
  */
@@ -26,19 +26,19 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * Constant: DEFAULT_PARAMS
-     * {Object} Hashtable of default parameter key/value pairs 
+     * {Object} Hashtable of default parameter key/value pairs
      */
-    DEFAULT_PARAMS: { 
+    DEFAULT_PARAMS: {
       format: "png"
     },
-        
+
     /**
      * APIProperty: isBaseLayer
      * {Boolean} Default is true for ArcGIS93Rest layer
      */
     isBaseLayer: true,
- 
- 
+
+
     /**
      * Constructor: OpenLayers.Layer.ArcGIS93Rest
      * Create a new ArcGIS93Rest layer object.
@@ -46,7 +46,7 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * Example:
      * (code)
      * var arcims = new OpenLayers.Layer.ArcGIS93Rest("MyName",
-     *                                    "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/export", 
+     *                                    "http://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/export",
      *                                    {
      *                                      layers: "0,1,2"
      *                                    });
@@ -69,38 +69,38 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
         newArguments.push(name, url, params, options);
         OpenLayers.Layer.Grid.prototype.initialize.apply(this, newArguments);
         OpenLayers.Util.applyDefaults(
-                       this.params, 
+                       this.params,
                        OpenLayers.Util.upperCaseObject(this.DEFAULT_PARAMS)
                        );
-                       
-        //layer is transparent        
-        if (this.params.TRANSPARENT && 
+
+        //layer is transparent
+        if (this.params.TRANSPARENT &&
             this.params.TRANSPARENT.toString().toLowerCase() == "true") {
-            
+
             // unless explicitly set in options, make layer an overlay
             if ( (options == null) || (!options.isBaseLayer) ) {
                 this.isBaseLayer = false;
-            } 
-            
-            // jpegs can never be transparent, so intelligently switch the 
+            }
+
+            // jpegs can never be transparent, so intelligently switch the
             //  format, depending on the browser's capabilities
             if (this.params.FORMAT == "jpg") {
                 this.params.FORMAT = OpenLayers.Util.alphaHack() ? "gif"
                                                                  : "png";
             }
         }
-    },    
+    },
 
-    
+
     /**
      * Method: destroy
      * Destroy this layer
      */
     destroy: function() {
-        // for now, nothing special to do here. 
-        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);  
-    },   
-    
+        // for now, nothing special to do here.
+        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);
+    },
+
     /**
          * Method: clone
          * Create a clone of this layer
@@ -109,7 +109,7 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
          * {<OpenLayers.Layer.ArcGIS93Rest>} An exact clone of this layer
          */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer.ArcGIS93Rest(this.name,
                                            this.url,
@@ -124,8 +124,8 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
         return obj;
     },
-    
-    
+
+
     /**
      * Method: getURL
      * Return an image url this layer.
@@ -144,7 +144,7 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var projWords = this.projection.getCode().split(":");
         var srid = projWords[projWords.length - 1];
 
-        var imageSize = this.getImageSize(); 
+        var imageSize = this.getImageSize();
         var newParams = {
             'BBOX': bounds.toBBOX(),
             'SIZE': imageSize.w + "," + imageSize.h,
@@ -175,10 +175,10 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var requestString = this.getFullRequestString(newParams);
         return requestString;
     },
-    
+
     /**
      * Method: setLayerFilter
-     * addTile creates a tile, initializes it, and adds it to the layer div. 
+     * addTile creates a tile, initializes it, and adds it to the layer div.
      *
      * Parameters:
      * id - {String} The id of the layer to which the filter applies.
@@ -195,7 +195,7 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
             delete this.layerDefs[id];
         }
     },
-    
+
     /**
      * Method: clearLayerFilter
      * Clears layer filters, either from a specific layer,
@@ -213,41 +213,41 @@ OpenLayers.Layer.ArcGIS93Rest = OpenLayers.Class(OpenLayers.Layer.Grid, {
             delete this.layerDefs;
         }
     },
-    
+
     /**
      * APIMethod: mergeNewParams
      * Catch changeParams and uppercase the new params to be merged in
      *     before calling changeParams on the super class.
-     * 
+     *
      *     Once params have been changed, the tiles will be reloaded with
      *     the new parameters.
-     * 
+     *
      * Parameters:
      * newParams - {Object} Hashtable of new params to use
      */
     mergeNewParams:function(newParams) {
         var upperParams = OpenLayers.Util.upperCaseObject(newParams);
         var newArguments = [upperParams];
-        return OpenLayers.Layer.Grid.prototype.mergeNewParams.apply(this, 
+        return OpenLayers.Layer.Grid.prototype.mergeNewParams.apply(this,
                                                              newArguments);
     },
 
     /**
      * Method: addTile
-     * addTile creates a tile, initializes it, and adds it to the layer div. 
+     * addTile creates a tile, initializes it, and adds it to the layer div.
      *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Tile.Image>} The added OpenLayers.Tile.Image
      */
     addTile:function(bounds,position) {
-        return new OpenLayers.Tile.Image(this, position, bounds, 
+        return new OpenLayers.Tile.Image(this, position, bounds,
                                          null, this.tileSize);
     },
 
-    
+
     CLASS_NAME: "OpenLayers.Layer.ArcGIS93Rest"
 });

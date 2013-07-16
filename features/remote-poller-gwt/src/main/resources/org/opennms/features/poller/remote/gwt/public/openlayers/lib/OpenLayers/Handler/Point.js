@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,12 +17,12 @@
  *     called with each change in the sketch and will receive the latest point
  *     drawn.  Create a new instance with the <OpenLayers.Handler.Point>
  *     constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
-    
+
     /**
      * Property: point
      * {<OpenLayers.Feature.Vector>} The currently drawn point
@@ -34,20 +34,20 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
      * {<OpenLayers.Layer.Vector>} The temporary drawing layer
      */
     layer: null,
-    
+
     /**
      * APIProperty: multi
      * {Boolean} Cast features to multi-part geometries before passing to the
      *     layer.  Default is false.
      */
     multi: false,
-    
+
     /**
-     * Property: drawing 
+     * Property: drawing
      * {Boolean} A point is being drawn
      */
     drawing: false,
-    
+
     /**
      * Property: mouseDown
      * {Boolean} The mouse is down
@@ -109,7 +109,7 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
 
         OpenLayers.Handler.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
      * APIMethod: activate
      * turn on the handler
@@ -132,7 +132,7 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
         this.map.addLayer(this.layer);
         return true;
     },
-    
+
     /**
      * Method: createFeature
      * Add temporary features
@@ -174,7 +174,7 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
         this.layer = null;
         return true;
     },
-    
+
     /**
      * Method: destroyFeature
      * Destroy the temporary geometries
@@ -218,11 +218,11 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
      * Method: click
      * Handle clicks.  Clicks are stopped from propagating to other listeners
      *     on map.events or other dom elements.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     click: function(evt) {
@@ -234,18 +234,18 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
      * Method: dblclick
      * Handle double-clicks.  Double-clicks are stopped from propagating to other
      *     listeners on map.events or other dom elements.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     dblclick: function(evt) {
         OpenLayers.Event.stop(evt);
         return false;
     },
-    
+
     /**
      * Method: modifyFeature
      * Modify the existing geometry given a pixel location.
@@ -269,7 +269,7 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
     drawFeature: function() {
         this.layer.drawFeature(this.point, this.style);
     },
-    
+
     /**
      * Method: getGeometry
      * Return the sketch geometry.  If <multi> is true, this will return
@@ -297,16 +297,16 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
         var geom = this.getGeometry();
         return geom && geom.clone();
     },
-  
+
     /**
      * Method: mousedown
      * Handle mouse down.  Adjust the geometry and redraw.
      * Return determines whether to propagate the event on the map.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mousedown: function(evt) {
@@ -335,11 +335,11 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
      * Method: mousemove
      * Handle mouse move.  Adjust the geometry and redraw.
      * Return determines whether to propagate the event on the map.
-     * 
+     *
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mousemove: function (evt) {
@@ -357,7 +357,7 @@ OpenLayers.Handler.Point = OpenLayers.Class(OpenLayers.Handler, {
      * Parameters:
      * evt - {Event} The browser event
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Allow event propagation
      */
     mouseup: function (evt) {

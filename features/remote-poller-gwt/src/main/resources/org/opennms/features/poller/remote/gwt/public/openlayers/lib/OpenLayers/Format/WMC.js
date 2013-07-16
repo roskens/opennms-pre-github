@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -16,13 +16,13 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WMC = OpenLayers.Class(OpenLayers.Format.Context, {
-    
+
     /**
      * APIProperty: defaultVersion
      * {String} Version number to assume if none found.  Default is "1.1.0".
      */
     defaultVersion: "1.1.0",
-    
+
     /**
      * Method: getParser
      * Get the WMC parser given a version. Create a new parser if it does not
@@ -76,17 +76,17 @@ OpenLayers.Format.WMC = OpenLayers.Class(OpenLayers.Format.Context, {
             opacity: layer.opacity,
             displayInLayerSwitcher: layer.displayInLayerSwitcher,
             singleTile: layer.singleTile,
-            tileSize: (layer.singleTile || !layer.tileSize) ? 
+            tileSize: (layer.singleTile || !layer.tileSize) ?
                 undefined : {width: layer.tileSize.w, height: layer.tileSize.h},
             minScale : (layer.options.resolutions ||
-                        layer.options.scales || 
-                        layer.options.maxResolution || 
-                        layer.options.minScale) ? 
+                        layer.options.scales ||
+                        layer.options.maxResolution ||
+                        layer.options.minScale) ?
                         layer.minScale : undefined,
             maxScale : (layer.options.resolutions ||
-                        layer.options.scales || 
-                        layer.options.minResolution || 
-                        layer.options.maxScale) ? 
+                        layer.options.scales ||
+                        layer.options.minResolution ||
+                        layer.options.maxScale) ?
                         layer.maxScale : undefined,
             formats: [{
                 value: layer.params["FORMAT"],
@@ -102,7 +102,7 @@ OpenLayers.Format.WMC = OpenLayers.Class(OpenLayers.Format.Context, {
         };
         return layerContext;
     },
-    
+
     /**
      * Method: toContext
      * Create a context object free from layer given a map or a
@@ -147,6 +147,6 @@ OpenLayers.Format.WMC = OpenLayers.Class(OpenLayers.Format.Context, {
         return context;
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMC" 
+    CLASS_NAME: "OpenLayers.Format.WMC"
 
 });

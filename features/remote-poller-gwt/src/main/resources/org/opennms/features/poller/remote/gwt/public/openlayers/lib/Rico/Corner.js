@@ -1,22 +1,22 @@
 /*
  * This file has been edited substantially from the Rico-released
  * version by the OpenLayers development team.
- *  
- *  Copyright 2005 Sabre Airline Solutions  
- *  
+ *
+ *  Copyright 2005 Sabre Airline Solutions
+ *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the
  *  License. You may obtain a copy of the License at
- *  
- *         http://www.apache.org/licenses/LICENSE-2.0  
- *  
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the * License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, * either express or
  * implied. See the License for the specific language governing
  * permissions * and limitations under the License.
  *
- */  
+ */
 OpenLayers.Rico = new Object();
 OpenLayers.Rico.Corner = {
 
@@ -48,15 +48,15 @@ OpenLayers.Rico.Corner = {
     * @param {String} newColor - The new background color to use.
     */
     changeColor: function(theDiv, newColor) {
-   
+
         theDiv.style.backgroundColor = newColor;
 
         var spanElements = theDiv.parentNode.getElementsByTagName("span");
-        
+
         for (var currIdx = 0; currIdx < spanElements.length; currIdx++) {
             spanElements[currIdx].style.backgroundColor = newColor;
         }
-    }, 
+    },
 
 
     /**   This is a helper function to change the background
@@ -70,15 +70,15 @@ OpenLayers.Rico.Corner = {
     * @param {int} newOpacity The new opacity to use (0-1).
     */
     changeOpacity: function(theDiv, newOpacity) {
-   
+
         var mozillaOpacity = newOpacity;
         var ieOpacity = 'alpha(opacity=' + newOpacity * 100 + ')';
-        
+
         theDiv.style.opacity = mozillaOpacity;
         theDiv.style.filter = ieOpacity;
 
         var spanElements = theDiv.parentNode.getElementsByTagName("span");
-        
+
         for (var currIdx = 0; currIdx < spanElements.length; currIdx++) {
             spanElements[currIdx].style.opacity = mozillaOpacity;
             spanElements[currIdx].style.filter = ieOpacity;
@@ -87,9 +87,9 @@ OpenLayers.Rico.Corner = {
     },
 
     /** this function takes care of redoing the rico cornering
-    *    
-    *    you can't just call updateRicoCorners() again and pass it a 
-    *    new options string. you have to first remove the divs that 
+    *
+    *    you can't just call updateRicoCorners() again and pass it a
+    *    new options string. you have to first remove the divs that
     *    rico puts on top and below the content div.
     *
     * @param {DOM} theDiv - A child of the outer <div> that was
@@ -102,12 +102,12 @@ OpenLayers.Rico.Corner = {
         var topRico = theDiv.parentNode.childNodes[0];
         //theDiv would be theDiv.parentNode.childNodes[1]
         var bottomRico = theDiv.parentNode.childNodes[2];
-       
+
         theDiv.parentNode.removeChild(topRico);
-        theDiv.parentNode.removeChild(bottomRico); 
+        theDiv.parentNode.removeChild(bottomRico);
 
         this.round(theDiv.parentNode, options);
-    }, 
+    },
 
    _roundCornersImpl: function(e, color, bgColor) {
       if(this.options.border) {

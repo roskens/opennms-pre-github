@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -38,14 +38,14 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
      *     the previous state managed by this control.
      */
     previous: null,
-    
+
     /**
      * APIProperty: previousOptions
      * {Object} Set this property on the options argument of the constructor
      *     to set optional properties on the <previous> control.
      */
     previousOptions: null,
-    
+
     /**
      * APIProperty: next
      * {<OpenLayers.Control>} A button type control whose trigger method restores
@@ -100,7 +100,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
      *     state.
      */
     previousStack: null,
-    
+
     /**
      * Property: listeners
      * {Object} An object containing properties corresponding to event types.
@@ -108,35 +108,35 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
      *     construction.
      */
     listeners: null,
-    
+
     /**
      * Property: restoring
      * {Boolean} Currently restoring a history state.  This is set to true
      *     before calling restore and set to false after restore returns.
      */
     restoring: false,
-    
+
     /**
-     * Constructor: OpenLayers.Control.NavigationHistory 
-     * 
+     * Constructor: OpenLayers.Control.NavigationHistory
+     *
      * Parameters:
      * options - {Object} An optional object whose properties will be used
      *     to extend the control.
      */
     initialize: function(options) {
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        
+
         this.registry = OpenLayers.Util.extend({
             "moveend": this.getState
         }, this.registry);
-        
+
         var previousOptions = {
             trigger: OpenLayers.Function.bind(this.previousTrigger, this),
             displayClass: this.displayClass + " " + this.displayClass + "Previous"
         };
         OpenLayers.Util.extend(previousOptions, this.previousOptions);
         this.previous = new OpenLayers.Control.Button(previousOptions);
-        
+
         var nextOptions = {
             trigger: OpenLayers.Function.bind(this.nextTrigger, this),
             displayClass: this.displayClass + " " + this.displayClass + "Next"
@@ -146,7 +146,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
 
         this.clear();
     },
-    
+
     /**
      * Method: onPreviousChange
      * Called when the previous history stack changes.
@@ -164,7 +164,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
             this.previous.deactivate();
         }
     },
-    
+
     /**
      * Method: onNextChange
      * Called when the next history stack changes.
@@ -182,7 +182,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
             this.next.deactivate();
         }
     },
-    
+
     /**
      * APIMethod: destroy
      * Destroy the control.
@@ -196,14 +196,14 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
             this[prop] = null;
         }
     },
-    
-    /** 
+
+    /**
      * Method: setMap
      * Set the map property for the control and <previous> and <next> child
      *     controls.
      *
      * Parameters:
-     * map - {<OpenLayers.Map>} 
+     * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         this.map = map;
@@ -220,7 +220,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
         this.next.draw();
         this.previous.draw();
     },
-    
+
     /**
      * Method: previousTrigger
      * Restore the previous state.  If no items are in the previous history
@@ -248,7 +248,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
         }
         return state;
     },
-    
+
     /**
      * APIMethod: nextTrigger
      * Restore the next state.  If no items are in the next history
@@ -273,7 +273,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
         }
         return state;
     },
-    
+
     /**
      * APIMethod: clear
      * Clear history.
@@ -297,7 +297,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
             center: this.map.getCenter(),
             resolution: this.map.getResolution(),
             projection: this.map.getProjectionObject(),
-            units: this.map.getProjectionObject().getUnits() || 
+            units: this.map.getProjectionObject().getUnits() ||
                 this.map.units || this.map.baseLayer.units
         };
     },
@@ -311,22 +311,22 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
      */
     restore: function(state) {
         var center, zoom;
-        if (this.map.getProjectionObject() == state.projection) { 
+        if (this.map.getProjectionObject() == state.projection) {
             zoom = this.map.getZoomForResolution(state.resolution);
             center = state.center;
         } else {
             center = state.center.clone();
             center.transform(state.projection, this.map.getProjectionObject());
             var sourceUnits = state.units;
-            var targetUnits = this.map.getProjectionObject().getUnits() || 
+            var targetUnits = this.map.getProjectionObject().getUnits() ||
                 this.map.units || this.map.baseLayer.units;
-            var resolutionFactor = sourceUnits && targetUnits ? 
+            var resolutionFactor = sourceUnits && targetUnits ?
                 OpenLayers.INCHES_PER_UNIT[sourceUnits] / OpenLayers.INCHES_PER_UNIT[targetUnits] : 1;
-            zoom = this.map.getZoomForResolution(resolutionFactor*state.resolution); 
+            zoom = this.map.getZoomForResolution(resolutionFactor*state.resolution);
         }
         this.map.setCenter(center, zoom);
     },
-    
+
     /**
      * Method: setListeners
      * Sets functions to be registered in the listeners object.
@@ -381,7 +381,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
         }
         return activated;
     },
-    
+
     /**
      * Method: initStack
      * Called after the control is activated if the previous history stack is
@@ -392,7 +392,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
             this.listeners.moveend();
         }
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the control.  This unregisters any listeners.
@@ -417,7 +417,7 @@ OpenLayers.Control.NavigationHistory = OpenLayers.Class(OpenLayers.Control, {
         }
         return deactivated;
     },
-    
+
     CLASS_NAME: "OpenLayers.Control.NavigationHistory"
 });
 

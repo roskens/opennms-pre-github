@@ -55,7 +55,7 @@ function MapTabs(id,parentNode,width,tabwidth,tabheight,tabStyles,activetabBGCol
 		alert("Error ("+id+"): wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");
 		return;
 	}
-	this.parentGroup = null; 
+	this.parentGroup = null;
 	//set the node reference to the parent group
 	var result = this.testParent();
 	if (result) {
@@ -80,7 +80,7 @@ MapTabs.prototype.testParent = function() {
     		this.parentGroup = this.parentNode;
     		nodeValid = true;
     	}
-    } else if (typeof(this.parentNode) == "string") { 
+    } else if (typeof(this.parentNode) == "string") {
     	//first test if Windows group exists
     	if (!document.getElementById(this.parentNode)) {
         	this.parentGroup = document.createElementNS(svgNS,"g");
@@ -111,7 +111,7 @@ MapTabs.prototype.createTabGroup = function() {
 		//create group
 		this.tabwindows[i]["group"] = document.createElementNS(svgNS,"g");
 		this.tabGroup.appendChild(this.tabwindows[i]["group"]);
-		
+
 		// add close tab button
 		this.tabwindows[i]["closeButton"] = document.createElementNS(svgNS,"g");
 		this.tabwindows[i]["closeButton"].setAttributeNS(null,"id",this.id+"__"+i+"_closeButton");
@@ -126,8 +126,8 @@ MapTabs.prototype.createTabGroup = function() {
 		rectClose.setAttributeNS(null,"height",buttonSide);
 		rectClose.setAttributeNS(null,"fill","dimgrey");
 		rectClose.setAttributeNS(null,"stroke","dimgrey");
-		rectClose.setAttributeNS(null,"opacity",0.9);		
-		
+		rectClose.setAttributeNS(null,"opacity",0.9);
+
 		var line1 = document.createElementNS(svgNS,"line");
 		line1.setAttributeNS(null,"id",this.id+"__"+i+"_closeButtonLine1");
 		line1.setAttributeNS(null,"x1",currentLeft+buttonLeftMargin+lineButtonMargin);
@@ -136,7 +136,7 @@ MapTabs.prototype.createTabGroup = function() {
 		line1.setAttributeNS(null,"y2",buttonLeftMargin+buttonSide-lineButtonMargin);
 		line1.setAttributeNS(null,"stroke-width",buttonPx);
 		line1.setAttributeNS(null,"stroke","black");
-		line1.setAttributeNS(null,"opacity",0.5);		
+		line1.setAttributeNS(null,"opacity",0.5);
 
 		var line2 = document.createElementNS(svgNS,"line");
 		line2.setAttributeNS(null,"id",this.id+"__"+i+"_closeButtonLine2");
@@ -146,13 +146,13 @@ MapTabs.prototype.createTabGroup = function() {
 		line2.setAttributeNS(null,"y2",buttonLeftMargin+buttonSide-lineButtonMargin);
 		line2.setAttributeNS(null,"stroke-width",buttonPx);
 		line2.setAttributeNS(null,"stroke","black");
-		line2.setAttributeNS(null,"opacity",0.5);		
-		 
+		line2.setAttributeNS(null,"opacity",0.5);
+
 		this.tabwindows[i]["closeButton"].appendChild(rectClose);
 		this.tabwindows[i]["closeButton"].appendChild(line1);
 		this.tabwindows[i]["closeButton"].appendChild(line2);
 		this.tabwindows[i]["closeButton"].addEventListener("click",this.closeTab,false);
-//		this.tabwindows[i]["closeButton"].setAttributeNS(null,"display","none");	
+//		this.tabwindows[i]["closeButton"].setAttributeNS(null,"display","none");
 
 		currentLeft += buttonMargin;
 		//create tabTitle
@@ -166,7 +166,7 @@ MapTabs.prototype.createTabGroup = function() {
 				value += "px";
 			}
 			this.tabwindows[i]["tabTitle"].setAttributeNS(null,attrib,value);
-		}		
+		}
 		//create tspans and add text contents
 		var tspan = document.createElementNS(svgNS,"tspan");
 		tspan.setAttributeNS(null,"dy",0);

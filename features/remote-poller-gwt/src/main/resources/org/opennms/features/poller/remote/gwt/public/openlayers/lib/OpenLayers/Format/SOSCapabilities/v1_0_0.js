@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,7 +12,7 @@
 /**
  * Class: OpenLayers.Format.SOSCapabilities.v1_0_0
  * Read SOS Capabilities version 1.0.0.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.SOSCapabilities>
  */
@@ -40,10 +40,10 @@ OpenLayers.Format.SOSCapabilities.v1_0_0 = OpenLayers.Class(
         splitSpace: (/\s+/),
         trimComma: (/\s*,\s*/g)
     },
-    
+
     /**
      * Constructor: OpenLayers.Format.SOSCapabilities.v1_0_0
-     * Create a new parser for SOS capabilities version 1.0.0. 
+     * Create a new parser for SOS capabilities version 1.0.0.
      *
      * Parameters:
      * options - {Object} An optional object whose properties will be set on
@@ -57,8 +57,8 @@ OpenLayers.Format.SOSCapabilities.v1_0_0 = OpenLayers.Class(
     /**
      * APIMethod: read
      * Read capabilities data from a string, and return info about the SOS.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -129,15 +129,15 @@ OpenLayers.Format.SOSCapabilities.v1_0_0 = OpenLayers.Class(
                 this.readChildNodes(node, offering.time);
             },
             "procedure": function(node, offering) {
-                offering.procedures.push(this.getAttributeNS(node, 
+                offering.procedures.push(this.getAttributeNS(node,
                     this.namespaces.xlink, "href"));
             },
             "observedProperty": function(node, offering) {
-                offering.observedProperties.push(this.getAttributeNS(node, 
+                offering.observedProperties.push(this.getAttributeNS(node,
                     this.namespaces.xlink, "href"));
             },
             "featureOfInterest": function(node, offering) {
-                offering.featureOfInterestIds.push(this.getAttributeNS(node, 
+                offering.featureOfInterestIds.push(this.getAttributeNS(node,
                     this.namespaces.xlink, "href"));
             },
             "responseFormat": function(node, offering) {
@@ -151,8 +151,8 @@ OpenLayers.Format.SOSCapabilities.v1_0_0 = OpenLayers.Class(
             }
         },
         "ows": OpenLayers.Format.OWSCommon.v1_1_0.prototype.readers["ows"]
-    },    
-    
-    CLASS_NAME: "OpenLayers.Format.SOSCapabilities.v1_0_0" 
+    },
+
+    CLASS_NAME: "OpenLayers.Format.SOSCapabilities.v1_0_0"
 
 });

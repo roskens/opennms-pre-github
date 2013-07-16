@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -67,13 +67,13 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      * {<OpenLayers.Layer.Vector>}
      */
     layer: null,
-    
+
     /**
      * APIProperty: preserveAspectRatio
      * {Boolean} set to true to not change the feature's aspect ratio.
      */
     preserveAspectRatio: false,
-    
+
     /**
      * APIProperty: rotate
      * {Boolean} set to false if rotation should be disabled. Default is true.
@@ -81,21 +81,21 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     active.
      */
     rotate: true,
-    
+
     /**
      * APIProperty: feature
      * {<OpenLayers.Feature.Vector>} Feature currently available for
      *     transformation. Read-only, use <setFeature> to set it manually.
      */
     feature: null,
-    
+
     /**
      * APIProperty: renderIntent
      * {String|Object} Render intent for the transformation box and
      *     handles. A symbolizer object can also be provided here.
      */
     renderIntent: "temporary",
-    
+
     /**
      * APIProperty: rotationHandleSymbolizer
      * {Object|String} Optional. A custom symbolizer for the rotation handles.
@@ -110,21 +110,21 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     (end)
      */
     rotationHandleSymbolizer: null,
-    
+
     /**
      * APIProperty: box
      * {<OpenLayers.Feature.Vector>} The transformation box rectangle.
      *     Read-only.
      */
     box: null,
-    
+
     /**
      * APIProperty: center
      * {<OpenLayers.Geometry.Point>} The center of the feature bounds.
      * Read-only.
      */
     center: null,
-    
+
     /**
      * APIProperty: scale
      * {Float} The scale of the feature, relative to the scale the time the
@@ -132,7 +132,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     listeners.
      */
     scale: 1,
-    
+
     /**
      * APIProperty: ratio
      * {Float} The ratio of the feature relative to the ratio the time the
@@ -140,14 +140,14 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     listeners.
      */
     ratio: 1,
-    
+
     /**
      * Property: rotation
      * {Integer} the current rotation angle of the box. Read-only, except for
      *     *beforesetfeature* listeners.
      */
     rotation: 0,
-    
+
     /**
      * APIProperty: handles
      * {Array(<OpenLayers.Feature.Vector>)} The 8 handles currently available
@@ -155,7 +155,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     southwest corner. Read-only.
      */
     handles: null,
-    
+
     /**
      * APIProperty: rotationHandles
      * {Array(<OpenLayers.Feature.Vector>)} The 4 rotation handles currently
@@ -163,13 +163,13 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      *     the southwest corner. Read-only.
      */
     rotationHandles: null,
-    
+
     /**
      * Property: dragControl
      * {<OpenLayers.Control.DragFeature>}
      */
     dragControl: null,
-    
+
     /**
      * Constructor: OpenLayers.Control.TransformFeature
      * Create a new transform feature control.
@@ -200,9 +200,9 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
         }
 
         this.createBox();
-        this.createControl();        
+        this.createControl();
     },
-    
+
     /**
      * APIMethod: activate
      * Activates the control.
@@ -213,12 +213,12 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             this.dragControl.activate();
             this.layer.addFeatures([this.box]);
             this.rotate && this.layer.addFeatures(this.rotationHandles);
-            this.layer.addFeatures(this.handles);        
+            this.layer.addFeatures(this.handles);
             activated = true;
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivates the control.
@@ -234,10 +234,10 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: setMap
-     * 
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -250,7 +250,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
      * APIMethod: setFeature
      * Place the transformation box on a feature and start transforming it.
      * If the control is not active, it will be activated.
-     * 
+     *
      * Parameters:
      * feature - {<OpenLayers.Feature.Vector>}
      * initialParams - {Object} Initial values for rotation, scale or ratio.
@@ -266,7 +266,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             ratio: 1
         });
         var evt = {feature: feature};
-        
+
         var oldRotation = this.rotation;
         var oldCenter = this.center;
         OpenLayers.Util.extend(this, initialParams);
@@ -300,19 +300,19 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             ll = new OpenLayers.LonLat(featureBounds.left, featureBounds.bottom);
         }
         this.handles[0].move(ll);
-        
+
         delete this._setfeature;
 
         this.events.triggerEvent("setfeature", evt);
     },
-    
+
     /**
      * Method: createBox
      * Creates the box with all handles and transformation handles.
      */
     createBox: function() {
         var control = this;
-        
+
         this.center = new OpenLayers.Geometry.Point(0, 0);
         var box = new OpenLayers.Feature.Vector(
             new OpenLayers.Geometry.LineString([
@@ -328,7 +328,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             ]), null,
             typeof this.renderIntent == "string" ? null : this.renderIntent
         );
-        
+
         // Override for box move - make sure that the center gets updated
         box.geometry.move = function(x, y) {
             control._moving = true;
@@ -357,7 +357,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
                 angle, center);
             this._handle.geometry.rotate(angle, center);
         };
-        
+
         // Override for handle move - make sure that the box and other handles
         // are updated, and finally transform the feature.
         var handleMoveFn = function(x, y) {
@@ -400,7 +400,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             control.box.geometry.rotate(control.rotation, centerGeometry);
             control.transformFeature({scale: scale, ratio: ratio});
         };
-        
+
         // Override for rotation handle move - make sure that the box and
         // other handles are updated, and finally transform the feature.
         var rotationHandleMoveFn = function(x, y){
@@ -430,7 +430,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
                 control._angle = 0;
                 control.box.geometry.rotate(angle, centerGeometry);
                 control.transformFeature({rotation: angle});
-            } 
+            }
         };
 
         var handles = new Array(8);
@@ -456,12 +456,12 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             geom._handle = handle;
             handles[i] = handle;
         }
-        
+
         this.box = box;
         this.rotationHandles = rotationHandles;
         this.handles = handles;
     },
-    
+
     /**
      * Method: createControl
      * Creates a DragFeature control for this control.
@@ -504,7 +504,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             }
         });
     },
-    
+
     /**
      * Method: drawHandles
      * Draws the handles to match the box.
@@ -519,11 +519,11 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             layer.drawFeature(this.handles[i], this.renderIntent);
         }
     },
-    
+
     /**
      * Method: transformFeature
      * Transforms the feature.
-     * 
+     *
      * Parameters:
      * mods - {Object} An object with optional scale, ratio, rotation and
      *     center properties.
@@ -534,7 +534,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
             this.ratio *= (mods.ratio || 1);
             var oldRotation = this.rotation;
             this.rotation = (this.rotation + (mods.rotation || 0)) % 360;
-            
+
             if(this.events.triggerEvent("beforetransform", mods) !== false) {
                 var feature = this.feature;
                 var geom = feature.geometry;
@@ -554,7 +554,7 @@ OpenLayers.Control.TransformFeature = OpenLayers.Class(OpenLayers.Control, {
         this.layer.drawFeature(this.box, this.renderIntent);
         this.drawHandles();
     },
-        
+
     /**
      * APIMethod: destroy
      * Take care of things that are not handled in superclass.

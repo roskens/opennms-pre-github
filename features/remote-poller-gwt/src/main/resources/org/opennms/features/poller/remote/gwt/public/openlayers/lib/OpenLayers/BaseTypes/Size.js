@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,7 +14,7 @@ OpenLayers.Size = OpenLayers.Class({
      * {Number} width
      */
     w: 0.0,
-    
+
     /**
      * APIProperty: h
      * {Number} height
@@ -40,7 +40,7 @@ OpenLayers.Size = OpenLayers.Class({
      * Return the string representation of a size object
      *
      * Returns:
-     * {String} The string representation of OpenLayers.Size object. 
+     * {String} The string representation of OpenLayers.Size object.
      * (ex. <i>"w=55,h=66"</i>)
      */
     toString:function() {
@@ -67,7 +67,7 @@ OpenLayers.Size = OpenLayers.Class({
      * Parameters:
      * sz - {<OpenLayers.Size>}
      *
-     * Returns: 
+     * Returns:
      * {Boolean} The passed in size has the same h and w properties as this one.
      * Note that if sz passed in is null, returns false.
      *

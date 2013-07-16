@@ -77,7 +77,7 @@ OpenLayers.Lang.en = {
         "target='_blank'>click here</a>",
 
     'scale': "Scale = 1 : ${scaleDenom}",
-    
+
     //labels for the graticule control
     'W': 'W',
     'E': 'E',
@@ -93,7 +93,7 @@ OpenLayers.Lang.en = {
     'reprojectDeprecated':
         "You are using the 'reproject' option " +
         "on the ${layerName} layer. This option is deprecated: " +
-        "its use was designed to support displaying data over commercial " + 
+        "its use was designed to support displaying data over commercial " +
         "basemaps, but that functionality should now be achieved by using " +
         "Spherical Mercator support. More information is available from " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -124,5 +124,5 @@ OpenLayers.Lang.en = {
 
     // **** end ****
     'end': ''
-    
+
 };

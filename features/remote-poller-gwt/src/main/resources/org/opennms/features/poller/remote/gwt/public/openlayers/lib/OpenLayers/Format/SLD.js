@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,24 +17,24 @@
  * Class: OpenLayers.Format.SLD
  * Read/Wite SLD. Create a new instance with the <OpenLayers.Format.SLD>
  *     constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.SLD = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * APIProperty: defaultVersion
      * {String} Version number to assume if none found.  Default is "1.0.0".
      */
     defaultVersion: "1.0.0",
-    
+
     /**
      * APIProperty: version
      * {String} Specify a version string if one is known.
      */
     version: null,
-    
+
     /**
      * APIProperty: namedLayersAsArray
      * {Boolean} Generate a namedLayers array.  If false, the namedLayers
@@ -42,7 +42,7 @@ OpenLayers.Format.SLD = OpenLayers.Class(OpenLayers.Format.XML, {
      *     false.
      */
     namedLayersAsArray: false,
-    
+
     /**
      * Property: parser
      * {Object} Instance of the versioned parser.  Cached for multiple read and
@@ -89,7 +89,7 @@ OpenLayers.Format.SLD = OpenLayers.Class(OpenLayers.Format.XML, {
         var root = this.parser.write(sld);
         return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
     },
-    
+
     /**
      * APIMethod: read
      * Read and SLD doc and return an object representing the SLD.
@@ -127,5 +127,5 @@ OpenLayers.Format.SLD = OpenLayers.Class(OpenLayers.Format.XML, {
         return sld;
     },
 
-    CLASS_NAME: "OpenLayers.Format.SLD" 
+    CLASS_NAME: "OpenLayers.Format.SLD"
 });

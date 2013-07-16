@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,21 +9,21 @@
  *     one of the strategy subclasses instead.
  */
 OpenLayers.Strategy = OpenLayers.Class({
-    
+
     /**
      * Property: layer
      * {<OpenLayers.Layer.Vector>} The layer this strategy belongs to.
      */
     layer: null,
-    
+
     /**
      * Property: options
      * {Object} Any options sent to the constructor.
      */
     options: null,
 
-    /** 
-     * Property: active 
+    /**
+     * Property: active
      * {Boolean} The control is active.
      */
     active: null,
@@ -58,7 +58,7 @@ OpenLayers.Strategy = OpenLayers.Class({
         // set the active property here, so that user cannot override it
         this.active = false;
     },
-    
+
     /**
      * APIMethod: destroy
      * Clean up the strategy.
@@ -79,7 +79,7 @@ OpenLayers.Strategy = OpenLayers.Class({
     setLayer: function(layer) {
         this.layer = layer;
     },
-    
+
     /**
      * Method: activate
      * Activate the strategy.  Register any listeners, do appropriate setup.
@@ -95,7 +95,7 @@ OpenLayers.Strategy = OpenLayers.Class({
         }
         return false;
     },
-    
+
     /**
      * Method: deactivate
      * Deactivate the strategy.  Unregister any listeners, do appropriate
@@ -112,6 +112,6 @@ OpenLayers.Strategy = OpenLayers.Class({
         }
         return false;
     },
-   
-    CLASS_NAME: "OpenLayers.Strategy" 
+
+    CLASS_NAME: "OpenLayers.Strategy"
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,13 +10,13 @@
 /**
  * Class: OpenLayers.Format.WMSCapabilities.v1_1
  * Abstract class not to be instantiated directly.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMSCapabilities.v1>
  */
 OpenLayers.Format.WMSCapabilities.v1_1 = OpenLayers.Class(
     OpenLayers.Format.WMSCapabilities.v1, {
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -79,11 +79,11 @@ OpenLayers.Format.WMSCapabilities.v1_1 = OpenLayers.Class(
                 var rad2 = Math.pow(2, 0.5);
                 var ipm = OpenLayers.INCHES_PER_UNIT["m"];
                 obj.maxScale = parseFloat(
-                    ((min / rad2) * ipm * 
+                    ((min / rad2) * ipm *
                         OpenLayers.DOTS_PER_INCH).toPrecision(13)
                 );
                 obj.minScale = parseFloat(
-                    ((max / rad2) * ipm * 
+                    ((max / rad2) * ipm *
                         OpenLayers.DOTS_PER_INCH).toPrecision(13)
                 );
             },
@@ -100,9 +100,9 @@ OpenLayers.Format.WMSCapabilities.v1_1 = OpenLayers.Class(
                 var name = node.getAttribute("name").toLowerCase();
                 if (name in obj["dimensions"]) {
                     var extent = obj.dimensions[name];
-                    extent.nearestVal = 
+                    extent.nearestVal =
                         node.getAttribute("nearestValue") === "1";
-                    extent.multipleVal = 
+                    extent.multipleVal =
                         node.getAttribute("multipleValues") === "1";
                     extent.current = node.getAttribute("current") === "1";
                     extent["default"] = node.getAttribute("default") || "";
@@ -113,6 +113,6 @@ OpenLayers.Format.WMSCapabilities.v1_1 = OpenLayers.Class(
         }, OpenLayers.Format.WMSCapabilities.v1.prototype.readers["wms"])
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_1" 
+    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_1"
 
 });

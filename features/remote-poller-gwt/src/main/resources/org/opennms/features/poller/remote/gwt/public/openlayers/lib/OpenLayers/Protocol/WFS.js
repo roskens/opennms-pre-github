@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -31,11 +31,11 @@ OpenLayers.Protocol.WFS = function(options) {
  *     the assumption that a WFS requests can be issued at the same URL as
  *     WMS requests and that a WFS featureType exists with the same name as the
  *     WMS layer.
- *     
+ *
  * This function is designed to auto-configure <url>, <featureType>,
  *     <featurePrefix> and <srsName> for WFS <version> 1.1.0. Note that
  *     srsName matching with the WMS layer will not work with WFS 1.0.0..
- * 
+ *
  * Parameters:
  * layer - {<OpenLayers.Layer.WMS>} WMS layer that has a matching WFS
  *     FeatureType at the same server url with the same typename.

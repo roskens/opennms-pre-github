@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,7 +19,7 @@
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.  Properties
@@ -28,20 +28,20 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      *     <setNamespace> to add or set a namespace alias after construction.
      */
     namespaces: null,
-    
+
     /**
      * Property: namespaceAlias
      * {Object} Mapping of namespace URI to namespace alias.  This object
      *     is read-only.  Use <setNamespace> to add or set a namespace alias.
      */
     namespaceAlias: null,
-    
+
     /**
      * Property: defaultPrefix
      * {String} The default namespace alias for creating element nodes.
      */
     defaultPrefix: null,
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -51,7 +51,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      *     from the parent.
      */
     readers: {},
-    
+
     /**
      * Property: writers
      * As a compliment to the <readers> property, this structure contains public
@@ -92,7 +92,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
             this.namespaceAlias[this.namespaces[alias]] = alias;
         }
     },
-    
+
     /**
      * APIMethod: destroy
      * Clean up.
@@ -101,7 +101,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         this.xmldom = null;
         OpenLayers.Format.prototype.destroy.apply(this, arguments);
     },
-    
+
     /**
      * Method: setNamespace
      * Set a namespace alias and URI for the format.
@@ -121,7 +121,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      *
      * Parameters:
      * text - {String} A XML string
-     
+
      * Returns:
      * {DOMElement} A DOM node
      */
@@ -142,7 +142,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
                         xmldom = new ActiveXObject("Microsoft.XMLDOM");
                     } else {
                         xmldom = this.xmldom;
-                        
+
                     }
                     xmldom.loadXML(text);
                     return xmldom;
@@ -173,7 +173,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     /**
      * APIMethod: write
      * Serialize a DOM node into a XML string.
-     * 
+     *
      * Parameters:
      * node - {DOMElement} A DOM node.
      *
@@ -212,7 +212,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      * Parameters:
      * uri - {String} Namespace URI for the element.
      * name - {String} The qualified name of the element (prefix:localname).
-     * 
+     *
      * Returns:
      * {Element} A DOM element with namespace.
      */
@@ -235,11 +235,11 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      * Create a text node.  This node can be appended to another node with
      *     the standard node.appendChild method.  For cross-browser support,
      *     this method must be used instead of document.createTextNode.
-     * 
+     *
      * Parameters:
      * text - {String} The text of the node.
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {DOMElement} A DOM text node.
      */
     createTextNode: function(text) {
@@ -261,12 +261,12 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      *     To return all nodes in a given namespace, use '*' for the name
      *     argument.  To return all nodes of a given (local) name, regardless
      *     of namespace, use '*' for the uri argument.
-     * 
+     *
      * Parameters:
      * node - {Element} Node on which to search for other nodes.
      * uri - {String} Namespace URI.
      * name - {String} Local name of the tag (without the prefix).
-     * 
+     *
      * Returns:
      * {NodeList} A node list or array of elements.
      */
@@ -295,12 +295,12 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     /**
      * APIMethod: getAttributeNodeNS
      * Get an attribute node given the namespace URI and local name.
-     * 
+     *
      * Parameters:
      * node - {Element} Node on which to search for attribute nodes.
      * uri - {String} Namespace URI.
      * name - {String} Local name of the attribute (without the prefix).
-     * 
+     *
      * Returns:
      * {DOMElement} An attribute node or null if none found.
      */
@@ -329,12 +329,12 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     /**
      * APIMethod: getAttributeNS
      * Get an attribute value given the namespace URI and local name.
-     * 
+     *
      * Parameters:
      * node - {Element} Node on which to search for an attribute.
      * uri - {String} Namespace URI.
      * name - {String} Local name of the attribute (without the prefix).
-     * 
+     *
      * Returns:
      * {String} An attribute value or and empty string if none found.
      */
@@ -350,7 +350,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return attributeValue;
     },
-    
+
     /**
      * APIMethod: getChildValue
      * Get the textual value of the node if it exists, or return an
@@ -412,7 +412,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return value;
     },
-    
+
     /**
      * APIMethod: isSimpleContent
      * Test if the given node has only simple content (i.e. no child element
@@ -422,7 +422,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      * node - {DOMElement} An element node.
      *
      * Returns:
-     * {Boolean} The node has no child element nodes (nodes of type 1). 
+     * {Boolean} The node has no child element nodes (nodes of type 1).
      */
     isSimpleContent: function(node) {
         var simple = true;
@@ -434,7 +434,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return simple;
     },
-    
+
     /**
      * APIMethod: contentType
      * Determine the content type for a given node.
@@ -449,7 +449,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     contentType: function(node) {
         var simple = false,
             complex = false;
-            
+
         var type = OpenLayers.Format.XML.CONTENT_TYPE.EMPTY;
 
         for(var child=node.firstChild; child; child=child.nextSibling) {
@@ -466,7 +466,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
                 break;
             }
         }
-        
+
         if(complex && simple) {
             type = OpenLayers.Format.XML.CONTENT_TYPE.MIXED;
         } else if(complex) {
@@ -481,12 +481,12 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      * APIMethod: hasAttributeNS
      * Determine whether a node has a particular attribute matching the given
      *     name and namespace.
-     * 
+     *
      * Parameters:
      * node - {Element} Node on which to search for an attribute.
      * uri - {String} Namespace URI.
      * name - {String} Local name of the attribute (without the prefix).
-     * 
+     *
      * Returns:
      * {Boolean} The node has an attribute matching the name and namespace.
      */
@@ -499,7 +499,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return found;
     },
-    
+
     /**
      * APIMethod: setAttributeNS
      * Adds a new attribute or changes the value of an attribute with the given
@@ -576,7 +576,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return node;
     },
-    
+
     /**
      * Method: setAttributes
      * Set multiple attributes given key value pairs from an object.
@@ -715,7 +715,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     getChildEl: function(node, name, uri) {
         return node && this.getThisOrNextEl(node.firstChild, name, uri);
     },
-    
+
     /**
      * APIMethod: getNextEl
      * Get the next sibling element.  Optionally get the first sibling only
@@ -734,7 +734,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
     getNextEl: function(node, name, uri) {
         return node && this.getThisOrNextEl(node.nextSibling, name, uri);
     },
-    
+
     /**
      * Method: getThisOrNextEl
      * Return this node or the next element node.  Optionally get the first
@@ -776,7 +776,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return sibling || null;
     },
-    
+
     /**
      * APIMethod: lookupNamespaceURI
      * Takes a prefix and returns the namespace URI associated with it on the given
@@ -789,11 +789,11 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
      *
      * For browsers that don't support the attribute.ownerElement property, this
      *     method cannot be called on attribute nodes.
-     *     
+     *
      * Parameters:
      * node - {DOMElement} The node from which to start looking.
      * prefix - {String} The prefix to lookup or null to lookup the default namespace.
-     * 
+     *
      * Returns:
      * {String} The namespace URI for the given prefix.  Returns null if the prefix
      *     cannot be found or the node is the wrong type.
@@ -837,7 +837,7 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
                     case 10: // DOCUMENT_TYPE_NODE
                     case 11: // DOCUMENT_FRAGMENT_NODE
                         break outer;
-                    default: 
+                    default:
                         // TEXT_NODE (3), CDATA_SECTION_NODE (4), ENTITY_REFERENCE_NODE (5),
                         // PROCESSING_INSTRUCTION_NODE (7), COMMENT_NODE (8)
                         uri =  this.lookupNamespaceURI(node.parentNode, prefix);
@@ -847,10 +847,10 @@ OpenLayers.Format.XML = OpenLayers.Class(OpenLayers.Format, {
         }
         return uri;
     },
-    
-    CLASS_NAME: "OpenLayers.Format.XML" 
 
-});     
+    CLASS_NAME: "OpenLayers.Format.XML"
+
+});
 
 OpenLayers.Format.XML.CONTENT_TYPE = {EMPTY: 0, SIMPLE: 1, COMPLEX: 2, MIXED: 3};
 
@@ -866,11 +866,11 @@ OpenLayers.Format.XML.CONTENT_TYPE = {EMPTY: 0, SIMPLE: 1, COMPLEX: 2, MIXED: 3}
  *
  * For browsers that don't support the attribute.ownerElement property, this
  *     method cannot be called on attribute nodes.
- *     
+ *
  * Parameters:
  * node - {DOMElement} The node from which to start looking.
  * prefix - {String} The prefix to lookup or null to lookup the default namespace.
- * 
+ *
  * Returns:
  * {String} The namespace URI for the given prefix.  Returns null if the prefix
  *     cannot be found or the node is the wrong type.

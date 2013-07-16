@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,19 +11,19 @@
 /**
  * Class: OpenLayers.Format.SLD.v1_0_0
  * Write SLD version 1.0.0.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.SLD.v1>
  */
 OpenLayers.Format.SLD.v1_0_0 = OpenLayers.Class(
     OpenLayers.Format.SLD.v1, {
-    
+
     /**
      * Constant: VERSION
      * {String} 1.0.0
      */
     VERSION: "1.0.0",
-    
+
     /**
      * Property: schemaLocation
      * {String} http://www.opengis.net/sld
@@ -46,6 +46,6 @@ OpenLayers.Format.SLD.v1_0_0 = OpenLayers.Class(
         );
     },
 
-    CLASS_NAME: "OpenLayers.Format.SLD.v1_0_0" 
+    CLASS_NAME: "OpenLayers.Format.SLD.v1_0_0"
 
 });

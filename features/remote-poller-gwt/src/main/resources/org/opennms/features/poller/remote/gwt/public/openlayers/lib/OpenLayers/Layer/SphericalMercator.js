@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -27,12 +27,12 @@
  *
  * WKT:
  *     900913=PROJCS["WGS84 / Simple Mercator", GEOGCS["WGS 84",
- *     DATUM["WGS_1984", SPHEROID["WGS_1984", 6378137.0, 298.257223563]], 
- *     PRIMEM["Greenwich", 0.0], UNIT["degree", 0.017453292519943295], 
+ *     DATUM["WGS_1984", SPHEROID["WGS_1984", 6378137.0, 298.257223563]],
+ *     PRIMEM["Greenwich", 0.0], UNIT["degree", 0.017453292519943295],
  *     AXIS["Longitude", EAST], AXIS["Latitude", NORTH]],
- *     PROJECTION["Mercator_1SP_Google"], 
- *     PARAMETER["latitude_of_origin", 0.0], PARAMETER["central_meridian", 0.0], 
- *     PARAMETER["scale_factor", 1.0], PARAMETER["false_easting", 0.0], 
+ *     PROJECTION["Mercator_1SP_Google"],
+ *     PARAMETER["latitude_of_origin", 0.0], PARAMETER["central_meridian", 0.0],
+ *     PARAMETER["scale_factor", 1.0], PARAMETER["false_easting", 0.0],
  *     PARAMETER["false_northing", 0.0], UNIT["m", 1.0], AXIS["x", EAST],
  *     AXIS["y", NORTH], AUTHORITY["EPSG","900913"]]
  */
@@ -58,7 +58,7 @@ OpenLayers.Layer.SphericalMercator = {
     /**
      * Method: getLonLatFromViewPortPx
      * Get a map location from a pixel location
-     * 
+     *
      * Parameters:
      * viewPortPx - {<OpenLayers.Pixel>}
      *
@@ -70,7 +70,7 @@ OpenLayers.Layer.SphericalMercator = {
     getLonLatFromViewPortPx: function (viewPortPx) {
         return OpenLayers.Layer.prototype.getLonLatFromViewPortPx.apply(this, arguments);
     },
-    
+
     /**
      * Method: getViewPortPxFromLonLat
      * Get a pixel location from a map location
@@ -87,8 +87,8 @@ OpenLayers.Layer.SphericalMercator = {
         return OpenLayers.Layer.prototype.getViewPortPxFromLonLat.apply(this, arguments);
     },
 
-    /** 
-     * Method: initMercatorParameters 
+    /**
+     * Method: initMercatorParameters
      * Set up the mercator parameters on the layer: resolutions,
      *     projection, units.
      */
@@ -108,9 +108,9 @@ OpenLayers.Layer.SphericalMercator = {
      * Given a lon,lat in EPSG:4326, return a point in Spherical Mercator.
      *
      * Parameters:
-     * lon - {float} 
+     * lon - {float}
      * lat - {float}
-     * 
+     *
      * Returns:
      * {<OpenLayers.LonLat>} The coordinates transformed to Mercator.
      */
@@ -119,7 +119,7 @@ OpenLayers.Layer.SphericalMercator = {
         var y = Math.log(Math.tan((90 + lat) * Math.PI / 360)) / (Math.PI / 180);
 
         y = y * 20037508.34 / 180;
-        
+
         return new OpenLayers.LonLat(x, y);
     },
 
@@ -130,7 +130,7 @@ OpenLayers.Layer.SphericalMercator = {
      * Parameters:
      * x - {float} A map x in Spherical Mercator.
      * y - {float} A map y in Spherical Mercator.
-     * 
+     *
      * Returns:
      * {<OpenLayers.LonLat>} The coordinates transformed to EPSG:4326.
      */
@@ -140,19 +140,19 @@ OpenLayers.Layer.SphericalMercator = {
         var lat = (y / 20037508.34) * 180;
 
         lat = 180/Math.PI * (2 * Math.atan(Math.exp(lat * Math.PI / 180)) - Math.PI / 2);
-        
+
         return new OpenLayers.LonLat(lon, lat);
     },
 
     /**
-     * Method: projectForward 
+     * Method: projectForward
      * Given an object with x and y properties in EPSG:4326, modify the x,y
      * properties on the object to be the Spherical Mercator projected
      * coordinates.
      *
      * Parameters:
-     * point - {Object} An object with x and y properties. 
-     * 
+     * point - {Object} An object with x and y properties.
+     *
      * Returns:
      * {Object} The point, with the x and y properties transformed to spherical
      * mercator.
@@ -163,15 +163,15 @@ OpenLayers.Layer.SphericalMercator = {
         point.y = lonlat.lat;
         return point;
     },
-    
+
     /**
      * Method: projectInverse
      * Given an object with x and y properties in Spherical Mercator, modify
      * the x,y properties on the object to be the unprojected coordinates.
      *
      * Parameters:
-     * point - {Object} An object with x and y properties. 
-     * 
+     * point - {Object} An object with x and y properties.
+     *
      * Returns:
      * {Object} The point, with the x and y properties transformed from
      * spherical mercator to unprojected coordinates..

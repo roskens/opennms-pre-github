@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -8,25 +8,25 @@
  * @requires OpenLayers/Tile/Image.js
  */
 
-/** 
+/**
  * Class: OpenLayers.Layer.XYZ
  * The XYZ class is designed to make it easier for people who have tiles
- * arranged by a standard XYZ grid. 
- * 
+ * arranged by a standard XYZ grid.
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.Grid>
  */
 OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
-    
+
     /**
      * APIProperty: isBaseLayer
-     * Default is true, as this is designed to be a base tile source. 
+     * Default is true, as this is designed to be a base tile source.
      */
     isBaseLayer: true,
-    
+
     /**
      * APIProperty: sphericalMecator
-     * Whether the tile extents should be set to the defaults for 
+     * Whether the tile extents should be set to the defaults for
      *    spherical mercator. Useful for things like OpenStreetMap.
      *    Default is false, except for the OSM subclass.
      */
@@ -43,7 +43,7 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *     zoom are equivalent).
      */
     zoomOffset: 0,
-    
+
     /**
      * Constructor: OpenLayers.Layer.XYZ
      *
@@ -72,19 +72,19 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
         var newArguments = [name, url, {}, options];
         OpenLayers.Layer.Grid.prototype.initialize.apply(this, newArguments);
     },
-    
+
     /**
      * APIMethod: clone
      * Create a clone of this layer
      *
      * Parameters:
      * obj - {Object} Is this ever used?
-     * 
+     *
      * Returns:
      * {<OpenLayers.Layer.XYZ>} An exact clone of this OpenLayers.Layer.XYZ
      */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer.XYZ(this.name,
                                             this.url,
@@ -95,7 +95,7 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
         obj = OpenLayers.Layer.Grid.prototype.clone.apply(this, [obj]);
 
         return obj;
-    },    
+    },
 
     /**
      * Method: getUrl
@@ -110,9 +110,9 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
      */
     getURL: function (bounds) {
         var res = this.map.getResolution();
-        var x = Math.round((bounds.left - this.maxExtent.left) 
+        var x = Math.round((bounds.left - this.maxExtent.left)
             / (res * this.tileSize.w));
-        var y = Math.round((this.maxExtent.top - bounds.top) 
+        var y = Math.round((this.maxExtent.top - bounds.top)
             / (res * this.tileSize.h));
         var z = this.map.getZoom() + this.zoomOffset;
 
@@ -122,41 +122,41 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
         {
             url = this.selectUrl(s, url);
         }
-        
+
         var path = OpenLayers.String.format(url, {'x': x, 'y': y, 'z': z});
 
         return path;
     },
-    
+
     /**
      * Method: addTile
-     * addTile creates a tile, initializes it, and adds it to the layer div. 
-     * 
+     * addTile creates a tile, initializes it, and adds it to the layer div.
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Tile.Image>} The added OpenLayers.Tile.Image
      */
     addTile:function(bounds,position) {
-        return new OpenLayers.Tile.Image(this, position, bounds, 
+        return new OpenLayers.Tile.Image(this, position, bounds,
                                          null, this.tileSize);
     },
-     
+
     /* APIMethod: setMap
-     * When the layer is added to a map, then we can fetch our origin 
-     *    (if we don't have one.) 
-     * 
+     * When the layer is added to a map, then we can fetch our origin
+     *    (if we don't have one.)
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         OpenLayers.Layer.Grid.prototype.setMap.apply(this, arguments);
-        if (!this.tileOrigin) { 
+        if (!this.tileOrigin) {
             this.tileOrigin = new OpenLayers.LonLat(this.maxExtent.left,
                                                 this.maxExtent.bottom);
-        }                                       
+        }
     },
 
     CLASS_NAME: "OpenLayers.Layer.XYZ"
@@ -168,14 +168,14 @@ OpenLayers.Layer.XYZ = OpenLayers.Class(OpenLayers.Layer.Grid, {
  * A class to access OpenStreetMap tiles. By default, uses the OpenStreetMap
  *    hosted tile.openstreetmap.org 'Mapnik' tileset. If you wish to use
  *    tiles@home / osmarender layer instead, you can pass a layer like:
- * 
+ *
  * (code)
- *     new OpenLayers.Layer.OSM("t@h", 
- *       "http://tah.openstreetmap.org/Tiles/tile/${z}/${x}/${y}.png"); 
+ *     new OpenLayers.Layer.OSM("t@h",
+ *       "http://tah.openstreetmap.org/Tiles/tile/${z}/${x}/${y}.png");
  * (end)
  *
  * This layer defaults to Spherical Mercator.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.XYZ>
  */

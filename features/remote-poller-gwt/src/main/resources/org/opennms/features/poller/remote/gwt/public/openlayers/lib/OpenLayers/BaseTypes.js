@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,8 +13,8 @@
  * @requires OpenLayers/Lang/en.js
  * @requires OpenLayers/Console.js
  */
- 
-/** 
+
+/**
  * Header: OpenLayers Base Types
  * OpenLayers custom string, number and function functions are described here.
  */
@@ -27,12 +27,12 @@ OpenLayers.String = {
 
     /**
      * APIFunction: startsWith
-     * Test whether a string starts with another string. 
-     * 
+     * Test whether a string starts with another string.
+     *
      * Parameters:
      * str - {String} The string to test.
      * sub - {Sring} The substring to look for.
-     *  
+     *
      * Returns:
      * {Boolean} The first string starts with the second.
      */
@@ -43,43 +43,43 @@ OpenLayers.String = {
     /**
      * APIFunction: contains
      * Test whether a string contains another string.
-     * 
+     *
      * Parameters:
      * str - {String} The string to test.
      * sub - {String} The substring to look for.
-     * 
+     *
      * Returns:
      * {Boolean} The first string contains the second.
      */
     contains: function(str, sub) {
         return (str.indexOf(sub) != -1);
     },
-    
+
     /**
      * APIFunction: trim
      * Removes leading and trailing whitespace characters from a string.
-     * 
+     *
      * Parameters:
      * str - {String} The (potentially) space padded string.  This string is not
      *     modified.
-     * 
+     *
      * Returns:
-     * {String} A trimmed version of the string with all leading and 
+     * {String} A trimmed version of the string with all leading and
      *     trailing spaces removed.
      */
     trim: function(str) {
         return str.replace(/^\s\s*/, '').replace(/\s\s*$/, '');
     },
-    
+
     /**
      * APIFunction: camelize
-     * Camel-case a hyphenated string. 
+     * Camel-case a hyphenated string.
      *     Ex. "chicken-head" becomes "chickenHead", and
      *     "-chicken-head" becomes "ChickenHead".
      *
      * Parameters:
      * str - {String} The string to be camelized.  The original is not modified.
-     * 
+     *
      * Returns:
      * {String} The string, camelized
      */
@@ -92,7 +92,7 @@ OpenLayers.String = {
         }
         return camelizedString;
     },
-    
+
     /**
      * APIFunction: format
      * Given a string with tokens in the form ${token}, return a string
@@ -119,7 +119,7 @@ OpenLayers.String = {
             context = window;
         }
 
-        // Example matching: 
+        // Example matching:
         // str   = ${foo.bar}
         // match = foo.bar
         var replacer = function(str, match) {
@@ -145,13 +145,13 @@ OpenLayers.String = {
             }
 
             // If replacement is undefined, return the string 'undefined'.
-            // This is a workaround for a bugs in browsers not properly 
+            // This is a workaround for a bugs in browsers not properly
             // dealing with non-participating groups in regular expressions:
             // http://blog.stevenlevithan.com/archives/npcg-javascript
             if (typeof replacement == 'undefined') {
                 return 'undefined';
             } else {
-                return replacement; 
+                return replacement;
             }
         };
 
@@ -164,13 +164,13 @@ OpenLayers.String = {
      * Examples: ${a}, ${a.b.c}, ${a-b}, ${5}
      */
     tokenRegEx:  /\$\{([\w.]+?)\}/g,
-    
+
     /**
      * Property: OpenLayers.String.numberRegEx
      * Used to test strings as numbers.
      */
     numberRegEx: /^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/,
-    
+
     /**
      * APIFunction: OpenLayers.String.isNumeric
      * Determine whether a string contains only a numeric value.
@@ -189,14 +189,14 @@ OpenLayers.String = {
     isNumeric: function(value) {
         return OpenLayers.String.numberRegEx.test(value);
     },
-    
+
     /**
      * APIFunction: numericIf
      * Converts a string that appears to be a numeric value into a number.
-     * 
+     *
      * Returns
      * {Number|String} a Number if the passed value is a number, a String
-     *     otherwise. 
+     *     otherwise.
      */
     numericIf: function(value) {
         return OpenLayers.String.isNumeric(value) ? parseFloat(value) : value;
@@ -207,11 +207,11 @@ OpenLayers.String = {
 if (!String.prototype.startsWith) {
     /**
      * APIMethod: String.startsWith
-     * *Deprecated*. Whether or not a string starts with another string. 
-     * 
+     * *Deprecated*. Whether or not a string starts with another string.
+     *
      * Parameters:
      * sStart - {Sring} The string we're testing for.
-     *  
+     *
      * Returns:
      * {Boolean} Whether or not this string starts with the string passed in.
      */
@@ -226,10 +226,10 @@ if (!String.prototype.contains) {
     /**
      * APIMethod: String.contains
      * *Deprecated*. Whether or not a string contains another string.
-     * 
+     *
      * Parameters:
      * str - {String} The string that we're testing for.
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not this string contains with the string passed in.
      */
@@ -244,9 +244,9 @@ if (!String.prototype.trim) {
     /**
      * APIMethod: String.trim
      * *Deprecated*. Removes leading and trailing whitespace characters from a string.
-     * 
+     *
      * Returns:
-     * {String} A trimmed version of the string - all leading and 
+     * {String} A trimmed version of the string - all leading and
      *          trailing spaces removed
      */
     String.prototype.trim = function() {
@@ -259,10 +259,10 @@ if (!String.prototype.trim) {
 if (!String.prototype.camelize) {
     /**
      * APIMethod: String.camelize
-     * *Deprecated*. Camel-case a hyphenated string. 
+     * *Deprecated*. Camel-case a hyphenated string.
      *     Ex. "chicken-head" becomes "chickenHead", and
      *     "-chicken-head" becomes "ChickenHead".
-     * 
+     *
      * Returns:
      * {String} The string, camelized
      */
@@ -284,21 +284,21 @@ OpenLayers.Number = {
      * Decimal separator to use when formatting numbers.
      */
     decimalSeparator: ".",
-    
+
     /**
      * Property: thousandsSeparator
      * Thousands separator to use when formatting numbers.
      */
     thousandsSeparator: ",",
-    
+
     /**
      * APIFunction: limitSigDigs
      * Limit the number of significant digits on a float.
-     * 
+     *
      * Parameters:
      * num - {Float}
      * sig - {Integer}
-     * 
+     *
      * Returns:
      * {Float} The number, rounded to the specified number of significant
      *     digits.
@@ -310,11 +310,11 @@ OpenLayers.Number = {
         }
         return fig;
     },
-    
+
     /**
      * APIFunction: format
      * Formats a number for output.
-     * 
+     *
      * Parameters:
      * num  - {Float}
      * dec  - {Integer} Number of decimal places to round to.
@@ -328,9 +328,9 @@ OpenLayers.Number = {
      * {String} A string representing the formatted number.
      */
     format: function(num, dec, tsep, dsep) {
-        dec = (typeof dec != "undefined") ? dec : 0; 
+        dec = (typeof dec != "undefined") ? dec : 0;
         tsep = (typeof tsep != "undefined") ? tsep :
-            OpenLayers.Number.thousandsSeparator; 
+            OpenLayers.Number.thousandsSeparator;
         dsep = (typeof dsep != "undefined") ? dsep :
             OpenLayers.Number.decimalSeparator;
 
@@ -343,15 +343,15 @@ OpenLayers.Number = {
             // integer where we do not want to touch the decimals
             dec = 0;
         }
-        
+
         var integer = parts[0];
         if (tsep) {
-            var thousands = /(-?[0-9]+)([0-9]{3})/; 
-            while(thousands.test(integer)) { 
-                integer = integer.replace(thousands, "$1" + tsep + "$2"); 
+            var thousands = /(-?[0-9]+)([0-9]{3})/;
+            while(thousands.test(integer)) {
+                integer = integer.replace(thousands, "$1" + tsep + "$2");
             }
         }
-        
+
         var str;
         if (dec == 0) {
             str = integer;
@@ -371,10 +371,10 @@ if (!Number.prototype.limitSigDigs) {
      * APIMethod: Number.limitSigDigs
      * *Deprecated*. Limit the number of significant digits on an integer. Does *not*
      *     work with floats!
-     * 
+     *
      * Parameters:
      * sig - {Integer}
-     * 
+     *
      * Returns:
      * {Integer} The number, rounded to the specified number of significant digits.
      *           If null, 0, or negative value passed in, returns 0
@@ -395,11 +395,11 @@ OpenLayers.Function = {
      * APIFunction: bind
      * Bind a function to an object.  Method to easily create closures with
      *     'this' altered.
-     * 
+     *
      * Parameters:
      * func - {Function} Input function.
      * object - {Object} The object to bind to the input function (as this).
-     * 
+     *
      * Returns:
      * {Function} A closure with 'this' set to the passed in object.
      */
@@ -415,16 +415,16 @@ OpenLayers.Function = {
             return func.apply(object, newArgs);
         };
     },
-    
+
     /**
      * APIFunction: bindAsEventListener
      * Bind a function to an object, and configure it to receive the event
-     *     object as first parameter when called. 
-     * 
+     *     object as first parameter when called.
+     *
      * Parameters:
      * func - {Function} Input function to serve as an event listener.
      * object - {Object} A reference to this.
-     * 
+     *
      * Returns:
      * {Function}
      */
@@ -433,16 +433,16 @@ OpenLayers.Function = {
             return func.call(object, event || window.event);
         };
     },
-    
+
     /**
      * APIFunction: False
-     * A simple function to that just does "return false". We use this to 
-     * avoid attaching anonymous functions to DOM event handlers, which 
+     * A simple function to that just does "return false". We use this to
+     * avoid attaching anonymous functions to DOM event handlers, which
      * causes "issues" on IE<8.
-     * 
+     *
      * Usage:
      * document.onclick = OpenLayers.Function.False;
-     * 
+     *
      * Returns:
      * {Boolean}
      */
@@ -452,13 +452,13 @@ OpenLayers.Function = {
 
     /**
      * APIFunction: True
-     * A simple function to that just does "return true". We use this to 
-     * avoid attaching anonymous functions to DOM event handlers, which 
+     * A simple function to that just does "return true". We use this to
+     * avoid attaching anonymous functions to DOM event handlers, which
      * causes "issues" on IE<8.
-     * 
+     *
      * Usage:
      * document.onclick = OpenLayers.Function.True;
-     * 
+     *
      * Returns:
      * {Boolean}
      */
@@ -470,12 +470,12 @@ OpenLayers.Function = {
 if (!Function.prototype.bind) {
     /**
      * APIMethod: Function.bind
-     * *Deprecated*. Bind a function to an object. 
+     * *Deprecated*. Bind a function to an object.
      * Method to easily create closures with 'this' altered.
-     * 
+     *
      * Parameters:
      * object - {Object} the this parameter
-     * 
+     *
      * Returns:
      * {Function} A closure with 'this' altered to the first
      *            argument.
@@ -493,11 +493,11 @@ if (!Function.prototype.bindAsEventListener) {
     /**
      * APIMethod: Function.bindAsEventListener
      * *Deprecated*. Bind a function to an object, and configure it to receive the
-     *     event object as first parameter when called. 
-     * 
+     *     event object as first parameter when called.
+     *
      * Parameters:
      * object - {Object} A reference to this.
-     * 
+     *
      * Returns:
      * {Function}
      */
@@ -554,26 +554,26 @@ OpenLayers.Array = {
                         selected.push(val);
                     }
                 }
-            }        
+            }
         }
         return selected;
     }
-    
+
 };
 
 /**
  * Namespace: OpenLayers.Date
- * Contains implementations of Date.parse and date.toISOString that match the 
+ * Contains implementations of Date.parse and date.toISOString that match the
  *     ECMAScript 5 specification for parsing RFC 3339 dates.
  *     http://tools.ietf.org/html/rfc3339
  */
 OpenLayers.Date = {
-    
+
     /**
      * APIMethod: toISOString
-     * Generates a string representing a date.  The format of the string follows 
-     *     the profile of ISO 8601 for date and time on the Internet (see 
-     *     http://tools.ietf.org/html/rfc3339).  If the toISOString method is 
+     * Generates a string representing a date.  The format of the string follows
+     *     the profile of ISO 8601 for date and time on the Internet (see
+     *     http://tools.ietf.org/html/rfc3339).  If the toISOString method is
      *     available on the Date prototype, that is used.  The toISOString
      *     method for Date instances is defined in ECMA-262.
      *
@@ -581,13 +581,13 @@ OpenLayers.Date = {
      * date - {Date} A date object.
      *
      * Returns:
-     * {String} A string representing the date (e.g. 
+     * {String} A string representing the date (e.g.
      *     "2010-08-07T16:58:23.123Z").  If the date does not have a valid time
      *     (i.e. isNaN(date.getTime())) this method returns the string "Invalid
      *     Date".  The ECMA standard says the toISOString method should throw
      *     RangeError in this case, but Firefox returns a string instead.  For
      *     best results, use isNaN(date.getTime()) to determine date validity
-     *     before generating date strings.  
+     *     before generating date strings.
      */
     toISOString: (function() {
         if ("toISOString" in Date.prototype) {
@@ -605,11 +605,11 @@ OpenLayers.Date = {
             return function(date) {
                 var str;
                 if (isNaN(date.getTime())) {
-                    // ECMA-262 says throw RangeError, Firefox returns 
+                    // ECMA-262 says throw RangeError, Firefox returns
                     // "Invalid Date"
                     str = "Invalid Date";
                 } else {
-                    str = 
+                    str =
                         date.getUTCFullYear() + "-" +
                         pad(date.getUTCMonth() + 1, 2) + "-" +
                         pad(date.getUTCDate(), 2) + "T" +
@@ -623,20 +623,20 @@ OpenLayers.Date = {
         }
 
     })(),
-    
+
     /**
      * APIMethod: parse
      * Generate a date object from a string.  The format for the string follows
-     *     the profile of ISO 8601 for date and time on the Internet (see 
-     *     http://tools.ietf.org/html/rfc3339).  If the parse method on 
+     *     the profile of ISO 8601 for date and time on the Internet (see
+     *     http://tools.ietf.org/html/rfc3339).  If the parse method on
      *     the Date constructor returns a valid date for the given string,
      *     that method is used.
      *
      * Parameters:
-     * str - {String} A string representing the date (e.g. 
+     * str - {String} A string representing the date (e.g.
      *     "2010", "2010-08", "2010-08-07", "2010-08-07T16:58:23.123Z",
      *     "2010-08-07T11:58:23.123-06").
-     * 
+     *
      * Returns:
      * {Date} A date object.  If the string could not be parsed, an invalid
      *     date is returned (i.e. isNaN(date.getTime())).

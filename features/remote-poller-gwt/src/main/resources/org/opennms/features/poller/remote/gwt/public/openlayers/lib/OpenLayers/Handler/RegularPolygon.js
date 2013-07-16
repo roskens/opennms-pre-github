@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,12 +14,12 @@
  *     down, moves or is modified on mouse move, and is finished on mouse up.
  *     The handler triggers callbacks for 'done' and 'cancel'.  Create a new
  *     instance with the <OpenLayers.Handler.RegularPolygon> constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
-    
+
     /**
      * APIProperty: sides
      * {Integer} Number of sides for the regular polygon.  Needs to be greater
@@ -36,15 +36,15 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
      *     default.
      */
     radius: null,
-    
+
     /**
      * APIProperty: snapAngle
      * {Float} If set to a non-zero value, the handler will snap the polygon
      *     rotation to multiples of the snapAngle.  Value is an angle measured
-     *     in degrees counterclockwise from the positive x-axis.  
+     *     in degrees counterclockwise from the positive x-axis.
      */
     snapAngle: null,
-    
+
     /**
      * APIProperty: snapToggle
      * {String} If set, snapToggle is checked on mouse events and will set
@@ -55,7 +55,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
      *     non-zero value.
      */
     snapToggle: 'shiftKey',
-    
+
     /**
      * Property: layerOptions
      * {Object} Any optional properties to be set on the sketch layer.
@@ -145,18 +145,18 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
                                                 [control, callbacks, options]);
         this.options = (options) ? options : {};
     },
-    
+
     /**
      * APIMethod: setOptions
-     * 
+     *
      * Parameters:
-     * newOptions - {Object} 
+     * newOptions - {Object}
      */
     setOptions: function (newOptions) {
         OpenLayers.Util.extend(this.options, newOptions);
         OpenLayers.Util.extend(this, newOptions);
     },
-    
+
     /**
      * APIMethod: activate
      * Turn on the handler.
@@ -214,7 +214,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: down
      * Start drawing a new feature
@@ -241,7 +241,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
         this.layer.addFeatures([this.feature], {silent: true});
         this.layer.drawFeature(this.feature, this.style);
     },
-    
+
     /**
      * Method: move
      * Respond to drag move events
@@ -321,7 +321,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
             this.origin, this.radius, this.sides, this.snapAngle
         );
     },
-    
+
     /**
      * Method: modifyGeometry
      * Modify the polygon geometry in place.
@@ -342,7 +342,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
             point.clearBounds();
         }
     },
-    
+
     /**
      * Method: calculateAngle
      * Calculate the angle based on settings.
@@ -393,7 +393,7 @@ OpenLayers.Handler.RegularPolygon = OpenLayers.Class(OpenLayers.Handler.Drag, {
             this.layer.destroyFeatures();
         }
     },
-    
+
     /**
      * Method: callback
      * Trigger the control's named callback with the given arguments

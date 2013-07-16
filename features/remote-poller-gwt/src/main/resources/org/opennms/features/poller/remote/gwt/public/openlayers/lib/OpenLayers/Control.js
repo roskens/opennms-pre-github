@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,15 +10,15 @@
 /**
  * Class: OpenLayers.Control
  * Controls affect the display or behavior of the map. They allow everything
- * from panning and zooming to displaying a scale indicator. Controls by 
+ * from panning and zooming to displaying a scale indicator. Controls by
  * default are added to the map they are contained within however it is
  * possible to add a control to an external div by passing the div in the
  * options parameter.
- * 
+ *
  * Example:
  * The following example shows how to add many of the common controls
  * to a map.
- * 
+ *
  * > var map = new OpenLayers.Map('map', { controls: [] });
  * >
  * > map.addControl(new OpenLayers.Control.PanZoomBar());
@@ -30,10 +30,10 @@
  * > map.addControl(new OpenLayers.Control.OverviewMap());
  * > map.addControl(new OpenLayers.Control.KeyboardDefaults());
  *
- * The next code fragment is a quick example of how to intercept 
+ * The next code fragment is a quick example of how to intercept
  * shift-mouse click to display the extent of the bounding box
  * dragged out by the user.  Usually controls are not created
- * in exactly this manner.  See the source for a more complete 
+ * in exactly this manner.  See the source for a more complete
  * example:
  *
  * > var control = new OpenLayers.Control();
@@ -41,7 +41,7 @@
  * >     draw: function () {
  * >         // this Handler.Box will intercept the shift-mousedown
  * >         // before Control.MouseDefault gets to see it
- * >         this.box = new OpenLayers.Handler.Box( control, 
+ * >         this.box = new OpenLayers.Handler.Box( control,
  * >             {"done": this.notice},
  * >             {keyMask: OpenLayers.Handler.MOD_SHIFT});
  * >         this.box.activate();
@@ -50,60 +50,60 @@
  * >     notice: function (bounds) {
  * >         OpenLayers.Console.userError(bounds);
  * >     }
- * > }); 
+ * > });
  * > map.addControl(control);
- * 
+ *
  */
 OpenLayers.Control = OpenLayers.Class({
 
-    /** 
-     * Property: id 
-     * {String} 
+    /**
+     * Property: id
+     * {String}
      */
     id: null,
-    
-    /** 
-     * Property: map 
+
+    /**
+     * Property: map
      * {<OpenLayers.Map>} this gets set in the addControl() function in
-     * OpenLayers.Map 
+     * OpenLayers.Map
      */
     map: null,
 
-    /** 
-     * Property: div 
-     * {DOMElement} 
+    /**
+     * Property: div
+     * {DOMElement}
      */
     div: null,
 
-    /** 
-     * Property: type 
+    /**
+     * Property: type
      * {Number} Controls can have a 'type'. The type determines the type of
      * interactions which are possible with them when they are placed in an
-     * <OpenLayers.Control.Panel>. 
+     * <OpenLayers.Control.Panel>.
      */
-    type: null, 
+    type: null,
 
-    /** 
+    /**
      * Property: allowSelection
      * {Boolean} By deafault, controls do not allow selection, because
      * it may interfere with map dragging. If this is true, OpenLayers
      * will not prevent selection of the control.
      * Default is false.
      */
-    allowSelection: false,  
+    allowSelection: false,
 
-    /** 
-     * Property: displayClass 
+    /**
+     * Property: displayClass
      * {string}  This property is used for CSS related to the drawing of the
-     * Control. 
+     * Control.
      */
     displayClass: "",
-    
+
     /**
-    * Property: title  
-    * {string}  This property is used for showing a tooltip over the  
-    * Control.  
-    */ 
+    * Property: title
+    * {string}  This property is used for showing a tooltip over the
+    * Control.
+    */
     title: "",
 
     /**
@@ -113,14 +113,14 @@ OpenLayers.Control = OpenLayers.Class({
      */
     autoActivate: false,
 
-    /** 
-     * Property: active 
+    /**
+     * Property: active
      * {Boolean} The control is active.
      */
     active: null,
 
-    /** 
-     * Property: handler 
+    /**
+     * Property: handler
      * {<OpenLayers.Handler>} null
      */
     handler: null,
@@ -134,7 +134,7 @@ OpenLayers.Control = OpenLayers.Class({
      */
     eventListeners: null,
 
-    /** 
+    /**
      * Property: events
      * {<OpenLayers.Events>} Events instance for triggering control specific
      *     events.
@@ -168,22 +168,22 @@ OpenLayers.Control = OpenLayers.Class({
      * Constructor: OpenLayers.Control
      * Create an OpenLayers Control.  The options passed as a parameter
      * directly extend the control.  For example passing the following:
-     * 
+     *
      * > var control = new OpenLayers.Control({div: myDiv});
      *
      * Overrides the default div attribute value of null.
-     * 
+     *
      * Parameters:
-     * options - {Object} 
+     * options - {Object}
      */
     initialize: function (options) {
         // We do this before the extend so that instances can override
         // className in options.
-        this.displayClass = 
+        this.displayClass =
             this.CLASS_NAME.replace("OpenLayers.", "ol").replace(/\./g, "");
-        
+
         OpenLayers.Util.extend(this, options);
-        
+
         this.events = new OpenLayers.Events(this, null, this.EVENT_TYPES);
         if(this.eventListeners instanceof Object) {
             this.events.on(this.eventListeners);
@@ -229,14 +229,14 @@ OpenLayers.Control = OpenLayers.Class({
         }
     },
 
-    /** 
+    /**
      * Method: setMap
      * Set the map property for the control. This is done through an accessor
-     * so that subclasses can override this and take special action once 
-     * they have their map variable set. 
+     * so that subclasses can override this and take special action once
+     * they have their map variable set.
      *
      * Parameters:
-     * map - {<OpenLayers.Map>} 
+     * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         this.map = map;
@@ -244,13 +244,13 @@ OpenLayers.Control = OpenLayers.Class({
             this.handler.setMap(map);
         }
     },
-  
+
     /**
      * Method: draw
      * The draw method is called when the control is ready to be displayed
      * on the page.  If a div has not been created one is created.  Controls
-     * with a visual component will almost always want to override this method 
-     * to customize the look of control. 
+     * with a visual component will almost always want to override this method
+     * to customize the look of control.
      *
      * Parameters:
      * px - {<OpenLayers.Pixel>} The top-left pixel position of the control
@@ -266,8 +266,8 @@ OpenLayers.Control = OpenLayers.Class({
             if (!this.allowSelection) {
                 this.div.className += " olControlNoSelect";
                 this.div.setAttribute("unselectable", "on", 0);
-                this.div.onselectstart = OpenLayers.Function.False; 
-            }    
+                this.div.onselectstart = OpenLayers.Function.False;
+            }
             if (this.title != "") {
                 this.div.title = this.title;
             }
@@ -281,7 +281,7 @@ OpenLayers.Control = OpenLayers.Class({
 
     /**
      * Method: moveTo
-     * Sets the left and top style attributes to the passed in pixel 
+     * Sets the left and top style attributes to the passed in pixel
      * coordinates.
      *
      * Parameters:
@@ -299,7 +299,7 @@ OpenLayers.Control = OpenLayers.Class({
      * Explicitly activates a control and it's associated
      * handler if one has been set.  Controls can be
      * deactivated by calling the deactivate() method.
-     * 
+     *
      * Returns:
      * {Boolean}  True if the control was successfully activated or
      *            false if the control was already active.
@@ -321,12 +321,12 @@ OpenLayers.Control = OpenLayers.Class({
         this.events.triggerEvent("activate");
         return true;
     },
-    
+
     /**
      * Method: deactivate
      * Deactivates a control and it's associated handler if any.  The exact
      * effect of this depends on the control itself.
-     * 
+     *
      * Returns:
      * {Boolean} True if the control was effectively deactivated or false
      *           if the control was already inactive.

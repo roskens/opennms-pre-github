@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,21 +9,21 @@
 
 /**
  * Class: OpenLayers.Geometry.Collection
- * A Collection is exactly what it sounds like: A collection of different 
+ * A Collection is exactly what it sounds like: A collection of different
  * Geometries. These are stored in the local parameter <components> (which
- * can be passed as a parameter to the constructor). 
- * 
- * As new geometries are added to the collection, they are NOT cloned. 
- * When removing geometries, they need to be specified by reference (ie you 
+ * can be passed as a parameter to the constructor).
+ *
+ * As new geometries are added to the collection, they are NOT cloned.
+ * When removing geometries, they need to be specified by reference (ie you
  * have to pass in the *exact* geometry to be removed).
- * 
+ *
  * The <getArea> and <getLength> functions here merely iterate through
  * the components, summing their respective areas and lengths.
  *
  * Create a new instance with the <OpenLayers.Geometry.Collection> constructor.
  *
  * Inerhits from:
- *  - <OpenLayers.Geometry> 
+ *  - <OpenLayers.Geometry>
  */
 OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
 
@@ -32,7 +32,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      * {Array(<OpenLayers.Geometry>)} The component parts of this geometry
      */
     components: null,
-    
+
     /**
      * Property: componentTypes
      * {Array(String)} An array of class names representing the types of
@@ -45,7 +45,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      * Constructor: OpenLayers.Geometry.Collection
      * Creates a Geometry Collection -- a list of geoms.
      *
-     * Parameters: 
+     * Parameters:
      * components - {Array(<OpenLayers.Geometry>)} Optional array of geometries
      *
      */
@@ -79,31 +79,31 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         for(var i=0, len=this.components.length; i<len; i++) {
             geometry.addComponent(this.components[i].clone());
         }
-        
+
         // catch any randomly tagged-on properties
         OpenLayers.Util.applyDefaults(geometry, this);
-        
+
         return geometry;
     },
 
     /**
      * Method: getComponentsString
      * Get a string representing the components for this collection
-     * 
+     *
      * Returns:
      * {String} A string representation of the components of this geometry
      */
     getComponentsString: function(){
         var strings = [];
         for(var i=0, len=this.components.length; i<len; i++) {
-            strings.push(this.components[i].toShortString()); 
+            strings.push(this.components[i].toShortString());
         }
         return strings.join(",");
     },
 
     /**
      * APIMethod: calculateBounds
-     * Recalculate the bounds by iterating through the components and 
+     * Recalculate the bounds by iterating through the components and
      * calling calling extendBounds() on each item.
      */
     calculateBounds: function() {
@@ -138,14 +138,14 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      * is set, then the component class name must be in the componentTypes array.
      *
      * The bounds cache is reset.
-     * 
+     *
      * Parameters:
      * component - {<OpenLayers.Geometry>} A geometry to add
      * index - {int} Optional index into the array to insert the component
      *
      * Returns:
      * {Boolean} The component geometry was successfully added
-     */    
+     */
     addComponent: function(component, index) {
         var added = false;
         if(component) {
@@ -155,7 +155,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
 
                 if(index != null && (index < this.components.length)) {
                     var components1 = this.components.slice(0, index);
-                    var components2 = this.components.slice(index, 
+                    var components2 = this.components.slice(index,
                                                            this.components.length);
                     components1.push(component);
                     this.components = components1.concat(components2);
@@ -169,7 +169,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return added;
     },
-    
+
     /**
      * APIMethod: removeComponents
      * Remove components from this geometry.
@@ -185,18 +185,18 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
             this.removeComponent(components[i]);
         }
     },
-    
+
     /**
      * Method: removeComponent
      * Remove a component from this geometry.
      *
      * Parameters:
-     * component - {<OpenLayers.Geometry>} 
+     * component - {<OpenLayers.Geometry>}
      */
     removeComponent: function(component) {
-        
+
         OpenLayers.Util.removeItem(this.components, component);
-        
+
         // clearBounds() so that it gets recalculated on the next call
         // to this.getBounds();
         this.clearBounds();
@@ -216,7 +216,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return length;
     },
-    
+
     /**
      * APIMethod: getArea
      * Calculate the area of this geometry. Note how this function is overridden
@@ -233,7 +233,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         return area;
     },
 
-    /** 
+    /**
      * APIMethod: getGeodesicArea
      * Calculate the approximate area of the polygon were it projected onto
      *     the earth.
@@ -242,7 +242,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      * projection - {<OpenLayers.Projection>} The spatial reference system
      *     for the geometry coordinates.  If not provided, Geographic/WGS84 is
      *     assumed.
-     * 
+     *
      * Reference:
      * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
      *     Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
@@ -258,7 +258,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return area;
     },
-    
+
     /**
      * APIMethod: getCentroid
      *
@@ -279,7 +279,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         if (!len) {
             return false;
         }
-        
+
         var areas = [];
         var centroids = [];
         var areaSum = 0;
@@ -313,7 +313,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
             }
             areaSum /= minArea;
         }
-        
+
         var xSum = 0, ySum = 0, centroid, area;
         for (var i=0; i<len; ++i) {
             centroid = centroids[i];
@@ -321,7 +321,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
             xSum += centroid.x * area;
             ySum += centroid.y * area;
         }
-        
+
         return new OpenLayers.Geometry.Point(xSum/areaSum, ySum/areaSum);
     },
 
@@ -333,7 +333,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      * projection - {<OpenLayers.Projection>} The spatial reference system
      *     for the geometry coordinates.  If not provided, Geographic/WGS84 is
      *     assumed.
-     * 
+     *
      * Returns:
      * {Float} The appoximate geodesic length of the geometry in meters.
      */
@@ -352,7 +352,7 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      *     bounds.
      *
      * Parameters:
-     * x - {Float} Distance to move geometry in positive x direction. 
+     * x - {Float} Distance to move geometry in positive x direction.
      * y - {Float} Distance to move geometry in positive y direction.
      */
     move: function(x, y) {
@@ -388,9 +388,9 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
      *                 will have four times the area).
      * origin - {<OpenLayers.Geometry.Point>} Point of origin for resizing
      * ratio - {Float} Optional x:y ratio for resizing.  Default ratio is 1.
-     * 
+     *
      * Returns:
-     * {OpenLayers.Geometry} - The current geometry. 
+     * {OpenLayers.Geometry} - The current geometry.
      */
     resize: function(scale, origin, ratio) {
         for(var i=0; i<this.components.length; ++i) {
@@ -445,13 +445,13 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
         return best;
     },
 
-    /** 
+    /**
      * APIMethod: equals
      * Determine whether another geometry is equivalent to this one.  Geometries
      *     are considered equivalent if all components have the same coordinates.
-     * 
+     *
      * Parameters:
-     * geom - {<OpenLayers.Geometry>} The geometry to test. 
+     * geom - {<OpenLayers.Geometry>} The geometry to test.
      *
      * Returns:
      * {Boolean} The supplied geometry is equivalent to this geometry.
@@ -478,17 +478,17 @@ OpenLayers.Geometry.Collection = OpenLayers.Class(OpenLayers.Geometry, {
     /**
      * APIMethod: transform
      * Reproject the components geometry from source to dest.
-     * 
+     *
      * Parameters:
-     * source - {<OpenLayers.Projection>} 
+     * source - {<OpenLayers.Projection>}
      * dest - {<OpenLayers.Projection>}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Geometry>} 
+     * {<OpenLayers.Geometry>}
      */
     transform: function(source, dest) {
         if (source && dest) {
-            for (var i=0, len=this.components.length; i<len; i++) {  
+            for (var i=0, len=this.components.length; i<len; i++) {
                 var component = this.components[i];
                 component.transform(source, dest);
             }

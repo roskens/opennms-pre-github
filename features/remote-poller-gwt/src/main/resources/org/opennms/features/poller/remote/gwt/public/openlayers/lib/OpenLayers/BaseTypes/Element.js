@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,10 +10,10 @@ OpenLayers.Element = {
 
     /**
      * APIFunction: visible
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * element - {DOMElement}
-     * 
+     *
      * Returns:
      * {Boolean} Is the element visible?
      */
@@ -24,14 +24,14 @@ OpenLayers.Element = {
     /**
      * APIFunction: toggle
      * Toggle the visibility of element(s) passed in
-     * 
+     *
      * Parameters:
      * element - {DOMElement} Actually user can pass any number of elements
      */
     toggle: function() {
         for (var i=0, len=arguments.length; i<len; i++) {
             var element = OpenLayers.Util.getElement(arguments[i]);
-            var display = OpenLayers.Element.visible(element) ? 'hide' 
+            var display = OpenLayers.Element.visible(element) ? 'hide'
                                                               : 'show';
             OpenLayers.Element[display](element);
         }
@@ -41,7 +41,7 @@ OpenLayers.Element = {
     /**
      * APIFunction: hide
      * Hide element(s) passed in
-     * 
+     *
      * Parameters:
      * element - {DOMElement} Actually user can pass any number of elements
      */
@@ -57,7 +57,7 @@ OpenLayers.Element = {
     /**
      * APIFunction: show
      * Show element(s) passed in
-     * 
+     *
      * Parameters:
      * element - {DOMElement} Actually user can pass any number of elements
      */
@@ -73,7 +73,7 @@ OpenLayers.Element = {
     /**
      * APIFunction: remove
      * Remove the specified element from the DOM.
-     * 
+     *
      * Parameters:
      * element - {DOMElement}
      */
@@ -84,10 +84,10 @@ OpenLayers.Element = {
 
     /**
      * APIFunction: getHeight
-     *  
+     *
      * Parameters:
      * element - {DOMElement}
-     * 
+     *
      * Returns:
      * {Integer} The offset height of the element passed in
      */
@@ -99,12 +99,12 @@ OpenLayers.Element = {
     /**
      * APIFunction: getDimensions
      * *Deprecated*. Returns dimensions of the element passed in.
-     *  
+     *
      * Parameters:
      * element - {DOMElement}
-     * 
+     *
      * Returns:
-     * {Object} Object with 'width' and 'height' properties which are the 
+     * {Object} Object with 'width' and 'height' properties which are the
      *          dimensions of the element passed in.
      */
     getDimensions: function(element) {
@@ -112,7 +112,7 @@ OpenLayers.Element = {
         if (OpenLayers.Element.getStyle(element, 'display') != 'none') {
             return {width: element.offsetWidth, height: element.offsetHeight};
         }
-    
+
         // All *Width and *Height properties give 0 on elements with display none,
         // so enable the element temporarily
         var els = element.style;
@@ -145,7 +145,7 @@ OpenLayers.Element = {
         var names = element.className;
         return (!!names && new RegExp("(^|\\s)" + name + "(\\s|$)").test(names));
     },
-    
+
     /**
      * Function: addClass
      * Add a CSS class name to an element.  Safe where element already has
@@ -212,11 +212,11 @@ OpenLayers.Element = {
 
     /**
      * APIFunction: getStyle
-     * 
+     *
      * Parameters:
      * element - {DOMElement}
      * style - {?}
-     * 
+     *
      * Returns:
      * {?}
      */
@@ -227,24 +227,24 @@ OpenLayers.Element = {
         if (element && element.style) {
             value = element.style[OpenLayers.String.camelize(style)];
             if (!value) {
-                if (document.defaultView && 
+                if (document.defaultView &&
                     document.defaultView.getComputedStyle) {
-                    
+
                     var css = document.defaultView.getComputedStyle(element, null);
                     value = css ? css.getPropertyValue(style) : null;
                 } else if (element.currentStyle) {
                     value = element.currentStyle[OpenLayers.String.camelize(style)];
                 }
             }
-        
+
             var positions = ['left', 'top', 'right', 'bottom'];
             if (window.opera &&
                 (OpenLayers.Util.indexOf(positions,style) != -1) &&
-                (OpenLayers.Element.getStyle(element, 'position') == 'static')) { 
+                (OpenLayers.Element.getStyle(element, 'position') == 'static')) {
                 value = 'auto';
             }
         }
-    
+
         return value == 'auto' ? null : value;
     }
 

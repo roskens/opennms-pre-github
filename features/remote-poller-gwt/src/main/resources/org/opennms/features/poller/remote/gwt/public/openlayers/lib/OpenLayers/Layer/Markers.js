@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,49 +10,49 @@
 
 /**
  * Class: OpenLayers.Layer.Markers
- * 
+ *
  * Inherits from:
- *  - <OpenLayers.Layer> 
+ *  - <OpenLayers.Layer>
  */
 OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
-    
-    /** 
-     * APIProperty: isBaseLayer 
-     * {Boolean} Markers layer is never a base layer.  
+
+    /**
+     * APIProperty: isBaseLayer
+     * {Boolean} Markers layer is never a base layer.
      */
     isBaseLayer: false,
-    
-    /** 
-     * APIProperty: markers 
-     * {Array(<OpenLayers.Marker>)} internal marker list 
+
+    /**
+     * APIProperty: markers
+     * {Array(<OpenLayers.Marker>)} internal marker list
      */
     markers: null,
 
 
-    /** 
-     * Property: drawn 
+    /**
+     * Property: drawn
      * {Boolean} internal state of drawing. This is a workaround for the fact
      * that the map does not call moveTo with a zoomChanged when the map is
      * first starting up. This lets us catch the case where we have *never*
      * drawn the layer, and draw it even if the zoom hasn't changed.
      */
     drawn: false,
-    
+
     /**
-     * Constructor: OpenLayers.Layer.Markers 
+     * Constructor: OpenLayers.Layer.Markers
      * Create a Markers layer.
      *
      * Parameters:
-     * name - {String} 
+     * name - {String}
      * options - {Object} Hashtable of extra options to tag onto the layer
      */
     initialize: function(name, options) {
         OpenLayers.Layer.prototype.initialize.apply(this, arguments);
         this.markers = [];
     },
-    
+
     /**
-     * APIMethod: destroy 
+     * APIMethod: destroy
      */
     destroy: function() {
         this.clearMarkers();
@@ -63,7 +63,7 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * APIMethod: setOpacity
      * Sets the opacity for all the markers.
-     * 
+     *
      * Parameter:
      * opacity - {Float}
      */
@@ -76,13 +76,13 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
         }
     },
 
-    /** 
+    /**
      * Method: moveTo
      *
      * Parameters:
-     * bounds - {<OpenLayers.Bounds>} 
-     * zoomChanged - {Boolean} 
-     * dragging - {Boolean} 
+     * bounds - {<OpenLayers.Bounds>}
+     * zoomChanged - {Boolean}
+     * dragging - {Boolean}
      */
     moveTo:function(bounds, zoomChanged, dragging) {
         OpenLayers.Layer.prototype.moveTo.apply(this, arguments);
@@ -99,7 +99,7 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
      * APIMethod: addMarker
      *
      * Parameters:
-     * marker - {<OpenLayers.Marker>} 
+     * marker - {<OpenLayers.Marker>}
      */
     addMarker: function(marker) {
         this.markers.push(marker);
@@ -118,7 +118,7 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
      * APIMethod: removeMarker
      *
      * Parameters:
-     * marker - {<OpenLayers.Marker>} 
+     * marker - {<OpenLayers.Marker>}
      */
     removeMarker: function(marker) {
         if (this.markers && this.markers.length) {
@@ -140,13 +140,13 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
         }
     },
 
-    /** 
+    /**
      * Method: drawMarker
-     * Calculate the pixel location for the marker, create it, and 
+     * Calculate the pixel location for the marker, create it, and
      *    add it to the layer's div
      *
      * Parameters:
-     * marker - {<OpenLayers.Marker>} 
+     * marker - {<OpenLayers.Marker>}
      */
     drawMarker: function(marker) {
         var px = this.map.getLayerPxFromLonLat(marker.lonlat);
@@ -161,17 +161,17 @@ OpenLayers.Layer.Markers = OpenLayers.Class(OpenLayers.Layer, {
             }
         }
     },
-    
-    /** 
+
+    /**
      * APIMethod: getDataExtent
      * Calculates the max extent which includes all of the markers.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Bounds>}
      */
     getDataExtent: function () {
         var maxExtent = null;
-        
+
         if ( this.markers && (this.markers.length > 0)) {
             var maxExtent = new OpenLayers.Bounds();
             for(var i=0, len=this.markers.length; i<len; i++) {

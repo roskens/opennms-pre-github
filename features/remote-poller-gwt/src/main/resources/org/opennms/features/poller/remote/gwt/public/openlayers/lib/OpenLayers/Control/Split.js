@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -48,14 +48,14 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     property is a list of all resulting features.
      */
     EVENT_TYPES: ["beforesplit", "split", "aftersplit"],
-    
+
     /**
      * APIProperty: layer
      * {<OpenLayers.Layer.Vector>} The target layer with features to be split.
      *     Set at construction or after construction with <setLayer>.
      */
     layer: null,
-    
+
     /**
      * Property: source
      * {<OpenLayers.Layer.Vector>} Optional source layer.  Any newly created
@@ -64,7 +64,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     be created.
      */
     source: null,
-    
+
     /**
      * Property: sourceOptions
      * {Options} If a temporary sketch layer is created, these layer options
@@ -79,7 +79,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     for the split.  Default is null.
      */
     tolerance: null,
-    
+
     /**
      * APIProperty: edge
      * {Boolean} Allow splits given intersection of edges only.  Default is
@@ -88,7 +88,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     to occur.
      */
     edge: true,
-    
+
     /**
      * APIProperty: deferDelete
      * {Boolean} Instead of removing features from the layer, set feature
@@ -98,7 +98,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     immediately deleted from the layer.
      */
     deferDelete: false,
-    
+
     /**
      * APIProperty: mutual
      * {Boolean} If source and target layers are the same, split source
@@ -106,7 +106,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     true.  If false, only target features will be split.
      */
     mutual: true,
-    
+
     /**
      * APIProperty: targetFilter
      * {OpenLayers.Filter} Optional filter that will be evaluated
@@ -114,7 +114,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     splitting.
      */
     targetFilter: null,
-    
+
     /**
      * APIProperty: sourceFilter
      * {OpenLayers.Filter} Optional filter that will be evaluated
@@ -122,7 +122,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
      *     splitting.
      */
     sourceFilter: null,
-    
+
     /**
      * Property: handler
      * {<OpenLayers.Handler.Path>} The temporary sketch handler created if
@@ -175,13 +175,13 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
         );
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
         this.options = options || {}; // TODO: this could be done by the super
-        
+
         // set the source layer if provided
         if(this.options.source) {
             this.setSource(this.options.source);
         }
     },
-    
+
     /**
      * APIMethod: setSource
      * Set the source layer for edits layer.
@@ -203,7 +203,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
             this.source = layer;
         }
     },
-    
+
     /**
      * APIMethod: activate
      * Activate the control.  Activating the control registers listeners for
@@ -236,7 +236,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the control.  Deactivating the control unregisters listeners
@@ -255,7 +255,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: onSketchComplete
      * Registered as a listener for the sketchcomplete event on the editable
@@ -272,7 +272,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
         this.feature = null;
         return !this.considerSplit(event.feature);
     },
-    
+
     /**
      * Method: afterFeatureModified
      * Registered as a listener for the afterfeaturemodified event on the
@@ -291,7 +291,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: removeByGeometry
      * Remove a feature from a list based on the given geometry.
@@ -308,7 +308,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: isEligible
      * Test if a target feature is eligible for splitting.
@@ -368,7 +368,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
                 if(this.isEligible(targetFeature)) {
                     targetParts = [targetFeature.geometry];
                     // work through source geoms - this array may change
-                    for(var j=0; j<sourceParts.length; ++j) { 
+                    for(var j=0; j<sourceParts.length; ++j) {
                         source = sourceParts[j];
                         // work through target parts - this array may change
                         for(var k=0; k<targetParts.length; ++k) {
@@ -458,7 +458,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
         }
         return sourceSplit;
     },
-    
+
     /**
      * Method: geomsToFeatures
      * Create new features given a template feature and a list of geometries.
@@ -482,7 +482,7 @@ OpenLayers.Control.Split = OpenLayers.Class(OpenLayers.Control, {
             geoms[i] = newFeature;
         }
     },
-    
+
     /**
      * Method: destroy
      * Clean up the control.

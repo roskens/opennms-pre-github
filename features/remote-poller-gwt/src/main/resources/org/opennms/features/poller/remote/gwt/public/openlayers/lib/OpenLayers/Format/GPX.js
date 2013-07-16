@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,7 +13,7 @@
 
 /**
  * Class: OpenLayers.Format.GPX
- * Read/write GPX parser. Create a new instance with the 
+ * Read/write GPX parser. Create a new instance with the
  *     <OpenLayers.Format.GPX> constructor.
  *
  * Inherits from:
@@ -25,19 +25,19 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
     * {Boolean} Extract waypoints from GPX. (default: true)
     */
     extractWaypoints: true,
-    
+
    /**
     * APIProperty: extractTracks
     * {Boolean} Extract tracks from GPX. (default: true)
     */
     extractTracks: true,
-    
+
    /**
     * APIProperty: extractRoutes
     * {Boolean} Extract routes from GPX. (default: true)
     */
     extractRoutes: true,
-    
+
     /**
      * APIProperty: extractAttributes
      * {Boolean} Extract feature attributes from GPX. (default: true)
@@ -45,7 +45,7 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
      *     be extracted.
      */
     extractAttributes: true,
-    
+
     /**
      * Constructor: OpenLayers.Format.GPX
      * Create a new parser for GPX.
@@ -60,23 +60,23 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
 
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * APIMethod: read
      * Return a list of features from a GPX doc
      *
      * Parameters:
-     * doc - {Element} 
+     * doc - {Element}
      *
      * Returns:
      * An Array of <OpenLayers.Feature.Vector>s
      */
     read: function(doc) {
-        if (typeof doc == "string") { 
+        if (typeof doc == "string") {
             doc = OpenLayers.Format.XML.prototype.read.apply(this, [doc]);
         }
         var features = [];
-        
+
         if(this.extractTracks) {
             var tracks = doc.getElementsByTagName("trk");
             for (var i=0, len=tracks.length; i<len; i++) {
@@ -85,7 +85,7 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
                 if(this.extractAttributes) {
                     attrs = this.parseAttributes(tracks[i]);
                 }
-                
+
                 var segs = this.getElementsByTagNameNS(tracks[i], tracks[i].namespaceURI, "trkseg");
                 for (var j = 0, seglen = segs.length; j < seglen; j++) {
                     // We don't yet support extraction of trkpt attributes
@@ -95,7 +95,7 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
             }
         }
-        
+
         if(this.extractRoutes) {
             var routes = doc.getElementsByTagName("rte");
             for (var k=0, klen=routes.length; k<klen; k++) {
@@ -107,7 +107,7 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
                 features.push(new OpenLayers.Feature.Vector(route, attrs));
             }
         }
-        
+
         if(this.extractWaypoints) {
             var waypoints = doc.getElementsByTagName("wpt");
             for (var l = 0, len = waypoints.length; l < len; l++) {
@@ -119,17 +119,17 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
                 features.push(new OpenLayers.Feature.Vector(wpt, attrs));
             }
         }
-        
+
         if (this.internalProjection && this.externalProjection) {
             for (var g = 0, featLength = features.length; g < featLength; g++) {
                 features[g].geometry.transform(this.externalProjection,
                                     this.internalProjection);
             }
         }
-        
+
         return features;
     },
-    
+
    /**
     * Method: extractSegment
     *
@@ -148,7 +148,7 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return new OpenLayers.Geometry.LineString(point_features);
     },
-    
+
     /**
      * Method: parseAttributes
      *
@@ -179,6 +179,6 @@ OpenLayers.Format.GPX = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return attributes;
     },
-    
+
     CLASS_NAME: "OpenLayers.Format.GPX"
 });

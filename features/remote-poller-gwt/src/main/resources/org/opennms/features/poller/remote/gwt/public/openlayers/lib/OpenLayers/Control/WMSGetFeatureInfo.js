@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,10 +14,10 @@
 /**
  * Class: OpenLayers.Control.WMSGetFeatureInfo
  * The WMSGetFeatureInfo control uses a WMS query to get information about a point on the map.  The
- * information may be in a display-friendly format such as HTML, or a machine-friendly format such 
- * as GML, depending on the server's capabilities and the client's configuration.  This control 
- * handles click or hover events, attempts to parse the results using an OpenLayers.Format, and 
- * fires a 'getfeatureinfo' event with the click position, the raw body of the response, and an 
+ * information may be in a display-friendly format such as HTML, or a machine-friendly format such
+ * as GML, depending on the server's capabilities and the client's configuration.  This control
+ * handles click or hover events, attempts to parse the results using an OpenLayers.Format, and
+ * fires a 'getfeatureinfo' event with the click position, the raw body of the response, and an
  * array of features if it successfully read the response.
  *
  * Inherits from:
@@ -54,7 +54,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      *      option is set to false. Default is "click".
      */
     clickCallback: "click",
-    
+
     /**
      * Property: layers
      * {Array(<OpenLayers.Layer.WMS>)} The layers to query for feature info.
@@ -76,7 +76,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      *     of the first eligible layer will be used.
      */
     url: null,
-    
+
     /**
      * Property: layerUrls
      * {Array(String)} Optional list of urls for layers that should be queried.
@@ -91,7 +91,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * {String} The mimetype to request from the server
      */
     infoFormat: 'text/html',
-    
+
     /**
      * Property: vendorParams
      * {Object} Additional parameters that will be added to the request, for
@@ -103,14 +103,14 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * (end)
      */
     vendorParams: {},
-    
+
     /**
      * Property: format
      * {<OpenLayers.Format>} A format for parsing GetFeatureInfo responses.
      *     Default is <OpenLayers.Format.WMSGetFeatureInfo>.
      */
     format: null,
-    
+
     /**
      * Property: formatOptions
      * {Object} Optional properties to set on the format (if one is not provided
@@ -129,26 +129,26 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * (end)
      */
     handlerOptions: null,
-    
+
     /**
      * Property: handler
      * {Object} Reference to the <OpenLayers.Handler> for this control
      */
     handler: null,
-    
+
     /**
      * Property: hoverRequest
      * {<OpenLayers.Request>} contains the currently running hover request
      *     (if any).
      */
     hoverRequest: null,
-    
+
     /**
      * Constant: EVENT_TYPES
      *
      * Supported event types (in addition to those from <OpenLayers.Control>):
      * beforegetfeatureinfo - Triggered before the request is sent.
-     *      The event object has an *xy* property with the position of the 
+     *      The event object has an *xy* property with the position of the
      *      mouse click or hover event that triggers the request.
      * nogetfeatureinfo - no queryable layers were found.
      * getfeatureinfo - Triggered when a GetFeatureInfo response is received.
@@ -167,7 +167,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * Constructor: <OpenLayers.Control.WMSGetFeatureInfo>
      *
      * Parameters:
-     * options - {Object} 
+     * options - {Object}
      */
     initialize: function(options) {
         // concatenate events specific to vector with those from the base
@@ -180,13 +180,13 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
         options.handlerOptions = options.handlerOptions || {};
 
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        
+
         if(!this.format) {
             this.format = new OpenLayers.Format.WMSGetFeatureInfo(
                 options.formatOptions
             );
         }
-        
+
         if(this.drillDown === true) {
             this.hover = false;
         }
@@ -211,7 +211,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: activate
      * Activates the control.
-     * 
+     *
      * Returns:
      * {Boolean} The control was effectively activated.
      */
@@ -227,7 +227,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: deactivate
      * Deactivates the control.
-     * 
+     *
      * Returns:
      * {Boolean} The control was effectively deactivated.
      */
@@ -236,13 +236,13 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
             this, arguments
         );
     },
-    
+
     /**
-     * Method: getInfoForClick 
+     * Method: getInfoForClick
      * Called on click
      *
      * Parameters:
-     * evt - {<OpenLayers.Event>} 
+     * evt - {<OpenLayers.Event>}
      */
     getInfoForClick: function(evt) {
         this.events.triggerEvent("beforegetfeatureinfo", {xy: evt.xy});
@@ -251,7 +251,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
         OpenLayers.Element.addClass(this.map.viewPortDiv, "olCursorWait");
         this.request(evt.xy, {});
     },
-   
+
     /**
      * Method: getInfoForHover
      * Pause callback for the hover handler
@@ -302,7 +302,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
         }
         return layers;
     },
-    
+
     /**
      * Method: urlMatches
      * Test to see if the provided url matches either the control <url> or one
@@ -341,7 +341,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      */
     buildWMSOptions: function(url, layers, clickPosition, format) {
         var layerNames = [], styleNames = [];
-        for (var i = 0, len = layers.length; i < len; i++) { 
+        for (var i = 0, len = layers.length; i < len; i++) {
             layerNames = layerNames.concat(layers[i].params.LAYERS);
             styleNames = styleNames.concat(this.getStyleNames(layers[i]));
         }
@@ -386,7 +386,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
      * Method: getStyleNames
      * Gets the STYLES parameter for the layer. Make sure the STYLES parameter
      * matches the LAYERS parameter
-     * 
+     *
      * Parameters:
      * layer - {<OpenLayers.Layer.WMS>}
      *
@@ -414,12 +414,12 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: request
      * Sends a GetFeatureInfo request to the WMS
-     * 
+     *
      * Parameters:
      * clickPosition - {<OpenLayers.Pixel>} The position on the map where the
      *     mouse event occurred.
      * options - {Object} additional options for this method.
-     * 
+     *
      * Valid options:
      * - *hover* {Boolean} true if we do the request for the hover handler
      */
@@ -431,13 +431,13 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
             OpenLayers.Element.removeClass(this.map.viewPortDiv, "olCursorWait");
             return;
         }
-        
+
         options = options || {};
         if(this.drillDown === false) {
             var wmsOptions = this.buildWMSOptions(this.url, layers,
-                clickPosition, layers[0].params.FORMAT); 
+                clickPosition, layers[0].params.FORMAT);
             var request = OpenLayers.Request.GET(wmsOptions);
-    
+
             if (options.hover === true) {
                 this.hoverRequest = request;
             }
@@ -461,9 +461,9 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
             var layers;
             for (var url in services) {
                 layers = services[url];
-                var wmsOptions = this.buildWMSOptions(url, layers, 
+                var wmsOptions = this.buildWMSOptions(url, layers,
                     clickPosition, layers[0].params.FORMAT);
-                OpenLayers.Request.GET(wmsOptions); 
+                OpenLayers.Request.GET(wmsOptions);
             }
         }
     },
@@ -489,18 +489,18 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
         // Reset the cursor.
         OpenLayers.Element.removeClass(this.map.viewPortDiv, "olCursorWait");
     },
-    
+
     /**
      * Method: handleResponse
      * Handler for the GetFeatureInfo response.
-     * 
+     *
      * Parameters:
      * xy - {<OpenLayers.Pixel>} The position on the map where the
      *     mouse event occurred.
      * request - {XMLHttpRequest} The request object.
      */
     handleResponse: function(xy, request) {
-        
+
         var doc = request.responseXML;
         if(!doc || !doc.documentElement) {
             doc = request.responseText;
@@ -512,7 +512,7 @@ OpenLayers.Control.WMSGetFeatureInfo = OpenLayers.Class(OpenLayers.Control, {
             this._requestCount++;
             this._features = (this._features || []).concat(features);
             if (this._requestCount === this._numRequests) {
-                this.triggerGetFeatureInfo(request, xy, this._features.concat()); 
+                this.triggerGetFeatureInfo(request, xy, this._features.concat());
                 delete this._features;
                 delete this._requestCount;
                 delete this._numRequests;

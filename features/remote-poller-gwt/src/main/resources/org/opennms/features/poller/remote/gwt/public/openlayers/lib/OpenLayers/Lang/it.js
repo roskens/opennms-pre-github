@@ -86,7 +86,7 @@ OpenLayers.Lang.it = {
     'reprojectDeprecated':
         "Stai utilizzando l'opzione 'reproject' sul livello ${layerName}. " +
         "Questa opzione è deprecata: il suo utilizzo è stato introdotto per" +
-        "supportare il disegno dei dati sopra mappe commerciali, ma tale " + 
+        "supportare il disegno dei dati sopra mappe commerciali, ma tale " +
         "funzionalità dovrebbe essere ottenuta tramite l'utilizzo della proiezione " +
         "Spherical Mercator. Per maggiori informazioni consultare qui " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -111,6 +111,6 @@ OpenLayers.Lang.it = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition fallita: l'elemento con id ${elemId} è posizionato in modo errato.",
-                    
+
     'end': ''
 };

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -44,26 +44,26 @@
 OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
 
     /**
-     * APIProperty: location 
+     * APIProperty: location
      * {String} URL of text file.  Must be specified in the "options" argument
-     *   of the constructor. Can not be changed once passed in. 
+     *   of the constructor. Can not be changed once passed in.
      */
     location:null,
 
-    /** 
+    /**
      * Property: features
-     * {Array(<OpenLayers.Feature>)} 
+     * {Array(<OpenLayers.Feature>)}
      */
     features: null,
-    
+
     /**
      * APIProperty: formatOptions
      * {Object} Hash of options which should be passed to the format when it is
      * created. Must be passed in the constructor.
      */
-    formatOptions: null, 
+    formatOptions: null,
 
-    /** 
+    /**
      * Property: selectedFeature
      * {<OpenLayers.Feature>}
      */
@@ -72,9 +72,9 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
     /**
      * Constructor: OpenLayers.Layer.Text
      * Create a text layer.
-     * 
+     *
      * Parameters:
-     * name - {String} 
+     * name - {String}
      * options - {Object} Object with properties to be set on the layer.
      *     Must include <location> property.
      */
@@ -84,7 +84,7 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
     },
 
     /**
-     * APIMethod: destroy 
+     * APIMethod: destroy
      */
     destroy: function() {
         // Warning: Layer.Markers.destroy() must be called prior to calling
@@ -96,7 +96,7 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
         this.clearFeatures();
         this.features = null;
     },
-    
+
     /**
      * Method: loadText
      * Start the load of the Text data. Don't do this when we first add the layer,
@@ -119,17 +119,17 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
                 });
                 this.loaded = true;
             }
-        }    
-    },    
-    
+        }
+    },
+
     /**
      * Method: moveTo
-     * If layer is visible and Text has not been loaded, load Text. 
-     * 
+     * If layer is visible and Text has not been loaded, load Text.
+     *
      * Parameters:
-     * bounds - {Object} 
-     * zoomChanged - {Object} 
-     * minor - {Object} 
+     * bounds - {Object}
+     * zoomChanged - {Object}
+     * minor - {Object}
      */
     moveTo:function(bounds, zoomChanged, minor) {
         OpenLayers.Layer.Markers.prototype.moveTo.apply(this, arguments);
@@ -137,25 +137,25 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
             this.loadText();
         }
     },
-    
+
     /**
      * Method: parseData
      *
      * Parameters:
-     * ajaxRequest - {<OpenLayers.Request.XMLHttpRequest>} 
+     * ajaxRequest - {<OpenLayers.Request.XMLHttpRequest>}
      */
     parseData: function(ajaxRequest) {
         var text = ajaxRequest.responseText;
-        
+
         var options = {};
-        
+
         OpenLayers.Util.extend(options, this.formatOptions);
-        
+
         if (this.map && !this.projection.equals(this.map.getProjectionObject())) {
             options.externalProjection = this.projection;
             options.internalProjection = this.map.getProjectionObject();
-        }    
-        
+        }
+
         var parser = new OpenLayers.Format.Text(options);
         var features = parser.read(text);
         for (var i=0, len=features.length; i<len; i++) {
@@ -163,18 +163,18 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
             var feature = features[i];
             var location;
             var iconSize, iconOffset;
-            
-            location = new OpenLayers.LonLat(feature.geometry.x, 
+
+            location = new OpenLayers.LonLat(feature.geometry.x,
                                              feature.geometry.y);
-            
-            if (feature.style.graphicWidth 
+
+            if (feature.style.graphicWidth
                 && feature.style.graphicHeight) {
                 iconSize = new OpenLayers.Size(
                     feature.style.graphicWidth,
                     feature.style.graphicHeight);
-            }        
-            
-            // FIXME: At the moment, we only use this if we have an 
+            }
+
+            // FIXME: At the moment, we only use this if we have an
             // externalGraphic, because icon has no setOffset API Method.
             /**
              * FIXME FIRST!!
@@ -189,38 +189,38 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
             if (feature.style.graphicXOffset !== undefined
                 && feature.style.graphicYOffset !== undefined) {
                 iconOffset = new OpenLayers.Pixel(
-                    feature.style.graphicXOffset, 
+                    feature.style.graphicXOffset,
                     feature.style.graphicYOffset);
             }
-            
+
             if (feature.style.externalGraphic != null) {
-                data.icon = new OpenLayers.Icon(feature.style.externalGraphic, 
-                                                iconSize, 
+                data.icon = new OpenLayers.Icon(feature.style.externalGraphic,
+                                                iconSize,
                                                 iconOffset);
             } else {
                 data.icon = OpenLayers.Marker.defaultIcon();
 
-                //allows for the case where the image url is not 
+                //allows for the case where the image url is not
                 // specified but the size is. use a default icon
                 // but change the size
                 if (iconSize != null) {
                     data.icon.setSize(iconSize);
                 }
             }
-            
-            if ((feature.attributes.title != null) 
+
+            if ((feature.attributes.title != null)
                 && (feature.attributes.description != null)) {
-                data['popupContentHTML'] = 
-                    '<h2>'+feature.attributes.title+'</h2>' + 
+                data['popupContentHTML'] =
+                    '<h2>'+feature.attributes.title+'</h2>' +
                     '<p>'+feature.attributes.description+'</p>';
             }
-            
-            data['overflow'] = feature.attributes.overflow || "auto"; 
-            
+
+            data['overflow'] = feature.attributes.overflow || "auto";
+
             var markerFeature = new OpenLayers.Feature(this, location, data);
             this.features.push(markerFeature);
             var marker = markerFeature.createMarker();
-            if ((feature.attributes.title != null) 
+            if ((feature.attributes.title != null)
                 && (feature.attributes.description != null)) {
               marker.events.register('click', markerFeature, this.markerClick);
             }
@@ -228,12 +228,12 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
         }
         this.events.triggerEvent("loadend");
     },
-    
+
     /**
      * Property: markerClick
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     markerClick: function(evt) {
         var sameMarkerClicked = (this == this.layer.selectedFeature);
@@ -242,7 +242,7 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
             this.layer.map.removePopup(this.layer.map.popups[i]);
         }
         if (!sameMarkerClicked) {
-            this.layer.map.addPopup(this.createPopup()); 
+            this.layer.map.addPopup(this.createPopup());
         }
         OpenLayers.Event.stop(evt);
     },
@@ -257,7 +257,7 @@ OpenLayers.Layer.Text = OpenLayers.Class(OpenLayers.Layer.Markers, {
                 OpenLayers.Util.removeItem(this.features, feature);
                 feature.destroy();
             }
-        }        
+        }
     },
 
     CLASS_NAME: "OpenLayers.Layer.Text"

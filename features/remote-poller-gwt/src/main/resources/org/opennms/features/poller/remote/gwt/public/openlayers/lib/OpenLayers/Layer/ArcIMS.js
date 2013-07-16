@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,7 +15,7 @@
  * Instances of OpenLayers.Layer.ArcIMS are used to display data from ESRI ArcIMS
  *     Mapping Services. Create a new ArcIMS layer with the <OpenLayers.Layer.ArcIMS>
  *     constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.Grid>
  */
@@ -25,41 +25,41 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * Constant: DEFAULT_PARAMS
      * {Object} Default query string parameters.
      */
-    DEFAULT_PARAMS: { 
+    DEFAULT_PARAMS: {
         ClientVersion: "9.2",
         ServiceName: ''
     },
-    
+
     /**
      * APIProperty: tileSize
      * {<OpenLayers.Size>} Size for tiles.  Default is 512x512.
      */
     tileSize: null,
-    
+
     /**
      * APIProperty: featureCoordSys
      * {String} Code for feature coordinate system.  Default is "4326".
      */
     featureCoordSys: "4326",
-    
+
     /**
      * APIProperty: filterCoordSys
      * {String} Code for filter coordinate system.  Default is "4326".
      */
     filterCoordSys: "4326",
-    
+
     /**
      * APIProperty: layers
      * {Array} An array of objects with layer properties.
      */
     layers: null,
-    
+
     /**
      * APIProperty: async
      * {Boolean} Request images asynchronously.  Default is true.
      */
     async: true,
-    
+
     /**
      * APIProperty: name
      * {String} Layer name.  Default is "ArcIMS".
@@ -84,8 +84,8 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         isBaseLayer: true,
         async: true,
         name: "ArcIMS"
-    }, 
- 
+    },
+
     /**
      * Constructor: OpenLayers.Layer.ArcIMS
      * Create a new ArcIMS layer object.
@@ -94,9 +94,9 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * (code)
      * var arcims = new OpenLayers.Layer.ArcIMS(
      *     "Global Sample",
-     *     "http://sample.avencia.com/servlet/com.esri.esrimap.Esrimap", 
+     *     "http://sample.avencia.com/servlet/com.esri.esrimap.Esrimap",
      *     {
-     *         service: "OpenLayers_Sample", 
+     *         service: "OpenLayers_Sample",
      *         layers: [
      *             // layers to manipulate
      *             {id: "1", visible: true}
@@ -112,7 +112,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      *     layer.
      */
     initialize: function(name, url, options) {
-        
+
         this.tileSize = new OpenLayers.Size(512, 512);
 
         // parameters
@@ -123,20 +123,20 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         this.options = OpenLayers.Util.applyDefaults(
             options, this.DEFAULT_OPTIONS
         );
-          
+
         OpenLayers.Layer.Grid.prototype.initialize.apply(
             this, [name, url, this.params, options]
         );
 
-        //layer is transparent        
+        //layer is transparent
         if (this.transparent) {
-            
+
             // unless explicitly set in options, make layer an overlay
             if (!this.isBaseLayer) {
                 this.isBaseLayer = false;
-            } 
-            
-            // jpegs can never be transparent, so intelligently switch the 
+            }
+
+            // jpegs can never be transparent, so intelligently switch the
             //  format, depending on the browser's capabilities
             if (this.format == "image/jpeg") {
                 this.format = OpenLayers.Util.alphaHack() ? "image/gif" : "image/png";
@@ -147,19 +147,19 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         if (this.options.layers === null) {
             this.options.layers = [];
         }
-    },    
+    },
 
-    
+
     /**
      * Method: destroy
      * Destroy this layer
      */
     destroy: function() {
-        // for now, nothing special to do here. 
-        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);  
-    },   
-    
-    
+        // for now, nothing special to do here.
+        OpenLayers.Layer.Grid.prototype.destroy.apply(this, arguments);
+    },
+
+
     /**
      * Method: getURL
      * Return an image url this layer.
@@ -174,28 +174,28 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
     getURL: function(bounds) {
         var url = "";
         bounds = this.adjustBounds(bounds);
-        
+
         // create an arcxml request to generate the image
-        var axlReq = new OpenLayers.Format.ArcXML( 
+        var axlReq = new OpenLayers.Format.ArcXML(
             OpenLayers.Util.extend(this.options, {
                 requesttype: "image",
                 envelope: bounds.toArray(),
                 tileSize: this.tileSize
             })
         );
-        
+
         // create a synchronous ajax request to get an arcims image
         var req = new OpenLayers.Request.POST({
             url: this.getFullRequestString(),
             data: axlReq.write(),
             async: false
         });
-        
+
         // if the response exists
         if (req != null) {
             var doc = req.responseXML;
 
-            if (!doc || !doc.documentElement) {            
+            if (!doc || !doc.documentElement) {
                 doc = req.responseText;
             }
 
@@ -204,11 +204,11 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             var arcxml = axlResp.read(doc);
             url = this.getUrlOrImage(arcxml.image.output);
         }
-        
+
         return url;
     },
-    
-    
+
+
     /**
      * Method: getURLasync
      * Get an image url this layer asynchronously, and execute a callback
@@ -218,22 +218,22 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * bounds - {<OpenLayers.Bounds>} A bounds representing the bbox for the
      *     request.
      * scope - {Object} The scope of the callback method.
-     * prop - {String} The name of the property in the scoped object to 
+     * prop - {String} The name of the property in the scoped object to
      *     recieve the image url.
      * callback - {Function} Function to call when image url is retrieved.
      */
     getURLasync: function(bounds, scope, prop, callback) {
         bounds = this.adjustBounds(bounds);
-        
+
         // create an arcxml request to generate the image
-        var axlReq = new OpenLayers.Format.ArcXML(  
-            OpenLayers.Util.extend(this.options, { 
+        var axlReq = new OpenLayers.Format.ArcXML(
+            OpenLayers.Util.extend(this.options, {
                 requesttype: "image",
                 envelope: bounds.toArray(),
                 tileSize: this.tileSize
             })
         );
-        
+
         // create an asynchronous ajax request to get an arcims image
         OpenLayers.Request.POST({
             url: this.getFullRequestString(),
@@ -243,14 +243,14 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 // process the response from ArcIMS, and call the callback function
                 // to set the image URL
                 var doc = req.responseXML;
-                if (!doc || !doc.documentElement) {            
+                if (!doc || !doc.documentElement) {
                     doc = req.responseText;
                 }
 
                 // create a new arcxml format to read the response
                 var axlResp = new OpenLayers.Format.ArcXML();
                 var arcxml = axlResp.read(doc);
-                
+
                 scope[prop] = this.getUrlOrImage(arcxml.image.output);
 
                 // call the callback function to recieve the updated property on the
@@ -260,7 +260,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             scope: this
         });
     },
-    
+
     /**
      * Method: getUrlOrImage
      * Extract a url or image from the ArcXML image output.
@@ -282,12 +282,12 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             // The image data is inline and base64 encoded, create a data
             // url for the image.  This will only work for small images,
             // due to browser url length limits.
-            ret = "data:image/" + output.type + 
+            ret = "data:image/" + output.type +
                   ";base64," + output.data;
         }
         return ret;
     },
-    
+
     /**
      * Method: setLayerQuery
      * Set the query definition on this layer. Query definitions are used to
@@ -307,11 +307,11 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
                 return;
             }
         }
-      
+
         // no layer found, create a new definition
         this.options.layers.push({id: id, visible: true, query: querydef});
     },
-    
+
     /**
      * Method: getFeatureInfo
      * Get feature information from ArcIMS.  Using the applied geometry, apply
@@ -366,8 +366,8 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
         if (geometry instanceof OpenLayers.LonLat) {
             // create an envelope if the geometry is really a lon/lat
             requestOptions.polygon = null;
-            requestOptions.envelope = [ 
-                geometry.lon - buffer, 
+            requestOptions.envelope = [
+                geometry.lon - buffer,
                 geometry.lat - buffer,
                 geometry.lon + buffer,
                 geometry.lat + buffer
@@ -377,7 +377,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             requestOptions.envelope = null;
             requestOptions.polygon = geometry;
         }
-      
+
         // create an arcxml request to get feature requests
         var arcxml = new OpenLayers.Format.ArcXML(requestOptions);
 
@@ -396,13 +396,13 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             var mapOffCenter = this.map.getLonLatFromPixel(viewPx);
             arcxml.request.get_feature.query.accuracy = mapOffCenter.lon - mapCenter.lon;
         }
-        
+
         // set the get_feature query to be the same as the layer passed in
         arcxml.request.get_feature.query.where = layer.query.where;
-        
+
         // use area_intersection
         arcxml.request.get_feature.query.spatialfilter.relation = "area_intersection";
-      
+
         // create a new asynchronous request to get the feature info
         OpenLayers.Request.POST({
             url: this.getFullRequestString({'CustomService': 'Query'}),
@@ -410,7 +410,7 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             callback: function(request) {
                 // parse the arcxml response
                 var response = arcxml.parseResponse(request.responseText);
-                
+
                 if (!arcxml.iserror()) {
                     // if the arcxml is not an error, call the callback with the features parsed
                     callback.call(scope, response.features);
@@ -444,15 +444,15 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
         return obj;
     },
-    
+
     /**
      * Method: addTile
-     * addTile creates a tile, initializes it, and adds it to the layer div. 
+     * addTile creates a tile, initializes it, and adds it to the layer div.
      *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Tile.Image>} The added image tile.
      */
@@ -461,6 +461,6 @@ OpenLayers.Layer.ArcIMS = OpenLayers.Class(OpenLayers.Layer.Grid, {
             this, position, bounds, null, this.tileSize
         );
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.ArcIMS"
 });

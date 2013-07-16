@@ -95,11 +95,11 @@ OpenLayers.Rico.Color = OpenLayers.Class({
 
 OpenLayers.Rico.Color.createFromHex = function(hexCode) {
   if(hexCode.length==4) {
-    var shortHexCode = hexCode; 
+    var shortHexCode = hexCode;
     var hexCode = '#';
-    for(var i=1;i<4;i++) { 
-        hexCode += (shortHexCode.charAt(i) + 
-shortHexCode.charAt(i)); 
+    for(var i=1;i<4;i++) {
+        hexCode += (shortHexCode.charAt(i) +
+shortHexCode.charAt(i));
     }
   }
    if ( hexCode.indexOf('#') == 0 ) {
@@ -117,9 +117,9 @@ shortHexCode.charAt(i));
  */
 OpenLayers.Rico.Color.createColorFromBackground = function(elem) {
 
-   var actualColor = 
-      RicoUtil.getElementsComputedStyle(OpenLayers.Util.getElement(elem), 
-                                        "backgroundColor", 
+   var actualColor =
+      RicoUtil.getElementsComputedStyle(OpenLayers.Util.getElement(elem),
+                                        "backgroundColor",
                                         "background-color");
 
    if ( actualColor == "transparent" && elem.parentNode ) {

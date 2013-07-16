@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -7,19 +7,19 @@
  * @requires OpenLayers/Style.js
  * @requires OpenLayers/Feature/Vector.js
  */
- 
+
 /**
  * Class: OpenLayers.StyleMap
  */
 OpenLayers.StyleMap = OpenLayers.Class({
-    
+
     /**
      * Property: styles
      * Hash of {<OpenLayers.Style>}, keyed by names of well known
      * rendering intents (e.g. "default", "temporary", "select", "delete").
      */
     styles: null,
-    
+
     /**
      * Property: extendDefault
      * {Boolean} if true, every render intent will extend the symbolizers
@@ -27,10 +27,10 @@ OpenLayers.StyleMap = OpenLayers.Class({
      * rendering intent will be treated as a completely independent style.
      */
     extendDefault: true,
-    
+
     /**
      * Constructor: OpenLayers.StyleMap
-     * 
+     *
      * Parameters:
      * style   - {Object} Optional. Either a style hash, or a style object, or
      *           a hash of style objects (style hashes) keyed by rendering
@@ -51,7 +51,7 @@ OpenLayers.StyleMap = OpenLayers.Class({
             "delete": new OpenLayers.Style(
                 OpenLayers.Feature.Vector.style["delete"])
         };
-        
+
         // take whatever the user passed as style parameter and convert it
         // into parts of stylemap.
         if(style instanceof OpenLayers.Style) {
@@ -90,11 +90,11 @@ OpenLayers.StyleMap = OpenLayers.Class({
         }
         this.styles = null;
     },
-    
+
     /**
      * Method: createSymbolizer
      * Creates the symbolizer for a feature for a render intent.
-     * 
+     *
      * Parameters:
      * feature - {<OpenLayers.Feature>} The feature to evaluate the rules
      *           of the intended style against.
@@ -102,7 +102,7 @@ OpenLayers.StyleMap = OpenLayers.Class({
      *           used to draw the feature. Well known intents are "default"
      *           (for just drawing the features), "select" (for selected
      *           features) and "temporary" (for drawing features).
-     * 
+     *
      * Returns:
      * {Object} symbolizer hash
      */
@@ -121,20 +121,20 @@ OpenLayers.StyleMap = OpenLayers.Class({
         return OpenLayers.Util.extend(defaultSymbolizer,
             this.styles[intent].createSymbolizer(feature));
     },
-    
+
     /**
      * Method: addUniqueValueRules
      * Convenience method to create comparison rules for unique values of a
      * property. The rules will be added to the style object for a specified
      * rendering intent. This method is a shortcut for creating something like
      * the "unique value legends" familiar from well known desktop GIS systems
-     * 
+     *
      * Parameters:
      * renderIntent - {String} rendering intent to add the rules to
      * property     - {String} values of feature attributes to create the
      *                rules for
      * symbolizers  - {Object} Hash of symbolizers, keyed by the desired
-     *                property values 
+     *                property values
      * context      - {Object} An optional object with properties that
      *                symbolizers' property values should be evaluated
      *                against. If no context is specified, feature.attributes

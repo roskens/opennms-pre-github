@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,18 +9,18 @@
 
 /**
  * Class: OpenLayers.Renderer.SVG
- * 
+ *
  * Inherits:
  *  - <OpenLayers.Renderer.Elements>
  */
 OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
-    /** 
+    /**
      * Property: xmlns
      * {String}
      */
     xmlns: "http://www.w3.org/2000/svg",
-    
+
     /**
      * Property: xlinkns
      * {String}
@@ -29,8 +29,8 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
     /**
      * Constant: MAX_PIXEL
-     * {Integer} Firefox has a limitation where values larger or smaller than  
-     *           about 15000 in an SVG document lock the browser up. This 
+     * {Integer} Firefox has a limitation where values larger or smaller than
+     *           about 15000 in an SVG document lock the browser up. This
      *           works around it.
      */
     MAX_PIXEL: 15000,
@@ -40,7 +40,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * {Object} Hash with "x" and "y" properties
      */
     translationParameters: null,
-    
+
     /**
      * Property: symbolMetrics
      * {Object} Cache for symbol metrics according to their svg coordinate
@@ -48,7 +48,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      *     an array of [width, centerX, centerY].
      */
     symbolMetrics: null,
-    
+
     /**
      * Property: isGecko
      * {Boolean}
@@ -65,20 +65,20 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
     /**
      * Constructor: OpenLayers.Renderer.SVG
-     * 
+     *
      * Parameters:
      * containerID - {String}
      */
     initialize: function(containerID) {
-        if (!this.supported()) { 
-            return; 
+        if (!this.supported()) {
+            return;
         }
-        OpenLayers.Renderer.Elements.prototype.initialize.apply(this, 
+        OpenLayers.Renderer.Elements.prototype.initialize.apply(this,
                                                                 arguments);
         this.translationParameters = {x: 0, y: 0};
         this.supportUse = (navigator.userAgent.toLowerCase().indexOf("applewebkit/5") == -1);
         this.isGecko = (navigator.userAgent.toLowerCase().indexOf("gecko/") != -1);
-        
+
         this.symbolMetrics = {};
     },
 
@@ -88,20 +88,20 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     destroy: function() {
         OpenLayers.Renderer.Elements.prototype.destroy.apply(this, arguments);
     },
-    
+
     /**
      * APIMethod: supported
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not the browser supports the SVG renderer
      */
     supported: function() {
         var svgFeature = "http://www.w3.org/TR/SVG11/feature#";
-        return (document.implementation && 
-           (document.implementation.hasFeature("org.w3c.svg", "1.0") || 
-            document.implementation.hasFeature(svgFeature + "SVG", "1.1") || 
+        return (document.implementation &&
+           (document.implementation.hasFeature("org.w3c.svg", "1.0") ||
+            document.implementation.hasFeature(svgFeature + "SVG", "1.1") ||
             document.implementation.hasFeature(svgFeature + "BasicStructure", "1.1") ));
-    },    
+    },
 
     /**
      * Method: inValidRange
@@ -112,11 +112,11 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * y      - {Integer}
      * xyOnly - {Boolean} whether or not to just check for x and y, which means
      *     to not take the current translation parameters into account if true.
-     * 
+     *
      * Returns:
-     * {Boolean} Whether or not the 'x' and 'y' coordinates are in the  
+     * {Boolean} Whether or not the 'x' and 'y' coordinates are in the
      *           valid range.
-     */ 
+     */
     inValidRange: function(x, y, xyOnly) {
         var left = x + (xyOnly ? 0 : this.translationParameters.x);
         var top = y + (xyOnly ? 0 : this.translationParameters.y);
@@ -126,20 +126,20 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
     /**
      * Method: setExtent
-     * 
+     *
      * Parameters:
      * extent - {<OpenLayers.Bounds>}
      * resolutionChanged - {Boolean}
-     * 
+     *
      * Returns:
      * {Boolean} true to notify the layer that the new extent does not exceed
      *     the coordinate range, and the features will not need to be redrawn.
      *     False otherwise.
      */
     setExtent: function(extent, resolutionChanged) {
-        OpenLayers.Renderer.Elements.prototype.setExtent.apply(this, 
+        OpenLayers.Renderer.Elements.prototype.setExtent.apply(this,
                                                                arguments);
-        
+
         var resolution = this.getResolution();
         var left = -extent.left / resolution;
         var top = extent.top / resolution;
@@ -164,15 +164,15 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             return inRange;
         }
     },
-    
+
     /**
      * Method: translate
      * Transforms the SVG coordinate system
-     * 
+     *
      * Parameters:
      * x - {Float}
      * y - {Float}
-     * 
+     *
      * Returns:
      * {Boolean} true if the translation parameters are in the valid coordinates
      *     range, false otherwise.
@@ -194,24 +194,24 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: setSize
      * Sets the size of the drawing surface.
-     * 
+     *
      * Parameters:
      * size - {<OpenLayers.Size>} The size of the drawing surface
      */
     setSize: function(size) {
         OpenLayers.Renderer.prototype.setSize.apply(this, arguments);
-        
+
         this.rendererRoot.setAttributeNS(null, "width", this.size.w);
         this.rendererRoot.setAttributeNS(null, "height", this.size.h);
     },
 
-    /** 
-     * Method: getNodeType 
-     * 
+    /**
+     * Method: getNodeType
+     *
      * Parameters:
      * geometry - {<OpenLayers.Geometry>}
      * style - {Object}
-     * 
+     *
      * Returns:
      * {String} The corresponding node type for the specified geometry
      */
@@ -247,17 +247,17 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         return nodeType;
     },
 
-    /** 
+    /**
      * Method: setStyle
      * Use to set all the style attributes to a SVG node.
-     * 
+     *
      * Takes care to adjust stroke width and point radius to be
      * resolution-relative
      *
      * Parameters:
      * node - {SVGDomElement} An SVG element to decorate
      * style - {Object}
-     * options - {Object} Currently supported options include 
+     * options - {Object} Currently supported options include
      *                              'isFilled' {Boolean} and
      *                              'isStroked' {Boolean}
      */
@@ -273,7 +273,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 node.style.visibility = "hidden";
             } else if (style.externalGraphic) {
                 pos = this.getPosition(node);
-                
+
                 if (style.graphicTitle) {
                     node.setAttributeNS(null, "title", style.graphicTitle);
                 }
@@ -290,7 +290,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                     style.graphicYOffset : -(0.5 * height);
 
                 var opacity = style.graphicOpacity || style.fillOpacity;
-                
+
                 node.setAttributeNS(null, "x", (pos.x + xOffset).toFixed());
                 node.setAttributeNS(null, "y", (pos.y + yOffset).toFixed());
                 node.setAttributeNS(null, "width", width);
@@ -304,7 +304,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 var id = this.importSymbol(style.graphicName);
                 pos = this.getPosition(node);
                 widthFactor = this.symbolMetrics[id][0] * 3 / size;
-                
+
                 // remove the node from the dom before we modify it. This
                 // prevents various rendering issues in Safari and FF
                 var parent = node.parentNode;
@@ -312,7 +312,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 if(parent) {
                     parent.removeChild(node);
                 }
-                
+
                 if(this.supportUse === false) {
                     // workaround for webkit versions that cannot do defs/use
                     // (see https://bugs.webkit.org/show_bug.cgi?id=33322):
@@ -328,7 +328,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 node.setAttributeNS(null, "height", size);
                 node.setAttributeNS(null, "x", pos.x - offset);
                 node.setAttributeNS(null, "y", pos.y - offset);
-                
+
                 // now that the node has all its new properties, insert it
                 // back into the dom where it was
                 if(nextSibling) {
@@ -356,7 +356,7 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 }
             }
         }
-        
+
         if (options.isFilled) {
             node.setAttributeNS(null, "fill", style.fillColor);
             node.setAttributeNS(null, "fill-opacity", style.fillOpacity);
@@ -377,25 +377,25 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         } else {
             node.setAttributeNS(null, "stroke", "none");
         }
-        
+
         if (style.pointerEvents) {
             node.setAttributeNS(null, "pointer-events", style.pointerEvents);
         }
-                
+
         if (style.cursor != null) {
             node.setAttributeNS(null, "cursor", style.cursor);
         }
-        
+
         return node;
     },
 
-    /** 
+    /**
      * Method: dashStyle
-     * 
+     *
      * Parameters:
      * style - {Object}
      * widthFactor - {Number}
-     * 
+     *
      * Returns:
      * {String} A SVG compliant 'stroke-dasharray' value
      */
@@ -419,14 +419,14 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 return OpenLayers.String.trim(str).replace(/\s+/g, ",");
         }
     },
-    
-    /** 
+
+    /**
      * Method: createNode
-     * 
+     *
      * Parameters:
      * type - {String} Kind of node to draw
      * id - {String} Id for node
-     * 
+     *
      * Returns:
      * {DOMElement} A new node of the given type and id
      */
@@ -435,26 +435,26 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         if (id) {
             node.setAttributeNS(null, "id", id);
         }
-        return node;    
+        return node;
     },
-    
-    /** 
+
+    /**
      * Method: nodeTypeCompare
-     * 
+     *
      * Parameters:
      * node - {SVGDomElement} An SVG element
      * type - {String} Kind of node
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not the specified node is of the specified type
      */
     nodeTypeCompare: function(node, type) {
         return (type == node.nodeName);
     },
-   
+
     /**
      * Method: createRenderRoot
-     * 
+     *
      * Returns:
      * {DOMElement} The specific render engine's root element
      */
@@ -464,10 +464,10 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
     /**
      * Method: createRoot
-     * 
+     *
      * Parameter:
      * suffix - {String} suffix to append to the id
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -496,14 +496,14 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawPoint
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the renderer could not draw the point
-     */ 
+     */
     drawPoint: function(node, geometry) {
         return this.drawCircle(node, geometry, 1);
     },
@@ -511,12 +511,12 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawCircle
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
      * radius - {Float}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the renderer could not draw the circle
      */
@@ -525,73 +525,73 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         var x = (geometry.x / resolution + this.left);
         var y = (this.top - geometry.y / resolution);
 
-        if (this.inValidRange(x, y)) { 
+        if (this.inValidRange(x, y)) {
             node.setAttributeNS(null, "cx", x);
             node.setAttributeNS(null, "cy", y);
             node.setAttributeNS(null, "r", radius);
             return node;
         } else {
             return false;
-        }    
-            
+        }
+
     },
-    
+
     /**
      * Method: drawLineString
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or null if the renderer could not draw all components of
      *     the linestring, or false if nothing could be drawn
-     */ 
+     */
     drawLineString: function(node, geometry) {
         var componentsResult = this.getComponentsString(geometry.components);
         if (componentsResult.path) {
             node.setAttributeNS(null, "points", componentsResult.path);
-            return (componentsResult.complete ? node : null);  
+            return (componentsResult.complete ? node : null);
         } else {
             return false;
         }
     },
-    
+
     /**
      * Method: drawLinearRing
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or null if the renderer could not draw all components
      *     of the linear ring, or false if nothing could be drawn
-     */ 
+     */
     drawLinearRing: function(node, geometry) {
         var componentsResult = this.getComponentsString(geometry.components);
         if (componentsResult.path) {
             node.setAttributeNS(null, "points", componentsResult.path);
-            return (componentsResult.complete ? node : null);  
+            return (componentsResult.complete ? node : null);
         } else {
             return false;
         }
     },
-    
+
     /**
      * Method: drawPolygon
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or null if the renderer could not draw all components
      *     of the polygon, or false if nothing could be drawn
-     */ 
+     */
     drawPolygon: function(node, geometry) {
         var d = "";
         var draw = true;
@@ -616,26 +616,26 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             return complete ? node : null;
         } else {
             return false;
-        }    
+        }
     },
-    
+
     /**
      * Method: drawRectangle
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the renderer could not draw the rectangle
-     */ 
+     */
     drawRectangle: function(node, geometry) {
         var resolution = this.getResolution();
         var x = (geometry.x / resolution + this.left);
         var y = (this.top - geometry.y / resolution);
 
-        if (this.inValidRange(x, y)) { 
+        if (this.inValidRange(x, y)) {
             node.setAttributeNS(null, "x", x);
             node.setAttributeNS(null, "y", y);
             node.setAttributeNS(null, "width", geometry.width / resolution);
@@ -645,18 +645,18 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             return false;
         }
     },
-    
+
     /**
      * Method: drawSurface
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the renderer could not draw the surface
-     */ 
+     */
     drawSurface: function(node, geometry) {
 
         // create the svg path string representation
@@ -683,30 +683,30 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             return node;
         } else {
             return false;
-        }    
+        }
     },
-    
+
     /**
      * Method: drawText
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * featureId - {String}
      * style -
      * location - {<OpenLayers.Geometry.Point>}
      */
     drawText: function(featureId, style, location) {
         var resolution = this.getResolution();
-        
+
         var x = (location.x / resolution + this.left);
         var y = (location.y / resolution - this.top);
-        
+
         var label = this.nodeFactory(featureId + this.LABEL_ID_SUFFIX, "text");
         var tspan = this.nodeFactory(featureId + this.LABEL_ID_SUFFIX + "_tspan", "tspan");
 
         label.setAttributeNS(null, "x", x);
         label.setAttributeNS(null, "y", -y);
-        
+
         if (style.fontColor) {
             label.setAttributeNS(null, "fill", style.fontColor);
         }
@@ -744,20 +744,20 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         }
 
         tspan.textContent = style.label;
-        
+
         if(!label.parentNode) {
             label.appendChild(tspan);
             this.textRoot.appendChild(label);
-        }   
+        }
     },
-    
-    /** 
+
+    /**
      * Method: getComponentString
-     * 
+     *
      * Parameters:
      * components - {Array(<OpenLayers.Geometry.Point>)} Array of points
      * separator - {String} character between coordinate pairs. Defaults to ","
-     * 
+     *
      * Returns:
      * {Object} hash with properties "path" (the string created from the
      *     components and "complete" (false if the renderer was unable to
@@ -801,13 +801,13 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             complete: complete
         };
     },
-    
+
     /**
      * Method: clipLine
      * Given two points (one inside the valid range, and one outside),
      * clips the line betweeen the two points so that the new points are both
      * inside the valid range.
-     * 
+     *
      * Parameters:
      * badComponent - {<OpenLayers.Geometry.Point>)} original geometry of the
      *     invalid point
@@ -843,12 +843,12 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         return x2 + "," + y2;
     },
 
-    /** 
+    /**
      * Method: getShortString
-     * 
+     *
      * Parameters:
      * point - {<OpenLayers.Geometry.Point>}
-     * 
+     *
      * Returns:
      * {String} or false if point is outside the valid range
      */
@@ -857,20 +857,20 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         var x = (point.x / resolution + this.left);
         var y = (this.top - point.y / resolution);
 
-        if (this.inValidRange(x, y)) { 
+        if (this.inValidRange(x, y)) {
             return x + "," + y;
         } else {
             return false;
         }
     },
-    
+
     /**
      * Method: getPosition
      * Finds the position of an svg node.
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
-     * 
+     *
      * Returns:
      * {Object} hash with x and y properties, representing the coordinates
      *     within the svg coordinate system
@@ -885,25 +885,25 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: importSymbol
      * add a new symbol definition from the rendererer's symbol hash
-     * 
+     *
      * Parameters:
      * graphicName - {String} name of the symbol to import
-     * 
+     *
      * Returns:
      * {String} - id of the imported symbol
-     */      
+     */
     importSymbol: function (graphicName)  {
         if (!this.defs) {
             // create svg defs tag
             this.defs = this.createDefs();
         }
         var id = this.container.id + "-" + graphicName;
-        
+
         // check if symbol already exists in the defs
         if (document.getElementById(id) != null) {
             return id;
         }
-        
+
         var symbol = OpenLayers.Renderer.symbol[graphicName];
         if (!symbol) {
             throw new Error(graphicName + ' is not a valid symbol name');
@@ -926,9 +926,9 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             symbolExtent.top = Math.max(symbolExtent.top, y);
             points.push(x, ",", y);
         }
-        
+
         node.setAttributeNS(null, "points", points.join(" "));
-        
+
         var width = symbolExtent.getWidth();
         var height = symbolExtent.getHeight();
         // create a viewBox three times as large as the symbol itself,
@@ -941,19 +941,19 @@ OpenLayers.Renderer.SVG = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             symbolExtent.getCenterLonLat().lon,
             symbolExtent.getCenterLonLat().lat
         ];
-        
+
         this.defs.appendChild(symbolNode);
         return symbolNode.id;
     },
-    
+
     /**
      * Method: getFeatureIdFromEvent
-     * 
+     *
      * Parameters:
      * evt - {Object} An <OpenLayers.Event> object
      *
      * Returns:
-     * {<OpenLayers.Geometry>} A geometry from an event that 
+     * {<OpenLayers.Geometry>} A geometry from an event that
      *     happened on a layer.
      */
     getFeatureIdFromEvent: function(evt) {
@@ -991,5 +991,5 @@ OpenLayers.Renderer.SVG.LABEL_VSHIFT = {
     // bottom to the top of the baseline, so -35% moves the text to
     // the center of the baseline.
     "t": "-70%",
-    "b": "0"    
+    "b": "0"
 };

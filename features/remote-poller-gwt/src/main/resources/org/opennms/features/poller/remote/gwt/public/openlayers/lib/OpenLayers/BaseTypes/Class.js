@@ -1,17 +1,17 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
 /**
  * Constructor: OpenLayers.Class
- * Base class used to construct all other classes. Includes support for 
- *     multiple inheritance. 
- *     
- * This constructor is new in OpenLayers 2.5.  At OpenLayers 3.0, the old 
- *     syntax for creating classes and dealing with inheritance 
+ * Base class used to construct all other classes. Includes support for
+ *     multiple inheritance.
+ *
+ * This constructor is new in OpenLayers 2.5.  At OpenLayers 3.0, the old
+ *     syntax for creating classes and dealing with inheritance
  *     will be removed.
- * 
+ *
  * To create a new OpenLayers-style class, use the following syntax:
  * > var MyClass = OpenLayers.Class(prototype);
  *

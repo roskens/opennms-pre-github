@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,20 +10,20 @@
 
 /**
  * Class: OpenLayers.Control.Scale
- * The Scale control displays the current map scale as a ratio (e.g. Scale = 
+ * The Scale control displays the current map scale as a ratio (e.g. Scale =
  * 1:1M). By default it is displayed in the lower right corner of the map.
  *
  * Inherits from:
  *  - <OpenLayers.Control>
  */
 OpenLayers.Control.Scale = OpenLayers.Class(OpenLayers.Control, {
-    
+
     /**
      * Parameter: element
      * {DOMElement}
      */
     element: null,
-    
+
     /**
      * APIProperty: geodesic
      * {Boolean} Use geodesic measurement. Default is false. The recommended
@@ -35,22 +35,22 @@ OpenLayers.Control.Scale = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Constructor: OpenLayers.Control.Scale
-     * 
+     *
      * Parameters:
-     * element - {DOMElement} 
-     * options - {Object} 
+     * element - {DOMElement}
+     * options - {Object}
      */
     initialize: function(element, options) {
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        this.element = OpenLayers.Util.getElement(element);        
+        this.element = OpenLayers.Util.getElement(element);
     },
 
     /**
      * Method: draw
-     * 
+     *
      * Returns:
      * {DOMElement}
-     */    
+     */
     draw: function() {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
         if (!this.element) {
@@ -61,7 +61,7 @@ OpenLayers.Control.Scale = OpenLayers.Class(OpenLayers.Control, {
         this.updateScale();
         return this.div;
     },
-   
+
     /**
      * Method: updateScale
      */
@@ -78,7 +78,7 @@ OpenLayers.Control.Scale = OpenLayers.Class(OpenLayers.Control, {
         } else {
             scale = this.map.getScale();
         }
-            
+
         if (!scale) {
             return;
         }
@@ -89,10 +89,10 @@ OpenLayers.Control.Scale = OpenLayers.Class(OpenLayers.Control, {
             scale = Math.round(scale / 1000000) + "M";
         } else {
             scale = Math.round(scale);
-        }    
-        
+        }
+
         this.element.innerHTML = OpenLayers.i18n("scale", {'scaleDenom':scale});
-    }, 
+    },
 
     CLASS_NAME: "OpenLayers.Control.Scale"
 });

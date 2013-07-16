@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,7 +12,7 @@
  * Class: OpenLayers.Filter.Spatial
  * This class represents a spatial filter.
  * Currently implemented: BBOX, DWithin and Intersects
- * 
+ *
  * Inherits from
  * - <OpenLayers.Filter>
  */
@@ -30,13 +30,13 @@ OpenLayers.Filter.Spatial = OpenLayers.Class(OpenLayers.Filter, {
      * - OpenLayers.Filter.Spatial.CONTAINS
      */
     type: null,
-    
+
     /**
      * APIProperty: property
      * {String} Name of the context property to compare.
      */
     property: null,
-    
+
     /**
      * APIProperty: value
      * {<OpenLayers.Bounds> || <OpenLayers.Geometry>} The bounds or geometry
@@ -56,15 +56,15 @@ OpenLayers.Filter.Spatial = OpenLayers.Class(OpenLayers.Filter, {
      * {String} The units to use for the distance, e.g. 'm'.
      */
     distanceUnits: null,
-    
-    /** 
+
+    /**
      * Constructor: OpenLayers.Filter.Spatial
      * Creates a spatial filter.
      *
      * Parameters:
      * options - {Object} An optional object with properties to set on the
      *     filter.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Spatial>}
      */
@@ -75,10 +75,10 @@ OpenLayers.Filter.Spatial = OpenLayers.Class(OpenLayers.Filter, {
    /**
     * Method: evaluate
     * Evaluates this filter for a specific feature.
-    * 
+    *
     * Parameters:
     * feature - {<OpenLayers.Feature.Vector>} feature to apply the filter to.
-    * 
+    *
     * Returns:
     * {Boolean} The feature meets filter criteria.
     */
@@ -108,7 +108,7 @@ OpenLayers.Filter.Spatial = OpenLayers.Class(OpenLayers.Filter, {
     /**
      * APIMethod: clone
      * Clones this filter.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Spatial>} Clone of this filter.
      */

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,13 +11,13 @@
 /**
  * Class: OpenLayers.Format.WMTSCapabilities.v1_0_0
  * Read WMTS Capabilities version 1.0.0.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMTSCapabilities>
  */
 OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
     OpenLayers.Format.OWSCommon.v1_1_0, {
-        
+
     /**
      * Property: version
      * {String} The parser version ("1.0.0").
@@ -32,13 +32,13 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
         ows: "http://www.opengis.net/ows/1.1",
         wmts: "http://www.opengis.net/wmts/1.0",
         xlink: "http://www.w3.org/1999/xlink"
-    },    
-    
+    },
+
     /**
      * Property: yx
      * {Object} Members in the yx object are used to determine if a CRS URN
      *     corresponds to a CRS with y,x axis order.  Member names are CRS URNs
-     *     and values are boolean.  Defaults come from the 
+     *     and values are boolean.  Defaults come from the
      *     <OpenLayers.Format.WMTSCapabilities> prototype.
      */
     yx: null,
@@ -51,7 +51,7 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
 
     /**
      * Constructor: OpenLayers.Format.WMTSCapabilities.v1_0_0
-     * Create a new parser for WMTS capabilities version 1.0.0. 
+     * Create a new parser for WMTS capabilities version 1.0.0.
      *
      * Parameters:
      * options - {Object} An optional object whose properties will be set on
@@ -69,8 +69,8 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
     /**
      * APIMethod: read
      * Read capabilities data from a string, and return info about the WMTS.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -97,15 +97,15 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
      *     with two arguments: the node being read and a context object passed
      *     from the parent.
      */
-    readers: {        
+    readers: {
         "wmts": {
             "Capabilities": function(node, obj) {
                 this.readChildNodes(node, obj);
             },
             "Contents": function(node, obj) {
-                obj.contents = {};                
+                obj.contents = {};
                 obj.contents.layers = [];
-                obj.contents.tileMatrixSets = {};                
+                obj.contents.tileMatrixSets = {};
                 this.readChildNodes(node, obj.contents);
             },
             "Layer": function(node, obj) {
@@ -125,7 +125,7 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
                 obj.styles.push(style);
             },
             "Format": function(node, obj) {
-                obj.formats.push(this.getChildValue(node)); 
+                obj.formats.push(this.getChildValue(node));
             },
             "TileMatrixSetLink": function(node, obj) {
                 var tileMatrixSetLink = {};
@@ -155,9 +155,9 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
                 obj.matrixIds.push(tileMatrix);
             },
             "ScaleDenominator": function(node, obj) {
-                obj.scaleDenominator = parseFloat(this.getChildValue(node)); 
+                obj.scaleDenominator = parseFloat(this.getChildValue(node));
             },
-            "TopLeftCorner": function(node, obj) {                
+            "TopLeftCorner": function(node, obj) {
                 var topLeftCorner = this.getChildValue(node);
                 var coords = topLeftCorner.split(" ");
                 // decide on axis order for the given CRS
@@ -165,7 +165,7 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
                 if (obj.supportedCRS) {
                     // extract out version from URN
                     var crs = obj.supportedCRS.replace(
-                        /urn:ogc:def:crs:(\w+):.+:(\w+)$/, 
+                        /urn:ogc:def:crs:(\w+):.+:(\w+)$/,
                         "urn:ogc:def:crs:$1::$2"
                     );
                     yx = !!this.yx[crs];
@@ -181,41 +181,41 @@ OpenLayers.Format.WMTSCapabilities.v1_0_0 = OpenLayers.Class(
                 }
             },
             "TileWidth": function(node, obj) {
-                obj.tileWidth = parseInt(this.getChildValue(node)); 
+                obj.tileWidth = parseInt(this.getChildValue(node));
             },
             "TileHeight": function(node, obj) {
-                obj.tileHeight = parseInt(this.getChildValue(node)); 
+                obj.tileHeight = parseInt(this.getChildValue(node));
             },
             "MatrixWidth": function(node, obj) {
-                obj.matrixWidth = parseInt(this.getChildValue(node)); 
+                obj.matrixWidth = parseInt(this.getChildValue(node));
             },
             "MatrixHeight": function(node, obj) {
-                obj.matrixHeight = parseInt(this.getChildValue(node)); 
-            },        
+                obj.matrixHeight = parseInt(this.getChildValue(node));
+            },
             // not used for now, can be added in the future though
             /*"Themes": function(node, obj) {
                 obj.themes = [];
                 this.readChildNodes(node, obj.themes);
             },
             "Theme": function(node, obj) {
-                var theme = {};                
+                var theme = {};
                 this.readChildNodes(node, theme);
                 obj.push(theme);
             },*/
             "WSDL": function(node, obj) {
                 obj.wsdl = {};
                 obj.wsdl.href = node.getAttribute("xlink:href");
-                // TODO: other attributes of <WSDL> element                
+                // TODO: other attributes of <WSDL> element
             },
             "ServiceMetadataURL": function(node, obj) {
                 obj.serviceMetadataUrl = {};
                 obj.serviceMetadataUrl.href = node.getAttribute("xlink:href");
-                // TODO: other attributes of <ServiceMetadataURL> element                
-            }            
+                // TODO: other attributes of <ServiceMetadataURL> element
+            }
         },
         "ows": OpenLayers.Format.OWSCommon.v1_1_0.prototype.readers["ows"]
-    },    
-    
-    CLASS_NAME: "OpenLayers.Format.WMTSCapabilities.v1_0_0" 
+    },
+
+    CLASS_NAME: "OpenLayers.Format.WMTSCapabilities.v1_0_0"
 
 });

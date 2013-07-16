@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,13 +9,13 @@
  *     one of the protocol subclasses instead.
  */
 OpenLayers.Protocol = OpenLayers.Class({
-    
+
     /**
      * Property: format
      * {<OpenLayers.Format>} The format used by this protocol.
      */
     format: null,
-    
+
     /**
      * Property: options
      * {Object} Any options sent to the constructor.
@@ -29,13 +29,13 @@ OpenLayers.Protocol = OpenLayers.Class({
      *      true.
      */
     autoDestroy: true,
-   
+
     /**
      * Property: defaultFilter
      * {OpenLayers.Filter} Optional default filter to read requests
      */
     defaultFilter: null,
-    
+
     /**
      * Constructor: OpenLayers.Protocol
      * Abstract class for vector protocols.  Create instances of a subclass.
@@ -78,7 +78,7 @@ OpenLayers.Protocol = OpenLayers.Class({
         this.options = null;
         this.format = null;
     },
-    
+
     /**
      * APIMethod: read
      * Construct a request for reading new features.
@@ -95,8 +95,8 @@ OpenLayers.Protocol = OpenLayers.Class({
         options = options || {};
         options.filter = this.mergeWithDefaultFilter(options.filter);
     },
-    
-    
+
+
     /**
      * APIMethod: create
      * Construct a request for writing newly created features.
@@ -113,7 +113,7 @@ OpenLayers.Protocol = OpenLayers.Class({
      */
     create: function() {
     },
-    
+
     /**
      * APIMethod: update
      * Construct a request updating modified features.
@@ -130,7 +130,7 @@ OpenLayers.Protocol = OpenLayers.Class({
      */
     update: function() {
     },
-    
+
     /**
      * APIMethod: delete
      * Construct a request deleting a removed feature.
@@ -178,7 +178,7 @@ OpenLayers.Protocol = OpenLayers.Class({
      */
     abort: function(response) {
     },
-   
+
     /**
      * Method: createCallback
      * Returns a function that applies the given public method with resp and
@@ -194,8 +194,8 @@ OpenLayers.Protocol = OpenLayers.Class({
             method.apply(this, [response, options]);
         }, this);
     },
-   
-    CLASS_NAME: "OpenLayers.Protocol" 
+
+    CLASS_NAME: "OpenLayers.Protocol"
 });
 
 /**

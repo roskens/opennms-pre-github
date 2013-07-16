@@ -8,7 +8,7 @@ function testOKResponse(action, response){
 function reloadConfiguration(){
 	loading++;
 	assertLoading();
-	getMapRequest ( RELOAD_CONFIG_ACTION+"."+suffix, null, handleReloadConfigResponse, "text/xml", null );	
+	getMapRequest ( RELOAD_CONFIG_ACTION+"."+suffix, null, handleReloadConfigResponse, "text/xml", null );
 }
 
 function handleReloadConfigResponse(data) {
@@ -17,19 +17,19 @@ function handleReloadConfigResponse(data) {
 	} else {
 		alert('Reloading Map configuration failed');
 	}
-	loading--;	
+	loading--;
 	assertLoading();
     }
 
 function loadDefaultMap(){
 	loading++;
 	assertLoading();
-	getMapRequest ( LOADDEFAULTMAP_ACTION+"."+suffix, null, handleLoadDefaultMapResponse, "text/xml", null );	
+	getMapRequest ( LOADDEFAULTMAP_ACTION+"."+suffix, null, handleLoadDefaultMapResponse, "text/xml", null );
 }
 
 function handleLoadDefaultMapResponse(data) {
 	var	content = data.content;
-	if((data.success || data.status==200) && 
+	if((data.success || data.status==200) &&
 		content.indexOf(LOADDEFAULTMAP_ACTION+failed_string) == -1 ) {
 		 var defmap = eval("("+content+")");
 		 defaultMap = new ElemMap(defmap.id, defmap.name, defmap.owner);
@@ -37,13 +37,13 @@ function handleLoadDefaultMapResponse(data) {
 		 alert('Load Default Map failed');
 		 defaultMap = new ElemMap(NEW_MAP, 'no default map found', 'admin');
 	}
-	loading--;	
+	loading--;
 	assertLoading();
-    
+
     if (defaultMap.getId() > 0 ) {
 		mapTabSetUp(defaultMap.getName());
         openMapSetUp(defaultMap.getId(),false);
-    } 
+    }
 }
 
 function loadMaps(){
@@ -54,11 +54,11 @@ function loadMaps(){
 
 function handleLoadMapsResponse(data) {
     var content = data.content;
-	if((data.success || data.status==200) 
+	if((data.success || data.status==200)
 	&& content.indexOf(LOADMAPS_ACTION+failed_string) == -1 ) {
 		var currMaps=eval("("+content+")");
 		mapLabels = [" "];
-		
+
 		var labels = [" "];
 	    var mapSorts = [null];
 	    var mapids = [null];
@@ -77,20 +77,20 @@ function handleLoadMapsResponse(data) {
 			labels.push(name)
 			mapSorts.push(new ElemMap(id, name, owner));
 		}
-	
-		mapids.push(SEARCH_MAP);	
+
+		mapids.push(SEARCH_MAP);
 		labels.push(SEARCH_MAP_NAME);
 		mapSorts.push(new ElemMap(SEARCH_MAP,SEARCH_MAP_NAME,"admin"));
-	
-		mapSortAss = assArrayPopulate(labels,mapSorts);	
-		mapidSortAss = assArrayPopulate(mapids,labels);	
+
+		mapSortAss = assArrayPopulate(labels,mapSorts);
+		mapidSortAss = assArrayPopulate(mapids,labels);
 		mapsLoaded=true;
 		// Load also the maps label
 		loadLabelMap();
 	} else {
 		alert('Loading Maps failed');
 	}
-	loading--;	
+	loading--;
 	assertLoading();
 }
 
@@ -102,7 +102,7 @@ function loadNodes(){
 
 function handleLoadNodesResponse(data) {
     var content = data.content;
-	if((data.success || data.status==200) 
+	if((data.success || data.status==200)
 	&& content.indexOf(LOADNODES_ACTION+failed_string) == -1 ) {
 		var currNodes=eval("("+content+")");
 		nodeLabels = [" "];
@@ -118,9 +118,9 @@ function handleLoadNodesResponse(data) {
 			nodeLabels.push(label);
 			nodeSorts.push(tmpNode);
 		}
-			
-		nodeSortAss = assArrayPopulate(nodeLabels,nodeSorts);	
-		nodeidSortAss = assArrayPopulate(nodeids,nodeSorts);	
+
+		nodeSortAss = assArrayPopulate(nodeLabels,nodeSorts);
+		nodeidSortAss = assArrayPopulate(nodeids,nodeSorts);
 		nodesLoaded=true;
 	} else {
 	     alert('Load Nodes failed');
@@ -137,8 +137,8 @@ function loadLabelMap(){
 
 function handleLoadLabelMapResponse(data) {
 	var content= data.content;
-	if((data.success || data.status==200) 
-	&& content.indexOf(LOADLABELMAP_ACTION+failed_string) == -1) {	    
+	if((data.success || data.status==200)
+	&& content.indexOf(LOADLABELMAP_ACTION+failed_string) == -1) {
 		var labelMap=eval("("+content+")");
 		if ( labelMap != null ) {
 			for (var label in labelMap) {
@@ -152,9 +152,9 @@ function handleLoadLabelMapResponse(data) {
 		}
 	}else{
 		alert("Load Label Map failed.");
-	}	
+	}
 	loading--;
-	assertLoading();	
+	assertLoading();
 }
 
 function addMapElement(id){
@@ -197,7 +197,7 @@ function addMapElementWithNeighbors(elem){
 	getMapRequest ( ADDNODES_ACTION+"."+suffix+"?action="+ADDNODES_WITH_NEIG_ACTION+"&elems="+elem, null, handleAddElementResponse, "text/xml", null );
 }
 
-function addMapAsNode(mapIds){ 
+function addMapAsNode(mapIds){
 	loading++;
 	assertLoading();
 
@@ -208,14 +208,14 @@ function handleAddElementResponse(data) {
 	var addElem;
 	var	content = data.content;
 
-	if( (data.success || data.status==200)  
-	 && content.indexOf(ADDNODES_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDRANGE_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDNODES_NEIG_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDNODES_WITH_NEIG_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDNODES_BY_CATEGORY_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDNODES_BY_LABEL_ACTION+failed_string) == -1 
-	 && content.indexOf(ADDMAPS_ACTION+failed_string) == -1 
+	if( (data.success || data.status==200)
+	 && content.indexOf(ADDNODES_ACTION+failed_string) == -1
+	 && content.indexOf(ADDRANGE_ACTION+failed_string) == -1
+	 && content.indexOf(ADDNODES_NEIG_ACTION+failed_string) == -1
+	 && content.indexOf(ADDNODES_WITH_NEIG_ACTION+failed_string) == -1
+	 && content.indexOf(ADDNODES_BY_CATEGORY_ACTION+failed_string) == -1
+	 && content.indexOf(ADDNODES_BY_LABEL_ACTION+failed_string) == -1
+	 && content.indexOf(ADDMAPS_ACTION+failed_string) == -1
 	 ){
 	 	addElem = eval("("+content+")");
 	 }else{
@@ -232,11 +232,11 @@ function handleAddElementResponse(data) {
 	}
     // Reset Map and remove links
 	map.clearLinks();
-	
+
 	// test the map element spaces available
 	var freePoints = getFreePoints();
 	var alerted = false;
-	
+
 	while(freePoints.length < addElem.elems.length) {
 		if(!alerted)
 			alert('Not enough space for all elements; their dimensions will be reduced');
@@ -250,21 +250,21 @@ function handleAddElementResponse(data) {
 		for(el in map.mapElements){
 			map.mapElements[el].setDimension(mapElemDimension);
 		}
-		freePoints = getFreePoints();		
+		freePoints = getFreePoints();
 	}
-	
+
 	//elems
 	var icon,point,velem,id,iconName,labelText,avail,status,severity;
 	var index = 0;
 	for(var elemsIndex in addElem.elems) {
 		point = freePoints[index++];
-		velem = addElem.elems[elemsIndex];		
-		
+		velem = addElem.elems[elemsIndex];
+
 		id=velem.id+velem.type;
-		
+
 		iconName = velem.icon;
 		labelText=velem.label;
-					
+
 		avail=velem.avail;
 		status=velem.status;
 		severity=velem.severity;
@@ -275,7 +275,7 @@ function handleAddElementResponse(data) {
 	var msg = "Added "+index+" nodes to the map";
 	if(index==0){
 		msg="No nodes added to map"
-	}	
+	}
 	// Links
 
 	var vlink,id1,id2, typology, status,nodeids,numberOfLinks, statusMap;
@@ -291,19 +291,19 @@ function handleAddElementResponse(data) {
 		if ( numberOfLinks == 1 )
 			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], LINK_WIDTH[typology], LINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 		else
-			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);		
+			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 	}
-		
+
 	map.render();
 	reloadGrid();
-	
+
 	loading--;
 	assertLoading();
-	
+
 	showMapInfo();
 	writeDownInfo(msg);
 	enableMenu();
-		
+
 }
 
 
@@ -327,8 +327,8 @@ function deleteMapElement(elemMap)
 
 function handleDeleteElementResponse(data) {
 	var content = data.content;
-	if((data.success || data.status==200) 	 
-	 && content.indexOf(DELETENODES_ACTION+failed_string) == -1 
+	if((data.success || data.status==200)
+	 && content.indexOf(DELETENODES_ACTION+failed_string) == -1
 	 && content.indexOf(DELETEMAPS_ACTION+failed_string) == -1 ) {
 	 	var delElemId = eval("("+content+")");
 	 	var velem;
@@ -373,14 +373,14 @@ function handleLoadingCloseMap(data) {
 		currentMapBackGround=DEFAULT_BG_COLOR;
 		map.setBGvalue(DEFAULT_BG_COLOR);
 		currentMapAccess="";
-		currentMapName=""; 
-		currentMapOwner=""; 
+		currentMapName="";
+		currentMapOwner="";
 		currentMapUserlast="";
 		currentMapCreatetime="";
 		currentMapLastmodtime="";
 		currentMapType="";
 		savedMapString=getMapString();
-	
+
 		reloadGrid();
 		clearMapInfo();
 		hideMapInfo();
@@ -391,7 +391,7 @@ function handleLoadingCloseMap(data) {
 
 	loading--;
 	assertLoading();
-	
+
 	enableMenu();
 }
 
@@ -399,11 +399,11 @@ function newMap(){
 
 	loading++;
 	assertLoading();
-	
+
 	getMapRequest (  NEWMAP_ACTION+"."+suffix+"?MapWidth="+mapWidth+"&MapHeight="+mapHeight, null, handleLoadingMap, "text/xml", null );
 }
 
-function openMap(mapId){ 		
+function openMap(mapId){
 
 	loading++;
 	assertLoading();
@@ -412,7 +412,7 @@ function openMap(mapId){
 }
 
 function searchMap(mapIds){
-	
+
 	loading++;
 	assertLoading();
 	var requestUrl=SEARCHMAPS_ACTION+"."+suffix+"?MapWidth="+mapWidth+"&MapHeight="+mapHeight+"&MapElemDimension="+mapElemDimension+"&elems="+mapIds;
@@ -423,8 +423,8 @@ function searchMap(mapIds){
 function handleLoadingMap(data) {
 	var openingMap;
     var content = data.content;
-	if((data.success || data.status==200) 
-	&& content.indexOf(OPENMAP_ACTION+failed_string) == -1 
+	if((data.success || data.status==200)
+	&& content.indexOf(OPENMAP_ACTION+failed_string) == -1
 	&& content.indexOf(SEARCHMAPS_ACTION+failed_string) == -1
 	&& content.indexOf(NEWMAP_ACTION+failed_string) == -1
 	) {
@@ -442,7 +442,7 @@ function handleLoadingMap(data) {
 	hasHideMaps = false;
 
 	map.clear();
-		
+
 	currentMapId=openingMap.id
 
 	if(openingMap.background !="null")
@@ -466,8 +466,8 @@ function handleLoadingMap(data) {
 	else currentMapType="";
 
 	for ( var elem in openingMap.elements ) {
-		var velem = openingMap.elements[elem];	
-			
+		var velem = openingMap.elements[elem];
+
 		if ( velem.node || velem.map ) {
 			var avail=velem.avail;
 			var status=velem.status;
@@ -477,23 +477,23 @@ function handleLoadingMap(data) {
 
 		    var iconName = velem.icon;
     		var icon = new Icon(iconName,MEIconsSortAss[iconName]);
-		    
+
     		labelText=velem.label;
-									    
+
 		    map.addMapElement(new MapElement(elem,icon, labelText, semaphoreColor, semaphoreFlash, velem.x, velem.y, mapElemDimension, status, avail,severity,useSemaphore));
 		} else if (velem.hideNode ) {
 			if (hideNodesIds == "")
 				hideNodesIds=velem.id;
-			else 
+			else
 				hideNodesIds=hideNodesIds+','+velem.id;
 			hasHideNodes = true;
 		} else if ( velem.hideMap ) {
 			if (hideMapsIds == "")
 				hideMapsIds=velem.id;
-			else 
+			else
 				hideMapsIds=hideMapsIds+','+velem.id;
 			hasHideMaps = true;
-			
+
 		}
 	}
 	for ( var link in openingMap.links ) {
@@ -509,9 +509,9 @@ function handleLoadingMap(data) {
 		if ( numberOfLinks == 1 )
 			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], LINK_WIDTH[typology], LINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 		else
-			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);		
+			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 	}
-	
+
 	savedMapString=getMapString();
 	saveMapInHistory();
 
@@ -520,26 +520,26 @@ function handleLoadingMap(data) {
 	} else {
 		updateUrl=true;
 	}
-	
+
 	reloadGrid();
 	map.setBGvalue(currentMapBackGround);
 	map.render();
 
-	
+
 	loading--;
 	assertLoading();
 
 	writeMapInfo();
-	showHistory();				
+	showHistory();
 
 	if ( currentMapId == SEARCH_MAP && !isAdminMode ) {
 	    refreshNodesSetUp();
     }
-    
-	if (!countdownStarted && !isAdminMode) {	
-		startRefreshNodesTime();		    	
+
+	if (!countdownStarted && !isAdminMode) {
+		startRefreshNodesTime();
 	}
-	
+
 	enableMenu();
 }
 
@@ -564,7 +564,7 @@ function saveMap() {
 		}
 
 		data+= id+","+parseInt(elem.x)+","+parseInt(elem.y)+","+elem.icon.name+","+type;
-		
+
 	}
 
 	var query="MapId="+currentMapId+"&MapName="+currentMapName+"&MapBackground="+currentMapBackGround+"&MapWidth="+map.getWidth()+"&MapHeight="+map.getHeight();
@@ -574,12 +574,12 @@ function saveMap() {
 function handleSaveResponse(data) {
 	var savingMap;
     var content = data.content;
-	if((data.success || data.status==200) 
+	if((data.success || data.status==200)
 	&& content.indexOf(SAVEMAP_ACTION+failed_string) == -1
 	) {
 		savingMap=eval("("+content+")");
 	} else {
-		alert('Failed to save map');	
+		alert('Failed to save map');
 		showHistory();
 		clearDownInfo();
 		enableMenu();
@@ -597,8 +597,8 @@ function handleSaveResponse(data) {
 		currentMapType="S";
 
 	loadMaps();
-	
-	savedMapString = getMapString();			
+
+	savedMapString = getMapString();
 	saveMapInHistory();
 
 	if (updateUrl) {
@@ -606,13 +606,13 @@ function handleSaveResponse(data) {
 	} else {
 		updateUrl=true;
 	}
-	
+
 	writeMapInfo();
 	showHistory();
 	writeDownInfo("Map '" +currentMapName+"' saved.");
 
-	enableMenu();			
-				
+	enableMenu();
+
 }
 
 function deleteMap(){
@@ -621,22 +621,22 @@ function deleteMap(){
 
 function handleDeleteMapResponse(data) {
 	if((data.success || data.status==200) && testOKResponse(DELETEMAP_ACTION, data.content) ) {
-		
+
 		mapTabClose(mapidSortAss[currentMapId]);
 		map.clear();
-		deleteMapInHistory();		
+		deleteMapInHistory();
 		currentMapId=MAP_NOT_OPENED;
 		currentMapBackGround=DEFAULT_BG_COLOR;
 		currentMapAccess="";
-		currentMapName=""; 
-		currentMapOwner=""; 
+		currentMapName="";
+		currentMapOwner="";
 		currentMapUserlast="";
 		currentMapCreatetime="";
 		currentMapLastmodtime="";
-	
+
 		loadMaps();
 		setTimeout("onClosingActiveTab();",200);
-	
+
 		writeDownInfo("Map deleted.");
 		clearMapInfo();
 		hideMapInfo();
@@ -646,11 +646,11 @@ function handleDeleteMapResponse(data) {
 		alert('Failed to delete map');
 		clearDownInfo();
 	}
-	enableMenu();		
+	enableMenu();
 }
 
 function clearMap(){
-	
+
 	if (map.getMapElementsSize()==0){
 	  	 alert('Map contains no nodes');
 		return;
@@ -664,7 +664,7 @@ function clearMap(){
 }
 
 function handleClearMapResponse(data) {
-	
+
 	if((data.success || data.status==200) && testOKResponse(CLEAR_ACTION, data.content) ) {
 	   	map.clear();
 	   	reloadGrid();
@@ -677,7 +677,7 @@ function handleClearMapResponse(data) {
 	loading--;
 	assertLoading();
 	enableMenu();
-   	
+
 }
 
 function switchRole(){
@@ -688,7 +688,7 @@ function switchRole(){
 function handleSwitchRole(data) {
 	if((data.success || data.status==200) && testOKResponse(SWITCH_MODE_ACTION, data.content) ) {
 		isAdminMode = !isAdminMode;
-		
+
 		if (isAdminMode) {
 			showMapInfo();
 			showHistory();
@@ -706,13 +706,13 @@ function handleSwitchRole(data) {
 	} else {
 	    alert('Failed to switch the role');
 	}
-	enableMenu();		
+	enableMenu();
 }
 
 function refreshNodes(){
 	if(map!=undefined && currentMapId!=MAP_NOT_OPENED ){
 	    assertRefreshing(1);
-	    
+
 		if(reloadMap){
 			getMapRequest ( REFRESH_BASE_ACTION+"."+suffix+"?action="+RELOAD_ACTION,  null, handleRefreshNodesResponse, "text/xml", null );
 		}else{
@@ -724,16 +724,16 @@ function refreshNodes(){
 
 function handleRefreshNodesResponse(data) {
 	assertRefreshing(0);
-	
+
 	if (!countdownStarted)
     	startRefreshNodesTime();
-	
+
 	enableMenu();
-	
+
 	var content = data.content;
 	var refreshResponse;
-	if((data.success || data.status==200) 
-	&& content.indexOf(RELOAD_ACTION+failed_string) == -1 
+	if((data.success || data.status==200)
+	&& content.indexOf(RELOAD_ACTION+failed_string) == -1
 	&& content.indexOf(REFRESH_ACTION+failed_string) == -1 ) {
 		refreshResponse=eval("("+content+")");
 	} else {
@@ -748,23 +748,23 @@ function handleRefreshNodesResponse(data) {
 
 	hideNodesIds = "";
 	hasHideNodes = false;
-	
+
 	hideMapsIds = "";
 	hasHideMaps = false;
-	
+
 	var icon,velem,id,iconName,labelText,avail,status,severity,posx,posy;
 	for(var elemsIndex in refreshResponse.elems) {
-		velem = refreshResponse.elems[elemsIndex];		
-		
+		velem = refreshResponse.elems[elemsIndex];
+
 		id=velem.id+velem.type;
-		
+
 		iconName = velem.icon;
 		labelText=velem.label;
-					
+
 		avail=velem.avail;
 		status=velem.status;
 		severity=velem.severity;
-	
+
 		var testHideNode = id.indexOf('H');
 		var testHideMap = id.indexOf('W');
 		if ( testHideNode == -1 && testHideMap == -1 ) {
@@ -787,19 +787,19 @@ function handleRefreshNodesResponse(data) {
 			var nodeid = id.substring(0,testHideNode);
 			if (hideNodesIds == "")
 				hideNodesIds=nodeid;
-			else 
+			else
 				hideNodesIds=hideNodesIds+','+nodeid;
 				hasHideNodes = true;
 		} else {
 			var mapid = id.substring(0,testHideMap);
 			if (hideMapsIds == "")
 				hideMapsIds=mapid;
-			else 
+			else
 				hideMapsIds=hideMapsIds+','+mapid;
-			hasHideMaps = true;				
+			hasHideMaps = true;
 		}
 	}
-	// Links		
+	// Links
 	var vlink,id1,id2, typology, status,nodeids,numberOfLinks, statusMap;
 	for(var linksIndex in refreshResponse.links) {
 		vlink = refreshResponse.links[linksIndex];
@@ -813,7 +813,7 @@ function handleRefreshNodesResponse(data) {
 		if ( numberOfLinks == 1 )
 			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], LINK_WIDTH[typology], LINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 		else
-			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);		
+			map.addLink(id1,id2,typology,numberOfLinks, statusMap,status,LINKSTATUS_COLOR[status], MULTILINK_WIDTH[typology], MULTILINK_DASHARRAY[typology], LINKSTATUS_FLASH[status],deltaLink,nodeids);
 	}
 	map.render();
 
@@ -825,8 +825,8 @@ function setMapElemDim(){
 		map.mapElements[el].setDimension(mapElemDimension);
 	}
 
-	map.render();	
-			
+	map.render();
+
 	writeDownInfo("Map element resized to" + mapElemDimension +".");
 
 	enableMenu();
@@ -834,7 +834,7 @@ function setMapElemDim(){
 
 function startRefreshNodesTime() {
         refreshingMapElems=false;
-		stopCountdown = false;	
+		stopCountdown = false;
 	    var begin=(new Date()).getTime();
         countdown(begin);
 }

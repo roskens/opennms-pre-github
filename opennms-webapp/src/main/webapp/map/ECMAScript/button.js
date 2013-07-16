@@ -76,14 +76,14 @@ somewhere in the source-code-comment or the "about" of your project and give cre
 
 */
 
-function button(id,parentNode,functionToCall,buttonType,buttonText,buttonSymbolId,x,y,width,height,textStyles,buttonStyles,shadeLightStyles,shadeDarkStyles,shadowOffset) {	
+function button(id,parentNode,functionToCall,buttonType,buttonText,buttonSymbolId,x,y,width,height,textStyles,buttonStyles,shadeLightStyles,shadeDarkStyles,shadowOffset) {
 	var nrArguments = 15;
 	if (arguments.length > 0) {
 		if (arguments.length == nrArguments) {
 			this.init(id,parentNode,functionToCall,buttonType,buttonText,buttonSymbolId,x,y,width,height,textStyles,buttonStyles,shadeLightStyles,shadeDarkStyles,shadowOffset);
 		}
 		else {
-			alert("Error in Button ("+id+"): wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");		
+			alert("Error in Button ("+id+"): wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");
 		}
 	}
 }
@@ -102,7 +102,7 @@ button.prototype.init = function(id,parentNode,functionToCall,buttonType,buttonT
 	this.textStyles = textStyles; //array of literals containing text styles
 	if (!this.textStyles["font-size"]) {
 		this.textStyles["font-size"] = 12;
-	}	
+	}
 	this.buttonStyles = buttonStyles; //the fill color of the button rectangle or ellipse
 	this.shadeLightStyles = shadeLightStyles; //light fill color simulating 3d effect
 	this.shadeDarkStyles = shadeDarkStyles; //dark fill color simulating 3d effect
@@ -146,7 +146,7 @@ button.prototype.createButton = function() {
 				this.upperLeftShadow.setAttributeNS(null,attrib,this.shadeLightStyles[attrib]);
 			}
 			this.parentGroup.appendChild(this.upperLeftShadow);
-    		
+
 			//create lower right button line or ellipse
 			if (this.buttonType == "rect") {
 				this.lowerRightShadow = document.createElementNS(svgNS,"rect");
@@ -167,7 +167,7 @@ button.prototype.createButton = function() {
 				this.lowerRightShadow.setAttributeNS(null,attrib,this.shadeDarkStyles[attrib]);
 			}
 			this.parentGroup.appendChild(this.lowerRightShadow);
-    		
+
 			//create buttonRect
 			if (this.buttonType == "rect") {
 				this.buttonRect = document.createElementNS(svgNS,"rect");
@@ -185,16 +185,16 @@ button.prototype.createButton = function() {
 			}
 			for (var attrib in this.buttonStyles) {
 				this.buttonRect.setAttributeNS(null,attrib,this.buttonStyles[attrib]);
-			}	
+			}
 			this.buttonRect.setAttributeNS(null,"cursor","pointer");
 			this.buttonRect.addEventListener("mousedown",this,false);
 			this.buttonRect.addEventListener("mouseup",this,false);
 			this.buttonRect.addEventListener("click",this,false);
 			this.parentGroup.appendChild(this.buttonRect);
-    		
+
 			//call a helper method to create the text elements
 			this.createButtonTexts();
-			    		
+
 			if (this.buttonSymbolId != undefined) {
 				this.buttonSymbolInstance = document.createElementNS(svgNS,"use");
 				this.buttonSymbolInstance.setAttributeNS(null,"x",(this.x + this.width / 2));
@@ -203,7 +203,7 @@ button.prototype.createButton = function() {
 				this.buttonSymbolInstance.setAttributeNS(null,"pointer-events","none");
 				this.parentGroup.appendChild(this.buttonSymbolInstance);
 			}
-    		
+
 			//create rectangle to deactivate the button
 			if (this.buttonType == "rect") {
 				this.deActivateRect = document.createElementNS(svgNS,"rect");
@@ -219,7 +219,7 @@ button.prototype.createButton = function() {
 				this.deActivateRect.setAttributeNS(null,"rx",this.width * 0.5 + this.shadowOffset);
 				this.deActivateRect.setAttributeNS(null,"ry",this.height * 0.5 + this.shadowOffset);
 			}
-    	
+
 			this.deActivateRect.setAttributeNS(null,"fill","white");
 			this.deActivateRect.setAttributeNS(null,"fill-opacity","0.5");
 			this.deActivateRect.setAttributeNS(null,"stroke","none");
@@ -234,7 +234,7 @@ button.prototype.createButton = function() {
 			this.parentGroup.appendChild(this.deActivateRect);
 		}
 		else {
-			alert("could not create or reference 'parentNode' of button with id '"+this.id+"'");			
+			alert("could not create or reference 'parentNode' of button with id '"+this.id+"'");
 		}
 }
 
@@ -249,7 +249,7 @@ button.prototype.testParent = function() {
     		nodeValid = true;
     	}
     }
-    else if (typeof(this.parentNode) == "string") { 
+    else if (typeof(this.parentNode) == "string") {
     	//first test if button group exists
     	if (!document.getElementById(this.parentNode)) {
         	this.parentGroup.setAttributeNS(null,"id",this.parentNode);
@@ -410,7 +410,7 @@ button.prototype.setTextValue = function(value) {
 	this.buttonText = value;
 	//remove previous buttonTextElement
 	if (this.buttonTextElement) {
-		this.parentGroup.removeChild(this.buttonTextElement);		
+		this.parentGroup.removeChild(this.buttonTextElement);
 	}
 	this.createButtonTexts();
 }
@@ -420,17 +420,17 @@ button.prototype.createButtonTexts = function() {
 	if (this.buttonText != undefined) {
 		//first see if there is a multiline button
 		var buttonTexts = String(this.buttonText).split("\n");
-		
+
 		//set a start y-offset
 		var dy = this.textStyles["font-size"]*1.1;
-		
-		//if you don't like our method for y-positioning here, you can experiment with the formula here and define your own "initY" 
+
+		//if you don't like our method for y-positioning here, you can experiment with the formula here and define your own "initY"
 		var initY = (this.height - dy * buttonTexts.length) / 2 + this.textStyles["font-size"];
-		
+
 		//create text element
 		this.buttonTextElement = document.createElementNS(svgNS,"text");
 		this.buttonTextElement.setAttributeNS(null,"x",(this.x + this.width / 2));
-		this.buttonTextElement.setAttributeNS(null,"y",(this.y + initY));			
+		this.buttonTextElement.setAttributeNS(null,"y",(this.y + initY));
 		for (var attrib in this.textStyles) {
 			value = this.textStyles[attrib];
 			this.buttonTextElement.setAttributeNS(null,attrib,value);
@@ -452,7 +452,7 @@ button.prototype.createButtonTexts = function() {
 			this.buttonTextElement.appendChild(tspan);
 		}
 		this.parentGroup.appendChild(this.buttonTextElement);
-	}	
+	}
 }
 
 button.prototype.activate = function(value) {
@@ -479,8 +479,8 @@ function switchbutton(id,parentNode,functionToCall,buttonType,buttonText,buttonS
 			this.init(id,parentNode,functionToCall,buttonType,buttonText,buttonSymbolId,x,y,width,height,textStyles,buttonStyles,shadeLightStyles,shadeDarkStyles,shadowOffset);
 		}
 		else {
-			alert("Error in Switchbutton ("+id+"): wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");		
-		}		
+			alert("Error in Switchbutton ("+id+"): wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");
+		}
 	}
 }
 

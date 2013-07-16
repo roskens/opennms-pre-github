@@ -9,7 +9,7 @@ var rmax = 1;
 var force = 1;
 
 function debug(s) {
-	
+
 }
 
 function error() {
@@ -125,7 +125,7 @@ function keypress(ev, fromkeydown) {
 //		case 123: kc = 63247; break; // F12
 //		default: return true;
 //		}
-//		
+//
 //	}
 //
 //	var k = "";
@@ -155,7 +155,7 @@ function keypress(ev, fromkeydown) {
 //	case 63246: k = "~k"; break; // F11
 //	case 63247: k = "~l"; break; // F12
 //	default:    k = String.fromCharCode(kc); break;
-//	}	
+//	}
 //	queue(encodeURIComponent(k));
 //
 //	ev.cancelBubble = true;

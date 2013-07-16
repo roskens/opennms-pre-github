@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,24 +9,24 @@
 
 /**
  * Class: OpenLayers.Control.Attribution
- * The attribution control adds attribution from layers to the map display. 
+ * The attribution control adds attribution from layers to the map display.
  * It uses 'attribution' property of each layer.
  *
  * Inherits from:
  *  - <OpenLayers.Control>
  */
-OpenLayers.Control.Attribution = 
+OpenLayers.Control.Attribution =
   OpenLayers.Class(OpenLayers.Control, {
-    
+
     /**
      * APIProperty: seperator
      * {String} String used to seperate layers.
      */
     separator: ", ",
-    
+
     /**
-     * Constructor: OpenLayers.Control.Attribution 
-     * 
+     * Constructor: OpenLayers.Control.Attribution
+     *
      * Parameters:
      * options - {Object} Options for control.
      */
@@ -34,7 +34,7 @@ OpenLayers.Control.Attribution =
         OpenLayers.Control.prototype.initialize.apply(this, arguments);
     },
 
-    /** 
+    /**
      * Method: destroy
      * Destroy control.
      */
@@ -46,20 +46,20 @@ OpenLayers.Control.Attribution =
             "changebaselayer": this.updateAttribution,
             scope: this
         });
-        
+
         OpenLayers.Control.prototype.destroy.apply(this, arguments);
-    },    
-    
+    },
+
     /**
      * Method: draw
      * Initialize control.
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {DOMElement} A reference to the DIV DOMElement containing the control
-     */    
+     */
     draw: function() {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
-        
+
         this.map.events.on({
             'changebaselayer': this.updateAttribution,
             'changelayer': this.updateAttribution,
@@ -68,8 +68,8 @@ OpenLayers.Control.Attribution =
             scope: this
         });
         this.updateAttribution();
-        
-        return this.div;    
+
+        return this.div;
     },
 
     /**
@@ -88,7 +88,7 @@ OpenLayers.Control.Attribution =
                         attributions.push( layer.attribution );
                     }
                 }
-            } 
+            }
             this.div.innerHTML = attributions.join(this.separator);
         }
     },

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -20,8 +20,8 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
      * Property: controls
      * {Array(<OpenLayers.Control>)}
      */
-    controls: null,    
-    
+    controls: null,
+
     /**
      * APIProperty: autoActivate
      * {Boolean} Activate the control when it is added to a map.  Default is
@@ -29,7 +29,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
      */
     autoActivate: true,
 
-    /** 
+    /**
      * APIProperty: defaultControl
      * {<OpenLayers.Control>} The control which is activated when the control is
      * activated (turned on), which also happens at instantiation.
@@ -37,7 +37,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
      * first activation of the panel.
      */
     defaultControl: null,
-    
+
     /**
      * APIProperty: saveState
      * {Boolean} If set to true, the active state of this panel's controls will
@@ -45,7 +45,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
      * is false.
      */
     saveState: false,
-      
+
     /**
      * Property: activeState
      * {Object} stores the active state of this panel's controls.
@@ -56,15 +56,15 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
      * Constructor: OpenLayers.Control.Panel
      * Create a new control panel.
      *
-     * Each control in the panel is represented by an icon. When clicking 
+     * Each control in the panel is represented by an icon. When clicking
      *     on an icon, the <activateControl> method is called.
      *
      * Specific properties for controls on a panel:
      * type - {Number} One of <OpenLayers.Control.TYPE_TOOL>,
      *     <OpenLayers.Control.TYPE_TOGGLE>, <OpenLayers.Control.TYPE_BUTTON>.
      *     If not provided, <OpenLayers.Control.TYPE_TOOL> is assumed.
-     * title - {string} Text displayed when mouse is over the icon that 
-     *     represents the control.     
+     * title - {string} Text displayed when mouse is over the icon that
+     *     represents the control.
      *
      * The <OpenLayers.Control.type> of a control determines the behavior when
      * clicking its icon:
@@ -122,7 +122,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
                             (this.saveState && this.activeState[control.id])) {
                     control.activate();
                 }
-            }    
+            }
             if (this.saveState === true) {
                 this.defaultControl = null;
             }
@@ -132,7 +132,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
             return false;
         }
     },
-    
+
     /**
      * APIMethod: deactivate
      */
@@ -142,19 +142,19 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
             for (var i=0, len=this.controls.length; i<len; i++) {
                 control = this.controls[i];
                 this.activeState[control.id] = control.deactivate();
-            }    
+            }
             return true;
         } else {
             return false;
         }
     },
-    
+
     /**
      * Method: draw
      *
      * Returns:
      * {DOMElement}
-     */    
+     */
     draw: function() {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
         this.addControlsToMap(this.controls);
@@ -176,9 +176,9 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
                 var element = this.controls[i].panel_div;
                 if (this.controls[i].active) {
                     element.className = this.controls[i].displayClass + "ItemActive";
-                } else {    
+                } else {
                     element.className = this.controls[i].displayClass + "ItemInactive";
-                }    
+                }
                 this.div.appendChild(element);
             }
         }
@@ -186,7 +186,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIMethod: activateControl
-     * This method is called when the user click on the icon representing a 
+     * This method is called when the user click on the icon representing a
      *     control in the panel.
      *
      * Parameters:
@@ -222,20 +222,20 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIMethod: addControls
      * To build a toolbar, you add a set of controls to it. addControls
-     * lets you add a single control or a list of controls to the 
+     * lets you add a single control or a list of controls to the
      * Control Panel.
      *
      * Parameters:
      * controls - {<OpenLayers.Control>} Controls to add in the panel.
-     */    
+     */
     addControls: function(controls) {
         if (!(controls instanceof Array)) {
             controls = [controls];
         }
         this.controls = this.controls.concat(controls);
-        
+
         // Give each control a panel_div which will be used later.
-        // Access to this div is via the panel_div attribute of the 
+        // Access to this div is via the panel_div attribute of the
         // control added to the panel.
         // Also, stop mousedowns and clicks, but don't stop mouseup,
         // since they need to pass through.
@@ -245,27 +245,27 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
             if (controls[i].title != "") {
                 controls[i].panel_div.title = controls[i].title;
             }
-            OpenLayers.Event.observe(controls[i].panel_div, "click", 
+            OpenLayers.Event.observe(controls[i].panel_div, "click",
                 OpenLayers.Function.bind(this.onClick, this, controls[i]));
-            OpenLayers.Event.observe(controls[i].panel_div, "dblclick", 
+            OpenLayers.Event.observe(controls[i].panel_div, "dblclick",
                 OpenLayers.Function.bind(this.onDoubleClick, this, controls[i]));
-            OpenLayers.Event.observe(controls[i].panel_div, "mousedown", 
+            OpenLayers.Event.observe(controls[i].panel_div, "mousedown",
                 OpenLayers.Function.bindAsEventListener(OpenLayers.Event.stop));
-        }    
+        }
 
         if (this.map) { // map.addControl() has already been called on the panel
             this.addControlsToMap(controls);
             this.redraw();
         }
     },
-   
+
     /**
      * Method: addControlsToMap
      * Only for internal use in draw() and addControls() methods.
      *
      * Parameters:
      * controls - {Array(<OpenLayers.Control>)} Controls to add into map.
-     */         
+     */
     addControlsToMap: function (controls) {
         var control;
         for (var i=0, len=controls.length; i<len; i++) {
@@ -283,7 +283,7 @@ OpenLayers.Control.Panel = OpenLayers.Class(OpenLayers.Control, {
                 "deactivate": this.redraw,
                 scope: this
             });
-        }  
+        }
     },
 
     /**

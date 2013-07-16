@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,7 +10,7 @@
 /**
  * Class: OpenLayers.Projection
  * Class for coordinate transforms between coordinate systems.
- *     Depends on the proj4js library. If proj4js is not available, 
+ *     Depends on the proj4js library. If proj4js is not available,
  *     then this is just an empty stub.
  */
 OpenLayers.Projection = OpenLayers.Class({
@@ -20,7 +20,7 @@ OpenLayers.Projection = OpenLayers.Class({
      * {Object} Proj4js.Proj instance.
      */
     proj: null,
-    
+
     /**
      * Property: projCode
      * {String}
@@ -29,8 +29,8 @@ OpenLayers.Projection = OpenLayers.Class({
 
     /**
      * Constructor: OpenLayers.Projection
-     * This class offers several methods for interacting with a wrapped 
-     *     pro4js projection object. 
+     * This class offers several methods for interacting with a wrapped
+     *     pro4js projection object.
      *
      * Parameters:
      * projCode - {String} A string identifying the Well Known Identifier for
@@ -48,7 +48,7 @@ OpenLayers.Projection = OpenLayers.Class({
             this.proj = new Proj4js.Proj(projCode);
         }
     },
-    
+
     /**
      * APIMethod: getCode
      * Get the string SRS code.
@@ -59,10 +59,10 @@ OpenLayers.Projection = OpenLayers.Class({
     getCode: function() {
         return this.proj ? this.proj.srsCode : this.projCode;
     },
-   
+
     /**
      * APIMethod: getUnits
-     * Get the units string for the projection -- returns null if 
+     * Get the units string for the projection -- returns null if
      *     proj4js is not available.
      *
      * Returns:
@@ -96,7 +96,7 @@ OpenLayers.Projection = OpenLayers.Class({
             return this.getCode() == projection.getCode();
         } else {
             return false;
-        }    
+        }
     },
 
     /* Method: destroy
@@ -106,21 +106,21 @@ OpenLayers.Projection = OpenLayers.Class({
         delete this.proj;
         delete this.projCode;
     },
-    
-    CLASS_NAME: "OpenLayers.Projection" 
-});     
+
+    CLASS_NAME: "OpenLayers.Projection"
+});
 
 /**
  * Property: transforms
  * Transforms is an object, with from properties, each of which may
- * have a to property. This allows you to define projections without 
+ * have a to property. This allows you to define projections without
  * requiring support for proj4js to be included.
  *
  * This object has keys which correspond to a 'source' projection object.  The
  * keys should be strings, corresponding to the projection.getCode() value.
  * Each source projection object should have a set of destination projection
- * keys included in the object. 
- * 
+ * keys included in the object.
+ *
  * Each value in the destination object should be a transformation function,
  * where the function is expected to be passed an object with a .x and a .y
  * property.  The function should return the object, with the .x and .y
@@ -156,7 +156,7 @@ OpenLayers.Projection.addTransform = function(from, to, method) {
  * APIMethod: transform
  * Transform a point coordinate from one projection to another.  Note that
  *     the input point is transformed in place.
- * 
+ *
  * Parameters:
  * point - {{OpenLayers.Geometry.Point> | Object} An object with x and y
  *     properties representing coordinates in those dimensions.
@@ -169,10 +169,10 @@ OpenLayers.Projection.addTransform = function(from, to, method) {
 OpenLayers.Projection.transform = function(point, source, dest) {
     if (source.proj && dest.proj) {
         point = Proj4js.transform(source.proj, dest.proj, point);
-    } else if (source && dest && 
-               OpenLayers.Projection.transforms[source.getCode()] && 
+    } else if (source && dest &&
+               OpenLayers.Projection.transforms[source.getCode()] &&
                OpenLayers.Projection.transforms[source.getCode()][dest.getCode()]) {
-        OpenLayers.Projection.transforms[source.getCode()][dest.getCode()](point); 
+        OpenLayers.Projection.transforms[source.getCode()][dest.getCode()](point);
     }
     return point;
 };

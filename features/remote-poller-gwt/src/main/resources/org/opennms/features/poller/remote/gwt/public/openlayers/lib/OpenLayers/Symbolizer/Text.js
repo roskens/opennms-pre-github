@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,31 +12,31 @@
  * A symbolizer used to render text labels for features.
  */
 OpenLayers.Symbolizer.Text = OpenLayers.Class(OpenLayers.Symbolizer, {
-    
-    /** 
+
+    /**
      * APIProperty: label
      * {String} The text for the label.
      */
     label: null,
-    
-    /** 
+
+    /**
      * APIProperty: fontFamily
      * {String} The font family for the label.
      */
     fontFamily: null,
 
-    /** 
+    /**
      * APIProperty: fontSize
      * {String} The font size for the label.
      */
     fontSize: null,
 
-    /** 
+    /**
      * APIProperty: fontWeight
      * {String} The font weight for the label.
      */
     fontWeight: null,
-    
+
     /**
      * Property: fontStyle
      * {String} The font style for the label.
@@ -48,8 +48,8 @@ OpenLayers.Symbolizer.Text = OpenLayers.Class(OpenLayers.Symbolizer, {
      * Create a symbolizer for rendering text labels.
      *
      * Parameters:
-     * config - {Object} An object containing properties to be set on the 
-     *     symbolizer.  Any documented symbolizer property can be set at 
+     * config - {Object} An object containing properties to be set on the
+     *     symbolizer.  Any documented symbolizer property can be set at
      *     construction.
      *
      * Returns:
@@ -58,8 +58,8 @@ OpenLayers.Symbolizer.Text = OpenLayers.Class(OpenLayers.Symbolizer, {
     initialize: function(config) {
         OpenLayers.Symbolizer.prototype.initialize.apply(this, arguments);
     },
-    
+
     CLASS_NAME: "OpenLayers.Symbolizer.Text"
-    
+
 });
 

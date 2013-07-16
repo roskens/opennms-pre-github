@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -16,7 +16,7 @@ if (!OpenLayers.Format.OWSCommon) {
  * Common readers and writers for OWSCommon v1.X formats
  */
 OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
-   
+
     /**
      * Property: regExes
      * Compiled regular expressions for manipulating strings.
@@ -57,7 +57,7 @@ OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             },
             "ServiceType": function(node, serviceIdentification) {
                 serviceIdentification.serviceType = {
-                    codeSpace: node.getAttribute('codeSpace'), 
+                    codeSpace: node.getAttribute('codeSpace'),
                     value: this.getChildValue(node)};
             },
             "ServiceTypeVersion": function(node, serviceIdentification) {
@@ -67,7 +67,7 @@ OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 serviceIdentification.fees = this.getChildValue(node);
             },
             "AccessConstraints": function(node, serviceIdentification) {
-                serviceIdentification.accessConstraints = 
+                serviceIdentification.accessConstraints =
                     this.getChildValue(node);
             },
             "ServiceProvider": function(node, obj) {
@@ -78,7 +78,7 @@ OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 serviceProvider.providerName = this.getChildValue(node);
             },
             "ProviderSite": function(node, serviceProvider) {
-                serviceProvider.providerSite = this.getAttributeNS(node, 
+                serviceProvider.providerSite = this.getAttributeNS(node,
                     this.namespaces.xlink, "href");
             },
             "ServiceContact": function(node, serviceProvider) {
@@ -145,11 +145,11 @@ OpenLayers.Format.OWSCommon.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 this.readChildNodes(node, dcp.http);
             },
             "Get": function(node, http) {
-                http.get = this.getAttributeNS(node, 
+                http.get = this.getAttributeNS(node,
                     this.namespaces.xlink, "href");
             },
             "Post": function(node, http) {
-                http.post = this.getAttributeNS(node, 
+                http.post = this.getAttributeNS(node,
                     this.namespaces.xlink, "href");
             },
             "Parameter": function(node, operation) {

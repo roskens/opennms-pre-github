@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,24 +14,24 @@
  * Class: OpenLayers.Format.Filter
  * Read/Wite ogc:Filter. Create a new instance with the <OpenLayers.Format.Filter>
  *     constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.Filter = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * APIProperty: defaultVersion
      * {String} Version number to assume if none found.  Default is "1.0.0".
      */
     defaultVersion: "1.0.0",
-    
+
     /**
      * APIProperty: version
      * {String} Specify a version string if one is known.
      */
     version: null,
-    
+
     /**
      * Property: parser
      * {Object} Instance of the versioned parser.  Cached for multiple read and
@@ -78,7 +78,7 @@ OpenLayers.Format.Filter = OpenLayers.Class(OpenLayers.Format.XML, {
         return this.parser.write(filter);
         //return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
     },
-    
+
     /**
      * APIMethod: read
      * Read and Filter doc and return an object representing the Filter.
@@ -111,5 +111,5 @@ OpenLayers.Format.Filter = OpenLayers.Class(OpenLayers.Format.XML, {
         return filter;
     },
 
-    CLASS_NAME: "OpenLayers.Format.Filter" 
+    CLASS_NAME: "OpenLayers.Format.Filter"
 });

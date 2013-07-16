@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,10 +14,10 @@
  * LineString feature for each pair of two points.
  *
  * Inherits from:
- *  - <OpenLayers.Layer.Vector> 
+ *  - <OpenLayers.Layer.Vector>
  */
 OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
-  
+
     /**
      * APIProperty:
      * dataFrom  - {<OpenLayers.Layer.PointTrack.dataFrom>} optional. If the
@@ -25,7 +25,7 @@ OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
      *             points, creating it, which one should it be?
      */
     dataFrom: null,
-    
+
     /**
      * Constructor: OpenLayers.PointTrack
      * Constructor for a new OpenLayers.PointTrack instance.
@@ -34,20 +34,20 @@ OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
      * name     - {String} name of the layer
      * options  - {Object} Optional object with properties to tag onto the
      *            instance.
-     */    
+     */
     initialize: function(name, options) {
         OpenLayers.Layer.Vector.prototype.initialize.apply(this, arguments);
     },
-        
+
     /**
      * APIMethod: addNodes
      * Adds point features that will be used to create lines from, using point
      * pairs. The first point of a pair will be the source node, the second
      * will be the target node.
-     * 
+     *
      * Parameters:
      * pointFeatures - {Array(<OpenLayers.Feature>)}
-     * 
+     *
      */
     addNodes: function(pointFeatures) {
         if (pointFeatures.length < 2) {
@@ -56,14 +56,14 @@ OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
                     "a line from");
             return;
         }
-        
+
         var lines = new Array(pointFeatures.length-1);
-        
+
         var pointFeature, startPoint, endPoint;
         for(var i=0, len=pointFeatures.length; i<len; i++) {
             pointFeature = pointFeatures[i];
             endPoint = pointFeature.geometry;
-            
+
             if (!endPoint) {
               var lonlat = pointFeature.lonlat;
               endPoint = new OpenLayers.Geometry.Point(lonlat.lon, lonlat.lat);
@@ -72,7 +72,7 @@ OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
                         "Only features with point geometries are supported.");
                 return;
             }
-            
+
             if(i > 0) {
                 var attributes = (this.dataFrom != null) ?
                         (pointFeatures[i+this.dataFrom].data ||
@@ -80,16 +80,16 @@ OpenLayers.Layer.PointTrack = OpenLayers.Class(OpenLayers.Layer.Vector, {
                         null;
                 var line = new OpenLayers.Geometry.LineString([startPoint,
                         endPoint]);
-                        
+
                 lines[i-1] = new OpenLayers.Feature.Vector(line, attributes);
             }
-            
+
             startPoint = endPoint;
         }
 
         this.addFeatures(lines);
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.PointTrack"
 });
 

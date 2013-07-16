@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -23,28 +23,28 @@
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
-    
+
     /**
      * APIProperty: indent
      * {String} For "pretty" printing, the indent string will be used once for
      *     each indentation level.
      */
     indent: "    ",
-    
+
     /**
      * APIProperty: space
      * {String} For "pretty" printing, the space string will be used after
      *     the ":" separating a name/value pair.
      */
     space: " ",
-    
+
     /**
      * APIProperty: newline
      * {String} For "pretty" printing, the newline string will be used at the
      *     end of each name/value pair or array item.
      */
     newline: "\n",
-    
+
     /**
      * Property: level
      * {Integer} For "pretty" printing, this is incremented/decremented during
@@ -82,7 +82,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
      *     replaced by the result of the filter function. This can be used to
      *     reform generic objects into instances of classes, or to transform
      *     date strings into Date objects.
-     *     
+     *
      * Returns:
      * {Object} An object, array, string, or number .
      */
@@ -166,7 +166,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
         }
         return json;
     },
-    
+
     /**
      * Method: writeIndent
      * Output an indentation string depending on the indentation level.
@@ -183,7 +183,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
         }
         return pieces.join('');
     },
-    
+
     /**
      * Method: writeNewline
      * Output a string representing a newline if in pretty printing mode.
@@ -194,7 +194,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
     writeNewline: function() {
         return (this.pretty) ? this.newline : '';
     },
-    
+
     /**
      * Method: writeSpace
      * Output a string representing a space if in pretty printing mode.
@@ -218,7 +218,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
          *
          * Parameters:
          * object - {Object} The object to be serialized.
-         * 
+         *
          * Returns:
          * {String} A JSON string representing the object.
          */
@@ -236,7 +236,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
             var pieces = ['{'];
             this.level += 1;
             var key, keyJSON, valueJSON;
-            
+
             var addComma = false;
             for(key in object) {
                 if(object.hasOwnProperty(key)) {
@@ -255,19 +255,19 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
                     }
                 }
             }
-            
+
             this.level -= 1;
             pieces.push(this.writeNewline(), this.writeIndent(), '}');
             return pieces.join('');
         },
-        
+
         /**
          * Method: serialize.array
          * Transform an array into a JSON string.
          *
          * Parameters:
          * array - {Array} The array to be serialized
-         * 
+         *
          * Returns:
          * {String} A JSON string representing the array.
          */
@@ -275,7 +275,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
             var json;
             var pieces = ['['];
             this.level += 1;
-    
+
             for(var i=0, len=array.length; i<len; ++i) {
                 // recursive calls need to allow for sub-classing
                 json = OpenLayers.Format.JSON.prototype.write.apply(this,
@@ -288,18 +288,18 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
                 }
             }
 
-            this.level -= 1;    
+            this.level -= 1;
             pieces.push(this.writeNewline(), this.writeIndent(), ']');
             return pieces.join('');
         },
-        
+
         /**
          * Method: serialize.string
          * Transform a string into a JSON string.
          *
          * Parameters:
          * string - {String} The string to be serialized
-         * 
+         *
          * Returns:
          * {String} A JSON string representing the string.
          */
@@ -307,7 +307,7 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
             // If the string contains no control characters, no quote characters, and no
             // backslash characters, then we can simply slap some quotes around it.
             // Otherwise we must also replace the offending characters with safe
-            // sequences.    
+            // sequences.
             var m = {
                 '\b': '\\b',
                 '\t': '\\t',
@@ -345,32 +345,32 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
         'number': function(number) {
             return isFinite(number) ? String(number) : "null";
         },
-        
+
         /**
          * Method: serialize.boolean
          * Transform a boolean into a JSON string.
          *
          * Parameters:
          * bool - {Boolean} The boolean to be serialized.
-         * 
+         *
          * Returns:
          * {String} A JSON string representing the boolean.
          */
         'boolean': function(bool) {
             return String(bool);
         },
-        
+
         /**
          * Method: serialize.object
          * Transform a date into a JSON string.
          *
          * Parameters:
          * date - {Date} The date to be serialized.
-         * 
+         *
          * Returns:
          * {String} A JSON string representing the date.
          */
-        'date': function(date) {    
+        'date': function(date) {
             function format(number) {
                 // Format integers to have at least two digits.
                 return (number < 10) ? '0' + number : number;
@@ -384,6 +384,6 @@ OpenLayers.Format.JSON = OpenLayers.Class(OpenLayers.Format, {
         }
     },
 
-    CLASS_NAME: "OpenLayers.Format.JSON" 
+    CLASS_NAME: "OpenLayers.Format.JSON"
 
-});     
+});

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,18 +17,18 @@
  */
 OpenLayers.Control.DragPan = OpenLayers.Class(OpenLayers.Control, {
 
-    /** 
+    /**
      * Property: type
      * {OpenLayers.Control.TYPES}
      */
     type: OpenLayers.Control.TYPE_TOOL,
-    
+
     /**
      * Property: panned
      * {Boolean} The map moved.
      */
     panned: false,
-    
+
     /**
      * Property: interval
      * {Integer} The number of milliseconds that should ellapse before
@@ -36,19 +36,19 @@ OpenLayers.Control.DragPan = OpenLayers.Class(OpenLayers.Control, {
      *     Defaults to 25 milliseconds.
      */
     interval: 25,
-    
+
     /**
      * APIProperty: documentDrag
      * {Boolean} If set to true, mouse dragging will continue even if the
      *     mouse cursor leaves the map viewport. Default is false.
      */
     documentDrag: false,
-    
+
     /**
      * Method: draw
      * Creates a Drag handler, using <panMap> and
      * <panMapDone> as callbacks.
-     */    
+     */
     draw: function() {
         this.handler = new OpenLayers.Handler.Drag(this, {
                 "move": this.panMap,
@@ -74,7 +74,7 @@ OpenLayers.Control.DragPan = OpenLayers.Class(OpenLayers.Control, {
             {dragging: this.handler.dragging, animate: false}
         );
     },
-    
+
     /**
      * Method: panMapDone
      * Finish the panning operation.  Only call setCenter (through <panMap>)

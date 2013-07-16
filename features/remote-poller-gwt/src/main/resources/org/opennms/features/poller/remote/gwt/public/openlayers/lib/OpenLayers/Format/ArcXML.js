@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,7 +15,7 @@
  * Class: OpenLayers.Format.ArcXML
  * Read/Wite ArcXML. Create a new instance with the <OpenLayers.Format.ArcXML>
  *     constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format>
  */
@@ -35,7 +35,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
      * A get_image request destined for an ArcIMS server.
      */
     request: null,
-    
+
     /**
      * Property: response
      * A parsed response from an ArcIMS server.
@@ -60,11 +60,11 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
         if (options) {
             if (options.requesttype == "feature") {
                 this.request.get_image = null;
-            
+
                 var qry = this.request.get_feature.query;
                 this.addCoordSys(qry.featurecoordsys, options.featureCoordSys);
                 this.addCoordSys(qry.filtercoordsys, options.filterCoordSys);
-            
+
                 if (options.polygon) {
                     qry.isspatial = true;
                     qry.spatialfilter.polygon = options.polygon;
@@ -75,10 +75,10 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
             } else if (options.requesttype == "image") {
                 this.request.get_feature = null;
-            
+
                 var props = this.request.get_image.properties;
                 this.parseEnvelope(props.envelope, options.envelope);
-            
+
                 this.addLayers(props.layerlist, options.layers);
                 this.addImageSize(props.imagesize, options.tileSize);
                 this.addCoordSys(props.featurecoordsys, options.featureCoordSys);
@@ -90,10 +90,10 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 this.request = null;
             }
         }
-        
+
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Method: parseEnvelope
      * Parse an array of coordinates into an ArcXML envelope structure.
@@ -103,18 +103,18 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
      * arr - {Array(double)} An array of coordinates in the order: [ minx, miny, maxx, maxy ]
      */
     parseEnvelope: function(env, arr) {
-        if (arr && arr.length == 4) {          
+        if (arr && arr.length == 4) {
             env.minx = arr[0];
             env.miny = arr[1];
             env.maxx = arr[2];
             env.maxy = arr[3];
         }
     },
-    
-    /** 
+
+    /**
      * Method: addLayers
      * Add a collection of layers to another collection of layers. Each layer in the list is tuple of
-     * { id, visible }.  These layer collections represent the 
+     * { id, visible }.  These layer collections represent the
      * /ARCXML/REQUEST/get_image/PROPERTIES/LAYERLIST/LAYERDEF items in ArcXML
      *
      * TODO: Add support for dynamic layer rendering.
@@ -128,7 +128,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             ll.push(lyrs[lind]);
         }
     },
-    
+
     /**
      * Method: addImageSize
      * Set the size of the requested image.
@@ -148,14 +148,14 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * Method: addCoordSys
-     * Add the coordinate system information to an object. The object may be 
+     * Add the coordinate system information to an object. The object may be
      *
      * Parameters:
      * featOrFilt - {Object} A featurecoordsys or filtercoordsys ArcXML structure.
-     * fsys - {String} or {OpenLayers.Projection} or {filtercoordsys} or 
-     * {featurecoordsys} A projection representation. If it's a {String}, 
-     * the value is assumed to be the SRID.  If it's a {OpenLayers.Projection} 
-     * AND Proj4js is available, the projection number and name are extracted 
+     * fsys - {String} or {OpenLayers.Projection} or {filtercoordsys} or
+     * {featurecoordsys} A projection representation. If it's a {String},
+     * the value is assumed to be the SRID.  If it's a {OpenLayers.Projection}
+     * AND Proj4js is available, the projection number and name are extracted
      * from there.  If it's a filter or feature ArcXML structure, it is copied.
      */
     addCoordSys: function(featOrFilt, fsys) {
@@ -184,8 +184,8 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
      * {Boolean} true if the response was an error.
      */
     iserror: function(data) {
-        var ret = null; 
-        
+        var ret = null;
+
         if (!data) {
             ret = (this.response.error !== '');
         } else {
@@ -199,20 +199,20 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * APIMethod: read
-     * Read data from a string, and return an response. 
-     * 
+     * Read data from a string, and return an response.
+     *
      * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
      * {OpenLayers.Format.ArcXML.Response} An ArcXML response. Note that this response
-     *     data may change in the future. 
+     *     data may change in the future.
      */
     read: function(data) {
         if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
-        
+
         var arcNode = null;
         if (data && data.documentElement) {
             if(data.documentElement.nodeName == "ARCXML") {
@@ -221,8 +221,8 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 arcNode = data.documentElement.getElementsByTagName("ARCXML")[0];
             }
         }
-          
-        // in Safari, arcNode will be there but will have a child named 
+
+        // in Safari, arcNode will be there but will have a child named
         // parsererror
         if (!arcNode || arcNode.firstChild.nodeName === 'parsererror') {
             var error, source;
@@ -233,32 +233,32 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 // pass
             }
             throw {
-                message: "Error parsing the ArcXML request", 
+                message: "Error parsing the ArcXML request",
                 error: error,
                 source: source
             };
         }
-        
+
         var response = this.parseResponse(arcNode);
         return response;
     },
-    
+
     /**
      * APIMethod: write
-     * Generate an ArcXml document string for sending to an ArcIMS server. 
-     * 
+     * Generate an ArcXml document string for sending to an ArcIMS server.
+     *
      * Returns:
      * {String} A string representing the ArcXML document request.
      */
-    write: function(request) {       
+    write: function(request) {
         if (!request) {
             request = this.request;
-        }    
+        }
         var root = this.createElementNS("", "ARCXML");
         root.setAttribute("version","1.1");
 
         var reqElem = this.createElementNS("", "REQUEST");
-        
+
         if (request.get_image != null) {
             var getElem = this.createElementNS("", "GET_IMAGE");
             reqElem.appendChild(getElem);
@@ -270,7 +270,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             if (props.featurecoordsys != null) {
                 var feat = this.createElementNS("", "FEATURECOORDSYS");
                 propElem.appendChild(feat);
-                
+
                 if (props.featurecoordsys.id === 0) {
                     feat.setAttribute("string", props.featurecoordsys['string']);
                 }
@@ -278,7 +278,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                     feat.setAttribute("id", props.featurecoordsys.id);
                 }
             }
-          
+
             if (props.filtercoordsys != null) {
                 var filt = this.createElementNS("", "FILTERCOORDSYS");
                 propElem.appendChild(filt);
@@ -290,7 +290,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                     filt.setAttribute("id", props.filtercoordsys.id);
                 }
             }
-          
+
             if (props.envelope != null) {
                 var env = this.createElementNS("", "ENVELOPE");
                 propElem.appendChild(env);
@@ -299,55 +299,55 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 env.setAttribute("miny", props.envelope.miny);
                 env.setAttribute("maxx", props.envelope.maxx);
                 env.setAttribute("maxy", props.envelope.maxy);
-            }        
-          
+            }
+
             var imagesz = this.createElementNS("", "IMAGESIZE");
             propElem.appendChild(imagesz);
-          
+
             imagesz.setAttribute("height", props.imagesize.height);
             imagesz.setAttribute("width", props.imagesize.width);
-          
+
             if (props.imagesize.height != props.imagesize.printheight ||
                  props.imagesize.width != props.imagesize.printwidth) {
                 imagesz.setAttribute("printheight", props.imagesize.printheight);
                 imagesz.setArrtibute("printwidth", props.imagesize.printwidth);
             }
-          
+
             if (props.background != null) {
                 var backgrnd = this.createElementNS("", "BACKGROUND");
                 propElem.appendChild(backgrnd);
-            
-                backgrnd.setAttribute("color", 
-                    props.background.color.r + "," + 
-                    props.background.color.g + "," + 
+
+                backgrnd.setAttribute("color",
+                    props.background.color.r + "," +
+                    props.background.color.g + "," +
                     props.background.color.b);
-              
+
                 if (props.background.transcolor !== null) {
-                    backgrnd.setAttribute("transcolor", 
-                        props.background.transcolor.r + "," + 
-                        props.background.transcolor.g + "," + 
+                    backgrnd.setAttribute("transcolor",
+                        props.background.transcolor.r + "," +
+                        props.background.transcolor.g + "," +
                         props.background.transcolor.b);
                 }
             }
-          
+
             if (props.layerlist != null && props.layerlist.length > 0) {
                 var layerlst = this.createElementNS("", "LAYERLIST");
                 propElem.appendChild(layerlst);
-            
+
                 for (var ld = 0; ld < props.layerlist.length; ld++) {
                     var ldef = this.createElementNS("", "LAYERDEF");
                     layerlst.appendChild(ldef);
-              
+
                     ldef.setAttribute("id", props.layerlist[ld].id);
                     ldef.setAttribute("visible", props.layerlist[ld].visible);
-              
+
                     if (typeof props.layerlist[ld].query == "object") {
                         var query = props.layerlist[ld].query;
 
                         if (query.where.length < 0) {
                             continue;
                         }
-                  
+
                         var queryElem = null;
                         if (typeof query.spatialfilter == "boolean" && query.spatialfilter) {
                             // handle spatial filter madness
@@ -356,9 +356,9 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                         else {
                             queryElem = this.createElementNS("", "QUERY");
                         }
-                
+
                         queryElem.setAttribute("where", query.where);
-                
+
                         if (typeof query.accuracy == "number" && query.accuracy > 0) {
                             queryElem.setAttribute("accuracy", query.accuracy);
                         }
@@ -377,9 +377,9 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
 
                         ldef.appendChild(queryElem);
                     }
-              
+
                     if (typeof props.layerlist[ld].renderer == "object") {
-                        this.addRenderer(ldef, props.layerlist[ld].renderer);                  
+                        this.addRenderer(ldef, props.layerlist[ld].renderer);
                     }
                 }
             }
@@ -387,31 +387,31 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             var getElem = this.createElementNS("", "GET_FEATURES");
             getElem.setAttribute("outputmode", "newxml");
             getElem.setAttribute("checkesc", "true");
-          
+
             if (request.get_feature.geometry) {
                 getElem.setAttribute("geometry", request.get_feature.geometry);
             }
             else {
                 getElem.setAttribute("geometry", "false");
             }
-          
+
             if (request.get_feature.compact) {
                 getElem.setAttribute("compact", request.get_feature.compact);
             }
-          
+
             if (request.get_feature.featurelimit == "number") {
                 getElem.setAttribute("featurelimit", request.get_feature.featurelimit);
             }
-          
+
             getElem.setAttribute("globalenvelope", "true");
             reqElem.appendChild(getElem);
-          
+
             if (request.get_feature.layer != null && request.get_feature.layer.length > 0) {
                 var lyrElem = this.createElementNS("", "LAYER");
                 lyrElem.setAttribute("id", request.get_feature.layer);
                 getElem.appendChild(lyrElem);
             }
-          
+
             var fquery = request.get_feature.query;
             if (fquery != null) {
                 var qElem = null;
@@ -421,15 +421,15 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                     qElem = this.createElementNS("", "QUERY");
                 }
                 getElem.appendChild(qElem);
-                
+
                 if (typeof fquery.accuracy == "number") {
                     qElem.setAttribute("accuracy", fquery.accuracy);
                 }
                 //qElem.setAttribute("featurelimit", "5");
-            
+
                 if (fquery.featurecoordsys != null) {
                     var fcsElem1 = this.createElementNS("", "FEATURECOORDSYS");
-              
+
                     if (fquery.featurecoordsys.id == 0) {
                         fcsElem1.setAttribute("string", fquery.featurecoordsys.string);
                     } else {
@@ -437,10 +437,10 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                     }
                     qElem.appendChild(fcsElem1);
                 }
-            
+
                 if (fquery.filtercoordsys != null) {
                     var fcsElem2 = this.createElementNS("", "FILTERCOORDSYS");
-              
+
                     if (fquery.filtercoordsys.id === 0) {
                         fcsElem2.setAttribute("string", fquery.filtercoordsys.string);
                     } else {
@@ -448,30 +448,30 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                     }
                     qElem.appendChild(fcsElem2);
                 }
-            
-                if (fquery.buffer > 0) {   
+
+                if (fquery.buffer > 0) {
                     var bufElem = this.createElementNS("", "BUFFER");
                     bufElem.setAttribute("distance", fquery.buffer);
                     qElem.appendChild(bufElem);
                 }
-            
+
                 if (fquery.isspatial) {
                     var spfElem = this.createElementNS("", "SPATIALFILTER");
                     spfElem.setAttribute("relation", fquery.spatialfilter.relation);
                     qElem.appendChild(spfElem);
-              
+
                     if (fquery.spatialfilter.envelope) {
-                        var envElem = this.createElementNS("", "ENVELOPE"); 
+                        var envElem = this.createElementNS("", "ENVELOPE");
                         envElem.setAttribute("minx", fquery.spatialfilter.envelope.minx);
                         envElem.setAttribute("miny", fquery.spatialfilter.envelope.miny);
                         envElem.setAttribute("maxx", fquery.spatialfilter.envelope.maxx);
                         envElem.setAttribute("maxy", fquery.spatialfilter.envelope.maxy);
                         spfElem.appendChild(envElem);
                     } else if(typeof fquery.spatialfilter.polygon == "object") {
-                        spfElem.appendChild(this.writePolygonGeometry(fquery.spatialfilter.polygon));                
+                        spfElem.appendChild(this.writePolygonGeometry(fquery.spatialfilter.polygon));
                     }
                 }
-            
+
                 if (fquery.where != null && fquery.where.length > 0) {
                     qElem.setAttribute("where", fquery.where);
                 }
@@ -482,26 +482,26 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
 
         return OpenLayers.Format.XML.prototype.write.apply(this, [root]);
     },
-    
-    
+
+
     addGroupRenderer: function(ldef, toprenderer) {
         var topRelem = this.createElementNS("", "GROUPRENDERER");
         ldef.appendChild(topRelem);
-      
+
         for (var rind = 0; rind < toprenderer.length; rind++) {
             var renderer = toprenderer[rind];
             this.addRenderer(topRelem, renderer);
         }
     },
-    
-    
+
+
     addRenderer: function(topRelem, renderer) {
         if (renderer instanceof Array) {
             this.addGroupRenderer(topRelem, renderer);
         } else {
             var renderElem = this.createElementNS("", renderer.type.toUpperCase() + "RENDERER");
             topRelem.appendChild(renderElem);
-          
+
             if (renderElem.tagName == "VALUEMAPRENDERER") {
                 this.addValueMapRenderer(renderElem, renderer);
             } else if (renderElem.tagName == "VALUEMAPLABELRENDERER") {
@@ -511,10 +511,10 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             } else if (renderElem.tagName == "SCALEDEPENDENTRENDERER") {
                 this.addScaleDependentRenderer(renderElem, renderer);
             }
-        }             
+        }
     },
-    
-    
+
+
     addScaleDependentRenderer: function(renderElem, renderer) {
         if (typeof renderer.lower == "string" || typeof renderer.lower == "number") {
             renderElem.setAttribute("lower", renderer.lower);
@@ -522,21 +522,21 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
         if (typeof renderer.upper == "string" || typeof renderer.upper == "number") {
             renderElem.setAttribute("upper", renderer.upper);
         }
-        
+
         this.addRenderer(renderElem, renderer.renderer);
     },
-    
-    
+
+
     addValueMapLabelRenderer: function(renderElem, renderer) {
         renderElem.setAttribute("lookupfield", renderer.lookupfield);
         renderElem.setAttribute("labelfield", renderer.labelfield);
-      
+
         if (typeof renderer.exacts == "object") {
             for (var ext=0, extlen=renderer.exacts.length; ext<extlen; ext++) {
                 var exact = renderer.exacts[ext];
-          
+
                 var eelem = this.createElementNS("", "EXACT");
-          
+
                 if (typeof exact.value == "string") {
                     eelem.setAttribute("value", exact.value);
                 }
@@ -548,14 +548,14 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
 
                 renderElem.appendChild(eelem);
-            
+
                 if (typeof exact.symbol == "object") {
                     var selem = null;
-                
+
                     if (exact.symbol.type == "text") {
                         selem = this.createElementNS("", "TEXTSYMBOL");
                     }
-                
+
                     if (selem != null) {
                         var keys = this.fontStyleKeys;
                         for (var i = 0, len = keys.length; i < len; i++) {
@@ -563,34 +563,34 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                             if (exact.symbol[key]) {
                                 selem.setAttribute(key, exact.symbol[key]);
                             }
-                        }    
+                        }
                         eelem.appendChild(selem);
                     }
                 }
             } // for each exact
-        }      
+        }
     },
-    
+
     addValueMapRenderer: function(renderElem, renderer) {
         renderElem.setAttribute("lookupfield", renderer.lookupfield);
-        
+
         if (typeof renderer.ranges == "object") {
             for(var rng=0, rnglen=renderer.ranges.length; rng<rnglen; rng++) {
                 var range = renderer.ranges[rng];
-                
+
                 var relem = this.createElementNS("", "RANGE");
                 relem.setAttribute("lower", range.lower);
                 relem.setAttribute("upper", range.upper);
-                
+
                 renderElem.appendChild(relem);
-                
+
                 if (typeof range.symbol == "object") {
                     var selem = null;
-              
+
                     if (range.symbol.type == "simplepolygon") {
                         selem = this.createElementNS("", "SIMPLEPOLYGONSYMBOL");
                     }
-              
+
                     if (selem != null) {
                         if (typeof range.symbol.boundarycolor == "string") {
                             selem.setAttribute("boundarycolor", range.symbol.boundarycolor);
@@ -602,13 +602,13 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                             selem.setAttribute("filltransparency", range.symbol.filltransparency);
                         }
                         relem.appendChild(selem);
-                    }   
+                    }
                 }
             } // for each range
         } else if (typeof renderer.exacts == "object") {
             for (var ext=0, extlen=renderer.exacts.length; ext<extlen; ext++) {
                 var exact = renderer.exacts[ext];
-          
+
                 var eelem = this.createElementNS("", "EXACT");
                 if (typeof exact.value == "string") {
                     eelem.setAttribute("value", exact.value);
@@ -619,16 +619,16 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 if (typeof exact.method == "string") {
                     eelem.setAttribute("method", exact.method);
                 }
-            
+
                 renderElem.appendChild(eelem);
-            
+
                 if (typeof exact.symbol == "object") {
                     var selem = null;
-            
+
                     if (exact.symbol.type == "simplemarker") {
                         selem = this.createElementNS("", "SIMPLEMARKERSYMBOL");
                     }
-            
+
                     if (selem != null) {
                         if (typeof exact.symbol.antialiasing == "string") {
                             selem.setAttribute("antialiasing", exact.symbol.antialiasing);
@@ -656,18 +656,18 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                         if (typeof exact.symbol.width == "number") {
                             selem.setAttribute("width", exact.symbol.width);
                         }
-                
+
                         eelem.appendChild(selem);
                     }
                 }
             } // for each exact
         }
     },
-    
-    
+
+
     addSimpleLabelRenderer: function(renderElem, renderer) {
         renderElem.setAttribute("field", renderer.field);
-        var keys = ['featureweight', 'howmanylabels', 'labelbufferratio', 
+        var keys = ['featureweight', 'howmanylabels', 'labelbufferratio',
                     'labelpriorities', 'labelweight', 'linelabelposition',
                     'rotationalangles'];
         for (var i=0, len=keys.length; i<len; i++) {
@@ -675,54 +675,54 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             if (renderer[key]) {
                 renderElem.setAttribute(key, renderer[key]);
             }
-        }     
-           
+        }
+
         if (renderer.symbol.type == "text") {
             var symbol = renderer.symbol;
             var selem = this.createElementNS("", "TEXTSYMBOL");
             renderElem.appendChild(selem);
-          
+
             var keys = this.fontStyleKeys;
             for (var i=0, len=keys.length; i<len; i++) {
                 var key = keys[i];
                 if (symbol[key]) {
                     selem.setAttribute(key, renderer[key]);
                 }
-            }    
-        }    
+            }
+        }
     },
-    
+
     writePolygonGeometry: function(polygon) {
         if (!(polygon instanceof OpenLayers.Geometry.Polygon)) {
-            throw { 
+            throw {
                 message:'Cannot write polygon geometry to ArcXML with an ' +
                     polygon.CLASS_NAME + ' object.',
                 geometry: polygon
             };
         }
-        
+
         var polyElem = this.createElementNS("", "POLYGON");
-      
+
         for (var ln=0, lnlen=polygon.components.length; ln<lnlen; ln++) {
             var ring = polygon.components[ln];
             var ringElem = this.createElementNS("", "RING");
-        
+
             for (var rn=0, rnlen=ring.components.length; rn<rnlen; rn++) {
                 var point = ring.components[rn];
                 var pointElem = this.createElementNS("", "POINT");
-            
+
                 pointElem.setAttribute("x", point.x);
                 pointElem.setAttribute("y", point.y);
-            
+
                 ringElem.appendChild(pointElem);
             }
-        
+
             polyElem.appendChild(ringElem);
         }
-      
+
         return polyElem;
     },
-    
+
     /**
      * Method: parseResponse
      * Take an ArcXML response, and parse in into this object's internal properties.
@@ -732,46 +732,46 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
      * top level DOMElement of the response.
      */
     parseResponse: function(data) {
-        if(typeof data == "string") { 
+        if(typeof data == "string") {
             var newData = new OpenLayers.Format.XML();
             data = newData.read(data);
         }
         var response = new OpenLayers.Format.ArcXML.Response();
-        
+
         var errorNode = data.getElementsByTagName("ERROR");
-        
+
         if (errorNode != null && errorNode.length > 0) {
             response.error = this.getChildValue(errorNode, "Unknown error.");
         } else {
             var responseNode = data.getElementsByTagName("RESPONSE");
-          
+
             if (responseNode == null || responseNode.length == 0) {
                 response.error = "No RESPONSE tag found in ArcXML response.";
                 return response;
             }
-          
+
             var rtype = responseNode[0].firstChild.nodeName;
             if (rtype == "#text") {
                 rtype = responseNode[0].firstChild.nextSibling.nodeName;
             }
-          
+
             if (rtype == "IMAGE") {
                 var envelopeNode = data.getElementsByTagName("ENVELOPE");
                 var outputNode = data.getElementsByTagName("OUTPUT");
-                
+
                 if (envelopeNode == null || envelopeNode.length == 0) {
                     response.error = "No ENVELOPE tag found in ArcXML response.";
                 } else if (outputNode == null || outputNode.length == 0) {
                     response.error = "No OUTPUT tag found in ArcXML response.";
                 } else {
-                    var envAttr = this.parseAttributes(envelopeNode[0]);            
+                    var envAttr = this.parseAttributes(envelopeNode[0]);
                     var outputAttr = this.parseAttributes(outputNode[0]);
-                  
+
                     if (typeof outputAttr.type == "string") {
-                        response.image = { 
-                            envelope: envAttr, 
-                            output: { 
-                                type: outputAttr.type, 
+                        response.image = {
+                            envelope: envAttr,
+                            output: {
+                                type: outputAttr.type,
                                 data: this.getChildValue(outputNode[0])
                             }
                         };
@@ -781,11 +781,11 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                 }
             } else if (rtype == "FEATURES") {
                 var features = responseNode[0].getElementsByTagName("FEATURES");
-            
+
                 // get the feature count
                 var featureCount = features[0].getElementsByTagName("FEATURECOUNT");
                 response.features.featurecount = featureCount[0].getAttribute("count");
-            
+
                 if (response.features.featurecount > 0) {
                     // get the feature envelope
                     var envelope = features[0].getElementsByTagName("ENVELOPE");
@@ -824,7 +824,7 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
                                 linearRings = null;
                             }
                             ring = null;
-                          
+
                             if (polys.length == 1) {
                                 feature.geometry = polys[0];
                             } else
@@ -842,8 +842,8 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return response;
     },
-    
-    
+
+
     /**
      * Method: parseAttributes
      *
@@ -864,8 +864,8 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return attributes;
     },
-    
-    
+
+
     /**
      * Method: parsePointGeometry
      *
@@ -903,10 +903,10 @@ OpenLayers.Format.ArcXML = OpenLayers.Class(OpenLayers.Format.XML, {
             point = null;
         }
 
-        return new OpenLayers.Geometry.LinearRing(ringPoints);      
+        return new OpenLayers.Geometry.LinearRing(ringPoints);
     },
-    
-    CLASS_NAME: "OpenLayers.Format.ArcXML" 
+
+    CLASS_NAME: "OpenLayers.Format.ArcXML"
 });
 
 OpenLayers.Format.ArcXML.Request = OpenLayers.Class({
@@ -915,19 +915,19 @@ OpenLayers.Format.ArcXML.Request = OpenLayers.Class({
             get_image: {
                 properties: {
                     background: null,
-                    /*{ 
+                    /*{
                         color: { r:255, g:255, b:255 },
                         transcolor: null
                     },*/
                     draw: true,
                     envelope: {
-                        minx: 0, 
-                        miny: 0, 
-                        maxx: 0, 
+                        minx: 0,
+                        miny: 0,
+                        maxx: 0,
                         maxy: 0
                     },
-                    featurecoordsys: { 
-                        id:0, 
+                    featurecoordsys: {
+                        id:0,
                         string:"",
                         datumtransformid:0,
                         datumtransformstring:""
@@ -986,43 +986,43 @@ OpenLayers.Format.ArcXML.Request = OpenLayers.Class({
                     }
                 }
             },
-      
+
             environment: {
                 separators: {
                     cs:" ",
                     ts:";"
                 }
             },
-      
+
             layer: [],
             workspaces: []
         };
-      
-        return OpenLayers.Util.extend(this, defaults);      
+
+        return OpenLayers.Util.extend(this, defaults);
     },
-  
+
     CLASS_NAME: "OpenLayers.Format.ArcXML.Request"
 });
 
-OpenLayers.Format.ArcXML.Response = OpenLayers.Class({  
+OpenLayers.Format.ArcXML.Response = OpenLayers.Class({
     initialize: function(params) {
         var defaults = {
             image: {
                 envelope:null,
                 output:''
             },
-      
+
             features: {
                 featurecount: 0,
                 envelope: null,
                 feature: []
             },
-      
+
             error:''
         };
-  
+
         return OpenLayers.Util.extend(this, defaults);
     },
-  
+
     CLASS_NAME: "OpenLayers.Format.ArcXML.Response"
 });

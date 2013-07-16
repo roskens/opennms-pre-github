@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -21,19 +21,19 @@ OpenLayers.Style = OpenLayers.Class({
      * {String} A unique id for this session.
      */
     id: null,
-    
+
     /**
      * APIProperty: name
      * {String}
      */
     name: null,
-    
+
     /**
      * Property: title
      * {String} Title of this style (set if included in SLD)
      */
     title: null,
-    
+
     /**
      * Property: description
      * {String} Description of this style (set if abstract is included in SLD)
@@ -46,19 +46,19 @@ OpenLayers.Style = OpenLayers.Class({
      * according to the NamedLayer attribute of an SLD document.
      */
     layerName: null,
-    
+
     /**
      * APIProperty: isDefault
      * {Boolean}
      */
     isDefault: false,
-     
-    /** 
-     * Property: rules 
+
+    /**
+     * Property: rules
      * {Array(<OpenLayers.Rule>)}
      */
     rules: null,
-    
+
     /**
      * Property: context
      * {Object} An optional object with properties that symbolizers' property
@@ -76,7 +76,7 @@ OpenLayers.Style = OpenLayers.Class({
      * rules defined.
      */
     defaultStyle: null,
-    
+
     /**
      * Property: defaultsPerSymbolizer
      * {Boolean} If set to true, the <defaultStyle> will extend the symbolizer
@@ -85,16 +85,16 @@ OpenLayers.Style = OpenLayers.Class({
      * graphic set to true. Default is false.
      */
     defaultsPerSymbolizer: false,
-    
+
     /**
      * Property: propertyStyles
      * {Hash of Boolean} cache of style properties that need to be parsed for
      * propertyNames. Property names are keys, values won't be used.
      */
     propertyStyles: null,
-    
 
-    /** 
+
+    /**
      * Constructor: OpenLayers.Style
      * Creates a UserStyle.
      *
@@ -109,7 +109,7 @@ OpenLayers.Style = OpenLayers.Class({
      * Valid options:
      * rules - {Array(<OpenLayers.Rule>)} List of rules to be added to the
      *     style.
-     * 
+     *
      * Return:
      * {<OpenLayers.Style>}
      */
@@ -129,7 +129,7 @@ OpenLayers.Style = OpenLayers.Class({
         this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -141,22 +141,22 @@ OpenLayers.Style = OpenLayers.Class({
         this.rules = null;
         this.defaultStyle = null;
     },
-    
+
     /**
      * Method: createSymbolizer
      * creates a style by applying all feature-dependent rules to the base
      * style.
-     * 
+     *
      * Parameters:
      * feature - {<OpenLayers.Feature>} feature to evaluate rules for
-     * 
+     *
      * Returns:
      * {Object} symbolizer hash
      */
     createSymbolizer: function(feature) {
         var style = this.defaultsPerSymbolizer ? {} : this.createLiterals(
             OpenLayers.Util.extend({}, this.defaultStyle), feature);
-        
+
         var rules = this.rules;
 
         var rule, context;
@@ -166,7 +166,7 @@ OpenLayers.Style = OpenLayers.Class({
             rule = rules[i];
             // does the rule apply?
             var applies = rule.evaluate(feature);
-            
+
             if(applies) {
                 if(rule instanceof OpenLayers.Rule && rule.elseFilter) {
                     elseRules.push(rule);
@@ -176,7 +176,7 @@ OpenLayers.Style = OpenLayers.Class({
                 }
             }
         }
-        
+
         // if no other rules apply, apply the rules with else filters
         if(appliedRules == false && elseRules.length > 0) {
             appliedRules = true;
@@ -189,10 +189,10 @@ OpenLayers.Style = OpenLayers.Class({
         if(rules.length > 0 && appliedRules == false) {
             style.display = "none";
         }
-        
+
         return style;
     },
-    
+
     /**
      * Method: applySymbolizer
      *
@@ -210,7 +210,7 @@ OpenLayers.Style = OpenLayers.Class({
                 OpenLayers.Style.SYMBOLIZER_PREFIXES[0];
 
         var symbolizer = rule.symbolizer[symbolizerPrefix] || rule.symbolizer;
-        
+
         if(this.defaultsPerSymbolizer === true) {
             var defaults = this.defaultStyle;
             OpenLayers.Util.applyDefaults(symbolizer, {
@@ -249,36 +249,36 @@ OpenLayers.Style = OpenLayers.Class({
         return this.createLiterals(
                 OpenLayers.Util.extend(style, symbolizer), feature);
     },
-    
+
     /**
      * Method: createLiterals
      * creates literals for all style properties that have an entry in
      * <this.propertyStyles>.
-     * 
+     *
      * Parameters:
      * style   - {Object} style to create literals for. Will be modified
      *           inline.
      * feature - {Object}
-     * 
+     *
      * Returns:
      * {Object} the modified style
      */
     createLiterals: function(style, feature) {
         var context = OpenLayers.Util.extend({}, feature.attributes || feature.data);
         OpenLayers.Util.extend(context, this.context);
-        
+
         for (var i in this.propertyStyles) {
             style[i] = OpenLayers.Style.createLiteral(style[i], context, feature, i);
         }
         return style;
     },
-    
+
     /**
      * Method: findPropertyStyles
      * Looks into all rules for this style and the defaultStyle to collect
      * all the style hash property names containing ${...} strings that have
      * to be replaced using the createLiteral method before returning them.
-     * 
+     *
      * Returns:
      * {Object} hash of property names that need createLiteral parsing. The
      * name of the property is the key, and the value is true;
@@ -309,15 +309,15 @@ OpenLayers.Style = OpenLayers.Class({
         }
         return propertyStyles;
     },
-    
+
     /**
      * Method: addPropertyStyles
-     * 
+     *
      * Parameters:
      * propertyStyles - {Object} hash to add new property styles to. Will be
      *                  modified inline
      * symbolizer     - {Object} search this symbolizer for property styles
-     * 
+     *
      * Returns:
      * {Object} propertyStyles hash
      */
@@ -332,11 +332,11 @@ OpenLayers.Style = OpenLayers.Class({
         }
         return propertyStyles;
     },
-    
+
     /**
      * APIMethod: addRules
      * Adds rules to this style.
-     * 
+     *
      * Parameters:
      * rules - {Array(<OpenLayers.Rule>)}
      */
@@ -344,27 +344,27 @@ OpenLayers.Style = OpenLayers.Class({
         Array.prototype.push.apply(this.rules, rules);
         this.propertyStyles = this.findPropertyStyles();
     },
-    
+
     /**
      * APIMethod: setDefaultStyle
      * Sets the default style for this style object.
-     * 
+     *
      * Parameters:
      * style - {Object} Hash of style properties
      */
     setDefaultStyle: function(style) {
-        this.defaultStyle = style; 
+        this.defaultStyle = style;
         this.propertyStyles = this.findPropertyStyles();
     },
-        
+
     /**
      * Method: getSymbolizerPrefix
      * Returns the correct symbolizer prefix according to the
      * geometry type of the passed geometry
-     * 
+     *
      * Parameters:
      * geometry {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {String} key of the according symbolizer
      */
@@ -376,11 +376,11 @@ OpenLayers.Style = OpenLayers.Class({
             }
         }
     },
-    
+
     /**
      * APIMethod: clone
      * Clones this style.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Style>} Clone of this style.
      */
@@ -399,7 +399,7 @@ OpenLayers.Style = OpenLayers.Class({
         var defaultStyle = OpenLayers.Util.extend({}, this.defaultStyle);
         return new OpenLayers.Style(defaultStyle, options);
     },
-    
+
     CLASS_NAME: "OpenLayers.Style"
 });
 
@@ -408,7 +408,7 @@ OpenLayers.Style = OpenLayers.Class({
  * Function: createLiteral
  * converts a style value holding a combination of PropertyName and Literal
  * into a Literal, taking the property values from the passed features.
- * 
+ *
  * Parameters:
  * value - {String} value to parse. If this string contains a construct like
  *         "foo ${bar}", then "foo " will be taken as literal, and "${bar}"
@@ -420,7 +420,7 @@ OpenLayers.Style = OpenLayers.Class({
  *           context.
  * property - {String} optional, name of the property for which the literal is
  *            being created for evaluating functions in the context.
- * 
+ *
  * Returns:
  * {String} the parsed value. In the example of the value parameter above, the
  * result would be "foo valueOfBar", assuming that the passed feature has an
@@ -433,7 +433,7 @@ OpenLayers.Style.createLiteral = function(value, context, feature, property) {
     }
     return value;
 };
-    
+
 /**
  * Constant: OpenLayers.Style.SYMBOLIZER_PREFIXES
  * {Array} prefixes of the sld symbolizers. These are the

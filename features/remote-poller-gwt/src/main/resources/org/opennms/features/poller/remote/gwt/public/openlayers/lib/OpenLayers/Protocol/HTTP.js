@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -44,7 +44,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
      *     Example: {'bbox': '5,5,5,5'}
      */
     params: null,
-    
+
     /**
      * Property: callback
      * {Object} Function to be called when the <read>, <create>,
@@ -88,7 +88,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
      *
      * Valid options include:
      * url - {String}
-     * headers - {Object} 
+     * headers - {Object}
      * params - {Object}
      * format - {<OpenLayers.Format>}
      * callback - {Function}
@@ -100,7 +100,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
         this.headers = {};
         OpenLayers.Protocol.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
      * APIMethod: destroy
      * Clean up the protocol.
@@ -110,7 +110,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
         this.headers = null;
         OpenLayers.Protocol.prototype.destroy.apply(this);
     },
-   
+
     /**
      * APIMethod: read
      * Construct a request for reading new features.
@@ -306,7 +306,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
      *
      * Returns:
      * {<OpenLayers.Protocol.Response>} An <OpenLayers.Protocol.Response>
-     *     object, whose "priv" property references the HTTP request, this 
+     *     object, whose "priv" property references the HTTP request, this
      *     object is also passed to the callback function when the request
      *     completes, its "features" property is then populated with the
      *     the features received from the server.
@@ -354,7 +354,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
      *
      * Returns:
      * {<OpenLayers.Protocol.Response>} An <OpenLayers.Protocol.Response>
-     *     object, whose "priv" property references the HTTP request, this 
+     *     object, whose "priv" property references the HTTP request, this
      *     object is also passed to the callback function when the request
      *     completes, its "features" property is then populated with the
      *     the feature received from the server.
@@ -406,7 +406,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
      *
      * Returns:
      * {<OpenLayers.Protocol.Response>} An <OpenLayers.Protocol.Response>
-     *     object, whose "priv" property references the HTTP request, this 
+     *     object, whose "priv" property references the HTTP request, this
      *     object is also passed to the callback function when the request
      *     completes.
      */
@@ -520,7 +520,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
     commit: function(features, options) {
         options = OpenLayers.Util.applyDefaults(options, this.options);
         var resp = [], nResponses = 0;
-        
+
         // Divide up features before issuing any requests.  This properly
         // counts requests in the event that any responses come in before
         // all requests have been issued.
@@ -534,42 +534,42 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
             list = types[feature.state];
             if(list) {
                 list.push(feature);
-                requestFeatures.push(feature); 
+                requestFeatures.push(feature);
             }
         }
         // tally up number of requests
         var nRequests = (types[OpenLayers.State.INSERT].length > 0 ? 1 : 0) +
             types[OpenLayers.State.UPDATE].length +
             types[OpenLayers.State.DELETE].length;
-        
+
         // This response will be sent to the final callback after all the others
         // have been fired.
         var success = true;
         var finalResponse = new OpenLayers.Protocol.Response({
-            reqFeatures: requestFeatures        
+            reqFeatures: requestFeatures
         });
-        
+
         function insertCallback(response) {
             var len = response.features ? response.features.length : 0;
             var fids = new Array(len);
             for(var i=0; i<len; ++i) {
                 fids[i] = response.features[i].fid;
-            }   
+            }
             finalResponse.insertIds = fids;
             callback.apply(this, [response]);
         }
- 
+
         function callback(response) {
             this.callUserCallback(response, options);
             success = success && response.success();
             nResponses++;
             if (nResponses >= nRequests) {
                 if (options.callback) {
-                    finalResponse.code = success ? 
+                    finalResponse.code = success ?
                         OpenLayers.Protocol.Response.SUCCESS :
                         OpenLayers.Protocol.Response.FAILURE;
                     options.callback.apply(options.scope, [finalResponse]);
-                }    
+                }
             }
         }
 
@@ -633,7 +633,7 @@ OpenLayers.Protocol.HTTP = OpenLayers.Class(OpenLayers.Protocol, {
         }
     },
 
-    CLASS_NAME: "OpenLayers.Protocol.HTTP" 
+    CLASS_NAME: "OpenLayers.Protocol.HTTP"
 });
 
 /**

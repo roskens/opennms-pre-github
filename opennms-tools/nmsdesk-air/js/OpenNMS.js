@@ -5,20 +5,20 @@
 	var username;
 	var password;
 	var urlbase;
-	
+
 	function loadproperties() {
 		var prefsFile;
 		var prefsXML; // The XML data
 		var stream; // The FileStream object used to read and write prefsFile data.
-		
+
 		prefsFile = air.File.applicationStorageDirectory;
 		prefsFile = prefsFile.resolvePath("preferences.xml");
-	
+
 		stream = new air.FileStream();
 			if (prefsFile.exists) {
 				stream.open(prefsFile, air.FileMode.READ);
 				//processXMLData();
-				
+
 				prefsXML = stream.readUTFBytes(stream.bytesAvailable);
 				stream.close();
 				var domParser = new DOMParser();
@@ -45,27 +45,27 @@
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, restoutagesCompleteHandler);
 		loader.load(request);
-		
+
 	}
-	
+
 	function alarms() {
 		loadproperties();
 		var request = new air.URLRequest(urlbase+"/alarms");
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, alarmsCompleteHandler);
 		loader.load(request);
-		
-	}	
-	
+
+	}
+
 	function notifications() {
 		loadproperties();
 		var request = new air.URLRequest(urlbase+"/notifications");
 		var loader = new air.URLLoader();
 		loader.addEventListener(air.Event.COMPLETE, notificationsCompleteHandler);
 		loader.load(request);
-		
-	}	
-	
+
+	}
+
 /* Notifications as they come out:
 <notifications count="1">
 <onmsNotification>
@@ -77,13 +77,13 @@
 <queueId>default</queueId>
 <subject>Notice #1: node 192.168.1.150 down.</subject>
 <textMsg>
-All services are down on node 192.168.1.150.  New Outage records have 
-been created and service level availability calculations will 
-be impacted until this outage is resolved.  
+All services are down on node 192.168.1.150.  New Outage records have
+been created and service level availability calculations will
+be impacted until this outage is resolved.
 </textMsg>
 </onmsNotification>
 </notifications>
- */	
+ */
 
 function notificationsCompleteHandler(event){
 		var loader2 = event.target;
@@ -91,7 +91,7 @@ function notificationsCompleteHandler(event){
 		var parser = new DOMParser();
 		var xmldoc = parser.parseFromString(loader2.data, "text/xml");
 		air.trace("calling parser" + xmldoc);
-		
+
 		// <id>3</id>
 		// <ifLostService>2008-03-22T15:03:09+01:00</ifLostService>
 		// <ifRegainedService>2008-03-22T15:03:40+01:00</ifRegainedService>
@@ -104,7 +104,7 @@ function notificationsCompleteHandler(event){
 		var table = document.createElement("table");
 		table.setAttribute("id", "resultstable");
 		position.appendChild(table);
-		
+
 		for (Index = 0; Index < entries.length; Index++) {
 			var id = entries[Index].getAttribute("id");
 			var eventUei = entries[Index].getElementsByTagName("uei")[0].textContent;
@@ -121,17 +121,17 @@ function notificationsCompleteHandler(event){
 			//var myline = "" + title + " " + published + "\n";
 			//mydataobj.appendChild(document.createTextNode(myline));
 			writeOutageResult(table, id, subject, eventUei);
-			
+
 		}
 	}
-	
+
 function restoutagesCompleteHandler(event){
 		var loader2 = event.target;
 		air.trace("loaded" + loader2.data);
 		var parser = new DOMParser();
 		var xmldoc = parser.parseFromString(loader2.data, "text/xml");
 		air.trace("calling parser" + xmldoc);
-		
+
 		// <id>3</id>
 		// <ifLostService>2008-03-22T15:03:09+01:00</ifLostService>
 		// <ifRegainedService>2008-03-22T15:03:40+01:00</ifRegainedService>
@@ -144,7 +144,7 @@ function restoutagesCompleteHandler(event){
 		var table = document.createElement("table");
 		table.setAttribute("id", "resultstable");
 		position.appendChild(table);
-		
+
 		for (Index = 0; Index < entries.length; Index++) {
 			var id = entries[Index].getAttribute("id");
 			var LostService = entries[Index].getElementsByTagName("ifLostService")[0].textContent;
@@ -158,7 +158,7 @@ function restoutagesCompleteHandler(event){
 			//var myline = "" + title + " " + published + "\n";
 			//mydataobj.appendChild(document.createTextNode(myline));
 			writeOutageResult(table, id, LostService, RegainedService);
-			
+
 		}
 	}
 
@@ -178,7 +178,7 @@ function restoutagesCompleteHandler(event){
 <suppressedTime>2008-08-15T16:20:45+02:00</suppressedTime>
 <suppressedUntil>2008-08-15T16:20:45+02:00</suppressedUntil>
 <uei>uei.opennms.org/nodes/nodeDown</uei>
-<x733ProbableCause>0</x733ProbableCause> 
+<x733ProbableCause>0</x733ProbableCause>
 */
 
 	function alarmsCompleteHandler(event){
@@ -187,8 +187,8 @@ function restoutagesCompleteHandler(event){
 		var parser = new DOMParser();
 		var xmldoc = parser.parseFromString(loader2.data, "text/xml");
 		air.trace("calling parser" + xmldoc);
-		
-	
+
+
 
 		var entries = xmldoc.getElementsByTagName("alarm");
 		air.trace("found " + entries.length + " entries.");
@@ -198,7 +198,7 @@ function restoutagesCompleteHandler(event){
 		var table = document.createElement("table");
 		table.setAttribute("id", "resultstable");
 		position.appendChild(table);
-		
+
 		for (Index = 0; Index < entries.length; Index++) {
 			var id = entries[Index].getElementsByTagName("id")[0].textContent;
 			var description = entries[Index].getElementsByTagName("description")[0].textContent;
@@ -215,49 +215,47 @@ function restoutagesCompleteHandler(event){
 			//var myline = "" + title + " " + published + "\n";
 			//mydataobj.appendChild(document.createTextNode(myline));
 			writeOutageResult(table, id, logMsg, RegainedService);
-			
+
 		}
 	}
 
-		function writeOutageResult(table, id, LostService, RegainedService) 
+		function writeOutageResult(table, id, LostService, RegainedService)
 			{
-		
+
     			var tr = document.createElement("tr");
     			tr.setAttribute("class", "grid");
-			
+
     			var td = document.createElement("td");
 				td.innerHTML= id;
     			tr.appendChild(td);
-			
+
     			td = document.createElement("td");
 				td.innerHTML= LostService;
     			tr.appendChild(td);
-			
+
 				td = document.createElement("td");
 				td.innerHTML= RegainedService;
     			tr.appendChild(td);
-			
-    			table.appendChild(tr); 
+
+			table.appendChild(tr);
 			}
-		
-			
-		function writeFileResult(table, title, published, link) 
+
+
+		function writeFileResult(table, title, published, link)
 			{
-		
+
     			var tr = document.createElement("tr");
     			tr.setAttribute("class", "grid");
-			
+
     			var td = document.createElement("td");
 			td.innerHTML= "<a href=\""+ link + "&nonavbar=true&quiet=true\">" + title + "</a>";
     			tr.appendChild(td);
-			
+
     			td = document.createElement("td");
 			td.innerHTML= "<a href=\""+ link + "&nonavbar=true&quiet=true\">" + published + "</a>";
     			tr.appendChild(td);
-			
-			
-    			table.appendChild(tr); 
+
+
+			table.appendChild(tr);
 			}
-		 
-		 
 

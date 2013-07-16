@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,19 +18,19 @@
  *  - <OpenLayers.Layer.Vector>
  */
 OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector, {
-    
+
     /**
      * Property: displayInLayerSwitcher
      * Set to false for this layer type
      */
     displayInLayerSwitcher: false,
-    
+
     /**
      * APIProperty: layers
      * Layers that are attached to this container. Required config option.
      */
     layers: null,
-    
+
     /**
      * Constructor: OpenLayers.Layer.Vector.RootContainer
      * Create a new root container for multiple vector layer. This constructor
@@ -41,7 +41,7 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
      * name - {String} A name for the layer
      * options - {Object} Optional object with non-default properties to set on
      *           the layer.
-     * 
+     *
      * Required options properties:
      * layers - {Array(<OpenLayers.Layer.Vector>)} The layers managed by this
      *     container
@@ -53,19 +53,19 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
     initialize: function(name, options) {
         OpenLayers.Layer.Vector.prototype.initialize.apply(this, arguments);
     },
-    
+
     /**
      * Method: display
      */
     display: function() {},
-    
+
     /**
      * Method: getFeatureFromEvent
      * walk through the layers to find the feature returned by the event
-     * 
+     *
      * Parameters:
      * evt - {Object} event object with a feature property
-     * 
+     *
      * Returns:
      * {<OpenLayers.Feature.Vector>}
      */
@@ -79,10 +79,10 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
             }
         }
     },
-    
+
     /**
      * Method: setMap
-     * 
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -91,10 +91,10 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
         this.collectRoots();
         map.events.register("changelayer", this, this.handleChangeLayer);
     },
-    
+
     /**
      * Method: removeMap
-     * 
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -103,7 +103,7 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
         this.resetRoots();
         OpenLayers.Layer.Vector.prototype.removeMap.apply(this, arguments);
     },
-    
+
     /**
      * Method: collectRoots
      * Collects the root nodes of all layers this control is configured with
@@ -119,7 +119,7 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
             }
         }
     },
-    
+
     /**
      * Method: resetRoots
      * Resets the root nodes back into the layers they belong to.
@@ -133,14 +133,14 @@ OpenLayers.Layer.Vector.RootContainer = OpenLayers.Class(OpenLayers.Layer.Vector
             }
         }
     },
-    
+
     /**
      * Method: handleChangeLayer
      * Event handler for the map's changelayer event. We need to rebuild
      * this container's layer dom if order of one of its layers changes.
      * This handler is added with the setMap method, and removed with the
      * removeMap method.
-     * 
+     *
      * Parameters:
      * evt - {Object}
      */

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,7 +19,7 @@
  */
 OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
     OpenLayers.Format.Filter.v1_0_0, OpenLayers.Format.WFST.v1, {
-    
+
     /**
      * Property: version
      * {String} WFS version number.
@@ -33,7 +33,7 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
      *     property defaults to false as it isn't WFS 1.0.0 compliant.
      */
     srsNameInQuery: false,
-    
+
     /**
      * Property: schemaLocations
      * {Object} Properties are namespace aliases, values are schema locations.
@@ -61,7 +61,7 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
         OpenLayers.Format.Filter.v1_0_0.prototype.initialize.apply(this, [options]);
         OpenLayers.Format.WFST.v1.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -128,7 +128,7 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
                 if(options.propertyNames) {
                     for(var i=0,len = options.propertyNames.length; i<len; i++) {
                         this.writeNode(
-                            "ogc:PropertyName", 
+                            "ogc:PropertyName",
                             {property: options.propertyNames[i]},
                             node
                         );
@@ -145,6 +145,6 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
         "feature": OpenLayers.Format.GML.v2.prototype.writers["feature"],
         "ogc": OpenLayers.Format.Filter.v1_0_0.prototype.writers["ogc"]
     },
-   
-    CLASS_NAME: "OpenLayers.Format.WFST.v1_0_0" 
+
+    CLASS_NAME: "OpenLayers.Format.WFST.v1_0_0"
 });

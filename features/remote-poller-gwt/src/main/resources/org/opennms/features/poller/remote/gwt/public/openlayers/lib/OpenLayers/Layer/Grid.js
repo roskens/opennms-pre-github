@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -18,38 +18,38 @@
  *  - <OpenLayers.Layer.HTTPRequest>
  */
 OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
-    
+
     /**
      * APIProperty: tileSize
      * {<OpenLayers.Size>}
      */
     tileSize: null,
-    
+
     /**
      * Property: grid
-     * {Array(Array(<OpenLayers.Tile>))} This is an array of rows, each row is 
+     * {Array(Array(<OpenLayers.Tile>))} This is an array of rows, each row is
      *     an array of tiles.
      */
     grid: null,
 
     /**
      * APIProperty: singleTile
-     * {Boolean} Moves the layer into single-tile mode, meaning that one tile 
+     * {Boolean} Moves the layer into single-tile mode, meaning that one tile
      *     will be loaded. The tile's size will be determined by the 'ratio'
-     *     property. When the tile is dragged such that it does not cover the 
+     *     property. When the tile is dragged such that it does not cover the
      *     entire viewport, it is reloaded.
      */
     singleTile: false,
 
     /** APIProperty: ratio
-     *  {Float} Used only when in single-tile mode, this specifies the 
+     *  {Float} Used only when in single-tile mode, this specifies the
      *          ratio of the size of the single tile to the size of the map.
      */
     ratio: 1.5,
 
     /**
      * APIProperty: buffer
-     * {Integer} Used only when in gridded mode, this specifies the number of 
+     * {Integer} Used only when in gridded mode, this specifies the number of
      *           extra rows and colums of tiles on each side which will
      *           surround the minimum grid tiles to cover the map.
      */
@@ -72,10 +72,10 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
      * options - {Object} Hashtable of extra options to tag onto the layer
      */
     initialize: function(name, url, params, options) {
-        OpenLayers.Layer.HTTPRequest.prototype.initialize.apply(this, 
+        OpenLayers.Layer.HTTPRequest.prototype.initialize.apply(this,
                                                                 arguments);
-        
-        //grid layers will trigger 'tileloaded' when each new tile is 
+
+        //grid layers will trigger 'tileloaded' when each new tile is
         // loaded, as a means of progress update to listeners.
         // listeners can access 'numLoadingTiles' if they wish to keep track
         // of the loading progress
@@ -93,7 +93,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         this.clearGrid();
         this.grid = null;
         this.tileSize = null;
-        OpenLayers.Layer.HTTPRequest.prototype.destroy.apply(this, arguments); 
+        OpenLayers.Layer.HTTPRequest.prototype.destroy.apply(this, arguments);
     },
 
     /**
@@ -121,12 +121,12 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
      *
      * Parameters:
      * obj - {Object} Is this ever used?
-     * 
+     *
      * Returns:
      * {<OpenLayers.Layer.Grid>} An exact clone of this OpenLayers.Layer.Grid
      */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer.Grid(this.name,
                                             this.url,
@@ -141,12 +141,12 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         if (this.tileSize != null) {
             obj.tileSize = this.tileSize.clone();
         }
-        
+
         // we do not want to copy reference to grid, so we make a new array
         obj.grid = [];
 
         return obj;
-    },    
+    },
 
     /**
      * Method: moveTo
@@ -161,32 +161,32 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
      */
     moveTo:function(bounds, zoomChanged, dragging) {
         OpenLayers.Layer.HTTPRequest.prototype.moveTo.apply(this, arguments);
-        
+
         bounds = bounds || this.map.getExtent();
 
         if (bounds != null) {
-             
+
             // if grid is empty or zoom has changed, we *must* re-tile
             var forceReTile = !this.grid.length || zoomChanged;
 
             // total bounds of the tiles
-            var tilesBounds = this.getTilesBounds();            
-      
+            var tilesBounds = this.getTilesBounds();
+
             if (this.singleTile) {
-                
-                // We want to redraw whenever even the slightest part of the 
+
+                // We want to redraw whenever even the slightest part of the
                 //  current bounds is not contained by our tile.
                 //  (thus, we do not specify partial -- its default is false)
-                if ( forceReTile || 
+                if ( forceReTile ||
                      (!dragging && !tilesBounds.containsBounds(bounds))) {
                     this.initSingleTile(bounds);
                 }
             } else {
-             
-                // if the bounds have changed such that they are not even 
-                //  *partially* contained by our tiles (IE user has 
-                //  programmatically panned to the other side of the earth) 
-                //  then we want to reTile (thus, partial true).  
+
+                // if the bounds have changed such that they are not even
+                //  *partially* contained by our tiles (IE user has
+                //  programmatically panned to the other side of the earth)
+                //  then we want to reTile (thus, partial true).
                 //
                 if (forceReTile || !tilesBounds.containsBounds(bounds, true)) {
                     this.initGriddedTiles(bounds);
@@ -197,32 +197,32 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             }
         }
     },
-    
+
     /**
      * APIMethod: setTileSize
      * Check if we are in singleTile mode and if so, set the size as a ratio
      *     of the map size (as specified by the layer's 'ratio' property).
-     * 
+     *
      * Parameters:
      * size - {<OpenLayers.Size>}
      */
-    setTileSize: function(size) { 
+    setTileSize: function(size) {
         if (this.singleTile) {
             size = this.map.getSize();
             size.h = parseInt(size.h * this.ratio);
             size.w = parseInt(size.w * this.ratio);
-        } 
+        }
         OpenLayers.Layer.HTTPRequest.prototype.setTileSize.apply(this, [size]);
     },
-        
+
     /**
      * Method: getGridBounds
-     * Deprecated. This function will be removed in 3.0. Please use 
+     * Deprecated. This function will be removed in 3.0. Please use
      *     getTilesBounds() instead.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Bounds>} A Bounds object representing the bounds of all the
-     * currently loaded tiles (including those partially or not at all seen 
+     * currently loaded tiles (including those partially or not at all seen
      * onscreen)
      */
     getGridBounds: function() {
@@ -238,32 +238,32 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
      *
      * Returns:
      * {<OpenLayers.Bounds>} A Bounds object representing the bounds of all the
-     *     currently loaded tiles (including those partially or not at all seen 
+     *     currently loaded tiles (including those partially or not at all seen
      *     onscreen).
      */
-    getTilesBounds: function() {    
-        var bounds = null; 
-        
+    getTilesBounds: function() {
+        var bounds = null;
+
         if (this.grid.length) {
             var bottom = this.grid.length - 1;
             var bottomLeftTile = this.grid[bottom][0];
-    
-            var right = this.grid[0].length - 1; 
+
+            var right = this.grid[0].length - 1;
             var topRightTile = this.grid[0][right];
-    
-            bounds = new OpenLayers.Bounds(bottomLeftTile.bounds.left, 
+
+            bounds = new OpenLayers.Bounds(bottomLeftTile.bounds.left,
                                            bottomLeftTile.bounds.bottom,
-                                           topRightTile.bounds.right, 
+                                           topRightTile.bounds.right,
                                            topRightTile.bounds.top);
-            
-        }   
+
+        }
         return bounds;
     },
 
     /**
      * Method: initSingleTile
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      */
     initSingleTile: function(bounds) {
@@ -272,13 +272,13 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         var center = bounds.getCenterLonLat();
         var tileWidth = bounds.getWidth() * this.ratio;
         var tileHeight = bounds.getHeight() * this.ratio;
-                                       
-        var tileBounds = 
+
+        var tileBounds =
             new OpenLayers.Bounds(center.lon - (tileWidth/2),
                                   center.lat - (tileHeight/2),
                                   center.lon + (tileWidth/2),
                                   center.lat + (tileHeight/2));
-  
+
         var ul = new OpenLayers.LonLat(tileBounds.left, tileBounds.top);
         var px = this.map.getLayerPxFromLonLat(ul);
 
@@ -289,21 +289,21 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         var tile = this.grid[0][0];
         if (!tile) {
             tile = this.addTile(tileBounds, px);
-            
+
             this.addTileMonitoringHooks(tile);
             tile.draw();
             this.grid[0][0] = tile;
         } else {
             tile.moveTo(tileBounds, px);
-        }           
-        
+        }
+
         //remove all but our single tile
         this.removeExcessTiles(1,1);
     },
 
-    /** 
+    /**
      * Method: calculateGridLayout
-     * Generate parameters for the grid layout. This  
+     * Generate parameters for the grid layout. This
      *
      * Parameters:
      * bounds - {<OpenLayers.Bound>}
@@ -317,20 +317,20 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
     calculateGridLayout: function(bounds, extent, resolution) {
         var tilelon = resolution * this.tileSize.w;
         var tilelat = resolution * this.tileSize.h;
-        
+
         var offsetlon = bounds.left - extent.left;
         var tilecol = Math.floor(offsetlon/tilelon) - this.buffer;
         var tilecolremain = offsetlon/tilelon - tilecol;
         var tileoffsetx = -tilecolremain * this.tileSize.w;
         var tileoffsetlon = extent.left + tilecol * tilelon;
-        
-        var offsetlat = bounds.top - (extent.bottom + tilelat);  
+
+        var offsetlat = bounds.top - (extent.bottom + tilelat);
         var tilerow = Math.ceil(offsetlat/tilelat) + this.buffer;
         var tilerowremain = tilerow - offsetlat/tilelat;
         var tileoffsety = -tilerowremain * this.tileSize.h;
         var tileoffsetlat = extent.bottom + tilerow * tilelat;
-        
-        return { 
+
+        return {
           tilelon: tilelon, tilelat: tilelat,
           tileoffsetlon: tileoffsetlon, tileoffsetlat: tileoffsetlat,
           tileoffsetx: tileoffsetx, tileoffsety: tileoffsety
@@ -340,24 +340,24 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
 
     /**
      * Method: initGriddedTiles
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      */
     initGriddedTiles:function(bounds) {
-        
+
         // work out mininum number of rows and columns; this is the number of
         // tiles required to cover the viewport plus at least one for panning
 
         var viewSize = this.map.getSize();
-        var minRows = Math.ceil(viewSize.h/this.tileSize.h) + 
+        var minRows = Math.ceil(viewSize.h/this.tileSize.h) +
                       Math.max(1, 2 * this.buffer);
         var minCols = Math.ceil(viewSize.w/this.tileSize.w) +
                       Math.max(1, 2 * this.buffer);
-        
+
         var extent = this.getMaxExtent();
         var resolution = this.map.getResolution();
-        
+
         var tileLayout = this.calculateGridLayout(bounds, extent, resolution);
 
         var tileoffsetx = Math.round(tileLayout.tileoffsetx); // heaven help us
@@ -365,21 +365,21 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
 
         var tileoffsetlon = tileLayout.tileoffsetlon;
         var tileoffsetlat = tileLayout.tileoffsetlat;
-        
+
         var tilelon = tileLayout.tilelon;
         var tilelat = tileLayout.tilelat;
 
         this.origin = new OpenLayers.Pixel(tileoffsetx, tileoffsety);
 
-        var startX = tileoffsetx; 
+        var startX = tileoffsetx;
         var startLon = tileoffsetlon;
 
         var rowidx = 0;
-        
+
         var layerContainerDivLeft = parseInt(this.map.layerContainerDiv.style.left);
         var layerContainerDivTop = parseInt(this.map.layerContainerDiv.style.top);
-        
-    
+
+
         do {
             var row = this.grid[rowidx++];
             if (!row) {
@@ -390,11 +390,11 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             tileoffsetlon = startLon;
             tileoffsetx = startX;
             var colidx = 0;
- 
+
             do {
-                var tileBounds = 
-                    new OpenLayers.Bounds(tileoffsetlon, 
-                                          tileoffsetlat, 
+                var tileBounds =
+                    new OpenLayers.Bounds(tileoffsetlon,
+                                          tileoffsetlat,
                                           tileoffsetlon + tilelon,
                                           tileoffsetlat + tilelat);
 
@@ -413,17 +413,17 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
                 } else {
                     tile.moveTo(tileBounds, px, false);
                 }
-     
-                tileoffsetlon += tilelon;       
+
+                tileoffsetlon += tilelon;
                 tileoffsetx += this.tileSize.w;
             } while ((tileoffsetlon <= bounds.right + tilelon * this.buffer)
                      || colidx < minCols);
-             
+
             tileoffsetlat -= tilelat;
             tileoffsety += this.tileSize.h;
         } while((tileoffsetlat >= bounds.bottom - tilelat * this.buffer)
                 || rowidx < minRows);
-        
+
         //shave off exceess rows and colums
         this.removeExcessTiles(rowidx, colidx);
 
@@ -442,27 +442,27 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
     getMaxExtent: function() {
         return this.maxExtent;
     },
-    
+
     /**
      * Method: spiralTileLoad
-     *   Starts at the top right corner of the grid and proceeds in a spiral 
-     *    towards the center, adding tiles one at a time to the beginning of a 
-     *    queue. 
-     * 
-     *   Once all the grid's tiles have been added to the queue, we go back 
-     *    and iterate through the queue (thus reversing the spiral order from 
-     *    outside-in to inside-out), calling draw() on each tile. 
+     *   Starts at the top right corner of the grid and proceeds in a spiral
+     *    towards the center, adding tiles one at a time to the beginning of a
+     *    queue.
+     *
+     *   Once all the grid's tiles have been added to the queue, we go back
+     *    and iterate through the queue (thus reversing the spiral order from
+     *    outside-in to inside-out), calling draw() on each tile.
      */
     spiralTileLoad: function() {
         var tileQueue = [];
- 
+
         var directions = ["right", "down", "left", "up"];
 
         var iRow = 0;
         var iCell = -1;
         var direction = OpenLayers.Util.indexOf(directions, "right");
         var directionsTried = 0;
-        
+
         while( directionsTried < directions.length) {
 
             var testRow = iRow;
@@ -481,21 +481,21 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
                 case "up":
                     testRow--;
                     break;
-            } 
-    
-            // if the test grid coordinates are within the bounds of the 
+            }
+
+            // if the test grid coordinates are within the bounds of the
             //  grid, get a reference to the tile.
             var tile = null;
             if ((testRow < this.grid.length) && (testRow >= 0) &&
                 (testCell < this.grid[0].length) && (testCell >= 0)) {
                 tile = this.grid[testRow][testCell];
             }
-            
+
             if ((tile != null) && (!tile.queued)) {
                 //add tile to beginning of queue, mark it as queued.
                 tileQueue.unshift(tile);
                 tile.queued = true;
-                
+
                 //restart the directions counter and take on the new coords
                 directionsTried = 0;
                 iRow = testRow;
@@ -505,21 +505,21 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
                 direction = (direction + 1) % 4;
                 directionsTried++;
             }
-        } 
-        
+        }
+
         // now we go through and draw the tiles in forward order
         for(var i=0, len=tileQueue.length; i<len; i++) {
             var tile = tileQueue[i];
             tile.draw();
             //mark tile as unqueued for the next time (since tiles are reused)
-            tile.queued = false;       
+            tile.queued = false;
         }
     },
 
     /**
      * APIMethod: addTile
-     * Gives subclasses of Grid the opportunity to create an 
-     * OpenLayer.Tile of their choosing. The implementer should initialize 
+     * Gives subclasses of Grid the opportunity to create an
+     * OpenLayer.Tile of their choosing. The implementer should initialize
      * the new tile and take whatever steps necessary to display it.
      *
      * Parameters
@@ -532,17 +532,17 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
     addTile:function(bounds, position) {
         // Should be implemented by subclasses
     },
-    
-    /** 
+
+    /**
      * Method: addTileMonitoringHooks
-     * This function takes a tile as input and adds the appropriate hooks to 
+     * This function takes a tile as input and adds the appropriate hooks to
      *     the tile so that the layer can keep track of the loading tiles.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * tile - {<OpenLayers.Tile>}
      */
     addTileMonitoringHooks: function(tile) {
-        
+
         tile.onLoadStart = function() {
             //if that was first tile then trigger a 'loadstart' on the layer
             if (this.numLoadingTiles == 0) {
@@ -551,7 +551,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             this.numLoadingTiles++;
         };
         tile.events.register("loadstart", this, tile.onLoadStart);
-      
+
         tile.onLoadEnd = function() {
             this.numLoadingTiles--;
             this.events.triggerEvent("tileloaded");
@@ -564,12 +564,12 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         tile.events.register("unload", this, tile.onLoadEnd);
     },
 
-    /** 
+    /**
      * Method: removeTileMonitoringHooks
-     * This function takes a tile as input and removes the tile hooks 
+     * This function takes a tile as input and removes the tile hooks
      *     that were added in addTileMonitoringHooks()
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * tile - {<OpenLayers.Tile>}
      */
     removeTileMonitoringHooks: function(tile) {
@@ -581,10 +581,10 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             scope: this
         });
     },
-    
+
     /**
      * Method: moveGriddedTiles
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      */
@@ -592,7 +592,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
         var buffer = this.buffer || 1;
         while (true) {
             var tlLayer = this.grid[0][0].position;
-            var tlViewPort = 
+            var tlViewPort =
                 this.map.getViewPortPxFromLayerPx(tlLayer);
             if (tlViewPort.x > -this.tileSize.w * (buffer - 1)) {
                 this.shiftColumn(true);
@@ -661,7 +661,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             var row = this.grid[i];
             var modelTileIndex = (prepend) ? 0 : (row.length - 1);
             var modelTile = row[modelTileIndex];
-            
+
             var bounds = modelTile.bounds.clone();
             var position = modelTile.position.clone();
             bounds.left = bounds.left + deltaLon;
@@ -677,18 +677,18 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             }
         }
     },
-    
+
     /**
      * Method: removeExcessTiles
      * When the size of the map or the buffer changes, we may need to
      *     remove some excess rows and columns.
-     * 
+     *
      * Parameters:
      * rows - {Integer} Maximum number of rows we want our grid to have.
      * colums - {Integer} Maximum number of columns we want our grid to have.
      */
     removeExcessTiles: function(rows, columns) {
-        
+
         // remove extra rows
         while (this.grid.length > rows) {
             var row = this.grid.pop();
@@ -698,7 +698,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
                 tile.destroy();
             }
         }
-        
+
         // remove extra columns
         while (this.grid[0].length > columns) {
             for (var i=0, l=this.grid.length; i<l; i++) {
@@ -721,7 +721,7 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
             this.setTileSize();
         }
     },
-    
+
     /**
      * APIMethod: getTileBounds
      * Returns The tile bounds for a layer given a pixel location.
@@ -750,6 +750,6 @@ OpenLayers.Layer.Grid = OpenLayers.Class(OpenLayers.Layer.HTTPRequest, {
                                      tileLeft + tileMapWidth,
                                      tileBottom + tileMapHeight);
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.Grid"
 });

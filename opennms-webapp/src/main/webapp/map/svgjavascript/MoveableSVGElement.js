@@ -5,7 +5,7 @@ function SVGElement()
 
 SVGElement.prototype.getSvgNode = function()
 {
-	return this.svgNode;	
+	return this.svgNode;
 }
 
 MoveableSVGElement.prototype = new SVGElement;

@@ -8,7 +8,7 @@ function isInteger(number)
                         return false;
                 }
         }
-        
+
         return true;
 }
 

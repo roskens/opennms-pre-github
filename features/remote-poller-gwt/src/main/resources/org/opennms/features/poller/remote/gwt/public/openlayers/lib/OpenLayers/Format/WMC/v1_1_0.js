@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -14,13 +14,13 @@
  * Differences between 1.1.0 and 1.0.0:
  *     - 1.1.0 Layers have optional sld:MinScaleDenominator and
  *       sld:MaxScaleDenominator
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMC.v1>
  */
 OpenLayers.Format.WMC.v1_1_0 = OpenLayers.Class(
     OpenLayers.Format.WMC.v1, {
-    
+
     /**
      * Constant: VERSION
      * {String} 1.1.0
@@ -91,7 +91,7 @@ OpenLayers.Format.WMC.v1_1_0 = OpenLayers.Class(
         var node = OpenLayers.Format.WMC.v1.prototype.write_wmc_Layer.apply(
             this, [context]
         );
-        
+
         // min/max scale denominator elements go before the 4th element in v1
         if(context.maxScale) {
             var minSD = this.createElementNS(
@@ -100,7 +100,7 @@ OpenLayers.Format.WMC.v1_1_0 = OpenLayers.Class(
             minSD.appendChild(this.createTextNode(context.maxScale.toPrecision(16)));
             node.appendChild(minSD);
         }
-        
+
         if(context.minScale) {
             var maxSD = this.createElementNS(
                 this.namespaces.sld, "sld:MaxScaleDenominator"
@@ -114,14 +114,14 @@ OpenLayers.Format.WMC.v1_1_0 = OpenLayers.Class(
 
         // optional StyleList element
         node.appendChild(this.write_wmc_StyleList(context));
-        
+
         // OpenLayers specific properties go in an Extension element
         node.appendChild(this.write_wmc_LayerExtension(context));
-        
+
         return node;
-        
+
     },
 
-    CLASS_NAME: "OpenLayers.Format.WMC.v1_1_0" 
+    CLASS_NAME: "OpenLayers.Format.WMC.v1_1_0"
 
 });

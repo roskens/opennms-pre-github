@@ -1,9 +1,9 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
- 
+
 /**
  * @requires OpenLayers/Layer/WMS.js
  * @requires OpenLayers/Tile/Image/IFrame.js
@@ -12,7 +12,7 @@
 /**
  * Class: OpenLayers.Layer.WMS.Post
  * Instances of OpenLayers.Layer.WMS.Post are used to retrieve data from OGC
- * Web Mapping Services via HTTP-POST (application/x-www-form-urlencoded). 
+ * Web Mapping Services via HTTP-POST (application/x-www-form-urlencoded).
  * Create a new WMS layer with the <OpenLayers.Layer.WMS.Post> constructor.
  *
  * Inherits from:
@@ -28,10 +28,10 @@ OpenLayers.Layer.WMS.Post = OpenLayers.Class(OpenLayers.Layer.WMS, {
 
     /**
      * APIProperty: unsupportedBrowsers
-     * {Array} Array with browsers, which should use the HTTP-GET protocol 
+     * {Array} Array with browsers, which should use the HTTP-GET protocol
      * instead of HTTP-POST for fetching tiles from a WMS .
-     * Defaults to ["mozilla", "firefox", "opera"], because Opera is not able 
-     * to show transparent images in IFrames and Firefox/Mozilla has some ugly 
+     * Defaults to ["mozilla", "firefox", "opera"], because Opera is not able
+     * to show transparent images in IFrames and Firefox/Mozilla has some ugly
      * effects of viewport-shaking when panning the map. Both browsers, Opera
      * and Firefox/Mozilla, have no problem with long urls, which is the reason
      * for using POST instead of GET. The strings to pass to this array are
@@ -41,7 +41,7 @@ OpenLayers.Layer.WMS.Post = OpenLayers.Class(OpenLayers.Layer.WMS, {
 
     /**
      * Property: SUPPORTED_TRANSITIONS
-     * {Array} 
+     * {Array}
      * no supported transitions for this type of layer, because it is not
      * possible to modify the initialized tiles (iframes)
      */
@@ -77,7 +77,7 @@ OpenLayers.Layer.WMS.Post = OpenLayers.Class(OpenLayers.Layer.WMS, {
                 ? OpenLayers.Tile.Image
                 : OpenLayers.Tile.Image.IFrame;
     },
-    
+
     /**
      * Method: addTile
      * addTile creates a tile, initializes it and adds it as iframe to the

@@ -1,8 +1,8 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
- 
+
 /**
  * @requires OpenLayers/Format/XML.js
  * @requires OpenLayers/Format/GML/v3.js
@@ -19,7 +19,7 @@
  */
 OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
     OpenLayers.Format.XML, {
-    
+
     /**
      * Constant: VERSION
      * {String} 1.0.0
@@ -58,7 +58,7 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
         splitSpace: (/\s+/),
         trimComma: (/\s*,\s*/g)
     },
-    
+
     /**
      * Constructor: OpenLayers.Format.SOSGetFeatureOfInterest
      *
@@ -73,12 +73,12 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
     /**
      * APIMethod: read
      * Parse a GetFeatureOfInterest response and return an array of features
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
-     * {Array(<OpenLayers.Feature.Vector>)} An array of features. 
+     * {Array(<OpenLayers.Feature.Vector>)} An array of features.
      */
     read: function(data) {
         if(typeof data == "string") {
@@ -90,7 +90,7 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
 
         var info = {features: []};
         this.readNode(data, info);
-       
+
         var features = [];
         for (var i=0, len=info.features.length; i<len; i++) {
             var container = info.features[i];
@@ -100,7 +100,7 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
                     container.components[0].transform(
                         this.externalProjection, this.internalProjection
                     );
-            }             
+            }
             var feature = new OpenLayers.Feature.Vector(
                 container.components[0], container.attributes);
             features.push(feature);
@@ -119,14 +119,14 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
     readers: {
         "sa": {
             "SamplingPoint": function(node, obj) {
-                // sampling point can also be without a featureMember if 
+                // sampling point can also be without a featureMember if
                 // there is only 1
                 if (!obj.attributes) {
                     var feature = {attributes: {}};
                     obj.features.push(feature);
                     obj = feature;
                 }
-                obj.attributes.id = this.getAttributeNS(node, 
+                obj.attributes.id = this.getAttributeNS(node,
                     this.namespaces.gml, "id");
                 this.readChildNodes(node, obj);
             },
@@ -147,7 +147,7 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
                 obj.attributes.name = this.getChildValue(node);
             },
             "pos": function(node, obj) {
-                // we need to parse the srsName to get to the 
+                // we need to parse the srsName to get to the
                 // externalProjection, that's why we cannot use
                 // GML v3 for this
                 if (!this.externalProjection) {
@@ -159,7 +159,7 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
             }
         }, OpenLayers.Format.GML.v3.prototype.readers.gml)
     },
-    
+
     /**
      * Property: writers
      * As a compliment to the readers property, this structure contains public
@@ -174,12 +174,12 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
                         version: this.VERSION,
                         service: 'SOS',
                         "xsi:schemaLocation": this.schemaLocation
-                    } 
-                }); 
+                    }
+                });
                 for (var i=0, len=options.fois.length; i<len; i++) {
                     this.writeNode("FeatureOfInterestId", {foi: options.fois[i]}, node);
                 }
-                return node; 
+                return node;
             },
             "FeatureOfInterestId": function(options) {
                 var node = this.createElementNSPlus("FeatureOfInterestId", {value: options.foi});
@@ -188,6 +188,6 @@ OpenLayers.Format.SOSGetFeatureOfInterest = OpenLayers.Class(
         }
     },
 
-    CLASS_NAME: "OpenLayers.Format.SOSGetFeatureOfInterest" 
+    CLASS_NAME: "OpenLayers.Format.SOSGetFeatureOfInterest"
 
 });

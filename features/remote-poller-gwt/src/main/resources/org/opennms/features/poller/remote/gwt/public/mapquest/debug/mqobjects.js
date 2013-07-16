@@ -9374,7 +9374,7 @@ function MQTrekRouteCollection(itemXpath) {
     *
     */
    MQTrekRouteCollection.prototype.saveXml = function () {
-  	  var strRetArray = new Array();
+	  var strRetArray = new Array();
       strRetArray[strRetArray.length] = "<" + this.getM_Xpath() + " Count=\"" + this.getSize() + "\">";
       // iterate through objects and add them here
       var size = this.getSize();
@@ -9459,7 +9459,7 @@ function MQIntCollection(itemXpath) {
     *
     */
    MQIntCollection.prototype.saveXml = function () {
-   	  var strRetArray = new Array();
+	  var strRetArray = new Array();
       strRetArray[strRetArray.length] = "<" + this.getM_Xpath() + " Count=\"" + this.getSize() + "\">";
       // iterate through objects and add them here
       var size = this.getSize();
@@ -9581,7 +9581,7 @@ function MQFeatureCollection() {
     *
     */
    MQFeatureCollection.prototype.saveXml = function () {
-   	  var strRetArray = new Array();
+	  var strRetArray = new Array();
       strRetArray[strRetArray.length] = "<" + this.getM_Xpath() + " Version=\"" + this.getObjectVersion() + "\" Count=\"" + this.getSize() + "\">";
       // iterate through objects and add them here
       var size = this.getSize();

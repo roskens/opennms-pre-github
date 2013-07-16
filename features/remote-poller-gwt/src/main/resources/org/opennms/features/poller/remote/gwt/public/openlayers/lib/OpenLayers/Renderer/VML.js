@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,9 +11,9 @@
  * Class: OpenLayers.Renderer.VML
  * Render vector features in browsers with VML capability.  Construct a new
  * VML renderer with the <OpenLayers.Renderer.VML> constructor.
- * 
- * Note that for all calculations in this class, we use (num | 0) to truncate a 
- * float value to an integer. This is done because it seems that VML doesn't 
+ *
+ * Note that for all calculations in this class, we use (num | 0) to truncate a
+ * float value to an integer. This is done because it seems that VML doesn't
  * support float values.
  *
  * Inherits from:
@@ -26,7 +26,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * {String} XML Namespace URN
      */
     xmlns: "urn:schemas-microsoft-com:vml",
-    
+
     /**
      * Property: symbolCache
      * {DOMElement} node holding symbols. This hash is keyed by symbol name,
@@ -39,7 +39,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * {Object} Hash with "x" and "y" properties
      */
     offset: null,
-    
+
     /**
      * Constructor: OpenLayers.Renderer.VML
      * Create a new VML renderer.
@@ -48,21 +48,21 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * containerID - {String} The id for the element that contains the renderer
      */
     initialize: function(containerID) {
-        if (!this.supported()) { 
-            return; 
+        if (!this.supported()) {
+            return;
         }
         if (!document.namespaces.olv) {
             document.namespaces.add("olv", this.xmlns);
             var style = document.createStyleSheet();
-            var shapes = ['shape','rect', 'oval', 'fill', 'stroke', 'imagedata', 'group','textbox']; 
+            var shapes = ['shape','rect', 'oval', 'fill', 'stroke', 'imagedata', 'group','textbox'];
             for (var i = 0, len = shapes.length; i < len; i++) {
 
                 style.addRule('olv\\:' + shapes[i], "behavior: url(#default#VML); " +
                               "position: absolute; display: inline-block;");
-            }                  
+            }
         }
-        
-        OpenLayers.Renderer.Elements.prototype.initialize.apply(this, 
+
+        OpenLayers.Renderer.Elements.prototype.initialize.apply(this,
                                                                 arguments);
     },
 
@@ -83,7 +83,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      */
     supported: function() {
         return !!(document.namespaces);
-    },    
+    },
 
     /**
      * Method: setExtent
@@ -92,16 +92,16 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * Parameters:
      * extent - {<OpenLayers.Bounds>}
      * resolutionChanged - {Boolean}
-     * 
+     *
      * Returns:
      * {Boolean} true to notify the layer that the new extent does not exceed
      *     the coordinate range, and the features will not need to be redrawn.
      */
     setExtent: function(extent, resolutionChanged) {
-        OpenLayers.Renderer.Elements.prototype.setExtent.apply(this, 
+        OpenLayers.Renderer.Elements.prototype.setExtent.apply(this,
                                                                arguments);
         var resolution = this.getResolution();
-    
+
         var left = (extent.left/resolution) | 0;
         var top = (extent.top/resolution - this.size.h) | 0;
         if (resolutionChanged || !this.offset) {
@@ -113,7 +113,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             top = top - this.offset.y;
         }
 
-        
+
         var org = left + " " + top;
         this.root.coordorigin = org;
         var roots = [this.root, this.vectorRoot, this.textRoot];
@@ -123,12 +123,12 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
             var size = this.size.w + " " + this.size.h;
             root.coordsize = size;
-            
+
         }
-        // flip the VML display Y axis upside down so it 
+        // flip the VML display Y axis upside down so it
         // matches the display Y axis of the map
         this.root.style.flip = "y";
-        
+
         return true;
     },
 
@@ -142,7 +142,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      */
     setSize: function(size) {
         OpenLayers.Renderer.prototype.setSize.apply(this, arguments);
-        
+
         // setting width and height on all roots to avoid flicker which we
         // would get with 100% width and height on child roots
         var roots = [
@@ -207,7 +207,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * Parameters:
      * node - {DOMElement} An VML element to decorate
      * style - {Object}
-     * options - {Object} Currently supported options include 
+     * options - {Object} Currently supported options include
      *                              'isFilled' {Boolean} and
      *                              'isStroked' {Boolean}
      * geometry - {<OpenLayers.Geometry>}
@@ -221,7 +221,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             if (style.externalGraphic) {
                 if (style.graphicTitle) {
                     node.title=style.graphicTitle;
-                } 
+                }
                 var width = style.graphicWidth || style.graphicHeight;
                 var height = style.graphicHeight || style.graphicWidth;
                 width = width ? width : style.pointRadius*2;
@@ -232,13 +232,13 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                     style.graphicXOffset : -(0.5 * width);
                 var yOffset = (style.graphicYOffset != undefined) ?
                     style.graphicYOffset : -(0.5 * height);
-                
+
                 node.style.left = (((geometry.x/resolution - this.offset.x)+xOffset) | 0) + "px";
                 node.style.top = (((geometry.y/resolution - this.offset.y)-(yOffset+height)) | 0) + "px";
                 node.style.width = width + "px";
                 node.style.height = height + "px";
                 node.style.flip = "y";
-                
+
                 // modify fillColor and options for stroke styling below
                 fillColor = "none";
                 options.isStroked = false;
@@ -247,7 +247,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 node.path = cache.path;
                 node.coordorigin = cache.left + "," + cache.bottom;
                 var size = cache.size;
-                node.coordsize = size + "," + size;        
+                node.coordsize = size + "," + size;
                 this.drawCircle(node, geometry, style.pointRadius);
                 node.style.flip = "y";
             } else {
@@ -255,11 +255,11 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             }
         }
 
-        // fill 
-        if (options.isFilled) { 
-            node.fillcolor = fillColor; 
-        } else { 
-            node.filled = "false"; 
+        // fill
+        if (options.isFilled) {
+            node.fillcolor = fillColor;
+        } else {
+            node.filled = "false";
         }
         var fills = node.getElementsByTagName("fill");
         var fill = (fills.length == 0) ? null : fills[0];
@@ -280,13 +280,13 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 if (style.graphicOpacity) {
                     fill.opacity = style.graphicOpacity;
                 }
-                
+
                 fill.src = style.externalGraphic;
                 fill.type = "frame";
-                
+
                 if (!(style.graphicWidth && style.graphicHeight)) {
                   fill.aspect = "atmost";
-                }                
+                }
             }
             if (fill.parentNode != node) {
                 node.appendChild(fill);
@@ -309,7 +309,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             }
         }
 
-        // stroke 
+        // stroke
         var strokes = node.getElementsByTagName("stroke");
         var stroke = (strokes.length == 0) ? null : strokes[0];
         if (!options.isStroked) {
@@ -323,8 +323,8 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 node.appendChild(stroke);
             }
             stroke.on = true;
-            stroke.color = style.strokeColor; 
-            stroke.weight = style.strokeWidth + "px"; 
+            stroke.color = style.strokeColor;
+            stroke.weight = style.strokeWidth + "px";
             stroke.opacity = style.strokeOpacity;
             stroke.endcap = style.strokeLinecap == 'butt' ? 'flat' :
                 (style.strokeLinecap || 'round');
@@ -332,7 +332,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 stroke.dashstyle = this.dashStyle(style);
             }
         }
-        
+
         if (style.cursor != "inherit" && style.cursor != null) {
             node.style.cursor = style.cursor;
         }
@@ -352,7 +352,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * insertion point of the rotated image, because DXImageTransform.Matrix
      * does the rotation without the ability to specify a rotation center
      * point.
-     * 
+     *
      * Parameters:
      * node    - {DOMElement}
      * xOffset - {Number} rotation center relative to image, x coordinate
@@ -362,7 +362,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     graphicRotate: function(node, xOffset, yOffset, style) {
         var style = style || node._style;
         var rotation = style.rotation || 0;
-        
+
         var aspectRatio, size;
         if (!(style.graphicWidth && style.graphicHeight)) {
             // load the image to determine its size
@@ -371,7 +371,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 if(img.readyState == "complete" ||
                         img.readyState == "interactive") {
                     aspectRatio = img.width / img.height;
-                    size = Math.max(style.pointRadius * 2, 
+                    size = Math.max(style.pointRadius * 2,
                         style.graphicWidth || 0,
                         style.graphicHeight || 0);
                     xOffset = xOffset * aspectRatio;
@@ -381,19 +381,19 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
                 }
             }, this);
             img.src = style.externalGraphic;
-            
+
             // will be called again by the onreadystate handler
             return;
         } else {
             size = Math.max(style.graphicWidth, style.graphicHeight);
             aspectRatio = style.graphicWidth / style.graphicHeight;
         }
-        
+
         var width = Math.round(style.graphicWidth || size * aspectRatio);
         var height = Math.round(style.graphicHeight || size);
         node.style.width = width + "px";
         node.style.height = height + "px";
-        
+
         // Three steps are required to remove artefacts for images with
         // transparent backgrounds (resulting from using DXImageTransform
         // filters on svg objects), while preserving awareness for browser
@@ -412,7 +412,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         image.style.height = height + "px";
         image.src = style.externalGraphic;
         image.style.filter =
-            "progid:DXImageTransform.Microsoft.AlphaImageLoader(" + 
+            "progid:DXImageTransform.Microsoft.AlphaImageLoader(" +
             "src='', sizingMethod='scale')";
 
         var rot = rotation * Math.PI / 180;
@@ -428,8 +428,8 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         // set the opacity (needed for the imagedata)
         var opacity = style.graphicOpacity || style.fillOpacity;
         if (opacity && opacity != 1) {
-            filter += 
-                "progid:DXImageTransform.Microsoft.BasicImage(opacity=" + 
+            filter +=
+                "progid:DXImageTransform.Microsoft.BasicImage(opacity=" +
                 opacity+")\n";
         }
         node.style.filter = filter;
@@ -455,7 +455,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      *   fillcolor and strokecolor again if needed.
      * - In some cases, a node won't become visible after being drawn. Setting
      *   style.visibility to "visible" works around that.
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      */
@@ -476,9 +476,9 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
     /**
      * Method: setNodeDimension
-     * Get the geometry's bounds, convert it to our vml coordinate system, 
+     * Get the geometry's bounds, convert it to our vml coordinate system,
      * then set the node's position, size, and local coordinate system.
-     *   
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
@@ -488,30 +488,30 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         var bbox = geometry.getBounds();
         if(bbox) {
             var resolution = this.getResolution();
-        
-            var scaledBox = 
+
+            var scaledBox =
                 new OpenLayers.Bounds((bbox.left/resolution - this.offset.x) | 0,
                                       (bbox.bottom/resolution - this.offset.y) | 0,
                                       (bbox.right/resolution - this.offset.x) | 0,
                                       (bbox.top/resolution - this.offset.y) | 0);
-            
+
             // Set the internal coordinate system to draw the path
             node.style.left = scaledBox.left + "px";
             node.style.top = scaledBox.top + "px";
             node.style.width = scaledBox.getWidth() + "px";
             node.style.height = scaledBox.getHeight() + "px";
-    
+
             node.coordorigin = scaledBox.left + " " + scaledBox.top;
             node.coordsize = scaledBox.getWidth()+ " " + scaledBox.getHeight();
         }
     },
-    
-    /** 
+
+    /**
      * Method: dashStyle
-     * 
+     *
      * Parameters:
      * style - {Object}
-     * 
+     *
      * Returns:
      * {String} A VML compliant 'stroke-dasharray' value
      */
@@ -557,15 +557,15 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         if (id) {
             node.id = id;
         }
-        
+
         // IE hack to make elements unselectable, to prevent 'blue flash'
         // while dragging vectors; #1410
         node.unselectable = 'on';
         node.onselectstart = OpenLayers.Function.False;
-        
-        return node;    
+
+        return node;
     },
-    
+
     /**
      * Method: nodeTypeCompare
      * Determine whether a node is of a given type
@@ -610,7 +610,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: createRoot
      * Create the main root element
-     * 
+     *
      * Parameters:
      * suffix - {String} suffix to append to the id
      *
@@ -620,21 +620,21 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     createRoot: function(suffix) {
         return this.nodeFactory(this.container.id + suffix, "olv:group");
     },
-    
+
     /**************************************
      *                                    *
      *     GEOMETRY DRAWING FUNCTIONS     *
      *                                    *
      **************************************/
-    
+
     /**
      * Method: drawPoint
      * Render a point
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the point could not be drawn
      */
@@ -646,12 +646,12 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
      * Method: drawCircle
      * Render a circle.
      * Size and Center a circle given geometry (x,y center) and radius
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
      * radius - {float}
-     * 
+     *
      * Returns:
      * {DOMElement} or false if the circle could not ne drawn
      */
@@ -661,9 +661,9 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
             node.style.left = (((geometry.x /resolution - this.offset.x) | 0) - radius) + "px";
             node.style.top = (((geometry.y /resolution - this.offset.y) | 0) - radius) + "px";
-    
+
             var diameter = radius * 2;
-            
+
             node.style.width = diameter + "px";
             node.style.height = diameter + "px";
             return node;
@@ -675,11 +675,11 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawLineString
      * Render a linestring.
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -690,11 +690,11 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawLinearRing
      * Render a linearring
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -705,12 +705,12 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: DrawLine
      * Render a line.
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
      * closeLine - {Boolean} Close the line? (make it a ring?)
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -737,11 +737,11 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawPolygon
      * Render a polygon
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -749,7 +749,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         this.setNodeDimension(node, geometry);
 
         var resolution = this.getResolution();
-    
+
         var path = [];
         var linearRing, i, j, len, ilen, comp, x, y;
         for (j = 0, len=geometry.components.length; j<len; j++) {
@@ -775,30 +775,30 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     /**
      * Method: drawRectangle
      * Render a rectangle
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
     drawRectangle: function(node, geometry) {
         var resolution = this.getResolution();
-    
+
         node.style.left = ((geometry.x/resolution - this.offset.x) | 0) + "px";
         node.style.top = ((geometry.y/resolution - this.offset.y) | 0) + "px";
         node.style.width = ((geometry.width/resolution) | 0) + "px";
         node.style.height = ((geometry.height/resolution) | 0) + "px";
-        
+
         return node;
     },
-    
+
     /**
      * Method: drawText
      * This method is only called by the renderer itself.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * featureId - {String}
      * style -
      * location - {<OpenLayers.Geometry.Point>}
@@ -806,7 +806,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
     drawText: function(featureId, style, location) {
         var label = this.nodeFactory(featureId + this.LABEL_ID_SUFFIX, "olv:rect");
         var textbox = this.nodeFactory(featureId + this.LABEL_ID_SUFFIX + "_textbox", "olv:textbox");
-        
+
         var resolution = this.getResolution();
         label.style.left = ((location.x/resolution - this.offset.x) | 0) + "px";
         label.style.top = ((location.y/resolution - this.offset.y) | 0) + "px";
@@ -856,16 +856,16 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             (OpenLayers.Renderer.VML.LABEL_SHIFT[align.substr(1,1)]);
         label.style.left = parseInt(label.style.left)-xshift-1+"px";
         label.style.top = parseInt(label.style.top)+yshift+"px";
-        
+
     },
 
     /**
      * Method: drawSurface
-     * 
+     *
      * Parameters:
      * node - {DOMElement}
      * geometry - {<OpenLayers.Geometry>}
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -874,7 +874,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         this.setNodeDimension(node, geometry);
 
         var resolution = this.getResolution();
-    
+
         var path = [];
         var comp, x, y;
         for (var i=0, len=geometry.components.length; i<len; i++) {
@@ -893,17 +893,17 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         node.path = path.join("");
         return node;
     },
-    
+
     /**
      * Method: moveRoot
      * moves this renderer's root to a different renderer.
-     * 
+     *
      * Parameters:
      * renderer - {<OpenLayers.Renderer>} target renderer for the moved root
      * root - {DOMElement} optional root node. To be used when this renderer
      *     holds roots from multiple layers to tell this method which one to
      *     detach
-     * 
+     *
      * Returns:
      * {Boolean} true if successful, false otherwise
      */
@@ -916,26 +916,26 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
         OpenLayers.Renderer.Elements.prototype.moveRoot.apply(this, arguments);
         layer && layer.redraw();
     },
-    
+
     /**
      * Method: importSymbol
      * add a new symbol definition from the rendererer's symbol hash
-     * 
+     *
      * Parameters:
      * graphicName - {String} name of the symbol to import
-     * 
+     *
      * Returns:
      * {Object} - hash of {DOMElement} "symbol" and {Number} "size"
-     */      
+     */
     importSymbol: function (graphicName)  {
         var id = this.container.id + "-" + graphicName;
-        
+
         // check if symbol already exists in the cache
         var cache = this.symbolCache[id];
         if (cache) {
             return cache;
         }
-        
+
         var symbol = OpenLayers.Renderer.symbol[graphicName];
         if (!symbol) {
             throw new Error(graphicName + ' is not a valid symbol name');
@@ -943,7 +943,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
 
         var symbolExtent = new OpenLayers.Bounds(
                                     Number.MAX_VALUE, Number.MAX_VALUE, 0, 0);
-        
+
         var pathitems = ["m"];
         for (var i=0; i<symbol.length; i=i+2) {
             var x = symbol[i];
@@ -970,7 +970,7 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             symbolExtent.left = symbolExtent.left + diff;
             symbolExtent.right = symbolExtent.right - diff;
         }
-        
+
         cache = {
             path: path,
             size: symbolExtent.getWidth(), // equals getHeight() now
@@ -978,10 +978,10 @@ OpenLayers.Renderer.VML = OpenLayers.Class(OpenLayers.Renderer.Elements, {
             bottom: symbolExtent.bottom
         };
         this.symbolCache[id] = cache;
-        
+
         return cache;
     },
-    
+
     CLASS_NAME: "OpenLayers.Renderer.VML"
 });
 

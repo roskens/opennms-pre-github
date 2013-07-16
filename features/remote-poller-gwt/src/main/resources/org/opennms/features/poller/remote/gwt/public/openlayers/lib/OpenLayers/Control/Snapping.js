@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -46,7 +46,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
      *     event with a *point* property.
      */
     EVENT_TYPES: ["beforesnap", "snap", "unsnap"],
-    
+
     /**
      * CONSTANT: DEFAULTS
      * Default target properties.
@@ -57,47 +57,47 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         edge: true,
         vertex: true
     },
-    
+
     /**
      * Property: greedy
      * {Boolean} Snap to closest feature in first layer with an eligible
      *     feature.  Default is true.
      */
     greedy: true,
-    
+
     /**
      * Property: precedence
      * {Array} List representing precedence of different snapping types.
      *     Default is "node", "vertex", "edge".
      */
     precedence: ["node", "vertex", "edge"],
-    
+
     /**
      * Property: resolution
      * {Float} The map resolution for the previously considered snap.
      */
     resolution: null,
-    
+
     /**
      * Property: geoToleranceCache
      * {Object} A cache of geo-tolerances.  Tolerance values (in map units) are
      *     calculated when the map resolution changes.
      */
     geoToleranceCache: null,
-    
+
     /**
      * Property: layer
      * {<OpenLayers.Layer.Vector>} The current editable layer.  Set at
      *     construction or after construction with <setLayer>.
      */
     layer: null,
-    
+
     /**
      * Property: feature
      * {<OpenLayers.Feature.Vector>} The current editable feature.
      */
     feature: null,
-    
+
     /**
      * Property: point
      * {<OpenLayers.Geometry.Point>} The currently snapped vertex.
@@ -164,7 +164,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
      *     used.
      * filter - {OpenLayers.Filter} Optional filter to evaluate to determine if
      *     feature is eligible for snapping.  If filter evaluates to true for a
-     *     target feature a vertex may be snapped to the feature. 
+     *     target feature a vertex may be snapped to the feature.
      */
     initialize: function(options) {
         // concatenate events specific to measure with those from the base
@@ -173,7 +173,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         );
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
         this.options = options || {}; // TODO: this could be done by the super
-        
+
         // set the editable layer if provided
         if(this.options.layer) {
             this.setLayer(this.options.layer);
@@ -188,7 +188,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
 
         this.geoToleranceCache = {};
     },
-    
+
     /**
      * APIMethod: setLayer
      * Set the editable layer.  Call the setLayer method if the editable layer
@@ -208,7 +208,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
             this.layer = layer;
         }
     },
-    
+
     /**
      * Method: setTargets
      * Set the targets for the snapping agent.
@@ -230,7 +230,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: addTargetLayer
      * Add a target layer with the default target config.
@@ -241,7 +241,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
     addTargetLayer: function(layer) {
         this.addTarget({layer: layer});
     },
-    
+
     /**
      * Method: addTarget
      * Add a configured target layer.
@@ -256,7 +256,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         target.edgeTolerance = target.edgeTolerance || target.tolerance;
         this.targets.push(target);
     },
-    
+
     /**
      * Method: removeTargetLayer
      * Remove a target layer.
@@ -273,7 +273,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: removeTarget
      * Remove a target.
@@ -287,7 +287,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
     removeTarget: function(target) {
         return OpenLayers.Util.removeItem(this.targets, target);
     },
-    
+
     /**
      * APIMethod: activate
      * Activate the control.  Activating the control registers listeners for
@@ -308,7 +308,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the control.  Deactivating the control unregisters listeners
@@ -330,7 +330,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         this.point = null;
         return deactivated;
     },
-    
+
     /**
      * Method: onSketchModified
      * Registered as a listener for the sketchmodified event on the editable
@@ -343,7 +343,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         this.feature = event.feature;
         this.considerSnapping(event.vertex, event.vertex);
     },
-    
+
     /**
      * Method: onVertexModified
      * Registered as a listener for the vertexmodified event on the editable
@@ -383,7 +383,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
             if(result) {
                 if(this.greedy) {
                     best = result;
-                    best.target = target; 
+                    best.target = target;
                     snapped = true;
                     break;
                 } else {
@@ -422,7 +422,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
             this.events.triggerEvent("unsnap", {point: point});
         }
     },
-    
+
     /**
      * Method: testTarget
      *
@@ -503,13 +503,13 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         }
         return eligible ? result : null;
     },
-    
+
     /**
      * Method: getGeoTolerance
      * Calculate a tolerance in map units given a tolerance in pixels.  This
      *     takes advantage of the <geoToleranceCache> when the map resolution
      *     has not changed.
-     *     
+     *
      * Parameters:
      * tolerance - {Number} A tolerance value in pixels.
      *
@@ -529,7 +529,7 @@ OpenLayers.Control.Snapping = OpenLayers.Class(OpenLayers.Control, {
         }
         return geoTolerance;
     },
-    
+
     /**
      * Method: destroy
      * Clean up the control.

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -22,13 +22,13 @@
  */
 OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
-    /** 
+    /**
      * APIProperty: isBaseLayer
      * {Boolean} Treat this layer as a base layer.  Default is true.
      */
     isBaseLayer: true,
-    
-    /** 
+
+    /**
      * APIProperty: format
      * {String} Mime type of the images returned.  Default is image/png.
      */
@@ -36,7 +36,7 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * APIProperty: serverResolutions
-     * {Array} A list of all resolutions available on the server.  Only set this 
+     * {Array} A list of all resolutions available on the server.  Only set this
      *     property if the map resolutions differs from the server.
      */
     serverResolutions: null,
@@ -49,7 +49,7 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
      * name - {String} Name of the layer displayed in the interface
      * url - {String} Location of the web accessible cache (not the location of
      *     your tilecache script!)
-     * layername - {String} Layer name as defined in the TileCache 
+     * layername - {String} Layer name as defined in the TileCache
      *     configuration
      * options - {Object} Optional object with properties to be set on the
      *     layer.  Note that you should speficy your resolutions to match
@@ -63,18 +63,18 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
                                                          [name, url, {}, options]);
         this.extension = this.format.split('/')[1].toLowerCase();
         this.extension = (this.extension == 'jpg') ? 'jpeg' : this.extension;
-    },    
+    },
 
     /**
      * APIMethod: clone
-     * obj - {Object} 
-     * 
+     * obj - {Object}
+     *
      * Returns:
-     * {<OpenLayers.Layer.TileCache>} An exact clone of this 
+     * {<OpenLayers.Layer.TileCache>} An exact clone of this
      *     <OpenLayers.Layer.TileCache>
      */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer.TileCache(this.name,
                                                  this.url,
@@ -88,16 +88,16 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
         // copy/set any non-init, non-simple values here
 
         return obj;
-    },    
-    
+    },
+
     /**
      * Method: getURL
      *
      * Parameters:
-     * bounds - {<OpenLayers.Bounds>} 
-     * 
+     * bounds - {<OpenLayers.Bounds>}
+     *
      * Returns:
-     * {String} A string with the layer's url and parameters and also the 
+     * {String} A string with the layer's url and parameters and also the
      *     passed-in bounds and appropriate tile size specified as parameters.
      */
     getURL: function(bounds) {
@@ -111,8 +111,8 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
             this.map.getZoom();
         /**
          * Zero-pad a positive integer.
-         * number - {Int} 
-         * length - {Int} 
+         * number - {Int}
+         * length - {Int}
          *
          * Returns:
          * {String} A zero-padded string
@@ -135,7 +135,7 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
             zeroPad((parseInt(tileY / 1000) % 1000), 3),
             zeroPad((parseInt(tileY) % 1000), 3) + '.' + this.extension
         ];
-        var path = components.join('/'); 
+        var path = components.join('/');
         var url = this.url;
         if (url instanceof Array) {
             url = this.selectUrl(path, url);
@@ -146,10 +146,10 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
 
     /**
      * Method: addTile
-     * Create a tile, initialize it, and add it to the layer div. 
+     * Create a tile, initialize it, and add it to the layer div.
      *
-     * Parameters: 
-     * bounds - {<OpenLayers.Bounds>} 
+     * Parameters:
+     * bounds - {<OpenLayers.Bounds>}
      * position - {<OpenLayers.Pixel>}
      *
      * Returns:
@@ -157,9 +157,9 @@ OpenLayers.Layer.TileCache = OpenLayers.Class(OpenLayers.Layer.Grid, {
      */
     addTile:function(bounds, position) {
         var url = this.getURL(bounds);
-        return new OpenLayers.Tile.Image(this, position, bounds, 
+        return new OpenLayers.Tile.Image(this, position, bounds,
                                              url, this.tileSize);
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.TileCache"
 });

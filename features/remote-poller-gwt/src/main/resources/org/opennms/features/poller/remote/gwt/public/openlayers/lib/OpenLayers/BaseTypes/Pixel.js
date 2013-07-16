@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,7 +12,7 @@
  * This class represents a screen coordinate, in x and y coordinates
  */
 OpenLayers.Pixel = OpenLayers.Class({
-    
+
     /**
      * APIProperty: x
      * {Number} The x coordinate
@@ -24,7 +24,7 @@ OpenLayers.Pixel = OpenLayers.Class({
      * {Number} The y coordinate
      */
     y: 0.0,
-    
+
     /**
      * Constructor: OpenLayers.Pixel
      * Create a new OpenLayers.Pixel instance
@@ -40,7 +40,7 @@ OpenLayers.Pixel = OpenLayers.Class({
         this.x = parseFloat(x);
         this.y = parseFloat(y);
     },
-    
+
     /**
      * Method: toString
      * Cast this object into a string
@@ -60,9 +60,9 @@ OpenLayers.Pixel = OpenLayers.Class({
      * {<OpenLayers.Pixel>} A clone pixel
      */
     clone:function() {
-        return new OpenLayers.Pixel(this.x, this.y); 
+        return new OpenLayers.Pixel(this.x, this.y);
     },
-    
+
     /**
      * APIMethod: equals
      * Determine whether one pixel is equivalent to another
@@ -91,7 +91,7 @@ OpenLayers.Pixel = OpenLayers.Class({
      * y - {Integer}
      *
      * Returns:
-     * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the 
+     * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the
      * values passed in.
      */
     add:function(x, y) {
@@ -105,12 +105,12 @@ OpenLayers.Pixel = OpenLayers.Class({
 
     /**
     * APIMethod: offset
-    * 
+    *
     * Parameters
     * px - {<OpenLayers.Pixel>}
-    * 
+    *
     * Returns:
-    * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the 
+    * {<OpenLayers.Pixel>} A new Pixel with this pixel's x&y augmented by the
     *                      x&y values of the pixel passed in.
     */
     offset:function(px) {

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -20,7 +20,7 @@
  *  - <OpenLayers.Format>
  */
 OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
-    
+
     /**
      * APIProperty: defaultStyle
      * defaultStyle allows one to control the default styling of the features.
@@ -28,7 +28,7 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
      *    Layer.Text behavior, which is to use the default OpenLayers Icon.
      */
     defaultStyle: null,
-     
+
     /**
      * APIProperty: extractStyles
      * set to true to extract styles from the TSV files, using information
@@ -61,16 +61,16 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
                 'graphicYOffset': -12.5
             };
         }
-        
+
         OpenLayers.Format.prototype.initialize.apply(this, [options]);
-    }, 
+    },
 
     /**
      * APIMethod: read
      * Return a list of features from a Tab Seperated Values text string.
-     * 
+     *
      * Parameters:
-     * data - {String} 
+     * data - {String}
      *
      * Returns:
      * An Array of <OpenLayers.Feature.Vector>s
@@ -82,9 +82,9 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
         // length - 1 to allow for trailing new line
         for (var lcv = 0; lcv < (lines.length - 1); lcv++) {
             var currLine = lines[lcv].replace(/^\s*/,'').replace(/\s*$/,'');
-        
+
             if (currLine.charAt(0) != '#') { /* not a comment */
-            
+
                 if (!columns) {
                     //First line is columns
                     columns = currLine.split('\t');
@@ -92,9 +92,9 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
                     var vals = currLine.split('\t');
                     var geometry = new OpenLayers.Geometry.Point(0,0);
                     var attributes = {};
-                    var style = this.defaultStyle ? 
+                    var style = this.defaultStyle ?
                         OpenLayers.Util.applyDefaults({}, this.defaultStyle) :
-                        null;  
+                        null;
                     var icon, iconSize, iconOffset, overflow;
                     var set = false;
                     for (var valIndex = 0; valIndex < vals.length; valIndex++) {
@@ -131,13 +131,13 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
                                 // For StyleMap filtering, allow additional
                                 // columns to be stored as attributes.
                                 attributes[columns[valIndex]] = vals[valIndex];
-                            }    
+                            }
                         }
                     }
                     if (set) {
                       if (this.internalProjection && this.externalProjection) {
-                          geometry.transform(this.externalProjection, 
-                                             this.internalProjection); 
+                          geometry.transform(this.externalProjection,
+                                             this.internalProjection);
                       }
                       var feature = new OpenLayers.Feature.Vector(geometry, attributes, style);
                       features.push(feature);
@@ -146,7 +146,7 @@ OpenLayers.Format.Text = OpenLayers.Class(OpenLayers.Format, {
             }
         }
         return features;
-    },   
+    },
 
-    CLASS_NAME: "OpenLayers.Format.Text" 
-});    
+    CLASS_NAME: "OpenLayers.Format.Text"
+});

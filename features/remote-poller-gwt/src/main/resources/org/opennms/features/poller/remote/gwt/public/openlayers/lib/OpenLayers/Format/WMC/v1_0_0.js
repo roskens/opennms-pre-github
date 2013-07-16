@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,19 +10,19 @@
 /**
  * Class: OpenLayers.Format.WMC.v1_0_0
  * Read and write WMC version 1.0.0.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMC.v1>
  */
 OpenLayers.Format.WMC.v1_0_0 = OpenLayers.Class(
     OpenLayers.Format.WMC.v1, {
-    
+
     /**
      * Constant: VERSION
      * {String} 1.0.0
      */
     VERSION: "1.0.0",
-    
+
     /**
      * Property: schemaLocation
      * {String} http://www.opengis.net/context
@@ -60,17 +60,17 @@ OpenLayers.Format.WMC.v1_0_0 = OpenLayers.Class(
         var node = OpenLayers.Format.WMC.v1.prototype.write_wmc_Layer.apply(
             this, [context]
         );
-    
+
         // optional FormatList element
         node.appendChild(this.write_wmc_FormatList(context));
 
         // optional StyleList element
         node.appendChild(this.write_wmc_StyleList(context));
-        
+
         // OpenLayers specific properties go in an Extension element
         node.appendChild(this.write_wmc_LayerExtension(context));
-    },    
+    },
 
-    CLASS_NAME: "OpenLayers.Format.WMC.v1_0_0" 
+    CLASS_NAME: "OpenLayers.Format.WMC.v1_0_0"
 
 });

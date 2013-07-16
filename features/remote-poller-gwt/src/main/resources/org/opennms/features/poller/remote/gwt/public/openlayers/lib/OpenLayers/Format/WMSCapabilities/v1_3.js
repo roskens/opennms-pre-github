@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,16 +9,16 @@
 
 /**
  * Class: OpenLayers.Format.WMSCapabilities/v1_3
- * Abstract base class for WMS Capabilities version 1.3.X. 
- * SLD 1.1.0 adds in the extra operations DescribeLayer and GetLegendGraphic, 
+ * Abstract base class for WMS Capabilities version 1.3.X.
+ * SLD 1.1.0 adds in the extra operations DescribeLayer and GetLegendGraphic,
  * see: http://schemas.opengis.net/sld/1.1.0/sld_capabilities.xsd
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WMSCapabilities.v1>
  */
 OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
     OpenLayers.Format.WMSCapabilities.v1, {
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -48,13 +48,13 @@ OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
             },
             "CRS": function(node, obj) {
                 // CRS is the synonym of SRS
-                this.readers.wms.SRS.apply(this, [node, obj]); 
+                this.readers.wms.SRS.apply(this, [node, obj]);
             },
             "EX_GeographicBoundingBox": function(node, obj) {
                 // replacement of LatLonBoundingBox
                 obj.llbbox = [];
                 this.readChildNodes(node, obj.llbbox);
-                
+
             },
             "westBoundLongitude": function(node, obj) {
                 obj[0] = this.getChildValue(node);
@@ -75,7 +75,7 @@ OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
                 obj.minScale = parseFloat(this.getChildValue(node)).toPrecision(16);
             },
             "Dimension": function(node, obj) {
-                // dimension has extra attributes: default, multipleValues, 
+                // dimension has extra attributes: default, multipleValues,
                 // nearestValue, current which used to be part of Extent. It now
                 // also contains the values.
                 var name = node.getAttribute("name").toLowerCase();
@@ -88,11 +88,11 @@ OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
                     "default": node.getAttribute("default") || "",
                     current: node.getAttribute("current") === "1",
                     values: this.getChildValue(node).split(",")
-                    
+
                 };
                 // Theoretically there can be more dimensions with the same
                 // name, but with a different unit. Until we meet such a case,
-                // let's just keep the same structure as the WMS 1.1 
+                // let's just keep the same structure as the WMS 1.1
                 // GetCapabilities parser uses. We will store the last
                 // one encountered.
                 obj.dimensions[dim.name] = dim;
@@ -100,7 +100,7 @@ OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
             "Keyword": function(node, obj) {
                 // TODO: should we change the structure of keyword in v1.js?
                 // Make it an object with a value instead of a string?
-                var keyword = {value: this.getChildValue(node), 
+                var keyword = {value: this.getChildValue(node),
                     vocabulary: node.getAttribute("vocabulary")};
                 if (obj.keywords) {
                     obj.keywords.push(keyword);
@@ -122,7 +122,7 @@ OpenLayers.Format.WMSCapabilities.v1_3 = OpenLayers.Class(
             }
         }
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_3" 
+
+    CLASS_NAME: "OpenLayers.Format.WMSCapabilities.v1_3"
 
 });

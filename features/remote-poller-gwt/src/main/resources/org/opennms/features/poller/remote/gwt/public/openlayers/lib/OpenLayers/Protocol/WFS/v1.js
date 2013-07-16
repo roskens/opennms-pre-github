@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,38 +15,38 @@
  *  - <OpenLayers.Protocol>
  */
 OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
-    
+
     /**
      * Property: version
      * {String} WFS version number.
      */
     version: null,
-    
+
     /**
      * Property: srsName
      * {String} Name of spatial reference system.  Default is "EPSG:4326".
      */
     srsName: "EPSG:4326",
-    
+
     /**
      * Property: featureType
      * {String} Local feature typeName.
      */
     featureType: null,
-    
+
     /**
      * Property: featureNS
      * {String} Feature namespace.
      */
     featureNS: null,
-    
+
     /**
      * Property: geometryName
      * {String} Name of the geometry attribute for features.  Default is
      *     "the_geom".
      */
     geometryName: "the_geom",
-    
+
     /**
      * Property: schema
      * {String} Optional schema location that will be included in the
@@ -62,7 +62,7 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
      * {String} Namespace alias for feature type.  Default is "feature".
      */
     featurePrefix: "feature",
-    
+
     /**
      * Property: formatOptions
      * {Object} Optional options for the format.  If a format is not provided,
@@ -70,15 +70,15 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
      */
     formatOptions: null,
 
-    /** 
-     * Property: readFormat 
-     * {<OpenLayers.Format>} For WFS requests it is possible to get a  
-     *     different output format than GML. In that case, we cannot parse  
-     *     the response with the default format (WFST) and we need a different 
-     *     format for reading. 
-     */ 
-    readFormat: null,     
-    
+    /**
+     * Property: readFormat
+     * {<OpenLayers.Format>} For WFS requests it is possible to get a
+     *     different output format than GML. In that case, we cannot parse
+     *     the response with the default format (WFST) and we need a different
+     *     format for reading.
+     */
+    readFormat: null,
+
     /**
      * Constructor: OpenLayers.Protocol.WFS
      * A class for giving layers WFS protocol.
@@ -122,7 +122,7 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             };
         }
     },
-    
+
     /**
      * APIMethod: destroy
      * Clean up the protocol.
@@ -148,7 +148,7 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
         options = OpenLayers.Util.extend({}, options);
         OpenLayers.Util.applyDefaults(options, this.options || {});
         var response = new OpenLayers.Protocol.Response({requestType: "read"});
-        
+
         var data = OpenLayers.Format.XML.prototype.write.apply(
             this.format, [this.format.writeNode("wfs:GetFeature", options)]
         );
@@ -159,11 +159,11 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             params: options.params,
             headers: options.headers,
             data: data
-        });        
+        });
 
         return response;
     },
-    
+
     /**
      * Method: handleRead
      * Deal with response from the read request.
@@ -207,7 +207,7 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
         if(!doc || doc.length <= 0) {
             return null;
         }
-        return (this.readFormat !== null) ? this.readFormat.read(doc) : 
+        return (this.readFormat !== null) ? this.readFormat.read(doc) :
             this.format.read(doc);
     },
 
@@ -230,7 +230,7 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
 
         options = OpenLayers.Util.extend({}, options);
         OpenLayers.Util.applyDefaults(options, this.options);
-        
+
         var response = new OpenLayers.Protocol.Response({
             requestType: "commit",
             reqFeatures: features
@@ -240,14 +240,14 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             data: this.format.write(features, options),
             callback: this.createCallback(this.handleCommit, response, options)
         });
-        
+
         return response;
     },
-    
+
     /**
      * Method: handleCommit
      * Called when the commit request returns.
-     * 
+     *
      * Parameters:
      * response - {<OpenLayers.Protocol.Response>} The response object to pass
      *     to the user callback.
@@ -262,9 +262,9 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             if(!data || !data.documentElement) {
                 data = request.responseText;
             }
-            
+
             var obj = this.format.read(data) || {};
-            
+
             response.insertIds = obj.insertIds || [];
             response.code = (obj.success) ?
                 OpenLayers.Protocol.Response.SUCCESS :
@@ -272,55 +272,55 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             options.callback.call(options.scope, response);
         }
     },
-    
+
     /**
      * Method: filterDelete
      * Send a request that deletes all features by their filter.
-     * 
+     *
      * Parameters:
      * filter - {OpenLayers.Filter} filter
      */
     filterDelete: function(filter, options) {
         options = OpenLayers.Util.extend({}, options);
-        OpenLayers.Util.applyDefaults(options, this.options);    
-        
+        OpenLayers.Util.applyDefaults(options, this.options);
+
         var response = new OpenLayers.Protocol.Response({
             requestType: "commit"
-        });    
-        
+        });
+
         var root = this.format.createElementNSPlus("wfs:Transaction", {
             attributes: {
                 service: "WFS",
                 version: this.version
             }
         });
-        
+
         var deleteNode = this.format.createElementNSPlus("wfs:Delete", {
             attributes: {
                 typeName: (options.featureNS ? this.featurePrefix + ":" : "") +
                     options.featureType
             }
-        });       
-        
+        });
+
         if(options.featureNS) {
             deleteNode.setAttribute("xmlns:" + this.featurePrefix, options.featureNS);
         }
         var filterNode = this.format.writeNode("ogc:Filter", filter);
-        
+
         deleteNode.appendChild(filterNode);
-        
+
         root.appendChild(deleteNode);
-        
+
         var data = OpenLayers.Format.XML.prototype.write.apply(
             this.format, [root]
         );
-        
+
         return OpenLayers.Request.POST({
             url: this.url,
             callback : options.callback || function(){},
             data: data
-        });   
-        
+        });
+
     },
 
     /**
@@ -337,6 +337,6 @@ OpenLayers.Protocol.WFS.v1 = OpenLayers.Class(OpenLayers.Protocol, {
             response.priv.abort();
         }
     },
-  
-    CLASS_NAME: "OpenLayers.Protocol.WFS.v1" 
+
+    CLASS_NAME: "OpenLayers.Protocol.WFS.v1"
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -43,7 +43,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      *      Default is true.
      */
     toggle: true,
-    
+
     /**
      * APIProperty: standalone
      * {Boolean} Set to true to create a control without SelectFeature
@@ -60,20 +60,20 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      * {<OpenLayers.Layer.Vector>}
      */
     layer: null,
-    
+
     /**
      * Property: feature
      * {<OpenLayers.Feature.Vector>} Feature currently available for modification.
      */
     feature: null,
-    
+
     /**
      * Property: vertices
      * {Array(<OpenLayers.Feature.Vector>)} Verticies currently available
      *     for dragging.
      */
     vertices: null,
-    
+
     /**
      * Property: virtualVertices
      * {Array(<OpenLayers.Feature.Vector>)} Virtual vertices in the middle
@@ -86,19 +86,19 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      * {<OpenLayers.Control.SelectFeature>}
      */
     selectControl: null,
-    
+
     /**
      * Property: dragControl
      * {<OpenLayers.Control.DragFeature>}
      */
     dragControl: null,
-    
+
     /**
      * Property: handlers
      * {Object}
      */
     handlers: null,
-    
+
     /**
      * APIProperty: deleteCodes
      * {Array(Integer)} Keycodes for deleting verticies.  Set to null to disable
@@ -147,7 +147,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
     dragHandle: null,
 
     /**
-     * APIProperty: onModificationStart 
+     * APIProperty: onModificationStart
      * {Function} *Deprecated*.  Register for "beforefeaturemodified" instead.
      *     The "beforefeaturemodified" event is triggered on the layer before
      *     any modification begins.
@@ -176,7 +176,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      *     The "afterfeaturemodified" event is triggered on the layer after
      *     a feature has been modified.
      *
-     * Optional function to be called when a feature is finished 
+     * Optional function to be called when a feature is finished
      *     being modified.  The function should expect to be called with a
      *     feature.
      */
@@ -281,7 +281,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIMethod: activate
      * Activate the control.
-     * 
+     *
      * Returns:
      * {Boolean} Successfully activated the control.
      */
@@ -295,7 +295,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      * APIMethod: deactivate
      * Deactivate the control.
      *
-     * Returns: 
+     * Returns:
      * {Boolean} Successfully deactivated the control.
      */
     deactivate: function() {
@@ -324,7 +324,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: beforeSelectFeature
      * Called before a feature is selected.
@@ -430,7 +430,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: dragVertex
      * Called by the drag feature control with each drag move of a vertex.
@@ -497,7 +497,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
         // maintain node z-index
         this.layer.drawFeature(vertex);
     },
-    
+
     /**
      * Method: dragComplete
      * Called by the drag feature control when the feature dragging is complete.
@@ -509,10 +509,10 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
         this.resetVertices();
         this.setFeatureState();
         this.onModification(this.feature);
-        this.layer.events.triggerEvent("featuremodified", 
+        this.layer.events.triggerEvent("featuremodified",
                                        {feature: this.feature});
     },
-    
+
     /**
      * Method: setFeatureState
      * Called when the feature is modified.  If the current state is not
@@ -524,7 +524,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
             this.feature.state = OpenLayers.State.UPDATE;
         }
     },
-    
+
     /**
      * Method: resetVertices
      */
@@ -572,7 +572,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-    
+
     /**
      * Method: handleKeypress
      * Called by the feature handler on keypress.  This is used to delete
@@ -585,7 +585,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      */
     handleKeypress: function(evt) {
         var code = evt.keyCode;
-        
+
         // check for delete key
         if(this.feature &&
            OpenLayers.Util.indexOf(this.deleteCodes, code) != -1) {
@@ -602,7 +602,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
                 this.resetVertices();
                 this.setFeatureState();
                 this.onModification(this.feature);
-                this.layer.events.triggerEvent("featuremodified", 
+                this.layer.events.triggerEvent("featuremodified",
                                                {feature: this.feature});
             }
         }
@@ -615,7 +615,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
      */
     collectVertices: function() {
         this.vertices = [];
-        this.virtualVertices = [];        
+        this.virtualVertices = [];
         var control = this;
         function collectComponentVertices(geometry) {
             var i, vertex, component, len;
@@ -638,7 +638,7 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
                         collectComponentVertices(component);
                     }
                 }
-                
+
                 // add virtual vertices in the middle of each edge
                 if(geometry.CLASS_NAME != "OpenLayers.Geometry.MultiPoint") {
                     for(i=0, len=geometry.components.length; i<len-1; ++i) {
@@ -721,8 +721,8 @@ OpenLayers.Control.ModifyFeature = OpenLayers.Class(OpenLayers.Control, {
             }
             if(resize) {
                 var scale, ratio;
-                // 'resize' together with 'reshape' implies that the aspect 
-                // ratio of the geometry will not be preserved whilst resizing 
+                // 'resize' together with 'reshape' implies that the aspect
+                // ratio of the geometry will not be preserved whilst resizing
                 if (reshape) {
                     scale = dy1 / dy0;
                     ratio = (dx1 / dx0) / scale;

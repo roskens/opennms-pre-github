@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,41 +11,41 @@
 
 /**
  * Class: OpenLayers.Layer.GeoRSS
- * Add GeoRSS Point features to your map. 
- * 
+ * Add GeoRSS Point features to your map.
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.Markers>
  *  - <OpenLayers.Layer>
  */
 OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
 
-    /** 
-     * Property: location 
-     * {String} store url of text file 
+    /**
+     * Property: location
+     * {String} store url of text file
      */
     location: null,
 
-    /** 
-     * Property: features 
-     * {Array(<OpenLayers.Feature>)} 
+    /**
+     * Property: features
+     * {Array(<OpenLayers.Feature>)}
      */
     features: null,
-    
+
     /**
      * APIProperty: formatOptions
      * {Object} Hash of options which should be passed to the format when it is
      * created. Must be passed in the constructor.
      */
-    formatOptions: null, 
+    formatOptions: null,
 
-    /** 
-     * Property: selectedFeature 
-     * {<OpenLayers.Feature>} 
+    /**
+     * Property: selectedFeature
+     * {<OpenLayers.Feature>}
      */
     selectedFeature: null,
 
-    /** 
-     * APIProperty: icon 
+    /**
+     * APIProperty: icon
      * {<OpenLayers.Icon>}. This determines the Icon to be used on the map
      * for this GeoRSS layer.
      */
@@ -53,24 +53,24 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
 
     /**
      * APIProperty: popupSize
-     * {<OpenLayers.Size>} This determines the size of GeoRSS popups. If 
-     * not provided, defaults to 250px by 120px. 
+     * {<OpenLayers.Size>} This determines the size of GeoRSS popups. If
+     * not provided, defaults to 250px by 120px.
      */
-    popupSize: null, 
-    
-    /** 
-     * APIProperty: useFeedTitle 
-     * {Boolean} Set layer.name to the first <title> element in the feed. Default is true. 
+    popupSize: null,
+
+    /**
+     * APIProperty: useFeedTitle
+     * {Boolean} Set layer.name to the first <title> element in the feed. Default is true.
      */
     useFeedTitle: true,
-    
+
     /**
     * Constructor: OpenLayers.Layer.GeoRSS
     * Create a GeoRSS Layer.
     *
     * Parameters:
-    * name - {String} 
-    * location - {String} 
+    * name - {String}
+    * location - {String}
     * options - {Object}
     */
     initialize: function(name, location, options) {
@@ -80,7 +80,7 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
     },
 
     /**
-     * Method: destroy 
+     * Method: destroy
      */
     destroy: function() {
         // Warning: Layer.Markers.destroy() must be called prior to calling
@@ -107,17 +107,17 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
                 scope: this
             });
             this.loaded = true;
-        }    
-    },    
-    
+        }
+    },
+
     /**
      * Method: moveTo
-     * If layer is visible and RSS has not been loaded, load RSS. 
-     * 
+     * If layer is visible and RSS has not been loaded, load RSS.
+     *
      * Parameters:
-     * bounds - {Object} 
-     * zoomChanged - {Object} 
-     * minor - {Object} 
+     * bounds - {Object}
+     * zoomChanged - {Object}
+     * minor - {Object}
      */
     moveTo:function(bounds, zoomChanged, minor) {
         OpenLayers.Layer.Markers.prototype.moveTo.apply(this, arguments);
@@ -125,20 +125,20 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
             this.loadRSS();
         }
     },
-        
+
     /**
      * Method: parseData
      * Parse the data returned from the Events call.
      *
      * Parameters:
-     * ajaxRequest - {<OpenLayers.Request.XMLHttpRequest>} 
+     * ajaxRequest - {<OpenLayers.Request.XMLHttpRequest>}
      */
     parseData: function(ajaxRequest) {
         var doc = ajaxRequest.responseXML;
         if (!doc || !doc.documentElement) {
             doc = OpenLayers.Format.XML.prototype.read(ajaxRequest.responseText);
         }
-        
+
         if (this.useFeedTitle) {
             var name = null;
             try {
@@ -149,56 +149,56 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
             }
             if (name) {
                 this.setName(name);
-            }    
+            }
         }
-       
+
         var options = {};
-        
+
         OpenLayers.Util.extend(options, this.formatOptions);
-        
+
         if (this.map && !this.projection.equals(this.map.getProjectionObject())) {
             options.externalProjection = this.projection;
             options.internalProjection = this.map.getProjectionObject();
-        }    
-        
+        }
+
         var format = new OpenLayers.Format.GeoRSS(options);
         var features = format.read(doc);
-        
+
         for (var i=0, len=features.length; i<len; i++) {
             var data = {};
             var feature = features[i];
-            
+
             // we don't support features with no geometry in the GeoRSS
-            // layer at this time. 
+            // layer at this time.
             if (!feature.geometry) {
                 continue;
-            }    
-            
-            var title = feature.attributes.title ? 
+            }
+
+            var title = feature.attributes.title ?
                          feature.attributes.title : "Untitled";
-            
-            var description = feature.attributes.description ? 
+
+            var description = feature.attributes.description ?
                          feature.attributes.description : "No description.";
-            
+
             var link = feature.attributes.link ? feature.attributes.link : "";
 
             var location = feature.geometry.getBounds().getCenterLonLat();
-            
-            
-            data.icon = this.icon == null ? 
-                                     OpenLayers.Marker.defaultIcon() : 
+
+
+            data.icon = this.icon == null ?
+                                     OpenLayers.Marker.defaultIcon() :
                                      this.icon.clone();
-            
-            data.popupSize = this.popupSize ? 
+
+            data.popupSize = this.popupSize ?
                              this.popupSize.clone() :
                              new OpenLayers.Size(250, 120);
-            
+
             if (title || description) {
                 // we have supplemental data, store them.
                 data.title = title;
                 data.description = description;
-            
-                var contentHTML = '<div class="olLayerGeoRSSClose">[x]</div>'; 
+
+                var contentHTML = '<div class="olLayerGeoRSSClose">[x]</div>';
                 contentHTML += '<div class="olLayerGeoRSSTitle">';
                 if (link) {
                     contentHTML += '<a class="link" href="'+link+'" target="_blank">';
@@ -211,7 +211,7 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
                 contentHTML += '<div style="" class="olLayerGeoRSSDescription">';
                 contentHTML += description;
                 contentHTML += '</div>';
-                data['popupContentHTML'] = contentHTML;                
+                data['popupContentHTML'] = contentHTML;
             }
             var feature = new OpenLayers.Feature(this, location, data);
             this.features.push(feature);
@@ -221,12 +221,12 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
         }
         this.events.triggerEvent("loadend");
     },
-    
+
     /**
      * Method: markerClick
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     markerClick: function(evt) {
         var sameMarkerClicked = (this == this.layer.selectedFeature);
@@ -237,13 +237,13 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
         if (!sameMarkerClicked) {
             var popup = this.createPopup();
             OpenLayers.Event.observe(popup.div, "click",
-                OpenLayers.Function.bind(function() { 
-                    for(var i=0, len=this.layer.map.popups.length; i<len; i++) { 
-                        this.layer.map.removePopup(this.layer.map.popups[i]); 
+                OpenLayers.Function.bind(function() {
+                    for(var i=0, len=this.layer.map.popups.length; i<len; i++) {
+                        this.layer.map.removePopup(this.layer.map.popups[i]);
                     }
                 }, this)
             );
-            this.layer.map.addPopup(popup); 
+            this.layer.map.addPopup(popup);
         }
         OpenLayers.Event.stop(evt);
     },
@@ -259,8 +259,8 @@ OpenLayers.Layer.GeoRSS = OpenLayers.Class(OpenLayers.Layer.Markers, {
                 OpenLayers.Util.removeItem(this.features, feature);
                 feature.destroy();
             }
-        }        
+        }
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.GeoRSS"
 });

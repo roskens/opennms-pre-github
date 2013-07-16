@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,13 +9,13 @@
 
 /**
  * Class: OpenLayers.Control.ScaleLine
- * The ScaleLine displays a small line indicator representing the current 
+ * The ScaleLine displays a small line indicator representing the current
  * map scale on the map. By default it is drawn in the lower left corner of
  * the map.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Control>
- *  
+ *
  * Is a very close copy of:
  *  - <OpenLayers.Control.Scale>
  */
@@ -32,7 +32,7 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
      * {String} Units for zoomed out on top bar.  Default is km.
      */
     topOutUnits: "km",
-    
+
     /**
      * Property: topInUnits
      * {String} Units for zoomed in on top bar.  Default is m.
@@ -50,7 +50,7 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
      * {String} Units for zoomed in on bottom bar.  Default is ft.
      */
     bottomInUnits: "ft",
-    
+
     /**
      * Property: eTop
      * {DOMElement}
@@ -62,7 +62,7 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
      * {DOMElement}
      */
     eBottom:null,
-    
+
     /**
      * APIProperty: geodesic
      * {Boolean} Use geodesic measurement. Default is false. The recommended
@@ -75,18 +75,18 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Constructor: OpenLayers.Control.ScaleLine
      * Create a new scale line control.
-     * 
+     *
      * Parameters:
      * options - {Object} An optional object whose properties will be used
      *     to extend the control.
      */
     initialize: function(options) {
-        OpenLayers.Control.prototype.initialize.apply(this, [options]);     
+        OpenLayers.Control.prototype.initialize.apply(this, [options]);
     },
 
     /**
      * Method: draw
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -119,14 +119,14 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
         return this.div;
     },
 
-    /** 
+    /**
      * Method: getBarLen
      * Given a number, round it down to the nearest 1,2,5 times a power of 10.
      * That seems a fairly useful set of number groups to use.
-     * 
+     *
      * Parameters:
      * maxLen - {float}  the number we're rounding down from
-     * 
+     *
      * Returns:
      * {Float} the rounded number (less than or equal to maxLen)
      */
@@ -134,7 +134,7 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
         // nearest power of 10 lower than maxLen
         var digits = parseInt(Math.log(maxLen) / Math.log(10));
         var pow10 = Math.pow(10, digits);
-        
+
         // ok, find first character
         var firstChar = parseInt(maxLen / pow10);
 
@@ -176,7 +176,7 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
             maxSizeData *= geodesicRatio;
         }
 
-        // decide whether to use large or small scale units     
+        // decide whether to use large or small scale units
         var topUnits;
         var bottomUnits;
         if(maxSizeData > 100000) {
@@ -202,21 +202,21 @@ OpenLayers.Control.ScaleLine = OpenLayers.Class(OpenLayers.Control, {
         // and to pixel units
         var topPx = topMax / res / geodesicRatio;
         var bottomPx = bottomMax / res / geodesicRatio;
-        
+
         // now set the pixel widths
         // and the values inside them
-        
+
         if (this.eBottom.style.visibility == "visible"){
-            this.eBottom.style.width = Math.round(bottomPx) + "px"; 
+            this.eBottom.style.width = Math.round(bottomPx) + "px";
             this.eBottom.innerHTML = bottomRounded + " " + bottomUnits ;
         }
-            
+
         if (this.eTop.style.visibility == "visible"){
             this.eTop.style.width = Math.round(topPx) + "px";
             this.eTop.innerHTML = topRounded + " " + topUnits;
         }
-        
-    }, 
+
+    },
 
     CLASS_NAME: "OpenLayers.Control.ScaleLine"
 });

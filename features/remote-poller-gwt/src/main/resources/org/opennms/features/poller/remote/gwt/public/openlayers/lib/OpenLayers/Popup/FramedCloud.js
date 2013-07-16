@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,14 +10,14 @@
 
 /**
  * Class: OpenLayers.Popup.FramedCloud
- * 
- * Inherits from: 
+ *
+ * Inherits from:
  *  - <OpenLayers.Popup.Framed>
  */
-OpenLayers.Popup.FramedCloud = 
+OpenLayers.Popup.FramedCloud =
   OpenLayers.Class(OpenLayers.Popup.Framed, {
 
-    /** 
+    /**
      * Property: contentDisplayClass
      * {String} The CSS class of the popup content div.
      */
@@ -43,12 +43,12 @@ OpenLayers.Popup.FramedCloud =
 
     /**
      * APIProperty: isAlphaImage
-     * {Boolean} The FramedCloud does not use an alpha image (in honor of the 
+     * {Boolean} The FramedCloud does not use an alpha image (in honor of the
      *     good ie6 folk out there)
      */
     isAlphaImage: false,
 
-    /** 
+    /**
      * APIProperty: fixedRelativePosition
      * {Boolean} The Framed Cloud popup works in just one fixed position.
      */
@@ -198,21 +198,21 @@ OpenLayers.Popup.FramedCloud =
      */
     maxSize: new OpenLayers.Size(1200, 660),
 
-    /** 
+    /**
      * Constructor: OpenLayers.Popup.FramedCloud
-     * 
+     *
      * Parameters:
      * id - {String}
      * lonlat - {<OpenLayers.LonLat>}
      * contentSize - {<OpenLayers.Size>}
      * contentHTML - {String}
-     * anchor - {Object} Object to which we'll anchor the popup. Must expose 
-     *     a 'size' (<OpenLayers.Size>) and 'offset' (<OpenLayers.Pixel>) 
+     * anchor - {Object} Object to which we'll anchor the popup. Must expose
+     *     a 'size' (<OpenLayers.Size>) and 'offset' (<OpenLayers.Pixel>)
      *     (Note that this is generally an <OpenLayers.Icon>).
      * closeBox - {Boolean}
      * closeBoxCallback - {Function} Function to be called on closeBox click.
      */
-    initialize:function(id, lonlat, contentSize, contentHTML, anchor, closeBox, 
+    initialize:function(id, lonlat, contentSize, contentHTML, anchor, closeBox,
                         closeBoxCallback) {
 
         this.imageSrc = OpenLayers.Util.getImagesLocation() + 'cloud-popup-relative.png';
@@ -220,7 +220,7 @@ OpenLayers.Popup.FramedCloud =
         this.contentDiv.className = this.contentDisplayClass;
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      */
     destroy: function() {

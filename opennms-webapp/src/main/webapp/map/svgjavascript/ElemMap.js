@@ -2,7 +2,7 @@
 
 /*
 This class is designed to be used for the list of maps defined before the moment
-of the load of the Maps page. 
+of the load of the Maps page.
 */
 
 

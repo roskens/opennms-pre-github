@@ -3,7 +3,7 @@
 
 //reloads the grid of nodes on the map object
 function reloadGrid(){
-	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);	
+	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);
 	var gridRectHeight=parseInt(mapElemDimension*Y_FACTOR);
 	var numCols = parseInt(map.getWidth()/gridRectWidth);
 	if(numCols==0) numCols=1;
@@ -28,7 +28,7 @@ function reloadGrid(){
 			nodeGrid[i][j]=1;
 		else nodeGrid[i][j]++;
 	}
-	
+
 	//alert(nodeGrid);
 	return nodeGrid;
 }
@@ -36,7 +36,7 @@ function reloadGrid(){
 
 //gets the first point (Point2D) free of the grid
 function getFirstFreePoint(){
-	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);	
+	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);
 	var gridRectHeight=parseInt(mapElemDimension*Y_FACTOR);
 	//first, reload grid
 	var nodeGrid=reloadGrid();
@@ -45,7 +45,7 @@ function getFirstFreePoint(){
 		for(i=0; i<nodeGrid.length; i++){//grid is a 'rectangle'
 		  		if(	nodeGrid[i][j]==undefined   || nodeGrid[i][j] == 0){
 		  			//alert("grid element "+i+" "+j);
-		  			return new Point2D(i*gridRectWidth+gridRectWidth/2, j*gridRectHeight+gridRectHeight/2+(i%2*gridRectHeight/4));	
+					return new Point2D(i*gridRectWidth+gridRectWidth/2, j*gridRectHeight+gridRectHeight/2+(i%2*gridRectHeight/4));
 		  			}
 		}
 	}
@@ -55,7 +55,7 @@ function getFirstFreePoint(){
 
 //gets all free points (Array of Point2D) of the grid
 function getFreePoints(){
-	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);	
+	var gridRectWidth=parseInt(mapElemDimension*X_FACTOR);
 	var gridRectHeight=parseInt(mapElemDimension*Y_FACTOR);
 	//first, reload grid
 	var nodeGrid=reloadGrid();
@@ -65,7 +65,7 @@ function getFreePoints(){
 		for(i=0; i<nodeGrid.length; i++){//grid is a 'rectangle'
 		  		if(	nodeGrid[i][j] == undefined  || nodeGrid[i][j] == 0){
 		  			//alert("grid element "+i+" "+j);
-		  			var np = new Point2D(i*gridRectWidth+gridRectWidth/2, j*gridRectHeight+gridRectHeight/2+(i%2*gridRectHeight/4));	
+					var np = new Point2D(i*gridRectWidth+gridRectWidth/2, j*gridRectHeight+gridRectHeight/2+(i%2*gridRectHeight/4));
 		  			freePoints.push(np);
 		  			}
 		}
@@ -81,15 +81,15 @@ function getMouse(evt) {
 	return position;
 }
 
-// return the value of the SVG textbox1 document	
+// return the value of the SVG textbox1 document
 function getTextBoxValue() {
   if (textbox1 != null) return textbox1.getValue();
   return "";
 }
-	
+
 //create a string representing the status of the map
-// in the moment in which is invoked. This function is used to test if the 
-// map is bean modified since last saving.	
+// in the moment in which is invoked. This function is used to test if the
+// map is bean modified since last saving.
 function getMapString()
 {
 	if(isUserAdmin==false){ // if is not admin, do not generate a string for the map
@@ -98,8 +98,8 @@ function getMapString()
 	}
 	var query=new String("Nodes=");
 	var count=0;
-	
-	//construct the query to post to the servlet. (nodes are formatted as follows: id1,x1,y1-id2,x2,y2 ...) 
+
+	//construct the query to post to the servlet. (nodes are formatted as follows: id1,x1,y1-id2,x2,y2 ...)
 	if(map!=undefined){
 		for (elemId in map.mapElements){
 			if(count>0)
@@ -110,7 +110,7 @@ function getMapString()
 		}
 	}
 	//the map is formatted as follows: id,x,y,image
-	query+="&MapId="+currentMapId+"&MapName="+currentMapName+"&MapBackground="+currentMapBackGround;			
+	query+="&MapId="+currentMapId+"&MapName="+currentMapName+"&MapBackground="+currentMapBackGround;
 	return query;
 }
 
@@ -130,13 +130,13 @@ function getAvailColor(avail){
 }
 
 function getStatusColor(status){
-	
+
 	return STATUSES_COLOR[status];
 
 }
 
 function getSeverityColor(severity){
-	
+
 	return SEVERITIES_COLOR[severity];
 
 }
@@ -161,7 +161,7 @@ function getSemaphoreFlash(severity, avail){
 			var maxmin = -1;
 			var availid;
 			if (avail<0) avail=-1;
-		
+
 			for (index in AVAIL_MIN) {
 				var min = AVAIL_MIN[index];
 				if (avail >= min && min > maxmin) {
@@ -172,8 +172,8 @@ function getSemaphoreFlash(severity, avail){
 			return AVAIL_FLASH[availid];
 		}else if (colorSemaphoreBy=="S"){
 			return SEVERITIES_FLASH[severity];
-		} 
-	} 
+		}
+	}
 	return false;
 }
 
@@ -194,7 +194,7 @@ function saveMapInHistory(){
 			return;
 		}
 	}
-	 		
+
 	if(mapHistory.length==0){
 		mapHistory.push(currentMapId);
 		mapHistoryName.push(currentMapName);
@@ -221,7 +221,7 @@ function saveMapInHistory(){
 		mapHistoryName=firstPart;
 		/*for(ind in mapHistoryName){
 			alert(ind+" "+mapHistoryName[ind]);
-		}*/	
+		}*/
 	}
 }
 
@@ -307,7 +307,7 @@ function windowsClean() {
 	while (ls.length > 0) {
 	  obj = ls.item(0);
 	  winSvgElement.removeChild(obj);
-	}		
+	}
 }
 
 function tabClean() {
@@ -316,7 +316,7 @@ function tabClean() {
 	while (ls.length > 0) {
 	  obj = ls.item(0);
 	  tabSvgElement.removeChild(obj);
-	}		
+	}
 }
 
 function mapTabSetUp(mapName) {
@@ -340,7 +340,7 @@ function mapTabClose(mapName) {
 	var index = 0;
 	for ( var i in mapTabTitles) {
 		if ( mapTabTitles[i]==mapName ) {
-			index = i;	
+			index = i;
 		} else {
 			tabs.push(mapTabTitles[i]);
 		}
@@ -370,7 +370,7 @@ function mapTabRename(oldMapName,newMapName) {
 		if ( mapTabTitles[i]==oldMapName ) {
 			tabs.push(newMapName);
 		} else {
-			tabs.push(mapTabTitles[i])			
+			tabs.push(mapTabTitles[i])
 		}
 	}
 

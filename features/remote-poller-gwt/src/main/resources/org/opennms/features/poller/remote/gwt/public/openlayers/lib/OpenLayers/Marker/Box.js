@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,29 +12,29 @@
  * Class: OpenLayers.Marker.Box
  *
  * Inherits from:
- *  - <OpenLayers.Marker> 
+ *  - <OpenLayers.Marker>
  */
 OpenLayers.Marker.Box = OpenLayers.Class(OpenLayers.Marker, {
 
-    /** 
-     * Property: bounds 
-     * {<OpenLayers.Bounds>} 
+    /**
+     * Property: bounds
+     * {<OpenLayers.Bounds>}
      */
     bounds: null,
 
-    /** 
-     * Property: div 
-     * {DOMElement} 
+    /**
+     * Property: div
+     * {DOMElement}
      */
     div: null,
-    
-    /** 
+
+    /**
      * Constructor: OpenLayers.Marker.Box
      *
      * Parameters:
-     * bounds - {<OpenLayers.Bounds>} 
-     * borderColor - {String} 
-     * borderWidth - {int} 
+     * bounds - {<OpenLayers.Bounds>}
+     * borderColor - {String}
+     * borderWidth - {int}
      */
     initialize: function(bounds, borderColor, borderWidth) {
         this.bounds = bounds;
@@ -45,8 +45,8 @@ OpenLayers.Marker.Box = OpenLayers.Class(OpenLayers.Marker, {
     },
 
     /**
-     * Method: destroy 
-     */    
+     * Method: destroy
+     */
     destroy: function() {
 
         this.bounds = null;
@@ -55,10 +55,10 @@ OpenLayers.Marker.Box = OpenLayers.Class(OpenLayers.Marker, {
         OpenLayers.Marker.prototype.destroy.apply(this, arguments);
     },
 
-    /** 
+    /**
      * Method: setBorder
      * Allow the user to change the box's color and border width
-     * 
+     *
      * Parameters:
      * color - {String} Default is "red"
      * width - {int} Default is 2
@@ -72,26 +72,26 @@ OpenLayers.Marker.Box = OpenLayers.Class(OpenLayers.Marker, {
         }
         this.div.style.border = width + "px solid " + color;
     },
-    
-    /** 
+
+    /**
     * Method: draw
-    * 
+    *
     * Parameters:
-    * px - {<OpenLayers.Pixel>} 
-    * sz - {<OpenLayers.Size>} 
-    * 
-    * Returns: 
-    * {DOMElement} A new DOM Image with this marker´s icon set at the 
+    * px - {<OpenLayers.Pixel>}
+    * sz - {<OpenLayers.Size>}
+    *
+    * Returns:
+    * {DOMElement} A new DOM Image with this marker´s icon set at the
     *         location passed-in
     */
     draw: function(px, sz) {
         OpenLayers.Util.modifyDOMElement(this.div, null, px, sz);
         return this.div;
-    }, 
+    },
 
     /**
      * Method: onScreen
-     * 
+     *
      * Rreturn:
      * {Boolean} Whether or not the marker is currently visible on screen.
      */
@@ -100,16 +100,16 @@ OpenLayers.Marker.Box = OpenLayers.Class(OpenLayers.Marker, {
         if (this.map) {
             var screenBounds = this.map.getExtent();
             onScreen = screenBounds.containsBounds(this.bounds, true, true);
-        }    
+        }
         return onScreen;
     },
-    
+
     /**
      * Method: display
      * Hide or show the icon
-     * 
+     *
      * Parameters:
-     * display - {Boolean} 
+     * display - {Boolean}
      */
     display: function(display) {
         this.div.style.display = (display) ? "" : "none";

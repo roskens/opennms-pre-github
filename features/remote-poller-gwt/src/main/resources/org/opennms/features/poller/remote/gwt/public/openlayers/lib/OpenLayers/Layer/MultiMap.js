@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,33 +12,33 @@
  * Class: OpenLayers.Layer.MultiMap
  * Note that MultiMap does not fully support the sphericalMercator
  * option. See Ticket #953 for more details.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.EventPane>
  *  - <OpenLayers.Layer.FixedZoomLevels>
  */
 OpenLayers.Layer.MultiMap = OpenLayers.Class(
   OpenLayers.Layer.EventPane, OpenLayers.Layer.FixedZoomLevels, {
-    
-    /** 
+
+    /**
      * Constant: MIN_ZOOM_LEVEL
-     * {Integer} 1 
+     * {Integer} 1
      */
     MIN_ZOOM_LEVEL: 1,
-    
-    /** 
+
+    /**
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 17
      */
     MAX_ZOOM_LEVEL: 17,
 
-    /** 
+    /**
      * Constant: RESOLUTIONS
      * {Array(Float)} Hardcode these resolutions so that they are more closely
      *                tied with the standard wms projection
      */
     RESOLUTIONS: [
-        9, 
+        9,
         1.40625,
         0.703125,
         0.3515625,
@@ -63,24 +63,24 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
      */
     type: null,
 
-    /** 
+    /**
      * Constructor: OpenLayers.Layer.MultiMap
-     * 
+     *
      * Parameters:
      * name - {String}
      * options - {Object}
      */
     initialize: function(name, options) {
         OpenLayers.Layer.EventPane.prototype.initialize.apply(this, arguments);
-        OpenLayers.Layer.FixedZoomLevels.prototype.initialize.apply(this, 
+        OpenLayers.Layer.FixedZoomLevels.prototype.initialize.apply(this,
                                                                     arguments);
         if (this.sphericalMercator) {
             OpenLayers.Util.extend(this, OpenLayers.Layer.SphericalMercator);
             this.initMercatorParameters();
-            this.RESOLUTIONS.unshift(10); 
-        }    
+            this.RESOLUTIONS.unshift(10);
+        }
     },
-    
+
     /**
      * Method: loadMapObject
      */
@@ -90,10 +90,10 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
         } catch (e) { }
     },
 
-    /** 
+    /**
      * APIMethod: getWarningHTML
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {String} String with information on why layer is broken, how to get
      *          it working.
      */
@@ -114,31 +114,31 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
   // Get&Set Center, Zoom
 
-    /** 
+    /**
      * APIMethod: setMapObjectCenter
      * Set the mapObject to the specified center and zoom
-     * 
+     *
      * Parameters:
      * center - {Object} MapObject LonLat format
      * zoom - {int} MapObject zoom format
      */
     setMapObjectCenter: function(center, zoom) {
-        this.mapObject.goToPosition(center, zoom); 
+        this.mapObject.goToPosition(center, zoom);
     },
-   
+
     /**
      * APIMethod: getMapObjectCenter
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {Object} The mapObject's current center in Map Object format
      */
     getMapObjectCenter: function() {
         return this.mapObject.getCurrentPosition();
     },
 
-    /** 
+    /**
      * APIMethod: getMapObjectZoom
-     * 
+     *
      * Returns:
      * {Integer} The mapObject's current zoom, in Map Object format
      */
@@ -148,13 +148,13 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
 
   // LonLat - Pixel Translation
-  
+
     /**
      * APIMethod: getMapObjectLonLatFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Object} MapObject LonLat translated from MapObject Pixel
      */
@@ -166,10 +166,10 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
     /**
      * APIMethod: getMapObjectPixelFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Object} MapObject Pixel transtlated from MapObject LonLat
      */
@@ -186,44 +186,44 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
 
   // LonLat
-    
+
     /**
      * APIMethod: getLongitudeFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Float} Longitude of the given MapObject LonLat
      */
     getLongitudeFromMapObjectLonLat: function(moLonLat) {
-        return this.sphericalMercator ? 
+        return this.sphericalMercator ?
             this.forwardMercator(moLonLat.lon, moLonLat.lat).lon :
             moLonLat.lon;
     },
 
     /**
      * APIMethod: getLatitudeFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Float} Latitude of the given MapObject LonLat
      */
     getLatitudeFromMapObjectLonLat: function(moLonLat) {
-        return this.sphericalMercator ? 
+        return this.sphericalMercator ?
             this.forwardMercator(moLonLat.lon, moLonLat.lat).lat :
             moLonLat.lat;
     },
 
     /**
      * APIMethod: getMapObjectLonLatFromLonLat
-     * 
+     *
      * Parameters:
      * lon - {Float}
      * lat - {Float}
-     * 
+     *
      * Returns:
      * {Object} MapObject LonLat built from lon and lat params
      */
@@ -239,13 +239,13 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
     },
 
   // Pixel
-    
+
     /**
      * APIMethod: getXFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Integer} X value of the MapObject Pixel
      */
@@ -255,10 +255,10 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
     /**
      * APIMethod: getYFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Integer} Y value of the MapObject Pixel
      */
@@ -268,11 +268,11 @@ OpenLayers.Layer.MultiMap = OpenLayers.Class(
 
     /**
      * APIMethod: getMapObjectPixelFromXY
-     * 
+     *
      * Parameters:
      * x - {Integer}
      * y - {Integer}
-     * 
+     *
      * Returns:
      * {Object} MapObject Pixel from x and y parameters
      */

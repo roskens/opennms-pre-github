@@ -85,7 +85,7 @@ OpenLayers.Lang.es = {
     'N': 'N',
     'S': 'S',
     'graticule': 'Retícula',
-    
+
     // console message
     'layerAlreadyAdded':
         "Intentó añadir la capa: ${layerName} al mapa, pero ya había sido añadida previamente",
@@ -94,7 +94,7 @@ OpenLayers.Lang.es = {
     'reprojectDeprecated':
         "Está usando la opción 'reproject' en la capa " +
         "${layerName}. Esta opción es obsoleta: su uso fue diseñado " +
-        "para soportar la visualización de datos sobre mapas base comerciales, " + 
+        "para soportar la visualización de datos sobre mapas base comerciales, " +
         "pero ahora esa funcionalidad debería conseguirse mediante el soporte " +
         "de la proyección Spherical Mercator. Más información disponible en " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -119,7 +119,7 @@ OpenLayers.Lang.es = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition falló: el elemento con id ${elemId} puede haberse colocado de manera errónea.",
-                    
+
     // console message
     'filterEvaluateNotImplemented': "evaluate no está implementado para este tipo de filtro.",
 

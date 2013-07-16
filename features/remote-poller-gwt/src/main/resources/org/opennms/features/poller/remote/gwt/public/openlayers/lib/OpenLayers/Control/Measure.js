@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -43,20 +43,20 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
      * {Object} Used to set non-default properties on the control's handler
      */
     handlerOptions: null,
-    
+
     /**
      * Property: callbacks
      * {Object} The functions that are sent to the handler for callback
      */
     callbacks: null,
-    
+
     /**
      * Property: displaySystem
      * {String} Display system for output measurements.  Supported values
      *     are 'english', 'metric', and 'geographic'.  Default is 'metric'.
      */
     displaySystem: 'metric',
-    
+
     /**
      * Property: geodesic
      * {Boolean} Calculate geodesic metrics instead of planar metrics.  This
@@ -64,7 +64,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
      *     (if that is not already the map projection).  Default is false.
      */
     geodesic: false,
-    
+
     /**
      * Property: displaySystemUnits
      * {Object} Units for various measurement systems.  Values are arrays
@@ -93,7 +93,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
      * {Number} Timeout id of trigger for measurepartial.
      */
     delayedTrigger: null,
-    
+
     /**
      * APIProperty: persist
      * {Boolean} Keep the temporary measurement sketch drawn after the
@@ -105,10 +105,10 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Constructor: OpenLayers.Control.Measure
-     * 
+     *
      * Parameters:
-     * handler - {<OpenLayers.Handler>} 
-     * options - {Object} 
+     * handler - {<OpenLayers.Handler>}
+     * options - {Object}
      */
     initialize: function(handler, options) {
         // concatenate events specific to measure with those from the base
@@ -122,14 +122,14 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
             this.callbacks
         );
 
-        // let the handler options override, so old code that passes 'persist' 
+        // let the handler options override, so old code that passes 'persist'
         // directly to the handler does not need an update
         this.handlerOptions = OpenLayers.Util.extend(
             {persist: this.persist}, this.handlerOptions
         );
         this.handler = new handler(this, this.callbacks, this.handlerOptions);
     },
-    
+
     /**
      * APIMethod: cancel
      * Stop the control from measuring.  If <persist> is true, the temporary
@@ -138,7 +138,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
     cancel: function() {
         this.handler.cancel();
     },
-    
+
     /**
      * Method: updateHandler
      *
@@ -170,7 +170,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
         }
         this.measure(geometry, "measure");
     },
-    
+
     /**
      * Method: measurePartial
      * Called each time a new point is added to the measurement sketch.
@@ -214,7 +214,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
             geometry: geometry
         });
     },
-    
+
     /**
      * Method: getBestArea
      * Based on the <displaySystem> returns the area of a geometry.
@@ -238,7 +238,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
         }
         return [area, unit];
     },
-    
+
     /**
      * Method: getArea
      *
@@ -265,7 +265,7 @@ OpenLayers.Control.Measure = OpenLayers.Class(OpenLayers.Control, {
         }
         return area;
     },
-    
+
     /**
      * Method: getBestLength
      * Based on the <displaySystem> returns the length of a geometry.

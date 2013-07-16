@@ -37,9 +37,9 @@ Menu.prototype.init = function(parentNode,id,label,x,y,width,height,menuStyle,me
 	this.rootMenuGroup = null;
 	this.rootMenu = null;
 	this.openMenuFlag = false;
-	
+
 	var result = this.testParent();
-	if (result) {	
+	if (result) {
 		this.createMenuRoot();
 		this.createMenuGroup();
 	} else {
@@ -54,7 +54,7 @@ Menu.prototype.testParent = function() {
     	if (this.parentNode.nodeName == "svg" || this.parentNode.nodeName == "g" || this.parentNode.nodeName == "svg:svg" || this.parentNode.nodeName == "svg:g") {
     		nodeValid = true;
     	}
-    }  else if (typeof(this.parentNode) == "string") { 
+    }  else if (typeof(this.parentNode) == "string") {
     	//first test if menu group exists
     	if (document.getElementById(this.parentNode)) {
     		this.parentNode = document.getElementById(this.parentNode);
@@ -65,11 +65,11 @@ Menu.prototype.testParent = function() {
 }
 
 Menu.prototype.createMenuRoot = function() {
-	
+
 	this.rootMenuGroup = document.createElementNS(svgNS,"g");
 	this.rootMenuGroup.setAttributeNS(null,"display","none");
 	this.rootMenuGroup.setAttributeNS(null,"id",this.id+"Group");
-	
+
 	this.rootMenu = document.createElementNS(svgNS,"rect");
 	this.rootMenu.setAttributeNS(null,"id", this.id);
 	this.rootMenu.setAttributeNS(null,"x", this.x);
@@ -78,16 +78,16 @@ Menu.prototype.createMenuRoot = function() {
 	this.rootMenu.setAttributeNS(null,"height", this.height);
 	for (var attrib in this.menuStyle) {
 		this.rootMenu.setAttributeNS(null,attrib,this.menuStyle[attrib]);
-	}		
+	}
 	this.rootMenuGroup.appendChild(this.rootMenu);
-	
+
 	var Text = document.createElementNS(svgNS,"text");
 	Text.setAttributeNS(null,"id", this.id+"Text");
 	Text.setAttributeNS(null,"x", this.x+3);
 	Text.setAttributeNS(null,"y", this.y+13);
 	for (var attrib in this.menuTextStyle) {
 		Text.setAttributeNS(null,attrib,this.menuTextStyle[attrib]);
-	}	
+	}
 	var contentText = document.createTextNode(this.label);
 	Text.appendChild(contentText);
 	this.rootMenuGroup.appendChild(Text);
@@ -95,9 +95,9 @@ Menu.prototype.createMenuRoot = function() {
 	var MouseRect = document.createElementNS(svgNS,"rect");
 	MouseRect.setAttributeNS(null,"cursor","pointer");
     MouseRect.addEventListener("mouseover",this,false);
-    MouseRect.addEventListener("mouseout",this,false);   
+    MouseRect.addEventListener("mouseout",this,false);
     MouseRect.addEventListener("click",this,false);
-    
+
 	MouseRect.setAttributeNS(null,"x" , this.x );
 	MouseRect.setAttributeNS(null,"y" , this.y );
 	MouseRect.setAttributeNS(null,"width" , this.width );
@@ -117,8 +117,8 @@ Menu.prototype.getId = function() {
 Menu.prototype.createMenuGroup = function() {
 		this.group = document.createElementNS(svgNS,"g");
 		this.group.setAttributeNS(null,"display","none");
-		this.group.setAttributeNS(null,"id",this.id+"Choices");	
-		this.parentNode.appendChild(this.group);			
+		this.group.setAttributeNS(null,"id",this.id+"Choices");
+		this.parentNode.appendChild(this.group);
 }
 
 Menu.prototype.handleEvent = function(evt) {
@@ -127,9 +127,9 @@ Menu.prototype.handleEvent = function(evt) {
 		return;
 	}
 	if (evt.type == "mouseup") {
-		return;	
+		return;
 	}
-	
+
 	if (evt.type == "mouseover") {
 		this.rootMenu.setAttributeNS(null,"fill",this.downColor);
 	}
@@ -137,7 +137,7 @@ Menu.prototype.handleEvent = function(evt) {
 	if (evt.type == "mouseout") {
 		this.rootMenu.setAttributeNS(null,"fill",this.upColor);
 	}
-	
+
 	if (evt.type == "click") {
 		this.onClick(evt);
 	}
@@ -155,7 +155,7 @@ Menu.prototype.toggle = function() {
 		this.close();
 	} else {
 		this.open();
-	}		
+	}
 }
 
 Menu.prototype.close = function() {
@@ -195,7 +195,7 @@ Menu.prototype.removeChilds = function() {
 
 Menu.prototype.addItem = function(id,label,tx,ty,width,height, itemgroups) {
 	if ( arguments.length == 7 ) {
-		var menuElement = 
+		var menuElement =
 new MenuElement(this.group,id,label,this.x+tx,this.y+ty,width,height,this.menuStyle,this.menuTextStyle,this.menuMouseStyle,this.upColor,this.downColor,null,'inline', null, itemgroups);
 		this.group.appendChild(menuElement.getSvgGroup());
 	} else {
@@ -204,22 +204,22 @@ new MenuElement(this.group,id,label,this.x+tx,this.y+ty,width,height,this.menuSt
 }
 
 Menu.prototype.addElement = function(id,label,tx,ty,width,height,onclickActions,subitemstohide) {
-	
+
 	if ( arguments.length == 8 ) {
-		var menuElement = 
+		var menuElement =
 new MenuElement(this.group,id,label,this.x+tx,this.y+ty,width,height,this.menuStyle,this.menuTextStyle,this.menuMouseStyle,this.upColor,this.downColor,onclickActions,'inline', subitemstohide, null);
-		this.group.appendChild(menuElement.getSvgGroup());	
+		this.group.appendChild(menuElement.getSvgGroup());
 	} else {
 		alert("Error Element in Menu");
 	}
 }
 
 Menu.prototype.addItemElement = function(id,label,tx,ty,width,height,onclickActions) {
-	
+
 	if ( arguments.length == 7 ) {
-		var menuElement = 
+		var menuElement =
 new MenuElement(this.group,id,label,this.x+tx,this.y+ty,width,height,this.menuStyle,this.menuTextStyle,this.menuMouseStyle,this.upColor,this.downColor,onclickActions,'none', null,null);
-		this.group.appendChild(menuElement.getSvgGroup());	
+		this.group.appendChild(menuElement.getSvgGroup());
 	} else {
 		alert("Error Element in Menu");
 	}
@@ -229,7 +229,7 @@ new MenuElement(this.group,id,label,this.x+tx,this.y+ty,width,height,this.menuSt
 function MenuElement(parentNode,id,label,x,y,width,height,menuStyle,menuTextStyle,menuMouseStyle,mouseupColor,mousedownColor,onClickActions,display, subitemstohide, subitemstoshow) {
 	if ( arguments.length == 16 ) {
 	   	this.init(parentNode,id,label,x,y,width,height,menuStyle,menuTextStyle,menuMouseStyle,mouseupColor,mousedownColor,onClickActions,display, subitemstohide, subitemstoshow);
-	} else { 
+	} else {
 		alert("MenuElement constructor error");
 	}
 }
@@ -255,12 +255,12 @@ MenuElement.prototype.init = function(parentNode,id,label,x,y,width,height,menuS
 	this.display = display;
 	this.subitemstohide = subitemstohide;
 	this.subitemstoshow = subitemstoshow;
-	
+
 	this.menuElementGroup = null;
 	this.menuElement = null;
-	
+
 	var result = this.testParent();
-	if (result) {	
+	if (result) {
 		this.createMenuElement();
 	} else {
 		alert("MenuElement parent node is not valid");
@@ -274,7 +274,7 @@ MenuElement.prototype.testParent = function() {
     	if (this.parentNode.nodeName == "svg" || this.parentNode.nodeName == "g" || this.parentNode.nodeName == "svg:svg" || this.parentNode.nodeName == "svg:g") {
     		nodeValid = true;
     	}
-    }  else if (typeof(this.parentNode) == "string") { 
+    }  else if (typeof(this.parentNode) == "string") {
     	//first test if menu group exists
     	if (document.getElementById(this.parentNode)) {
     		this.parentNode = document.getElementById(this.parentNode);
@@ -285,11 +285,11 @@ MenuElement.prototype.testParent = function() {
 }
 
 MenuElement.prototype.createMenuElement = function() {
-	
+
 	this.menuElementGroup = document.createElementNS(svgNS,"g");
 	this.menuElementGroup.setAttributeNS(null,"display",this.display);
 	this.menuElementGroup.setAttributeNS(null,"id",this.id+"ElementGroup");
-	
+
 	this.menuElement = document.createElementNS(svgNS,"rect");
 	this.menuElement.setAttributeNS(null,"id", this.id);
 	this.menuElement.setAttributeNS(null,"x", this.x);
@@ -298,16 +298,16 @@ MenuElement.prototype.createMenuElement = function() {
 	this.menuElement.setAttributeNS(null,"height", this.height);
 	for (var attrib in this.menuStyle) {
 		this.menuElement.setAttributeNS(null,attrib,this.menuStyle[attrib]);
-	}		
+	}
 	this.menuElementGroup.appendChild(this.menuElement);
-	
+
 	var Text = document.createElementNS(svgNS,"text");
 	Text.setAttributeNS(null,"id", this.id+"Text");
 	Text.setAttributeNS(null,"x", this.x+3);
 	Text.setAttributeNS(null,"y", this.y+13);
 	for (var attrib in this.menuTextStyle) {
 		Text.setAttributeNS(null,attrib,this.menuTextStyle[attrib]);
-	}	
+	}
 	var contentText = document.createTextNode(this.label);
 	Text.appendChild(contentText);
 	this.menuElementGroup.appendChild(Text);
@@ -315,9 +315,9 @@ MenuElement.prototype.createMenuElement = function() {
 	var MouseRect = document.createElementNS(svgNS,"rect");
 	MouseRect.setAttributeNS(null,"cursor","pointer");
     MouseRect.addEventListener("mouseover",this,false);
-    MouseRect.addEventListener("mouseout",this,false);   
+    MouseRect.addEventListener("mouseout",this,false);
     MouseRect.addEventListener("click",this,false);
-    
+
 	MouseRect.setAttributeNS(null,"x" , this.x );
 	MouseRect.setAttributeNS(null,"y" , this.y );
 	MouseRect.setAttributeNS(null,"width" , this.width );
@@ -338,9 +338,9 @@ MenuElement.prototype.handleEvent = function(evt) {
 		return;
 	}
 	if (evt.type == "mouseup") {
-		return;	
+		return;
 	}
-	
+
 	if (evt.type == "mouseover") {
 		this.menuElement.setAttributeNS(null,'fill',this.downColor);
 		if (this.subitemstoshow == null) return;
@@ -353,11 +353,11 @@ MenuElement.prototype.handleEvent = function(evt) {
 		this.menuElement.setAttributeNS(null,'fill',this.upColor);
 		if (this.subitemstohide == null) return;
 		for (var a in this.subitemstohide) {
-            if ( document.getElementById(this.subitemstohide[a]+"ElementGroup") != null ) 
+            if ( document.getElementById(this.subitemstohide[a]+"ElementGroup") != null )
                 document.getElementById(this.subitemstohide[a]+"ElementGroup").setAttributeNS(null,'display','none');
 		}
 	}
-	
+
 	if (evt.type == "click") {
 		this.onClickActions();
 	}

@@ -111,7 +111,7 @@ OpenLayers.Lang["nb"] = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition feilet: elementet med id ${elemId} kan være feilplassert.",
-                    
+
     'end': ''
 };
 

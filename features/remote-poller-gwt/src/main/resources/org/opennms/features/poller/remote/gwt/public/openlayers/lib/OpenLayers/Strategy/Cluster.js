@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,14 +15,14 @@
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * APIProperty: distance
      * {Integer} Pixel distance between features that should be considered a
      *     single cluster.  Default is 20 pixels.
      */
     distance: 20,
-    
+
     /**
      * APIProperty: threshold
      * {Integer} Optional threshold below which original features will be
@@ -33,25 +33,25 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
      *     equivalent to 1 - meaning that clusters may contain just one feature).
      */
     threshold: null,
-    
+
     /**
      * Property: features
      * {Array(<OpenLayers.Feature.Vector>)} Cached features.
      */
     features: null,
-    
+
     /**
      * Property: clusters
      * {Array(<OpenLayers.Feature.Vector>)} Calculated clusters.
      */
     clusters: null,
-    
+
     /**
      * Property: clustering
      * {Boolean} The strategy is currently clustering features.
      */
     clustering: false,
-    
+
     /**
      * Property: resolution
      * {Float} The resolution (map units per pixel) of the current cluster set.
@@ -69,11 +69,11 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
     initialize: function(options) {
         OpenLayers.Strategy.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * APIMethod: activate
      * Activate the strategy.  Register any listeners, do appropriate setup.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully activated.
      */
@@ -88,12 +88,12 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the strategy.  Unregister any listeners, do appropriate
      *     tear-down.
-     * 
+     *
      * Returns:
      * {Boolean} The strategy was successfully deactivated.
      */
@@ -109,7 +109,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: cacheFeatures
      * Cache features before they are added to the layer.
@@ -117,7 +117,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
      * Parameters:
      * event - {Object} The event that this was listening for.  This will come
      *     with a batch of features to be clustered.
-     *     
+     *
      * Returns:
      * {Boolean} False to stop features from being added to the layer.
      */
@@ -131,7 +131,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return propagate;
     },
-    
+
     /**
      * Method: clearCache
      * Clear out the cached features.
@@ -139,7 +139,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
     clearCache: function() {
         this.features = null;
     },
-    
+
     /**
      * Method: cluster
      * Cluster features based on some threshold distance.
@@ -198,7 +198,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
             }
         }
     },
-    
+
     /**
      * Method: clustersExist
      * Determine whether calculated clusters are already on the layer.
@@ -220,7 +220,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return exist;
     },
-    
+
     /**
      * Method: shouldCluster
      * Determine whether to include a feature in a given cluster.
@@ -242,7 +242,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         );
         return (distance <= this.distance);
     },
-    
+
     /**
      * Method: addToCluster
      * Add a feature to a cluster.
@@ -255,7 +255,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         cluster.cluster.push(feature);
         cluster.attributes.count += 1;
     },
-    
+
     /**
      * Method: createCluster
      * Given a feature, create a cluster.
@@ -276,5 +276,5 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         return cluster;
     },
 
-    CLASS_NAME: "OpenLayers.Strategy.Cluster" 
+    CLASS_NAME: "OpenLayers.Strategy.Cluster"
 });

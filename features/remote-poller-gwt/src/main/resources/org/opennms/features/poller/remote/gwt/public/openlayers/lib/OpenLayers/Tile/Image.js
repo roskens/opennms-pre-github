@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,14 +19,14 @@
  */
 OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
 
-    /** 
+    /**
      * Property: url
      * {String} The URL of the image being requested. No default. Filled in by
-     * layer.getURL() function. 
+     * layer.getURL() function.
      */
     url: null,
-    
-    /** 
+
+    /**
      * Property: imgDiv
      * {DOMElement} The div element which wraps the image.
      */
@@ -35,22 +35,22 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
     /**
      * Property: frame
      * {DOMElement} The image element is appended to the frame.  Any gutter on
-     * the image will be hidden behind the frame. 
-     */ 
-    frame: null, 
-    
+     * the image will be hidden behind the frame.
+     */
+    frame: null,
+
     /**
      * Property: layerAlphaHack
      * {Boolean} True if the png alpha hack needs to be applied on the layer's div.
      */
     layerAlphaHack: null,
-    
+
     /**
      * Property: isBackBuffer
      * {Boolean} Is this tile a back buffer tile?
      */
     isBackBuffer: false,
-    
+
     /**
      * Property: lastRatio
      * {Float} Used in transition code only.  This is the previous ratio
@@ -69,7 +69,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
      *     tiles that have been loaded can be used.
      */
     isFirstDraw: true,
-        
+
     /**
      * Property: backBufferTile
      * {<OpenLayers.Tile>} A clone of the tile used to create transition
@@ -77,33 +77,33 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
      */
     backBufferTile: null,
 
-    /** TBD 3.0 - reorder the parameters to the init function to remove 
-     *             URL. the getUrl() function on the layer gets called on 
+    /** TBD 3.0 - reorder the parameters to the init function to remove
+     *             URL. the getUrl() function on the layer gets called on
      *             each draw(), so no need to specify it here.
-     * 
+     *
      * Constructor: OpenLayers.Tile.Image
      * Constructor for a new <OpenLayers.Tile.Image> instance.
-     * 
+     *
      * Parameters:
      * layer - {<OpenLayers.Layer>} layer that the tile will go in.
      * position - {<OpenLayers.Pixel>}
      * bounds - {<OpenLayers.Bounds>}
      * url - {<String>} Deprecated. Remove me in 3.0.
      * size - {<OpenLayers.Size>}
-     */   
+     */
     initialize: function(layer, position, bounds, url, size) {
         OpenLayers.Tile.prototype.initialize.apply(this, arguments);
 
         this.url = url; //deprecated remove me
-        
-        this.frame = document.createElement('div'); 
-        this.frame.style.overflow = 'hidden'; 
-        this.frame.style.position = 'absolute'; 
+
+        this.frame = document.createElement('div');
+        this.frame.style.overflow = 'hidden';
+        this.frame.style.position = 'absolute';
 
         this.layerAlphaHack = this.layer.alpha && OpenLayers.Util.alphaHack();
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -111,13 +111,13 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         if (this.imgDiv != null)  {
             if (this.layerAlphaHack) {
                 // unregister the "load" handler
-                OpenLayers.Event.stopObservingElement(this.imgDiv.childNodes[0]);                
+                OpenLayers.Event.stopObservingElement(this.imgDiv.childNodes[0]);
             }
 
             // unregister the "load" and "error" handlers. Only the "error" handler if
             // this.layerAlphaHack is true.
             OpenLayers.Event.stopObservingElement(this.imgDiv);
-            
+
             if (this.imgDiv.parentNode == this.frame) {
                 this.frame.removeChild(this.imgDiv);
                 this.imgDiv.map = null;
@@ -127,19 +127,19 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             this.imgDiv.src = OpenLayers.Util.getImagesLocation() + "blank.gif";
         }
         this.imgDiv = null;
-        if ((this.frame != null) && (this.frame.parentNode == this.layer.div)) { 
-            this.layer.div.removeChild(this.frame); 
+        if ((this.frame != null) && (this.frame.parentNode == this.layer.div)) {
+            this.layer.div.removeChild(this.frame);
         }
-        this.frame = null; 
-        
+        this.frame = null;
+
         /* clean up the backBufferTile if it exists */
         if (this.backBufferTile) {
             this.backBufferTile.destroy();
             this.backBufferTile = null;
         }
-        
+
         this.layer.events.unregister("loadend", this, this.resetBackBuffer);
-        
+
         OpenLayers.Tile.prototype.destroy.apply(this, arguments);
     },
 
@@ -154,27 +154,27 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
      */
     clone: function (obj) {
         if (obj == null) {
-            obj = new OpenLayers.Tile.Image(this.layer, 
-                                            this.position, 
-                                            this.bounds, 
-                                            this.url, 
-                                            this.size);        
-        } 
-        
+            obj = new OpenLayers.Tile.Image(this.layer,
+                                            this.position,
+                                            this.bounds,
+                                            this.url,
+                                            this.size);
+        }
+
         //pick up properties from superclass
         obj = OpenLayers.Tile.prototype.clone.apply(this, [obj]);
-        
+
         //dont want to directly copy the image div
         obj.imgDiv = null;
-            
-        
+
+
         return obj;
     },
-    
+
     /**
      * Method: draw
      * Check that a tile should be drawn, and draw it.
-     * 
+     *
      * Returns:
      * {Boolean} Always returns true.
      */
@@ -183,8 +183,8 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             this.bounds = this.getBoundsFromBaseLayer(this.position);
         }
         var drawTile = OpenLayers.Tile.prototype.draw.apply(this, arguments);
-        
-        if ((OpenLayers.Util.indexOf(this.layer.SUPPORTED_TRANSITIONS, this.layer.transitionEffect) != -1) || 
+
+        if ((OpenLayers.Util.indexOf(this.layer.SUPPORTED_TRANSITIONS, this.layer.transitionEffect) != -1) ||
             this.layer.singleTile) {
             if (drawTile) {
                 //we use a clone of this tile to create a double buffer for visual
@@ -198,10 +198,10 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
                     // the backBufferTile behind the main tile so the tiles can
                     // load over top and display as soon as they are loaded.
                     this.backBufferTile.isBackBuffer = true;
-                    
+
                     // potentially end any transition effects when the tile loads
                     this.events.register('loadend', this, this.resetBackBuffer);
-                    
+
                     // clear transition back buffer tile only after all tiles in
                     // this layer have loaded to avoid visual glitches
                     this.layer.events.register("loadend", this, this.resetBackBuffer);
@@ -219,45 +219,45 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             if (drawTile && this.isFirstDraw) {
                 this.events.register('loadend', this, this.showTile);
                 this.isFirstDraw = false;
-            }   
-        }    
-        
+            }
+        }
+
         if (!drawTile) {
             return false;
         }
-        
+
         if (this.isLoading) {
             //if we're already loading, send 'reload' instead of 'loadstart'.
-            this.events.triggerEvent("reload"); 
+            this.events.triggerEvent("reload");
         } else {
             this.isLoading = true;
             this.events.triggerEvent("loadstart");
         }
-        
+
         return this.renderTile();
     },
-    
-    /** 
+
+    /**
      * Method: resetBackBuffer
      * Triggered by two different events, layer loadend, and tile loadend.
-     *     In any of these cases, we check to see if we can hide the 
-     *     backBufferTile yet and update its parameters to match the 
+     *     In any of these cases, we check to see if we can hide the
+     *     backBufferTile yet and update its parameters to match the
      *     foreground tile.
      *
      * Basic logic:
      *  - If the backBufferTile hasn't been drawn yet, reset it
      *  - If layer is still loading, show foreground tile but don't hide
      *    the backBufferTile yet
-     *  - If layer is done loading, reset backBuffer tile and show 
+     *  - If layer is done loading, reset backBuffer tile and show
      *    foreground tile
      */
     resetBackBuffer: function() {
         this.showTile();
-        if (this.backBufferTile && 
+        if (this.backBufferTile &&
             (this.isFirstDraw || !this.layer.numLoadingTiles)) {
             this.isFirstDraw = false;
             // check to see if the backBufferTile is within the max extents
-            // before rendering it 
+            // before rendering it
             var maxExtent = this.layer.maxExtent;
             var withinMaxExtent = (maxExtent &&
                                    this.bounds.intersectsBounds(maxExtent, false));
@@ -274,7 +274,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             this.backBufferTile.hide();
         }
     },
-    
+
     /**
      * Method: renderTile
      * Internal function to actually initialize the image tile,
@@ -286,7 +286,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         }
 
         this.imgDiv.viewRequestID = this.layer.map.viewRequestID;
-        
+
         if (this.layer.async) {
             // Asyncronous image requests call the asynchronous getURL method
             // on the layer to fetch an image that covers 'this.bounds', in the scope of
@@ -296,16 +296,16 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         } else {
             // syncronous image requests get the url and position the frame immediately,
             // and don't wait for an image request to come back.
-          
+
             // needed for changing to a different server for onload error
             if (this.layer.url instanceof Array) {
                 this.imgDiv.urls = this.layer.url.slice();
             }
-          
+
             this.url = this.layer.getURL(this.bounds);
-          
+
             // position the frame immediately
-            this.positionImage(); 
+            this.positionImage();
         }
         return true;
     },
@@ -322,11 +322,11 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         if (this.layer === null) {
             return;
         }
-        // position the frame 
-        OpenLayers.Util.modifyDOMElement(this.frame, 
-                                          null, this.position, this.size);   
+        // position the frame
+        OpenLayers.Util.modifyDOMElement(this.frame,
+                                          null, this.position, this.size);
 
-        var imageSize = this.layer.getImageSize(this.bounds); 
+        var imageSize = this.layer.getImageSize(this.bounds);
         if (this.layerAlphaHack) {
             OpenLayers.Util.modifyAlphaImageDiv(this.imgDiv,
                     null, null, imageSize, this.url);
@@ -337,17 +337,17 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         }
     },
 
-    /** 
+    /**
      * Method: clear
-     *  Clear the tile of any bounds/position-related data so that it can 
+     *  Clear the tile of any bounds/position-related data so that it can
      *   be reused in a new location.
      */
     clear: function() {
         if(this.imgDiv) {
             this.hide();
-            if (OpenLayers.Tile.Image.useBlankTile) { 
+            if (OpenLayers.Tile.Image.useBlankTile) {
                 this.imgDiv.src = OpenLayers.Util.getImagesLocation() + "blank.gif";
-            }    
+            }
         }
     },
 
@@ -356,10 +356,10 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
      * Creates the imgDiv property on the tile.
      */
     initImgDiv: function() {
-        
-        var offset = this.layer.imageOffset; 
-        var size = this.layer.getImageSize(this.bounds); 
-     
+
+        var offset = this.layer.imageOffset;
+        var size = this.layer.getImageSize(this.bounds);
+
         if (this.layerAlphaHack) {
             this.imgDiv = OpenLayers.Util.createAlphaImageDiv(null,
                                                            offset,
@@ -380,7 +380,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
                                                       null,
                                                       true);
         }
-        
+
         this.imgDiv.className = 'olTileImage';
 
         /* checkImgURL used to be used to called as a work around, but it
@@ -392,42 +392,42 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             OpenLayers.Function.bind(this.checkImgURL, this) );
         */
         this.frame.style.zIndex = this.isBackBuffer ? 0 : 1;
-        this.frame.appendChild(this.imgDiv); 
-        this.layer.div.appendChild(this.frame); 
+        this.frame.appendChild(this.imgDiv);
+        this.layer.div.appendChild(this.frame);
 
         if(this.layer.opacity != null) {
-            
+
             OpenLayers.Util.modifyDOMElement(this.imgDiv, null, null, null,
-                                             null, null, null, 
+                                             null, null, null,
                                              this.layer.opacity);
         }
 
         // we need this reference to check back the viewRequestID
         this.imgDiv.map = this.layer.map;
 
-        //bind a listener to the onload of the image div so that we 
+        //bind a listener to the onload of the image div so that we
         // can register when a tile has finished loading.
         var onload = function() {
-            
-            //normally isLoading should always be true here but there are some 
+
+            //normally isLoading should always be true here but there are some
             // right funky conditions where loading and then reloading a tile
-            // with the same url *really*fast*. this check prevents sending 
+            // with the same url *really*fast*. this check prevents sending
             // a 'loadend' if the msg has already been sent
             //
-            if (this.isLoading) { 
-                this.isLoading = false; 
-                this.events.triggerEvent("loadend"); 
+            if (this.isLoading) {
+                this.isLoading = false;
+                this.events.triggerEvent("loadend");
             }
         };
-        
-        if (this.layerAlphaHack) { 
-            OpenLayers.Event.observe(this.imgDiv.childNodes[0], 'load', 
-                                     OpenLayers.Function.bind(onload, this));    
-        } else { 
-            OpenLayers.Event.observe(this.imgDiv, 'load', 
-                                 OpenLayers.Function.bind(onload, this)); 
-        } 
-        
+
+        if (this.layerAlphaHack) {
+            OpenLayers.Event.observe(this.imgDiv.childNodes[0], 'load',
+                                     OpenLayers.Function.bind(onload, this));
+        } else {
+            OpenLayers.Event.observe(this.imgDiv, 'load',
+                                 OpenLayers.Function.bind(onload, this));
+        }
+
 
         // Bind a listener to the onerror of the image div so that we
         // can registere when a tile has finished loading with errors.
@@ -454,18 +454,18 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
      * the imgDiv display to 'none', as either (a) it will be reset to visible
      * when the new URL loads in the image, or (b) we don't want to display
      * this tile after all because its new bounds are outside our maxExtent.
-     * 
+     *
      * This function should no longer  be neccesary with the improvements to
      * Grid.js in OpenLayers 2.3. The lack of a good isEquivilantURL function
-     * caused problems in 2.2, but it's possible that with the improved 
+     * caused problems in 2.2, but it's possible that with the improved
      * isEquivilant URL function, this might be neccesary at some point.
-     * 
-     * See discussion in the thread at 
+     *
+     * See discussion in the thread at
      * http://openlayers.org/pipermail/dev/2007-January/000205.html
      */
     checkImgURL: function () {
         // Sometimes our image will load after it has already been removed
-        // from the map, in which case this check is not needed.  
+        // from the map, in which case this check is not needed.
         if (this.layer) {
             var loaded = this.layerAlphaHack ? this.imgDiv.firstChild.src : this.imgDiv.src;
             if (!OpenLayers.Util.isEquivalentUrl(loaded, this.url)) {
@@ -473,7 +473,7 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
             }
         }
     },
-    
+
     /**
      * Method: startTransition
      * This method is invoked on tiles that are backBuffers for tiles in the
@@ -495,15 +495,15 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         if (this.backBufferTile.resolution) {
             ratio = this.backBufferTile.resolution / this.layer.getResolution();
         }
-        
+
         // if the ratio is not the same as it was last time (i.e. we are
         // zooming), then we need to adjust the backBuffer tile
         if (ratio != this.lastRatio) {
             if (this.layer.transitionEffect == 'resize') {
-                // In this case, we can just immediately resize the 
+                // In this case, we can just immediately resize the
                 // backBufferTile.
                 var upperLeft = new OpenLayers.LonLat(
-                    this.backBufferTile.bounds.left, 
+                    this.backBufferTile.bounds.left,
                     this.backBufferTile.bounds.top
                 );
                 var size = new OpenLayers.Size(
@@ -512,10 +512,10 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
                 );
 
                 var px = this.layer.map.getLayerPxFromLonLat(upperLeft);
-                OpenLayers.Util.modifyDOMElement(this.backBufferTile.frame, 
+                OpenLayers.Util.modifyDOMElement(this.backBufferTile.frame,
                                                  null, px, size);
                 var imageSize = this.backBufferTile.imageSize;
-                imageSize = new OpenLayers.Size(imageSize.w * ratio, 
+                imageSize = new OpenLayers.Size(imageSize.w * ratio,
                                                 imageSize.h * ratio);
                 var imageOffset = this.backBufferTile.imageOffset;
                 if(imageOffset) {
@@ -544,8 +544,8 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         this.lastRatio = ratio;
 
     },
-    
-    /** 
+
+    /**
      * Method: show
      * Show the tile by showing its frame.
      */
@@ -553,26 +553,26 @@ OpenLayers.Tile.Image = OpenLayers.Class(OpenLayers.Tile, {
         this.frame.style.display = '';
         // Force a reflow on gecko based browsers to actually show the element
         // before continuing execution.
-        if (OpenLayers.Util.indexOf(this.layer.SUPPORTED_TRANSITIONS, 
+        if (OpenLayers.Util.indexOf(this.layer.SUPPORTED_TRANSITIONS,
                 this.layer.transitionEffect) != -1) {
-            if (navigator.userAgent.toLowerCase().indexOf("gecko") != -1) { 
-                this.frame.scrollLeft = this.frame.scrollLeft; 
-            } 
+            if (navigator.userAgent.toLowerCase().indexOf("gecko") != -1) {
+                this.frame.scrollLeft = this.frame.scrollLeft;
+            }
         }
     },
-    
-    /** 
+
+    /**
      * Method: hide
      * Hide the tile by hiding its frame.
      */
     hide: function() {
         this.frame.style.display = 'none';
     },
-    
+
     CLASS_NAME: "OpenLayers.Tile.Image"
   }
 );
 
-OpenLayers.Tile.Image.useBlankTile = ( 
-    OpenLayers.Util.getBrowserName() == "safari" || 
-    OpenLayers.Util.getBrowserName() == "opera"); 
+OpenLayers.Tile.Image.useBlankTile = (
+    OpenLayers.Util.getBrowserName() == "safari" ||
+    OpenLayers.Util.getBrowserName() == "opera");

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -30,7 +30,7 @@ OpenLayers.Format.Context = OpenLayers.Class({
     /**
      * Property: layerParams
      * {Object} Default parameters for layers created by the parser. This
-     *     can be used e.g. to override DEFAULT_PARAMS for 
+     *     can be used e.g. to override DEFAULT_PARAMS for
      *     OpenLayers.Layer.WMS.
      */
     layerParams: null,
@@ -121,7 +121,7 @@ OpenLayers.Format.Context = OpenLayers.Class({
             queryable: layerContext.queryable, //keep queryable for api compatibility
             visibility: layerContext.visibility,
             maxExtent: layerContext.maxExtent,
-            metadata: OpenLayers.Util.applyDefaults(layerContext.metadata, 
+            metadata: OpenLayers.Util.applyDefaults(layerContext.metadata,
                 {styles: layerContext.styles}),
             numZoomLevels: layerContext.numZoomLevels,
             units: layerContext.units,
@@ -129,9 +129,9 @@ OpenLayers.Format.Context = OpenLayers.Class({
             opacity: layerContext.opacity,
             displayInLayerSwitcher: layerContext.displayInLayerSwitcher,
             singleTile: layerContext.singleTile,
-            tileSize: (layerContext.tileSize) ? 
+            tileSize: (layerContext.tileSize) ?
                 new OpenLayers.Size(
-                    layerContext.tileSize.width, 
+                    layerContext.tileSize.width,
                     layerContext.tileSize.height
                 ) : undefined,
             minScale: layerContext.minScale || layerContext.maxScaleDenominator,
@@ -199,7 +199,7 @@ OpenLayers.Format.Context = OpenLayers.Class({
             // use a vector layer with an HTTP Protcol and a Fixed strategy
             options.strategies = [new OpenLayers.Strategy.Fixed()];
             options.protocol = new OpenLayers.Protocol.HTTP({
-                url: layerContext.url, 
+                url: layerContext.url,
                 format: new OpenLayers.Format.KML()
             });
             layer = new OpenLayers.Layer.Vector(
@@ -210,7 +210,7 @@ OpenLayers.Format.Context = OpenLayers.Class({
             // use a vector layer with a HTTP Protocol and a Fixed strategy
             options.strategies = [new OpenLayers.Strategy.Fixed()];
             options.protocol = new OpenLayers.Protocol.HTTP({
-                url: layerContext.url, 
+                url: layerContext.url,
                 format: new OpenLayers.Format.GML()
             });
             layer = new OpenLayers.Layer.Vector(

@@ -83,8 +83,8 @@ OpenLayers.Lang.ca = {
     'E': 'E',
     'N': 'N',
     'S': 'S',
-    'graticule': 'Retícula',    
-        
+    'graticule': 'Retícula',
+
     // console message
     'layerAlreadyAdded':
         "Heu intentat afegir la capa: ${layerName} al mapa, però ja ha estat afegida anteriorment",
@@ -93,7 +93,7 @@ OpenLayers.Lang.ca = {
     'reprojectDeprecated':
         "Esteu fent servir l'opció 'reproject' a la capa " +
         "${layerName}. Aquesta opció és obsoleta: el seu ús fou concebut " +
-        "per suportar la visualització de dades sobre mapes base comercials, " + 
+        "per suportar la visualització de dades sobre mapes base comercials, " +
         "però ara aquesta funcionalitat s'hauria d'assolir mitjançant el suport " +
         "de la projecció Spherical Mercator. Més informació disponible a " +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -118,7 +118,7 @@ OpenLayers.Lang.ca = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition ha fallat: l'element amb id ${elemId} pot estar fora de lloc.",
-                    
+
     // console message
     'filterEvaluateNotImplemented': "evaluate no està implementat per aquest tipus de filtre.",
 

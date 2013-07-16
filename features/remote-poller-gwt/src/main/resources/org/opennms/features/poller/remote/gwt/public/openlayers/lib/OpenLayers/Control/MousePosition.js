@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,7 +17,7 @@
  *  - <OpenLayers.Control>
  */
 OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
-    
+
     /**
      * APIProperty: autoActivate
      * {Boolean} Activate the control when it is added to a map.  Default is
@@ -25,50 +25,50 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
      */
     autoActivate: true,
 
-    /** 
+    /**
      * Property: element
-     * {DOMElement} 
+     * {DOMElement}
      */
     element: null,
-    
-    /** 
+
+    /**
      * APIProperty: prefix
      * {String}
      */
     prefix: '',
-    
-    /** 
+
+    /**
      * APIProperty: separator
      * {String}
      */
     separator: ', ',
-    
-    /** 
+
+    /**
      * APIProperty: suffix
      * {String}
      */
     suffix: '',
-    
-    /** 
+
+    /**
      * APIProperty: numDigits
      * {Integer}
      */
     numDigits: 5,
-    
-    /** 
+
+    /**
      * APIProperty: granularity
-     * {Integer} 
+     * {Integer}
      */
     granularity: 10,
 
     /**
-     * APIProperty: emptyString 
+     * APIProperty: emptyString
      * {String} Set this to some value to set when the mouse is outside the
      *     map.
      */
     emptyString: null,
-    
-    /** 
+
+    /**
      * Property: lastXy
      * {<OpenLayers.Pixel>}
      */
@@ -76,14 +76,14 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIProperty: displayProjection
-     * {<OpenLayers.Projection>} The projection in which the 
+     * {<OpenLayers.Projection>} The projection in which the
      * mouse position is displayed
      */
-    displayProjection: null, 
-    
+    displayProjection: null,
+
     /**
      * Constructor: OpenLayers.Control.MousePosition
-     * 
+     *
      * Parameters:
      * options - {Object} Options for control.
      */
@@ -112,7 +112,7 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
             return false;
         }
     },
-    
+
     /**
      * APIMethod: deactivate
      */
@@ -130,7 +130,7 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: draw
      * {DOMElement}
-     */    
+     */
     draw: function() {
         OpenLayers.Control.prototype.draw.apply(this, arguments);
 
@@ -139,12 +139,12 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
             this.div.top = "";
             this.element = this.div;
         }
-        
+
         return this.div;
     },
-   
+
     /**
-     * Method: redraw  
+     * Method: redraw
      */
     redraw: function(evt) {
 
@@ -163,18 +163,18 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
             }
 
             lonLat = this.map.getLonLatFromPixel(evt.xy);
-            if (!lonLat) { 
+            if (!lonLat) {
                 // map has not yet been properly initialized
                 return;
-            }    
+            }
             if (this.displayProjection) {
-                lonLat.transform(this.map.getProjectionObject(), 
+                lonLat.transform(this.map.getProjectionObject(),
                                  this.displayProjection );
-            }      
+            }
             this.lastXy = evt.xy;
-            
+
         }
-        
+
         var newHtml = this.formatOutput(lonLat);
 
         if (newHtml != this.element.innerHTML) {
@@ -203,7 +203,7 @@ OpenLayers.Control.MousePosition = OpenLayers.Class(OpenLayers.Control, {
         var newHtml =
             this.prefix +
             lonLat.lon.toFixed(digits) +
-            this.separator + 
+            this.separator +
             lonLat.lat.toFixed(digits) +
             this.suffix;
         return newHtml;

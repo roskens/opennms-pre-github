@@ -1,4 +1,4 @@
-// == link.js -- 
+// == link.js --
 
 Link.prototype = new SVGElement;
 Link.superclass = SVGElement.prototype;
@@ -7,21 +7,21 @@ function Link(id, typology, status, numberOfLinks, statusMap, mapElement1, mapEl
 {
 	if (arguments.length >= 8) {
 		var idSplitted = id.split("-");
-		
+
 		if(mapElement1.id==idSplitted[1]){
 			var tmp = mapElement1;
 			mapElement1=mapElement2;
 			mapElement2=tmp;
 		}
-		
+
 		this.typology=typology;
 		this.status=status;
 		this.animateTag = null;
 		this.id = id;
-		
+
 		this.mapElement1 = mapElement1;
 		this.mapElement2 = mapElement2;
-		
+
 		this.nodeids=nodeids;
 
 		this.numberOfLinks = numberOfLinks;
@@ -30,14 +30,14 @@ function Link(id, typology, status, numberOfLinks, statusMap, mapElement1, mapEl
 		this.stroke =stroke;
 		this.stroke_width=stroke.width;
 		this.dash_array = dash_array;
-		
+
 		this.totalLinks = totalLinks;
 		this.deltaLink = deltaLink;
 
 		var alfa = Math.atan((this.mapElement2.getY()-this.mapElement1.getY())/(this.mapElement2.getX()-this.mapElement1.getX()));
-		
+
 		var delta1,delta2;
-		
+
 		if (totalLinks%2 == 0) {
 			delta1 = -1*totalLinks*deltaLink/2/this.mapElement1.getRadius();
 			delta2 = -1*totalLinks*deltaLink/2/this.mapElement2.getRadius();
@@ -45,32 +45,32 @@ function Link(id, typology, status, numberOfLinks, statusMap, mapElement1, mapEl
 			delta1 = (totalLinks+1)*(deltaLink)/2/this.mapElement1.getRadius();
 			delta2 = (totalLinks+1)*(deltaLink)/2/this.mapElement2.getRadius();
 		}
-		
+
 		var x1,y1,x2,y2;
 		if ( this.mapElement2.getX() > this.mapElement1.getX() ) {
 			x1 = this.mapElement1.getCX()+(this.mapElement1.getRadius()*Math.cos(alfa+delta1));
 			y1 = this.mapElement1.getCY()+(this.mapElement1.getRadius()*Math.sin(alfa+delta1));
-	
+
 			x2 = this.mapElement2.getCX()-(this.mapElement2.getRadius()*Math.cos(alfa-delta2));
 			y2 = this.mapElement2.getCY()-(this.mapElement2.getRadius()*Math.sin(alfa-delta2));
 		} else 	if ( this.mapElement2.getX() == this.mapElement1.getX() && alfa < 0) {
 			x1 = this.mapElement1.getCX()+(this.mapElement1.getRadius()*Math.sin(delta1));
 			y1 = this.mapElement1.getCY()-(this.mapElement1.getRadius()*Math.cos(delta1));
-	
+
 			x2 = this.mapElement2.getCX()+(this.mapElement2.getRadius()*Math.sin(delta2));
 			y2 = this.mapElement2.getCY()+(this.mapElement2.getRadius()*Math.cos(delta2));
 		} else 	if ( this.mapElement2.getX() == this.mapElement1.getX() && alfa > 0) {
 			x1 = this.mapElement1.getCX()-(this.mapElement1.getRadius()*Math.sin(delta1));
 			y1 = this.mapElement1.getCY()+(this.mapElement1.getRadius()*Math.cos(delta1));
-	
+
 			x2 = this.mapElement2.getCX()-(this.mapElement2.getRadius()*Math.sin(delta2));
 			y2 = this.mapElement2.getCY()-(this.mapElement2.getRadius()*Math.cos(delta2));
 		} else {
 			x1 = this.mapElement1.getCX()-(this.mapElement1.getRadius()*Math.cos(alfa-delta1));
 			y1 = this.mapElement1.getCY()-(this.mapElement1.getRadius()*Math.sin(alfa-delta1));
-	
+
 			x2 = this.mapElement2.getCX()+(this.mapElement2.getRadius()*Math.cos(alfa+delta2));
-			y2 = this.mapElement2.getCY()+(this.mapElement2.getRadius()*Math.sin(alfa+delta2));			
+			y2 = this.mapElement2.getCY()+(this.mapElement2.getRadius()*Math.sin(alfa+delta2));
 		}
 
 		this.init(id, x1, x2, y1, y2, stroke, stroke_width, dash_array, flash);
@@ -83,12 +83,12 @@ function Link(id, typology, status, numberOfLinks, statusMap, mapElement1, mapEl
 Link.prototype.init = function(id, x1, x2, y1, y2, stroke, stroke_width, dash_array, flash)
 {
 	this.svgNode = document.createElementNS(svgNS,"g");
-	this.svgNode.setAttributeNS(null,"id", id);	
+	this.svgNode.setAttributeNS(null,"id", id);
 
 	this.line = document.createElementNS(svgNS,"line");
-	this.line.setAttributeNS(null,"id", id+"line");	
-	this.line.setAttributeNS(null,"x1", x1);	
-	this.line.setAttributeNS(null,"x2", x2);	
+	this.line.setAttributeNS(null,"id", id+"line");
+	this.line.setAttributeNS(null,"x1", x1);
+	this.line.setAttributeNS(null,"x2", x2);
 	this.line.setAttributeNS(null,"y1", y1);
 	this.line.setAttributeNS(null,"y2", y2);
 	this.line.setAttributeNS(null,"stroke", stroke);
@@ -102,10 +102,10 @@ Link.prototype.init = function(id, x1, x2, y1, y2, stroke, stroke_width, dash_ar
 	this.line.addEventListener("mouseover", this.onMouseOver, false);
 	this.line.addEventListener("mouseout", this.onMouseOut, false);
 	this.svgNode.appendChild(this.line);
-	
+
 	this.animateTag = document.createElementNS(svgNS,"animate");
-	this.animateTag.setAttributeNS(null,"attributeName", "stroke");	
-	this.animateTag.setAttributeNS(null,"from", stroke);	
+	this.animateTag.setAttributeNS(null,"attributeName", "stroke");
+	this.animateTag.setAttributeNS(null,"from", stroke);
 	this.animateTag.setAttributeNS(null,"to", "white");
 	this.animateTag.setAttributeNS(null,"dur", "0ms");
 	this.animateTag.setAttributeNS(null,"repeatCount", "indefinite");
@@ -158,14 +158,14 @@ Link.prototype.getFlash = function() {
 Link.prototype.setFlash = function(bool)
 {
 	this.flash=bool;
-	if (this.animateTag != null) 
+	if (this.animateTag != null)
 	{
 		var val;
 		if (bool)
 			val = "400ms";
 		else
 			val = "0";
-		
+
 		this.animateTag.setAttribute("dur", val);
 	}
 }
@@ -236,13 +236,13 @@ Link.prototype.update = function()
 		y1 = this.mapElement1.getCY()-(this.mapElement1.getRadius()*Math.sin(alfa-delta1));
 
 		x2 = this.mapElement2.getCX()+(this.mapElement2.getRadius()*Math.cos(alfa+delta2));
-		y2 = this.mapElement2.getCY()+(this.mapElement2.getRadius()*Math.sin(alfa+delta2));			
+		y2 = this.mapElement2.getCY()+(this.mapElement2.getRadius()*Math.sin(alfa+delta2));
 	}
 
-	this.line.setAttributeNS(null,"x1", x1);	
-	this.line.setAttributeNS(null,"x2", x2);	
+	this.line.setAttributeNS(null,"x1", x1);
+	this.line.setAttributeNS(null,"x2", x2);
 	this.line.setAttributeNS(null,"y1", y1);
-	this.line.setAttributeNS(null,"y2", y2);	
+	this.line.setAttributeNS(null,"y2", y2);
 }
 
 /*
@@ -261,7 +261,7 @@ Link.prototype.onRepeat = function(evt)
 		to = evt.getTarget().parentNode.getAttribute("stroke");
 	}
 	evt.getTarget().setAttribute("from", from);
-	evt.getTarget().setAttribute("to", to);	
+	evt.getTarget().setAttribute("to", to);
 }
 
 Link.prototype.onClick = onMouseDownOnLink;

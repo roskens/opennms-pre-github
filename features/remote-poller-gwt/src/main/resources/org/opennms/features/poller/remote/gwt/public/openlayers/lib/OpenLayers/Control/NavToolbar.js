@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -16,17 +16,17 @@
  *     use the zoomBox via a Panel control.
  *
  * If you wish to change the properties of the Navigation control used
- *     in the NavToolbar, see: 
- *     http://trac.openlayers.org/wiki/Toolbars#SubclassingNavToolbar 
- * 
- * 
+ *     in the NavToolbar, see:
+ *     http://trac.openlayers.org/wiki/Toolbars#SubclassingNavToolbar
+ *
+ *
  * Inherits from:
  *  - <OpenLayers.Control.Panel>
  */
 OpenLayers.Control.NavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
 
     /**
-     * Constructor: OpenLayers.Control.NavToolbar 
+     * Constructor: OpenLayers.Control.NavToolbar
      * Add our two mousedefaults controls.
      *
      * Parameters:
@@ -42,7 +42,7 @@ OpenLayers.Control.NavToolbar = OpenLayers.Class(OpenLayers.Control.Panel, {
     },
 
     /**
-     * Method: draw 
+     * Method: draw
      * calls the default draw, and then activates mouse defaults.
      */
     draw: function() {

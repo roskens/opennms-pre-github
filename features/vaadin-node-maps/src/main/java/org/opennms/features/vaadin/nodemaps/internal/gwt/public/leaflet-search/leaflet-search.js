@@ -14,7 +14,7 @@ L.Control.SearchMarker = L.Marker.extend({
 //and has new methods: .hide() .show() .setTitle() .animate()
 //TODO start L.Control.SearchMarker.animation after setView or panTo, maybe with map.on('moveend')...
 	includes: L.Mixin.Events,
-	
+
 	options: {
 		radius: 10,
 		weight: 3,
@@ -24,7 +24,7 @@ L.Control.SearchMarker = L.Marker.extend({
 		title: '',
 		marker: false	//show icon optional, show only circleLoc
 	},
-	
+
 	initialize: function (latlng, options) {
 		L.setOptions(this, options);
 		L.Marker.prototype.initialize.call(this, latlng, options);
@@ -36,13 +36,13 @@ L.Control.SearchMarker = L.Marker.extend({
 		this._circleLoc.addTo(map);
 		this.hide();
 	},
-	
+
 	setLatLng: function (latlng) {
 		L.Marker.prototype.setLatLng.call(this, latlng);
 		this._circleLoc.setLatLng(latlng);
 		return this;
 	},
-	
+
 	setTitle: function(title) {
 		this.options.title = title;
 		this._icon.title = title;
@@ -71,7 +71,7 @@ L.Control.SearchMarker = L.Marker.extend({
 			this._icon.style.display = 'none';
 		if(this._shadow)
 			this._shadow.style.display = 'none';
-		if(this._circleLoc)			
+		if(this._circleLoc)
 			this._circleLoc.setStyle({fill: false, stroke: false});
 		return this;
 	},
@@ -90,7 +90,7 @@ L.Control.SearchMarker = L.Marker.extend({
 			acc += 0.5;
 			mr += acc;	//adding acceleration
 			newrad -= mr;
-			
+
 			circle.setRadius(newrad);
 
 			if(newrad<oldrad)
@@ -99,10 +99,10 @@ L.Control.SearchMarker = L.Marker.extend({
 				circle.setRadius(circle.options.radius);//reset radius
 				//if(typeof afterAnimCall == 'function')
 					//afterAnimCall();
-					//TODO use create event animateEnd in L.Control.SearchMarker 
+					//TODO use create event animateEnd in L.Control.SearchMarker
 			}
 		}, tInt);
-		
+
 		return this;
 	 }
 });
@@ -110,7 +110,7 @@ L.Control.SearchMarker = L.Marker.extend({
 
 L.Control.Search = L.Control.extend({
 	includes: L.Mixin.Events,
-	
+
 	options: {
 		layer: null,				//layer where search markers
 		propertyName: 'title',		//property in marker.options trough filter elements in layer
@@ -130,7 +130,7 @@ L.Control.Search = L.Control.extend({
 		animateLocation: true,		//animate a circle over location found
 		markerLocation: false,		//draw a marker in location found
 		zoom: null,					//zoom after pan to location found, default: map.getZoom()
-		text: 'Search...',			//placeholder value	
+		text: 'Search...',			//placeholder value
 		textCancel: 'Cancel',		//title in cancel button
 		textErr: 'Location not found',	//error message
 		position: 'topleft'
@@ -152,11 +152,11 @@ L.Control.Search = L.Control.extend({
 		this._markerLoc = new L.Control.SearchMarker([0,0],{marker: this.options.markerLocation});
 		this._layer.addLayer(this._markerLoc);
 		this._layer.addTo(map);
-		
+
 		this._container = L.DomUtil.create('div', 'leaflet-control-search');
-		this._alert = this._createAlert('search-alert');		
+		this._alert = this._createAlert('search-alert');
 		this._input = this._createInput(this.options.text, 'search-input');
-		this._tooltip = this._createTooltip('search-tooltip');		
+		this._tooltip = this._createTooltip('search-tooltip');
 		this._cancel = this._createCancel(this.options.textCancel, 'search-cancel');
 		this._createButton(this.options.text, 'search-button');
 		return this._container;
@@ -165,7 +165,7 @@ L.Control.Search = L.Control.extend({
 	onRemove: function(map) {
 		this._recordsCache = {};
 	},
-	
+
 	showAlert: function(text) {
 		this._alert.style.display = 'block';
 		this._alert.innerHTML = text;
@@ -184,9 +184,9 @@ L.Control.Search = L.Control.extend({
 		this._cancel.style.display = 'none';
 	},
 
-	expand: function() {		
+	expand: function() {
 		this._input.style.display = 'block';
-		L.DomUtil.addClass(this._container, 'search-exp');	
+		L.DomUtil.addClass(this._container, 'search-exp');
 		this._input.focus();
 	},
 
@@ -196,11 +196,11 @@ L.Control.Search = L.Control.extend({
 		this._alert.style.display = 'none';
 		this._input.style.display = 'block';
 		this._cancel.style.display = 'none';
-		L.DomUtil.addClass(this._container, 'search-exp');		
+		L.DomUtil.addClass(this._container, 'search-exp');
 		this._markerLoc.hide();
 		this._input.focus();
 	},
-	
+
 	collapseDelayed: function() {	//collapse after delay, used on_input blur
 		var that = this;
 		this.timerCollapse = setTimeout(function() {
@@ -227,14 +227,14 @@ L.Control.Search = L.Control.extend({
 		input.autocomplete = 'off';
 		input.placeholder = text;
 		input.style.display = 'none';
-		
+
 		L.DomEvent
 			.on(input, 'keyup', this._handleKeypress, this)
 			.on(input, 'keydown', this._handleAutoresize, this);
 			//.on(input, 'click', input.focus());
 			//.on(input, 'blur', this.collapseDelayed, this)
 			//.on(input, 'focus', this.collapseDelayedStop, this);
-		
+
 		return input;
 	},
 
@@ -251,7 +251,7 @@ L.Control.Search = L.Control.extend({
 
 		return cancel;
 	},
-	
+
 	_createButton: function (title, className) {
 		var button = L.DomUtil.create('a', className, this._container);
 		button.href = '#';
@@ -293,13 +293,13 @@ L.Control.Search = L.Control.extend({
 		this._tooltip.currentSelection = -1;  //inizialized for _handleArrowSelect()
 
 		L.DomEvent
-			.disableClickPropagation(tip)		
+			.disableClickPropagation(tip)
 			.on(tip, 'click', L.DomEvent.stop, this)
 			.on(tip, 'click', function(e) {
 				this._input.value = text;
 				this._input.focus();
 				this._hideTooltip();
-				this._handleAutoresize();	
+				this._handleAutoresize();
 				if(this.options.tipAutoSubmit)//go to location at once
 					this._handleSubmit();
 			}, this);
@@ -308,7 +308,7 @@ L.Control.Search = L.Control.extend({
 	},
 
 //////end DOM creations
-	
+
 	_showTooltip: function() {	//Filter this._recordsCache with this._input.values and show tooltip
 
 		if(this._input.value.length < this.options.minLength)
@@ -319,7 +319,7 @@ L.Control.Search = L.Control.extend({
 			I = this.options.initial ? '^' : '',  //search for initial text
 			regSearch = new RegExp(I + text,'i'),	//for search in _recordsCache
 			ntip = 0;
-		
+
 		this._tooltip.innerHTML = '';
 
 		for(var key in this._recordsCache)
@@ -331,7 +331,7 @@ L.Control.Search = L.Control.extend({
 				ntip++;
 			//}
 		}
-		
+
 		if(ntip > 0)
 		{
 			this._tooltip.style.display = 'block';
@@ -364,15 +364,15 @@ L.Control.Search = L.Control.extend({
 		//TODO use: throw new Error("my message");on error
 		return jsonret;
 	},
-	
+
 	_recordsFromJsonp: function(text, callAfter) {  //extract searched records from remote jsonp service
-		
+
 		var that = this;
 		L.Control.Search.callJsonp = function(data) {	//jsonp callback
 			var fdata = that._filterJSON.apply(that,[data]);//defined in inizialize...
 			callAfter(fdata);
 		}
-		var script = L.DomUtil.create('script','search-jsonp', document.getElementsByTagName('body')[0] ),			
+		var script = L.DomUtil.create('script','search-jsonp', document.getElementsByTagName('body')[0] ),
 			url = L.Util.template(this.options.jsonpUrl, {s: text, c:"L.Control.Search.callJsonp"});
 			//parsing url
 			//rnd = '&_='+Math.floor(Math.random()*10000);
@@ -385,30 +385,30 @@ L.Control.Search = L.Control.extend({
 	_recordsFromLayer: function() {	//return table: key,value from layer
 		var retRecords = {},
 			propname = this.options.propertyName;
-		
+
 		//TODO bind _recordsFromLayer to map events: layeradd layerremove update ecc
 		//TODO implement filter by element type: marker|polyline|circle...
 		//TODO caching retRecords while layerSearch not change, controlling on 'load' event
 		//TODO return also marker! in _recordsFromLayer
-		
+
 		this._layer.eachLayer(function(marker) {
 			if(marker.options.hasOwnProperty(propname) && marker.options[propname])
 				retRecords[ marker.options[propname] ] = marker.getLatLng();
 		},this);
-		
+
 		return retRecords;
 	},
 
 	_autoType: function() {
-		
+
 		var start = this._input.value.length,
 			firstRecord = this._tooltip.getElementsByTagName('a')[0].innerHTML,
 			//FIXME _autoType find a way without innerHTML that also guarantees correct order (application developer may want images in tooltip)
 			end = firstRecord.length;
-			
+
 		this._input.value = firstRecord;
 		this._handleAutoresize();
-		
+
 		if (this._input.createTextRange) {
 			var selRange = this._input.createTextRange();
 			selRange.collapse(true);
@@ -460,27 +460,27 @@ L.Control.Search = L.Control.extend({
 				if(this._input.value.length >= this.options.minLength)
 				{
 					var that = this;
-					clearTimeout(this.timerKeypress);	//cancel last search request while type in				
+					clearTimeout(this.timerKeypress);	//cancel last search request while type in
 					this.timerKeypress = setTimeout(function() {	//delay before request, for limit jsonp/ajax request
 
 						that._fillRecordsCache();
-					
+
 					}, this._delayType);
 				}
 				else
 					this._hideTooltip();
 		}
 	},
-	
+
 	_fillRecordsCache: function() {
-	
+
 		var inputText = this._input.value;
 
 //TODO important optimization!!! always append data in this._recordsCache
 //now _recordsCache content is emptied and replaced with new data founded
 //always appending data on _recordsCache give the possibility of caching ajax, jsonp and layersearch!
-		
-		//TODO here insert function that search inputText FIRST in _recordsCache keys and if not find results.. 
+
+		//TODO here insert function that search inputText FIRST in _recordsCache keys and if not find results..
 		//run one of callbacks search(searchCall,jsonpUrl or options.layer)
 		//and run this._showTooltip
 
@@ -510,12 +510,12 @@ L.Control.Search = L.Control.extend({
 		}
 		else if(this.options.layer)	//SEARCH ELEMENTS IN PRELOADED LAYER
 		{
-			this._recordsCache = this._recordsFromLayer();	//fill table key,value from markers into layer				
+			this._recordsCache = this._recordsFromLayer();	//fill table key,value from markers into layer
 			this._showTooltip();
 			L.DomUtil.removeClass(this._container, 'search-load');
 		}
 	},
-	
+
 	//FIXME _handleAutoresize Should resize max search box size when map is resized.
 	_handleAutoresize: function() {	//autoresize this._input
 	//TODO refact _handleAutoresize now is not accurate
@@ -524,13 +524,13 @@ L.Control.Search = L.Control.extend({
 	},
 
 	_handleArrowSelect: function(velocity) {
-	
+
 		var searchTips = this._tooltip.getElementsByTagName('a');
-		
+
 		for (i=0; i<searchTips.length; i++) {	// Erase all highlighting
 			L.DomUtil.removeClass(searchTips[i], 'search-tip-select');
 		}
-		
+
 		if ((velocity == 1 ) && (this._tooltip.currentSelection >= (searchTips.length - 1))) {// If at end of list.
 			L.DomUtil.addClass(searchTips[this._tooltip.currentSelection], 'search-tip-select');
 		}
@@ -539,14 +539,14 @@ L.Control.Search = L.Control.extend({
 		}
 		else if (this._tooltip.style.display != 'none') { // regular up/down
 			this._tooltip.currentSelection += velocity;
-			
+
 			L.DomUtil.addClass(searchTips[this._tooltip.currentSelection], 'search-tip-select');
-			
+
 			this._input.value = searchTips[this._tooltip.currentSelection].innerHTML;
 
 			// scroll:
 			var tipOffsetTop = searchTips[this._tooltip.currentSelection].offsetTop;
-			
+
 			if (tipOffsetTop + searchTips[this._tooltip.currentSelection].clientHeight >= this._tooltip.scrollTop + this._tooltip.clientHeight) {
 				this._tooltip.scrollTop = tipOffsetTop - this._tooltip.clientHeight + searchTips[this._tooltip.currentSelection].clientHeight;
 			}
@@ -586,7 +586,7 @@ L.Control.Search = L.Control.extend({
 //		}
 		this._input.focus();	//block collapseDelayed after _button blur
 	},
-	
+
 	_animateCircle: function(circle, afterAnimCall) {
 	//TODO refact _animateCircle more smooth!
 
@@ -600,7 +600,7 @@ L.Control.Search = L.Control.extend({
 			acc += 0.5;
 			mr += acc;	//adding acceleration
 			newrad -= mr;
-			
+
 			circle.setRadius(newrad);
 
 			if(newrad<2)//stop animation
@@ -612,13 +612,13 @@ L.Control.Search = L.Control.extend({
 			}
 		}, tInt);
 	},
-	
+
 	_findLocation: function(text) {	//get location from table _recordsCache and pan to map!
-	
+
 		if( this._recordsCache.hasOwnProperty(text) )
 		{
 			var newCenter = this._recordsCache[text];//search in table key,value
-			
+
 			if(this.options.zoom)
 				this._map.setView(newCenter, this.options.zoom);
 			else
@@ -629,7 +629,7 @@ L.Control.Search = L.Control.extend({
 			this._markerLoc.show();
 			if(this.options.animateLocation)
 				this._markerLoc.animate();
-			
+
 			//FIXME autoCollapse option hide this._markerLoc before that visualized!!
 //			if(this.options.autoCollapse)
 //				this.collapse();
@@ -639,7 +639,7 @@ L.Control.Search = L.Control.extend({
 //		else
 //			this._markerLoc.hide();//remove this._circleLoc, this._markerLoc from map
 //maybe needless
-		
+
 		return false;
 	}
 });

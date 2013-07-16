@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,9 +9,9 @@
 
 /**
  * Class: OpenLayers.Format.ArcXML.Features
- * Read/Wite ArcXML features. Create a new instance with the 
+ * Read/Wite ArcXML features. Create a new instance with the
  *     <OpenLayers.Format.ArcXML.Features> constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
@@ -26,14 +26,14 @@ OpenLayers.Format.ArcXML.Features = OpenLayers.Class(OpenLayers.Format.XML, {
      * options - {Object} An optional object whose properties will be set on
      *     this instance.
      */
-    initialize: function(options) {     
+    initialize: function(options) {
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * APIMethod: read
-     * Read data from a string of ArcXML, and return a set of OpenLayers features. 
-     * 
+     * Read data from a string of ArcXML, and return a set of OpenLayers features.
+     *
      * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
@@ -43,7 +43,7 @@ OpenLayers.Format.ArcXML.Features = OpenLayers.Class(OpenLayers.Format.XML, {
     read: function(data) {
         var axl = new OpenLayers.Format.ArcXML();
         var parsed = axl.read(data);
-        
+
         return parsed.features.feature;
     }
 });

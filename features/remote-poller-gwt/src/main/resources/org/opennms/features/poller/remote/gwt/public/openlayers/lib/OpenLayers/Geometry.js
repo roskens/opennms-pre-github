@@ -1,8 +1,8 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
- 
+
 /**
  * @requires OpenLayers/Format/WKT.js
  * @requires OpenLayers/Feature/Vector.js
@@ -30,19 +30,19 @@ OpenLayers.Geometry = OpenLayers.Class({
     parent: null,
 
     /**
-     * Property: bounds 
+     * Property: bounds
      * {<OpenLayers.Bounds>} The bounds of this geometry
      */
     bounds: null,
 
     /**
      * Constructor: OpenLayers.Geometry
-     * Creates a geometry object.  
+     * Creates a geometry object.
      */
     initialize: function() {
         this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME+ "_");
     },
-    
+
     /**
      * Method: destroy
      * Destroy this geometry.
@@ -51,31 +51,31 @@ OpenLayers.Geometry = OpenLayers.Class({
         this.id = null;
         this.bounds = null;
     },
-    
+
     /**
      * APIMethod: clone
      * Create a clone of this geometry.  Does not set any non-standard
      *     properties of the cloned geometry.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Geometry>} An exact clone of this geometry.
      */
     clone: function() {
         return new OpenLayers.Geometry();
     },
-    
+
     /**
      * Set the bounds for this Geometry.
-     * 
+     *
      * Parameters:
-     * object - {<OpenLayers.Bounds>} 
+     * object - {<OpenLayers.Bounds>}
      */
     setBounds: function(bounds) {
         if (bounds) {
             this.bounds = bounds.clone();
         }
     },
-    
+
     /**
      * Method: clearBounds
      * Nullify this components bounds and that of its parent as well.
@@ -84,16 +84,16 @@ OpenLayers.Geometry = OpenLayers.Class({
         this.bounds = null;
         if (this.parent) {
             this.parent.clearBounds();
-        }    
+        }
     },
-    
+
     /**
      * Method: extendBounds
-     * Extend the existing bounds to include the new bounds. 
+     * Extend the existing bounds to include the new bounds.
      * If geometry's bounds is not yet set, then set a new Bounds.
-     * 
+     *
      * Parameters:
-     * newBounds - {<OpenLayers.Bounds>} 
+     * newBounds - {<OpenLayers.Bounds>}
      */
     extendBounds: function(newBounds){
         var bounds = this.getBounds();
@@ -103,12 +103,12 @@ OpenLayers.Geometry = OpenLayers.Class({
             this.bounds.extend(newBounds);
         }
     },
-    
+
     /**
      * APIMethod: getBounds
-     * Get the bounds for this Geometry. If bounds is not set, it 
+     * Get the bounds for this Geometry. If bounds is not set, it
      * is calculated again, this makes queries faster.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Bounds>}
      */
@@ -118,17 +118,17 @@ OpenLayers.Geometry = OpenLayers.Class({
         }
         return this.bounds;
     },
-    
-    /** 
+
+    /**
      * APIMethod: calculateBounds
-     * Recalculate the bounds for the geometry. 
+     * Recalculate the bounds for the geometry.
      */
     calculateBounds: function() {
         //
         // This should be overridden by subclasses.
         //
     },
-    
+
     /**
      * APIMethod: distanceTo
      * Calculate the closest distance between two geometries (on the x-y plane).
@@ -139,7 +139,7 @@ OpenLayers.Geometry = OpenLayers.Class({
      *     calculation.
      *
      * Valid options depend on the specific geometry type.
-     * 
+     *
      * Returns:
      * {Number | Object} The distance between this geometry and the target.
      *     If details is true, the return will be an object with distance,
@@ -150,7 +150,7 @@ OpenLayers.Geometry = OpenLayers.Class({
      */
     distanceTo: function(geometry, options) {
     },
-    
+
     /**
      * APIMethod: getVertices
      * Return a list of all points in this geometry.
@@ -169,14 +169,14 @@ OpenLayers.Geometry = OpenLayers.Class({
 
     /**
      * Method: atPoint
-     * Note - This is only an approximation based on the bounds of the 
+     * Note - This is only an approximation based on the bounds of the
      * geometry.
-     * 
+     *
      * Parameters:
-     * lonlat - {<OpenLayers.LonLat>} 
+     * lonlat - {<OpenLayers.LonLat>}
      * toleranceLon - {float} Optional tolerance in Geometric Coords
      * toleranceLat - {float} Optional tolerance in Geographic Coords
-     * 
+     *
      * Returns:
      * {Boolean} Whether or not the geometry is at the specified location
      */
@@ -187,8 +187,8 @@ OpenLayers.Geometry = OpenLayers.Class({
 
             var dX = (toleranceLon != null) ? toleranceLon : 0;
             var dY = (toleranceLat != null) ? toleranceLat : 0;
-    
-            var toleranceBounds = 
+
+            var toleranceBounds =
                 new OpenLayers.Bounds(this.bounds.left - dX,
                                       this.bounds.bottom - dY,
                                       this.bounds.right + dX,
@@ -198,12 +198,12 @@ OpenLayers.Geometry = OpenLayers.Class({
         }
         return atPoint;
     },
-    
+
     /**
      * Method: getLength
      * Calculate the length of this geometry. This method is defined in
      * subclasses.
-     * 
+     *
      * Returns:
      * {Float} The length of the collection by summing its parts
      */
@@ -216,7 +216,7 @@ OpenLayers.Geometry = OpenLayers.Class({
     /**
      * Method: getArea
      * Calculate the area of this geometry. This method is defined in subclasses.
-     * 
+     *
      * Returns:
      * {Float} The area of the collection by summing its parts
      */
@@ -225,7 +225,7 @@ OpenLayers.Geometry = OpenLayers.Class({
         //
         return 0.0;
     },
-    
+
     /**
      * APIMethod: getCentroid
      * Calculate the centroid of this geometry. This method is defined in subclasses.
@@ -283,7 +283,7 @@ OpenLayers.Geometry.fromWKT = function(wkt) {
     }
     return geom;
 };
-    
+
 /**
  * Method: OpenLayers.Geometry.segmentsIntersect
  * Determine whether two line segments intersect.  Optionally calculates
@@ -382,7 +382,7 @@ OpenLayers.Geometry.segmentsIntersect = function(seg1, seg2, options) {
                         }
                     }
                 }
-                
+
             }
         } else {
             // no calculated intersection, but segments could be within

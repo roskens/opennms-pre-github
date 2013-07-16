@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,7 +10,7 @@
 /**
  * Class: OpenLayers.Control.MouseDefaults
  * This class is DEPRECATED in 2.4 and will be removed by 3.0.
- * If you need this functionality, use <OpenLayers.Control.Navigation> 
+ * If you need this functionality, use <OpenLayers.Control.Navigation>
  * instead!!!
  *
  * This class is DEPRECATED in 2.4 and will be removed by 3.0.
@@ -25,19 +25,19 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
         This class is DEPRECATED in 2.4 and will be removed by 3.0.
         If you need this functionality, use Control.Navigation instead!!! */
 
-    /** 
+    /**
      * Property: performedDrag
      * {Boolean}
      */
     performedDrag: false,
 
-    /** 
-     * Property: wheelObserver 
+    /**
+     * Property: wheelObserver
      * {Function}
      */
     wheelObserver: null,
 
-    /** 
+    /**
      * Constructor: OpenLayers.Control.MouseDefaults
      */
     initialize: function() {
@@ -46,9 +46,9 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIMethod: destroy
-     */    
+     */
     destroy: function() {
-        
+
         if (this.handler) {
             this.handler.destroy();
         }
@@ -65,15 +65,15 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
         });
 
         //unregister mousewheel events specifically on the window and document
-        OpenLayers.Event.stopObserving(window, "DOMMouseScroll", 
+        OpenLayers.Event.stopObserving(window, "DOMMouseScroll",
                                         this.wheelObserver);
-        OpenLayers.Event.stopObserving(window, "mousewheel", 
+        OpenLayers.Event.stopObserving(window, "mousewheel",
                                         this.wheelObserver);
-        OpenLayers.Event.stopObserving(document, "mousewheel", 
+        OpenLayers.Event.stopObserving(document, "mousewheel",
                                         this.wheelObserver);
         this.wheelObserver = null;
-                      
-        OpenLayers.Control.prototype.destroy.apply(this, arguments);        
+
+        OpenLayers.Control.prototype.destroy.apply(this, arguments);
     },
 
     /**
@@ -102,7 +102,7 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
         this.wheelObserver = OpenLayers.Function.bindAsEventListener(
             this.onWheelEvent, this
         );
-        
+
         //register mousewheel events specifically on the window and document
         OpenLayers.Event.observe(window, "DOMMouseScroll", this.wheelObserver);
         OpenLayers.Event.observe(window, "mousewheel", this.wheelObserver);
@@ -111,9 +111,9 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: defaultClick
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      *
      * Returns:
      * {Boolean}
@@ -129,12 +129,12 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: defaultDblClick
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultDblClick: function (evt) {
-        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy ); 
+        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy );
         this.map.setCenter(newCenter, this.map.zoom + 1);
         OpenLayers.Event.stop(evt);
         return false;
@@ -142,9 +142,9 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: defaultMouseDown
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultMouseDown: function (evt) {
         if (!OpenLayers.Event.isLeftClick(evt)) {
@@ -175,7 +175,7 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
      * Method: defaultMouseMove
      *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultMouseMove: function (evt) {
         // record the mouse position, used in onWheelEvent
@@ -199,7 +199,7 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
                 var size = this.map.getSize();
                 var newXY = new OpenLayers.Pixel(size.w / 2 + deltaX,
                                                  size.h / 2 + deltaY);
-                var newCenter = this.map.getLonLatFromViewPortPx( newXY ); 
+                var newCenter = this.map.getLonLatFromViewPortPx( newXY );
                 this.map.setCenter(newCenter, null, true);
                 this.mouseDragStart = evt.xy.clone();
                 this.map.div.style.cursor = "move";
@@ -210,16 +210,16 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: defaultMouseUp
-     * 
+     *
      * Parameters:
-     * evt - {<OpenLayers.Event>} 
+     * evt - {<OpenLayers.Event>}
      */
     defaultMouseUp: function (evt) {
         if (!OpenLayers.Event.isLeftClick(evt)) {
             return;
         }
         if (this.zoomBox) {
-            this.zoomBoxEnd(evt);    
+            this.zoomBoxEnd(evt);
         } else {
             if (this.performedDrag) {
                 this.map.setCenter(this.map.center);
@@ -232,12 +232,12 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: defaultMouseOut
-     * 
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultMouseOut: function (evt) {
-        if (this.mouseDragStart != null && 
+        if (this.mouseDragStart != null &&
             OpenLayers.Util.mouseLeft(evt, this.map.div)) {
             if (this.zoomBox) {
                 this.removeZoomBox();
@@ -247,10 +247,10 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
     },
 
 
-    /** 
+    /**
      * Method: defaultWheelUp
      * User spun scroll wheel up
-     * 
+     *
      */
     defaultWheelUp: function(evt) {
         if (this.map.getZoom() <= this.map.getNumZoomLevels()) {
@@ -272,13 +272,13 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * Method: zoomBoxEnd
-     * Zoombox function. 
+     * Zoombox function.
      */
     zoomBoxEnd: function(evt) {
         if (this.mouseDragStart != null) {
-            if (Math.abs(this.mouseDragStart.x - evt.xy.x) > 5 ||    
-                Math.abs(this.mouseDragStart.y - evt.xy.y) > 5) {   
-                var start = this.map.getLonLatFromViewPortPx( this.mouseDragStart ); 
+            if (Math.abs(this.mouseDragStart.x - evt.xy.x) > 5 ||
+                Math.abs(this.mouseDragStart.y - evt.xy.y) > 5) {
+                var start = this.map.getLonLatFromViewPortPx( this.mouseDragStart );
                 var end = this.map.getLonLatFromViewPortPx( evt.xy );
                 var top = Math.max(start.lat, end.lat);
                 var bottom = Math.min(start.lat, end.lat);
@@ -292,7 +292,7 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
                   (end.lon),
                   (end.lat)
                  ), this.map.getZoom() + 1);
-            }    
+            }
             this.removeZoomBox();
        }
     },
@@ -316,11 +316,11 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
      * Method: onWheelEvent
      * Catch the wheel event and handle it xbrowserly
      *
-     * Parameters: 
-     * e - {Event} 
+     * Parameters:
+     * e - {Event}
      */
     onWheelEvent: function(e){
-    
+
         // first determine whether or not the wheeling was inside the map
         var inMap = false;
         var elem = OpenLayers.Event.element(e);
@@ -331,15 +331,15 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
             }
             elem = elem.parentNode;
         }
-        
+
         if (inMap) {
-            
+
             var delta = 0;
             if (!e) {
                 e = window.event;
             }
             if (e.wheelDelta) {
-                delta = e.wheelDelta/120; 
+                delta = e.wheelDelta/120;
                 if (window.opera && window.opera.version() < 9.2) {
                     delta = -delta;
                 }
@@ -358,7 +358,7 @@ OpenLayers.Control.MouseDefaults = OpenLayers.Class(OpenLayers.Control, {
                    this.defaultWheelUp(e);
                 }
             }
-            
+
             //only wheel the map, not the window
             OpenLayers.Event.stop(e);
         }

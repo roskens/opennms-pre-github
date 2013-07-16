@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -26,7 +26,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
      *     send a list of strings corresponding to the geometry class names.
      */
     geometryTypes: null,
-    
+
     /**
      * APIProperty: onStart
      * {Function} Define this function if you want to know when a drag starts.
@@ -71,13 +71,13 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
      *     mouse cursor leaves the map viewport. Default is false.
      */
     documentDrag: false,
-    
+
     /**
      * Property: layer
      * {<OpenLayers.Layer.Vector>}
      */
     layer: null,
-    
+
     /**
      * Property: feature
      * {<OpenLayers.Feature.Vector>}
@@ -95,7 +95,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
      * {Object} The functions that are sent to the feature handler for callback.
      */
     featureCallbacks: {},
-    
+
     /**
      * Property: lastPixel
      * {<OpenLayers.Pixel>}
@@ -136,7 +136,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
             )
         };
     },
-    
+
     /**
      * APIMethod: destroy
      * Take care of things that are not handled in superclass
@@ -149,7 +149,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIMethod: activate
      * Activate the control and the feature handler.
-     * 
+     *
      * Returns:
      * {Boolean} Successfully activated the control and feature handler.
      */
@@ -161,7 +161,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIMethod: deactivate
      * Deactivate the control and all handlers.
-     * 
+     *
      * Returns:
      * {Boolean} Successfully deactivated the control.
      */
@@ -217,7 +217,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
      * Method: moveFeature
      * Called when the drag handler detects a mouse-move.  Also calls the
      *     optional onDrag method.
-     * 
+     *
      * Parameters:
      * pixel - {<OpenLayers.Pixel>} Location of the mouse event.
      */
@@ -233,7 +233,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Method: upFeature
      * Called when the drag handler detects a mouse-up.
-     * 
+     *
      * Parameters:
      * pixel - {<OpenLayers.Pixel>} Location of the mouse event.
      */
@@ -276,7 +276,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
             }
         }
     },
-        
+
     /**
      * Method: cancel
      * Called when the drag handler detects a mouse-out (from the map viewport).
@@ -290,7 +290,7 @@ OpenLayers.Control.DragFeature = OpenLayers.Class(OpenLayers.Control, {
      * Method: setMap
      * Set the map property for the control and all handlers.
      *
-     * Parameters: 
+     * Parameters:
      * map - {<OpenLayers.Map>} The control's map.
      */
     setMap: function(map) {

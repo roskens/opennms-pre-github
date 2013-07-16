@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,14 +10,14 @@
 /**
  * Class: OpenLayers.Strategy.Refresh
  * A strategy that refreshes the layer. By default the strategy waits for a
- *     call to <refresh> before refreshing.  By configuring the strategy with 
+ *     call to <refresh> before refreshing.  By configuring the strategy with
  *     the <interval> option, refreshing can take place automatically.
  *
  * Inherits from:
  *  - <OpenLayers.Strategy>
  */
 OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
-    
+
     /**
      * Property: force
      * {Boolean} Force a refresh on the layer. Default is false.
@@ -26,11 +26,11 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
 
     /**
      * Property: interval
-     * {Number} Auto-refresh. Default is 0.  If > 0, layer will be refreshed 
+     * {Number} Auto-refresh. Default is 0.  If > 0, layer will be refreshed
      *     every N milliseconds.
      */
     interval: 0,
-    
+
     /**
      * Property: timer
      * {Number} The id of the timer.
@@ -48,11 +48,11 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
     initialize: function(options) {
         OpenLayers.Strategy.prototype.initialize.apply(this, [options]);
     },
-   
+
     /**
      * APIMethod: activate
      * Activate the strategy. Register any listeners, do appropriate setup.
-     * 
+     *
      * Returns:
      * {Boolean} True if the strategy was successfully activated.
      */
@@ -61,7 +61,7 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
         if(activated) {
             if(this.layer.visibility === true) {
                 this.start();
-            } 
+            }
             this.layer.events.on({
                 "visibilitychanged": this.reset,
                 scope: this
@@ -69,12 +69,12 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return activated;
     },
-    
+
     /**
      * APIMethod: deactivate
      * Deactivate the strategy. Unregister any listeners, do appropriate
      *     tear-down.
-     * 
+     *
      * Returns:
      * {Boolean} True if the strategy was successfully deactivated.
      */
@@ -85,10 +85,10 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
         }
         return deactivated;
     },
-    
+
     /**
      * Method: reset
-     * Start or cancel the refresh interval depending on the visibility of 
+     * Start or cancel the refresh interval depending on the visibility of
      *     the layer.
      */
     reset: function() {
@@ -98,13 +98,13 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
             this.stop();
         }
     },
-    
+
     /**
      * Method: start
-     * Start the refresh interval. 
+     * Start the refresh interval.
      */
     start: function() {
-        if(this.interval && typeof this.interval === "number" && 
+        if(this.interval && typeof this.interval === "number" &&
             this.interval > 0) {
 
             this.timer = window.setInterval(
@@ -112,22 +112,22 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
                 this.interval);
         }
     },
-    
+
     /**
      * APIMethod: refresh
      * Tell the strategy to refresh which will refresh the layer.
      */
     refresh: function() {
-        if (this.layer && this.layer.refresh && 
+        if (this.layer && this.layer.refresh &&
             typeof this.layer.refresh == "function") {
 
             this.layer.refresh({force: this.force});
         }
     },
-   
+
     /**
      * Method: stop
-     * Cancels the refresh interval. 
+     * Cancels the refresh interval.
      */
     stop: function() {
         if(this.timer !== null) {
@@ -135,6 +135,6 @@ OpenLayers.Strategy.Refresh = OpenLayers.Class(OpenLayers.Strategy, {
             this.timer = null;
         }
     },
-    
-    CLASS_NAME: "OpenLayers.Strategy.Refresh" 
+
+    CLASS_NAME: "OpenLayers.Strategy.Refresh"
 });

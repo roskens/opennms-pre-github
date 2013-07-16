@@ -123,9 +123,9 @@ function mapApp(adjustVBonWindowResize,resizeCallbackFunction) {
 	this.radioButtonGroups = new Array();
 	this.tabgroups = new Array();
 	this.textboxes = new Array();
-	this.buttons = new Array();	
-	this.selectionLists = new Array();	
-	this.comboboxes = new Array();	
+	this.buttons = new Array();
+	this.selectionLists = new Array();
+	this.comboboxes = new Array();
 	this.sliders = new Array();
 	this.scrollbars = new Array();
 	this.colourPickers = new Array();
@@ -190,7 +190,7 @@ mapApp.prototype.calcCoord = function(evt,ctmNode) {
 			var matrix = getTransformToRootElement(ctmNode);
 		}
 		else {
-			var matrix = getTransformToRootElement(evt.target);			
+			var matrix = getTransformToRootElement(evt.target);
 		}
   		svgPoint = svgPoint.matrixTransform(matrix.inverse().multiply(this.m));
 	}
@@ -200,7 +200,7 @@ mapApp.prototype.calcCoord = function(evt,ctmNode) {
 			var matrix = ctmNode.getScreenCTM();
 		}
 		else {
-			var matrix = evt.target.getScreenCTM();		
+			var matrix = evt.target.getScreenCTM();
 		}
   	svgPoint = svgPoint.matrixTransform(matrix.inverse());
 	}
@@ -227,7 +227,7 @@ mapApp.prototype.initTooltips = function(groupId,tooltipTextAttribs,tooltipRectA
 		this.tooltipTextAttribs = tooltipTextAttribs;
 		if (!this.tooltipTextAttribs["font-size"]) {
 			this.tooltipTextAttribs["font-size"] = 12;
-		}	
+		}
 		this.tooltipRectAttribs = tooltipRectAttribs;
 		this.xOffset = xOffset;
 		this.yOffset = yOffset;
@@ -266,7 +266,7 @@ mapApp.prototype.initTooltips = function(groupId,tooltipTextAttribs,tooltipRectA
 		}
 	}
 	else {
-			alert("Error in method 'initTooltips': wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");			
+			alert("Error in method 'initTooltips': wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");
 	}
 }
 
@@ -283,12 +283,12 @@ mapApp.prototype.addTooltip = function(tooltipNode,tooltipTextvalue,followmouse,
 				tooltipNode.setAttributeNS(attribNS,"tooltip",tooltipTextvalue);
 			}
 			else {
-				tooltipNode.setAttributeNS(attribNS,"tooltip","Tooltip");			
+				tooltipNode.setAttributeNS(attribNS,"tooltip","Tooltip");
 			}
 		}
 		//see if we need updates
 		if (checkForUpdates) {
-			tooltipNode.setAttributeNS(attribNS,"tooltipUpdates","true");		
+			tooltipNode.setAttributeNS(attribNS,"tooltipUpdates","true");
 		}
 		//see if we have to use evt.target
 		if (targetOrCurrentTarget == "target") {
@@ -306,7 +306,7 @@ mapApp.prototype.addTooltip = function(tooltipNode,tooltipTextvalue,followmouse,
 		}
 	}
 	else {
-		alert("Error in method 'addTooltip()': wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");			
+		alert("Error in method 'addTooltip()': wrong nr of arguments! You have to pass over "+nrArguments+" parameters.");
 	}
 }
 
@@ -322,7 +322,7 @@ mapApp.prototype.displayTooltip = function(evt) {
 		this.toolTipGroup.setAttributeNS(null,"visibility","hidden");
 	}
 	if (evt.type == "mousemove") {
-		this.toolTipGroup.setAttributeNS(null,"transform","translate("+(coords.x+this.xOffset)+","+(coords.y+this.yOffset)+")");		
+		this.toolTipGroup.setAttributeNS(null,"transform","translate("+(coords.x+this.xOffset)+","+(coords.y+this.yOffset)+")");
 		if (curEl.hasAttributeNS(attribNS,"tooltipUpdates")) {
 			this.updateTooltip(evt);
 		}
@@ -364,10 +364,10 @@ mapApp.prototype.updateTooltip = function(evt) {
 		this.tooltipRect.setAttributeNS(null,"x",bbox.x-this.padding);
 		this.tooltipRect.setAttributeNS(null,"y",bbox.y-this.padding);
 		this.tooltipRect.setAttributeNS(null,"width",bbox.width+this.padding*2);
-		this.tooltipRect.setAttributeNS(null,"height",bbox.height+this.padding*2);	
+		this.tooltipRect.setAttributeNS(null,"height",bbox.height+this.padding*2);
 	}
 	else {
-		this.toolTipGroup.setAttributeNS(null,"visibility","hidden");	
+		this.toolTipGroup.setAttributeNS(null,"visibility","hidden");
 	}
 }
 
@@ -413,7 +413,7 @@ function ViewBox(svgNode) {
 ViewBox.prototype.init = function(svgNode) {
     var viewBox = svgNode.getAttributeNS(null, "viewBox");
     var preserveAspectRatio = svgNode.getAttributeNS(null, "preserveAspectRatio");
-    
+
     if ( viewBox != "" ) {
         var params = viewBox.split(/\s*,\s*|\s+/);
 
@@ -427,7 +427,7 @@ ViewBox.prototype.init = function(svgNode) {
         this.width  = innerWidth;
         this.height = innerHeight;
     }
-    
+
     this.setPAR(preserveAspectRatio);
     var dummy = this.getTM(); //to initialize this.windowWidth/this.windowHeight
 };
@@ -505,7 +505,7 @@ ViewBox.prototype.getTM = function() {
                 x_trans = -x_diff/2;
             else if ( this.alignX == "Max" )
                 x_trans = -x_diff;
-            
+
             matrix = matrix.translate(x_trans, 0);
             matrix = matrix.scale( y_ratio );
         }
@@ -519,7 +519,7 @@ ViewBox.prototype.getTM = function() {
                 y_trans = -y_diff/2;
             else if ( this.alignY == "Max" )
                 y_trans = -y_diff;
-            
+
             matrix = matrix.translate(0, y_trans);
             matrix = matrix.scale( x_ratio );
         }

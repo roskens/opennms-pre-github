@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,21 +9,21 @@
 
 /**
  * Class: OpenLayers.Format.OWSContext
- * Read and write OWS Context documents. OWS Context documents are a 
- * preliminary OGC (Open Geospatial Consortium) standard for storing the 
+ * Read and write OWS Context documents. OWS Context documents are a
+ * preliminary OGC (Open Geospatial Consortium) standard for storing the
  * state of a web mapping application. In a way it is the successor to
  * Web Map Context (WMC), since it is more generic and more types of layers
  * can be stored. Also, nesting of layers is supported since version 0.3.1.
  * For more information see: http://www.ogcnetwork.net/context
  */
 OpenLayers.Format.OWSContext = OpenLayers.Class(OpenLayers.Format.Context,{
-    
+
     /**
      * APIProperty: defaultVersion
      * {String} Version number to assume if none found.  Default is "0.3.1".
      */
     defaultVersion: "0.3.1",
-    
+
     /**
      * Method: getParser
      * Get the OWSContext parser given a version. Create a new parser if it does not
@@ -76,6 +76,6 @@ OpenLayers.Format.OWSContext = OpenLayers.Class(OpenLayers.Format.Context,{
         return context;
     },
 
-    CLASS_NAME: "OpenLayers.Format.OWSContext" 
+    CLASS_NAME: "OpenLayers.Format.OWSContext"
 
 });

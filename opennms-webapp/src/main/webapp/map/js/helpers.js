@@ -14,12 +14,12 @@ function spaceTrans(stringIn) {
 
 function escapeSpecialChars(strInput)
 {
-	strInput=strInput.replace(/&amp;/g,"&");  
-	strInput=strInput.replace(/&lt;/g,"<");	
-	strInput=strInput.replace(/&gt;/g,">");	
-	strInput=strInput.replace(/&quot;/g,'"');	
-	strInput=strInput.replace(/&apos;/g,"'");	
-	  
+	strInput=strInput.replace(/&amp;/g,"&");
+	strInput=strInput.replace(/&lt;/g,"<");
+	strInput=strInput.replace(/&gt;/g,">");
+	strInput=strInput.replace(/&quot;/g,'"');
+	strInput=strInput.replace(/&apos;/g,"'");
+
 	return(strInput);
 }
 
@@ -62,14 +62,14 @@ function parseUri(sourceUri){
     var uriPartNames = ["source","protocol","authority","domain","port","path","directoryPath","fileName","query","anchor"];
     var uriParts = new RegExp("^(?:([^:/?#.]+):)?(?://)?(([^:/?#]*)(?::(\\d*))?)?((/(?:[^?#](?![^?#/]*\\.[^?#/.]+(?:[\\?#]|$)))*/?)?([^?#/]*))?(?:\\?([^#]*))?(?:#(.*))?").exec(sourceUri);
     var uri = {};
-    
+
     for(var i = 0; i < 10; i++){
         uri[uriPartNames[i]] = (uriParts[i] ? uriParts[i] : "");
     }
     if(uri.directoryPath.length > 0){
         uri.directoryPath = uri.directoryPath.replace(/\/?$/, "/");
     }
-    
+
     return uri;
 }
 
@@ -101,9 +101,9 @@ function postMapRequestAll(url,method,data,handler,type,enc,async){
              	xmlhttp.send(data);
            }catch(e){
            		instantiationSuccess = false;
-           }	
+           }
        	}
-   		
+
    		if(instantiationSuccess==false){
 	   		alert("Sorry, your browser/SVG viewer does not support XMLHttpRequest/ActiveXObject!");
    		}
@@ -157,7 +157,7 @@ function isValidOttect(ott){
 		var end=parseInt(ottRange[1]);
 		if(start<=end  && start<=255 && end <=255 && start>=0 && end>=0)
 			 return true;
-		
+
 	}
 	if(parseInt(ott)>=0 && parseInt(ott)<=255)
 		return true;
@@ -190,12 +190,12 @@ function openLink( link, params){
 	   if ( uriObj.protocol =='' ) {
 	   	uriObj = parseUri(document.URL);
 	   	var appdomain = uriObj.protocol+"://"+uriObj.authority;
-       		open(appdomain+appContext+unescape(link), '', params);	
+		open(appdomain+appContext+unescape(link), '', params);
            } else {
 		if ( uriObj.protocol =='telnet' || uriObj.protocol == 'ssh' ) {
 			window.location=unescape(link);
 		} else {
-       			open(unescape(link), '', params);	
+			open(unescape(link), '', params);
 		}
-           }	
+           }
 }

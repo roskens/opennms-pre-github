@@ -51,7 +51,7 @@ org.activemq.Amq = function() {
 	var sessionInitialized = false;
 
 	// This callback will be called after the first GET request returns.
-	var sessionInitializedCallback;	
+	var sessionInitializedCallback;
 
 	// Poll delay. if set to positive integer, this is the time to wait in ms
 	// before sending the next poll after the last completes.
@@ -66,7 +66,7 @@ org.activemq.Amq = function() {
 
 	// Map of handlers that will respond to message receipts. The id used during
 	// addListener(id, destination, handler) is used to key the callback
-	// handler.  
+	// handler.
 	var messageHandlers = {};
 
 	// Indicates whether an AJAX post call is in progress.
@@ -82,9 +82,9 @@ org.activemq.Amq = function() {
   // This can occur when multiple browser windows or tabs using amq.js simultaneously.
   // All windows share the same JESSIONID, but need to consume messages independently.
   var clientId = null;
-  
+
 	/**
-	 * Iterate over the returned XML and for each message in the response, 
+	 * Iterate over the returned XML and for each message in the response,
 	 * invoke the handler with the matching id.
 	 */
 	var messageHandler = function(data) {
@@ -204,7 +204,7 @@ org.activemq.Amq = function() {
 		}
 		return s.join('');
 	}
-	
+
 	// add clientId to data if it exists, before passing data to ajax connection adapter.
 	var addClientId = function( data ) {
 		var output = data || '';
@@ -229,9 +229,9 @@ org.activemq.Amq = function() {
 			clientId = options.clientId;
 			adapter.init(options);
 			sendPoll();
-			
+
 		},
-		    
+
 		startBatch : function() {
 			batchInProgress = true;
 		},
@@ -241,7 +241,7 @@ org.activemq.Amq = function() {
 				var messagesToSend = [];
 				var messagesToQueue = [];
 				var outgoingHeaders = null;
-				
+
 				// we need to ensure that messages which set headers are sent by themselves.
 				// if 2 'listen' messages were sent together, and a 'selector' header were added to one of them,
 				// AMQ would add the selector to both 'listen' commands.
@@ -263,7 +263,7 @@ org.activemq.Amq = function() {
 					method: 'post',
 					headers: outgoingHeaders,
 					data: addClientId( body ),
-					success: org.activemq.Amq.endBatch, 
+					success: org.activemq.Amq.endBatch,
 					error: errorHandler});
 			} else {
 				batchInProgress = false;
@@ -295,7 +295,7 @@ org.activemq.Amq = function() {
 			messageHandlers[id] = null;
 			sendJmsMessage(destination, id, 'unlisten');
 		},
-		
+
 		// for unit testing
 		getMessageQueue: function() {
 			return messageQueue;

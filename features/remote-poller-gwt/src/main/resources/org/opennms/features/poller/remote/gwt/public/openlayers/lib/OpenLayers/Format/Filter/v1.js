@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 /**
@@ -15,7 +15,7 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -26,7 +26,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         xlink: "http://www.w3.org/1999/xlink",
         xsi: "http://www.w3.org/2001/XMLSchema-instance"
     },
-    
+
     /**
      * Property: defaultPrefix
      */
@@ -37,7 +37,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
      * {String} Schema location for a particular minor version.
      */
     schemaLocation: null,
-    
+
     /**
      * Constructor: OpenLayers.Format.Filter.v1
      * Instances of this class are not created directly.  Use the
@@ -50,7 +50,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
     initialize: function(options) {
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Method: read
      *
@@ -65,7 +65,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         this.readers.ogc["Filter"].apply(this, [data, obj]);
         return obj.filter;
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -189,12 +189,12 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
             }
         }
     },
-    
+
     /**
      * Method: readSpatial
      *
      * Read a {<OpenLayers.Filter.Spatial>} filter.
-     * 
+     *
      * Parameters:
      * node - {DOMElement} A DOM element that contains an ogc:expression.
      * obj - {Object} The target object.
@@ -245,7 +245,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
     write: function(filter) {
         return this.writers.ogc["Filter"].apply(this, [filter]);
     },
-    
+
     /**
      * Property: writers
      * As a compliment to the readers property, this structure contains public
@@ -305,7 +305,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
                 var node = this.createElementNSPlus("ogc:PropertyIsLessThan");
                 // no ogc:expression handling for now
                 this.writeNode("PropertyName", filter, node);
-                this.writeNode("Literal", filter.value, node);                
+                this.writeNode("Literal", filter.value, node);
                 return node;
             },
             "PropertyIsGreaterThan": function(filter) {
@@ -396,7 +396,7 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         }
         return filterType;
     },
-    
+
     /**
      * Property: filterMap
      * {Object} Contains a member for each filter type.  Values are node names
@@ -421,6 +421,6 @@ OpenLayers.Format.Filter.v1 = OpenLayers.Class(OpenLayers.Format.XML, {
         "INTERSECTS": "INTERSECTS"
     },
 
-    CLASS_NAME: "OpenLayers.Format.Filter.v1" 
+    CLASS_NAME: "OpenLayers.Format.Filter.v1"
 
 });

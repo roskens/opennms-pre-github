@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,13 +10,13 @@
 /**
  * Class: OpenLayers.Format.WFSCapabilities/v1_0_0
  * Read WMS Capabilities version 1.0.0.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.WFSCapabilities>
  */
 OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
     OpenLayers.Format.WFSCapabilities.v1, {
-    
+
     /**
      * Constructor: OpenLayers.Format.WFSCapabilities.v1_0_0
      * Create a new parser for WFS capabilities version 1.0.0.
@@ -30,7 +30,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
             this, [options]
         );
     },
-    
+
     /**
      * Method: read_cap_Service
      */
@@ -59,7 +59,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
             service.accessConstraints = constraints;
         }
     },
-    
+
     /**
      * Method: read_cap_OnlineResource
      */
@@ -69,7 +69,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
             service.onlineResource = onlineResource;
         }
     },
-    
+
     /**
      * Method: read_cap_Keywords
      */
@@ -79,7 +79,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
             service.keywords = keywords.split(', ');
         }
     },
-    
+
     /**
      * Method: read_cap_Capability
      */
@@ -88,7 +88,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
         this.runChildNodes(capability, node);
         capabilities.capability = capability;
     },
-    
+
     /**
      * Method: read_cap_Request
      */
@@ -97,7 +97,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
         this.runChildNodes(request, node);
         obj.request = request;
     },
-    
+
     /**
      * Method: read_cap_GetFeature
      */
@@ -109,7 +109,7 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
         this.runChildNodes(getfeature, node);
         request.getfeature = getfeature;
     },
-    
+
     /**
      * Method: read_cap_ResultFormat
      */
@@ -123,35 +123,35 @@ OpenLayers.Format.WFSCapabilities.v1_0_0 = OpenLayers.Class(
             }
         }
     },
-    
+
     /**
      * Method: read_cap_DCPType
      */
     read_cap_DCPType: function(obj, node) {
         this.runChildNodes(obj, node);
     },
-    
+
     /**
      * Method: read_cap_HTTP
      */
     read_cap_HTTP: function(obj, node) {
         this.runChildNodes(obj.href, node);
     },
-    
+
     /**
      * Method: read_cap_Get
      */
     read_cap_Get: function(obj, node) {
         obj.get = node.getAttribute("onlineResource");
     },
-    
+
     /**
      * Method: read_cap_Post
      */
     read_cap_Post: function(obj, node) {
         obj.post = node.getAttribute("onlineResource");
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_0_0" 
+
+    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1_0_0"
 
 });

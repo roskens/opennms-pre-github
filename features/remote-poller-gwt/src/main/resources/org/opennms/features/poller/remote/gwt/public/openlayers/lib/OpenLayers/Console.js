@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,7 +15,7 @@
  * Note that behavior will differ with the Firebug extention and Firebug Lite.
  * Most notably, the Firebug Lite console does not currently allow for
  * hyperlinks to code or for clicking on object to explore their properties.
- * 
+ *
  */
 OpenLayers.Console = {
     /**
@@ -24,7 +24,7 @@ OpenLayers.Console = {
      * included.  We explicitly require the Firebug Lite script to trigger
      * functionality of the OpenLayers.Console methods.
      */
-    
+
     /**
      * APIFunction: log
      * Log an object in the console.  The Firebug Lite console logs string
@@ -34,7 +34,7 @@ OpenLayers.Console = {
      * will be used in string substitution.  Any additional arguments (beyond
      * the number substituted in a format string) will be appended in a space-
      * delimited line.
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -46,7 +46,7 @@ OpenLayers.Console = {
      * where it was called.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -58,7 +58,7 @@ OpenLayers.Console = {
      * coding and a hyperlink to the line where it was called.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -70,7 +70,7 @@ OpenLayers.Console = {
      * color coding and a hyperlink to the line where it was called.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -82,12 +82,12 @@ OpenLayers.Console = {
      * coding and a hyperlink to the line where it was called.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
     error: function() {},
-    
+
     /**
      * APIFunction: userError
      * A single interface for showing error messages to the user. The default
@@ -95,7 +95,7 @@ OpenLayers.Console = {
      * reassigning OpenLayers.Console.userError to a different function.
      *
      * Expects a single error message
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -109,7 +109,7 @@ OpenLayers.Console = {
      * the console and throw an exception.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -119,7 +119,7 @@ OpenLayers.Console = {
      * APIFunction: dir
      * Prints an interactive listing of all properties of the object. This
      * looks identical to the view that you would see in the DOM tab.
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -130,7 +130,7 @@ OpenLayers.Console = {
      * Prints the XML source tree of an HTML or XML element. This looks
      * identical to the view that you would see in the HTML tab. You can click
      * on any node to inspect it in the HTML tab.
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -143,7 +143,7 @@ OpenLayers.Console = {
      * as well as the values that were passed as arguments to each function.
      * You can click each function to take you to its source in the Script tab,
      * and click each argument value to inspect it in the DOM or HTML tabs.
-     * 
+     *
      */
     trace: function() {},
 
@@ -154,7 +154,7 @@ OpenLayers.Console = {
      * to close the block.
      *
      * May be called with multiple arguments as with OpenLayers.Console.log().
-     * 
+     *
      * Parameters:
      * object - {Object}
      */
@@ -166,7 +166,7 @@ OpenLayers.Console = {
      * OpenLayers.Console.group
      */
     groupEnd: function() {},
-    
+
     /**
      * APIFunction: time
      * Creates a new timer under the given name. Call
@@ -194,7 +194,7 @@ OpenLayers.Console = {
      * contain the text to be printed in the header of the profile report.
      *
      * This function is not currently implemented in Firebug Lite.
-     * 
+     *
      * Parameters:
      * title - {String} Optional title for the profiler
      */
@@ -203,7 +203,7 @@ OpenLayers.Console = {
     /**
      * APIFunction: profileEnd
      * Turns off the JavaScript profiler and prints its report.
-     * 
+     *
      * This function is not currently implemented in Firebug Lite.
      */
     profileEnd: function() {},

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,14 +9,14 @@
 
 /**
  * Class: OpenLayers.Geometry.LinearRing
- * 
- * A Linear Ring is a special LineString which is closed. It closes itself 
+ *
+ * A Linear Ring is a special LineString which is closed. It closes itself
  * automatically on every addPoint/removePoint by adding a copy of the first
- * point as the last point. 
- * 
+ * point as the last point.
+ *
  * Also, as it is the first in the line family to close itself, a getArea()
  * function is defined to calculate the enclosed area of the linearRing
- * 
+ *
  * Inherits:
  *  - <OpenLayers.Geometry.LineString>
  */
@@ -25,8 +25,8 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
 
     /**
      * Property: componentTypes
-     * {Array(String)} An array of class names representing the types of 
-     *                 components that the collection can include.  A null 
+     * {Array(String)} An array of class names representing the types of
+     *                 components that the collection can include.  A null
      *                 value means the component types are not restricted.
      */
     componentTypes: ["OpenLayers.Geometry.Point"],
@@ -38,12 +38,12 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      *     point does not equal the first point), the constructor will close
      *     the ring.  If the ring is already closed (the last point does equal
      *     the first point), it will be left closed.
-     * 
+     *
      * Parameters:
      * points - {Array(<OpenLayers.Geometry.Point>)} points
      */
     initialize: function(points) {
-        OpenLayers.Geometry.LineString.prototype.initialize.apply(this, 
+        OpenLayers.Geometry.LineString.prototype.initialize.apply(this,
                                                                   arguments);
     },
 
@@ -51,16 +51,16 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      * APIMethod: addComponent
      * Adds a point to geometry components.  If the point is to be added to
      *     the end of the components array and it is the same as the last point
-     *     already in that array, the duplicate point is not added.  This has 
-     *     the effect of closing the ring if it is not already closed, and 
-     *     doing the right thing if it is already closed.  This behavior can 
-     *     be overridden by calling the method with a non-null index as the 
+     *     already in that array, the duplicate point is not added.  This has
+     *     the effect of closing the ring if it is not already closed, and
+     *     doing the right thing if it is already closed.  This behavior can
+     *     be overridden by calling the method with a non-null index as the
      *     second argument.
      *
      * Parameter:
      * point - {<OpenLayers.Geometry.Point>}
      * index - {Integer} Index into the array to insert the component
-     * 
+     *
      * Returns:
      * {Boolean} Was the Point successfully added?
      */
@@ -73,18 +73,18 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
         // given an index, add the point
         // without an index only add non-duplicate points
         if(index != null || !point.equals(lastPoint)) {
-            added = OpenLayers.Geometry.Collection.prototype.addComponent.apply(this, 
+            added = OpenLayers.Geometry.Collection.prototype.addComponent.apply(this,
                                                                     arguments);
         }
 
         //append copy of first point
         var firstPoint = this.components[0];
-        OpenLayers.Geometry.Collection.prototype.addComponent.apply(this, 
+        OpenLayers.Geometry.Collection.prototype.addComponent.apply(this,
                                                                 [firstPoint]);
-        
+
         return added;
     },
-    
+
     /**
      * APIMethod: removeComponent
      * Removes a point from geometry components.
@@ -97,17 +97,17 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
 
             //remove last point
             this.components.pop();
-            
+
             //remove our point
-            OpenLayers.Geometry.Collection.prototype.removeComponent.apply(this, 
+            OpenLayers.Geometry.Collection.prototype.removeComponent.apply(this,
                                                                     arguments);
             //append copy of first point
             var firstPoint = this.components[0];
-            OpenLayers.Geometry.Collection.prototype.addComponent.apply(this, 
+            OpenLayers.Geometry.Collection.prototype.addComponent.apply(this,
                                                                 [firstPoint]);
         }
     },
-    
+
     /**
      * APIMethod: move
      * Moves a geometry by the given displacement along positive x and y axes.
@@ -115,7 +115,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      *     bounds.
      *
      * Parameters:
-     * x - {Float} Distance to move geometry in positive x direction. 
+     * x - {Float} Distance to move geometry in positive x direction.
      * y - {Float} Distance to move geometry in positive y direction.
      */
     move: function(x, y) {
@@ -151,9 +151,9 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      *                 will have four times the area).
      * origin - {<OpenLayers.Geometry.Point>} Point of origin for resizing
      * ratio - {Float} Optional x:y ratio for resizing.  Default ratio is 1.
-     * 
+     *
      * Returns:
-     * {OpenLayers.Geometry} - The current geometry. 
+     * {OpenLayers.Geometry} - The current geometry.
      */
     resize: function(scale, origin, ratio) {
         for(var i=0, len=this.components.length; i<len - 1; ++i) {
@@ -161,7 +161,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
         }
         return this;
     },
-    
+
     /**
      * APIMethod: transform
      * Reproject the components geometry from source to dest.
@@ -169,9 +169,9 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      * Parameters:
      * source - {<OpenLayers.Projection>}
      * dest - {<OpenLayers.Projection>}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Geometry>} 
+     * {<OpenLayers.Geometry>}
      */
     transform: function(source, dest) {
         if (source && dest) {
@@ -183,7 +183,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
         }
         return this;
     },
-    
+
     /**
      * APIMethod: getCentroid
      *
@@ -213,7 +213,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      * APIMethod: getArea
      * Note - The area is positive if the ring is oriented CW, otherwise
      *         it will be negative.
-     * 
+     *
      * Returns:
      * {Float} The signed area for a ring.
      */
@@ -230,7 +230,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
         }
         return area;
     },
-    
+
     /**
      * APIMethod: getGeodesicArea
      * Calculate the approximate area of the polygon were it projected onto
@@ -241,7 +241,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
      * projection - {<OpenLayers.Projection>} The spatial reference system
      *     for the geometry coordinates.  If not provided, Geographic/WGS84 is
      *     assumed.
-     * 
+     *
      * Reference:
      * Robert. G. Chamberlain and William H. Duquette, "Some Algorithms for
      *     Polygons on a Sphere", JPL Publication 07-03, Jet Propulsion
@@ -274,7 +274,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
         }
         return area;
     },
-    
+
     /**
      * Method: containsPoint
      * Test if a point is inside a linear ring.  For the case where a point
@@ -306,7 +306,7 @@ OpenLayers.Geometry.LinearRing = OpenLayers.Class(
             end = this.components[i + 1];
             x2 = approx(end.x, digs);
             y2 = approx(end.y, digs);
-            
+
             /**
              * The following conditions enforce five edge-crossing rules:
              *    1. points coincident with edges are considered contained;

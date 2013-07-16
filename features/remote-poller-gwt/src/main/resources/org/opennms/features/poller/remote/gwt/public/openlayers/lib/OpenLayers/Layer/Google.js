@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,53 +12,53 @@
 
 /**
  * Class: OpenLayers.Layer.Google
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer.SphericalMercator>
  *  - <OpenLayers.Layer.EventPane>
  *  - <OpenLayers.Layer.FixedZoomLevels>
  */
 OpenLayers.Layer.Google = OpenLayers.Class(
-    OpenLayers.Layer.EventPane, 
+    OpenLayers.Layer.EventPane,
     OpenLayers.Layer.FixedZoomLevels, {
-    
-    /** 
+
+    /**
      * Constant: MIN_ZOOM_LEVEL
-     * {Integer} 0 
+     * {Integer} 0
      */
     MIN_ZOOM_LEVEL: 0,
-    
-    /** 
+
+    /**
      * Constant: MAX_ZOOM_LEVEL
      * {Integer} 21
      */
     MAX_ZOOM_LEVEL: 21,
 
-    /** 
+    /**
      * Constant: RESOLUTIONS
      * {Array(Float)} Hardcode these resolutions so that they are more closely
      *                tied with the standard wms projection
      */
     RESOLUTIONS: [
-        1.40625, 
-        0.703125, 
-        0.3515625, 
-        0.17578125, 
-        0.087890625, 
+        1.40625,
+        0.703125,
+        0.3515625,
+        0.17578125,
+        0.087890625,
         0.0439453125,
-        0.02197265625, 
-        0.010986328125, 
-        0.0054931640625, 
+        0.02197265625,
+        0.010986328125,
+        0.0054931640625,
         0.00274658203125,
-        0.001373291015625, 
-        0.0006866455078125, 
+        0.001373291015625,
+        0.0006866455078125,
         0.00034332275390625,
-        0.000171661376953125, 
-        0.0000858306884765625, 
+        0.000171661376953125,
+        0.0000858306884765625,
         0.00004291534423828125,
-        0.00002145767211914062, 
+        0.00002145767211914062,
         0.00001072883605957031,
-        0.00000536441802978515, 
+        0.00000536441802978515,
         0.00000268220901489257,
         0.0000013411045074462891,
         0.00000067055225372314453
@@ -72,30 +72,30 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
     /**
      * APIProperty: wrapDateLine
-     * {Boolean} Allow user to pan forever east/west.  Default is true.  
-     *     Setting this to false only restricts panning if 
-     *     <sphericalMercator> is true. 
+     * {Boolean} Allow user to pan forever east/west.  Default is true.
+     *     Setting this to false only restricts panning if
+     *     <sphericalMercator> is true.
      */
     wrapDateLine: true,
 
     /**
      * APIProperty: sphericalMercator
      * {Boolean} Should the map act as a mercator-projected map? This will
-     *     cause all interactions with the map to be in the actual map 
-     *     projection, which allows support for vector drawing, overlaying 
-     *     other maps, etc. 
+     *     cause all interactions with the map to be in the actual map
+     *     projection, which allows support for vector drawing, overlaying
+     *     other maps, etc.
      */
-    sphericalMercator: false, 
-    
+    sphericalMercator: false,
+
     /**
      * Property: version
      * {Number} The version of the Google Maps API
      */
     version: null,
 
-    /** 
+    /**
      * Constructor: OpenLayers.Layer.Google
-     * 
+     *
      * Parameters:
      * name - {String} A name for the layer.
      * options - {Object} An optional object whose properties will be set
@@ -121,13 +121,13 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
         OpenLayers.Layer.EventPane.prototype.initialize.apply(this,
             [name, options]);
-        OpenLayers.Layer.FixedZoomLevels.prototype.initialize.apply(this, 
+        OpenLayers.Layer.FixedZoomLevels.prototype.initialize.apply(this,
             [name, options]);
 
         if (this.sphericalMercator) {
             OpenLayers.Util.extend(this, OpenLayers.Layer.SphericalMercator);
             this.initMercatorParameters();
-        }    
+        }
     },
 
     /**
@@ -151,16 +151,16 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
     /**
      * APIMethod: setVisibility
-     * Set the visibility flag for the layer and hide/show & redraw 
+     * Set the visibility flag for the layer and hide/show & redraw
      *     accordingly. Fire event unless otherwise specified
-     * 
+     *
      * Note that visibility is no longer simply whether or not the layer's
-     *     style.display is set to "block". Now we store a 'visibility' state 
-     *     property on the layer class, this allows us to remember whether or 
-     *     not we *desire* for a layer to be visible. In the case where the 
-     *     map's resolution is out of the layer's range, this desire may be 
+     *     style.display is set to "block". Now we store a 'visibility' state
+     *     property on the layer class, this allows us to remember whether or
+     *     not we *desire* for a layer to be visible. In the case where the
+     *     map's resolution is out of the layer's range, this desire may be
      *     subverted.
-     * 
+     *
      * Parameters:
      * visible - {Boolean} Display the layer (if in range)
      */
@@ -170,11 +170,11 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         OpenLayers.Layer.EventPane.prototype.setVisibility.apply(this, arguments);
         this.setOpacity(opacity);
     },
-    
-    /** 
+
+    /**
      * APIMethod: display
      * Hide or show the Layer
-     * 
+     *
      * Parameters:
      * display - {Boolean}
      */
@@ -184,10 +184,10 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         }
         OpenLayers.Layer.EventPane.prototype.display.apply(this, arguments);
     },
-    
+
     /**
      * Method: moveTo
-     * 
+     *
      * Parameters:
      * bound - {<OpenLayers.Bounds>}
      * zoomChanged - {Boolean} Tells when zoom has changed, as layers have to
@@ -199,11 +199,11 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         OpenLayers.Layer.EventPane.prototype.moveTo.apply(this, arguments);
         delete this._dragging;
     },
-    
+
     /**
      * APIMethod: setOpacity
      * Sets the opacity for the entire layer (all images)
-     * 
+     *
      * Parameter:
      * opacity - {Float}
      */
@@ -242,11 +242,11 @@ OpenLayers.Layer.Google = OpenLayers.Class(
             var cache = OpenLayers.Layer.Google.cache[this.map.id];
             if (cache && cache.count <= 1) {
                 this.removeGMapElements();
-            }            
+            }
         }
         OpenLayers.Layer.EventPane.prototype.destroy.apply(this, arguments);
     },
-    
+
     /**
      * Method: removeGMapElements
      * Remove all elements added to the dom.  This should only be called if
@@ -256,7 +256,7 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         var cache = OpenLayers.Layer.Google.cache[this.map.id];
         if (cache) {
             // remove shared elements from dom
-            var container = this.mapObject && this.getMapContainer();                
+            var container = this.mapObject && this.getMapContainer();
             if (container && container.parentNode) {
                 container.parentNode.removeChild(container);
             }
@@ -274,7 +274,7 @@ OpenLayers.Layer.Google = OpenLayers.Class(
     /**
      * APIMethod: removeMap
      * On being removed from the map, also remove termsOfUse and poweredBy divs
-     * 
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -301,19 +301,19 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         delete this.dragObject;
         OpenLayers.Layer.EventPane.prototype.removeMap.apply(this, arguments);
     },
-    
+
   //
   // TRANSLATION: MapObject Bounds <-> OpenLayers.Bounds
   //
 
     /**
      * APIMethod: getOLBoundsFromMapObjectBounds
-     * 
+     *
      * Parameters:
      * moBounds - {Object}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Bounds>} An <OpenLayers.Bounds>, translated from the 
+     * {<OpenLayers.Bounds>} An <OpenLayers.Bounds>, translated from the
      *                       passed-in MapObject Bounds.
      *                       Returns null if null value is passed in.
      */
@@ -326,21 +326,21 @@ OpenLayers.Layer.Google = OpenLayers.Class(
                 sw = this.forwardMercator(sw.lng(), sw.lat());
                 ne = this.forwardMercator(ne.lng(), ne.lat());
             } else {
-                sw = new OpenLayers.LonLat(sw.lng(), sw.lat()); 
-                ne = new OpenLayers.LonLat(ne.lng(), ne.lat()); 
-            }    
-            olBounds = new OpenLayers.Bounds(sw.lon, 
-                                             sw.lat, 
-                                             ne.lon, 
+                sw = new OpenLayers.LonLat(sw.lng(), sw.lat());
+                ne = new OpenLayers.LonLat(ne.lng(), ne.lat());
+            }
+            olBounds = new OpenLayers.Bounds(sw.lon,
+                                             sw.lat,
+                                             ne.lon,
                                              ne.lat );
         }
         return olBounds;
     },
 
-    /** 
+    /**
      * APIMethod: getWarningHTML
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {String} String with information on why layer is broken, how to get
      *          it working.
      */
@@ -360,17 +360,17 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
     /**
      * APIMethod: getMapObjectCenter
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {Object} The mapObject's current center in Map Object format
      */
     getMapObjectCenter: function() {
         return this.mapObject.getCenter();
     },
 
-    /** 
+    /**
      * APIMethod: getMapObjectZoom
-     * 
+     *
      * Returns:
      * {Integer} The mapObject's current zoom, in Map Object format
      */
@@ -378,7 +378,7 @@ OpenLayers.Layer.Google = OpenLayers.Class(
         return this.mapObject.getZoom();
     },
 
-  
+
     /************************************
      *                                  *
      *       MapObject Primitives       *
@@ -387,46 +387,46 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
 
   // LonLat
-    
+
     /**
      * APIMethod: getLongitudeFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Float} Longitude of the given MapObject LonLat
      */
     getLongitudeFromMapObjectLonLat: function(moLonLat) {
-        return this.sphericalMercator ? 
+        return this.sphericalMercator ?
           this.forwardMercator(moLonLat.lng(), moLonLat.lat()).lon :
-          moLonLat.lng();  
+          moLonLat.lng();
     },
 
     /**
      * APIMethod: getLatitudeFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Float} Latitude of the given MapObject LonLat
      */
     getLatitudeFromMapObjectLonLat: function(moLonLat) {
-        var lat = this.sphericalMercator ? 
+        var lat = this.sphericalMercator ?
           this.forwardMercator(moLonLat.lng(), moLonLat.lat()).lat :
-          moLonLat.lat(); 
-        return lat;  
+          moLonLat.lat();
+        return lat;
     },
-    
+
   // Pixel
-    
+
     /**
      * APIMethod: getXFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Integer} X value of the MapObject Pixel
      */
@@ -436,17 +436,17 @@ OpenLayers.Layer.Google = OpenLayers.Class(
 
     /**
      * APIMethod: getYFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Integer} Y value of the MapObject Pixel
      */
     getYFromMapObjectPixel: function(moPixel) {
         return moPixel.y;
     },
-    
+
     CLASS_NAME: "OpenLayers.Layer.Google"
 });
 
@@ -459,33 +459,33 @@ OpenLayers.Layer.Google.cache = {};
 
 /**
  * Constant: OpenLayers.Layer.Google.v2
- * 
+ *
  * Mixin providing functionality specific to the Google Maps API v2.
  */
 OpenLayers.Layer.Google.v2 = {
-    
+
     /**
      * Property: termsOfUse
      * {DOMElement} Div for Google's copyright and terms of use link
      */
-    termsOfUse: null, 
+    termsOfUse: null,
 
     /**
      * Property: poweredBy
      * {DOMElement} Div for Google's powered by logo and link
      */
-    poweredBy: null, 
+    poweredBy: null,
 
     /**
      * Property: dragObject
      * {GDraggableObject} Since 2.93, Google has exposed the ability to get
      *     the maps GDraggableObject. We can now use this for smooth panning
      */
-    dragObject: null, 
-    
-    /** 
+    dragObject: null,
+
+    /**
      * Method: loadMapObject
-     * Load the GMap and register appropriate event listeners. If we can't 
+     * Load the GMap and register appropriate event listeners. If we can't
      *     load GMap2, then display a warning message.
      */
     loadMapObject:function() {
@@ -515,7 +515,7 @@ OpenLayers.Layer.Google.v2 = {
             // create GMap and shuffle elements
             try {
                 mapObject = new GMap2(div);
-                
+
                 // move the ToS and branding stuff up to the container div
                 termsOfUse = div.lastChild;
                 container.appendChild(termsOfUse);
@@ -530,7 +530,7 @@ OpenLayers.Layer.Google.v2 = {
                 poweredBy.style.right = "";
                 poweredBy.style.bottom = "";
                 poweredBy.className = "olLayerGooglePoweredBy gmnoprint";
-                
+
             } catch (e) {
                 throw(e);
             }
@@ -547,7 +547,7 @@ OpenLayers.Layer.Google.v2 = {
         this.mapObject = mapObject;
         this.termsOfUse = termsOfUse;
         this.poweredBy = poweredBy;
-        
+
         // ensure this layer type is one of the mapObject types
         if (OpenLayers.Util.indexOf(this.mapObject.getMapTypes(),
                                     this.type) === -1) {
@@ -560,7 +560,7 @@ OpenLayers.Layer.Google.v2 = {
         } else {
             this.dragPanMapObject = null;
         }
-        
+
         if(this.isBaseLayer === false) {
             this.setGMapVisibility(this.div.style.display !== "none");
         }
@@ -595,7 +595,7 @@ OpenLayers.Layer.Google.v2 = {
     /**
      * Method: setGMapVisibility
      * Display the GMap container and associated elements.
-     * 
+     *
      * Parameters:
      * visible - {Boolean} Display the GMap elements.
      */
@@ -608,7 +608,7 @@ OpenLayers.Layer.Google.v2 = {
                 container.style.display = "";
                 this.termsOfUse.style.left = "";
                 this.termsOfUse.style.display = "";
-                this.poweredBy.style.display = "";            
+                this.poweredBy.style.display = "";
                 cache.displayed = this.id;
             } else {
                 if (cache.displayed === this.id) {
@@ -621,17 +621,17 @@ OpenLayers.Layer.Google.v2 = {
                     // to "none", because at the end of the GMap2 load
                     // sequence, display: none will be unset and ToU would be
                     // visible after loading a map with a google layer that is
-                    // initially hidden. 
+                    // initially hidden.
                     this.termsOfUse.style.left = "-9999px";
                     this.poweredBy.style.display = "none";
                 }
             }
         }
     },
-    
+
     /**
      * Method: getMapContainer
-     * 
+     *
      * Returns:
      * {DOMElement} the GMap container's div
      */
@@ -645,10 +645,10 @@ OpenLayers.Layer.Google.v2 = {
 
     /**
      * APIMethod: getMapObjectBoundsFromOLBounds
-     * 
+     *
      * Parameters:
      * olBounds - {<OpenLayers.Bounds>}
-     * 
+     *
      * Returns:
      * {Object} A MapObject Bounds, translated from olBounds
      *          Returns null if null value is passed in
@@ -656,11 +656,11 @@ OpenLayers.Layer.Google.v2 = {
     getMapObjectBoundsFromOLBounds: function(olBounds) {
         var moBounds = null;
         if (olBounds != null) {
-            var sw = this.sphericalMercator ? 
-              this.inverseMercator(olBounds.bottom, olBounds.left) : 
+            var sw = this.sphericalMercator ?
+              this.inverseMercator(olBounds.bottom, olBounds.left) :
               new OpenLayers.LonLat(olBounds.bottom, olBounds.left);
-            var ne = this.sphericalMercator ? 
-              this.inverseMercator(olBounds.top, olBounds.right) : 
+            var ne = this.sphericalMercator ?
+              this.inverseMercator(olBounds.top, olBounds.right) :
               new OpenLayers.LonLat(olBounds.top, olBounds.right);
             moBounds = new GLatLngBounds(new GLatLng(sw.lat, sw.lon),
                                          new GLatLng(ne.lat, ne.lon));
@@ -678,21 +678,21 @@ OpenLayers.Layer.Google.v2 = {
 
   // Get&Set Center, Zoom
 
-    /** 
+    /**
      * APIMethod: setMapObjectCenter
      * Set the mapObject to the specified center and zoom
-     * 
+     *
      * Parameters:
      * center - {Object} MapObject LonLat format
      * zoom - {int} MapObject zoom format
      */
     setMapObjectCenter: function(center, zoom) {
-        this.mapObject.setCenter(center, zoom); 
+        this.mapObject.setCenter(center, zoom);
     },
-   
+
     /**
      * APIMethod: dragPanMapObject
-     * 
+     *
      * Parameters:
      * dX - {Integer}
      * dY - {Integer}
@@ -703,13 +703,13 @@ OpenLayers.Layer.Google.v2 = {
 
 
   // LonLat - Pixel Translation
-  
+
     /**
      * APIMethod: getMapObjectLonLatFromMapObjectPixel
-     * 
+     *
      * Parameters:
      * moPixel - {Object} MapObject Pixel format
-     * 
+     *
      * Returns:
      * {Object} MapObject LonLat translated from MapObject Pixel
      */
@@ -719,10 +719,10 @@ OpenLayers.Layer.Google.v2 = {
 
     /**
      * APIMethod: getMapObjectPixelFromMapObjectLonLat
-     * 
+     *
      * Parameters:
      * moLonLat - {Object} MapObject LonLat format
-     * 
+     *
      * Returns:
      * {Object} MapObject Pixel transtlated from MapObject LonLat
      */
@@ -730,15 +730,15 @@ OpenLayers.Layer.Google.v2 = {
         return this.mapObject.fromLatLngToContainerPixel(moLonLat);
     },
 
-  
+
   // Bounds
-  
-    /** 
+
+    /**
      * APIMethod: getMapObjectZoomFromMapObjectBounds
-     * 
+     *
      * Parameters:
      * moBounds - {Object} MapObject Bounds format
-     * 
+     *
      * Returns:
      * {Object} MapObject Zoom for specified MapObject Bounds
      */
@@ -754,14 +754,14 @@ OpenLayers.Layer.Google.v2 = {
 
 
   // LonLat
-    
+
     /**
      * APIMethod: getMapObjectLonLatFromLonLat
-     * 
+     *
      * Parameters:
      * lon - {Float}
      * lat - {Float}
-     * 
+     *
      * Returns:
      * {Object} MapObject LonLat built from lon and lat params
      */
@@ -777,19 +777,19 @@ OpenLayers.Layer.Google.v2 = {
     },
 
   // Pixel
-    
+
     /**
      * APIMethod: getMapObjectPixelFromXY
-     * 
+     *
      * Parameters:
      * x - {Integer}
      * y - {Integer}
-     * 
+     *
      * Returns:
      * {Object} MapObject Pixel from x and y parameters
      */
     getMapObjectPixelFromXY: function(x, y) {
         return new GPoint(x, y);
     }
-    
+
 };

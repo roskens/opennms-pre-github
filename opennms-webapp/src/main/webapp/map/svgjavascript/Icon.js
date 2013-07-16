@@ -2,7 +2,7 @@
 
 /*
 This class is designed to be used for representing an Icon
-in the MapElement. 
+in the MapElement.
 */
 
 

@@ -155,7 +155,7 @@ function Window(id,parentNode,width,height,transX,transY,moveable,constrXmin,con
 		this.createWindow();
 	}
 	else {
-		alert("Could not create Window with id '"+id+"' due to errors in the constructor parameters");		
+		alert("Could not create Window with id '"+id+"' due to errors in the constructor parameters");
 	}
 }
 
@@ -199,7 +199,7 @@ Window.prototype.createWindow = function() {
 	this.backgroundRect.setAttributeNS(null,"height",this.height);
 	for (var attrib in this.windowStyles) {
 		this.backgroundRect.setAttributeNS(null,attrib,this.windowStyles[attrib]);
-	}	
+	}
 	this.windowMainGroup.appendChild(this.backgroundRect);
 	this.windowMainGroup.appendChild(this.windowContentGroup);
 	this.windowGroup.appendChild(this.windowMainGroup);
@@ -293,7 +293,7 @@ Window.prototype.createWindow = function() {
 		this.windowTitlebarGroup.appendChild(this.closeButtonInstance);
 		buttonPosition -=  this.titlebarHeight;
 	}
-    
+
    //create maximize button
    if (this.maximizeButton) {
    	//test if id maximizeButton exists in defs section or create a new maximizeButton symbol
@@ -403,7 +403,7 @@ Window.prototype.createWindow = function() {
 	this.parentGroup.appendChild(this.windowGroup);
 
 	//issue event that window was created
-	this.timer.setTimeout("fireFunction",this.timerMs,"created");	
+	this.timer.setTimeout("fireFunction",this.timerMs,"created");
 	}
 	else {
 		alert("could not create or reference 'parentNode' of window with id '"+this.id+"'");
@@ -420,7 +420,7 @@ Window.prototype.testParent = function() {
     		nodeValid = true;
     	}
     }
-    else if (typeof(this.parentNode) == "string") { 
+    else if (typeof(this.parentNode) == "string") {
     	//first test if Windows group exists
     	if (!document.getElementById(this.parentNode)) {
         	this.parentGroup = document.createElementNS(svgNS,"g");
@@ -657,7 +657,7 @@ Window.prototype.resize = function(width,height,fireFunction) {
 	}
 	if (this.statusBarVisible) {
 		this.statusbar.setAttributeNS(null,"y",(this.height - this.statusbarHeight));
-		this.statusbar.setAttributeNS(null,"width",this.width);	
+		this.statusbar.setAttributeNS(null,"width",this.width);
 		this.statusTextElement.setAttributeNS(null,"y",this.height - (this.statusbarHeight - this.statustextStyles["font-size"]));
 	}
 	//check constraints
@@ -809,7 +809,7 @@ Window.prototype.addWindowDecoration = function(node,mayTriggerMoving,topOrBotto
 	}
 	if (topOrBottom == "bottom") {
 		this.decorationGroup = this.windowGroup.insertBefore(node,this.windowGroup.firstChild);
-	}	
+	}
 	else if (topOrBottom == "top") {
 		this.decorationGroup = this.windowTitlebarGroup.insertBefore(node,this.windowTitlebarGroup.firstChild);
 	}

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -8,13 +8,13 @@
  *
  * Class: OpenLayers.Format.WFSDescribeFeatureType
  * Read WFS DescribeFeatureType response
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
     OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -22,7 +22,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
     namespaces: {
         xsd: "http://www.w3.org/2001/XMLSchema"
     },
-    
+
     /**
      * Constructor: OpenLayers.Format.WFSDescribeFeatureType
      * Create a new parser for WFS DescribeFeatureType responses.
@@ -34,7 +34,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
     initialize: function(options) {
         OpenLayers.Format.XML.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -52,7 +52,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
                     complexTypes: complexTypes,
                     customTypes: customTypes
                 };
-                
+
                 this.readChildNodes(node, schema);
 
                 var attributes = node.attributes;
@@ -66,9 +66,9 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
                         obj[name] = attr.value;
                     }
                 }
-                obj.featureTypes = complexTypes;                
+                obj.featureTypes = complexTypes;
                 obj.targetPrefix = this.namespaceAlias[obj.targetNamespace];
-                
+
                 // map complexTypes to names of customTypes
                 var complexType, customType;
                 for(var i=0, len=complexTypes.length; i<len; ++i) {
@@ -111,7 +111,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
                         attr = attributes[i];
                         element[attr.name] = attr.value;
                     }
-                    
+
                     var type = element.type;
                     if(!type) {
                         type = {};
@@ -123,7 +123,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
                     element.localType = fullType.split(":").pop();
                     obj.elements.push(element);
                 }
-                
+
                 if(obj.complexTypes) {
                     var type = node.getAttribute("type");
                     var localType = type.split(":").pop();
@@ -142,11 +142,11 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
             }
         }
     },
-    
+
     /**
      * Method: readRestriction
      * Reads restriction defined in the child nodes of a restriction element
-     * 
+     *
      * Parameters:
      * node {DOMElement} - the node to parse
      * obj {Object} - the object that receives the read result
@@ -170,7 +170,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
             }
         }
     },
-    
+
     /**
      * Method: read
      *
@@ -181,7 +181,7 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
      * {Object} An object representing the WFS DescribeFeatureType response.
      */
     read: function(data) {
-        if(typeof data == "string") { 
+        if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         if(data && data.nodeType == 9) {
@@ -189,10 +189,10 @@ OpenLayers.Format.WFSDescribeFeatureType = OpenLayers.Class(
         }
         var schema = {};
         this.readNode(data, schema);
-        
+
         return schema;
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WFSDescribeFeatureType" 
+
+    CLASS_NAME: "OpenLayers.Format.WFSDescribeFeatureType"
 
 });

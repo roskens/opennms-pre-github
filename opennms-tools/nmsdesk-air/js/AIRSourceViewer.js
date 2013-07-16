@@ -39,7 +39,7 @@ air.SourceViewer = function() {
 	));
 }
 air.SourceViewer.getDefault = function() {
-	
+
 	// The Source Viewer only works in the AIR application sandbox:
 	if (typeof window.runtime == "undefined") {
 		throw ( new Error (
@@ -50,7 +50,7 @@ air.SourceViewer.getDefault = function() {
 			"\n\n"
 		));
 	}
-	
+
 	// @return the existing instance if there is one; creating it otherwise:
 	var context = arguments.callee;
 	if (context.instance) { return context.instance };
@@ -61,19 +61,19 @@ air.SourceViewer.getDefault = function() {
 	 * CLASS
 	 * 		air.SourceViewer
 	 * DESCRIPTION
-	 * 		A self-contained module to embed in HTML-based AIR applications. 
-	 * 		It will display a customizable selection of source files in 
-	 * 		an expandable tree structure. The user will be able 
+	 * 		A self-contained module to embed in HTML-based AIR applications.
+	 * 		It will display a customizable selection of source files in
+	 * 		an expandable tree structure. The user will be able
 	 * 		to select a file to view its source code.
 	 * SAMPLE USAGE
 	 * 		var viewer1 = air.SourceViewer.getDefault();
-	 * 		viewer1.viewSource(); 
-	 * 
+	 * 		viewer1.viewSource();
+	 *
 	 * 		var viewer2 = air.SourceViewer.getDefault();
 	 * 		var oConfig = { exclude: ['/icons', '/images'] };
 	 * 		viewer2.setup(oConfig);
-	 * 		viewer2.viewSource(); 
-	 * 
+	 * 		viewer2.viewSource();
+	 *
 	 * @class
 	 * @public
 	 * @singleton
@@ -102,7 +102,7 @@ air.SourceViewer.getDefault = function() {
 
 		// @application
 		var TEXT_EXTENSIONS         	= ['txt', 'xml', 'mxml', 'htm', 'html',
-		                                	'js', 'as', 'css', 'properties', 
+							'js', 'as', 'css', 'properties',
 		                                	'config', 'ini', 'bat', 'readme'];
 		var IMAGE_EXTENSIONS        	= ['jpg', 'jpeg', 'png', 'gif'];
 		var TEXT_TYPE 					= "text";
@@ -152,15 +152,15 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		var domProvider;
-		
+
 		/**
 		 * The CSSProvider instance shared by all application components. It
 		 * is instantiated by WindowsManager.makeMainWindow().
 		 * @field
-		 * @private 
-		 */		
+		 * @private
+		 */
 		var cssProvider;
-		
+
 		/**
 		 * The UIBuilder instance shared by all application components. It
 		 * is instantiated by WindowsManager.makeMainWindow().
@@ -168,21 +168,21 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		var uiBuilder;
-		
+
 		/**
 		 * The EventManager instance shared by all application components.
 		 * @field
-		 * @private 
+		 * @private
 		 */
 		var eventManager = new EventManager();
-		
+
 		/**
 		 * The WindowsManager instance shared by all application components.
 		 * @field
 		 * @private
 		 */
 		var windowManager = new WindowsManager();
-		
+
 		/**
 		 * The LayoutProvider instance shared by all application components.
 		 * @field
@@ -196,40 +196,40 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		var fileSystemWalker = new FileSystemWalker();
-		
+
 		/**
-		 * The RequestedFilesRegistry instance shared by all application 
+		 * The RequestedFilesRegistry instance shared by all application
 		 * components.
 		 * @field
 		 * @private
-		 */		
+		 */
 		var requestedFilesRegistry = new RequestedFilesRegistry();
-		
+
 		/**
-		 * A hash that gets populated with references to DOM Elements 
-		 * representing application's UI main sections. Namely, the hash's 
+		 * A hash that gets populated with references to DOM Elements
+		 * representing application's UI main sections. Namely, the hash's
 		 * structure is:
 		 * 		- header { HTML DOM element }
-		 * 				A reference to the DOM Element representing the header 
+		 * 				A reference to the DOM Element representing the header
 		 * 				(top most section) of the application's UI
 		 * 		- sidebar { HTML DOM element }
 		 * 				A reference to the DOM Element representing the sidebar
 		 * 				(left hand section) of the application's UI
 		 * 		- tree { HTML DOM element }
 		 * 				The <ul> HTML DOM Element that represents the root
-		 * 				of the tree UI component (the one that displays 
+		 * 				of the tree UI component (the one that displays
 		 * 				clickable entries for applications files and folders)
 		 * 		- contentArea { HTML DOM element }
 		 * 				A reference to the DOM Element representing the content
 		 * 				area (right hand section) of the application's UI.
 		 * 		- ruler { HTML DOM element }
-		 * 				A reference to the DOM Element representing the 
+		 * 				A reference to the DOM Element representing the
 		 * 				scrollable ruller that displays line numbers
 		 * 		- sourceArea { HTML DOM element }
-		 * 				The <div> HTML DOM Element that actually contains the 
+		 * 				The <div> HTML DOM Element that actually contains the
 		 * 				text of the file being displayed.
 		 * 		- footer { HTML DOM element }
-		 * 				A reference to the DOM Element representing the footer 
+		 * 				A reference to the DOM Element representing the footer
 		 * 				(bottom most section) of the application's UI.
 		 * @field
 		 * @private
@@ -237,11 +237,11 @@ air.SourceViewer.getDefault = function() {
 		var ui;
 
 		/**
-		 * The main method to be called by the client programmer. Opens the 
+		 * The main method to be called by the client programmer. Opens the
 		 * Source Viewer UI and lists the first level of source files.
 		 * @method
 		 * @public
-		 */	
+		 */
 		this.viewSource = function() {
 			if(isMainWindowOpen){ return };
 			var windowCreatedHandler = function(event) {
@@ -257,14 +257,14 @@ air.SourceViewer.getDefault = function() {
 			);
 			windowManager.makeMainWindow (function(oWindow) {});
 		}
-		
+
 		/**
 		 * Holds the configuration object provided bythe client programmer.
 		 * @field
 		 * @private
 		 */
 		var oConfig = {};
-		
+
 		/**
 		 * Holds the user preference regarding Source Viewer's modal state.
 		 * A value of "true" will make our window modal, whereas a value of
@@ -273,40 +273,40 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		var isToBeModal = false;
-		
+
 		/**
-		 * Holds the user preference regarding a default file that is to be 
-		 * displayed by the Source Viewer when it starts. Will contain an 
+		 * Holds the user preference regarding a default file that is to be
+		 * displayed by the Source Viewer when it starts. Will contain an
 		 * application's root relative file path.
 		 * @field
-		 * @private 
+		 * @private
 		 */
 		var defaultFilePath;
-		
+
 		/**
-		 * There is a list of file extensions that are 'recognized', and hence, 
-		 * displayed. Should the user also want some other file extensions, he 
+		 * There is a list of file extensions that are 'recognized', and hence,
+		 * displayed. Should the user also want some other file extensions, he
 		 * must declare them here.
 		 * @field
-		 * @private  
+		 * @private
 		 */
 		var typesToAdd = [];
-		
+
 		/**
-		 * There is a list of file extensions that are 'recognized', and hence, 
-		 * displayed. Should the user want some of these file extensions 
+		 * There is a list of file extensions that are 'recognized', and hence,
+		 * displayed. Should the user want some of these file extensions
 		 * removed, he must declare them here.
 		 * Note:
-		 * The "typesToRemove" exclusion list superseedes the "typesToAdd" 
+		 * The "typesToRemove" exclusion list superseedes the "typesToAdd"
 		 * addition list.
 		 * @field
-		 * @private  
+		 * @private
 		 */
 		var typesToRemove = [];
-		
+
 		/**
-		 * Holds the user preference regarding the color scheme to be used for 
-		 * the Source Viewer's UI. There are currently two color schemes 
+		 * Holds the user preference regarding the color scheme to be used for
+		 * the Source Viewer's UI. There are currently two color schemes
 		 * available:
 		 * 		- professionalBlue
 		 * 		- nightScape
@@ -314,16 +314,16 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		var userColorScheme;
-		
+
 		/**
 		 * Holds the user preference regarding the initial [x, y] position of
-		 * the Source Viewer's window on the screen. This is expected to be an 
+		 * the Source Viewer's window on the screen. This is expected to be an
 		 * array of the form [x, y].
 		 * @field
 		 * @private
 		 */
 		var initPosition;
-	
+
 		/**
 		 * Also part of the public API. Transmits the settings to the internal
 		 * core.
@@ -336,8 +336,8 @@ air.SourceViewer.getDefault = function() {
 		 * 			An app root relative array of paths. Files or folders
 		 * 			starting with one of these paths will not show in the tree.
 		 * 		- modal { Boolean }
-		 * 			Whether the Source viewer's window should be modal to the 
-		 * 			host application's window. 
+		 * 			Whether the Source viewer's window should be modal to the
+		 * 			host application's window.
 		 */
 		this.setup = function (cfg) {
 			oConfig = cfg;
@@ -345,7 +345,7 @@ air.SourceViewer.getDefault = function() {
 			// @collect user's modal preference:
 			if ((typeof oConfig['modal'] != "undefined") &&
 				oConfig['modal'] !== null) {
-				isToBeModal = oConfig['modal']? true: false; 
+				isToBeModal = oConfig['modal']? true: false;
 			}
 
 			// @collect user's default file preference:
@@ -355,11 +355,11 @@ air.SourceViewer.getDefault = function() {
 			}
 
 			// @collect user's file extensions list preference:
-			if((typeof oConfig['typesToAdd'] != "undefined") 
+			if((typeof oConfig['typesToAdd'] != "undefined")
 				&& oConfig['typesToAdd'] !== null) {
 				typesToAdd = oConfig['typesToAdd'];
 			}
-			if((typeof oConfig['typesToRemove'] 
+			if((typeof oConfig['typesToRemove']
 				!= "undefined") && oConfig['typesToRemove'] !== null) {
 				typesToRemove = oConfig['typesToRemove'];
 			}
@@ -407,7 +407,7 @@ air.SourceViewer.getDefault = function() {
 				&& oConfig['colorScheme'] !== null) {
 				userColorScheme = oConfig['colorScheme'];
 			}
-			
+
 			// @collect user's initial window position preference:
 			if(
 				typeof oConfig['initialPosition'] != "undefined"
@@ -464,7 +464,7 @@ air.SourceViewer.getDefault = function() {
 			uiBuilder = new UIBuilder(domProvider);
 			ui = uiBuilder.createMainLayout();
 			populateTree(ui.tree);
-			
+
 			// @attempt to load default file's content, if there is one:
 			if (typeof defaultFilePath != 'undefined') {
 				var segments = String(defaultFilePath).split('/');
@@ -477,7 +477,7 @@ air.SourceViewer.getDefault = function() {
 				var relURL = urlSegments.join('/');
 				var appDir = File.applicationDirectory;
 				var file = appDir.resolvePath(relURL);
-				
+
 				// @the path must finally point to a file:
 				if(file.exists) {
 					if(!file.isDirectory) {
@@ -488,7 +488,7 @@ air.SourceViewer.getDefault = function() {
 				}
 			}
 		}
-		
+
 		/**
 		 * Fills the tree with the first level of files.
 		 * @method
@@ -514,7 +514,7 @@ air.SourceViewer.getDefault = function() {
 		/**
 		 * Clears all data that would naturally persist over sessions.
 		 * @method
-		 * @private 
+		 * @private
 		 */
 		function purge() {
 			uiBuilder.unsetClickableItems();
@@ -525,7 +525,7 @@ air.SourceViewer.getDefault = function() {
 		}
 
 
-		
+
 		/**
 		 * CLASS
 		 * 		WindowsManager
@@ -537,26 +537,26 @@ air.SourceViewer.getDefault = function() {
 		 * @private
 		 */
 		 function WindowsManager () {
-			
+
 			/**
 			 * Returns the default display options for a newly created window.
 			 * @method
 			 * @private
 			 * @return { NativeWindowInitOptions }
-			 * 		An object specifying display options for a new window. 
+			 * 		An object specifying display options for a new window.
 			 */
 			function getDefWindowOptions () {
 				var options = new NativeWindowInitOptions();
 				options.type = NativeWindowType.UTILITY;
 				return options;
 			}
-			
+
 			/**
 			 * Returns the screen the host application is currently in (we call
 			 * "host application" the application that has launched the Source
 			 * Viewer).
 			 * If the host application spans more than a single screen, the one
-			 * displaying a larger area of the host application UI will be 
+			 * displaying a larger area of the host application UI will be
 			 * considered.
 			 * If the host application almost equally spans two screns, or if it
 			 * spans more than two screens, the primary screen will be returned.
@@ -586,42 +586,42 @@ air.SourceViewer.getDefault = function() {
 				}
 				return mostImportantScreen;
 			}
-			
+
 			/**
-			 * Will translate the absolute, agnostic coordinates of the given 
-			 * rectangle into a relative, screen-dependant set of coordinates. 
-			 * 
+			 * Will translate the absolute, agnostic coordinates of the given
+			 * rectangle into a relative, screen-dependant set of coordinates.
+			 *
 			 * This is required, as screen coordinates may drammatically vary
-			 * based on that screen geographic position -- to the left or to the 
+			 * based on that screen geographic position -- to the left or to the
 			 * right of the primary screen, for instance.
 			 * @method
 			 * @private
-			 * @return { Rectangle } The translated coordinates. 
+			 * @return { Rectangle } The translated coordinates.
 			 */
 			function positionRectangleOnScreen (screen, rectangle) {
 				// Adjust the 'x' coordinate:
-				if ((rectangle.x + screen.visibleBounds.x) 
+				if ((rectangle.x + screen.visibleBounds.x)
 					< screen.visibleBounds.x) {
-						rectangle.x = screen.visibleBounds.x; 
+						rectangle.x = screen.visibleBounds.x;
 				} else {
 					var leftPoint = screen.visibleBounds.x + rectangle.x;
 					var rightPoint = leftPoint + rectangle.width;
-					if (rightPoint <= screen.visibleBounds.width + 
+					if (rightPoint <= screen.visibleBounds.width +
 						screen.visibleBounds.x) {
 							rectangle.x = leftPoint;
 					} else {
-						var adjustedLeftPoint = screen.visibleBounds.width - 
+						var adjustedLeftPoint = screen.visibleBounds.width -
 							rectangle.width + screen.visibleBounds.x;
-						rectangle.x = Math.max(adjustedLeftPoint, 
+						rectangle.x = Math.max(adjustedLeftPoint,
 							screen.visibleBounds.x);
 					}
 				}
 				// Adjust the 'y' coordinate:
 				if (rectangle.y < screen.visibleBounds.y) {
-					rectangle.y = screen.visibleBounds.y; 
-				} else if(rectangle.y + rectangle.height > 
+					rectangle.y = screen.visibleBounds.y;
+				} else if(rectangle.y + rectangle.height >
 					screen.visibleBounds.height) {
-					rectangle.y = screen.visibleBounds.height - 
+					rectangle.y = screen.visibleBounds.height -
 						rectangle.height;
 				}
 				return rectangle;
@@ -635,25 +635,25 @@ air.SourceViewer.getDefault = function() {
 			 * @return { Rectangle} The centered rectangle
 			 */
 			function centerRectangleOnScreen (screen, rectangle) {
-				rectangle.x = Math.floor(screen.visibleBounds.width - 
+				rectangle.x = Math.floor(screen.visibleBounds.width -
 					rectangle.width) / 2;
-				rectangle.y = Math.floor(screen.visibleBounds.height - 
+				rectangle.y = Math.floor(screen.visibleBounds.height -
 					rectangle.height) / 2;
 				return positionRectangleOnScreen(screen, rectangle);
 			}
 
 			/**
-			 * Returns the default display boundaries for a newly created 
+			 * Returns the default display boundaries for a newly created
 			 * window.
 			 * @method
 			 * @private
 			 * @return { Rectangle }
 			 * 		A rectangle defining the boundaries of this new window.
-			 */			
+			 */
 			function getDefaultBoundaries () {
 				return new Rectangle (0, 0, 800, 600);
 			}
-			
+
 			/**
 			 * Creates the main window of the application.
 			 * @method
@@ -665,14 +665,14 @@ air.SourceViewer.getDefault = function() {
 				if (initPosition) {
 					bounds.x = initPosition[0];
 					bounds.y = initPosition[1];
-					bounds = positionRectangleOnScreen (screen, 
+					bounds = positionRectangleOnScreen (screen,
 						bounds);
 				} else {
 					bounds = centerRectangleOnScreen(screen, bounds);
 				}
 				var htmlLoader = HTMLLoader.createRootWindow (
 					true,
-					getDefWindowOptions(), 
+					getDefWindowOptions(),
 					false,
 					bounds
 				);
@@ -681,12 +681,12 @@ air.SourceViewer.getDefault = function() {
 					if(isToBeModal) {
 						makeWindowModal (htmlLoader.window, self);
 					} else {
-						
+
 						// @close our window before parent window gets closed:
 						var parWinClosingHandler = function() {
-							self.nativeWindow.removeEventListener('closing', 
+							self.nativeWindow.removeEventListener('closing',
 								parWinClosingHandler);
-							self.nativeWindow.removeEventListener('activate', 
+							self.nativeWindow.removeEventListener('activate',
 								parWindowActivateHandler);
 							if(htmlLoader && htmlLoader.window &&
 								htmlLoader.window.nativeWindow) {
@@ -694,9 +694,9 @@ air.SourceViewer.getDefault = function() {
 									htmlLoader.window.nativeWindow);
 							}
 						}
-						self.nativeWindow.addEventListener ('closing', 
+						self.nativeWindow.addEventListener ('closing',
 							parWinClosingHandler);
-							
+
 						// @activate our window when parent gets activated:
 						var parWindowActivateHandler = function() {
 							if(htmlLoader &&
@@ -706,7 +706,7 @@ air.SourceViewer.getDefault = function() {
 									orderInFrontOf(self.nativeWindow);
 							}
 						}
-						self.nativeWindow.addEventListener ('activate', 
+						self.nativeWindow.addEventListener ('activate',
 							parWindowActivateHandler);
 					}
 					htmlLoader.window.nativeWindow.addEventListener (
@@ -733,7 +733,7 @@ air.SourceViewer.getDefault = function() {
 						{'window': htmlLoader.window}
 					);
 					eventManager.fireEvent(event);
-					
+
 					// @this is a once-in-a-lifetime run:
 					htmlLoader.removeEventListener('htmlDOMInitialize',
 						domInitHandler);
@@ -741,7 +741,7 @@ air.SourceViewer.getDefault = function() {
 				htmlLoader.addEventListener('htmlDOMInitialize',domInitHandler);
 				htmlLoader.loadString('');
 			}
-			
+
 			/**
 			 * Makes a window modal to a certain parent window.
 			 * @method
@@ -749,14 +749,14 @@ air.SourceViewer.getDefault = function() {
 			 * @param oWindow { Object Window }
 			 * 		The window to be made modal.
 			 * @param oParentWindow { Object Window }
-			 * 		The parent of the modal window. Any attempt to access the 
+			 * 		The parent of the modal window. Any attempt to access the
 			 * 		parent while the modal window is open will fail.
 			 */
 			function makeWindowModal (oWindow, oParentWindow) {
-				
+
 				// @prevent parent window closing:
 				var closingHandler = function (event) {
-					if (isMainWindowOpen) { 
+					if (isMainWindowOpen) {
 						event.preventDefault();
 						return;
 					};
@@ -767,10 +767,10 @@ air.SourceViewer.getDefault = function() {
 				oParentWindow.nativeWindow.addEventListener (
 					'closing', closingHandler
 				);
-				
+
 				// @prevent parent window minimizing or maximizing:
 				var stateChangingHandler = function (event) {
-					if (isMainWindowOpen) { 
+					if (isMainWindowOpen) {
 						event.preventDefault();
 						return;
 					};
@@ -781,7 +781,7 @@ air.SourceViewer.getDefault = function() {
 				oParentWindow.nativeWindow.addEventListener (
 					'displayStateChanging', stateChangingHandler
 				);
-				
+
 				// @prevent parent window moving:
 				var movingHandler = function(event) {
 					if (isMainWindowOpen) {
@@ -795,7 +795,7 @@ air.SourceViewer.getDefault = function() {
 				oParentWindow.nativeWindow.addEventListener (
 					'moving', movingHandler
 				);
-				
+
 				// @prevent parent window resizing:
 				var resizingHandler = function(event) {
 					if(isMainWindowOpen) {
@@ -808,9 +808,9 @@ air.SourceViewer.getDefault = function() {
 				}
 				oParentWindow.nativeWindow.addEventListener (
 					'resizing', resizingHandler
-					
+
 				);
-				
+
 				// @make sure parent window will stay behind the modal window:
 				var ensureProperOrder = function() {
 					if (oWindow && oWindow.nativeWindow &&
@@ -820,16 +820,16 @@ air.SourceViewer.getDefault = function() {
 								.orderInBackOf(oWindow.nativeWindow);
 					}
 				}
-				
-				// @works by default on Windows, hacked on Mac:				
-				var osString = runtime.flash.system.Capabilities.os; 
+
+				// @works by default on Windows, hacked on Mac:
+				var osString = runtime.flash.system.Capabilities.os;
 				if(osString.indexOf('Windows') != -1) {
 					oWindow.nativeWindow.addEventListener ('deactivate',
 						ensureProperOrder, false);
 				} else {
 					var EPO_INTERVAL = window.setInterval(ensureProperOrder, 0);
 				}
-				
+
 				// @prevent user from interacting with the parent's content:
 				var parentContentBlocker;
 				var parentDomProvider = new DOMProvider(oParentWindow.document);
@@ -870,7 +870,7 @@ air.SourceViewer.getDefault = function() {
 		 * 		The instance of the NativeWindow class that is to be closed.
 		 * @return
 		 * 		True, if the given window has been closed; false otherwise.
-		 */		
+		 */
 		WindowsManager.closeWindow = function (oWindow) {
 			var closeEvent = new runtime.flash.events.Event (
 		    	runtime.flash.events.Event.CLOSING, true, true );
@@ -895,18 +895,18 @@ air.SourceViewer.getDefault = function() {
 		 * @class
 		 * @private
 		 * @param oDomProvider { DOMProvider }
-		 * 		An instance of the DOMProvider class. Required, in order to be 
+		 * 		An instance of the DOMProvider class. Required, in order to be
 		 * 		able to build the layout blocks.
 		 */
 		function UIBuilder (oDomProvider) {
 
-			// @let private methods see own class' instance:			
+			// @let private methods see own class' instance:
 			var that = this;
-			
+
 			/**
 			 * Updates the title shown by the Source Viewer window.
 			 * @method
-			 * @private 
+			 * @private
 			 * @param fileUrl { String }
 			 * 		The title to show.
 			 */
@@ -922,7 +922,7 @@ air.SourceViewer.getDefault = function() {
 			 * @private
 			 */
 			function init() {
-				eventManager.addListener(FOLDER_STATE_CHANGED_EVENT, 
+				eventManager.addListener(FOLDER_STATE_CHANGED_EVENT,
 					function (event) {
 						uiBuilder.toggleItemContent(event.body.folder);
 					}
@@ -940,7 +940,7 @@ air.SourceViewer.getDefault = function() {
 				eventManager.addListener (
 					FILE_CONTENT_READY_EVENT, fileContentReadyHandler);
 			}
-			
+
 			/**
 			 * Displays the content of the selected file item inside the source
 			 * area element.
@@ -956,7 +956,7 @@ air.SourceViewer.getDefault = function() {
 			this.showText = function(content) {
 				var oDocument = dProvider.getClientDocument();
 				var el = oDocument.getElementById('sourceCodeArea');
-				var txtNode = (el.getElementsByTagName('span')[0]|| 
+				var txtNode = (el.getElementsByTagName('span')[0]||
 					dProvider.makeText(' ', el, 'sourceCodeText')).firstChild;
 				txtNode.nodeValue = content;
 				if(el.style.visibility != 'visible') {
@@ -979,7 +979,7 @@ air.SourceViewer.getDefault = function() {
 				el.scrollLeft = 0;
 				ruler.scrollTop = 0;
 			}
-			
+
 			/**
 			 * Displays the selected file item, provided it is an image.
 			 * @method
@@ -998,7 +998,7 @@ air.SourceViewer.getDefault = function() {
 				el.scrollTop = 0;
 				el.scrollLeft = 0;
 			}
-			
+
 			/**
 			 * The DOM provider instance used for building UI elements.
 			 * @field
@@ -1025,9 +1025,9 @@ air.SourceViewer.getDefault = function() {
 				var item = makeTreeItem(parentEl, text, className);
 				return item;
 			}
-			
+
 			/**
-			 * Transparently creates a generic tree item, regardless of the 
+			 * Transparently creates a generic tree item, regardless of the
 			 * actual HTML Element given as parent.
 			 * @method
 			 * @private
@@ -1041,18 +1041,18 @@ air.SourceViewer.getDefault = function() {
 			 * 		The css class to apply to the newly created element.
 			 */
 			function makeTreeItem (parentEl, text, className) {
-				var isUL = 
+				var isUL =
 					parentEl.nodeName &&
 					parentEl.nodeName.toLowerCase() == 'ul';
-				var isLI = 
+				var isLI =
 					parentEl.nodeName &&
 					parentEl.nodeName.toLowerCase() == 'li';
 				var clsName = className? className : 'item';
 				var item;
-				if(isUL) {item = dProvider.makeElement('li', parentEl, clsName)} 
+				if(isUL) {item = dProvider.makeElement('li', parentEl, clsName)}
 				else if(isLI) {
-					var wrapper = 
-						parentEl.getElementsByTagName('ul')[0] || 
+					var wrapper =
+						parentEl.getElementsByTagName('ul')[0] ||
 						dProvider.makeElement('ul', parentEl);
 					item = dProvider.makeElement('li', wrapper, clsName);
 				}
@@ -1081,15 +1081,15 @@ air.SourceViewer.getDefault = function() {
 				}, false);
 				return item;
 			}
-			
+
 			/**
-			 * Possibly returns a tree item that matches the given path. 
+			 * Possibly returns a tree item that matches the given path.
 			 * @method
 			 * @public
 			 * @param treeRoot { DOM Element }
 			 * 		The root, <ul> DOM Element of the tree to search.
 			 * @param path { String }
-			 *		The path to look for. It is expected to be an application 
+			 *		The path to look for. It is expected to be an application
 			 * 		root relative path. Illegal or absolute paths will fail
 			 * 		silently.
 			 * @return { DOM Element }
@@ -1123,12 +1123,12 @@ air.SourceViewer.getDefault = function() {
 					var segment = segments.pop();
 					if(segment.length == 0) { continue };
 					var item = getChildByLabel(current, segment);
-					if(item) { current = item } 
+					if(item) { current = item }
 					else { break };
 				} while(true);
 				return (current && (segments.length == 0))? current: null;
 			}
-			
+
 			/**
 			 * Displays all given files as sibling items in the tree.
 			 * @method
@@ -1158,14 +1158,14 @@ air.SourceViewer.getDefault = function() {
 					eventManager.fireEvent(event);
 				}
 			}
-			
+
 			/**
-			 * Adds visual clues that the given item has children i.e., a 
+			 * Adds visual clues that the given item has children i.e., a
 			 * different CSS style, a progress indicator.
 			 * @method
 			 * @private
 			 * @param item { HTML Element }
-			 * 		The element that is to be marked as non empty. 
+			 * 		The element that is to be marked as non empty.
 			 */
 			this.markItemAsNonEmpty = function(item) {
 				item.className = 'nonEmptyBranch';
@@ -1175,14 +1175,14 @@ air.SourceViewer.getDefault = function() {
 				this.toggleItemContent(item);
 				this.setupAsClickableFolderItem(textEl);
 			}
-			
+
 			/**
 			 * Maintains a list with all clickable items.
 			 * @field
 			 * @private
 			 */
 			var clickableItems = [];
-			
+
 			/**
 			 * Explicitelly unsets all items previously set as clickable.
 			 * @method
@@ -1195,7 +1195,7 @@ air.SourceViewer.getDefault = function() {
 				}
 				clickableItems = [];
 			}
-			
+
 			/**
 			 * Sets the given item as a clickable folder, i.e., clicking on it
 			 * will fetch its children, and will collapse/expand it afterwards.
@@ -1210,13 +1210,13 @@ air.SourceViewer.getDefault = function() {
 					var notYetExpanded = hasProgressIndicator(el.parentNode);
 					if(notYetExpanded) {
 						var event = eventManager.createEvent(
-							FOLDER_FIRST_CLICKED_EVENT, 
+							FOLDER_FIRST_CLICKED_EVENT,
 							{'folder': el.parentNode}
 						);
 						eventManager.fireEvent(event);
 					} else {
 						var event = eventManager.createEvent(
-							FOLDER_STATE_CHANGED_EVENT, {'folder': 
+							FOLDER_STATE_CHANGED_EVENT, {'folder':
 							el.parentNode});
 						eventManager.fireEvent(event);
 					}
@@ -1226,7 +1226,7 @@ air.SourceViewer.getDefault = function() {
 			}
 
 			/**
-			 * Sets the given file as clickable, i.e., clicking on it will 
+			 * Sets the given file as clickable, i.e., clicking on it will
 			 * display its content in the right pane.
 			 * @method
 			 * @private
@@ -1278,7 +1278,7 @@ air.SourceViewer.getDefault = function() {
 				// @visual effect for mouse click on tree items.
 				var clickCb = function(event) {
 					var el = event.body.htmlElement;
-					var old = current.lastClicked; 
+					var old = current.lastClicked;
 					if (old) {
 						old.style.backgroundColor = 'transparent';
 					}
@@ -1288,13 +1288,13 @@ air.SourceViewer.getDefault = function() {
 				};
 				eventManager.addListener(ITEM_MOUSE_CLICK_EVENT, clickCb);
 			}
-			
+
 			/**
 			 * Alternatively collapses or expands the children of a tree item.
 			 * @method
 			 * @public
 			 * @param { HTML Element }
-			 * 		The item to be collapsed or expanded (based on its current 
+			 * 		The item to be collapsed or expanded (based on its current
 			 * 		state).
 			 */
 			this.toggleItemContent = function(item) {
@@ -1304,9 +1304,9 @@ air.SourceViewer.getDefault = function() {
 					wrapper.style.display = visible? 'none' : 'block';
 				}
 			}
-			
+
 			/**
-			 * Adds a special, temporary child to the given item, indicating 
+			 * Adds a special, temporary child to the given item, indicating
 			 * that its actual children are being loaded in background.
 			 * @method
 			 * @public
@@ -1318,10 +1318,10 @@ air.SourceViewer.getDefault = function() {
 					makeTreeItem (item, 'loading...', 'progress');
 				}
 			}
-			
+
 			/**
-			 * Removes the 'progress indicator' from the given item, should it 
-			 * have one. 
+			 * Removes the 'progress indicator' from the given item, should it
+			 * have one.
 			 * @method
 			 * @public
 			 * @param item { HTML Element }
@@ -1331,7 +1331,7 @@ air.SourceViewer.getDefault = function() {
 				var children = item.getElementsByTagName('span');
 				for(var i=0; i<children.length; i++) {
 					var child = children[i];
-					var value = child.innerHTML;  
+					var value = child.innerHTML;
 					if (value == 'loading...') {
 						var itemToRemove = child.parentNode;
 						var _parent = itemToRemove.parentNode;
@@ -1340,16 +1340,16 @@ air.SourceViewer.getDefault = function() {
 					}
 				}
 			}
-			
+
 			/**
-			 * Checks whether a given item currently presents a 'progress 
+			 * Checks whether a given item currently presents a 'progress
 			 * indicator' instead of its actual content.
 			 * @method
 			 * @private
 			 * @param item { HTML Element }
 			 * 		The element to be checked.
 			 * @return { Boolean }
-			 * 		True if the element has a 'progress indicator' in place, 
+			 * 		True if the element has a 'progress indicator' in place,
 			 * 		false otherwise.
 			 */
 			function hasProgressIndicator (item) {
@@ -1364,7 +1364,7 @@ air.SourceViewer.getDefault = function() {
 				}
 				return false;
 			}
-						
+
 			/**
 			 * Creates the header of the application UI.
 			 * @method
@@ -1390,7 +1390,7 @@ air.SourceViewer.getDefault = function() {
 				);
 				return header;
 			}
-			
+
 			/**
 			 * Creates the left side of the application UI -- the side bar that
 			 * contains the tree list showing files and folders.
@@ -1409,11 +1409,11 @@ air.SourceViewer.getDefault = function() {
 					'listDescr');
 				var lstBackground = dProvider.makeDiv(left, 'listBackground');
 				layoutProvider.setupBox(lstBackground);
-				layoutProvider.setupStretched(lstBackground, {top:3, right:0.5, bottom:1, 
+				layoutProvider.setupStretched(lstBackground, {top:3, right:0.5, bottom:1,
 					left:0.5});
 				return left;
 			}
-			
+
 			/**
 			 * Creates the tree list that displays source files.
 			 * @method
@@ -1426,14 +1426,14 @@ air.SourceViewer.getDefault = function() {
 			function createTree (parentEl) {
 				var root = dProvider.makeElement('ul', parentEl, 'tree');
 				layoutProvider.setupBox(root);
-				layoutProvider.setupStretched(root, {top:2.5, right:1, 
+				layoutProvider.setupStretched(root, {top:2.5, right:1,
 					bottom:0.5, left: 1});
 				root.style.overflow = 'auto';
 				return root;
 			}
-			
+
 			/**
-			 * Creates the right side of the application UI -- the area that 
+			 * Creates the right side of the application UI -- the area that
 			 * displays selected file's content.
 			 * @method
 			 * @private
@@ -1446,16 +1446,16 @@ air.SourceViewer.getDefault = function() {
 				var right = dProvider.makeDiv( parentEl, 'rcContent' );
 				layoutProvider.setupBox(right);
 				layoutProvider.setupStretched(right, {top: 3.2, left: 14, bottom: 2});
-				var txt = dProvider.makeText('no content to display', right, 
+				var txt = dProvider.makeText('no content to display', right,
 					'noContent');
 				layoutProvider.setupBox(txt, {w:10, h:1});
 				layoutProvider.setupCentered(txt);
 				txt.setAttribute('id', 'srcAreaBgText');
-				return right; 
+				return right;
 			}
-			
+
 			/**
-			 * Creates the ruler showing line numbering for displayed file's 
+			 * Creates the ruler showing line numbering for displayed file's
 			 * content.
 			 * @method
 			 * @private
@@ -1467,14 +1467,14 @@ air.SourceViewer.getDefault = function() {
 			function createRuler(parentEl) {
 				var lnNumb = dProvider.makeDiv(parentEl, 'ruler');
 				layoutProvider.setupBox (lnNumb, {w:4});
-				layoutProvider.setupStretched (lnNumb, {left:0.5, top:0.5, 
+				layoutProvider.setupStretched (lnNumb, {left:0.5, top:0.5,
 					right:-1, bottom:0.8 });
 				lnNumb.setAttribute('id', 'lineNoRuler');
 				return lnNumb;
 			}
-			
+
 			/**
-			 * Creates the UI element that will display the selected source 
+			 * Creates the UI element that will display the selected source
 			 * file's source code.
 			 * @method
 			 * @private
@@ -1486,12 +1486,12 @@ air.SourceViewer.getDefault = function() {
 			function createSourceArea(parentEl) {
 				var srcArea = dProvider.makeDiv(parentEl, 'srcCodeArea');
 				layoutProvider.setupBox (srcArea);
-				layoutProvider.setupStretched (srcArea, {left:4.5, top:0.5, 
+				layoutProvider.setupStretched (srcArea, {left:4.5, top:0.5,
 					right:0.35, bottom:0.8, });
 				srcArea.setAttribute('id', 'sourceCodeArea');
 				return srcArea;
 			}
-			
+
 			/**
 			 * Creates the footer of the application UI.
 			 * @method
@@ -1505,11 +1505,11 @@ air.SourceViewer.getDefault = function() {
 				var footer = dProvider.makeDiv( parentEl, 'rcFooter' );
 				layoutProvider.setupBox(footer, {h: 2});
 				layoutProvider.setupStretched(footer, {top: -1});
-				dProvider.makeText(COPYRIGHT_MESSAGE, footer, 
+				dProvider.makeText(COPYRIGHT_MESSAGE, footer,
 					'copyrightText');
 				return footer;
 			}
-			
+
 			/**
 			 * Creates the application user interface.
 			 * @method
@@ -1541,17 +1541,17 @@ air.SourceViewer.getDefault = function() {
 					'footer'		:	footer
 				};
 			}
-			
+
 			/**
-			 * Initiates the linked ruler that shows line numbers for the file 
+			 * Initiates the linked ruler that shows line numbers for the file
 			 * content being displayed.
 			 * @method
 			 * @public
 			 * @param parentEl { HTML Element }
 			 * 		The HTML Element to build in.
 			 * @assocText { String }
-			 * 		A formatted string to show line numbers for. The ruler will 
-			 * 		add a new number for each occurence of the new line 
+			 * 		A formatted string to show line numbers for. The ruler will
+			 * 		add a new number for each occurence of the new line
 			 * 		character in this string.
 			 */
 			this.initRuler = function(parentEl, assocText) {
@@ -1564,14 +1564,14 @@ air.SourceViewer.getDefault = function() {
 					count++;
 					str += count + "\n";
 					index = searchIndex + 1;
-					if (searchIndex == -1) { 
+					if (searchIndex == -1) {
 						str+="EOF";
 						break;
 					};
 				} while (true);
 				dProvider.makeText(str, parentEl, 'rulerText');
 			}
-			
+
 			/**
 			 * Links two elements, so that they scroll together.
 			 * @method
@@ -1581,21 +1581,21 @@ air.SourceViewer.getDefault = function() {
 			 * @param related { HTML Element }
 			 * 		The source element to link with.
 			 * @param proxy { Function }
-			 * 		An optional function that specifies how the scroll value of 
-			 * 		the 'related' element applies to the 'scrollable' element. 
-			 * 		Default is to just pass the 'scrollTop' value from 'related' 
+			 * 		An optional function that specifies how the scroll value of
+			 * 		the 'related' element applies to the 'scrollable' element.
+			 * 		Default is to just pass the 'scrollTop' value from 'related'
 			 * 		to 'scrollable'.
 			 */
 			function linkScrollable (scrollable, related, proxy) {
 				// @private function; scrolls a given element.
 				var scrollElement = function(element, offset) {
-					element.scrollTop = offset;	
+					element.scrollTop = offset;
 				}
 				related.addEventListener('scroll',  function() {
-					scrollElement (scrollable, 
+					scrollElement (scrollable,
 						Utils.isFunction(proxy)? proxy.call(this, related.scrollTop):
 						related.scrollTop
-					); 
+					);
 				}, false );
 			}
 
@@ -1618,8 +1618,8 @@ air.SourceViewer.getDefault = function() {
 		* @private
 		*/
 		function FileSystemWalker() {
-			
-			// @let private methods see own class' instance:			
+
+			// @let private methods see own class' instance:
 			var that = this;
 
 			/**
@@ -1628,7 +1628,7 @@ air.SourceViewer.getDefault = function() {
 			 * @private
 			 */
 			var listedFiles = {};
-			
+
 			/**
 			 * Custom initialization for the FileSystemWalker class.
 			 * @method
@@ -1640,9 +1640,9 @@ air.SourceViewer.getDefault = function() {
 						var folderItem = event.body.folder;
 						var file = getRegisteredFileByItem(folderItem);
 						// @nested listener
-						eventManager.addListener(FILES_LIST_READY_EVENT, 
+						eventManager.addListener(FILES_LIST_READY_EVENT,
 							function(evt) {
-								uiBuilder.displayFilesList(folderItem, 
+								uiBuilder.displayFilesList(folderItem,
 									evt.body.filesList);
 								// @this is a one-time callback:
 								eventManager.removeListener(
@@ -1684,7 +1684,7 @@ air.SourceViewer.getDefault = function() {
 			 * @param file { File }
 			 * 		A file object to look up.
 			 * @return { Boolean }
-			 * 		True is the file was already listed, false otherwise. 
+			 * 		True is the file was already listed, false otherwise.
 			 */
 			function isFileAlreadyListed (file) {
 				return listedFiles[file.url]? true: false;
@@ -1697,14 +1697,14 @@ air.SourceViewer.getDefault = function() {
 			 * @param url { String }
 			 * 		The url of the file to retrieve.
 			 * @return { Object }
-			 * 		A hash with two keys, 'file': the registered file, and 
+			 * 		A hash with two keys, 'file': the registered file, and
 			 * 		'item': its associated item. Returns undefined if the file
-			 * 		cannot be found. 
+			 * 		cannot be found.
 			 */
 			function getRegisteredFile (url) {
 				return listedFiles[url];
 			}
-			
+
 			/**
 			 * Performs a reverse lookup through the registry, possibly finding
 			 * the file associated with the given item.
@@ -1732,9 +1732,9 @@ air.SourceViewer.getDefault = function() {
 			 * @param file { File }
 			 * 		A file object to register.
 			 * @param item { HTML Element }
-			 * 		The HTML element that has been created in order to list the 
+			 * 		The HTML element that has been created in order to list the
 			 * 		file.
-			 */  
+			 */
 			function registerListedFile (file, item) {
 				var item = item? item: null;
 				listedFiles[file.url] = {'file':file, 'item': item};
@@ -1752,7 +1752,7 @@ air.SourceViewer.getDefault = function() {
 			}
 
 			/**
-			 * Lists the children of the given parent file, provided it is a 
+			 * Lists the children of the given parent file, provided it is a
 			 * directory.
 			 * @method
 			 * @private
@@ -1777,7 +1777,7 @@ air.SourceViewer.getDefault = function() {
 				}, false);
 				parentFile.getDirectoryListingAsync();
 			}
-			
+
 			/**
 			 * Checks whether the given file object has children, i.e., it is a
 			 * directory containing other files.
@@ -1797,7 +1797,7 @@ air.SourceViewer.getDefault = function() {
 				});
 				file.getDirectoryListingAsync();
 			}
-			
+
 			/**
 			 * Fires a FILE_CONTENT_READY_EVENT, thus causing the given content
 			 * to be displayed in the right pane.
@@ -1808,7 +1808,7 @@ air.SourceViewer.getDefault = function() {
 			 * @param title { String }
 			 * 		Optional. The title to be shown by the window title bar.
 			 * @param type { String }
-			 * 		Optional, defaults to TEXT_TYPE. Controlls whether the 
+			 * 		Optional, defaults to TEXT_TYPE. Controlls whether the
 			 * 		content provided will be displayed as such, or set as the
 			 * 		"src" attribute of an <image> HTML Element.
 			 */
@@ -1825,17 +1825,17 @@ air.SourceViewer.getDefault = function() {
 				var event = eventManager.createEvent (
 					FILE_CONTENT_READY_EVENT, evtBody
 				);
-				eventManager.fireEvent(event);	
-				lastFileShown = file.url; 			
+				eventManager.fireEvent(event);
+				lastFileShown = file.url;
 			}
-			
+
 			/**
 			 * The last file whose content has been displayed.
 			 * @field
 			 * @private
 			 */
 			var lastFileShown;
-			
+
 			/**
 			 * Possibly obtains the text content of the given file object.
 			 * @method
@@ -1868,7 +1868,7 @@ air.SourceViewer.getDefault = function() {
 						if(isTextFile(file)) {
 							var bytesAvailable = fStr.bytesAvailable;
 							fStr.readBytes(fileContent, count, bytesAvailable);
-							count += bytesAvailable;							
+							count += bytesAvailable;
 						};
 					}
 					var fsCompleteHandler = function() {
@@ -1922,9 +1922,9 @@ air.SourceViewer.getDefault = function() {
 				);
 				eventManager.fireEvent(event);
 			}
-			
+
 			/**
-			 * Shows a message with progress information when opening large 
+			 * Shows a message with progress information when opening large
 			 * files.
 			 * @method
 			 * @private
@@ -1939,7 +1939,7 @@ air.SourceViewer.getDefault = function() {
 				current = Math.round(current/1024);
 				total = Math.round(total/1024);
 				var fileName = file.name;
-				var msg = "opening " +fileName+ ": " +current+ " of " 
+				var msg = "opening " +fileName+ ": " +current+ " of "
 					+total+ " Kb";
 				var event = eventManager.createEvent(
 					FILE_CONTENT_READY_EVENT,
@@ -1947,7 +1947,7 @@ air.SourceViewer.getDefault = function() {
 				);
 				eventManager.fireEvent(event);
 			}
-			
+
 			/**
 			 * Checks whether the given file is of a legal type. We do not want
 			 * to retrieve text for binary files, for instance.
@@ -1956,13 +1956,13 @@ air.SourceViewer.getDefault = function() {
 			 * @param file { File }
 			 * 		The file object to check.
 			 * @return { Boolean }
-			 * 		Returns true if the file extension is in the 
+			 * 		Returns true if the file extension is in the
 			 * 		VALID_EXTENSIONS list, false otherwise.
 			 */
 			function isLegalFile(file) {
 				return (isTextFile(file) || isImageFile(file));
 			}
-			
+
 			/**
 			 * Checks whether the given file is of a <text> type.
 			 * @method
@@ -1976,7 +1976,7 @@ air.SourceViewer.getDefault = function() {
 			function isTextFile(file) {
 				return checkFileExtension(file, TEXT_EXTENSIONS)
 			}
-			
+
 			/**
 			 * Check whether the given file is of a <image> type.
 			 * @method
@@ -1985,14 +1985,14 @@ air.SourceViewer.getDefault = function() {
 			 * 		The file object to check.
 			 * @return { Boolean }
 			 * 		Returns true if the file extension is of the <image> type,
-			 * 		false otherwise. 
+			 * 		false otherwise.
 			 */
 			function isImageFile(file) {
 				return checkFileExtension(file, IMAGE_EXTENSIONS)
 			}
-			
+
 			/**
-			 * Checks whether given file's extension matches one of the 
+			 * Checks whether given file's extension matches one of the
 			 * extensions in the list.
 			 * @method
 			 * @private
@@ -2012,13 +2012,13 @@ air.SourceViewer.getDefault = function() {
 				}
 				return false;
 			}
-			
+
 			// @perform custom initialization of this class.
 			init();
 		}
 
 
-			
+
 		/**
 		 * CLASS
 		 * 		RequestedFilesRegistry
@@ -2033,7 +2033,7 @@ air.SourceViewer.getDefault = function() {
 			/**
 			 * The cache itself.
 			 * @field
-			 * @private 
+			 * @private
 			 */
 			var registry = {};
 
@@ -2093,7 +2093,7 @@ air.SourceViewer.getDefault = function() {
 		* CLASS
 		* 	Utils
 		* DESCRIPTION
-		* 	Private class; holds only static members that aid in dealing 
+		* 	Private class; holds only static members that aid in dealing
 		*    with file paths & URLs.
 		* SAMPLE USAGE
 		* 	N/A (internal use only)
@@ -2109,7 +2109,7 @@ air.SourceViewer.getDefault = function() {
 			 * @param str { String }
 			 * 		The string to trim.
 			 * @return { String }
-			 * 		The given string, with all the leading and trailing spaces 
+			 * 		The given string, with all the leading and trailing spaces
 			 * 		removed.
 			 */
 			trim: function (str) {
@@ -2120,7 +2120,7 @@ air.SourceViewer.getDefault = function() {
 				}
 				return '';
 			},
-			
+
 			/**
 			 * Tests whether the given argument is a function.
 			 * @method
@@ -2134,7 +2134,7 @@ air.SourceViewer.getDefault = function() {
 			 isFunction : function (arg) {
 			 	return arg instanceof Function;
 			 },
-			 
+
 			/**
 			 * Returns a relative path for the file given as argument.
 			 * @method
@@ -2145,7 +2145,7 @@ air.SourceViewer.getDefault = function() {
 			 * @return { String }
 			 * 		The translated file url. Will allways have a leading slash,
 			 * 		never a trailing one: "/my/relative/url"
-			 */ 
+			 */
 			getRelativePath: function (file) {
 				var appDir = File.applicationDirectory;
 				var f = file;
@@ -2157,7 +2157,7 @@ air.SourceViewer.getDefault = function() {
 				}
 				return ['/', pathSegments.join('/')].join('');
 			},
-			
+
 			/**
 			 * Translates a native path into a file URL.
 			 * @method
@@ -2167,7 +2167,7 @@ air.SourceViewer.getDefault = function() {
 			 * 		The native path to translate.
 			 * @return { String }
 			 * 		A file URL, translated from the given native path.
-			 */ 
+			 */
 			translateToURL: function (nativePath) {
 				nativePath = nativePath.replace(/\\/g, '/');
 				nativePath = nativePath.replace(/^\//, '');
@@ -2187,16 +2187,16 @@ air.SourceViewer.getDefault = function() {
 		* 	N/A (internal use only)
 		* @class
 		* @private
-		*/		
+		*/
 		function EventManager() {
-			
+
 			/**
 			 * Holds all the registered event listeners.
 			 * @field
 			 * @private
 			 */
 			var listeners = {};
-			
+
 			/**
 			 * Registers an event listener.
 			 * @method
@@ -2204,7 +2204,7 @@ air.SourceViewer.getDefault = function() {
 			 * @param type { String }
 			 * 		The type of events this listener is interested in.
 			 * @param callback { Function }
-			 * 		The callback to activate when a listener of this type will 
+			 * 		The callback to activate when a listener of this type will
 			 * 		be notified.
 			 */
 			this.addListener = function(type, callback) {
@@ -2232,10 +2232,10 @@ air.SourceViewer.getDefault = function() {
 				}
 				list.sort(function(a,b){return a === null? 1:0});
 				while (list[Math.min(0, list.length-1)] === null) {
-					list.length -= 1;	
+					list.length -= 1;
 				}
 			}
-			
+
 			/**
 			 * Unregisters all event listeners of a specific type.
 			 * @method
@@ -2247,7 +2247,7 @@ air.SourceViewer.getDefault = function() {
 				listeners[type] = null;
 				delete listeners[type];
 			}
-			
+
 			/**
 			 * Unregisters all event listeners.
 			 * @method
@@ -2256,7 +2256,7 @@ air.SourceViewer.getDefault = function() {
 			this.removeListeners = function() {
 				listeners = {};
 			}
-			
+
 			/**
 			 * Notifies all event listeners of a specific type.
 			 * @method
@@ -2272,7 +2272,7 @@ air.SourceViewer.getDefault = function() {
 					callback(event);
 				}
 			}
-			
+
 			/**
 			 * Returns an instance of the Event class to the caller.
 			 * @method
@@ -2284,7 +2284,7 @@ air.SourceViewer.getDefault = function() {
 			 * 		transports. Both notifier and callback must have agreed upon
 			 * 		this object literal structure.
 			 * @param id { String }
-			 * 		An optional unique id for this event, should it need be 
+			 * 		An optional unique id for this event, should it need be
 			 * 		recognized at some later time.
 			 * @return { EventManager.Event }
 			 * 		An event object having the specified type, body and id.
@@ -2293,14 +2293,14 @@ air.SourceViewer.getDefault = function() {
 				return new Event(type, body, id);
 			}
 
-			
-			
-			
+
+
+
 			/**
 			 * CLASS
 			 * 		Event
 			 * DESCRIPTION
-			 * 		Private class that provides a vehicle for transporting 
+			 * 		Private class that provides a vehicle for transporting
 			 * 		information from the notifier to the callback.
 			 * SAMPLE USAGE
 			 * 		N/A (internal use only)
@@ -2313,7 +2313,7 @@ air.SourceViewer.getDefault = function() {
 			 * 		transports. Both notifier and must have agreed upon
 			 * 		this object literal structure.
 			 * @param id { String }
-			 * 		An optional unique id for this event, should it need be 
+			 * 		An optional unique id for this event, should it need be
 			 * 		recognized at some later time.
 			 */
 			function Event(type, body, id) {
@@ -2354,8 +2354,8 @@ air.SourceViewer.getDefault = function() {
 			* @method
 			* @public
 			* @param target { HTML Element }
-			* 		The HTML element that is to be set up as a CSS box. This 
-			* 		implies both out-of-page-flow(1) positioning and fixed 
+			* 		The HTML element that is to be set up as a CSS box. This
+			* 		implies both out-of-page-flow(1) positioning and fixed
 			* 		dimensions(2).
 			* @param oPoint { Object }
 			* 		An object literal that specifies the box's boundaries. Use:
@@ -2366,8 +2366,8 @@ air.SourceViewer.getDefault = function() {
 			* 		All are optional. Not defining one of the above members will
 			* 		unset the corresponding CSS property.
 			* 		Note:
-			* 		(1) Out-of-page-flow positioning translates to 'fixed' if 
-			*          the target element is a direct child of the body 
+			* 		(1) Out-of-page-flow positioning translates to 'fixed' if
+			*          the target element is a direct child of the body
 			*          element; it translates to 'absolute' otherwise.
 			* 		(2) All values are computed as ems.
 			*/
@@ -2386,10 +2386,10 @@ air.SourceViewer.getDefault = function() {
 			 * @method
 			 * @private
 			 * @param target { HTML Element }
-			 * 		The HTML element (already set up as a box) that is to be 
+			 * 		The HTML element (already set up as a box) that is to be
 			 * 		centered.
 			 * @param oPoint { Object }
-			 * 		An object literal that describes an optional offset from the 
+			 * 		An object literal that describes an optional offset from the
 			 * 		computed 'center' position. Use:
 			 * 		- x: a positive value will move the box right.
 			 * 		- y: a positive value will move to box down.
@@ -2406,23 +2406,23 @@ air.SourceViewer.getDefault = function() {
 				target.style.marginLeft = (-1*(w/2-xOff)+'em');
 				target.style.marginTop = (-1*(h/2-yOff)+'em');
 			}
-			
+
 			/**
 			 * Makes a certain CSS box stretch.
 			 * @method
 			 * @private
 			 * @param target { HTML Element }
-			 * 		The HTML element (already set up as a box) that has to 
+			 * 		The HTML element (already set up as a box) that has to
 			 * 		stretch.
 			 * @param oPoint { Object }
-			 * 		An object literal that defines one to four anchor points. 
-			 * 		The box will stretch, the way that its boundaries stay 
+			 * 		An object literal that defines one to four anchor points.
+			 * 		The box will stretch, the way that its boundaries stay
 			 * 		aligned to each defined anchor point, respectivelly.
 			 * 		Example:
 			 * 		oPoint = { bottom: 1.5, top: 0 }
-			 * 		The box's bottom boundary will be anchored at 1.5 em away 
+			 * 		The box's bottom boundary will be anchored at 1.5 em away
 			 * 		from the parent-box's bottom boundary; also the top boundary
-			 * 		of the box will be anchored at the parent-box's top 
+			 * 		of the box will be anchored at the parent-box's top
 			 * 		boundary. As the parent box resizes, the box resizes with
 			 * 		it, while keeping the given anchors.
 			 */
@@ -2456,7 +2456,7 @@ air.SourceViewer.getDefault = function() {
 		* CLASS
 		* 		DOMProvider
 		* DESCRIPTION
-		* 		Private class that provides DOM element creation tools and 
+		* 		Private class that provides DOM element creation tools and
 		* 		related functionality for the application.
 		* SAMPLE USAGE
 		* 		N/A (internal use only)
@@ -2466,10 +2466,10 @@ air.SourceViewer.getDefault = function() {
 		*		The document object to provide DOM services for.
 		*/
 		function DOMProvider (oDocument) {
-			
+
 			// @let private methods see own class' instance:
 			var that = this;
-			
+
 			/**
 			* The client document object we are providing DOM services for.
  			* @field
@@ -2484,16 +2484,16 @@ air.SourceViewer.getDefault = function() {
 			* @param elName { String }
 			* 		The name of the node to create.
 			* @param elParent { Object }
-			* 		The parent of the node to create (optional, defaults to 
+			* 		The parent of the node to create (optional, defaults to
 			* 		'clientDoc'). Can be one of the following:
 			* 		- a Document node;
 			* 		- the global 'window' object;
 			* 		- an Element node.
-			* 		For the first two cases, the new node will be appended to 
-			* 		the Body element (which, in turn, will be created if it 
+			* 		For the first two cases, the new node will be appended to
+			* 		the Body element (which, in turn, will be created if it
 			* 		doesn't exist.
 			* @param cssClass { String }
-			* 		The name of a CSS class to add to this node (optional, 
+			* 		The name of a CSS class to add to this node (optional,
 			* 		defaults to empty string - i.e., no class attribute).
 			* @param attributes { Object }
 			* 		A hash defining a number of arbitrary attributes.
@@ -2504,7 +2504,7 @@ air.SourceViewer.getDefault = function() {
 			* 		The newly created HTML Object.
 			*/
 			this.makeElement = function(elName, elParent, cssClass, attributes){
-				// @private function; gracefully returns the 'html' HTML node. 
+				// @private function; gracefully returns the 'html' HTML node.
 				var getHtmlNode = function(oDoc) {
 					if(arguments.callee.node) { return arguments.callee.node };
 					var node = oDoc.getElementsByTagName('html')[0];
@@ -2539,13 +2539,13 @@ air.SourceViewer.getDefault = function() {
 					arguments.callee.node = node;
 					return node;
 				}
-				var parentType = 
+				var parentType =
 					(elParent)?
-						(elParent.nativeWindow)? 
+						(elParent.nativeWindow)?
 							'WINDOW_OBJECT' :
-						(elParent.nodeType && elParent.nodeType == 9)? 
+						(elParent.nodeType && elParent.nodeType == 9)?
 							'DOCUMENT' :
-						(elParent.nodeType && elParent.nodeType == 1)? 
+						(elParent.nodeType && elParent.nodeType == 1)?
 							'ELEMENT' :
 						null :
 					null;
@@ -2567,7 +2567,7 @@ air.SourceViewer.getDefault = function() {
 						_parent = getBodyNode(oDoc);
 				}
 				var el = _parent.ownerDocument.createElement (elName);
-				if (cssClass) { 
+				if (cssClass) {
 					el.className = cssClass;
 				};
 				if (attributes) {
@@ -2578,7 +2578,7 @@ air.SourceViewer.getDefault = function() {
 				el = _parent.appendChild(el);
 				return el;
 			}
-			
+
 			/**
 			 * Convenience method to create an empty div element.
 			 * @method
@@ -2586,10 +2586,10 @@ air.SourceViewer.getDefault = function() {
 			 * @see makeElement()
 			 * @param className { String }
 			 * 		The name of the css class to apply to the newly created div.
-			 * 		Optional, defaults to empty string (i.e., no class 
+			 * 		Optional, defaults to empty string (i.e., no class
 			 * 		attribute).
 			 * @param _parent { Object }
-			 * 		The parent to create the new div in. Optional, defaults 
+			 * 		The parent to create the new div in. Optional, defaults
 			 * 		in effect to the body element.
 			 * @return { HTML Object }
 			 * 		The newly created div element.
@@ -2597,23 +2597,23 @@ air.SourceViewer.getDefault = function() {
 			this.makeDiv = function (_parent, className) {
 				return this.makeElement('div', _parent, className);
 			}
-			
+
 			/**
 			 * Creates a styled text node.
 			 * @method
 			 * @private
 			 * @see makeElement()
 			 * @param value { String }
-			 * 		The content of the text node to create. 
+			 * 		The content of the text node to create.
 			 * 		Note:
 			 * 		HTML markup will not be expanded.
 			 * @param _parent { Object }
-			 * 		The parent to create the new text node in. Optional, 
+			 * 		The parent to create the new text node in. Optional,
 			 * 		defaults to the body element.
 			 * @param className { String }
 			 * 		The css class name to apply to the newly created text node.
 			 * 		Note:
-			 * 		The class name is rather applied to a 'span' wrapper that 
+			 * 		The class name is rather applied to a 'span' wrapper that
 			 * 		holds the text node. The span wrapper is added regardless of
 			 * 		the fact that the 'className' attribute is present or not.
 			 * @return { HTML element }
@@ -2631,7 +2631,7 @@ air.SourceViewer.getDefault = function() {
 				}
 				return wrapper;
 			}
-			
+
 			/**
 			 * Removes the text blocks created via makeText();
 			 * @method
@@ -2642,7 +2642,7 @@ air.SourceViewer.getDefault = function() {
 			this.destroyContent = function(_parent) {
 				_parent.innerHTML = ' ';
 			}
-			
+
 			/**
 			 * Returns the default client document used by this DOM provider.
 			 * @method
@@ -2653,7 +2653,7 @@ air.SourceViewer.getDefault = function() {
 			this.getClientDocument = function() {
 				return oDocument;
 			}
-			
+
 		}
 
 
@@ -2662,7 +2662,7 @@ air.SourceViewer.getDefault = function() {
 		* CLASS
 		* 		CSSProvider
 		* DESCRIPTION
-		* 		Private class that provides CSS styling services for the 
+		* 		Private class that provides CSS styling services for the
 		* 		application.
 		* SAMPLE USAGE
 		* 		N/A (internal use only)
@@ -2673,40 +2673,40 @@ air.SourceViewer.getDefault = function() {
 		*/
 		function CSSProvider ( oDocument ) {
 			/**
-			 * Change the current color scheme with the specified one, if a 
+			 * Change the current color scheme with the specified one, if a
 			 * scheme with the given name can be found.
 			 * @method
 			 * @public
 			 * @param scheme { String }
-			 * 		The name of the new color scheme to apply. It will fail 
+			 * 		The name of the new color scheme to apply. It will fail
 			 * 		silently if such a color scheme does not exist.
 			 */
 			this.changeColorScheme = function (scheme) {
 				colorScheme = scheme;
 			}
-			
+
 			/**
 			 * The client document object we are providing CSS services for.
  			 * @field
 			 * @private
 			 */
 			var clientDoc = oDocument;
-			
+
 			/**
 			 * Default color scheme to use in the application CSS.
 			 * @field
 			 * @private
 			 */
-			var defaultColorScheme = 'professionalBlue'; 
-			
+			var defaultColorScheme = 'professionalBlue';
+
 			/**
 			 * Holds the name of the color scheme to be applied. Defaults to
 			 * 'professionalBlue'.
 			 * @field
-			 * @private 
+			 * @private
 			 */
 			var colorScheme = defaultColorScheme;
-			
+
 			/**
 			 * Applies the colors in the current color scheme to the application
 			 * CSS, then returns the modified CSS
@@ -2729,9 +2729,9 @@ air.SourceViewer.getDefault = function() {
 				}
 				return newCss;
 			}
-			
+
 			/**
-			 * Applies the inline CSS by inserting it inside the page head 
+			 * Applies the inline CSS by inserting it inside the page head
 			 * element.
 			 * @method
 			 * @private
@@ -2764,8 +2764,8 @@ air.SourceViewer.getDefault = function() {
 				target.style[property] = String(value);
 			}
 		}
-		
-		 
+
+
 		/**
 		 * Holds color schemes for the application
 		 * @field
@@ -2794,7 +2794,7 @@ air.SourceViewer.getDefault = function() {
 				'-night-scape-ruler': 	'#fbf5e8',
 			}
 		}
-		
+
 		/**
 		 * Holds all the CSS information for the application's layout
 		 * @field

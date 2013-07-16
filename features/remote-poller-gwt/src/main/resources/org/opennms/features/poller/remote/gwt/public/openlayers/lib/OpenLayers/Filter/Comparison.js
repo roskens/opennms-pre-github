@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
 /**
  * Class: OpenLayers.Filter.Comparison
  * This class represents a comparison filter.
- * 
+ *
  * Inherits from
  * - <OpenLayers.Filter>
  */
@@ -27,17 +27,17 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      * - OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO    = "<=";
      * - OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO = ">=";
      * - OpenLayers.Filter.Comparison.BETWEEN                  = "..";
-     * - OpenLayers.Filter.Comparison.LIKE                     = "~"; 
+     * - OpenLayers.Filter.Comparison.LIKE                     = "~";
      */
     type: null,
-    
+
     /**
      * APIProperty: property
      * {String}
      * name of the context property to compare
      */
     property: null,
-    
+
     /**
      * APIProperty: value
      * {Number} or {String}
@@ -46,7 +46,7 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      * "literal ${propertyName}"
      */
     value: null,
-    
+
     /**
      * Property: matchCase
      * {Boolean} Force case sensitive searches for EQUAL_TO and NOT_EQUAL_TO
@@ -58,7 +58,7 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      *     and NOT_EQUAL_TO).  Default is true.
      */
     matchCase: true,
-    
+
     /**
      * APIProperty: lowerBoundary
      * {Number} or {String}
@@ -67,7 +67,7 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      * "literal ${propertyName}"
      */
     lowerBoundary: null,
-    
+
     /**
      * APIProperty: upperBoundary
      * {Number} or {String}
@@ -77,14 +77,14 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      */
     upperBoundary: null,
 
-    /** 
+    /**
      * Constructor: OpenLayers.Filter.Comparison
      * Creates a comparison rule.
      *
      * Parameters:
      * options - {Object} An optional object with properties to set on the
      *           rule
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Comparison>}
      */
@@ -95,11 +95,11 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
     /**
      * APIMethod: evaluate
      * Evaluates this filter in a specific context.
-     * 
+     *
      * Parameters:
      * context - {Object} Context to use in evaluating the filter.  If a vector
      *     feature is provided, the feature.attributes will be used as context.
-     * 
+     *
      * Returns:
      * {Boolean} The filter applies.
      */
@@ -151,14 +151,14 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
         }
         return result;
     },
-    
+
     /**
      * APIMethod: value2regex
      * Converts the value of this rule into a regular expression string,
      * according to the wildcard characters specified. This method has to
      * be called after instantiation of this class, if the value is not a
      * regular expression already.
-     * 
+     *
      * Parameters:
      * wildCard   - {<Char>} wildcard character in the above value, default
      *              is "*"
@@ -166,7 +166,7 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      *              default is "."
      * escape     - {<Char>) escape character in the above value, default is
      *              "!"
-     * 
+     *
      * Returns:
      * {String} regular expression string
      */
@@ -177,13 +177,13 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
             OpenLayers.Console.error(msg);
             return null;
         }
-        
+
 
         // set UMN MapServer defaults for unspecified parameters
         wildCard = wildCard ? wildCard : "*";
         singleChar = singleChar ? singleChar : ".";
         escapeChar = escapeChar ? escapeChar : "!";
-        
+
         this.value = this.value.replace(
                 new RegExp("\\"+escapeChar+"(.|$)", "g"), "\\$1");
         this.value = this.value.replace(
@@ -194,23 +194,23 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
                 new RegExp("\\\\.\\*", "g"), "\\"+wildCard);
         this.value = this.value.replace(
                 new RegExp("\\\\\\.", "g"), "\\"+singleChar);
-        
+
         return this.value;
     },
-    
+
     /**
      * Method: regex2value
      * Convert the value of this rule from a regular expression string into an
      *     ogc literal string using a wildCard of *, a singleChar of ., and an
      *     escape of !.  Leaves the <value> property unmodified.
-     * 
+     *
      * Returns:
      * {String} A string value.
      */
     regex2value: function() {
-        
+
         var value = this.value;
-        
+
         // replace ! with !!
         value = value.replace(/!/g, "!!");
 
@@ -218,32 +218,32 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
         value = value.replace(/(\\)?\\\./g, function($0, $1) {
             return $1 ? $0 : "!.";
         });
-        
+
         // replace \* with #* (watching out for \\*)
         value = value.replace(/(\\)?\\\*/g, function($0, $1) {
             return $1 ? $0 : "!*";
         });
-        
+
         // replace \\ with \
         value = value.replace(/\\\\/g, "\\");
 
         // convert .* to * (the sequence #.* is not allowed)
         value = value.replace(/\.\*/g, "*");
-        
+
         return value;
     },
-    
+
     /**
      * APIMethod: clone
      * Clones this filter.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Filter.Comparison>} Clone of this filter.
      */
     clone: function() {
         return OpenLayers.Util.extend(new OpenLayers.Filter.Comparison(), this);
     },
-    
+
     CLASS_NAME: "OpenLayers.Filter.Comparison"
 });
 

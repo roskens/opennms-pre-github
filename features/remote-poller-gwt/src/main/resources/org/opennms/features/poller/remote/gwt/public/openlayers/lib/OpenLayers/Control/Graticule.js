@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,32 +10,32 @@
 /**
  * Class: OpenLayers.Control.Graticule
  * The Graticule displays a grid of latitude/longitude lines reprojected on
- * the map.  
- * 
+ * the map.
+ *
  * Inherits from:
  *  - <OpenLayers.Control>
- *  
+ *
  */
 OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIProperty: autoActivate
      * {Boolean} Activate the control when it is added to a map. Default is
-     *     true. 
+     *     true.
      */
     autoActivate: true,
-    
+
     /**
     * APIProperty: intervals
     * {Array(Float)} A list of possible graticule widths in degrees.
     */
     intervals: [ 45, 30, 20, 10, 5, 2, 1,
-                 0.5, 0.2, 0.1, 0.05, 0.01, 
+                 0.5, 0.2, 0.1, 0.05, 0.01,
                  0.005, 0.002, 0.001 ],
 
     /**
      * APIProperty: displayInLayerSwitcher
-     * {Boolean} Allows the Graticule control to be switched on and off by 
+     * {Boolean} Allows the Graticule control to be switched on and off by
      *     LayerSwitcher control. Defaults is true.
      */
     displayInLayerSwitcher: true,
@@ -49,7 +49,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIProperty: numPoints
      * {Integer} The number of points to use in each graticule line.  Higher
-     * numbers result in a smoother curve for projected maps 
+     * numbers result in a smoother curve for projected maps
      */
     numPoints: 50,
 
@@ -61,7 +61,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
 
     /**
      * APIProperty: layerName
-     * {String} The name to be displayed in the layer switcher, default is set 
+     * {String} The name to be displayed in the layer switcher, default is set
      *     by {<OpenLayers.Lang>}.
      */
     layerName: null,
@@ -105,7 +105,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
      * Constructor: OpenLayers.Control.Graticule
      * Create a new graticule control to display a grid of latitude longitude
      * lines.
-     * 
+     *
      * Parameters:
      * options - {Object} An optional object whose properties will be used
      *     to extend the control.
@@ -114,7 +114,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
         options = options || {};
         options.layerName = options.layerName || OpenLayers.i18n("graticule");
         OpenLayers.Control.prototype.initialize.apply(this, [options]);
-        
+
         this.labelSymbolizer.stroke = false;
         this.labelSymbolizer.fill = false;
         this.labelSymbolizer.label = "${label}";
@@ -127,19 +127,19 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
      * APIMethod: destroy
      */
     destroy: function() {
-        this.deactivate();        
-        OpenLayers.Control.prototype.destroy.apply(this, arguments);        
+        this.deactivate();
+        OpenLayers.Control.prototype.destroy.apply(this, arguments);
         if (this.gratLayer) {
             this.gratLayer.destroy();
             this.gratLayer = null;
         }
     },
-    
+
     /**
      * Method: draw
      *
      * initializes the graticule layer and does the initial update
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -167,14 +167,14 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
     activate: function() {
         if (OpenLayers.Control.prototype.activate.apply(this, arguments)) {
             this.map.addLayer(this.gratLayer);
-            this.map.events.register('moveend', this, this.update);     
+            this.map.events.register('moveend', this, this.update);
             this.update();
-            return true;            
+            return true;
         } else {
             return false;
         }
     },
-    
+
     /**
      * APIMethod: deactivate
      */
@@ -191,7 +191,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
      * Method: update
      *
      * calculates the grid to be displayed and actually draws it
-     * 
+     *
      * Returns:
      * {DOMElement}
      */
@@ -201,26 +201,26 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
         if (!mapBounds) {
             return;
         }
-        
+
         //clear out the old grid
         this.gratLayer.destroyFeatures();
-        
+
         //get the projection objects required
         var llProj = new OpenLayers.Projection("EPSG:4326");
         var mapProj = this.map.getProjectionObject();
         var mapRes = this.map.getResolution();
-        
+
         //if the map is in lon/lat, then the lines are straight and only one
         //point is required
         if (mapProj.proj && mapProj.proj.projName == "longlat") {
             this.numPoints = 1;
         }
-        
+
         //get the map center in EPSG:4326
         var mapCenter = this.map.getCenter(); //lon and lat here are really map x and y
         var mapCenterLL = new OpenLayers.Pixel(mapCenter.lon, mapCenter.lat);
         OpenLayers.Projection.transform(mapCenterLL, mapProj, llProj);
-        
+
         /* This block of code determines the lon/lat interval to use for the
          * grid by calculating the diagonal size of one grid cell at the map
          * center.  Iterates through the intervals array until the diagonal
@@ -232,7 +232,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
         var llInterval;
         for (var i=0; i<this.intervals.length; ++i) {
             llInterval = this.intervals[i];   //could do this for both x and y??
-            var delta = llInterval/2;  
+            var delta = llInterval/2;
             var p1 = mapCenterLL.offset(new OpenLayers.Pixel(-delta, -delta));  //test coords in EPSG:4326 space
             var p2 = mapCenterLL.offset(new OpenLayers.Pixel( delta,  delta));
             OpenLayers.Projection.transform(p1, llProj, mapProj); // convert them back to map projection
@@ -243,13 +243,13 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
             }
         }
         //alert(llInterval);
-        
+
         //round the LL center to an even number based on the interval
         mapCenterLL.x = Math.floor(mapCenterLL.x/llInterval)*llInterval;
         mapCenterLL.y = Math.floor(mapCenterLL.y/llInterval)*llInterval;
         //TODO adjust for minutses/seconds?
-        
-        /* The following 2 blocks calculate the nodes of the grid along a 
+
+        /* The following 2 blocks calculate the nodes of the grid along a
          * line of constant longitude (then latitiude) running through the
          * center of the map until it reaches the map edge.  The calculation
          * goes from the center in both directions to the edge.
@@ -265,12 +265,12 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
             centerLonPoints.unshift(newPoint);
         } while (mapBounds.containsPixel(mapXY) && ++iter<1000);
         newPoint = mapCenterLL.clone();
-        do {          
+        do {
             newPoint = newPoint.offset(new OpenLayers.Pixel(0,-llInterval));
             mapXY = OpenLayers.Projection.transform(newPoint.clone(), llProj, mapProj);
             centerLonPoints.push(newPoint);
         } while (mapBounds.containsPixel(mapXY) && ++iter<1000);
-        
+
         //get the central latitude line, increment the longitude
         iter = 0;
         var centerLatPoints = [mapCenterLL.clone()];
@@ -281,12 +281,12 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
             centerLatPoints.unshift(newPoint);
         } while (mapBounds.containsPixel(mapXY) && ++iter<1000);
         newPoint = mapCenterLL.clone();
-        do {          
+        do {
             newPoint = newPoint.offset(new OpenLayers.Pixel(llInterval, 0));
             mapXY = OpenLayers.Projection.transform(newPoint.clone(), llProj, mapProj);
             centerLatPoints.push(newPoint);
         } while (mapBounds.containsPixel(mapXY) && ++iter<1000);
-        
+
         //now generate a line for each node in the central lat and lon lines
         //first loop over constant longitude
         var lines = [];
@@ -319,13 +319,13 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
                     labelAlign: "cb",
                     xOffset: 0,
                     yOffset: 2
-                }; 
+                };
                 this.gratLayer.addFeatures(new OpenLayers.Feature.Vector(labelPos,labelAttrs));
             }
             var geom = new OpenLayers.Geometry.LineString(pointList);
             lines.push(new OpenLayers.Feature.Vector(geom));
         }
-        
+
         //now draw the lines of constant latitude
         for (var j=0; j < centerLonPoints.length; ++j) {
             lat = centerLonPoints[j].y;
@@ -352,14 +352,14 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
                 //the label position
                 //labels along the right, 30 pixel offset left into the map
                 //TODO add option for labels on left
-                var labelPos = new OpenLayers.Geometry.Point(mapBounds.right, labelPoint.y); 
+                var labelPos = new OpenLayers.Geometry.Point(mapBounds.right, labelPoint.y);
                 var labelAttrs = {
                     value: lat,
                     label: this.labelled?OpenLayers.Util.getFormattedLonLat(lat, "lat", this.labelFormat):"",
                     labelAlign: "rb",
                     xOffset: -2,
                     yOffset: 2
-                }; 
+                };
                 this.gratLayer.addFeatures(new OpenLayers.Feature.Vector(labelPos,labelAttrs));
             }
             var geom = new OpenLayers.Geometry.LineString(pointList);
@@ -367,7 +367,7 @@ OpenLayers.Control.Graticule = OpenLayers.Class(OpenLayers.Control, {
           }
           this.gratLayer.addFeatures(lines);
     },
-    
+
     CLASS_NAME: "OpenLayers.Control.Graticule"
 });
 

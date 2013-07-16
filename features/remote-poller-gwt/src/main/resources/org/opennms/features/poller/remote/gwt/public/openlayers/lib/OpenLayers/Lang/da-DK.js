@@ -86,7 +86,7 @@ OpenLayers.Lang['da-DK'] = {
 
     // console message
     'reprojectDeprecated':
-        "Du anvender indstillingen 'reproject' på laget ${layerName}." + 
+        "Du anvender indstillingen 'reproject' på laget ${layerName}." +
         "Denne indstilling bør ikke længere anvendes. Den var beregnet " +
         "til at vise data ovenpå kommercielle grundkort, men den funktionalitet " +
         "bør nu opnås ved at anvende Spherical Mercator understøttelsen. " +

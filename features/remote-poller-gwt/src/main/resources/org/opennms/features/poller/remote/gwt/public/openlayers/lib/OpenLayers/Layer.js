@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -20,13 +20,13 @@ OpenLayers.Layer = OpenLayers.Class({
      */
     id: null,
 
-    /** 
+    /**
      * APIProperty: name
      * {String}
      */
     name: null,
 
-    /** 
+    /**
      * APIProperty: div
      * {DOMElement}
      */
@@ -40,20 +40,20 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIProperty: alwaysInRange
-     * {Boolean} If a layer's display should not be scale-based, this should 
-     *     be set to true. This will cause the layer, as an overlay, to always 
-     *     be 'active', by always returning true from the calculateInRange() 
-     *     function. 
-     * 
-     *     If not explicitly specified for a layer, its value will be 
-     *     determined on startup in initResolutions() based on whether or not 
-     *     any scale-specific properties have been set as options on the 
-     *     layer. If no scale-specific options have been set on the layer, we 
+     * {Boolean} If a layer's display should not be scale-based, this should
+     *     be set to true. This will cause the layer, as an overlay, to always
+     *     be 'active', by always returning true from the calculateInRange()
+     *     function.
+     *
+     *     If not explicitly specified for a layer, its value will be
+     *     determined on startup in initResolutions() based on whether or not
+     *     any scale-specific properties have been set as options on the
+     *     layer. If no scale-specific options have been set on the layer, we
      *     assume that it should always be in range.
-     * 
+     *
      *     See #987 for more info.
      */
-    alwaysInRange: null,   
+    alwaysInRange: null,
 
     /**
      * Constant: EVENT_TYPES
@@ -104,25 +104,25 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIProperty: map
-     * {<OpenLayers.Map>} This variable is set when the layer is added to 
+     * {<OpenLayers.Map>} This variable is set when the layer is added to
      *     the map, via the accessor function setMap().
      */
     map: null,
-    
+
     /**
      * APIProperty: isBaseLayer
-     * {Boolean} Whether or not the layer is a base layer. This should be set 
+     * {Boolean} Whether or not the layer is a base layer. This should be set
      *     individually by all subclasses. Default is false
      */
     isBaseLayer: false,
- 
+
     /**
      * Property: alpha
-     * {Boolean} The layer's images have an alpha channel.  Default is false. 
+     * {Boolean} The layer's images have an alpha channel.  Default is false.
      */
     alpha: false,
 
-    /** 
+    /**
      * APIProperty: displayInLayerSwitcher
      * {Boolean} Display the layer's name in the layer switcher.  Default is
      *     true.
@@ -137,36 +137,36 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIProperty: attribution
-     * {String} Attribution string, displayed when an 
+     * {String} Attribution string, displayed when an
      *     <OpenLayers.Control.Attribution> has been added to the map.
      */
-    attribution: null, 
+    attribution: null,
 
-    /** 
+    /**
      * Property: inRange
-     * {Boolean} The current map resolution is within the layer's min/max 
-     *     range. This is set in <OpenLayers.Map.setCenter> whenever the zoom 
+     * {Boolean} The current map resolution is within the layer's min/max
+     *     range. This is set in <OpenLayers.Map.setCenter> whenever the zoom
      *     changes.
      */
     inRange: false,
-    
+
     /**
      * Propery: imageSize
-     * {<OpenLayers.Size>} For layers with a gutter, the image is larger than 
+     * {<OpenLayers.Size>} For layers with a gutter, the image is larger than
      *     the tile by twice the gutter in each dimension.
      */
     imageSize: null,
-    
+
     /**
      * Property: imageOffset
-     * {<OpenLayers.Pixel>} For layers with a gutter, the image offset 
+     * {<OpenLayers.Pixel>} For layers with a gutter, the image offset
      *     represents displacement due to the gutter.
      */
     imageOffset: null,
 
   // OPTIONS
 
-    /** 
+    /**
      * Property: options
      * {Object} An optional object whose properties will be set on the layer.
      *     Any of the layer properties can be set as a property of the options
@@ -192,8 +192,8 @@ OpenLayers.Layer = OpenLayers.Class({
      *     at tile edges to be ignored.  Set a gutter value that is equal to
      *     half the size of the widest symbol that needs to be displayed.
      *     Defaults to zero.  Non-tiled layers always have zero gutter.
-     */ 
-    gutter: 0, 
+     */
+    gutter: 0,
 
     /**
      * APIProperty: projection
@@ -201,10 +201,10 @@ OpenLayers.Layer = OpenLayers.Class({
      *     override the default projection string this layer - also set maxExtent,
      *     maxResolution, and units if appropriate. Can be either a string or
      *     an <OpenLayers.Projection> object when created -- will be converted
-     *     to an object when setMap is called if a string is passed.  
+     *     to an object when setMap is called if a string is passed.
      */
-    projection: null,    
-    
+    projection: null,
+
     /**
      * APIProperty: units
      * {String} The layer map units.  Defaults to 'degrees'.  Possible values
@@ -231,7 +231,7 @@ OpenLayers.Layer = OpenLayers.Class({
      *     maxResolution, maxScale, etc.).
      */
     resolutions: null,
-    
+
     /**
      * APIProperty: maxExtent
      * {<OpenLayers.Bounds>}  The center of these bounds will not stray outside
@@ -240,18 +240,18 @@ OpenLayers.Layer = OpenLayers.Class({
      *     requested that falls completely outside of these bounds.
      */
     maxExtent: null,
-    
+
     /**
      * APIProperty: minExtent
      * {<OpenLayers.Bounds>}
      */
     minExtent: null,
-    
+
     /**
      * APIProperty: maxResolution
      * {Float} Default max is 360 deg / 256 px, which corresponds to
-     *     zoom level 0 on gmaps.  Specify a different value in the layer 
-     *     options if you are not using a geographic projection and 
+     *     zoom level 0 on gmaps.  Specify a different value in the layer
+     *     options if you are not using a geographic projection and
      *     displaying the whole world.
      */
     maxResolution: null,
@@ -267,13 +267,13 @@ OpenLayers.Layer = OpenLayers.Class({
      * {Integer}
      */
     numZoomLevels: null,
-   
+
     /**
      * APIProperty: minScale
      * {Float}
      */
     minScale: null,
-    
+
     /**
      * APIProperty: maxScale
      * {Float}
@@ -282,21 +282,21 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIProperty: displayOutsideMaxExtent
-     * {Boolean} Request map tiles that are completely outside of the max 
+     * {Boolean} Request map tiles that are completely outside of the max
      *     extent for this layer. Defaults to false.
      */
     displayOutsideMaxExtent: false,
 
     /**
      * APIProperty: wrapDateLine
-     * {Boolean} #487 for more info.   
+     * {Boolean} #487 for more info.
      */
     wrapDateLine: false,
-    
+
     /**
      * APIProperty: transitionEffect
      * {String} The transition effect to use when the map is panned or
-     *     zoomed.  
+     *     zoomed.
      *
      * There are currently two supported values:
      *  - *null* No transition effect (the default).
@@ -306,10 +306,10 @@ OpenLayers.Layer = OpenLayers.Class({
      *    resized tiles.
      */
     transitionEffect: null,
-    
+
     /**
      * Property: SUPPORTED_TRANSITIONS
-     * {Array} An immutable (that means don't change it!) list of supported 
+     * {Array} An immutable (that means don't change it!) list of supported
      *     transitionEffect values.
      */
     SUPPORTED_TRANSITIONS: ['resize'],
@@ -320,7 +320,7 @@ OpenLayers.Layer = OpenLayers.Class({
      *     layer object.
      */
     metadata: {},
-    
+
     /**
      * Constructor: OpenLayers.Layer
      *
@@ -333,7 +333,7 @@ OpenLayers.Layer = OpenLayers.Class({
         this.addOptions(options);
 
         this.name = name;
-        
+
         if (this.id == null) {
 
             this.id = OpenLayers.Util.createUniqueID(this.CLASS_NAME + "_");
@@ -343,7 +343,7 @@ OpenLayers.Layer = OpenLayers.Class({
             this.div.style.height = "100%";
             this.div.dir = "ltr";
 
-            this.events = new OpenLayers.Events(this, this.div, 
+            this.events = new OpenLayers.Events(this, this.div,
                                                 this.EVENT_TYPES);
             if(this.eventListeners instanceof Object) {
                 this.events.on(this.eventListeners);
@@ -355,7 +355,7 @@ OpenLayers.Layer = OpenLayers.Class({
             this.displayOutsideMaxExtent = true;
         }
     },
-    
+
     /**
      * Method: destroy
      * Destroy is a destructor: this is to alleviate cyclic references which
@@ -387,7 +387,7 @@ OpenLayers.Layer = OpenLayers.Class({
         this.eventListeners = null;
         this.events = null;
     },
-    
+
    /**
     * Method: clone
     *
@@ -398,27 +398,27 @@ OpenLayers.Layer = OpenLayers.Class({
     * {<OpenLayers.Layer>} An exact clone of this <OpenLayers.Layer>
     */
     clone: function (obj) {
-        
+
         if (obj == null) {
             obj = new OpenLayers.Layer(this.name, this.getOptions());
         }
-        
+
         // catch any randomly tagged-on properties
         OpenLayers.Util.applyDefaults(obj, this);
-        
+
         // a cloned layer should never have its map property set
-        //  because it has not been added to a map yet. 
+        //  because it has not been added to a map yet.
         obj.map = null;
-        
+
         return obj;
     },
-    
+
     /**
      * Method: getOptions
      * Extracts an object from the layer with the properties that were set as
      *     options, but updates them with the values currently set on the
      *     instance.
-     * 
+     *
      * Returns:
      * {Object} the <options> of the layer, representing the current state.
      */
@@ -429,8 +429,8 @@ OpenLayers.Layer = OpenLayers.Class({
         }
         return options;
     },
-    
-    /** 
+
+    /**
      * APIMethod: setName
      * Sets the new layer name for this layer.  Can trigger a changelayer event
      *     on the map.
@@ -448,11 +448,11 @@ OpenLayers.Layer = OpenLayers.Class({
                 });
             }
         }
-    },    
-    
+    },
+
    /**
     * APIMethod: addOptions
-    * 
+    *
     * Parameters:
     * newOptions - {Object}
     */
@@ -502,7 +502,7 @@ OpenLayers.Layer = OpenLayers.Class({
      * This function can be implemented by subclasses
      */
     onMapResize: function() {
-        //this function can be implemented by subclasses  
+        //this function can be implemented by subclasses
     },
 
     /**
@@ -535,7 +535,7 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * Method: moveTo
-     * 
+     *
      * Parameters:
      * bound - {<OpenLayers.Bounds>}
      * zoomChanged - {Boolean} Tells when zoom has changed, as layers have to
@@ -553,20 +553,20 @@ OpenLayers.Layer = OpenLayers.Class({
     /**
      * Method: setMap
      * Set the map property for the layer. This is done through an accessor
-     *     so that subclasses can override this and take special action once 
-     *     they have their map variable set. 
-     * 
-     *     Here we take care to bring over any of the necessary default 
-     *     properties from the map. 
-     * 
+     *     so that subclasses can override this and take special action once
+     *     they have their map variable set.
+     *
+     *     Here we take care to bring over any of the necessary default
+     *     properties from the map.
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         if (this.map == null) {
-        
+
             this.map = map;
-            
+
             // grab some essential layer data from the map if it hasn't already
             //  been set
             this.maxExtent = this.maxExtent || this.map.maxExtent;
@@ -581,20 +581,20 @@ OpenLayers.Layer = OpenLayers.Class({
             // to properties.
             this.units = this.projection.getUnits() ||
                          this.units || this.map.units;
-            
+
             this.initResolutions();
-            
+
             if (!this.isBaseLayer) {
                 this.inRange = this.calculateInRange();
                 var show = ((this.visibility) && (this.inRange));
                 this.div.style.display = show ? "" : "none";
             }
-            
+
             // deal with gutters
             this.setTileSize();
         }
     },
-    
+
     /**
      * Method: afterAdd
      * Called at the end of the map.addLayer sequence.  At this point, the map
@@ -602,23 +602,23 @@ OpenLayers.Layer = OpenLayers.Class({
      */
     afterAdd: function() {
     },
-    
+
     /**
      * APIMethod: removeMap
-     * Just as setMap() allows each layer the possibility to take a 
+     * Just as setMap() allows each layer the possibility to take a
      *     personalized action on being added to the map, removeMap() allows
-     *     each layer to take a personalized action on being removed from it. 
+     *     each layer to take a personalized action on being removed from it.
      *     For now, this will be mostly unused, except for the EventPane layer,
      *     which needs this hook so that it can remove the special invisible
-     *     pane. 
-     * 
+     *     pane.
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
     removeMap: function(map) {
         //to be overridden by subclasses
     },
-    
+
     /**
      * APIMethod: getImageSize
      *
@@ -626,20 +626,20 @@ OpenLayers.Layer = OpenLayers.Class({
      * bounds - {<OpenLayers.Bounds>} optional tile bounds, can be used
      *     by subclasses that have to deal with different tile sizes at the
      *     layer extent edges (e.g. Zoomify)
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Size>} The size that the image should be, taking into 
+     * {<OpenLayers.Size>} The size that the image should be, taking into
      *     account gutters.
-     */ 
-    getImageSize: function(bounds) { 
-        return (this.imageSize || this.tileSize); 
-    },    
-  
+     */
+    getImageSize: function(bounds) {
+        return (this.imageSize || this.tileSize);
+    },
+
     /**
      * APIMethod: setTileSize
      * Set the tile size based on the map size.  This also sets layer.imageSize
      *     and layer.imageOffset for use by Tile.Image.
-     * 
+     *
      * Parameters:
      * size - {<OpenLayers.Size>}
      */
@@ -655,16 +655,16 @@ OpenLayers.Layer = OpenLayers.Class({
           //                              this.name + ": layers with " +
           //                              "gutters need non-null tile sizes");
           //}
-            this.imageOffset = new OpenLayers.Pixel(-this.gutter, 
-                                                    -this.gutter); 
-            this.imageSize = new OpenLayers.Size(tileSize.w + (2*this.gutter), 
-                                                 tileSize.h + (2*this.gutter)); 
+            this.imageOffset = new OpenLayers.Pixel(-this.gutter,
+                                                    -this.gutter);
+            this.imageSize = new OpenLayers.Size(tileSize.w + (2*this.gutter),
+                                                 tileSize.h + (2*this.gutter));
         }
     },
 
     /**
      * APIMethod: getVisibility
-     * 
+     *
      * Returns:
      * {Boolean} The layer should be displayed (if in range).
      */
@@ -672,18 +672,18 @@ OpenLayers.Layer = OpenLayers.Class({
         return this.visibility;
     },
 
-    /** 
+    /**
      * APIMethod: setVisibility
-     * Set the visibility flag for the layer and hide/show & redraw 
+     * Set the visibility flag for the layer and hide/show & redraw
      *     accordingly. Fire event unless otherwise specified
-     * 
+     *
      * Note that visibility is no longer simply whether or not the layer's
-     *     style.display is set to "block". Now we store a 'visibility' state 
-     *     property on the layer class, this allows us to remember whether or 
-     *     not we *desire* for a layer to be visible. In the case where the 
-     *     map's resolution is out of the layer's range, this desire may be 
+     *     style.display is set to "block". Now we store a 'visibility' state
+     *     property on the layer class, this allows us to remember whether or
+     *     not we *desire* for a layer to be visible. In the case where the
+     *     map's resolution is out of the layer's range, this desire may be
      *     subverted.
-     * 
+     *
      * Parameters:
      * visible - {Boolean} Whether or not to display the layer (if in range)
      */
@@ -702,10 +702,10 @@ OpenLayers.Layer = OpenLayers.Class({
         }
     },
 
-    /** 
+    /**
      * APIMethod: display
      * Hide or show the Layer
-     * 
+     *
      * Parameters:
      * display - {Boolean}
      */
@@ -717,10 +717,10 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIMethod: calculateInRange
-     * 
+     *
      * Returns:
      * {Boolean} The layer is displayable at the current map's current
-     *     resolution. Note that if 'alwaysInRange' is true for the layer, 
+     *     resolution. Note that if 'alwaysInRange' is true for the layer,
      *     this function will always return true.
      */
     calculateInRange: function() {
@@ -738,9 +738,9 @@ OpenLayers.Layer = OpenLayers.Class({
         return inRange;
     },
 
-    /** 
+    /**
      * APIMethod: setIsBaseLayer
-     * 
+     *
      * Parameters:
      * isBaseLayer - {Boolean}
      */
@@ -760,17 +760,17 @@ OpenLayers.Layer = OpenLayers.Class({
   /*                 Baselayer Functions                  */
   /*                                                      */
   /********************************************************/
-  
-    /** 
+
+    /**
      * Method: initResolutions
-     * This method's responsibility is to set up the 'resolutions' array 
+     * This method's responsibility is to set up the 'resolutions' array
      *     for the layer -- this array is what the layer will use to interface
-     *     between the zoom levels of the map and the resolution display 
+     *     between the zoom levels of the map and the resolution display
      *     of the layer.
-     * 
+     *
      * The user has several options that determine how the array is set up.
-     *  
-     * For a detailed explanation, see the following wiki from the 
+     *
+     * For a detailed explanation, see the following wiki from the
      *     openlayers.org homepage:
      *     http://trac.openlayers.org/wiki/SettingZoomLevels
      */
@@ -1016,7 +1016,7 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIMethod: getResolution
-     * 
+     *
      * Returns:
      * {Float} The currently selected resolution of the map, taken from the
      *     resolutions array, indexed by current zoom level.
@@ -1026,11 +1026,11 @@ OpenLayers.Layer = OpenLayers.Class({
         return this.getResolutionForZoom(zoom);
     },
 
-    /** 
+    /**
      * APIMethod: getExtent
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Bounds>} A Bounds object which represents the lon/lat 
+     * {<OpenLayers.Bounds>} A Bounds object which represents the lon/lat
      *     bounds of the current viewPort.
      */
     getExtent: function() {
@@ -1042,18 +1042,18 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIMethod: getZoomForExtent
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
-     * closest - {Boolean} Find the zoom level that most closely fits the 
-     *     specified bounds. Note that this may result in a zoom that does 
+     * closest - {Boolean} Find the zoom level that most closely fits the
+     *     specified bounds. Note that this may result in a zoom that does
      *     not exactly contain the entire extent.
      *     Default is false.
      *
      * Returns:
-     * {Integer} The index of the zoomLevel (entry in the resolutions array) 
-     *     for the passed-in extent. We do this by calculating the ideal 
-     *     resolution for the given extent (based on the map size) and then 
+     * {Integer} The index of the zoomLevel (entry in the resolutions array)
+     *     for the passed-in extent. We do this by calculating the ideal
+     *     resolution for the given extent (based on the map size) and then
      *     calling getZoomForResolution(), passing along the 'closest'
      *     parameter.
      */
@@ -1064,12 +1064,12 @@ OpenLayers.Layer = OpenLayers.Class({
 
         return this.getZoomForResolution(idealResolution, closest);
     },
-    
-    /** 
+
+    /**
      * Method: getDataExtent
      * Calculates the max extent which includes all of the data for the layer.
      *     This function is to be implemented by subclasses.
-     * 
+     *
      * Returns:
      * {<OpenLayers.Bounds>}
      */
@@ -1079,10 +1079,10 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIMethod: getResolutionForZoom
-     * 
+     *
      * Parameter:
      * zoom - {Float}
-     * 
+     *
      * Returns:
      * {Float} A suitable resolution for the specified zoom.
      */
@@ -1102,20 +1102,20 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * APIMethod: getZoomForResolution
-     * 
+     *
      * Parameters:
      * resolution - {Float}
-     * closest - {Boolean} Find the zoom level that corresponds to the absolute 
+     * closest - {Boolean} Find the zoom level that corresponds to the absolute
      *     closest resolution, which may result in a zoom whose corresponding
      *     resolution is actually smaller than we would have desired (if this
      *     is being called from a getZoomForExtent() call, then this means that
-     *     the returned zoom index might not actually contain the entire 
+     *     the returned zoom index might not actually contain the entire
      *     extent specified... but it'll be close).
      *     Default is false.
-     * 
+     *
      * Returns:
-     * {Integer} The index of the zoomLevel (entry in the resolutions array) 
-     *     that corresponds to the best fit resolution given the passed in 
+     * {Integer} The index of the zoomLevel (entry in the resolutions array)
+     *     that corresponds to the best fit resolution given the passed in
      *     value and the 'closest' specification.
      */
     getZoomForResolution: function(resolution, closest) {
@@ -1147,7 +1147,7 @@ OpenLayers.Layer = OpenLayers.Class({
         } else {
             var diff;
             var minDiff = Number.POSITIVE_INFINITY;
-            for(var i=0, len=this.resolutions.length; i<len; i++) {            
+            for(var i=0, len=this.resolutions.length; i<len; i++) {
                 if (closest) {
                     diff = Math.abs(this.resolutions[i] - resolution);
                     if (diff > minDiff) {
@@ -1164,15 +1164,15 @@ OpenLayers.Layer = OpenLayers.Class({
         }
         return zoom;
     },
-    
+
     /**
      * APIMethod: getLonLatFromViewPortPx
-     * 
+     *
      * Parameters:
      * viewPortPx - {<OpenLayers.Pixel>}
      *
      * Returns:
-     * {<OpenLayers.LonLat>} An OpenLayers.LonLat which is the passed-in 
+     * {<OpenLayers.LonLat>} An OpenLayers.LonLat which is the passed-in
      *     view port <OpenLayers.Pixel>, translated into lon/lat by the layer.
      */
     getLonLatFromViewPortPx: function (viewPortPx) {
@@ -1182,12 +1182,12 @@ OpenLayers.Layer = OpenLayers.Class({
             var center = this.map.getCenter();
             if (center) {
                 var res  = this.map.getResolution();
-        
+
                 var delta_x = viewPortPx.x - (size.w / 2);
                 var delta_y = viewPortPx.y - (size.h / 2);
-            
+
                 lonlat = new OpenLayers.LonLat(center.lon + delta_x * res ,
-                                             center.lat - delta_y * res); 
+                                             center.lat - delta_y * res);
 
                 if (this.wrapDateLine) {
                     lonlat = lonlat.wrapDateLine(this.maxExtent);
@@ -1201,31 +1201,31 @@ OpenLayers.Layer = OpenLayers.Class({
      * APIMethod: getViewPortPxFromLonLat
      * Returns a pixel location given a map location.  This method will return
      *     fractional pixel values.
-     * 
+     *
      * Parameters:
      * lonlat - {<OpenLayers.LonLat>}
      *
-     * Returns: 
-     * {<OpenLayers.Pixel>} An <OpenLayers.Pixel> which is the passed-in 
+     * Returns:
+     * {<OpenLayers.Pixel>} An <OpenLayers.Pixel> which is the passed-in
      *     <OpenLayers.LonLat>,translated into view port pixels.
      */
     getViewPortPxFromLonLat: function (lonlat) {
-        var px = null; 
+        var px = null;
         if (lonlat != null) {
             var resolution = this.map.getResolution();
             var extent = this.map.getExtent();
             px = new OpenLayers.Pixel(
                 (1/resolution * (lonlat.lon - extent.left)),
                 (1/resolution * (extent.top - lonlat.lat))
-            );    
+            );
         }
         return px;
     },
-    
+
     /**
      * APIMethod: setOpacity
      * Sets the opacity for the entire layer (all images)
-     * 
+     *
      * Parameter:
      * opacity - {Float}
      */
@@ -1234,7 +1234,7 @@ OpenLayers.Layer = OpenLayers.Class({
             this.opacity = opacity;
             for(var i=0, len=this.div.childNodes.length; i<len; ++i) {
                 var element = this.div.childNodes[i].firstChild;
-                OpenLayers.Util.modifyDOMElement(element, null, null, null, 
+                OpenLayers.Util.modifyDOMElement(element, null, null, null,
                                                  null, null, null, opacity);
             }
             if (this.map != null) {
@@ -1248,20 +1248,20 @@ OpenLayers.Layer = OpenLayers.Class({
 
     /**
      * Method: getZIndex
-     * 
-     * Returns: 
+     *
+     * Returns:
      * {Integer} the z-index of this layer
-     */    
+     */
     getZIndex: function () {
         return this.div.style.zIndex;
     },
 
     /**
      * Method: setZIndex
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * zIndex - {Integer}
-     */    
+     */
     setZIndex: function (zIndex) {
         this.div.style.zIndex = zIndex;
     },
@@ -1269,18 +1269,18 @@ OpenLayers.Layer = OpenLayers.Class({
     /**
      * Method: adjustBounds
      * This function will take a bounds, and if wrapDateLine option is set
-     *     on the layer, it will return a bounds which is wrapped around the 
-     *     world. We do not wrap for bounds which *cross* the 
-     *     maxExtent.left/right, only bounds which are entirely to the left 
+     *     on the layer, it will return a bounds which is wrapped around the
+     *     world. We do not wrap for bounds which *cross* the
+     *     maxExtent.left/right, only bounds which are entirely to the left
      *     or entirely to the right.
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      */
     adjustBounds: function (bounds) {
 
         if (this.gutter) {
-            // Adjust the extent of a bounds in map units by the 
+            // Adjust the extent of a bounds in map units by the
             // layer's gutter in pixels.
             var mapGutter = this.gutter * this.map.getResolution();
             bounds = new OpenLayers.Bounds(bounds.left - mapGutter,
@@ -1291,11 +1291,11 @@ OpenLayers.Layer = OpenLayers.Class({
 
         if (this.wrapDateLine) {
             // wrap around the date line, within the limits of rounding error
-            var wrappingOptions = { 
+            var wrappingOptions = {
                 'rightTolerance':this.getResolution()
-            };    
+            };
             bounds = bounds.wrapDateLine(this.maxExtent, wrappingOptions);
-                              
+
         }
         return bounds;
     },

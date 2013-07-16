@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,9 +9,9 @@
 
 /**
  * Class: OpenLayers.Geometry.LineString
- * A LineString is a Curve which, once two points have been added to it, can 
+ * A LineString is a Curve which, once two points have been added to it, can
  * never be less than two points long.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Geometry.Curve>
  */
@@ -27,24 +27,24 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
      *
      */
     initialize: function(points) {
-        OpenLayers.Geometry.Curve.prototype.initialize.apply(this, arguments);        
+        OpenLayers.Geometry.Curve.prototype.initialize.apply(this, arguments);
     },
 
     /**
      * APIMethod: removeComponent
-     * Only allows removal of a point if there are three or more points in 
+     * Only allows removal of a point if there are three or more points in
      * the linestring. (otherwise the result would be just a single point)
      *
-     * Parameters: 
+     * Parameters:
      * point - {<OpenLayers.Geometry.Point>} The point to be removed
      */
     removeComponent: function(point) {
         if ( this.components && (this.components.length > 2)) {
-            OpenLayers.Geometry.Collection.prototype.removeComponent.apply(this, 
+            OpenLayers.Geometry.Collection.prototype.removeComponent.apply(this,
                                                                   arguments);
         }
     },
-    
+
     /**
      * APIMethod: intersects
      * Test for instersection between two geometries.  This is a cheapo
@@ -116,7 +116,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
         }
         return intersect;
     },
-    
+
     /**
      * Method: getSortedSegments
      *
@@ -154,7 +154,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
         }
         return segments.sort(byX1);
     },
-    
+
     /**
      * Method: splitWithSegment
      * Split this geometry with the given segment.
@@ -251,7 +251,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
     /**
      * Method: split
      * Use this geometry (the source) to attempt to split a target geometry.
-     * 
+     *
      * Parameters:
      * target - {<OpenLayers.Geometry>} The target geometry.
      * options - {Object} Properties of this object will be used to determine
@@ -266,7 +266,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
      * tolerance - {Number} If a non-null value is provided, intersections
      *     within the tolerance distance of an existing vertex on the source
      *     will be assumed to occur at the vertex.
-     * 
+     *
      * Returns:
      * {Array} A list of geometries (of this same type as the target) that
      *     result from splitting the target with the source geometry.  The
@@ -370,7 +370,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
      * tolerance - {Number} If a non-null value is provided, intersections
      *     within the tolerance distance of an existing vertex on the source
      *     will be assumed to occur at the vertex.
-     * 
+     *
      * Returns:
      * {Array} A list of geometries (of this same type as the target) that
      *     result from splitting the target with the source geometry.  The
@@ -476,7 +476,7 @@ OpenLayers.Geometry.LineString = OpenLayers.Class(OpenLayers.Geometry.Curve, {
             } else {
                 best = best.distance;
             }
-        } else if(geometry instanceof OpenLayers.Geometry.LineString) { 
+        } else if(geometry instanceof OpenLayers.Geometry.LineString) {
             var segs0 = this.getSortedSegments();
             var segs1 = geometry.getSortedSegments();
             var seg0, seg1, intersection, x0, y0;

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,13 +10,13 @@
 /**
  * Class: OpenLayers.Format.WFSCapabilities.v1
  * Abstract class not to be instantiated directly.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
     OpenLayers.Format.WFSCapabilities, {
-    
+
     /**
      * Constructor: OpenLayers.Format.WFSCapabilities.v1_1
      * Create an instance of one of the subclasses.
@@ -32,9 +32,9 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
 
     /**
      * APIMethod: read
-     * Read capabilities data from a string, and return a list of layers. 
-     * 
-     * Parameters: 
+     * Read capabilities data from a string, and return a list of layers.
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -49,7 +49,7 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
         this.runChildNodes(capabilities, root);
         return capabilities;
     },
-    
+
     /**
      * Method: runChildNodes
      */
@@ -66,7 +66,7 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
             }
         }
     },
-    
+
     /**
      * Method: read_cap_FeatureTypeList
      */
@@ -77,7 +77,7 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
         this.runChildNodes(featureTypeList, node);
         request.featureTypeList = featureTypeList;
     },
-    
+
     /**
      * Method: read_cap_FeatureType
      */
@@ -86,7 +86,7 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
         this.runChildNodes(featureType, node);
         featureTypeList.featureTypes.push(featureType);
     },
-    
+
     /**
      * Method: read_cap_Name
      */
@@ -120,7 +120,7 @@ OpenLayers.Format.WFSCapabilities.v1 = OpenLayers.Class(
             obj["abstract"] = abst;
         }
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1" 
+
+    CLASS_NAME: "OpenLayers.Format.WFSCapabilities.v1"
 
 });

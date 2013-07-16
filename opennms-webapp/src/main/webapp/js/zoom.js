@@ -246,7 +246,7 @@ function zoomGraphObjRefresh() {
 	height = imgObject.height;
 
 	// get the graph area size from the url
-	
+
 	zoomBoxWidth = parseInt(gUrlObj.getUrlParameterValue("graph_width")) + 1;
 	zoomBoxHeight = parseInt(gUrlObj.getUrlParameterValue("graph_height")) + 1;
 	if (isNaN(zoomBoxWidth)) {
@@ -640,7 +640,7 @@ function onMouseUpEvent(e) {
 /*
 function reloadPage(newGraphStart, newGraphEnd) {
 	var urlBase = cURLBase;
-	
+
 	var type = gUrlObj.getUrlParameterValue("type");
 	var reports = gUrlObj.getUrlParameterValue("report");
 	var resource = gUrlObj.getUrlParameterValue("resource");

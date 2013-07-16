@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,7 +13,7 @@
 
 /**
  * Class: OpenLayers.Format.CSWGetRecords.v2_0_2
- *     A format for creating CSWGetRecords v2.0.2 transactions. 
+ *     A format for creating CSWGetRecords v2.0.2 transactions.
  *     Create a new instance with the
  *     <OpenLayers.Format.CSWGetRecords.v2_0_2> constructor.
  *
@@ -21,7 +21,7 @@
  *  - <OpenLayers.Format.XML>
  */
 OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML, {
-    
+
     /**
      * Property: namespaces
      * {Object} Mapping of namespace aliases to namespace URIs.
@@ -34,19 +34,19 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
         dct: "http://purl.org/dc/terms/",
         ows: "http://www.opengis.net/ows"
     },
-    
+
     /**
      * Property: defaultPrefix
      * {String} The default prefix (used by Format.XML).
      */
     defaultPrefix: "csw",
-    
+
     /**
      * Property: version
      * {String} CSW version number.
      */
     version: "2.0.2",
-    
+
     /**
      * Property: schemaLocation
      * {String} http://www.opengis.net/cat/csw/2.0.2
@@ -159,7 +159,7 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
      * Parse the response from a GetRecords request.
      */
     read: function(data) {
-        if(typeof data == "string") { 
+        if(typeof data == "string") {
             data = OpenLayers.Format.XML.prototype.read.apply(this, [data]);
         }
         if(data && data.nodeType == 9) {
@@ -169,7 +169,7 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
         this.readNode(data, obj);
         return obj;
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -265,11 +265,11 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
         "ows": OpenLayers.Util.applyDefaults({
             "BoundingBox": function(node, obj) {
                 if (obj.bounds) {
-                    obj.BoundingBox = [{crs: obj.projection, value: 
+                    obj.BoundingBox = [{crs: obj.projection, value:
                         [
-                            obj.bounds.left, 
-                            obj.bounds.bottom, 
-                            obj.bounds.right, 
+                            obj.bounds.left,
+                            obj.bounds.bottom,
+                            obj.bounds.right,
                             obj.bounds.top
                     ]
                     }];
@@ -281,10 +281,10 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
             }
         }, OpenLayers.Format.OWSCommon.v1_0_0.prototype.readers["ows"])
     },
-    
+
     /**
      * Method: write
-     * Given an configuration js object, write a CSWGetRecords request. 
+     * Given an configuration js object, write a CSWGetRecords request.
      *
      * Parameters:
      * options - {Object} A object mapping the request.
@@ -435,6 +435,6 @@ OpenLayers.Format.CSWGetRecords.v2_0_2 = OpenLayers.Class(OpenLayers.Format.XML,
             }
         }
     },
-   
-    CLASS_NAME: "OpenLayers.Format.CSWGetRecords.v2_0_2" 
+
+    CLASS_NAME: "OpenLayers.Format.CSWGetRecords.v2_0_2"
 });

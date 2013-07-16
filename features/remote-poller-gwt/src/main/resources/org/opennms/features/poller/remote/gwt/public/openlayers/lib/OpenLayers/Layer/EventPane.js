@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,21 +13,21 @@
  * Class: OpenLayers.Layer.EventPane
  * Base class for 3rd party layers.  Create a new event pane layer with the
  * <OpenLayers.Layer.EventPane> constructor.
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Layer>
  */
 OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
-    
+
     /**
      * APIProperty: smoothDragPan
      * {Boolean} smoothDragPan determines whether non-public/internal API
-     *     methods are used for better performance while dragging EventPane 
-     *     layers. When not in sphericalMercator mode, the smoother dragging 
-     *     doesn't actually move north/south directly with the number of 
-     *     pixels moved, resulting in a slight offset when you drag your mouse 
-     *     north south with this option on. If this visual disparity bothers 
-     *     you, you should turn this option off, or use spherical mercator. 
+     *     methods are used for better performance while dragging EventPane
+     *     layers. When not in sphericalMercator mode, the smoother dragging
+     *     doesn't actually move north/south directly with the number of
+     *     pixels moved, resulting in a slight offset when you drag your mouse
+     *     north south with this option on. If this visual disparity bothers
+     *     you, you should turn this option off, or use spherical mercator.
      *     Default is on.
      */
     smoothDragPan: true,
@@ -35,13 +35,13 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * Property: isBaseLayer
      * {Boolean} EventPaned layers are always base layers, by necessity.
-     */ 
+     */
     isBaseLayer: true,
 
     /**
      * APIProperty: isFixed
      * {Boolean} EventPaned layers are fixed by default.
-     */ 
+     */
     isFixed: true,
 
     /**
@@ -54,9 +54,9 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * Property: mapObject
      * {Object} This is the object which will be used to load the 3rd party library
-     * in the case of the google layer, this will be of type GMap, 
+     * in the case of the google layer, this will be of type GMap,
      * in the case of the ve layer, this will be of type VEMap
-     */ 
+     */
     mapObject: null,
 
 
@@ -74,7 +74,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
             this.pane = OpenLayers.Util.createDiv(this.div.id + "_EventPane");
         }
     },
-    
+
     /**
      * APIMethod: destroy
      * Deconstruct this layer.
@@ -82,28 +82,28 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     destroy: function() {
         this.mapObject = null;
         this.pane = null;
-        OpenLayers.Layer.prototype.destroy.apply(this, arguments); 
+        OpenLayers.Layer.prototype.destroy.apply(this, arguments);
     },
 
-    
+
     /**
      * Method: setMap
      * Set the map property for the layer. This is done through an accessor
-     * so that subclasses can override this and take special action once 
-     * they have their map variable set. 
+     * so that subclasses can override this and take special action once
+     * they have their map variable set.
      *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
     setMap: function(map) {
         OpenLayers.Layer.prototype.setMap.apply(this, arguments);
-        
+
         this.pane.style.zIndex = parseInt(this.div.style.zIndex) + 1;
         this.pane.style.display = this.div.style.display;
         this.pane.style.width="100%";
         this.pane.style.height="100%";
         if (OpenLayers.Util.getBrowserName() == "msie") {
-            this.pane.style.background = 
+            this.pane.style.background =
                 "url(" + OpenLayers.Util.getImagesLocation() + "blank.gif)";
         }
 
@@ -115,7 +115,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
 
         // once our layer has been added to the map, we can load it
         this.loadMapObject();
-    
+
         // if map didn't load, display warning
         if (this.mapObject == null) {
             this.loadWarningMessage();
@@ -125,8 +125,8 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * APIMethod: removeMap
      * On being removed from the map, we'll like to remove the invisible 'pane'
-     *     div that we added to it on creation. 
-     * 
+     *     div that we added to it on creation.
+     *
      * Parameters:
      * map - {<OpenLayers.Map>}
      */
@@ -136,14 +136,14 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         }
         OpenLayers.Layer.prototype.removeMap.apply(this, arguments);
     },
-  
+
     /**
      * Method: loadWarningMessage
-     * If we can't load the map lib, then display an error message to the 
+     * If we can't load the map lib, then display an error message to the
      *     user and tell them where to go for help.
-     * 
+     *
      *     This function sets up the layout for the warning message. Each 3rd
-     *     party layer must implement its own getWarningHTML() function to 
+     *     party layer must implement its own getWarningHTML() function to
      *     provide the actual warning message.
      */
     loadWarningMessage:function() {
@@ -151,17 +151,17 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         this.div.style.backgroundColor = "darkblue";
 
         var viewSize = this.map.getSize();
-        
+
         var msgW = Math.min(viewSize.w, 300);
         var msgH = Math.min(viewSize.h, 200);
         var size = new OpenLayers.Size(msgW, msgH);
 
         var centerPx = new OpenLayers.Pixel(viewSize.w/2, viewSize.h/2);
 
-        var topLeft = centerPx.add(-size.w/2, -size.h/2);            
+        var topLeft = centerPx.add(-size.w/2, -size.h/2);
 
-        var div = OpenLayers.Util.createDiv(this.name + "_warning", 
-                                            topLeft, 
+        var div = OpenLayers.Util.createDiv(this.name + "_warning",
+                                            topLeft,
                                             size,
                                             null,
                                             null,
@@ -174,11 +174,11 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         div.innerHTML = this.getWarningHTML();
         this.div.appendChild(div);
     },
-  
-    /** 
+
+    /**
      * Method: getWarningHTML
      * To be implemented by subclasses.
-     * 
+     *
      * Returns:
      * {String} String with information on why layer is broken, how to get
      *          it working.
@@ -187,7 +187,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         //should be implemented by subclasses
         return "";
     },
-  
+
     /**
      * Method: display
      * Set the display on the pane
@@ -199,11 +199,11 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         OpenLayers.Layer.prototype.display.apply(this, arguments);
         this.pane.style.display = this.div.style.display;
     },
-  
+
     /**
      * Method: setZIndex
      * Set the z-index order for the pane.
-     * 
+     *
      * Parameters:
      * zIndex - {int}
      */
@@ -215,7 +215,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * Method: moveTo
      * Handle calls to move the layer.
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>}
      * zoomChanged - {Boolean}
@@ -237,10 +237,10 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
                 var moOldZoom = this.getMapObjectZoom();
                 var oldZoom= this.getOLZoomFromMapObjectZoom(moOldZoom);
 
-                if ( !(newCenter.equals(oldCenter)) || 
+                if ( !(newCenter.equals(oldCenter)) ||
                      !(newZoom == oldZoom) ) {
 
-                    if (dragging && this.dragPanMapObject && 
+                    if (dragging && this.dragPanMapObject &&
                         this.smoothDragPan) {
                         var oldPx = this.map.getViewPortPxFromLonLat(oldCenter);
                         var newPx = this.map.getViewPortPxFromLonLat(newCenter);
@@ -265,7 +265,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
     /**
      * Method: getLonLatFromViewPortPx
      * Get a map location from a pixel location
-     * 
+     *
      * Parameters:
      * viewPortPx - {<OpenLayers.Pixel>}
      *
@@ -276,7 +276,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      */
     getLonLatFromViewPortPx: function (viewPortPx) {
         var lonlat = null;
-        if ( (this.mapObject != null) && 
+        if ( (this.mapObject != null) &&
              (this.getMapObjectCenter() != null) ) {
             var moPixel = this.getMapObjectPixelFromOLPixel(viewPortPx);
             var moLonLat = this.getMapObjectLonLatFromMapObjectPixel(moPixel);
@@ -285,7 +285,7 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
         return lonlat;
     },
 
- 
+
     /**
      * Method: getViewPortPxFromLonLat
      * Get a pixel location from a map location
@@ -300,12 +300,12 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      */
     getViewPortPxFromLonLat: function (lonlat) {
         var viewPortPx = null;
-        if ( (this.mapObject != null) && 
+        if ( (this.mapObject != null) &&
              (this.getMapObjectCenter() != null) ) {
 
             var moLonLat = this.getMapObjectLonLatFromOLLonLat(lonlat);
             var moPixel = this.getMapObjectPixelFromMapObjectLonLat(moLonLat);
-        
+
             viewPortPx = this.getOLPixelFromMapObjectPixel(moPixel);
         }
         return viewPortPx;
@@ -330,9 +330,9 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      *
      * Parameters
      * moLonLat - {Object}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.LonLat>} An OpenLayers.LonLat, translated from the passed in 
+     * {<OpenLayers.LonLat>} An OpenLayers.LonLat, translated from the passed in
      *          MapObject LonLat
      *          Returns null if null value is passed in
      */
@@ -352,9 +352,9 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      *
      * Parameters:
      * olLonLat - {<OpenLayers.LonLat>}
-     * 
+     *
      * Returns:
-     * {Object} A MapObject LonLat, translated from the passed in 
+     * {Object} A MapObject LonLat, translated from the passed in
      *          OpenLayers.LonLat
      *          Returns null if null value is passed in
      */
@@ -378,9 +378,9 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      *
      * Parameters:
      * moPixel - {Object}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Pixel>} An OpenLayers.Pixel, translated from the passed in 
+     * {<OpenLayers.Pixel>} An OpenLayers.Pixel, translated from the passed in
      *          MapObject Pixel
      *          Returns null if null value is passed in
      */
@@ -400,9 +400,9 @@ OpenLayers.Layer.EventPane = OpenLayers.Class(OpenLayers.Layer, {
      *
      * Parameters:
      * olPixel - {<OpenLayers.Pixel>}
-     * 
+     *
      * Returns:
-     * {Object} A MapObject Pixel, translated from the passed in 
+     * {Object} A MapObject Pixel, translated from the passed in
      *          OpenLayers.Pixel
      *          Returns null if null value is passed in
      */

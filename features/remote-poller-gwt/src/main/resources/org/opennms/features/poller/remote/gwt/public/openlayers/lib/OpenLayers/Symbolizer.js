@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -8,7 +8,7 @@
  * Base class representing a symbolizer used for feature rendering.
  */
 OpenLayers.Symbolizer = OpenLayers.Class({
-    
+
 
     /**
      * APIProperty: zIndex
@@ -17,14 +17,14 @@ OpenLayers.Symbolizer = OpenLayers.Class({
      *     with smaller zIndex values.  Default is 0.
      */
     zIndex: 0,
-    
+
     /**
      * Constructor: OpenLayers.Symbolizer
      * Instances of this class are not useful.  See one of the subclasses.
      *
      * Parameters:
-     * config - {Object} An object containing properties to be set on the 
-     *     symbolizer.  Any documented symbolizer property can be set at 
+     * config - {Object} An object containing properties to be set on the
+     *     symbolizer.  Any documented symbolizer property can be set at
      *     construction.
      *
      * Returns:
@@ -33,8 +33,8 @@ OpenLayers.Symbolizer = OpenLayers.Class({
     initialize: function(config) {
         OpenLayers.Util.extend(this, config);
     },
-    
-    /** 
+
+    /**
      * APIMethod: clone
      * Create a copy of this symbolizer.
      *
@@ -44,8 +44,8 @@ OpenLayers.Symbolizer = OpenLayers.Class({
         var Type = eval(this.CLASS_NAME);
         return new Type(OpenLayers.Util.extend({}, this));
     },
-    
+
     CLASS_NAME: "OpenLayers.Symbolizer"
-    
+
 });
 

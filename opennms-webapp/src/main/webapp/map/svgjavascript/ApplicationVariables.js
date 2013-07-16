@@ -12,7 +12,7 @@ var titleFontSize = 12;
 var textFontSize = 10;
 var textFamily = "Arial,Helvetica";
 
-// Variables used by "Link" SVG Object 
+// Variables used by "Link" SVG Object
 var deltaLink=6;
 var borderPercentage=5;
 
@@ -20,7 +20,7 @@ var borderPercentage=5;
 var summaryLinkId = -1;
 var summaryLinkColor;
 //global factors for spacing between elements
-//suggested factor:   xfactor/yfactor = 4/3 
+//suggested factor:   xfactor/yfactor = 4/3
 var X_FACTOR = 3.5;
 var Y_FACTOR = 2.625;
 
@@ -63,8 +63,8 @@ var shadowOffset = 0;
 
 // These are variables used to set <textbox> object style
 var textboxmaxChars = 32;
-var textboxx = 2; 
-var textboxy = 0; 
+var textboxx = 2;
+var textboxy = 0;
 var textboxWidth = 170;
 var textboxHeight = 20;
 var textYOffset = 14;
@@ -85,7 +85,7 @@ var selBoxStyles = {"stroke":"dimgray","stroke-width":1,"fill":"white"};
 var selBoxScrollbarStyles = {"stroke":"dimgray","stroke-width":1,"fill":"whitesmoke"};
 var selBoxSmallrectStyles = {"stroke":"dimgray","stroke-width":1,"fill":"lightgray"};
 var selBoxHighlightStyles = {"fill":"dimgray","fill-opacity":0.3};
-var selBoxTriangleStyles = {"fill":"dimgray"}; 
+var selBoxTriangleStyles = {"fill":"dimgray"};
 var selBoxpreSelect = 0;
 
 // These are variables to set <ContextMenu> object style
@@ -148,18 +148,18 @@ var mapWidth;
 var mapHeight;
 
 //string containing a string form of the current map saved. this is used to test if the map is changed
-var savedMapString=new String(); 
+var savedMapString=new String();
 
 // variable for setting refresh time
-var refreshNodesIntervalInSec=300; 
+var refreshNodesIntervalInSec=300;
 
 // variable for setting element dimension
-var mapElemDimension=25;	
+var mapElemDimension=25;
 
 // Variable that states the current mode of the map. If true the user can modify the maps
 var isAdminMode = false;
-	
-// int containing the number of loading at the moment (it is increased when an httprequest is done until handled) 
+
+// int containing the number of loading at the moment (it is increased when an httprequest is done until handled)
 var loading=0;
 
 // Variables used to define the state of the map aplication
@@ -173,7 +173,7 @@ var countdownStarted=false;
 
 // Variable used to identify a Button SVG Object in TopInfo SVG box
 var button1;
- 
+
 // Variable used to identify a TextBox SVG Object in TopInfo SVG box
 var textbox1;
 
@@ -181,7 +181,7 @@ var textbox1;
 
 // variables for NODE --- nodes are loaded by LoadNodes()
 var selectedMapElemInList=0;
-var selNodes; 
+var selNodes;
 
 var nodeLabels = [" "];
 var nodeSortAss;
@@ -197,7 +197,7 @@ var hasHideNodes = false;
 var mapLabels = [" "];
 var mapSortAss;
 var mapidSortAss;
-var mymapsResult;		
+var mymapsResult;
 var mapsLoaded = false;
 //variables for tabGroup
 var mapTabTitles = new Array();
@@ -217,38 +217,38 @@ var hasHideMaps = false;
 
 // variables for CATEGORIES --- categories are loaded by init()
 var selectedCategoryInList=0;
-var selCategories; 
+var selCategories;
 
 var categories = [" "];
-var categorySorts = [null]; 
+var categorySorts = [null];
 var categorySortAss;
 var mycategoriesResult;
-	
+
 //variables for MAP BACKGROUND IMAGES ---- backgroun image are laoded by init()
 var selectedBGImageInList=0;
-var selBGImages; 
+var selBGImages;
 
 var BGImages=[""];
-var BGImagesSorts=[null]; 
+var BGImagesSorts=[null];
 var BGImagesSortAss;
 var myBGImagesResult;
 
 //variables for ICONS
 var selectedMEIconInList=0;
 var selMEIcons;
- 
+
 var MEIcons=[""];
-var MEIconsSorts=[null]; 
+var MEIconsSorts=[null];
 var MEIconsSortAss;
-var myMEIconsResult;		
+var myMEIconsResult;
 
 
 //variables for NODE DIMENSION --- setted by init()
 var selectedMapElemDimInList;
-var selMapElemDim; 
+var selMapElemDim;
 
 var MapElemDim = [""];
-var MapElemDimSorts = [null]; 
+var MapElemDimSorts = [null];
 var MapElemDimSortAss;
 var myMapElemDimResult;
 
@@ -259,7 +259,7 @@ var selRefreshTimeMins;
 var refreshTimeMins = [""];
 var refreshTimeMinsSorts= [null];
 var refreshTimeMinsSortAss;
-var myRefreshTimeMinsResult;		
+var myRefreshTimeMinsResult;
 
 //********* Finished TopInfo variables ***********
 
@@ -290,18 +290,18 @@ var AVAIL_FLASH= new Array();
 var LINK_SPEED = new Array();
 var LINK_TEXT = new Array();
 var LINK_WIDTH = new Array();
-var LINK_DASHARRAY = new Array();	
+var LINK_DASHARRAY = new Array();
 var MULTILINK_WIDTH = new Array();
-var MULTILINK_DASHARRAY = new Array();	
-var LINKSTATUS_COLOR = new Array();	
-var LINKSTATUS_FLASH = new Array();	
+var MULTILINK_DASHARRAY = new Array();
+var LINKSTATUS_COLOR = new Array();
+var LINKSTATUS_FLASH = new Array();
 
-// Context Menu 
+// Context Menu
 var CM_COMMANDS = new Array();
 var CM_LINKS = new Array();
 var CM_PARAMS = new Array();
 
-// Global Variables for defaults  
+// Global Variables for defaults
 var DEFAULT_ICON;
 var DEFAULT_MAP_ICON;
 var DEFAULT_BG_COLOR;
@@ -314,7 +314,7 @@ var mapHistory = new Array();
 var mapHistoryName = new Array();
 var mapHistoryIndex = 0;
 
-// a currentMapId = MAP_NOT_OPENED indicates that no Maps are opened. 
+// a currentMapId = MAP_NOT_OPENED indicates that no Maps are opened.
 // current map variables
 var currentMapId;
 var currentMapBackGround="";
@@ -322,6 +322,6 @@ var currentMapAccess="", currentMapName="", currentMapOwner="", currentMapUserla
 
 //vars for set background color
 var x_picker,pick_begin,pick_color,pick_appui,comp_rouge=128,comp_vert=128,comp_bleu=128,pick_prefixe="pickColor",node,cible;
-	
+
 // Max number of links between two mapElements
 var maxLinks;

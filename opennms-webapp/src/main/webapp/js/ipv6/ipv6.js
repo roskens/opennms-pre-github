@@ -328,7 +328,7 @@ function verifyIPv6Address (ipValue) {
 
 function verifyIPv4Address (ipValue) {
 	var ipPattern = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
-	var ipArray = ipValue.match(ipPattern); 
+	var ipArray = ipValue.match(ipPattern);
 
 	if (ipArray == null) {
 		return false;

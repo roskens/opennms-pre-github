@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -19,13 +19,13 @@
  */
 OpenLayers.Format.WFST.v1_1_0 = OpenLayers.Class(
     OpenLayers.Format.Filter.v1_1_0, OpenLayers.Format.WFST.v1, {
-    
+
     /**
      * Property: version
      * {String} WFS version number.
      */
     version: "1.1.0",
-    
+
     /**
      * Property: schemaLocations
      * {Object} Properties are namespace aliases, values are schema locations.
@@ -33,7 +33,7 @@ OpenLayers.Format.WFST.v1_1_0 = OpenLayers.Class(
     schemaLocations: {
         "wfs": "http://schemas.opengis.net/wfs/1.1.0/wfs.xsd"
     },
-    
+
     /**
      * Constructor: OpenLayers.Format.WFST.v1_1_0
      * A class for parsing and generating WFS v1.1.0 transactions.
@@ -59,7 +59,7 @@ OpenLayers.Format.WFST.v1_1_0 = OpenLayers.Class(
         OpenLayers.Format.Filter.v1_1_0.prototype.initialize.apply(this, [options]);
         OpenLayers.Format.WFST.v1.prototype.initialize.apply(this, [options]);
     },
-    
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -134,7 +134,7 @@ OpenLayers.Format.WFST.v1_1_0 = OpenLayers.Class(
                 if(options.propertyNames) {
                     for(var i=0,len = options.propertyNames.length; i<len; i++) {
                         this.writeNode(
-                            "wfs:PropertyName", 
+                            "wfs:PropertyName",
                             {property: options.propertyNames[i]},
                             node
                         );
@@ -150,12 +150,12 @@ OpenLayers.Format.WFST.v1_1_0 = OpenLayers.Class(
                 return this.createElementNSPlus("wfs:PropertyName", {
                     value: obj.property
                 });
-            }            
+            }
         }, OpenLayers.Format.WFST.v1.prototype.writers["wfs"]),
         "gml": OpenLayers.Format.GML.v3.prototype.writers["gml"],
         "feature": OpenLayers.Format.GML.v3.prototype.writers["feature"],
         "ogc": OpenLayers.Format.Filter.v1_1_0.prototype.writers["ogc"]
     },
 
-    CLASS_NAME: "OpenLayers.Format.WFST.v1_1_0" 
+    CLASS_NAME: "OpenLayers.Format.WFST.v1_1_0"
 });

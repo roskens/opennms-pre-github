@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -11,7 +11,7 @@
  * Class: OpenLayers.Format.WMSDescribeLayer
  * Read SLD WMS DescribeLayer response
  * DescribeLayer is meant to couple WMS to WFS and WCS
- * 
+ *
  * Inherits from:
  *  - <OpenLayers.Format.XML>
  */
@@ -22,7 +22,7 @@ OpenLayers.Format.WMSDescribeLayer = OpenLayers.Class(OpenLayers.Format.XML, {
      * {String} Version number to assume if none found.  Default is "1.1.1".
      */
     defaultVersion: "1.1.1",
-   
+
     /**
      * APIProperty: version
      * {String} Specify a version string if one is known.
@@ -44,11 +44,11 @@ OpenLayers.Format.WMSDescribeLayer = OpenLayers.Class(OpenLayers.Format.XML, {
 
     /**
      * APIMethod: read
-     * Read DescribeLayer data from a string, and return the response. 
+     * Read DescribeLayer data from a string, and return the response.
      * The OGC currently defines 2 formats which are allowed for output,
      * so we need to parse these 2 types
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * data - {String} or {DOMElement} data to read/parse.
      *
      * Returns:
@@ -77,7 +77,7 @@ OpenLayers.Format.WMSDescribeLayer = OpenLayers.Class(OpenLayers.Format.XML, {
             "v" + version.replace(/\./g, "_")
         ];
         if(!constructor) {
-            throw "Can't find a WMS DescribeLayer parser for version " + 
+            throw "Can't find a WMS DescribeLayer parser for version " +
                 version;
         }
         var parser = new constructor(this.options);
@@ -85,7 +85,7 @@ OpenLayers.Format.WMSDescribeLayer = OpenLayers.Class(OpenLayers.Format.XML, {
         describelayer.version = version;
         return describelayer;
     },
-    
-    CLASS_NAME: "OpenLayers.Format.WMSDescribeLayer" 
+
+    CLASS_NAME: "OpenLayers.Format.WMSDescribeLayer"
 
 });

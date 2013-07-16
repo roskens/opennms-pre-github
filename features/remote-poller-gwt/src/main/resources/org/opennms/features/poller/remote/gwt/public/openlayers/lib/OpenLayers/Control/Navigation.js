@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,21 +13,21 @@
 /**
  * Class: OpenLayers.Control.Navigation
  * The navigation control handles map browsing with mouse events (dragging,
- *     double-clicking, and scrolling the wheel).  Create a new navigation 
- *     control with the <OpenLayers.Control.Navigation> control.  
- * 
- *     Note that this control is added to the map by default (if no controls 
- *     array is sent in the options object to the <OpenLayers.Map> 
+ *     double-clicking, and scrolling the wheel).  Create a new navigation
+ *     control with the <OpenLayers.Control.Navigation> control.
+ *
+ *     Note that this control is added to the map by default (if no controls
+ *     array is sent in the options object to the <OpenLayers.Map>
  *     constructor).
- * 
+ *
  * Inherits:
  *  - <OpenLayers.Control>
  */
 OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
 
-    /** 
+    /**
      * Property: dragPan
-     * {<OpenLayers.Control.DragPan>} 
+     * {<OpenLayers.Control.DragPan>}
      */
     dragPan: null,
 
@@ -44,7 +44,7 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
      */
     documentDrag: false,
 
-    /** 
+    /**
      * Property: zoomBox
      * {<OpenLayers.Control.ZoomBox>}
      */
@@ -54,14 +54,14 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
      * APIProperty: zoomBoxEnabled
      * {Boolean} Whether the user can draw a box to zoom
      */
-    zoomBoxEnabled: true, 
+    zoomBoxEnabled: true,
 
     /**
      * APIProperty: zoomWheelEnabled
      * {Boolean} Whether the mousewheel should zoom the map
      */
     zoomWheelEnabled: true,
-    
+
     /**
      * Property: mouseWheelOptions
      * {Object} Options passed to the MouseWheel control (only useful if
@@ -78,14 +78,14 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
     /**
      * APIProperty: zoomBoxKeyMask
      * {Integer} <OpenLayers.Handler> key code of the key, which has to be
-     *    pressed, while drawing the zoom box with the mouse on the screen. 
+     *    pressed, while drawing the zoom box with the mouse on the screen.
      *    You should probably set handleRightClicks to true if you use this
      *    with MOD_CTRL, to disable the context menu for machines which use
      *    CTRL-Click as a right click.
      * Default: <OpenLayers.Handler.MOD_SHIFT
      */
     zoomBoxKeyMask: OpenLayers.Handler.MOD_SHIFT,
-    
+
     /**
      * APIProperty: autoActivate
      * {Boolean} Activate the control when it is added to a map.  Default is
@@ -96,7 +96,7 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
     /**
      * Constructor: OpenLayers.Control.Navigation
      * Create a new navigation control
-     * 
+     *
      * Parameters:
      * options - {Object} An optional object whose properties will be set on
      *                    the control
@@ -126,7 +126,7 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.zoomBox = null;
         OpenLayers.Control.prototype.destroy.apply(this,arguments);
     },
-    
+
     /**
      * Method: activate
      */
@@ -134,7 +134,7 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.dragPan.activate();
         if (this.zoomWheelEnabled) {
             this.handlers.wheel.activate();
-        }    
+        }
         this.handlers.click.activate();
         if (this.zoomBoxEnabled) {
             this.zoomBox.activate();
@@ -152,7 +152,7 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.handlers.wheel.deactivate();
         return OpenLayers.Control.prototype.deactivate.apply(this,arguments);
     },
-    
+
     /**
      * Method: draw
      */
@@ -162,12 +162,12 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
             this.map.viewPortDiv.oncontextmenu = OpenLayers.Function.False;
         }
 
-        var clickCallbacks = { 
-            'dblclick': this.defaultDblClick, 
-            'dblrightclick': this.defaultDblRightClick 
+        var clickCallbacks = {
+            'dblclick': this.defaultDblClick,
+            'dblrightclick': this.defaultDblRightClick
         };
         var clickOptions = {
-            'double': true, 
+            'double': true,
             'stopDouble': true
         };
         this.handlers.click = new OpenLayers.Handler.Click(
@@ -190,29 +190,29 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
     },
 
     /**
-     * Method: defaultDblClick 
-     * 
+     * Method: defaultDblClick
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultDblClick: function (evt) {
-        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy ); 
+        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy );
         this.map.setCenter(newCenter, this.map.zoom + 1);
     },
 
     /**
-     * Method: defaultDblRightClick 
-     * 
+     * Method: defaultDblRightClick
+     *
      * Parameters:
-     * evt - {Event} 
+     * evt - {Event}
      */
     defaultDblRightClick: function (evt) {
-        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy ); 
+        var newCenter = this.map.getLonLatFromViewPortPx( evt.xy );
         this.map.setCenter(newCenter, this.map.zoom - 1);
     },
-    
+
     /**
-     * Method: wheelChange  
+     * Method: wheelChange
      *
      * Parameters:
      * evt - {Event}
@@ -237,10 +237,10 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.map.setCenter( newCenter, newZoom );
     },
 
-    /** 
+    /**
      * Method: wheelUp
      * User spun scroll wheel up
-     * 
+     *
      * Parameters:
      * evt - {Event}
      * delta - {Integer}
@@ -249,10 +249,10 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.wheelChange(evt, delta || 1);
     },
 
-    /** 
+    /**
      * Method: wheelDown
      * User spun scroll wheel down
-     * 
+     *
      * Parameters:
      * evt - {Event}
      * delta - {Integer}
@@ -260,15 +260,15 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
     wheelDown: function(evt, delta) {
         this.wheelChange(evt, delta || -1);
     },
-    
+
     /**
      * Method: disableZoomBox
      */
     disableZoomBox : function() {
         this.zoomBoxEnabled = false;
-        this.zoomBox.deactivate();       
+        this.zoomBox.deactivate();
     },
-    
+
     /**
      * Method: enableZoomBox
      */
@@ -276,27 +276,27 @@ OpenLayers.Control.Navigation = OpenLayers.Class(OpenLayers.Control, {
         this.zoomBoxEnabled = true;
         if (this.active) {
             this.zoomBox.activate();
-        }    
+        }
     },
-    
+
     /**
      * Method: disableZoomWheel
      */
-    
+
     disableZoomWheel : function() {
         this.zoomWheelEnabled = false;
-        this.handlers.wheel.deactivate();       
+        this.handlers.wheel.deactivate();
     },
-    
+
     /**
      * Method: enableZoomWheel
      */
-    
+
     enableZoomWheel : function() {
         this.zoomWheelEnabled = true;
         if (this.active) {
             this.handlers.wheel.activate();
-        }    
+        }
     },
 
     CLASS_NAME: "OpenLayers.Control.Navigation"

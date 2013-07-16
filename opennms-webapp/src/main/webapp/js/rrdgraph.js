@@ -175,7 +175,7 @@ var RRDGraph = window['RRDGraph'] = {};
 
       if (regex.def.test(token)) {
         var subtokens = token.split(':');
-        
+
         var name;
         var value;
         var type;
@@ -206,7 +206,7 @@ var RRDGraph = window['RRDGraph'] = {};
       } else if (token.charAt(0) === '-' && token.length > 1) {
         var n_dashes = (token.charAt(1) === '-') ? 2 : 1;
         var option = token.slice(n_dashes);
-        
+
         var value = true;
         var key_value = option.split('=');
 
@@ -226,7 +226,7 @@ var RRDGraph = window['RRDGraph'] = {};
           if (size) {
             result.options[option][font[0].toLowerCase()].size = size;
           }
-          
+
           if (font[2]) {
             result.options[option][font[0].toLowerCase()].family = font[2];
           }
@@ -270,7 +270,7 @@ var RRDGraph = window['RRDGraph'] = {};
           var vname_color = subtokens[1].split('#');
           element.value = vname_color[0];
           element.color = vname_color[1];
-          
+
           if (subtokens.length > 3) {
             element.legend = subtokens[3];
           }
@@ -387,7 +387,7 @@ var RRDGraph = window['RRDGraph'] = {};
         break;
       }
     }
-    
+
     // two spaces after every element unless \g
     var last = result.length - 1;
     if (NO_FOLLOWING_SPACES.indexOf(result[last]) === -1) {
@@ -430,7 +430,7 @@ var RRDGraph = window['RRDGraph'] = {};
             next_line.content.push(part);
           }
         }
-      } else if (g.type === 'line' || g.type === 'area' || g.type === 'tick' || 
+      } else if (g.type === 'line' || g.type === 'area' || g.type === 'tick' ||
                  g.type === 'hrule' || g.type === 'vrule') {
         if (g.color && g.legend) {
           next_line.content.push({type: 'box', color: g.color});
@@ -473,7 +473,7 @@ var RRDGraph = window['RRDGraph'] = {};
           } else {
             part = part.replace(' %s', '%s');
             part = part.replace(' %S', '%S');
-            
+
             var r = PRINT_FORMAT.exec(part);
             if (r !== null) {
               if (r.index > 0) {
@@ -481,7 +481,7 @@ var RRDGraph = window['RRDGraph'] = {};
                 text = text.replace('%%', '%');
                 next_line.content.push(text);
               }
-              
+
               var next_var = {vname: vname};
               if (r[1] !== "") {
                 next_var.width = +r[1];
@@ -622,7 +622,7 @@ var RRDGraph = window['RRDGraph'] = {};
         return b;
       }
     },
-    
+
     '+': function (a, b) { return a + b; },
     '*': function (a, b) { return a * b; },
     '-': function (a, b) { return a - b; },
@@ -747,7 +747,7 @@ var RRDGraph = window['RRDGraph'] = {};
           throw 'DEFs have differing number of elements';
           // TODO: this may not be an error, not sure yet
         }
-        
+
         var result = [];
         for (var i = 0, l = a.length; i < l; ++i) {
           result[i] = {
@@ -1128,7 +1128,7 @@ var RRDGraph = window['RRDGraph'] = {};
         if (isNaN(percent) || percent < 0 || percent > 100) {
           throw 'Bad percentage "' + expression[1] + '" in VDEF named ' + vdef;
         }
-        
+
         result = VDEF_RPN[expression[2]](array, percent);
       } else if (expression.length === 2) {
         result = VDEF_RPN[expression[1]](array);
@@ -1206,7 +1206,7 @@ var RRDGraph = window['RRDGraph'] = {};
     };
 
     var canvas = this.svg.canvas = container.append('svg:g').
-      attr('transform', 
+      attr('transform',
            'translate(' + this.canvas_padding.x + ',' + this.canvas_padding.y + ')');
 
     this.svg.bottom_layer = canvas.append('svg:g').attr('class', 'bottom-layer');
@@ -1254,7 +1254,7 @@ var RRDGraph = window['RRDGraph'] = {};
         style('left', (e.pageX + 8) + 'px').
         html(time + '<br/>' + 'Value: ' + value);
     });
-    
+
     this.svg.canvas_hover.on('mouseout', function () {
       _this.tooltip.
         style('visibility', 'hidden');
@@ -1337,7 +1337,7 @@ var RRDGraph = window['RRDGraph'] = {};
           shape.defined(function (d) { return !isNaN(d.v) && d.v != 0.0; });
           var fraction = e.fraction;
           if (fraction >= 0.0) {
-            shape.y0(function (d) { 
+            shape.y0(function (d) {
               return scales.y(scales.y.domain()[0]);
             });
             shape.y1(function (d) {
@@ -1392,7 +1392,7 @@ var RRDGraph = window['RRDGraph'] = {};
   };
 
   Graph.prototype.createLegend = function () { // TODO: justify
-    var y = this.canvas_padding.y + this.config.options.height + 
+    var y = this.canvas_padding.y + this.config.options.height +
       this.config.options.font.axis.size + 5;
     var line_height = this.config.options.font.legend.size + 4;
 
@@ -1494,7 +1494,7 @@ var RRDGraph = window['RRDGraph'] = {};
       var legend = this.createLegend();
     } else {
       legend = {
-        y: this.canvas_padding.y + this.config.options.height + 
+        y: this.canvas_padding.y + this.config.options.height +
           this.config.options.font.axis.size + 10,
         h: 0
       };
@@ -1503,7 +1503,7 @@ var RRDGraph = window['RRDGraph'] = {};
     var container_height = legend.y + legend.height + 8;
 
     if (this.svg.watermark !== undefined) {
-      var watermark_y = legend.y + legend.height + 
+      var watermark_y = legend.y + legend.height +
         this.config.options.font.watermark.size + 5;
       this.svg.watermark.
         attr('x', this.svg.container.attr('width') / 2).
@@ -1527,7 +1527,7 @@ var RRDGraph = window['RRDGraph'] = {};
     var conf_y_max = this.config.options['upper-limit'];
     var conf_y_min = this.config.options['lower-limit'];
     var rigid = this.config.options['rigid'];
-    
+
     if (!isNaN(conf_y_max) && (y_max < conf_y_max || rigid)) {
       y_max = conf_y_max;
     }
@@ -1545,7 +1545,7 @@ var RRDGraph = window['RRDGraph'] = {};
     this.scales.x.
         domain([this.data.extremes.x.min, this.data.extremes.x.max]);
 
-    
+
     var dashes = this.config.options['grid-dash'];
     var width = this.svg.canvas_bg.attr('width');
     var height = this.svg.canvas_bg.attr('height');
@@ -1560,13 +1560,13 @@ var RRDGraph = window['RRDGraph'] = {};
       attr('stroke', '#ddd').
       attr('class', 'grid hgrid-minor').
       attr('stroke-dasharray', dashes);
-    
+
     hgrid_minor.append('svg:line').
       attr('x1', 0).
       attr('x2', width).
       attr('y1', this.scales.y).
       attr('y2', this.scales.y);
-    
+
     var hgrid_major = this.svg.top_layer.selectAll('g.hgrid-major').
       data(this.scales.y.ticks(h_ticks)).
       enter().append('svg:g').
@@ -1768,7 +1768,7 @@ var RRDGraph = window['RRDGraph'] = {};
       attr('class', 'x axis').
       attr('transform', 'translate(0,' + height + ')').
       call(xAxis);
-    
+
     this.svg.canvas.selectAll('.axis line, .axis path').
       style('fill', 'none').
       style('stroke', '#000');
@@ -1956,7 +1956,7 @@ var RRDGraph = window['RRDGraph'] = {};
     for (var m = 0; m < metrics.length; ++m) {
       var metric = metrics[m];
       var mapping = this.mappings[metric.metricId];
-      if (mapping && mapping.rrd in this.storage && 
+      if (mapping && mapping.rrd in this.storage &&
           mapping.ds_name in this.storage[mapping.rrd]) {
         this.storage[mapping.rrd][mapping.ds_name].push({
           t: metric.timeStamp, v: metric.value
@@ -2023,14 +2023,14 @@ var RRDGraph = window['RRDGraph'] = {};
         return;
       }
     }
-    
+
     var result = [];
     var max_t = 0;
 
     // Consolidate all DEFs
     for (var d in this.config.defs.data) {
       var def = this.config.defs.data[d];
-      var data = 
+      var data =
         this.storage[def.rrd][def.ds_name].slice(0, this.measurements);
       var consolidated = CONSOLIDATE[def.cf](data);
 

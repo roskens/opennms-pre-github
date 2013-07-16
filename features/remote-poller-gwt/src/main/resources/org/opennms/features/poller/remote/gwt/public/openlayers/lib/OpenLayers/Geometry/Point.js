@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -9,22 +9,22 @@
 
 /**
  * Class: OpenLayers.Geometry.Point
- * Point geometry class. 
- * 
+ * Point geometry class.
+ *
  * Inherits from:
- *  - <OpenLayers.Geometry> 
+ *  - <OpenLayers.Geometry>
  */
 OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
 
-    /** 
-     * APIProperty: x 
-     * {float} 
+    /**
+     * APIProperty: x
+     * {float}
      */
     x: null,
 
-    /** 
-     * APIProperty: y 
-     * {float} 
+    /**
+     * APIProperty: y
+     * {float}
      */
     y: null,
 
@@ -33,20 +33,20 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
      * Construct a point geometry.
      *
      * Parameters:
-     * x - {float} 
+     * x - {float}
      * y - {float}
-     * 
+     *
      */
     initialize: function(x, y) {
         OpenLayers.Geometry.prototype.initialize.apply(this, arguments);
-        
+
         this.x = parseFloat(x);
         this.y = parseFloat(y);
     },
 
     /**
      * APIMethod: clone
-     * 
+     *
      * Returns:
      * {<OpenLayers.Geometry.Point>} An exact clone of this OpenLayers.Geometry.Point
      */
@@ -61,7 +61,7 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         return obj;
     },
 
-    /** 
+    /**
      * Method: calculateBounds
      * Create a new Bounds based on the lon/lat
      */
@@ -122,14 +122,14 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return result;
     },
-    
-    /** 
+
+    /**
      * APIMethod: equals
      * Determine whether another geometry is equivalent to this one.  Geometries
      *     are considered equivalent if all components have the same coordinates.
-     * 
+     *
      * Parameters:
-     * geom - {<OpenLayers.Geometry.Point>} The geometry to test. 
+     * geom - {<OpenLayers.Geometry.Point>} The geometry to test.
      *
      * Returns:
      * {Boolean} The supplied geometry is equivalent to this geometry.
@@ -142,18 +142,18 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return equals;
     },
-    
+
     /**
      * Method: toShortString
      *
      * Returns:
-     * {String} Shortened String representation of Point object. 
+     * {String} Shortened String representation of Point object.
      *         (ex. <i>"5, 42"</i>)
      */
     toShortString: function() {
         return (this.x + ", " + this.y);
     },
-    
+
     /**
      * APIMethod: move
      * Moves a geometry by the given displacement along positive x and y axes.
@@ -161,7 +161,7 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
      *     bounds.
      *
      * Parameters:
-     * x - {Float} Distance to move geometry in positive x direction. 
+     * x - {Float} Distance to move geometry in positive x direction.
      * y - {Float} Distance to move geometry in positive y direction.
      */
     move: function(x, y) {
@@ -187,7 +187,7 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         this.y = origin.y + (radius * Math.sin(theta));
         this.clearBounds();
     },
-    
+
     /**
      * APIMethod: getCentroid
      *
@@ -210,9 +210,9 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
      *                 distance between the point and origin.
      * origin - {<OpenLayers.Geometry.Point>} Point of origin for resizing
      * ratio - {Float} Optional x:y ratio for resizing.  Default ratio is 1.
-     * 
+     *
      * Returns:
-     * {OpenLayers.Geometry} - The current geometry. 
+     * {OpenLayers.Geometry} - The current geometry.
      */
     resize: function(scale, origin, ratio) {
         ratio = (ratio == undefined) ? 1 : ratio;
@@ -221,7 +221,7 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         this.clearBounds();
         return this;
     },
-    
+
     /**
      * APIMethod: intersects
      * Determine if the input geometry intersects this one.
@@ -241,24 +241,24 @@ OpenLayers.Geometry.Point = OpenLayers.Class(OpenLayers.Geometry, {
         }
         return intersect;
     },
-    
+
     /**
      * APIMethod: transform
      * Translate the x,y properties of the point from source to dest.
-     * 
+     *
      * Parameters:
-     * source - {<OpenLayers.Projection>} 
+     * source - {<OpenLayers.Projection>}
      * dest - {<OpenLayers.Projection>}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Geometry>} 
+     * {<OpenLayers.Geometry>}
      */
     transform: function(source, dest) {
         if ((source && dest)) {
             OpenLayers.Projection.transform(
-                this, source, dest); 
+                this, source, dest);
             this.bounds = null;
-        }       
+        }
         return this;
     },
 

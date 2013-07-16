@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -21,8 +21,8 @@ OpenLayers.Format.OWSCommon.v1_1_0 = OpenLayers.Class(OpenLayers.Format.OWSCommo
     namespaces: {
         ows: "http://www.opengis.net/ows/1.1",
         xlink: "http://www.w3.org/1999/xlink"
-    },    
-    
+    },
+
     /**
      * Property: readers
      * Contains public functions, grouped by namespace prefix, that will
@@ -58,7 +58,7 @@ OpenLayers.Format.OWSCommon.v1_1_0 = OpenLayers.Class(OpenLayers.Format.OWSCommo
             }
         }, OpenLayers.Format.OWSCommon.v1.prototype.readers["ows"])
     },
-    
+
     CLASS_NAME: "OpenLayers.Format.OWSCommon.v1_1_0"
 
 });

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -15,7 +15,7 @@
  *  - <OpenLayers.Format.GML.Base>
  */
 OpenLayers.Format.GML.v2 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
-    
+
     /**
      * Property: schemaLocation
      * {String} Schema location for a particular minor version.
@@ -187,7 +187,7 @@ OpenLayers.Format.GML.v2 = OpenLayers.Class(OpenLayers.Format.GML.Base, {
         "feature": OpenLayers.Format.GML.Base.prototype.writers["feature"],
         "wfs": OpenLayers.Format.GML.Base.prototype.writers["wfs"]
     },
-    
-    CLASS_NAME: "OpenLayers.Format.GML.v2" 
+
+    CLASS_NAME: "OpenLayers.Format.GML.v2"
 
 });

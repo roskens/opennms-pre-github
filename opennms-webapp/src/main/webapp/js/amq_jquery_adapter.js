@@ -58,7 +58,7 @@ org.activemq.AmqAdapter = {
 		if( options.headers ) {
 			headers = options.headers;
 		}
-		
+
 		if (options.method == 'post') {
 			request.type = 'POST';
 			/* Force "Connection: close" for Mozilla browsers to work around
@@ -70,7 +70,7 @@ org.activemq.AmqAdapter = {
 			request.type = 'GET';
 			request.dataType = 'xml';
 		}
-		
+
 		if( headers ) {
 			request.beforeSend = function(xhr) {
 				for( h in headers ) {
@@ -78,7 +78,7 @@ org.activemq.AmqAdapter = {
 				}
 			}
 		}
-		
+
 		jQuery.ajax( request );
 	},
 

@@ -3,8 +3,8 @@ MapElement.prototype.constructor = MoveableSVGElement;
 MapElement.superclass = MoveableSVGElement.prototype;
 
 /*
-id=the id of the element 
-iconUrl=the Url of the icon 
+id=the id of the element
+iconUrl=the Url of the icon
 labelText= the label of the element
 semaphoreColor=the color of the semaphore (rgb or 'white','yellow' ecc.)
 x=x position
@@ -28,21 +28,21 @@ MapElement.prototype.init = function(id,icon, labelText, semaphoreColor, semapho
 
 	MapElement.superclass.init.call(this, "x", "y", x, y);
 	this.id = new String(id);
-	
+
 	this.width = dimension;
 	this.height = dimension*6/5;
 	this.radius = dimension/2*1562/1000;
    	this.cx=x+this.width/2;
 	this.cy=y+this.height/2;
-	
-	
+
+
 	this.icon = icon;
 	this.avail = avail;
 	this.status = status;
 	this.severity = severity;
-	
+
 	this.usesemaphore=usesemaphore;
-	
+
 	//mantains the number of links on this elements
 	this.numOfLinks=0;
 	// renderize element
@@ -64,14 +64,14 @@ MapElement.prototype.init = function(id,icon, labelText, semaphoreColor, semapho
 	this.image.setAttributeNS(null,"preserveAspectRatio", "xMinYMin");
 	this.image.setAttributeNS(null,"cursor", "pointer");
 	this.image.setAttributeNS(xlinkNS, "xlink:href",this.icon.getUrl());
-	
+
 	var labelx = Math.round(this.width/2);
 	var labely = this.height + dimension*0.7;
 	var labelSize = dimension/2;
 	var labelAnchor = "middle";
 
     this.label = new Label(labelText, labelx, labely, labelSize, labelAnchor);
-	
+
 	//renderize status with semaphore or inline
 	var r,cx,cy;
 	if ( this.usesemaphore ) {
@@ -89,7 +89,7 @@ MapElement.prototype.init = function(id,icon, labelText, semaphoreColor, semapho
 	this.svgNode.appendChild(this.semaphore.getSvgNode());
 	this.svgNode.appendChild(this.label.getSvgNode());
 	this.svgNode.appendChild(this.image);
-	
+
 	this.svgNode.setAttributeNS(null,"transform", "translate(" + this.x + "," + this.y + ")");
 	this.svgNode.setAttributeNS(null,"opacity", "0.9");
 }
@@ -104,14 +104,14 @@ MapElement.prototype.setDimension = function(dimension) {
 	this.cy=this.y+this.height/2;
 
 	this.image.setAttributeNS(null,"width", this.width);
-	this.image.setAttributeNS(null,"height", this.height);	
-	
+	this.image.setAttributeNS(null,"height", this.height);
+
 	var labelx = Math.round(this.width/2);
 	var labely = this.height + dimension*0.7;
 	var labelSize = dimension/2;
-	
+
 	this.label.setFontSize(labelx,labely,labelSize);
-	
+
 	var r,cx,cy;
 	if ( this.usesemaphore ) {
 		r=this.width/4;
@@ -148,11 +148,11 @@ MapElement.prototype.isNode = function(){
 MapElement.prototype.getType = function(){
 	if(this.id.indexOf(NODE_TYPE) != -1){
 		return NODE_TYPE;
-	} 
+	}
 	if(this.id.indexOf(MAP_TYPE) != -1){
 		return MAP_TYPE;
-	} 
-	
+	}
+
 }
 
 MapElement.prototype.getX = function(){
@@ -178,7 +178,7 @@ MapElement.prototype.getCPoint = function()
 }
 
 MapElement.prototype.move = function(x, y)
-{	
+{
 	this.x = x;
 	this.y = y;
    	this.cx=this.x+this.width/2;
@@ -194,12 +194,12 @@ MapElement.prototype.getIcon = function()
 MapElement.prototype.setIcon = function(icon)
 {
 	this.icon = icon;
-	this.image.setAttributeNS(xlinkNS, "xlink:href", this.icon.getUrl());	
+	this.image.setAttributeNS(xlinkNS, "xlink:href", this.icon.getUrl());
 }
 
 MapElement.prototype.useSemaphore = function(usesemaphore)
 {
-	if ( this.usesemaphore == usesemaphore ) return;	
+	if ( this.usesemaphore == usesemaphore ) return;
 	this.usesemaphore = usesemaphore;
 	var r,cx,cy;
 	if ( this.usesemaphore ) {

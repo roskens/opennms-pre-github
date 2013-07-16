@@ -3,7 +3,7 @@
 function urlObj(url) {
    var urlBaseAndParameters;
 
-   urlBaseAndParameters = url.split("?"); 
+   urlBaseAndParameters = url.split("?");
    this.urlBase = urlBaseAndParameters[0];
    this.urlParameters = new Array();
 
@@ -12,7 +12,7 @@ function urlObj(url) {
    	  var entry = parameters[i].split("=");
    	  this.urlParameters[i] = { "key": entry[0], "value": entry[1] };
    }
-   
+
    this.getUrlBase = urlObjGetUrlBase;
    this.getUrlParameters = urlObjGetUrlParameters;
 }
@@ -31,13 +31,13 @@ function log(message) {
 	if (doDebug) {
 		if(window.console) {
 			window.console.log(message);
-		} 
+		}
 		else {
 			// alert(message);
 		}
 	}
 }
-	
+
 // example with minimum dimensions
 var myCropper;
 
@@ -52,11 +52,11 @@ function changeRRDImage(coords,dimensions) {
     var left  = zoomGraphLeftOffset;
     var right = zoomGraphRightOffset; // the right offset is relative to the right-side
     var RRDImgWidth  = $('zoomImage').getDimensions().width;
-    var RRDImgUsable = RRDImgWidth - left + right;  
+    var RRDImgUsable = RRDImgWidth - left + right;
     var form = $('range_form');
 
-    var myURLObj = new urlObj(document.URL); 
-    var myURL = myURLObj.getUrlBase(); 
+    var myURLObj = new urlObj(document.URL);
+    var myURL = myURLObj.getUrlBase();
 	var parameters = myURLObj.getUrlParameters();
 
 	if (SelectLeft < left) {
@@ -65,11 +65,11 @@ function changeRRDImage(coords,dimensions) {
 	if (SelectRight > (RRDImgWidth + right)) {
 		SelectRight = (RRDImgWidth + right);
 	}
-    
+
 	StartEpoch = zoomGraphStart;
 	EndEpoch = zoomGraphEnd;
 
-    var DivEpoch = EndEpoch - StartEpoch; 
+    var DivEpoch = EndEpoch - StartEpoch;
 
     var NewStartEpoch = Math.floor(StartEpoch + ((SelectLeft  - left) * DivEpoch / RRDImgUsable) );
     EndEpoch  =  Math.ceil(StartEpoch + (SelectRight - left) * DivEpoch / RRDImgUsable );

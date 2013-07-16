@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -13,13 +13,13 @@
  */
 OpenLayers.LonLat = OpenLayers.Class({
 
-    /** 
+    /**
      * APIProperty: lon
      * {Float} The x-axis coodinate in map units
      */
     lon: 0.0,
-    
-    /** 
+
+    /**
      * APIProperty: lat
      * {Float} The y-axis coordinate in map units
      */
@@ -41,51 +41,51 @@ OpenLayers.LonLat = OpenLayers.Class({
         this.lon = OpenLayers.Util.toFloat(lon);
         this.lat = OpenLayers.Util.toFloat(lat);
     },
-    
+
     /**
      * Method: toString
      * Return a readable string version of the lonlat
      *
      * Returns:
-     * {String} String representation of OpenLayers.LonLat object. 
+     * {String} String representation of OpenLayers.LonLat object.
      *           (ex. <i>"lon=5,lat=42"</i>)
      */
     toString:function() {
         return ("lon=" + this.lon + ",lat=" + this.lat);
     },
 
-    /** 
+    /**
      * APIMethod: toShortString
-     * 
+     *
      * Returns:
-     * {String} Shortened String representation of OpenLayers.LonLat object. 
+     * {String} Shortened String representation of OpenLayers.LonLat object.
      *         (ex. <i>"5, 42"</i>)
      */
     toShortString:function() {
         return (this.lon + ", " + this.lat);
     },
 
-    /** 
+    /**
      * APIMethod: clone
-     * 
+     *
      * Returns:
-     * {<OpenLayers.LonLat>} New OpenLayers.LonLat object with the same lon 
+     * {<OpenLayers.LonLat>} New OpenLayers.LonLat object with the same lon
      *                       and lat values
      */
     clone:function() {
         return new OpenLayers.LonLat(this.lon, this.lat);
     },
 
-    /** 
+    /**
      * APIMethod: add
-     * 
+     *
      * Parameters:
      * lon - {Float}
      * lat - {Float}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.LonLat>} A new OpenLayers.LonLat object with the lon and 
-     *                       lat passed-in added to this's. 
+     * {<OpenLayers.LonLat>} A new OpenLayers.LonLat object with the lon and
+     *                       lat passed-in added to this's.
      */
     add:function(lon, lat) {
         if ( (lon == null) || (lat == null) ) {
@@ -93,19 +93,19 @@ OpenLayers.LonLat = OpenLayers.Class({
             OpenLayers.Console.error(msg);
             return null;
         }
-        return new OpenLayers.LonLat(this.lon + OpenLayers.Util.toFloat(lon), 
+        return new OpenLayers.LonLat(this.lon + OpenLayers.Util.toFloat(lon),
                                      this.lat + OpenLayers.Util.toFloat(lat));
     },
 
-    /** 
+    /**
      * APIMethod: equals
-     * 
+     *
      * Parameters:
      * ll - {<OpenLayers.LonLat>}
-     * 
+     *
      * Returns:
-     * {Boolean} Boolean value indicating whether the passed-in 
-     *           <OpenLayers.LonLat> object has the same lon and lat 
+     * {Boolean} Boolean value indicating whether the passed-in
+     *           <OpenLayers.LonLat> object has the same lon and lat
      *           components as this.
      *           Note: if ll passed in is null, returns false
      */
@@ -123,9 +123,9 @@ OpenLayers.LonLat = OpenLayers.Class({
      * Transform the LonLat object from source to dest. This transformation is
      *    *in place*: if you want a *new* lonlat, use .clone() first.
      *
-     * Parameters: 
-     * source - {<OpenLayers.Projection>} Source projection. 
-     * dest   - {<OpenLayers.Projection>} Destination projection. 
+     * Parameters:
+     * source - {<OpenLayers.Projection>} Source projection.
+     * dest   - {<OpenLayers.Projection>} Destination projection.
      *
      * Returns:
      * {<OpenLayers.LonLat>} Itself, for use in chaining operations.
@@ -137,51 +137,51 @@ OpenLayers.LonLat = OpenLayers.Class({
         this.lat = point.y;
         return this;
     },
-    
+
     /**
      * APIMethod: wrapDateLine
-     * 
+     *
      * Parameters:
      * maxExtent - {<OpenLayers.Bounds>}
-     * 
+     *
      * Returns:
-     * {<OpenLayers.LonLat>} A copy of this lonlat, but wrapped around the 
-     *                       "dateline" (as specified by the borders of 
+     * {<OpenLayers.LonLat>} A copy of this lonlat, but wrapped around the
+     *                       "dateline" (as specified by the borders of
      *                       maxExtent)
      */
-    wrapDateLine: function(maxExtent) {    
+    wrapDateLine: function(maxExtent) {
 
         var newLonLat = this.clone();
-    
+
         if (maxExtent) {
             //shift right?
             while (newLonLat.lon < maxExtent.left) {
                 newLonLat.lon +=  maxExtent.getWidth();
-            }    
-           
+            }
+
             //shift left?
             while (newLonLat.lon > maxExtent.right) {
                 newLonLat.lon -= maxExtent.getWidth();
-            }    
+            }
         }
-                
+
         return newLonLat;
     },
 
     CLASS_NAME: "OpenLayers.LonLat"
 });
 
-/** 
+/**
  * Function: fromString
- * Alternative constructor that builds a new <OpenLayers.LonLat> from a 
+ * Alternative constructor that builds a new <OpenLayers.LonLat> from a
  *     parameter string
- * 
+ *
  * Parameters:
- * str - {String} Comma-separated Lon,Lat coordinate string. 
+ * str - {String} Comma-separated Lon,Lat coordinate string.
  *                 (ex. <i>"5,40"</i>)
- * 
+ *
  * Returns:
- * {<OpenLayers.LonLat>} New <OpenLayers.LonLat> object built from the 
+ * {<OpenLayers.LonLat>} New <OpenLayers.LonLat> object built from the
  *                       passed-in String.
  */
 OpenLayers.LonLat.fromString = function(str) {

@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -10,17 +10,17 @@
 
 /**
  * Class: OpenLayers.Handler.Box
- * Handler for dragging a rectangle across the map.  Box is displayed 
+ * Handler for dragging a rectangle across the map.  Box is displayed
  * on mouse down, moves on mouse move, and is finished on mouse up.
  *
  * Inherits from:
- *  - <OpenLayers.Handler> 
+ *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
 
-    /** 
-     * Property: dragHandler 
-     * {<OpenLayers.Handler.Drag>} 
+    /**
+     * Property: dragHandler
+     * {<OpenLayers.Handler.Drag>}
      */
     dragHandler: null,
 
@@ -30,7 +30,7 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
      *     olHandlerBoxZoomBox
      */
     boxDivClassName: 'olHandlerBoxZoomBox',
-    
+
     /**
      * Property: boxCharacteristics
      * {Object} Caches some box characteristics from css. This is used
@@ -42,18 +42,18 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
      * Constructor: OpenLayers.Handler.Box
      *
      * Parameters:
-     * control - {<OpenLayers.Control>} 
+     * control - {<OpenLayers.Control>}
      * callbacks - {Object} An object containing a single function to be
      *                          called when the drag operation is finished.
      *                          The callback should expect to recieve a single
      *                          argument, the point geometry.
-     * options - {Object} 
+     * options - {Object}
      */
     initialize: function(control, callbacks, options) {
         OpenLayers.Handler.prototype.initialize.apply(this, arguments);
         var callbacks = {
-            "down": this.startBox, 
-            "move": this.moveBox, 
+            "down": this.startBox,
+            "move": this.moveBox,
             "out":  this.removeBox,
             "up":   this.endBox
         };
@@ -68,7 +68,7 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
         if (this.dragHandler) {
             this.dragHandler.destroy();
             this.dragHandler = null;
-        }            
+        }
         OpenLayers.Handler.prototype.destroy.apply(this, arguments);
     },
 
@@ -86,12 +86,12 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
     * Method: startBox
     *
     * Parameters:
-    * evt - {Event} 
+    * evt - {Event}
     */
     startBox: function (xy) {
         this.zoomBox = OpenLayers.Util.createDiv('zoomBox',
                                                  this.dragHandler.start);
-        this.zoomBox.className = this.boxDivClassName;                                         
+        this.zoomBox.className = this.boxDivClassName;
         this.zoomBox.style.zIndex = this.map.Z_INDEX_BASE["Popup"] - 1;
         this.map.viewPortDiv.appendChild(this.zoomBox);
 
@@ -133,8 +133,8 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
     */
     endBox: function(end) {
         var result;
-        if (Math.abs(this.dragHandler.start.x - end.x) > 5 ||    
-            Math.abs(this.dragHandler.start.y - end.y) > 5) {   
+        if (Math.abs(this.dragHandler.start.x - end.x) > 5 ||
+            Math.abs(this.dragHandler.start.y - end.y) > 5) {
             var start = this.dragHandler.start;
             var top = Math.min(start.y, end.y);
             var bottom = Math.max(start.y, end.y);
@@ -143,7 +143,7 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
             result = new OpenLayers.Bounds(left, bottom, right, top);
         } else {
             result = this.dragHandler.start.clone(); // i.e. OL.Pixel
-        } 
+        }
         this.removeBox();
 
         this.callback("done", [result]);
@@ -186,11 +186,11 @@ OpenLayers.Handler.Box = OpenLayers.Class(OpenLayers.Handler, {
             return false;
         }
     },
-    
+
     /**
      * Method: getCharacteristics
      * Determines offset and box model for a box.
-     * 
+     *
      * Returns:
      * {Object} a hash with the following properties:
      *     - xOffset - Corner offset in x-direction

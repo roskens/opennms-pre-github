@@ -238,15 +238,15 @@ MQA.Object = function(){
 
    /*
 	Function: getM_XmlDoc
-	
+
    Returns the m_xmlDoc object.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		xml document
-	
+
 	See Also:
 		<setM_XmlDoc>
 	*/
@@ -256,15 +256,15 @@ MQA.Object = function(){
 
    /*
 	Function: setM_XmlDoc
-	
+
    Sets the m_xmlDoc object.
-   
+
 	Parameters:
 		xmlDoc - (xml document) the Document to set m_xmlDoc to.
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<getM_XmlDoc>
     */
@@ -281,15 +281,15 @@ MQA.Object = function(){
 
    /*
 	Function: getM_Xpath
-	
+
    Returns the m_xpath string.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		string
-	
+
 	See Also:
 		<setM_Xpath>
 	*/
@@ -299,15 +299,15 @@ MQA.Object = function(){
 
    /*
 	Function: setM_Xpath
-	
+
    Sets the m_xpath object.
-	
+
 	Parameters:
 		xpath - (string) the String m_xpath is set to.
 
 	Returns:
 		n/a
-		
+
 	See Also:
 		<getM_Xpath>
 	*/
@@ -404,7 +404,7 @@ Properties:
 	none
 
 Returns:
-	<MQA.Object>	
+	<MQA.Object>
 */
 MQA.Object.prototype.copy = function () {
     var cp = new this.constructor;
@@ -513,15 +513,15 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: loadXml
-	
+
    Assigns the xml that relates to this object.
 
 	Parameters:
 		xml - (string) The xml to be assigned.
-	
+
 	Returns:
 		n/a
-	
+
 	See Also:
 		<saveXml>
 	*/
@@ -535,15 +535,15 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: saveXml
-	
+
    Build an xml string that represents this object.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		string
-	
+
 	See Also:
 		<loadXml>
 	*/
@@ -553,15 +553,15 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: setX
-   
+
 	Sets X.
-	
+
 	Parameters:
 		x - (int) The value to set X to
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<getX>, <setY>, <getY>
 	*/
@@ -573,15 +573,15 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: getX
-	
+
    Gets X.
-   
+
 	Parameters:
 		none
-	
+
 	Returns:
 		int
-	
+
 	See Also:
 		<setX>, <setY>, <getY>
 	*/
@@ -591,7 +591,7 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: setY
-	
+
 	Sets Y.
 
 	Parameters:
@@ -611,15 +611,15 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: getY
-	
+
    Gets Y.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		int
-	
+
 	See Also:
 		<setY>, <getX>, <setX>
 	*/
@@ -629,9 +629,9 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: setXY
-	
+
    Sets the horizontal and vertical coordinates to the values passed in.
-	
+
 	Parameters:
 		x - (int) The value to set X to.
 		y - (int) 	The value to set Y to.
@@ -651,13 +651,13 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: valid
-	
+
    Returns a true if both the X and Y values are set
    to a value other than the static "INVALID" value.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		boolean
 	*/
@@ -671,7 +671,7 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: equals
-	
+
    Determines whether or not two points are equal. Two instances
    of Point are equal if the values of their x and y member
    fields, representing their position in the coordinate space,
@@ -692,13 +692,13 @@ MQA.Point.prototype.constructor = MQA.Point;
 
    /*
 	Function: toString
-	
+
    Returns a string representation of this <code>MQPoint</code>.
    The format is <code>"x,y"</code>.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		string
 	*/
@@ -783,15 +783,15 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: loadXml
-	
+
    Assigns the xml that relates to this object.
 
 	Parameters:
 		xml - (string) The xml to be assigned.
-	
+
 	Returns:
 		n/a
-	
+
 	See Also:
 		<saveXml>
 	*/
@@ -805,15 +805,15 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: saveXml
-	
+
    Build an xml string that represents this object.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		string
-	
+
 	See Also:
 		<loadXml>
 	*/
@@ -823,15 +823,15 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: setLatitude
-	
+
    Sets the latitude value.
-   
+
 	Parameters:
 		latitude - (float) The value to set lat to.
-	
+
 	Returns:
 		n/a
-	
+
 	See Also:
 		<getLatitude>, <setLongitude>, <getLongitude>
 	*/
@@ -848,10 +848,10 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
 	Parameters:
 		none
-		
+
 	Returns:
 		float
-		
+
 	See Also:
 		<setLatitude>, <setLongitude>, <getLongitude>
 	*/
@@ -866,10 +866,10 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
 	Parameters:
 		longitude - (float) The value to set lng to.
-		
+
 	Returns:
 		n/a
-		
+
 	See Also:
 		<getLongitude>, <setLatitude>, <getLatitude>
 	*/
@@ -881,15 +881,15 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: getLongitude
-	
+
    Returns the longitude value.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		float
-	
+
 	See Also:
 		<setLongitude>, <setLatitude>, <getLatitude>
 	*/
@@ -899,16 +899,16 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: setLatLng
-	
+
    Sets the latitude and longitude values.
-	
+
 	Parameters:
 		latitude - (float) The value to set lat to.,
 		longitude - (float) the value to set lng to
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<setLatitude>, <setLongitude>
 	*/
@@ -921,14 +921,14 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: arcDistance
-	
+
    Calculates the distance between two lat/lng's in miles or meters. If the units
 	parameter is not provide, then miles will be the default.
 
 	Parameters:
 		latLng2 - (<MQA.LatLng>) Second lat,lng position to calculate distance to.
 		units - (<MQDistanceUnits>) Units to calculate distance
-	
+
 	Returns:
 		double
 	*/
@@ -977,13 +977,13 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: valid
-	
+
    Returns a true if both the latitude and longitude values are set
    to a value other than the static "INVALID" value.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		boolean
 	*/
@@ -997,12 +997,12 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: equals
-	
+
    Returns whether or not two latlngs are equal. Two instances
    of <MQA.LatLng> are equal if the values of their latitude and longitude member
 	fields, representing their position in the coordinate space,
 	are the same.
-	
+
 	Parameters:
 		latLng2 - (<MQA.LatLng>) An MQLatLng object to be compared with this MQA.LatLng
 
@@ -1018,13 +1018,13 @@ MQA.LatLng.prototype.constructor = MQA.LatLng;
 
    /*
 	Function: toString
-	
+
    Returns a string representation of this <code>MQLatLng</code>.
    The format is <code>"latitude,longitude"</code>.
 
 	Parameters:
 		none
-	
+
 	Returns:
 		string
 	*/
@@ -1471,15 +1471,15 @@ MQA.ObjectCollection = function(max) {
 
 	/*
 	Function: getValidClassName
-	
+
 	Returns the valid classname for objects in this collection.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		string
-	
+
 	See Also:
 		<setValidClassName>
 	*/
@@ -1489,15 +1489,15 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: setValidClassName
-	
+
 	Sets the valid classname for objects in this collection.
-	
+
 	Parameters:
 		className - (string) Name of the valid classname for this collection.
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<getValidClassName>
 	*/
@@ -1507,14 +1507,14 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: add
-	
+
    Adds the specified object to the collection if it has not reached the maximum size.
 	Type Checking is left to the descendent class. Returns the new number of items
 	in the collection or nothing if the add is unsuccessful.
-	
+
 	Parameters:
 		obj - (<MQA.Object>) The object to add.
-	
+
 	Returns:
 		int
 	*/
@@ -1529,12 +1529,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: getSize
-	
+
    Returns the number of items in the collection.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		int
 	*/
@@ -1544,7 +1544,7 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: get
-	
+
 	Returns the object at the specified position.
 
 	Parameters:
@@ -1559,12 +1559,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: remove
-	
+
    Remove the item at the specified position. Returns the removed object.
-	
+
 	Parameters:
 		index - (int) The position in the collection from which to pull the object
-	
+
 	Returns:
 		<MQA.Object>
 	*/
@@ -1574,12 +1574,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: removeAll
-	
+
    Remove all the items in the collection
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		n/a
 	*/
@@ -1612,9 +1612,9 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: append
-	
+
    Append the specified collection to this one
-	
+
 	Paramters:
      collection - (<MQA.ObjectCollection>) The collection to append to this one
 
@@ -1632,13 +1632,13 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: set
-	
+
    Replace an object at the specified position with the specified object
 	and return the old object.
 
 	Parameters:
 		index - (int) The position of the original object.
-		newObj - (<MQA.Object>) The object to replace the original object.		
+		newObj - (<MQA.Object>) The object to replace the original object.
 
 	Returns:
 		<MQA.Object>
@@ -1651,12 +1651,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: isValidObject
-	
+
    Returns whether the specified object is a valid object for this collection.
 
 	Parameters:
 		obj - (<MQA.Object>) The object to test.
-	
+
 	Returns:
 		boolean
 	*/
@@ -1690,12 +1690,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: getM_itemXpath
-	
+
    Returns the m_itemXpath string.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		string
 
@@ -1708,15 +1708,15 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: setM_itemXpath
-	
+
    Sets the m_itemXpath string.
-	
+
 	Paramters:
 		itemXpath - (string) The String m_xpath is set to.
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<getM_itemXpath>
 	*/
@@ -1726,13 +1726,13 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: getById
-	
+
    Return the object, if it exists, with the specified id. Returns null
 	if the object does not exist in the collection.
-	
+
 	Parameters:
 		strId - (string) The id to check for.
-	
+
 	Returns:
 		<MQA.Object> or null
 	*/
@@ -1752,12 +1752,12 @@ MQA.ObjectCollection = function(max) {
 
    /*
 	Function: removeItem
-	
+
 	Remove the specified object from the collection.
-	
+
 	Parameters:
 		obj - (<MQA.Object>) The object to remove
-	
+
 	Returns:
 		n/a
 	*/
@@ -1796,7 +1796,7 @@ MQA.ObjectCollection.prototype.constructor = MQA.ObjectCollection;
 
    /*
 	Function: getAt
-	
+
 	Wrapper for the <get> function.
 	*/
    MQA.ObjectCollection.prototype.getAt = function(i){
@@ -1852,15 +1852,15 @@ MQA.LatLngCollection.prototype.constructor = MQA.LatLngCollection;
 
    /*
 	Function: loadXml
-	
+
    Assigns the xml that relates to this object.
-	
+
 	Parameters:
 		strXML - (string) The xml to be assigned.
 
 	Returns:
 		n/a
-	
+
 	See Also:
 		<saveXml>, <loadXmlFromNode>
 	*/
@@ -1875,15 +1875,15 @@ MQA.LatLngCollection.prototype.constructor = MQA.LatLngCollection;
 
    /*
 	Function: loadXmlFromNode
-	
+
    Assigns the xml that relates to this object using the create xml from node method.
-	
+
 	Parameters:
 		xmlNode - (xml node) The xml to be assigned.
-	
+
 	Returns:
 		n/a
-	
+
 	See Also:
 		<loadXml>, <saveXml>
 	*/
@@ -1939,15 +1939,15 @@ MQA.LatLngCollection.prototype.constructor = MQA.LatLngCollection;
 
    /*
 	Function: saveXml
-	
+
    Build an xml string that represents this object.
-	
+
 	Parameters:
 		none
-	
+
 	Returns:
 		string
-		
+
 	See Also:
 		<loadXml>, <loadXmlFromNode>
 	*/

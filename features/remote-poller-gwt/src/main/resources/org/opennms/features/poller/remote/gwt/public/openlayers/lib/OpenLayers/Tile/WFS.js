@@ -1,9 +1,9 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
- 
+
 /**
  * @requires OpenLayers/Tile.js
  * @requires OpenLayers/Request/XMLHttpRequest.js
@@ -20,45 +20,45 @@
  */
 OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
 
-    /** 
-     * Property: features 
-     * {Array(<OpenLayers.Feature>)} list of features in this tile 
+    /**
+     * Property: features
+     * {Array(<OpenLayers.Feature>)} list of features in this tile
      */
     features: null,
 
-    /** 
-     * Property: url 
-     * {String} 
+    /**
+     * Property: url
+     * {String}
      */
     url: null,
-    
-    /** 
-     * Property: request 
-     * {<OpenLayers.Request.XMLHttpRequest>} 
-     */ 
-    request: null,     
-    
-    /** TBD 3.0 - reorder the parameters to the init function to put URL 
-     *             as last, so we can continue to call tile.initialize() 
-     *             without changing the arguments. 
-     * 
+
+    /**
+     * Property: request
+     * {<OpenLayers.Request.XMLHttpRequest>}
+     */
+    request: null,
+
+    /** TBD 3.0 - reorder the parameters to the init function to put URL
+     *             as last, so we can continue to call tile.initialize()
+     *             without changing the arguments.
+     *
      * Constructor: OpenLayers.Tile.WFS
      * Constructor for a new <OpenLayers.Tile.WFS> instance.
-     * 
+     *
      * Parameters:
      * layer - {<OpenLayers.Layer>} layer that the tile will go in.
      * position - {<OpenLayers.Pixel>}
      * bounds - {<OpenLayers.Bounds>}
      * url - {<String>}
      * size - {<OpenLayers.Size>}
-     */   
+     */
     initialize: function(layer, position, bounds, url, size) {
         OpenLayers.Tile.prototype.initialize.apply(this, arguments);
-        this.url = url;        
+        this.url = url;
         this.features = [];
     },
 
-    /** 
+    /**
      * APIMethod: destroy
      * nullify references to prevent circular references and memory leaks
      */
@@ -74,15 +74,15 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
         }
     },
 
-    /** 
+    /**
      * Method: clear
-     *  Clear the tile of any bounds/position-related data so that it can 
+     *  Clear the tile of any bounds/position-related data so that it can
      *   be reused in a new location.
      */
     clear: function() {
         this.destroyAllFeatures();
     },
-    
+
     /**
      * Method: draw
      * Check that a tile should be drawn, and load features for it.
@@ -91,7 +91,7 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
         if (OpenLayers.Tile.prototype.draw.apply(this, arguments)) {
             if (this.isLoading) {
                 //if already loading, send 'reload' instead of 'loadstart'.
-                this.events.triggerEvent("reload"); 
+                this.events.triggerEvent("reload");
             } else {
                 this.isLoading = true;
                 this.events.triggerEvent("loadstart");
@@ -100,9 +100,9 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
         }
     },
 
-    /** 
+    /**
     * Method: loadFeaturesForRegion
-    * Abort any pending requests and issue another request for data. 
+    * Abort any pending requests and issue another request for data.
     *
     * Input are function pointers for what to do on success and failure.
     *
@@ -121,11 +121,11 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
             scope: this
         });
     },
-    
+
     /**
     * Method: requestSuccess
-    * Called on return from request succcess. Adds results via 
-    * layer.addFeatures in vector mode, addResults otherwise. 
+    * Called on return from request succcess. Adds results via
+    * layer.addFeatures in vector mode, addResults otherwise.
     *
     * Parameters:
     * request - {<OpenLayers.Request.XMLHttpRequest>}
@@ -134,7 +134,7 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
         if (this.features) {
             var doc = request.responseXML;
             if (!doc || !doc.documentElement) {
-                doc = request.responseText; 
+                doc = request.responseText;
             }
             if (this.layer.vectorMode) {
                 this.layer.addFeatures(this.layer.formatObject.read(doc));
@@ -150,7 +150,7 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
             }
         }
         if (this.events) {
-            this.events.triggerEvent("loadend"); 
+            this.events.triggerEvent("loadend");
         }
 
         //request produced with success, we can delete the request object.
@@ -162,20 +162,20 @@ OpenLayers.Tile.WFS = OpenLayers.Class(OpenLayers.Tile, {
      * Method: addResults
      * Construct new feature via layer featureClass constructor, and add to
      * this.features.
-     * 
+     *
      * Parameters:
      * results - {Object}
      */
     addResults: function(results) {
         for (var i=0; i < results.length; i++) {
-            var feature = new this.layer.featureClass(this.layer, 
+            var feature = new this.layer.featureClass(this.layer,
                                                       results[i]);
             this.features.push(feature);
         }
     },
 
 
-    /** 
+    /**
      * Method: destroyAllFeatures
      * Iterate through and call destroy() on each feature, removing it from
      *   the local array

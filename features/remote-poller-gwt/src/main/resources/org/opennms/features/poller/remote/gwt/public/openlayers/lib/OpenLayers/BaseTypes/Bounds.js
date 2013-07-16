@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -12,7 +12,7 @@
  * Instances of this class represent bounding boxes.  Data stored as left,
  * bottom, right, top floats. All values are initialized to null, however,
  * you should make sure you set them before using the bounds for anything.
- * 
+ *
  * Possible use case:
  * > bounds = new OpenLayers.Bounds();
  * > bounds.extend(new OpenLayers.LonLat(4,5));
@@ -44,7 +44,7 @@ OpenLayers.Bounds = OpenLayers.Class({
      * {Number} Maximum vertical coordinate.
      */
     top: null,
-    
+
     /**
      * Property: centerLonLat
      * {<OpenLayers.LonLat>} A cached center location.  This should not be
@@ -87,7 +87,7 @@ OpenLayers.Bounds = OpenLayers.Class({
      * {<OpenLayers.Bounds>} A fresh copy of the bounds
      */
     clone:function() {
-        return new OpenLayers.Bounds(this.left, this.bottom, 
+        return new OpenLayers.Bounds(this.left, this.bottom,
                                      this.right, this.top);
     },
 
@@ -100,25 +100,25 @@ OpenLayers.Bounds = OpenLayers.Class({
      *
      * Returns:
      * {Boolean} The passed-in bounds object has the same left,
-     *           right, top, bottom components as this.  Note that if bounds 
+     *           right, top, bottom components as this.  Note that if bounds
      *           passed in is null, returns false.
      */
     equals:function(bounds) {
         var equals = false;
         if (bounds != null) {
-            equals = ((this.left == bounds.left) && 
+            equals = ((this.left == bounds.left) &&
                       (this.right == bounds.right) &&
-                      (this.top == bounds.top) && 
+                      (this.top == bounds.top) &&
                       (this.bottom == bounds.bottom));
         }
         return equals;
     },
 
-    /** 
+    /**
      * APIMethod: toString
-     * 
+     *
      * Returns:
-     * {String} String representation of bounds object. 
+     * {String} String representation of bounds object.
      *          (ex.<i>"left-bottom=(5,42) right-top=(10,45)"</i>)
      */
     toString:function() {
@@ -141,23 +141,23 @@ OpenLayers.Bounds = OpenLayers.Class({
         } else {
             return [this.left, this.bottom, this.right, this.top];
         }
-    },    
+    },
 
-    /** 
+    /**
      * APIMethod: toBBOX
-     * 
+     *
      * Parameters:
      * decimal - {Integer} How many significant digits in the bbox coords?
      *                     Default is 6
      * reverseAxisOrder - {Boolean} Should we reverse the axis order?
-     * 
+     *
      * Returns:
      * {String} Simple String representation of bounds object.
      *          (ex. <i>"5,42,10,45"</i>)
      */
     toBBOX:function(decimal, reverseAxisOrder) {
         if (decimal== null) {
-            decimal = 6; 
+            decimal = 6;
         }
         var mult = Math.pow(10, decimal);
         var xmin = Math.round(this.left * mult) / mult;
@@ -170,7 +170,7 @@ OpenLayers.Bounds = OpenLayers.Class({
             return xmin + "," + ymin + "," + xmax + "," + ymax;
         }
     },
- 
+
     /**
      * APIMethod: toGeometry
      * Create a new polygon geometry based on this bounds.
@@ -189,10 +189,10 @@ OpenLayers.Bounds = OpenLayers.Class({
             ])
         ]);
     },
-    
+
     /**
      * APIMethod: getWidth
-     * 
+     *
      * Returns:
      * {Float} The width of the bounds
      */
@@ -202,7 +202,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: getHeight
-     * 
+     *
      * Returns:
      * {Float} The height of the bounds (top minus bottom).
      */
@@ -212,7 +212,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: getSize
-     * 
+     *
      * Returns:
      * {<OpenLayers.Size>} The size of the box.
      */
@@ -222,7 +222,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: getCenterPixel
-     * 
+     *
      * Returns:
      * {<OpenLayers.Pixel>} The center of the bounds in pixel space.
      */
@@ -233,7 +233,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: getCenterLonLat
-     * 
+     *
      * Returns:
      * {<OpenLayers.LonLat>} The center of the bounds in map space.
      */
@@ -248,12 +248,12 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * Method: scale
-     * Scales the bounds around a pixel or lonlat. Note that the new 
+     * Scales the bounds around a pixel or lonlat. Note that the new
      *     bounds may return non-integer properties, even if a pixel
-     *     is passed. 
-     * 
+     *     is passed.
+     *
      * Parameters:
-     * ratio - {Float} 
+     * ratio - {Float}
      * origin - {<OpenLayers.Pixel> or <OpenLayers.LonLat>}
      *          Default is center.
      *
@@ -266,7 +266,7 @@ OpenLayers.Bounds = OpenLayers.Class({
         if(origin == null){
             origin = this.getCenterLonLat();
         }
-        
+
         var origx,origy;
 
         // get origin coordinates
@@ -282,17 +282,17 @@ OpenLayers.Bounds = OpenLayers.Class({
         var bottom = (this.bottom - origy) * ratio + origy;
         var right = (this.right - origx) * ratio + origx;
         var top = (this.top - origy) * ratio + origy;
-        
+
         return new OpenLayers.Bounds(left, bottom, right, top);
     },
 
     /**
      * APIMethod: add
-     * 
+     *
      * Parameters:
      * x - {Float}
      * y - {Float}
-     * 
+     *
      * Returns:
      * {<OpenLayers.Bounds>} A new bounds whose coordinates are the same as
      *     this, but shifted by the passed-in x and y values.
@@ -306,13 +306,13 @@ OpenLayers.Bounds = OpenLayers.Class({
         return new OpenLayers.Bounds(this.left + x, this.bottom + y,
                                      this.right + x, this.top + y);
     },
-    
+
     /**
      * APIMethod: extend
      * Extend the bounds to include the point, lonlat, or bounds specified.
      *     Note, this function assumes that left < right and bottom < top.
-     * 
-     * Parameters: 
+     *
+     * Parameters:
      * object - {Object} Can be LonLat, Point, or Bounds
      */
     extend:function(object) {
@@ -320,7 +320,7 @@ OpenLayers.Bounds = OpenLayers.Class({
         if (object) {
             // clear cached center location
             switch(object.CLASS_NAME) {
-                case "OpenLayers.LonLat":    
+                case "OpenLayers.LonLat":
                     bounds = new OpenLayers.Bounds(object.lon, object.lat,
                                                     object.lon, object.lat);
                     break;
@@ -328,12 +328,12 @@ OpenLayers.Bounds = OpenLayers.Class({
                     bounds = new OpenLayers.Bounds(object.x, object.y,
                                                     object.x, object.y);
                     break;
-                    
-                case "OpenLayers.Bounds":    
+
+                case "OpenLayers.Bounds":
                     bounds = object;
                     break;
             }
-    
+
             if (bounds) {
                 this.centerLonLat = null;
                 if ( (this.left == null) || (bounds.left < this.left)) {
@@ -341,11 +341,11 @@ OpenLayers.Bounds = OpenLayers.Class({
                 }
                 if ( (this.bottom == null) || (bounds.bottom < this.bottom) ) {
                     this.bottom = bounds.bottom;
-                } 
+                }
                 if ( (this.right == null) || (bounds.right > this.right) ) {
                     this.right = bounds.right;
                 }
-                if ( (this.top == null) || (bounds.top > this.top) ) { 
+                if ( (this.top == null) || (bounds.top > this.top) ) {
                     this.top = bounds.top;
                 }
             }
@@ -354,7 +354,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: containsLonLat
-     * 
+     *
      * Parameters:
      * ll - {<OpenLayers.LonLat>}
      * inclusive - {Boolean} Whether or not to include the border.
@@ -369,7 +369,7 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: containsPixel
-     * 
+     *
      * Parameters:
      * px - {<OpenLayers.Pixel>}
      * inclusive - {Boolean} Whether or not to include the border. Default is
@@ -381,10 +381,10 @@ OpenLayers.Bounds = OpenLayers.Class({
     containsPixel:function(px, inclusive) {
         return this.contains(px.x, px.y, inclusive);
     },
-    
+
     /**
      * APIMethod: contains
-     * 
+     *
      * Parameters:
      * x - {Float}
      * y - {Float}
@@ -410,12 +410,12 @@ OpenLayers.Bounds = OpenLayers.Class({
 
         var contains = false;
         if (inclusive) {
-            contains = ((x >= this.left) && (x <= this.right) && 
+            contains = ((x >= this.left) && (x <= this.right) &&
                         (y >= this.bottom) && (y <= this.top));
         } else {
-            contains = ((x > this.left) && (x < this.right) && 
+            contains = ((x > this.left) && (x < this.right) &&
                         (y > this.bottom) && (y < this.top));
-        }              
+        }
         return contains;
     },
 
@@ -424,7 +424,7 @@ OpenLayers.Bounds = OpenLayers.Class({
      * Determine whether the target bounds intersects this bounds.  Bounds are
      *     considered intersecting if any of their edges intersect or if one
      *     bounds contains the other.
-     * 
+     *
      * Parameters:
      * bounds - {<OpenLayers.Bounds>} The target bounds.
      * inclusive - {Boolean} Treat coincident borders as intersecting.  Default
@@ -445,7 +445,7 @@ OpenLayers.Bounds = OpenLayers.Class({
             this.top == bounds.bottom ||
             this.bottom == bounds.top
         );
-        
+
         // if the two bounds only touch at an edge, and inclusive is false,
         // then the bounds don't *really* intersect.
         if (inclusive || !mightTouch) {
@@ -471,11 +471,11 @@ OpenLayers.Bounds = OpenLayers.Class({
         }
         return intersects;
     },
-    
+
     /**
      * APIMethod: containsBounds
      * Determine whether the target bounds is contained within this bounds.
-     * 
+     *
      * bounds - {<OpenLayers.Bounds>} The target bounds.
      * partial - {Boolean} If any of the target corners is within this bounds
      *     consider the bounds contained.  Default is false.  If false, the
@@ -484,7 +484,7 @@ OpenLayers.Bounds = OpenLayers.Class({
      *     true.
      *
      * Returns:
-     * {Boolean} The passed-in bounds object is contained within this bounds. 
+     * {Boolean} The passed-in bounds object is contained within this bounds.
      */
     containsBounds:function(bounds, partial, inclusive) {
         if (partial == null) {
@@ -497,39 +497,39 @@ OpenLayers.Bounds = OpenLayers.Class({
         var bottomRight = this.contains(bounds.right, bounds.bottom, inclusive);
         var topLeft  = this.contains(bounds.left, bounds.top, inclusive);
         var topRight = this.contains(bounds.right, bounds.top, inclusive);
-        
+
         return (partial) ? (bottomLeft || bottomRight || topLeft || topRight)
                          : (bottomLeft && bottomRight && topLeft && topRight);
     },
 
-    /** 
+    /**
      * APIMethod: determineQuadrant
-     * 
+     *
      * Parameters:
      * lonlat - {<OpenLayers.LonLat>}
-     * 
+     *
      * Returns:
      * {String} The quadrant ("br" "tr" "tl" "bl") of the bounds in which the
      *     coordinate lies.
      */
     determineQuadrant: function(lonlat) {
-    
+
         var quadrant = "";
         var center = this.getCenterLonLat();
-        
+
         quadrant += (lonlat.lat < center.lat) ? "b" : "t";
         quadrant += (lonlat.lon < center.lon) ? "l" : "r";
-    
-        return quadrant; 
+
+        return quadrant;
     },
-    
+
     /**
      * APIMethod: transform
-     * Transform the Bounds object from source to dest. 
+     * Transform the Bounds object from source to dest.
      *
-     * Parameters: 
-     * source - {<OpenLayers.Projection>} Source projection. 
-     * dest   - {<OpenLayers.Projection>} Destination projection. 
+     * Parameters:
+     * source - {<OpenLayers.Projection>} Source projection.
+     * dest   - {<OpenLayers.Projection>} Destination projection.
      *
      * Returns:
      * {<OpenLayers.Bounds>} Itself, for use in chaining operations.
@@ -554,68 +554,68 @@ OpenLayers.Bounds = OpenLayers.Class({
 
     /**
      * APIMethod: wrapDateLine
-     *  
+     *
      * Parameters:
      * maxExtent - {<OpenLayers.Bounds>}
      * options - {Object} Some possible options are:
-     *                    leftTolerance - {float} Allow for a margin of error 
-     *                                            with the 'left' value of this 
+     *                    leftTolerance - {float} Allow for a margin of error
+     *                                            with the 'left' value of this
      *                                            bound.
      *                                            Default is 0.
-     *                    rightTolerance - {float} Allow for a margin of error 
-     *                                             with the 'right' value of 
+     *                    rightTolerance - {float} Allow for a margin of error
+     *                                             with the 'right' value of
      *                                             this bound.
      *                                             Default is 0.
-     * 
+     *
      * Returns:
-     * {<OpenLayers.Bounds>} A copy of this bounds, but wrapped around the 
-     *                       "dateline" (as specified by the borders of 
-     *                       maxExtent). Note that this function only returns 
-     *                       a different bounds value if this bounds is 
-     *                       *entirely* outside of the maxExtent. If this 
-     *                       bounds straddles the dateline (is part in/part 
-     *                       out of maxExtent), the returned bounds will be 
+     * {<OpenLayers.Bounds>} A copy of this bounds, but wrapped around the
+     *                       "dateline" (as specified by the borders of
+     *                       maxExtent). Note that this function only returns
+     *                       a different bounds value if this bounds is
+     *                       *entirely* outside of the maxExtent. If this
+     *                       bounds straddles the dateline (is part in/part
+     *                       out of maxExtent), the returned bounds will be
      *                       merely a copy of this one.
      */
-    wrapDateLine: function(maxExtent, options) {    
+    wrapDateLine: function(maxExtent, options) {
         options = options || {};
-        
+
         var leftTolerance = options.leftTolerance || 0;
         var rightTolerance = options.rightTolerance || 0;
 
         var newBounds = this.clone();
-    
+
         if (maxExtent) {
 
            //shift right?
-           while ( newBounds.left < maxExtent.left && 
-                   (newBounds.right - rightTolerance) <= maxExtent.left ) { 
+           while ( newBounds.left < maxExtent.left &&
+                   (newBounds.right - rightTolerance) <= maxExtent.left ) {
                 newBounds = newBounds.add(maxExtent.getWidth(), 0);
            }
 
            //shift left?
-           while ( (newBounds.left + leftTolerance) >= maxExtent.right && 
-                   newBounds.right > maxExtent.right ) { 
+           while ( (newBounds.left + leftTolerance) >= maxExtent.right &&
+                   newBounds.right > maxExtent.right ) {
                 newBounds = newBounds.add(-maxExtent.getWidth(), 0);
            }
         }
-                
+
         return newBounds;
     },
 
     CLASS_NAME: "OpenLayers.Bounds"
 });
 
-/** 
+/**
  * APIFunction: fromString
- * Alternative constructor that builds a new OpenLayers.Bounds from a 
+ * Alternative constructor that builds a new OpenLayers.Bounds from a
  *     parameter string
- * 
- * Parameters: 
+ *
+ * Parameters:
  * str - {String}Comma-separated bounds string. (ex. <i>"5,42,10,45"</i>)
- * 
+ *
  * Returns:
- * {<OpenLayers.Bounds>} New bounds object built from the 
+ * {<OpenLayers.Bounds>} New bounds object built from the
  *                       passed-in String.
  */
 OpenLayers.Bounds.fromString = function(str) {
@@ -623,11 +623,11 @@ OpenLayers.Bounds.fromString = function(str) {
     return OpenLayers.Bounds.fromArray(bounds);
 };
 
-/** 
+/**
  * APIFunction: fromArray
  * Alternative constructor that builds a new OpenLayers.Bounds
  *     from an array
- * 
+ *
  * Parameters:
  * bbox - {Array(Float)} Array of bounds values (ex. <i>[5,42,10,45]</i>)
  *
@@ -641,13 +641,13 @@ OpenLayers.Bounds.fromArray = function(bbox) {
                                  parseFloat(bbox[3]));
 };
 
-/** 
+/**
  * APIFunction: fromSize
  * Alternative constructor that builds a new OpenLayers.Bounds
  *     from a size
- * 
+ *
  * Parameters:
- * size - {<OpenLayers.Size>} 
+ * size - {<OpenLayers.Size>}
  *
  * Returns:
  * {<OpenLayers.Bounds>} New bounds object built from the passed-in size.
@@ -667,15 +667,15 @@ OpenLayers.Bounds.fromSize = function(size) {
  * quadrant - {String} two character quadrant shortstring
  *
  * Returns:
- * {String} The opposing quadrant ("br" "tr" "tl" "bl"). For Example, if 
- *          you pass in "bl" it returns "tr", if you pass in "br" it 
+ * {String} The opposing quadrant ("br" "tr" "tl" "bl"). For Example, if
+ *          you pass in "bl" it returns "tr", if you pass in "br" it
  *          returns "tl", etc.
  */
 OpenLayers.Bounds.oppositeQuadrant = function(quadrant) {
     var opp = "";
-    
+
     opp += (quadrant.charAt(0) == 't') ? 'b' : 't';
     opp += (quadrant.charAt(1) == 'l') ? 'r' : 'l';
-    
+
     return opp;
 };

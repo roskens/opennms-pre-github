@@ -1,5 +1,5 @@
-/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for 
- * full list of contributors). Published under the Clear BSD license.  
+/* Copyright (c) 2006-2010 by OpenLayers Contributors (see authors.txt for
+ * full list of contributors). Published under the Clear BSD license.
  * See http://svn.openlayers.org/trunk/openlayers/license.txt for the
  * full text of the license. */
 
@@ -17,9 +17,9 @@
  *     click.  By setting a <pixelTolerance>, controls can also ignore clicks
  *     that include a drag.  Create a new instance with the
  *     <OpenLayers.Handler.Click> constructor.
- * 
+ *
  * Inherits from:
- *  - <OpenLayers.Handler> 
+ *  - <OpenLayers.Handler>
  */
 OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
 
@@ -29,20 +29,20 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
      *     considered a double-click.
      */
     delay: 300,
-    
+
     /**
      * APIProperty: single
      * {Boolean} Handle single clicks.  Default is true.  If false, clicks
      * will not be reported.  If true, single-clicks will be reported.
      */
     single: true,
-    
+
     /**
      * APIProperty: double
      * {Boolean} Handle double-clicks.  Default is false.
      */
     'double': false,
-    
+
     /**
      * APIProperty: pixelTolerance
      * {Number} Maximum number of pixels between mouseup and mousedown for an
@@ -52,7 +52,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
      *     constructed.
      */
     pixelTolerance: 0,
-    
+
     /**
      * APIProperty: stopSingle
      * {Boolean} Stop other listeners from being notified of clicks.  Default
@@ -61,13 +61,13 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
      *     or single clicks).
      */
     stopSingle: false,
-    
+
     /**
      * APIProperty: stopDouble
      * {Boolean} Stop other listeners from being notified of double-clicks.
      *     Default is false.  If true, any click listeners registered before
      *     this one will not be notified of *any* double-click events.
-     * 
+     *
      * The one caveat with stopDouble is that given a map with two click
      *     handlers, one with stopDouble true and the other with stopSingle
      *     true, the stopSingle handler should be activated last to get
@@ -83,24 +83,24 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
      * {Number} The id of the timeout waiting to clear the <delayedCall>.
      */
     timerId: null,
-    
+
     /**
      * Property: down
      * {<OpenLayers.Pixel>} The pixel location of the last mousedown.
      */
     down: null,
-    
+
     /**
      * Property: rightclickTimerId
-     * {Number} The id of the right mouse timeout waiting to clear the 
+     * {Number} The id of the right mouse timeout waiting to clear the
      *     <delayedEvent>.
      */
     rightclickTimerId: null,
-    
+
     /**
      * Constructor: OpenLayers.Handler.Click
      * Create a new click handler.
-     * 
+     *
      * Parameters:
      * control - {<OpenLayers.Control>} The control that is making use of
      *     this handler.  If a handler is being used without a control, the
@@ -123,7 +123,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
             };
         }
     },
-    
+
     /**
      * Method: mousedown
      * Handle mousedown.  Only registered as a listener if pixelTolerance is
@@ -137,7 +137,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
     /**
      * Method: mouseup
      * Handle mouseup.  Installed to support collection of right mouse events.
-     * 
+     *
      * Returns:
      * {Boolean} Continue propagating this event.
      */
@@ -147,55 +147,55 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
         // Collect right mouse clicks from the mouseup
         //  IE - ignores the second right click in mousedown so using
         //  mouseup instead
-        if (this.checkModifiers(evt) && 
-            this.control.handleRightClicks && 
+        if (this.checkModifiers(evt) &&
+            this.control.handleRightClicks &&
             OpenLayers.Event.isRightClick(evt)) {
           propagate = this.rightclick(evt);
         }
 
         return propagate;
     },
-    
+
     /**
      * Method: rightclick
-     * Handle rightclick.  For a dblrightclick, we get two clicks so we need 
-     *     to always register for dblrightclick to properly handle single 
+     * Handle rightclick.  For a dblrightclick, we get two clicks so we need
+     *     to always register for dblrightclick to properly handle single
      *     clicks.
-     *     
+     *
      * Returns:
      * {Boolean} Continue propagating this event.
      */
     rightclick: function(evt) {
         if(this.passesTolerance(evt)) {
            if(this.rightclickTimerId != null) {
-                //Second click received before timeout this must be 
+                //Second click received before timeout this must be
                 // a double click
-                this.clearTimer();      
+                this.clearTimer();
                 this.callback('dblrightclick', [evt]);
                 return !this.stopDouble;
-            } else { 
-                //Set the rightclickTimerId, send evt only if double is 
+            } else {
+                //Set the rightclickTimerId, send evt only if double is
                 // true else trigger single
                 var clickEvent = this['double'] ?
-                    OpenLayers.Util.extend({}, evt) : 
+                    OpenLayers.Util.extend({}, evt) :
                     this.callback('rightclick', [evt]);
 
                 var delayedRightCall = OpenLayers.Function.bind(
-                    this.delayedRightCall, 
-                    this, 
+                    this.delayedRightCall,
+                    this,
                     clickEvent
                 );
                 this.rightclickTimerId = window.setTimeout(
                     delayedRightCall, this.delay
                 );
-            } 
+            }
         }
         return !this.stopSingle;
     },
-    
+
     /**
      * Method: delayedRightCall
-     * Sets <rightclickTimerId> to null.  And optionally triggers the 
+     * Sets <rightclickTimerId> to null.  And optionally triggers the
      *     rightclick callback if evt is set.
      */
     delayedRightCall: function(evt) {
@@ -205,13 +205,13 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
         }
         return !this.stopSingle;
     },
-    
+
     /**
      * Method: dblclick
      * Handle dblclick.  For a dblclick, we get two clicks in some browsers
      *     (FF) and one in others (IE).  So we need to always register for
      *     dblclick to properly handle single clicks.
-     *     
+     *
      * Returns:
      * {Boolean} Continue propagating this event.
      */
@@ -224,7 +224,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
         }
         return !this.stopDouble;
     },
-    
+
     /**
      * Method: click
      * Handle click.
@@ -239,7 +239,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
                 this.clearTimer();
             } else {
                 // set the timer, send evt only if single is true
-                //use a clone of the event object because it will no longer 
+                //use a clone of the event object because it will no longer
                 //be a valid event object in IE in the timer callback
                 var clickEvent = this.single ?
                     OpenLayers.Util.extend({}, evt) : null;
@@ -251,7 +251,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
         }
         return !this.stopSingle;
     },
-    
+
     /**
      * Method: passesTolerance
      * Determine whether the event is within the optional pixel tolerance.  Note
@@ -291,7 +291,7 @@ OpenLayers.Handler.Click = OpenLayers.Class(OpenLayers.Handler, {
             this.rightclickTimerId = null;
         }
     },
-    
+
     /**
      * Method: delayedCall
      * Sets <timerId> to null.  And optionally triggers the click callback if

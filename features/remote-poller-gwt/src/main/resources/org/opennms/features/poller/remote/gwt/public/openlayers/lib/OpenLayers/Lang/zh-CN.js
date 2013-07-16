@@ -86,7 +86,7 @@ OpenLayers.Lang["zh-CN"] = {
     'reprojectDeprecated':
         "你正在使用 ${layerName} 图层上的'reproject'选项。" +
         "这个选项已经不再使用：" +
-        "它是被设计用来支持显示商业的地图数据，" + 
+        "它是被设计用来支持显示商业的地图数据，" +
         "不过现在该功能可以通过使用Spherical Mercator来实现。" +
         "更多信息可以参阅" +
         "http://trac.openlayers.org/wiki/SphericalMercator.",
@@ -111,6 +111,6 @@ OpenLayers.Lang["zh-CN"] = {
     // console message
     'pagePositionFailed':
         "OpenLayers.Util.pagePosition 失败：id 为 ${elemId} 的元素可能被错置。",
-                    
+
     'end': ''
 };
