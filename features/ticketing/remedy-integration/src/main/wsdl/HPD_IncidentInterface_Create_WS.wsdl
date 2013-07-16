@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<wsdl:definitions 
-	targetNamespace="urn:HPD_IncidentInterface_Create_WS" 
-	xmlns:s0="urn:HPD_IncidentInterface_Create_WS" 
-	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
-	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" 
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+<wsdl:definitions
+	targetNamespace="urn:HPD_IncidentInterface_Create_WS"
+	xmlns:s0="urn:HPD_IncidentInterface_Create_WS"
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
  <wsdl:types>
   <xsd:schema elementFormDefault="qualified" targetNamespace="urn:HPD_IncidentInterface_Create_WS">

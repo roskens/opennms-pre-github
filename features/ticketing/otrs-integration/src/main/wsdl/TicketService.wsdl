@@ -182,7 +182,7 @@
 						minOccurs="0" />
 				</xsd:all>
 			</xsd:complexType>
-			
+
 			<xsd:complexType name="ArrayOfArticle">
 				<xsd:complexContent>
 					<xsd:restriction base="soap-enc:Array">
@@ -200,7 +200,7 @@
 						minOccurs="1" />
 				</xsd:all>
 			</xsd:complexType>
-			
+
 			<xsd:complexType name="TicketStateUpdate">
 				<xsd:sequence>
 					<xsd:choice>
@@ -217,14 +217,14 @@
 					</xsd:choice>
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 			<xsd:complexType name="TicketWithArticles">
 				<xsd:sequence>
 					<xsd:element name="Ticket" type="tns:Ticket" />
 					<xsd:element name="Articles" type="tns:ArrayOfArticle" />
 				</xsd:sequence>
 			</xsd:complexType>
-			
+
 		</xsd:schema>
 	</types>
 
@@ -242,17 +242,17 @@
 	<message name="TicketGetResponse">
 		<part name="return" type="tns:Ticket" />
 	</message>
-	
+
 	<message name="GetByNumberRequest">
 		<part name="ticketNumber" type="xsd:long" />
 		<part name="request_header" type="tns:Credentials" />
 	</message>
-	
+
 	<message name="GetByIDRequest">
 		<part name="ticketID" type="xsd:int" />
 		<part name="request_header" type="tns:Credentials" />
 	</message>
-	
+
 	<message name="GetResponse">
 		<part name="ticketWitArticles" type="tns:TicketWithArticles" />
 	</message>
@@ -265,12 +265,12 @@
 	<message name="TicketCreateResponse">
 		<part name="ticketIDAndNumber" type="tns:TicketIDAndNumber" />
 	</message>
-	
+
 	<message name="TicketStateUpdateRequest">
 		<part name="ticketStateUpdate" type="tns:TicketStateUpdate" />
 		<part name="request_header" type="tns:Credentials" />
 	</message>
-	
+
 	<message name="ArticleGetByIDRequest">
 		<part name="articleID" type="xsd:int" />
 		<part name="request_header" type="tns:Credentials" />
@@ -318,22 +318,22 @@
 			<input message="tns:TicketGetByNumberRequest" />
 			<output message="tns:TicketGetResponse" />
 		</operation>
-		
+
 		<operation name="GetById">
 			<input message="tns:GetByNumberRequest" />
 			<output message="tns:GetResponse" />
 		</operation>
-		
+
 		<operation name="GetByNumber">
 			<input message="tns:GetByNumberRequest" />
 			<output message="tns:GetResponse" />
 		</operation>
-		
+
 		<operation name="TicketCreate">
 			<input message="tns:TicketCreateRequest" />
 			<output message="tns:TicketCreateResponse" />
 		</operation>
-		
+
 		<operation name="TicketStateUpdate">
 			<input message="tns:TicketStateUpdateRequest" />
 		</operation>
